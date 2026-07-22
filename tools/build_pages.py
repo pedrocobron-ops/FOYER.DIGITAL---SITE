@@ -1047,10 +1047,10 @@ img:https://exemplo.com/foto.jpg | Legenda da foto"></textarea>
     <!-- REDAÇÃO IA — MESA DE APROVAÇÃO -->
     <div class="cx-pane" id="pane-equipe">
       <div class="adm-note" style="margin-bottom:18px">
-        Esteira da redação de agentes: Pauteiro (varredura na web) → Repórter →
+        Esteira da redação de agentes (Claude): Pauteiro (varredura na web) → Repórter →
         Editor de Estilo → Chefe de Redação → <b>você</b>. Nada vai ao ar sem a
-        sua aprovação nesta mesa. Para rodar a redação agora:
-        aba <i>Actions</i> do GitHub → “Redação de agentes de IA” → <i>Run workflow</i>.
+        sua aprovação nesta mesa. A redação roda sozinha todo dia às 9h (Brasília);
+        para rodar agora, abra o Claude Code e peça: <i>“rode a redação do Foyer”</i>.
       </div>
       <div class="cx-list" id="mesa-list"><div class="cx-row"><span class="mt">Conecte o token para carregar a mesa</span></div></div>
     </div>
@@ -1249,7 +1249,7 @@ img:https://exemplo.com/foto.jpg | Legenda da foto"></textarea>
         var files = (list || []).filter(function(f){ return f.name.endsWith('.json'); });
         if(!files.length){
           el.innerHTML = '<div class="cx-row"><span class="mt">Mesa vazia — nenhuma matéria de agente aguardando aprovação. ' +
-            'Rode a redação em Actions → “Redação de agentes de IA”.</span></div>';
+            'A redação roda todo dia às 9h; para rodar agora, peça ao Claude: “rode a redação do Foyer”.</span></div>';
           return;
         }
         return Promise.all(files.map(function(f){

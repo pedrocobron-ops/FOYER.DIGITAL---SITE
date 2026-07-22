@@ -45,9 +45,9 @@ A Coxia grava matérias em `import/novas/*.json` pela API do GitHub (token fine-
 
 ## Redação de agentes de IA (com aprovação humana obrigatória)
 
-Esteira em `tools/redacao.py`: **Pauteiro** (varredura na web por notícias culturais recentes) → **Repórter** (apura e escreve) → **Editor de Estilo** (lapida) → **Chefe de Redação** (valida e dá nota/parecer). O resultado vai para `import/pauta/*.json` com status `aguardando_aprovacao` — **nada é publicado sem aprovação humana**.
+A redação roda **dentro do Claude Code**, com a assinatura Claude do editor — sem chave de API à parte. O briefing completo da esteira está em `tools/REDACAO.md`: **Pauteiro** (varredura na web por notícias culturais recentes) → **Repórter** (apura e escreve) → **Editor de Estilo** (lapida) → **Chefe de Redação** (valida e dá nota/parecer). O resultado vai para `import/pauta/*.json` com status `aguardando_aprovacao` — **nada é publicado sem aprovação humana**.
 
-- O workflow `.github/workflows/redacao.yml` roda todo dia às 09h (Brasília) ou manualmente (Actions → "Redação de agentes de IA" → Run workflow). Requer o segredo `ANTHROPIC_API_KEY` (Settings → Secrets and variables → Actions).
+- Uma rotina do Claude Code abre uma sessão todo dia às 09h (Brasília), segue o briefing e deixa as matérias na mesa. Para rodar na hora, basta pedir numa sessão do Claude Code: "rode a redação do Foyer".
 - A aprovação é feita na Coxia, aba **🤖 Redação IA**: cada matéria aparece com nota e parecer do chefe de redação (agente), ressalvas a conferir e as fontes apuradas. Botões: ler, aprovar e publicar, aprovar e agendar, recusar.
 - Ao aprovar, a matéria move de `import/pauta/` para `import/novas/` e entra no fluxo normal de publicação/agendamento. Ao recusar, é descartada.
 - Transparência editorial: as matérias saem assinadas como "Redação Foyer" — sem personas falsas de jornalistas (proteção da marca e das políticas do AdSense).
