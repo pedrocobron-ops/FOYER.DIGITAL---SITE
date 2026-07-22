@@ -19,7 +19,7 @@ Redesign do portal [foyer.digital](https://www.foyer.digital/): **brutalismo de 
 | Espetáculo | `espetaculo.html` | Ficha técnica completa com nomes clicáveis |
 | Busca | `busca.html` | Busca instantânea (client-side; completa com o backend) |
 | Privacidade | `privacidade.html` | Política de privacidade/LGPD — obrigatória para o AdSense |
-| Coxia | `coxia.html` | **Área restrita da redação** (não linkada no menu) — painel para criar matérias. Senha do protótipo: `terceirosinal` |
+| Coxia | `coxia.html` | **Central de conteúdo** (não linkada no menu) — cria, publica e agenda matérias direto no site via API do GitHub. Senha de acesso: `terceirosinal` + token fine-grained do GitHub |
 
 ## Estrutura
 
@@ -38,6 +38,10 @@ python3 -m http.server
 # abra http://localhost:8000
 ```
 
+
+## Coxia — publicação e agendamento
+
+A Coxia grava matérias em `import/novas/*.json` pela API do GitHub (token fine-grained com permissão Contents no repositório, colado uma única vez no painel). O robô de publicação regenera o site a cada mudança; o workflow `agendadas.yml` roda a cada 30 minutos e coloca no ar as matérias cuja hora chegou. Formato de texto: parágrafos separados por linha em branco, `## intertítulo`, `**negrito**`, `*itálico*`, `> citação`, `[link](url)`, `img:URL | legenda`.
 
 ## Publicidade (Google AdSense)
 

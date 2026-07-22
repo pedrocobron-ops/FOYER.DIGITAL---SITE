@@ -1,0 +1,60 @@
+name: Relógio de matérias agendadas
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    outputs:
+      publicar: ${{ steps.check.outputs.publicar }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: check
+        name: Alguma matéria agendada chegou na hora?
+        run: |
+          python3 - <<'EOF' >> "$GITHUB_OUTPUT"
+          import json, os, glob
+          from datetime import datetime, timezone, timedelta
+          agora = datetime.now(timezone.utc)
+          janela = (agora - timedelta(minutes=40)).isoformat()
+          devido = False
+          for f in glob.glob('import/novas/*.json'):
+              try:
+                  n = json.load(open(f))
+              except Exception:
+                  continue
+              pub = n.get('publishAt') or ''
+              if pub and janela < pub <= agora.isoformat():
+                  devido = True
+          print(f'publicar={"sim" if devido else "nao"}')
+          EOF
+
+  deploy:
+    needs: verificar
+    if: needs.verificar.outputs.publicar == 'sim'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Gerar o site com as matérias liberadas
+        run: python3 tools/build_pages.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -19,7 +19,50 @@
 </head>
 <body>
 
-<div class="warn">Coxia — área restrita da redação · Protótipo local: a autenticação definitiva entra com o backend</div>
+<style>
+  .cx-tabs{ display:flex; border:var(--b); margin-top:26px; }
+  .cx-tabs button{ flex:1; background:var(--paper); border:0; border-right:1px solid var(--line);
+    font-family:var(--mono); font-weight:600; font-size:.66rem; letter-spacing:.16em;
+    text-transform:uppercase; padding:14px; cursor:pointer; color:var(--ink); }
+  .cx-tabs button:last-child{ border-right:0; }
+  .cx-tabs button.on{ background:var(--wine); color:var(--gold); }
+  .cx-pane{ display:none; padding-top:24px; }
+  .cx-pane.on{ display:block; }
+  .cx-token{ border:var(--b); background:var(--paper-2); padding:20px; margin-top:24px;
+    display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  .cx-token input{ flex:1; min-width:240px; border:1.5px solid var(--line); background:var(--paper);
+    color:var(--ink); font-family:var(--mono); font-size:.78rem; padding:11px 12px; }
+  .cx-token button{ border:1.5px solid var(--line); background:var(--ink); color:var(--gold);
+    font-family:var(--mono); font-weight:600; font-size:.64rem; letter-spacing:.14em;
+    text-transform:uppercase; padding:12px 16px; cursor:pointer; }
+  .cx-token .st{ font-family:var(--mono); font-size:.62rem; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--ink-soft); width:100%; }
+  .cx-token .st.ok{ color:#2c6e2c; } .cx-token .st.err{ color:#8E1B10; }
+  .cx-help{ font-family:var(--mono); font-size:.6rem; letter-spacing:.06em; color:var(--ink-soft);
+    line-height:1.9; text-transform:uppercase; }
+  .cx-row{ display:grid; grid-template-columns:1fr auto auto; gap:12px; align-items:center;
+    border-bottom:1px solid var(--line); padding:12px 16px; }
+  .cx-row:last-child{ border-bottom:0; }
+  .cx-list{ border:var(--b); }
+  .cx-row .ti{ font-weight:800; font-size:.9rem; text-transform:uppercase; }
+  .cx-row .mt{ font-family:var(--mono); font-size:.58rem; color:var(--ink-soft);
+    letter-spacing:.08em; text-transform:uppercase; }
+  .cx-row .stt{ font-family:var(--mono); font-size:.56rem; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; border:1px solid var(--line); padding:5px 9px; }
+  .cx-row .stt.ag{ background:var(--gold); color:var(--wine); border-color:var(--gold); }
+  .cx-row .stt.pb{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
+  .cx-row button{ background:none; border:1px solid var(--line); cursor:pointer; color:var(--ink);
+    font-family:var(--mono); font-size:.56rem; letter-spacing:.1em; text-transform:uppercase; padding:6px 10px; }
+  .cx-row button:hover{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
+  .cx-msg{ font-family:var(--mono); font-size:.64rem; letter-spacing:.1em; text-transform:uppercase;
+    padding:12px 0; display:none; }
+  .cx-msg.ok{ display:block; color:#2c6e2c; } .cx-msg.err{ display:block; color:#8E1B10; }
+  .cx-bar{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
+  .cx-bar button{ background:var(--paper-2); border:1px solid var(--line); cursor:pointer;
+    font-family:var(--mono); font-size:.58rem; letter-spacing:.08em; padding:6px 10px; color:var(--ink); }
+  .cx-bar button:hover{ background:var(--ink); color:var(--gold); }
+</style>
+<div class="warn">Coxia — central de conteúdo do Foyer · publica e agenda direto no site</div>
 <main class="wrap">
   <!-- portão -->
   <div class="gate" id="gate">
@@ -37,49 +80,118 @@
   <!-- painel -->
   <div class="panel" id="panel">
     <div class="sec-head">
-      <h2>Nova matéria</h2>
-      <span class="note">Rascunhos ficam salvos neste navegador até o backend entrar</span>
+      <h2>Central de conteúdo</h2>
+      <span class="note" id="cx-status">—</span>
       <button class="logout" id="logout" type="button">Sair ✕</button>
     </div>
-    <div class="adm-grid">
-      <form class="adm-form" id="form">
-        <div>
-          <label for="f-title">Título da matéria</label>
-          <input type="text" id="f-title" placeholder="Ex.: Estreia lota o Theatro Municipal" required>
-        </div>
-        <div class="row2">
+
+    <div class="cx-token" id="cx-token">
+      <span class="st" id="tk-st">Conecte seu token do GitHub para publicar (fica salvo só neste navegador)</span>
+      <input type="password" id="tk" placeholder="github_pat_…" aria-label="Token do GitHub">
+      <button type="button" id="tk-save">Conectar</button>
+      <span class="cx-help">Como criar: github.com → Settings → Developer settings → Fine-grained tokens →
+        Generate new · Only select repositories: FOYER.DIGITAL---SITE · Permissions → Contents: Read and write</span>
+    </div>
+
+    <div class="cx-tabs" role="tablist">
+      <button class="on" data-tab="nova" type="button">✎ Nova matéria</button>
+      <button data-tab="fila" type="button">🕐 Fila &amp; agendadas</button>
+      <button data-tab="equipe" type="button">🤖 Redação IA</button>
+    </div>
+
+    <!-- NOVA MATÉRIA -->
+    <div class="cx-pane on" id="pane-nova">
+      <div class="adm-grid">
+        <form class="adm-form" id="form">
           <div>
-            <label for="f-cat">Editoria</label>
-            <select id="f-cat">
-              <option>Notícias</option><option>Crítica</option><option>Entrevista</option>
-              <option>Agenda</option><option>Bastidores</option><option>Mercado</option>
-            </select>
+            <label for="f-title">Título</label>
+            <input type="text" id="f-title" placeholder="O título da matéria" required>
+          </div>
+          <div class="row2">
+            <div>
+              <label for="f-cat">Editoria</label>
+              <select id="f-cat">
+                <option>Teatro</option><option>Cinema</option><option>Música</option><option>Dança</option>
+                <option>Crítica</option><option>Notícia</option><option>Televisão</option><option>Streaming</option>
+                <option>Literatura</option><option>Exposições</option><option>Show</option><option>Audições</option>
+                <option>Edital</option><option>Festa</option><option>Programa</option><option>Astrologia</option>
+                <option>Artigo de Opinião</option><option>Crônicas e Histórias</option>
+              </select>
+            </div>
+            <div>
+              <label for="f-autor">Autor(a)</label>
+              <select id="f-autor">
+                <option>Redação Foyer</option><option>Isabel Branquinha</option><option>Bella Amaral</option>
+                <option>Bruno Cavalcanti</option><option>Gerson Steves</option><option>Larissa da Matta</option>
+                <option>Letícia Spanghero</option>
+              </select>
+            </div>
           </div>
           <div>
-            <label for="f-foto">Foto de capa</label>
-            <input type="file" id="f-foto" accept="image/*">
+            <label for="f-img">Foto de capa (endereço da imagem)</label>
+            <input type="text" id="f-img" placeholder="https://…/foto.jpg">
+          </div>
+          <div>
+            <label for="f-body">Texto</label>
+            <div class="cx-bar">
+              <button type="button" data-md="**">B — negrito</button>
+              <button type="button" data-md="*">I — itálico</button>
+              <button type="button" data-md="## ">Intertítulo</button>
+              <button type="button" data-md="> ">Citação</button>
+              <button type="button" data-md="img:">Foto no texto</button>
+            </div>
+            <textarea id="f-body" rows="14" placeholder="Escreva em parágrafos separados por linha em branco.
+
+## Um intertítulo fica assim
+
+**negrito**, *itálico*, [link](https://exemplo.com)
+
+> Uma citação destacada fica assim
+
+img:https://exemplo.com/foto.jpg | Legenda da foto"></textarea>
+          </div>
+          <div class="row2">
+            <div>
+              <label for="f-quando">Publicação</label>
+              <select id="f-quando">
+                <option value="agora">Publicar agora</option>
+                <option value="agendar">Agendar data e hora</option>
+              </select>
+            </div>
+            <div id="f-quando-dt" style="display:none">
+              <label for="f-data">Data e hora (seu fuso)</label>
+              <input type="datetime-local" id="f-data" style="width:100%; border:1.5px solid var(--line); background:var(--paper-2); color:var(--ink); font-family:var(--mono); padding:10px 12px">
+            </div>
+          </div>
+          <button class="pub" type="submit" id="btn-pub">Enviar para o site</button>
+          <span class="cx-msg" id="msg"></span>
+        </form>
+        <div class="adm-side">
+          <div class="adm-note">
+            Publicar agora: a matéria entra no site em ~2 minutos.<br>
+            Agendada: o relógio do site verifica a cada 30 min e
+            publica sozinho na hora marcada.<br><br>
+            A capa, as listagens, a busca e o compartilhamento
+            são atualizados automaticamente.
           </div>
         </div>
-        <div>
-          <label for="f-dek">Linha fina (resumo)</label>
-          <textarea id="f-dek" rows="2" placeholder="Uma frase que resume a matéria"></textarea>
-        </div>
-        <div>
-          <label for="f-body">Texto</label>
-          <textarea id="f-body" rows="12" placeholder="O corpo da matéria…"></textarea>
-        </div>
-        <button class="pub" type="submit">Salvar rascunho</button>
-      </form>
-      <div class="adm-side">
-        <div class="drafts">
-          <h3>Rascunhos salvos</h3>
-          <div id="draft-list"></div>
-        </div>
-        <div class="adm-note">
-          Próxima fase: publicação real direto no site,
-          upload de fotos, edição da revista semanal
-          e login seguro por senha + e-mail.
-        </div>
+      </div>
+    </div>
+
+    <!-- FILA -->
+    <div class="cx-pane" id="pane-fila">
+      <div class="cx-list" id="fila-list"><div class="cx-row"><span class="mt">Conecte o token para carregar</span></div></div>
+    </div>
+
+    <!-- REDAÇÃO IA -->
+    <div class="cx-pane" id="pane-equipe">
+      <div class="adm-note" style="line-height:2.2">
+        O escritório de agentes de IA da redação está em desenho.<br>
+        Estrutura prevista: Pauteiro (varredura de notícias) → Repórteres
+        por editoria → Editor de estilo → Chefia de redação → Mesa de
+        aprovação (você) → Publicação agendada por aqui.<br>
+        Toda matéria de agente passa pela sua aprovação nesta central
+        antes de ir ao ar.
       </div>
     </div>
   </div>
@@ -87,59 +199,180 @@
 
 <script>
 (function(){
-  // ATENÇÃO: proteção de protótipo (visual). A senha real entra com o backend.
   var PASS = 'terceirosinal';
-  var gate = document.getElementById('gate');
-  var panel = document.getElementById('panel');
-  var err = document.getElementById('gate-err');
+  var OWNER = 'pedrocobron-ops', REPO = 'FOYER.DIGITAL---SITE', BRANCH = 'claude/foyer-digital-redesign-14l2b6';
+  var API = 'https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/';
 
-  function openPanel(){ gate.style.display = 'none'; panel.classList.add('open'); render(); }
+  var gate = document.getElementById('gate'), panel = document.getElementById('panel');
+  function openPanel(){ gate.style.display='none'; panel.classList.add('open'); initToken(); }
   try{ if(sessionStorage.getItem('coxia') === '1') openPanel(); }catch(e){}
-
   document.getElementById('gate-form').addEventListener('submit', function(e){
     e.preventDefault();
     if(document.getElementById('pass').value === PASS){
-      try{ sessionStorage.setItem('coxia','1'); }catch(err2){}
+      try{ sessionStorage.setItem('coxia','1'); }catch(err){}
       openPanel();
-    } else {
-      err.style.display = 'block';
-    }
+    } else { document.getElementById('gate-err').style.display='block'; }
   });
   document.getElementById('logout').addEventListener('click', function(){
     try{ sessionStorage.removeItem('coxia'); }catch(e){}
     location.reload();
   });
 
-  function load(){ try{ return JSON.parse(localStorage.getItem('coxia-drafts') || '[]'); }catch(e){ return []; } }
-  function save(list){ try{ localStorage.setItem('coxia-drafts', JSON.stringify(list)); }catch(e){} }
-  function render(){
-    var list = load();
-    var el = document.getElementById('draft-list');
-    if(!list.length){
-      el.innerHTML = '<div class="draft-row"><span class="dt">Nenhum rascunho ainda</span></div>';
-      return;
-    }
-    el.innerHTML = list.map(function(d, i){
-      return '<div class="draft-row"><span><span class="ti">' + d.t.replace(/</g,'&lt;') +
-             '</span><br><span class="dt">' + d.c + ' — ' + d.dt + '</span></span>' +
-             '<button data-del="' + i + '" type="button">Excluir</button></div>';
-    }).join('');
+  // abas
+  document.querySelectorAll('.cx-tabs button').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.cx-tabs button').forEach(function(x){ x.classList.remove('on'); });
+      document.querySelectorAll('.cx-pane').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      document.getElementById('pane-' + b.dataset.tab).classList.add('on');
+      if(b.dataset.tab === 'fila') carregarFila();
+    });
+  });
+
+  // token
+  function token(){ try{ return localStorage.getItem('coxia-token') || ''; }catch(e){ return ''; } }
+  function initToken(){
+    var st = document.getElementById('tk-st');
+    if(token()){ st.textContent = 'Token conectado ✓ — pronto para publicar'; st.className = 'st ok'; }
   }
+  document.getElementById('tk-save').addEventListener('click', function(){
+    var v = document.getElementById('tk').value.trim();
+    var st = document.getElementById('tk-st');
+    if(!v){ st.textContent = 'Cole o token antes de conectar'; st.className='st err'; return; }
+    fetch('https://api.github.com/repos/' + OWNER + '/' + REPO, {
+      headers: { 'Authorization': 'Bearer ' + v }
+    }).then(function(r){
+      if(!r.ok) throw 0;
+      try{ localStorage.setItem('coxia-token', v); }catch(e){}
+      document.getElementById('tk').value = '';
+      st.textContent = 'Token conectado ✓ — pronto para publicar'; st.className='st ok';
+    }).catch(function(){ st.textContent = 'Token inválido ou sem acesso ao repositório'; st.className='st err'; });
+  });
+
+  // barra de formatação
+  document.querySelectorAll('.cx-bar button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var ta = document.getElementById('f-body');
+      var md = b.dataset.md, ini = ta.selectionStart, fim = ta.selectionEnd;
+      var sel = ta.value.slice(ini, fim) || 'texto';
+      var novo;
+      if(md === '**' || md === '*') novo = md + sel + md;
+      else if(md === 'img:') novo = '
+
+img:https://…/foto.jpg | Legenda
+
+';
+      else novo = '
+
+' + md + sel;
+      ta.value = ta.value.slice(0, ini) + novo + ta.value.slice(fim);
+      ta.focus();
+    });
+  });
+
+  document.getElementById('f-quando').addEventListener('change', function(){
+    document.getElementById('f-quando-dt').style.display = this.value === 'agendar' ? 'block' : 'none';
+  });
+
+  function slugify(t){
+    return t.normalize('NFD').replace(/[̀-ͯ]/g,'')
+      .replace(/[^a-zA-Z0-9]+/g,'-').replace(/^-+|-+$/g,'').toLowerCase().slice(0,80);
+  }
+  function b64(str){ return btoa(unescape(encodeURIComponent(str))); }
+
+  function ghPut(path, content, msg){
+    return fetch(API + path, {
+      method: 'GET',
+      headers: { 'Authorization': 'Bearer ' + token() }
+    }).then(function(r){ return r.ok ? r.json() : null; }).then(function(exist){
+      var body = { message: msg, content: b64(content), branch: BRANCH };
+      if(exist && exist.sha) body.sha = exist.sha;
+      return fetch(API + path, {
+        method: 'PUT',
+        headers: { 'Authorization': 'Bearer ' + token(), 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+    }).then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
+  }
+
+  // enviar matéria
   document.getElementById('form').addEventListener('submit', function(e){
     e.preventDefault();
-    var t = document.getElementById('f-title').value.trim();
-    if(!t) return;
-    var list = load();
-    var d = new Date();
-    list.unshift({ t: t, c: document.getElementById('f-cat').value,
-      dt: d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR').slice(0,5) });
-    save(list); render();
-    e.target.reset();
+    var msg = document.getElementById('msg');
+    if(!token()){ msg.textContent = 'Conecte o token do GitHub primeiro (caixa acima)'; msg.className='cx-msg err'; return; }
+    var title = document.getElementById('f-title').value.trim();
+    var corpo = document.getElementById('f-body').value.trim();
+    if(!title || !corpo){ msg.textContent = 'Preencha título e texto'; msg.className='cx-msg err'; return; }
+    var quando = document.getElementById('f-quando').value;
+    var publishAt = new Date().toISOString();
+    if(quando === 'agendar'){
+      var dt = document.getElementById('f-data').value;
+      if(!dt){ msg.textContent = 'Escolha a data e hora do agendamento'; msg.className='cx-msg err'; return; }
+      publishAt = new Date(dt).toISOString();
+    }
+    var slug = slugify(title);
+    var dados = {
+      title: title, slug: slug,
+      cat: document.getElementById('f-cat').value,
+      author: document.getElementById('f-autor').value,
+      img: document.getElementById('f-img').value.trim(),
+      corpo: corpo, publishAt: publishAt,
+      criadoEm: new Date().toISOString()
+    };
+    var btn = document.getElementById('btn-pub');
+    btn.disabled = true; btn.textContent = 'Enviando…';
+    ghPut('import/novas/' + slug + '.json', JSON.stringify(dados, null, 1),
+          'Coxia: ' + (quando === 'agendar' ? 'agenda' : 'publica') + ' "' + title + '"')
+      .then(function(){
+        msg.className = 'cx-msg ok';
+        msg.textContent = quando === 'agendar'
+          ? 'Agendada ✓ — sai no site na hora marcada (verificação a cada 30 min)'
+          : 'Enviada ✓ — no ar em ~2 minutos';
+        e.target.reset();
+        document.getElementById('f-quando-dt').style.display='none';
+      })
+      .catch(function(err){ msg.className='cx-msg err'; msg.textContent = 'Falha ao enviar: ' + err.message; })
+      .finally(function(){ btn.disabled = false; btn.textContent = 'Enviar para o site'; });
   });
+
+  // fila
+  function carregarFila(){
+    var el = document.getElementById('fila-list');
+    if(!token()){ el.innerHTML = '<div class="cx-row"><span class="mt">Conecte o token para carregar</span></div>'; return; }
+    el.innerHTML = '<div class="cx-row"><span class="mt">Carregando…</span></div>';
+    fetch(API + 'import/novas?ref=' + BRANCH, { headers: { 'Authorization': 'Bearer ' + token() } })
+      .then(function(r){ return r.json(); })
+      .then(function(list){
+        var files = (list || []).filter(function(f){ return f.name.endsWith('.json'); });
+        if(!files.length){ el.innerHTML = '<div class="cx-row"><span class="mt">Nenhuma matéria criada pela Coxia ainda</span></div>'; return; }
+        return Promise.all(files.map(function(f){
+          return fetch(f.download_url).then(function(r){ return r.json(); })
+            .then(function(d){ d._path = f.path; d._sha = f.sha; return d; });
+        })).then(function(items){
+          items.sort(function(a,b){ return (b.publishAt||'').localeCompare(a.publishAt||''); });
+          el.innerHTML = items.map(function(d, i){
+            var futura = d.publishAt && d.publishAt > new Date().toISOString();
+            var quando = new Date(d.publishAt).toLocaleString('pt-BR');
+            return '<div class="cx-row">' +
+              '<span><span class="ti">' + d.title.replace(/</g,'&lt;') + '</span><br>' +
+              '<span class="mt">' + d.cat + ' — ' + d.author + ' — ' + quando + '</span></span>' +
+              '<span class="stt ' + (futura ? 'ag' : 'pb') + '">' + (futura ? 'Agendada' : 'Publicada') + '</span>' +
+              '<button data-del="' + d._path + '" data-sha="' + d._sha + '" type="button">Remover</button>' +
+              '</div>';
+          }).join('');
+        });
+      })
+      .catch(function(){ el.innerHTML = '<div class="cx-row"><span class="mt">Erro ao carregar a fila</span></div>'; });
+  }
   document.addEventListener('click', function(e){
     var b = e.target.closest('[data-del]');
     if(!b) return;
-    var list = load(); list.splice(+b.getAttribute('data-del'), 1); save(list); render();
+    if(!confirm('Remover esta matéria do site?')) return;
+    fetch(API + b.dataset.del, {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + token(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: 'Coxia: remove matéria', sha: b.dataset.sha, branch: BRANCH })
+    }).then(function(){ carregarFila(); });
   });
 })();
 </script>

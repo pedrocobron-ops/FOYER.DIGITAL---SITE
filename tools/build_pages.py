@@ -852,7 +852,50 @@ erow('Bia Camargo','Desenhista de luz','034') + '''
 
 # ---------------------------------------------------------------- COXIA (admin)
 
-coxia_body = '''<div class="warn">Coxia — área restrita da redação · Protótipo local: a autenticação definitiva entra com o backend</div>
+coxia_body = '''<style>
+  .cx-tabs{ display:flex; border:var(--b); margin-top:26px; }
+  .cx-tabs button{ flex:1; background:var(--paper); border:0; border-right:1px solid var(--line);
+    font-family:var(--mono); font-weight:600; font-size:.66rem; letter-spacing:.16em;
+    text-transform:uppercase; padding:14px; cursor:pointer; color:var(--ink); }
+  .cx-tabs button:last-child{ border-right:0; }
+  .cx-tabs button.on{ background:var(--wine); color:var(--gold); }
+  .cx-pane{ display:none; padding-top:24px; }
+  .cx-pane.on{ display:block; }
+  .cx-token{ border:var(--b); background:var(--paper-2); padding:20px; margin-top:24px;
+    display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  .cx-token input{ flex:1; min-width:240px; border:1.5px solid var(--line); background:var(--paper);
+    color:var(--ink); font-family:var(--mono); font-size:.78rem; padding:11px 12px; }
+  .cx-token button{ border:1.5px solid var(--line); background:var(--ink); color:var(--gold);
+    font-family:var(--mono); font-weight:600; font-size:.64rem; letter-spacing:.14em;
+    text-transform:uppercase; padding:12px 16px; cursor:pointer; }
+  .cx-token .st{ font-family:var(--mono); font-size:.62rem; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--ink-soft); width:100%; }
+  .cx-token .st.ok{ color:#2c6e2c; } .cx-token .st.err{ color:#8E1B10; }
+  .cx-help{ font-family:var(--mono); font-size:.6rem; letter-spacing:.06em; color:var(--ink-soft);
+    line-height:1.9; text-transform:uppercase; }
+  .cx-row{ display:grid; grid-template-columns:1fr auto auto; gap:12px; align-items:center;
+    border-bottom:1px solid var(--line); padding:12px 16px; }
+  .cx-row:last-child{ border-bottom:0; }
+  .cx-list{ border:var(--b); }
+  .cx-row .ti{ font-weight:800; font-size:.9rem; text-transform:uppercase; }
+  .cx-row .mt{ font-family:var(--mono); font-size:.58rem; color:var(--ink-soft);
+    letter-spacing:.08em; text-transform:uppercase; }
+  .cx-row .stt{ font-family:var(--mono); font-size:.56rem; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; border:1px solid var(--line); padding:5px 9px; }
+  .cx-row .stt.ag{ background:var(--gold); color:var(--wine); border-color:var(--gold); }
+  .cx-row .stt.pb{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
+  .cx-row button{ background:none; border:1px solid var(--line); cursor:pointer; color:var(--ink);
+    font-family:var(--mono); font-size:.56rem; letter-spacing:.1em; text-transform:uppercase; padding:6px 10px; }
+  .cx-row button:hover{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
+  .cx-msg{ font-family:var(--mono); font-size:.64rem; letter-spacing:.1em; text-transform:uppercase;
+    padding:12px 0; display:none; }
+  .cx-msg.ok{ display:block; color:#2c6e2c; } .cx-msg.err{ display:block; color:#8E1B10; }
+  .cx-bar{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
+  .cx-bar button{ background:var(--paper-2); border:1px solid var(--line); cursor:pointer;
+    font-family:var(--mono); font-size:.58rem; letter-spacing:.08em; padding:6px 10px; color:var(--ink); }
+  .cx-bar button:hover{ background:var(--ink); color:var(--gold); }
+</style>
+<div class="warn">Coxia — central de conteúdo do Foyer · publica e agenda direto no site</div>
 <main class="wrap">
   <!-- portão -->
   <div class="gate" id="gate">
@@ -870,49 +913,118 @@ coxia_body = '''<div class="warn">Coxia — área restrita da redação · Prot�
   <!-- painel -->
   <div class="panel" id="panel">
     <div class="sec-head">
-      <h2>Nova matéria</h2>
-      <span class="note">Rascunhos ficam salvos neste navegador até o backend entrar</span>
+      <h2>Central de conteúdo</h2>
+      <span class="note" id="cx-status">—</span>
       <button class="logout" id="logout" type="button">Sair ✕</button>
     </div>
-    <div class="adm-grid">
-      <form class="adm-form" id="form">
-        <div>
-          <label for="f-title">Título da matéria</label>
-          <input type="text" id="f-title" placeholder="Ex.: Estreia lota o Theatro Municipal" required>
-        </div>
-        <div class="row2">
+
+    <div class="cx-token" id="cx-token">
+      <span class="st" id="tk-st">Conecte seu token do GitHub para publicar (fica salvo só neste navegador)</span>
+      <input type="password" id="tk" placeholder="github_pat_…" aria-label="Token do GitHub">
+      <button type="button" id="tk-save">Conectar</button>
+      <span class="cx-help">Como criar: github.com → Settings → Developer settings → Fine-grained tokens →
+        Generate new · Only select repositories: FOYER.DIGITAL---SITE · Permissions → Contents: Read and write</span>
+    </div>
+
+    <div class="cx-tabs" role="tablist">
+      <button class="on" data-tab="nova" type="button">✎ Nova matéria</button>
+      <button data-tab="fila" type="button">🕐 Fila &amp; agendadas</button>
+      <button data-tab="equipe" type="button">🤖 Redação IA</button>
+    </div>
+
+    <!-- NOVA MATÉRIA -->
+    <div class="cx-pane on" id="pane-nova">
+      <div class="adm-grid">
+        <form class="adm-form" id="form">
           <div>
-            <label for="f-cat">Editoria</label>
-            <select id="f-cat">
-              <option>Notícias</option><option>Crítica</option><option>Entrevista</option>
-              <option>Agenda</option><option>Bastidores</option><option>Mercado</option>
-            </select>
+            <label for="f-title">Título</label>
+            <input type="text" id="f-title" placeholder="O título da matéria" required>
+          </div>
+          <div class="row2">
+            <div>
+              <label for="f-cat">Editoria</label>
+              <select id="f-cat">
+                <option>Teatro</option><option>Cinema</option><option>Música</option><option>Dança</option>
+                <option>Crítica</option><option>Notícia</option><option>Televisão</option><option>Streaming</option>
+                <option>Literatura</option><option>Exposições</option><option>Show</option><option>Audições</option>
+                <option>Edital</option><option>Festa</option><option>Programa</option><option>Astrologia</option>
+                <option>Artigo de Opinião</option><option>Crônicas e Histórias</option>
+              </select>
+            </div>
+            <div>
+              <label for="f-autor">Autor(a)</label>
+              <select id="f-autor">
+                <option>Redação Foyer</option><option>Isabel Branquinha</option><option>Bella Amaral</option>
+                <option>Bruno Cavalcanti</option><option>Gerson Steves</option><option>Larissa da Matta</option>
+                <option>Letícia Spanghero</option>
+              </select>
+            </div>
           </div>
           <div>
-            <label for="f-foto">Foto de capa</label>
-            <input type="file" id="f-foto" accept="image/*">
+            <label for="f-img">Foto de capa (endereço da imagem)</label>
+            <input type="text" id="f-img" placeholder="https://…/foto.jpg">
+          </div>
+          <div>
+            <label for="f-body">Texto</label>
+            <div class="cx-bar">
+              <button type="button" data-md="**">B — negrito</button>
+              <button type="button" data-md="*">I — itálico</button>
+              <button type="button" data-md="## ">Intertítulo</button>
+              <button type="button" data-md="> ">Citação</button>
+              <button type="button" data-md="img:">Foto no texto</button>
+            </div>
+            <textarea id="f-body" rows="14" placeholder="Escreva em parágrafos separados por linha em branco.
+
+## Um intertítulo fica assim
+
+**negrito**, *itálico*, [link](https://exemplo.com)
+
+> Uma citação destacada fica assim
+
+img:https://exemplo.com/foto.jpg | Legenda da foto"></textarea>
+          </div>
+          <div class="row2">
+            <div>
+              <label for="f-quando">Publicação</label>
+              <select id="f-quando">
+                <option value="agora">Publicar agora</option>
+                <option value="agendar">Agendar data e hora</option>
+              </select>
+            </div>
+            <div id="f-quando-dt" style="display:none">
+              <label for="f-data">Data e hora (seu fuso)</label>
+              <input type="datetime-local" id="f-data" style="width:100%; border:1.5px solid var(--line); background:var(--paper-2); color:var(--ink); font-family:var(--mono); padding:10px 12px">
+            </div>
+          </div>
+          <button class="pub" type="submit" id="btn-pub">Enviar para o site</button>
+          <span class="cx-msg" id="msg"></span>
+        </form>
+        <div class="adm-side">
+          <div class="adm-note">
+            Publicar agora: a matéria entra no site em ~2 minutos.<br>
+            Agendada: o relógio do site verifica a cada 30 min e
+            publica sozinho na hora marcada.<br><br>
+            A capa, as listagens, a busca e o compartilhamento
+            são atualizados automaticamente.
           </div>
         </div>
-        <div>
-          <label for="f-dek">Linha fina (resumo)</label>
-          <textarea id="f-dek" rows="2" placeholder="Uma frase que resume a matéria"></textarea>
-        </div>
-        <div>
-          <label for="f-body">Texto</label>
-          <textarea id="f-body" rows="12" placeholder="O corpo da matéria…"></textarea>
-        </div>
-        <button class="pub" type="submit">Salvar rascunho</button>
-      </form>
-      <div class="adm-side">
-        <div class="drafts">
-          <h3>Rascunhos salvos</h3>
-          <div id="draft-list"></div>
-        </div>
-        <div class="adm-note">
-          Próxima fase: publicação real direto no site,
-          upload de fotos, edição da revista semanal
-          e login seguro por senha + e-mail.
-        </div>
+      </div>
+    </div>
+
+    <!-- FILA -->
+    <div class="cx-pane" id="pane-fila">
+      <div class="cx-list" id="fila-list"><div class="cx-row"><span class="mt">Conecte o token para carregar</span></div></div>
+    </div>
+
+    <!-- REDAÇÃO IA -->
+    <div class="cx-pane" id="pane-equipe">
+      <div class="adm-note" style="line-height:2.2">
+        O escritório de agentes de IA da redação está em desenho.<br>
+        Estrutura prevista: Pauteiro (varredura de notícias) → Repórteres
+        por editoria → Editor de estilo → Chefia de redação → Mesa de
+        aprovação (você) → Publicação agendada por aqui.<br>
+        Toda matéria de agente passa pela sua aprovação nesta central
+        antes de ir ao ar.
       </div>
     </div>
   </div>
@@ -920,59 +1032,174 @@ coxia_body = '''<div class="warn">Coxia — área restrita da redação · Prot�
 
 <script>
 (function(){
-  // ATENÇÃO: proteção de protótipo (visual). A senha real entra com o backend.
   var PASS = 'terceirosinal';
-  var gate = document.getElementById('gate');
-  var panel = document.getElementById('panel');
-  var err = document.getElementById('gate-err');
+  var OWNER = 'pedrocobron-ops', REPO = 'FOYER.DIGITAL---SITE', BRANCH = 'claude/foyer-digital-redesign-14l2b6';
+  var API = 'https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/';
 
-  function openPanel(){ gate.style.display = 'none'; panel.classList.add('open'); render(); }
+  var gate = document.getElementById('gate'), panel = document.getElementById('panel');
+  function openPanel(){ gate.style.display='none'; panel.classList.add('open'); initToken(); }
   try{ if(sessionStorage.getItem('coxia') === '1') openPanel(); }catch(e){}
-
   document.getElementById('gate-form').addEventListener('submit', function(e){
     e.preventDefault();
     if(document.getElementById('pass').value === PASS){
-      try{ sessionStorage.setItem('coxia','1'); }catch(err2){}
+      try{ sessionStorage.setItem('coxia','1'); }catch(err){}
       openPanel();
-    } else {
-      err.style.display = 'block';
-    }
+    } else { document.getElementById('gate-err').style.display='block'; }
   });
   document.getElementById('logout').addEventListener('click', function(){
     try{ sessionStorage.removeItem('coxia'); }catch(e){}
     location.reload();
   });
 
-  function load(){ try{ return JSON.parse(localStorage.getItem('coxia-drafts') || '[]'); }catch(e){ return []; } }
-  function save(list){ try{ localStorage.setItem('coxia-drafts', JSON.stringify(list)); }catch(e){} }
-  function render(){
-    var list = load();
-    var el = document.getElementById('draft-list');
-    if(!list.length){
-      el.innerHTML = '<div class="draft-row"><span class="dt">Nenhum rascunho ainda</span></div>';
-      return;
-    }
-    el.innerHTML = list.map(function(d, i){
-      return '<div class="draft-row"><span><span class="ti">' + d.t.replace(/</g,'&lt;') +
-             '</span><br><span class="dt">' + d.c + ' — ' + d.dt + '</span></span>' +
-             '<button data-del="' + i + '" type="button">Excluir</button></div>';
-    }).join('');
+  // abas
+  document.querySelectorAll('.cx-tabs button').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.cx-tabs button').forEach(function(x){ x.classList.remove('on'); });
+      document.querySelectorAll('.cx-pane').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      document.getElementById('pane-' + b.dataset.tab).classList.add('on');
+      if(b.dataset.tab === 'fila') carregarFila();
+    });
+  });
+
+  // token
+  function token(){ try{ return localStorage.getItem('coxia-token') || ''; }catch(e){ return ''; } }
+  function initToken(){
+    var st = document.getElementById('tk-st');
+    if(token()){ st.textContent = 'Token conectado ✓ — pronto para publicar'; st.className = 'st ok'; }
   }
+  document.getElementById('tk-save').addEventListener('click', function(){
+    var v = document.getElementById('tk').value.trim();
+    var st = document.getElementById('tk-st');
+    if(!v){ st.textContent = 'Cole o token antes de conectar'; st.className='st err'; return; }
+    fetch('https://api.github.com/repos/' + OWNER + '/' + REPO, {
+      headers: { 'Authorization': 'Bearer ' + v }
+    }).then(function(r){
+      if(!r.ok) throw 0;
+      try{ localStorage.setItem('coxia-token', v); }catch(e){}
+      document.getElementById('tk').value = '';
+      st.textContent = 'Token conectado ✓ — pronto para publicar'; st.className='st ok';
+    }).catch(function(){ st.textContent = 'Token inválido ou sem acesso ao repositório'; st.className='st err'; });
+  });
+
+  // barra de formatação
+  document.querySelectorAll('.cx-bar button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var ta = document.getElementById('f-body');
+      var md = b.dataset.md, ini = ta.selectionStart, fim = ta.selectionEnd;
+      var sel = ta.value.slice(ini, fim) || 'texto';
+      var novo;
+      if(md === '**' || md === '*') novo = md + sel + md;
+      else if(md === 'img:') novo = '\n\nimg:https://…/foto.jpg | Legenda\n\n';
+      else novo = '\n\n' + md + sel;
+      ta.value = ta.value.slice(0, ini) + novo + ta.value.slice(fim);
+      ta.focus();
+    });
+  });
+
+  document.getElementById('f-quando').addEventListener('change', function(){
+    document.getElementById('f-quando-dt').style.display = this.value === 'agendar' ? 'block' : 'none';
+  });
+
+  function slugify(t){
+    return t.normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+      .replace(/[^a-zA-Z0-9]+/g,'-').replace(/^-+|-+$/g,'').toLowerCase().slice(0,80);
+  }
+  function b64(str){ return btoa(unescape(encodeURIComponent(str))); }
+
+  function ghPut(path, content, msg){
+    return fetch(API + path, {
+      method: 'GET',
+      headers: { 'Authorization': 'Bearer ' + token() }
+    }).then(function(r){ return r.ok ? r.json() : null; }).then(function(exist){
+      var body = { message: msg, content: b64(content), branch: BRANCH };
+      if(exist && exist.sha) body.sha = exist.sha;
+      return fetch(API + path, {
+        method: 'PUT',
+        headers: { 'Authorization': 'Bearer ' + token(), 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+    }).then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
+  }
+
+  // enviar matéria
   document.getElementById('form').addEventListener('submit', function(e){
     e.preventDefault();
-    var t = document.getElementById('f-title').value.trim();
-    if(!t) return;
-    var list = load();
-    var d = new Date();
-    list.unshift({ t: t, c: document.getElementById('f-cat').value,
-      dt: d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR').slice(0,5) });
-    save(list); render();
-    e.target.reset();
+    var msg = document.getElementById('msg');
+    if(!token()){ msg.textContent = 'Conecte o token do GitHub primeiro (caixa acima)'; msg.className='cx-msg err'; return; }
+    var title = document.getElementById('f-title').value.trim();
+    var corpo = document.getElementById('f-body').value.trim();
+    if(!title || !corpo){ msg.textContent = 'Preencha título e texto'; msg.className='cx-msg err'; return; }
+    var quando = document.getElementById('f-quando').value;
+    var publishAt = new Date().toISOString();
+    if(quando === 'agendar'){
+      var dt = document.getElementById('f-data').value;
+      if(!dt){ msg.textContent = 'Escolha a data e hora do agendamento'; msg.className='cx-msg err'; return; }
+      publishAt = new Date(dt).toISOString();
+    }
+    var slug = slugify(title);
+    var dados = {
+      title: title, slug: slug,
+      cat: document.getElementById('f-cat').value,
+      author: document.getElementById('f-autor').value,
+      img: document.getElementById('f-img').value.trim(),
+      corpo: corpo, publishAt: publishAt,
+      criadoEm: new Date().toISOString()
+    };
+    var btn = document.getElementById('btn-pub');
+    btn.disabled = true; btn.textContent = 'Enviando…';
+    ghPut('import/novas/' + slug + '.json', JSON.stringify(dados, null, 1),
+          'Coxia: ' + (quando === 'agendar' ? 'agenda' : 'publica') + ' "' + title + '"')
+      .then(function(){
+        msg.className = 'cx-msg ok';
+        msg.textContent = quando === 'agendar'
+          ? 'Agendada ✓ — sai no site na hora marcada (verificação a cada 30 min)'
+          : 'Enviada ✓ — no ar em ~2 minutos';
+        e.target.reset();
+        document.getElementById('f-quando-dt').style.display='none';
+      })
+      .catch(function(err){ msg.className='cx-msg err'; msg.textContent = 'Falha ao enviar: ' + err.message; })
+      .finally(function(){ btn.disabled = false; btn.textContent = 'Enviar para o site'; });
   });
+
+  // fila
+  function carregarFila(){
+    var el = document.getElementById('fila-list');
+    if(!token()){ el.innerHTML = '<div class="cx-row"><span class="mt">Conecte o token para carregar</span></div>'; return; }
+    el.innerHTML = '<div class="cx-row"><span class="mt">Carregando…</span></div>';
+    fetch(API + 'import/novas?ref=' + BRANCH, { headers: { 'Authorization': 'Bearer ' + token() } })
+      .then(function(r){ return r.json(); })
+      .then(function(list){
+        var files = (list || []).filter(function(f){ return f.name.endsWith('.json'); });
+        if(!files.length){ el.innerHTML = '<div class="cx-row"><span class="mt">Nenhuma matéria criada pela Coxia ainda</span></div>'; return; }
+        return Promise.all(files.map(function(f){
+          return fetch(f.download_url).then(function(r){ return r.json(); })
+            .then(function(d){ d._path = f.path; d._sha = f.sha; return d; });
+        })).then(function(items){
+          items.sort(function(a,b){ return (b.publishAt||'').localeCompare(a.publishAt||''); });
+          el.innerHTML = items.map(function(d, i){
+            var futura = d.publishAt && d.publishAt > new Date().toISOString();
+            var quando = new Date(d.publishAt).toLocaleString('pt-BR');
+            return '<div class="cx-row">' +
+              '<span><span class="ti">' + d.title.replace(/</g,'&lt;') + '</span><br>' +
+              '<span class="mt">' + d.cat + ' — ' + d.author + ' — ' + quando + '</span></span>' +
+              '<span class="stt ' + (futura ? 'ag' : 'pb') + '">' + (futura ? 'Agendada' : 'Publicada') + '</span>' +
+              '<button data-del="' + d._path + '" data-sha="' + d._sha + '" type="button">Remover</button>' +
+              '</div>';
+          }).join('');
+        });
+      })
+      .catch(function(){ el.innerHTML = '<div class="cx-row"><span class="mt">Erro ao carregar a fila</span></div>'; });
+  }
   document.addEventListener('click', function(e){
     var b = e.target.closest('[data-del]');
     if(!b) return;
-    var list = load(); list.splice(+b.getAttribute('data-del'), 1); save(list); render();
+    if(!confirm('Remover esta matéria do site?')) return;
+    fetch(API + b.dataset.del, {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + token(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: 'Coxia: remove matéria', sha: b.dataset.sha, branch: BRANCH })
+    }).then(function(){ carregarFila(); });
   });
 })();
 </script>
@@ -988,7 +1215,6 @@ materia_body = '''<main class="wrap">
       <span class="tag">Reportagem de capa</span>
     </div>
     <h1>A temporada em que o musical brasileiro decidiu contar as próprias histórias</h1>
-    <p class="dek">De biografias a fábulas urbanas, as grandes produções da estação abandonam a tradução literal da Broadway para inventar uma dramaturgia com sotaque nacional — e o público respondeu lotando as casas.</p>
     <div class="art-byline">
       <span>Por <b>Redação Foyer</b> — São Paulo</span>
       <span>22.07.2026 · 8 min de leitura</span>
@@ -1000,38 +1226,23 @@ materia_body = '''<main class="wrap">
       <button class="sbtn" data-share="copy" data-title="A temporada em que o musical brasileiro decidiu contar as próprias histórias">Copiar link</button>
     </div>
   </div>
-
   <figure class="art-cover">
     <span class="ph"><svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#ph-1"/></svg></span>
     <figcaption>O elenco no ensaio aberto da nova temporada — Foto: Divulgação</figcaption>
   </figure>
-
   <div class="ad-slot" data-ad-slot="2001"></div>
-
   <div class="art-body">
-    <p class="drop">Durante décadas, o musical brasileiro viveu de licenças: títulos da Broadway traduzidos, coreografias importadas quadro a quadro, cenografias replicadas sob contrato. A temporada que agora se encerra virou essa página. Das vinte maiores bilheterias do ano, catorze são de dramaturgia original — um número impensável há dez anos.</p>
-    <p>A virada não aconteceu por acaso. Uma geração inteira de autores, arranjadores e diretores formada nos cursos livres dos anos 2010 chegou à maturidade criativa ao mesmo tempo em que o público demonstrou apetite por histórias com sotaque próprio.</p>
+    <p class="drop">Durante décadas, o musical brasileiro viveu de licenças: títulos da Broadway traduzidos, coreografias importadas quadro a quadro, cenografias replicadas sob contrato. A temporada que agora se encerra virou essa página.</p>
     <h2>O público comprou o tema</h2>
-    <p>Os produtores ouvidos pela redação apontam o mesmo dado: o espectador que antes comprava o selo internacional hoje compra o tema — e quer se ver no palco. O resultado está nas casas lotadas e nas filas de espera por ingressos de última hora.</p>
+    <p>Os produtores ouvidos pela redação apontam o mesmo dado: o espectador que antes comprava o selo internacional hoje compra o tema — e quer se ver no palco.</p>
     <blockquote class="pull">“O espectador que antes comprava o selo internacional hoje compra o tema — e quer se ver no palco.”</blockquote>
-    <p>Nos bastidores, a mudança reorganizou a cadeia inteira: estúdios de gravação lotados de demos de compositores nacionais, oficinas de dramaturgia com listas de espera e um mercado de direitos autorais que começa a olhar para dentro.</p>
     <div class="ad-slot" data-ad-slot="2002"></div>
-    <h2>O desafio da próxima temporada</h2>
-    <p>Transformar o momento em movimento, e o movimento em mercado permanente. Os próximos doze meses dirão se a aposta na dramaturgia nacional é uma onda — ou a nova maré do teatro brasileiro.</p>
+    <p>O desafio da próxima temporada: transformar o momento em movimento, e o movimento em mercado permanente.</p>
   </div>
-
   <div class="art-foot">
-    <div class="tags">
-      <span class="tag">Teatro musical</span><span class="tag">Dramaturgia nacional</span><span class="tag">Mercado</span>
-    </div>
-    <div class="share-row" aria-label="Compartilhar esta matéria">
-      <button class="sbtn" data-share="whats" data-title="A temporada em que o musical brasileiro decidiu contar as próprias histórias">WhatsApp</button>
-      <button class="sbtn" data-share="x" data-title="A temporada em que o musical brasileiro decidiu contar as próprias histórias">X / Twitter</button>
-      <button class="sbtn" data-share="copy" data-title="A temporada em que o musical brasileiro decidiu contar as próprias histórias">Copiar link</button>
-    </div>
+    <div class="tags"><span class="tag">Teatro musical</span><span class="tag">Mercado</span></div>
   </div>
 </article>
-
 <section>
   <div class="sec-head">
     <h2>Leia também</h2>
@@ -1061,7 +1272,6 @@ artista_body = band('Enciclopédia — Verbete', 'Marina Villas', 'Atriz · Cant
     <div class="stat"><span class="n" data-v="15">0</span><span class="l">Anos de carreira</span></div>
     <div class="stat"><span class="n" data-v="3">0</span><span class="l">Prêmios</span></div>
   </div>
-
   <div class="sec-head">
     <h2>Trajetória</h2>
     <span class="note">Cada espetáculo é clicável — siga o fio</span>
@@ -1073,19 +1283,7 @@ artista_body = band('Enciclopédia — Verbete', 'Marina Villas', 'Atriz · Cant
 ''' + credit('A Cidade Cantada','Protagonista','Theatro Municipal — SP','2025') + '\n' + \
 credit('Rua de Baixo, o Musical','Direção musical','Teatro Porto — SP','2024') + '\n' + \
 credit('Noturno','Elenco','Teatro de Câmara — RJ','2023') + '\n' + \
-credit('Cabaré do Fim do Mundo','Solista','Teatro Oficina — SP','2022') + '\n' + \
-credit('A Ópera do Malandro','Elenco','Teatro Riachuelo — RJ','2021') + '\n' + \
-credit('Degraus','Protagonista','Teatro Sérgio Cardoso — SP','2019') + '''
-  </div>
-
-  <div class="sec-head">
-    <h2>No Foyer</h2>
-    <span class="note">Matérias com Marina Villas</span>
-  </div>
-  <div class="news-grid three">
-''' + news_cell('ph-1','Entrevista','O palco é o único lugar onde eu digo a verdade inteira','Jul 2026') + '\n' + \
-news_cell('ph-2','Crítica','Uma montagem que ousa reescrever o clássico — e acerta','Jun 2026') + '\n' + \
-news_cell('ph-3','Bastidores','O ensaio aberto que virou acontecimento','Mai 2026') + '''
+credit('Cabaré do Fim do Mundo','Solista','Teatro Oficina — SP','2022') + '''
   </div>
   <div class="ad-slot" data-ad-slot="3001"></div>
 </main>
@@ -1098,33 +1296,8 @@ def ficha(fn, nome):
       <span class="of">{fn}</span><span class="nm">{nome}</span><span class="ct"></span><span class="ar">→</span>
     </a>'''
 
-espetaculo_body = band('Enciclopédia — Espetáculo', 'A Cidade Cantada', 'Musical original — 2025 · Theatro Municipal, São Paulo · 2h10 com intervalo') + '''
+espetaculo_body = band('Enciclopédia — Espetáculo', 'A Cidade Cantada', 'Musical original — 2025 · Theatro Municipal, São Paulo') + '''
 <main class="wrap">
-  <div class="fp-grid" style="margin-top:26px">
-    <div class="manchete">
-      <span class="ph cover"><svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#ph-2"/></svg><span class="ph-cap">Foto — Divulgação</span></span>
-      <div class="manchete-body">
-        <div class="tags"><span class="tag wine">Em cartaz</span><span class="tag">Dramaturgia original</span></div>
-        <p class="dek">Uma cidade que amanhece cantando: o musical que transformou a crônica urbana paulistana em partitura, com 14 números originais e um elenco de 22 artistas em cena.</p>
-        <div class="foot">
-          <span>Temporada até 28 de setembro de 2026</span>
-          <a href="agenda.html" class="ler">Ver sessões →</a>
-        </div>
-      </div>
-    </div>
-    <aside class="giro">
-      <div class="giro-head"><span>Ficha rápida</span></div>
-      <div class="giro-list">
-        <span class="giro-item"><span class="t">Estreia</span><span class="h">14 de março de 2025</span></span>
-        <span class="giro-item"><span class="t">Teatro</span><span class="h">Theatro Municipal — São Paulo</span></span>
-        <span class="giro-item"><span class="t">Duração</span><span class="h">2h10 — com intervalo</span></span>
-        <span class="giro-item"><span class="t">Elenco</span><span class="h">22 artistas em cena</span></span>
-        <span class="giro-item"><span class="t">Números</span><span class="h">14 canções originais</span></span>
-      </div>
-      <a class="giro-more" href="critica.html">Ler a crítica do Foyer →</a>
-    </aside>
-  </div>
-
   <div class="sec-head">
     <h2>Ficha técnica</h2>
     <span class="note">Cada nome é clicável — veja a trajetória completa</span>
@@ -1137,9 +1310,7 @@ espetaculo_body = band('Enciclopédia — Espetáculo', 'A Cidade Cantada', 'Mus
 ficha('Direção','Téo Andrade') + '\n' + \
 ficha('Coreografia','Lúcia Ferrante') + '\n' + \
 ficha('Desenho de luz','Bia Camargo') + '\n' + \
-ficha('Direção musical','Caio Bezerra') + '\n' + \
-ficha('Cenografia','Otávio Lins') + '\n' + \
-ficha('Figurino','Sofia Rezende') + '''
+ficha('Direção musical','Caio Bezerra') + '''
   </div>
   <div class="ad-slot" data-ad-slot="3002"></div>
 </main>
@@ -1147,7 +1318,7 @@ ficha('Figurino','Sofia Rezende') + '''
 
 # ---------------------------------------------------------------- BUSCA
 
-busca_body = band('Ferramenta', 'Buscar', 'Todo o acervo do Foyer — 1.514 matérias, artistas e espetáculos') + """
+busca_body = band('Ferramenta', 'Buscar', 'Todo o acervo do Foyer — 1.514 matérias, artistas e espetáculos') + '''
 <main class="wrap">
   <form class="ency-search" style="border-top:var(--b); margin-top:26px" onsubmit="return false;">
     <input type="search" id="q" placeholder="Digite: espetáculo, artista, teatro…" aria-label="Buscar no site" autofocus>
@@ -1180,7 +1351,7 @@ busca_body = band('Ferramenta', 'Buscar', 'Todo o acervo do Foyer — 1.514 mat�
   q.addEventListener('input', render);
 })();
 </script>
-"""
+'''
 
 # ---------------------------------------------------------------- PRIVACIDADE
 
@@ -1189,20 +1360,14 @@ privacidade_body = band('Institucional', 'Política de Privacidade', 'Última at
   <div class="legal">
     <h2>Quem somos</h2>
     <p>O FOYER (foyer.digital) é um portal de jornalismo cultural dedicado ao teatro, à música e às artes no Brasil, com sede em São Paulo, SP.</p>
-
     <h2>Dados que coletamos</h2>
-    <p>Coletamos apenas os dados necessários para operar o site: o e-mail e o nome informados voluntariamente no cadastro da newsletter, e dados anônimos de navegação (páginas visitadas, tipo de dispositivo) usados para melhorar o conteúdo.</p>
-
+    <p>Coletamos apenas os dados necessários para operar o site: o e-mail e o nome informados voluntariamente no cadastro da newsletter, e dados anônimos de navegação usados para melhorar o conteúdo.</p>
     <h2>Newsletter</h2>
     <p>O e-mail cadastrado é usado exclusivamente para o envio da Revista do Foyer. Não vendemos nem compartilhamos a lista com terceiros. Todo envio traz um link de cancelamento imediato.</p>
-
     <h2>Cookies e publicidade</h2>
-    <p>O site exibe anúncios fornecidos por terceiros, incluindo o Google AdSense. Esses serviços podem usar cookies para exibir anúncios baseados em visitas anteriores a este e a outros sites. Você pode desativar a publicidade personalizada nas <a href="https://adssettings.google.com" target="_blank" rel="noopener">configurações de anúncios do Google</a>.</p>
-    <p>O cookie DART do Google permite a exibição de anúncios com base na sua navegação. Você pode desativá-lo na <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener">política de privacidade da rede de conteúdo do Google</a>.</p>
-
+    <p>O site exibe anúncios fornecidos por terceiros, incluindo o Google AdSense. Esses serviços podem usar cookies para exibir anúncios baseados em visitas anteriores. Você pode desativar a publicidade personalizada nas <a href="https://adssettings.google.com" target="_blank" rel="noopener">configurações de anúncios do Google</a>.</p>
     <h2>Seus direitos (LGPD)</h2>
-    <p>Nos termos da Lei Geral de Proteção de Dados (Lei nº 13.709/2018), você pode solicitar a qualquer momento o acesso, a correção ou a exclusão dos seus dados pessoais. Basta escrever para o e-mail de contato abaixo.</p>
-
+    <p>Nos termos da Lei nº 13.709/2018, você pode solicitar a qualquer momento o acesso, a correção ou a exclusão dos seus dados pessoais pelo e-mail de contato abaixo.</p>
     <h2>Contato</h2>
     <p>Dúvidas sobre esta política: <b>contato@foyer.digital</b></p>
   </div>
@@ -1211,8 +1376,82 @@ privacidade_body = band('Institucional', 'Política de Privacidade', 'Última at
 
 # ---------------------------------------------------------------- MATÉRIAS REAIS (importadas do Wix)
 import json as _json, re as _re
+from datetime import datetime, timezone
 
 MATERIAS = _json.load(open(os.path.join(ROOT, 'import/materias.json')))
+
+# ---- matérias criadas na Coxia (publica as que chegaram na hora marcada)
+_MESES_PT = ['janeiro','fevereiro','março','abril','maio','junho','julho',
+             'agosto','setembro','outubro','novembro','dezembro']
+
+def md_lite(txt):
+    """Formato simples da Coxia -> HTML: parágrafos, ## intertítulo,
+    > citação, **negrito**, *itálico*, [texto](url), img:URL | legenda"""
+    import html as _h
+    out = []
+    for bloco in _re.split(r'\n\s*\n', txt.strip()):
+        b = bloco.strip()
+        if not b:
+            continue
+        if b.startswith('img:'):
+            resto = b[4:].strip()
+            url, _, cap = resto.partition('|')
+            capt = f'<figcaption>{_h.escape(cap.strip())}</figcaption>' if cap.strip() else ''
+            out.append(f'<figure class="art-img"><img src="{_h.escape(url.strip())}" alt="" loading="lazy">{capt}</figure>')
+            continue
+        if b.startswith('## '):
+            out.append(f'<h2>{_h.escape(b[3:].strip())}</h2>')
+            continue
+        e = _h.escape(b)
+        e = _re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', e)
+        e = _re.sub(r'\*(.+?)\*', r'<em>\1</em>', e)
+        e = _re.sub(r'\[(.+?)\]\((https?://[^)]+)\)', r'<a href="\2" target="_blank" rel="noopener">\1</a>', e)
+        e = e.replace('\n', '<br>')
+        if b.startswith('&gt; ') or b.startswith('> '):
+            e = _re.sub(r'^(&gt;|>)\s*', '', e)
+            out.append(f'<blockquote class="pull">{e}</blockquote>')
+        else:
+            out.append(f'<p>{e}</p>')
+    return '\n'.join(out)
+
+_novas_dir = os.path.join(ROOT, 'import/novas')
+_agendadas = 0
+if os.path.isdir(_novas_dir):
+    _agora = datetime.now(timezone.utc).isoformat()
+    os.makedirs(os.path.join(ROOT, 'import/corpo'), exist_ok=True)
+    _novas = []
+    for _f in sorted(os.listdir(_novas_dir)):
+        if not _f.endswith('.json'):
+            continue
+        try:
+            _n = _json.load(open(os.path.join(_novas_dir, _f)))
+        except Exception:
+            continue
+        _pub = _n.get('publishAt') or ''
+        if _pub and _pub > _agora:
+            _agendadas += 1
+            continue
+        _slug = _n['slug']
+        _corpo = md_lite(_n.get('corpo', ''))
+        open(os.path.join(ROOT, 'import/corpo', _slug + '.html'), 'w').write(_corpo)
+        _txt = _re.sub(r'<[^>]+>', '', _corpo)
+        _desc = (_re.sub(r'\s+', ' ', _txt).strip()[:230] or _n.get('title',''))
+        _iso = (_pub or _agora)[:10]
+        _y, _mo, _dd = _iso.split('-')
+        _novas.append({
+            'title': _n['title'], 'slug': _slug, 'desc': _desc,
+            'cat': _n.get('cat', 'Notícia'), 'author': _n.get('author', 'Redação Foyer'),
+            'date': f'{int(_dd)} de {_MESES_PT[int(_mo)-1]} de {_y}',
+            'short': f'{_dd}.{_mo}', 'iso': _iso,
+            'img': _n.get('img', ''), 'url': '', 'min': max(1, len(_txt)//1100),
+        })
+    if _novas:
+        _slugs_novos = {x['slug'] for x in _novas}
+        MATERIAS = [_m for _m in MATERIAS if _m['slug'] not in _slugs_novos]
+        MATERIAS = sorted(_novas + MATERIAS, key=lambda x: x.get('iso',''), reverse=True)
+        print(f'• {len(_novas)} matéria(s) da Coxia no ar · {_agendadas} agendada(s) aguardando')
+    elif _agendadas:
+        print(f'• {_agendadas} matéria(s) agendada(s) aguardando a hora')
 
 _MES_N = {'Jan':'01','Feb':'02','Mar':'03','Apr':'04','May':'05','Jun':'06',
           'Jul':'07','Aug':'08','Sep':'09','Oct':'10','Nov':'11','Dec':'12'}
