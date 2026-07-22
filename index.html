@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Foyer.Digital — portal de teatro, música e cultura. Notícias, crítica, programas e a Enciclopédia do Teatro Musical Brasileiro.">
+<title>FOYER — Portal de Teatro, Cultura e Arte</title>
+<style>
+  /* ============================================================
+     FOYER — protótipo de home (jornal de arte)
+     Direção: o saguão do teatro. Cortina, latão, luz de refletor.
+     ============================================================ */
+
+  :root{
+    --paper:      #F1EBDC;
+    --paper-2:    #E7DECB;
+    --ink:        #17120E;
+    --ink-soft:   #5E574B;
+    --red:        #C42A21;
+    --oxblood:    #380E11;
+    --brass:      #A57C2C;
+    --line:       #D8CDB6;
+    --spot:       rgba(214,178,92,.28);
+    --shadow:     rgba(23,18,14,.14);
+
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', Cambria, serif;
+    --sans:  'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --cond:  'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
+
+    --wrap: 1200px;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:   #141009;
+      --paper-2: #1D1810;
+      --ink:     #F0E9D8;
+      --ink-soft:#A69C88;
+      --red:     #E8483B;
+      --oxblood: #240A0C;
+      --brass:   #D5A948;
+      --line:    #2C2519;
+      --spot:    rgba(213,169,72,.16);
+      --shadow:  rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="light"]{
+    --paper:#F1EBDC; --paper-2:#E7DECB; --ink:#17120E; --ink-soft:#5E574B;
+    --red:#C42A21; --oxblood:#380E11; --brass:#A57C2C; --line:#D8CDB6;
+    --spot:rgba(214,178,92,.28); --shadow:rgba(23,18,14,.14);
+  }
+  :root[data-theme="dark"]{
+    --paper:#141009; --paper-2:#1D1810; --ink:#F0E9D8; --ink-soft:#A69C88;
+    --red:#E8483B; --oxblood:#240A0C; --brass:#D5A948; --line:#2C2519;
+    --spot:rgba(213,169,72,.16); --shadow:rgba(0,0,0,.5);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    line-height:1.5;
+    /* leve grão de papel */
+    background-image:
+      radial-gradient(120% 60% at 50% -10%, var(--spot), transparent 60%);
+    background-attachment:fixed;
+    transition:background-color .4s ease, color .4s ease;
+    overflow-x:hidden;
+  }
+  a{ color:inherit; text-decoration:none; }
+  img{ max-width:100%; display:block; }
+
+  .wrap{ width:100%; max-width:var(--wrap); margin:0 auto; padding:0 28px; }
+
+  .kicker{
+    font-family:var(--sans);
+    font-size:.66rem; font-weight:700;
+    letter-spacing:.22em; text-transform:uppercase;
+    color:var(--red);
+  }
+  .meta{
+    font-family:var(--sans);
+    font-size:.66rem; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- barra utilitária ---------- */
+  .util{
+    border-bottom:1px solid var(--line);
+    background:var(--paper);
+  }
+  .util .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:16px; min-height:38px;
+    font-family:var(--sans); font-size:.66rem; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--ink-soft);
+  }
+  .util .live{ display:inline-flex; align-items:center; gap:8px; color:var(--ink); }
+  .util .dot{
+    width:8px; height:8px; border-radius:50%; background:var(--red);
+    box-shadow:0 0 0 0 var(--red); animation:pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(196,42,33,.5); }
+    70%{ box-shadow:0 0 0 7px rgba(196,42,33,0); }
+    100%{ box-shadow:0 0 0 0 rgba(196,42,33,0); }
+  }
+  .util .right{ display:flex; gap:22px; align-items:center; }
+  .util a:hover{ color:var(--red); }
+  .theme-btn{
+    font-family:var(--sans); font-size:.66rem; letter-spacing:.14em;
+    text-transform:uppercase; background:none; border:1px solid var(--line);
+    color:var(--ink-soft); padding:5px 10px; cursor:pointer; border-radius:2px;
+    transition:.2s;
+  }
+  .theme-btn:hover{ border-color:var(--brass); color:var(--ink); }
+
+  /* ---------- masthead ---------- */
+  .masthead{ text-align:center; padding:30px 0 18px; position:relative; }
+  .masthead .rule{
+    height:2px; background:var(--ink); margin:0 auto 14px; max-width:var(--wrap);
+  }
+  .masthead .edition{
+    font-family:var(--sans); font-size:.62rem; letter-spacing:.34em;
+    text-transform:uppercase; color:var(--ink-soft); margin-bottom:12px;
+  }
+  .wordmark{
+    font-family:var(--serif); font-weight:700;
+    font-size:clamp(3.6rem, 13vw, 9.2rem);
+    line-height:.82; letter-spacing:-.02em; margin:0;
+    display:inline-block; position:relative;
+  }
+  .wordmark .o-spot{ color:var(--red); }
+  .tagline{
+    font-family:var(--cond); font-style:italic; font-size:clamp(.9rem,2.4vw,1.15rem);
+    letter-spacing:.02em; color:var(--ink-soft); margin-top:14px;
+  }
+
+  /* ---------- nav ---------- */
+  nav.main{
+    border-top:1px solid var(--line);
+    border-bottom:2px solid var(--ink);
+    background:var(--paper);
+    position:sticky; top:0; z-index:40;
+  }
+  nav.main .wrap{
+    display:flex; justify-content:center; flex-wrap:wrap; gap:2px;
+  }
+  nav.main a{
+    font-family:var(--sans); font-size:.72rem; font-weight:700;
+    letter-spacing:.16em; text-transform:uppercase;
+    padding:14px 20px; position:relative; color:var(--ink);
+    transition:color .2s;
+  }
+  nav.main a::after{
+    content:''; position:absolute; left:20px; right:20px; bottom:8px; height:2px;
+    background:var(--red); transform:scaleX(0); transform-origin:left;
+    transition:transform .25s ease;
+  }
+  nav.main a:hover{ color:var(--red); }
+  nav.main a:hover::after{ transform:scaleX(1); }
+  nav.main a.on{ color:var(--red); }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding:44px 0 10px; }
+  .hero-grid{
+    display:grid; grid-template-columns:1.55fr 1fr; gap:48px; align-items:start;
+  }
+  .lead .cat{ margin-bottom:14px; display:inline-block; }
+  .lead h1{
+    font-family:var(--serif); font-weight:700;
+    font-size:clamp(2.2rem, 5.4vw, 4.4rem); line-height:1.02;
+    letter-spacing:-.015em; margin:.1em 0 .35em; text-wrap:balance;
+  }
+  .lead h1 a:hover{ color:var(--red); }
+  .lead .dek{
+    font-size:clamp(1.05rem,1.6vw,1.3rem); color:var(--ink-soft);
+    max-width:44ch; margin-bottom:20px;
+  }
+  .byline{ font-family:var(--sans); font-size:.72rem; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--ink-soft); }
+  .byline b{ color:var(--red); font-weight:700; }
+
+  /* palco visual — refletor sobre cortina, feito em CSS */
+  .stage{
+    position:relative; aspect-ratio:4/5; border-radius:3px; overflow:hidden;
+    background:
+      radial-gradient(80% 55% at 50% 0%, rgba(255,225,150,.55), transparent 60%),
+      repeating-linear-gradient(90deg, var(--oxblood) 0 14px, #2c0b0e 14px 28px);
+    box-shadow:0 30px 60px -30px var(--shadow);
+    border:1px solid var(--line);
+  }
+  .stage::before{
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(60% 40% at 50% 42%, rgba(255,231,168,.35), transparent 70%);
+    mix-blend-mode:screen;
+  }
+  .stage .figure{
+    position:absolute; left:50%; bottom:8%; transform:translateX(-50%);
+    font-family:var(--serif); font-weight:700; font-size:clamp(3rem,9vw,6rem);
+    color:#f4e3b0; text-shadow:0 4px 24px rgba(0,0,0,.5); opacity:.9;
+    letter-spacing:-.03em;
+  }
+  .stage .cap{
+    position:absolute; left:14px; bottom:12px; color:#e9dcb8;
+    font-family:var(--sans); font-size:.6rem; letter-spacing:.14em;
+    text-transform:uppercase; opacity:.85;
+  }
+
+  .hero-side{ border-left:1px solid var(--line); padding-left:26px; }
+  .hero-side h3{
+    font-family:var(--sans); font-size:.7rem; font-weight:700; letter-spacing:.2em;
+    text-transform:uppercase; color:var(--ink); margin:0 0 4px;
+    padding-bottom:10px; border-bottom:2px solid var(--ink);
+  }
+  .brief{ padding:16px 0; border-bottom:1px solid var(--line); }
+  .brief:last-child{ border-bottom:0; }
+  .brief .kicker{ font-size:.6rem; }
+  .brief h4{
+    font-family:var(--serif); font-weight:700; font-size:1.12rem; line-height:1.15;
+    margin:6px 0 4px;
+  }
+  .brief h4 a:hover{ color:var(--red); }
+  .brief p{ margin:0; font-size:.9rem; color:var(--ink-soft); }
+
+  /* ---------- faixa de seção ---------- */
+  .band-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:20px;
+    border-bottom:2px solid var(--ink); padding-bottom:10px; margin:56px 0 26px;
+  }
+  .band-head h2{
+    font-family:var(--serif); font-weight:700; font-size:clamp(1.5rem,3vw,2.1rem);
+    margin:0; letter-spacing:-.01em;
+  }
+  .band-head .more{
+    font-family:var(--sans); font-size:.68rem; font-weight:700; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--red);
+  }
+  .band-head .more:hover{ text-decoration:underline; text-underline-offset:3px; }
+
+  /* ---------- grade Em Cartaz ---------- */
+  .cards{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line);
+  }
+  .card{
+    background:var(--paper); padding:22px 20px 26px;
+    display:flex; flex-direction:column; gap:8px; min-height:260px;
+    transition:background .25s;
+  }
+  .card:hover{ background:var(--paper-2); }
+  .card .num{
+    font-family:var(--cond); font-size:.8rem; letter-spacing:.1em; color:var(--brass);
+    font-weight:700;
+  }
+  .card h3{
+    font-family:var(--serif); font-weight:700; font-size:1.28rem; line-height:1.12;
+    margin:2px 0 0;
+  }
+  .card:hover h3{ color:var(--red); }
+  .card p{ font-size:.86rem; color:var(--ink-soft); margin:0; }
+  .card .foot{
+    margin-top:auto; font-family:var(--sans); font-size:.62rem; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--ink-soft);
+  }
+
+  /* ---------- PROGRAMAS (faixa escura / cortina) ---------- */
+  .programas{
+    margin-top:64px; background:var(--oxblood); color:#f2e6c9;
+    padding:52px 0 60px; position:relative;
+    background-image:
+      radial-gradient(90% 50% at 50% 0%, rgba(255,220,140,.10), transparent 55%),
+      repeating-linear-gradient(90deg, rgba(0,0,0,.16) 0 3px, transparent 3px 26px);
+  }
+  .programas .band-head{ border-color:rgba(242,230,201,.4); }
+  .programas .band-head h2{ color:#fff; }
+  .programas .band-head .eyebrow{ color:var(--brass); }
+  .programas .band-head .more{ color:var(--brass); }
+  .prog-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:18px; }
+  .show{
+    border:1px solid rgba(242,230,201,.22); border-radius:3px;
+    padding:20px 16px 18px; display:flex; flex-direction:column; gap:14px;
+    min-height:210px; transition:.25s; background:rgba(0,0,0,.12);
+  }
+  .show:hover{ background:rgba(0,0,0,.3); transform:translateY(-3px); border-color:var(--brass); }
+  .play{
+    width:38px; height:38px; border-radius:50%; border:1.5px solid var(--brass);
+    display:grid; place-items:center; color:var(--brass); transition:.25s;
+  }
+  .show:hover .play{ background:var(--brass); color:var(--oxblood); }
+  .play svg{ width:14px; height:14px; margin-left:2px; }
+  .show h3{
+    font-family:var(--serif); font-weight:700; font-size:1.22rem; line-height:1.08;
+    margin:auto 0 0;
+  }
+  .show p{ margin:0; font-size:.8rem; color:rgba(242,230,201,.7); }
+  .show .tag{
+    font-family:var(--sans); font-size:.58rem; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--brass);
+  }
+
+  /* ---------- ENCICLOPÉDIA ---------- */
+  .ency{ padding:64px 0 20px; }
+  .ency-grid{ display:grid; grid-template-columns:1fr 1.15fr; gap:52px; align-items:center; }
+  .ency-copy h2{
+    font-family:var(--serif); font-weight:700; font-size:clamp(1.9rem,4vw,3rem);
+    line-height:1.02; margin:.2em 0 .4em; letter-spacing:-.015em; text-wrap:balance;
+  }
+  .ency-copy .em{ color:var(--red); font-style:italic; }
+  .ency-copy p{ font-size:1.05rem; color:var(--ink-soft); max-width:46ch; margin:0 0 22px; }
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:var(--sans); font-size:.72rem; font-weight:700; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--paper); background:var(--ink);
+    padding:14px 22px; border-radius:2px; transition:.25s;
+  }
+  .btn:hover{ background:var(--red); }
+  .btn svg{ width:14px; height:14px; }
+
+  /* verbete de pessoa (estilo MCDB) */
+  .verbete{
+    background:var(--paper-2); border:1px solid var(--line); border-radius:4px;
+    padding:26px 26px 22px; box-shadow:0 24px 50px -34px var(--shadow);
+  }
+  .verbete .top{ display:flex; gap:18px; align-items:center; border-bottom:1px solid var(--line);
+    padding-bottom:18px; margin-bottom:18px; }
+  .avatar{
+    width:64px; height:64px; border-radius:50%; flex:0 0 auto;
+    background:radial-gradient(circle at 35% 30%, var(--brass), var(--oxblood));
+    display:grid; place-items:center; color:#f4e3b0; font-family:var(--serif);
+    font-weight:700; font-size:1.6rem;
+  }
+  .verbete .who h3{ font-family:var(--serif); font-weight:700; font-size:1.5rem; margin:0; }
+  .verbete .who .role{ font-family:var(--sans); font-size:.66rem; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--ink-soft); margin-top:4px; }
+  .verbete .lbl{ font-family:var(--sans); font-size:.62rem; font-weight:700; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--brass); margin:0 0 10px; }
+  .credits{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
+  .credits li{
+    display:flex; justify-content:space-between; gap:14px; padding:9px 0;
+    border-bottom:1px dotted var(--line); font-size:.95rem;
+  }
+  .credits li:last-child{ border-bottom:0; }
+  .credits .prod{ font-weight:600; }
+  .credits .prod:hover{ color:var(--red); text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
+  .credits .yr{ font-family:var(--cond); color:var(--ink-soft); font-size:.85rem; }
+  .credits .fn{ color:var(--ink-soft); font-size:.82rem; }
+  .credits .fn b{ color:var(--red); font-weight:600; }
+  .hint{ font-family:var(--sans); font-size:.62rem; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--ink-soft); margin-top:16px; display:flex; align-items:center; gap:8px; }
+  .hint::before{ content:''; width:16px; height:1px; background:var(--brass); }
+
+  /* ---------- newsletter ---------- */
+  .news{
+    margin-top:60px; border-top:2px solid var(--ink); border-bottom:2px solid var(--ink);
+    padding:44px 0; text-align:center;
+  }
+  .news h2{ font-family:var(--serif); font-weight:700; font-size:clamp(1.6rem,3.4vw,2.4rem);
+    margin:0 0 8px; }
+  .news p{ color:var(--ink-soft); margin:0 0 22px; }
+  .signup{ display:flex; gap:0; max-width:440px; margin:0 auto; }
+  .signup input{
+    flex:1; border:1.5px solid var(--ink); border-right:0; background:var(--paper);
+    color:var(--ink); padding:14px 16px; font-family:var(--sans); font-size:.85rem;
+  }
+  .signup input:focus{ outline:2px solid var(--brass); outline-offset:-2px; }
+  .signup button{
+    border:1.5px solid var(--ink); background:var(--ink); color:var(--paper);
+    font-family:var(--sans); font-weight:700; font-size:.72rem; letter-spacing:.14em;
+    text-transform:uppercase; padding:0 22px; cursor:pointer; transition:.2s;
+  }
+  .signup button:hover{ background:var(--red); border-color:var(--red); }
+
+  /* ---------- footer ---------- */
+  footer{ padding:52px 0 40px; }
+  .foot-grid{ display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:34px; }
+  .foot-brand .wm{ font-family:var(--serif); font-weight:700; font-size:2.2rem; line-height:1; }
+  .foot-brand .wm span{ color:var(--red); }
+  .foot-brand p{ color:var(--ink-soft); font-size:.9rem; max-width:34ch; margin:12px 0 0; }
+  .foot-col h4{ font-family:var(--sans); font-size:.66rem; font-weight:700; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--ink); margin:0 0 14px; }
+  .foot-col a{ display:block; color:var(--ink-soft); font-size:.9rem; padding:5px 0; }
+  .foot-col a:hover{ color:var(--red); }
+  .foot-bottom{
+    margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-family:var(--sans); font-size:.64rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- responsivo ---------- */
+  @media (max-width:960px){
+    .hero-grid{ grid-template-columns:1fr; gap:34px; }
+    .hero-side{ border-left:0; padding-left:0; border-top:1px solid var(--line); padding-top:20px; }
+    .cards{ grid-template-columns:repeat(2,1fr); }
+    .prog-grid{ grid-template-columns:repeat(2,1fr); }
+    .ency-grid{ grid-template-columns:1fr; gap:34px; }
+    .foot-grid{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:560px){
+    .wrap{ padding:0 18px; }
+    .cards{ grid-template-columns:1fr; }
+    .prog-grid{ grid-template-columns:1fr; }
+    .foot-grid{ grid-template-columns:1fr; }
+    nav.main a{ padding:12px 12px; font-size:.66rem; }
+    .util .right .hide-sm{ display:none; }
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+
+  .sample-note{
+    font-family:var(--sans); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--ink-soft); text-align:center; padding:14px 0 0; opacity:.7;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== BARRA UTILITÁRIA ===================== -->
+<div class="util">
+  <div class="wrap">
+    <span class="live"><span class="dot"></span> Ao vivo no YouTube · <b id="showname">Programa do Foyer</b></span>
+    <div class="right">
+      <span class="hide-sm" id="today">Quarta, 22 de julho de 2026 — São Paulo</span>
+      <a href="#" class="hide-sm">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Modo palco</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MASTHEAD ===================== -->
+<header class="masthead">
+  <div class="wrap">
+    <div class="edition">Edição diária · Ano I · Nº 214 · Teatro · Música · Cultura</div>
+    <h1 class="wordmark">F<span class="o-spot">O</span>YER</h1>
+    <div class="tagline">O saguão do teatro brasileiro — notícia, crítica e as pessoas que fazem o palco acontecer</div>
+  </div>
+</header>
+
+<!-- ===================== NAV ===================== -->
+<nav class="main">
+  <div class="wrap">
+    <a href="#" class="on">Início</a>
+    <a href="#cartaz">Em Cartaz</a>
+    <a href="#">Crítica</a>
+    <a href="#programas">Programas</a>
+    <a href="#enciclopedia">Enciclopédia</a>
+    <a href="#">Agenda</a>
+    <a href="#">Entrevistas</a>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <article class="lead">
+      <span class="kicker cat">Estreia · Teatro Musical</span>
+      <h1><a href="#">A temporada em que o musical brasileiro decidiu contar as próprias histórias</a></h1>
+      <p class="dek">De biografias a fábulas urbanas, as grandes produções da estação abandonam a tradução literal da Broadway para inventar uma dramaturgia com sotaque nacional — e o público respondeu com casas lotadas.</p>
+      <div class="byline">Por <b>Redação Foyer</b> · Reportagem &amp; Crítica · 8 min de leitura</div>
+    </article>
+
+    <div>
+      <div class="stage" role="img" aria-label="Ilustração de um refletor sobre a cortina de um teatro">
+        <div class="figure">✦</div>
+        <span class="cap">O foyer antes da terceira chamada</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap hero-grid" style="margin-top:36px;">
+    <div></div>
+    <aside class="hero-side">
+      <h3>O dia no palco</h3>
+      <div class="brief">
+        <span class="kicker">Bilheteria</span>
+        <h4><a href="#">Turnê nacional esgota primeiro lote em 40 minutos</a></h4>
+        <p>Demanda recoloca o interior no mapa das grandes montagens.</p>
+      </div>
+      <div class="brief">
+        <span class="kicker">Prêmios</span>
+        <h4><a href="#">Os indicados que ninguém viu chegar</a></h4>
+        <p>A lista completa e a análise categoria por categoria.</p>
+      </div>
+      <div class="brief">
+        <span class="kicker">Bastidores</span>
+        <h4><a href="#">A profissão invisível: quem desenha a luz do espetáculo</a></h4>
+        <p>Um ofício que decide o que a plateia enxerga — e o que não.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ===================== EM CARTAZ ===================== -->
+<section id="cartaz">
+  <div class="wrap">
+    <div class="band-head">
+      <h2>Em Cartaz</h2>
+      <a href="#" class="more">Toda a cobertura →</a>
+    </div>
+    <div class="cards">
+      <a class="card" href="#">
+        <span class="num">01 — Reportagem</span>
+        <h3>O renascimento dos teatros de rua em São Paulo</h3>
+        <p>Coletivos reocupam a cidade e recolocam a arte fora da caixa preta.</p>
+        <span class="foot">Cultura · há 2 h</span>
+      </a>
+      <a class="card" href="#">
+        <span class="num">02 — Crítica</span>
+        <h3>Uma montagem que ousa reescrever o clássico — e acerta</h3>
+        <p>A leitura contemporânea encontra o texto sem trair a sua alma.</p>
+        <span class="foot">Crítica · há 5 h</span>
+      </a>
+      <a class="card" href="#">
+        <span class="num">03 — Perfil</span>
+        <h3>A atriz que trocou a televisão pelo teatro de câmara</h3>
+        <p>Conversa sobre risco, silêncio e o que sobra depois dos aplausos.</p>
+        <span class="foot">Entrevista · ontem</span>
+      </a>
+      <a class="card" href="#">
+        <span class="num">04 — Agenda</span>
+        <h3>Dez estreias para não perder neste mês nas capitais</h3>
+        <p>Do experimental ao grande musical: o guia curado da redação.</p>
+        <span class="foot">Agenda · ontem</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROGRAMAS ===================== -->
+<section id="programas" class="programas">
+  <div class="wrap">
+    <div class="band-head">
+      <div>
+        <span class="kicker eyebrow" style="color:var(--brass)">No YouTube &amp; no Spotify · Novos episódios toda semana</span>
+        <h2>Os Programas do Foyer</h2>
+      </div>
+      <a href="#" class="more">Inscreva-se no canal →</a>
+    </div>
+
+    <div class="prog-grid">
+      <a class="show" href="#">
+        <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="tag">Talk · Bastidores</span>
+        <h3>Programa do Foyer</h3>
+        <p>Conversas com elencos e os bastidores do teatro musical.</p>
+      </a>
+      <a class="show" href="#">
+        <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="tag">Game Show</span>
+        <h3>Trivia Musical</h3>
+        <p>Artistas duelam no universo dos musicais. Quem sabe mais?</p>
+      </a>
+      <a class="show" href="#">
+        <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="tag">Papo · Astrologia</span>
+        <h3>Astro em Cena</h3>
+        <p>Astrologia e artes em conversas cheias de insights.</p>
+      </a>
+      <a class="show" href="#">
+        <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="tag">Economia Criativa</span>
+        <h3>Off Stage</h3>
+        <p>Tudo o que acontece fora dos palcos e move a cultura.</p>
+      </a>
+      <a class="show" href="#">
+        <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="tag">Coxia · Humor</span>
+        <h3>Coxixo de Coxia</h3>
+        <p>Um papo solto de quem vive o teatro por trás da cortina.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ENCICLOPÉDIA ===================== -->
+<section id="enciclopedia" class="ency">
+  <div class="wrap ency-grid">
+    <div class="ency-copy">
+      <span class="kicker">Projeto Foyer · Memória viva</span>
+      <h2>A <span class="em">Enciclopédia</span> do Teatro Musical Brasileiro</h2>
+      <p>Um mapa aberto de todos os espetáculos, elencos e equipes criativas do país. Clique em qualquer nome e veja a trajetória inteira da pessoa — cada papel, cada estreia, cada ficha técnica.</p>
+      <a class="btn" href="#">
+        Explorar a enciclopédia
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="verbete">
+      <div class="top">
+        <div class="avatar">M</div>
+        <div class="who">
+          <h3>Marina Villas</h3>
+          <div class="role">Atriz · Cantora · Diretora musical</div>
+        </div>
+      </div>
+      <p class="lbl">Trajetória — 12 produções</p>
+      <ul class="credits">
+        <li>
+          <span><span class="prod">A Cidade Cantada</span> <span class="fn">— Protagonista</span></span>
+          <span class="yr">2025</span>
+        </li>
+        <li>
+          <span><span class="prod">Rua de Baixo, o Musical</span> <span class="fn">— Direção musical · <b>com Téo Andrade</b></span></span>
+          <span class="yr">2024</span>
+        </li>
+        <li>
+          <span><span class="prod">Noturno</span> <span class="fn">— Elenco</span></span>
+          <span class="yr">2023</span>
+        </li>
+        <li>
+          <span><span class="prod">Cabaré do Fim do Mundo</span> <span class="fn">— Solista</span></span>
+          <span class="yr">2022</span>
+        </li>
+      </ul>
+      <div class="hint">Todos os nomes são clicáveis — siga o fio de qualquer artista</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NEWSLETTER ===================== -->
+<section class="news">
+  <div class="wrap">
+    <span class="kicker">A newsletter do Foyer</span>
+    <h2>O melhor da cena, toda sexta, na sua caixa</h2>
+    <p>Estreias, críticas e os bastidores que só a gente conta.</p>
+    <form class="signup" onsubmit="return false;">
+      <input type="email" placeholder="seu@email.com" aria-label="Seu e-mail" />
+      <button type="submit">Assinar</button>
+    </form>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="wm">F<span>O</span>YER</div>
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco. Arte, cultura e entretenimento.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="#">Em Cartaz</a>
+        <a href="#">Crítica</a>
+        <a href="#">Entrevistas</a>
+        <a href="#">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="#">Programa do Foyer</a>
+        <a href="#">Trivia Musical</a>
+        <a href="#">Astro em Cena</a>
+        <a href="#">Off Stage</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="#">Enciclopédia</a>
+        <a href="#">Sobre nós</a>
+        <a href="#">YouTube</a>
+        <a href="#">Spotify · Instagram</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>Feito para quem ama o teatro</span>
+    </div>
+  </div>
+  <div class="sample-note">Protótipo de direção de arte — textos e dados são ilustrativos</div>
+</footer>
+
+<script>
+  // tema: alterna palco (escuro) / plateia (claro)
+  (function(){
+    var root = document.documentElement;
+    var btn = document.getElementById('theme');
+    function current(){
+      var t = root.getAttribute('data-theme');
+      if(t) return t;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    function apply(t){
+      root.setAttribute('data-theme', t);
+      btn.textContent = (t === 'dark') ? 'Modo plateia' : 'Modo palco';
+    }
+    apply(current());
+    btn.addEventListener('click', function(){
+      apply(current() === 'dark' ? 'light' : 'dark');
+    });
+  })();
+
+  // data de hoje em português
+  (function(){
+    try{
+      var dias = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+      var meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+      var d = new Date();
+      var el = document.getElementById('today');
+      if(el) el.textContent = dias[d.getDay()] + ', ' + d.getDate() + ' de ' + meses[d.getMonth()] + ' de ' + d.getFullYear() + ' — São Paulo';
+    }catch(e){}
+  })();
+
+  // rotaciona o nome do programa "ao vivo"
+  (function(){
+    var shows = ['Programa do Foyer','Trivia Musical','Astro em Cena','Off Stage','Coxixo de Coxia'];
+    var i = 0, el = document.getElementById('showname');
+    if(!el) return;
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    setInterval(function(){ i = (i+1) % shows.length; el.textContent = shows[i]; }, 3200);
+  })();
+</script>
+</body>
+</html>
