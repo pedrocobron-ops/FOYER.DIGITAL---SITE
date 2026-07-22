@@ -1,0 +1,83 @@
+{
+ "numero": 1,
+ "titulo": "Edição de estreia",
+ "dataEdicao": "22 Jul 2026",
+ "status": "rascunho",
+ "capa": {
+  "img": "https://static.wixstatic.com/media/dbc9d1_ae9fe59ce9c342739f77b7417cd081a2~mv2.jpg",
+  "manchete": "A semana em cartaz",
+  "chamadas": [
+   "A estreia da nossa revista semanal",
+   "Luisa Thiré apresenta “Valsa Nº 6”, de Nelson Rodrigues, no Teatro Are",
+   "Palco de honra: as mais lidas da semana"
+  ]
+ },
+ "paginas": [
+  {
+   "tipo": "editorial",
+   "titulo": "Carta ao leitor — a estreia da nossa revista",
+   "texto": "O FOYER sempre foi feito de urgência: a notícia de hoje, a crítica da estreia, a agenda da semana. A revista nasce do movimento contrário — parar, escolher e fechar. Uma vez por semana, uma edição com começo, meio e fim: o melhor do site, conteúdo exclusivo, os cartazes do que está em cartaz e uma citação para levar no bolso.\n\nEsta é a edição número 1 — montada como rascunho para a direção lapidar. As próximas fecham toda sexta.\n\nBoa leitura. E boa temporada.",
+   "assinatura": "A direção do FOYER"
+  },
+  {
+   "tipo": "materia",
+   "slug": "luisa-thire-apresenta-valsa-no-6-de-nelson-rodrigues-no-teatro-arena-b3",
+   "cat": "Teatro",
+   "img": "https://static.wixstatic.com/media/dbc9d1_ae9fe59ce9c342739f77b7417cd081a2~mv2.jpg",
+   "titulo": "Luisa Thiré apresenta “Valsa Nº 6”, de Nelson Rodrigues, no Teatro Arena B3",
+   "chamada": "Um dos textos mais conhecidos de Nelson Rodrigues chega ao Teatro Arena B3 em temporada relâmpago. Nos dias 25 e 26 de julho, Luisa Thiré apresenta o monólogo “Valsa Nº 6”, com dir",
+   "texto": ""
+  },
+  {
+   "tipo": "materia",
+   "slug": "os-ultimos-5-anos-volta-a-sao-paulo-em-edicao-comemorativa-pelos-25-anos-do-musi",
+   "cat": "Teatro",
+   "img": "https://static.wixstatic.com/media/dbc9d1_d35892ca2a1a45399f79826bebf6a150~mv2.jpg",
+   "titulo": "\"Os Últimos 5 Anos” volta a São Paulo em edição comemorativa pelos 25 anos do musical",
+   "chamada": "A montagem brasileira de “Os Últimos 5 Anos” volta aos palcos paulistanos em outubro, em uma edição comemorativa pelos 25 anos de “The Last Five Years”, musical de Jason Robert Bro",
+   "texto": ""
+  },
+  {
+   "tipo": "materia",
+   "slug": "rosamaria-murtinho-vive-iris-apfel-em-uma-vida-em-cores-no-teatro-vannucci",
+   "cat": "Teatro",
+   "img": "https://static.wixstatic.com/media/dbc9d1_66ceb6a062c0422099c44e3c938e93ce~mv2.jpg",
+   "titulo": "Rosamaria Murtinho vive Iris Apfel em “Uma Vida em Cores” no Teatro Vannucci",
+   "chamada": "Aos 93 anos, Rosamaria Murtinho volta ao palco para interpretar Iris Apfel, empresária, designer de interiores e ícone de estilo que se tornou referência mundial por sua liberdade ",
+   "texto": ""
+  },
+  {
+   "tipo": "materia",
+   "slug": "manifesto-estreia-na-funarte-sp-com-lee-taylor-e-direcao-de-georgette-fadel",
+   "cat": "Teatro",
+   "img": "https://static.wixstatic.com/media/dbc9d1_35c3985bc8f0441b8e287588fe75dd34~mv2.jpg",
+   "titulo": "“MANIFESTO” estreia na Funarte SP com Lee Taylor e direção de Georgette Fadel",
+   "chamada": "O que acontece quando alguém decide interromper o fluxo esperado da própria vida? Em “MANIFESTO”, espetáculo inspirado na trajetória e nas ideias de Eduardo Marinho, essa pergunta ",
+   "texto": ""
+  },
+  {
+   "tipo": "materia",
+   "slug": "brasil-em-revista-revisita-a-historia-do-pais-pelo-olhar-da-resistencia-popular",
+   "cat": "Teatro",
+   "img": "https://static.wixstatic.com/media/dbc9d1_f6bfed958109484ea97dae2a080f4421~mv2.jpg",
+   "titulo": "“Brasil em Revista” revisita a história do país pelo olhar da resistência popular",
+   "chamada": "Quem conta a história do Brasil? Em “Brasil em Revista”, novo espetáculo musical do CPC-UMES, a pergunta conduz uma travessia por mais de cinco séculos de formação do país a partir",
+   "texto": ""
+  },
+  {
+   "tipo": "citacao",
+   "frase": "A coxia ensina mais do que qualquer escola",
+   "autor": "Máxima de camarim — patrimônio oral do teatro brasileiro"
+  },
+  {
+   "tipo": "expediente"
+  }
+ ],
+ "historico": [
+  {
+   "quando": "2026-07-22T22:58:59.388175+00:00",
+   "quem": "Redação IA (Claude)",
+   "acao": "monta o rascunho da edição de estreia (9 páginas)"
+  }
+ ]
+}

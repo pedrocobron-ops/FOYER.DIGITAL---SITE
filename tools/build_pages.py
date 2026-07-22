@@ -1467,6 +1467,242 @@ def post_page(i, p):
 </main>
 """
 
+# ---------------------------------------------------------------- REVISTA (edições reais)
+import html as _html
+
+def _rvesc(s):
+    return _html.escape(str(s or ''))
+
+EDICOES = []
+_ed_dir = os.path.join(ROOT, 'import/revista/edicoes')
+if os.path.isdir(_ed_dir):
+    for _f in sorted(os.listdir(_ed_dir)):
+        if _f.endswith('.json'):
+            try:
+                EDICOES.append(_json.load(open(os.path.join(_ed_dir, _f))))
+            except Exception:
+                pass
+EDICOES.sort(key=lambda e: e.get('numero', 0), reverse=True)
+ED_PUB = [e for e in EDICOES if e.get('status') == 'publicada']
+
+_RV_CSS = '''<style>
+.rv-stage{ max-width:900px; margin:26px auto 90px; padding:0 16px; }
+.rv-pg{ display:none; border:2.5px solid var(--ink); background:var(--paper); min-height:74vh;
+  position:relative; overflow:hidden; animation:rvin .3s ease; }
+.rv-pg.on{ display:block; }
+@keyframes rvin{ from{ opacity:0; transform:translateX(14px);} to{ opacity:1; transform:none;} }
+.rv-rotulo{ display:inline-block; font-family:var(--mono); font-size:.58rem; font-weight:600;
+  letter-spacing:.22em; text-transform:uppercase; border:1.5px solid var(--ink); padding:6px 12px;
+  margin-bottom:18px; background:var(--gold); color:var(--wine); }
+.rv-pad{ padding:clamp(22px,5vw,52px); }
+.rv-pg h3{ font-family:var(--didone); font-weight:400; font-size:clamp(1.6rem,3.6vw,2.6rem);
+  line-height:1.05; margin:0 0 18px; }
+.rv-pg .art-body p{ margin:0 0 14px; line-height:1.85; }
+.rv-capa{ background:var(--wine); color:var(--gold); }
+.rv-capa .rv-capa-top{ display:flex; justify-content:space-between; align-items:center; gap:12px;
+  padding:18px 24px; border-bottom:1.5px solid var(--gold); font-family:var(--mono); font-size:.6rem;
+  letter-spacing:.2em; text-transform:uppercase; flex-wrap:wrap; }
+.rv-capa img.rv-capa-img{ width:100%; max-height:44vh; object-fit:cover; display:block;
+  border-bottom:1.5px solid var(--gold); }
+.rv-capa .rv-manchete{ font-family:var(--didone); font-weight:400;
+  font-size:clamp(2rem,5.4vw,3.6rem); line-height:.98; padding:26px 24px 8px; margin:0; }
+.rv-capa .rv-chamadas{ list-style:none; margin:0; padding:10px 24px 28px; }
+.rv-capa .rv-chamadas li{ font-family:var(--mono); font-size:.72rem; letter-spacing:.08em;
+  text-transform:uppercase; padding:9px 0; border-top:1px solid rgba(206,178,106,.35); }
+.rv-img{ width:100%; max-height:46vh; object-fit:cover; display:block; border-bottom:2px solid var(--ink); }
+.rv-cred{ position:absolute; right:0; top:0; background:var(--ink); color:var(--gold);
+  font-family:var(--mono); font-size:.52rem; letter-spacing:.1em; text-transform:uppercase; padding:5px 10px; }
+.rv-cartaz{ display:flex; flex-direction:column; }
+.rv-cartaz img{ width:100%; flex:1; object-fit:contain; background:var(--paper-2); max-height:64vh; }
+.rv-cartaz .rv-leg{ padding:16px 22px; border-top:2px solid var(--ink); font-family:var(--mono);
+  font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; }
+.rv-citacao{ background:var(--wine); color:var(--gold); display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center; padding:8vh 8vw; }
+.rv-citacao .fr{ font-family:var(--didone); font-size:clamp(1.6rem,4.4vw,3rem); line-height:1.15; }
+.rv-citacao .au{ font-family:var(--mono); font-size:.64rem; letter-spacing:.2em;
+  text-transform:uppercase; margin-top:26px; }
+.rv-ass{ font-family:var(--mono); font-size:.66rem; letter-spacing:.14em; text-transform:uppercase;
+  margin-top:26px; }
+.rv-leia{ display:inline-block; margin-top:18px; border:2px solid var(--wine); background:var(--wine);
+  color:var(--gold); text-decoration:none; font-family:var(--mono); font-weight:600; font-size:.62rem;
+  letter-spacing:.16em; text-transform:uppercase; padding:12px 18px; }
+.rv-leia:hover{ background:var(--gold); color:var(--wine); border-color:var(--gold); }
+.rv-nav{ position:sticky; bottom:18px; display:flex; justify-content:center; gap:8px; margin-top:18px; }
+.rv-nav button{ border:2px solid var(--ink); background:var(--paper); color:var(--ink); cursor:pointer;
+  font-family:var(--mono); font-weight:600; font-size:.66rem; letter-spacing:.12em;
+  text-transform:uppercase; padding:13px 18px; }
+.rv-nav button:hover{ background:var(--ink); color:var(--gold); }
+.rv-nav .ct{ border:2px solid var(--ink); background:var(--gold); color:var(--wine);
+  font-family:var(--mono); font-weight:600; font-size:.66rem; letter-spacing:.12em; padding:13px 16px; }
+.rv-pat{ outline:6px double var(--gold); outline-offset:-14px; }
+@media print{
+  .rv-pg{ display:block !important; min-height:96vh; page-break-after:always; border-width:0 0 2px; }
+  .rv-nav, nav.main, .ticker, footer, .warn{ display:none !important; }
+}
+</style>'''
+
+def _rv_pagina(pg, ed):
+    t = pg.get('tipo', 'livre')
+    if t == 'editorial':
+        return ('<div class="rv-pad"><span class="rv-rotulo">Editorial</span>'
+                f'<h3>{_rvesc(pg.get("titulo"))}</h3>'
+                f'<div class="art-body">{md_lite(pg.get("texto",""))}</div>'
+                f'<p class="rv-ass">— {_rvesc(pg.get("assinatura") or "A direção do FOYER")}</p></div>')
+    if t == 'materia':
+        img = f'<img class="rv-img" src="{_rvesc(wiximg(pg.get("img",""), 1200, 500))}" alt="" onerror="this.style.display=\'none\'">' if pg.get('img') else ''
+        return (img + '<div class="rv-pad">'
+                f'<span class="rv-rotulo">{_rvesc(pg.get("cat") or "Na semana do FOYER")}</span>'
+                f'<h3>{_rvesc(pg.get("titulo"))}</h3>'
+                f'<div class="art-body"><p>{_rvesc(pg.get("chamada",""))}</p>{md_lite(pg.get("texto",""))}</div>'
+                + (f'<a class="rv-leia" href="post-{_rvesc(pg.get("slug"))}.html">Leia a matéria completa no site →</a>' if pg.get('slug') else '')
+                + '</div>')
+    if t == 'exclusiva':
+        cred = f'<span class="rv-cred">{_rvesc(pg.get("imgCredito"))}</span>' if pg.get('imgCredito') else ''
+        img = f'{cred}<img class="rv-img" src="{_rvesc(pg.get("img",""))}" alt="" onerror="this.style.display=\'none\'">' if pg.get('img') else ''
+        return (img + '<div class="rv-pad"><span class="rv-rotulo">Exclusivo da revista</span>'
+                f'<h3>{_rvesc(pg.get("titulo"))}</h3>'
+                f'<div class="art-body">{md_lite(pg.get("texto",""))}</div></div>')
+    if t in ('cartaz', 'patrocinio'):
+        rot = 'Publicidade' if t == 'patrocinio' else 'Divulgação'
+        leg = _rvesc(pg.get('legenda', ''))
+        img = f'<img src="{_rvesc(pg.get("img",""))}" alt="{leg}">'
+        if pg.get('link'):
+            img = f'<a href="{_rvesc(pg["link"])}" target="_blank" rel="noopener sponsored">{img}</a>'
+        klass = 'rv-cartaz rv-pat' if t == 'patrocinio' else 'rv-cartaz'
+        return (f'<div class="{klass}" style="min-height:74vh">{img}'
+                f'<div class="rv-leg">{rot}{" — " + leg if leg else ""}</div></div>')
+    if t == 'citacao':
+        return ('<div class="rv-citacao">'
+                f'<div class="fr">“{_rvesc(pg.get("frase"))}”</div>'
+                f'<div class="au">{_rvesc(pg.get("autor",""))}</div></div>')
+    if t == 'expediente':
+        try:
+            _eq = _json.load(open(os.path.join(ROOT, 'import/equipe.json'))).get('usuarios', [])
+        except Exception:
+            _eq = []
+        nomes = ''.join(f'<li>{_rvesc(u["nome"])} — {"Direção" if u.get("papel")=="chefe" else "Redação"}</li>' for u in _eq)
+        return ('<div class="rv-pad"><span class="rv-rotulo">Expediente</span>'
+                '<h3>FOYER — jornalismo de cultura</h3>'
+                f'<div class="art-body"><ul style="list-style:none;padding:0;line-height:2.4">{nomes}</ul>'
+                '<p>Matérias assinadas como Redação Foyer podem contar com apuração assistida por '
+                'inteligência artificial, sempre revisadas e aprovadas por um editor humano.</p>'
+                f'<p>foyer.digital — edição nº {_rvesc(pg.get("numero",""))}</p></div></div>')
+    # livre
+    return ('<div class="rv-pad">'
+            + (f'<span class="rv-rotulo">{_rvesc(pg.get("rotulo"))}</span>' if pg.get('rotulo') else '')
+            + f'<h3>{_rvesc(pg.get("titulo",""))}</h3>'
+            f'<div class="art-body">{md_lite(pg.get("texto",""))}</div></div>')
+
+def edicao_page(ed):
+    capa = ed.get('capa', {})
+    cimg = f'<img class="rv-capa-img" src="{_rvesc(capa.get("img",""))}" alt="" onerror="this.style.display=\'none\'">' if capa.get('img') else ''
+    chamadas = ''.join(f'<li>{_rvesc(c)}</li>' for c in (capa.get('chamadas') or []) if c.strip())
+    pgs = [(
+        '<section class="rv-pg rv-capa on">'
+        '<div class="rv-capa-top"><span>A Revista do FOYER</span>'
+        f'<span>Nº {_rvesc(ed.get("numero"))} — {_rvesc(ed.get("dataEdicao",""))}</span></div>'
+        + cimg +
+        f'<h2 class="rv-manchete">{_rvesc(capa.get("manchete") or ed.get("titulo",""))}</h2>'
+        f'<ul class="rv-chamadas">{chamadas}</ul></section>'
+    )]
+    for pg in ed.get('paginas', []):
+        pg = dict(pg); pg.setdefault('numero', ed.get('numero'))
+        pgs.append(f'<section class="rv-pg">{_rv_pagina(pg, ed)}</section>')
+    corpo = '\n'.join(pgs)
+    total = len(pgs)
+    return (_RV_CSS + f'''
+<main class="rv-stage">
+{corpo}
+  <div class="rv-nav">
+    <button type="button" id="rv-ant">← Anterior</button>
+    <span class="ct" id="rv-ct">1 / {total}</span>
+    <button type="button" id="rv-prox">Próxima →</button>
+    <button type="button" onclick="window.print()" title="Imprimir ou salvar em PDF">⤓ PDF</button>
+  </div>
+</main>
+<script>
+(function(){{
+  var pgs = document.querySelectorAll('.rv-pg'), i = 0;
+  function vai(n){{
+    i = Math.max(0, Math.min(pgs.length - 1, n));
+    pgs.forEach(function(p, k){{ p.classList.toggle('on', k === i); }});
+    document.getElementById('rv-ct').textContent = (i + 1) + ' / ' + pgs.length;
+    window.scrollTo({{ top: 0, behavior: 'smooth' }});
+  }}
+  document.getElementById('rv-ant').addEventListener('click', function(){{ vai(i - 1); }});
+  document.getElementById('rv-prox').addEventListener('click', function(){{ vai(i + 1); }});
+  document.addEventListener('keydown', function(e){{
+    if(e.key === 'ArrowRight') vai(i + 1);
+    if(e.key === 'ArrowLeft') vai(i - 1);
+  }});
+  var x0 = null;
+  document.addEventListener('touchstart', function(e){{ x0 = e.touches[0].clientX; }}, {{passive:true}});
+  document.addEventListener('touchend', function(e){{
+    if(x0 == null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if(Math.abs(dx) > 60) vai(dx < 0 ? i + 1 : i - 1);
+    x0 = null;
+  }}, {{passive:true}});
+}})();
+</script>''')
+
+def revista_listagem():
+    if ED_PUB:
+        cards = ''
+        for e in ED_PUB:
+            capa = e.get('capa', {})
+            img = (f'<img src="{_rvesc(capa.get("img",""))}" alt="" loading="lazy" '
+                   'style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block" '
+                   'onerror="this.style.display=\'none\'">') if capa.get('img') else \
+                  '<div style="aspect-ratio:3/4;background:var(--wine);display:flex;align-items:center;justify-content:center"><span style="font-family:var(--didone);color:var(--gold);font-size:3rem">FOY<br>ER</span></div>'
+            cards += f'''
+    <a href="revista-ed-{e.get("numero")}.html" style="border:2px solid var(--ink);text-decoration:none;color:var(--ink);display:block;background:var(--paper)">
+      {img}
+      <div style="padding:14px 16px;border-top:2px solid var(--ink)">
+        <span style="font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)">Nº {e.get("numero")} — {_rvesc(e.get("dataEdicao",""))}</span>
+        <span style="display:block;font-family:var(--didone);font-size:1.3rem;line-height:1.1;margin-top:6px">{_rvesc(capa.get("manchete") or e.get("titulo",""))}</span>
+      </div>
+    </a>'''
+        grade = f'<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px">{cards}\n  </div>'
+    else:
+        prox = EDICOES[0].get('numero') if EDICOES else 1
+        grade = (f'<div style="border:2px dashed var(--line);padding:34px;text-align:center;'
+                 'font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)">'
+                 f'A edição Nº {prox} está em produção na redação — assine acima para receber em primeira mão</div>')
+    return grade
+
+revista_body = band('Newsletter semanal', 'A Revista do Foyer',
+                    'Toda sexta, uma edição fechada — como uma revista impressa, para ler na tela ou baixar') + f'''
+<main class="wrap">
+  <div class="rev-hero" id="assinar">
+    <div class="rev-copy">
+      <h2>Uma revista de verdade, entregue toda sexta</h2>
+      <p>A semana do teatro brasileiro editada com começo, meio e fim: reportagem de capa, o melhor da semana do site, conteúdo exclusivo, cartazes e agenda — diagramada como uma revista impressa.</p>
+      <div class="feats">
+        <span>Edição fechada semanal — sem rolagem infinita</span>
+        <span>Leia no site como revista ou baixe o PDF</span>
+        <span>Grátis no seu e-mail, toda sexta às 7h</span>
+      </div>
+    </div>
+    <form class="signup-card" id="signup">
+      <h3>Receba a revista</h3>
+      <input type="text" placeholder="Seu nome" aria-label="Seu nome" required>
+      <input type="email" placeholder="seu@email.com" aria-label="Seu e-mail" required>
+      <button type="submit">Assinar grátis</button>
+      <span class="ok" id="signup-ok">Pronto! Você está na lista da próxima edição ✓</span>
+      <span class="fine">Sem spam. Cancele quando quiser.</span>
+    </form>
+  </div>
+
+  <div class="sec-head">
+    <h2>Edições</h2>
+    <span class="note">Fechadas na Coxia, uma por semana</span>
+  </div>
+  {revista_listagem()}
+  <div class="ad-slot" data-ad-slot="1301"></div>
+</main>
+'''
+
 # ---------------------------------------------------------------- monta tudo
 
 # capa tem ordem própria: ticker+masthead antes da nav
@@ -1515,6 +1751,16 @@ for _i, _p in enumerate(MATERIAS):
     page('post-' + _p['slug'] + '.html', _p['title'] + ' — FOYER', _p['desc'][:200], 'noticias.html', post_page(_i, _p), quiet=True,
          og_img=wiximg(_p['img'], 1200, 630) if _p['img'] else None, og_type='article')
 print(f'• {len(MATERIAS)} páginas de matéria')
+
+for _e in ED_PUB:
+    _cap = _e.get('capa', {})
+    page(f'revista-ed-{_e.get("numero")}.html',
+         f'A Revista do FOYER — Nº {_e.get("numero")}',
+         (_cap.get('manchete') or _e.get('titulo', 'Edição da Revista do FOYER'))[:200],
+         'revista.html', edicao_page(_e), quiet=True,
+         og_img=_cap.get('img') or None)
+if ED_PUB:
+    print(f'• {len(ED_PUB)} edição(ões) da revista no ar')
 
 # coxia: página sem nav de seções (área restrita) — cabeçalho mínimo
 coxia_html = (head('Coxia — FOYER', 'Área restrita da redação do Foyer.')

@@ -56,6 +56,14 @@ A redação roda **dentro do Claude Code**, com a assinatura Claude do editor �
 - Ao aprovar, a matéria move de `import/pauta/` para `import/novas/` e entra no fluxo normal de publicação/agendamento. Ao recusar, é descartada.
 - Transparência editorial: as matérias saem assinadas como "Redação Foyer" — sem personas falsas de jornalistas (proteção da marca e das políticas do AdSense).
 
+## A Revista (edições reais)
+
+As edições vivem em `import/revista/edicoes/ed-N.json` e são montadas na Coxia (📖 Revista, só chefes): capa com manchete e chamadas, e páginas de tipos variados — matéria da semana (puxada do site), conteúdo exclusivo, editorial, citação, cartaz/divulgação de peças, página patrocinada, página livre e expediente automático. Cada edição guarda um `historico` com quem alterou o quê (visível no editor). Publicar gera `revista-ed-N.html` — leitor com cara de revista (navegação por páginas, setas do teclado, swipe e ⤓ PDF via impressão) — e a listagem em `revista.html`. A IA monta/pole rascunhos seguindo `tools/REVISTA.md`; publicar é sempre humano.
+
+## Saguão (espaço da equipe) e métricas reais
+
+Aba 🎭 Saguão na Coxia, aberta a toda a equipe: **Mural** (recados; posts de chefe destacados "Da direção" e fixáveis), **Palco de honra** (ranking real de matérias por leituras e compartilhamentos, semana/geral) e **Balcão de pautas** (sugestões da equipe). As métricas vêm de uma tabela isolada (`foyer_metricas`) no Supabase — `assets/site.js` registra 1 view por sessão por matéria e cada clique de compartilhar; a chave usada é pública (só permite inserir eventos; leitura apenas do agregado `foyer_ranking`).
+
 ## Publicidade (Google AdSense)
 
 A infraestrutura está pronta e **desligada** — nenhum script do Google carrega até você ativar:

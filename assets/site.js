@@ -90,7 +90,7 @@
     e.preventDefault();
     var kind  = b.getAttribute('data-share');
     var title = b.getAttribute('data-title') || document.title;
-    var url   = SITE;
+    var url   = location.pathname.indexOf('post-') > -1 ? location.href : SITE;
     if(kind === 'copy'){
       if(navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(url).then(function(){
@@ -110,5 +110,38 @@
       face:'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url)
     };
     if(links[kind]) window.open(links[kind], '_blank', 'noopener');
+  });
+})();
+
+
+// métricas — visualizações e compartilhamentos (alimenta o ranking da Coxia)
+(function(){
+  var M = {
+    url: 'https://zhrlkmmajrxxkjihiksr.supabase.co',
+    key: 'sb_publishable_MAjQ6VLRf8fRUTbSV--aFQ_o4xPN-N4'
+  };
+  function bater(tipo){
+    var m = location.pathname.match(/post-([a-z0-9-]+)\.html$/);
+    if(!m) return;
+    var slug = m[1];
+    if(tipo === 'view'){
+      try{
+        if(sessionStorage.getItem('fv-' + slug)) return;
+        sessionStorage.setItem('fv-' + slug, '1');
+      }catch(e){}
+    }
+    try{
+      fetch(M.url + '/rest/v1/foyer_metricas', {
+        method: 'POST',
+        headers: { 'apikey': M.key, 'Authorization': 'Bearer ' + M.key,
+                   'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+        body: JSON.stringify({ slug: slug, tipo: tipo }),
+        keepalive: true
+      }).catch(function(){});
+    }catch(e){}
+  }
+  bater('view');
+  document.addEventListener('click', function(e){
+    if(e.target.closest('[data-share]')) bater('share');
   });
 })();

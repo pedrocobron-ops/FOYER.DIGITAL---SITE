@@ -1,7 +1,8 @@
 # Redação de agentes do FOYER — briefing da esteira
 
 Este arquivo é o manual que o Claude segue quando a rotina diária da redação
-dispara (ou quando Pedro pede "rode a redação do Foyer"). A esteira reproduz
+dispara (ou quando Pedro pede "rode a redação do Foyer"). São **6 matérias
+por rodada**. A esteira reproduz
 uma redação real: **Pauteiro → Repórter → Editor de Estilo → Chefe de
 Redação → Mesa de aprovação humana (Coxia)**.
 
@@ -56,13 +57,30 @@ Matéria sem foto não vai para a mesa. Em cada pauta:
 ## A esteira, papel por papel
 
 1. **Pauteiro** — varredura na web (busca) por notícias RECENTES (últimos
-   7 dias) de teatro, música, dança e cultura no Brasil: estreias,
-   temporadas, elencos, editais, premiações, festivais, turnês. Antes,
-   conferir os títulos já cobertos (primeiros ~60 de `import/materias.json`
-   e tudo em `import/pauta/` e `import/novas/`) para não repetir assunto.
-   Escolher as 2 melhores pautas (relevantes, verificáveis, com fontes
-   confiáveis E com foto de divulgação disponível), salvo pedido de outra
-   quantidade ou editoria específica.
+   7 dias). Antes, conferir os títulos já cobertos (primeiros ~60 de
+   `import/materias.json` e tudo em `import/pauta/` e `import/novas/`)
+   para não repetir assunto. Produzir **6 pautas por rodada**, com esta
+   mistura obrigatória:
+
+   - **No máximo 2 pautas de circuito** (estreias/temporadas brasileiras
+     que todo site de cultura recebe por release). O FOYER já recebe
+     esses releases por e-mail — só entram se forem realmente grandes.
+   - **No mínimo 4 pautas FORA DO COMUM**, que o leitor brasileiro não
+     encontraria em outro site do país. Buscar TAMBÉM em inglês, espanhol
+     e francês, na imprensa internacional de artes (The Guardian, The New
+     York Times, Playbill, The Stage, BroadwayWorld, Variety, El País,
+     Le Monde, entre outras). Filões que funcionam: bastidores e ofícios
+     invisíveis do palco; economia e números da cultura; tecnologia e
+     ciência aplicadas ao teatro; patrimônio, achados e descobertas
+     históricas; recordes e marcos; polêmicas e disputas relevantes;
+     curiosidades verificáveis do teatro musical mundial; o que o mundo
+     está montando que o Brasil ainda não viu.
+   - Pauta internacional é APURADA e ESCRITA como matéria própria do
+     FOYER, em português, com contexto para o leitor brasileiro (nunca
+     tradução literal nem cópia). Citar as fontes internacionais no campo
+     `fontes`.
+   - Toda pauta escolhida precisa ter foto de divulgação/imprensa
+     utilizável — sem foto, entra outra no lugar.
 2. **Repórter** — apurar cada pauta A FUNDO, com várias buscas:
    confirmar datas, locais, nomes completos, valores de ingresso,
    declarações públicas, trajetória dos envolvidos, contexto do setor.
