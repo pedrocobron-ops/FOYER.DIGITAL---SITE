@@ -51,6 +51,10 @@ A infraestrutura está pronta e **desligada** — nenhum script do Google carreg
 
 As fatias já estão posicionadas nos pontos de melhor desempenho sem quebrar a leitura: após o bloco de notícias e de crítica na capa, no fim das listagens, e na matéria (após a foto de capa, no meio do texto e após "Leia também").
 
+## Matérias importadas do Wix
+
+As 20 matérias do feed estão em `import/materias.json` e geram automaticamente as páginas `post-*.html`, a capa e a listagem de notícias. O texto completo de cada matéria ainda aponta para o site atual até a migração final.
+
 ## Importação do site antigo (Wix)
 
 O Wix expõe o feed do blog em `https://www.foyer.digital/blog-feed.xml`. Baixe esse arquivo no navegador e suba no repositório (pasta `import/`) — o conteúdo das matérias vem dentro dele.
@@ -62,7 +66,7 @@ O Wix expõe o feed do blog em `https://www.foyer.digital/blog-feed.xml`. Baixe 
 - [x] Revista (leitor online + cadastro demo) e Coxia (admin demo)
 - [x] Páginas de matéria, verbete, espetáculo, busca e privacidade
 - [x] AdSense pronto para ativar (assets/ads.js + ads.txt)
-- [ ] Hospedagem (GitHub Pages / Vercel)
+- [x] Deploy automático no GitHub Pages (.github/workflows/pages.yml) — ativa quando o repositório ficar público
 - [ ] Backend real: publicação de matérias, newsletter, PDF da revista, login seguro
-- [ ] Importação das matérias do Wix (aguardando blog-feed.xml)
+- [x] Importação das 20 matérias do Wix (título, resumo, autor, foto, categoria)
 - [ ] Enciclopédia com banco de dados
