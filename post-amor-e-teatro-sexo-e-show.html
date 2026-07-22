@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="O Teatro Musical ocupa um lugar ainda nebuloso na cabeça de produtores, dramaturgos e diretores.">
+<title>Amor é teatro. Sexo é show. — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<main class="wrap">
+<article class="art">
+  <div class="art-head">
+    <div class="tags">
+      <span class="tag wine">Artigo de Opinião</span>
+      <span class="tag">Foyer</span>
+    </div>
+    <h1>Amor é teatro. Sexo é show.</h1>
+    <p class="dek">O Teatro Musical ocupa um lugar ainda nebuloso na cabeça de produtores, dramaturgos e diretores.</p>
+    <div class="art-byline">
+      <span>Por <b>Gerson Steves </b></span>
+      <span>17 de junho de 2024 · 3 min de leitura</span>
+    </div>
+    <div class="share-row" aria-label="Compartilhar esta matéria">
+      <button class="sbtn" data-share="whats" data-title="Amor é teatro. Sexo é show.">WhatsApp</button>
+      <button class="sbtn" data-share="x" data-title="Amor é teatro. Sexo é show.">X / Twitter</button>
+      <button class="sbtn" data-share="face" data-title="Amor é teatro. Sexo é show.">Facebook</button>
+      <button class="sbtn" data-share="copy" data-title="Amor é teatro. Sexo é show.">Copiar link</button>
+    </div>
+  </div>
+
+  <figure class="art-cover">
+    <span class="ph"><img src="https://static.wixstatic.com/media/dbc9d1_b7ea7fc76d6f4627931d10f4a3706988~mv2.jpg" alt="" loading="eager"></span>
+    <figcaption>Amor é teatro. Sexo é show. — Foto: Divulgação</figcaption>
+  </figure>
+
+  <div class="ad-slot" data-ad-slot="2001"></div>
+
+  <div class="art-body">
+<p>O <strong>Teatro Musical</strong> ocupa um lugar ainda nebuloso na cabeça de produtores, dramaturgos e diretores. Fica entre show de talentos (como se fosse programa do <strong>Silvio</strong>), <strong>teatro</strong> escolar juke-box (em que pequenas cenas de humor servem só pra introduzir canções), ou teatro como a gente aprende na escola (aprende?), em que existem personagens passíveis de composição aprofundada – ainda que sejam personagens ligeiros e momentâneos, noção de conflito e ação (portanto, drama). E finalmente, alguns acham que basta ser show e tudo bem.</p>
+<figure class="art-img"><img src="https://static.wixstatic.com/media/dbc9d1_b7ea7fc76d6f4627931d10f4a3706988~mv2.jpg/v1/fit/w_1200,al_c,q_85/img.jpg" alt="Imagem: De divulgação" loading="lazy"><figcaption>Imagem: De divulgação</figcaption></figure>
+<p>
+<strong>Teatro</strong> pode tudo? A rigor pode; e até nem carece de ter novidade. Mas é bom que tenha. Em especial quando se apresenta o velho disfarçado de novo. E, lamentavelmente, nada existe de novo em <em><strong>Rita Lee — Uma Biografia Musical</strong></em><strong>.</strong></p>
+<p>E não se trata da reedição da montagem de<strong> </strong><em><strong>Rita Lee Mora ao Lado</strong></em><strong> </strong>de dez anos atrás. A única novidade é que os fãs devotos ficaram órfãos de sua <strong>Santa Rita</strong>.</p>
+<p>Sobre a falta de novidades, outros exemplos não faltam. Fico com alguns dos muitos. De cara, a biografia nas mãos da performer indica que o espetáculo tratará de um livro que merece ser lido. É a tal biografia do título. Mas não a definitiva – outra ainda viria. A partir daí, veremos que a atriz se alternará entre representar e narrar (como se lesse e não como se falasse) os acontecimentos da vida da personagem-título, linearmente. A falta de criatividade desse exercício de escrita não pode ser incluída na categoria de <strong>dramaturgia</strong>; está mais para<strong> roteiro</strong>. E de uma previsibilidade absoluta.</p>
+<p>Sigamos. Um palco todo branco com duas escadarias para hospedar projeções já foi visto antes em <em><strong>Mademoiselle Chanel</strong></em>, de <strong>Jorge Takla</strong> estrelado por <strong>Marília Pêra</strong> vinte anos atrás. Recurso, inclusive, realizado brilhantemente (o que não é o caso aqui). As fotos projetadas são de péssima qualidade e a edição de imagens parece <strong>powerpoint escolar</strong> – sem apresentar novidade nem dentro da mesma tela. A cenografia feita de elásticos lembra os palcos móveis criados por <strong>Osvaldo Gabrieli </strong>para sua montagem de <em><strong>Buster e o Enígma do Minotauro</strong></em><strong> </strong>em 1997.  </p>
+<p>Em nossos tempos, depois de termos visto <strong>Laila Garin</strong> interpretando <strong>Elis Regina</strong> e <strong>Renan Mattos </strong>personificando<strong> Ney Matogrosso</strong>, fica difícil aceitar certas atuações baseadas em impressões mimetizadas, sem verossimilhança e quase caricatas.</p>
+<p>No que diz respeito aos “<strong>números musicais</strong>”, assistir três mulheres em uniformes militares tendo epifanias sexuais atrás de uma mesa é praticamente <em>“</em><em><strong>White Boys</strong></em><em>”</em> do filme <em><strong>Hair</strong></em><strong> </strong>(Milos Forman, 1981).</p>
+<p>Por outro lado, <strong>show é show</strong>. Normalmente, um mostruário do que temos à mão e usamos para impressionar a audiência. E daí vira um vale-tudo: vale pedir aplauso para o público ao final de número musical (um ritual normalmente constrangedor); vale acender luz laser na cara do plateia; vale pedir pra todo mundo cantar junto.</p>
+<p>E, em meio a tudo isso (a quem responsabilizo a direção) saio em defesa do elenco. É preciso ressaltar que o presente espetáculo traz a excelente performance de <strong>Mel Lisboa</strong>, que realiza um verdadeiro “<strong>tour-de-force</strong>” navegando entre depoimentos e canções, vagando entre uma <strong>Rita-personagem</strong> e uma <strong>Rita-narradora</strong> onisciente, além de encarar cenas escancaradamente brechtianas. Mel entrega sinceridade e profundidade no desempenho, além de integrar com extrema generosidade cenas de respiro cômico que ficam a cargo de seus colegas (em especial o trio formado por <strong>Débora Reis, Yael Pecarovich</strong> e a divertida<strong> Carol Portes</strong>). Lisboa é ainda o grande valor que nos faz engolir os contrarregras entrando e saindo de cena em momentos inadequados, as horrendas perucas sintéticas, o figurino caótico.</p>
+<p>Mel entende de <strong>Rita</strong>. Entende sua vida e obra. Mais que isso: entende a relevância politica e social da obra de Rita como mulher, artista e cidadã. Parece compreender mais do que os responsáveis por roteiro e direção - sofríveis, pra dizer o mínimo. Ainda além, a coreografia e a direção de movimentos é constrangedora – faltam limpeza, tônus, narrativas corporais.</p>
+<p>O roteiro não se decide sobre o que é: biografia lida, colagem de canções alinhavadas, ordem cronológica, delírios de memórias. É show? É performance? Teatro, propriamente dito, não é. Mas nada disso parece importar ao público e à plateia lota. Famílias inteiras estão vendo e ouvindo <strong>cultura brasileira</strong>. É geração de empregos em segmentos diversos, do táxi ao cafezinho, do palco ao estacionamento. E isso é muito!</p>
+  </div>
+
+  <div class="art-foot">
+    <div class="tags"><span class="tag">Artigo de Opinião</span><span class="tag">Gerson Steves </span></div>
+    <div class="share-row" aria-label="Compartilhar">
+      <button class="sbtn" data-share="whats" data-title="Amor é teatro. Sexo é show.">WhatsApp</button>
+      <button class="sbtn" data-share="copy" data-title="Amor é teatro. Sexo é show.">Copiar link</button>
+    </div>
+  </div>
+</article>
+
+<section>
+  <div class="sec-head">
+    <h2>Leia também</h2>
+    <span class="note">Mais de Artigo de Opinião</span>
+  </div>
+  <div class="news-grid three">
+    <article class="news-cell" data-cat="Artigo de Opinião">
+      <a class="ph" href="post-paginas-da-vida-e-o-seu-remake-lusitano.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e7f0b445a0e44f37b7b27fe474db6df4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Artigo de Opinião</span>
+        <h3><a href="post-paginas-da-vida-e-o-seu-remake-lusitano.html">Páginas da Vida, e o seu remake Lusitano</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Páginas da Vida, e o seu remake Lusitano">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Artigo de Opinião">
+      <a class="ph" href="post-atuar-em-novela-nao-e-brincadeira-os-bastidores-reais-da-interpretacao-na-tv-tea.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_60c5a3c2d8ff46e18e8a93dcab379245~mv2.webp" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Artigo de Opinião</span>
+        <h3><a href="post-atuar-em-novela-nao-e-brincadeira-os-bastidores-reais-da-interpretacao-na-tv-tea.html">Atuar em Novela Não É Brincadeira: Os Bastidores Reais da Interpretação na TV - Teatro a Sangue Frio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.06 — Gerson Steves </span>
+          <button class="share-min" data-share="native" data-title="Atuar em Novela Não É Brincadeira: Os Bastidores Reais da Interpretação na TV - Teatro a Sangue Frio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Artigo de Opinião">
+      <a class="ph" href="post-disciplina-corpo-e-gesto-o-que-o-ator-precisa-saber-com-bruna-longo-teatro-a-san.html" aria-label="Foto da matéria"><img src="" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Artigo de Opinião</span>
+        <h3><a href="post-disciplina-corpo-e-gesto-o-que-o-ator-precisa-saber-com-bruna-longo-teatro-a-san.html">Disciplina, corpo e gesto: o que o ator PRECISA saber - com Bruna Longo / Teatro a Sangue Frio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.05 — Gerson Steves </span>
+          <button class="share-min" data-share="native" data-title="Disciplina, corpo e gesto: o que o ator PRECISA saber - com Bruna Longo / Teatro a Sangue Frio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <div class="ad-slot" data-ad-slot="2003"></div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

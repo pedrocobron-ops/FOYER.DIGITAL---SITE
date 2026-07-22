@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 32 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 32 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Cinema">
+      <a class="ph" href="post-a-substancia-publico-brasileiro-filmes.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_b0242ac2e1a243df92b0cda18cca9bde~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-a-substancia-publico-brasileiro-filmes.html">"A Substância" conquista o público brasileiro como um dos filmes mais comentados de 2024</a></h3>
+        <p>"A Substância", dirigido pela francesa Coralie Fargeat, já se consolidou como um dos filmes mais impactantes do ano.…</p>
+        <div class="meta-row">
+          <span class="meta-l">15.10 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="”A Substância” conquista o público brasileiro como um dos filmes mais comentados de 2024">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-thiago-lacerda.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6089265302cc4d8bb8d6e5ac1604f086~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-thiago-lacerda.html">Thiago Lacerda Estreia "A Peste" de Albert Camus com Direção de Ron Daniels</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Thiago Lacerda Estreia ”A Peste” de Albert Camus com Direção de Ron Daniels">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-disney-teatro-villalobos-ursinho-pooh.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_c9b33bdf1ec24ba1be008b907a6df159~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-disney-teatro-villalobos-ursinho-pooh.html">A magia Disney chega ao Teatro VillaLobos com o musical do Ursinho Pooh</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.10 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="A magia Disney chega ao Teatro VillaLobos com o musical do Ursinho Pooh">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-sonho-encantado-de-cordel-o-musical.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_9cba4be3c0474b1f95c62c8c52a34ed8~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-sonho-encantado-de-cordel-o-musical.html">"Sonho Encantado de Cordel, O Musical" Estreia no Teatro Claro Mais, em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Sonho Encantado de Cordel, O Musical” Estreia no Teatro Claro Mais, em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-helena-ranaldi-e-martha-meola.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_687e4c3f29fd4cfe99611499f98b201a~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-helena-ranaldi-e-martha-meola.html">Helena Ranaldi e Martha Meola Apresentam "Por Trás das Flores" no Teatro Multiplan MorumbiShopping</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Helena Ranaldi e Martha Meola Apresentam ”Por Trás das Flores” no Teatro Multiplan MorumbiShopping">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-doutor-hipoteses.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_1cde0a7b63f946aeb3201156d70e3826~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-doutor-hipoteses.html">Doutor Hipóteses – "O Filme da Pandemia" em Exibição no Cine Olido</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Doutor Hipóteses – ”O Filme da Pandemia” em Exibição no Cine Olido">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-marcelo-medici-1.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_00dea97d83bd499598cd12bac026be66~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-marcelo-medici-1.html">Marcelo Médici Retorna com Nova Temporada de "Cada Um Com Seus Pobrema" no Teatro Renaissance</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Marcelo Médici Retorna com Nova Temporada de ”Cada Um Com Seus Pobrema” no Teatro Renaissance">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-peter-pan.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_87402e3c022e4418972bd9069f14686c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-peter-pan.html">"Peter Pan – O Musical" Chega aos Palcos do Teatro Cesgranrio para Curta Temporada</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Peter Pan – O Musical” Chega aos Palcos do Teatro Cesgranrio para Curta Temporada">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-maite-proenca-e-debora-olivieri.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_71d5567264854bc38c3396b59c036e98~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-maite-proenca-e-debora-olivieri.html">Maitê Proença e Debora Olivieri Estreiam a Comédia "Duas Irmãs & Um Casamento"</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Maitê Proença e Debora Olivieri Estreiam a Comédia ”Duas Irmãs & Um Casamento”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-marcos-veras-teatro-faap.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_20d312b722134b398483e88555e4d7c4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-marcos-veras-teatro-faap.html">Marcos Veras encabeça peça sobre encontro fictício de lendas no Teatro FAAP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.10 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Marcos Veras encabeça peça sobre encontro fictício de lendas no Teatro FAAP">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Crítica">
+      <a class="ph" href="post-prima-facie-com-debora-falabella-por-bruno-cavalcanti-critica.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_eeb3429806514dcc94a3826ca0e161e5~mv2.jpeg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Crítica</span>
+        <h3><a href="post-prima-facie-com-debora-falabella-por-bruno-cavalcanti-critica.html">"PRIMA FACIE com Débora Falabella" por Bruno Cavalcanti - Crítica</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”PRIMA FACIE com Débora Falabella” por Bruno Cavalcanti - Crítica">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-terca-insana.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_83d75f2d306a4e54a3f8d27a1e8cbb8f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-terca-insana.html">Terça Insana Retorna com Temporada Especial de Apenas 5 Apresentações e Elenco Rotativo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Terça Insana Retorna com Temporada Especial de Apenas 5 Apresentações e Elenco Rotativo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-sweeney-todd-retorna-ao-teatro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_fb3b5dc5e42847b1b48e89c4d71f986d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-sweeney-todd-retorna-ao-teatro.html">Sweeney Todd Retorna ao Teatro Santander com Saulo Vasconcelos e Andrezza Massei</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Sweeney Todd Retorna ao Teatro Santander com Saulo Vasconcelos e Andrezza Massei">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-liane-maya-e-aline-cunha-hairspray-programa-do-foyer.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_ab044be3e52748cf99dd2de763567847~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-liane-maya-e-aline-cunha-hairspray-programa-do-foyer.html">Liane Maya e Aline Cunha - Hairspray - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Liane Maya e Aline Cunha - Hairspray - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-mary-stuart-nova-temporada.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_abb39b026d94479da4db64f90b8a2e51~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-mary-stuart-nova-temporada.html">"Mary Stuart": Nova Temporada no Teatro Paulo Eiró</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Mary Stuart”: Nova Temporada no Teatro Paulo Eiró">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Crítica">
+      <a class="ph" href="post-hairspray-por-bruno-cavalcanti-critica.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_9c245e5df4004fc198c4605f4c9df0e0~mv2.jpeg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Crítica</span>
+        <h3><a href="post-hairspray-por-bruno-cavalcanti-critica.html">"Hairspray" por Bruno Cavalcanti - Crítica</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Hairspray” por Bruno Cavalcanti - Crítica">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-ultima-ceia-grupo-mexa-da-vinci.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_fba3f50abb854e31836bf9dc1646fece~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-ultima-ceia-grupo-mexa-da-vinci.html">A Última Ceia: Grupo MEXA estreia peça-jantar inspirada no quadro de Da Vinci</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.10 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="A Última Ceia: Grupo MEXA estreia peça-jantar inspirada no quadro de Da Vinci">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-o-julgamento-de-ze-bebelo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_efc202c1fc29457f903c272d8aaa29a9~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-o-julgamento-de-ze-bebelo.html">"O Julgamento de Zé Bebelo" Estreia no Teatro Sérgio Cardoso</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”O Julgamento de Zé Bebelo” Estreia no Teatro Sérgio Cardoso">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Música">
+      <a class="ph" href="post-brasil-grammy-latino-2024-indicados-categorias-destaque.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_d6b6a9c1c3de44d294224f6472f05a7c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Música</span>
+        <h3><a href="post-brasil-grammy-latino-2024-indicados-categorias-destaque.html">Brasil marca presença no Grammy Latino 2024 com indicados em categorias de destaque</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.10 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Brasil marca presença no Grammy Latino 2024 com indicados em categorias de destaque">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-jandira-isabel-teixeira.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2c566e9f055448a39bbfbf482e0ce50f~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-jandira-isabel-teixeira.html">“JANDIRA - Em Busca do Bonde Perdido”: solo com Isabel Teixeira estreia no Tucarena</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“JANDIRA - Em Busca do Bonde Perdido”: solo com Isabel Teixeira estreia no Tucarena">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-caes-de-rua-fragilidade-humana.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_99468a65299a47c785ca14505a569241~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-caes-de-rua-fragilidade-humana.html">"Cães de Rua" estreia em São Paulo expondo a fragilidade humana</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.10 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="”Cães de Rua” estreia em São Paulo expondo a fragilidade humana">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-i-love-neide-a-dona-do-mundo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_1aabfba588a54678b2e8f27f065ca0fa~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-i-love-neide-a-dona-do-mundo.html">"I LOVE NEIDE - A DONA DO MUNDO" Prorroga Temporada no Teatro Santa Cruz</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”I LOVE NEIDE - A DONA DO MUNDO” Prorroga Temporada no Teatro Santa Cruz">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-por-que-desdemona-amava-o-mouro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_ddec85af37c14cc7a27eaccc8928417e~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-por-que-desdemona-amava-o-mouro.html">"Por que Desdêmona Amava o Mouro?" - Nova Montagem no Sesc Santo Amaro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Por que Desdêmona Amava o Mouro?” - Nova Montagem no Sesc Santo Amaro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-graciliano-ramos-agora-teatro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_271e3940c9294832b77260b74c08a818~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-graciliano-ramos-agora-teatro.html">Espetáculo "Infância", de Graciliano Ramos, volta ao Ágora Teatro para curta temporada</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.10 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo ”Infância”, de Graciliano Ramos, volta ao Ágora Teatro para curta temporada">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p31.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p31.html">31</a><a href="noticias-p32.html" class="on">32</a><a href="noticias-p33.html">33</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p33.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

@@ -115,43 +115,38 @@
   <div class="wrap">
     <span class="kicker">Ferramenta</span>
     <h1>Buscar</h1>
-    <p class="note">Matérias, críticas, artistas e espetáculos — tudo num só lugar</p>
+    <p class="note">Todo o acervo do Foyer — 1.514 matérias, artistas e espetáculos</p>
   </div>
 </header>
 
 <main class="wrap">
   <form class="ency-search" style="border-top:var(--b); margin-top:26px" onsubmit="return false;">
-    <input type="search" id="q" placeholder="Digite: musical, Marina, edital, crítica…" aria-label="Buscar no site" autofocus>
+    <input type="search" id="q" placeholder="Digite: espetáculo, artista, teatro…" aria-label="Buscar no site" autofocus>
     <button type="submit">Buscar</button>
   </form>
   <div class="ency-table" id="res" aria-live="polite"></div>
-  <p class="meta-l" style="display:block; padding:18px 4px">A busca completa em todo o acervo entra com o backend — esta versão procura nas matérias desta edição.</p>
+  <p class="meta-l" style="display:block; padding:18px 4px" id="busca-info">Carregando o índice do acervo…</p>
 </main>
 <script>
 (function(){
-  var IDX = [
-    {t:'A temporada em que o musical brasileiro decidiu contar as próprias histórias', c:'Reportagem de capa', u:'materia.html'},
-    {t:'Novo edital federal muda as regras do fomento ao teatro', c:'Política cultural', u:'materia.html'},
-    {t:'Casa de espetáculos anuncia temporada dedicada à dramaturgia negra', c:'Notícias', u:'materia.html'},
-    {t:'Uma montagem que ousa reescrever o clássico — e acerta', c:'Crítica', u:'materia.html'},
-    {t:'O musical biográfico que canta melhor do que conta', c:'Crítica', u:'materia.html'},
-    {t:'Marina Villas', c:'Enciclopédia — Artista', u:'artista.html'},
-    {t:'Téo Andrade', c:'Enciclopédia — Artista', u:'artista.html'},
-    {t:'A Cidade Cantada', c:'Enciclopédia — Espetáculo', u:'espetaculo.html'},
-    {t:'Programa do Foyer', c:'Programas', u:'programas.html'},
-    {t:'Trivia Musical', c:'Programas', u:'programas.html'},
-    {t:'A Revista do Foyer — Edição Nº 214', c:'Revista', u:'revista.html'},
-    {t:'Estreia: A Cidade Cantada no Theatro Municipal', c:'Agenda', u:'agenda.html'}
-  ];
+  var IDX = [];
+  var info = document.getElementById('busca-info');
+  fetch('assets/busca-index.json').then(function(r){ return r.json(); }).then(function(d){
+    IDX = d;
+    info.textContent = IDX.length.toLocaleString('pt-BR') + ' matérias no acervo — digite para buscar';
+  }).catch(function(){ info.textContent = 'Não foi possível carregar o índice.'; });
   var q = document.getElementById('q'), res = document.getElementById('res');
   function norm(s){ return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
   function render(){
     var v = norm(q.value.trim());
-    if(!v){ res.innerHTML=''; return; }
-    var hits = IDX.filter(function(i){ return norm(i.t+' '+i.c).indexOf(v) !== -1; });
+    if(v.length < 2){ res.innerHTML=''; return; }
+    var hits = [];
+    for(var i=0; i<IDX.length && hits.length<40; i++){
+      if(norm(IDX[i].t + ' ' + IDX[i].c).indexOf(v) !== -1) hits.push(IDX[i]);
+    }
     res.innerHTML = hits.length
       ? hits.map(function(i){ return '<a class="ency-row" href="'+i.u+'"><span class="nm">'+i.t+'</span><span class="of">'+i.c+'</span><span class="ct"></span><span class="ar">→</span></a>'; }).join('')
-      : '<div class="ency-row"><span class="of">Nada encontrado para “'+q.value+'”</span></div>';
+      : '<div class="ency-row"><span class="of">Nada encontrado</span></div>';
   }
   q.addEventListener('input', render);
 })();

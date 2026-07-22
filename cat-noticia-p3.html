@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Matérias de Notícia no FOYER.">
+<title>Notícia — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícia</h1>
+    <p class="note">90 matérias — página 3 de 4</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html">Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html" class="on">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Notícia">
+      <a class="ph" href="post-christiane-torloni-e-a-mais-nova-atriz-a-deixar-a-rede-globo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c675221946ac46cc9832c812d7de0571~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-christiane-torloni-e-a-mais-nova-atriz-a-deixar-a-rede-globo.html">Christiane Torloni é a mais nova atriz a deixar a Rede Globo</a></h3>
+        <p>Depois de quase 50 anos de dedicação à emissora, a atriz Christiane Torloni anunciou o fim de seu contrato com a Rede Globo. Com uma...…</p>
+        <div class="meta-row">
+          <span class="meta-l">02.04 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Christiane Torloni é a mais nova atriz a deixar a Rede Globo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-thiago-fragoso-esta-fora-da-versao-brasileira-de-kinky-boots.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7ab97c7daa2d4291a08ad876424d08b2~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-thiago-fragoso-esta-fora-da-versao-brasileira-de-kinky-boots.html">Thiago Fragoso está fora da versão brasileira de Kinky Boots</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Thiago Fragoso está fora da versão brasileira de Kinky Boots">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-tiago-barbosa-retorna-como-lola-na-turne-espanhola-de-kinky-boots.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_776c51db906b446d94acdb8f7757aeeb~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-tiago-barbosa-retorna-como-lola-na-turne-espanhola-de-kinky-boots.html">Tiago Barbosa retorna como Lola na turnê espanhola de Kinky Boots</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Tiago Barbosa retorna como Lola na turnê espanhola de Kinky Boots">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-vanessa-williams-sera-miranda-priestly-no-musical-de-o-diabo-veste-prada.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_335edec73636454d98306ac0118ca180~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-vanessa-williams-sera-miranda-priestly-no-musical-de-o-diabo-veste-prada.html">Vanessa Williams será Miranda Priestly no musical de “O Diabo Veste Prada”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Vanessa Williams será Miranda Priestly no musical de “O Diabo Veste Prada”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-jandira-martini-uma-carreira-brilhante-no-cinema-e-na-televisao-brasileira.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6797b69c60db42b99775a265b590f235~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-jandira-martini-uma-carreira-brilhante-no-cinema-e-na-televisao-brasileira.html">Jandira Martini: Uma Carreira Brilhante no Cinema e na Televisão Brasileira</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Jandira Martini: Uma Carreira Brilhante no Cinema e na Televisão Brasileira">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-mafe-vieira-marca-historia-como-a-primeira-atriz-trans-contratada-pela-record.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a0f49f5b343b4a5da2aae265cdae871b~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-mafe-vieira-marca-historia-como-a-primeira-atriz-trans-contratada-pela-record.html">Mafe Vieira Marca História como a Primeira Atriz Trans Contratada pela Record</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Mafe Vieira Marca História como a Primeira Atriz Trans Contratada pela Record">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-depois-de-encarar-a-personagem-eternizada-por-julia-roberts-agora-e-a-vez-de-tha.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c1e208899e124bd0adaebab3d60985cb~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-depois-de-encarar-a-personagem-eternizada-por-julia-roberts-agora-e-a-vez-de-tha.html">Depois de encarar a personagem eternizada por Julia Roberts agora é a vez de Thais Piza enfrentar a Bárbara de Geena Davis</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Depois de encarar a personagem eternizada por Julia Roberts agora é a vez de Thais Piza enfrentar a Bárbara de Geena Davis">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-apesar-do-apelo-barbie-foi-desbancada-por-oppenheimer-na-cerimonia-do-globo-de-o.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_71e7879e5f67495783483b272cf33d74~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-apesar-do-apelo-barbie-foi-desbancada-por-oppenheimer-na-cerimonia-do-globo-de-o.html">Apesar do apelo, “Barbie” foi desbancada por “Oppenheimer” na cerimônia do “Globo de Ouro” de 2024. Confira a lista de premiados</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Apesar do apelo, “Barbie” foi desbancada por “Oppenheimer” na cerimônia do “Globo de Ouro” de 2024. Confira a lista de premiados">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-petra-belas-artes-vai-se-tornar-reag-belas-artes-por-conta-de-novo-patrocinador.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_f5a4a8ab668742499a4104cd9d449fcd~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-petra-belas-artes-vai-se-tornar-reag-belas-artes-por-conta-de-novo-patrocinador.html">Petra Belas Artes vai se tornar Reag Belas Artes, por conta de novo patrocinador</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Petra Belas Artes vai se tornar Reag Belas Artes, por conta de novo patrocinador">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-tiago-abravanel-e-tiktok-inovam-com-audicoes-para-musical-hairspray-feitas-por-p.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e670b466aa6847f1bf3fd98b47c48ecb~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-tiago-abravanel-e-tiktok-inovam-com-audicoes-para-musical-hairspray-feitas-por-p.html">Tiago Abravanel e TikTok inovam com audições para musical “HairSpray” feitas por página no App</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Tiago Abravanel e TikTok inovam com audições para musical “HairSpray” feitas por página no App">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-maria-fernanda-candido-se-une-ao-elenco-do-remake-de-renascer.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0ce17350237c4d5bba9887db2e283209~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-maria-fernanda-candido-se-une-ao-elenco-do-remake-de-renascer.html">Maria Fernanda Cândido se une ao elenco do remake de “Renascer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Maria Fernanda Cândido se une ao elenco do remake de “Renascer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-nova-montagem-do-musical-hairspray-trara-tiago-abravanel-como-edna-turnblad.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_bb93e9c2800440b1bd905032b9c4b908~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-nova-montagem-do-musical-hairspray-trara-tiago-abravanel-como-edna-turnblad.html">Nova montagem do musical “Hairspray” trará Tiago Abravanel como Edna Turnblad</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Nova montagem do musical “Hairspray” trará Tiago Abravanel como Edna Turnblad">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-musical-bar-chega-a-sua-ultima-edicao-do-ano-celebrando-sucessos-da-temporada-de.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_242875b2e40f49ff83694c71402dadd5~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-musical-bar-chega-a-sua-ultima-edicao-do-ano-celebrando-sucessos-da-temporada-de.html">Musical Bar chega a sua última edição do ano, celebrando sucessos da temporada de 2023</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical Bar chega a sua última edição do ano, celebrando sucessos da temporada de 2023">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-6a-edicao-do-premio-did-e-marcada-por-emocao-e-homenagem-a-carreira-de-claudia-r.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2ac066f89a0a4abb8015193f6386f9b4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-6a-edicao-do-premio-did-e-marcada-por-emocao-e-homenagem-a-carreira-de-claudia-r.html">6ª edição do prêmio Did é marcada por emoção e homenagem à carreira de Claudia Raia</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="6ª edição do prêmio Did é marcada por emoção e homenagem à carreira de Claudia Raia">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-turne-nacional-do-musical-the-cher-show-passara-por-50-teatros-dos-estados-unido.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c5182e427cc2444ca5924afa9c9c9990~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-turne-nacional-do-musical-the-cher-show-passara-por-50-teatros-dos-estados-unido.html">Turnê nacional do musical “The Cher Show” passará por 50 teatros dos Estados Unidos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Turnê nacional do musical “The Cher Show” passará por 50 teatros dos Estados Unidos">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-teatro-alianca-francesa-que-ja-abrigou-pecas-de-marilia-pera-fechara-as-portas-e.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b9ef82a6e1f2422b83642a326ad5263f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-teatro-alianca-francesa-que-ja-abrigou-pecas-de-marilia-pera-fechara-as-portas-e.html">Teatro Aliança Francesa, que já abrigou peças de Marília Pêra, fechará as portas em dezembro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Teatro Aliança Francesa, que já abrigou peças de Marília Pêra, fechará as portas em dezembro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-astrid-fontenelle-se-despede-do-programa-saia-justa-apos-11-apresentando-a-atrac.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_5f5c6decabbe47a88c71ef17c93ecc98~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-astrid-fontenelle-se-despede-do-programa-saia-justa-apos-11-apresentando-a-atrac.html">Astrid Fontenelle se despede do programa “Saia Justa” após 11 anos apresentando a atração</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Astrid Fontenelle se despede do programa “Saia Justa” após 11 anos apresentando a atração">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-icaro-silva-e-o-primeiro-nome-divulgado-do-elenco-de-nova-montagem-do-musical-ca.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3a546f2a654543199453b554c71203f2~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-icaro-silva-e-o-primeiro-nome-divulgado-do-elenco-de-nova-montagem-do-musical-ca.html">Ícaro Silva é o primeiro nome divulgado do elenco de nova montagem do musical Cabaret</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Ícaro Silva é o primeiro nome divulgado do elenco de nova montagem do musical Cabaret">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-depois-de-sucesso-do-musical-mundareu-de-mim-ibt-lanca-oficina-de-tecnica-vocal-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a47051b65dc34091a138104f95344205~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-depois-de-sucesso-do-musical-mundareu-de-mim-ibt-lanca-oficina-de-tecnica-vocal-.html">Depois de sucesso do musical “Mundaréu de Mim”, IBT lança Oficina de Técnica Vocal com Polly Gutman</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Depois de sucesso do musical “Mundaréu de Mim”, IBT lança Oficina de Técnica Vocal com Polly Gutman">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-musical-wicked-completa-hoje-20-anos-em-cartaz-na-broadway.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_db5c2f179e014e4c9d859cd81b72dcf1~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-musical-wicked-completa-hoje-20-anos-em-cartaz-na-broadway.html">Musical “Wicked” completa hoje 20 anos em cartaz na Broadway</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical “Wicked” completa hoje 20 anos em cartaz na Broadway">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-museu-casa-das-rosas-volta-a-funcionar-na-avenida-paulista.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_60433ddceab34b76be10e95b3efd3b96~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-museu-casa-das-rosas-volta-a-funcionar-na-avenida-paulista.html">Museu Casa das Rosas volta a funcionar na Avenida Paulista</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Museu Casa das Rosas volta a funcionar na Avenida Paulista">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-arlete-salles-deixara-a-globo-depois-de-55-anos-na-emissora.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_738f3a9834e74ce49a19311a53fde272~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-arlete-salles-deixara-a-globo-depois-de-55-anos-na-emissora.html">Arlete Salles deixará a Globo depois de 55 anos na emissora</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Arlete Salles deixará a Globo depois de 55 anos na emissora">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-museu-do-futebol-entrara-em-obras-em-novembro-buscando-mais-interatividade-e-esp.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2fa02b3c2a8940eb85211106df90acdd~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-museu-do-futebol-entrara-em-obras-em-novembro-buscando-mais-interatividade-e-esp.html">Museu do Futebol entrará em obras em novembro buscando mais interatividade e espaços</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Museu do Futebol entrará em obras em novembro buscando mais interatividade e espaços">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-fgv-lanca-novo-espaco-cultural-no-rio-de-janeiro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_723a06845c824880bfd419dd81576810~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-fgv-lanca-novo-espaco-cultural-no-rio-de-janeiro.html">FGV lança novo espaço cultural no Rio de Janeiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="FGV lança novo espaço cultural no Rio de Janeiro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="cat-noticia-p2.html">← Anterior</a><a href="cat-noticia.html">1</a><a href="cat-noticia-p2.html">2</a><a href="cat-noticia-p3.html" class="on">3</a><a href="cat-noticia-p4.html">4</a><a href="cat-noticia-p4.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

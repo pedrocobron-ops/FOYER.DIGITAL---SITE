@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 12 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 12 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Cinema">
+      <a class="ph" href="post-foi-um-amadurecimento-gigante-sobre-luto-e-morte-diz-atriz-mirim-de-a-natureza-d.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0b72de604076475b9267313f3b8300bd~mv2.png" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-foi-um-amadurecimento-gigante-sobre-luto-e-morte-diz-atriz-mirim-de-a-natureza-d.html">“Foi um amadurecimento gigante sobre luto e morte”, diz atriz mirim de A Natureza das Coisas Invisíveis</a></h3>
+        <p>O filme A Natureza das Coisas Invisíveis chega aos cinemas brasileiros no dia 27 de novembro, pela Sessão Vitrine Petrobras, trazendo à tona um tema tão complex…</p>
+        <div class="meta-row">
+          <span class="meta-l">30.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Foi um amadurecimento gigante sobre luto e morte”, diz atriz mirim de A Natureza das Coisas Invisíveis">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-nucleo-experimental-celebra-20-anos-com-nova-temporada-do-musical-codinome-danie.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e46624dd800f4eef83ce202532e66418~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-nucleo-experimental-celebra-20-anos-com-nova-temporada-do-musical-codinome-danie.html">Núcleo Experimental celebra 20 anos com nova temporada do musical Codinome Daniel</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Núcleo Experimental celebra 20 anos com nova temporada do musical Codinome Daniel">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-o-territorio-do-samba-celebra-memoria-resistencia-e-identidade-em-temporada-grat.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d27307f1ef6f436597beec24f8b39bb5~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-o-territorio-do-samba-celebra-memoria-resistencia-e-identidade-em-temporada-grat.html">“O Território do Samba” celebra memória, resistência e identidade em temporada gratuita no Espaço Cia. da Revista</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“O Território do Samba” celebra memória, resistência e identidade em temporada gratuita no Espaço Cia. da Revista">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-mural-da-memoria-dramaturgia-de-ave-terrena-estreia-temporada-popular-no-teatro-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_576fab041ea743ad93f43f007a380f25~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-mural-da-memoria-dramaturgia-de-ave-terrena-estreia-temporada-popular-no-teatro-.html">“Mural da Memória”, dramaturgia de Ave Terrena, estreia temporada popular no Teatro Manás e revisita feridas abertas da ditadura militar</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Mural da Memória”, dramaturgia de Ave Terrena, estreia temporada popular no Teatro Manás e revisita feridas abertas da ditadura militar">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-as-armas-milagrosas-seis-personagens-a-procura-da-existencia-transforma-pirandel.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_afd3ebe19abe463fa33b082d648754c5~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-as-armas-milagrosas-seis-personagens-a-procura-da-existencia-transforma-pirandel.html">“As Armas Milagrosas: seis personagens à procura da existência” transforma Pirandello e Aimé Césaire em um ataque direto ao racismo estrutural no Brasil contemporâneo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“As Armas Milagrosas: seis personagens à procura da existência” transforma Pirandello e Aimé Césaire em um ataque direto ao racismo estrutural no Brasil contemporâneo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-com-hipolyto-larissa-castilho-e-douglas-motta-quem-e-juao-programa-do-foyer.html" aria-label="Foto da matéria"><img src="" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-com-hipolyto-larissa-castilho-e-douglas-motta-quem-e-juao-programa-do-foyer.html">Com Hipólyto, Larissa Castilho e Douglas Motta - Quem é Juão - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com Hipólyto, Larissa Castilho e Douglas Motta - Quem é Juão - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-cena-teatral-se-despede-do-ator-cantor-e-dublador-tony-germano.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_544eefc008e846beb4aa197fc5040a5f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-cena-teatral-se-despede-do-ator-cantor-e-dublador-tony-germano.html">A Cena Teatral se despede do ator, cantor e dublador Tony Germano</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="A Cena Teatral se despede do ator, cantor e dublador Tony Germano">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-carol-duarte-protagoniza-eva-novo-filme-da-cineasta-italiana-emanuela-rossi-que-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7add876e067f4c9cb7028a728b247956~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-carol-duarte-protagoniza-eva-novo-filme-da-cineasta-italiana-emanuela-rossi-que-.html">Carol Duarte protagoniza Eva, novo filme da cineasta italiana Emanuela Rossi, que estreia no Festival de Torino</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Carol Duarte protagoniza Eva, novo filme da cineasta italiana Emanuela Rossi, que estreia no Festival de Torino">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Música">
+      <a class="ph" href="post-runa-seu-poder-e-ser-voce.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e010ab41dd344fd58ed6051439a9c035~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Música</span>
+        <h3><a href="post-runa-seu-poder-e-ser-voce.html">RUNA — Seu poder é ser você.</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="RUNA — Seu poder é ser você.">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-na-sala-dos-espelhos-estreia-no-sesc-ipiranga-e-traz-aos-palcos-uma-potente-refl.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_973c771582024750823cd3386b4d877b~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-na-sala-dos-espelhos-estreia-no-sesc-ipiranga-e-traz-aos-palcos-uma-potente-refl.html">“Na Sala dos Espelhos” estreia no Sesc Ipiranga e traz aos palcos uma potente reflexão sobre a tirania da imagem na era das redes sociais</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Na Sala dos Espelhos” estreia no Sesc Ipiranga e traz aos palcos uma potente reflexão sobre a tirania da imagem na era das redes sociais">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-com-thor-junior-vinicius-loyola-e-moira-osorio-tim-maia-programa-do-foyer.html" aria-label="Foto da matéria"><img src="" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-com-thor-junior-vinicius-loyola-e-moira-osorio-tim-maia-programa-do-foyer.html">Com Thór Junior, Vinícius Loyola e Moira Osório - Tim Maia - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com Thór Junior, Vinícius Loyola e Moira Osório - Tim Maia - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ruth-lea-estreia-no-sesc-pompeia-com-barbara-reis-e-ivy-souza.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_f61b4e1240b24529959b937b81af9f55~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ruth-lea-estreia-no-sesc-pompeia-com-barbara-reis-e-ivy-souza.html">Ruth & Léa estreia no Sesc Pompeia com Bárbara Reis e Ivy Souza</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Ruth & Léa estreia no Sesc Pompeia com Bárbara Reis e Ivy Souza">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-26a-edicao-do-festival-satyrianas-celebra-a-arte-e-o-riso-com-o-tema-nos-vamos-s.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3c2d16b41a6a41f88d77921151f06017~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-26a-edicao-do-festival-satyrianas-celebra-a-arte-e-o-riso-com-o-tema-nos-vamos-s.html">26ª edição do Festival Satyrianas celebra a arte e o riso com o tema “Nós vamos sorrir”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="26ª edição do Festival Satyrianas celebra a arte e o riso com o tema “Nós vamos sorrir”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-thriller-queer-fumaca-de-alexis-gregory-ganha-montagem-inedita-no-brasil.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_f4a1db8624ba4668a45131a9a35d3de8~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-thriller-queer-fumaca-de-alexis-gregory-ganha-montagem-inedita-no-brasil.html">Thriller queer Fumaça, de Alexis Gregory, ganha montagem inédita no Brasil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Thriller queer Fumaça, de Alexis Gregory, ganha montagem inédita no Brasil">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-com-ivan-parente-clara-verdier-e-pamela-rossini-programa-do-foyer.html" aria-label="Foto da matéria"><img src="" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-com-ivan-parente-clara-verdier-e-pamela-rossini-programa-do-foyer.html">Com Ivan Parente, Clara Verdier e Pamela Rossini - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com Ivan Parente, Clara Verdier e Pamela Rossini - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-denise-stoklos-revisita-o-classico-um-fax-para-colombo-em-temporada-popular-no-t.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_4949f4c165e345c7ac55d96bacbe4a9f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-denise-stoklos-revisita-o-classico-um-fax-para-colombo-em-temporada-popular-no-t.html">Denise Stoklos revisita o clássico Um Fax para Colombo em temporada popular no Teatro Estúdio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Denise Stoklos revisita o clássico Um Fax para Colombo em temporada popular no Teatro Estúdio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-alices-espetaculo-em-cartaz-no-sesc-pinheiros.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_bafc3d169d0348da830c0926d172ae6e~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-alices-espetaculo-em-cartaz-no-sesc-pinheiros.html">Alices espetáculo em cartaz no Sesc Pinheiros</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Alices espetáculo em cartaz no Sesc Pinheiros">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-olhos-nos-olhos-um-nao-musical.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3424b759c07c4c87a90164fb6563b649~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-olhos-nos-olhos-um-nao-musical.html">Olhos nos Olhos, um não musical</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.11 — Léo Braga</span>
+          <button class="share-min" data-share="native" data-title="Olhos nos Olhos, um não musical">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-com-miguel-arcanjo-programa-do-foyer.html" aria-label="Foto da matéria"><img src="" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-com-miguel-arcanjo-programa-do-foyer.html">Com Miguel Arcanjo - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com Miguel Arcanjo - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-hugo-bonemer-inaugura-projeto-de-microteatro-no-rio-com-o-monologo-uma-casa-para.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e00685d76e1e4e3fbc62a72d9f4291e7~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-hugo-bonemer-inaugura-projeto-de-microteatro-no-rio-com-o-monologo-uma-casa-para.html">Hugo Bonèmer inaugura projeto de microteatro no Rio com o monólogo Uma Casa para Celeste</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Hugo Bonèmer inaugura projeto de microteatro no Rio com o monólogo Uma Casa para Celeste">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-pietro-cadete-estreia-seu-primeiro-monologo-minha-ultima-refeicao.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_96ae61ea57de486bac10d3f15d835ca6~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-pietro-cadete-estreia-seu-primeiro-monologo-minha-ultima-refeicao.html">Pietro Cadete estreia seu primeiro monólogo: Minha Última Refeição</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Pietro Cadete estreia seu primeiro monólogo: Minha Última Refeição">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-nucleo-alvenaria-estreia-humanamente-inviavel-tragicomedia-distopica-sobre-gener.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b9bf90f367754320aeadb68e7253fb41~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-nucleo-alvenaria-estreia-humanamente-inviavel-tragicomedia-distopica-sobre-gener.html">Núcleo Alvenaria estreia Humanamente Inviável, tragicomédia distópica sobre gênero, algoritmos e o fim do mundo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Núcleo Alvenaria estreia Humanamente Inviável, tragicomédia distópica sobre gênero, algoritmos e o fim do mundo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-otto-lara-resende-ou-bonitinha-mas-ordinaria-ou-no-brasil-todo-mundo-e-peixoto-v.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_8de6ca52f56b4975b22925a34a3d0301~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-otto-lara-resende-ou-bonitinha-mas-ordinaria-ou-no-brasil-todo-mundo-e-peixoto-v.html">Otto Lara Resende ou Bonitinha, mas ordinária ou no Brasil todo mundo é Peixoto volta em curta temporada no Teatro Núcleo Experimental</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Otto Lara Resende ou Bonitinha, mas ordinária ou no Brasil todo mundo é Peixoto volta em curta temporada no Teatro Núcleo Experimental">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-antigona-travesti-de-renata-carvalho-transforma-o-teatro-em-celula-de-resistenci.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_19fa8910a8724b85af24039072f343b4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-antigona-travesti-de-renata-carvalho-transforma-o-teatro-em-celula-de-resistenci.html">Antígona Travesti, de Renata Carvalho, transforma o teatro em célula de resistência</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Antígona Travesti, de Renata Carvalho, transforma o teatro em célula de resistência">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p11.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p11.html">11</a><a href="noticias-p12.html" class="on">12</a><a href="noticias-p13.html">13</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p13.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Matérias de Teatro no FOYER.">
+<title>Teatro — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Teatro</h1>
+    <p class="note">952 matérias — página 39 de 40</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html">Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html" class="on">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-texto-teatral-de-giovani-tozi-encenado-por-maria-fernanda-candido-marcara-homena.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7091698948cc4cc6af0ab5933a24858e~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-texto-teatral-de-giovani-tozi-encenado-por-maria-fernanda-candido-marcara-homena.html">Texto Teatral de Giovani Tozi, encenado por Maria Fernanda Cândido, marcará homenagens a Jô Soares</a></h3>
+        <p>“O Livro Vivo” é uma obra baseada na autobiografia desautorizada de Jô Soares e Matinas Suzuki Junior, ela evoca momentos marcantes da...…</p>
+        <div class="meta-row">
+          <span class="meta-l">07.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Texto Teatral de Giovani Tozi, encenado por Maria Fernanda Cândido, marcará homenagens a Jô Soares">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-morre-aracy-balabanian-renomada-atriz-brasileira-aos-83-anos.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6527ab21e2bc435b8b014e1507f10f33~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-morre-aracy-balabanian-renomada-atriz-brasileira-aos-83-anos.html">Morre Aracy Balabanian, renomada atriz brasileira, aos 83 anos.</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Morre Aracy Balabanian, renomada atriz brasileira, aos 83 anos.">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-beetlejuice-o-musical-tem-data-de-estreia-em-sp-revelada.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_1e0c6c96fec1449ab291e323d0f543be~mv2.webp" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-beetlejuice-o-musical-tem-data-de-estreia-em-sp-revelada.html">'Beetlejuice - O Musical' tem data de estreia em SP revelada</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Beetlejuice - O Musical' tem data de estreia em SP revelada">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-os-donos-do-mundo-um-drama-apocaliptico-sobre-valores-e-humanidade.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_88816804a41e42cab92f09547faf3945~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-os-donos-do-mundo-um-drama-apocaliptico-sobre-valores-e-humanidade.html">'Os Donos do Mundo' Um drama apocalíptico sobre valores e humanidade</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Os Donos do Mundo' Um drama apocalíptico sobre valores e humanidade">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-estreia-hoje-os-ultimos-5-anos-no-teatro-nair-bello-em-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_1bcdbb0f4eaa4b89aae7b2be4acccd4e~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-estreia-hoje-os-ultimos-5-anos-no-teatro-nair-bello-em-sao-paulo.html">Estreia hoje! 'Os Últimos 5 Anos' no Teatro Nair Bello em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Estreia hoje! 'Os Últimos 5 Anos' no Teatro Nair Bello em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-musical-sobre-belchior-volta-aos-palcos-de-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_8d1f5192b51a480fa8a6d9f76d2e5986~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-sobre-belchior-volta-aos-palcos-de-sao-paulo.html">Musical sobre Belchior volta aos palcos de São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Musical sobre Belchior volta aos palcos de São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-reinventando-um-classico-com-olhar-feminino-escola-de-mulheres-um-satira-ao-patr.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_68f32c0e92dc4d5d9efd9e4fafcfa6e2~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-reinventando-um-classico-com-olhar-feminino-escola-de-mulheres-um-satira-ao-patr.html">Reinventando um clássico com olhar feminino 'Escola de Mulheres - Um sátira ao Patriarcado'</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Reinventando um clássico com olhar feminino 'Escola de Mulheres - Um sátira ao Patriarcado'">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-brenda-lee-e-o-palacio-das-princesas-se-apresenta-no-sesc-guarulhos-dias-5-e-6-d.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_68e2cf58d38241eaa1f4d5b3f53b0d4f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-brenda-lee-e-o-palacio-das-princesas-se-apresenta-no-sesc-guarulhos-dias-5-e-6-d.html">'Brenda Lee e o Palácio das Princesas' Se apresenta no Sesc Guarulhos dias 5 e 6 de agosto</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Brenda Lee e o Palácio das Princesas' Se apresenta no Sesc Guarulhos dias 5 e 6 de agosto">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-porta-aberta-espetaculo-exploraferidas-de-infancia-disfuncional.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_18f49ac55a094855935c6a5ef864df38~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-porta-aberta-espetaculo-exploraferidas-de-infancia-disfuncional.html">'A Porta Aberta' Espetáculo explora feridas de infância disfuncional</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'A Porta Aberta' Espetáculo explora feridas de infância disfuncional">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-camila-morgado-retorna-ao-teatro-apos-11-anos-protagonizando-a-falecida.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_a535cbe6aff54dbda82d9a7a2cc397f9~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-camila-morgado-retorna-ao-teatro-apos-11-anos-protagonizando-a-falecida.html">Camila Morgado retorna ao teatro após 11 anos protagonizando 'A Falecida'</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Camila Morgado retorna ao teatro após 11 anos protagonizando 'A Falecida'">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-cordel-do-amor-sem-fim-retorna-ao-teatro-do-sesi-sp-em-nova-temporada.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_5c80694c67e0449f8969fc141442730c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-cordel-do-amor-sem-fim-retorna-ao-teatro-do-sesi-sp-em-nova-temporada.html">'Cordel do Amor Sem Fim' retorna ao Teatro do SESI-SP em nova temporada</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Cordel do Amor Sem Fim' retorna ao Teatro do SESI-SP em nova temporada">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-coletivo-teatro-dodecafonico-estreia-peca-manifesto-eu-amo-chris-uma-pequena-col.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_0a57cda664c54f83b18a0f361b79da76~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-coletivo-teatro-dodecafonico-estreia-peca-manifesto-eu-amo-chris-uma-pequena-col.html">Coletivo Teatro Dodecafônico estreia peça-manifesto 'Eu Amo Chris- uma pequena coleção de fracassos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Coletivo Teatro Dodecafônico estreia peça-manifesto 'Eu Amo Chris- uma pequena coleção de fracassos">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-o-senhor-dos-aneis-trilogia-e-adaptada-em-versao-musical.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_81b7eb150be34582996e1a101e95f1e7~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-o-senhor-dos-aneis-trilogia-e-adaptada-em-versao-musical.html">'O Senhor dos Anéis' trilogia é adaptada em versão musical</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'O Senhor dos Anéis' trilogia é adaptada em versão musical">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-duetos-a-comedia-de-peter-quilter-estreia-com-eduardo-moscovis-e-patricya-travas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_e35667f068cd423b99706fe09f7594a6~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-duetos-a-comedia-de-peter-quilter-estreia-com-eduardo-moscovis-e-patricya-travas.html">'Duetos, A Comédia de Peter Quilter' estreia com Eduardo Moscovis e Patricya Travassos em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Duetos, A Comédia de Peter Quilter' estreia com Eduardo Moscovis e Patricya Travassos em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-denise-del-vecchio-volta-aos-palcos-comemorando-os-52-anos-de-carreira.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_aed42abf188d490f8c18ab513ceff287~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-denise-del-vecchio-volta-aos-palcos-comemorando-os-52-anos-de-carreira.html">Denise Del Vecchio Volta aos palcos comemorando os 52 anos de carreira.</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Denise Del Vecchio Volta aos palcos comemorando os 52 anos de carreira.">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-fotos-reveladas-back-to-the-future-o-musical-antes-da-estreia-na-broadway.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_ceeae70ad2da4bb6a511e5579bfbaba3~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-fotos-reveladas-back-to-the-future-o-musical-antes-da-estreia-na-broadway.html">Fotos Reveladas 'Back to the Future: o Musical' antes da estreia na Broadway</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Fotos Reveladas 'Back to the Future: o Musical' antes da estreia na Broadway">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-o-dragao-dourado-uma-reflexao-sobre-comunicacao-e-relacoes-humanas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_44eacda892c3492a8c9f1ca9622fbc23~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-o-dragao-dourado-uma-reflexao-sobre-comunicacao-e-relacoes-humanas.html">'O Dragão Dourado' uma reflexão sobre comunicação e relações humanas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'O Dragão Dourado' uma reflexão sobre comunicação e relações humanas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-vida-passou-por-aqui-estende-temporada-ate-agosto-no-teatro-j-safra.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_0deb812f450f42ceae985de60bc9f307~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-vida-passou-por-aqui-estende-temporada-ate-agosto-no-teatro-j-safra.html">'A Vida Passou Por Aqui' estende temporada até agosto no Teatro J. Safra</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'A Vida Passou Por Aqui' estende temporada até agosto no Teatro J. Safra">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-alguma-coisa-podre-chega-as-ultimas-semanas-no-teatro-porto-ja-assistiu.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_c3d7d13a0af843c49515c96f8530d9be~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-alguma-coisa-podre-chega-as-ultimas-semanas-no-teatro-porto-ja-assistiu.html">'Alguma Coisa Podre' Chega às últimas semanas no Teatro Porto, já assistiu?</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Alguma Coisa Podre' Chega às últimas semanas no Teatro Porto, já assistiu?">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-matilda-o-musical-atrizes-sao-reveladas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_67a3d258718e44cd9b2da3f10d1aa734~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-matilda-o-musical-atrizes-sao-reveladas.html">'Matilda - O Musical' Atrizes são reveladas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Matilda - O Musical' Atrizes são reveladas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-os-ultimos-5-anos-retorna-a-sao-paulo-com-temporada-no-teatro-nair-bello.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_e0b964433bf149df8ec38346b4219303~mv2.jpeg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-os-ultimos-5-anos-retorna-a-sao-paulo-com-temporada-no-teatro-nair-bello.html">'Os Últimos 5 Anos' Retorna a São Paulo com temporada no Teatro Nair Bello</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Os Últimos 5 Anos' Retorna a São Paulo com temporada no Teatro Nair Bello">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-adeus-as-bruxas-de-oz-wicked-chega-ao-ultimo-final-de-semana.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_010d4214f1b2494888987e691f32b29e~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-adeus-as-bruxas-de-oz-wicked-chega-ao-ultimo-final-de-semana.html">Adeus às bruxas de Oz: Wicked chega ao último final de semana</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Adeus às bruxas de Oz: Wicked chega ao último final de semana">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-bufao-oke-o-espetaculo-que-usa-parodias-para-zombar-de-opressores-em-um-karaoke.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_4b9956d0b39e468b9cbfeaca9660aff2~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-bufao-oke-o-espetaculo-que-usa-parodias-para-zombar-de-opressores-em-um-karaoke.html">'Bufão-Okê' o espetáculo que usa paródias para zombar de opressores em um karaokê</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Bufão-Okê' o espetáculo que usa paródias para zombar de opressores em um karaokê">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-it-s-me-elton-tem-ingressos-esgotados-no-teatro-giostri-em-estreia.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_f3deb185c38847d5baefc16c2e461bc3~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-it-s-me-elton-tem-ingressos-esgotados-no-teatro-giostri-em-estreia.html">"It's me: Elton" tem ingressos esgotados no Teatro Giostri em estreia</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”It's me: Elton” tem ingressos esgotados no Teatro Giostri em estreia">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="cat-teatro-p38.html">← Anterior</a><a href="cat-teatro.html">1</a><a href="cat-teatro-p2.html">2</a><span>…</span><a href="cat-teatro-p38.html">38</a><a href="cat-teatro-p39.html" class="on">39</a><a href="cat-teatro-p40.html">40</a><a href="cat-teatro-p40.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

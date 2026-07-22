@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 58 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 58 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Cinema">
+      <a class="ph" href="post-maeve-jinkings-que-impressionou-em-os-outros-estrela-longa-sobre-cura-gay.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_9f65f43caea349fda26f4c9c42a01ddc~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-maeve-jinkings-que-impressionou-em-os-outros-estrela-longa-sobre-cura-gay.html">Maeve Jinkings, que impressionou em “Os Outros”, estrela longa sobre “Cura Gay”</a></h3>
+        <p>O longa “Pedágio” marca a volta da cineasta Carolina Markowicz ao festival de Toronto, que no ano anterior apresentou “Carvão”, que foi...…</p>
+        <div class="meta-row">
+          <span class="meta-l">14.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Maeve Jinkings, que impressionou em “Os Outros”, estrela longa sobre “Cura Gay”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-funny-girl-sucesso-da-broadway-estreia-esta-semana-no-teatro-porto.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2e85f18309e64d04af630ecaec6883e7~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-funny-girl-sucesso-da-broadway-estreia-esta-semana-no-teatro-porto.html">Funny Girl, sucesso da Broadway, estreia esta semana no Teatro Porto</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Funny Girl, sucesso da Broadway, estreia esta semana no Teatro Porto">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-40-anos-sem-clara-nunes-musical-uma-declaracao-de-amor-celebra-a-data.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c129001b373247509590cb412bdff1bc~mv2.webp" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-40-anos-sem-clara-nunes-musical-uma-declaracao-de-amor-celebra-a-data.html">40 anos sem Clara Nunes, musical “Uma Declaração de Amor” celebra a data</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="40 anos sem Clara Nunes, musical “Uma Declaração de Amor” celebra a data">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-laila-garin-volta-ao-papel-de-elis-em-musical.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_1c7efaf0ff5f4477bb8be3ed2678b6ff~mv2.webp" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-laila-garin-volta-ao-papel-de-elis-em-musical.html">Laila Garin volta ao papel de Elis em musical</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Laila Garin volta ao papel de Elis em musical">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-60-anos-contando-piadas-ary-toledo-em-show-especial.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_df9c6816702247b9aced628070732662~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-60-anos-contando-piadas-ary-toledo-em-show-especial.html">60 anos contando piadas: Ary Toledo em Show especial</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="60 anos contando piadas: Ary Toledo em Show especial">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Streaming">
+      <a class="ph" href="post-assassino-da-ultima-rodada-e-tema-de-serie-documental-sobre-a-comunidade-lgbtq.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7d9b4c952fbb463c8d06bbe9f6b9db90~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-assassino-da-ultima-rodada-e-tema-de-serie-documental-sobre-a-comunidade-lgbtq.html">Assassino da Última Rodada é tema de série documental sobre a comunidade LGBTQ+</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Assassino da Última Rodada é tema de série documental sobre a comunidade LGBTQ+">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Televisão">
+      <a class="ph" href="post-remake-de-elas-por-elas-se-torna-grande-homenagem-a-elenco-quase-todo-falecido.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2cb40373faed45f6ba985059cdbe2337~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Televisão</span>
+        <h3><a href="post-remake-de-elas-por-elas-se-torna-grande-homenagem-a-elenco-quase-todo-falecido.html">Remake de “Elas por Elas” se torna grande homenagem a elenco quase todo falecido</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Remake de “Elas por Elas” se torna grande homenagem a elenco quase todo falecido">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Edital">
+      <a class="ph" href="post-concurso-de-audiovisual-instiga-a-capacidade-de-sintese-de-seus-participantes.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_76d39d64a4f94d92b29afcb8cb3b3aa6~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Edital</span>
+        <h3><a href="post-concurso-de-audiovisual-instiga-a-capacidade-de-sintese-de-seus-participantes.html">Concurso de audiovisual instiga a capacidade de síntese de seus participantes</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Concurso de audiovisual instiga a capacidade de síntese de seus participantes">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Literatura">
+      <a class="ph" href="post-elza-soares-agora-na-literatura-infantil.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_cdaee106d2b744b68d859161a9750186~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Literatura</span>
+        <h3><a href="post-elza-soares-agora-na-literatura-infantil.html">Elza Soares agora na literatura infantil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Elza Soares agora na literatura infantil">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-de-dinah-feldman-fala-sobre-ser-mulher-as-vesperas-do-dia-dos-pais.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_4e124df28a324ab496a35f837eb8713a~mv2.jpeg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-de-dinah-feldman-fala-sobre-ser-mulher-as-vesperas-do-dia-dos-pais.html">Espetáculo de Dinah Feldman fala sobre ser mulher às vésperas do dia dos pais</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo de Dinah Feldman fala sobre ser mulher às vésperas do dia dos pais">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-camila-morgado-protagoniza-montagem-de-a-falecida-de-nelson-rodrigues.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_63e6ed872bf34f89a7c96c53c33f0906~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-camila-morgado-protagoniza-montagem-de-a-falecida-de-nelson-rodrigues.html">Camila Morgado protagoniza montagem de 'A Falecida', de Nelson Rodrigues</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Camila Morgado protagoniza montagem de 'A Falecida', de Nelson Rodrigues">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-literatura-e-arte-por-liana-ferraz-foyer-18.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_84370e78214242b0bdf7c97bcde750cf~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-literatura-e-arte-por-liana-ferraz-foyer-18.html">Literatura e arte por Liana Ferraz - Foyer#18</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Literatura e arte por Liana Ferraz - Foyer#18">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-chico-bento-e-a-goiabeira-maraviosa-conclui-gravacoes-e-revela-novas-fotos.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_8741c5cf6464403e9317ee37f4b7db60~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-chico-bento-e-a-goiabeira-maraviosa-conclui-gravacoes-e-revela-novas-fotos.html">'Chico Bento e a Goiabeira Maraviósa' Conclui gravações e revela novas fotos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Chico Bento e a Goiabeira Maraviósa' Conclui gravações e revela novas fotos">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Televisão">
+      <a class="ph" href="post-ultima-novela-de-regiane-alves-na-globo-chega-ao-fim.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3e9f95ed88b2497b825ae4dc40f7394a~mv2.webp" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Televisão</span>
+        <h3><a href="post-ultima-novela-de-regiane-alves-na-globo-chega-ao-fim.html">Última novela de Regiane Alves na Globo chega ao fim</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Última novela de Regiane Alves na Globo chega ao fim">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-greve-em-hollywood-se-estende-e-emmy-e-adiado.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_de04628db1ab42db98222b7123d4b945~mv2.webp" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-greve-em-hollywood-se-estende-e-emmy-e-adiado.html">Greve em Hollywood se estende, e Emmy é adiado</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Greve em Hollywood se estende, e Emmy é adiado">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-arte-drag-com-thelores-e-alexia-twister-foyer-17.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0d031443fd3743c88eeb839f0cddb076~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-arte-drag-com-thelores-e-alexia-twister-foyer-17.html">Arte Drag com Thelores e Alexia Twister - Foyer#17</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Arte Drag com Thelores e Alexia Twister - Foyer#17">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-novo-filme-de-wes-anderson-asteroid-city-tem-74-de-aprovacao-no-rotten-tomatoes.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_e6e127b659234c07986bffc1d6b599f2~mv2.webp" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-novo-filme-de-wes-anderson-asteroid-city-tem-74-de-aprovacao-no-rotten-tomatoes.html">Novo filme de Wes Anderson, 'Asteroid City' tem 74% de aprovação no Rotten Tomatoes</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Novo filme de Wes Anderson, 'Asteroid City' tem 74% de aprovação no Rotten Tomatoes">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-isis-valverde-e-angela-diniz-em-trailer-de-filme.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_b8394e8f4eb142c7bd037103d1e9e685~mv2.webp" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-isis-valverde-e-angela-diniz-em-trailer-de-filme.html">Isis Valverde é Ângela Diniz em trailer de filme</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Isis Valverde é Ângela Diniz em trailer de filme">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-uma-peca-de-comedia-aborda-desafios-do-humor-e-do-teatro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_88641fcc228e4ad28448331cfed9739c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-uma-peca-de-comedia-aborda-desafios-do-humor-e-do-teatro.html">'Uma Peça de Comédia'Aborda desafios do humor e do teatro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Uma Peça de Comédia'Aborda desafios do humor e do teatro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-infancia-de-graciliano-ramosem-cartaz-no-teatro-sergio-cardoso.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_9bc74beb2a32442fbf9ec7b5f6cfe6d5~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-infancia-de-graciliano-ramosem-cartaz-no-teatro-sergio-cardoso.html">'INFÂNCIA' de Graciliano Ramosem cartaz no Teatro Sérgio Cardoso</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'INFÂNCIA' de Graciliano Ramosem cartaz no Teatro Sérgio Cardoso">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-palco-giratorio-completa-25-anos-trazendo-14-espetaculo-para-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0d4d288187a14321a45ab9d703461c4f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-palco-giratorio-completa-25-anos-trazendo-14-espetaculo-para-sao-paulo.html">Palco Giratório completa 25 anos trazendo 14 espetáculo para São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Palco Giratório completa 25 anos trazendo 14 espetáculo para São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-tom-na-fazenda-faz-temporada-no-teatro-faap.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_b23062be5164454388ce0670ff160449~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-tom-na-fazenda-faz-temporada-no-teatro-faap.html">'TOM NA FAZENDA' faz temporada no Teatro FAAP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'TOM NA FAZENDA' faz temporada no Teatro FAAP">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-angela-dippe-estreia-a-comedia-da-puberdade-a-menopausa.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_adabe489f71d4f98b852cf7738f8fa14~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-angela-dippe-estreia-a-comedia-da-puberdade-a-menopausa.html">Angela Dippe estreia a comédia 'Da Puberdade à Menopausa'</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Angela Dippe estreia a comédia 'Da Puberdade à Menopausa'">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-texto-teatral-de-giovani-tozi-encenado-por-maria-fernanda-candido-marcara-homena.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7091698948cc4cc6af0ab5933a24858e~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-texto-teatral-de-giovani-tozi-encenado-por-maria-fernanda-candido-marcara-homena.html">Texto Teatral de Giovani Tozi, encenado por Maria Fernanda Cândido, marcará homenagens a Jô Soares</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Texto Teatral de Giovani Tozi, encenado por Maria Fernanda Cândido, marcará homenagens a Jô Soares">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p57.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p57.html">57</a><a href="noticias-p58.html" class="on">58</a><a href="noticias-p59.html">59</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p59.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

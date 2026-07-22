@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Matérias de Notícia no FOYER.">
+<title>Notícia — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícia</h1>
+    <p class="note">90 matérias — página 2 de 4</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html">Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html" class="on">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Notícia">
+      <a class="ph" href="post-ator-ney-latorraca-faleceu-aos-80-anos-deixando-um-imenso-legado-na-teledramatur.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_5af915e27106404f9e50b271ab37ba00~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-ator-ney-latorraca-faleceu-aos-80-anos-deixando-um-imenso-legado-na-teledramatur.html">Ator Ney Latorraca faleceu aos 80 anos deixando um imenso legado na teledramaturgia e nos palcos brasileiros</a></h3>
+        <p>Ney Antonio Latorraca, nascido na cidade de Santos, litoral de São Paulo, faleceu aos 80 anos em decorrência de uma sepse pulmonar.…</p>
+        <div class="meta-row">
+          <span class="meta-l">26.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Ator Ney Latorraca faleceu aos 80 anos deixando um imenso legado na teledramaturgia e nos palcos brasileiros">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-death-becomes-her.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_f8ca25fca8f94cd9a2ebe6e6575ce0ab~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-death-becomes-her.html">“Death Becomes Her” estreia na Broadway com Megan Hilty e Jennifer Simard liderando o elenco</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Death Becomes Her” estreia na Broadway com Megan Hilty e Jennifer Simard liderando o elenco">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-premio-arcanjo-celebra-destaques-da-cultura-em-2024-no-teatro-sergio-cardoso.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a3dcd6d0509444d49a08ca6ab17e023d~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-premio-arcanjo-celebra-destaques-da-cultura-em-2024-no-teatro-sergio-cardoso.html">Prêmio Arcanjo celebra destaques da cultura em 2024 no Teatro Sérgio Cardoso</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Prêmio Arcanjo celebra destaques da cultura em 2024 no Teatro Sérgio Cardoso">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-premio-bibi-ferreira-2024-2.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_061447c7ab774c9892d882346579dfc7~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-premio-bibi-ferreira-2024-2.html">Prêmio Bibi Ferreira 2024: Confira os Ganhadores</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Prêmio Bibi Ferreira 2024: Confira os Ganhadores">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-smash-broadway.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2ee4a766241242b894bc563f4351e58f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-smash-broadway.html">Smash: A Série de TV de Sucesso Agora Vai para os Palcos da Broadway com Elenco Anunciado</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Smash: A Série de TV de Sucesso Agora Vai para os Palcos da Broadway com Elenco Anunciado">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-natasha-pierre-e-o-grande-cometa-de-1812.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6bd5f83541a5463d8a431948af819af3~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-natasha-pierre-e-o-grande-cometa-de-1812.html">Elenco da Nova Montagem de "Natasha, Pierre e O Grande Cometa de 1812" no Reino Unido é Anunciado</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Elenco da Nova Montagem de ”Natasha, Pierre e O Grande Cometa de 1812” no Reino Unido é Anunciado">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-maggie-smith-morte.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b3f4e00a76eb4429b76d05198387fdd7~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-maggie-smith-morte.html">Maggie Smith: Adeus a uma das mais lendárias atrizes britânicas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Maggie Smith: Adeus a uma das mais lendárias atrizes britânicas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-jantar-musical-com-cia-broadway.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e73317b0618e46898299bb2b330582bf~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-jantar-musical-com-cia-broadway.html">Últimas Apresentações do Jantar Musical com Cia Broadway Brasil no Meliá Paulista</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Últimas Apresentações do Jantar Musical com Cia Broadway Brasil no Meliá Paulista">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-fernanda-montenegro-simone-de-beauvoir.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_d30d479e8bac4f1b974451e0462e4f79~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-fernanda-montenegro-simone-de-beauvoir.html">Fernanda Montenegro emociona 15 mil pessoas no Ibirapuera em leitura de Simone de Beauvoir</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.08 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Fernanda Montenegro emociona 15 mil pessoas no Ibirapuera em leitura de Simone de Beauvoir">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-silvio-santos-o-legado-inesquecivel-do-maior-comunicador-da-televisao-brasileira.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b57754c5a3fc409abc72e0a3f26a1d16~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-silvio-santos-o-legado-inesquecivel-do-maior-comunicador-da-televisao-brasileira.html">Silvio Santos: O Legado Inesquecível do Maior Comunicador da Televisão Brasileira</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Silvio Santos: O Legado Inesquecível do Maior Comunicador da Televisão Brasileira">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-disney-d23-expo-2024.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_75cf9f29e6d14c84ae519c9a116a6f1c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-disney-d23-expo-2024.html">Disney revela novidades empolgantes e datas de lançamentos no painel da D23 Expo 2024</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.08 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Disney revela novidades empolgantes e datas de lançamentos no painel da D23 Expo 2024">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-festival-sesc-mesa-brasil.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_65b631c5e56e4e3b82f0a1ea3aec4c80~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-festival-sesc-mesa-brasil.html">Celebre 30 Anos de Combate à Fome com o Festival Sesc Mesa Brasil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Celebre 30 Anos de Combate à Fome com o Festival Sesc Mesa Brasil">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-stranger-things-a-primeira-sombra.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_94419c29a8204f5484c669859e8e3991~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-stranger-things-a-primeira-sombra.html">"Stranger Things: A Primeira Sombra" Chega à Broadway Após Sucesso Estrondoso em Londres</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Stranger Things: A Primeira Sombra” Chega à Broadway Após Sucesso Estrondoso em Londres">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-keanu-reeves-esperando-godot.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_12d181748ad24b689aec53afcc1814e5~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-keanu-reeves-esperando-godot.html">Keanu Reeves e Alex Winter Reunidos na Broadway para "Esperando Godot"</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Keanu Reeves e Alex Winter Reunidos na Broadway para ”Esperando Godot”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-adam-lambert-auli-i-cravalho-cabaret.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_10f821500ae2431e9932d4a5d622b582~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-adam-lambert-auli-i-cravalho-cabaret.html">Adam Lambert e Auli'i Cravalho farão suas estreias na Broadway no musical Cabaret</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.07 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Adam Lambert e Auli'i Cravalho farão suas estreias na Broadway no musical Cabaret">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-uma-baba-quase-perfeita-eduardo-sterblitch-e-thais-piza-estrelam-em-espetaculo-m.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c0f4c70a2dfd4843ad3a49982667932d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-uma-baba-quase-perfeita-eduardo-sterblitch-e-thais-piza-estrelam-em-espetaculo-m.html">“Uma Babá Quase Perfeita": Eduardo Sterblitch e Thaís Piza Estrelam em Espetáculo Musical Repleto de Magia e Humor</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Uma Babá Quase Perfeita”: Eduardo Sterblitch e Thaís Piza Estrelam em Espetáculo Musical Repleto de Magia e Humor">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-plataforma-platore-conecta-atores-e-fortalece-a-classe-artistica.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_138a6e4f50d24d5f85eb22adb7da5f14~mv2.jpeg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-plataforma-platore-conecta-atores-e-fortalece-a-classe-artistica.html">Plataforma Platore conecta atores e fortalece a classe artística</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.07 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Plataforma Platore conecta atores e fortalece a classe artística">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-apos-sucesso-de-publico-no-sesc-belenzinho-espetaculo-baseado-no-romance-de-nata.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c92b87cdf8e244f0a12886431793d889~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-apos-sucesso-de-publico-no-sesc-belenzinho-espetaculo-baseado-no-romance-de-nata.html">Após sucesso de público no Sesc Belenzinho, espetáculo baseado no romance de Natalia Timerman retorna com ingressos gratuitos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Após sucesso de público no Sesc Belenzinho, espetáculo baseado no romance de Natalia Timerman retorna com ingressos gratuitos">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-drag-the-musical-chega-ao-off-broadway-com-elenco-de-estrelas-do-drag-race.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_e69afca2dc284f33955413a69b530200~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-drag-the-musical-chega-ao-off-broadway-com-elenco-de-estrelas-do-drag-race.html">Drag: The Musical chega ao off-Broadway com elenco de estrelas do Drag Race</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.06 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Drag: The Musical chega ao off-Broadway com elenco de estrelas do Drag Race">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-nick-jonas-e-adrienne-warren-sao-as-estrelas-de-the-last-five-years-na-broadway.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_1f19269a733d4106a9c0fa723b684b23~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-nick-jonas-e-adrienne-warren-sao-as-estrelas-de-the-last-five-years-na-broadway.html">Nick Jonas e Adrienne Warren são as estrelas de "The Last Five Years" na Broadway</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.06 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Nick Jonas e Adrienne Warren são as estrelas de ”The Last Five Years” na Broadway">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-nicole-cordery-larissa-ferrara-e-marcela-rosis.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0153f34280434717ae4fde0ae2f5acc0~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-nicole-cordery-larissa-ferrara-e-marcela-rosis.html">Nicole Cordery, Larissa Ferrara e Marcela Rosis - Corda Bamba - Programa do Foyer #49</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Nicole Cordery, Larissa Ferrara e Marcela Rosis - Corda Bamba - Programa do Foyer #49">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-primeiras-imagens-de-tom-holland-e-francesca-amewudah-rivers-como-romeu-e-juliet.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2834b205f7b94dd09b8b68018e184008~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-primeiras-imagens-de-tom-holland-e-francesca-amewudah-rivers-como-romeu-e-juliet.html">Primeiras Imagens de Tom Holland e Francesca Amewudah-Rivers como Romeu e Julieta São Divulgadas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Primeiras Imagens de Tom Holland e Francesca Amewudah-Rivers como Romeu e Julieta São Divulgadas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-mulheres-phoda-do-teatro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b14534eef10646ac872619dfafee2737~mv2.jpeg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-mulheres-phoda-do-teatro.html">Mulheres PHODA do teatro.</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.04 — Gerson Steves </span>
+          <button class="share-min" data-share="native" data-title="Mulheres PHODA do teatro.">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-leona-cavalli-se-desdobra-em-duas-montagens-teatrais-no-rio-e-em-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_24bf86ce276049df8dfd61b519cb55a4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-leona-cavalli-se-desdobra-em-duas-montagens-teatrais-no-rio-e-em-sao-paulo.html">Leona Cavalli se desdobra em duas montagens teatrais, no Rio e em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.04 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Leona Cavalli se desdobra em duas montagens teatrais, no Rio e em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="cat-noticia.html">← Anterior</a><a href="cat-noticia.html">1</a><a href="cat-noticia-p2.html" class="on">2</a><a href="cat-noticia-p3.html">3</a><a href="cat-noticia-p4.html">4</a><a href="cat-noticia-p3.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

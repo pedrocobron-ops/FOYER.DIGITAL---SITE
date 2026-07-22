@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Matérias de Cinema no FOYER.">
+<title>Cinema — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Cinema</h1>
+    <p class="note">112 matérias — página 1 de 5</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html">Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html" class="on">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Cinema">
+      <a class="ph" href="post-heranca-de-narcisa-leva-paolla-oliveira-ao-drama-sobrenatural-nos-cinemas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3384cc17047045b5bec865cb1fa9f0f3~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-heranca-de-narcisa-leva-paolla-oliveira-ao-drama-sobrenatural-nos-cinemas.html">“Herança de Narcisa” leva Paolla Oliveira ao drama sobrenatural nos cinemas</a></h3>
+        <p>A casa de infância pode guardar mais do que lembranças. Em “Herança de Narcisa”, drama sobrenatural estrelado por Paolla Oliveira, o retorno ao antigo lar abre …</p>
+        <div class="meta-row">
+          <span class="meta-l">14.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Herança de Narcisa” leva Paolla Oliveira ao drama sobrenatural nos cinemas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-todo-mundo-em-panico-ganha-novos-posteres-com-parodias-de-filmes-de-terror.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_5b36c7557dc642aebf1d2cd8cd340645~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-todo-mundo-em-panico-ganha-novos-posteres-com-parodias-de-filmes-de-terror.html">“Todo Mundo em Pânico” ganha novos pôsteres com paródias de filmes de terror</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Todo Mundo em Pânico” ganha novos pôsteres com paródias de filmes de terror">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-cinebiografia-michael-abre-com-recorde-e-recoloca-michael-jackson-no-centro-da-c.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a121c69967074a5fb9fe7e6e25180224~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-cinebiografia-michael-abre-com-recorde-e-recoloca-michael-jackson-no-centro-da-c.html">Cinebiografia “Michael” abre com recorde e recoloca Michael Jackson no centro da cultura pop</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Cinebiografia “Michael” abre com recorde e recoloca Michael Jackson no centro da cultura pop">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-o-mago-do-kremlin-com-jude-law-e-paul-dano-estreia-nos-cinemas-em-9-de-abril.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d414af7dcf8a4d83bd1f549eda254087~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-o-mago-do-kremlin-com-jude-law-e-paul-dano-estreia-nos-cinemas-em-9-de-abril.html">“O Mago do Kremlin”, com Jude Law e Paul Dano, estreia nos cinemas em 9 de abril</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“O Mago do Kremlin”, com Jude Law e Paul Dano, estreia nos cinemas em 9 de abril">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-vingadora-com-milla-jovovich-estreia-nos-cinemas-brasileiros-em-26-de-marco.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_36c74e342ef3462d9063d85d0fb1ab68~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-vingadora-com-milla-jovovich-estreia-nos-cinemas-brasileiros-em-26-de-marco.html">“Vingadora”, com Milla Jovovich, estreia nos cinemas brasileiros em 26 de março</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Vingadora”, com Milla Jovovich, estreia nos cinemas brasileiros em 26 de março">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-filme-sobre-marta-inicia-filmagens-na-suecia-com-alice-carvalho-no-papel-da-joga.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_51a87e2020f841aab309e009cd8ea0d9~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-filme-sobre-marta-inicia-filmagens-na-suecia-com-alice-carvalho-no-papel-da-joga.html">Filme sobre Marta inicia filmagens na Suécia com Alice Carvalho no papel da jogadora</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Filme sobre Marta inicia filmagens na Suécia com Alice Carvalho no papel da jogadora">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-ruas-da-gloria-tem-pre-estreia-no-rio-e-estreia-nos-cinemas-em-2-de-abril.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_98b4a696aa4c4d1fa50d7adb593512db~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-ruas-da-gloria-tem-pre-estreia-no-rio-e-estreia-nos-cinemas-em-2-de-abril.html">“Ruas da Glória” tem pré-estreia no Rio e estreia nos cinemas em 2 de abril</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Ruas da Glória” tem pré-estreia no Rio e estreia nos cinemas em 2 de abril">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-uma-segunda-chance-adaptacao-de-colleen-hoover-ganha-video-inedito-de-bastidores.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_dc13b9c9e7084a8d9fdd9d6131a206a7~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-uma-segunda-chance-adaptacao-de-colleen-hoover-ganha-video-inedito-de-bastidores.html">“Uma Segunda Chance”, adaptação de Colleen Hoover, ganha vídeo inédito de bastidores e estreia em 19 de março nos cinemas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Uma Segunda Chance”, adaptação de Colleen Hoover, ganha vídeo inédito de bastidores e estreia em 19 de março nos cinemas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-zendaya-e-robert-pattinson-estrelam-o-drama-thriller-emocional-sobre-um-segredo-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b866109663464602a30d99a988b3f93c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-zendaya-e-robert-pattinson-estrelam-o-drama-thriller-emocional-sobre-um-segredo-.html">Zendaya e Robert Pattinson estrelam “O Drama”, thriller emocional sobre um segredo às vésperas do casamento</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Zendaya e Robert Pattinson estrelam “O Drama”, thriller emocional sobre um segredo às vésperas do casamento">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-a24-com-glen-powell-manual-pratico-da-vinganca-lucrativa-estreia-nos-cinemas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_022346ad5e25440189641c4ea7a08a72~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-a24-com-glen-powell-manual-pratico-da-vinganca-lucrativa-estreia-nos-cinemas.html">A24 com Glen Powell: “Manual Prático da Vingança Lucrativa” estreia nos cinemas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="A24 com Glen Powell: “Manual Prático da Vingança Lucrativa” estreia nos cinemas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-the-moment-desenvolvido-a-partir-de-ideia-original-de-charli-xcx-estreia-em-novo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_21dd4e5693444ebf942646c3748b49ba~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-the-moment-desenvolvido-a-partir-de-ideia-original-de-charli-xcx-estreia-em-novo.html">The Moment, desenvolvido a partir de ideia original de Charli XCX, estreia em novos cinemas no Brasil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="The Moment, desenvolvido a partir de ideia original de Charli XCX, estreia em novos cinemas no Brasil">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-filme-independente-minha-mae-sandra-aborda-depressao-e-amplia-debate-sobre-saude.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_38577c4efcba4f199e8e55ceb9305faa~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-filme-independente-minha-mae-sandra-aborda-depressao-e-amplia-debate-sobre-saude.html">Filme independente “Minha Mãe Sandra” aborda depressão e amplia debate sobre saúde mental</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Filme independente “Minha Mãe Sandra” aborda depressão e amplia debate sobre saúde mental">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-rafael-infante-e-dani-calabresa-estrelam-a-comedia-um-pai-em-apuros-que-estreia-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c0e15391eafd43dfb4dc780516c75fa4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-rafael-infante-e-dani-calabresa-estrelam-a-comedia-um-pai-em-apuros-que-estreia-.html">Rafael Infante e Dani Calabresa estrelam a comédia “Um Pai em Apuros”, que estreia nos cinemas em 23 de abril</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Rafael Infante e Dani Calabresa estrelam a comédia “Um Pai em Apuros”, que estreia nos cinemas em 23 de abril">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-neve-campbell-fala-sobre-voltar-ao-papel-de-sidney-prescott-em-panico-7.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_088c3999b182486993118784bfac02b2~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-neve-campbell-fala-sobre-voltar-ao-papel-de-sidney-prescott-em-panico-7.html">Neve Campbell fala sobre voltar ao papel de Sidney Prescott em “Pânico 7”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Neve Campbell fala sobre voltar ao papel de Sidney Prescott em “Pânico 7”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-tatiana-maslany-rouba-a-cena-em-para-sempre-medo-novo-terror-de-osgood-perkins.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_fcab29312aba4a1eb76c80d2abeb8c5e~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-tatiana-maslany-rouba-a-cena-em-para-sempre-medo-novo-terror-de-osgood-perkins.html">Tatiana Maslany rouba a cena em “Para Sempre Medo”, novo terror de Osgood Perkins</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Tatiana Maslany rouba a cena em “Para Sempre Medo”, novo terror de Osgood Perkins">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-a-miss-de-daniel-porto-ganha-poster-oficial-e-chega-aos-cinemas-em-26-de-feverei.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_bc664dd77dbd44f694ca9d5bfef6c8f1~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-a-miss-de-daniel-porto-ganha-poster-oficial-e-chega-aos-cinemas-em-26-de-feverei.html">A MISS, de Daniel Porto, ganha pôster oficial e chega aos cinemas em 26 de fevereiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="A MISS, de Daniel Porto, ganha pôster oficial e chega aos cinemas em 26 de fevereiro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-trailer-oficial-de-velhos-bandidos-e-divulgado-e-antecipa-comedia-de-acao-estrel.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_1406677202c540e898b99aa7738db660~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-trailer-oficial-de-velhos-bandidos-e-divulgado-e-antecipa-comedia-de-acao-estrel.html">Trailer oficial de “Velhos Bandidos” é divulgado e antecipa comédia de ação estrelada por Fernanda Montenegro e Ary Fontoura</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Trailer oficial de “Velhos Bandidos” é divulgado e antecipa comédia de ação estrelada por Fernanda Montenegro e Ary Fontoura">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-foi-um-amadurecimento-gigante-sobre-luto-e-morte-diz-atriz-mirim-de-a-natureza-d.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0b72de604076475b9267313f3b8300bd~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-foi-um-amadurecimento-gigante-sobre-luto-e-morte-diz-atriz-mirim-de-a-natureza-d.html">“Foi um amadurecimento gigante sobre luto e morte”, diz atriz mirim de A Natureza das Coisas Invisíveis</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Foi um amadurecimento gigante sobre luto e morte”, diz atriz mirim de A Natureza das Coisas Invisíveis">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-carol-duarte-protagoniza-eva-novo-filme-da-cineasta-italiana-emanuela-rossi-que-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7add876e067f4c9cb7028a728b247956~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-carol-duarte-protagoniza-eva-novo-filme-da-cineasta-italiana-emanuela-rossi-que-.html">Carol Duarte protagoniza Eva, novo filme da cineasta italiana Emanuela Rossi, que estreia no Festival de Torino</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Carol Duarte protagoniza Eva, novo filme da cineasta italiana Emanuela Rossi, que estreia no Festival de Torino">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-suzana-pires-sera-tieta-em-nova-adaptacao-do-classico-de-jorge-amado-para-o-cine.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2a402ca860684d769e9fa55899adc7a0~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-suzana-pires-sera-tieta-em-nova-adaptacao-do-classico-de-jorge-amado-para-o-cine.html">Suzana Pires será Tieta em nova adaptação do clássico de Jorge Amado para o cinema</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Suzana Pires será Tieta em nova adaptação do clássico de Jorge Amado para o cinema">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-mostra-amor-ao-cinema-chega-a-terceira-edicao-com-sessoes-presenciais-e-online-d.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_559a5a56db244513bcf0bf73a9bcc9bb~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-mostra-amor-ao-cinema-chega-a-terceira-edicao-com-sessoes-presenciais-e-online-d.html">Mostra “Amor ao Cinema” chega à terceira edição com sessões presenciais e online de 7 a 21 de maio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Mostra “Amor ao Cinema” chega à terceira edição com sessões presenciais e online de 7 a 21 de maio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-cineclube-marieta-exibe-mostra-gratuita-retrospectiva-frapa-com-sessoes-comentad.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_f757ead570244f61983074aa19b5cf9c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-cineclube-marieta-exibe-mostra-gratuita-retrospectiva-frapa-com-sessoes-comentad.html">Cineclube Marieta exibe mostra gratuita “Retrospectiva FRAPA” com sessões comentadas em maio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Cineclube Marieta exibe mostra gratuita “Retrospectiva FRAPA” com sessões comentadas em maio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-virginia-cavendish-entrevista-veteranas-do-teatro-brasileiro-em-nova-serie-docum.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_cfca56449d714eda8c2ca06148dc808a~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-virginia-cavendish-entrevista-veteranas-do-teatro-brasileiro-em-nova-serie-docum.html">Virginia Cavendish entrevista veteranas do teatro brasileiro em nova série documental da Itaú Cultural Play</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Virginia Cavendish entrevista veteranas do teatro brasileiro em nova série documental da Itaú Cultural Play">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-renascimento-o-filho-musical-do-documentario-milton-bituca-nascimento.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_ad5643b7ac274292a7890d9fe629382f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-renascimento-o-filho-musical-do-documentario-milton-bituca-nascimento.html">ReNASCIMENTO: O "Filho Musical" do documentário Milton Bituca Nascimento</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="ReNASCIMENTO: O ”Filho Musical” do documentário Milton Bituca Nascimento">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="cat-cinema.html" class="on">1</a><a href="cat-cinema-p2.html">2</a><span>…</span><a href="cat-cinema-p4.html">4</a><a href="cat-cinema-p5.html">5</a><a href="cat-cinema-p2.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

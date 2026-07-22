@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Matérias de Literatura no FOYER.">
+<title>Literatura — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Literatura</h1>
+    <p class="note">13 matérias — página 1 de 1</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html">Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html" class="on">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Literatura">
+      <a class="ph" href="post-jennifer-aniston-lanca-livro-infantil-inspirado-em-seu-cachorro-adotado.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b155d7e548bb4b20ab1bd41b28a16e88~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Literatura</span>
+        <h3><a href="post-jennifer-aniston-lanca-livro-infantil-inspirado-em-seu-cachorro-adotado.html">Jennifer Aniston lança livro infantil inspirado em seu cachorro adotado</a></h3>
+        <p>Jennifer Aniston, atriz e produtora conhecida mundialmente por seu papel como Rachel Green na icônica série Friends, estreia como escritora…</p>
+        <div class="meta-row">
+          <span class="meta-l">25.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Jennifer Aniston lança livro infantil inspirado em seu cachorro adotado">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Literatura">
+      <a class="ph" href="post-tempo-abstrato-um-romance-safico.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_49c8e239efb9458ca426d9f18b8fd439~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Literatura</span>
+        <h3><a href="post-tempo-abstrato-um-romance-safico.html">"Tempo-abstrato": Um Romance Sáfico-Filosófico que Desafia a Percepção do Tempo e da Vida</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Tempo-abstrato”: Um Romance Sáfico-Filosófico que Desafia a Percepção do Tempo e da Vida">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Literatura">
+      <a class="ph" href="post-amizade-entre-mario-quintana-e-a-jovem-fotografa-liane-neves-inspira-dramaturgia.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_520df6adcca64d0f8211a06545dfe1fb~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Literatura</span>
+        <h3><a href="post-amizade-entre-mario-quintana-e-a-jovem-fotografa-liane-neves-inspira-dramaturgia.html">Amizade entre Mário Quintana e a jovem fotógrafa Liane Neves inspira dramaturgia</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Amizade entre Mário Quintana e a jovem fotógrafa Liane Neves inspira dramaturgia">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Literatura">
+      <a class="ph" href="post-biografia-de-gal-costa-escrita-por-thallys-braga-devera-ser-lancada-em-2025.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_067a6ce81e02445dae103a1c504587b7~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Literatura</span>
+        <h3><a href="post-biografia-de-gal-costa-escrita-por-thallys-braga-devera-ser-lancada-em-2025.html">Biografia de Gal Costa escrita por Thallys Braga deverá ser lançada em 2025</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Biografia de Gal Costa escrita por Thallys Braga deverá ser lançada em 2025">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Literatura">
+      <a class="ph" href="post-trabalho-que-consagrou-o-dramaturgo-samir-yazbek-e-relancado-hoje.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_363a81c2ee2f40bf968d8f0b52a7aeb4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Literatura</span>
+        <h3><a href="post-trabalho-que-consagrou-o-dramaturgo-samir-yazbek-e-relancado-hoje.html">Trabalho que consagrou o Dramaturgo Samir Yazbek é relançado hoje</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Trabalho que consagrou o Dramaturgo Samir Yazbek é relançado hoje">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Literatura">
+      <a class="ph" href="post-livro-do-escritor-potiguar-pedro-rhuas-tem-copias-vendidas-ilegalmente.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_37875f4cbdb14d339f00e46f27673bad~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Literatura</span>
+        <h3><a href="post-livro-do-escritor-potiguar-pedro-rhuas-tem-copias-vendidas-ilegalmente.html">Livro do escritor potiguar Pedro Rhuas têm cópias vendidas ilegalmente</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Livro do escritor potiguar Pedro Rhuas têm cópias vendidas ilegalmente">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Literatura">
+      <a class="ph" href="post-biografia-de-britney-spears-tem-lancamento-agendado-para-dia-24-de-outubro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_690055003ea9431aa3ece61fe0864086~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Literatura</span>
+        <h3><a href="post-biografia-de-britney-spears-tem-lancamento-agendado-para-dia-24-de-outubro.html">Biografia de Britney Spears tem lançamento agendado para dia 24 de outubro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Biografia de Britney Spears tem lançamento agendado para dia 24 de outubro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Literatura">
+      <a class="ph" href="post-novo-livro-do-autor-mocambicano-mia-couto-ja-esta-disponivel.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_80c89a7d6b5b4012aba84f641485021d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Literatura</span>
+        <h3><a href="post-novo-livro-do-autor-mocambicano-mia-couto-ja-esta-disponivel.html">Novo livro do autor moçambicano, Mia Couto, já está disponível</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Novo livro do autor moçambicano, Mia Couto, já está disponível">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Literatura">
+      <a class="ph" href="post-elza-soares-agora-na-literatura-infantil.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_cdaee106d2b744b68d859161a9750186~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Literatura</span>
+        <h3><a href="post-elza-soares-agora-na-literatura-infantil.html">Elza Soares agora na literatura infantil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Elza Soares agora na literatura infantil">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Literatura">
+      <a class="ph" href="post-a-filosofa-marcia-tiburi-lancara-novo-romance.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_ff14c459fce2439aa58341731387face~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Literatura</span>
+        <h3><a href="post-a-filosofa-marcia-tiburi-lancara-novo-romance.html">A filósofa Márcia Tiburi lançará novo romance</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="A filósofa Márcia Tiburi lançará novo romance">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Literatura">
+      <a class="ph" href="post-romance-de-liana-ferraz-ja-esta-disponivel-nas-livrarias.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_1495ca2cba33426ab3523369848498b9~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Literatura</span>
+        <h3><a href="post-romance-de-liana-ferraz-ja-esta-disponivel-nas-livrarias.html">Romance de Liana Ferraz já está disponível nas livrarias</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Romance de Liana Ferraz já está disponível nas livrarias">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Literatura">
+      <a class="ph" href="post-kobra-e-katya-manira-fazem-a-arte-de-rua-ganhar-vida-em-livro-infantil.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_f2e2e9493e224334a4d1c1269f451c03~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Literatura</span>
+        <h3><a href="post-kobra-e-katya-manira-fazem-a-arte-de-rua-ganhar-vida-em-livro-infantil.html">Kobra e Katya Manira fazem a arte de rua ganhar vida em livro infantil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Kobra e Katya Manira fazem a arte de rua ganhar vida em livro infantil">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Literatura">
+      <a class="ph" href="post-livraria-cultura-encerra-atividades-no-conjunto-nacional.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_bb19ac729c09486ab73f6d9c85d421ce~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Literatura</span>
+        <h3><a href="post-livraria-cultura-encerra-atividades-no-conjunto-nacional.html">Livraria Cultura encerra atividades no Conjunto Nacional</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.06 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Livraria Cultura encerra atividades no Conjunto Nacional">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

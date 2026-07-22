@@ -53,7 +53,13 @@ As fatias já estão posicionadas nos pontos de melhor desempenho sem quebrar a 
 
 ## Matérias importadas do Wix
 
-As 20 matérias do feed estão em `import/materias.json` e geram automaticamente as páginas `post-*.html`, a capa e a listagem de notícias. O texto completo de cada matéria ainda aponta para o site atual até a migração final.
+Acervo completo: **1.514 matérias** com texto integral, importadas pela API oficial (somente leitura).
+
+- `tools/import_wix.py` — importador (rode com `WIX_API_KEY` e `WIX_SITE_ID` no ambiente; a chave nunca é gravada)
+- `tools/build_pages.py` — gerador de todas as páginas a partir do acervo
+- `import/wix/*.json.gz` — backup bruto da API
+- `import/materias.json` + `import/corpo/*.html` — índice e corpos convertidos
+- Notícias paginadas (24 por página) + páginas por editoria (`cat-*.html`) + busca no acervo inteiro (`assets/busca-index.json`)
 
 ## Importação do site antigo (Wix)
 
@@ -68,5 +74,5 @@ O Wix expõe o feed do blog em `https://www.foyer.digital/blog-feed.xml`. Baixe 
 - [x] AdSense pronto para ativar (assets/ads.js + ads.txt)
 - [x] Deploy automático no GitHub Pages (.github/workflows/pages.yml) — ativa quando o repositório ficar público
 - [ ] Backend real: publicação de matérias, newsletter, PDF da revista, login seguro
-- [x] Importação das 20 matérias do Wix (título, resumo, autor, foto, categoria)
+- [x] Importação COMPLETA do Wix: 1.514 matérias com texto integral, fotos, autores reais e 18 editorias
 - [ ] Enciclopédia com banco de dados

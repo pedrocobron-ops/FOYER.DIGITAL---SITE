@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 57 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 57 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Programa">
+      <a class="ph" href="post-do-palco-ao-streaming-com-dan-rosseto-foyer-19.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_07acaf04755847779785c6cc13dd43d6~mv2.png" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-do-palco-ao-streaming-com-dan-rosseto-foyer-19.html">Do Palco ao Streaming com Dan Rosseto - Foyer#19</a></h3>
+        <p>Ser artista é encarar múltiplas tarefas, estar atento às coisas a sua volta, mas mais do que isso estar pronto para as oportunidades que...…</p>
+        <div class="meta-row">
+          <span class="meta-l">20.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Do Palco ao Streaming com Dan Rosseto - Foyer#19">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-fernanda-maia-ganhadora-de-duas-edicoes-do-premio-shell-estreia-solo-escrito-e-e.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d1177ebc42384a038ec5b84e03eafd01~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-fernanda-maia-ganhadora-de-duas-edicoes-do-premio-shell-estreia-solo-escrito-e-e.html">Fernanda Maia, ganhadora de duas edições do Prêmio Shell, estreia solo escrito e encenado por ela</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Fernanda Maia, ganhadora de duas edições do Prêmio Shell, estreia solo escrito e encenado por ela">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-de-duas-partes-a-heranca-tem-estreia-marcada-no-rio-de-janeiro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c287e613ead249d594f7b76bc52fbede~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-de-duas-partes-a-heranca-tem-estreia-marcada-no-rio-de-janeiro.html">Espetáculo de duas partes “A Herança” tem estreia marcada no Rio de Janeiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo de duas partes “A Herança” tem estreia marcada no Rio de Janeiro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Streaming">
+      <a class="ph" href="post-producao-da-netflix-sobre-o-caso-isabella-nardoni-ja-esta-disponivel.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_978621825d3040dcba988c3ddd5858fd~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-producao-da-netflix-sobre-o-caso-isabella-nardoni-ja-esta-disponivel.html">Produção da Netflix sobre o caso Isabella Nardoni já está disponível</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Produção da Netflix sobre o caso Isabella Nardoni já está disponível">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-funny-girl-a-historia-de-uma-das-maiores-comediantes-americanas-estreia-hoje-em-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_77f1af4f3a9047039016ac40c655240f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-funny-girl-a-historia-de-uma-das-maiores-comediantes-americanas-estreia-hoje-em-.html">“Funny Girl” a história de uma das maiores comediantes americanas estreia hoje em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Funny Girl” a história de uma das maiores comediantes americanas estreia hoje em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-depois-de-mais-de-20-anos-as-filmagens-de-o-auto-da-compadecida-2-devem-comecar.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a6e74cc1178c47da8a2e79455d7ba3d8~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-depois-de-mais-de-20-anos-as-filmagens-de-o-auto-da-compadecida-2-devem-comecar.html">Depois de mais de 20 anos, as filmagens de “O Auto da Compadecida 2” devem começar</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Depois de mais de 20 anos, as filmagens de “O Auto da Compadecida 2” devem começar">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-chega-hoje-nos-cinemas-tempos-de-barbarie-com-claudia-abreu-julia-lemmertze-alex.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_a5a54fda6dda486cb9a7eed0040fd0e0~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-chega-hoje-nos-cinemas-tempos-de-barbarie-com-claudia-abreu-julia-lemmertze-alex.html">Chega hoje nos cinemas "Tempos de Barbárie" com Cláudia Abreu, Júlia Lemmertz e Alexandre Borges</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Chega hoje nos cinemas ”Tempos de Barbárie” com Cláudia Abreu, Júlia Lemmertz e Alexandre Borges">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Streaming">
+      <a class="ph" href="post-nova-serie-brasileira-cangaco-novo-estreia-amanha-no-prime-video.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_6eb9adc6803f435691f0a307a8fd8a71~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-nova-serie-brasileira-cangaco-novo-estreia-amanha-no-prime-video.html">Nova série brasileira "Cangaço Novo" Estreia amanhã no Prime Video</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Nova série brasileira ”Cangaço Novo” Estreia amanhã no Prime Video">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Música">
+      <a class="ph" href="post-os-ingressos-para-a-unica-apresentacao-da-cantora-portuguesa-carminho-em-sp-esta.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_f1a3bd0f279b4805ae65b80f372ba835~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Música</span>
+        <h3><a href="post-os-ingressos-para-a-unica-apresentacao-da-cantora-portuguesa-carminho-em-sp-esta.html">Os ingressos para a única apresentação da cantora portuguesa Carminho, em SP, estão esgotados.</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Os ingressos para a única apresentação da cantora portuguesa Carminho, em SP, estão esgotados.">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-fernanda-montenegro-faz-leitura-gratuita-em-homenagem-a-nelson-rodrigues-no-rio-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_64c3d5511f944e629752f38c339c03ff~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-fernanda-montenegro-faz-leitura-gratuita-em-homenagem-a-nelson-rodrigues-no-rio-.html">Fernanda Montenegro faz leitura gratuita em homenagem a Nelson Rodrigues no Rio de Janeiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Fernanda Montenegro faz leitura gratuita em homenagem a Nelson Rodrigues no Rio de Janeiro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Show">
+      <a class="ph" href="post-cantora-assucena-homenageia-disco-de-gal-em-projeto-do-sesc-24-de-maio.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_139d4916b6b7405d96585ea8b125a460~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Show</span>
+        <h3><a href="post-cantora-assucena-homenageia-disco-de-gal-em-projeto-do-sesc-24-de-maio.html">Cantora Assucena homenageia disco de Gal em projeto do Sesc 24 de Maio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Cantora Assucena homenageia disco de Gal em projeto do Sesc 24 de Maio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ultima-semana-de-mutacoes-comeca-com-ingressos-online-esgotados.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d73a08176826494ebf524e0f5cb69fec~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ultima-semana-de-mutacoes-comeca-com-ingressos-online-esgotados.html">Última semana de Mutações começa com ingressos online esgotados</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Última semana de Mutações começa com ingressos online esgotados">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-que-reune-hits-dos-maiores-musicais-com-fabi-bang-esta-de-volta.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_52ad93e443bd45a49811214b2ca0d42d~mv2.jpeg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-que-reune-hits-dos-maiores-musicais-com-fabi-bang-esta-de-volta.html">Espetáculo que reúne hits dos maiores musicais, com Fabi Bang, está de volta</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo que reúne hits dos maiores musicais, com Fabi Bang, está de volta">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ultimas-semanas-de-todas-as-coisas-maravilhosas-com-kiko-mascarenhas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e40381d0425448638ba05e478c264f98~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ultimas-semanas-de-todas-as-coisas-maravilhosas-com-kiko-mascarenhas.html">Últimas semanas de “Todas as coisas maravilhosas” com Kiko Mascarenhas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Últimas semanas de “Todas as coisas maravilhosas” com Kiko Mascarenhas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-apos-esclarecer-rumores-sobre-relacao-com-pais-larissa-manoela-lanca-filme.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6fddf8bcbfde446395b2ee935e7e0f4b~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-apos-esclarecer-rumores-sobre-relacao-com-pais-larissa-manoela-lanca-filme.html">Após esclarecer rumores sobre relação com país, Larissa Manoela lança filme</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Após esclarecer rumores sobre relação com país, Larissa Manoela lança filme">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Televisão">
+      <a class="ph" href="post-clayton-nascimento-premiado-no-teatro-pelo-espetaculo-macacos-estreia-em-novela.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_ff84ccf3c0c84669a87d2f4a6e7693ef~mv2.webp" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Televisão</span>
+        <h3><a href="post-clayton-nascimento-premiado-no-teatro-pelo-espetaculo-macacos-estreia-em-novela.html">Clayton Nascimento, premiado no teatro pelo espetáculo “Macacos”, estreia em novela</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Clayton Nascimento, premiado no teatro pelo espetáculo “Macacos”, estreia em novela">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Streaming">
+      <a class="ph" href="post-mascaras-de-oxigenio-nao-cairao-automaticamente-hbo-tera-serie-sobre-epidemia-de.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_9158120cc1834a318610fbd7e333b8a6~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-mascaras-de-oxigenio-nao-cairao-automaticamente-hbo-tera-serie-sobre-epidemia-de.html">'Máscaras de Oxigênio (Não) Cairão Automaticamente' HBO terá série sobre epidemia de AIDS no Brasil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Máscaras de Oxigênio (Não) Cairão Automaticamente' HBO terá série sobre epidemia de AIDS no Brasil">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Música">
+      <a class="ph" href="post-jao-pretende-gravar-letras-ineditas-do-cazuza-com-apoio-de-lucinha-araujo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_50709d9731284be181fe058f328902f6~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Música</span>
+        <h3><a href="post-jao-pretende-gravar-letras-ineditas-do-cazuza-com-apoio-de-lucinha-araujo.html">Jão pretende gravar letras inéditas do Cazuza com apoio de Lucinha Araújo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Jão pretende gravar letras inéditas do Cazuza com apoio de Lucinha Araújo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Televisão">
+      <a class="ph" href="post-sucesso-sobre-feminejo-com-alice-wegmann-estreia-na-tv-aberta.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e5e257c2e518485198a0c5ac3de1468f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Televisão</span>
+        <h3><a href="post-sucesso-sobre-feminejo-com-alice-wegmann-estreia-na-tv-aberta.html">Sucesso sobre Feminejo com Alice Wegmann, estreia na TV Aberta</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Sucesso sobre Feminejo com Alice Wegmann, estreia na TV Aberta">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-que-esteve-nos-festivais-internacionais-desembarca-setembro-em-sao-pa.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a6fec057599346d0b5a535a7591c75c0~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-que-esteve-nos-festivais-internacionais-desembarca-setembro-em-sao-pa.html">Espetáculo que esteve nos festivais internacionais  desembarca setembro em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo que esteve nos festivais internacionais  desembarca setembro em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Música">
+      <a class="ph" href="post-chico-chico-dono-do-hit-ribanceira-faz-show-no-bossa-nova-in-concert.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2c89f222098b4767a55ab29f9fa6f999~mv2.jpeg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Música</span>
+        <h3><a href="post-chico-chico-dono-do-hit-ribanceira-faz-show-no-bossa-nova-in-concert.html">Chico Chico, dono do hit “Ribanceira” faz show no Bossa Nova in Concert</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Chico Chico, dono do hit “Ribanceira” faz show no Bossa Nova in Concert">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-falece-renomada-atriz-brasileira-lea-garcia-aos-90-anos.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_69d3ba52168142fe8992652441b8106c~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-falece-renomada-atriz-brasileira-lea-garcia-aos-90-anos.html">Falece renomada atriz brasileira, Léa Garcia, aos 90 anos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Falece renomada atriz brasileira, Léa Garcia, aos 90 anos">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-documentario-o-presidente-improvavel-e-indicado-em-2-categorias-de-premio-de-cin.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c068449ffd3b4be492bb320953dbe21f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-documentario-o-presidente-improvavel-e-indicado-em-2-categorias-de-premio-de-cin.html">Documentário “O Presidente Improvável” é indicado em 2 categorias de Prêmio de Cinema</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Documentário “O Presidente Improvável” é indicado em 2 categorias de Prêmio de Cinema">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Televisão">
+      <a class="ph" href="post-o-esperar-de-fuzue-nova-novela-das-19h-que-estreia-hoje-na-globo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a334cb887dba45feab904cf97fa0fbbe~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Televisão</span>
+        <h3><a href="post-o-esperar-de-fuzue-nova-novela-das-19h-que-estreia-hoje-na-globo.html">O esperar de “Fuzuê”, nova novela das 19h, que estreia hoje na Globo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="O esperar de “Fuzuê”, nova novela das 19h, que estreia hoje na Globo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p56.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p56.html">56</a><a href="noticias-p57.html" class="on">57</a><a href="noticias-p58.html">58</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p58.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

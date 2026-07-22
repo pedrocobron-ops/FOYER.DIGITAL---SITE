@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 39 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 39 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Artigo de Opinião">
+      <a class="ph" href="post-uma-provocacao-a-um-jovem-diretor-de-teatro-musical.html" aria-label="Foto da matéria"><img src="" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Artigo de Opinião</span>
+        <h3><a href="post-uma-provocacao-a-um-jovem-diretor-de-teatro-musical.html">Uma provocação a um jovem diretor de teatro musical.</a></h3>
+        <p>Recentemente fui confrontado sobre a importância e a utilidade no uso e aplicação de termos corretos em teatro.…</p>
+        <div class="meta-row">
+          <span class="meta-l">10.06 — Gerson Steves </span>
+          <button class="share-min" data-share="native" data-title="Uma provocação a um jovem diretor de teatro musical.">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-representatividade-amarela.html" aria-label="Foto da matéria"><img src="" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-representatividade-amarela.html">Tatiana Toyota, Caio Mutai, Fabio Yoshihara e Anna Akisue - Representatividade Amarela #50</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.06 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Tatiana Toyota, Caio Mutai, Fabio Yoshihara e Anna Akisue - Representatividade Amarela #50">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Artigo de Opinião">
+      <a class="ph" href="post-brasil-terceiro-produtor-de-teatro-musical-no-mundo-verdadeiro-ou-falso.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_66924f690bd242c7ab4e8e675fae8be4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Artigo de Opinião</span>
+        <h3><a href="post-brasil-terceiro-produtor-de-teatro-musical-no-mundo-verdadeiro-ou-falso.html">Brasil: terceiro produtor de teatro musical no mundo. Verdadeiro ou falso?</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.06 — Gerson Steves </span>
+          <button class="share-min" data-share="native" data-title="Brasil: terceiro produtor de teatro musical no mundo. Verdadeiro ou falso?">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Crítica">
+      <a class="ph" href="post-cantando-na-chuva-um-musical-popular-a-precos-nem-tanto.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_ede9fcbe414f4a0ba13d1ba3425a21a6~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Crítica</span>
+        <h3><a href="post-cantando-na-chuva-um-musical-popular-a-precos-nem-tanto.html">Cantando na Chuva, um musical popular a preços nem tanto.</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.05 — Gerson Steves </span>
+          <button class="share-min" data-share="native" data-title="Cantando na Chuva, um musical popular a preços nem tanto.">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-it-s-me-elton-uma-noite-com-elton-john.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_8402c04b5c554ef984c37e97914cbbe4~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-it-s-me-elton-uma-noite-com-elton-john.html">"It's Me: Elton" - Uma Noite com Elton John em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”It's Me: Elton” - Uma Noite com Elton John em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-o-belo-desastre-dylan-sprouse.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_9a045bd65c2746db8e1c5bc950d924a0~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-o-belo-desastre-dylan-sprouse.html">"O Belo Desastre": Dylan Sprouse Retorna às Telonas em Comédia Romântica Cheia de Aventuras</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”O Belo Desastre”: Dylan Sprouse Retorna às Telonas em Comédia Romântica Cheia de Aventuras">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-depois-do-ensaio-nora-persona.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7ee4f18f65c1499aabd7d314aabf6c22~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-depois-do-ensaio-nora-persona.html">"Depois do Ensaio, Nora, Persona": Uma Reflexão Teatral Profunda sobre Mobilidade Social e Racialidade</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Depois do Ensaio, Nora, Persona”: Uma Reflexão Teatral Profunda sobre Mobilidade Social e Racialidade">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Exposições">
+      <a class="ph" href="post-inalacao-uma-exposicao-sensorial.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_81ef63f7b65f4525b5a6bf3997d1bc2e~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Exposições</span>
+        <h3><a href="post-inalacao-uma-exposicao-sensorial.html">"Inalação": Uma Exposição Sensorial que Desafia Percepções na Galeria Luis Maluf</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Inalação”: Uma Exposição Sensorial que Desafia Percepções na Galeria Luis Maluf">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-nicole-cordery-larissa-ferrara-e-marcela-rosis.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0153f34280434717ae4fde0ae2f5acc0~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-nicole-cordery-larissa-ferrara-e-marcela-rosis.html">Nicole Cordery, Larissa Ferrara e Marcela Rosis - Corda Bamba - Programa do Foyer #49</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Nicole Cordery, Larissa Ferrara e Marcela Rosis - Corda Bamba - Programa do Foyer #49">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-daqui-ninguem-me-tira-alexia-twister-e-giovani-tozi.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0f7390453f35483b9f9db021ef5af9d9~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-daqui-ninguem-me-tira-alexia-twister-e-giovani-tozi.html">"Daqui Ninguém Me Tira": Alexia Twister e Giovani Tozi Brilham em Espetáculo Sobre Teatro de Revista e Especulação Imobiliária</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Daqui Ninguém Me Tira”: Alexia Twister e Giovani Tozi Brilham em Espetáculo Sobre Teatro de Revista e Especulação Imobiliária">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-querido-evan-hansen.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_ac0c42bbf186459895392004b386e344~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-querido-evan-hansen.html">"Querido Evan Hansen": O Premiado Musical Chega ao Brasil com Mensagem Poderosa sobre Saúde Mental</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Querido Evan Hansen”: O Premiado Musical Chega ao Brasil com Mensagem Poderosa sobre Saúde Mental">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-primeiras-imagens-de-tom-holland-e-francesca-amewudah-rivers-como-romeu-e-juliet.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2834b205f7b94dd09b8b68018e184008~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-primeiras-imagens-de-tom-holland-e-francesca-amewudah-rivers-como-romeu-e-juliet.html">Primeiras Imagens de Tom Holland e Francesca Amewudah-Rivers como Romeu e Julieta São Divulgadas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Primeiras Imagens de Tom Holland e Francesca Amewudah-Rivers como Romeu e Julieta São Divulgadas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Artigo de Opinião">
+      <a class="ph" href="post-estranho-ou-estrangeiro-camus-em-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_9a7f017fc91a412fb06730a11a9aedf3~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Artigo de Opinião</span>
+        <h3><a href="post-estranho-ou-estrangeiro-camus-em-sao-paulo.html">Estranho ou Estrangeiro – Camus em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.05 — Gerson Steves </span>
+          <button class="share-min" data-share="native" data-title="Estranho ou Estrangeiro – Camus em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-leao-rosario-uma-adaptacao-de-shakespeare.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_266064552fe54677a0a29228a8f040e6~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-leao-rosario-uma-adaptacao-de-shakespeare.html">Leão Rosário: Uma Adaptação de Shakespeare que Abraça a Ancestralidade Africana Estreia no CCBB SP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Leão Rosário: Uma Adaptação de Shakespeare que Abraça a Ancestralidade Africana Estreia no CCBB SP">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-marcelo-medici.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_71ea7dbdeec243d8927e58d7ccf4dfd0~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-marcelo-medici.html">Marcelo Médici Celebra 20 Anos de "Cada Um Com Seus Pobrema" com Temporada Renovada</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Marcelo Médici Celebra 20 Anos de ”Cada Um Com Seus Pobrema” com Temporada Renovada">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-primeira-versao-de-hamlet-de-shakespeare.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e6909d958cd14cd5a9bdad5333a51105~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-primeira-versao-de-hamlet-de-shakespeare.html">Estreia Inédita da Primeira Versão de "Hamlet" de Shakespeare no Teatro Sesc Vila Mariana</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Estreia Inédita da Primeira Versão de ”Hamlet” de Shakespeare no Teatro Sesc Vila Mariana">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Show">
+      <a class="ph" href="post-leticia-sabatella.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_5b7be9f8927041fb96eb2ff96452baa6~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Show</span>
+        <h3><a href="post-leticia-sabatella.html">Letícia Sabatella Presta Homenagem às Grandes Vozes Femininas em Show Único no Rio de Janeiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Letícia Sabatella Presta Homenagem às Grandes Vozes Femininas em Show Único no Rio de Janeiro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-carmo-dalla-vecchia-e-theo-nogueira-todo-chapeu-me-lembra-voce.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_cbb2c243a4c342e3a4d5c88172f80751~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-carmo-dalla-vecchia-e-theo-nogueira-todo-chapeu-me-lembra-voce.html">Carmo Dalla Vecchia e Theo Nogueira - Todo Chapéu me Lembra Você</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Carmo Dalla Vecchia e Theo Nogueira - Todo Chapéu me Lembra Você">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-manhattan-um-mergulho-no-glamour-do-teatro-e-cinema-de-nova-york-nos-anos-50.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_8cf6b16cd436425980c67cb12bfad1cb~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-manhattan-um-mergulho-no-glamour-do-teatro-e-cinema-de-nova-york-nos-anos-50.html">"Manhattan": Um Mergulho no Glamour do Teatro e Cinema de Nova York nos Anos 50</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Manhattan”: Um Mergulho no Glamour do Teatro e Cinema de Nova York nos Anos 50">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-outros-maleficios-do-tabaco.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2e79419b9f73496e870c039486e45410~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-outros-maleficios-do-tabaco.html">"Outros Malefícios do Tabaco": Uma Reinvenção de Tchékhov no Teatro de Arena</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Outros Malefícios do Tabaco”: Uma Reinvenção de Tchékhov no Teatro de Arena">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Artigo de Opinião">
+      <a class="ph" href="post-pereio-o-grande-transgressor.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_70e1b10c67774a7f944413afcb86e5a4~mv2.jpeg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Artigo de Opinião</span>
+        <h3><a href="post-pereio-o-grande-transgressor.html">Pereio, o grande transgressor.</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.05 — Gerson Steves </span>
+          <button class="share-min" data-share="native" data-title="Pereio, o grande transgressor.">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-reestreia-gabri-elas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_bf4583772fc3431fabcaeb8294488399~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-reestreia-gabri-elas.html">Reestreia Imperdível de "Gabri[Elas]" na Mostra de Solos do ºAndar</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Reestreia Imperdível de ”Gabri[Elas]” na Mostra de Solos do ºAndar">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-solo-lotus-danielle-anatolio.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_1f4caefdf65f41f4926691ee272f95c1~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-solo-lotus-danielle-anatolio.html">Solo "Lótus": Danielle Anatólio Reflete a Resiliência e Transformação das Mulheres Pretas no Sesc Ipiranga</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Solo ”Lótus”: Danielle Anatólio Reflete a Resiliência e Transformação das Mulheres Pretas no Sesc Ipiranga">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-entre-franciscos-o-santo-e-o-papa.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b8a0c7286d2f4681a2fccba641e60e68~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-entre-franciscos-o-santo-e-o-papa.html">"Entre Franciscos, o Santo e o Papa": Uma Jornada Teatral Envolvente Chega a São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Entre Franciscos, o Santo e o Papa”: Uma Jornada Teatral Envolvente Chega a São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p38.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p38.html">38</a><a href="noticias-p39.html" class="on">39</a><a href="noticias-p40.html">40</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p40.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

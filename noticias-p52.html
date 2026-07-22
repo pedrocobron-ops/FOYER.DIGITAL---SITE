@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 52 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 52 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-mulheres-que-nascem-com-os-filhos-com-samara-felippo-e-carolinie-figueiredo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_f8a6336ec7e245e68e53c9dbd1beca43~mv2.jpeg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-mulheres-que-nascem-com-os-filhos-com-samara-felippo-e-carolinie-figueiredo.html">"Mulheres que Nascem com os Filhos" com Samara Felippo e Carolinie Figueiredo</a></h3>
+        <p>O espetáculo de "Mulheres que Nascem com os Filhos", dirigido por Rita Elmôr e estrelado por Samara Felippo e Carolinie Figueiredo, está...…</p>
+        <div class="meta-row">
+          <span class="meta-l">02.10 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="”Mulheres que Nascem com os Filhos” com Samara Felippo e Carolinie Figueiredo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-comedia-amor-por-anexins-de-artur-azevedo-chega-a-sao-paulo-para-encerrar-turne-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_670ca8c4dcdd4247a973f0f4040dbfef~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-comedia-amor-por-anexins-de-artur-azevedo-chega-a-sao-paulo-para-encerrar-turne-.html">Comédia "Amor por Anexins" de Artur Azevedo chega a São Paulo para encerrar turnê nacional</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.10 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Comédia ”Amor por Anexins” de Artur Azevedo chega a São Paulo para encerrar turnê nacional">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Exposições">
+      <a class="ph" href="post-exposicao-sobre-os-125-anos-de-di-cavalcanti-chega-ao-farol-santander.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_83e3119903d7405f9180299c17b9b1ae~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Exposições</span>
+        <h3><a href="post-exposicao-sobre-os-125-anos-de-di-cavalcanti-chega-ao-farol-santander.html">Exposição sobre os 125 anos de Di Cavalcanti chega ao Farol Santander</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Exposição sobre os 125 anos de Di Cavalcanti chega ao Farol Santander">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-renata-ricci-vive-carmen-miranda-para-abrir-as-comemoracao-aos-115-anos-da-canto.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3955a89058554d668e1333c3d1265026~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-renata-ricci-vive-carmen-miranda-para-abrir-as-comemoracao-aos-115-anos-da-canto.html">Renata Ricci vive Carmen Miranda para abrir as comemoração aos 115 anos da cantora</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Renata Ricci vive Carmen Miranda para abrir as comemoração aos 115 anos da cantora">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Exposições">
+      <a class="ph" href="post-exposicao-em-homenagem-aos-150-anos-de-santos-dumont-chega-a-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_abd21cf258ac49c592f9c7f743b85b17~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Exposições</span>
+        <h3><a href="post-exposicao-em-homenagem-aos-150-anos-de-santos-dumont-chega-a-sao-paulo.html">Exposição em homenagem aos 150 anos de Santos Dumont chega à São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Exposição em homenagem aos 150 anos de Santos Dumont chega à São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-amor-sacrificio-e-preconceito-sao-os-temas-da-montagem-de-o-rouxinol-e-a-rosa.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_1a034e4d2a094079b7bc44c5f91a5327~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-amor-sacrificio-e-preconceito-sao-os-temas-da-montagem-de-o-rouxinol-e-a-rosa.html">Amor, sacrifício e preconceito, são os temas da montagem de “O Rouxinol e a Rosa”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Amor, sacrifício e preconceito, são os temas da montagem de “O Rouxinol e a Rosa”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-comeca-hoje-a-semana-do-cinema-que-tera-ingressos-por-r-12-em-todo-o-brasil.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_60ae31f1015d402b9ced7b0d558ee6c4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-comeca-hoje-a-semana-do-cinema-que-tera-ingressos-por-r-12-em-todo-o-brasil.html">Começa hoje a semana do Cinema, que terá ingressos por R$12 em todo o Brasil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Começa hoje a semana do Cinema, que terá ingressos por R$12 em todo o Brasil">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-estreia-de-meu-sangue-ferve-por-voce-sera-na-premiere-brasil-do-festival-do-rio.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_c5ab70d170734465b549ccc5d817b7f1~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-estreia-de-meu-sangue-ferve-por-voce-sera-na-premiere-brasil-do-festival-do-rio.html">Estreia de "Meu Sangue Ferve por Você" será na Première Brasil do Festival do Rio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.09 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Estreia de ”Meu Sangue Ferve por Você” será na Première Brasil do Festival do Rio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ultimos-dias-para-assistir-nossos-ossos-na-cia-da-revista.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_ef1b26e00d434574988bc4fdf88bd795~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ultimos-dias-para-assistir-nossos-ossos-na-cia-da-revista.html">Últimos dias para assistir "Nossos Ossos" na Cia. da Revista</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.09 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Últimos dias para assistir ”Nossos Ossos” na Cia. da Revista">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-que-foi-sucesso-em-nova-york-em-68-chega-a-sao-paulo-com-direcao-de-r.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_930bc7b829f44c3a81c86f6dd03430df~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-que-foi-sucesso-em-nova-york-em-68-chega-a-sao-paulo-com-direcao-de-r.html">Espetáculo que foi sucesso em Nova York em 68 chega a São Paulo com direção de Ricardo Grasson</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo que foi sucesso em Nova York em 68 chega a São Paulo com direção de Ricardo Grasson">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-giulia-nadruz-e-andre-luiz-odin-programa-do-foyer.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e4ca4cdfaf034c5fa03bca04459376ec~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-giulia-nadruz-e-andre-luiz-odin-programa-do-foyer.html">Giulia Nadruz e André Luiz Odin - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Giulia Nadruz e André Luiz Odin - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Televisão">
+      <a class="ph" href="post-claudia-raia-volta-para-a-tv-em-participacao-em-novelas-walcyr-carrasco.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_758683d36c654e2e9a9b18f892cafbf5~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Televisão</span>
+        <h3><a href="post-claudia-raia-volta-para-a-tv-em-participacao-em-novelas-walcyr-carrasco.html">Claudia Raia volta para a tv em participação em novelas Walcyr Carrasco</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Claudia Raia volta para a tv em participação em novelas Walcyr Carrasco">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Exposições">
+      <a class="ph" href="post-nova-unidade-do-sesc-sera-inaugurada-no-dia-6-de-outubro-com-exposicao-sobre-wag.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_13f2c1f3002c4681962fc83c1a41fa9c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Exposições</span>
+        <h3><a href="post-nova-unidade-do-sesc-sera-inaugurada-no-dia-6-de-outubro-com-exposicao-sobre-wag.html">Nova unidade do SESC será inaugurada no dia 6 de Outubro, com exposição sobre Wagner Celestino</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Nova unidade do SESC será inaugurada no dia 6 de Outubro, com exposição sobre Wagner Celestino">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Edital">
+      <a class="ph" href="post-ultimo-dia-para-se-inscrever-na-convocatoria-de-teatro-do-ibt.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_33ab6d7bbca34658aaedc0dd632f5cf4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Edital</span>
+        <h3><a href="post-ultimo-dia-para-se-inscrever-na-convocatoria-de-teatro-do-ibt.html">Último dia para se inscrever na convocatória de teatro do IBT</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Último dia para se inscrever na convocatória de teatro do IBT">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-sobre-o-amor-com-direcao-de-elias-andreato-faz-curta-temporada-no-esp.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_ddd932319e6c4eaabe48c7bc2abf6fbf~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-sobre-o-amor-com-direcao-de-elias-andreato-faz-curta-temporada-no-esp.html">Espetáculo sobre o amor com direção de Elias Andreato, faz curta temporada no Espaço Parlapatões</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo sobre o amor com direção de Elias Andreato, faz curta temporada no Espaço Parlapatões">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Show">
+      <a class="ph" href="post-filipe-catto-homenageia-gal-costa-com-show-na-casa-natura-musical.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_ff6a7a9de25044269a8046a67b005ece~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Show</span>
+        <h3><a href="post-filipe-catto-homenageia-gal-costa-com-show-na-casa-natura-musical.html">Filipe Catto homenageia Gal Costa com show na Casa Natura Musical</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.09 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Filipe Catto homenageia Gal Costa com show na Casa Natura Musical">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Música">
+      <a class="ph" href="post-cantora-que-popularizou-o-estilo-drum-n-bossa-lanca-musica-e-videoclipe-em-homen.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_812f0acd629a4eb2b0cc50d63cdfd658~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Música</span>
+        <h3><a href="post-cantora-que-popularizou-o-estilo-drum-n-bossa-lanca-musica-e-videoclipe-em-homen.html">Cantora que popularizou o estilo Drum 'n' Bossa lança música e videoclipe em Homenagem a Gal Costa</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Cantora que popularizou o estilo Drum 'n' Bossa lança música e videoclipe em Homenagem a Gal Costa">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-galpao-do-folias-recebe-xs-culpadxs-de-carlos-canhameiro-uma-reflexao-sobre-teat.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_562a28f33ffd4c98aec4b47fe7ae6c7e~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-galpao-do-folias-recebe-xs-culpadxs-de-carlos-canhameiro-uma-reflexao-sobre-teat.html">Galpão do Folias recebe 'xs CULPADXS' de Carlos Canhameiro: Uma reflexão sobre teatro e violência</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.09 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Galpão do Folias recebe 'xs CULPADXS' de Carlos Canhameiro: Uma reflexão sobre teatro e violência">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-renato-borghi-retorna-ao-teatro-oficina-para-comemorar-seus-65-anos-de-carreira.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_32d7a31763b0493d928d6e052484d2d7~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-renato-borghi-retorna-ao-teatro-oficina-para-comemorar-seus-65-anos-de-carreira.html">Renato Borghi retorna ao Teatro Oficina para comemorar seus 65 anos de carreira</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Renato Borghi retorna ao Teatro Oficina para comemorar seus 65 anos de carreira">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Música">
+      <a class="ph" href="post-cantor-mistura-pop-com-sertanejo-em-novo-single-nao-me-chame-mais-de-ex.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d755a60db9eb45a693cc8d3defe7b7ab~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Música</span>
+        <h3><a href="post-cantor-mistura-pop-com-sertanejo-em-novo-single-nao-me-chame-mais-de-ex.html">Cantor mistura Pop com sertanejo em novo single “Não me chame mais de Ex”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Cantor mistura Pop com sertanejo em novo single “Não me chame mais de Ex”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Televisão">
+      <a class="ph" href="post-estreia-hoje-remake-de-elas-por-elas-na-tv-globo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c38c98a7fb644270a068e65deacdd7f3~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Televisão</span>
+        <h3><a href="post-estreia-hoje-remake-de-elas-por-elas-na-tv-globo.html">Estreia Hoje remake de “Elas por Elas” na TV Globo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Estreia Hoje remake de “Elas por Elas” na TV Globo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Exposições">
+      <a class="ph" href="post-exposicao-fotografica-com-imagens-de-gal-costa-rita-lee-e-cazuza-chega-ao-ims.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_5b2382a5327b4b9aa40528d3d0a7400e~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Exposições</span>
+        <h3><a href="post-exposicao-fotografica-com-imagens-de-gal-costa-rita-lee-e-cazuza-chega-ao-ims.html">Exposição fotográfica com imagens de Gal Costa, Rita Lee e Cazuza chega ao IMS</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Exposição fotográfica com imagens de Gal Costa, Rita Lee e Cazuza chega ao IMS">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-infantil-com-direcao-de-pedro-garrafa-chega-ao-tucarena-no-dia-30-de-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b0d070ef4d2a450da5ee78ec00df227b~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-infantil-com-direcao-de-pedro-garrafa-chega-ao-tucarena-no-dia-30-de-.html">Espetáculo infantil com direção de Pedro Garrafa chega ao Tucarena no dia 30 de Setembro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo infantil com direção de Pedro Garrafa chega ao Tucarena no dia 30 de Setembro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Exposições">
+      <a class="ph" href="post-manto-tecido-pela-artista-gliceria-tupinamba-junto-a-seu-povo-chega-ao-museu-do-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_633ea0cb683d4d96aeb535ce7a97c1aa~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Exposições</span>
+        <h3><a href="post-manto-tecido-pela-artista-gliceria-tupinamba-junto-a-seu-povo-chega-ao-museu-do-.html">Manto tecido pela artista Glicéria Tupinambá junto a seu povo chega ao Museu do Ipiranga</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Manto tecido pela artista Glicéria Tupinambá junto a seu povo chega ao Museu do Ipiranga">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p51.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p51.html">51</a><a href="noticias-p52.html" class="on">52</a><a href="noticias-p53.html">53</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p53.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

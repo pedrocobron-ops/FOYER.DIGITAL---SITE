@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 47 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 47 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-flavia-garrafa-e-uma-terapeuta-empenhada-e-apaixonada-por-sua-profissao-em-faca-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a4118769d06a4c39ae3c698a85c77af2~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-flavia-garrafa-e-uma-terapeuta-empenhada-e-apaixonada-por-sua-profissao-em-faca-.html">Flávia Garrafa é uma terapeuta empenhada e apaixonada por sua profissão em “Faça Mais Sobre Isso"</a></h3>
+        <p>Flávia Garrafa volta a mergulhar no universo do comportamento humano na comédia “Faça Mais Sobre Isso”, com direção de Pedro Garrafa, o...…</p>
+        <div class="meta-row">
+          <span class="meta-l">29.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Flávia Garrafa é uma terapeuta empenhada e apaixonada por sua profissão em “Faça Mais Sobre Isso”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-myra-ruiz-e-fabi-bang-lancam-show-especial-de-natal-e-ja-possui-setores-com-ingr.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_fb260a72242b416787c074619a1eb6c6~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-myra-ruiz-e-fabi-bang-lancam-show-especial-de-natal-e-ja-possui-setores-com-ingr.html">Myra Ruiz e Fabi Bang lançam show especial de Natal, e já possui setores com ingressos esgotados</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Myra Ruiz e Fabi Bang lançam show especial de Natal, e já possui setores com ingressos esgotados">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-com-texto-e-direcao-de-kiko-rieser-vencedor-de-um-bibi-ferreira-hilda-e-caio-est.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_01193b2d246d4a689b40eadb5505edf6~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-com-texto-e-direcao-de-kiko-rieser-vencedor-de-um-bibi-ferreira-hilda-e-caio-est.html">Com texto e direção de Kiko Rieser, vencedor de um Bibi Ferreira, “Hilda e Caio” estreia no CCBB SP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com texto e direção de Kiko Rieser, vencedor de um Bibi Ferreira, “Hilda e Caio” estreia no CCBB SP">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Audições">
+      <a class="ph" href="post-musical-dirigido-por-miguel-falabella-sobre-o-rei-do-rock-n-roll-abre-audicoes-p.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6f5e5bcc9a5148568a119e9c1bf5656f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Audições</span>
+        <h3><a href="post-musical-dirigido-por-miguel-falabella-sobre-o-rei-do-rock-n-roll-abre-audicoes-p.html">Musical dirigido por Miguel Falabella sobre o Rei do Rock n’ Roll abre audições para Elvis Presley</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical dirigido por Miguel Falabella sobre o Rei do Rock n’ Roll abre audições para Elvis Presley">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-companhia-do-rio-de-janeiro-traz-montagem-de-ricardo-iii-um-homem-do-seu-tempo-p.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d23a488a0b964e4f914ea5e96af57a03~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-companhia-do-rio-de-janeiro-traz-montagem-de-ricardo-iii-um-homem-do-seu-tempo-p.html">Companhia do Rio de Janeiro traz montagem de “Ricardo III Um Homem do Seu Tempo” para São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Companhia do Rio de Janeiro traz montagem de “Ricardo III Um Homem do Seu Tempo” para São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-nos-somos-o-amanha-com-claudia-ohana-e-silvero-pereira-combina-elementos-fantast.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e423acc2152949c7b1d341d6c18aa26d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-nos-somos-o-amanha-com-claudia-ohana-e-silvero-pereira-combina-elementos-fantast.html">“Nós somos o amanhã” com Claudia Ohana e Silvero Pereira combina elementos fantásticos e LGBT</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Nós somos o amanhã” com Claudia Ohana e Silvero Pereira combina elementos fantásticos e LGBT">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-on-stage-brasil-e-a-allegresse-producoes-trazem-uma-nova-montagem-de-rent-para-o.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_4a3110865b274ecfa7ee58109085882d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-on-stage-brasil-e-a-allegresse-producoes-trazem-uma-nova-montagem-de-rent-para-o.html">On Stage Brasil e a Allegresse Produções trazem uma nova montagem de Rent para o Teatro Viradalata</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="On Stage Brasil e a Allegresse Produções trazem uma nova montagem de Rent para o Teatro Viradalata">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Literatura">
+      <a class="ph" href="post-amizade-entre-mario-quintana-e-a-jovem-fotografa-liane-neves-inspira-dramaturgia.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_520df6adcca64d0f8211a06545dfe1fb~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Literatura</span>
+        <h3><a href="post-amizade-entre-mario-quintana-e-a-jovem-fotografa-liane-neves-inspira-dramaturgia.html">Amizade entre Mário Quintana e a jovem fotógrafa Liane Neves inspira dramaturgia</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Amizade entre Mário Quintana e a jovem fotógrafa Liane Neves inspira dramaturgia">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-comedia-uma-carta-para-o-papai-noel-com-totia-meirelles-e-elisa-volpatto-estreia.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3164f2661ba1443d85d7604c73a0a8f1~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-comedia-uma-carta-para-o-papai-noel-com-totia-meirelles-e-elisa-volpatto-estreia.html">Comédia “Uma carta para o papai noel” com Totia Meireles e Elisa Volpatto estreia em dezembro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Comédia “Uma carta para o papai noel” com Totia Meireles e Elisa Volpatto estreia em dezembro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Show">
+      <a class="ph" href="post-show-musica-para-crianca-da-banda-mirim-comemorara-os-19-anos-do-grupo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b92e61cd16c84c84ba80d097b7972c67~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Show</span>
+        <h3><a href="post-show-musica-para-crianca-da-banda-mirim-comemorara-os-19-anos-do-grupo.html">Show “Música para criança” da Banda Mirim comemorará os 19 anos do grupo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Show “Música para criança” da Banda Mirim comemorará os 19 anos do grupo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-besouro-azul-longa-protagonizado-por-bruna-marquezine-ja-esta-disponivel-na-hbom.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6e61b07a46944e4f98f7ea4938ef4989~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-besouro-azul-longa-protagonizado-por-bruna-marquezine-ja-esta-disponivel-na-hbom.html">Besouro Azul, longa protagonizado por Bruna Marquezine, já está disponível na HBOMAX</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Besouro Azul, longa protagonizado por Bruna Marquezine, já está disponível na HBOMAX">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-performance-dirigida-por-janaina-leite-mergulha-em-fabula-virtual-dividida-em-du.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_98f9244f23b24b94bce51732ee4542a1~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-performance-dirigida-por-janaina-leite-mergulha-em-fabula-virtual-dividida-em-du.html">Performance dirigida por Janaina Leite mergulha em fábula virtual dividida em duas partes</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Performance dirigida por Janaina Leite mergulha em fábula virtual dividida em duas partes">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ultimos-dias-para-assistir-a-opera-o-navio-fantasma-no-theatro-municipal-de-sao-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_cf84b552ac154998bf2e7fa565720112~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ultimos-dias-para-assistir-a-opera-o-navio-fantasma-no-theatro-municipal-de-sao-.html">Últimos dias para assistir a ópera “O Navio Fantasma” no Theatro Municipal de São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Últimos dias para assistir a ópera “O Navio Fantasma” no Theatro Municipal de São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-icaro-silva-e-o-primeiro-nome-divulgado-do-elenco-de-nova-montagem-do-musical-ca.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3a546f2a654543199453b554c71203f2~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-icaro-silva-e-o-primeiro-nome-divulgado-do-elenco-de-nova-montagem-do-musical-ca.html">Ícaro Silva é o primeiro nome divulgado do elenco de nova montagem do musical Cabaret</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Ícaro Silva é o primeiro nome divulgado do elenco de nova montagem do musical Cabaret">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-carol-duarte-estreia-solo-a-visita-que-evoca-figura-decadente-da-elite-paulista.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_722e5578f3d346098c853475e492bd8c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-carol-duarte-estreia-solo-a-visita-que-evoca-figura-decadente-da-elite-paulista.html">Carol Duarte estreia solo “A Visita” que evoca figura decadente da elite paulista</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Carol Duarte estreia solo “A Visita” que evoca figura decadente da elite paulista">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-depois-de-sucesso-do-musical-mundareu-de-mim-ibt-lanca-oficina-de-tecnica-vocal-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a47051b65dc34091a138104f95344205~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-depois-de-sucesso-do-musical-mundareu-de-mim-ibt-lanca-oficina-de-tecnica-vocal-.html">Depois de sucesso do musical “Mundaréu de Mim”, IBT lança Oficina de Técnica Vocal com Polly Gutman</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Depois de sucesso do musical “Mundaréu de Mim”, IBT lança Oficina de Técnica Vocal com Polly Gutman">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-so-mais-duas-sessoes-para-assistir-o-espetaculo-neura-no-teatro-bibi-ferreira.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_134283469d4141eaba26ae76223382d5~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-so-mais-duas-sessoes-para-assistir-o-espetaculo-neura-no-teatro-bibi-ferreira.html">Só mais duas sessões para assistir o espetáculo “Neura!” no Teatro Bibi Ferreira</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Só mais duas sessões para assistir o espetáculo “Neura!” no Teatro Bibi Ferreira">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-tia-virginia-longa-com-vera-holtz-e-arlete-salles-esta-em-cartaz-em-apenas-3-cin.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_bdff5e7ff752450da47c8aa5235c5633~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-tia-virginia-longa-com-vera-holtz-e-arlete-salles-esta-em-cartaz-em-apenas-3-cin.html">Tia Virgínia, longa com Vera Holtz e Arlete Salles, está em cartaz em apenas 3 cinemas de SP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Tia Virgínia, longa com Vera Holtz e Arlete Salles, está em cartaz em apenas 3 cinemas de SP">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Audições">
+      <a class="ph" href="post-musical-de-victor-rocha-com-direcao-e-coreografias-de-fernanda-chamma-abre-audic.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_285b01dbc3d74a669c4b92bd4719e614~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Audições</span>
+        <h3><a href="post-musical-de-victor-rocha-com-direcao-e-coreografias-de-fernanda-chamma-abre-audic.html">Musical de Victor Rocha com direção e coreografias de Fernanda Chamma abre audições</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical de Victor Rocha com direção e coreografias de Fernanda Chamma abre audições">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-lady-macbeth-no-brasil-contemporaneo-essa-e-a-proposta-de-o-som-e-a-furia-de-lad.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3f16cf65adad4a368c065245be1accb6~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-lady-macbeth-no-brasil-contemporaneo-essa-e-a-proposta-de-o-som-e-a-furia-de-lad.html">Lady Macbeth no Brasil Contemporâneo, essa é a proposta de “O Som e a Fúria de Lady Macbeth"</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Lady Macbeth no Brasil Contemporâneo, essa é a proposta de “O Som e a Fúria de Lady Macbeth”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Dança">
+      <a class="ph" href="post-giselle-um-dos-espetaculos-de-ballet-classico-mais-famosos-do-mundo-chega-ao-tea.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6ac063924f8743f88cb828d43ccc589c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Dança</span>
+        <h3><a href="post-giselle-um-dos-espetaculos-de-ballet-classico-mais-famosos-do-mundo-chega-ao-tea.html">Giselle, um dos espetáculos de ballet clássico mais famosos do mundo, chega ao Teatro Sérgio Cardoso</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Giselle, um dos espetáculos de ballet clássico mais famosos do mundo, chega ao Teatro Sérgio Cardoso">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Exposições">
+      <a class="ph" href="post-sesc-itaquera-apresenta-a-exposicao-quebradinha-do-artista-plastico-marcelino-me.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0b6125d597644b3181a953c294de1f37~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Exposições</span>
+        <h3><a href="post-sesc-itaquera-apresenta-a-exposicao-quebradinha-do-artista-plastico-marcelino-me.html">Sesc Itaquera apresenta a exposição “Quebradinha” do artista plástico Marcelino Melo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Sesc Itaquera apresenta a exposição “Quebradinha” do artista plástico Marcelino Melo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-ana-livia-com-bete-coelho-e-georgette-fadel-e-uma-celebracao-ao-poder.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_eec13203f965477da4ea1186d6420e6d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-ana-livia-com-bete-coelho-e-georgette-fadel-e-uma-celebracao-ao-poder.html">Espetáculo “Ana Lívia” com Bete Coelho e Georgette Fadel é uma celebração ao poder do teatro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo “Ana Lívia” com Bete Coelho e Georgette Fadel é uma celebração ao poder do teatro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-com-patricya-travassos-e-eduardo-moscovis-faz-curta-temporada-no-teat.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c0c9edc571224261883bdfcbba702d52~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-com-patricya-travassos-e-eduardo-moscovis-faz-curta-temporada-no-teat.html">Espetáculo com Patricya Travassos e Eduardo Moscovis, faz curta temporada no Teatro Miguel Falabella</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo com Patricya Travassos e Eduardo Moscovis, faz curta temporada no Teatro Miguel Falabella">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p46.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p46.html">46</a><a href="noticias-p47.html" class="on">47</a><a href="noticias-p48.html">48</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p48.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

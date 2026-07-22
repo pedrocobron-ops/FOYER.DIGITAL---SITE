@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Matérias de Teatro no FOYER.">
+<title>Teatro — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Teatro</h1>
+    <p class="note">952 matérias — página 37 de 40</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html">Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html" class="on">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-figurinos-de-matilda-o-musical-sao-revelados.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_5bddc477a4a2440ca4414751f1f0f4e5~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-figurinos-de-matilda-o-musical-sao-revelados.html">Figurinos de Matilda - O Musical são revelados</a></h3>
+        <p>Com mais de 300 elementos, os figurinos da produção de Matilda - O Musical são revelados! A criação desses figurinos é uma representação...…</p>
+        <div class="meta-row">
+          <span class="meta-l">12.09 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Figurinos de Matilda - O Musical são revelados">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-um-azul-nos-bueiros-de-sao-paulo-e-espetaculo-que-fala-sobre-a-censura-de-mulher.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0489538e17234533a5dbcbb6418563f0~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-um-azul-nos-bueiros-de-sao-paulo-e-espetaculo-que-fala-sobre-a-censura-de-mulher.html">“Um Azul nos Bueiros de São Paulo” é espetáculo que fala sobre a censura de mulheres dramaturgas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Um Azul nos Bueiros de São Paulo” é espetáculo que fala sobre a censura de mulheres dramaturgas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-luz-negra-e-bonecos-marcam-a-adaptacao-de-o-pequeno-principe-em-cartaz-no-teatro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0340fc3e3a7345b49c99a621ce6c52b1~mv2.jpeg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-luz-negra-e-bonecos-marcam-a-adaptacao-de-o-pequeno-principe-em-cartaz-no-teatro.html">Luz negra e bonecos, marcam a adaptação de “O Pequeno Príncipe” em cartaz no Teatro das Artes</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Luz negra e bonecos, marcam a adaptação de “O Pequeno Príncipe” em cartaz no Teatro das Artes">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-reestreia-hoje-espetaculo-musical-adaptado-o-livro-de-pedro-bandeira-o-misterio-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_363fa77a68fa495da06e41ad02f0bfc8~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-reestreia-hoje-espetaculo-musical-adaptado-o-livro-de-pedro-bandeira-o-misterio-.html">Reestreia hoje espetáculo musical adaptado o livro de Pedro Bandeira “O mistério de Feiurinha”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Reestreia hoje espetáculo musical adaptado o livro de Pedro Bandeira “O mistério de Feiurinha”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-aime-reis-estreia-como-dramaturga-e-autora-em-espetaculo-sobre-feridas-cronicas-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_1953206e2465495e924d796ee3784d5e~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-aime-reis-estreia-como-dramaturga-e-autora-em-espetaculo-sobre-feridas-cronicas-.html">Aimê Reis estreia como dramaturga e autora em espetáculo sobre feridas crônicas de infância</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Aimê Reis estreia como dramaturga e autora em espetáculo sobre feridas crônicas de infância">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-estreia-hoje-espetaculo-elizabeth-costello-monologo-encenado-por-lavinia-pannunz.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6a5bd3b7330b4656b15e2a80d8d8a9d4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-estreia-hoje-espetaculo-elizabeth-costello-monologo-encenado-por-lavinia-pannunz.html">Estreia hoje espetáculo “Elizabeth Costello”, monólogo encenado por Lavínia Pannunzio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Estreia hoje espetáculo “Elizabeth Costello”, monólogo encenado por Lavínia Pannunzio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-musical-mundareu-de-mim-tera-estrutura-para-receber-2-mil-pessoas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_08138de26e7c4a95b80230a13ed25e7f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-musical-mundareu-de-mim-tera-estrutura-para-receber-2-mil-pessoas.html">Espetáculo musical “Mundaréu de mim” terá estrutura para receber 2 mil pessoas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo musical “Mundaréu de mim” terá estrutura para receber 2 mil pessoas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-teoria-king-kong-sucesso-literario-da-escritora-francesa-esta-em-cartaz-no-sesc-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6a00fa6275764e71b7c9c3f767912285~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-teoria-king-kong-sucesso-literario-da-escritora-francesa-esta-em-cartaz-no-sesc-.html">“Teoria King Kong”, sucesso literário da escritora Francesa, está em cartaz no Sesc Copacabana</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Teoria King Kong”, sucesso literário da escritora Francesa, está em cartaz no Sesc Copacabana">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-teatro-das-artes-recebe-espetaculo-o-porteiro-que-deu-origem-ao-longa-de-mesmo-n.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_93232aba562d4e2b880a8cf853cb82a6~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-teatro-das-artes-recebe-espetaculo-o-porteiro-que-deu-origem-ao-longa-de-mesmo-n.html">Teatro das Artes recebe espetáculo “O Porteiro”, que deu origem ao longa de mesmo nome em cartaz</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Teatro das Artes recebe espetáculo “O Porteiro”, que deu origem ao longa de mesmo nome em cartaz">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-ana-marginal-convida-o-publico-a-conhecer-ana-cristina-cesar.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_0f31c655437e42be83c01633b3c39419~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-ana-marginal-convida-o-publico-a-conhecer-ana-cristina-cesar.html">Espetáculo 'Ana Marginal' convida o público a conhecer Ana Cristina Cesar</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.09 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo 'Ana Marginal' convida o público a conhecer Ana Cristina Cesar">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-depois-de-temporada-ao-ar-livre-a-heroica-companhia-toma-o-palco-do-itau-cultura.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e102b36d01d84e52bcc57ae713a2447d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-depois-de-temporada-ao-ar-livre-a-heroica-companhia-toma-o-palco-do-itau-cultura.html">Depois de temporada ao ar livre, a Heroica Companhia toma o palco do Itaú Cultural</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Depois de temporada ao ar livre, a Heroica Companhia toma o palco do Itaú Cultural">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-muricy-e-leleco-de-avenida-brasil-juntos-em-producao-nos-palcos-de-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_bc41b2e3088d448298b032af54da8f04~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-muricy-e-leleco-de-avenida-brasil-juntos-em-producao-nos-palcos-de-sao-paulo.html">Muricy e Leleco, de Avenida Brasil, juntos em produção nos palcos de São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Muricy e Leleco, de Avenida Brasil, juntos em produção nos palcos de São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-estrelado-por-nicette-bruno-e-paulo-goulart-em-87-volta-aos-palcos.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_44bef3a0a1d84b88892a8cadccb65427~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-estrelado-por-nicette-bruno-e-paulo-goulart-em-87-volta-aos-palcos.html">Espetáculo estrelado por Nicette Bruno e Paulo Goulart em 87 volta aos palcos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo estrelado por Nicette Bruno e Paulo Goulart em 87 volta aos palcos">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-derivado-de-conto-erotico-de-hilda-hilst-sobre-o-corpo-feminino-estre.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2842f96b752a4b459ebab9c3dbd25d65~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-derivado-de-conto-erotico-de-hilda-hilst-sobre-o-corpo-feminino-estre.html">Espetáculo derivado de conto erótico de Hilda Hilst, sobre o corpo feminino, estreia na Casa Urânia</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo derivado de conto erótico de Hilda Hilst, sobre o corpo feminino, estreia na Casa Urânia">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-estreia-hoje-o-musical-um-linda-mulher-pela-primeira-vez-no-brasil.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b3f5bcc1eaf94d8d91ac376961b8e987~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-estreia-hoje-o-musical-um-linda-mulher-pela-primeira-vez-no-brasil.html">Estreia hoje o musical “Um Linda Mulher”, pela primeira vez no Brasil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Estreia hoje o musical “Um Linda Mulher”, pela primeira vez no Brasil">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-musical-cabaret-retorna-ao-brasil-em-2024-com-kleber-montanheiro-e-marilia-toled.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2475cbabcde543ab81dc75fb17bf674a~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-cabaret-retorna-ao-brasil-em-2024-com-kleber-montanheiro-e-marilia-toled.html">Musical “Cabaret” retorna ao Brasil em 2024, com Kleber Montanheiro e Marília Toledo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical “Cabaret” retorna ao Brasil em 2024, com Kleber Montanheiro e Marília Toledo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-beth-goulart-assina-direcao-de-juliana-didone-no-espetaculo-60-dias-de-neblina.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e2aa2c201ba64bcb912656e59c3243d9~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-beth-goulart-assina-direcao-de-juliana-didone-no-espetaculo-60-dias-de-neblina.html">Beth Goulart assina direção de Juliana Didone no espetáculo “60 Dias de Neblina”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Beth Goulart assina direção de Juliana Didone no espetáculo “60 Dias de Neblina”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-que-celebrou-os-80-anos-de-sergio-mamberti-volta-ao-palco-para-sessoe.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_363b284854bc48948e3c9dbf47fc7f3c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-que-celebrou-os-80-anos-de-sergio-mamberti-volta-ao-palco-para-sessoe.html">Espetáculo que celebrou os 80 anos de Sérgio Mamberti volta ao palco para sessões especiais</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo que celebrou os 80 anos de Sérgio Mamberti volta ao palco para sessões especiais">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-elenco-completo-do-musical-matilda-e-anunciado.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_23d8f4eeac7c400f93e6131c15c1f811~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-elenco-completo-do-musical-matilda-e-anunciado.html">Elenco completo do musical “Matilda” é anunciado</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Elenco completo do musical “Matilda” é anunciado">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ultimo-dia-da-temporada-de-escola-de-mulheres-no-teatro-italia-bandeirantes.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_54d637df713c4064bd7e0ffdda09c7b7~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ultimo-dia-da-temporada-de-escola-de-mulheres-no-teatro-italia-bandeirantes.html">Último dia da temporada de “Escola de Mulheres” no Teatro Itália Bandeirantes</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Último dia da temporada de “Escola de Mulheres” no Teatro Itália Bandeirantes">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-musical-de-fantasia-e-romance-lgbt-volta-aos-palcos-em-nova-temporada.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6d8d4828a80c4a9d81dc00665f19ab9b~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-musical-de-fantasia-e-romance-lgbt-volta-aos-palcos-em-nova-temporada.html">Espetáculo musical de fantasia e romance LGBT volta aos palcos em nova temporada</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo musical de fantasia e romance LGBT volta aos palcos em nova temporada">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-uma-linda-mulher-estreia-em-menos-de-uma-semana-no-teatro-santander.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_14b50c726fd54b1db080913468b87780~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-uma-linda-mulher-estreia-em-menos-de-uma-semana-no-teatro-santander.html">“Uma linda Mulher” estreia em menos de uma semana, no teatro Santander</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Uma linda Mulher” estreia em menos de uma semana, no teatro Santander">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-otavio-augusto-celebra-60-anos-de-carreira-com-espetaculo-em-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_33a2e2199ccd45e7a7d84ce4dae3ea40~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-otavio-augusto-celebra-60-anos-de-carreira-com-espetaculo-em-sao-paulo.html">Otavio Augusto celebra 60 anos de carreira com espetáculo em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Otavio Augusto celebra 60 anos de carreira com espetáculo em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-neurotica-espetaculo-de-comedia-de-flavia-reis-tem-estreia-marcada-no-teatro-uol.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7b00d0e3371d4df39569782d6cdd5baa~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-neurotica-espetaculo-de-comedia-de-flavia-reis-tem-estreia-marcada-no-teatro-uol.html">“Neurótica” espetáculo de comédia de Flávia Reis tem estreia marcada no Teatro Uol</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Neurótica” espetáculo de comédia de Flávia Reis tem estreia marcada no Teatro Uol">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="cat-teatro-p36.html">← Anterior</a><a href="cat-teatro.html">1</a><a href="cat-teatro-p2.html">2</a><span>…</span><a href="cat-teatro-p36.html">36</a><a href="cat-teatro-p37.html" class="on">37</a><a href="cat-teatro-p38.html">38</a><a href="cat-teatro-p39.html">39</a><a href="cat-teatro-p40.html">40</a><a href="cat-teatro-p38.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 35 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 35 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-rei-lear-drag.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_49bdc055e88d4151b5eb0504d8bfbed1~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-rei-lear-drag.html">"Rei Lear": Uma Audaciosa Adaptação Drag no Teatro Alfredo Mesquita em São Paulo</a></h3>
+        <p>A Cia. Extemporânea apresenta uma adaptação revolucionária da tragédia "Rei Lear" de William Shakespeare.…</p>
+        <div class="meta-row">
+          <span class="meta-l">01.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Rei Lear”: Uma Audaciosa Adaptação Drag no Teatro Alfredo Mesquita em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-aqui-tem-vida-demais-um-espetaculo-que-redefine-o-dialogo-sobre-a-morte-e-a-vida.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c96de9e80006439ea22b1ff170ce10dd~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-aqui-tem-vida-demais-um-espetaculo-que-redefine-o-dialogo-sobre-a-morte-e-a-vida.html">"Aqui Tem Vida Demais!": Um Espetáculo que Redefine o Diálogo sobre a Morte e a Vida no Sesc Belenzinho</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Aqui Tem Vida Demais!”: Um Espetáculo que Redefine o Diálogo sobre a Morte e a Vida no Sesc Belenzinho">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-cor-purpura-o-musical.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7ba9e35f40bc4fefb1def3497413bfc3~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-cor-purpura-o-musical.html">"A Cor Púrpura, o musical": Uma Odisseia Emocional Retorna aos Palcos do Rio de Janeiro e São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”A Cor Púrpura, o musical”: Uma Odisseia Emocional Retorna aos Palcos do Rio de Janeiro e São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Streaming">
+      <a class="ph" href="post-paramount-revela-novas-imagens-de-lioness-serie-estrelada-por-nicole-kidman-e-zo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_11301ab037184c98998547c145d13f77~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-paramount-revela-novas-imagens-de-lioness-serie-estrelada-por-nicole-kidman-e-zo.html">Paramount+ Revela Novas Imagens de "Lioness", Série Estrelada por Nicole Kidman e Zoe Saldaña</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Paramount+ Revela Novas Imagens de ”Lioness”, Série Estrelada por Nicole Kidman e Zoe Saldaña">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-alessandra-negrini-em-a-arvore.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_adff3e5a185b4be68e68656abf8847f2~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-alessandra-negrini-em-a-arvore.html">Alessandra Negrini em "A Árvore": Uma Jornada Introspectiva no Centro Cultural São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Alessandra Negrini em ”A Árvore”: Uma Jornada Introspectiva no Centro Cultural São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-lira-dos-20-anos-musical-resistencia-cultural-anos-de-chumbo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_c67648efe22a4d40b49839969328634d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-lira-dos-20-anos-musical-resistencia-cultural-anos-de-chumbo.html">“A Lira dos 20 Anos - O Musical” resgata a resistência cultural dos anos de chumbo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.08 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="“A Lira dos 20 Anos - O Musical” resgata a resistência cultural dos anos de chumbo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-fernanda-young-foge-me-ao-controle-um-documentario-profundo-chega-aos-cinemas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e106e9058808426aa05d48c3d49b1a25~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-fernanda-young-foge-me-ao-controle-um-documentario-profundo-chega-aos-cinemas.html">"Fernanda Young - Foge-me ao Controle": Um Documentário Profundo Chega aos Cinemas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Fernanda Young - Foge-me ao Controle”: Um Documentário Profundo Chega aos Cinemas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-jantar-musical-com-cia-broadway.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e73317b0618e46898299bb2b330582bf~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-jantar-musical-com-cia-broadway.html">Últimas Apresentações do Jantar Musical com Cia Broadway Brasil no Meliá Paulista</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Últimas Apresentações do Jantar Musical com Cia Broadway Brasil no Meliá Paulista">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Literatura">
+      <a class="ph" href="post-tempo-abstrato-um-romance-safico.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_49c8e239efb9458ca426d9f18b8fd439~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Literatura</span>
+        <h3><a href="post-tempo-abstrato-um-romance-safico.html">"Tempo-abstrato": Um Romance Sáfico-Filosófico que Desafia a Percepção do Tempo e da Vida</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Tempo-abstrato”: Um Romance Sáfico-Filosófico que Desafia a Percepção do Tempo e da Vida">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-wicked-o-classico-musical-da-broadway.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_202d72ce8c0544d18f90a5f4007595e3~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-wicked-o-classico-musical-da-broadway.html">"Wicked": O Clássico Musical da Broadway Chega aos Cinemas com Dublagem de Myra Ruiz e Fabi Bang</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Wicked”: O Clássico Musical da Broadway Chega aos Cinemas com Dublagem de Myra Ruiz e Fabi Bang">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Exposições">
+      <a class="ph" href="post-exposicao-foto-circuito-contemporaneo-art-lab-gallery.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_a03ea381606243cb89e165a5bb0d8c41~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Exposições</span>
+        <h3><a href="post-exposicao-foto-circuito-contemporaneo-art-lab-gallery.html">Exposição "Foto & Circuito Contemporâneo" explora expressões artísticas em diálogo com a fotografia</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.08 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Exposição ”Foto & Circuito Contemporâneo” explora expressões artísticas em diálogo com a fotografia">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-senhora-x-senhorita-y.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_4e9e9e86b3524edb853ba14e38cd9b5b~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-senhora-x-senhorita-y.html">"Senhora X, Senhorita Y": Uma Reinvenção Teatral que Desafia Convenções em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Senhora X, Senhorita Y”: Uma Reinvenção Teatral que Desafia Convenções em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Exposições">
+      <a class="ph" href="post-chivitz-graffiti-tatuagem.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_6295737510d2469e9a6737c0c802aa26~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Exposições</span>
+        <h3><a href="post-chivitz-graffiti-tatuagem.html">Chivitz: Uma trajetória entre o graffiti e a tatuagem</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.08 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Chivitz: Uma trajetória entre o graffiti e a tatuagem">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-levante.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_13e78f36c80145eb8dd2ef6aa8f2856c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-levante.html">"Levante": Uma Peça Emocionante de Amor e Resistência em Santos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Levante”: Uma Peça Emocionante de Amor e Resistência em Santos">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-em-busca-de-judith-sesc-ipiranga.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_700ab3d3e2254c1f8da7efea54c765a6~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-em-busca-de-judith-sesc-ipiranga.html">“Em Busca de Judith" entra em sua última semana de temporada no Sesc Ipiranga</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.08 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="“Em Busca de Judith” entra em sua última semana de temporada no Sesc Ipiranga">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-premio-bibi-ferreira-2024.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_664fc0dce2ef44f2a1b41a08250ad89b~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-premio-bibi-ferreira-2024.html">Prêmio Bibi Ferreira 2024: Lista de indicados revela destaques do teatro de prosa e musical</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.08 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Prêmio Bibi Ferreira 2024: Lista de indicados revela destaques do teatro de prosa e musical">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-cia-omonde-sesc-pompeia.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_00d178e2df6d4733b1cc7cf419c7a5b5~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-cia-omonde-sesc-pompeia.html">Cia OmondÉ celebra 15 anos com Mostra de espetáculos no Sesc Pompeia</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.08 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Cia OmondÉ celebra 15 anos com Mostra de espetáculos no Sesc Pompeia">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-companhia-brasileira-de-teatro-do-sesi-s.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_f9027edd7bb6460cabc6239fc65f00e3~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-companhia-brasileira-de-teatro-do-sesi-s.html">Companhia Brasileira de Teatro estreia peça que mergulha na mente de uma artista no Teatro do Sesi-SP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.08 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Companhia Brasileira de Teatro estreia peça que mergulha na mente de uma artista no Teatro do Sesi-SP">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-fernanda-montenegro-simone-de-beauvoir.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_d30d479e8bac4f1b974451e0462e4f79~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-fernanda-montenegro-simone-de-beauvoir.html">Fernanda Montenegro emociona 15 mil pessoas no Ibirapuera em leitura de Simone de Beauvoir</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.08 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Fernanda Montenegro emociona 15 mil pessoas no Ibirapuera em leitura de Simone de Beauvoir">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-silvio-santos-o-legado-inesquecivel-do-maior-comunicador-da-televisao-brasileira.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b57754c5a3fc409abc72e0a3f26a1d16~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-silvio-santos-o-legado-inesquecivel-do-maior-comunicador-da-televisao-brasileira.html">Silvio Santos: O Legado Inesquecível do Maior Comunicador da Televisão Brasileira</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Silvio Santos: O Legado Inesquecível do Maior Comunicador da Televisão Brasileira">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Streaming">
+      <a class="ph" href="post-segunda-temporada-os-outros-globoplay.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_bdc0cd42b6944fd19fee9d1b3b1a5a10~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-segunda-temporada-os-outros-globoplay.html">Segunda temporada de "Os Outros" estreia no Globoplay com novos personagens e ainda mais suspense</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.08 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Segunda temporada de ”Os Outros” estreia no Globoplay com novos personagens e ainda mais suspense">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-disney-d23-expo-2024.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_75cf9f29e6d14c84ae519c9a116a6f1c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-disney-d23-expo-2024.html">Disney revela novidades empolgantes e datas de lançamentos no painel da D23 Expo 2024</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.08 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Disney revela novidades empolgantes e datas de lançamentos no painel da D23 Expo 2024">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-eduardo-sterblitch-beetlejuice.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_3d92c6a8127c4d05b5831cba6f0258db~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-eduardo-sterblitch-beetlejuice.html">Eduardo Sterblitch dá voz ao icônico Beetlejuice em novo filme da Warner Bros.</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.08 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Eduardo Sterblitch dá voz ao icônico Beetlejuice em novo filme da Warner Bros.">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Música">
+      <a class="ph" href="post-beatles-para-criancas-10-anos-show-inedito.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_69a9eb4df8c14d0695ba8485fcd76b32~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Música</span>
+        <h3><a href="post-beatles-para-criancas-10-anos-show-inedito.html">Beatles para Crianças celebra 10 anos com show inédito no novo Teatro Multiplan MorumbiShopping</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.08 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Beatles para Crianças celebra 10 anos com show inédito no novo Teatro Multiplan MorumbiShopping">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p34.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p34.html">34</a><a href="noticias-p35.html" class="on">35</a><a href="noticias-p36.html">36</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p36.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

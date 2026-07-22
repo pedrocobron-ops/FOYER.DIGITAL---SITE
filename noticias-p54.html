@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 54 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 54 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Audições">
+      <a class="ph" href="post-estao-abertas-as-audicoes-para-o-musical-adoravel-trapalhao-que-celebra-renato-a.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_dded383efd884ec793166a18d038ada2~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Audições</span>
+        <h3><a href="post-estao-abertas-as-audicoes-para-o-musical-adoravel-trapalhao-que-celebra-renato-a.html">Estão abertas as audições para o musical “Adorável Trapalhão” que celebra Renato Aragão</a></h3>
+        <p>Com audições marcadas para Outubro deste ano, a superprodução irá trazer um pouco da trajetória da vida do humorista Renato Aragão, desde...…</p>
+        <div class="meta-row">
+          <span class="meta-l">11.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Estão abertas as audições para o musical “Adorável Trapalhão” que celebra Renato Aragão">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-luz-negra-e-bonecos-marcam-a-adaptacao-de-o-pequeno-principe-em-cartaz-no-teatro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0340fc3e3a7345b49c99a621ce6c52b1~mv2.jpeg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-luz-negra-e-bonecos-marcam-a-adaptacao-de-o-pequeno-principe-em-cartaz-no-teatro.html">Luz negra e bonecos, marcam a adaptação de “O Pequeno Príncipe” em cartaz no Teatro das Artes</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Luz negra e bonecos, marcam a adaptação de “O Pequeno Príncipe” em cartaz no Teatro das Artes">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-reestreia-hoje-espetaculo-musical-adaptado-o-livro-de-pedro-bandeira-o-misterio-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_363fa77a68fa495da06e41ad02f0bfc8~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-reestreia-hoje-espetaculo-musical-adaptado-o-livro-de-pedro-bandeira-o-misterio-.html">Reestreia hoje espetáculo musical adaptado o livro de Pedro Bandeira “O mistério de Feiurinha”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Reestreia hoje espetáculo musical adaptado o livro de Pedro Bandeira “O mistério de Feiurinha”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-aime-reis-estreia-como-dramaturga-e-autora-em-espetaculo-sobre-feridas-cronicas-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_1953206e2465495e924d796ee3784d5e~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-aime-reis-estreia-como-dramaturga-e-autora-em-espetaculo-sobre-feridas-cronicas-.html">Aimê Reis estreia como dramaturga e autora em espetáculo sobre feridas crônicas de infância</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Aimê Reis estreia como dramaturga e autora em espetáculo sobre feridas crônicas de infância">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-estreia-hoje-comedia-com-lilia-cabral-e-stepan-nercessian.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_560119ad8b9f4026915fba9a07bea7ee~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-estreia-hoje-comedia-com-lilia-cabral-e-stepan-nercessian.html">Estreia hoje comédia com Lilia Cabral e Stepan Nercessian</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Estreia hoje comédia com Lilia Cabral e Stepan Nercessian">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-estreia-hoje-espetaculo-elizabeth-costello-monologo-encenado-por-lavinia-pannunz.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6a5bd3b7330b4656b15e2a80d8d8a9d4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-estreia-hoje-espetaculo-elizabeth-costello-monologo-encenado-por-lavinia-pannunz.html">Estreia hoje espetáculo “Elizabeth Costello”, monólogo encenado por Lavínia Pannunzio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Estreia hoje espetáculo “Elizabeth Costello”, monólogo encenado por Lavínia Pannunzio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-saulo-vasconcelos-e-tiago-barbosa-programa-do-foyer.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_01f00cc67ce44651b21acda880f4832f~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-saulo-vasconcelos-e-tiago-barbosa-programa-do-foyer.html">Saulo Vasconcelos e Tiago Barbosa - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.09 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Saulo Vasconcelos e Tiago Barbosa - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-musical-mundareu-de-mim-tera-estrutura-para-receber-2-mil-pessoas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_08138de26e7c4a95b80230a13ed25e7f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-musical-mundareu-de-mim-tera-estrutura-para-receber-2-mil-pessoas.html">Espetáculo musical “Mundaréu de mim” terá estrutura para receber 2 mil pessoas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo musical “Mundaréu de mim” terá estrutura para receber 2 mil pessoas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-teoria-king-kong-sucesso-literario-da-escritora-francesa-esta-em-cartaz-no-sesc-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6a00fa6275764e71b7c9c3f767912285~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-teoria-king-kong-sucesso-literario-da-escritora-francesa-esta-em-cartaz-no-sesc-.html">“Teoria King Kong”, sucesso literário da escritora Francesa, está em cartaz no Sesc Copacabana</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Teoria King Kong”, sucesso literário da escritora Francesa, está em cartaz no Sesc Copacabana">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-teatro-das-artes-recebe-espetaculo-o-porteiro-que-deu-origem-ao-longa-de-mesmo-n.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_93232aba562d4e2b880a8cf853cb82a6~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-teatro-das-artes-recebe-espetaculo-o-porteiro-que-deu-origem-ao-longa-de-mesmo-n.html">Teatro das Artes recebe espetáculo “O Porteiro”, que deu origem ao longa de mesmo nome em cartaz</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Teatro das Artes recebe espetáculo “O Porteiro”, que deu origem ao longa de mesmo nome em cartaz">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-ana-marginal-convida-o-publico-a-conhecer-ana-cristina-cesar.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_0f31c655437e42be83c01633b3c39419~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-ana-marginal-convida-o-publico-a-conhecer-ana-cristina-cesar.html">Espetáculo 'Ana Marginal' convida o público a conhecer Ana Cristina Cesar</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.09 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo 'Ana Marginal' convida o público a conhecer Ana Cristina Cesar">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-academia-brasileira-de-cinema-e-artes-audiovisuais-anunciou-pre-selecionados-par.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_70b0dbcc361f4d5e94f9f8091abb453c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-academia-brasileira-de-cinema-e-artes-audiovisuais-anunciou-pre-selecionados-par.html">Academia Brasileira de Cinema e Artes Audiovisuais anunciou pré-selecionados para concorrer ao Oscar</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Academia Brasileira de Cinema e Artes Audiovisuais anunciou pré-selecionados para concorrer ao Oscar">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Streaming">
+      <a class="ph" href="post-serie-sobre-ayrton-senna-tem-mais-um-personagem-confirmado.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3be0fe041041460bad47456c545fb20a~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-serie-sobre-ayrton-senna-tem-mais-um-personagem-confirmado.html">Série sobre Ayrton Senna tem mais um personagem confirmado</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Série sobre Ayrton Senna tem mais um personagem confirmado">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Streaming">
+      <a class="ph" href="post-hbo-max-inicia-as-gravacoes-da-novela-original-beleza-fatal.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_05b2dd37cbc54ea796d2c8cbdb90197c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-hbo-max-inicia-as-gravacoes-da-novela-original-beleza-fatal.html">HBO MAX Inicia as Gravações da Novela Original 'BELEZA FATAL'</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.09 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="HBO MAX Inicia as Gravações da Novela Original 'BELEZA FATAL'">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Exposições">
+      <a class="ph" href="post-campinas-ganha-exposicao-com-obras-de-tomie-ohtake-e-adriana-varejao.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2d2d59370bf9444da7d897b9b7e9d8fd~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Exposições</span>
+        <h3><a href="post-campinas-ganha-exposicao-com-obras-de-tomie-ohtake-e-adriana-varejao.html">Campinas ganha exposição com obras de Tomie Ohtake e Adriana Varejão</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Campinas ganha exposição com obras de Tomie Ohtake e Adriana Varejão">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-filme-da-boneca-barbie-ja-e-a-maior-bilheteria-de-2023.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_9ade6da455614898bc47138e85b1559d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-filme-da-boneca-barbie-ja-e-a-maior-bilheteria-de-2023.html">Filme da Boneca Barbie já é a maior bilheteria de 2023</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Filme da Boneca Barbie já é a maior bilheteria de 2023">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-depois-de-temporada-ao-ar-livre-a-heroica-companhia-toma-o-palco-do-itau-cultura.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e102b36d01d84e52bcc57ae713a2447d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-depois-de-temporada-ao-ar-livre-a-heroica-companhia-toma-o-palco-do-itau-cultura.html">Depois de temporada ao ar livre, a Heroica Companhia toma o palco do Itaú Cultural</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Depois de temporada ao ar livre, a Heroica Companhia toma o palco do Itaú Cultural">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-muricy-e-leleco-de-avenida-brasil-juntos-em-producao-nos-palcos-de-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_bc41b2e3088d448298b032af54da8f04~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-muricy-e-leleco-de-avenida-brasil-juntos-em-producao-nos-palcos-de-sao-paulo.html">Muricy e Leleco, de Avenida Brasil, juntos em produção nos palcos de São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Muricy e Leleco, de Avenida Brasil, juntos em produção nos palcos de São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-estrelado-por-nicette-bruno-e-paulo-goulart-em-87-volta-aos-palcos.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_44bef3a0a1d84b88892a8cadccb65427~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-estrelado-por-nicette-bruno-e-paulo-goulart-em-87-volta-aos-palcos.html">Espetáculo estrelado por Nicette Bruno e Paulo Goulart em 87 volta aos palcos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo estrelado por Nicette Bruno e Paulo Goulart em 87 volta aos palcos">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-primeiro-trailer-de-longa-com-alice-braga-e-ben-affleck-e-liberado.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c06c5f133feb4a4ab1c2ece598432e1d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-primeiro-trailer-de-longa-com-alice-braga-e-ben-affleck-e-liberado.html">Primeiro trailer de longa com Alice Braga e Ben Affleck é liberado</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Primeiro trailer de longa com Alice Braga e Ben Affleck é liberado">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Streaming">
+      <a class="ph" href="post-historia-da-cantora-marilia-mendonca-vai-virar-filme.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_dba0baa316e3453ba3ac4231abeeebe9~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-historia-da-cantora-marilia-mendonca-vai-virar-filme.html">História da cantora Marília Mendonça vai virar filme</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="História da cantora Marília Mendonça vai virar filme">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Exposições">
+      <a class="ph" href="post-segunda-edicao-a-casa-warner-celebra-os-100-anos-dos-estudios.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_fd0d4eb0da9f46109ab33bcf206b9a88~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Exposições</span>
+        <h3><a href="post-segunda-edicao-a-casa-warner-celebra-os-100-anos-dos-estudios.html">Segunda edição a “Casa Warner” celebra os 100 anos dos estúdios</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Segunda edição a “Casa Warner” celebra os 100 anos dos estúdios">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Música">
+      <a class="ph" href="post-madonna-ja-esta-ensaiando-para-turne-que-foi-adiada.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_75ebe9114aa44ee2aeaa091673cff84f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Música</span>
+        <h3><a href="post-madonna-ja-esta-ensaiando-para-turne-que-foi-adiada.html">Madonna já está ensaiando para turnê que foi adiada</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Madonna já está ensaiando para turnê que foi adiada">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-lilia-cabral-e-giulia-bertoli-contracenam-em-maior-producao-cinematografica-feit.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_ae91135cc5aa4365b3b979e52787010d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-lilia-cabral-e-giulia-bertoli-contracenam-em-maior-producao-cinematografica-feit.html">Lilia Cabral e Giulia Bertolli contracenam em maior produção cinematográfica feita no Maranhão</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Lilia Cabral e Giulia Bertolli contracenam em maior produção cinematográfica feita no Maranhão">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p53.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p53.html">53</a><a href="noticias-p54.html" class="on">54</a><a href="noticias-p55.html">55</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p55.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

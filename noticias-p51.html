@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 51 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 51 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Streaming">
+      <a class="ph" href="post-hbo-max-inicia-gravacoes-de-dona-beja-remake-de-telenovela-dos-anos-80.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_93099ef57714484e82112fa73c7440a4~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-hbo-max-inicia-gravacoes-de-dona-beja-remake-de-telenovela-dos-anos-80.html">HBO MAX inicia gravações de “Dona Beja”, remake de telenovela dos anos 80</a></h3>
+        <p>Em releitura inédita de novela “Dona Beija”, que foi exibida em 89 capítulos na rede manchete em 1986, a plataforma de streaming HBO MAX...…</p>
+        <div class="meta-row">
+          <span class="meta-l">11.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="HBO MAX inicia gravações de “Dona Beja”, remake de telenovela dos anos 80">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-musical-criado-por-carlinhos-brown-faz-unica-apresentacao-no-dia-das-criancas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d380d3501abf4f2f9118c796634417ff~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-criado-por-carlinhos-brown-faz-unica-apresentacao-no-dia-das-criancas.html">Musical criado por Carlinhos Brown faz única apresentação no dia das crianças</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical criado por Carlinhos Brown faz única apresentação no dia das crianças">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-mulher-como-campo-de-batalha-de-matei-visniec-estreia-no-sesc-belenzinho.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c247a76b5b794f749a224afb0f8831ff~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-mulher-como-campo-de-batalha-de-matei-visniec-estreia-no-sesc-belenzinho.html">“A mulher como campo de batalha” de Matéi Visniec estreia no Sesc Belenzinho</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“A mulher como campo de batalha” de Matéi Visniec estreia no Sesc Belenzinho">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Televisão">
+      <a class="ph" href="post-morgana-e-celeste-personagens-do-castelo-ra-tim-bum-voltam-as-telas-da-tv-cultur.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a412adf1748a4a0ba23604a732caf492~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Televisão</span>
+        <h3><a href="post-morgana-e-celeste-personagens-do-castelo-ra-tim-bum-voltam-as-telas-da-tv-cultur.html">Morgana e Celeste, personagens do Castelo Rá Tim Bum voltam às telas da TV Cultura em nova atração</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Morgana e Celeste, personagens do Castelo Rá Tim Bum voltam às telas da TV Cultura em nova atração">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-funny-girl-termina-temporada-de-sucesso-em-sao-paulo-e-agora-se-prepara-para-des.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_5f357f0cf53d47c6bf55461441b0c824~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-funny-girl-termina-temporada-de-sucesso-em-sao-paulo-e-agora-se-prepara-para-des.html">Funny Girl termina temporada de sucesso em São Paulo e agora se prepara para desembarcar no Rio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Funny Girl termina temporada de sucesso em São Paulo e agora se prepara para desembarcar no Rio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-bela-america.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_36a6fe56c0e749879b760e9a6d17b7ee~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-bela-america.html">“Bela América” longa de coprodução entre Brasil e Portugal fala sobre meritocracia</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Bela América” longa de coprodução entre Brasil e Portugal fala sobre meritocracia">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-temas-como-dependencia-emocional-e-relacoes-toxicas-fazem-parte-do-espetaculo-de.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_03469ca563eb45a7bc6a42bb97c80b24~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-temas-como-dependencia-emocional-e-relacoes-toxicas-fazem-parte-do-espetaculo-de.html">Temas como dependência emocional e relações tóxicas fazem parte do espetáculo “Dentro de um Olhar”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Temas como dependência emocional e relações tóxicas fazem parte do espetáculo “Dentro de um Olhar”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-comedia-mulher-imagina-que-comemora-os-18-anos-de-as-olivias-faz-temporada-no-pa.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_fee8fe73d27f48138c8602996a0729ec~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-comedia-mulher-imagina-que-comemora-os-18-anos-de-as-olivias-faz-temporada-no-pa.html">Comédia “Mulher, Imagina!” que comemora os 18 anos de “As Olívias” faz temporada no Parlapatões</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Comédia “Mulher, Imagina!” que comemora os 18 anos de “As Olívias” faz temporada no Parlapatões">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-comedia-baseada-em-conto-de-luiz-fernando-verissimo-chega-ao-teatro-candido-mend.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_f76125e8c24746fc9a44bcba92c55ddd~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-comedia-baseada-em-conto-de-luiz-fernando-verissimo-chega-ao-teatro-candido-mend.html">Comédia baseada em conto de Luiz Fernando Veríssimo chega ao Teatro Cândido Mendes, em Ipanema</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Comédia baseada em conto de Luiz Fernando Veríssimo chega ao Teatro Cândido Mendes, em Ipanema">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-museu-do-futebol-entrara-em-obras-em-novembro-buscando-mais-interatividade-e-esp.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2fa02b3c2a8940eb85211106df90acdd~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-museu-do-futebol-entrara-em-obras-em-novembro-buscando-mais-interatividade-e-esp.html">Museu do Futebol entrará em obras em novembro buscando mais interatividade e espaços</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Museu do Futebol entrará em obras em novembro buscando mais interatividade e espaços">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-capiroto-de-rodrigo-franca-provoca-reflexao-sobre-divindades-e-poder.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_1f2be9b8277b426fada431bfa94b3bd8~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-capiroto-de-rodrigo-franca-provoca-reflexao-sobre-divindades-e-poder.html">Espetáculo "Capiroto" de Rodrigo França provoca reflexão sobre divindades e poder</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.10 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo ”Capiroto” de Rodrigo França provoca reflexão sobre divindades e poder">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-priscilla-de-sofia-coppola-baseado-na-biografia-elvis-e-eu-ja-tem-data-para-cheg.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_ff888485647f4d37a6d1a844d2159194~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-priscilla-de-sofia-coppola-baseado-na-biografia-elvis-e-eu-ja-tem-data-para-cheg.html">"Priscilla", de Sofia Coppola baseado na biografia “Elvis e Eu” já tem data para chegar aos cinemas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.10 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="”Priscilla”, de Sofia Coppola baseado na biografia “Elvis e Eu” já tem data para chegar aos cinemas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-coletivo-de-teatro-despertar-estreia-musical-uma-noite-para-brilhar.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_966d59b1123043e180eac4d3080eedef~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-coletivo-de-teatro-despertar-estreia-musical-uma-noite-para-brilhar.html">Coletivo de Teatro Despertar estreia musical “Uma noite para brilhar”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Coletivo de Teatro Despertar estreia musical “Uma noite para brilhar”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-elis-a-musical-volta-hoje-aos-palcos-de-sp-em-edicao-comemorativa-de-10-anos.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_f480043fe95a4e42933c26322188774b~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-elis-a-musical-volta-hoje-aos-palcos-de-sp-em-edicao-comemorativa-de-10-anos.html">“Elis, a Musical“ volta hoje aos palcos de SP em edição comemorativa de 10 anos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.10 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="“Elis, a Musical“ volta hoje aos palcos de SP em edição comemorativa de 10 anos">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-beto-sargentelli-e-a-renata-ricci-programa-do-foyer.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c2cec8ad00934ffd8267f0be29441470~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-beto-sargentelli-e-a-renata-ricci-programa-do-foyer.html">Beto Sargentelli e a Renata Ricci - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Beto Sargentelli e a Renata Ricci - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Televisão">
+      <a class="ph" href="post-flavia-alessandra-deixa-a-globo-e-assume-a-apresentacao-do-reality-ilha-da-tenta.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d9b8840f681847f5819cccca6db43882~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Televisão</span>
+        <h3><a href="post-flavia-alessandra-deixa-a-globo-e-assume-a-apresentacao-do-reality-ilha-da-tenta.html">Flávia Alessandra deixa a Globo e assume a apresentação do reality “Ilha da Tentação"</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Flávia Alessandra deixa a Globo e assume a apresentação do reality “Ilha da Tentação”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-off-broadway-sylvia-estreia-sua-2o-temporada-no-teatro-porto.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3fe6d9840f9047b694eed2af66426733~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-off-broadway-sylvia-estreia-sua-2o-temporada-no-teatro-porto.html">Espetáculo Off Broadway “Sylvia” estreia sua 2º temporada no Teatro Porto</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo Off Broadway “Sylvia” estreia sua 2º temporada no Teatro Porto">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-elis-tom-tenta-vaga-no-oscar-2024-de-melhor-documentario.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_80aa5de6060c4afc9a8746b750fcd826~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-elis-tom-tenta-vaga-no-oscar-2024-de-melhor-documentario.html">ELIS & TOM tenta vaga no Oscar 2024 de Melhor Documentário</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.10 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="ELIS & TOM tenta vaga no Oscar 2024 de Melhor Documentário">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-chorinho-de-fauzi-arap-a-poesia-da-solidao-urbana.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_01431cdda91343598ec1c16d066be6bb~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-chorinho-de-fauzi-arap-a-poesia-da-solidao-urbana.html">"Chorinho" de Fauzi Arap:a poesia da solidão urbana</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.10 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="”Chorinho” de Fauzi Arap:a poesia da solidão urbana">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-show-performance-da-atriz-e-palhaca-rafaela-azevedo-king-kong-fran-es.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_29a2e056f7ac4647b43626e2e39de72a~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-show-performance-da-atriz-e-palhaca-rafaela-azevedo-king-kong-fran-es.html">Espetáculo-Show-Performance da atriz e palhaça Rafaela Azevedo, “King Kong Fran” estreia em SP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo-Show-Performance da atriz e palhaça Rafaela Azevedo, “King Kong Fran” estreia em SP">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ultima-semana-de-iron-o-homem-da-mascara-de-ferro-com-thiago-barbosa-e-saulo-vas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_84f57a230857405cbe36f743e5673025~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ultima-semana-de-iron-o-homem-da-mascara-de-ferro-com-thiago-barbosa-e-saulo-vas.html">Última semana de “ IRON - O HOMEM DA MÁSCARA DE FERRO“ com Thiago Barbosa e  Saulo Vasconcelos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.10 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Última semana de “ IRON - O HOMEM DA MÁSCARA DE FERRO“ com Thiago Barbosa e  Saulo Vasconcelos">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-ultima-sessao-de-freud-retorna-aos-palcos-de-sao-paulo-para-uma-nova-temporada.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_3480bc9b096d4fd0a06c0a96290c3aed~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-ultima-sessao-de-freud-retorna-aos-palcos-de-sao-paulo-para-uma-nova-temporada.html">"A Última Sessão de Freud" retorna aos palcos de São Paulo para uma nova temporada no Teatro Vivo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.10 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="”A Última Sessão de Freud” retorna aos palcos de São Paulo para uma nova temporada no Teatro Vivo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ccbb-sao-paulo-apresenta-o-espetaculo-babilonia-tropical-a-nostalgia-do-acucar.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_7539b681963846d89dd490a5ff546d51~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ccbb-sao-paulo-apresenta-o-espetaculo-babilonia-tropical-a-nostalgia-do-acucar.html">CCBB São Paulo Apresenta o Espetáculo "Babilônia Tropical - A Nostalgia do Açúcar"</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.10 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="CCBB São Paulo Apresenta o Espetáculo ”Babilônia Tropical - A Nostalgia do Açúcar”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-fgv-lanca-novo-espaco-cultural-no-rio-de-janeiro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_723a06845c824880bfd419dd81576810~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-fgv-lanca-novo-espaco-cultural-no-rio-de-janeiro.html">FGV lança novo espaço cultural no Rio de Janeiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="FGV lança novo espaço cultural no Rio de Janeiro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p50.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p50.html">50</a><a href="noticias-p51.html" class="on">51</a><a href="noticias-p52.html">52</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p52.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

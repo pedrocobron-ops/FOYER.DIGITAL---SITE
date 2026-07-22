@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 48 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 48 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-as-mulheres-os-hormonios-e-eu-quebra-tabus-relacionados-ao-universo-f.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_5a4d2c83b8b745dea9c1f8ec53093259~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-as-mulheres-os-hormonios-e-eu-quebra-tabus-relacionados-ao-universo-f.html">Espetáculo “As mulheres, os hormônios e eu” quebra tabus relacionados ao universo feminino</a></h3>
+        <p>O Núcleo Urbanos de Teatro Com direção de Lilian Domingos e dramaturgia de Nanna de Castro traz para o palco o espetáculo “As mulheres,...…</p>
+        <div class="meta-row">
+          <span class="meta-l">20.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo “As mulheres, os hormônios e eu” quebra tabus relacionados ao universo feminino">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-durval-discos-filme-de-anna-muylaert-com-marisa-orth-e-rita-lee-tera-copia-lanca.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_39fe5d9c1657477ea6a2535d62555514~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-durval-discos-filme-de-anna-muylaert-com-marisa-orth-e-rita-lee-tera-copia-lanca.html">Durval Discos, filme de Anna Muylaert com Marisa Orth e Rita Lee terá cópia lançada em 4k</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Durval Discos, filme de Anna Muylaert com Marisa Orth e Rita Lee terá cópia lançada em 4k">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-suelly-franco-e-flavia-monteiro-serao-mae-e-filha-no-espetaculo-a-vedete-do-bras.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_916db63059994e96aa35c98dbb818405~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-suelly-franco-e-flavia-monteiro-serao-mae-e-filha-no-espetaculo-a-vedete-do-bras.html">Suely Franco e Flávia Monteiro serão mãe e filha no espetáculo “A Vedete do Brasil”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Suely Franco e Flávia Monteiro serão mãe e filha no espetáculo “A Vedete do Brasil”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-nao-te-pareco-vivo-do-coletivo-mali-teatro-faz-paralelo-entre-o-mito-de-electra-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e0ad3719162442e3bd2d46eaa49e61a3~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-nao-te-pareco-vivo-do-coletivo-mali-teatro-faz-paralelo-entre-o-mito-de-electra-.html">Não te Pareço Vivo?, do coletivo Màli Teatro faz paralelo entre o mito de Electra e dilemas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Não te Pareço Vivo?, do coletivo Màli Teatro faz paralelo entre o mito de Electra e dilemas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-premio-did-chega-a-sua-6a-edicao-com-novidades.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_313b7dc0125f416a8893b652977e50a4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-premio-did-chega-a-sua-6a-edicao-com-novidades.html">Prêmio DID chega a sua 6ª edição com novidades</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Prêmio DID chega a sua 6ª edição com novidades">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-matheus-nachtergaele-estrela-a-comedia-musical-moliere-que-esta-em-cartaz-no-tea.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_1821ffa3fea64ea0951dba2f15145149~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-matheus-nachtergaele-estrela-a-comedia-musical-moliere-que-esta-em-cartaz-no-tea.html">Matheus Nachtergaele estrela a comédia musical “Molière” que está em cartaz no Teatro Liberdade</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Matheus Nachtergaele estrela a comédia musical “Molière” que está em cartaz no Teatro Liberdade">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Música">
+      <a class="ph" href="post-cher-nos-embalos-natalinos-lanca-o-primeiro-album-dedicado-ao-feriado-da-carreir.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_8aa04f6b7da5416dab9df26d48c6f6d5~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Música</span>
+        <h3><a href="post-cher-nos-embalos-natalinos-lanca-o-primeiro-album-dedicado-ao-feriado-da-carreir.html">Cher, nos embalos natalinos, lança o primeiro álbum dedicado ao feriado da carreira</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Cher, nos embalos natalinos, lança o primeiro álbum dedicado ao feriado da carreira">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ultimas-semanas-para-assistir-o-circo-da-meia-noite-no-galpao-do-folias.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_fa1a0db4ea10421ba1fd1edcc2b576da~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ultimas-semanas-para-assistir-o-circo-da-meia-noite-no-galpao-do-folias.html">Últimas semanas para assistir o “Circo da Meia Noite” no Galpão do Folias</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Últimas semanas para assistir o “Circo da Meia Noite” no Galpão do Folias">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-nucleo-experimental-estreia-aula-show-que-contara-a-historia-do-musical-brasilei.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e96d8a327cd348ebaeae04feaed816b1~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-nucleo-experimental-estreia-aula-show-que-contara-a-historia-do-musical-brasilei.html">Núcleo Experimental estreia “Aula Show” que contará a história do Musical Brasileiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Núcleo Experimental estreia “Aula Show” que contará a história do Musical Brasileiro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Streaming">
+      <a class="ph" href="post-terceira-temporada-de-lol-se-rir-ja-era-com-apresentacao-de-fabiana-karla-estrei.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0826e7bc0575431e80f7e24051619840~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-terceira-temporada-de-lol-se-rir-ja-era-com-apresentacao-de-fabiana-karla-estrei.html">Terceira temporada de “LOL: Se rir, já era!” com apresentação de Fabiana Karla estreia esse mês</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Terceira temporada de “LOL: Se rir, já era!” com apresentação de Fabiana Karla estreia esse mês">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-estreia-de-musical-sobre-tarsila-do-amaral-com-claudia-raia-e-jarbas-homem-de-me.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_40878dcc9b1e4985acb9932eeaff63ec~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-estreia-de-musical-sobre-tarsila-do-amaral-com-claudia-raia-e-jarbas-homem-de-me.html">Estreia de musical sobre Tarsila do Amaral, com Claudia Raia e Jarbas Homem de Mello é anunciada</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Estreia de musical sobre Tarsila do Amaral, com Claudia Raia e Jarbas Homem de Mello é anunciada">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-pedro-leao-e-daniel-marano-programa-do-foyer.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_04e9a443233a4b39a78062d6206a3f37~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-pedro-leao-e-daniel-marano-programa-do-foyer.html">Pedro Leão e Daniel Marano - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Pedro Leão e Daniel Marano - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-monologo-que-dialoga-com-as-cartas-do-tarot-esta-em-cartaz-no-teatro-uniao-cultu.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_5da87289c2eb4cf3af4466196d2164c7~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-monologo-que-dialoga-com-as-cartas-do-tarot-esta-em-cartaz-no-teatro-uniao-cultu.html">Monólogo que dialoga com as cartas do Tarot está em cartaz no Teatro União Cultural</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Monólogo que dialoga com as cartas do Tarot está em cartaz no Teatro União Cultural">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-tatuape-recebe-espetaculo-o-vison-voador-no-teatro-fernando-torres.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e35af4649a2d4005805c6ea5aec94e17~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-tatuape-recebe-espetaculo-o-vison-voador-no-teatro-fernando-torres.html">Tatuapé recebe espetáculo “O Vison Voador” no Teatro Fernando Torres</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Tatuapé recebe espetáculo “O Vison Voador” no Teatro Fernando Torres">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-teatr-on-mostra-festival-acontece-nos-dias-14-e-15-no-cine-satyrus-bijou.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_9de8043f58654e03b2724137d828a19f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-teatr-on-mostra-festival-acontece-nos-dias-14-e-15-no-cine-satyrus-bijou.html">TEATR.ON, MOSTRA & FESTIVAL acontece nos dias 14 e 15 no Cine Satyrus Bijou</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="TEATR.ON, MOSTRA & FESTIVAL acontece nos dias 14 e 15 no Cine Satyrus Bijou">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-o-tartufo-entra-em-cartaz-no-centro-cultural-da-justica-federal.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_ff231033968b40e7b2ad05f100d7025b~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-o-tartufo-entra-em-cartaz-no-centro-cultural-da-justica-federal.html">Espetáculo “O Tartufo” entra em cartaz no Centro Cultural da Justiça Federal</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo “O Tartufo” entra em cartaz no Centro Cultural da Justiça Federal">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-que-aborda-o-bullying-e-a-violencia-nas-escolas-estreia-na-biblioteca.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_f846321bab9843c2bb9960fbfb0dc2aa~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-que-aborda-o-bullying-e-a-violencia-nas-escolas-estreia-na-biblioteca.html">Espetáculo que aborda o bullying e a violência nas escolas estreia na biblioteca Mário de Andrade</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo que aborda o bullying e a violência nas escolas estreia na biblioteca Mário de Andrade">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-alessandra-maestrini-programa-do-foyer.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_99ad9f75cb2645fb9358b91b683958c0~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-alessandra-maestrini-programa-do-foyer.html">Alessandra Maestrini - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Alessandra Maestrini - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-r-marketing-lanca-programa-de-aceleramento-para-projetos-culturais-com-foco-em-m.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_fc824ba1c3234ec0a09576e0349cbdf0~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-r-marketing-lanca-programa-de-aceleramento-para-projetos-culturais-com-foco-em-m.html">R+ Marketing lança Programa de
+Aceleramento para Projetos Culturais com foco em Musicais Brasileiros</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="R+ Marketing lança Programa de
+Aceleramento para Projetos Culturais com foco em Musicais Brasileiros">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-the-boys-in-the-band-estreia-no-teatro-procopio-ferreira-53-anos-apos-a-ultima-m.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e832d938ef5049439faa06411fdacef3~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-the-boys-in-the-band-estreia-no-teatro-procopio-ferreira-53-anos-apos-a-ultima-m.html">The Boys in the Band estreia no Teatro Procópio Ferreira 53 anos após a última montagem</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="The Boys in the Band estreia no Teatro Procópio Ferreira 53 anos após a última montagem">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-escola-de-mulheres-uma-satira-ao-patriarcado-volta-para-nova-temporada-no-espaco.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_421b3d66477145d086a2a6936ac9d9c3~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-escola-de-mulheres-uma-satira-ao-patriarcado-volta-para-nova-temporada-no-espaco.html">“Escola de Mulheres - Uma Sátira ao Patriarcado” volta para nova temporada no Espaço Parlapatões</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Escola de Mulheres - Uma Sátira ao Patriarcado” volta para nova temporada no Espaço Parlapatões">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-irma-yerma-de-federico-garcia-lorca-ganha-releitura-artistico-performatica.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7a69366e6edf4b3ba2a244629e57b278~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-irma-yerma-de-federico-garcia-lorca-ganha-releitura-artistico-performatica.html">“Irmã Yerma” de Federico Garcia Lorca ganha releitura artístico-performática</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Irmã Yerma” de Federico Garcia Lorca ganha releitura artístico-performática">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-que-conta-a-historia-de-prostitutas-da-belle-epoque-do-brasil-chega-a.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a88be29e04cd474d8f2701f254e41a1b~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-que-conta-a-historia-de-prostitutas-da-belle-epoque-do-brasil-chega-a.html">Espetáculo que conta a história de prostitutas da Belle Époque do Brasil chega ao Teatro B32</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo que conta a história de prostitutas da Belle Époque do Brasil chega ao Teatro B32">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-consentimento-e-uma-tragicomedia-que-propoe-uma-discussao-sobre-o-sistema-judici.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_eb67bbea0dbd4fc9be5abe9688797733~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-consentimento-e-uma-tragicomedia-que-propoe-uma-discussao-sobre-o-sistema-judici.html">“Consentimento” é uma tragicomédia que propõe uma discussão sobre o sistema Judiciário</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Consentimento” é uma tragicomédia que propõe uma discussão sobre o sistema Judiciário">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p47.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p47.html">47</a><a href="noticias-p48.html" class="on">48</a><a href="noticias-p49.html">49</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p49.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

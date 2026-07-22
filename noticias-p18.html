@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 18 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 18 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-sonho-encantado-de-cordel-o-musical-retorna-a-sao-paulo-com-aline-wirley-e-igor-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7b4b49f03f3042feba17f51ec634af0a~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-sonho-encantado-de-cordel-o-musical-retorna-a-sao-paulo-com-aline-wirley-e-igor-.html">“Sonho Encantado de Cordel – O Musical” retorna a São Paulo com Aline Wirley e Igor Rickli em uma fábula nordestina cheia de magia, música e brasilidade</a></h3>
+        <p>Após conquistar plateias por todo o Brasil com uma temporada de sucesso absoluto, o espetáculo “Sonho Encantado de Cordel – O Musical” retorna a São Paulo para …</p>
+        <div class="meta-row">
+          <span class="meta-l">16.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Sonho Encantado de Cordel – O Musical” retorna a São Paulo com Aline Wirley e Igor Rickli em uma fábula nordestina cheia de magia, música e brasilidade">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-coletivo-roof-estreia-paralem-no-teatro-italia-com-distopia-sensorial-sobre-tecn.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7c0039fee44c4722aa8f214884b3500d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-coletivo-roof-estreia-paralem-no-teatro-italia-com-distopia-sensorial-sobre-tecn.html">Coletivo ROOF estreia “Paralem” no Teatro Itália com distopia sensorial sobre tecnologia, tempo e ancestralidade</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Coletivo ROOF estreia “Paralem” no Teatro Itália com distopia sensorial sobre tecnologia, tempo e ancestralidade">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-erico-bras-estreia-bet-balanco-no-teatro-italia-em-comedia-musical-sobre-dinheir.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_956d9ea56770422c8613bbd0a79dda12~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-erico-bras-estreia-bet-balanco-no-teatro-italia-em-comedia-musical-sobre-dinheir.html">Érico Brás estreia “Bet Balanço” no Teatro itália, em comédia musical sobre Dinheiro, influência e honestidade</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Érico Brás estreia “Bet Balanço” no Teatro itália, em comédia musical sobre Dinheiro, influência e honestidade">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-musical-aqui-jazz-estreia-no-teatro-italia-em-agosto-com-felipe-hintze-e-camilla.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_19877abdc7f64c74953a1c44f63403ab~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-aqui-jazz-estreia-no-teatro-italia-em-agosto-com-felipe-hintze-e-camilla.html">Musical “Aqui Jazz” estreia no Teatro Itália em Agosto com Felipe Hintze e Camilla Camargo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical “Aqui Jazz” estreia no Teatro Itália em Agosto com Felipe Hintze e Camilla Camargo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-fulvio-stefanini-celebra-70-anos-de-carreira-com-nova-temporada-de-o-pai-no-teat.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_164d86d5612e4ad8b5b2d78d006f75ea~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-fulvio-stefanini-celebra-70-anos-de-carreira-com-nova-temporada-de-o-pai-no-teat.html">Fulvio Stefanini celebra 70 anos de carreira com nova temporada de “O Pai” no Teatro UOL</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Fulvio Stefanini celebra 70 anos de carreira com nova temporada de “O Pai” no Teatro UOL">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-argila-obra-instalacao-de-aurea-maranhao-estreia-no-sesc-ipiranga-e-propoe-ritua.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_33901f7e9c2241e18beaec29d336ada7~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-argila-obra-instalacao-de-aurea-maranhao-estreia-no-sesc-ipiranga-e-propoe-ritua.html">ARGILA, obra-instalação de Áurea Maranhão, estreia no Sesc Ipiranga e propõe ritual cênico sobre heranças coloniais e justiça climática</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="ARGILA, obra-instalação de Áurea Maranhão, estreia no Sesc Ipiranga e propõe ritual cênico sobre heranças coloniais e justiça climática">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-com-gabi-camisotti-valeria-barcellos-e-diego-montez-alice-de-cor-e-salteado-prog.html" aria-label="Foto da matéria"><img src="" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-com-gabi-camisotti-valeria-barcellos-e-diego-montez-alice-de-cor-e-salteado-prog.html">Com Gabi Camisotti, Valéria Barcellos e Diego Montez - Alice de Cor e Salteado - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com Gabi Camisotti, Valéria Barcellos e Diego Montez - Alice de Cor e Salteado - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-herson-capri-e-caio-blat-retornam-aos-palcos-com-memorias-do-vinho-no-teatro-ren.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_77f9db8d750842beb78ef94372e6a1c2~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-herson-capri-e-caio-blat-retornam-aos-palcos-com-memorias-do-vinho-no-teatro-ren.html">Herson Capri e Caio Blat retornam aos palcos com Memórias do Vinho no Teatro Renaissance</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Herson Capri e Caio Blat retornam aos palcos com Memórias do Vinho no Teatro Renaissance">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-duetos-a-comedia-de-peter-quilter-volta-ao-rio-com-patricya-travassos-e-eduardo-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3b707d6e3ac348f491b67a9234e8cf3f~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-duetos-a-comedia-de-peter-quilter-volta-ao-rio-com-patricya-travassos-e-eduardo-.html">“DUETOS – A Comédia de Peter Quilter” volta ao Rio com Patricya Travassos e Eduardo Moscovis</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“DUETOS – A Comédia de Peter Quilter” volta ao Rio com Patricya Travassos e Eduardo Moscovis">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-dzi-croquettes-sem-censura-faz-curta-temporada-no-teatro-italia-em-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_450b3d482df74e3abb976ef9b89354ae~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-dzi-croquettes-sem-censura-faz-curta-temporada-no-teatro-italia-em-sao-paulo.html">“Dzi Croquettes Sem Censura” faz curta temporada no Teatro Itália, em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Dzi Croquettes Sem Censura” faz curta temporada no Teatro Itália, em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-da-trabalho-estreia-no-teatro-italia-e-expoe-os-efeitos-do-trabalho-na-vida-mode.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_251c0cba53694ad4b845dea95e661400~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-da-trabalho-estreia-no-teatro-italia-e-expoe-os-efeitos-do-trabalho-na-vida-mode.html">Dá Trabalho! estreia no Teatro Itália e expõe os efeitos do trabalho na vida moderna com humor e crítica social</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Dá Trabalho! estreia no Teatro Itália e expõe os efeitos do trabalho na vida moderna com humor e crítica social">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-musical-chato-os-diarios-associados-100-anos-de-paixao-estreia-no-teatro-liberda.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_166a7b7d11e4462481219c061b5f29c5~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-chato-os-diarios-associados-100-anos-de-paixao-estreia-no-teatro-liberda.html">Musical “Chatô & os Diários Associados – 100 Anos de Paixão” estreia no Teatro Liberdade, em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical “Chatô & os Diários Associados – 100 Anos de Paixão” estreia no Teatro Liberdade, em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Música">
+      <a class="ph" href="post-anna-toledo-nome-essencial-do-teatro-musical-lanca-single-autoral-apos-anos-dedi.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_903c73472a7a466196f7204f2024dbf6~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Música</span>
+        <h3><a href="post-anna-toledo-nome-essencial-do-teatro-musical-lanca-single-autoral-apos-anos-dedi.html">Anna Toledo, nome essencial do teatro musical, lança single autoral após anos dedicada aos palcos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Anna Toledo, nome essencial do teatro musical, lança single autoral após anos dedicada aos palcos">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-dracula-um-terror-de-comedia-estreia-no-teatro-bravos-com-tiago-abravanel-e-gran.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_9e89659bdb324b8dab54a81ab885d0dd~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-dracula-um-terror-de-comedia-estreia-no-teatro-bravos-com-tiago-abravanel-e-gran.html">Drácula – Um Terror de Comédia estreia no Teatro Bravos com Tiago Abravanel e grande elenco</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Drácula – Um Terror de Comédia estreia no Teatro Bravos com Tiago Abravanel e grande elenco">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Música">
+      <a class="ph" href="post-thais-piza-aposta-na-propria-voz-e-lanca-show-inedito-que-une-teatro-pop-rock-e-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6c231ac737cf443fb28b9f58abe62f18~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Música</span>
+        <h3><a href="post-thais-piza-aposta-na-propria-voz-e-lanca-show-inedito-que-une-teatro-pop-rock-e-.html">Thais Piza aposta na própria voz e lança show inédito que une teatro, pop rock e liberdade artística</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Thais Piza aposta na própria voz e lança show inédito que une teatro, pop rock e liberdade artística">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ultimos-dias-para-ver-mateus-solano-em-o-figurante-no-teatro-renaissance.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c5c265d855fc42f5ab2602d79536f6c3~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ultimos-dias-para-ver-mateus-solano-em-o-figurante-no-teatro-renaissance.html">Últimos dias para ver Mateus Solano em O Figurante, no Teatro Renaissance</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Últimos dias para ver Mateus Solano em O Figurante, no Teatro Renaissance">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-com-isabella-lemos-cesar-mello-e-adriana-lessa-a-medica-programa-do-foyer.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_08c6e5a0a2024d518f092475db615686~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-com-isabella-lemos-cesar-mello-e-adriana-lessa-a-medica-programa-do-foyer.html">Com Isabella Lemos, César Mello e Adriana Lessa - A Médica - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com Isabella Lemos, César Mello e Adriana Lessa - A Médica - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-gabriela-duarte-retorna-ao-palco-no-teatro-faap-com-o-papel-de-parede-amarelo-e-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a90ef4313900479a8edda696df819e11~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-gabriela-duarte-retorna-ao-palco-no-teatro-faap-com-o-papel-de-parede-amarelo-e-.html">Gabriela Duarte retorna ao palco no Teatro FAAP com “O papel de parede amarelo e EU”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Gabriela Duarte retorna ao palco no Teatro FAAP com “O papel de parede amarelo e EU”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-medica-de-robert-icke-estreia-no-masp-com-clara-carvalho-e-direcao-de-nelson-b.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_9fd530e4215d407aa0cc17d8aa94b71a~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-medica-de-robert-icke-estreia-no-masp-com-clara-carvalho-e-direcao-de-nelson-b.html">“A Médica”, de Robert Icke, estreia no MASP com Clara Carvalho e direção de Nelson Baskerville</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“A Médica”, de Robert Icke, estreia no MASP com Clara Carvalho e direção de Nelson Baskerville">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-nova-montagem-de-closer-no-teatro-vivo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_05e50ca76d1743ea83379939dfba3328~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-nova-montagem-de-closer-no-teatro-vivo.html">Nova montagem de “Closer” no Teatro Vivo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Nova montagem de “Closer” no Teatro Vivo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-marilia-gabriela-retorna-aos-palcos-com-o-espetaculo-a-ultima-entrevista-em-curt.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_342eddb8c1174bf4bbfe03668f4adbe3~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-marilia-gabriela-retorna-aos-palcos-com-o-espetaculo-a-ultima-entrevista-em-curt.html">Marília Gabriela retorna aos palcos com o espetáculo “A Última Entrevista” em curta temporada no Teatro Porto</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.06 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Marília Gabriela retorna aos palcos com o espetáculo “A Última Entrevista” em curta temporada no Teatro Porto">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-bela-e-a-fera-o-musical-retorna-em-temporada-especial-de-ferias-no-teatro-b32.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_12457ec60d6a4ac684fa0d16c2865266~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-bela-e-a-fera-o-musical-retorna-em-temporada-especial-de-ferias-no-teatro-b32.html">“A Bela e a Fera – O Musical” retorna em temporada especial de férias no Teatro B32</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.06 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“A Bela e a Fera – O Musical” retorna em temporada especial de férias no Teatro B32">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-amanda-mirasci-estreia-a-autoestima-do-homem-hetero-no-teatro-uol.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b1cd1c6ee241467398a78bb9e28d01ed~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-amanda-mirasci-estreia-a-autoestima-do-homem-hetero-no-teatro-uol.html">Amanda Mirásci estreia “A Autoestima do Homem Hétero” no Teatro UOL</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.06 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Amanda Mirásci estreia “A Autoestima do Homem Hétero” no Teatro UOL">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-renda-se-solo-com-martha-nowill-estreia-no-sesc-ipiranga-e-aborda-reencontro-ent.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_25e542d9025f41df9d9f1391c392cc4e~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-renda-se-solo-com-martha-nowill-estreia-no-sesc-ipiranga-e-aborda-reencontro-ent.html">Renda-se: solo com Martha Nowill estreia no Sesc Ipiranga e aborda reencontro entre mãe e filha após abandono</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.06 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Renda-se: solo com Martha Nowill estreia no Sesc Ipiranga e aborda reencontro entre mãe e filha após abandono">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p17.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p17.html">17</a><a href="noticias-p18.html" class="on">18</a><a href="noticias-p19.html">19</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p19.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

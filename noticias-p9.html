@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 9 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 9 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-desubito-cia-estreia-no-sesc-ipiranga-coragem-um-lugar-melhor-do-que-aqui-peca-s.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_89accad8d5c84e2f8a33fbfbbed00e34~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-desubito-cia-estreia-no-sesc-ipiranga-coragem-um-lugar-melhor-do-que-aqui-peca-s.html">DeSúbito Cia estreia no Sesc Ipiranga “CORAGEM – um lugar melhor do que aqui”, peça sobre negligência e colapso no sistema de saúde</a></h3>
+        <p>Texto de Carla Zanini encerra a trilogia “Afeto, Raiva e Coragem” e transforma um hospital público à beira do colapso em microcosmo do Brasil contemporâneo. Tem…</p>
+        <div class="meta-row">
+          <span class="meta-l">21.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="DeSúbito Cia estreia no Sesc Ipiranga “CORAGEM – um lugar melhor do que aqui”, peça sobre negligência e colapso no sistema de saúde">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-meu-remedio-sucesso-de-mouhamed-harfouch-retorna-a-sao-paulo-em-2026-apos-um-ano.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6fbb271a348c4e9e96d40e25ae821918~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-meu-remedio-sucesso-de-mouhamed-harfouch-retorna-a-sao-paulo-em-2026-apos-um-ano.html">“Meu Remédio”, sucesso de Mouhamed Harfouch, retorna a São Paulo em 2026 após um ano marcante entre Rio e SP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Meu Remédio”, sucesso de Mouhamed Harfouch, retorna a São Paulo em 2026 após um ano marcante entre Rio e SP">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-sizwe-banzi-esta-morto-volta-a-cena-em-sao-paulo-e-expoe-a-desumanizacao-da-segr.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_81051fa99f294d58bc40e2572484ad07~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-sizwe-banzi-esta-morto-volta-a-cena-em-sao-paulo-e-expoe-a-desumanizacao-da-segr.html">“Sizwe Banzi Está Morto” volta à cena em São Paulo e expõe a desumanização da segregação racial</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Sizwe Banzi Está Morto” volta à cena em São Paulo e expõe a desumanização da segregação racial">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-show-bar-jukebox-musical-estreia-em-10-de-abril-no-marte-hall-e-aposta-em-experi.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_85fd2750746b4fafb3545b8a3c27634c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-show-bar-jukebox-musical-estreia-em-10-de-abril-no-marte-hall-e-aposta-em-experi.html">“Show Bar – Jukebox Musical” estreia em 10 de abril no Marte Hall e aposta em experiência interativa</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Show Bar – Jukebox Musical” estreia em 10 de abril no Marte Hall e aposta em experiência interativa">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-rei-lear-com-elenco-de-drag-queens-volta-a-sao-paulo-para-duas-apresentacoes-no-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c7ea3f33f551453196c863fcf1522fe8~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-rei-lear-com-elenco-de-drag-queens-volta-a-sao-paulo-para-duas-apresentacoes-no-.html">Rei Lear com elenco de drag queens volta a São Paulo para duas apresentações no Teatro Sérgio Cardoso</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Rei Lear com elenco de drag queens volta a São Paulo para duas apresentações no Teatro Sérgio Cardoso">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-autobiografia-do-vermelho-estreia-em-27-de-fevereiro-no-sesc-avenida-paulista-co.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_8041b94d97f7478bb21e1ab779dc7004~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-autobiografia-do-vermelho-estreia-em-27-de-fevereiro-no-sesc-avenida-paulista-co.html">“Autobiografia do Vermelho” estreia em 27 de fevereiro no Sesc Avenida Paulista, com Bianca Comparato</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Autobiografia do Vermelho” estreia em 27 de fevereiro no Sesc Avenida Paulista, com Bianca Comparato">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-musical-bertoleza-vencedor-do-apca-2020-volta-em-temporada-gratuita-no-teatro-al.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_f8871a5d8d30429991cb2617f55f83c0~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-bertoleza-vencedor-do-apca-2020-volta-em-temporada-gratuita-no-teatro-al.html">Musical Bertoleza, vencedor do APCA 2020, volta em temporada gratuita no Teatro Alfredo Mesquita</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical Bertoleza, vencedor do APCA 2020, volta em temporada gratuita no Teatro Alfredo Mesquita">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-carcere-ou-porque-as-mulheres-viram-bufalos-volta-ao-cartaz-em-curta-temporada-n.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_326e9cb7b5954277a770d965a5449463~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-carcere-ou-porque-as-mulheres-viram-bufalos-volta-ao-cartaz-em-curta-temporada-n.html">“CÁRCERE ou Porque as Mulheres Viram Búfalos” volta ao cartaz em curta temporada na Casa de Teatro Mariajosé de Carvalho</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“CÁRCERE ou Porque as Mulheres Viram Búfalos” volta ao cartaz em curta temporada na Casa de Teatro Mariajosé de Carvalho">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-tina-tina-turner-o-musical-estreia-no-teatro-santander-em-26-de-fevereiro-de-202.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_45971f6f15144ca0b6b9cbe4e2cfd86a~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-tina-tina-turner-o-musical-estreia-no-teatro-santander-em-26-de-fevereiro-de-202.html">“TINA – Tina Turner, o Musical” estreia no Teatro Santander em 26 de fevereiro de 2026</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“TINA – Tina Turner, o Musical” estreia no Teatro Santander em 26 de fevereiro de 2026">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Show">
+      <a class="ph" href="post-olivia-live-com-the-olivia-newton-band-tributo-internacional-celebra-o-legado-de.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6fbe2858f76f4de88d648853a28b0af5~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Show</span>
+        <h3><a href="post-olivia-live-com-the-olivia-newton-band-tributo-internacional-celebra-o-legado-de.html">OLIVIA LIVE com The Olivia Newton Band: tributo internacional celebra o legado de Olivia Newton-John em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="OLIVIA LIVE com The Olivia Newton Band: tributo internacional celebra o legado de Olivia Newton-John em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-portugues-o-amor-e-fodido-estreia-em-sao-paulo-no-teatro-manas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_f79a6339b1ec493fa32bdd1ba8e7355a~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-portugues-o-amor-e-fodido-estreia-em-sao-paulo-no-teatro-manas.html">Espetáculo português “O Amor é Fodido” estreia em São Paulo, no Teatro Manás</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo português “O Amor é Fodido” estreia em São Paulo, no Teatro Manás">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Streaming">
+      <a class="ph" href="post-dona-beja-atentado-grandes-confissoes-e-a-cavalgada-de-beja-marcam-a-proxima-sem.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e72bd94706ae4565b600b97f99cc6a97~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-dona-beja-atentado-grandes-confissoes-e-a-cavalgada-de-beja-marcam-a-proxima-sem.html">“Dona Beja”: atentado, grandes confissões e a cavalgada de Beja marcam a próxima semana na HBO Max</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Dona Beja”: atentado, grandes confissões e a cavalgada de Beja marcam a próxima semana na HBO Max">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-neve-campbell-fala-sobre-voltar-ao-papel-de-sidney-prescott-em-panico-7.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_088c3999b182486993118784bfac02b2~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-neve-campbell-fala-sobre-voltar-ao-papel-de-sidney-prescott-em-panico-7.html">Neve Campbell fala sobre voltar ao papel de Sidney Prescott em “Pânico 7”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Neve Campbell fala sobre voltar ao papel de Sidney Prescott em “Pânico 7”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-tatiana-maslany-rouba-a-cena-em-para-sempre-medo-novo-terror-de-osgood-perkins.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_fcab29312aba4a1eb76c80d2abeb8c5e~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-tatiana-maslany-rouba-a-cena-em-para-sempre-medo-novo-terror-de-osgood-perkins.html">Tatiana Maslany rouba a cena em “Para Sempre Medo”, novo terror de Osgood Perkins</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Tatiana Maslany rouba a cena em “Para Sempre Medo”, novo terror de Osgood Perkins">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-oandar-inaugura-nova-sede-na-santa-cecilia-com-programacao-intensa-ate-junho-de-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_30ea8699d5e844f2b271e695ad2211c0~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-oandar-inaugura-nova-sede-na-santa-cecilia-com-programacao-intensa-ate-junho-de-.html">ºAndar inaugura nova sede na Santa Cecília com programação intensa até junho de 2026</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="ºAndar inaugura nova sede na Santa Cecília com programação intensa até junho de 2026">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Artigo de Opinião">
+      <a class="ph" href="post-paginas-da-vida-e-o-seu-remake-lusitano.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e7f0b445a0e44f37b7b27fe474db6df4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Artigo de Opinião</span>
+        <h3><a href="post-paginas-da-vida-e-o-seu-remake-lusitano.html">Páginas da Vida, e o seu remake Lusitano</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Páginas da Vida, e o seu remake Lusitano">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Show">
+      <a class="ph" href="post-liniker-entra-com-charme-no-verao-e-lanca-versao-de-estudio-do-hit-apresentado-n.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6c752c219c884dc2961e840cfd355ea6~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Show</span>
+        <h3><a href="post-liniker-entra-com-charme-no-verao-e-lanca-versao-de-estudio-do-hit-apresentado-n.html">Liniker entra com “CHARME” no verão e lança versão de estúdio do hit apresentado no Tiny Desk Brasil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Liniker entra com “CHARME” no verão e lança versão de estúdio do hit apresentado no Tiny Desk Brasil">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-apca-elege-os-melhores-de-2025-nas-artes-e-marca-cerimonia-de-entrega-para-maio-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_1d0b1f7be71f4988a6298c7dd0187731~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-apca-elege-os-melhores-de-2025-nas-artes-e-marca-cerimonia-de-entrega-para-maio-.html">APCA elege os melhores de 2025 nas artes e marca cerimônia de entrega para maio em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="APCA elege os melhores de 2025 nas artes e marca cerimônia de entrega para maio em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Show">
+      <a class="ph" href="post-laura-pausini-lanca-io-canto-2-com-ana-carolina-ferrugem-e-versao-de-ja-sei-namo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_4da00a505fd341dd9949c9d848d82b79~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Show</span>
+        <h3><a href="post-laura-pausini-lanca-io-canto-2-com-ana-carolina-ferrugem-e-versao-de-ja-sei-namo.html">Laura Pausini lança “IO CANTO 2” com Ana Carolina, Ferrugem e versão de “Já Sei Namorar”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Laura Pausini lança “IO CANTO 2” com Ana Carolina, Ferrugem e versão de “Já Sei Namorar”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Música">
+      <a class="ph" href="post-charli-xcx-lanca-wall-of-sound-nova-faixa-da-trilha-de-o-morro-dos-ventos-uivant.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_ec3fbec384c7475bb7dcd0435ce79614~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Música</span>
+        <h3><a href="post-charli-xcx-lanca-wall-of-sound-nova-faixa-da-trilha-de-o-morro-dos-ventos-uivant.html">Charli xcx lança “Wall of Sound”, nova faixa da trilha de “O Morro dos Ventos Uivantes</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Charli xcx lança “Wall of Sound”, nova faixa da trilha de “O Morro dos Ventos Uivantes">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Streaming">
+      <a class="ph" href="post-com-narracao-de-ney-matogrosso-animacao-infantil-o-menino-que-engoliu-o-sol-estr.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_8b310945b3f6457d96bea45ef2544301~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-com-narracao-de-ney-matogrosso-animacao-infantil-o-menino-que-engoliu-o-sol-estr.html">Com narração de Ney Matogrosso, animação infantil “O Menino que Engoliu o Sol” estreia no SescTV em fevereiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com narração de Ney Matogrosso, animação infantil “O Menino que Engoliu o Sol” estreia no SescTV em fevereiro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ney-matogrosso-homem-com-h-volta-ao-cartaz-no-teatro-porto.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_964e4beb08f04eae9c362d743baa15f4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ney-matogrosso-homem-com-h-volta-ao-cartaz-no-teatro-porto.html">Ney Matogrosso – Homem com H volta ao cartaz no Teatro Porto</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Ney Matogrosso – Homem com H volta ao cartaz no Teatro Porto">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Streaming">
+      <a class="ph" href="post-rivalidade-ardente-estreia-na-hbo-max-em-13-de-fevereiro-com-tres-episodios.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_76fa74f549fc48eba28891f125610ee9~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-rivalidade-ardente-estreia-na-hbo-max-em-13-de-fevereiro-com-tres-episodios.html">‘Rivalidade Ardente’ estreia na HBO Max em 13 de fevereiro com três episódios</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="‘Rivalidade Ardente’ estreia na HBO Max em 13 de fevereiro com três episódios">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-entre-a-cruz-e-os-canibais-marcos-damigo-revisita-as-origens-de-sao-paulo-em-com.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_585a1f744c44451188a90cf799a2cbc2~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-entre-a-cruz-e-os-canibais-marcos-damigo-revisita-as-origens-de-sao-paulo-em-com.html">Entre a Cruz e os Canibais: Marcos Damigo revisita as origens de São Paulo em comédia farsesca no Teatro Arthur Azevedo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Entre a Cruz e os Canibais: Marcos Damigo revisita as origens de São Paulo em comédia farsesca no Teatro Arthur Azevedo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p8.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p8.html">8</a><a href="noticias-p9.html" class="on">9</a><a href="noticias-p10.html">10</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p10.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

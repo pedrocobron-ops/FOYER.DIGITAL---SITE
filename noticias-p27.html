@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 27 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 27 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-sobre-liberdade-feminina-estreia-no-teatro-uol-em-marco-de-2025.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_4e2d0dd052e04b4fb8c5f025d00d857f~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-sobre-liberdade-feminina-estreia-no-teatro-uol-em-marco-de-2025.html">Espetáculo Sobre Liberdade Feminina Estreia no Teatro UOL em Março de 2025</a></h3>
+        <p>partir do dia 8 de março de 2025, o Teatro UOL, em São Paulo, será palco de um espetáculo que aborda, com humor e sinceridade, a liberdade…</p>
+        <div class="meta-row">
+          <span class="meta-l">08.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo Sobre Liberdade Feminina Estreia no Teatro UOL em Março de 2025">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-maria-fernanda-candido-estreia-balada-acima-do-abismo-na-reabertura-do-teatro-d-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_eff44d0af3ea4cc7b64c4bfa82b0b7f3~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-maria-fernanda-candido-estreia-balada-acima-do-abismo-na-reabertura-do-teatro-d-.html">Maria Fernanda Cândido Estreia “Balada Acima do Abismo” na Reabertura do Teatro-D-Jaraguá</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Maria Fernanda Cândido Estreia “Balada Acima do Abismo” na Reabertura do Teatro-D-Jaraguá">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-cassio-gabus-mendes-retorna-ao-teatro-em-uma-ideia-genial.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_9bdaecad85c74860a94f483d06ebc564~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-cassio-gabus-mendes-retorna-ao-teatro-em-uma-ideia-genial.html">Cássio Gabus Mendes Retorna ao Teatro em “Uma Ideia Genial”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Cássio Gabus Mendes Retorna ao Teatro em “Uma Ideia Genial”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-fernanda-torres-faz-historia-e-vence-o-globo-de-ouro-abrindo-a-temporada-de-prem.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6cd271b471734d6eaf0fcdd84a7ba57b~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-fernanda-torres-faz-historia-e-vence-o-globo-de-ouro-abrindo-a-temporada-de-prem.html">Fernanda Torres Faz História e Vence o Globo de Ouro, Abrindo a Temporada de Premiações para o Brasil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Fernanda Torres Faz História e Vence o Globo de Ouro, Abrindo a Temporada de Premiações para o Brasil">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-marginal-genet-estreia-em-janeiro-no-cine-teatro-joia.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a1f645298fd94848b77719e2ab142cd2~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-marginal-genet-estreia-em-janeiro-no-cine-teatro-joia.html">“Marginal Genet” Estreia em Janeiro no Cine Teatro Joia</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Marginal Genet” Estreia em Janeiro no Cine Teatro Joia">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-maite-proenca-e-debora-olivieri-estrelam-duas-irmas-um-casamento-no-teatro-faap.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e3732cad9fa7416b94bf25067e6fdeb7~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-maite-proenca-e-debora-olivieri-estrelam-duas-irmas-um-casamento-no-teatro-faap.html">Maitê Proença e Debora Olivieri Estrelam “Duas Irmãs & Um Casamento” no Teatro FAAP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Maitê Proença e Debora Olivieri Estrelam “Duas Irmãs & Um Casamento” no Teatro FAAP">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-dom-quixote-faz-duas-apresentacoes-no-sesc-14-bis.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_05a8df4dacfb477aa9cfe69156e51688~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-dom-quixote-faz-duas-apresentacoes-no-sesc-14-bis.html">“Dom Quixote” Faz Duas Apresentações no Sesc 14 Bis</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Dom Quixote” Faz Duas Apresentações no Sesc 14 Bis">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-musical-nossa-historia-com-chico-buarque-estreia-em-sao-paulo-em-janeiro-de-2025.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_60bc2b39499e4cacb3ed630b4b938156~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-nossa-historia-com-chico-buarque-estreia-em-sao-paulo-em-janeiro-de-2025.html">Musical "Nossa História com Chico Buarque" Estreia em São Paulo em Janeiro de 2025</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical ”Nossa História com Chico Buarque” Estreia em São Paulo em Janeiro de 2025">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-brilho-eterno-retorna-aos-palcos-com-reynaldo-gianecchini-e-taina-muller.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d52a5d65e3b9496e8a3700b3c8d573fd~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-brilho-eterno-retorna-aos-palcos-com-reynaldo-gianecchini-e-taina-muller.html">"Brilho Eterno" retorna aos palcos com Reynaldo Gianecchini e Tainá Müller</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Brilho Eterno” retorna aos palcos com Reynaldo Gianecchini e Tainá Müller">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Audições">
+      <a class="ph" href="post-ultimo-dia-para-inscricao-nas-audicoes-de-harry-potter-e-a-crianca-amaldicoada.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3a91718401f646878f9ab6e9e66642b9~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Audições</span>
+        <h3><a href="post-ultimo-dia-para-inscricao-nas-audicoes-de-harry-potter-e-a-crianca-amaldicoada.html">Último Dia para Inscrição nas Audições de “Harry Potter e a Criança Amaldiçoada”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Último Dia para Inscrição nas Audições de “Harry Potter e a Criança Amaldiçoada”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-um-dia-na-broadway-retorna-com-nova-temporada-em-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_22bbbce08dc44f4bafc15ccb4e935254~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-um-dia-na-broadway-retorna-com-nova-temporada-em-sao-paulo.html">"Um Dia na Broadway" retorna com nova temporada em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Um Dia na Broadway” retorna com nova temporada em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-ator-ney-latorraca-faleceu-aos-80-anos-deixando-um-imenso-legado-na-teledramatur.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_5af915e27106404f9e50b271ab37ba00~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-ator-ney-latorraca-faleceu-aos-80-anos-deixando-um-imenso-legado-na-teledramatur.html">Ator Ney Latorraca faleceu aos 80 anos deixando um imenso legado na teledramaturgia e nos palcos brasileiros</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Ator Ney Latorraca faleceu aos 80 anos deixando um imenso legado na teledramaturgia e nos palcos brasileiros">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-musical-o-magico-de-oz-versao-2025-celebra-o-centenario-de-judy-garland-e-22-ano.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d745d34a11a8409fa88ac4b81faf6ecd~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-o-magico-de-oz-versao-2025-celebra-o-centenario-de-judy-garland-e-22-ano.html">Musical "O Mágico de Oz – Versão 2025" celebra o centenário de Judy Garland e 22 anos da montagem no Brasil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical ”O Mágico de Oz – Versão 2025” celebra o centenário de Judy Garland e 22 anos da montagem no Brasil">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-finlandia-de-pascal-rambert-estreia-no-brasil-com-paula-cohen-e-jiddu-pinheiro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_894ebf5bf36f4b238c412f76af61ff4c~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-finlandia-de-pascal-rambert-estreia-no-brasil-com-paula-cohen-e-jiddu-pinheiro.html">"Finlândia", de Pascal Rambert, estreia no Brasil com Paula Cohen e Jiddu Pinheiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Finlândia”, de Pascal Rambert, estreia no Brasil com Paula Cohen e Jiddu Pinheiro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-fabiana-karla-e-tania-bondezan-voltam-aos-palcos-com-radojka-uma-comedia-friamen.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d82a4606541c46bcabcfd48369634d89~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-fabiana-karla-e-tania-bondezan-voltam-aos-palcos-com-radojka-uma-comedia-friamen.html">Fabiana Karla e Tania Bondezan voltam aos palcos com “Radojka – Uma Comédia Friamente Calculada”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Fabiana Karla e Tania Bondezan voltam aos palcos com “Radojka – Uma Comédia Friamente Calculada”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-com-bia-castro-e-eri-correia-final-de-temporada-programa-do-foyer.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e2b49abbf0384b609699cc232b3103b2~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-com-bia-castro-e-eri-correia-final-de-temporada-programa-do-foyer.html">Com Bia Castro e Eri Correia - Final de Temporada - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com Bia Castro e Eri Correia - Final de Temporada - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-harry-potter-e-a-crianca-amaldicoada-chega-ao-brasil-em-2025.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3078efabe40f46dea7bdcdb5c45e547a~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-harry-potter-e-a-crianca-amaldicoada-chega-ao-brasil-em-2025.html">"Harry Potter e a Criança Amaldiçoada" chega ao Brasil em 2025</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Harry Potter e a Criança Amaldiçoada” chega ao Brasil em 2025">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-sara-carinhas-traz-ultima-memoria-para-sao-paulo-em-duas-apresentacoes-exclusiva.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6c1df477a5454ec3946941282083af4c~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-sara-carinhas-traz-ultima-memoria-para-sao-paulo-em-duas-apresentacoes-exclusiva.html">Sara Carinhas traz “Última Memória” para São Paulo em duas apresentações exclusivas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Sara Carinhas traz “Última Memória” para São Paulo em duas apresentações exclusivas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-makeda-a-rainha-da-arabia-feliz-estreia-no-ccbb-sao-paulo-com-foco-na-representa.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7de8f5fb3a2f471fa4516fdac7194707~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-makeda-a-rainha-da-arabia-feliz-estreia-no-ccbb-sao-paulo-com-foco-na-representa.html">"Makeda – A Rainha da Arábia Feliz" estreia no CCBB São Paulo com foco na representatividade negra infantil feminina</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Makeda – A Rainha da Arábia Feliz” estreia no CCBB São Paulo com foco na representatividade negra infantil feminina">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-mar-aberto-estreia-no-theatro-municipal-e-segue-para-a-sp-escola-de-teatro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_60f30833f1f64a379b6dfabd87d02eb3~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-mar-aberto-estreia-no-theatro-municipal-e-segue-para-a-sp-escola-de-teatro.html">"Mar Aberto" estreia no Theatro Municipal e segue para a SP Escola de Teatro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Mar Aberto” estreia no Theatro Municipal e segue para a SP Escola de Teatro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-5-mulheres-e-um-destino-a-arte-o-teatro-a-vida-enfim-reune-solos-feministas-no-t.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2adb04df90f8491a852f363b711c48c2~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-5-mulheres-e-um-destino-a-arte-o-teatro-a-vida-enfim-reune-solos-feministas-no-t.html">"5 Mulheres e Um Destino: a Arte, o Teatro, a Vida Enfim!" reúne solos feministas no Teatro Studio Heleny Guariba</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”5 Mulheres e Um Destino: a Arte, o Teatro, a Vida Enfim!” reúne solos feministas no Teatro Studio Heleny Guariba">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-saudade-na-miragem-estreia-no-sesc-vila-mariana-com-direcao-de-hiroshi-koike.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_afe973162fda49dab5ad4318f2d0e4ff~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-saudade-na-miragem-estreia-no-sesc-vila-mariana-com-direcao-de-hiroshi-koike.html">“Saudade na Miragem” estreia no Sesc Vila Mariana com direção de Hiroshi Koike</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Saudade na Miragem” estreia no Sesc Vila Mariana com direção de Hiroshi Koike">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-vital-o-musical-dos-paralamas-abre-pre-venda-de-ingressos-para-temporada-em-sao-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7879ae407fc44dd3a6a286b17e0fa0b0~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-vital-o-musical-dos-paralamas-abre-pre-venda-de-ingressos-para-temporada-em-sao-.html">“Vital – O Musical dos Paralamas” abre pré-venda de ingressos para temporada em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Vital – O Musical dos Paralamas” abre pré-venda de ingressos para temporada em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-com-claudio-erlichman-kyra-piscitelli-e-bruno-cavalcanti-musicais-2025-programa-.html" aria-label="Foto da matéria"><img src="" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-com-claudio-erlichman-kyra-piscitelli-e-bruno-cavalcanti-musicais-2025-programa-.html">Com Claudio Erlichman, Kyra Piscitelli e Bruno Cavalcanti - Musicais 2025 - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com Claudio Erlichman, Kyra Piscitelli e Bruno Cavalcanti - Musicais 2025 - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p26.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p26.html">26</a><a href="noticias-p27.html" class="on">27</a><a href="noticias-p28.html">28</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p28.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

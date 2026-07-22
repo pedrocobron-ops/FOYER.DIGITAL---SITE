@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 17 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 17 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-infancia-reestreia-no-agora-teatro-apos-jornada-pelos-sertoes-de-grac.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c0fa9e70d19a4a8eae059e8629bdf1e2~mv2.png" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-infancia-reestreia-no-agora-teatro-apos-jornada-pelos-sertoes-de-grac.html">Espetáculo “Infância” reestreia no Ágora Teatro após jornada pelos sertões de Graciliano Ramos</a></h3>
+        <p>Inspirado pela obra autobiográfica de Graciliano Ramos e pelas paisagens do sertão nordestino, o espetáculo Infância volta aos palcos paulistanos em temporada n…</p>
+        <div class="meta-row">
+          <span class="meta-l">10.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo “Infância” reestreia no Ágora Teatro após jornada pelos sertões de Graciliano Ramos">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-marisa-orth-e-miguel-falabella-voltam-a-dividir-os-palcos-na-comedia-romantica-f.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_394d2753da6140b487f61b43d2403be0~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-marisa-orth-e-miguel-falabella-voltam-a-dividir-os-palcos-na-comedia-romantica-f.html">Marisa Orth e Miguel Falabella voltam a dividir os palcos na comédia romântica “Fica Comigo Esta Noite”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Marisa Orth e Miguel Falabella voltam a dividir os palcos na comédia romântica “Fica Comigo Esta Noite”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-sucesso-mundial-espetaculo-infantil-masha-e-o-urso-missao-no-circo-estreia-em-sa.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_4a0b9f1bc20f4c74994de81d65cd7042~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-sucesso-mundial-espetaculo-infantil-masha-e-o-urso-missao-no-circo-estreia-em-sa.html">Sucesso mundial, espetáculo infantil “Masha e o Urso: Missão no Circo” estreia em São Paulo e inicia turnê nacional</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Sucesso mundial, espetáculo infantil “Masha e o Urso: Missão no Circo” estreia em São Paulo e inicia turnê nacional">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-sao-paulo-ganha-novo-centro-cultural-voltado-as-artes-cenicas-ibt-inaugura-espac.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_efa584817da745ab92b205ea1e3e6e53~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-sao-paulo-ganha-novo-centro-cultural-voltado-as-artes-cenicas-ibt-inaugura-espac.html">São Paulo ganha novo Centro Cultural voltado às artes cênicas: iBT inaugura espaço de 12 andares na Avenida Brigadeiro Luís Antônio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="São Paulo ganha novo Centro Cultural voltado às artes cênicas: iBT inaugura espaço de 12 andares na Avenida Brigadeiro Luís Antônio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Exposições">
+      <a class="ph" href="post-instituto-tomie-ohtake-inaugura-a-imersiva-exposicao-marina-perez-simao-diapasao.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_22abbd1c784543068aa28920668c1b08~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Exposições</span>
+        <h3><a href="post-instituto-tomie-ohtake-inaugura-a-imersiva-exposicao-marina-perez-simao-diapasao.html">Instituto Tomie Ohtake inaugura a imersiva exposição “Marina Perez Simão – Diapasão” com obras inéditas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Instituto Tomie Ohtake inaugura a imersiva exposição “Marina Perez Simão – Diapasão” com obras inéditas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-barracao-cultural-estreia-rumboldo-adaptacao-de-eva-furnari-no-sesc-bom-retiro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_cf11dd4476db49a18622d8cb1a4df95d~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-barracao-cultural-estreia-rumboldo-adaptacao-de-eva-furnari-no-sesc-bom-retiro.html">Barracão Cultural estreia “Rumboldo”, adaptação de Eva Furnari, no Sesc Bom Retiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Barracão Cultural estreia “Rumboldo”, adaptação de Eva Furnari, no Sesc Bom Retiro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-estreia-em-sp-carmo-dalla-vecchia-douglas-silva-fernando-caruso-e-fafy-siqueira-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_88c4027d36014ab39de418cd714d0a9e~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-estreia-em-sp-carmo-dalla-vecchia-douglas-silva-fernando-caruso-e-fafy-siqueira-.html">Estreia em SP | Carmo Dalla Vecchia, Douglas Silva, Fernando Caruso e Fafy Siqueira estrelam comédia policial interativa “Corte Fatal”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Estreia em SP | Carmo Dalla Vecchia, Douglas Silva, Fernando Caruso e Fafy Siqueira estrelam comédia policial interativa “Corte Fatal”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-classico-de-mario-bortolotto-retorna-aos-palcos-apos-23-anos-os-anjos-vao-para-o.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_22c676666658412d90fb021c8095ade3~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-classico-de-mario-bortolotto-retorna-aos-palcos-apos-23-anos-os-anjos-vao-para-o.html">Clássico de Mário Bortolotto retorna aos palcos após 23 anos: “Os Anjos Vão Para o Céu” estreia nova montagem no Cemitério de Automóveis</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Clássico de Mário Bortolotto retorna aos palcos após 23 anos: “Os Anjos Vão Para o Céu” estreia nova montagem no Cemitério de Automóveis">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-com-diego-montez-camille-dutra-e-matheus-boa-ticktickboom-programa-do-foyer.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7531ed41fb2d4b87b6f517c456cfc076~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-com-diego-montez-camille-dutra-e-matheus-boa-ticktickboom-programa-do-foyer.html">Com Diego Montez, Camille Dutra e Matheus Boa - TickTickBoom - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com Diego Montez, Camille Dutra e Matheus Boa - TickTickBoom - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-vermes-radiantes-estreia-no-sesc-pompeia-com-critica-acida-a-gentrificacao-e-a-l.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_321d28aecead4deeb0ac44b5d94ef5a8~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-vermes-radiantes-estreia-no-sesc-pompeia-com-critica-acida-a-gentrificacao-e-a-l.html">“Vermes Radiantes” estreia no Sesc Pompeia com crítica ácida à gentrificação e à lógica do consumo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Vermes Radiantes” estreia no Sesc Pompeia com crítica ácida à gentrificação e à lógica do consumo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-musical-rapsodia-estreia-em-sao-paulo-com-montagem-imersiva-e-cenario-sustentave.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_dc0b5d4bf4ee4997afc951f771a3ef8b~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-rapsodia-estreia-em-sao-paulo-com-montagem-imersiva-e-cenario-sustentave.html">Musical “Rapsódia” estreia em São Paulo com montagem imersiva e cenário sustentável</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical “Rapsódia” estreia em São Paulo com montagem imersiva e cenário sustentável">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-gregorio-duvivier-apresenta-o-ceu-da-lingua-em-duas-sessoes-esgotadas-no-theatro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d8ba6e6aab4b44daaa6c728040d2eb92~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-gregorio-duvivier-apresenta-o-ceu-da-lingua-em-duas-sessoes-esgotadas-no-theatro.html">Gregorio Duvivier apresenta “O Céu da Língua” em duas sessões esgotadas no Theatro Municipal de São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Gregorio Duvivier apresenta “O Céu da Língua” em duas sessões esgotadas no Theatro Municipal de São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-lima-barreto-ao-terceiro-dia-estreia-no-centro-cultural-olido-e-revis.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d6874f70a0ec40c8909af4c7dcef8a96~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-lima-barreto-ao-terceiro-dia-estreia-no-centro-cultural-olido-e-revis.html">Espetáculo “Lima Barreto, Ao Terceiro Dia” estreia no Centro Cultural Olido e revisita a trajetória do autor de Triste Fim de Policarpo Quaresma</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo “Lima Barreto, Ao Terceiro Dia” estreia no Centro Cultural Olido e revisita a trajetória do autor de Triste Fim de Policarpo Quaresma">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-sucesso-de-publico-comedia-o-marido-da-minha-mulher-retorna-aos-palcos-em-sao-pa.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_27925b60d2c64df89d17e530680766d8~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-sucesso-de-publico-comedia-o-marido-da-minha-mulher-retorna-aos-palcos-em-sao-pa.html">Sucesso de público, comédia “O Marido da Minha Mulher” retorna aos palcos em São Paulo com nova temporada no Teatro-D-Jaraguá</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Sucesso de público, comédia “O Marido da Minha Mulher” retorna aos palcos em São Paulo com nova temporada no Teatro-D-Jaraguá">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-musical-brenda-lee-e-o-palacio-das-princesas-retorna-a-sao-paulo-para-nova-tempo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_33ea48961537460e8b1f24c39a0aa173~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-brenda-lee-e-o-palacio-das-princesas-retorna-a-sao-paulo-para-nova-tempo.html">Musical “Brenda Lee e o Palácio das Princesas” retorna a São Paulo para nova temporada no Teatro Vivo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical “Brenda Lee e o Palácio das Princesas” retorna a São Paulo para nova temporada no Teatro Vivo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-com-giselle-de-prattes-aline-serra-e-caio-giovani-chato-e-os-diarios-assossiados.html" aria-label="Foto da matéria"><img src="" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-com-giselle-de-prattes-aline-serra-e-caio-giovani-chato-e-os-diarios-assossiados.html">Com Giselle de Prattes, Aline Serra e Caio Giovani - Chatô e os Diários Assossiados</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com Giselle de Prattes, Aline Serra e Caio Giovani - Chatô e os Diários Assossiados">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-comunidade-do-arco-iris-unico-texto-infantil-de-caio-fernando-abreu-estreia-no.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_397d56492a464c0b9a4d2bddf0d253e6~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-comunidade-do-arco-iris-unico-texto-infantil-de-caio-fernando-abreu-estreia-no.html">“A Comunidade do Arco-Íris”, único texto infantil de Caio Fernando Abreu, estreia no CCBB São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“A Comunidade do Arco-Íris”, único texto infantil de Caio Fernando Abreu, estreia no CCBB São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-tick-tick-boom-ganha-versao-brasileira-inedita-no-rio-de-janeiro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0f1cc27b98034fefa1753a3eb7250f2e~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-tick-tick-boom-ganha-versao-brasileira-inedita-no-rio-de-janeiro.html">“tick, tick… BOOM!” ganha versão brasileira inédita no Rio de Janeiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“tick, tick… BOOM!” ganha versão brasileira inédita no Rio de Janeiro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Dança">
+      <a class="ph" href="post-cisne-negro-cia-de-danca-estreia-que-tal-o-impossivel-no-teatro-sergio-cardoso.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e2764b49d8dd49d4be30606bf65b9044~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Dança</span>
+        <h3><a href="post-cisne-negro-cia-de-danca-estreia-que-tal-o-impossivel-no-teatro-sergio-cardoso.html">Cisne Negro Cia. de Dança estreia “Que Tal o Impossível?” no Teatro Sérgio Cardoso</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Cisne Negro Cia. de Dança estreia “Que Tal o Impossível?” no Teatro Sérgio Cardoso">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-pra-voce-lembrar-de-mim-retorna-a-sao-paulo-com-olhar-sensivel-sobre-o-impacto-d.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7db5d6cfdff14da0a893cb344b9301b9~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-pra-voce-lembrar-de-mim-retorna-a-sao-paulo-com-olhar-sensivel-sobre-o-impacto-d.html">“Pra Você Lembrar de Mim” retorna a São Paulo com olhar sensível sobre o impacto do Alzheimer na vida familiar</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Pra Você Lembrar de Mim” retorna a São Paulo com olhar sensível sobre o impacto do Alzheimer na vida familiar">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-fenomeno-internacional-titanique-o-musical-estreia-em-sao-paulo-com-direcao-de-g.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_59988a20269f47648e987a19462d79c0~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-fenomeno-internacional-titanique-o-musical-estreia-em-sao-paulo-com-direcao-de-g.html">Fenômeno internacional, Titanique – O Musical estreia em São Paulo com direção de Gustavo Barchilon</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Fenômeno internacional, Titanique – O Musical estreia em São Paulo com direção de Gustavo Barchilon">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-eduardo-sterblitch-volta-a-encarnar-o-espirito-de-beetlejuice-o-musical-sucesso-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_9ba8beb606294700adb4226c340521e4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-eduardo-sterblitch-volta-a-encarnar-o-espirito-de-beetlejuice-o-musical-sucesso-.html">Eduardo Sterblitch volta a encarnar o espírito de “Beetlejuice – O Musical”, sucesso de público e crítica que retorna aos palcos no Rio e em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Eduardo Sterblitch volta a encarnar o espírito de “Beetlejuice – O Musical”, sucesso de público e crítica que retorna aos palcos no Rio e em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-laudelina-estreia-na-sp-escola-de-teatro-e-homenageia-a-forca-das-tra.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_57e1210ca5ac43939574e30cad4d58e3~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-laudelina-estreia-na-sp-escola-de-teatro-e-homenageia-a-forca-das-tra.html">Espetáculo “Laudelina” estreia na SP Escola de Teatro e homenageia a força das trabalhadoras domésticas negras</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo “Laudelina” estreia na SP Escola de Teatro e homenageia a força das trabalhadoras domésticas negras">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Exposições">
+      <a class="ph" href="post-exposicao-cirurgico-de-victor-grizzo-ocupa-museu-de-anatomia-humana-da-usp-e-pro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_8c8dff6f526d4726932e0c8b1b53749c~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Exposições</span>
+        <h3><a href="post-exposicao-cirurgico-de-victor-grizzo-ocupa-museu-de-anatomia-humana-da-usp-e-pro.html">Exposição “CIRÚRGICO”, de Victor Grizzo, ocupa Museu de Anatomia Humana da USP e propõe leitura poética do corpo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Exposição “CIRÚRGICO”, de Victor Grizzo, ocupa Museu de Anatomia Humana da USP e propõe leitura poética do corpo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p16.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p16.html">16</a><a href="noticias-p17.html" class="on">17</a><a href="noticias-p18.html">18</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p18.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

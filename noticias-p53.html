@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 53 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 53 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-musical-idealizado-por-eline-porto-faz-apresentacoes-no-rio-de-janeiro-e-em-mina.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a532b9e094664f95a4a5bb1b8ea1c606~mv2.png" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-idealizado-por-eline-porto-faz-apresentacoes-no-rio-de-janeiro-e-em-mina.html">Musical idealizado por Eline Porto faz apresentações no Rio de Janeiro e em Minas Gerais</a></h3>
+        <p>Nos dias 28 e 29 de outubro o espetáculo estará no Teatro do Centro Cultural Usiminas em Minas Gerais. Depois disso o musical faz uma...…</p>
+        <div class="meta-row">
+          <span class="meta-l">23.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical idealizado por Eline Porto faz apresentações no Rio de Janeiro e em Minas Gerais">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-que-aborda-a-perda-da-memoria-com-direcao-e-texto-de-sara-antunes-che.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a2a473aa26bf40118d945a7b73ac845e~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-que-aborda-a-perda-da-memoria-com-direcao-e-texto-de-sara-antunes-che.html">Espetáculo que aborda a perda da memória, com direção e texto de Sara Antunes chega ao SESI-SP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo que aborda a perda da memória, com direção e texto de Sara Antunes chega ao SESI-SP">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-dudu-pelizzari-e-adriana-birolli-estreiam-peca-o-dia-seguinte-em-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2a43a9a6aab94b9d84d0a89b9bb6f8f8~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-dudu-pelizzari-e-adriana-birolli-estreiam-peca-o-dia-seguinte-em-sao-paulo.html">Dudu Pelizzari e Adriana Birolli estreiam peça “O Dia Seguinte” em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Dudu Pelizzari e Adriana Birolli estreiam peça “O Dia Seguinte” em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Show">
+      <a class="ph" href="post-julia-sanchez-faz-show-dedicado-a-sucessos-de-divas-da-mpb.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_1486c6e93afb44d489488fad6b8beefa~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Show</span>
+        <h3><a href="post-julia-sanchez-faz-show-dedicado-a-sucessos-de-divas-da-mpb.html">Júlia Sanchez faz show dedicado a sucessos de Divas da MPB</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Júlia Sanchez faz show dedicado a sucessos de Divas da MPB">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-o-sucesso-brenda-lee-e-o-palacio-das-princesas-volta-para-curta-temporada-na-zon.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_4e5fbfc7d9154ceba59e42bc952ffb79~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-o-sucesso-brenda-lee-e-o-palacio-das-princesas-volta-para-curta-temporada-na-zon.html">O sucesso “Brenda Lee e o Palácio das Princesas” volta para curta temporada na Zona Leste</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="O sucesso “Brenda Lee e o Palácio das Princesas” volta para curta temporada na Zona Leste">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-shopping-no-tatuape-inaugura-teatro-em-homenagem-a-lea-garcia.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_58c2533a4c194d2f9741276cf5c6fc26~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-shopping-no-tatuape-inaugura-teatro-em-homenagem-a-lea-garcia.html">Shopping no Tatuapé inaugura teatro em homenagem a Léa Garcia</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Shopping no Tatuapé inaugura teatro em homenagem a Léa Garcia">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-mistura-shakespeare-e-dislexia-em-musical.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c26299a7ad534e8a88235a587b05b698~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-mistura-shakespeare-e-dislexia-em-musical.html">Espetáculo mistura Shakespeare e dislexia em musical</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo mistura Shakespeare e dislexia em musical">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-longa-dirigido-por-murilo-benicio-e-estrelado-por-drica-moraes-estreia-hoje.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_92648ff5bda14129a381ebf38c4b9cf7~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-longa-dirigido-por-murilo-benicio-e-estrelado-por-drica-moraes-estreia-hoje.html">Longa dirigido por Murilo Benício e estrelado por Drica Moraes, estreia hoje</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Longa dirigido por Murilo Benício e estrelado por Drica Moraes, estreia hoje">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-mabel-cezar-e-luiza-porto-programa-do-foyer.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_5d3d9a8a7e0a411daeab006aee0ee74f~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-mabel-cezar-e-luiza-porto-programa-do-foyer.html">Mabel Cezar e Luiza Porto - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.09 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Mabel Cezar e Luiza Porto - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Literatura">
+      <a class="ph" href="post-trabalho-que-consagrou-o-dramaturgo-samir-yazbek-e-relancado-hoje.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_363a81c2ee2f40bf968d8f0b52a7aeb4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Literatura</span>
+        <h3><a href="post-trabalho-que-consagrou-o-dramaturgo-samir-yazbek-e-relancado-hoje.html">Trabalho que consagrou o Dramaturgo Samir Yazbek é relançado hoje</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Trabalho que consagrou o Dramaturgo Samir Yazbek é relançado hoje">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-selvagem-aborda-o-mundo-digital-e-a-vigilancia-em-forma-de-thriller-comico.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_71dcaa1a67cd46ae8b23b4cf6bf5195e~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-selvagem-aborda-o-mundo-digital-e-a-vigilancia-em-forma-de-thriller-comico.html">"Selvagem" Aborda o mundo digital e a vigilância em forma de thriller cômico</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.09 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="”Selvagem” Aborda o mundo digital e a vigilância em forma de thriller cômico">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-peca-cidades-invisiveis-transforma-a-imaginacao-de-calvino-em-realidade-no-palco.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_59dfc5fb589445e0a9e6d3724b995d83~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-peca-cidades-invisiveis-transforma-a-imaginacao-de-calvino-em-realidade-no-palco.html">Peça "Cidades Invisíveis" Transforma a imaginação de Calvino em realidade no palco</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.09 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Peça ”Cidades Invisíveis” Transforma a imaginação de Calvino em realidade no palco">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-peca-killer-queen-da-cia-bromio-atos-culturais-estreia-no-teatro-de-arena-eugeni.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_2ca560b76dbf45d6b391593068bfb826~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-peca-killer-queen-da-cia-bromio-atos-culturais-estreia-no-teatro-de-arena-eugeni.html">Peça "Killer Queen" da Cia Bromio Atos Culturais estreia no Teatro de Arena Eugênio Kusnet</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.09 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Peça ”Killer Queen” da Cia Bromio Atos Culturais estreia no Teatro de Arena Eugênio Kusnet">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-solo-apresentado-por-tassia-dhur-mistura-historias-reais-e-ficcao-para-refletir-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_052cfb44e1ed41339456ea970f605d30~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-solo-apresentado-por-tassia-dhur-mistura-historias-reais-e-ficcao-para-refletir-.html">Solo apresentado por Tássia Dhur mistura histórias reais e ficção para refletir a crueldade humana</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Solo apresentado por Tássia Dhur mistura histórias reais e ficção para refletir a crueldade humana">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ultima-semana-para-assistir-sete-cortes-ate-voce-no-ccsp.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_85e8a591c53a41fd91247488d572f539~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ultima-semana-para-assistir-sete-cortes-ate-voce-no-ccsp.html">Última semana para assistir “Sete Cortes até você” no CCSP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Última semana para assistir “Sete Cortes até você” no CCSP">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-ivan-parente-e-vinicius-loyola-programa-do-foyer.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_ab5d055a41d043919ea3a98c8cf3bf72~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-ivan-parente-e-vinicius-loyola-programa-do-foyer.html">Ivan Parente e Vinicius Loyola - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.09 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Ivan Parente e Vinicius Loyola - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-com-sotaques-proprios-do-brasil-montagem-de-a-megera-domada-faz-temporada-no-tea.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_fb9f9d4deb384e438d24cfa6c4f10d00~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-com-sotaques-proprios-do-brasil-montagem-de-a-megera-domada-faz-temporada-no-tea.html">Com sotaques próprios do Brasil, montagem de “A Megera Domada” faz temporada no Teatro UOL</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com sotaques próprios do Brasil, montagem de “A Megera Domada” faz temporada no Teatro UOL">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-beto-sargentelli-sera-elvis-presley-em-novo-projeto-autoral.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_ef4f1af577934ec1a0cb69ccc454417d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-beto-sargentelli-sera-elvis-presley-em-novo-projeto-autoral.html">Beto Sargentelli será Elvis Presley em novo projeto autoral</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Beto Sargentelli será Elvis Presley em novo projeto autoral">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-premio-bibi-ferreira-anuncia-indicados-da-10a-edicao-confira-os-indicados.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_d7a1bfdbd25b453ebe8de7207b65a35a~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-premio-bibi-ferreira-anuncia-indicados-da-10a-edicao-confira-os-indicados.html">Prêmio Bibi Ferreira anuncia indicados da 10ª edição. Confira os indicados</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.09 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Prêmio Bibi Ferreira anuncia indicados da 10ª edição. Confira os indicados">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-galvao-bueno-esta-de-volta-a-globo-mas-agora-como-apresentador-de-reality.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_55c9bd00fc7b4bcfb3d2e956dc1b26f9~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-galvao-bueno-esta-de-volta-a-globo-mas-agora-como-apresentador-de-reality.html">Galvão Bueno está de volta à Globo, mas agora como apresentador de Reality</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Galvão Bueno está de volta à Globo, mas agora como apresentador de Reality">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-figurinos-de-matilda-o-musical-sao-revelados.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_5bddc477a4a2440ca4414751f1f0f4e5~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-figurinos-de-matilda-o-musical-sao-revelados.html">Figurinos de Matilda - O Musical são revelados</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.09 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Figurinos de Matilda - O Musical são revelados">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-um-azul-nos-bueiros-de-sao-paulo-e-espetaculo-que-fala-sobre-a-censura-de-mulher.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0489538e17234533a5dbcbb6418563f0~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-um-azul-nos-bueiros-de-sao-paulo-e-espetaculo-que-fala-sobre-a-censura-de-mulher.html">“Um Azul nos Bueiros de São Paulo” é espetáculo que fala sobre a censura de mulheres dramaturgas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Um Azul nos Bueiros de São Paulo” é espetáculo que fala sobre a censura de mulheres dramaturgas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-sequencia-de-a-freira-tem-estreia-marcada-por-recorde-de-publico-no-brasil.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_54cfe6271edb47ffb5bd443dd5a0ec45~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-sequencia-de-a-freira-tem-estreia-marcada-por-recorde-de-publico-no-brasil.html">Sequência de “A Freira” tem estreia marcada por recorde de público no Brasil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Sequência de “A Freira” tem estreia marcada por recorde de público no Brasil">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-cine-belas-artes-ficara-sem-patrocinio-para-2024.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a28c6ca921554b969ec9ae490e1ca5b8~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-cine-belas-artes-ficara-sem-patrocinio-para-2024.html">Cine Belas Artes ficará sem patrocínio para 2024</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Cine Belas Artes ficará sem patrocínio para 2024">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p52.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p52.html">52</a><a href="noticias-p53.html" class="on">53</a><a href="noticias-p54.html">54</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p54.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

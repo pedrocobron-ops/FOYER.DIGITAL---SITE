@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Matérias de Teatro no FOYER.">
+<title>Teatro — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Teatro</h1>
+    <p class="note">952 matérias — página 12 de 40</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html">Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html" class="on">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-veneno-de-lot-vekemans-ganha-nova-temporada-no-teatro-estudio.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_abba9c80b0484bd9b00ffe2b797d78b4~mv2.png" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-veneno-de-lot-vekemans-ganha-nova-temporada-no-teatro-estudio.html">“Veneno”, de Lot Vekemans, ganha nova temporada no Teatro Estúdio</a></h3>
+        <p>Estrelado por Cléo De Páris e Alexandre Galindo, indicado ao Prêmio Shell, espetáculo reflete sobre o luto e a reconciliação após a perda...…</p>
+        <div class="meta-row">
+          <span class="meta-l">23.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Veneno”, de Lot Vekemans, ganha nova temporada no Teatro Estúdio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-musical-ney-matogrosso-homem-com-h-retorna-a-sao-paulo-no-teatro-porto.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_f122bc3ab515436ab04871ac6df6b7a9~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-ney-matogrosso-homem-com-h-retorna-a-sao-paulo-no-teatro-porto.html">Musical “Ney Matogrosso – Homem com H” retorna a São Paulo no Teatro Porto</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical “Ney Matogrosso – Homem com H” retorna a São Paulo no Teatro Porto">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-isabel-teixeira-dirige-ela-novo-espetaculo-da-cia-mungunza-no-sesc-pompeia.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_07eb8ec25f414848b1b303e42d40dd11~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-isabel-teixeira-dirige-ela-novo-espetaculo-da-cia-mungunza-no-sesc-pompeia.html">Isabel Teixeira dirige “Elã”, novo espetáculo da Cia. Mungunzá, no Sesc Pompeia</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Isabel Teixeira dirige “Elã”, novo espetáculo da Cia. Mungunzá, no Sesc Pompeia">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-seis-atores-em-busca-de-sergio-cardoso-estreia-no-teatro-sergio-cardoso-no-cente.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e49b9c90b56b44d3a073f648ace4c5af~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-seis-atores-em-busca-de-sergio-cardoso-estreia-no-teatro-sergio-cardoso-no-cente.html">“Seis Atores em Busca de Sérgio Cardoso” estreia no Teatro Sérgio Cardoso no centenário do ator</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Seis Atores em Busca de Sérgio Cardoso” estreia no Teatro Sérgio Cardoso no centenário do ator">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-memorias-do-vinho-entra-nas-ultimas-semanas-no-teatro-renaissance-com.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c96f6f6e2f1d4ee89e28af689d803844~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-memorias-do-vinho-entra-nas-ultimas-semanas-no-teatro-renaissance-com.html">Espetáculo “Memórias do Vinho” entra nas últimas semanas no Teatro Renaissance com Elias Andreato e Caio Blat</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo “Memórias do Vinho” entra nas últimas semanas no Teatro Renaissance com Elias Andreato e Caio Blat">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-uma-semana-nada-mais-segue-em-cartaz-no-teatro-uol-com-sophia-abrahao-leandro-lu.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_94ede2c305824335b5e7b627c95f1a87~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-uma-semana-nada-mais-segue-em-cartaz-no-teatro-uol-com-sophia-abrahao-leandro-lu.html">“Uma Semana, Nada Mais” segue em cartaz no Teatro UOL com Sophia Abrahão, Leandro Luna e Beto Schultz</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Uma Semana, Nada Mais” segue em cartaz no Teatro UOL com Sophia Abrahão, Leandro Luna e Beto Schultz">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-tres-mulheres-altas-circula-pelo-brasil-com-ana-rosa-helena-ranaldi-e.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_55178d1b241542f5a0f196257adab481~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-tres-mulheres-altas-circula-pelo-brasil-com-ana-rosa-helena-ranaldi-e.html">Espetáculo “Três Mulheres Altas” circula pelo Brasil com Ana Rosa, Helena Ranaldi e Fernanda Nobre</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo “Três Mulheres Altas” circula pelo Brasil com Ana Rosa, Helena Ranaldi e Fernanda Nobre">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-comedia-o-casal-mais-sexy-da-america-estreia-em-sao-paulo-com-vera-fischer-leona.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_cc7ab7d0d0b141519db87dc8f53d0d3f~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-comedia-o-casal-mais-sexy-da-america-estreia-em-sao-paulo-com-vera-fischer-leona.html">Comédia “O Casal Mais Sexy da América” estreia em São Paulo com Vera Fischer, Leonardo Franco e Vitor Thiré</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Comédia “O Casal Mais Sexy da América” estreia em São Paulo com Vera Fischer, Leonardo Franco e Vitor Thiré">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-infantil-procurando-luiz-celebra-10-anos-em-cartaz-com-temporada-grat.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_142ea6365cf643369033869ab409f779~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-infantil-procurando-luiz-celebra-10-anos-em-cartaz-com-temporada-grat.html">Espetáculo infantil “Procurando Luiz” celebra 10 anos em cartaz com temporada gratuita no Teatro Arthur Azevedo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo infantil “Procurando Luiz” celebra 10 anos em cartaz com temporada gratuita no Teatro Arthur Azevedo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-musical-mudanca-de-habito-estreia-em-sao-paulo-em-marco-de-2026-no-teatro-liberd.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2c209ee63ea94145a043df5f140bcba7~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-mudanca-de-habito-estreia-em-sao-paulo-em-marco-de-2026-no-teatro-liberd.html">Musical “Mudança de Hábito” estreia em São Paulo em março de 2026 no Teatro Liberdade</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical “Mudança de Hábito” estreia em São Paulo em março de 2026 no Teatro Liberdade">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-miriam-mehler-celebra-90-anos-com-a-estreia-de-sob-o-ceu-de-paris-no-itau-cultur.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d0b2dea0249c43a789f9e6408f0ec321~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-miriam-mehler-celebra-90-anos-com-a-estreia-de-sob-o-ceu-de-paris-no-itau-cultur.html">Miriam Mehler celebra 90 anos com a estreia de “Sob o Céu de Paris” no Itaú Cultural</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Miriam Mehler celebra 90 anos com a estreia de “Sob o Céu de Paris” no Itaú Cultural">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-queda-de-baleia-ou-canto-para-dancar-com-minha-morte-estreia-na-capela-do-cemite.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_318fc28949cf4dbd8f76a264c4f07e33~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-queda-de-baleia-ou-canto-para-dancar-com-minha-morte-estreia-na-capela-do-cemite.html">“Queda de Baleia ou Canto para Dançar com Minha Morte” estreia na capela do Cemitério do Redentor em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Queda de Baleia ou Canto para Dançar com Minha Morte” estreia na capela do Cemitério do Redentor em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-veneno-de-lot-vekemans-retorna-ao-teatro-estudio-em-nova-temporada-com-cleo-de-p.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_9cb189431f544cd7ae68f9a51036d1e7~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-veneno-de-lot-vekemans-retorna-ao-teatro-estudio-em-nova-temporada-com-cleo-de-p.html">Veneno, de Lot Vekemans, retorna ao Teatro Estúdio em nova temporada com Cléo De Páris e Alexandre Galindo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Veneno, de Lot Vekemans, retorna ao Teatro Estúdio em nova temporada com Cléo De Páris e Alexandre Galindo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-amir-haddad-e-renato-borghi-dividem-o-palco-pela-primeira-vez-em-sao-paulo-no-es.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a8f9503e0ff84b858c53db25ae351b88~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-amir-haddad-e-renato-borghi-dividem-o-palco-pela-primeira-vez-em-sao-paulo-no-es.html">Amir Haddad e Renato Borghi dividem o palco pela primeira vez em São Paulo no espetáculo “Cantam o Teatro, Livres em Cena”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Amir Haddad e Renato Borghi dividem o palco pela primeira vez em São Paulo no espetáculo “Cantam o Teatro, Livres em Cena”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-quando-ismalia-enlouqueceu-reestreia-em-sao-paulo-com-circulacao-em-centros-cult.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e41f191dd2fa4c1e85dbd2a29b8b143d~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-quando-ismalia-enlouqueceu-reestreia-em-sao-paulo-com-circulacao-em-centros-cult.html">“Quando Ismália Enlouqueceu” reestreia em São Paulo com circulação em centros culturais e lançamento de livro do grupo As Tias</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Quando Ismália Enlouqueceu” reestreia em São Paulo com circulação em centros culturais e lançamento de livro do grupo As Tias">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-reynaldo-gianecchini-e-maria-casadevall-estrelam-um-dia-muito-especial-no-teatro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_498a15df32834c20b91bbe2430824acf~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-reynaldo-gianecchini-e-maria-casadevall-estrelam-um-dia-muito-especial-no-teatro.html">Reynaldo Gianecchini e Maria Casadevall estrelam Um Dia Muito Especial no Teatro Sérgio Cardoso</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Reynaldo Gianecchini e Maria Casadevall estrelam Um Dia Muito Especial no Teatro Sérgio Cardoso">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-tudo-o-que-nos-cabe-estreia-em-sao-paulo-e-mergulha-nas-vivencias-lgbtqiapn-com-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_319ddf663a70447cb576fd0142577214~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-tudo-o-que-nos-cabe-estreia-em-sao-paulo-e-mergulha-nas-vivencias-lgbtqiapn-com-.html">Tudo o que nos Cabe estreia em São Paulo e mergulha nas vivências LGBTQIAPN+ com humor, afeto e reflexão</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Tudo o que nos Cabe estreia em São Paulo e mergulha nas vivências LGBTQIAPN+ com humor, afeto e reflexão">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-o-julgamento-de-socrates-estreia-no-teatro-italia-e-leva-o-publico-a-reviver-a-t.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_03715276b4fe4e2fb1ee40f1d2dff107~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-o-julgamento-de-socrates-estreia-no-teatro-italia-e-leva-o-publico-a-reviver-a-t.html">O Julgamento de Sócrates estreia no Teatro Itália e leva o público a reviver a tragédia filosófica que moldou o pensamento ocidental</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="O Julgamento de Sócrates estreia no Teatro Itália e leva o público a reviver a tragédia filosófica que moldou o pensamento ocidental">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-totia-meireles-estreia-primeiro-solo-com-o-lado-fatal-no-teatro-bdo-jaragua.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_ef2f9d867e0444fb8e7d7f6b9181fab4~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-totia-meireles-estreia-primeiro-solo-com-o-lado-fatal-no-teatro-bdo-jaragua.html">Totia Meireles estreia primeiro solo com O Lado Fatal no Teatro BDO-Jaraguá</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Totia Meireles estreia primeiro solo com O Lado Fatal no Teatro BDO-Jaraguá">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-urubu-estreia-no-centro-cultural-olido-e-convida-o-publico-a-refletir-sobre-vida.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e9be95ca6e14422a8849a1a1e95058e6~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-urubu-estreia-no-centro-cultural-olido-e-convida-o-publico-a-refletir-sobre-vida.html">Urubu estreia no Centro Cultural Olido e convida o público a refletir sobre vida e morte</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Urubu estreia no Centro Cultural Olido e convida o público a refletir sobre vida e morte">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-meu-remedio-com-mouhamed-harfouch-estreia-no-teatro-santos-augusta-em-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_5d9545dc4d114a999c58ca50205f3085~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-meu-remedio-com-mouhamed-harfouch-estreia-no-teatro-santos-augusta-em-sao-paulo.html">Meu Remédio, com Mouhamed Harfouch, estreia no Teatro Santos Augusta em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Meu Remédio, com Mouhamed Harfouch, estreia no Teatro Santos Augusta em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ela-e-algumas-historias-com-francisca-queiroz-e-claudio-gabriel-estreia-no-teatr.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_217b9a6aec134dd6858da8f0339fd527~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ela-e-algumas-historias-com-francisca-queiroz-e-claudio-gabriel-estreia-no-teatr.html">Ela, e Algumas Histórias, com Francisca Queiroz e Claudio Gabriel, estreia no Teatro Glaucio Gill</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Ela, e Algumas Histórias, com Francisca Queiroz e Claudio Gabriel, estreia no Teatro Glaucio Gill">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-musical-imagine-com-javier-parisi-chega-ao-teatro-b32-em-sao-paulo-nos-dias-30-e.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2c7164a2fceb429bbcf1b35ae7b92021~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-imagine-com-javier-parisi-chega-ao-teatro-b32-em-sao-paulo-nos-dias-30-e.html">Musical Imagine, com Javier Parisi, chega ao Teatro B32 em São Paulo nos dias 30 e 31 de agosto</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical Imagine, com Javier Parisi, chega ao Teatro B32 em São Paulo nos dias 30 e 31 de agosto">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-manha-seguinte-estreia-no-brasil-com-carol-castro-bruno-fagundes-gustavo-mende.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7b3c7419b4814f09b80591beb2537b7d~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-manha-seguinte-estreia-no-brasil-com-carol-castro-bruno-fagundes-gustavo-mende.html">A Manhã Seguinte estreia no Brasil com Carol Castro, Bruno Fagundes, Gustavo Mendes e Angela Rebello</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="A Manhã Seguinte estreia no Brasil com Carol Castro, Bruno Fagundes, Gustavo Mendes e Angela Rebello">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="cat-teatro-p11.html">← Anterior</a><a href="cat-teatro.html">1</a><a href="cat-teatro-p2.html">2</a><span>…</span><a href="cat-teatro-p11.html">11</a><a href="cat-teatro-p12.html" class="on">12</a><a href="cat-teatro-p13.html">13</a><span>…</span><a href="cat-teatro-p39.html">39</a><a href="cat-teatro-p40.html">40</a><a href="cat-teatro-p13.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

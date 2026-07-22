@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 60 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 60 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Cinema">
+      <a class="ph" href="post-tarantino-planeja-dar-a-bruce-willis-sua-aparicao-final-em-proximo-filme.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_767b0b2bdc8c4240afad6c1beb3023f1~mv2.webp" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-tarantino-planeja-dar-a-bruce-willis-sua-aparicao-final-em-proximo-filme.html">Tarantino planeja dar a Bruce Willis sua aparição final em próximo filme</a></h3>
+        <p>Segundo informações do Express UK, Quentin Tarantino está empenhado em reunir o astro Bruce Willis, conhecido por seu papel em "Pulp...…</p>
+        <div class="meta-row">
+          <span class="meta-l">02.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Tarantino planeja dar a Bruce Willis sua aparição final em próximo filme">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-ana-carbatti-leva-o-solo-ninguem-sabe-meu-nome-para-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_ddba6884d85f473a9ba126850a177288~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-ana-carbatti-leva-o-solo-ninguem-sabe-meu-nome-para-sao-paulo.html">Ana Carbatti leva o solo 'Ninguém Sabe Meu Nome' para São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Ana Carbatti leva o solo 'Ninguém Sabe Meu Nome' para São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-camila-morgado-retorna-ao-teatro-apos-11-anos-protagonizando-a-falecida.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_a535cbe6aff54dbda82d9a7a2cc397f9~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-camila-morgado-retorna-ao-teatro-apos-11-anos-protagonizando-a-falecida.html">Camila Morgado retorna ao teatro após 11 anos protagonizando 'A Falecida'</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Camila Morgado retorna ao teatro após 11 anos protagonizando 'A Falecida'">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Show">
+      <a class="ph" href="post-lady-gaga-anuncia-retorno-do-show-jazz-piano-em-las-vegas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_7cf2403703844cecbe5cbc4cbe6b3fff~mv2.webp" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Show</span>
+        <h3><a href="post-lady-gaga-anuncia-retorno-do-show-jazz-piano-em-las-vegas.html">Lady Gaga anuncia retorno do show"Jazz & Piano" em Las Vegas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Lady Gaga anuncia retorno do show”Jazz & Piano” em Las Vegas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-estranha-forma-de-vida-de-pedro-almodovar-ganha-data-de-estreia-nos-cinemas-bras.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_820032b6ff5f43d088518af1b2d3b396~mv2.webp" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-estranha-forma-de-vida-de-pedro-almodovar-ganha-data-de-estreia-nos-cinemas-bras.html">'Estranha Forma de Vida'de Pedro Almodóvar ganha data de estreia nos cinemas brasileiros</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Estranha Forma de Vida'de Pedro Almodóvar ganha data de estreia nos cinemas brasileiros">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-cordel-do-amor-sem-fim-retorna-ao-teatro-do-sesi-sp-em-nova-temporada.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_5c80694c67e0449f8969fc141442730c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-cordel-do-amor-sem-fim-retorna-ao-teatro-do-sesi-sp-em-nova-temporada.html">'Cordel do Amor Sem Fim' retorna ao Teatro do SESI-SP em nova temporada</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Cordel do Amor Sem Fim' retorna ao Teatro do SESI-SP em nova temporada">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-cinebiografia-nosso-sonho-sobre-trajetoria-de-claudinho-e-buchecha-apresenta-cen.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_7881654dc20d41cda045f81709680c2c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-cinebiografia-nosso-sonho-sobre-trajetoria-de-claudinho-e-buchecha-apresenta-cen.html">Cinebiografia "Nosso Sonho", sobre trajetória de Claudinho e Buchecha, apresenta cena inédita</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Cinebiografia ”Nosso Sonho”, sobre trajetória de Claudinho e Buchecha, apresenta cena inédita">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-joaquin-phoenix-e-vanessa-kirby-surgem-juntos-em-nova-foto-do-filme-napoleao.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_3e7e4e8318e84e88a479ed16b267fb67~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-joaquin-phoenix-e-vanessa-kirby-surgem-juntos-em-nova-foto-do-filme-napoleao.html">Joaquin Phoenix e Vanessa Kirby surgem juntos em nova foto do filme 'Napoleão'</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Joaquin Phoenix e Vanessa Kirby surgem juntos em nova foto do filme 'Napoleão'">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-coletivo-teatro-dodecafonico-estreia-peca-manifesto-eu-amo-chris-uma-pequena-col.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_0a57cda664c54f83b18a0f361b79da76~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-coletivo-teatro-dodecafonico-estreia-peca-manifesto-eu-amo-chris-uma-pequena-col.html">Coletivo Teatro Dodecafônico estreia peça-manifesto 'Eu Amo Chris- uma pequena coleção de fracassos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Coletivo Teatro Dodecafônico estreia peça-manifesto 'Eu Amo Chris- uma pequena coleção de fracassos">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-o-senhor-dos-aneis-trilogia-e-adaptada-em-versao-musical.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_81b7eb150be34582996e1a101e95f1e7~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-o-senhor-dos-aneis-trilogia-e-adaptada-em-versao-musical.html">'O Senhor dos Anéis' trilogia é adaptada em versão musical</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'O Senhor dos Anéis' trilogia é adaptada em versão musical">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-duetos-a-comedia-de-peter-quilter-estreia-com-eduardo-moscovis-e-patricya-travas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_e35667f068cd423b99706fe09f7594a6~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-duetos-a-comedia-de-peter-quilter-estreia-com-eduardo-moscovis-e-patricya-travas.html">'Duetos, A Comédia de Peter Quilter' estreia com Eduardo Moscovis e Patricya Travassos em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Duetos, A Comédia de Peter Quilter' estreia com Eduardo Moscovis e Patricya Travassos em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-barbie-atinge-us-775-milhoes-na-bilheteria-e-caminha-rumo-a-us-1-bilhao.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_ddf302715397475e8274e1d3589b65d3~mv2.webp" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-barbie-atinge-us-775-milhoes-na-bilheteria-e-caminha-rumo-a-us-1-bilhao.html">Barbie atinge US$ 775 milhões na bilheteria e caminha rumo a US$ 1 bilhão</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Barbie atinge US$ 775 milhões na bilheteria e caminha rumo a US$ 1 bilhão">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-sem-coracao-unico-filme-brasileiro-no-festival-de-veneza-2023.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_f8aeb6e53a63490d84b1f4beaeba4992~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-sem-coracao-unico-filme-brasileiro-no-festival-de-veneza-2023.html">'Sem Coração' único filme brasileiro no Festival de Veneza 2023</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Sem Coração' único filme brasileiro no Festival de Veneza 2023">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Streaming">
+      <a class="ph" href="post-apple-tv-revela-cartaz-oficial-da-terceira-temporada-de-the-morning-show.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_b35bb9b81b604d06a9cb7f09555cb06c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-apple-tv-revela-cartaz-oficial-da-terceira-temporada-de-the-morning-show.html">Apple TV+ revela cartaz oficial da terceira temporada de 'The Morning Show'</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Apple TV+ revela cartaz oficial da terceira temporada de 'The Morning Show'">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-wagner-moura-se-une-a-greve-dos-atores-em-hollywood.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_0e40b33d486346e8961e330ac9a2107c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-wagner-moura-se-une-a-greve-dos-atores-em-hollywood.html">Wagner Moura se une a greve dos atores em Hollywood</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Wagner Moura se une a greve dos atores em Hollywood">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-longa-de-elza-cataldo-sera-exibido-em-26o-festival-de-cinema-judaico.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_117ad07a6c524b5f89d3d7bc9d070993~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-longa-de-elza-cataldo-sera-exibido-em-26o-festival-de-cinema-judaico.html">Longa de Elza Cataldo será exibido em 26º Festival de Cinema Judaico</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Longa de Elza Cataldo será exibido em 26º Festival de Cinema Judaico">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Astrologia">
+      <a class="ph" href="post-so-podia-ser-de-leao.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_98efb25a079141c9a90a0922e5433d0e~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Astrologia</span>
+        <h3><a href="post-so-podia-ser-de-leao.html">SÓ PODIA SER DE LEÃO...</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.07 — Bella Amaral</span>
+          <button class="share-min" data-share="native" data-title="SÓ PODIA SER DE LEÃO...">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Artigo de Opinião">
+      <a class="ph" href="post-desenterrando-zelda-fitzgerald.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_507647ee09bb42bbb6f25905f7f6faa1~mv2.jpeg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Artigo de Opinião</span>
+        <h3><a href="post-desenterrando-zelda-fitzgerald.html">Desenterrando Zelda Fitzgerald</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.07 — Larissa da Matta</span>
+          <button class="share-min" data-share="native" data-title="Desenterrando Zelda Fitzgerald">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Literatura">
+      <a class="ph" href="post-romance-de-liana-ferraz-ja-esta-disponivel-nas-livrarias.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_1495ca2cba33426ab3523369848498b9~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Literatura</span>
+        <h3><a href="post-romance-de-liana-ferraz-ja-esta-disponivel-nas-livrarias.html">Romance de Liana Ferraz já está disponível nas livrarias</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Romance de Liana Ferraz já está disponível nas livrarias">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-denise-del-vecchio-volta-aos-palcos-comemorando-os-52-anos-de-carreira.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_aed42abf188d490f8c18ab513ceff287~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-denise-del-vecchio-volta-aos-palcos-comemorando-os-52-anos-de-carreira.html">Denise Del Vecchio Volta aos palcos comemorando os 52 anos de carreira.</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Denise Del Vecchio Volta aos palcos comemorando os 52 anos de carreira.">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-wicked-teatro-musical-e-mais-com-bia-castro-e-eri-correia-foyer-16.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a3c76646872446bea9f3975f2264315c~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-wicked-teatro-musical-e-mais-com-bia-castro-e-eri-correia-foyer-16.html">Wicked, Teatro Musical e mais com Bia Castro e Éri Correia - Foyer #16</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.07 — Redação</span>
+          <button class="share-min" data-share="native" data-title="Wicked, Teatro Musical e mais com Bia Castro e Éri Correia - Foyer #16">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-fotos-reveladas-back-to-the-future-o-musical-antes-da-estreia-na-broadway.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_ceeae70ad2da4bb6a511e5579bfbaba3~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-fotos-reveladas-back-to-the-future-o-musical-antes-da-estreia-na-broadway.html">Fotos Reveladas 'Back to the Future: o Musical' antes da estreia na Broadway</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Fotos Reveladas 'Back to the Future: o Musical' antes da estreia na Broadway">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-duble-de-hollywood-ateia-fogo-em-suas-roupas-durante-protesto.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_b80cde2f3d0c4e3f97e4ab7820e33480~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-duble-de-hollywood-ateia-fogo-em-suas-roupas-durante-protesto.html">Dublê de Hollywood ateia fogo em suas roupas durante protesto</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Dublê de Hollywood ateia fogo em suas roupas durante protesto">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-da-a24-vidas-passadas-tem-nova-data-de-estreia-no-brasil.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_21a57061ceb84276aba1c117d954d7f9~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-da-a24-vidas-passadas-tem-nova-data-de-estreia-no-brasil.html">Da A24, 'Vidas Passadas' Tem nova data de estreia no Brasil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Da A24, 'Vidas Passadas' Tem nova data de estreia no Brasil">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p59.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p59.html">59</a><a href="noticias-p60.html" class="on">60</a><a href="noticias-p61.html">61</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p61.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

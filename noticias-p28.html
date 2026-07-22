@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 28 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 28 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-chef-psi-como-comer-como-como-estreia-no-sesc-belenzinho.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e7ce7e88d5b74536925c601ec011a3e4~mv2.png" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-chef-psi-como-comer-como-como-estreia-no-sesc-belenzinho.html">Espetáculo “Chef Psi – Como Comer Como Como” estreia no Sesc Belenzinho</a></h3>
+        <p>Dirigido por Tati Caltabiano e protagonizado por Maíra Maciel, que também idealizou a obra, o espetáculo “Chef Psi – Como Comer Como Como” e…</p>
+        <div class="meta-row">
+          <span class="meta-l">12.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo “Chef Psi – Como Comer Como Como” estreia no Sesc Belenzinho">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-o-clube-das-mulheres-de-negocios-estreia-nos-cinemas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0afb0f2120414a129f128e4a100571f8~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-o-clube-das-mulheres-de-negocios-estreia-nos-cinemas.html">“O Clube das Mulheres de Negócios” estreia nos cinemas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“O Clube das Mulheres de Negócios” estreia nos cinemas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-cia-fragmento-de-danca.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3e41bb5080c44348b3ef7fb4479b2feb~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-cia-fragmento-de-danca.html">Cia. Fragmento de Dança apresenta "ATO" com apresentações gratuitas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Cia. Fragmento de Dança apresenta ”ATO” com apresentações gratuitas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Artigo de Opinião">
+      <a class="ph" href="post-o-que-vem-por-ai-nos-palcos-em-2025-teatro-a-sangue-frio.html" aria-label="Foto da matéria"><img src="" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Artigo de Opinião</span>
+        <h3><a href="post-o-que-vem-por-ai-nos-palcos-em-2025-teatro-a-sangue-frio.html">O que vem por aí nos palcos em 2025? - Teatro a Sangue Frio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.12 — Gerson Steves </span>
+          <button class="share-min" data-share="native" data-title="O que vem por aí nos palcos em 2025? - Teatro a Sangue Frio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-italo-sena-retorna-ao-teatro-j-safra-com-duas-conversas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6b61aa98554b44d7be7d14ee3e3efb3c~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-italo-sena-retorna-ao-teatro-j-safra-com-duas-conversas.html">Ítalo Sena retorna ao Teatro J. Safra com "Duas Conversas"</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Ítalo Sena retorna ao Teatro J. Safra com ”Duas Conversas”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-caio-em-revista.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_443754d5af3c422ba0f6790e3f584e81~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-caio-em-revista.html">“Caio em Revista” dá vida aos textos inéditos de Caio Fernando Abreu</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Caio em Revista” dá vida aos textos inéditos de Caio Fernando Abreu">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-ultima-entrevista-de-marilia-gabriela-1.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_5bf2e138655c46c29e3a23683fae90c7~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-ultima-entrevista-de-marilia-gabriela-1.html">“A Última Entrevista de Marília Gabriela” ganha sessão extra em Porto Alegre</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“A Última Entrevista de Marília Gabriela” ganha sessão extra em Porto Alegre">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-visita-da-velha-senhora.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_25fae8b764ee490d913138fc2957e8e8~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-visita-da-velha-senhora.html">Clássico “A Visita da Velha Senhora” tem curta temporada no Teatro CPA</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Clássico “A Visita da Velha Senhora” tem curta temporada no Teatro CPA">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-torto-arado-o-musical.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d475cd5421e14d45a12aca35888e5dc8~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-torto-arado-o-musical.html">“Torto Arado – O Musical” estreia em São Paulo com temporada esgotada</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Torto Arado – O Musical” estreia em São Paulo com temporada esgotada">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-luana-xavier-pequeno-manual-antirracista-programa-do-foyer.html" aria-label="Foto da matéria"><img src="" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-luana-xavier-pequeno-manual-antirracista-programa-do-foyer.html">Luana Xavier - Pequeno Manual Antirracista - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Luana Xavier - Pequeno Manual Antirracista - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-prima-facie-com-debora-falabella.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7d09468187c743a5a66f38d303877fbb~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-prima-facie-com-debora-falabella.html">“Prima Facie” retorna aos palcos com Débora Falabella em nova temporada a partir de fevereiro de 2025</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Prima Facie” retorna aos palcos com Débora Falabella em nova temporada a partir de fevereiro de 2025">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-tv-colosso-o-musical.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7ec90947a7bf4a4ca67722f9262eb477~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-tv-colosso-o-musical.html">“TV Colosso, O Musical” chega aos palcos para uma temporada nostálgica e emocionante</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“TV Colosso, O Musical” chega aos palcos para uma temporada nostálgica e emocionante">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Artigo de Opinião">
+      <a class="ph" href="post-natal-no-palco-e-nas-telas-a-magia-da-arte-nesta-epoca-do-ano-teatro-a-sangue-fr.html" aria-label="Foto da matéria"><img src="" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Artigo de Opinião</span>
+        <h3><a href="post-natal-no-palco-e-nas-telas-a-magia-da-arte-nesta-epoca-do-ano-teatro-a-sangue-fr.html">Natal no Palco e nas Telas: A Magia da Arte nesta época do ano - Teatro a Sangue Frio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.12 — Gerson Steves </span>
+          <button class="share-min" data-share="native" data-title="Natal no Palco e nas Telas: A Magia da Arte nesta época do ano - Teatro a Sangue Frio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-uma-baba-quase-perfeita.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_11663bad7357431a9e5cd4369a1129fe~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-uma-baba-quase-perfeita.html">"Uma Babá Quase Perfeita" encerra temporada no Rio e se prepara para São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Uma Babá Quase Perfeita” encerra temporada no Rio e se prepara para São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-rita-lee-uma-autobiografia-musical.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6893eeaaa238448bbd81f0380bf001ae~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-rita-lee-uma-autobiografia-musical.html">Rita Lee - Uma Autobiografia Musical: Nova Temporada em 2025</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Rita Lee - Uma Autobiografia Musical: Nova Temporada em 2025">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-les-miserables-in-concert.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b9480bdf952e400781a924005e5e6830~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-les-miserables-in-concert.html">“Les Misérables – In Concert” terá única apresentação em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Les Misérables – In Concert” terá única apresentação em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-death-becomes-her.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_f8ca25fca8f94cd9a2ebe6e6575ce0ab~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-death-becomes-her.html">“Death Becomes Her” estreia na Broadway com Megan Hilty e Jennifer Simard liderando o elenco</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Death Becomes Her” estreia na Broadway com Megan Hilty e Jennifer Simard liderando o elenco">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-parodias-in-concert-retorna-a-sao-paulo-com-humor-e-musica.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_bf203806c0044c2fa16127052ff1e415~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-parodias-in-concert-retorna-a-sao-paulo-com-humor-e-musica.html">"Paródias In Concert" retorna a São Paulo com humor e música</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Paródias In Concert” retorna a São Paulo com humor e música">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-luci-salutes-davi-novaes-e-guilherme-gila-musical-dom-casmurro-programa-do-foyer.html" aria-label="Foto da matéria"><img src="" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-luci-salutes-davi-novaes-e-guilherme-gila-musical-dom-casmurro-programa-do-foyer.html">Luci Salutes, Davi Novaes e Guilherme Gila - Musical Dom Casmurro - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Luci Salutes, Davi Novaes e Guilherme Gila - Musical Dom Casmurro - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-desubito-cia-reestreia-raiva-nos-temos-um-cao-que-morde-no-galpao-do-folias.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_80bb0b41df8c4aa1bfa69a1dc920ce03~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-desubito-cia-reestreia-raiva-nos-temos-um-cao-que-morde-no-galpao-do-folias.html">DeSúbito Cia. reestreia “Raiva – nós temos um cão que morde” no Galpão do Folias</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="DeSúbito Cia. reestreia “Raiva – nós temos um cão que morde” no Galpão do Folias">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Festa">
+      <a class="ph" href="post-galharufa-volta-para-sao-paulo-com-edicao-especial-no-the-atro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_21bf424d92214b0ea49cf34c400ce31f~mv2.jpeg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Festa</span>
+        <h3><a href="post-galharufa-volta-para-sao-paulo-com-edicao-especial-no-the-atro.html">Galharufa volta para São Paulo com edição especial no The Atro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.11 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Galharufa volta para São Paulo com edição especial no The Atro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-musical-inspirado-em-gabriela-cravo-e-canela-estreia-no-teatro-dulcina-no-rio-de.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d0b0a358567b4a5d9c3817f46e360c2c~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-inspirado-em-gabriela-cravo-e-canela-estreia-no-teatro-dulcina-no-rio-de.html">Musical inspirado em “Gabriela, Cravo e Canela” estreia no Teatro Dulcina, no Rio de Janeiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical inspirado em “Gabriela, Cravo e Canela” estreia no Teatro Dulcina, no Rio de Janeiro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-helga-nemetik-nao-conta-pra-ninguem-programa-do-foyer.html" aria-label="Foto da matéria"><img src="" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-helga-nemetik-nao-conta-pra-ninguem-programa-do-foyer.html">Helga Nemetik - Não Conta Pra Ninguém - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Helga Nemetik - Não Conta Pra Ninguém - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Artigo de Opinião">
+      <a class="ph" href="post-horror-misterio-ou-terror-voce-sabe-a-diferenca-teatro-a-sangue-frio.html" aria-label="Foto da matéria"><img src="" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Artigo de Opinião</span>
+        <h3><a href="post-horror-misterio-ou-terror-voce-sabe-a-diferenca-teatro-a-sangue-frio.html">Horror, Mistério ou Terror: você sabe a diferença? - Teatro a Sangue Frio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.11 — Gerson Steves </span>
+          <button class="share-min" data-share="native" data-title="Horror, Mistério ou Terror: você sabe a diferença? - Teatro a Sangue Frio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p27.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p27.html">27</a><a href="noticias-p28.html" class="on">28</a><a href="noticias-p29.html">29</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p29.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

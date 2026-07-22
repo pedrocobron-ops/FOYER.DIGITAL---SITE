@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Matérias de Teatro no FOYER.">
+<title>Teatro — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Teatro</h1>
+    <p class="note">952 matérias — página 5 de 40</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html">Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html" class="on">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-nivea-maria-e-regiane-alves-estrelam-querida-mamae-que-estreia-em-maio-no-teatro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_bd95c79168a84e42a5ad59a93cc3fb43~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-nivea-maria-e-regiane-alves-estrelam-querida-mamae-que-estreia-em-maio-no-teatro.html">Nívea Maria e Regiane Alves estrelam “Querida Mamãe”, que estreia em maio no Teatro dos 4</a></h3>
+        <p>A peça “Querida Mamãe”, de Maria Adelaide Amaral, estreia em 1º de maio no Teatro dos 4, no Shopping da Gávea, no Rio de Janeiro. A nova montagem será protagoni…</p>
+        <div class="meta-row">
+          <span class="meta-l">22.04 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Nívea Maria e Regiane Alves estrelam “Querida Mamãe”, que estreia em maio no Teatro dos 4">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-percy-jackson-o-ladrao-de-raios-o-musical-estreia-em-outubro-no-teatro-liberdade.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_185e50cdd8ce477482509fbb866d8e0f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-percy-jackson-o-ladrao-de-raios-o-musical-estreia-em-outubro-no-teatro-liberdade.html">“Percy Jackson – O Ladrão de Raios: O Musical” estreia em outubro no Teatro Liberdade e anuncia Fernando Caruso no elenco</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.04 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Percy Jackson – O Ladrão de Raios: O Musical” estreia em outubro no Teatro Liberdade e anuncia Fernando Caruso no elenco">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-agua-fresca-para-as-flores-segue-em-cartaz-no-teatro-uol-com-marcella-muniz.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_934737693d90484aa4a5a64dfe2f2bc3~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-agua-fresca-para-as-flores-segue-em-cartaz-no-teatro-uol-com-marcella-muniz.html">“Água Fresca para as Flores” segue em cartaz no Teatro UOL com Marcella Muniz</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.04 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Água Fresca para as Flores” segue em cartaz no Teatro UOL com Marcella Muniz">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-7-mulheres-e-um-misterio-o-musical-estreia-em-julho-no-033-rooftop-em-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c3ad96120d1847e9a64c11c9c140bb49~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-7-mulheres-e-um-misterio-o-musical-estreia-em-julho-no-033-rooftop-em-sao-paulo.html">“7 Mulheres e Um Mistério – O Musical” estreia em julho no 033 Rooftop, em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.04 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“7 Mulheres e Um Mistério – O Musical” estreia em julho no 033 Rooftop, em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-caixa-2-classico-de-juca-de-oliveira-estreia-nova-montagem-em-abril-no-teatro-da.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_71d32c78a7b84121ad548174cb8e4a58~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-caixa-2-classico-de-juca-de-oliveira-estreia-nova-montagem-em-abril-no-teatro-da.html">“Caixa 2”, clássico de Juca de Oliveira, estreia nova montagem em abril no Teatro das Artes</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.04 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Caixa 2”, clássico de Juca de Oliveira, estreia nova montagem em abril no Teatro das Artes">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-gregorio-duvivier-apresenta-o-ceu-da-lingua-no-teatro-bradesco-em-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_961e54bbbc3d4578b1edc7a069b7725f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-gregorio-duvivier-apresenta-o-ceu-da-lingua-no-teatro-bradesco-em-sao-paulo.html">Gregorio Duvivier apresenta “O Céu da Língua” no Teatro Bradesco, em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.04 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Gregorio Duvivier apresenta “O Céu da Língua” no Teatro Bradesco, em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-baderna-um-sobrevoo-segue-em-cartaz-no-instituto-capobianco-em-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_87ea328677c64db98d665c2296f0bc81~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-baderna-um-sobrevoo-segue-em-cartaz-no-instituto-capobianco-em-sao-paulo.html">“BadeRna – Um sobrevoo” segue em cartaz no Instituto Capobianco em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.04 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“BadeRna – Um sobrevoo” segue em cartaz no Instituto Capobianco em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-finlandia-estreia-nova-temporada-no-teatro-cultura-artistica-a-partir-de-24-de-a.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_21c54beef64d439091b3966a692f675b~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-finlandia-estreia-nova-temporada-no-teatro-cultura-artistica-a-partir-de-24-de-a.html">“Finlândia” estreia nova temporada no Teatro Cultura Artística a partir de 24 de abril</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.04 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Finlândia” estreia nova temporada no Teatro Cultura Artística a partir de 24 de abril">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-musical-dom-casmurro-segue-em-cartaz-no-itau-cultural-com-sessoes-gratuitas-em-s.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b889dfcf66bf4a2db72503e5d7e70dbf~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-dom-casmurro-segue-em-cartaz-no-itau-cultural-com-sessoes-gratuitas-em-s.html">Musical “Dom Casmurro” segue em cartaz no Itaú Cultural com sessões gratuitas em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.04 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical “Dom Casmurro” segue em cartaz no Itaú Cultural com sessões gratuitas em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-quarto-2107-estreia-em-maio-no-espaco-parlapatoes-com-alexandre-acquiste-e-bruno.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6cd7e9e55762468cb3f201da04ca3f79~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-quarto-2107-estreia-em-maio-no-espaco-parlapatoes-com-alexandre-acquiste-e-bruno.html">“QUARTO 2107” estreia em maio no Espaço Parlapatões com Alexandre Acquiste e Bruno Gadiol</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.04 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“QUARTO 2107” estreia em maio no Espaço Parlapatões com Alexandre Acquiste e Bruno Gadiol">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-sacarose-segue-em-cartaz-na-funarte-sp-com-investigacao-sobre-memoria-e-herancas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_44e49e131f2d4496ae79c073b2e58429~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-sacarose-segue-em-cartaz-na-funarte-sp-com-investigacao-sobre-memoria-e-herancas.html">“SACAROSE” segue em cartaz na Funarte SP com investigação sobre memória e heranças do Brasil colonial</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.04 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“SACAROSE” segue em cartaz na Funarte SP com investigação sobre memória e heranças do Brasil colonial">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-meu-filho-e-um-musical-estreia-em-maio-no-rio-e-anuncia-elenco-que-vivera-paulo-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7ea1db2110254cbca602d5d4de3ca1c3~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-meu-filho-e-um-musical-estreia-em-maio-no-rio-e-anuncia-elenco-que-vivera-paulo-.html">“Meu Filho é um Musical” estreia em maio no Rio e anuncia elenco que viverá Paulo Gustavo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.04 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Meu Filho é um Musical” estreia em maio no Rio e anuncia elenco que viverá Paulo Gustavo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-hugo-bonemer-protagoniza-o-talentoso-ripley-em-temporada-no-teatro-glaucio-gill-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_657f7b04eec6498197c0f5e2e95c779d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-hugo-bonemer-protagoniza-o-talentoso-ripley-em-temporada-no-teatro-glaucio-gill-.html">Hugo Bonèmer protagoniza “O Talentoso Ripley” em temporada no Teatro Gláucio Gill, no Rio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.04 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Hugo Bonèmer protagoniza “O Talentoso Ripley” em temporada no Teatro Gláucio Gill, no Rio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-dibuk-o-musical-estreia-em-abril-no-teatro-sergio-cardoso-em-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7b89c27d229049ccb9ec78c9a0f58d84~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-dibuk-o-musical-estreia-em-abril-no-teatro-sergio-cardoso-em-sao-paulo.html">“DIBUK – O MUSICAL” estreia em abril no Teatro Sérgio Cardoso, em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.04 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“DIBUK – O MUSICAL” estreia em abril no Teatro Sérgio Cardoso, em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-oleanna-de-david-mamet-estreia-em-abril-no-teatro-vivo-em-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_368fa8b7102b44b9a6057b4a867bfd6c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-oleanna-de-david-mamet-estreia-em-abril-no-teatro-vivo-em-sao-paulo.html">“Oleanna”, de David Mamet, estreia em abril no Teatro Vivo, em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.04 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Oleanna”, de David Mamet, estreia em abril no Teatro Vivo, em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-matilde-reestreia-no-teatro-faap-em-abril-com-malu-valle-e-gil-coelho.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_228be1717b9245d9bffd3726a4ffcef0~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-matilde-reestreia-no-teatro-faap-em-abril-com-malu-valle-e-gil-coelho.html">“Matilde” reestreia no Teatro FAAP em abril com Malu Valle e Gil Coelho</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.04 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Matilde” reestreia no Teatro FAAP em abril com Malu Valle e Gil Coelho">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-romeu-e-romeu-estreia-em-abril-no-teatro-italia-com-releitura-homoafetiva-de-sha.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2af4a26daa0e4e5893ad8ecba71e9ef2~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-romeu-e-romeu-estreia-em-abril-no-teatro-italia-com-releitura-homoafetiva-de-sha.html">“Romeu e Romeu” estreia em abril no Teatro Itália com releitura homoafetiva de Shakespeare</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.04 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Romeu e Romeu” estreia em abril no Teatro Itália com releitura homoafetiva de Shakespeare">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-apos-turne-internacional-solo-pai-de-guilherme-logullo-volta-ao-rio-em-abril-no-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_31c60bd8bc9344d8a11c1b06f1f56282~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-apos-turne-internacional-solo-pai-de-guilherme-logullo-volta-ao-rio-em-abril-no-.html">Após turnê internacional, solo “PAI”, de Guilherme Logullo, volta ao Rio em abril no Teatro Gláucio Gill</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Após turnê internacional, solo “PAI”, de Guilherme Logullo, volta ao Rio em abril no Teatro Gláucio Gill">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-chernobyl-volta-aos-palcos-em-sao-paulo-no-teatro-estudio-a-partir-de-1o-de-abri.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3aa5569c5f55423a9c1e11a9b57e146a~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-chernobyl-volta-aos-palcos-em-sao-paulo-no-teatro-estudio-a-partir-de-1o-de-abri.html">“Chernobyl” volta aos palcos em São Paulo no Teatro Estúdio a partir de 1º de abril</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Chernobyl” volta aos palcos em São Paulo no Teatro Estúdio a partir de 1º de abril">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-cock-de-mike-bartlett-ganha-nova-temporada-no-teatro-vivo-em-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b4e6a99383be44a2b1914fd084d96365~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-cock-de-mike-bartlett-ganha-nova-temporada-no-teatro-vivo-em-sao-paulo.html">“COCK”, de Mike Bartlett, ganha nova temporada no Teatro Vivo, em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“COCK”, de Mike Bartlett, ganha nova temporada no Teatro Vivo, em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-o-ceu-fora-daquela-janela-estreia-no-brasil-com-temporada-no-sesc-vila-mariana.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_04987e38471a42c98ac96bbe9792399d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-o-ceu-fora-daquela-janela-estreia-no-brasil-com-temporada-no-sesc-vila-mariana.html">“O Céu Fora Daquela Janela” estreia no Brasil com temporada no Sesc Vila Mariana</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“O Céu Fora Daquela Janela” estreia no Brasil com temporada no Sesc Vila Mariana">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-mariana-muniz-apresenta-das-tripas-sete-historias-com-ingressos-gratuitos-em-sao.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_5316148c973e4571b582a11baf657b15~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-mariana-muniz-apresenta-das-tripas-sete-historias-com-ingressos-gratuitos-em-sao.html">Mariana Muniz apresenta “Das Tripas: Sete Histórias” com ingressos gratuitos em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Mariana Muniz apresenta “Das Tripas: Sete Histórias” com ingressos gratuitos em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-o-magico-de-oz-o-musical-segue-em-cartaz-no-teatro-villa-lobos-em-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_363ccb2ae3534bd4af1c39ed98275bfa~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-o-magico-de-oz-o-musical-segue-em-cartaz-no-teatro-villa-lobos-em-sao-paulo.html">“O Mágico de Oz – O Musical” segue em cartaz no Teatro Villa-Lobos em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“O Mágico de Oz – O Musical” segue em cartaz no Teatro Villa-Lobos em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-felipe-hintze-faz-participacao-especial-em-o-mercador-de-veneza-com-dan-stulbach.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_840e3280bff8443484750fbce1b7d900~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-felipe-hintze-faz-participacao-especial-em-o-mercador-de-veneza-com-dan-stulbach.html">Felipe Hintze faz participação especial em “O Mercador de Veneza”, com Dan Stulbach, no Tucarena</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Felipe Hintze faz participação especial em “O Mercador de Veneza”, com Dan Stulbach, no Tucarena">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="cat-teatro-p4.html">← Anterior</a><a href="cat-teatro.html">1</a><a href="cat-teatro-p2.html">2</a><span>…</span><a href="cat-teatro-p4.html">4</a><a href="cat-teatro-p5.html" class="on">5</a><a href="cat-teatro-p6.html">6</a><span>…</span><a href="cat-teatro-p39.html">39</a><a href="cat-teatro-p40.html">40</a><a href="cat-teatro-p6.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

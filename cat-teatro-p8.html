@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Matérias de Teatro no FOYER.">
+<title>Teatro — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Teatro</h1>
+    <p class="note">952 matérias — página 8 de 40</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html">Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html" class="on">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-tina-tina-turner-o-musical-estreia-no-teatro-santander-em-26-de-fevereiro-de-202.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_45971f6f15144ca0b6b9cbe4e2cfd86a~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-tina-tina-turner-o-musical-estreia-no-teatro-santander-em-26-de-fevereiro-de-202.html">“TINA – Tina Turner, o Musical” estreia no Teatro Santander em 26 de fevereiro de 2026</a></h3>
+        <p>Fenômeno internacional indicado a 12 Tony Awards chega a São Paulo em temporada limitada até 12 de julho, com Analu Pimenta no papel de Tina Turner e César Mell…</p>
+        <div class="meta-row">
+          <span class="meta-l">17.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“TINA – Tina Turner, o Musical” estreia no Teatro Santander em 26 de fevereiro de 2026">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-portugues-o-amor-e-fodido-estreia-em-sao-paulo-no-teatro-manas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_f79a6339b1ec493fa32bdd1ba8e7355a~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-portugues-o-amor-e-fodido-estreia-em-sao-paulo-no-teatro-manas.html">Espetáculo português “O Amor é Fodido” estreia em São Paulo, no Teatro Manás</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo português “O Amor é Fodido” estreia em São Paulo, no Teatro Manás">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ney-matogrosso-homem-com-h-volta-ao-cartaz-no-teatro-porto.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_964e4beb08f04eae9c362d743baa15f4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ney-matogrosso-homem-com-h-volta-ao-cartaz-no-teatro-porto.html">Ney Matogrosso – Homem com H volta ao cartaz no Teatro Porto</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Ney Matogrosso – Homem com H volta ao cartaz no Teatro Porto">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-entre-a-cruz-e-os-canibais-marcos-damigo-revisita-as-origens-de-sao-paulo-em-com.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_585a1f744c44451188a90cf799a2cbc2~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-entre-a-cruz-e-os-canibais-marcos-damigo-revisita-as-origens-de-sao-paulo-em-com.html">Entre a Cruz e os Canibais: Marcos Damigo revisita as origens de São Paulo em comédia farsesca no Teatro Arthur Azevedo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Entre a Cruz e os Canibais: Marcos Damigo revisita as origens de São Paulo em comédia farsesca no Teatro Arthur Azevedo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-premiado-solo-pai-de-guilherme-logullo-faz-primeira-turne-internacional-apos-suc.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_07b26afb932e4aef84c198e14d788224~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-premiado-solo-pai-de-guilherme-logullo-faz-primeira-turne-internacional-apos-suc.html">Premiado solo “PAI”, de Guilherme Logullo, faz primeira turnê internacional após sucesso no Rio e em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Premiado solo “PAI”, de Guilherme Logullo, faz primeira turnê internacional após sucesso no Rio e em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-musical-diana-a-princesa-do-povo-chega-ao-brasil-em-2026-com-temporadas-no-rio-e.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a7dfed2eec794a53ad9db18f9ac2dfab~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-diana-a-princesa-do-povo-chega-ao-brasil-em-2026-com-temporadas-no-rio-e.html">Musical “Diana – A Princesa do Povo” chega ao Brasil em 2026 com temporadas no Rio e em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical “Diana – A Princesa do Povo” chega ao Brasil em 2026 com temporadas no Rio e em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-susi-o-musical-estreia-em-sao-paulo-e-resgata-a-iconica-boneca-brasileira-em-uma.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7188762a6e6f4c94b3e62e0f4e887681~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-susi-o-musical-estreia-em-sao-paulo-e-resgata-a-iconica-boneca-brasileira-em-uma.html">“Susi, o Musical” estreia em São Paulo e resgata a icônica boneca brasileira em uma história inédita</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Susi, o Musical” estreia em São Paulo e resgata a icônica boneca brasileira em uma história inédita">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-com-carol-castro-bruno-fagundes-gustavo-mendes-e-angela-rebello-comedia-a-manha-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_5b8b6e257e9c4e95b7b507830b89c32c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-com-carol-castro-bruno-fagundes-gustavo-mendes-e-angela-rebello-comedia-a-manha-.html">Com Carol Castro, Bruno Fagundes, Gustavo Mendes e Angela Rebello, comédia A Manhã Seguinte está em cartaz em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com Carol Castro, Bruno Fagundes, Gustavo Mendes e Angela Rebello, comédia A Manhã Seguinte está em cartaz em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-habitat-de-rafael-primot-esta-em-cartaz-no-teatro-estudio-e-debate-julgamento-po.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_8735993955624bb2be19e8dd712f2bf2~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-habitat-de-rafael-primot-esta-em-cartaz-no-teatro-estudio-e-debate-julgamento-po.html">Habitat, de Rafael Primot, está em cartaz no Teatro Estúdio e debate julgamento popular na era das redes sociais</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Habitat, de Rafael Primot, está em cartaz no Teatro Estúdio e debate julgamento popular na era das redes sociais">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-idealizado-por-marilia-toledo-gal-o-musical-estreia-em-6-de-marco-no-033-rooftop.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e1923ab0876841e8a170c26c951553e5~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-idealizado-por-marilia-toledo-gal-o-musical-estreia-em-6-de-marco-no-033-rooftop.html">Idealizado por Marília Toledo, Gal, o Musical estreia em 6 de março no 033 Rooftop, em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Idealizado por Marília Toledo, Gal, o Musical estreia em 6 de março no 033 Rooftop, em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-tragedia-medea-de-seneca-novo-espetaculo-de-gabriel-villela-estreiou-no-sesc-con.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a73b25b1e27e4c42942973c4416a4cdd~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-tragedia-medea-de-seneca-novo-espetaculo-de-gabriel-villela-estreiou-no-sesc-con.html">Tragédia Medea, de Séneca, novo espetáculo de Gabriel Villela, estreiou no Sesc Consolação</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Tragédia Medea, de Séneca, novo espetáculo de Gabriel Villela, estreiou no Sesc Consolação">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-um-ano-apos-a-morte-de-marina-colasanti-como-todos-os-atos-humanos-segue-em-temp.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_ad5334a8de744ca5b3f02463a57c4169~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-um-ano-apos-a-morte-de-marina-colasanti-como-todos-os-atos-humanos-segue-em-temp.html">Um ano após a morte de Marina Colasanti, Como Todos os Atos Humanos segue em temporada no Sesc Pinheiros</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Um ano após a morte de Marina Colasanti, Como Todos os Atos Humanos segue em temporada no Sesc Pinheiros">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-fenomeno-teatral-toc-toc-estreia-nova-temporada-em-sao-paulo-no-teatro-uol.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_9944310695eb428da8ac2d8cfdf43fb2~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-fenomeno-teatral-toc-toc-estreia-nova-temporada-em-sao-paulo-no-teatro-uol.html">Fenômeno teatral, TOC TOC estreia nova temporada em São Paulo no Teatro UOL</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Fenômeno teatral, TOC TOC estreia nova temporada em São Paulo no Teatro UOL">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-djavan-o-musical-retorna-ao-rio-em-nova-temporada-no-teatro-claro-mais-rj.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_f6c06169a3bc4d89967f6306d6770e36~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-djavan-o-musical-retorna-ao-rio-em-nova-temporada-no-teatro-claro-mais-rj.html">“Djavan – O Musical” retorna ao Rio em nova temporada no Teatro Claro Mais RJ</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Djavan – O Musical” retorna ao Rio em nova temporada no Teatro Claro Mais RJ">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-o-ultimo-ato-estreia-no-teatro-uniao-cultural-e-abre-discussao-sobre-morte-assis.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c6b76a6ae40b44e0922eecc863f04b0c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-o-ultimo-ato-estreia-no-teatro-uniao-cultural-e-abre-discussao-sobre-morte-assis.html">O Último Ato estreia no Teatro União Cultural e abre discussão sobre morte assistida</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="O Último Ato estreia no Teatro União Cultural e abre discussão sobre morte assistida">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-meus-olhos-esta-em-cartaz-no-mi-teatro-em-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_68071ff0c4c445efa1cb3375b829bdf1~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-meus-olhos-esta-em-cartaz-no-mi-teatro-em-sao-paulo.html">“Meus Olhos” está em cartaz no Mi Teatro, em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Meus Olhos” está em cartaz no Mi Teatro, em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-as-armas-milagrosas-seis-personagens-a-procura-da-existencia-reestreia-no-tusp.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_da7bb504788f4a5e9bf70dae37d61b57~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-as-armas-milagrosas-seis-personagens-a-procura-da-existencia-reestreia-no-tusp.html">As Armas Milagrosas: seis personagens à procura da existência reestreia no TUSP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="As Armas Milagrosas: seis personagens à procura da existência reestreia no TUSP">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-musical-domingo-no-parque-esta-em-cartaz-no-teatro-claro-mais-sp-ate-8-de-fevere.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_186b5d4999a148ed8fdf4a5a68e63ed6~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-domingo-no-parque-esta-em-cartaz-no-teatro-claro-mais-sp-ate-8-de-fevere.html">Musical Domingo no Parque está em cartaz no Teatro Claro Mais SP até 8 de fevereiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical Domingo no Parque está em cartaz no Teatro Claro Mais SP até 8 de fevereiro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ciranda-das-flores-estreia-em-31-de-janeiro-no-btg-pactual-hall-em-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_ff859e512d364c34a8d6e8a0ee823700~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ciranda-das-flores-estreia-em-31-de-janeiro-no-btg-pactual-hall-em-sao-paulo.html">Ciranda das Flores estreia em 31 de janeiro no BTG Pactual Hall, em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Ciranda das Flores estreia em 31 de janeiro no BTG Pactual Hall, em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-felicidade-segue-em-cartaz-no-teatro-sergio-cardoso-com-zeca-baleiro-ao-vivo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2d0e0aa192cb422ea39c7dcc84ec812a~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-felicidade-segue-em-cartaz-no-teatro-sergio-cardoso-com-zeca-baleiro-ao-vivo.html">“Felicidade” segue em cartaz no Teatro Sérgio Cardoso com Zeca Baleiro ao vivo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Felicidade” segue em cartaz no Teatro Sérgio Cardoso com Zeca Baleiro ao vivo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-primeira-cirurgia-da-historia-uma-anedota-cirurgica.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_4fa9fb3613f2464cb6cf81952f56da00~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-primeira-cirurgia-da-historia-uma-anedota-cirurgica.html">A Primeira Cirurgia da História - Uma Anedota Cirúrgica</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.01 — Léo Braga</span>
+          <button class="share-min" data-share="native" data-title="A Primeira Cirurgia da História - Uma Anedota Cirúrgica">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-palma-segue-em-cartaz-no-instituto-capobianco-e-encerra-temporada-em-1o-de-fev.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d2c2a719ebe44aa68abee3c4bbcdb8c4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-palma-segue-em-cartaz-no-instituto-capobianco-e-encerra-temporada-em-1o-de-fev.html">A Palma segue em cartaz no Instituto Capobianco e encerra temporada em 1º de fevereiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="A Palma segue em cartaz no Instituto Capobianco e encerra temporada em 1º de fevereiro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-luci-saluzzi-estreia-show-travessia-no-teatro-gazeta-em-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2c91a415181b4331b145bb2779bb11b9~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-luci-saluzzi-estreia-show-travessia-no-teatro-gazeta-em-sao-paulo.html">Luci Saluzzi estreia show “Travessia” no Teatro Gazeta, em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Luci Saluzzi estreia show “Travessia” no Teatro Gazeta, em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-nao-deixe-que-eles-percebam-comedia-sobre-burnout-une-humor-e-saude-mental-no-te.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_5655f7f781b74752aa39260e0646fdac~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-nao-deixe-que-eles-percebam-comedia-sobre-burnout-une-humor-e-saude-mental-no-te.html">Não deixe que ELES percebam: comédia sobre burnout une humor e saúde mental no Teatro Arthur Azevedo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Não deixe que ELES percebam: comédia sobre burnout une humor e saúde mental no Teatro Arthur Azevedo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="cat-teatro-p7.html">← Anterior</a><a href="cat-teatro.html">1</a><a href="cat-teatro-p2.html">2</a><span>…</span><a href="cat-teatro-p7.html">7</a><a href="cat-teatro-p8.html" class="on">8</a><a href="cat-teatro-p9.html">9</a><span>…</span><a href="cat-teatro-p39.html">39</a><a href="cat-teatro-p40.html">40</a><a href="cat-teatro-p9.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

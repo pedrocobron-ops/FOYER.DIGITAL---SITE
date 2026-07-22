@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Matérias de Teatro no FOYER.">
+<title>Teatro — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Teatro</h1>
+    <p class="note">952 matérias — página 3 de 40</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html">Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html" class="on">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-shrek-o-musical-tem-temporada-prorrogada-ate-julho-no-teatro-renault.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3fbc0e1591654aad9502e9804fc0cb7e~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-shrek-o-musical-tem-temporada-prorrogada-ate-julho-no-teatro-renault.html">“Shrek – O Musical” tem temporada prorrogada até julho no Teatro Renault</a></h3>
+        <p>Devido à forte procura do público, “Shrek – O Musical” teve sua temporada em São Paulo prorrogada até 5 de julho. A superprodução está em cartaz no Teatro Renau…</p>
+        <div class="meta-row">
+          <span class="meta-l">01.06 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Shrek – O Musical” tem temporada prorrogada até julho no Teatro Renault">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-hamlet-sonhos-que-virao-reestreia-com-icaro-silva-e-segue-em-cartaz-no-nu-cine-c.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d42f3c3aa642496ab871740021ec605e~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-hamlet-sonhos-que-virao-reestreia-com-icaro-silva-e-segue-em-cartaz-no-nu-cine-c.html">“Hamlet, sonhos que virão” reestreia com Ícaro Silva e segue em cartaz no Nu Cine Copan</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Hamlet, sonhos que virão” reestreia com Ícaro Silva e segue em cartaz no Nu Cine Copan">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-o-reino-de-jorge-estreia-no-rio-com-musical-inspirado-em-shakespeare-e-vivencia-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_49e32ffc07f7454ea21612f44571835f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-o-reino-de-jorge-estreia-no-rio-com-musical-inspirado-em-shakespeare-e-vivencia-.html">“O Reino de Jorge” estreia no Rio com musical inspirado em Shakespeare e vivência carioca</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“O Reino de Jorge” estreia no Rio com musical inspirado em Shakespeare e vivência carioca">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-miacena-2026-abre-inscricoes-para-obras-de-teatro-danca-circo-e-performance-em-e.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c80e410b3fee4756a6e8c2485df1af67~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-miacena-2026-abre-inscricoes-para-obras-de-teatro-danca-circo-e-performance-em-e.html">MIACENA 2026 abre inscrições para obras de teatro, dança, circo e performance em espaços não convencionais</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="MIACENA 2026 abre inscrições para obras de teatro, dança, circo e performance em espaços não convencionais">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ingressos-de-olhos-nos-olhos-com-ana-lucia-torre-ja-estao-a-venda-para-temporada.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7a75d0d83d704fed90cb79de0930f201~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ingressos-de-olhos-nos-olhos-com-ana-lucia-torre-ja-estao-a-venda-para-temporada.html">Ingressos de “Olhos nos Olhos”, com Ana Lúcia Torre, já estão à venda para temporada no Tucarena</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Ingressos de “Olhos nos Olhos”, com Ana Lúcia Torre, já estão à venda para temporada no Tucarena">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-cirque-du-soleil-traz-alegria-um-novo-dia-a-sao-paulo-e-curitiba-em-2026.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0a3df40395c34955b285b604ba3e739a~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-cirque-du-soleil-traz-alegria-um-novo-dia-a-sao-paulo-e-curitiba-em-2026.html">Cirque du Soleil traz “Alegría – Um Novo Dia” a São Paulo e Curitiba em 2026</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Cirque du Soleil traz “Alegría – Um Novo Dia” a São Paulo e Curitiba em 2026">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-el-brasil-destituido-estreia-no-ccsp-e-questiona-a-colonizacao-do-brasil.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_82a8d718091d4625af312d5e71ac696e~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-el-brasil-destituido-estreia-no-ccsp-e-questiona-a-colonizacao-do-brasil.html">“El Brasil Destituído” estreia no CCSP e questiona a colonização do Brasil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“El Brasil Destituído” estreia no CCSP e questiona a colonização do Brasil">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-donatello-retorna-a-sao-paulo-em-nova-temporada-no-teatro-do-nucleo-experimental.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7fb628648fdb4f3aad45700dc2ff212e~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-donatello-retorna-a-sao-paulo-em-nova-temporada-no-teatro-do-nucleo-experimental.html">“Donatello” retorna a São Paulo em nova temporada no Teatro do Núcleo Experimental</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Donatello” retorna a São Paulo em nova temporada no Teatro do Núcleo Experimental">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-com-direcao-de-isabel-teixeira-cia-mungunza-segue-em-cartaz-com-ela-na-funarte-a.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_5adcfe8a6f5a4cd0b8d8867bdad7cd67~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-com-direcao-de-isabel-teixeira-cia-mungunza-segue-em-cartaz-com-ela-na-funarte-a.html">Com direção de Isabel Teixeira, Cia. Mungunzá segue em cartaz com “Elã” na Funarte até 24 de maio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com direção de Isabel Teixeira, Cia. Mungunzá segue em cartaz com “Elã” na Funarte até 24 de maio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-serpente-de-nelson-rodrigues-estreia-no-rio-com-direcao-de-anna-helena-madruga.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_338aa2e23c524d5eb19815a58c00b55c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-serpente-de-nelson-rodrigues-estreia-no-rio-com-direcao-de-anna-helena-madruga.html">“A Serpente”, de Nelson Rodrigues, estreia no Rio com direção de Anna Helena Madruga</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“A Serpente”, de Nelson Rodrigues, estreia no Rio com direção de Anna Helena Madruga">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-meu-pai-hamlet-estreia-em-maio-no-teatro-estudio-com-pai-e-filha-trocando-de-ofi.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b1ddda8bd47a49a2a8aa0447613b16c6~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-meu-pai-hamlet-estreia-em-maio-no-teatro-estudio-com-pai-e-filha-trocando-de-ofi.html">“Meu Pai, Hamlet” estreia em maio no Teatro Estúdio com pai e filha trocando de ofício em cena</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Meu Pai, Hamlet” estreia em maio no Teatro Estúdio com pai e filha trocando de ofício em cena">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-12o-round-a-historia-de-emile-griffith-estreia-nova-temporada-no-tusp-em-maio.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_1e0cc68744dc42b8ad58c7a4e9316a23~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-12o-round-a-historia-de-emile-griffith-estreia-nova-temporada-no-tusp-em-maio.html">“12º Round: A História de Emile Griffith” estreia nova temporada no TUSP em maio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“12º Round: A História de Emile Griffith” estreia nova temporada no TUSP em maio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-vitor-dicastro-segue-em-cartaz-com-intenso-meu-retorno-de-saturno-no-teatro-ital.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3740bf4bb15444b6a8e361a5b4cba3e9~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-vitor-dicastro-segue-em-cartaz-com-intenso-meu-retorno-de-saturno-no-teatro-ital.html">Vitor diCastro segue em cartaz com “Intenso – meu retorno de Saturno” no Teatro Itália</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Vitor diCastro segue em cartaz com “Intenso – meu retorno de Saturno” no Teatro Itália">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-as-centenarias-estreia-versao-musical-inedita-em-sao-paulo-com-juliana-linhares-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_083b10dd7d6f46f1abb2a3fd1b3481b3~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-as-centenarias-estreia-versao-musical-inedita-em-sao-paulo-com-juliana-linhares-.html">“As Centenárias” estreia versão musical inédita em São Paulo com Juliana Linhares e Laila Garin</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“As Centenárias” estreia versão musical inédita em São Paulo com Juliana Linhares e Laila Garin">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ingressos-de-rita-lee-balada-da-louca-com-lilia-cabral-ja-estao-a-venda-para-tem.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_749fda925890456d94c9d93b72d88c5b~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ingressos-de-rita-lee-balada-da-louca-com-lilia-cabral-ja-estao-a-venda-para-tem.html">Ingressos de “Rita Lee: Balada da Louca”, com Lilia Cabral, já estão à venda para temporada no Teatro FAAP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Ingressos de “Rita Lee: Balada da Louca”, com Lilia Cabral, já estão à venda para temporada no Teatro FAAP">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-comedia-nossa-primeira-vez-estreia-em-maio-no-teatro-candido-mendes-em-ipanema.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c836c9c8fc604edba94f539041e1fcad~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-comedia-nossa-primeira-vez-estreia-em-maio-no-teatro-candido-mendes-em-ipanema.html">Comédia “Nossa Primeira Vez” estreia em maio no Teatro Cândido Mendes, em Ipanema</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Comédia “Nossa Primeira Vez” estreia em maio no Teatro Cândido Mendes, em Ipanema">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-betrayal-de-harold-pinter-segue-em-cartaz-no-teatro-uol-com-direcao-de-lavinia-p.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_370f5188696d4a4387ed6c5cb0ef72d7~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-betrayal-de-harold-pinter-segue-em-cartaz-no-teatro-uol-com-direcao-de-lavinia-p.html">“Betrayal”, de Harold Pinter, segue em cartaz no Teatro UOL com direção de Lavínia Pannunzio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Betrayal”, de Harold Pinter, segue em cartaz no Teatro UOL com direção de Lavínia Pannunzio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-rei-lear-com-elenco-de-drag-queens-estreia-nova-temporada-no-teatro-paulo-eiro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_296409567fd64f1698675baef726f9ec~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-rei-lear-com-elenco-de-drag-queens-estreia-nova-temporada-no-teatro-paulo-eiro.html">“Rei Lear”, com elenco de drag queens, estreia nova temporada no Teatro Paulo Eiró</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Rei Lear”, com elenco de drag queens, estreia nova temporada no Teatro Paulo Eiró">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-o-deus-da-carnificina-esta-em-cartaz-no-rio-com-karine-teles-angelo-paes-leme-e-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_93938f3fb9c94337a6b67468457cba28~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-o-deus-da-carnificina-esta-em-cartaz-no-rio-com-karine-teles-angelo-paes-leme-e-.html">“O Deus da Carnificina” está em cartaz no Rio com Karine Teles, Angelo Paes Leme e Thelmo Fernandes</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“O Deus da Carnificina” está em cartaz no Rio com Karine Teles, Angelo Paes Leme e Thelmo Fernandes">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-rosencrantz-e-guildenstern-estao-mortos-leva-o-avesso-de-hamlet-aos-escombros-do.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a81ce8f220b744d2b0541ef358da55bb~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-rosencrantz-e-guildenstern-estao-mortos-leva-o-avesso-de-hamlet-aos-escombros-do.html">“Rosencrantz e Guildenstern Estão Mortos” leva o avesso de Hamlet aos escombros do Nu Cine Copan</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Rosencrantz e Guildenstern Estão Mortos” leva o avesso de Hamlet aos escombros do Nu Cine Copan">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-fragil-estreia-em-maio-no-teatro-arthur-azevedo-com-relatos-reais-sobre-ausencia.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_661b5ba076db40fdb16dac909e7a12bc~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-fragil-estreia-em-maio-no-teatro-arthur-azevedo-com-relatos-reais-sobre-ausencia.html">“Frágil” estreia em maio no Teatro Arthur Azevedo com relatos reais sobre ausência paterna</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Frágil” estreia em maio no Teatro Arthur Azevedo com relatos reais sobre ausência paterna">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-estopo-balaio-estreia-reset-america-latina-no-sesc-belenzinho-em-maio.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_be8a6dbf03924988ab7c0f35f9ae2757~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-estopo-balaio-estreia-reset-america-latina-no-sesc-belenzinho-em-maio.html">Estopô Balaio estreia “Reset América Latina” no Sesc Belenzinho em maio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Estopô Balaio estreia “Reset América Latina” no Sesc Belenzinho em maio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-cia-ludens-estreia-uma-velha-cancao-quase-esquecida-em-maio-no-sesc-pompeia.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_93e0f626a64a4f7e9e33d0b11c359a4f~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-cia-ludens-estreia-uma-velha-cancao-quase-esquecida-em-maio-no-sesc-pompeia.html">Cia Ludens estreia “Uma velha canção, quase esquecida” em maio no Sesc Pompeia</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Cia Ludens estreia “Uma velha canção, quase esquecida” em maio no Sesc Pompeia">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-o-andante-celebra-3-anos-em-cartaz-com-apresentacoes-especiais-no-teatro-arena-b.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_8a5bfc1789104a149574789831574b43~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-o-andante-celebra-3-anos-em-cartaz-com-apresentacoes-especiais-no-teatro-arena-b.html">“O Andante” celebra 3 anos em cartaz com apresentações especiais no Teatro Arena B3</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.05 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“O Andante” celebra 3 anos em cartaz com apresentações especiais no Teatro Arena B3">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="cat-teatro-p2.html">← Anterior</a><a href="cat-teatro.html">1</a><a href="cat-teatro-p2.html">2</a><a href="cat-teatro-p3.html" class="on">3</a><a href="cat-teatro-p4.html">4</a><span>…</span><a href="cat-teatro-p39.html">39</a><a href="cat-teatro-p40.html">40</a><a href="cat-teatro-p4.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

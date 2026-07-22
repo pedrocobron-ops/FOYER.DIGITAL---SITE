@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Matérias de Teatro no FOYER.">
+<title>Teatro — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Teatro</h1>
+    <p class="note">952 matérias — página 1 de 40</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html">Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html" class="on">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-luisa-thire-apresenta-valsa-no-6-de-nelson-rodrigues-no-teatro-arena-b3.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_ae9fe59ce9c342739f77b7417cd081a2~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-luisa-thire-apresenta-valsa-no-6-de-nelson-rodrigues-no-teatro-arena-b3.html">Luisa Thiré apresenta “Valsa Nº 6”, de Nelson Rodrigues, no Teatro Arena B3</a></h3>
+        <p>m dos textos mais conhecidos de Nelson Rodrigues chega ao Teatro Arena B3 em temporada relâmpago. Nos dias 25 e 26 de julho, Luisa Thiré apresenta o monólogo “V…</p>
+        <div class="meta-row">
+          <span class="meta-l">22.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Luisa Thiré apresenta “Valsa Nº 6”, de Nelson Rodrigues, no Teatro Arena B3">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-os-ultimos-5-anos-volta-a-sao-paulo-em-edicao-comemorativa-pelos-25-anos-do-musi.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d35892ca2a1a45399f79826bebf6a150~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-os-ultimos-5-anos-volta-a-sao-paulo-em-edicao-comemorativa-pelos-25-anos-do-musi.html">"Os Últimos 5 Anos” volta a São Paulo em edição comemorativa pelos 25 anos do musical</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Os Últimos 5 Anos” volta a São Paulo em edição comemorativa pelos 25 anos do musical">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-rosamaria-murtinho-vive-iris-apfel-em-uma-vida-em-cores-no-teatro-vannucci.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_66ceb6a062c0422099c44e3c938e93ce~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-rosamaria-murtinho-vive-iris-apfel-em-uma-vida-em-cores-no-teatro-vannucci.html">Rosamaria Murtinho vive Iris Apfel em “Uma Vida em Cores” no Teatro Vannucci</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Rosamaria Murtinho vive Iris Apfel em “Uma Vida em Cores” no Teatro Vannucci">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-manifesto-estreia-na-funarte-sp-com-lee-taylor-e-direcao-de-georgette-fadel.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_35c3985bc8f0441b8e287588fe75dd34~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-manifesto-estreia-na-funarte-sp-com-lee-taylor-e-direcao-de-georgette-fadel.html">“MANIFESTO” estreia na Funarte SP com Lee Taylor e direção de Georgette Fadel</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“MANIFESTO” estreia na Funarte SP com Lee Taylor e direção de Georgette Fadel">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-brasil-em-revista-revisita-a-historia-do-pais-pelo-olhar-da-resistencia-popular.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_f6bfed958109484ea97dae2a080f4421~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-brasil-em-revista-revisita-a-historia-do-pais-pelo-olhar-da-resistencia-popular.html">“Brasil em Revista” revisita a história do país pelo olhar da resistência popular</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Brasil em Revista” revisita a história do país pelo olhar da resistência popular">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-nos-ursos-leva-romance-de-gilvan-azevedo-ao-teatro-commune.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_13b7395643104940867c723059c7f163~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-nos-ursos-leva-romance-de-gilvan-azevedo-ao-teatro-commune.html">“Nós, Ursos” leva romance de Gilvan Azevedo ao Teatro Commune</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Nós, Ursos” leva romance de Gilvan Azevedo ao Teatro Commune">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-musical-inspirado-na-obra-de-alceu-valenca-estreia-no-rio-apos-os-80-anos-do-art.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_1bd226f84a504ef9a62262f8c72c0a94~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-inspirado-na-obra-de-alceu-valenca-estreia-no-rio-apos-os-80-anos-do-art.html">Musical inspirado na obra de Alceu Valença estreia no Rio após os 80 anos do artista</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical inspirado na obra de Alceu Valença estreia no Rio após os 80 anos do artista">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-paula-capovilla-entra-para-o-elenco-de-7-mulheres-e-um-misterio-o-musical.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_238592a9e23c488f9dab895d0832953b~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-paula-capovilla-entra-para-o-elenco-de-7-mulheres-e-um-misterio-o-musical.html">Paula Capovilla entra para o elenco de “7 Mulheres e Um Mistério – O Musical”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Paula Capovilla entra para o elenco de “7 Mulheres e Um Mistério – O Musical”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-as-bondosas-segue-em-cartaz-no-galpao-do-folias-apos-temporadas-pelo-pais.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_db3b54ad76fc4429a85cc2c0dad835b1~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-as-bondosas-segue-em-cartaz-no-galpao-do-folias-apos-temporadas-pelo-pais.html">“As Bondosas” segue em cartaz no Galpão do Folias após temporadas pelo país</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“As Bondosas” segue em cartaz no Galpão do Folias após temporadas pelo país">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-mulheres-de-troia-estreia-no-teatro-italia-com-olhar-sobre-guerra-e-sobrevivenci.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e91015a39cff438aa6f99854c4480c0c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-mulheres-de-troia-estreia-no-teatro-italia-com-olhar-sobre-guerra-e-sobrevivenci.html">“Mulheres de Troia” estreia no Teatro Itália com olhar sobre guerra e sobrevivência feminina</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Mulheres de Troia” estreia no Teatro Itália com olhar sobre guerra e sobrevivência feminina">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-eu-matei-sophia-loren-em-curta-temporada-na-basalto.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_769649cd7f9649f997f062210d8d060c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-eu-matei-sophia-loren-em-curta-temporada-na-basalto.html">“Eu Matei Sophia Loren” em curta temporada na Basalto</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Eu Matei Sophia Loren” em curta temporada na Basalto">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-edipo-transforma-tragedia-grega-em-thriller-politico-no-auditorio-do-masp.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c91e081d6edf41c982d89ee3abdcab81~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-edipo-transforma-tragedia-grega-em-thriller-politico-no-auditorio-do-masp.html">“Édipo” transforma tragédia grega em thriller político no Auditório do MASP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Édipo” transforma tragédia grega em thriller político no Auditório do MASP">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-katharine-discute-relacoes-abusivas-a-partir-de-o-medico-e-o-monstro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c16b5aed9d7548118a8cb5c930aa0704~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-katharine-discute-relacoes-abusivas-a-partir-de-o-medico-e-o-monstro.html">“Katharine” discute relações abusivas a partir de “O Médico e o Monstro”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Katharine” discute relações abusivas a partir de “O Médico e o Monstro”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-tick-tick-boom-chega-a-sao-paulo-em-curta-temporada-no-teatro-viradalata.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a0e49085e54f4dc8ac0c0131e05ef848~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-tick-tick-boom-chega-a-sao-paulo-em-curta-temporada-no-teatro-viradalata.html">“Tick, tick... BOOM!” chega a São Paulo em curta temporada no Teatro Viradalata</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Tick, tick... BOOM!” chega a São Paulo em curta temporada no Teatro Viradalata">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-olga-de-fernando-morais-vai-ganhar-adaptacao-inedita-para-o-teatro-musical.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3d230cc37594468ebe5d7f940e578f94~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-olga-de-fernando-morais-vai-ganhar-adaptacao-inedita-para-o-teatro-musical.html">“Olga”, de Fernando Morais, vai ganhar adaptação inédita para o teatro musical</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Olga”, de Fernando Morais, vai ganhar adaptação inédita para o teatro musical">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-uma-semana-nada-mais-leva-crise-de-casal-ao-teatro-nair-bello-em-nova-temporada.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_5b26bc12713a498c8f874fe9b9c05b67~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-uma-semana-nada-mais-leva-crise-de-casal-ao-teatro-nair-bello-em-nova-temporada.html">“Uma Semana, Nada Mais” leva crise de casal ao Teatro Nair Bello em nova temporada</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Uma Semana, Nada Mais” leva crise de casal ao Teatro Nair Bello em nova temporada">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-divorcio-discute-violencia-de-genero-a-partir-de-documentos-reais-e-relatos-de-v.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6d3834b79eee47cd80eb72f155611131~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-divorcio-discute-violencia-de-genero-a-partir-de-documentos-reais-e-relatos-de-v.html">“Divórcio” discute violência de gênero a partir de documentos reais e relatos de vida</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Divórcio” discute violência de gênero a partir de documentos reais e relatos de vida">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-julia-lemmertz-e-ora-figueiredo-encenam-a-ruina-da-elite-em-alta-sociedade-de-ma.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_f9df594185534b8c8bc9524716e55118~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-julia-lemmertz-e-ora-figueiredo-encenam-a-ruina-da-elite-em-alta-sociedade-de-ma.html">Julia Lemmertz e Orã Figueiredo encenam a ruína da elite em “Alta Sociedade”, de Mauro Rasi</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Julia Lemmertz e Orã Figueiredo encenam a ruína da elite em “Alta Sociedade”, de Mauro Rasi">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-elias-andreato-e-caio-manhente-estrelam-visitando-o-sr-green-no-rio-de-janeiro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_1881612d0a404c6f9ff3da51ab442a3b~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-elias-andreato-e-caio-manhente-estrelam-visitando-o-sr-green-no-rio-de-janeiro.html">Elias Andreato e Caio Manhente estrelam Visitando o Sr. Green no Rio de Janeiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Elias Andreato e Caio Manhente estrelam Visitando o Sr. Green no Rio de Janeiro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-elas-sao-de-matar-chega-ao-teatro-mooca-em-curta-temporada.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_8576f781d43942f593b14cf87d657c6d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-elas-sao-de-matar-chega-ao-teatro-mooca-em-curta-temporada.html">Elas São de Matar chega ao Teatro Mooca em curta temporada</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Elas São de Matar chega ao Teatro Mooca em curta temporada">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-4ever-a-ultima-noite-retorna-aos-palcos-apos-10-anos-em-nova-montagem.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d59efa14c408409fba3b9bdc711bd52a~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-4ever-a-ultima-noite-retorna-aos-palcos-apos-10-anos-em-nova-montagem.html">4Ever – A Última Noite retorna aos palcos após 10 anos em nova montagem</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="4Ever – A Última Noite retorna aos palcos após 10 anos em nova montagem">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-marco-franca-estreia-a-ultima-cova-de-newton-moreno-no-sesc-pompeia.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3c7a7677c7f4457ea911a330d234c9cf~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-marco-franca-estreia-a-ultima-cova-de-newton-moreno-no-sesc-pompeia.html">Marco França estreia A Última Cova, de Newton Moreno, no Sesc Pompeia</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.06 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Marco França estreia A Última Cova, de Newton Moreno, no Sesc Pompeia">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-anywhere-faz-nova-temporada-no-espaco-cia-da-revista-com-olhar-sobre-imigrantes-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6536e356d214466aa00aee0a4aab056f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-anywhere-faz-nova-temporada-no-espaco-cia-da-revista-com-olhar-sobre-imigrantes-.html">ANYWHERE faz nova temporada no Espaço Cia da Revista com olhar sobre imigrantes e refugiados LGBTQIAPN+</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.06 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="ANYWHERE faz nova temporada no Espaço Cia da Revista com olhar sobre imigrantes e refugiados LGBTQIAPN+">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-7-gatinhos-faz-nova-temporada-no-teat-r-o-oficina-uzyna-uzona-com-sessoes-aos-fi.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_5acde798195343f3946e83882e195149~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-7-gatinhos-faz-nova-temporada-no-teat-r-o-oficina-uzyna-uzona-com-sessoes-aos-fi.html">7 Gatinhos faz nova temporada no Teat(r)o Oficina Uzyna Uzona com sessões aos fins de semana</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.06 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="7 Gatinhos faz nova temporada no Teat(r)o Oficina Uzyna Uzona com sessões aos fins de semana">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="cat-teatro.html" class="on">1</a><a href="cat-teatro-p2.html">2</a><span>…</span><a href="cat-teatro-p39.html">39</a><a href="cat-teatro-p40.html">40</a><a href="cat-teatro-p2.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

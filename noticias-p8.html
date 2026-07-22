@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 8 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 8 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-minha-estrela-dalva-renato-borghi-homenageia-dalva-de-oliveira-em-musical-inedit.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6129b16e3bb84edd8ded82d4ce94e18c~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-minha-estrela-dalva-renato-borghi-homenageia-dalva-de-oliveira-em-musical-inedit.html">“Minha Estrela Dalva”: Renato Borghi homenageia Dalva de Oliveira em musical inédito com Soraya Ravenle no papel da diva</a></h3>
+        <p>Um amor de infância que atravessou décadas — e virou cena. “Minha Estrela Dalva”, musical escrito e estrelado por Renato Borghi, estreia em 28 de março, no Teat…</p>
+        <div class="meta-row">
+          <span class="meta-l">07.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Minha Estrela Dalva”: Renato Borghi homenageia Dalva de Oliveira em musical inédito com Soraya Ravenle no papel da diva">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-arte1-exibe-ineditos-de-abre-a-coxia-ate-18-de-marco-e-mergulha-nos-bastidores-d.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0b9979d9d6dc451999f64a28d5b658bb~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-arte1-exibe-ineditos-de-abre-a-coxia-ate-18-de-marco-e-mergulha-nos-bastidores-d.html">Arte1 exibe inéditos de “Abre a Coxia” até 18 de março e mergulha nos bastidores do teatro brasileiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Arte1 exibe inéditos de “Abre a Coxia” até 18 de março e mergulha nos bastidores do teatro brasileiro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-liberdade-liberdade-o-musical-estreia-em-sao-paulo-e-transforma-o-debate-sobre-l.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a947d27b4d97414bbbb08d2ec0425a34~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-liberdade-liberdade-o-musical-estreia-em-sao-paulo-e-transforma-o-debate-sobre-l.html">“Liberdade, Liberdade – O Musical” estreia em São Paulo e transforma o debate sobre liberdade em um festival de rock cênico</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Liberdade, Liberdade – O Musical” estreia em São Paulo e transforma o debate sobre liberdade em um festival de rock cênico">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-ultima-sessao-de-freud-volta-a-sao-paulo-e-reestreia-em-6-de-marco-no-teatro-s.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d78d5d8e887849c8ad564898cf26d8ff~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-ultima-sessao-de-freud-volta-a-sao-paulo-e-reestreia-em-6-de-marco-no-teatro-s.html">“A Última Sessão de Freud” volta a São Paulo e reestreia em 6 de março no Teatro Sabesp Frei Caneca</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“A Última Sessão de Freud” volta a São Paulo e reestreia em 6 de março no Teatro Sabesp Frei Caneca">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-the-moment-desenvolvido-a-partir-de-ideia-original-de-charli-xcx-estreia-em-novo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_21dd4e5693444ebf942646c3748b49ba~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-the-moment-desenvolvido-a-partir-de-ideia-original-de-charli-xcx-estreia-em-novo.html">The Moment, desenvolvido a partir de ideia original de Charli XCX, estreia em novos cinemas no Brasil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="The Moment, desenvolvido a partir de ideia original de Charli XCX, estreia em novos cinemas no Brasil">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-qualquer-gato-vira-lata-tem-uma-vida-sexual-mais-sadia-que-a-nossa-ganha-nova-mo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e26c5b8486fa4aa887ea28e9e56b8658~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-qualquer-gato-vira-lata-tem-uma-vida-sexual-mais-sadia-que-a-nossa-ganha-nova-mo.html">“Qualquer Gato Vira-Lata Tem Uma Vida Sexual Mais Sadia que a Nossa!” ganha nova montagem e estreia em 6 de março no Teatro das Artes, em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Qualquer Gato Vira-Lata Tem Uma Vida Sexual Mais Sadia que a Nossa!” ganha nova montagem e estreia em 6 de março no Teatro das Artes, em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-teatro-youtube-destaca-protagonismo-feminino-em-marco-com-humor-literatura-e-deb.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_4933fdb476bb405aa47ac339dff4a658~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-teatro-youtube-destaca-protagonismo-feminino-em-marco-com-humor-literatura-e-deb.html">Teatro YouTube destaca protagonismo feminino em março com humor, literatura e debates contemporâneos na Avenida Paulista</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Teatro YouTube destaca protagonismo feminino em março com humor, literatura e debates contemporâneos na Avenida Paulista">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-tuca-andrada-estreia-nova-temporada-em-sp-com-let-s-play-that-ou-vamos-brincar-d.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c27c115c553241869f84a321bb53768f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-tuca-andrada-estreia-nova-temporada-em-sp-com-let-s-play-that-ou-vamos-brincar-d.html">Tuca Andrada estreia nova temporada em SP com “Let’s Play That ou Vamos Brincar Daquilo” no Teatro Sérgio Cardoso</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Tuca Andrada estreia nova temporada em SP com “Let’s Play That ou Vamos Brincar Daquilo” no Teatro Sérgio Cardoso">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-marco-transforma-o-btg-pactual-hall-em-palco-de-grandes-encontros-entre-musica-e.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7b0b96bf2d4948a995fd0e92f4f9ff25~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-marco-transforma-o-btg-pactual-hall-em-palco-de-grandes-encontros-entre-musica-e.html">Março transforma o BTG Pactual Hall em palco de grandes encontros entre música e memória cultural</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Março transforma o BTG Pactual Hall em palco de grandes encontros entre música e memória cultural">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-rosamaria-murtinho-interpreta-iris-apfel-em-uma-vida-em-cores-que-estreia-no-tea.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_cee44457e41f4a4aaa342be8ffec2c03~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-rosamaria-murtinho-interpreta-iris-apfel-em-uma-vida-em-cores-que-estreia-no-tea.html">Rosamaria Murtinho interpreta Iris Apfel em “Uma Vida em Cores”, que estreia no Teatro I Love Prio, no Rio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Rosamaria Murtinho interpreta Iris Apfel em “Uma Vida em Cores”, que estreia no Teatro I Love Prio, no Rio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-nucleo-bartolomeu-de-depoimentos-abre-a-programacao-2026-do-instituto-capobianco.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0b3e9c18ab2b4fbba6268b9e536e955c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-nucleo-bartolomeu-de-depoimentos-abre-a-programacao-2026-do-instituto-capobianco.html">Núcleo Bartolomeu de Depoimentos abre a programação 2026 do Instituto Capobianco com residência e reestreia de “Hip-Hop Blues – Espólio das Águas”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Núcleo Bartolomeu de Depoimentos abre a programação 2026 do Instituto Capobianco com residência e reestreia de “Hip-Hop Blues – Espólio das Águas”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-fabi-bang-e-myra-ruiz-se-revezam-como-fiona-em-shrek-o-musical-no-teatro-renault.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0042891accad4f239ab7ebc4cf2d92ea~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-fabi-bang-e-myra-ruiz-se-revezam-como-fiona-em-shrek-o-musical-no-teatro-renault.html">Fabi Bang e Myra Ruiz se revezam como Fiona em Shrek – O Musical no Teatro Renault</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Fabi Bang e Myra Ruiz se revezam como Fiona em Shrek – O Musical no Teatro Renault">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Streaming">
+      <a class="ph" href="post-beleza-fatal-novela-original-da-hbo-max-estreia-na-tnt-em-16-de-marco.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_bc4b0f779c5c43e6bfb357a7c4cf4d6f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-beleza-fatal-novela-original-da-hbo-max-estreia-na-tnt-em-16-de-marco.html">“Beleza Fatal”, novela Original da HBO Max, estreia na TNT em 16 de março</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.03 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Beleza Fatal”, novela Original da HBO Max, estreia na TNT em 16 de março">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-filme-independente-minha-mae-sandra-aborda-depressao-e-amplia-debate-sobre-saude.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_38577c4efcba4f199e8e55ceb9305faa~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-filme-independente-minha-mae-sandra-aborda-depressao-e-amplia-debate-sobre-saude.html">Filme independente “Minha Mãe Sandra” aborda depressão e amplia debate sobre saúde mental</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Filme independente “Minha Mãe Sandra” aborda depressão e amplia debate sobre saúde mental">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-encenacao-na-capela-de-um-cemiterio-em-sao-paulo-queda-de-baleia-ou-canto-para-d.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2cd8f43f0a5a4706844856f1f52bfa3b~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-encenacao-na-capela-de-um-cemiterio-em-sao-paulo-queda-de-baleia-ou-canto-para-d.html">Encenação na capela de um cemitério em São Paulo, “Queda de Baleia ou Canto para Dançar com Minha Morte” volta em cartaz a partir de 14 de março</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Encenação na capela de um cemitério em São Paulo, “Queda de Baleia ou Canto para Dançar com Minha Morte” volta em cartaz a partir de 14 de março">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-teatro-da-vertigem-volta-a-sao-paulo-com-agropeca-no-espaco-cultural-elza-soares.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_224f2e4aec024502846325275be05bc8~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-teatro-da-vertigem-volta-a-sao-paulo-com-agropeca-no-espaco-cultural-elza-soares.html">Teatro da Vertigem volta a São Paulo com Agropeça no Espaço Cultural Elza Soares, o Galpão do MST</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Teatro da Vertigem volta a São Paulo com Agropeça no Espaço Cultural Elza Soares, o Galpão do MST">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-pieta-um-fractal-de-memorias-reestreia-na-sp-escola-de-teatro-em-curta-temporada.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_acc5fbdfc7da4269a4612529f408706d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-pieta-um-fractal-de-memorias-reestreia-na-sp-escola-de-teatro-em-curta-temporada.html">“Pietà – Um Fractal de Memórias” reestreia na SP Escola de Teatro em curta temporada</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Pietà – Um Fractal de Memórias” reestreia na SP Escola de Teatro em curta temporada">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Show">
+      <a class="ph" href="post-fabio-jr-faz-dois-shows-no-espaco-unimed-em-27-e-28-de-fevereiro-com-a-turne-bem.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_34b571f79bbe4b9db07229892d4077bf~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Show</span>
+        <h3><a href="post-fabio-jr-faz-dois-shows-no-espaco-unimed-em-27-e-28-de-fevereiro-com-a-turne-bem.html">Fábio Jr. faz dois shows no Espaço Unimed em 27 e 28 de fevereiro com a turnê “Bem Mais Que os Meus 20 e Poucos Anos”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Fábio Jr. faz dois shows no Espaço Unimed em 27 e 28 de fevereiro com a turnê “Bem Mais Que os Meus 20 e Poucos Anos”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Show">
+      <a class="ph" href="post-taciana-barros-marisa-orth-e-buhr-celebram-belchior-em-amar-e-mudar-as-coisas-no.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7353401be3984d429a4c1d4c3a28867e~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Show</span>
+        <h3><a href="post-taciana-barros-marisa-orth-e-buhr-celebram-belchior-em-amar-e-mudar-as-coisas-no.html">Taciana Barros, Marisa Orth e Buhr celebram Belchior em “Amar e Mudar as Coisas” no Teatro Bradesco</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Taciana Barros, Marisa Orth e Buhr celebram Belchior em “Amar e Mudar as Coisas” no Teatro Bradesco">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-rafael-infante-e-dani-calabresa-estrelam-a-comedia-um-pai-em-apuros-que-estreia-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c0e15391eafd43dfb4dc780516c75fa4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-rafael-infante-e-dani-calabresa-estrelam-a-comedia-um-pai-em-apuros-que-estreia-.html">Rafael Infante e Dani Calabresa estrelam a comédia “Um Pai em Apuros”, que estreia nos cinemas em 23 de abril</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Rafael Infante e Dani Calabresa estrelam a comédia “Um Pai em Apuros”, que estreia nos cinemas em 23 de abril">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-roberto-birindelli-celebra-33-anos-de-il-primo-miracolo-com-nova-temporada-em-sa.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3ad2e719f67349338558be7c9c44f1a7~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-roberto-birindelli-celebra-33-anos-de-il-primo-miracolo-com-nova-temporada-em-sa.html">Roberto Birindelli celebra 33 anos de Il Primo Miracolo com nova temporada em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Roberto Birindelli celebra 33 anos de Il Primo Miracolo com nova temporada em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ana-beatriz-nogueira-estreia-em-sao-paulo-a-procura-de-uma-dignidade-performance.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_be5810f58f054b089771842f0bbe0c26~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ana-beatriz-nogueira-estreia-em-sao-paulo-a-procura-de-uma-dignidade-performance.html">Ana Beatriz Nogueira estreia em São Paulo “A Procura de uma Dignidade”, performance inspirada em Clarice Lispector</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Ana Beatriz Nogueira estreia em São Paulo “A Procura de uma Dignidade”, performance inspirada em Clarice Lispector">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-baleia-esta-em-cartaz-em-sao-paulo-com-emilio-de-mello-no-papel-de-charlie.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6cf51042114048d2adc6cd338f594017~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-baleia-esta-em-cartaz-em-sao-paulo-com-emilio-de-mello-no-papel-de-charlie.html">"A Baleia” está em cartaz em São Paulo com Emílio de Mello no papel de Charlie</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”A Baleia” está em cartaz em São Paulo com Emílio de Mello no papel de Charlie">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-gil-andar-com-fe-musical-inedito-em-homenagem-a-gilberto-gil-estreia-em-sao-paul.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_9091736016f341ea9d037dd5f818eece~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-gil-andar-com-fe-musical-inedito-em-homenagem-a-gilberto-gil-estreia-em-sao-paul.html">GIL – Andar com Fé: musical inédito em homenagem a Gilberto Gil estreia em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.02 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="GIL – Andar com Fé: musical inédito em homenagem a Gilberto Gil estreia em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p7.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p7.html">7</a><a href="noticias-p8.html" class="on">8</a><a href="noticias-p9.html">9</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p9.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

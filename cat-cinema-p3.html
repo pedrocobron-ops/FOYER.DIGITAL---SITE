@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Matérias de Cinema no FOYER.">
+<title>Cinema — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Cinema</h1>
+    <p class="note">112 matérias — página 3 de 5</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html">Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html" class="on">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Cinema">
+      <a class="ph" href="post-warner-bros-anuncia-data-de-estreia-de-beetlejuice-2-no-brasil-alem-de-outros-fi.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_38149cfd1e9e45c5a7d869138dc5fa52~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-warner-bros-anuncia-data-de-estreia-de-beetlejuice-2-no-brasil-alem-de-outros-fi.html">Warner Bros anuncia data de estreia de “BeetleJuice 2” no Brasil, além de outros filmes</a></h3>
+        <p>O calendário de estreias do estúdio está recheado para 2024, começando pelo mais aguardado “BeetleJuice 2” que marca a volta de Michael...…</p>
+        <div class="meta-row">
+          <span class="meta-l">10.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Warner Bros anuncia data de estreia de “BeetleJuice 2” no Brasil, além de outros filmes">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-animacao-wish-que-celebra-os-100-anos-da-disney-estreia-hoje-nos-cinemas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_35b4565510ad4fec98bd31453c28c239~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-animacao-wish-que-celebra-os-100-anos-da-disney-estreia-hoje-nos-cinemas.html">Animação “Wish” que celebra os 100 anos da Disney estreia hoje nos cinemas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Animação “Wish” que celebra os 100 anos da Disney estreia hoje nos cinemas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-mamonas-assassinas-longa-que-conta-a-historia-do-iconico-grupo-de-guarulhos-cheg.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e6c4da4032294e63a988f19e58efb724~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-mamonas-assassinas-longa-que-conta-a-historia-do-iconico-grupo-de-guarulhos-cheg.html">“Mamonas Assassinas”, longa que conta a história do icônico grupo de guarulhos chega aos cinemas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Mamonas Assassinas”, longa que conta a história do icônico grupo de guarulhos chega aos cinemas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-sandy-retorna-ao-cinema-apos-11-anos-para-protagonizar-o-longa-evidencias-do-amo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c8cd5bd45d144d8598ec9466415d5312~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-sandy-retorna-ao-cinema-apos-11-anos-para-protagonizar-o-longa-evidencias-do-amo.html">Sandy retorna ao cinema após 11 anos, para protagonizar o longa “Evidências do Amor”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Sandy retorna ao cinema após 11 anos, para protagonizar o longa “Evidências do Amor”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-jesuita-barbosa-sera-ney-matogrosso-em-longa-biografico-homem-com-h.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_ea565615609d40bf95b55b01ee9f18fe~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-jesuita-barbosa-sera-ney-matogrosso-em-longa-biografico-homem-com-h.html">Jesuíta Barbosa será Ney Matogrosso em longa biográfico “Homem com H”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Jesuíta Barbosa será Ney Matogrosso em longa biográfico “Homem com H”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-nos-somos-o-amanha-com-claudia-ohana-e-silvero-pereira-combina-elementos-fantast.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e423acc2152949c7b1d341d6c18aa26d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-nos-somos-o-amanha-com-claudia-ohana-e-silvero-pereira-combina-elementos-fantast.html">“Nós somos o amanhã” com Claudia Ohana e Silvero Pereira combina elementos fantásticos e LGBT</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Nós somos o amanhã” com Claudia Ohana e Silvero Pereira combina elementos fantásticos e LGBT">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-comedia-uma-carta-para-o-papai-noel-com-totia-meirelles-e-elisa-volpatto-estreia.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3164f2661ba1443d85d7604c73a0a8f1~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-comedia-uma-carta-para-o-papai-noel-com-totia-meirelles-e-elisa-volpatto-estreia.html">Comédia “Uma carta para o papai noel” com Totia Meireles e Elisa Volpatto estreia em dezembro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Comédia “Uma carta para o papai noel” com Totia Meireles e Elisa Volpatto estreia em dezembro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-besouro-azul-longa-protagonizado-por-bruna-marquezine-ja-esta-disponivel-na-hbom.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6e61b07a46944e4f98f7ea4938ef4989~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-besouro-azul-longa-protagonizado-por-bruna-marquezine-ja-esta-disponivel-na-hbom.html">Besouro Azul, longa protagonizado por Bruna Marquezine, já está disponível na HBOMAX</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Besouro Azul, longa protagonizado por Bruna Marquezine, já está disponível na HBOMAX">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-tia-virginia-longa-com-vera-holtz-e-arlete-salles-esta-em-cartaz-em-apenas-3-cin.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_bdff5e7ff752450da47c8aa5235c5633~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-tia-virginia-longa-com-vera-holtz-e-arlete-salles-esta-em-cartaz-em-apenas-3-cin.html">Tia Virgínia, longa com Vera Holtz e Arlete Salles, está em cartaz em apenas 3 cinemas de SP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Tia Virgínia, longa com Vera Holtz e Arlete Salles, está em cartaz em apenas 3 cinemas de SP">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-durval-discos-filme-de-anna-muylaert-com-marisa-orth-e-rita-lee-tera-copia-lanca.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_39fe5d9c1657477ea6a2535d62555514~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-durval-discos-filme-de-anna-muylaert-com-marisa-orth-e-rita-lee-tera-copia-lanca.html">Durval Discos, filme de Anna Muylaert com Marisa Orth e Rita Lee terá cópia lançada em 4k</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Durval Discos, filme de Anna Muylaert com Marisa Orth e Rita Lee terá cópia lançada em 4k">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-com-estreia-marcada-para-o-dia-28-de-dezembro-mamonas-assassinas-o-filme-ganha-t.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d23e45d5510d484f89e39e0b717d0d24~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-com-estreia-marcada-para-o-dia-28-de-dezembro-mamonas-assassinas-o-filme-ganha-t.html">Com estreia marcada para o dia 28 de dezembro, “Mamonas Assassinas: O Filme” ganha trailer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com estreia marcada para o dia 28 de dezembro, “Mamonas Assassinas: O Filme” ganha trailer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-longa-nosso-sonho-sobre-a-historia-de-claudinho-e-buchecha-se-torna-a-maior-bilh.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6db21eb6d1a34e6ab288b013843a27af~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-longa-nosso-sonho-sobre-a-historia-de-claudinho-e-buchecha-se-torna-a-maior-bilh.html">Longa “Nosso Sonho” sobre a história de Claudinho e Buchecha se torna a maior bilheteria do ano</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Longa “Nosso Sonho” sobre a história de Claudinho e Buchecha se torna a maior bilheteria do ano">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-vudu-delivery-sera-o-novo-longa-de-marcos-veras-e-nathalia-lage.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6ac12fde8c064aaeb9aa8b3fdc2b83ac~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-vudu-delivery-sera-o-novo-longa-de-marcos-veras-e-nathalia-lage.html">“Vudu Delivery” será o novo longa de Marcos Veras e Natália Lage</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Vudu Delivery” será o novo longa de Marcos Veras e Natália Lage">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-nosso-lar-2-os-mensageiros-ganha-novo-trailer.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0732186d928b4d9b853eed9f22e4a139~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-nosso-lar-2-os-mensageiros-ganha-novo-trailer.html">‘Nosso Lar 2 - Os Mensageiros’ ganha novo trailer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="‘Nosso Lar 2 - Os Mensageiros’ ganha novo trailer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-xuxa-esta-de-volta-aos-cinemas-com-60-anos-no-longa-uma-fada-veio-me-visitar.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_59e1e31600f44d4785dcf682bebbf12a~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-xuxa-esta-de-volta-aos-cinemas-com-60-anos-no-longa-uma-fada-veio-me-visitar.html">Xuxa está de volta aos cinemas, com 60 anos, no longa “Uma Fada Veio me Visitar”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Xuxa está de volta aos cinemas, com 60 anos, no longa “Uma Fada Veio me Visitar”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-o-longa-a-batalha-da-rua-maria-antonia-estreia-hoje-no-festival-de-cinema-do-rio.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_cc0efa76a71d4e9abf45986390322c90~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-o-longa-a-batalha-da-rua-maria-antonia-estreia-hoje-no-festival-de-cinema-do-rio.html">O longa “A Batalha da Rua Maria Antônia” estreia hoje no festival de cinema do Rio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="O longa “A Batalha da Rua Maria Antônia” estreia hoje no festival de cinema do Rio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-bela-america.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_36a6fe56c0e749879b760e9a6d17b7ee~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-bela-america.html">“Bela América” longa de coprodução entre Brasil e Portugal fala sobre meritocracia</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Bela América” longa de coprodução entre Brasil e Portugal fala sobre meritocracia">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-priscilla-de-sofia-coppola-baseado-na-biografia-elvis-e-eu-ja-tem-data-para-cheg.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_ff888485647f4d37a6d1a844d2159194~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-priscilla-de-sofia-coppola-baseado-na-biografia-elvis-e-eu-ja-tem-data-para-cheg.html">"Priscilla", de Sofia Coppola baseado na biografia “Elvis e Eu” já tem data para chegar aos cinemas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.10 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="”Priscilla”, de Sofia Coppola baseado na biografia “Elvis e Eu” já tem data para chegar aos cinemas">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-elis-tom-tenta-vaga-no-oscar-2024-de-melhor-documentario.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_80aa5de6060c4afc9a8746b750fcd826~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-elis-tom-tenta-vaga-no-oscar-2024-de-melhor-documentario.html">ELIS & TOM tenta vaga no Oscar 2024 de Melhor Documentário</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.10 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="ELIS & TOM tenta vaga no Oscar 2024 de Melhor Documentário">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-comeca-hoje-a-semana-do-cinema-que-tera-ingressos-por-r-12-em-todo-o-brasil.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_60ae31f1015d402b9ced7b0d558ee6c4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-comeca-hoje-a-semana-do-cinema-que-tera-ingressos-por-r-12-em-todo-o-brasil.html">Começa hoje a semana do Cinema, que terá ingressos por R$12 em todo o Brasil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Começa hoje a semana do Cinema, que terá ingressos por R$12 em todo o Brasil">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-estreia-de-meu-sangue-ferve-por-voce-sera-na-premiere-brasil-do-festival-do-rio.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_c5ab70d170734465b549ccc5d817b7f1~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-estreia-de-meu-sangue-ferve-por-voce-sera-na-premiere-brasil-do-festival-do-rio.html">Estreia de "Meu Sangue Ferve por Você" será na Première Brasil do Festival do Rio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.09 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Estreia de ”Meu Sangue Ferve por Você” será na Première Brasil do Festival do Rio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-longa-dirigido-por-murilo-benicio-e-estrelado-por-drica-moraes-estreia-hoje.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_92648ff5bda14129a381ebf38c4b9cf7~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-longa-dirigido-por-murilo-benicio-e-estrelado-por-drica-moraes-estreia-hoje.html">Longa dirigido por Murilo Benício e estrelado por Drica Moraes, estreia hoje</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Longa dirigido por Murilo Benício e estrelado por Drica Moraes, estreia hoje">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-sequencia-de-a-freira-tem-estreia-marcada-por-recorde-de-publico-no-brasil.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_54cfe6271edb47ffb5bd443dd5a0ec45~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-sequencia-de-a-freira-tem-estreia-marcada-por-recorde-de-publico-no-brasil.html">Sequência de “A Freira” tem estreia marcada por recorde de público no Brasil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Sequência de “A Freira” tem estreia marcada por recorde de público no Brasil">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-estreia-hoje-comedia-com-lilia-cabral-e-stepan-nercessian.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_560119ad8b9f4026915fba9a07bea7ee~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-estreia-hoje-comedia-com-lilia-cabral-e-stepan-nercessian.html">Estreia hoje comédia com Lilia Cabral e Stepan Nercessian</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Estreia hoje comédia com Lilia Cabral e Stepan Nercessian">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="cat-cinema-p2.html">← Anterior</a><a href="cat-cinema.html">1</a><a href="cat-cinema-p2.html">2</a><a href="cat-cinema-p3.html" class="on">3</a><a href="cat-cinema-p4.html">4</a><a href="cat-cinema-p5.html">5</a><a href="cat-cinema-p4.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

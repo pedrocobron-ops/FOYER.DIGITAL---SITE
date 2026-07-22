@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Matérias de Teatro no FOYER.">
+<title>Teatro — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Teatro</h1>
+    <p class="note">952 matérias — página 23 de 40</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html">Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html" class="on">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-tennessee-williams-deve-morrer.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_148d452829104f1580794ef1ef621e88~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-tennessee-williams-deve-morrer.html">"Tennessee Williams Deve Morrer" Estreia no Sesc Pinheiros com Adaptação Metateatral Inspirada na Vida do Dramaturgo</a></h3>
+        <p>O espetáculo Tennessee Williams Deve Morrer, da Cia. Filhos do Dr. Alfredo, faz sua estreia de 21 de novembro a 14 de dezembro no Sesc Pinhe…</p>
+        <div class="meta-row">
+          <span class="meta-l">14.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Tennessee Williams Deve Morrer” Estreia no Sesc Pinheiros com Adaptação Metateatral Inspirada na Vida do Dramaturgo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-cia-graxa-espetaculo-cabo-enrolado.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_8644990aa47546538736212487a65fe4~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-cia-graxa-espetaculo-cabo-enrolado.html">Cia Graxa leva a vida dos entregadores de aplicativos ao palco com o espetáculo Cabo Enrolado</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Cia Graxa leva a vida dos entregadores de aplicativos ao palco com o espetáculo Cabo Enrolado">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ray-voce-nao-me-conhece.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_1a43d6cd1a114e6288018e6e189acf48~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ray-voce-nao-me-conhece.html">“Ray – Você Não Me Conhece” Estreia no Teatro B32 em Homenagem ao Ícone Ray Charles</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Ray – Você Não Me Conhece” Estreia no Teatro B32 em Homenagem ao Ícone Ray Charles">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-selva-solidao.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_8f3095ef110a4b5cbec53ca25ce5a75c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-selva-solidao.html">"Selva: Solidão" Estreia no Teatro Ziembinski com Reflexões Sobre a Solidão LGBTQIAPN+</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Selva: Solidão” Estreia no Teatro Ziembinski com Reflexões Sobre a Solidão LGBTQIAPN+">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-bela-e-a-fera.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_f1c529f030e540859b657d84894d6683~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-bela-e-a-fera.html">"A Bela e a Fera – Um Especial de Natal" Estreia no Teatro Procópio Ferreira em Versão de Superprodução</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”A Bela e a Fera – Um Especial de Natal” Estreia no Teatro Procópio Ferreira em Versão de Superprodução">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-vital-o-musical-dos-paralamas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b9372ae397804ac382d8daf05cdee20b~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-vital-o-musical-dos-paralamas.html">‘VITAL – O Musical dos Paralamas’ em cartaz no Rio de Janeiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="‘VITAL – O Musical dos Paralamas’ em cartaz no Rio de Janeiro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-o-admiravel-sertao-de-ze-ramalho.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_5f28190be5a1418dbf29785c9bea2e40~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-o-admiravel-sertao-de-ze-ramalho.html">"O Admirável Sertão de Zé Ramalho" Estreia no Sesc 24 de Maio Após Turnê de Sucesso</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”O Admirável Sertão de Zé Ramalho” Estreia no Sesc 24 de Maio Após Turnê de Sucesso">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-premio-destaque-imprensa-digital.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_5fa54302b49f45c899407515985ff219~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-premio-destaque-imprensa-digital.html">7ª Edição do Prêmio Destaque Imprensa Digital (DID) Anuncia Indicados para 2024</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="7ª Edição do Prêmio Destaque Imprensa Digital (DID) Anuncia Indicados para 2024">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-stanisloves-me.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_ff128fbbcd6d4ac0b921d008b75f0117~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-stanisloves-me.html">Espetáculo "STANISLOVES-ME" encerra 3ª Edição da Mostra Segundas de Solo no Espaço ºAndar</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo ”STANISLOVES-ME” encerra 3ª Edição da Mostra Segundas de Solo no Espaço ºAndar">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-estreia-de-exercicio-das-criancas.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b3704322369d4194a4d89081f1058eb9~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-estreia-de-exercicio-das-criancas.html">Estreia de "Exercício das Crianças" no Espaço de Provocação Cultural</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Estreia de ”Exercício das Crianças” no Espaço de Provocação Cultural">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-moscou-um-palimpsesto.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a4595d4fdd864294b6502bf3bb0485b4~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-moscou-um-palimpsesto.html">CAIXA Cultural Rio de Janeiro Apresenta "A Moscou! Um Palimpsesto", Baseado na Obra de Anton Tchekhov</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="CAIXA Cultural Rio de Janeiro Apresenta ”A Moscou! Um Palimpsesto”, Baseado na Obra de Anton Tchekhov">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-dom-casmurro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_c8cabc86fba64337981751cfc9f62396~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-dom-casmurro.html">"Dom Casmurro" Ganha Adaptação Musical e Estreia no Teatro Estúdio, em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Dom Casmurro” Ganha Adaptação Musical e Estreia no Teatro Estúdio, em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-o-alienista.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_da7df02ac7b641a7835226e60879b25d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-o-alienista.html">"O Alienista – Um Solo Musicado" Chega ao Teatro em Versão Inédita para o Público Jovem</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”O Alienista – Um Solo Musicado” Chega ao Teatro em Versão Inédita para o Público Jovem">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-peter-pan-o-musical-da-broadway.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3be09dcf97fb46beaec1cfeff4a6ffaa~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-peter-pan-o-musical-da-broadway.html">"Peter Pan - O Musical da Broadway" Retorna ao Teatro Liberdade para Última Temporada em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Peter Pan - O Musical da Broadway” Retorna ao Teatro Liberdade para Última Temporada em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-fractal-teatro-labirinto-vozes-feminino.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_a42b2019c3e04590802f22cadffbf4ff~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-fractal-teatro-labirinto-vozes-feminino.html">"Fractal – Teatro Labirinto" mergulha nas vozes do feminino</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.11 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="”Fractal – Teatro Labirinto” mergulha nas vozes do feminino">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-por-elas-musical-forca-canto-feminino.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_df1337c9d6e340f38744aff6fdde1fde~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-por-elas-musical-forca-canto-feminino.html">Por Elas: Um musical sobre a força do canto feminino</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.10 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="Por Elas: Um musical sobre a força do canto feminino">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-rio-uphill-cultura-brasileira-rio-de-janeiro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_977bf93c06234f44bd4768f8e859fc12~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-rio-uphill-cultura-brasileira-rio-de-janeiro.html">“Rio Uphill – O Musical” traz cultura brasileira a palco original no Rio de Janeiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.10 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="“Rio Uphill – O Musical” traz cultura brasileira a palco original no Rio de Janeiro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-tom-jobim-musical-bossa-nova.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_18d9f47735ed4c64bb7f8253ae73cae0~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-tom-jobim-musical-bossa-nova.html">"Tom Jobim Musical" celebra o legado do maestro da Bossa Nova</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.10 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="”Tom Jobim Musical” celebra o legado do maestro da Bossa Nova">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-rei-lear-drag-queens.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_bc09e167945348cc88de384dbf7af883~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-rei-lear-drag-queens.html">Sucesso de Público, "Rei Lear" com Elenco de Drag Queens Desembarca na Zona Leste para Temporada Gratuita no Teatro Arthur Azevedo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Sucesso de Público, ”Rei Lear” com Elenco de Drag Queens Desembarca na Zona Leste para Temporada Gratuita no Teatro Arthur Azevedo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-sergio-guize-sol-menezzes-e-gustavo-machado-perfeita.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d55a514cb8064f64a9096ea3633cbe6e~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-sergio-guize-sol-menezzes-e-gustavo-machado-perfeita.html">Sergio Guizé, Sol Menezzes e Gustavo Machado Protagonizam o Espetáculo "Perfeita!" - Uma Distopia Sobre um Futuro Autoritário</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Sergio Guizé, Sol Menezzes e Gustavo Machado Protagonizam o Espetáculo ”Perfeita!” - Uma Distopia Sobre um Futuro Autoritário">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-cia-mecenato-moderno-memoria-comissao-da-verdade-prontuario-12-528.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_780b69d72c10470784241b4e0fed1c3a~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-cia-mecenato-moderno-memoria-comissao-da-verdade-prontuario-12-528.html">A Cia. Mecenato Moderno leva a memória da Comissão da Verdade aos palcos com a peça Prontuário 12.528</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.10 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="A Cia. Mecenato Moderno leva a memória da Comissão da Verdade aos palcos com a peça Prontuário 12.528">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-fractal-teatro-labirinto.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_4791315203384197b333b23d07752955~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-fractal-teatro-labirinto.html">"Fractal - Teatro Labirinto" Estreia no Teatro Commune para Curta Temporada</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Fractal - Teatro Labirinto” Estreia no Teatro Commune para Curta Temporada">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-magnolia-jorge-ben-jor.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d0d874271ec5455695aef95c85a2f2ee~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-magnolia-jorge-ben-jor.html">"Magnólia" Estreia no Itaú Cultural, Inspirado na Música de Jorge Ben Jor</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Magnólia” Estreia no Itaú Cultural, Inspirado na Música de Jorge Ben Jor">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-uma-boneca-para-menitinha-sesc-consolacao-afeto-ancestralidade.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/1ff998_96c877c131b545e597f24a7f434ab06c~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-uma-boneca-para-menitinha-sesc-consolacao-afeto-ancestralidade.html">"Uma Boneca para Menitinha" estreia no Sesc Consolação celebrando afeto e ancestralidade</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.10 — Pedro Cantelli</span>
+          <button class="share-min" data-share="native" data-title="”Uma Boneca para Menitinha” estreia no Sesc Consolação celebrando afeto e ancestralidade">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="cat-teatro-p22.html">← Anterior</a><a href="cat-teatro.html">1</a><a href="cat-teatro-p2.html">2</a><span>…</span><a href="cat-teatro-p22.html">22</a><a href="cat-teatro-p23.html" class="on">23</a><a href="cat-teatro-p24.html">24</a><span>…</span><a href="cat-teatro-p39.html">39</a><a href="cat-teatro-p40.html">40</a><a href="cat-teatro-p24.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

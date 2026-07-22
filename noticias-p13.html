@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 13 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 13 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-fernando-felix-estreia-o-espetaculo-solo-superpoderes-da-comedia-gay-no-teatro-g.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_9276297d2cfd44c6ab1bba92f5f0e5e8~mv2.jpg" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-fernando-felix-estreia-o-espetaculo-solo-superpoderes-da-comedia-gay-no-teatro-g.html">Fernando Félix estreia o espetáculo solo Superpoderes da Comédia Gay no Teatro Gazeta</a></h3>
+        <p>Fenômeno das redes sociais, o ator e criador de conteúdo Fernando Félix sobe ao palco do Teatro Gazeta para apresentar seu primeiro espetáculo solo, Superpodere…</p>
+        <div class="meta-row">
+          <span class="meta-l">05.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Fernando Félix estreia o espetáculo solo Superpoderes da Comédia Gay no Teatro Gazeta">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-infantil-do-outro-lado-do-rio-inaugura-temporadas-gratuitas-no-ibt.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_208fcf3210a04355abf16f0c431e24b7~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-infantil-do-outro-lado-do-rio-inaugura-temporadas-gratuitas-no-ibt.html">Espetáculo infantil Do Outro Lado do Rio inaugura temporadas gratuitas no iBT</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo infantil Do Outro Lado do Rio inaugura temporadas gratuitas no iBT">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-tim-maia-vale-tudo-o-musical-volta-aos-palcos-em-nova-montagem-no-teatro-claro-m.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a59c32b1d106419aa597d5d47c58db93~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-tim-maia-vale-tudo-o-musical-volta-aos-palcos-em-nova-montagem-no-teatro-claro-m.html">Tim Maia – Vale Tudo: O Musical volta aos palcos em nova montagem no Teatro Claro MAIS SP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Tim Maia – Vale Tudo: O Musical volta aos palcos em nova montagem no Teatro Claro MAIS SP">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-senhora-dos-afogados-de-nelson-rodrigues-retorna-ao-teatro-oficina.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_af2cd44fb19a4c5abd86190b2bac9a4a~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-senhora-dos-afogados-de-nelson-rodrigues-retorna-ao-teatro-oficina.html">Senhora dos Afogados, de Nelson Rodrigues, retorna ao Teatro Oficina</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Senhora dos Afogados, de Nelson Rodrigues, retorna ao Teatro Oficina">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-o-casal-mais-sexy-da-america-chega-ao-rio-de-janeiro-com-vera-fischer-leonardo-f.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e60485d2c5944ad89ca257bd67c5d753~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-o-casal-mais-sexy-da-america-chega-ao-rio-de-janeiro-com-vera-fischer-leonardo-f.html">O Casal Mais Sexy da América chega ao Rio de Janeiro com Vera Fischer, Leonardo Franco e Vitor Thiré</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="O Casal Mais Sexy da América chega ao Rio de Janeiro com Vera Fischer, Leonardo Franco e Vitor Thiré">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-musical-dom-casmurro-retorna-a-sao-paulo-para-duas-unicas-apresentacoes-no-teatr.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_31c6bad4e0694ffcb7e1f49b77c16127~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-musical-dom-casmurro-retorna-a-sao-paulo-para-duas-unicas-apresentacoes-no-teatr.html">Musical Dom Casmurro retorna a São Paulo para duas únicas apresentações no Teatro Gazeta</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical Dom Casmurro retorna a São Paulo para duas únicas apresentações no Teatro Gazeta">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-nelson-baskerville-lanca-olhar-provocador-e-contemporaneo-sobre-a-obra-de-nelson.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_fe03f21247d844f8a316408e4fd4e79d~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-nelson-baskerville-lanca-olhar-provocador-e-contemporaneo-sobre-a-obra-de-nelson.html">Nelson Baskerville lança olhar provocador e contemporâneo sobre a obra de Nelson Rodrigues em 17x Nelson – onde os canalhas pagam por seus crimes</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Nelson Baskerville lança olhar provocador e contemporâneo sobre a obra de Nelson Rodrigues em 17x Nelson – onde os canalhas pagam por seus crimes">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-ultima-semana-de-maes-o-musical-comedia-hilaria-sobre-maternidade-sem-romantizac.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_8ddf191ba900493287237fd8704e67b7~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-ultima-semana-de-maes-o-musical-comedia-hilaria-sobre-maternidade-sem-romantizac.html">Última semana de Mães, o Musical: comédia hilária sobre maternidade sem romantização encerra temporada em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Última semana de Mães, o Musical: comédia hilária sobre maternidade sem romantização encerra temporada em São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-michelle-ferreira-estreia-comedia-dramatica-inedita-valencia-2-homens-1-cooler-n.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7b35f9b8940a446a9187351acabb5ed8~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-michelle-ferreira-estreia-comedia-dramatica-inedita-valencia-2-homens-1-cooler-n.html">Michelle Ferreira estreia comédia dramática inédita Valência = 2 homens + 1 cooler no IBT</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Michelle Ferreira estreia comédia dramática inédita Valência = 2 homens + 1 cooler no IBT">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-projeto-clarice-reune-clara-carvalho-magali-biff-mariana-muniz-e-vera-zimmermann.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b6906f0cefbe4f1fbf5d811b9e9d115f~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-projeto-clarice-reune-clara-carvalho-magali-biff-mariana-muniz-e-vera-zimmermann.html">“Projeto Clarice” reúne Clara Carvalho, Magali Biff, Mariana Muniz e Vera Zimmermann em adaptação de contos de Clarice Lispector</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Projeto Clarice” reúne Clara Carvalho, Magali Biff, Mariana Muniz e Vera Zimmermann em adaptação de contos de Clarice Lispector">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-adriana-birolli-reflete-sobre-a-arte-de-dizer-nao-em-comedia-solo-no-teatro-migu.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_7c3df06a61b1481bb3630f99d2b4d9d2~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-adriana-birolli-reflete-sobre-a-arte-de-dizer-nao-em-comedia-solo-no-teatro-migu.html">Adriana Birolli reflete sobre a arte de dizer “não” em comédia solo no Teatro Miguel Falabella</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Adriana Birolli reflete sobre a arte de dizer “não” em comédia solo no Teatro Miguel Falabella">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-giuseppe-oristanio-revive-guimaraes-rosa-em-pormenor-de-ausencia.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_6e12d35353e249dc91ac5c2dd885e1f2~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-giuseppe-oristanio-revive-guimaraes-rosa-em-pormenor-de-ausencia.html">Giuseppe Oristanio revive Guimarães Rosa em Pormenor de Ausência</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Giuseppe Oristanio revive Guimarães Rosa em Pormenor de Ausência">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-rebobina-friendship-never-ends-mistura-shakespeare-spice-girls-e-muita-comedia-n.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_4527406c7094488fbcaa7634fde7d373~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-rebobina-friendship-never-ends-mistura-shakespeare-spice-girls-e-muita-comedia-n.html">Rebobina! Friendship Never Ends mistura Shakespeare, Spice Girls e muita comédia no Teatro Commune</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Rebobina! Friendship Never Ends mistura Shakespeare, Spice Girls e muita comédia no Teatro Commune">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Crítica">
+      <a class="ph" href="post-os-olhos-de-nara-leao-da-bossa-a-liberdade.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_4f0a8cb4b9d34865b60b21a3c8601eab~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Crítica</span>
+        <h3><a href="post-os-olhos-de-nara-leao-da-bossa-a-liberdade.html">Os Olhos de Nara Leão - da Bossa à Liberdade</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.10 — Léo Braga</span>
+          <button class="share-min" data-share="native" data-title="Os Olhos de Nara Leão - da Bossa à Liberdade">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-shrek-o-musical-estreia-em-abril-de-2026-no-teatro-renault-com-tiago-abravanel-c.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d4297a74a85149a497b91f7940350d1d~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-shrek-o-musical-estreia-em-abril-de-2026-no-teatro-renault-com-tiago-abravanel-c.html">Shrek – O Musical estreia em abril de 2026 no Teatro Renault com Tiago Abravanel como o ogro mais amado do mundo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Shrek – O Musical estreia em abril de 2026 no Teatro Renault com Tiago Abravanel como o ogro mais amado do mundo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-com-wendell-bendelack-marcos-veras-e-george-sauma-titanique-programa-do-foyer.html" aria-label="Foto da matéria"><img src="" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-com-wendell-bendelack-marcos-veras-e-george-sauma-titanique-programa-do-foyer.html">Com Wendell Bendelack, Marcos Veras e George Sauma - Titanique - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com Wendell Bendelack, Marcos Veras e George Sauma - Titanique - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-eu-tambem-sou-medico-com-bruno-baroni-mistura-teatro-e-stand-up-no-teatro-eva-wi.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d66b02e976a34cd18246b74a6a9d4953~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-eu-tambem-sou-medico-com-bruno-baroni-mistura-teatro-e-stand-up-no-teatro-eva-wi.html">Eu Também Sou Médico, com Bruno Baroni, mistura teatro e stand-up no Teatro Eva Wilma</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Eu Também Sou Médico, com Bruno Baroni, mistura teatro e stand-up no Teatro Eva Wilma">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-especial-indicacoes-premio-bibi-ferreira-2025-programa-do-foyer.html" aria-label="Foto da matéria"><img src="" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-especial-indicacoes-premio-bibi-ferreira-2025-programa-do-foyer.html">Especial Indicações Prêmio Bibi Ferreira 2025 - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Especial Indicações Prêmio Bibi Ferreira 2025 - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-o-julgamento-de-um-homem-bom-musical-feminista-satiriza-a-masculinidade-no-teatr.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_18bb3f36bc8f4393843733d87039dd26~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-o-julgamento-de-um-homem-bom-musical-feminista-satiriza-a-masculinidade-no-teatr.html">O Julgamento de um Homem Bom — musical feminista satiriza a masculinidade no Teatro de Arena</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="O Julgamento de um Homem Bom — musical feminista satiriza a masculinidade no Teatro de Arena">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-jeca-um-povo-ainda-ha-de-vingar-estreia-no-sesc-consolacao-em-homenagem-aos-50-a.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_ad1a96c38cad400ca4bf8efabbb183be~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-jeca-um-povo-ainda-ha-de-vingar-estreia-no-sesc-consolacao-em-homenagem-aos-50-a.html">Jeca – Um Povo Ainda Há de Vingar estreia no Sesc Consolação em homenagem aos 50 anos de Refazenda, de Gilberto Gil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Jeca – Um Povo Ainda Há de Vingar estreia no Sesc Consolação em homenagem aos 50 anos de Refazenda, de Gilberto Gil">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-bichas-do-brasil-da-cia-olhares-molhados-estreia-no-teatro-alfredo-mesquita-com-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_cf78e3a889954faca3ebf7342c6331f3~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-bichas-do-brasil-da-cia-olhares-molhados-estreia-no-teatro-alfredo-mesquita-com-.html">Bichas do Brasil, da Cia. Olhares Molhados, estreia no Teatro Alfredo Mesquita com direção de Lufe Steffen</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Bichas do Brasil, da Cia. Olhares Molhados, estreia no Teatro Alfredo Mesquita com direção de Lufe Steffen">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-as-3-cores-primarias-de-yukio-mishima-ganha-montagem-inedita-no-brasil-e-mostra-.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a9c55abdd6354ad38e8bfa021d43174f~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-as-3-cores-primarias-de-yukio-mishima-ganha-montagem-inedita-no-brasil-e-mostra-.html">As 3 Cores Primárias, de Yukio Mishima, ganha montagem inédita no Brasil e mostra de filmes no Instituto Capobianco</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="As 3 Cores Primárias, de Yukio Mishima, ganha montagem inédita no Brasil e mostra de filmes no Instituto Capobianco">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-com-amanda-acosta-mauricio-xavier-e-aimar-labaki-norma-bengell-programa-do-foyer.html" aria-label="Foto da matéria"><img src="" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-com-amanda-acosta-mauricio-xavier-e-aimar-labaki-norma-bengell-programa-do-foyer.html">Com Amanda Acosta, Maurício Xavier e Aimar Labaki - Norma Bengell - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com Amanda Acosta, Maurício Xavier e Aimar Labaki - Norma Bengell - Programa do Foyer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-alguma-coisa-falta-aqui-marca-estreia-de-stella-rabello-na-direcao-e-temporada-n.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_101e3f19933c433aa69ca3d532d01dd9~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-alguma-coisa-falta-aqui-marca-estreia-de-stella-rabello-na-direcao-e-temporada-n.html">Alguma Coisa Falta Aqui marca estreia de Stella Rabello na direção e temporada no Teatro Domingos Oliveira</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Alguma Coisa Falta Aqui marca estreia de Stella Rabello na direção e temporada no Teatro Domingos Oliveira">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p12.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p12.html">12</a><a href="noticias-p13.html" class="on">13</a><a href="noticias-p14.html">14</a><span>…</span><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p14.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

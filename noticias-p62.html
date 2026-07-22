@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Todas as matérias do FOYER.">
+<title>Notícias — página 62 — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <circle cx="330" cy="258" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
+      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
+      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1514 matérias no acervo — página 62 de 64</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-com-codirecao-e-coreografias-de-fernanda-chamma-ganha-fotos-oficiais.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_90cc8793ff08485b9a707f71d5e1f40c~mv2.png" alt="" loading="lazy"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-com-codirecao-e-coreografias-de-fernanda-chamma-ganha-fotos-oficiais.html">Espetáculo com codireção e coreografias de Fernanda Chamma ganha fotos oficiais</a></h3>
+        <p>Imagens por: Caio Gallucci Dia 22 de julho chega aos palcos do teatro Procópio Ferreira o musical do “Mágico De Oz” inspirado na obra...…</p>
+        <div class="meta-row">
+          <span class="meta-l">15.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo com codireção e coreografias de Fernanda Chamma ganha fotos oficiais">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-bruna-marquezine-nao-participara-de-divulgacoes-de-besouro-azul.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_3524fb094e354073b5e039df2065be46~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-bruna-marquezine-nao-participara-de-divulgacoes-de-besouro-azul.html">Bruna Marquezine não participará de divulgações de "Besouro Azul"</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Bruna Marquezine não participará de divulgações de ”Besouro Azul”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Streaming">
+      <a class="ph" href="post-percy-jackson-e-os-olimpianos-serie-do-disney-plus-ganha-primeiro-cartaz.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_9ae4ba96da9d41449a0cf21c17c29535~mv2.jpg" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-percy-jackson-e-os-olimpianos-serie-do-disney-plus-ganha-primeiro-cartaz.html">"Percy Jackson e os Olimpianos" série do Disney Plus, ganha primeiro cartaz</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Percy Jackson e os Olimpianos” série do Disney Plus, ganha primeiro cartaz">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-b-59-explorando-a-tensao-da-guerra-fria-no-teatro-arthur-azevedo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_2b2ccb8c0d1949f89bd37f7420db7e13~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-b-59-explorando-a-tensao-da-guerra-fria-no-teatro-arthur-azevedo.html">'B-59' Explorando a tensão da Guerra Fria no Teatro Arthur Azevedo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'B-59' Explorando a tensão da Guerra Fria no Teatro Arthur Azevedo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-o-teatro-de-leo-lama-foyer-14.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_09d5cf88d59d41158a038c91ab6c53f8~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-o-teatro-de-leo-lama-foyer-14.html">O Teatro de Leo Lama - Foyer #14</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.07 — Redação</span>
+          <button class="share-min" data-share="native" data-title="O Teatro de Leo Lama - Foyer #14">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-napoleao-filme-estrelado-por-joaquin-phoenix-ganha-primeiro-trailer.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_db57ae57a0e140879a270fadc22f5376~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-napoleao-filme-estrelado-por-joaquin-phoenix-ganha-primeiro-trailer.html">"Napoleão" Filme estrelado por Joaquin Phoenix ganha primeiro trailer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="”Napoleão” Filme estrelado por Joaquin Phoenix ganha primeiro trailer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-anitta-revela-reacao-ao-elogio-de-viola-davis-eu-nao-conseguia-dizer-nada.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/c73780_08f60d95f27642f2aee583f359bb73ed~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-anitta-revela-reacao-ao-elogio-de-viola-davis-eu-nao-conseguia-dizer-nada.html">Anitta revela reação ao elogio de Viola Davis "Eu não conseguia dizer nada!"</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Anitta revela reação ao elogio de Viola Davis ”Eu não conseguia dizer nada!”">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-animacao-de-mesmo-autor-de-a-era-do-gelo-2-chega-aos-cinemas-em-agosto.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_611fadc8dc9e4d8dabde1e7957699d45~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-animacao-de-mesmo-autor-de-a-era-do-gelo-2-chega-aos-cinemas-em-agosto.html">Animação de mesmo autor de "A Era do Gelo 2" chega aos cinemas em agosto</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Animação de mesmo autor de ”A Era do Gelo 2” chega aos cinemas em agosto">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Música">
+      <a class="ph" href="post-nany-people-apresenta-solo-musical-em-teatro-de-sao-paulo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_a04f05b99724425fabf8f8f96bcb9c9f~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Música</span>
+        <h3><a href="post-nany-people-apresenta-solo-musical-em-teatro-de-sao-paulo.html">Nany People apresenta solo musical em teatro de São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Nany People apresenta solo musical em teatro de São Paulo">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Música">
+      <a class="ph" href="post-fat-family-faz-pre-estreia-de-turne-na-casa-natura-musical.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_697c0ed5f64e40a8a3ff07d28ce5d751~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Música</span>
+        <h3><a href="post-fat-family-faz-pre-estreia-de-turne-na-casa-natura-musical.html">Fat Family faz pré-estreia de turnê na Casa Natura Musical</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Fat Family faz pré-estreia de turnê na Casa Natura Musical">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-agora-vai-a-primeira-sitcom-ao-vivo-nos-palcos-de-um-teatro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_d41b01b42b8c4f23af7f24f7e03d7168~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-agora-vai-a-primeira-sitcom-ao-vivo-nos-palcos-de-um-teatro.html">"Agora Vai" - a primeira sitcom ao vivo nos palcos de um teatro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Agora Vai” - a primeira sitcom ao vivo nos palcos de um teatro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-fabio-porchat-prorroga-ate-o-final-de-setembro-temporada-em-sp.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_8f9b025df29d488d8571d009dddf5d33~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-fabio-porchat-prorroga-ate-o-final-de-setembro-temporada-em-sp.html">Fábio Porchat prorroga, até o final de setembro, temporada em SP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Fábio Porchat prorroga, até o final de setembro, temporada em SP">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-com-direcao-e-atuacao-de-dan-rosseto-yerma-chega-aos-palcos.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_4d10fc240a044d68b8e51a9d3d32fe65~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-com-direcao-e-atuacao-de-dan-rosseto-yerma-chega-aos-palcos.html">Com direção e atuação de Dan Rosseto, "Yerma" chega aos palcos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com direção e atuação de Dan Rosseto, ”Yerma” chega aos palcos">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-filme-de-julio-bressane-com-mariana-ximenes-estreia-dia-27-de-julho.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_79a185b8e98842378919ff8124e48772~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-filme-de-julio-bressane-com-mariana-ximenes-estreia-dia-27-de-julho.html">Filme de Júlio Bressane, com Mariana Ximenes estreia dia 27 de julho</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Filme de Júlio Bressane, com Mariana Ximenes estreia dia 27 de julho">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-com-ana-beatriz-nogueira-tem-ingressos-on-line-esgotados.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_752e00bcf21844ebb683c0522ff860dd~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-com-ana-beatriz-nogueira-tem-ingressos-on-line-esgotados.html">Espetáculo com Ana Beatriz Nogueira tem ingressos on-line esgotados</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo com Ana Beatriz Nogueira tem ingressos on-line esgotados">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-inquilina-estreia-no-sesc-bom-retiro-com-luisa-thire-e-carolyna-aguiar.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_249c4c74997f459a8afa138b82c04378~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-inquilina-estreia-no-sesc-bom-retiro-com-luisa-thire-e-carolyna-aguiar.html">"A Inquilina" estreia no Sesc Bom Retiro com Luisa Thiré e Carolyna Aguiar</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”A Inquilina” estreia no Sesc Bom Retiro com Luisa Thiré e Carolyna Aguiar">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Música">
+      <a class="ph" href="post-tania-khalil-e-jair-oliveira-apresentam-espetaculo-infantil-em-festival-de-feria.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_058a7aff0d1d4832930275cd64537ec9~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Música</span>
+        <h3><a href="post-tania-khalil-e-jair-oliveira-apresentam-espetaculo-infantil-em-festival-de-feria.html">Tânia Khalil e Jair Oliveira apresentam espetáculo infantil em Festival de Férias</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Tânia Khalil e Jair Oliveira apresentam espetáculo infantil em Festival de Férias">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Música">
+      <a class="ph" href="post-laila-garin-fara-show-no-rio-de-janeiro-em-agosto.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_b9678f3de2d24591a5b8c310ecbac146~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Música</span>
+        <h3><a href="post-laila-garin-fara-show-no-rio-de-janeiro-em-agosto.html">Laila Garin fará show no Rio de Janeiro em Agosto</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Laila Garin fará show no Rio de Janeiro em Agosto">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-manifesto-transpofagico-faz-temporada-no-teatro-firjan-no-rio.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_e5387a62fdb34ad7b6c00b8d5894b38b~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-manifesto-transpofagico-faz-temporada-no-teatro-firjan-no-rio.html">Espetáculo Manifesto Transpofágico faz temporada no Teatro Firjan no Rio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo Manifesto Transpofágico faz temporada no Teatro Firjan no Rio">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-incricoes-para-festival-de-teatro-ja-estao-abertas-e-vao-ate-o-dia-17-de-julho.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_0c4c9aa4d98544bcba1588193809c893~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-incricoes-para-festival-de-teatro-ja-estao-abertas-e-vao-ate-o-dia-17-de-julho.html">Incrições para Festival de Teatro já estão abertas e vão até o dia 17 de Julho</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Incrições para Festival de Teatro já estão abertas e vão até o dia 17 de Julho">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-eduardo-martini-retorna-com-novo-texto-ao-personagem-clo.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_80c9f0cd7b0a479d9d460b52c53d5212~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-eduardo-martini-retorna-com-novo-texto-ao-personagem-clo.html">Eduardo Martini retorna, com novo texto, ao personagem Clô</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Eduardo Martini retorna, com novo texto, ao personagem Clô">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Show">
+      <a class="ph" href="post-casa-coracao-recebe-show-de-humor-de-mama-darling-savannah-black-e-dimmy-kieer.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_56750fccdfb54bb3a0220175fe16ffac~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Show</span>
+        <h3><a href="post-casa-coracao-recebe-show-de-humor-de-mama-darling-savannah-black-e-dimmy-kieer.html">Casa Coração recebe show de humor de Mama Darling, Savannah Black e Dimmy Kieer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Casa Coração recebe show de humor de Mama Darling, Savannah Black e Dimmy Kieer">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-1o-festival-de-teatro-amir-haddad-esta-acontecendo-no-rio-de-janeiro.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_dbe55a0a9eba4f84a3fd12ba7b192737~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-1o-festival-de-teatro-amir-haddad-esta-acontecendo-no-rio-de-janeiro.html">1º Festival de Teatro Amir Haddad está acontecendo no Rio de Janeiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="1º Festival de Teatro Amir Haddad está acontecendo no Rio de Janeiro">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-claudia-missura-tata-fernandes-vera-zimmermann-e-mirella-brandi-foyer-13.html" aria-label="Foto da matéria"><img src="https://static.wixstatic.com/media/dbc9d1_645053994b7646b8abe3b2a39aac0da5~mv2.png" alt="" loading="lazy"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-claudia-missura-tata-fernandes-vera-zimmermann-e-mirella-brandi-foyer-13.html">Claudia Missura, Tata Fernandes, Vera Zimmermann e Mirella Brandi - Foyer #13</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.07 — Redação</span>
+          <button class="share-min" data-share="native" data-title="Claudia Missura, Tata Fernandes, Vera Zimmermann e Mirella Brandi - Foyer #13">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p61.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p61.html">61</a><a href="noticias-p62.html" class="on">62</a><a href="noticias-p63.html">63</a><a href="noticias-p64.html">64</a><a href="noticias-p63.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Trivia Musical</a>
+        <a href="programas.html">Astro em Cena</a>
+        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<div class="sample-note">Protótipo de design — manchetes, fotos e dados ilustrativos</div>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>
