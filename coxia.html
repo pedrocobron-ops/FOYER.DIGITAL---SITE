@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Área restrita da redação do Foyer.">
+<title>Coxia — FOYER</title>
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<div class="warn">Coxia — área restrita da redação · Protótipo local: a autenticação definitiva entra com o backend</div>
+<main class="wrap">
+  <!-- portão -->
+  <div class="gate" id="gate">
+    <img src="assets/logo/foyer-stacked-wine-sm.png" alt="FOYER" class="only-light">
+    <img src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" class="only-dark">
+    <h1>Coxia</h1>
+    <p>Somente a equipe entra por aqui</p>
+    <form id="gate-form">
+      <input type="password" id="pass" placeholder="senha" aria-label="Senha" autocomplete="current-password">
+      <button type="submit">Terceiro sinal — entrar</button>
+    </form>
+    <span class="err" id="gate-err">Senha incorreta</span>
+  </div>
+
+  <!-- painel -->
+  <div class="panel" id="panel">
+    <div class="sec-head">
+      <h2>Nova matéria</h2>
+      <span class="note">Rascunhos ficam salvos neste navegador até o backend entrar</span>
+      <button class="logout" id="logout" type="button">Sair ✕</button>
+    </div>
+    <div class="adm-grid">
+      <form class="adm-form" id="form">
+        <div>
+          <label for="f-title">Título da matéria</label>
+          <input type="text" id="f-title" placeholder="Ex.: Estreia lota o Theatro Municipal" required>
+        </div>
+        <div class="row2">
+          <div>
+            <label for="f-cat">Editoria</label>
+            <select id="f-cat">
+              <option>Notícias</option><option>Crítica</option><option>Entrevista</option>
+              <option>Agenda</option><option>Bastidores</option><option>Mercado</option>
+            </select>
+          </div>
+          <div>
+            <label for="f-foto">Foto de capa</label>
+            <input type="file" id="f-foto" accept="image/*">
+          </div>
+        </div>
+        <div>
+          <label for="f-dek">Linha fina (resumo)</label>
+          <textarea id="f-dek" rows="2" placeholder="Uma frase que resume a matéria"></textarea>
+        </div>
+        <div>
+          <label for="f-body">Texto</label>
+          <textarea id="f-body" rows="12" placeholder="O corpo da matéria…"></textarea>
+        </div>
+        <button class="pub" type="submit">Salvar rascunho</button>
+      </form>
+      <div class="adm-side">
+        <div class="drafts">
+          <h3>Rascunhos salvos</h3>
+          <div id="draft-list"></div>
+        </div>
+        <div class="adm-note">
+          Próxima fase: publicação real direto no site,
+          upload de fotos, edição da revista semanal
+          e login seguro por senha + e-mail.
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+(function(){
+  // ATENÇÃO: proteção de protótipo (visual). A senha real entra com o backend.
+  var PASS = 'terceirosinal';
+  var gate = document.getElementById('gate');
+  var panel = document.getElementById('panel');
+  var err = document.getElementById('gate-err');
+
+  function openPanel(){ gate.style.display = 'none'; panel.classList.add('open'); render(); }
+  try{ if(sessionStorage.getItem('coxia') === '1') openPanel(); }catch(e){}
+
+  document.getElementById('gate-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    if(document.getElementById('pass').value === PASS){
+      try{ sessionStorage.setItem('coxia','1'); }catch(err2){}
+      openPanel();
+    } else {
+      err.style.display = 'block';
+    }
+  });
+  document.getElementById('logout').addEventListener('click', function(){
+    try{ sessionStorage.removeItem('coxia'); }catch(e){}
+    location.reload();
+  });
+
+  function load(){ try{ return JSON.parse(localStorage.getItem('coxia-drafts') || '[]'); }catch(e){ return []; } }
+  function save(list){ try{ localStorage.setItem('coxia-drafts', JSON.stringify(list)); }catch(e){} }
+  function render(){
+    var list = load();
+    var el = document.getElementById('draft-list');
+    if(!list.length){
+      el.innerHTML = '<div class="draft-row"><span class="dt">Nenhum rascunho ainda</span></div>';
+      return;
+    }
+    el.innerHTML = list.map(function(d, i){
+      return '<div class="draft-row"><span><span class="ti">' + d.t.replace(/</g,'&lt;') +
+             '</span><br><span class="dt">' + d.c + ' — ' + d.dt + '</span></span>' +
+             '<button data-del="' + i + '" type="button">Excluir</button></div>';
+    }).join('');
+  }
+  document.getElementById('form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var t = document.getElementById('f-title').value.trim();
+    if(!t) return;
+    var list = load();
+    var d = new Date();
+    list.unshift({ t: t, c: document.getElementById('f-cat').value,
+      dt: d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR').slice(0,5) });
+    save(list); render();
+    e.target.reset();
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-del]');
+    if(!b) return;
+    var list = load(); list.splice(+b.getAttribute('data-del'), 1); save(list); render();
+  });
+})();
+</script>
+
+<script src="assets/site.js"></script></body>
+</html>

@@ -1,34 +1,32 @@
 # FOYER — Novo site
 
-Redesign do portal [foyer.digital](https://www.foyer.digital/): **brutalismo de instituição de arte** com a identidade existente da marca.
+Redesign do portal [foyer.digital](https://www.foyer.digital/): **brutalismo de instituição de arte** com a identidade oficial da marca (logo empilhada FOy/ER, dourado #CEB26A, vinho #4E0F09).
 
-## Direção de arte
+## Páginas
 
-Referências: Whitney Museum (estrutura brutalista + navegação de instituição séria) e a linguagem industrial de catálogo da moda de luxo (Balenciaga/Off-White). Cores do logo oficial do Foyer.
+| Página | Arquivo | O que tem |
+|---|---|---|
+| Capa | `index.html` | Ticker, masthead com a logo oficial, manchete + O Giro, notícias, crítica, programas, enciclopédia |
+| Notícias | `noticias.html` | Grade completa com filtros de editoria |
+| Crítica | `critica.html` | Críticas com nota em didone e citação |
+| Revista | `revista.html` | Newsletter semanal como revista: edições fechadas com capa, leitor online paginado e cadastro |
+| Programas | `programas.html` | Os 5 programas + últimos episódios (YouTube/Spotify) |
+| Enciclopédia | `enciclopedia.html` | Busca, estatísticas e índice de artistas (estilo MCDB) |
+| Agenda | `agenda.html` | Estreias e eventos com data em didone |
+| Entrevistas | `entrevistas.html` | Cards de citação com foto |
+| Coxia | `coxia.html` | **Área restrita da redação** (não linkada no menu) — painel para criar matérias. Senha do protótipo: `terceirosinal` |
 
-- **Cores**: vinho oxblood `#4A100E` + dourado `#D6B26E` (do logo), papel bone `#EFE9DB`, tinta `#16100D`. Temas claro ("Luz da sala") e escuro ("Blackout").
-- **Tipografia** (arquivos em `fonts/`, servidos localmente):
-  - *Abril Fatface* — didone pesado que casa com o wordmark FOy/ER; masthead, títulos dos programas, notas de crítica, números
-  - *Archivo Black* — manchetes e cabeçalhos de seção em caixa-alta
-  - *Archivo* (variável) — texto corrido, navegação, títulos secundários
-  - *IBM Plex Mono* — ticker, timestamps, etiquetas, dados, tabela da enciclopédia
-- **Estrutura**: grid industrial com bordas expostas (linhas de 1–2px em toda parte), hover com inversão dura (tinta→dourado, vinho→dourado), sem cantos arredondados, sem sombras.
+## Estrutura
 
-## Seções da capa
-
-1. **Ticker** de últimas notícias (letreiro contínuo, vinho/dourado)
-2. **Masthead** — wordmark FOy/ER empilhado em didone dourado sobre vinho, flanqueado por dados de edição em mono
-3. **Nav** fixa em barra contínua com separadores
-4. **Capa** — manchete em Archivo Black + coluna "O Giro" (fio de notícias com timestamps) = alta densidade de notícia
-5. **Notícias** — grade 4 colunas com células de grid exposto
-6. **Crítica** — notas em didone sobre bloco vinho + citação
-7. **Programas** — faixa vinho com os 5 shows (YouTube/Spotify)
-8. **Enciclopédia do Teatro Musical Brasileiro** — estatísticas + índice tabular de artistas (estilo MCDB; fase 2 com banco de dados)
-9. Newsletter + footer com FOYER gigante cortado
+- `assets/site.css` — todo o estilo (tokens de cor da marca, temas claro/escuro)
+- `assets/site.js` — tema, revelação ao rolar, contadores, compartilhamento (Web Share API)
+- `assets/logo/` — logo oficial otimizada (originais em `src/`)
+- `fonts/` — Abril Fatface, Archivo (variável), Archivo Black, IBM Plex Mono (locais, sem CDN)
+- As páginas são geradas com partials compartilhados; as artes de palco em SVG servem de placeholder das fotos e de capas das edições da revista
 
 ## Rodando
 
-Arquivo único, sem build — sirva a pasta (as fontes carregam de `fonts/`):
+Sem build — sirva a pasta:
 
 ```
 python3 -m http.server
@@ -37,8 +35,10 @@ python3 -m http.server
 
 ## Status
 
-- [x] Protótipo da capa com a nova direção brutalista
-- [ ] Aprovação da direção visual
-- [ ] Páginas internas (matéria, crítica, programa, agenda)
-- [ ] Migração para Next.js + CMS
-- [ ] Enciclopédia (banco de dados de pessoas/produções)
+- [x] Direção brutalista aprovada, logo oficial integrada
+- [x] Navegação multipágina real
+- [x] Revista (leitor online + cadastro demo) e Coxia (admin demo)
+- [ ] Hospedagem (GitHub Pages / Vercel)
+- [ ] Backend real: publicação de matérias, newsletter, PDF da revista, login seguro
+- [ ] Importação das matérias do site antigo (aguardando export)
+- [ ] Enciclopédia com banco de dados
