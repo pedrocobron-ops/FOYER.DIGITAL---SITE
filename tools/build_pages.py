@@ -7,14 +7,31 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # ---------------------------------------------------------------- partials
 
-def head(title, desc):
+import html as _html
+
+BASE = 'https://pedrocobron-ops.github.io/FOYER.DIGITAL---SITE'
+
+def head(title, desc, og_img=None, og_type='website', og_url=''):
+    t = _html.escape(title, quote=True)
+    d = _html.escape(desc, quote=True)
+    img = _html.escape(og_img or f'{BASE}/assets/logo/src/foyer-banner.png', quote=True)
+    url = _html.escape(f'{BASE}/{og_url}', quote=True)
     return f'''<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="{desc}">
-<title>{title}</title>
+<meta name="description" content="{d}">
+<meta name="theme-color" content="#4E0F09">
+<meta property="og:site_name" content="FOYER">
+<meta property="og:type" content="{og_type}">
+<meta property="og:title" content="{t}">
+<meta property="og:description" content="{d}">
+<meta property="og:image" content="{img}">
+<meta property="og:url" content="{url}">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<title>{t}</title>
 <link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
 <link rel="stylesheet" href="assets/site.css">
 </head>
@@ -214,8 +231,8 @@ def news_cell(sym, tag, title, meta, desc=None, big=False):
       </div>
     </article>'''
 
-def page(fname, title, desc, current, body, quiet=False):
-    html = head(title, desc) + '\n' + DEFS + '\n' + UTIL + '\n' + nav(current) + '\n' + body + '\n' + FOOTER + '</body>\n</html>\n'
+def page(fname, title, desc, current, body, quiet=False, og_img=None, og_type='website'):
+    html = head(title, desc, og_img=og_img, og_type=og_type, og_url=fname) + '\n' + DEFS + '\n' + UTIL + '\n' + nav(current) + '\n' + body + '\n' + FOOTER + '</body>\n</html>\n'
     with open(os.path.join(ROOT, fname), 'w') as f:
         f.write(html)
     if not quiet:
@@ -1206,10 +1223,15 @@ def short_date(p):
 def safe(t):
     return t.replace('"', '”')
 
+def wiximg(url, w=1200, h=675):
+    if 'static.wixstatic.com/media/' in url and '/v1/' not in url:
+        return f'{url}/v1/fill/w_{w},h_{h},al_c,q_82/cover.jpg'
+    return url
+
 def real_ph(p, href, cap=True):
     c = '<span class="ph-cap">Foto — Divulgação</span>' if cap else ''
     return (f'<a class="ph" href="{href}" aria-label="Foto da matéria">'
-            f'<img src="{p["img"]}" alt="" loading="lazy">{c}</a>')
+            f'<img src="{wiximg(p["img"], 800, 450)}" alt="" loading="lazy" onerror="this.style.display=\'none\'">{c}</a>')
 
 def real_cell(p, big=False):
     d = f'\n        <p>{p["desc"][:160]}…</p>' if big else ''
@@ -1292,7 +1314,7 @@ index_main = f'''<main>
   <div class="fp-grid">
     <article class="manchete">
       <a class="ph cover" href="post-{_p0['slug']}.html" aria-label="Foto da reportagem de capa">
-        <img src="{_p0['img']}" alt="" loading="eager">
+        <img src="{wiximg(_p0['img'])}" alt="" loading="eager" onerror="this.style.display='none'">
         <span class="ph-cap">Foto — Divulgação</span>
       </a>
       <div class="manchete-body">
@@ -1511,7 +1533,6 @@ def post_page(i, p):
       <span class="tag">Foyer</span>
     </div>
     <h1>{p['title']}</h1>
-    <p class="dek">{p['desc']}</p>
     <div class="art-byline">
       <span>Por <b>{p['author']}</b></span>
       <span>{p['date']} · {p['min']} min de leitura</span>
@@ -1525,7 +1546,7 @@ def post_page(i, p):
   </div>
 
   <figure class="art-cover">
-    <span class="ph"><img src="{p['img']}" alt="" loading="eager"></span>
+    <span class="ph"><img src="{wiximg(p['img'])}" alt="" loading="eager" onerror="this.style.display='none'"></span>
     <figcaption>{safe(p['title'])} — Foto: Divulgação</figcaption>
   </figure>
 
@@ -1602,7 +1623,8 @@ page('busca.html', 'Buscar — FOYER', 'Busque matérias, críticas, artistas e 
 page('privacidade.html', 'Política de Privacidade — FOYER', 'Política de privacidade e cookies do FOYER.', 'privacidade.html', privacidade_body)
 
 for _i, _p in enumerate(MATERIAS):
-    page('post-' + _p['slug'] + '.html', _p['title'] + ' — FOYER', _p['desc'][:150], 'noticias.html', post_page(_i, _p), quiet=True)
+    page('post-' + _p['slug'] + '.html', _p['title'] + ' — FOYER', _p['desc'][:200], 'noticias.html', post_page(_i, _p), quiet=True,
+         og_img=wiximg(_p['img'], 1200, 630) if _p['img'] else None, og_type='article')
 print(f'• {len(MATERIAS)} páginas de matéria')
 
 # coxia: página sem nav de seções (área restrita) — cabeçalho mínimo
@@ -1613,4 +1635,27 @@ with open(os.path.join(ROOT, 'coxia.html'), 'w') as f:
     f.write(coxia_html)
 print('•', 'coxia.html', len(coxia_html)//1024, 'KB')
 
+nf_body = band('Erro 404', 'Esta página saiu de cartaz', 'O endereço não existe — mas o espetáculo continua') + '''
+<main class="wrap" style="padding-bottom:40px">
+  <div class="filters" style="padding-top:28px">
+    <a href="index.html" class="on">← Voltar à capa</a>
+    <a href="noticias.html">Notícias</a>
+    <a href="busca.html">Buscar no acervo</a>
+  </div>
+</main>
+'''
+page('404.html', 'Página não encontrada — FOYER', 'Página não encontrada no FOYER.', 'index.html', nf_body)
+
+import glob as _g
+urls = sorted(os.path.basename(f) for f in _g.glob(os.path.join(ROOT, '*.html'))
+              if os.path.basename(f) not in ('coxia.html', '404.html'))
+with open(os.path.join(ROOT, 'sitemap.xml'), 'w') as f:
+    f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
+    for u in urls:
+        loc = BASE + '/' + ('' if u == 'index.html' else u)
+        f.write(f'<url><loc>{loc}</loc></url>\n')
+    f.write('</urlset>\n')
+with open(os.path.join(ROOT, 'robots.txt'), 'w') as f:
+    f.write(f'User-agent: *\nAllow: /\nDisallow: /coxia.html\n\nSitemap: {BASE}/sitemap.xml\n')
+print(f'sitemap: {len(urls)} URLs')
 print('pronto')
