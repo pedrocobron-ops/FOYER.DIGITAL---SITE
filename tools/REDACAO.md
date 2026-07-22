@@ -12,21 +12,46 @@ com `"status": "aguardando_aprovacao"`. É proibido gravar em `import/novas/`,
 alterar páginas do site ou qualquer outro arquivo. Quem aprova e publica é um
 humano, na Coxia (aba Redação IA).
 
-## Estilo da casa
+## Estilo da casa — padrão PROFISSIONAL, sem matéria rasa
 
 O FOYER (foyer.digital) é um portal brasileiro de jornalismo cultural —
-teatro, música e artes. Padrão editorial:
+teatro, música e artes. Uma matéria do FOYER é uma REPORTAGEM completa,
+não uma nota de agenda. Padrão obrigatório:
 
 - Português do Brasil, jornalismo cultural profissional.
-- Títulos informativos e diretos, sem caça-clique.
-- Lide que responde o quê, quem, quando e onde.
-- Parágrafos curtos; 400 a 700 palavras.
-- Bloco de serviço ao final quando houver evento (local, datas, horários, ingressos).
+- **Entre 750 e 1.100 palavras.** Menos de 750 palavras = matéria
+  reprovada, volta para o Repórter aprofundar.
+- Estrutura de reportagem: lide forte (o quê, quem, quando, onde e por
+  que importa); desenvolvimento com **3 ou mais intertítulos** (`## `);
+  contexto e histórico (trajetória dos artistas, montagens anteriores,
+  cenário do setor); detalhes de produção (ficha, números, bastidores
+  que as fontes tragam); e bloco de serviço completo ao final quando
+  houver evento (local, endereço, datas, horários, duração,
+  classificação, preços por setor, onde comprar).
+- Citações (`> `) sempre que as fontes trouxerem declarações textuais
+  REAIS de artistas, diretores ou produtores, com atribuição no texto.
+  Enriquecem muito a matéria — procurar ativamente por elas na apuração.
+- Títulos informativos e diretos, sem caça-clique. Parágrafos curtos.
 - **Nunca inventar fatos, aspas ou dados** — tudo deve vir das fontes
-  encontradas na apuração. Se um dado não estiver nas fontes, não afirmar.
-- Citação (`> `) só para declaração textual REAL de fonte pública, com
-  atribuição no texto.
+  encontradas na apuração (mínimo de 3 fontes por matéria). Se um dado
+  não estiver nas fontes, não afirmar.
 - Assinatura: sempre `"author": "Redação Foyer"` — sem personas falsas.
+
+## Foto de capa — OBRIGATÓRIA, com crédito
+
+Matéria sem foto não vai para a mesa. Em cada pauta:
+
+1. Na apuração, localizar a foto oficial de divulgação (release da
+   produção, página de imprensa, og:image das matérias-fonte).
+2. Baixar o arquivo (`curl -L -o`) e salvar em
+   `assets/uploads/<slug>.jpg` (se vier muito grande, tudo bem — o site
+   ajusta na exibição).
+3. No pacote: `"img": "assets/uploads/<slug>.jpg"` e
+   `"imgCredito": "Foto: <fotógrafo se houver>/Divulgação"` — crédito
+   verdadeiro, conforme a fonte identificar a imagem.
+4. Se NENHUMA foto de divulgação for encontrada, a pauta é descartada e
+   o Pauteiro escolhe outra. Nunca usar foto que não seja de divulgação
+   oficial do espetáculo/evento.
 
 ## A esteira, papel por papel
 
@@ -36,10 +61,13 @@ teatro, música e artes. Padrão editorial:
    conferir os títulos já cobertos (primeiros ~60 de `import/materias.json`
    e tudo em `import/pauta/` e `import/novas/`) para não repetir assunto.
    Escolher as 2 melhores pautas (relevantes, verificáveis, com fontes
-   confiáveis), salvo pedido de outra quantidade ou editoria específica.
-2. **Repórter** — apurar cada pauta com mais buscas: confirmar datas,
-   locais, nomes completos, valores de ingresso, declarações públicas.
-   Escrever a matéria completa no formato do corpo (abaixo).
+   confiáveis E com foto de divulgação disponível), salvo pedido de outra
+   quantidade ou editoria específica.
+2. **Repórter** — apurar cada pauta A FUNDO, com várias buscas:
+   confirmar datas, locais, nomes completos, valores de ingresso,
+   declarações públicas, trajetória dos envolvidos, contexto do setor.
+   Baixar a foto oficial de divulgação. Escrever a REPORTAGEM completa
+   (750–1.100 palavras) no formato do corpo (abaixo).
 3. **Editor de Estilo** — reler e lapidar: ritmo, clareza, repetições,
    clichês, concordância. Não acrescentar fatos nem remover informações.
 4. **Chefe de Redação** — validação final com parecer honesto: título fiel
@@ -60,7 +88,8 @@ citação real; `**negrito**` para nomes de obras; `[link](url)` se preciso.
  "slug": "titulo-da-materia",
  "cat": "Teatro",
  "author": "Redação Foyer",
- "img": "",
+ "img": "assets/uploads/<slug>.jpg",
+ "imgCredito": "Foto: Divulgação",
  "corpo": "texto no formato da Coxia…",
  "fontes": ["https://…", "https://…"],
  "status": "aguardando_aprovacao",
@@ -104,10 +133,11 @@ lista `rodadas` (mais recente primeiro; manter no máximo 30):
 ## Entrega
 
 1. Salvar cada pacote em `import/pauta/<slug>.json`.
-2. Registrar a rodada em `import/pauta/diario.json` (formato acima).
-3. `git add import/pauta/` — e nada além disso.
-3. Commit na branch `claude/foyer-digital-redesign-14l2b6` com mensagem
+2. Salvar as fotos de capa em `assets/uploads/`.
+3. Registrar a rodada em `import/pauta/diario.json` (formato acima).
+4. `git add import/pauta/ assets/uploads/` — e nada além disso.
+5. Commit na branch `claude/foyer-digital-redesign-14l2b6` com mensagem
    `Redação IA: matérias na mesa de aprovação da Coxia [skip ci]`
    (o `[skip ci]` evita um deploy desnecessário — pauta não aparece no site).
-4. `git push -u origin claude/foyer-digital-redesign-14l2b6`.
-5. Encerrar informando quantas matérias ficaram na mesa e seus títulos.
+6. `git push -u origin claude/foyer-digital-redesign-14l2b6`.
+7. Encerrar informando quantas matérias ficaram na mesa e seus títulos.

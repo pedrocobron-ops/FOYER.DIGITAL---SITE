@@ -1092,7 +1092,8 @@ if os.path.isdir(_novas_dir):
             'cat': _n.get('cat', 'Notícia'), 'author': _n.get('author', 'Redação Foyer'),
             'date': f'{int(_dd)} de {_MESES_PT[int(_mo)-1]} de {_y}',
             'short': f'{_dd}.{_mo}', 'iso': _iso,
-            'img': _n.get('img', ''), 'url': '', 'min': max(1, len(_txt)//1100),
+            'img': _n.get('img', ''), 'credito': _n.get('imgCredito', ''),
+            'url': '', 'min': max(1, len(_txt)//1100),
         })
     if _novas:
         _slugs_novos = {x['slug'] for x in _novas}
@@ -1435,7 +1436,7 @@ def post_page(i, p):
 
   <figure class="art-cover">
     <span class="ph"><img src="{wiximg(p['img'])}" alt="" loading="eager" onerror="this.style.display='none'"></span>
-    <figcaption>{safe(p['title'])} — Foto: Divulgação</figcaption>
+    <figcaption>{safe(p['title'])} — {safe(p.get('credito') or 'Foto: Divulgação')}</figcaption>
   </figure>
 
   <div class="ad-slot" data-ad-slot="2001"></div>

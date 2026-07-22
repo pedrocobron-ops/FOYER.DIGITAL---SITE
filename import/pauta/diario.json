@@ -1,6 +1,33 @@
 {
  "rodadas": [
   {
+   "quando": "2026-07-22T22:29:21.508334+00:00",
+   "por": "Reforma editorial (Claude, a pedido do chefe)",
+   "buscas": [
+    "\"Festa no Arraial\" musical Thereza Falcão Mariana Mesquita declaração sinopse personagens",
+    "extração do release completo (Pressenza) — citação da diretora e crédito da foto",
+    "extração do serviço completo de Wicked (Agenda Carioca) — endereço, sala e horários",
+    "download das fotos oficiais de divulgação (og:image das matérias-fonte)"
+   ],
+   "consideradas": [
+    {
+     "assunto": "Reescrita de 'Festa no Arraial' no padrão profissional",
+     "decisao": "escolhida",
+     "motivo": "matéria anterior era curta; agora tem ~700+ palavras, citação real da diretora e foto com crédito (João Pedro Hachiya)"
+    },
+    {
+     "assunto": "Reescrita de 'Wicked no Rio' no padrão profissional",
+     "decisao": "escolhida",
+     "motivo": "acrescentados contexto do fenômeno, sala Bibi Ferreira, endereço completo e foto oficial de produção"
+    }
+   ],
+   "produzidas": [
+    "festa-no-arraial-o-musical-shakespeare-festa-junina-frei-caneca (reescrita)",
+    "wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang (reescrita)"
+   ],
+   "obs": "Novo padrão em vigor: 750–1.100 palavras, 3+ intertítulos, citações reais e FOTO OBRIGATÓRIA com crédito. Sem foto, a pauta é descartada."
+  },
+  {
    "quando": "2026-07-22T22:05:00+00:00",
    "por": "Rodada manual (Claude, na sessão do chefe)",
    "buscas": [

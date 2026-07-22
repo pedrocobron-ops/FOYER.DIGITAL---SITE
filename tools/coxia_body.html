@@ -220,13 +220,26 @@
     font-family:var(--mono); font-size:.66rem; line-height:1.95; color:var(--ink-soft); }
   .mesa-parecer b{ color:var(--ink); text-transform:uppercase; letter-spacing:.1em; font-size:.56rem; }
   .mesa-parecer ul{ margin:6px 0 0 16px; }
-  .mesa-capa{ border-bottom:1px solid var(--line); }
+  .mesa-capa{ border-bottom:1px solid var(--line); position:relative; }
   .mesa-capa img{ width:100%; max-height:300px; object-fit:cover; vertical-align:top; }
+  .mesa-cred{ position:absolute; right:0; bottom:0; background:var(--ink); color:var(--gold);
+    font-family:var(--mono); font-size:.54rem; letter-spacing:.1em; text-transform:uppercase; padding:5px 10px; }
+  .mesa-semfoto{ border-bottom:1px solid var(--line); background:repeating-linear-gradient(45deg,
+    var(--paper-2) 0 14px, var(--paper) 14px 28px); padding:16px 18px; font-family:var(--mono);
+    font-size:.62rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:#8E1B10; }
+  .mesa-corpo h3{ font-size:1rem; text-transform:uppercase; letter-spacing:.04em; margin:20px 0 8px;
+    border-bottom:2px solid var(--gold); padding-bottom:6px; display:inline-block; }
+  .mesa-corpo p{ margin:0 0 14px; }
+  .mesa-corpo blockquote{ margin:16px 0; padding:10px 16px; border-left:3px solid var(--gold);
+    font-family:var(--didone); font-size:1.05rem; }
+  .mesa-corpo figure{ margin:14px 0; }
+  .mesa-corpo figcaption{ font-family:var(--mono); font-size:.58rem; color:var(--ink-soft);
+    letter-spacing:.08em; text-transform:uppercase; margin-top:6px; }
   .mesa-fontes{ padding:10px 18px; border-bottom:1px solid var(--line); font-family:var(--mono);
     font-size:.6rem; line-height:2; word-break:break-all; }
   .mesa-fontes a{ color:var(--ink-soft); }
   .mesa-corpo{ display:none; padding:18px; border-bottom:1px solid var(--line);
-    white-space:pre-wrap; font-size:.86rem; line-height:1.8; max-height:440px; overflow:auto; }
+    font-size:.88rem; line-height:1.85; max-height:480px; overflow:auto; }
   .mesa-corpo.on{ display:block; }
   .mesa-acoes{ padding:14px 18px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
   .mesa-acoes .bt.ap{ background:var(--wine); color:var(--gold); border:1.5px solid var(--wine); padding:10px 15px; }
@@ -381,6 +394,7 @@
                 <button class="tira" id="up-tira" type="button">✕ Tirar foto</button>
                 <input type="file" id="up-file" accept="image/*">
               </div>
+              <input type="text" id="f-cred" placeholder="Crédito da foto — ex.: Foto: João Silva/Divulgação" style="margin-top:8px">
             </div>
             <div>
               <label for="f-body">Texto</label>
@@ -416,7 +430,7 @@
             <span class="msg" id="msg"></span>
           </form>
           <div class="f-side">
-            <div class="f-note">
+            <div class="f-note" id="nova-nota">
               <b>Publicar agora:</b> no ar em ~2 minutos.<br>
               <b>Agendada:</b> o relógio do site confere a cada 30 min
               e publica sozinho na hora marcada.<br><br>
@@ -439,7 +453,7 @@
         <h2 class="hi">Redação IA</h2>
         <p class="hi-sub">Pauteiro → Repórter → Editor de Estilo → Chefe de Redação → você. Nada entra no ar sem a sua aprovação.</p>
 
-        <div class="sec-h"><h3>Mesa de aprovação</h3><span>matérias esperando o seu carimbo</span></div>
+        <div class="sec-h"><h3>Mesa de aprovação</h3><span>Redação IA e matérias da equipe — nada publica sem o seu carimbo</span></div>
         <div id="mesa-list"><div class="vazio-box">Carregando a mesa…</div></div>
 
         <div class="sec-h"><h3>Diário da redação</h3><span>como cada rodada foi apurada — buscas, pautas e decisões</span></div>
@@ -642,7 +656,11 @@
     }
     $('fila-sub').textContent = USER.papel === 'chefe'
       ? 'Tudo o que a Coxia publicou ou agendou'
-      : 'As matérias que você publicou ou agendou';
+      : 'Suas matérias — as publicadas e as que esperam o carimbo do chefe';
+    $('btn-pub').textContent = USER.papel === 'chefe' ? 'Enviar para o site' : 'Enviar para aprovação';
+    $('nova-nota').innerHTML = USER.papel === 'chefe'
+      ? '<b>Publicar agora:</b> no ar em ~2 minutos.<br><b>Agendada:</b> o relógio do site confere a cada 30 min e publica sozinho na hora marcada.<br><br>Capa, listagens, busca e compartilhamento se atualizam automaticamente.'
+      : '<b>Como funciona:</b> sua matéria vai para a mesa do chefe, que aprova e programa a publicação.<br><br>Se você marcar uma data, ela segue como <b>sugestão</b> de agendamento.<br><br>Capriche na foto de capa e no crédito — matéria completa sobe mais rápido.';
   }
 
   function abrir(){
@@ -854,56 +872,88 @@
     }
     var slug = slugify(title);
     var btn = $('btn-pub');
+    var ehChefe = USER.papel === 'chefe';
     btn.disabled = true; btn.textContent = 'Enviando…';
     var passo = CAPA ? subirImagem(CAPA, slug) : Promise.resolve('');
     passo.then(function(imgPath){
-      var dados = {
+      if(ehChefe){
+        var dados = {
+          title: title, slug: slug,
+          cat: $('f-cat').value,
+          author: $('f-autor').value,
+          img: imgPath, imgCredito: $('f-cred').value.trim(),
+          corpo: corpo, publishAt: publishAt,
+          criadoEm: new Date().toISOString(), criadoPor: USER.nome
+        };
+        return ghPut('import/novas/' + slug + '.json', JSON.stringify(dados, null, 1),
+          assina((quando === 'agendar' ? 'agenda' : 'publica') + ' "' + title + '"'));
+      }
+      // autor(a): vai para a mesa de aprovação do chefe
+      var pacote = {
         title: title, slug: slug,
         cat: $('f-cat').value,
-        author: $('f-autor').value,
-        img: imgPath, corpo: corpo, publishAt: publishAt,
-        criadoEm: new Date().toISOString(), criadoPor: USER.nome
+        author: USER.nome,
+        img: imgPath, imgCredito: $('f-cred').value.trim(),
+        corpo: corpo, fontes: [],
+        status: 'aguardando_aprovacao', origem: 'autor',
+        sugestaoPublishAt: quando === 'agendar' ? publishAt : '',
+        geradoEm: new Date().toISOString(), criadoPor: USER.nome
       };
-      return ghPut('import/novas/' + slug + '.json', JSON.stringify(dados, null, 1),
-        assina((quando === 'agendar' ? 'agenda' : 'publica') + ' "' + title + '"'));
+      return ghPut('import/pauta/' + slug + '.json', JSON.stringify(pacote, null, 1),
+        assina('envia "' + title + '" para a aprovação do chefe'));
     }).then(function(){
       msg.className = 'msg ok';
-      msg.textContent = quando === 'agendar'
-        ? 'Agendada ✓ — sai no site na hora marcada'
-        : 'Enviada ✓ — no ar em ~2 minutos';
+      msg.textContent = ehChefe
+        ? (quando === 'agendar' ? 'Agendada ✓ — sai no site na hora marcada' : 'Enviada ✓ — no ar em ~2 minutos')
+        : 'Enviada para a mesa do chefe ✓ — ele aprova e programa a publicação';
       e.target.reset();
       $('f-quando-dt').style.display = 'none';
       CAPA = null; $('up-prev').src = ''; up.classList.remove('tem');
       aplicarUsuario();
     }).catch(function(err){ msg.className = 'msg err'; msg.textContent = 'Falha ao enviar: ' + err.message; })
-      .finally(function(){ btn.disabled = false; btn.textContent = 'Enviar para o site'; });
+      .finally(function(){ btn.disabled = false; btn.textContent = ehChefe ? 'Enviar para o site' : 'Enviar para aprovação'; });
   });
 
   /* ---------------- fila ---------------- */
   function carregarFila(){
     var el = $('fila-list');
     el.innerHTML = '<div class="vazio-box">Carregando…</div>';
-    ghGet('import/novas').then(function(list){
-      var files = (list || []).filter(function(f){ return f.name.endsWith('.json'); });
-      if(!files.length){ el.innerHTML = '<div class="vazio-box">Nenhuma matéria criada pela Coxia ainda</div>'; return; }
-      return Promise.all(files.map(function(f){
+    Promise.all([
+      ghGet('import/novas').catch(function(){ return null; }),
+      ghGet('import/pauta').catch(function(){ return null; })
+    ]).then(function(res){
+      var fNovas = (res[0] || []).filter(function(f){ return f.name.endsWith('.json'); });
+      var fPauta = (res[1] || []).filter(function(f){ return f.name.endsWith('.json') && f.name !== 'diario.json'; });
+      var baixa = function(f, mesa){
         return fetch(f.download_url).then(function(r){ return r.json(); })
-          .then(function(d){ d._path = f.path; d._sha = f.sha; return d; }).catch(function(){ return null; });
-      })).then(function(items){
+          .then(function(d){ d._path = f.path; d._sha = f.sha; d._mesa = mesa; return d; })
+          .catch(function(){ return null; });
+      };
+      return Promise.all(
+        fNovas.map(function(f){ return baixa(f, false); })
+          .concat(fPauta.map(function(f){ return baixa(f, true); }))
+      ).then(function(items){
         items = items.filter(Boolean);
-        if(USER.papel !== 'chefe') items = items.filter(function(d){ return d.author === USER.nome || d.criadoPor === USER.nome; });
-        if(!items.length){ el.innerHTML = '<div class="vazio-box">Você ainda não publicou pela Coxia</div>'; return; }
-        items.sort(function(a,b){ return (b.publishAt || '').localeCompare(a.publishAt || ''); });
+        if(USER.papel !== 'chefe'){
+          items = items.filter(function(d){ return d.author === USER.nome || d.criadoPor === USER.nome; });
+        } else {
+          items = items.filter(function(d){ return !d._mesa; }); // p/ chefe a mesa fica na aba Redação IA
+        }
+        if(!items.length){ el.innerHTML = '<div class="vazio-box">Nenhuma matéria por aqui ainda</div>'; return; }
+        items.sort(function(a,b){ return (b.publishAt || b.geradoEm || '').localeCompare(a.publishAt || a.geradoEm || ''); });
         el.innerHTML = items.map(function(d){
-          var futura = d.publishAt && d.publishAt > new Date().toISOString();
-          var quando = new Date(d.publishAt).toLocaleString('pt-BR');
+          var pill, cls;
+          if(d._mesa){ pill = 'Na mesa do chefe'; cls = 'ag'; }
+          else if(d.publishAt && d.publishAt > new Date().toISOString()){ pill = 'Agendada'; cls = 'ag'; }
+          else { pill = 'Publicada'; cls = 'pb'; }
+          var quando = new Date(d.publishAt || d.geradoEm).toLocaleString('pt-BR');
           var th = d.img
             ? '<img class="th" src="' + esc(d.img) + '" alt="" onerror="this.className=\'th no\';this.removeAttribute(\'src\')">'
             : '<span class="th no">sem foto</span>';
           return '<div class="frow">' + th +
             '<span><span class="ti">' + esc(d.title) + '</span>' +
             '<span class="mt">' + esc(d.cat) + ' — ' + esc(d.author) + ' — ' + quando + '</span></span>' +
-            '<span class="pill ' + (futura ? 'ag' : 'pb') + '">' + (futura ? 'Agendada' : 'Publicada') + '</span>' +
+            '<span class="pill ' + cls + '">' + pill + '</span>' +
             '<button class="bt danger" data-del="' + esc(d._path) + '" data-sha="' + esc(d._sha) + '" type="button">Remover</button>' +
             '</div>';
         }).join('');
@@ -952,6 +1002,25 @@
   });
 
   /* ---------------- redação IA: mesa ---------------- */
+  function mdRender(txt){
+    return String(txt || '').split(/\n\s*\n/).map(function(b){
+      b = b.trim();
+      if(!b) return '';
+      if(b.indexOf('## ') === 0) return '<h3>' + esc(b.slice(3)) + '</h3>';
+      if(b.indexOf('img:') === 0){
+        var resto = b.slice(4).split('|');
+        return '<figure><img src="' + esc(resto[0].trim()) + '" alt="" style="max-width:100%">' +
+               (resto[1] ? '<figcaption>' + esc(resto[1].trim()) + '</figcaption>' : '') + '</figure>';
+      }
+      var e = esc(b)
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/\[(.+?)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+      if(b.indexOf('> ') === 0) return '<blockquote>' + e.replace(/^&gt;\s*/, '') + '</blockquote>';
+      return '<p>' + e + '</p>';
+    }).join('');
+  }
+
   function carregarMesa(){
     var el = $('mesa-list');
     el.innerHTML = '<div class="vazio-box">Carregando a mesa…</div>';
@@ -972,6 +1041,8 @@
         el.innerHTML = items.map(function(d){
           MESA[d.slug] = d;
           var ch = d.chefe || {};
+          var ehAutor = d.origem === 'autor';
+          var palavras = (d.corpo || '').split(/\s+/).filter(Boolean).length;
           var ressalvas = (ch.ressalvas && ch.ressalvas.length)
             ? '<b>Ressalvas para conferir:</b><ul>' + ch.ressalvas.map(function(r){ return '<li>' + esc(r) + '</li>'; }).join('') + '</ul>'
             : '';
@@ -979,17 +1050,30 @@
             ? '<div class="mesa-fontes"><b style="font-family:var(--mono);font-size:.54rem;letter-spacing:.1em;text-transform:uppercase">Fontes apuradas:</b><br>' +
               d.fontes.map(function(u){ return '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(u) + '</a>'; }).join('<br>') + '</div>'
             : '';
-          var capa = d.img ? '<div class="mesa-capa"><img src="' + esc(d.img) + '" alt=""></div>' : '';
+          var capa = d.img
+            ? '<div class="mesa-capa"><img src="' + esc(d.img) + '" alt="">' +
+              (d.imgCredito ? '<span class="mesa-cred">' + esc(d.imgCredito) + '</span>' : '') + '</div>'
+            : '<div class="mesa-semfoto">⚠ Sem foto de capa — suba uma antes de aprovar</div>';
           var quando = d.geradoEm ? new Date(d.geradoEm).toLocaleString('pt-BR') : '';
+          var origem = ehAutor
+            ? 'Enviada por ' + esc(d.criadoPor || d.author)
+            : 'Redação IA — esteira: ' + esc(d.esteira || 'agentes');
+          var sugestao = d.sugestaoPublishAt
+            ? ' — sugestão de publicação: ' + new Date(d.sugestaoPublishAt).toLocaleString('pt-BR') : '';
+          var parecer = ehAutor
+            ? '<div class="mesa-parecer"><b>Matéria da equipe:</b> ' + esc(d.author) + ' assina; você aprova, programa ou recusa.' + esc(sugestao) + '</div>'
+            : '<div class="mesa-parecer"><b>Parecer do chefe de redação (agente):</b> ' + esc(ch.parecer || 'sem parecer') + '<br>' + ressalvas + '</div>';
+          var selo = ehAutor
+            ? '<span class="mesa-nota" title="Enviada por autor(a) da equipe" style="font-size:1rem;padding:10px 12px">EQUIPE</span>'
+            : '<span class="mesa-nota" title="Nota do Chefe de Redação (agente)">' + (ch.nota != null ? esc(ch.nota) : '—') + '<small style="font-size:.8rem">/10</small></span>';
           return '<article class="mesa-card" data-slug="' + esc(d.slug) + '">' +
             '<div class="mesa-head">' +
               '<span><span class="ti">' + esc(d.title) + '</span>' +
-              '<span class="mt">' + esc(d.cat) + ' — gerada em ' + quando + ' — esteira: ' + esc(d.esteira || 'agentes') + '</span></span>' +
-              '<span class="mesa-nota" title="Nota do Chefe de Redação (agente)">' + (ch.nota != null ? esc(ch.nota) : '—') + '<small style="font-size:.8rem">/10</small></span>' +
-            '</div>' + capa +
-            '<div class="mesa-parecer"><b>Parecer do chefe de redação (agente):</b> ' + esc(ch.parecer || 'sem parecer') + '<br>' + ressalvas + '</div>' +
+              '<span class="mt">' + esc(d.cat) + ' — ' + palavras + ' palavras — ' + quando + ' — ' + origem + '</span></span>' +
+              selo +
+            '</div>' + capa + parecer +
             fontes +
-            '<div class="mesa-corpo" id="corpo-' + esc(d.slug) + '">' + esc(d.corpo) + '</div>' +
+            '<div class="mesa-corpo" id="corpo-' + esc(d.slug) + '">' + mdRender(d.corpo) + '</div>' +
             '<div class="mesa-acoes">' +
               '<button class="bt" type="button" data-ler="' + esc(d.slug) + '">📖 Ler a matéria</button>' +
               '<button class="bt" type="button" data-capa="' + esc(d.slug) + '">📷 ' + (d.img ? 'Trocar a capa' : 'Subir a capa') + '</button>' +
@@ -1030,12 +1114,13 @@
     var dados = {
       title: d.title, slug: d.slug, cat: d.cat,
       author: d.author || 'Redação Foyer', img: d.img || '',
+      imgCredito: d.imgCredito || '',
       corpo: d.corpo, publishAt: publishAt,
       criadoEm: new Date().toISOString(),
-      origem: 'redacao-ia', aprovadoPor: USER.nome
+      origem: d.origem === 'autor' ? 'autor' : 'redacao-ia', aprovadoPor: USER.nome
     };
     ghPut('import/novas/' + slug + '.json', JSON.stringify(dados, null, 1),
-          assina('aprova matéria da Redação IA "' + d.title + '"'))
+          assina('aprova "' + d.title + '"' + (d.origem === 'autor' ? ' (matéria de ' + (d.criadoPor || d.author) + ')' : ' (Redação IA)')))
       .then(function(){ return ghDel(d._path, d._sha, assina('retira da mesa após aprovação')); })
       .then(function(){ carregarMesa(); carregarPalco(); })
       .catch(function(err){
@@ -1055,14 +1140,28 @@
     }
     if((b = e.target.closest('[data-aprovar]'))){
       if(!token()){ alert('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+      if(MESA[b.dataset.aprovar] && !MESA[b.dataset.aprovar].img){
+        alert('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de aprovar.'); return;
+      }
       if(!confirm('Aprovar e publicar esta matéria agora?')) return;
       aprovar(b.dataset.aprovar, new Date().toISOString()); return;
     }
     if((b = e.target.closest('[data-agendar]'))){
       var inp = $('dt-' + b.dataset.agendar);
-      if(!inp.classList.contains('on')){ inp.classList.add('on'); inp.focus(); return; }
+      if(!inp.classList.contains('on')){
+        var dd = MESA[b.dataset.agendar];
+        if(dd && dd.sugestaoPublishAt && !inp.value){
+          var sug = new Date(dd.sugestaoPublishAt);
+          sug.setMinutes(sug.getMinutes() - sug.getTimezoneOffset());
+          inp.value = sug.toISOString().slice(0, 16);
+        }
+        inp.classList.add('on'); inp.focus(); return;
+      }
       if(!inp.value){ alert('Escolha a data e a hora do agendamento'); return; }
       if(!token()){ alert('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+      if(MESA[b.dataset.agendar] && !MESA[b.dataset.agendar].img){
+        alert('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de aprovar.'); return;
+      }
       aprovar(b.dataset.agendar, new Date(inp.value).toISOString()); return;
     }
     if((b = e.target.closest('[data-recusar]'))){
