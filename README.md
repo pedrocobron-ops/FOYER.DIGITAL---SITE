@@ -1,32 +1,44 @@
-# Foyer.Digital — Novo site
+# FOYER — Novo site
 
-Redesign do portal [foyer.digital](https://www.foyer.digital/): de blog para **jornal de arte** moderno.
+Redesign do portal [foyer.digital](https://www.foyer.digital/): **brutalismo de instituição de arte** com a identidade existente da marca.
 
 ## Direção de arte
 
-O conceito parte do próprio nome — *foyer*, o saguão do teatro onde a plateia se encontra antes do espetáculo:
+Referências: Whitney Museum (estrutura brutalista + navegação de instituição séria) e a linguagem industrial de catálogo da moda de luxo (Balenciaga/Off-White). Cores do logo oficial do Foyer.
 
-- **Paleta**: papel bone quente + tinta quase-preta, vermelho de cortina (`#C42A21`), latão (`#A57C2C`) e oxblood (`#380E11`) nas faixas escuras. Tema claro ("plateia") e escuro ("palco") completos.
-- **Tipografia**: serifada editorial em corpos grandes (autoridade de jornal cultural) contra sans em caixa-alta espaçada (contraste moderno).
-- **Estrutura da home**: masthead → manchete → Em Cartaz → Programas (faixa de cortina com os 5 shows do YouTube) → prévia da Enciclopédia do Teatro Musical Brasileiro → newsletter.
+- **Cores**: vinho oxblood `#4A100E` + dourado `#D6B26E` (do logo), papel bone `#EFE9DB`, tinta `#16100D`. Temas claro ("Luz da sala") e escuro ("Blackout").
+- **Tipografia** (arquivos em `fonts/`, servidos localmente):
+  - *Abril Fatface* — didone pesado que casa com o wordmark FOy/ER; masthead, títulos dos programas, notas de crítica, números
+  - *Archivo Black* — manchetes e cabeçalhos de seção em caixa-alta
+  - *Archivo* (variável) — texto corrido, navegação, títulos secundários
+  - *IBM Plex Mono* — ticker, timestamps, etiquetas, dados, tabela da enciclopédia
+- **Estrutura**: grid industrial com bordas expostas (linhas de 1–2px em toda parte), hover com inversão dura (tinta→dourado, vinho→dourado), sem cantos arredondados, sem sombras.
 
-## Seções previstas
+## Seções da capa
 
-1. **Portal de notícias** — Em Cartaz, Crítica, Entrevistas, Agenda
-2. **Programas** — Programa do Foyer, Trivia Musical, Astro em Cena, Off Stage, Coxixo de Coxia (YouTube/Spotify)
-3. **Enciclopédia do Teatro Musical Brasileiro** — banco de dados de espetáculos, elencos e equipes criativas com nomes clicáveis (estilo MCDB); prevista para a fase 2 com backend
+1. **Ticker** de últimas notícias (letreiro contínuo, vinho/dourado)
+2. **Masthead** — wordmark FOy/ER empilhado em didone dourado sobre vinho, flanqueado por dados de edição em mono
+3. **Nav** fixa em barra contínua com separadores
+4. **Capa** — manchete em Archivo Black + coluna "O Giro" (fio de notícias com timestamps) = alta densidade de notícia
+5. **Notícias** — grade 4 colunas com células de grid exposto
+6. **Crítica** — notas em didone sobre bloco vinho + citação
+7. **Programas** — faixa vinho com os 5 shows (YouTube/Spotify)
+8. **Enciclopédia do Teatro Musical Brasileiro** — estatísticas + índice tabular de artistas (estilo MCDB; fase 2 com banco de dados)
+9. Newsletter + footer com FOYER gigante cortado
 
 ## Rodando
 
-O protótipo é um arquivo único, sem build:
+Arquivo único, sem build — sirva a pasta (as fontes carregam de `fonts/`):
 
 ```
-abra index.html no navegador
+python3 -m http.server
+# abra http://localhost:8000
 ```
 
 ## Status
 
-- [x] Protótipo de direção de arte da home (`index.html`)
+- [x] Protótipo da capa com a nova direção brutalista
 - [ ] Aprovação da direção visual
+- [ ] Páginas internas (matéria, crítica, programa, agenda)
 - [ ] Migração para Next.js + CMS
 - [ ] Enciclopédia (banco de dados de pessoas/produções)
