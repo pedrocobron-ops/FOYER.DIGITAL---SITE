@@ -41,7 +41,11 @@ python3 -m http.server
 
 ## Coxia — publicação e agendamento
 
-A Coxia grava matérias em `import/novas/*.json` pela API do GitHub (token fine-grained com permissão Contents no repositório, colado uma única vez no painel). O robô de publicação regenera o site a cada mudança; o workflow `agendadas.yml` roda a cada 30 minutos e coloca no ar as matérias cuja hora chegou. Formato de texto: parágrafos separados por linha em branco, `## intertítulo`, `**negrito**`, `*itálico*`, `> citação`, `[link](url)`, `img:URL | legenda`.
+A Coxia (v3, em `tools/coxia_body.html`) é a central de controle completa: painel **Palco** (estatísticas + diário de atividades), **Nova matéria** com upload do arquivo da foto de capa (redimensionada no navegador e gravada em `assets/uploads/`), **Fila & agendadas**, **Redação IA** (mesa de aprovação + diário do processo) e **Equipe**.
+
+- **Níveis de acesso**: os usuários vivem em `import/equipe.json` (senha guardada como hash SHA-256 com salt, nunca às claras). O papel `chefe` tem acesso total — inclusive ao painel Equipe, onde cadastra/edita/exclui autores, gera a senha única de cada um e acompanha o diário de atividades (cada publicação sai assinada no histórico: `Coxia [Nome]: …`). O papel `autor` escreve e publica as próprias matérias; a mesa da Redação IA só aparece para quem tem a permissão.
+- A Coxia grava matérias em `import/novas/*.json` pela API do GitHub (token fine-grained com permissão Contents, colado uma única vez por navegador — aba Conexão). O robô de publicação regenera o site a cada mudança; o workflow `agendadas.yml` roda a cada 30 minutos e coloca no ar as matérias cuja hora chegou. Formato de texto: parágrafos separados por linha em branco, `## intertítulo`, `**negrito**`, `*itálico*`, `> citação`, `[link](url)`, `img:URL | legenda`.
+- Honestidade sobre segurança: é um site estático — o portão de senhas organiza o acesso da equipe, mas a proteção real de escrita é o token do GitHub. Não guarde nada sigiloso no repositório.
 
 ## Redação de agentes de IA (com aprovação humana obrigatória)
 

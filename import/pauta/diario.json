@@ -1,0 +1,41 @@
+{
+ "rodadas": [
+  {
+   "quando": "2026-07-22T22:05:00+00:00",
+   "por": "Rodada manual (Claude, na sessão do chefe)",
+   "buscas": [
+    "estreia teatro São Paulo julho 2026 espetáculo temporada",
+    "notícias teatro musical Brasil julho 2026 elenco anunciado estreia",
+    "\"Festa no Arraial\" musical Teatro Sabesp Frei Caneca estreia elenco Claudia Ohana ingressos",
+    "Wicked musical Rio de Janeiro 2026 Cidade das Artes temporada elenco ingressos"
+   ],
+   "consideradas": [
+    {
+     "assunto": "Festa no Arraial, O Musical — Shakespeare em festa junina no Frei Caneca",
+     "decisao": "escolhida",
+     "motivo": "estreia dia 24/07, elenco e serviço confirmados em 4 fontes"
+    },
+    {
+     "assunto": "Wicked — temporada carioca na Cidade das Artes",
+     "decisao": "escolhida",
+     "motivo": "em cartaz desde 15/07, protagonistas e preços confirmados"
+    },
+    {
+     "assunto": "7 Mulheres e Um Mistério — estreia em SP",
+     "decisao": "descartada",
+     "motivo": "o FOYER já cobriu a entrada de Paula Capovilla no elenco"
+    },
+    {
+     "assunto": "Gala Concert — Moscow Ballet em turnê",
+     "decisao": "descartada",
+     "motivo": "fora do foco principal e com poucas fontes brasileiras"
+    }
+   ],
+   "produzidas": [
+    "festa-no-arraial-o-musical-shakespeare-festa-junina-frei-caneca",
+    "wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang"
+   ],
+   "obs": "Ambas com nota 8 do chefe de redação; falta foto de divulgação nas duas — anexar a capa na mesa antes de publicar."
+  }
+ ]
+}

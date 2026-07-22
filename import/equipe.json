@@ -1,0 +1,15 @@
+{
+ "usuarios": [
+  {
+   "id": "pedro",
+   "nome": "Pedro Cobron",
+   "papel": "chefe",
+   "salt": "be9af3fdd5c9",
+   "hash": "49cf9292131a0b26c0b9f18c3f8dbf7c0498d41afd42f460082e6437bfe10f5d",
+   "permissoes": {
+    "mesaIA": true
+   },
+   "criadoEm": "2026-07-22T22:14:49.815675+00:00"
+  }
+ ]
+}

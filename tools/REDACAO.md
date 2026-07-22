@@ -81,10 +81,31 @@ citação real; `**negrito**` para nomes de obras; `[link](url)` se preciso.
   Festa, Programa.
 - JSON com `ensure_ascii` desligado (acentos legíveis) e indentação 1.
 
+## Diário da redação (obrigatório)
+
+Toda rodada TAMBÉM registra como trabalhou em `import/pauta/diario.json`
+(o chefe acompanha esse diário na Coxia). Acrescentar a rodada no INÍCIO da
+lista `rodadas` (mais recente primeiro; manter no máximo 30):
+
+```json
+{
+ "quando": "2026-07-23T12:00:00+00:00",
+ "por": "Rotina diária (Claude)",
+ "buscas": ["cada busca feita na varredura, textual"],
+ "consideradas": [
+  {"assunto": "…", "decisao": "escolhida", "motivo": "por quê"},
+  {"assunto": "…", "decisao": "descartada", "motivo": "por quê"}
+ ],
+ "produzidas": ["slug-1", "slug-2"],
+ "obs": "observações honestas para o editor humano (ex.: falta foto)"
+}
+```
+
 ## Entrega
 
 1. Salvar cada pacote em `import/pauta/<slug>.json`.
-2. `git add import/pauta/` — e nada além disso.
+2. Registrar a rodada em `import/pauta/diario.json` (formato acima).
+3. `git add import/pauta/` — e nada além disso.
 3. Commit na branch `claude/foyer-digital-redesign-14l2b6` com mensagem
    `Redação IA: matérias na mesa de aprovação da Coxia [skip ci]`
    (o `[skip ci]` evita um deploy desnecessário — pauta não aparece no site).
