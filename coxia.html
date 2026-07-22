@@ -61,6 +61,34 @@
   .cx-bar button{ background:var(--paper-2); border:1px solid var(--line); cursor:pointer;
     font-family:var(--mono); font-size:.58rem; letter-spacing:.08em; padding:6px 10px; color:var(--ink); }
   .cx-bar button:hover{ background:var(--ink); color:var(--gold); }
+  .mesa-card{ border:var(--b); margin-bottom:20px; }
+  .mesa-head{ padding:16px; border-bottom:1px solid var(--line); display:flex;
+    gap:12px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; }
+  .mesa-head .ti{ font-weight:800; font-size:1rem; text-transform:uppercase; line-height:1.3; }
+  .mesa-head .mt{ font-family:var(--mono); font-size:.58rem; color:var(--ink-soft);
+    letter-spacing:.08em; text-transform:uppercase; display:block; margin-top:6px; }
+  .mesa-nota{ font-family:var(--mono); font-weight:700; font-size:1.1rem; border:var(--b);
+    padding:8px 14px; background:var(--gold); color:var(--wine); white-space:nowrap; }
+  .mesa-parecer{ padding:14px 16px; border-bottom:1px solid var(--line);
+    font-family:var(--mono); font-size:.66rem; line-height:1.9; color:var(--ink-soft); }
+  .mesa-parecer b{ color:var(--ink); text-transform:uppercase; letter-spacing:.1em; font-size:.58rem; }
+  .mesa-parecer ul{ margin:6px 0 0 16px; }
+  .mesa-corpo{ display:none; padding:16px; border-bottom:1px solid var(--line);
+    white-space:pre-wrap; font-size:.86rem; line-height:1.8; max-height:420px; overflow:auto; }
+  .mesa-corpo.on{ display:block; }
+  .mesa-acoes{ padding:12px 16px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .mesa-acoes button{ background:none; border:1.5px solid var(--line); cursor:pointer; color:var(--ink);
+    font-family:var(--mono); font-size:.58rem; font-weight:600; letter-spacing:.1em;
+    text-transform:uppercase; padding:9px 14px; }
+  .mesa-acoes .ap{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
+  .mesa-acoes .ap:hover{ background:var(--gold); color:var(--wine); border-color:var(--gold); }
+  .mesa-acoes .rj:hover{ background:#8E1B10; color:#fff; border-color:#8E1B10; }
+  .mesa-acoes input[type=datetime-local]{ border:1.5px solid var(--line); background:var(--paper-2);
+    color:var(--ink); font-family:var(--mono); font-size:.7rem; padding:8px 10px; display:none; }
+  .mesa-acoes input[type=datetime-local].on{ display:inline-block; }
+  .mesa-fontes{ padding:10px 16px; border-bottom:1px solid var(--line); font-family:var(--mono);
+    font-size:.6rem; line-height:2; word-break:break-all; }
+  .mesa-fontes a{ color:var(--ink-soft); }
 </style>
 <div class="warn">Coxia — central de conteúdo do Foyer · publica e agenda direto no site</div>
 <main class="wrap">
@@ -183,16 +211,15 @@ img:https://exemplo.com/foto.jpg | Legenda da foto"></textarea>
       <div class="cx-list" id="fila-list"><div class="cx-row"><span class="mt">Conecte o token para carregar</span></div></div>
     </div>
 
-    <!-- REDAÇÃO IA -->
+    <!-- REDAÇÃO IA — MESA DE APROVAÇÃO -->
     <div class="cx-pane" id="pane-equipe">
-      <div class="adm-note" style="line-height:2.2">
-        O escritório de agentes de IA da redação está em desenho.<br>
-        Estrutura prevista: Pauteiro (varredura de notícias) → Repórteres
-        por editoria → Editor de estilo → Chefia de redação → Mesa de
-        aprovação (você) → Publicação agendada por aqui.<br>
-        Toda matéria de agente passa pela sua aprovação nesta central
-        antes de ir ao ar.
+      <div class="adm-note" style="margin-bottom:18px">
+        Esteira da redação de agentes: Pauteiro (varredura na web) → Repórter →
+        Editor de Estilo → Chefe de Redação → <b>você</b>. Nada vai ao ar sem a
+        sua aprovação nesta mesa. Para rodar a redação agora:
+        aba <i>Actions</i> do GitHub → “Redação de agentes de IA” → <i>Run workflow</i>.
       </div>
+      <div class="cx-list" id="mesa-list"><div class="cx-row"><span class="mt">Conecte o token para carregar a mesa</span></div></div>
     </div>
   </div>
 </main>
@@ -226,6 +253,7 @@ img:https://exemplo.com/foto.jpg | Legenda da foto"></textarea>
       b.classList.add('on');
       document.getElementById('pane-' + b.dataset.tab).classList.add('on');
       if(b.dataset.tab === 'fila') carregarFila();
+      if(b.dataset.tab === 'equipe') carregarMesa();
     });
   });
 
@@ -257,14 +285,8 @@ img:https://exemplo.com/foto.jpg | Legenda da foto"></textarea>
       var sel = ta.value.slice(ini, fim) || 'texto';
       var novo;
       if(md === '**' || md === '*') novo = md + sel + md;
-      else if(md === 'img:') novo = '
-
-img:https://…/foto.jpg | Legenda
-
-';
-      else novo = '
-
-' + md + sel;
+      else if(md === 'img:') novo = '\n\nimg:https://…/foto.jpg | Legenda\n\n';
+      else novo = '\n\n' + md + sel;
       ta.value = ta.value.slice(0, ini) + novo + ta.value.slice(fim);
       ta.focus();
     });
@@ -275,7 +297,7 @@ img:https://…/foto.jpg | Legenda
   });
 
   function slugify(t){
-    return t.normalize('NFD').replace(/[̀-ͯ]/g,'')
+    return t.normalize('NFD').replace(/[\u0300-\u036f]/g,'')
       .replace(/[^a-zA-Z0-9]+/g,'-').replace(/^-+|-+$/g,'').toLowerCase().slice(0,80);
   }
   function b64(str){ return btoa(unescape(encodeURIComponent(str))); }
@@ -373,6 +395,128 @@ img:https://…/foto.jpg | Legenda
       headers: { 'Authorization': 'Bearer ' + token(), 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: 'Coxia: remove matéria', sha: b.dataset.sha, branch: BRANCH })
     }).then(function(){ carregarFila(); });
+  });
+
+  // ------------------------------------------------ mesa de aprovação (Redação IA)
+  var MESA = {}; // slug -> pacote completo
+
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+
+  function carregarMesa(){
+    var el = document.getElementById('mesa-list');
+    if(!token()){ el.innerHTML = '<div class="cx-row"><span class="mt">Conecte o token para carregar a mesa</span></div>'; return; }
+    el.innerHTML = '<div class="cx-row"><span class="mt">Carregando a mesa de aprovação…</span></div>';
+    fetch(API + 'import/pauta?ref=' + BRANCH, { headers: { 'Authorization': 'Bearer ' + token() } })
+      .then(function(r){
+        if(r.status === 404) return [];
+        if(!r.ok) throw 0;
+        return r.json();
+      })
+      .then(function(list){
+        var files = (list || []).filter(function(f){ return f.name.endsWith('.json'); });
+        if(!files.length){
+          el.innerHTML = '<div class="cx-row"><span class="mt">Mesa vazia — nenhuma matéria de agente aguardando aprovação. ' +
+            'Rode a redação em Actions → “Redação de agentes de IA”.</span></div>';
+          return;
+        }
+        return Promise.all(files.map(function(f){
+          return fetch(f.download_url).then(function(r){ return r.json(); })
+            .then(function(d){ d._path = f.path; d._sha = f.sha; return d; });
+        })).then(function(items){
+          items.sort(function(a,b){ return (b.geradoEm||'').localeCompare(a.geradoEm||''); });
+          MESA = {};
+          el.innerHTML = items.map(function(d){
+            MESA[d.slug] = d;
+            var ch = d.chefe || {};
+            var ressalvas = (ch.ressalvas && ch.ressalvas.length)
+              ? '<b>Ressalvas para conferir:</b><ul>' + ch.ressalvas.map(function(r){ return '<li>' + esc(r) + '</li>'; }).join('') + '</ul>'
+              : '';
+            var fontes = (d.fontes && d.fontes.length)
+              ? '<div class="mesa-fontes"><b style="font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase">Fontes apuradas:</b><br>' +
+                d.fontes.map(function(u){ return '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(u) + '</a>'; }).join('<br>') + '</div>'
+              : '';
+            var quando = d.geradoEm ? new Date(d.geradoEm).toLocaleString('pt-BR') : '';
+            return '<article class="mesa-card" data-slug="' + esc(d.slug) + '">' +
+              '<div class="mesa-head">' +
+                '<span><span class="ti">' + esc(d.title) + '</span>' +
+                '<span class="mt">' + esc(d.cat) + ' — gerada em ' + quando + ' — esteira: ' + esc(d.esteira || 'agentes') + '</span></span>' +
+                '<span class="mesa-nota" title="Nota do Chefe de Redação (agente)">' + (ch.nota != null ? esc(ch.nota) + '/10' : '—') + '</span>' +
+              '</div>' +
+              '<div class="mesa-parecer"><b>Parecer do chefe de redação (agente):</b> ' + esc(ch.parecer || 'sem parecer') + '<br>' + ressalvas + '</div>' +
+              fontes +
+              '<div class="mesa-corpo" id="corpo-' + esc(d.slug) + '">' + esc(d.corpo) + '</div>' +
+              '<div class="mesa-acoes">' +
+                '<button type="button" data-ler="' + esc(d.slug) + '">📖 Ler a matéria</button>' +
+                '<button type="button" class="ap" data-aprovar="' + esc(d.slug) + '">✓ Aprovar e publicar</button>' +
+                '<button type="button" data-agendar="' + esc(d.slug) + '">🕐 Aprovar e agendar</button>' +
+                '<input type="datetime-local" id="dt-' + esc(d.slug) + '" aria-label="Data e hora">' +
+                '<button type="button" class="rj" data-recusar="' + esc(d.slug) + '">✕ Recusar</button>' +
+              '</div>' +
+            '</article>';
+          }).join('');
+        });
+      })
+      .catch(function(){ el.innerHTML = '<div class="cx-row"><span class="mt">Erro ao carregar a mesa</span></div>'; });
+  }
+
+  function aprovar(slug, publishAt){
+    var d = MESA[slug];
+    if(!d) return;
+    var card = document.querySelector('.mesa-card[data-slug="' + slug + '"]');
+    if(card) card.style.opacity = '.4';
+    var dados = {
+      title: d.title, slug: d.slug, cat: d.cat,
+      author: d.author || 'Redação Foyer', img: d.img || '',
+      corpo: d.corpo, publishAt: publishAt,
+      criadoEm: new Date().toISOString(),
+      origem: 'redacao-ia', aprovadoPor: 'coxia'
+    };
+    ghPut('import/novas/' + slug + '.json', JSON.stringify(dados, null, 1),
+          'Coxia: humano aprova materia da redacao IA "' + d.title + '"')
+      .then(function(){
+        return fetch(API + d._path, {
+          method: 'DELETE',
+          headers: { 'Authorization': 'Bearer ' + token(), 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: 'Coxia: retira da mesa apos aprovacao', sha: d._sha, branch: BRANCH })
+        });
+      })
+      .then(function(){ carregarMesa(); })
+      .catch(function(err){
+        if(card) card.style.opacity = '1';
+        alert('Falha ao aprovar: ' + err.message);
+      });
+  }
+
+  document.addEventListener('click', function(e){
+    var b;
+    if((b = e.target.closest('[data-ler]'))){
+      document.getElementById('corpo-' + b.dataset.ler).classList.toggle('on');
+      return;
+    }
+    if((b = e.target.closest('[data-aprovar]'))){
+      if(!token()){ alert('Conecte o token do GitHub primeiro'); return; }
+      if(!confirm('Aprovar e publicar esta matéria agora?')) return;
+      aprovar(b.dataset.aprovar, new Date().toISOString());
+      return;
+    }
+    if((b = e.target.closest('[data-agendar]'))){
+      var inp = document.getElementById('dt-' + b.dataset.agendar);
+      if(!inp.classList.contains('on')){ inp.classList.add('on'); inp.focus(); return; }
+      if(!inp.value){ alert('Escolha a data e a hora do agendamento'); return; }
+      if(!token()){ alert('Conecte o token do GitHub primeiro'); return; }
+      aprovar(b.dataset.agendar, new Date(inp.value).toISOString());
+      return;
+    }
+    if((b = e.target.closest('[data-recusar]'))){
+      var d = MESA[b.dataset.recusar];
+      if(!d) return;
+      if(!confirm('Recusar e descartar esta matéria da mesa?')) return;
+      fetch(API + d._path, {
+        method: 'DELETE',
+        headers: { 'Authorization': 'Bearer ' + token(), 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: 'Coxia: humano recusa materia da redacao IA', sha: d._sha, branch: BRANCH })
+      }).then(function(){ carregarMesa(); });
+    }
   });
 })();
 </script>

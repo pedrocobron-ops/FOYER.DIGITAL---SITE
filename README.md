@@ -43,6 +43,15 @@ python3 -m http.server
 
 A Coxia grava matérias em `import/novas/*.json` pela API do GitHub (token fine-grained com permissão Contents no repositório, colado uma única vez no painel). O robô de publicação regenera o site a cada mudança; o workflow `agendadas.yml` roda a cada 30 minutos e coloca no ar as matérias cuja hora chegou. Formato de texto: parágrafos separados por linha em branco, `## intertítulo`, `**negrito**`, `*itálico*`, `> citação`, `[link](url)`, `img:URL | legenda`.
 
+## Redação de agentes de IA (com aprovação humana obrigatória)
+
+Esteira em `tools/redacao.py`: **Pauteiro** (varredura na web por notícias culturais recentes) → **Repórter** (apura e escreve) → **Editor de Estilo** (lapida) → **Chefe de Redação** (valida e dá nota/parecer). O resultado vai para `import/pauta/*.json` com status `aguardando_aprovacao` — **nada é publicado sem aprovação humana**.
+
+- O workflow `.github/workflows/redacao.yml` roda todo dia às 09h (Brasília) ou manualmente (Actions → "Redação de agentes de IA" → Run workflow). Requer o segredo `ANTHROPIC_API_KEY` (Settings → Secrets and variables → Actions).
+- A aprovação é feita na Coxia, aba **🤖 Redação IA**: cada matéria aparece com nota e parecer do chefe de redação (agente), ressalvas a conferir e as fontes apuradas. Botões: ler, aprovar e publicar, aprovar e agendar, recusar.
+- Ao aprovar, a matéria move de `import/pauta/` para `import/novas/` e entra no fluxo normal de publicação/agendamento. Ao recusar, é descartada.
+- Transparência editorial: as matérias saem assinadas como "Redação Foyer" — sem personas falsas de jornalistas (proteção da marca e das políticas do AdSense).
+
 ## Publicidade (Google AdSense)
 
 A infraestrutura está pronta e **desligada** — nenhum script do Google carrega até você ativar:

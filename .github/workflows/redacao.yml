@@ -1,0 +1,64 @@
+name: Redação de agentes de IA
+
+on:
+  schedule:
+    # 12:00 UTC = 09:00 em Brasília — a redação apura de manhã,
+    # as matérias ficam na mesa da Coxia aguardando SUA aprovação.
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+    inputs:
+      quantidade:
+        description: 'Quantas matérias produzir'
+        default: '2'
+      editoria:
+        description: 'Editoria específica (vazio = geral)'
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: redacao
+  cancel-in-progress: false
+
+jobs:
+  redacao:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: A chave da Anthropic está configurada?
+        id: chave
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "tem=nao" >> "$GITHUB_OUTPUT"
+            echo "::warning::Segredo ANTHROPIC_API_KEY não configurado — a redação não rodou. Configure em Settings → Secrets and variables → Actions."
+          else
+            echo "tem=sim" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Instalar o SDK da Anthropic
+        if: steps.chave.outputs.tem == 'sim'
+        run: pip install anthropic
+
+      - name: 'Rodar a esteira: Pauteiro → Repórter → Editor → Chefe'
+        if: steps.chave.outputs.tem == 'sim'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python3 tools/redacao.py "${{ github.event.inputs.quantidade || '2' }}" "${{ github.event.inputs.editoria || '' }}"
+
+      - name: Levar as matérias para a mesa de aprovação da Coxia
+        if: steps.chave.outputs.tem == 'sim'
+        run: |
+          git config user.name "Redação Foyer (agentes)"
+          git config user.email "actions@github.com"
+          git add import/pauta/
+          if git diff --cached --quiet; then
+            echo "Nenhuma matéria nova produzida nesta rodada."
+          else
+            git commit -m "Redação IA: matérias na mesa de aprovação da Coxia [skip ci]"
+            git push
+          fi
