@@ -195,7 +195,7 @@ FOOTER = '''<footer>
       </div>
     </div>
     <div class="foot-legal">
-      <span>© 2026 Foyer.Digital — Todos os direitos reservados</span>
+      <span>© 2026 Foyer Estúdio e Comunicação — Todos os direitos reservados</span>
       <span>São Paulo — Brasil</span>
     </div>
   </div>
@@ -1900,17 +1900,19 @@ _eq_linhas = ''.join(
     f'<li><b>{_rvesc(u["nome"])}</b> — {"Direção e edição" if u.get("papel") == "chefe" else "Redação"}</li>'
     for u in _EQ_PUB)
 _n_eps = sum(len(p.get('videos', [])) for p in YT.get('programas', []))
-sobre_body = band('O Foyer', 'Quem somos', 'Jornalismo de cultura feito por quem vive o teatro') + f'''
+sobre_body = band('O Foyer', 'Quem somos', 'Seu veículo de informação artístico') + f'''
 <main class="wrap">
   <div class="art" style="max-width:820px; margin:0 auto">
     <div class="art-body" style="padding-top:34px">
-      <p class="drop">O FOYER é um portal brasileiro de jornalismo cultural dedicado ao teatro, à música e às artes — e também um canal de programas sobre a arte de quem faz o palco. Nascemos da plateia: cobrimos estreias, temporadas, bastidores e a economia da cena com a urgência de quem sabe que espetáculo tem dia para sair de cartaz.</p>
+      <p class="drop">O FOYER é um veículo de comunicação artístico — um destino online dedicado à cultura, à criatividade e à expressão artística. Nossa missão é proporcionar uma plataforma dinâmica onde artistas, entusiastas da arte e curiosos possam se conectar, explorar e se inspirar.</p>
+      <p>Com uma ampla variedade de conteúdo, da música e do teatro à literatura e à dança, abraçamos todas as formas de expressão criativa: somos o ponto de encontro para descobrir talentos emergentes, acompanhar as tendências e mergulhar nas histórias por trás das obras e das performances. Seja você um artista em ascensão, um apreciador de arte ou alguém que busca se envolver no mundo da cultura, o FOYER é o seu guia para explorar, aprender e se conectar.</p>
       <h2>O que fazemos</h2>
       <p>São <b>{len(MATERIAS)} matérias</b> publicadas — notícias, críticas, entrevistas e serviço — e <b>{_n_eps} episódios</b> nos programas do canal, entre eles o <b>Programa do Foyer</b> (nosso talk com elencos e criadores), as críticas em vídeo de <b>Críticas Teatrais</b> e <b>Por Bruno Cavalcanti</b>, o game show <b>Trivia Musical</b> e o <b>Session Musical</b>, em que o teatro musical brasileiro canta em estúdio.</p>
+      <h2>Quem fundou</h2>
+      <p><b>Isabel Branquinha</b> — Cofundadora. Jornalista, atriz, dramaturga, apresentadora e produtora. Graduada com ênfase na crítica teatral, atuou em diversas áreas — inclusive como tradutora-intérprete de produtores internacionais do Festival Lollapalooza. Atua como social media, assessora de imprensa, redatora, jornalista cultural, diretora de conteúdo e produtora cultural.</p>
+      <p><b>Pedro Amaral</b> — Cofundador. Ator, dramaturgo, apresentador e produtor. Nascido em Santos e radicado em São Paulo, é bacharel em atuação pelo Célia Helena Centro de Artes e Educação e pós-graduado em Dramaturgia e Roteiro pela mesma instituição.</p>
       <h2>Como trabalhamos</h2>
       <p>Título sem caça-clique, apuração com fonte e serviço completo ao final. Parte das matérias assinadas como <b>Redação Foyer</b> conta com apuração assistida por inteligência artificial — todas são revisadas, checadas e aprovadas por um editor humano antes de ir ao ar. Fotografias são sempre de divulgação oficial, com o devido crédito. Conteúdo publicitário, quando houver, é identificado como tal.</p>
-      <h2>Quem faz</h2>
-      <ul style="line-height:2.4; list-style:none; padding:0">{_eq_linhas}</ul>
       <p>Quer falar com a redação? <a href="contato.html">Visite a página de contato</a>.</p>
     </div>
   </div>
@@ -1921,15 +1923,19 @@ _email = _CFG.get('emailContato', '')
 _email_bloco = (f'<p style="font-size:1.1rem">✉ <a href="mailto:{_rvesc(_email)}"><b>{_rvesc(_email)}</b></a></p>'
                 if _email else
                 '<p>✉ O e-mail da redação será publicado em breve.</p>')
-contato_body = band('Fale conosco', 'Contato', 'Pautas, convites de imprensa, parcerias e publicidade') + f'''
+_fones = ''.join(
+    f'<p><b>{_rvesc(t["nome"])}</b> — {_rvesc(t["papel"])}<br>☎ {_rvesc(t["fone"])}</p>'
+    for t in _CFG.get('telefones', []))
+contato_body = band('Fale conosco', 'Contato', 'Quer saber mais sobre o Foyer, sugerir uma pauta ou deixar uma mensagem?') + f'''
 <main class="wrap">
   <div class="art" style="max-width:820px; margin:0 auto">
     <div class="art-body" style="padding-top:34px">
-      <h2>Redação</h2>
+      <h2>Fale com a gente</h2>
       <p>Sugestões de pauta, convites para coberturas e estreias, material de divulgação e errata:</p>
       {_email_bloco}
+      {_fones}
       <h2>Publicidade e parcerias</h2>
-      <p>Anúncios no site, páginas patrocinadas na Revista do FOYER e projetos especiais nos programas do canal — escreva para a redação com o assunto “Publicidade”.</p>
+      <p>Anúncios no site, páginas patrocinadas na Revista do FOYER e projetos especiais nos programas do canal — escreva para o e-mail acima com o assunto “Publicidade”.</p>
       <h2>Nossos canais</h2>
       <p>
         <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube — @Foyer.digital ↗</a><br>
