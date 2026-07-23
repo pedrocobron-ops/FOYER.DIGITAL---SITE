@@ -1,0 +1,16 @@
+{
+ "name": "FOYER — Seu veículo de informação artístico",
+ "short_name": "FOYER",
+ "description": "Teatro, musicais e artes cênicas: notícias, críticas, guias e a revista semanal do FOYER.",
+ "lang": "pt-BR",
+ "start_url": "./index.html?fonte=app",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#EFE8DA",
+ "theme_color": "#4E0F09",
+ "icons": [
+  { "src": "assets/logo/pwa-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+  { "src": "assets/logo/pwa-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+  { "src": "assets/logo/pwa-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+ ]
+}

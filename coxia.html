@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Área restrita da redação do Foyer.">
 <meta name="theme-color" content="#4E0F09">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/logo/pwa-192.png">
 <meta property="og:site_name" content="FOYER">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Coxia — FOYER">
@@ -400,6 +402,29 @@
     .side nav button:first-child{ border-top:0; }
     .side-foot{ display:none; }
   }
+  /* ===== legibilidade: fonte de leitura no lugar da mono condensada =====
+     (a mono fica só como detalhe decorativo em selos, relógio e datas) */
+  .f-form label, .g8-form label{ font-family:var(--sans); font-size:.8rem; font-weight:700;
+    letter-spacing:.01em; text-transform:none; }
+  .f-form input[type=text], .f-form input[type=password], .f-form select, .f-form textarea,
+  .f-form input[type=datetime-local], #mural-form textarea, .cx-token input, .rv-add select{
+    font-family:var(--sans); font-size:.95rem; letter-spacing:0; }
+  .f-form textarea{ font-size:1rem; line-height:1.7; }
+  .f-note{ font-family:var(--sans); font-size:.85rem; letter-spacing:0; text-transform:none; line-height:1.65; }
+  .sec-h span, .hi-sub{ font-family:var(--sans); font-size:.8rem; font-weight:500;
+    letter-spacing:.01em; text-transform:none; }
+  .stat span{ font-family:var(--sans); font-size:.74rem; font-weight:600;
+    letter-spacing:.02em; text-transform:none; }
+  .ativ .mov .t{ font-family:var(--sans); font-size:.8rem; letter-spacing:0; text-transform:none; }
+  .bt{ font-family:var(--sans); font-size:.78rem; font-weight:700; letter-spacing:.01em;
+    text-transform:none; padding:7px 12px; }
+  .f-pub{ font-family:var(--sans); font-size:.9rem; font-weight:800; letter-spacing:.02em; text-transform:none; }
+  .frow .mt, .mesa-head .mt{ font-family:var(--sans); font-size:.76rem; letter-spacing:.01em; text-transform:none; }
+  .mesa-parecer{ font-family:var(--sans); font-size:.85rem; line-height:1.65; }
+  .mesa-parecer b{ font-size:.78rem; letter-spacing:.02em; text-transform:none; }
+  .vazio-box, .vazio{ font-family:var(--sans); font-size:.85rem; letter-spacing:0; text-transform:none; line-height:1.6; }
+  .up p{ font-family:var(--sans); font-size:.88rem; letter-spacing:0; text-transform:none; line-height:1.6; }
+  .mbar button{ font-family:var(--sans); font-size:.78rem; font-weight:600; letter-spacing:0; text-transform:none; }
 </style>
 
 <!-- ==================== PORTÃO ==================== -->

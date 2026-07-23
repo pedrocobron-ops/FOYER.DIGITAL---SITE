@@ -1134,3 +1134,24 @@ a:hover .tag, .tag:hover{ transform:translateY(-1px); }
   transform:translateY(-2px); }
 .art-div{ text-align:center; color:var(--gold); letter-spacing:1.2em; margin:30px 0;
   font-size:.8rem; text-indent:1.2em; }
+
+/* ---------- convite: instalar o FOYER como aplicativo ---------- */
+.app-veu{ position:fixed; inset:0; z-index:220; background:rgba(35,8,5,.55);
+  display:flex; align-items:center; justify-content:center; padding:22px;
+  opacity:0; transition:opacity .25s; }
+.app-veu.on{ opacity:1; }
+.app-card{ background:var(--paper); border:3px solid var(--ink); max-width:360px; width:100%;
+  padding:26px 24px 22px; text-align:center; box-shadow:8px 8px 0 rgba(35,8,5,.35);
+  transform:translateY(12px); transition:transform .25s; }
+.app-veu.on .app-card{ transform:none; }
+.app-card img{ width:74px; height:74px; border:2px solid var(--ink); margin-bottom:14px; }
+.app-card h3{ font-family:var(--didone); font-weight:400; font-size:1.7rem; margin:0 0 8px; line-height:1.05; }
+.app-card p{ font-size:.9rem; line-height:1.55; margin:0 0 14px; color:var(--ink-soft); }
+.app-card .app-ios{ border:1.5px solid var(--line); background:var(--paper-2); padding:12px; text-align:left; }
+.app-acoes{ display:flex; gap:10px; justify-content:center; }
+.app-ok{ border:2px solid var(--wine); background:var(--wine); color:var(--gold); cursor:pointer;
+  font-family:var(--sans); font-weight:800; font-size:.9rem; padding:13px 20px; }
+.app-ok:hover{ background:var(--gold); color:var(--wine); }
+.app-nao{ border:2px solid var(--ink); background:none; color:var(--ink); cursor:pointer;
+  font-family:var(--sans); font-weight:700; font-size:.9rem; padding:13px 16px; }
+html[data-theme="dark"] .app-card{ box-shadow:8px 8px 0 rgba(0,0,0,.5); }

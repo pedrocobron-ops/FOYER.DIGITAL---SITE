@@ -32,6 +32,8 @@ def head(title, desc, og_img=None, og_type='website', og_url='', ld=''):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="{d}">
 <meta name="theme-color" content="#4E0F09">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/logo/pwa-192.png">
 <meta property="og:site_name" content="FOYER">
 <meta property="og:type" content="{og_type}">
 <meta property="og:title" content="{t}">

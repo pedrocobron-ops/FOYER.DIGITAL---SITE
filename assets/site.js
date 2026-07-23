@@ -180,3 +180,58 @@
     });
   });
 })();
+
+/* ---------- FOYER no celular: instalar como aplicativo (PWA) ---------- */
+(function(){
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('sw.js').catch(function(){});
+  }
+  var K = 'foyer-app-aviso';
+  var padrao = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  if(padrao) return;                                  // já está instalado
+  if(location.pathname.indexOf('coxia') >= 0) return; // não no admin
+  var visto = 0;
+  try{ visto = parseInt(localStorage.getItem(K) || '0', 10); }catch(e){}
+  if(Date.now() - visto < 14 * 864e5) return;         // no máximo a cada 14 dias
+  var movel = window.matchMedia('(max-width: 820px)').matches;
+  if(!movel) return;
+
+  var esperado = null;
+  window.addEventListener('beforeinstallprompt', function(e){
+    e.preventDefault();
+    esperado = e;
+  });
+  var iOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+
+  function abrir(){
+    if(!esperado && !iOS) return;   // navegador sem suporte: não incomoda
+    var v = document.createElement('div');
+    v.className = 'app-veu';
+    v.innerHTML =
+      '<div class="app-card" role="dialog" aria-label="Instalar o FOYER">' +
+        '<img src="assets/logo/pwa-192.png" alt="FOYER">' +
+        '<h3>Leve o FOYER no bolso</h3>' +
+        '<p>Instale o site como aplicativo no seu celular: acesso direto da tela inicial, sem loja e sem ocupar espaço.</p>' +
+        (iOS && !esperado
+          ? '<p class="app-ios">No Safari: toque em <b>Compartilhar</b> (o quadrado com a seta) e depois em <b>“Adicionar à Tela de Início”</b>.</p>' +
+            '<div class="app-acoes"><button class="app-ok" data-fechar>Entendi</button></div>'
+          : '<div class="app-acoes"><button class="app-ok" data-instalar>Instalar agora</button>' +
+            '<button class="app-nao" data-fechar>Agora não</button></div>') +
+      '</div>';
+    document.body.appendChild(v);
+    requestAnimationFrame(function(){ v.classList.add('on'); });
+    function fechar(){
+      try{ localStorage.setItem(K, String(Date.now())); }catch(e){}
+      v.classList.remove('on');
+      setTimeout(function(){ v.remove(); }, 250);
+    }
+    v.addEventListener('click', function(e){
+      if(e.target === v || e.target.hasAttribute('data-fechar')) fechar();
+      if(e.target.hasAttribute('data-instalar') && esperado){
+        esperado.prompt();
+        esperado.userChoice.then(function(){ fechar(); });
+      }
+    });
+  }
+  setTimeout(abrir, 7000);
+})();
