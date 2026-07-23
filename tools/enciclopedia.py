@@ -74,6 +74,15 @@ LUGARES = {'são paulo', 'rio de janeiro', 'belo horizonte', 'porto alegre', 'no
            'nossa senhora', 'santa efigênia', 'santa efigenia', 'bom retiro',
            'jabaquara', 'vila olímpia', 'vila olimpia', 'liberdade', 'barra da tijuca'}
 
+
+# palavras que VETAM o nome inteiro (contexto de lugar/instituição — "Teatro Sérgio Cardoso"
+# homenageia uma pessoa, mas a citação é ao prédio, não à pessoa)
+VETO_TOTAL = set('''Teatro Teatros Cine Cinema Museu Centro Casa Companhia Cia Grupo Escola
+Instituto Shopping Orquestra Auditório Auditorio Sala Espaço Espaco Galeria Arena Complexo
+Palácio Palacio Fundação Fundacao Universidade Faculdade Avenida Rua Alameda Praça Praca Largo
+Viaduto Estação Estacao Prêmio Premio Prêmios Premios Festival Mostra Bienal Edifício Edificio
+Hospital Aeroporto Estádio Estadio Ginásio Ginasio Biblioteca Livraria Colégio Colegio'''.split())
+
 CONECT = {'de', 'da', 'do', 'das', 'dos', 'del', 'von', 'van', 'di'}
 
 TOKEN = r"[A-ZÁÂÃÀÉÊÍÓÔÕÚÜÇ][a-záâãàéêíóôõúüçñ'\-]+"
@@ -105,8 +114,11 @@ def extrair_nomes(texto):
     achados = set()
     for m in NOME_RE.finditer(texto):
         n = re.sub(r'\s+', ' ', m.group(1)).strip()
-        # apara palavras bloqueadas do início ("Por Bruno Cavalcanti" -> "Bruno Cavalcanti")
         partes = n.split()
+        # lugar/instituição no meio? o nome inteiro cai (é o prédio, não a pessoa)
+        if any(p in VETO_TOTAL for p in partes):
+            continue
+        # apara palavras bloqueadas do início ("Por Bruno Cavalcanti" -> "Bruno Cavalcanti")
         while partes and (partes[0] in BLOQUEIO or partes[0].lower() in CONECT):
             partes = partes[1:]
         while partes and (partes[-1] in BLOQUEIO or partes[-1].lower() in CONECT):

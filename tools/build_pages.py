@@ -2032,8 +2032,15 @@ contato_body = band('Fale conosco', 'Contato', 'Quer saber mais sobre o Foyer, s
 '''
 
 _top_pessoas = sorted(PESSOAS.items(), key=lambda x: len(x[1]['aparicoes']), reverse=True)
+# quem trabalha no FOYER não ocupa o topo do índice (mas segue com verbete e na busca)
+def _slug_nome(n):
+    import unicodedata as _u
+    n = _u.normalize('NFKD', n).encode('ascii', 'ignore').decode()
+    return _re.sub(r'[^a-zA-Z0-9]+', '-', n).strip('-').lower()
+_CASA = {'pedro-amaral', 'isabel-branquinha', 'pedro-cantelli', 'pedro-cobron', 'gerson-steves'}
+_CASA |= {_slug_nome(u.get('nome', '')) for u in _EQ_PUB}
 _enc_rows = ''
-for _sp, _pp in _top_pessoas[:60]:
+for _sp, _pp in [x for x in _top_pessoas if x[0] not in _CASA][:60]:
     _enc_rows += f'''    <a class="ency-row" href="pessoa-{_sp}.html" role="row">
       <span class="nm">{_rvesc(_pp['nome'])}</span><span class="of">{_papeis_resumo(_pp['aparicoes'])}</span><span class="ct">{len(_pp['aparicoes'])} aparições</span><span class="ar">→</span>
     </a>\n'''
