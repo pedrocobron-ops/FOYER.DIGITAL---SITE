@@ -1410,6 +1410,15 @@ def listing_body(posts, page, pages, base, titulo, nota, active='*'):
 
 # --- uma página por matéria (corpo completo importado do Wix)
 def post_page(i, p):
+    _sps = globals().get('POR_MATERIA', {}).get(p['slug'], [])
+    _pes = globals().get('PESSOAS', {})
+    quem_bloco = ''
+    _chips = ''.join(f'<a class="tag" href="pessoa-{s}.html">{_pes[s]["nome"]}</a>'
+                     for s in _sps[:14] if s in _pes)
+    if _chips:
+        quem_bloco = ('<div class="art-foot" style="border-top:1px solid var(--line);padding-top:16px">'
+                      '<div class="tags" style="align-items:center">'
+                      '<span class="tag wine">Quem aparece nesta matéria</span>' + _chips + '</div></div>')
     corpo_path = os.path.join(ROOT, 'import/corpo', p['slug'] + '.html')
     corpo = open(corpo_path).read() if os.path.exists(corpo_path) else f"<p>{p['desc']}</p>"
     rel = [x for x in MATERIAS if x['cat'] == p['cat'] and x['slug'] != p['slug']][:3]
@@ -1447,6 +1456,7 @@ def post_page(i, p):
 {corpo}
   </div>
 
+  {quem_bloco}
   <div class="art-foot">
     <div class="tags"><span class="tag">{p['cat']}</span><span class="tag">{p['author']}</span></div>
     <div class="share-row" aria-label="Compartilhar">
@@ -1705,6 +1715,80 @@ revista_body = band('Newsletter semanal', 'A Revista do Foyer',
 </main>
 '''
 
+# ---------------------------------------------------------------- ENCICLOPÉDIA (pessoas do acervo)
+try:
+    ENC = _json.load(open(os.path.join(ROOT, 'import/enciclopedia.json')))
+except Exception:
+    ENC = {'pessoas': {}, 'porMateria': {}, 'porVideo': {}}
+PESSOAS = ENC.get('pessoas', {})
+POR_MATERIA = ENC.get('porMateria', {})
+POR_VIDEO = ENC.get('porVideo', {})
+
+_PAPEL_ROT = {'autor': 'Assina', 'citado': 'Citado(a)', 'convidado': 'Convidado(a)', 'apresenta': 'Apresenta'}
+
+def _papeis_resumo(aps):
+    ps = {a['papel'] for a in aps}
+    out = []
+    if 'autor' in ps: out.append('assina no FOYER')
+    if 'apresenta' in ps: out.append('apresenta programa')
+    if 'convidado' in ps: out.append('nos programas')
+    if 'citado' in ps: out.append('nas matérias')
+    return ' · '.join(out) or 'no acervo'
+
+def _enc_data(iso):
+    try:
+        _y, _m, _d = iso.split('-')
+        return f'{_d}.{_m}.{_y[2:]}'
+    except Exception:
+        return ''
+
+def pessoa_page(sp, p):
+    aps = p['aparicoes']
+    n_mat = sum(1 for a in aps if a['tipo'] == 'materia')
+    n_ep = sum(1 for a in aps if a['tipo'] != 'materia')
+    anos = sorted(a['data'][:4] for a in aps if a.get('data'))
+    desde = anos[0] if anos else ''
+    rows = ''
+    for a in aps[:80]:
+        ext = ' target="_blank" rel="noopener"' if a['tipo'] != 'materia' else ''
+        tag = 'Programa' if a['tipo'] != 'materia' else 'Matéria'
+        rows += f'''    <a class="agd-row" href="{_rvesc(a['url'])}"{ext}>
+      <span class="agd-date"><b style="font-size:.9rem">{_enc_data(a.get('data',''))}</b><small>{_PAPEL_ROT.get(a['papel'], '')}</small></span>
+      <span class="agd-what"><h3 style="font-size:.95rem">{_rvesc(a['titulo'])}</h3></span>
+      <span class="tag agd-tag">{tag}</span>
+    </a>\n'''
+    return f'''<main class="wrap">
+  <div class="art" style="max-width:900px; margin:0 auto">
+    <div class="art-head" style="padding-top:30px">
+      <div class="tags"><span class="tag wine">Enciclopédia do FOYER</span><span class="tag">{_papeis_resumo(aps)}</span></div>
+      <h1>{_rvesc(p['nome'])}</h1>
+      <div class="art-byline">
+        <span><b>{n_mat}</b> matéria(s) · <b>{n_ep}</b> aparição(ões) nos programas</span>
+        <span>No FOYER desde {desde}</span>
+      </div>
+      <div class="share-row" aria-label="Compartilhar este verbete">
+        <button class="sbtn" data-share="whats" data-title="{safe(p['nome'])} na Enciclopédia do FOYER">WhatsApp</button>
+        <button class="sbtn" data-share="copy" data-title="{safe(p['nome'])}">Copiar link</button>
+      </div>
+    </div>
+    <div class="agd" style="margin-top:26px">
+{rows}    </div>
+    <div class="filters" style="padding:24px 0 40px">
+      <a href="enciclopedia.html">← Enciclopédia</a>
+      <a href="busca.html">Buscar no acervo</a>
+    </div>
+  </div>
+</main>
+'''
+
+def _yt_pessoas(v):
+    sps = POR_VIDEO.get(v.get('id', ''), [])
+    if not sps:
+        return ''
+    links = ' · '.join(f'<a href="pessoa-{sp}.html" style="color:inherit">{_rvesc(PESSOAS[sp]["nome"])}</a>'
+                       for sp in sps[:3] if sp in PESSOAS)
+    return f'<span class="meta-l" style="display:block;margin-top:6px">Com {links}</span>' if links else ''
+
 # ---------------------------------------------------------------- YOUTUBE (programas, crítica e entrevistas reais)
 try:
     YT = _json.load(open(os.path.join(ROOT, 'import/youtube.json')))
@@ -1727,6 +1811,7 @@ def yt_cell(v, rotulo):
       <div class="ep-body">
         <span class="meta-l">{_rvesc(rotulo)}</span>
         <h3>{_rvesc(v['titulo'])}</h3>
+        {_yt_pessoas(v)}
         <div class="meta-row">
           <span class="meta-l">{_yt_data(v.get('quando',''))}</span>
           <button class="share-min" data-share="native" data-title="{safe(v['titulo'])}">Compartilhar ↗</button>
@@ -1946,6 +2031,51 @@ contato_body = band('Fale conosco', 'Contato', 'Quer saber mais sobre o Foyer, s
 </main>
 '''
 
+_top_pessoas = sorted(PESSOAS.items(), key=lambda x: len(x[1]['aparicoes']), reverse=True)
+_enc_rows = ''
+for _sp, _pp in _top_pessoas[:60]:
+    _enc_rows += f'''    <a class="ency-row" href="pessoa-{_sp}.html" role="row">
+      <span class="nm">{_rvesc(_pp['nome'])}</span><span class="of">{_papeis_resumo(_pp['aparicoes'])}</span><span class="ct">{len(_pp['aparicoes'])} aparições</span><span class="ar">→</span>
+    </a>\n'''
+enciclopedia_body = band('Projeto Foyer', 'Enciclopédia do FOYER', 'Todas as pessoas que passaram pelas matérias e pelos programas — cada nome clicável leva ao histórico completo') + f'''
+<main class="wrap">
+  <div class="ency-stats">
+    <div class="stat"><span class="n" data-v="{len(PESSOAS)}">0</span><span class="l">Pessoas mapeadas</span></div>
+    <div class="stat"><span class="n" data-v="{len(MATERIAS)}">0</span><span class="l">Matérias no acervo</span></div>
+    <div class="stat"><span class="n" data-v="{_n_eps}">0</span><span class="l">Episódios dos programas</span></div>
+  </div>
+  <form class="ency-search" onsubmit="return false;">
+    <input type="search" id="enc-q" placeholder="Busque uma pessoa — artista, autor, convidado…" aria-label="Buscar pessoa">
+    <button type="submit">Buscar</button>
+  </form>
+  <div class="ency-table" role="table" aria-label="Índice de pessoas" id="enc-res">
+{_enc_rows}  </div>
+  <p class="note" style="font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);padding:18px 0 40px">
+    Índice montado automaticamente a partir do acervo do FOYER — os 60 nomes mais presentes acima; use a busca para os {len(PESSOAS)} verbetes.
+  </p>
+</main>
+<script>
+(function(){{
+  var IDX = null, res = document.getElementById('enc-res'), padrao = res.innerHTML;
+  function norm(t){{ return t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }}
+  document.getElementById('enc-q').addEventListener('input', function(){{
+    var v = norm(this.value.trim());
+    if(v.length < 2){{ res.innerHTML = padrao; return; }}
+    var go = function(){{
+      var hits = [];
+      for(var i = 0; i < IDX.length && hits.length < 40; i++)
+        if(norm(IDX[i].n).indexOf(v) !== -1) hits.push(IDX[i]);
+      res.innerHTML = hits.length
+        ? hits.map(function(p){{ return '<a class="ency-row" href="' + p.u + '"><span class="nm">' + p.n + '</span><span class="of"></span><span class="ct">' + p.c + ' aparições</span><span class="ar">→</span></a>'; }}).join('')
+        : '<div class="ency-row"><span class="nm">Nenhuma pessoa encontrada</span><span class="of"></span><span class="ct"></span><span class="ar"></span></div>';
+    }};
+    if(IDX) go();
+    else fetch('assets/pessoas-index.json').then(function(r){{ return r.json(); }}).then(function(d){{ IDX = d; go(); }});
+  }});
+}})();
+</script>
+'''
+
 # ---------------------------------------------------------------- monta tudo
 
 # capa tem ordem própria: ticker+masthead antes da nav
@@ -1958,7 +2088,7 @@ with open(os.path.join(ROOT, 'index.html'), 'w') as f:
 print('•', 'index.html', len(capa_html)//1024, 'KB')
 
 import glob as _glob
-for _f in _glob.glob(os.path.join(ROOT, 'post-*.html')) + _glob.glob(os.path.join(ROOT, 'noticias*.html')) + _glob.glob(os.path.join(ROOT, 'cat-*.html')):
+for _f in _glob.glob(os.path.join(ROOT, 'post-*.html')) + _glob.glob(os.path.join(ROOT, 'noticias*.html')) + _glob.glob(os.path.join(ROOT, 'cat-*.html')) + _glob.glob(os.path.join(ROOT, 'pessoa-*.html')):
     os.remove(_f)
 
 _tot = len(MATERIAS)
@@ -1997,6 +2127,15 @@ for _i, _p in enumerate(MATERIAS):
          og_img=wiximg(_p['img'], 1200, 630) if _p['img'] else None, og_type='article')
 print(f'• {len(MATERIAS)} páginas de matéria')
 
+for _sp, _pp in PESSOAS.items():
+    page('pessoa-' + _sp + '.html', _pp['nome'] + ' — Enciclopédia FOYER',
+         f"{_pp['nome']} na Enciclopédia do FOYER: histórico completo de matérias e programas.",
+         'enciclopedia.html', pessoa_page(_sp, _pp), quiet=True)
+print(f'• {len(PESSOAS)} verbetes de pessoa')
+with open(os.path.join(ROOT, 'assets/pessoas-index.json'), 'w') as _f:
+    _json.dump([{'n': _pp['nome'], 'u': 'pessoa-' + _sp + '.html', 'c': len(_pp['aparicoes'])}
+                for _sp, _pp in _top_pessoas], _f, ensure_ascii=False)
+
 for _e in ED_PUB:
     _cap = _e.get('capa', {})
     page(f'revista-ed-{_e.get("numero")}.html',
@@ -2031,7 +2170,9 @@ urls = sorted(os.path.basename(f) for f in _g.glob(os.path.join(ROOT, '*.html'))
               if os.path.basename(f) not in ('coxia.html', '404.html'))
 with open(os.path.join(ROOT, 'assets/busca-index.json'), 'w') as f:
     _json.dump([{'t': _p['title'], 'c': _p.get('cat', ''), 'u': 'post-' + _p['slug'] + '.html'}
-                for _p in MATERIAS], f, ensure_ascii=False)
+                for _p in MATERIAS]
+               + [{'t': _pp['nome'], 'c': 'Enciclopédia', 'u': 'pessoa-' + _sp + '.html'}
+                  for _sp, _pp in _top_pessoas], f, ensure_ascii=False)
 print(f'busca: {len(MATERIAS)} matérias indexadas')
 
 with open(os.path.join(ROOT, 'sitemap.xml'), 'w') as f:

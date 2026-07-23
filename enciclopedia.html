@@ -123,61 +123,227 @@
 <header class="page-band">
   <div class="wrap">
     <span class="kicker">Projeto Foyer</span>
-    <h1>Enciclopédia do Teatro Musical Brasileiro</h1>
-    <p class="note">Memória viva — cada nome clicável leva à trajetória completa</p>
+    <h1>Enciclopédia do FOYER</h1>
+    <p class="note">Todas as pessoas que passaram pelas matérias e pelos programas — cada nome clicável leva ao histórico completo</p>
   </div>
 </header>
 
 <main class="wrap">
   <div class="ency-stats">
-    <div class="stat"><span class="n" data-v="312">0</span><span class="l">Espetáculos</span></div>
-    <div class="stat"><span class="n" data-v="1240">0</span><span class="l">Artistas &amp; equipes</span></div>
-    <div class="stat"><span class="n" data-v="96">0</span><span class="l">Teatros mapeados</span></div>
+    <div class="stat"><span class="n" data-v="2583">0</span><span class="l">Pessoas mapeadas</span></div>
+    <div class="stat"><span class="n" data-v="1516">0</span><span class="l">Matérias no acervo</span></div>
+    <div class="stat"><span class="n" data-v="129">0</span><span class="l">Episódios dos programas</span></div>
   </div>
   <form class="ency-search" onsubmit="return false;">
-    <input type="search" placeholder="Busque por artista, espetáculo, teatro ou função…" aria-label="Buscar na enciclopédia">
+    <input type="search" id="enc-q" placeholder="Busque uma pessoa — artista, autor, convidado…" aria-label="Buscar pessoa">
     <button type="submit">Buscar</button>
   </form>
-  <div class="ency-table" role="table" aria-label="Índice de artistas">
-    <div class="ency-row head" role="row">
-      <span>Nome</span><span class="of">Ofício</span><span class="ct">Produções</span><span class="ar"></span>
-    </div>
-    <a class="ency-row" href="artista.html" role="row">
-      <span class="nm">Marina Villas</span><span class="of">Atriz · Diretora musical</span><span class="ct">012</span><span class="ar">→</span>
+  <div class="ency-table" role="table" aria-label="Índice de pessoas" id="enc-res">
+    <a class="ency-row" href="pessoa-isabel-branquinha.html" role="row">
+      <span class="nm">Isabel Branquinha</span><span class="of">assina no FOYER · nas matérias</span><span class="ct">1262 aparições</span><span class="ar">→</span>
     </a>
-    <a class="ency-row" href="artista.html" role="row">
-      <span class="nm">Téo Andrade</span><span class="of">Diretor · Dramaturgo</span><span class="ct">021</span><span class="ar">→</span>
+    <a class="ency-row" href="pessoa-pedro-amaral.html" role="row">
+      <span class="nm">Pedro Amaral</span><span class="of">assina no FOYER · nas matérias</span><span class="ct">126 aparições</span><span class="ar">→</span>
     </a>
-    <a class="ency-row" href="artista.html" role="row">
-      <span class="nm">Lúcia Ferrante</span><span class="of">Coreógrafa</span><span class="ct">017</span><span class="ar">→</span>
+    <a class="ency-row" href="pessoa-pedro-cantelli.html" role="row">
+      <span class="nm">Pedro Cantelli</span><span class="of">assina no FOYER</span><span class="ct">80 aparições</span><span class="ar">→</span>
     </a>
-    <a class="ency-row" href="artista.html" role="row">
-      <span class="nm">Rafael Doming</span><span class="of">Ator · Cantor</span><span class="ct">009</span><span class="ar">→</span>
+    <a class="ency-row" href="pessoa-bibi-ferreira.html" role="row">
+      <span class="nm">Bibi Ferreira</span><span class="of">nos programas · nas matérias</span><span class="ct">59 aparições</span><span class="ar">→</span>
     </a>
-    <a class="ency-row" href="artista.html" role="row">
-      <span class="nm">Bia Camargo</span><span class="of">Desenhista de luz</span><span class="ct">034</span><span class="ar">→</span>
+    <a class="ency-row" href="pessoa-sergio-cardoso.html" role="row">
+      <span class="nm">Sérgio Cardoso</span><span class="of">nas matérias</span><span class="ct">47 aparições</span><span class="ar">→</span>
     </a>
-    <a class="ency-row" href="artista.html" role="row">
-      <span class="nm">Helena Prado</span><span class="of">Produtora executiva</span><span class="ct">026</span><span class="ar">→</span>
+    <a class="ency-row" href="pessoa-gerson-steves.html" role="row">
+      <span class="nm">Gerson Steves</span><span class="of">assina no FOYER · nos programas · nas matérias</span><span class="ct">37 aparições</span><span class="ar">→</span>
     </a>
-    <a class="ency-row" href="artista.html" role="row">
-      <span class="nm">Caio Bezerra</span><span class="of">Diretor musical · Arranjador</span><span class="ct">019</span><span class="ar">→</span>
+    <a class="ency-row" href="pessoa-rui-barbosa.html" role="row">
+      <span class="nm">Rui Barbosa</span><span class="of">nas matérias</span><span class="ct">33 aparições</span><span class="ar">→</span>
     </a>
-    <a class="ency-row" href="artista.html" role="row">
-      <span class="nm">Duda Marinho</span><span class="of">Atriz · Bailarina</span><span class="ct">011</span><span class="ar">→</span>
+    <a class="ency-row" href="pessoa-kleber-montanheiro.html" role="row">
+      <span class="nm">Kleber Montanheiro</span><span class="of">nos programas · nas matérias</span><span class="ct">29 aparições</span><span class="ar">→</span>
     </a>
-    <a class="ency-row" href="artista.html" role="row">
-      <span class="nm">Otávio Lins</span><span class="of">Cenógrafo</span><span class="ct">023</span><span class="ar">→</span>
+    <a class="ency-row" href="pessoa-bruno-cavalcanti.html" role="row">
+      <span class="nm">Bruno Cavalcanti</span><span class="of">assina no FOYER · apresenta programa · nos programas · nas matérias</span><span class="ct">28 aparições</span><span class="ar">→</span>
     </a>
-    <a class="ency-row" href="artista.html" role="row">
-      <span class="nm">Sofia Rezende</span><span class="of">Figurinista</span><span class="ct">028</span><span class="ar">→</span>
+    <a class="ency-row" href="pessoa-miguel-falabella.html" role="row">
+      <span class="nm">Miguel Falabella</span><span class="of">nas matérias</span><span class="ct">26 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-arthur-azevedo.html" role="row">
+      <span class="nm">Arthur Azevedo</span><span class="of">nas matérias</span><span class="ct">26 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-tadeu-aguiar.html" role="row">
+      <span class="nm">Tadeu Aguiar</span><span class="of">nas matérias</span><span class="ct">24 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-rita-lee.html" role="row">
+      <span class="nm">Rita Lee</span><span class="of">nos programas · nas matérias</span><span class="ct">24 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-william-shakespeare.html" role="row">
+      <span class="nm">William Shakespeare</span><span class="of">nas matérias</span><span class="ct">23 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-joao-caldas.html" role="row">
+      <span class="nm">João Caldas</span><span class="of">nas matérias</span><span class="ct">23 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-fabi-bang.html" role="row">
+      <span class="nm">Fabi Bang</span><span class="of">nas matérias</span><span class="ct">22 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-nelson-rodrigues.html" role="row">
+      <span class="nm">Nelson Rodrigues</span><span class="of">nas matérias</span><span class="ct">22 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-ze-henrique-de-paula.html" role="row">
+      <span class="nm">Zé Henrique de Paula</span><span class="of">nas matérias</span><span class="ct">22 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-joao-fonseca.html" role="row">
+      <span class="nm">João Fonseca</span><span class="of">nos programas · nas matérias</span><span class="ct">21 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-chico-buarque.html" role="row">
+      <span class="nm">Chico Buarque</span><span class="of">nas matérias</span><span class="ct">21 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-caetano-veloso.html" role="row">
+      <span class="nm">Caetano Veloso</span><span class="of">nas matérias</span><span class="ct">20 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-elias-andreato.html" role="row">
+      <span class="nm">Elias Andreato</span><span class="of">nas matérias</span><span class="ct">19 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-fernanda-maia.html" role="row">
+      <span class="nm">Fernanda Maia</span><span class="of">nas matérias</span><span class="ct">19 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-ivan-parente.html" role="row">
+      <span class="nm">Ivan Parente</span><span class="of">nos programas · nas matérias</span><span class="ct">18 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-myra-ruiz.html" role="row">
+      <span class="nm">Myra Ruiz</span><span class="of">nas matérias</span><span class="ct">17 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-beto-sargentelli.html" role="row">
+      <span class="nm">Beto Sargentelli</span><span class="of">nas matérias</span><span class="ct">17 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-gal-costa.html" role="row">
+      <span class="nm">Gal Costa</span><span class="of">nas matérias</span><span class="ct">17 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-clara-nunes.html" role="row">
+      <span class="nm">Clara Nunes</span><span class="of">nas matérias</span><span class="ct">17 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-federal-de-incentivo.html" role="row">
+      <span class="nm">Federal de Incentivo</span><span class="of">nas matérias</span><span class="ct">17 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-dan-rosseto.html" role="row">
+      <span class="nm">Dan Rosseto</span><span class="of">nas matérias</span><span class="ct">16 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-gustavo-barchilon.html" role="row">
+      <span class="nm">Gustavo Barchilon</span><span class="of">nas matérias</span><span class="ct">16 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-clara-carvalho.html" role="row">
+      <span class="nm">Clara Carvalho</span><span class="of">nas matérias</span><span class="ct">15 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-noemi-marinho.html" role="row">
+      <span class="nm">Noemi Marinho</span><span class="of">nas matérias</span><span class="ct">15 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-gilberto-gil.html" role="row">
+      <span class="nm">Gilberto Gil</span><span class="of">nas matérias</span><span class="ct">15 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-caio-gallucci.html" role="row">
+      <span class="nm">Caio Gallucci</span><span class="of">nas matérias</span><span class="ct">15 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-ronaldo-gutierrez.html" role="row">
+      <span class="nm">Ronaldo Gutierrez</span><span class="of">nas matérias</span><span class="ct">15 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-fabio-namatame.html" role="row">
+      <span class="nm">Fábio Namatame</span><span class="of">nas matérias</span><span class="ct">15 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-guilherme-gila.html" role="row">
+      <span class="nm">Guilherme Gila</span><span class="of">nas matérias</span><span class="ct">15 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-daniel-rocha.html" role="row">
+      <span class="nm">Daniel Rocha</span><span class="of">nas matérias</span><span class="ct">15 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-thiago-gimenes.html" role="row">
+      <span class="nm">Thiago Gimenes</span><span class="of">nas matérias</span><span class="ct">14 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-fernanda-montenegro.html" role="row">
+      <span class="nm">Fernanda Montenegro</span><span class="of">nas matérias</span><span class="ct">14 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-gui-leal.html" role="row">
+      <span class="nm">Gui Leal</span><span class="of">nas matérias</span><span class="ct">14 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-paschoal-carlos-magno.html" role="row">
+      <span class="nm">Paschoal Carlos Magno</span><span class="of">nas matérias</span><span class="ct">14 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-neusa-romano.html" role="row">
+      <span class="nm">Neusa Romano</span><span class="of">nos programas · nas matérias</span><span class="ct">14 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-saulo-vasconcelos.html" role="row">
+      <span class="nm">Saulo Vasconcelos</span><span class="of">nas matérias</span><span class="ct">14 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-vitor-rocha.html" role="row">
+      <span class="nm">Vitor Rocha</span><span class="of">nas matérias</span><span class="ct">14 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-natalia-lana.html" role="row">
+      <span class="nm">Natália Lana</span><span class="of">nas matérias</span><span class="ct">14 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-claudia-raia.html" role="row">
+      <span class="nm">Claudia Raia</span><span class="of">nas matérias</span><span class="ct">14 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-ney-matogrosso.html" role="row">
+      <span class="nm">Ney Matogrosso</span><span class="of">nas matérias</span><span class="ct">14 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-jarbas-homem-de-mello.html" role="row">
+      <span class="nm">Jarbas Homem de Mello</span><span class="of">nas matérias</span><span class="ct">14 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-bruna-guerin.html" role="row">
+      <span class="nm">Bruna Guerin</span><span class="of">nas matérias</span><span class="ct">13 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-priscila-prade.html" role="row">
+      <span class="nm">Priscila Prade</span><span class="of">nas matérias</span><span class="ct">13 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-ricardo-grasson.html" role="row">
+      <span class="nm">Ricardo Grasson</span><span class="of">nas matérias</span><span class="ct">13 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-estamos-aqui.html" role="row">
+      <span class="nm">Estamos Aqui</span><span class="of">nas matérias</span><span class="ct">13 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-karen-brusttolin.html" role="row">
+      <span class="nm">Karen Brusttolin</span><span class="of">nas matérias</span><span class="ct">13 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-michelle-ferreira.html" role="row">
+      <span class="nm">Michelle Ferreira</span><span class="of">nas matérias</span><span class="ct">13 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-heloisa-bortz.html" role="row">
+      <span class="nm">Heloisa Bortz</span><span class="of">nas matérias</span><span class="ct">13 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-kyra-piscitelli.html" role="row">
+      <span class="nm">Kyra Piscitelli</span><span class="of">nos programas · nas matérias</span><span class="ct">13 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-franklin-roosevelt.html" role="row">
+      <span class="nm">Franklin Roosevelt</span><span class="of">nas matérias</span><span class="ct">12 aparições</span><span class="ar">→</span>
+    </a>
+    <a class="ency-row" href="pessoa-thais-piza.html" role="row">
+      <span class="nm">Thais Piza</span><span class="of">nos programas · nas matérias</span><span class="ct">12 aparições</span><span class="ar">→</span>
     </a>
   </div>
-  <div class="ency-note">
-    <span>Fase 2 — banco de dados completo com ficha técnica de cada produção</span>
-    <a href="mailto:contato@foyer.digital?subject=Sugest%C3%A3o%20de%20verbete" class="go">Sugerir um verbete →</a>
-  </div>
+  <p class="note" style="font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);padding:18px 0 40px">
+    Índice montado automaticamente a partir do acervo do FOYER — os 60 nomes mais presentes acima; use a busca para os 2583 verbetes.
+  </p>
 </main>
+<script>
+(function(){
+  var IDX = null, res = document.getElementById('enc-res'), padrao = res.innerHTML;
+  function norm(t){ return t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }
+  document.getElementById('enc-q').addEventListener('input', function(){
+    var v = norm(this.value.trim());
+    if(v.length < 2){ res.innerHTML = padrao; return; }
+    var go = function(){
+      var hits = [];
+      for(var i = 0; i < IDX.length && hits.length < 40; i++)
+        if(norm(IDX[i].n).indexOf(v) !== -1) hits.push(IDX[i]);
+      res.innerHTML = hits.length
+        ? hits.map(function(p){ return '<a class="ency-row" href="' + p.u + '"><span class="nm">' + p.n + '</span><span class="of"></span><span class="ct">' + p.c + ' aparições</span><span class="ar">→</span></a>'; }).join('')
+        : '<div class="ency-row"><span class="nm">Nenhuma pessoa encontrada</span><span class="of"></span><span class="ct"></span><span class="ar"></span></div>';
+    };
+    if(IDX) go();
+    else fetch('assets/pessoas-index.json').then(function(r){ return r.json(); }).then(function(d){ IDX = d; go(); });
+  });
+})();
+</script>
 
 <footer>
   <div class="wrap">
