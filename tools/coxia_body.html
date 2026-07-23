@@ -1438,7 +1438,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           else { pill = 'Publicada'; cls = 'pb'; }
           var quando = new Date(d.publishAt || d.geradoEm).toLocaleString('pt-BR');
           var th = d.img
-            ? '<img class="th" src="' + esc(d.img) + '" alt="" onerror="this.className=\'th no\';this.removeAttribute(\'src\')">'
+            ? '<img class="th" src="' + esc(d.img) + '" alt="" data-p="' + esc(d.img) + '" ' +
+              'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/\'+this.dataset.p}else{this.className=\'th no\';this.removeAttribute(\'src\')}">'
             : '<span class="th no">sem foto</span>';
           FILA_CACHE[d.slug] = d;
           var editar = (podeEditar() && !d._mesa)
@@ -1626,7 +1627,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
               d.fontes.map(function(u){ return '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(u) + '</a>'; }).join('<br>') + '</div>'
             : '';
           var capa = d.img
-            ? '<div class="mesa-capa"><img src="' + esc(d.img) + '" alt="">' +
+            ? '<div class="mesa-capa"><img src="' + esc(d.img) + '" alt="" data-p="' + esc(d.img) + '" ' +
+              'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/\'+this.dataset.p}else{this.parentNode.outerHTML=\'<div class=mesa-semfoto>⚠ Foto no repositório ainda não carregou aqui, mas ela existe e sai na publicação</div>\'}">' +
               (d.imgCredito ? '<span class="mesa-cred">' + esc(d.imgCredito) + '</span>' : '') + '</div>'
             : '<div class="mesa-semfoto">⚠ Sem foto de capa — suba uma antes de aprovar</div>';
           var quando = d.geradoEm ? new Date(d.geradoEm).toLocaleString('pt-BR') : '';
