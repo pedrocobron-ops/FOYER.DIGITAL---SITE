@@ -1040,7 +1040,61 @@ footer{ background:var(--wine); color:var(--gold); overflow:hidden; }
   .agd-tag{ display:none; }
 }
 @media (prefers-reduced-motion:reduce){
-  *{ animation:none !important; transition:none !important; }
   html{ scroll-behavior:auto; }
-  .reveal{ opacity:1; transform:none; }
+  .reveal{ opacity:1; transform:none; transition:none; }
 }
+
+
+/* ---------- movimento da casa (v2) ---------- */
+main{ animation:pagein .45s ease both; }
+@keyframes pagein{ from{ opacity:0; transform:translateY(12px);} to{ opacity:1; transform:none;} }
+
+nav.main a{ position:relative; }
+nav.main a::after{
+  content:''; position:absolute; left:12%; right:88%; bottom:6px; height:2px;
+  background:var(--gold); transition:right .28s cubic-bezier(.77,0,.18,1);
+}
+nav.main a:hover::after, nav.main a.on::after{ right:12%; }
+
+.news-cell .ph, .ep-cell .ph, .fp-main .ph, .crit .ph{ overflow:hidden; }
+.news-cell .ph img, .ep-cell .ph img, .fp-main .ph img, .crit .ph img{
+  transition:transform .7s cubic-bezier(.2,.6,.2,1);
+}
+.news-cell:hover .ph img, .ep-cell:hover .ph img,
+.fp-main:hover .ph img, .crit:hover .ph img{ transform:scale(1.045); }
+
+.art-cover{ overflow:hidden; }
+.art-cover img{ animation:kenburns 16s ease-out both; }
+@keyframes kenburns{ from{ transform:scale(1.06);} to{ transform:scale(1);} }
+
+.sbtn, .quick button, .quick a, .bt{ transition:transform .18s ease, background .18s, color .18s; }
+.sbtn:hover{ transform:translateY(-2px); }
+
+.tag{ transition:background .2s, color .2s, transform .18s; }
+a:hover .tag, .tag:hover{ transform:translateY(-1px); }
+
+.show{ transition:transform .25s ease, box-shadow .25s ease; }
+.show:hover{ transform:translateY(-4px); }
+.show .tri{ transition:transform .3s ease; }
+.show:hover .tri{ transform:translateX(6px); }
+
+.agd-row{ transition:transform .22s ease, background .22s; }
+.agd-row:hover{ transform:translateX(6px); }
+.agd-row .agd-date b{ transition:transform .25s ease; display:inline-block; }
+.agd-row:hover .agd-date b{ transform:scale(1.12); }
+
+.ency-row{ transition:transform .2s ease, background .2s; }
+.ency-row:hover{ transform:translateX(6px); }
+.ency-row .ar{ transition:transform .25s ease; }
+.ency-row:hover .ar{ transform:translateX(5px); }
+
+.foot-giant img{ animation:foyerfloat 9s ease-in-out infinite; }
+@keyframes foyerfloat{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-8px);} }
+
+.mast-tagline{ position:relative; }
+.mast-tagline::before, .mast-tagline::after{
+  content:'✦'; color:var(--gold); opacity:.6; margin:0 10px; font-size:.8em;
+  display:inline-block; animation:tagpulse 3.2s ease-in-out infinite;
+}
+.mast-tagline::after{ animation-delay:1.6s; }
+@keyframes tagpulse{ 0%,100%{ opacity:.25;} 50%{ opacity:.9;} }

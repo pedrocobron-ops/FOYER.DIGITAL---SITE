@@ -35,7 +35,7 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var sel = '.sec-head, .fp-sub article, .news-cell, .crit, .show, .stat, .ency-row, .giro-item, .quote-card, .agd-row, .ep-cell, .ed-card';
   var els = document.querySelectorAll(sel);
-  if(reduce || !('IntersectionObserver' in window)){ return; }
+  if(!('IntersectionObserver' in window)){ return; }
   var groups = new Map();
   els.forEach(function(el){
     var parent = el.parentNode;
