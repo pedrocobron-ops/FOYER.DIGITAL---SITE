@@ -1194,7 +1194,7 @@ index_body = TICKER + '''
   <div class="wrap">
     <div class="mast-side left">
       <span class="ln">Edição de hoje</span>
-      <span>Diária — desde 2024</span>
+      <span>Diária — desde 2023</span>
       <span>Teatro · Música · Cultura</span>
     </div>
     <a class="logo-link" href="index.html" aria-label="FOYER — voltar à capa">
@@ -1384,6 +1384,13 @@ def selo_atualizada(p):
     iso = p.get('atualizado', '')
     if not iso:
         return ''
+    try:
+        from zoneinfo import ZoneInfo as _ZI
+        _upd = datetime.fromisoformat(iso).astimezone(_ZI('America/Sao_Paulo'))
+        if _upd.strftime('%Y-%m-%d') <= (p.get('iso') or '9999'):
+            return ''
+    except Exception:
+        pass
     try:
         from zoneinfo import ZoneInfo
         dt = datetime.fromisoformat(iso).astimezone(ZoneInfo('America/Sao_Paulo'))
@@ -1957,7 +1964,7 @@ def _agd_linha(p, destaque=''):
     except Exception:
         _dia, _mes = '·', ''
     lugar = ', '.join(x for x in (ev.get('local', ''), ev.get('cidade', '')) if x)
-    meta = destaque or lugar or p['desc'][:100]
+    meta = destaque or lugar or (p['desc'][:100].rsplit(' ', 1)[0] + '…')
     return f'''    <a class="agd-row" href="post-{p['slug']}.html">
       <span class="agd-date"><b>{_dia}</b><small>{_mes}</small></span>
       <span class="agd-what"><h3>{_rvesc(p['title'])}</h3><span class="agd-meta">{_rvesc(meta)}</span></span>
