@@ -459,7 +459,7 @@
         <h2 class="hi" id="saudacao">Boa noite</h2>
         <p class="hi-sub">O panorama do FOYER neste momento</p>
         <div class="stats">
-          <div class="stat"><b>1516</b><span>matérias no acervo</span></div>
+          <div class="stat"><b>1520</b><span>matérias no acervo</span></div>
           <div class="stat"><b id="st-pub">—</b><span>publicadas pela Coxia</span></div>
           <div class="stat"><b id="st-ag">—</b><span>agendadas esperando a hora</span></div>
           <div class="stat" id="card-mesa"><b id="st-mesa">—</b><span>na mesa de aprovação</span></div>
@@ -496,19 +496,35 @@
             </div>
             <div class="r2">
               <div>
-                <label for="f-cat">Editoria</label>
+                <label for="f-cat">Editoria principal</label>
                 <select id="f-cat">
                   <option>Teatro</option><option>Cinema</option><option>Música</option><option>Dança</option>
                   <option>Crítica</option><option>Notícia</option><option>Televisão</option><option>Streaming</option>
                   <option>Literatura</option><option>Exposições</option><option>Show</option><option>Audições</option>
                   <option>Edital</option><option>Festa</option><option>Programa</option><option>Guia</option>
-                  <option>Entenda</option><option>Memória</option><option>Astrologia</option>
+                  <option>Bastidores</option><option>Astrologia</option>
                   <option>Artigo de Opinião</option><option>Crônicas e Histórias</option>
                 </select>
               </div>
               <div>
                 <label for="f-autor">Autor(a)</label>
                 <select id="f-autor"></select>
+              </div>
+            </div>
+            <div class="r2">
+              <div>
+                <label for="f-cat2">Editorias secundárias (até 2 — a matéria aparece nelas também)</label>
+                <div style="display:flex;gap:8px">
+                  <select id="f-cat2" style="flex:1"><option value="">— nenhuma —</option></select>
+                  <select id="f-cat3" style="flex:1"><option value="">— nenhuma —</option></select>
+                </div>
+              </div>
+              <div>
+                <label for="f-emcartaz" style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-top:24px">
+                  <input type="checkbox" id="f-emcartaz" style="width:auto">
+                  ✦ Em Cartaz — a matéria é sobre peça em temporada agora
+                </label>
+                <p class="f-note" style="margin:6px 0 0">Com o campo de evento preenchido, ela entra e sai da página Em Cartaz sozinha.</p>
               </div>
             </div>
             <div>
@@ -1222,7 +1238,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(EDIT) return;
     clearTimeout(rascTimer);
     rascTimer = setTimeout(function(){
-      var d = { title: $('f-title').value, cat: $('f-cat').value, corpo: $('f-body').value,
+      var d = { title: $('f-title').value, cat: $('f-cat').value, cats: colherCats(), corpo: $('f-body').value,
                 cred: $('f-cred').value, quando: new Date().toISOString() };
       if(d.title || d.corpo){ try{ localStorage.setItem(RASC_K, JSON.stringify(d)); }catch(e){} }
     }, 800);
@@ -1237,6 +1253,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         $('bdg-rasc').style.display = 'inline-block';
         $('rasc-usar').onclick = function(){
           $('f-title').value = d.title || ''; $('f-cat').value = d.cat || 'Teatro';
+          aplicarCats(d.cats);
           $('f-body').value = d.corpo || ''; $('f-cred').value = d.cred || '';
           statusTexto(); $('rasc-aviso').classList.remove('on'); $('bdg-rasc').style.display = 'none'; irPara('nova');
         };
@@ -1328,6 +1345,28 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     return { inicio: ini, fim: $('f-ev-fim').value || '',
              local: $('f-ev-local').value.trim(), cidade: $('f-ev-cidade').value.trim() };
   }
+  // editorias secundárias: os selects copiam as opções da principal
+  [].forEach.call(['f-cat2','f-cat3'], function(id){
+    var sel = $(id);
+    [].forEach.call($('f-cat').options, function(o){
+      sel.insertAdjacentHTML('beforeend', '<option>' + esc(o.value) + '</option>');
+    });
+  });
+  function colherCats(){
+    var principal = $('f-cat').value, out = [];
+    [$('f-cat2').value, $('f-cat3').value].forEach(function(c){
+      if(c && c !== principal && out.indexOf(c) < 0) out.push(c);
+    });
+    if($('f-emcartaz').checked) out.push('Em Cartaz');
+    return out.slice(0, 3);
+  }
+  function aplicarCats(cats){
+    cats = cats || [];
+    $('f-emcartaz').checked = cats.indexOf('Em Cartaz') >= 0;
+    var extras = cats.filter(function(c){ return c !== 'Em Cartaz'; });
+    $('f-cat2').value = extras[0] || '';
+    $('f-cat3').value = extras[1] || '';
+  }
   $('form').addEventListener('submit', function(e){
     e.preventDefault();
     var msg = $('msg');
@@ -1356,6 +1395,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         pac.img = imgPath || EDIT.img; pac.imgCredito = $('f-cred').value.trim();
         pac.corpo = corpo; pac.editadoPor = USER.nome;
         pac.status = 'aguardando_aprovacao';
+        pac.cats = colherCats();
         var evM = colherEvento();
         if(evM) pac.evento = evM;
         return ghPut('import/pauta/' + slug + '.json', JSON.stringify(pac, null, 1),
@@ -1371,6 +1411,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           atualizadoEm: new Date().toISOString(),
           origem: EDIT.origem, editadoPor: USER.nome
         };
+        edicao.cats = colherCats();
         var evE = colherEvento();
         if(evE) edicao.evento = evE;
         return ghPut('import/novas/' + slug + '.json', JSON.stringify(edicao, null, 1),
@@ -1385,6 +1426,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           corpo: corpo, publishAt: publishAt,
           criadoEm: new Date().toISOString(), criadoPor: USER.nome
         };
+        dados.cats = colherCats();
         var evN = colherEvento();
         if(evN) dados.evento = evN;
         return ghPut('import/novas/' + slug + '.json', JSON.stringify(dados, null, 1),
@@ -1401,6 +1443,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         sugestaoPublishAt: quando === 'agendar' ? publishAt : '',
         geradoEm: new Date().toISOString(), criadoPor: USER.nome
       };
+      pacote.cats = colherCats();
       var evP = colherEvento();
       if(evP) pacote.evento = evP;
       return ghPut('import/pauta/' + slug + '.json', JSON.stringify(pacote, null, 1),
@@ -1670,7 +1713,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           return '<article class="mesa-card" data-slug="' + esc(d.slug) + '">' +
             '<div class="mesa-head">' +
               '<span><span class="ti">' + esc(d.title) + '</span>' +
-              '<span class="mt">' + esc(d.cat) + ' — ' + palavras + ' palavras — ' + quando + ' — ' + origem + '</span></span>' +
+              '<span class="mt">' + esc([d.cat].concat(d.cats || []).join(' + ')) + ' — ' + palavras + ' palavras — ' + quando + ' — ' + origem + '</span></span>' +
               selo +
             '</div>' + capa + parecer +
             fontes +
@@ -1721,6 +1764,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       criadoEm: new Date().toISOString(),
       origem: d.origem === 'autor' ? 'autor' : 'redacao-ia', aprovadoPor: USER.nome
     };
+    if(d.cats && d.cats.length) dados.cats = d.cats;
     if(d.evento) dados.evento = d.evento;
     ghPut('import/novas/' + slug + '.json', JSON.stringify(dados, null, 1),
           assina('aprova "' + d.title + '"' + (d.origem === 'autor' ? ' (matéria de ' + (d.criadoPor || d.author) + ')' : ' (Redação IA)')))
@@ -1924,6 +1968,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     };
     $('f-title').value = dados.title || '';
     $('f-cat').value = dados.cat || 'Notícia';
+    aplicarCats(dados.cats);
     var sel = $('f-autor');
     if(![].some.call(sel.options, function(o){ return o.value === dados.author; })){
       sel.insertAdjacentHTML('beforeend', '<option>' + esc(dados.author || 'Redação Foyer') + '</option>');

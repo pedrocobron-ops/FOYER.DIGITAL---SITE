@@ -1132,6 +1132,7 @@ if os.path.isdir(_novas_dir):
             'img': _n.get('img', ''), 'credito': _n.get('imgCredito', ''),
             'atualizado': _n.get('atualizadoEm', ''),
             'evento': _n.get('evento') or None,
+            'cats': [c for c in (_n.get('cats') or []) if c][:3],
             'url': '', 'min': max(1, len(_txt)//1100),
         })
     if _novas:
@@ -1363,11 +1364,26 @@ def _cat_slug(c):
 
 _cats = []
 for _p in MATERIAS:
-    if _p['cat'] not in _cats:
-        _cats.append(_p['cat'])
+    for _c in [_p['cat']] + _p.get('cats', []):
+        if _c and _c != 'Em Cartaz' and _c not in _cats:
+            _cats.append(_c)
+
+_HOJE_EC = datetime.now(timezone.utc).date().isoformat()
+def _em_cartaz(x):
+    """Editoria Em Cartaz: atribuída na redação/aprovação; o campo evento,
+    quando existe, vira janela de exibição (a matéria entra e sai sozinha)."""
+    if 'Em Cartaz' not in [x['cat']] + x.get('cats', []):
+        return False
+    ev = x.get('evento') or {}
+    if ev.get('inicio') and ev['inicio'] > _HOJE_EC:
+        return False
+    if ev.get('fim') and ev['fim'] < _HOJE_EC:
+        return False
+    return True
 
 def _filters(active='*'):
     out = f'<a href="noticias.html"{" class=on" if active=="*" else ""}>Todas</a>'
+    out += f'<a href="cat-em-cartaz.html"{" class=on" if active=="Em Cartaz" else ""}>✦ Em Cartaz</a>'
     for c in sorted(_cats):
         cls = ' class="on"' if active == c else ''
         out += f'<a href="cat-{_cat_slug(c)}.html"{cls}>{c}</a>'
@@ -1463,8 +1479,8 @@ def post_page(i, p):
 <article class="art">
   <div class="art-head">
     <div class="tags">
-      <span class="tag wine">{p['cat']}</span>
-      <span class="tag">Foyer</span>
+      <a class="tag wine" href="cat-{_cat_slug(p['cat'])}.html">{p['cat']}</a>
+      {''.join(f'<a class="tag" href="cat-{_cat_slug(c)}.html">{"✦ " if c == "Em Cartaz" else ""}{c}</a>' for c in p.get('cats', [])) or '<span class="tag">Foyer</span>'}
     </div>
     <h1>{p['title']}</h1>
     <div class="art-byline">
@@ -2470,7 +2486,7 @@ for _n in range(1, _pages + 1):
                       f'{_tot} matérias no acervo — página {_n} de {_pages}'))
 
 for _c in _cats:
-    _posts = [x for x in MATERIAS if x['cat'] == _c]
+    _posts = [x for x in MATERIAS if x['cat'] == _c or _c in x.get('cats', [])]
     _cp = (len(_posts) + POR_PAGINA - 1) // POR_PAGINA
     _base = 'cat-' + _cat_slug(_c)
     for _n in range(1, _cp + 1):
@@ -2478,6 +2494,15 @@ for _c in _cats:
         page(_fname, f'{_c} — FOYER', f'Matérias de {_c} no FOYER.', 'noticias.html',
              listing_body(_posts, _n, _cp, _base, _c,
                           f'{len(_posts)} matérias — página {_n} de {_cp}', active=_c))
+
+_ec_posts = [x for x in MATERIAS if _em_cartaz(x)]
+_ec_pages = max(1, (len(_ec_posts) + POR_PAGINA - 1) // POR_PAGINA)
+for _n in range(1, _ec_pages + 1):
+    _fname = 'cat-em-cartaz.html' if _n == 1 else f'cat-em-cartaz-p{_n}.html'
+    page(_fname, 'Em Cartaz — FOYER', 'Peças em temporada agora, cobertas pelo FOYER.', 'noticias.html',
+         listing_body(_ec_posts, _n, _ec_pages, 'cat-em-cartaz', 'Em Cartaz',
+                      f'{len(_ec_posts)} espetáculo(s) em temporada agora — a página se atualiza sozinha',
+                      active='Em Cartaz'))
 page('critica.html', 'Crítica — FOYER', 'Críticas de teatro, musicais, dança e ópera no FOYER.', 'critica.html', critica_body)
 page('entrevistas.html', 'Entrevistas — FOYER', 'Entrevistas com artistas e profissionais do palco.', 'entrevistas.html', entrevistas_body)
 page('agenda.html', 'Agenda — FOYER', 'Estreias, temporadas e eventos de teatro pelo Brasil.', 'agenda.html', agenda_body)

@@ -196,6 +196,7 @@ Blocos opcionais (usar quando enriquecem de verdade):
  "title": "Título da matéria",
  "slug": "titulo-da-materia",
  "cat": "Teatro",
+ "cats": ["Notícia", "Em Cartaz"],
  "author": "Redação Foyer",
  "img": "assets/uploads/<slug>.jpg",
  "imgCredito": "Foto: Divulgação",
@@ -219,6 +220,23 @@ Blocos opcionais (usar quando enriquecem de verdade):
 }
 ```
 
+- `cat`/`cats` — **EDITORIAS: 1 principal (`cat`) + até 2 secundárias
+  (`cats`)**; a matéria aparece na página de todas elas. Diversifique: nem
+  tudo é só "Teatro". Editorias liberadas para a redação de agentes:
+  Teatro, Notícia, Cinema, Streaming, Música, Show, Dança, Exposições,
+  Literatura, Televisão, Audições, Edital, Festa, Guia e **Bastidores**
+  (a estante de "como o teatro funciona por dentro": leis e financiamento,
+  profissões, superstições, histórias de teatros; é a casa dos formatos
+  Entenda, curiosidade e história de teatro). NUNCA usar: Artigo de
+  Opinião, Astrologia, Crônicas e Histórias, Crítica (essas são de
+  humanos). Exemplos: notícia internacional = Notícia + Teatro; explicador
+  da Lei Rouanet = Bastidores + Teatro + Edital; guia = Guia + Teatro.
+- `"Em Cartaz"` (dentro de `cats`) — usar QUANDO A MATÉRIA É SOBRE PEÇA EM
+  TEMPORADA AGORA (ou entrando em cartaz na semana): a peça está em cartaz
+  no momento da publicação. NÃO usar para anúncio de temporada futura, nem
+  para bastidores/curiosidades/memória. Com o campo `evento` preenchido, a
+  matéria entra e sai da página Em Cartaz sozinha, pela janela da
+  temporada.
 - `evento` — OBRIGATÓRIO em toda matéria sobre evento com data (estreia,
   temporada, show, exposição, festival, inscrição de edital): alimenta a
   Agenda automática do site. `inicio` e `fim` no formato AAAA-MM-DD
