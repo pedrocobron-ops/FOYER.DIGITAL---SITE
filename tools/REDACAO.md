@@ -74,7 +74,16 @@ Matéria sem foto não vai para a mesa. Em cada pauta:
 3. No pacote: `"img": "assets/uploads/<slug>.jpg"` e
    `"imgCredito": "Foto: <fotógrafo se houver>/Divulgação"` — crédito
    verdadeiro, conforme a fonte identificar a imagem.
-4. **A foto deve mostrar o que importa: rostos e cena.** Preferir foto
+4. **Direitos de imagem (INEGOCIÁVEL).** Só três origens são aceitas:
+   (a) divulgação oficial da própria peça/produção que a matéria cobre,
+   com crédito ao fotógrafo; (b) Creative Commons ou domínio público com
+   a licença VERIFICADA na fonte (Wikimedia etc.) e citada no crédito,
+   ex.: "Foto: Fulano/Wikimedia Commons (CC BY 2.0)"; (c) foto própria
+   do FOYER. NUNCA usar foto de agência (Getty, Reuters, AFP, Folhapress)
+   nem foto de fotógrafo sem autorização. Registrar no pacote o campo
+   "imgFonte" com a URL de onde a imagem foi baixada, para auditoria na
+   mesa.
+5. **A foto deve mostrar o que importa: rostos e cena.** Preferir foto
    HORIZONTAL de divulgação com os artistas visíveis. O site corta as
    capas em 16:9 pelo centro-alto: antes de salvar, conferir com PIL
    (`Image.open(...).size`) e, se a imagem for vertical (altura maior
