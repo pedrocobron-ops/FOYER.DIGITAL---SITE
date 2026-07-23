@@ -1,6 +1,60 @@
 {
  "rodadas": [
   {
+   "quando": "2026-07-23T19:30:00+00:00",
+   "por": "Redação IA (Claude, guia do fim de semana de São Paulo)",
+   "buscas": [
+    "Festa no Arraial, O Musical estreia 24 julho Teatro Sabesp Frei Caneca ingressos",
+    "Valsa Nº 6 Luisa Thiré Teatro Arena B3 julho 2026 horários ingressos",
+    "Djavan musical Vidas pra Contar Teatro Claro Mais São Paulo julho 2026 ingressos horários",
+    "peça teatro em cartaz São Paulo quinta-feira julho 2026 sessão quinta",
+    "musical em cartaz São Paulo julho 2026 sessões quinta-feira 20h teatro temporada",
+    "CCBB São Paulo peça teatro julho 2026 até 27 de julho quinta 19h",
+    "Las Choronas CCBB São Paulo espetáculo temporada 2026 direção elenco ingressos"
+   ],
+   "consideradas": [
+    {
+     "assunto": "Las Choronas (CCBB SP) para a quinta 23/07",
+     "decisao": "escolhida",
+     "motivo": "única do dia com sessão confirmada às quintas (19h) e última semana em cartaz; boa recepção da crítica"
+    },
+    {
+     "assunto": "Festa no Arraial, O Musical (Frei Caneca) para a sexta 24/07",
+     "decisao": "escolhida",
+     "motivo": "estreia do dia, já coberta pelo FOYER, serviço confirmado na Uhuu"
+    },
+    {
+     "assunto": "Valsa Nº 6 com Luisa Thiré (Arena B3) para o sábado 25/07",
+     "decisao": "escolhida",
+     "motivo": "temporada relâmpago de dois dias, já coberta pelo FOYER"
+    },
+    {
+     "assunto": "Djavan, O Musical (Teatro Claro Mais SP) para o domingo 26/07",
+     "decisao": "escolhida",
+     "motivo": "reestreia da semana com sessão de domingo às 18h confirmada"
+    },
+    {
+     "assunto": "Tick, Tick... Boom! (Teatro Viradalata)",
+     "decisao": "descartada",
+     "motivo": "temporada terminou em 19/07, antes do fim de semana do guia"
+    },
+    {
+     "assunto": "Tina Turner, O Musical (Teatro Santander)",
+     "decisao": "descartada",
+     "motivo": "temporada terminou em 12/07"
+    },
+    {
+     "assunto": "7 Mulheres e um Mistério (033 Rooftop)",
+     "decisao": "descartada",
+     "motivo": "só estreia em 30/07, depois do período do guia"
+    }
+   ],
+   "produzidas": [
+    "o-que-fazer-no-fim-de-semana-em-sao-paulo-23-a-26-de-julho"
+   ],
+   "obs": "Guia refeito só com São Paulo (a versão anterior misturava Rio e SP e foi para a lixeira). Foto de capa é divulgação de Festa no Arraial (João Pedro Hachiya), horizontal, redimensionada para 1600px; imgFonte registrada. Guia do Rio sai em pacote separado, por outro redator."
+  },
+  {
    "quando": "2026-07-23T00:00:00+00:00",
    "por": "Redação IA (Claude, rodada de cardápio a pedido do chefe)",
    "buscas": [
