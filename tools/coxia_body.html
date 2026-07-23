@@ -432,7 +432,8 @@
                   <option>Teatro</option><option>Cinema</option><option>Música</option><option>Dança</option>
                   <option>Crítica</option><option>Notícia</option><option>Televisão</option><option>Streaming</option>
                   <option>Literatura</option><option>Exposições</option><option>Show</option><option>Audições</option>
-                  <option>Edital</option><option>Festa</option><option>Programa</option><option>Astrologia</option>
+                  <option>Edital</option><option>Festa</option><option>Programa</option><option>Guia</option>
+                  <option>Entenda</option><option>Memória</option><option>Astrologia</option>
                   <option>Artigo de Opinião</option><option>Crônicas e Histórias</option>
                 </select>
               </div>
@@ -1238,7 +1239,8 @@
       var e = esc(b)
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
         .replace(/\*(.+?)\*/g, '<em>$1</em>')
-        .replace(/\[(.+?)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+        .replace(/\[(.+?)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+        .replace(/\[(.+?)\]\(((?:post-|pessoa-|cat-)[a-z0-9-]+\.html)\)/g, '<a href="$2" target="_blank">$1</a>');
       if(b.indexOf('> ') === 0) return '<blockquote>' + e.replace(/^&gt;\s*/, '') + '</blockquote>';
       return '<p>' + e + '</p>';
     }).join('');

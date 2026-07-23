@@ -78,18 +78,55 @@ Matéria sem foto não vai para a mesa. Em cada pauta:
    o Pauteiro escolhe outra. Nunca usar foto que não seja de divulgação
    oficial do espetáculo/evento.
 
+## Grade semanal — o cardápio das 6 matérias do dia
+
+Das 6 matérias diárias: **2 são notícias quentes** (seguindo a mistura da
+varredura abaixo: máximo 1 de circuito de release, o resto fora da bolha)
+e **4 vêm do cardápio de formatos**, sempre incluindo o PRATO DO DIA:
+
+| Dia | Prato do dia (obrigatório) |
+|---|---|
+| Segunda | **Casas de Espetáculo** — a história de um teatro brasileiro, bem contada: fundação, reformas, glórias, incêndios, fantasmas, quem passou por lá (cat `Memória`) |
+| Terça | **Entenda** — explicador com pergunta direta no título: "O que faz um diretor musical?", "Quanto custa montar um musical no Brasil?" (cat `Entenda`) |
+| Quarta | **Quem é** — perfil de um nome em alta no teatro/música, com trajetória e o que está fazendo agora (cat da área da pessoa) |
+| Quinta | **GUIA DO FIM DE SEMANA** — "O que fazer no fim de semana em São Paulo (DD a DD/MM)": uma peça/evento por dia, de quinta a domingo, cada um com parágrafo de curadoria + serviço completo (local, horário, preço, onde comprar). Assinado como curadoria da Redação Foyer (cat `Guia`) |
+| Sexta | **Lista** — ranking/seleção evergreen com o ano no título: "Os 10 musicais brasileiros mais importantes (2026)" (cat `Guia`) |
+| Sábado | **Curiosidade bem explicada** — "Por que se diz 'merda' antes da estreia?", origem, versões, o que dizem os pesquisadores (cat `Entenda`) |
+| Domingo | **Memória** — efeméride ou episódio histórico das artes brasileiras ligado à data ou à semana (cat `Memória`) |
+
+As outras 2 vagas do cardápio: repetir qualquer formato acima ou
+reforçar notícia, conforme o que a varredura do dia render de melhor.
+
+### Regras de ranqueamento (valem para o cardápio)
+
+- Título = o termo que as pessoas buscam (pergunta completa nos
+  explicadores; "o que fazer no fim de semana em São Paulo" no guia;
+  ano nas listas e guias).
+- Intertítulos (`## `) em forma de pergunta sempre que natural.
+- Explicadores e curiosidades terminam com o bloco `## Perguntas
+  rápidas`: 3 ou 4 perguntas de uma linha com respostas de 2-3 frases
+  (mira as caixas de resposta do Google).
+- **Links internos obrigatórios: no mínimo 3 por matéria**, apontando
+  para matérias do acervo (`[texto](post-slug.html)`) e verbetes da
+  enciclopédia (`[nome](pessoa-slug.html)`) — conferir se o arquivo
+  existe no acervo antes de linkar.
+- Conteúdo perene não leva "ontem/hoje/amanhã" no corpo: usar datas.
+- Guia de quinta usa foto de divulgação de uma das peças indicadas
+  (com crédito); histórias de teatro usam foto oficial da casa.
+
 ## A esteira, papel por papel
 
 1. **Pauteiro** — varredura na web (busca) por notícias RECENTES (últimos
    7 dias). Antes, conferir os títulos já cobertos (primeiros ~60 de
    `import/materias.json` e tudo em `import/pauta/` e `import/novas/`)
-   para não repetir assunto. Produzir **6 pautas por rodada**, com esta
-   mistura obrigatória:
+   para não repetir assunto. Produzir **6 pautas por rodada** seguindo a
+   GRADE SEMANAL acima: 2 vagas de notícia + 4 do cardápio, sempre com o
+   prato do dia. Para as VAGAS DE NOTÍCIA, esta mistura:
 
-   - **No máximo 2 pautas de circuito** (estreias/temporadas brasileiras
+   - **No máximo 1 pauta de circuito** (estreias/temporadas brasileiras
      que todo site de cultura recebe por release). O FOYER já recebe
      esses releases por e-mail — só entram se forem realmente grandes.
-   - **No mínimo 4 pautas FORA DO COMUM**, que o leitor brasileiro não
+   - As demais vagas de notícia são **pautas FORA DO COMUM**, que o leitor brasileiro não
      encontraria em outro site do país. Buscar TAMBÉM em inglês, espanhol
      e francês, na imprensa internacional de artes (The Guardian, The New
      York Times, Playbill, The Stage, BroadwayWorld, Variety, El País,
@@ -162,7 +199,7 @@ citação real; `**negrito**` para nomes de obras; `[link](url)` se preciso.
 - `slug`: ASCII minúsculo, hifens, máx. 80 caracteres, sem acentos.
 - `cat` — uma de: Teatro, Cinema, Música, Dança, Crítica, Notícia,
   Televisão, Streaming, Literatura, Exposições, Show, Audições, Edital,
-  Festa, Programa.
+  Festa, Programa, Guia, Entenda, Memória.
 - JSON com `ensure_ascii` desligado (acentos legíveis) e indentação 1.
 
 ## Diário da redação (obrigatório)

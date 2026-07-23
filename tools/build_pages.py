@@ -1063,6 +1063,7 @@ def md_lite(txt):
         e = _re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', e)
         e = _re.sub(r'\*(.+?)\*', r'<em>\1</em>', e)
         e = _re.sub(r'\[(.+?)\]\((https?://[^)]+)\)', r'<a href="\2" target="_blank" rel="noopener">\1</a>', e)
+        e = _re.sub(r'\[(.+?)\]\(((?:post-|pessoa-|cat-)[a-z0-9-]+\.html)\)', r'<a href="\2">\1</a>', e)
         e = e.replace('\n', '<br>')
         if b.startswith('&gt; ') or b.startswith('> '):
             e = _re.sub(r'^(&gt;|>)\s*', '', e)
