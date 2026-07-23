@@ -1,6 +1,78 @@
 {
  "rodadas": [
   {
+   "quando": "2026-07-23T15:30:33+00:00",
+   "por": "Redação IA (Claude) — matéria avulsa formato Entenda",
+   "buscas": [
+    "Lei Rouanet como funciona incentivo fiscal teatro artes cênicas percentual dedução imposto de renda",
+    "Lei Rouanet 2025 limites captação por projeto portaria teto valores Ministério da Cultura",
+    "Instrução Normativa MinC 23/2025 Lei Rouanet regras cachê teto projeto",
+    "Lei Rouanet captação 2024 2025 recorde artes cênicas",
+    "Wikimedia Commons: interior de teatros brasileiros para foto de capa"
+   ],
+   "consideradas": [
+    {
+     "assunto": "Como funciona a Lei Rouanet no teatro",
+     "decisao": "escolhida",
+     "motivo": "Tema de alta busca no Google, sem cobertura no acervo, com fontes oficiais e de imprensa abundantes e números recentes (recorde de captação em 2025)."
+    },
+    {
+     "assunto": "O que faz um dramaturg / teatro imersivo / audições de musicais",
+     "decisao": "descartada",
+     "motivo": "Também inéditos no acervo, mas Rouanet rende mais busca e tinha apuração mais robusta disponível; ficam como sugestão para próximos explicadores."
+    }
+   ],
+   "produzidas": [
+    "como-funciona-a-lei-rouanet-no-teatro"
+   ],
+   "obs": "Foto de capa ilustrativa do interior do Teatro Amazonas (Wikimedia Commons, CC0, autor Ridiculopathy), 1920x1080 (16:9). gov.br bloqueou acesso direto; dados oficiais confirmados via CNN Brasil, Correio Braziliense e Nativa News. Sem campo evento (conteúdo perene)."
+  },
+  {
+   "quando": "2026-07-23T15:29:50+00:00",
+   "por": "Redação IA (Claude), rodada de 2 notícias a pedido do chefe",
+   "buscas": [
+    "estreia teatro musical São Paulo julho 2026 temporada anunciada",
+    "Broadway West End theatre news this week July 2026",
+    "\"Trainspotting\" musical Theatre Royal Haymarket review July 2026",
+    "Guardian Trainspotting the musical review Haymarket",
+    "\"Meu Filho é um Musical\" São Paulo Teatro Renault agosto temporada Paulo Gustavo",
+    "ticketsforfun \"Meu Filho é um Musical\" Teatro Renault ingressos",
+    "extração das críticas completas (The Stage, WhatsOnStage, Time Out, London Theatre) e da ficha na Wikipedia"
+   ],
+   "consideradas": [
+    {
+     "assunto": "Meu Filho é um Musical confirma temporada em SP (Teatro Renault, 20/08 a 11/10)",
+     "decisao": "escolhida",
+     "motivo": "vaga única de circuito: anúncio da praça paulistana repercutido em 22/07 pela Rolling Stone Brasil; FOYER cobriu o Rio, mas não SP; aspas reais de Déa Lúcia e Renata Borges e foto de cena com crédito (Roberto Filho)"
+    },
+    {
+     "assunto": "Trainspotting The Musical estreia no West End e críticas saem em 22-23/07",
+     "decisao": "escolhida",
+     "motivo": "pauta fora da bolha: estreia mundial com noite de imprensa dia 22/07, recepção crítica dura documentada em 5 veículos; foto de cena de Matt Crockett via The Stage"
+    },
+    {
+     "assunto": "7 Mulheres e um Mistério estreia dia 30/07 no 033 Rooftop",
+     "decisao": "descartada",
+     "motivo": "assunto já coberto duas vezes no acervo (estreia anunciada e entrada de Paula Capovilla)"
+    },
+    {
+     "assunto": "Jesus Christ Superstar no London Palladium",
+     "decisao": "descartada",
+     "motivo": "menos gancho noticioso nesta semana que a estreia de Trainspotting; sem polêmica nem dado novo forte"
+    },
+    {
+     "assunto": "Nova temporada de Wicked no Rio (Cidade das Artes)",
+     "decisao": "descartada",
+     "motivo": "pacote já está na mesa da Coxia desde a rodada anterior"
+    }
+   ],
+   "produzidas": [
+    "meu-filho-e-um-musical-temporada-sao-paulo",
+    "trainspotting-o-musical-estreia-west-end-criticas"
+   ],
+   "obs": "Rodada de 2 notícias (sem cardápio, por pedido específico). Citações internacionais traduzidas do inglês pela redação, com atribuição nominal aos veículos. Botão de ingressos da matéria nacional aponta para a home da Tickets for Fun por falta de link direto público do evento."
+  },
+  {
    "quando": "2026-07-22T22:29:21.508334+00:00",
    "por": "Reforma editorial (Claude, a pedido do chefe)",
    "buscas": [
