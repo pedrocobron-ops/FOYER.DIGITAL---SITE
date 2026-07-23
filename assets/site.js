@@ -145,3 +145,38 @@
     if(e.target.closest('[data-share]')) bater('share');
   });
 })();
+
+
+// newsletter da revista — cadastro real (grava no banco do FOYER)
+(function(){
+  var f = document.getElementById('signup');
+  if(!f) return;
+  var M = { url: 'https://jcaqjlrzmrtzjyfbljxh.supabase.co',
+            key: 'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB' };
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    var nome = (f.querySelector('input[type=text]') || {}).value || '';
+    var email = (f.querySelector('input[type=email]') || {}).value || '';
+    var btn = f.querySelector('button'), ok = document.getElementById('signup-ok');
+    if(!email) return;
+    btn.disabled = true; btn.textContent = 'Enviando…';
+    fetch(M.url + '/rest/v1/foyer_newsletter', {
+      method: 'POST',
+      headers: { 'apikey': M.key, 'Authorization': 'Bearer ' + M.key,
+                 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify({ nome: nome.trim(), email: email.trim().toLowerCase() })
+    }).then(function(r){
+      if(r.ok || r.status === 409){
+        ok.textContent = r.status === 409
+          ? 'Esse e-mail já está na lista ✓'
+          : 'Pronto! Você está na lista da próxima edição ✓';
+        ok.style.display = 'block';
+        btn.textContent = 'Assinado ✓';
+      } else { throw 0; }
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = 'Assinar grátis';
+      ok.textContent = 'Não deu agora — tente de novo em instantes';
+      ok.style.display = 'block';
+    });
+  });
+})();

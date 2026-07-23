@@ -1281,31 +1281,7 @@ __CRITICA_CAPA__
       <span class="note">YouTube &amp; Spotify — novos episódios toda semana</span>
     </div>
     <div class="prog-grid">
-      <a class="show" href="programas.html">
-        <span class="ep">Talk — Bastidores</span><span class="tri">▶</span>
-        <h3>Programa do Foyer</h3>
-        <p>Conversas com elencos e os bastidores do teatro musical.</p>
-      </a>
-      <a class="show" href="programas.html">
-        <span class="ep">Game show</span><span class="tri">▶</span>
-        <h3>Trivia Musical</h3>
-        <p>Artistas duelam no universo dos musicais. Quem sabe mais?</p>
-      </a>
-      <a class="show" href="programas.html">
-        <span class="ep">Papo — Astrologia</span><span class="tri">▶</span>
-        <h3>Astro em Cena</h3>
-        <p>Astrologia e artes em conversas cheias de insights.</p>
-      </a>
-      <a class="show" href="programas.html">
-        <span class="ep">Economia criativa</span><span class="tri">▶</span>
-        <h3>Off Stage</h3>
-        <p>Tudo o que move a cultura fora dos palcos.</p>
-      </a>
-      <a class="show" href="programas.html">
-        <span class="ep">Coxia — Humor</span><span class="tri">▶</span>
-        <h3>Coxixo de Coxia</h3>
-        <p>O papo solto de quem vive o teatro por trás da cortina.</p>
-      </a>
+__PROGRAMAS_CAPA__
     </div>
     <div class="prog-cta">
       <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">Assistir no YouTube ↗</a>
@@ -1317,26 +1293,13 @@ __CRITICA_CAPA__
 <!-- ===================== ENCICLOPÉDIA ===================== -->
 <section id="enciclopedia" class="wrap">
   <div class="sec-head">
-    <h2>Enciclopédia do Teatro Musical Brasileiro</h2>
-    <span class="note">Memória viva — em catalogação</span>
+    <h2>Enciclopédia do FOYER</h2>
+    <span class="note">Toda pessoa que passa pelo FOYER, com histórico completo</span>
     <a href="enciclopedia.html" class="all">Explorar →</a>
   </div>
-  <div class="ency-stats">
-    <div class="stat"><span class="n" data-v="312">0</span><span class="l">Espetáculos</span></div>
-    <div class="stat"><span class="n" data-v="1240">0</span><span class="l">Artistas &amp; equipes</span></div>
-    <div class="stat"><span class="n" data-v="96">0</span><span class="l">Teatros mapeados</span></div>
-  </div>
-  <div class="ency-table" role="table" aria-label="Índice de artistas">
-    <div class="ency-row head" role="row">
-      <span>Nome</span><span class="of">Ofício</span><span class="ct">Produções</span><span class="ar"></span>
-    </div>
-''' + erow('Marina Villas','Atriz · Diretora musical','012') + '\n' + \
-erow('Téo Andrade','Diretor · Dramaturgo','021') + '\n' + \
-erow('Lúcia Ferrante','Coreógrafa','017') + '\n' + \
-erow('Bia Camargo','Desenhista de luz','034') + '''
-  </div>
+__ENCICLOPEDIA_CAPA__
   <div class="ency-note">
-    <span>Clique em qualquer nome e veja a trajetória inteira — cada papel, cada ficha técnica</span>
+    <span>Clique em qualquer nome e veja a trajetória inteira no FOYER — matérias e programas</span>
     <a href="enciclopedia.html" class="go">Explorar a enciclopédia →</a>
   </div>
 </section>
@@ -1897,6 +1860,17 @@ if _yt_progs:
     _kyra = [p for p in _yt_progs if p['nome'] == 'Críticas Teatrais']
     _capa_crit = '\n'.join(yt_cell(v, 'Críticas Teatrais') for _, _n, v in _yt_videos(_kyra, 3))
     index_main = index_main.replace('__CRITICA_CAPA__', _capa_crit)
+    _capa_progs, _visto_capa = '', set()
+    for _p in _yt_progs:
+        _nm = _p['nome'].split(' — ')[0]
+        if _nm in _visto_capa: continue
+        _visto_capa.add(_nm)
+        if len(_capa_progs.split('</a>')) > 5: break
+        _rt, _dc = _PDESC.get(_nm, ('Programa', 'Novos episódios no canal do FOYER.'))
+        _capa_progs += ('      <a class="show" href="' + _rvesc(_p['urlPlaylist']) + '" target="_blank" rel="noopener">'
+                        '<span class="ep">' + _rvesc(_rt) + '</span><span class="tri">▶</span>'
+                        '<h3>' + _rvesc(_nm) + '</h3><p>' + _rvesc(_dc) + '</p></a>\n')
+    index_main = index_main.replace('__PROGRAMAS_CAPA__', _capa_progs)
 
     # ---------- CRÍTICA ----------
     _crit_vids = '\n'.join(yt_cell(v, 'Críticas Teatrais') for _, _n, v in _yt_videos(_kyra, 6))
@@ -2117,6 +2091,19 @@ for _sp, _pp in [x for x in _top_pessoas if x[0] not in _CASA][:60]:
     _enc_rows += f'''    <a class="ency-row" href="pessoa-{_sp}.html" role="row">
       <span class="nm">{_rvesc(_pp['nome'])}</span><span class="of">{_papeis_resumo(_pp['aparicoes'])}</span><span class="ct">{len(_pp['aparicoes'])} aparições</span><span class="ar">→</span>
     </a>\n'''
+_capa_enc = ('<div class="ency-stats">'
+  f'<div class="stat"><span class="n" data-v="{len(PESSOAS)}">0</span><span class="l">Pessoas mapeadas</span></div>'
+  f'<div class="stat"><span class="n" data-v="{len(MATERIAS)}">0</span><span class="l">Matérias no acervo</span></div>'
+  f'<div class="stat"><span class="n" data-v="{_n_eps}">0</span><span class="l">Episódios dos programas</span></div>'
+  '</div>\n  <div class="ency-table" role="table" aria-label="Índice de pessoas">'
+  '<div class="ency-row head" role="row"><span>Nome</span><span class="of">Presença</span><span class="ct">Aparições</span><span class="ar"></span></div>')
+for _sp, _pp in [x for x in _top_pessoas if x[0] not in _CASA][:4]:
+    _capa_enc += (f'<a class="ency-row" href="pessoa-{_sp}.html" role="row"><span class="nm">{_rvesc(_pp["nome"])}</span>'
+                  f'<span class="of">{_papeis_resumo(_pp["aparicoes"])}</span>'
+                  f'<span class="ct">{len(_pp["aparicoes"])}</span><span class="ar">→</span></a>')
+_capa_enc += '</div>'
+index_main = index_main.replace('__ENCICLOPEDIA_CAPA__', _capa_enc)
+
 enciclopedia_body = band('Projeto Foyer', 'Enciclopédia do FOYER', 'Todas as pessoas que passaram pelas matérias e pelos programas — cada nome clicável leva ao histórico completo') + f'''
 <main class="wrap">
   <div class="ency-stats">
@@ -2194,9 +2181,6 @@ page('agenda.html', 'Agenda — FOYER', 'Estreias, temporadas e eventos de teatr
 page('programas.html', 'Programas — FOYER', 'Os programas do canal Foyer no YouTube e Spotify.', 'programas.html', programas_body)
 page('enciclopedia.html', 'Enciclopédia — FOYER', 'Enciclopédia do Teatro Musical Brasileiro: artistas, espetáculos e fichas técnicas.', 'enciclopedia.html', enciclopedia_body)
 page('revista.html', 'A Revista — FOYER', 'A revista semanal do Foyer: edições fechadas para ler online ou baixar em PDF.', 'revista.html', revista_body)
-page('materia.html', 'A temporada em que o musical brasileiro decidiu contar as próprias histórias — FOYER', 'Reportagem de capa do FOYER sobre a dramaturgia nacional no teatro musical.', 'noticias.html', materia_body)
-page('artista.html', 'Marina Villas — Enciclopédia FOYER', 'Verbete de Marina Villas na Enciclopédia do Teatro Musical Brasileiro.', 'enciclopedia.html', artista_body)
-page('espetaculo.html', 'A Cidade Cantada — Enciclopédia FOYER', 'Ficha completa do musical A Cidade Cantada na Enciclopédia do Teatro Musical Brasileiro.', 'enciclopedia.html', espetaculo_body)
 page('busca.html', 'Buscar — FOYER', 'Busque matérias, críticas, artistas e espetáculos no FOYER.', 'busca.html', busca_body)
 page('sobre.html', 'Quem somos — FOYER', 'O FOYER: portal de jornalismo cultural e canal de programas sobre teatro, música e artes.', 'index.html', sobre_body)
 page('contato.html', 'Contato — FOYER', 'Fale com a redação do FOYER: pautas, imprensa, parcerias e publicidade.', 'index.html', contato_body)
