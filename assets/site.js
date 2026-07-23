@@ -117,8 +117,8 @@
 // métricas — visualizações e compartilhamentos (alimenta o ranking da Coxia)
 (function(){
   var M = {
-    url: 'https://zhrlkmmajrxxkjihiksr.supabase.co',
-    key: 'sb_publishable_MAjQ6VLRf8fRUTbSV--aFQ_o4xPN-N4'
+    url: 'https://jcaqjlrzmrtzjyfbljxh.supabase.co',
+    key: 'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB'
   };
   function bater(tipo){
     var m = location.pathname.match(/post-([a-z0-9-]+)\.html$/);
