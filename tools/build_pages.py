@@ -11,7 +11,13 @@ import html as _html
 
 BASE = 'https://pedrocobron-ops.github.io/FOYER.DIGITAL---SITE'
 
-def head(title, desc, og_img=None, og_type='website', og_url=''):
+ORG_LD = ('<script type="application/ld+json">{"@context":"https://schema.org",'
+          '"@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação",'
+          f'"url":"{BASE}/","logo":"{BASE}/assets/logo/foyer-stacked-gold.png",'
+          '"sameAs":["https://www.youtube.com/@Foyer.digital","https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm"]'
+          '}</script>')
+
+def head(title, desc, og_img=None, og_type='website', og_url='', ld=''):
     t = _html.escape(title, quote=True)
     d = _html.escape(desc, quote=True)
     img = _html.escape(og_img or f'{BASE}/assets/logo/src/foyer-banner.png', quote=True)
@@ -32,8 +38,10 @@ def head(title, desc, og_img=None, og_type='website', og_url=''):
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
 <title>{t}</title>
+<link rel="canonical" href="{url}">
 <link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
 <link rel="stylesheet" href="assets/site.css">
+{ORG_LD}{ld}
 </head>
 <body>
 '''
@@ -233,8 +241,8 @@ def news_cell(sym, tag, title, meta, desc=None, big=False):
       </div>
     </article>'''
 
-def page(fname, title, desc, current, body, quiet=False, og_img=None, og_type='website'):
-    html = head(title, desc, og_img=og_img, og_type=og_type, og_url=fname) + '\n' + DEFS + '\n' + UTIL + '\n' + nav(current) + '\n' + body + '\n' + FOOTER + '</body>\n</html>\n'
+def page(fname, title, desc, current, body, quiet=False, og_img=None, og_type='website', ld=''):
+    html = head(title, desc, og_img=og_img, og_type=og_type, og_url=fname, ld=ld) + '\n' + DEFS + '\n' + UTIL + '\n' + nav(current) + '\n' + body + '\n' + FOOTER + '</body>\n</html>\n'
     with open(os.path.join(ROOT, fname), 'w') as f:
         f.write(html)
     if not quiet:
@@ -1122,7 +1130,7 @@ def wiximg(url, w=1200, h=675):
 def real_ph(p, href, cap=True):
     c = '<span class="ph-cap">Foto — Divulgação</span>' if cap else ''
     return (f'<a class="ph" href="{href}" aria-label="Foto da matéria">'
-            f'<img src="{wiximg(p["img"], 800, 450)}" alt="" loading="lazy" onerror="this.style.display=\'none\'">{c}</a>')
+            f'<img src="{wiximg(p["img"], 800, 450)}" alt="{safe(p["title"])}" loading="lazy" onerror="this.style.display=\'none\'">{c}</a>')
 
 def real_cell(p, big=False):
     d = f'\n        <p>{p["desc"][:160]}…</p>' if big else ''
@@ -1422,7 +1430,7 @@ def post_page(i, p):
   </div>
 
   <figure class="art-cover">
-    <span class="ph"><img src="{wiximg(p['img'])}" alt="" loading="eager" onerror="this.style.display='none'"></span>
+    <span class="ph"><img src="{wiximg(p['img'])}" alt="{safe(p['title'])}" loading="eager" onerror="this.style.display='none'"></span>
     <figcaption>{safe(p['title'])} — {safe(p.get('credito') or 'Foto: Divulgação')}</figcaption>
   </figure>
 
@@ -1781,7 +1789,7 @@ def _yt_data(iso):
 def yt_cell(v, rotulo):
     return f'''    <article class="ep-cell">
       <a class="ph" href="{_rvesc(v['url'])}" target="_blank" rel="noopener" aria-label="Assistir no YouTube">
-        <img src="{_rvesc(v['thumb'])}" alt="" loading="lazy" onerror="this.style.display='none'">
+        <img src="{_rvesc(v['thumb'])}" alt="{_rvesc(v['titulo'])}" loading="lazy" onerror="this.style.display='none'">
         <span class="play">▶</span>
       </a>
       <div class="ep-body">
@@ -2186,9 +2194,31 @@ page('sobre.html', 'Quem somos — FOYER', 'O FOYER: portal de jornalismo cultur
 page('contato.html', 'Contato — FOYER', 'Fale com a redação do FOYER: pautas, imprensa, parcerias e publicidade.', 'index.html', contato_body)
 page('privacidade.html', 'Política de Privacidade — FOYER', 'Política de privacidade e cookies do FOYER.', 'privacidade.html', privacidade_body)
 
+def _ld_materia(p):
+    img = wiximg(p['img'], 1200, 630) if p['img'] else f'{BASE}/assets/logo/src/foyer-banner.png'
+    if not img.startswith('http'):
+        img = f'{BASE}/{img}'
+    autor = p.get('author') or 'Redação Foyer'
+    tipo_autor = 'Organization' if 'reda' in autor.lower() else 'Person'
+    dados = {
+        '@context': 'https://schema.org', '@type': 'NewsArticle',
+        'headline': p['title'][:110],
+        'description': p['desc'][:200],
+        'image': [img],
+        'datePublished': p.get('iso', ''),
+        'dateModified': (p.get('atualizado') or p.get('iso', ''))[:19],
+        'author': [{'@type': tipo_autor, 'name': autor}],
+        'publisher': {'@type': 'NewsMediaOrganization', 'name': 'FOYER',
+                      'logo': {'@type': 'ImageObject', 'url': f'{BASE}/assets/logo/foyer-stacked-gold.png'}},
+        'mainEntityOfPage': f"{BASE}/post-{p['slug']}.html",
+        'inLanguage': 'pt-BR',
+        'articleSection': p.get('cat', ''),
+    }
+    return '<script type="application/ld+json">' + _json.dumps(dados, ensure_ascii=False) + '</script>'
+
 for _i, _p in enumerate(MATERIAS):
     page('post-' + _p['slug'] + '.html', _p['title'] + ' — FOYER', _p['desc'][:200], 'noticias.html', post_page(_i, _p), quiet=True,
-         og_img=wiximg(_p['img'], 1200, 630) if _p['img'] else None, og_type='article')
+         og_img=wiximg(_p['img'], 1200, 630) if _p['img'] else None, og_type='article', ld=_ld_materia(_p))
 print(f'• {len(MATERIAS)} páginas de matéria')
 
 for _sp, _pp in PESSOAS.items():
@@ -2239,13 +2269,32 @@ with open(os.path.join(ROOT, 'assets/busca-index.json'), 'w') as f:
                   for _sp, _pp in _top_pessoas], f, ensure_ascii=False)
 print(f'busca: {len(MATERIAS)} matérias indexadas')
 
+_hoje_sm = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+_mod = {'post-' + p['slug'] + '.html': ((p.get('atualizado') or p.get('iso') or _hoje_sm)[:10])
+        for p in MATERIAS}
 with open(os.path.join(ROOT, 'sitemap.xml'), 'w') as f:
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
     for u in urls:
         loc = BASE + '/' + ('' if u == 'index.html' else u)
-        f.write(f'<url><loc>{loc}</loc></url>\n')
+        f.write(f'<url><loc>{loc}</loc><lastmod>{_mod.get(u, _hoje_sm)}</lastmod></url>\n')
+    f.write('</urlset>\n')
+
+# sitemap de notícias (Google News): matérias das últimas 48 horas
+_corte_news = (datetime.now(timezone.utc) - __import__('datetime').timedelta(days=2)).strftime('%Y-%m-%d')
+_news = [p for p in MATERIAS if (p.get('iso') or '') >= _corte_news]
+with open(os.path.join(ROOT, 'sitemap-news.xml'), 'w') as f:
+    f.write('<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+            'xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">\n')
+    for p in _news:
+        f.write('<url><loc>' + BASE + '/post-' + p['slug'] + '.html</loc>'
+                '<news:news><news:publication><news:name>FOYER</news:name>'
+                '<news:language>pt</news:language></news:publication>'
+                '<news:publication_date>' + p.get('iso', _hoje_sm) + '</news:publication_date>'
+                '<news:title>' + _html.escape(p['title']) + '</news:title></news:news></url>\n')
     f.write('</urlset>\n')
 with open(os.path.join(ROOT, 'robots.txt'), 'w') as f:
-    f.write(f'User-agent: *\nAllow: /\nDisallow: /coxia.html\n\nSitemap: {BASE}/sitemap.xml\n')
-print(f'sitemap: {len(urls)} URLs')
+    f.write(f'User-agent: *\nAllow: /\nDisallow: /coxia.html\n\n'
+            f'Sitemap: {BASE}/sitemap.xml\nSitemap: {BASE}/sitemap-news.xml\n')
+print(f'sitemap: {len(urls)} URLs · news: {len(_news)} matéria(s) recentes')
 print('pronto')
