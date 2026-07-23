@@ -110,9 +110,11 @@
     color:var(--ink-soft); }
 
   /* palco */
-  .stats{ display:grid; grid-template-columns:repeat(4,1fr); border:var(--b); }
+  .stats{ display:grid; grid-template-columns:repeat(3,1fr); border:var(--b); }
+  .stat:nth-child(3n){ border-right:0; }
+  .stat:nth-child(-n+3){ border-bottom:1px solid var(--line); }
   .stat{ border-right:1px solid var(--line); padding:22px 20px 18px; transition:background .15s; }
-  .stat:last-child{ border-right:0; }
+
   .stat:hover{ background:var(--paper-2); }
   .stat b{ display:block; font-family:var(--didone); font-weight:400; font-size:2.6rem; line-height:1;
     color:var(--wine); }
@@ -120,7 +122,9 @@
   .stat span{ font-family:var(--mono); font-size:.56rem; letter-spacing:.14em; text-transform:uppercase;
     color:var(--ink-soft); display:block; margin-top:8px; line-height:1.8; }
   @media (max-width:760px){ .stats{ grid-template-columns:1fr 1fr; }
-    .stat:nth-child(2){ border-right:0; } .stat:nth-child(-n+2){ border-bottom:1px solid var(--line); } }
+    .stat:nth-child(3n){ border-right:1px solid var(--line); }
+    .stat:nth-child(2n){ border-right:0; }
+    .stat:nth-child(-n+4){ border-bottom:1px solid var(--line); } }
   .quick{ display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
   .quick button, .quick a{ border:2px solid var(--ink); background:var(--paper); color:var(--ink);
     cursor:pointer; text-decoration:none; font-family:var(--mono); font-weight:600; font-size:.62rem;
@@ -302,6 +306,40 @@
   .cx-token .st{ font-family:var(--mono); font-size:.62rem; letter-spacing:.1em;
     text-transform:uppercase; color:var(--ink-soft); width:100%; }
   .cx-token .st.ok{ color:#2c6e2c; } .cx-token .st.err{ color:#8E1B10; }
+  .bdg{ display:inline-block; min-width:18px; text-align:center; background:var(--gold);
+    color:var(--wine); border-radius:0; font-size:.56rem; font-weight:700; padding:2px 5px;
+    margin-left:8px; }
+  .prev-overlay{ display:none; position:fixed; inset:0; background:rgba(20,8,6,.72); z-index:90;
+    padding:4vh 4vw; overflow:auto; }
+  .prev-overlay.on{ display:block; }
+  .prev-box{ max-width:780px; margin:0 auto; background:var(--paper); border:3px solid var(--ink); }
+  .prev-head{ display:flex; justify-content:space-between; align-items:center; gap:10px;
+    border-bottom:2px solid var(--ink); padding:12px 18px; font-family:var(--mono);
+    font-size:.6rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; }
+  .prev-body{ padding:26px clamp(18px,4vw,42px) 42px; }
+  .prev-body h1{ font-family:var(--didone); font-weight:400; font-size:1.9rem; line-height:1.1; margin:8px 0 14px; }
+  .prev-body img.capa{ width:100%; max-height:340px; object-fit:cover; border:2px solid var(--ink); }
+  .prev-body .cred{ font-family:var(--mono); font-size:.56rem; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--ink-soft); }
+  .prev-body .corpo p{ margin:0 0 14px; line-height:1.85; }
+  .prev-body .corpo h3{ font-size:1.05rem; text-transform:uppercase; margin:22px 0 8px;
+    border-bottom:2px solid var(--gold); display:inline-block; padding-bottom:5px; }
+  .prev-body .corpo blockquote{ margin:16px 0; padding:10px 16px; border-left:3px solid var(--gold);
+    font-family:var(--didone); font-size:1.1rem; }
+  .prev-avisos{ border-top:2px solid var(--ink); padding:12px 18px; font-family:var(--mono);
+    font-size:.6rem; letter-spacing:.08em; line-height:2; }
+  .prev-avisos .ok{ color:#2c6e2c; } .prev-avisos .err{ color:#8E1B10; }
+  .f-status{ font-family:var(--mono); font-size:.58rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--ink-soft); display:flex; gap:14px; flex-wrap:wrap; margin-top:6px; }
+  .f-status .err{ color:#8E1B10; font-weight:700; }
+  .rasc-aviso{ display:none; border:2px solid var(--gold); background:var(--paper-2); padding:10px 14px;
+    margin-bottom:14px; font-family:var(--mono); font-size:.6rem; letter-spacing:.1em;
+    text-transform:uppercase; }
+  .rasc-aviso.on{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  .dt-rapido{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+  .dt-rapido button{ background:var(--paper-2); border:1px solid var(--line); cursor:pointer;
+    font-family:var(--mono); font-size:.56rem; letter-spacing:.08em; padding:6px 9px; color:var(--ink); }
+  .dt-rapido button:hover{ background:var(--ink); color:var(--gold); }
 
   /* saguão */
   .sag-grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:30px; align-items:start; }
@@ -402,7 +440,7 @@
         <button data-view="saguao" type="button">🎭 &nbsp;Saguão</button>
         <button data-view="nova" type="button">✎ &nbsp;Nova matéria</button>
         <button data-view="fila" type="button">🕐 &nbsp;Fila &amp; agendadas</button>
-        <button data-view="ia" id="mi-ia" type="button">🤖 &nbsp;Redação IA</button>
+        <button data-view="ia" id="mi-ia" type="button">🤖 &nbsp;Redação IA<span class="bdg" id="bdg-mesa" style="display:none">0</span></button>
         <button data-view="revista" id="mi-revista" type="button">📖 &nbsp;Revista</button>
         <button data-view="equipe" id="mi-equipe" type="button">👥 &nbsp;Equipe</button>
         <button data-view="conexao" type="button">⚡ &nbsp;Conexão</button>
@@ -425,6 +463,8 @@
           <div class="stat"><b id="st-pub">—</b><span>publicadas pela Coxia</span></div>
           <div class="stat"><b id="st-ag">—</b><span>agendadas esperando a hora</span></div>
           <div class="stat"><b id="st-mesa">—</b><span>na mesa da Redação IA</span></div>
+          <div class="stat"><b id="st-leituras">—</b><span>leituras no site (7 dias)</span></div>
+          <div class="stat"><b id="st-assin">—</b><span>assinantes da newsletter</span></div>
         </div>
         <div class="quick">
           <button data-go="nova" type="button">✎ Escrever matéria</button>
@@ -442,6 +482,11 @@
         <div id="edit-banner" style="display:none;border:2px solid var(--gold);background:var(--paper-2);padding:14px 16px;margin-bottom:18px;font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase">
           ✎ Editando matéria publicada: <b id="edit-titulo"></b> — a data original é mantida e o site mostra o selo “atualizada em”.
           <button class="bt" type="button" id="edit-cancelar" style="margin-left:10px">✕ Cancelar edição</button>
+        </div>
+        <div class="rasc-aviso" id="rasc-aviso">
+          📄 Recuperei um rascunho não enviado deste navegador.
+          <button class="bt" type="button" id="rasc-usar">Continuar de onde parei</button>
+          <button class="bt danger" type="button" id="rasc-descartar">Descartar</button>
         </div>
         <div class="f-grid">
           <form class="f-form" id="form">
@@ -516,9 +561,18 @@
               <div id="f-quando-dt" style="display:none">
                 <label for="f-data">Data e hora (seu fuso)</label>
                 <input type="datetime-local" id="f-data">
+                <div class="dt-rapido">
+                  <button type="button" data-dtr="hoje18">Hoje 18h</button>
+                  <button type="button" data-dtr="amanha9">Amanhã 9h</button>
+                  <button type="button" data-dtr="sexta18">Sexta 18h</button>
+                </div>
               </div>
             </div>
-            <button class="f-pub" type="submit" id="btn-pub">Enviar para o site</button>
+            <div class="f-status"><span id="st-palavras">0 palavras</span><span id="st-alerta"></span></div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap">
+              <button class="bt" type="button" id="btn-prev" style="padding:14px 18px">👁 Pré-visualizar</button>
+              <button class="f-pub" type="submit" id="btn-pub" style="flex:1">Enviar para o site</button>
+            </div>
             <span class="msg" id="msg"></span>
           </form>
           <div class="f-side">
@@ -744,6 +798,14 @@
   </div>
 </div>
 
+<div class="prev-overlay" id="prev-overlay">
+  <div class="prev-box">
+    <div class="prev-head"><span>Pré-visualização — como sai no site</span>
+      <button class="bt" type="button" id="prev-fechar">✕ Fechar</button></div>
+    <div class="prev-body" id="prev-body"></div>
+    <div class="prev-avisos" id="prev-avisos"></div>
+  </div>
+</div>
 <script>
 (function(){
   'use strict';
@@ -880,6 +942,7 @@
     aplicarUsuario();
     initToken();
     carregarPalco();
+    checarRasc();
   }
 
   try{
@@ -977,7 +1040,16 @@
     ghGet('import/pauta').then(function(list){
       var n = (list || []).filter(function(f){ return f.name.endsWith('.json') && f.name !== 'diario.json'; }).length;
       $('st-mesa').textContent = n;
+      var b = $('bdg-mesa');
+      b.textContent = n; b.style.display = n > 0 ? 'inline-block' : 'none';
     }).catch(function(){ $('st-mesa').textContent = '?'; });
+    fetch(RKC.url + '/rest/v1/foyer_painel?select=*', {
+      headers: { 'apikey': RKC.key, 'Authorization': 'Bearer ' + RKC.key }
+    }).then(function(r){ return r.json(); }).then(function(d){
+      d = (d || [])[0] || {};
+      $('st-leituras').textContent = d.leituras_semana != null ? d.leituras_semana : '?';
+      $('st-assin').textContent = d.assinantes != null ? d.assinantes : '?';
+    }).catch(function(){ $('st-leituras').textContent = '?'; $('st-assin').textContent = '?'; });
     carregarAtividade('ativ', 12);
   }
 
@@ -1059,7 +1131,7 @@
       var sel = ta.value.slice(ini, fim) || 'texto';
       var novo;
       if(md === '**' || md === '*') novo = md + sel + md;
-      else if(md === 'img:') novo = '\n\nimg:https://…/foto.jpg | Legenda\n\n';
+      else if(md === 'img:'){ corpoImgInput.click(); return; }
       else novo = '\n\n' + md + sel;
       ta.value = ta.value.slice(0, ini) + novo + ta.value.slice(fim);
       ta.focus();
@@ -1067,6 +1139,128 @@
   });
   $('f-quando').addEventListener('change', function(){
     $('f-quando-dt').style.display = this.value === 'agendar' ? 'block' : 'none';
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-dtr]');
+    if(!b) return;
+    var d = new Date();
+    if(b.dataset.dtr === 'hoje18'){ d.setHours(18, 0, 0, 0); }
+    if(b.dataset.dtr === 'amanha9'){ d.setDate(d.getDate() + 1); d.setHours(9, 0, 0, 0); }
+    if(b.dataset.dtr === 'sexta18'){
+      d.setDate(d.getDate() + ((5 - d.getDay() + 7) % 7 || 7)); d.setHours(18, 0, 0, 0);
+    }
+    d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+    $('f-data').value = d.toISOString().slice(0, 16);
+  });
+
+  function statusTexto(){
+    var t = $('f-body').value;
+    var n = t.split(/\s+/).filter(Boolean).length;
+    $('st-palavras').textContent = n + ' palavra' + (n === 1 ? '' : 's') + (n && n < 300 ? ' (curta)' : '');
+    var avisos = [];
+    if(/[—–]/.test(t + $('f-title').value)) avisos.push('⚠ TRAVESSÃO no texto (banido no padrão da casa)');
+    $('st-alerta').innerHTML = avisos.length ? '<span class="err">' + avisos.join(' · ') + '</span>' : '';
+  }
+  $('f-body').addEventListener('input', statusTexto);
+  $('f-title').addEventListener('input', statusTexto);
+
+  // Ctrl+Enter envia
+  $('f-body').addEventListener('keydown', function(e){
+    if((e.ctrlKey || e.metaKey) && e.key === 'Enter') $('btn-pub').click();
+  });
+
+  // ---------- rascunho automático ----------
+  var RASC_K = 'coxia-rascunho', rascTimer = null;
+  function salvarRasc(){
+    if(EDIT) return;
+    clearTimeout(rascTimer);
+    rascTimer = setTimeout(function(){
+      var d = { title: $('f-title').value, cat: $('f-cat').value, corpo: $('f-body').value,
+                cred: $('f-cred').value, quando: new Date().toISOString() };
+      if(d.title || d.corpo){ try{ localStorage.setItem(RASC_K, JSON.stringify(d)); }catch(e){} }
+    }, 800);
+  }
+  ['f-title', 'f-body', 'f-cred'].forEach(function(id){ $(id).addEventListener('input', salvarRasc); });
+  function limparRasc(){ try{ localStorage.removeItem(RASC_K); }catch(e){} $('rasc-aviso').classList.remove('on'); }
+  function checarRasc(){
+    try{
+      var d = JSON.parse(localStorage.getItem(RASC_K) || 'null');
+      if(d && (d.title || d.corpo) && !$('f-title').value && !$('f-body').value){
+        $('rasc-aviso').classList.add('on');
+        $('rasc-usar').onclick = function(){
+          $('f-title').value = d.title || ''; $('f-cat').value = d.cat || 'Teatro';
+          $('f-body').value = d.corpo || ''; $('f-cred').value = d.cred || '';
+          statusTexto(); $('rasc-aviso').classList.remove('on'); irPara('nova');
+        };
+        $('rasc-descartar').onclick = limparRasc;
+      }
+    }catch(e){}
+  }
+
+  // ---------- pré-visualização ----------
+  function indicesLinks(){
+    return Promise.all([
+      fetch('assets/busca-index.json').then(function(r){ return r.json(); }).catch(function(){ return []; }),
+      fetch('assets/pessoas-index.json').then(function(r){ return r.json(); }).catch(function(){ return []; })
+    ]).then(function(rs){
+      var ok = {};
+      rs[0].forEach(function(i){ ok[i.u] = 1; });
+      rs[1].forEach(function(i){ ok[i.u] = 1; });
+      return ok;
+    });
+  }
+  $('btn-prev').addEventListener('click', function(){
+    var title = $('f-title').value.trim() || '(sem título)';
+    var corpo = $('f-body').value;
+    var img = CAPA || (EDIT && EDIT.img) || '';
+    var cred = $('f-cred').value.trim();
+    $('prev-body').innerHTML =
+      '<span class="tag wine">' + esc($('f-cat').value) + '</span>' +
+      '<h1>' + esc(title) + '</h1>' +
+      '<p class="cred">Por ' + esc($('f-autor').value) + '</p>' +
+      (img ? '<img class="capa" src="' + esc(img) + '">' + (cred ? '<p class="cred">' + esc(cred) + '</p>' : '') : '') +
+      '<div class="corpo">' + mdRender(corpo) + '</div>';
+    var n = corpo.split(/\s+/).filter(Boolean).length;
+    var avisos = [];
+    avisos.push(n >= 300 ? '<span class="ok">✓ ' + n + ' palavras</span>'
+                         : '<span class="err">✗ só ' + n + ' palavras</span>');
+    avisos.push(/[—–]/.test(corpo + title) ? '<span class="err">✗ travessão no texto</span>'
+                                           : '<span class="ok">✓ sem travessão</span>');
+    avisos.push(img ? '<span class="ok">✓ foto de capa</span>' : '<span class="err">✗ sem foto de capa</span>');
+    var links = [];
+    corpo.replace(/\]\(((?:post-|pessoa-|cat-)[a-z0-9-]+\.html)\)/g, function(_, u){ links.push(u); return _; });
+    $('prev-avisos').innerHTML = avisos.join(' · ') + (links.length ? ' · conferindo ' + links.length + ' link(s)…' : ' · <span class="err">sem links internos</span>');
+    $('prev-overlay').classList.add('on');
+    if(links.length){
+      indicesLinks().then(function(ok){
+        var ruins = links.filter(function(u){ return !ok[u]; });
+        $('prev-avisos').innerHTML = avisos.join(' · ') + ' · ' +
+          (ruins.length ? '<span class="err">✗ link(s) quebrado(s): ' + ruins.join(', ') + '</span>'
+                        : '<span class="ok">✓ ' + links.length + ' link(s) internos válidos</span>');
+      });
+    }
+  });
+  $('prev-fechar').addEventListener('click', function(){ $('prev-overlay').classList.remove('on'); });
+  $('prev-overlay').addEventListener('click', function(e){ if(e.target === this) this.classList.remove('on'); });
+
+  // ---------- foto no meio do texto, por upload ----------
+  var corpoImgInput = document.createElement('input');
+  corpoImgInput.type = 'file'; corpoImgInput.accept = 'image/*'; corpoImgInput.style.display = 'none';
+  document.body.appendChild(corpoImgInput);
+  corpoImgInput.addEventListener('change', function(){
+    var file = this.files[0]; this.value = '';
+    if(!file) return;
+    if(!token()){ alert('Conecte a chave de publicação para subir fotos (aba Conexão)'); return; }
+    var ta = $('f-body');
+    redimensionar(file).then(function(d){
+      var slugBase = slugify($('f-title').value || 'materia') || 'materia';
+      return subirImagem(d, slugBase + '-corpo');
+    }).then(function(caminho){
+      var ini = ta.selectionStart;
+      var trecho = '\n\nimg:' + caminho + ' | Escreva a legenda aqui\n\n';
+      ta.value = ta.value.slice(0, ini) + trecho + ta.value.slice(ini);
+      statusTexto(); salvarRasc(); ta.focus();
+    }).catch(function(err){ alert('Falha ao subir a foto: ' + err.message); });
   });
 
   function colherEvento(){
@@ -1095,6 +1289,19 @@
     btn.disabled = true; btn.textContent = 'Enviando…';
     var passo = CAPA ? subirImagem(CAPA, slug) : Promise.resolve('');
     passo.then(function(imgPath){
+      if(EDIT && EDIT.fonte === 'pauta'){
+        var pac = {};
+        for(var k in EDIT.orig){ if(k.charAt(0) !== '_') pac[k] = EDIT.orig[k]; }
+        pac.title = title; pac.slug = slug;
+        pac.cat = $('f-cat').value;
+        pac.img = imgPath || EDIT.img; pac.imgCredito = $('f-cred').value.trim();
+        pac.corpo = corpo; pac.editadoPor = USER.nome;
+        pac.status = 'aguardando_aprovacao';
+        var evM = colherEvento();
+        if(evM) pac.evento = evM;
+        return ghPut('import/pauta/' + slug + '.json', JSON.stringify(pac, null, 1),
+          assina('edita na mesa "' + title + '"'), EDIT.sha);
+      }
       if(EDIT){
         var edicao = {
           title: title, slug: slug,
@@ -1142,8 +1349,12 @@
     }).then(function(){
       msg.className = 'msg ok';
       if(EDIT){
-        msg.textContent = 'Edição salva ✓ — no ar em ~2 min, com o selo “atualizada em”';
+        msg.textContent = EDIT.fonte === 'pauta'
+          ? 'Editada ✓ — a matéria voltou para a mesa de aprovação'
+          : 'Edição salva ✓ — no ar em ~2 min, com o selo “atualizada em”';
+        var eraPauta = EDIT.fonte === 'pauta';
         sairEdicao();
+        if(eraPauta) irPara('ia');
         return;
       }
       msg.textContent = ehChefe
@@ -1152,6 +1363,7 @@
       e.target.reset();
       $('f-quando-dt').style.display = 'none';
       CAPA = null; $('up-prev').src = ''; up.classList.remove('tem');
+      limparRasc(); statusTexto();
       aplicarUsuario();
     }).catch(function(err){ msg.className = 'msg err'; msg.textContent = 'Falha ao enviar: ' + err.message; })
       .finally(function(){ btn.disabled = false; if(!EDIT) btn.textContent = ehChefe ? 'Enviar para o site' : 'Enviar para aprovação'; });
@@ -1325,6 +1537,7 @@
             '<div class="mesa-corpo" id="corpo-' + esc(d.slug) + '">' + mdRender(d.corpo) + '</div>' +
             '<div class="mesa-acoes">' +
               '<button class="bt" type="button" data-ler="' + esc(d.slug) + '">📖 Ler a matéria</button>' +
+              '<button class="bt" type="button" data-mesaedit="' + esc(d.slug) + '">✎ Editar texto</button>' +
               '<button class="bt" type="button" data-capa="' + esc(d.slug) + '">📷 ' + (d.img ? 'Trocar a capa' : 'Subir a capa') + '</button>' +
               '<button class="bt ap" type="button" data-aprovar="' + esc(d.slug) + '">✓ Aprovar e publicar</button>' +
               '<button class="bt" type="button" data-agendar="' + esc(d.slug) + '">🕐 Aprovar e agendar</button>' +
@@ -1383,6 +1596,11 @@
     var b;
     if((b = e.target.closest('[data-ler]'))){
       $('corpo-' + b.dataset.ler).classList.toggle('on'); return;
+    }
+    if((b = e.target.closest('[data-mesaedit]'))){
+      var dm = MESA[b.dataset.mesaedit];
+      if(dm) entrarEdicao(dm, 'pauta');
+      return;
     }
     if((b = e.target.closest('[data-capa]'))){
       if(!token()){ alert('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
@@ -1560,7 +1778,8 @@
       slug: dados.slug, fonte: fonte,
       publishAt: dados.publishAt || (dados.iso ? dados.iso + 'T12:00:00.000Z' : new Date().toISOString()),
       criadoEm: dados.criadoEm || dados.publishAt || '',
-      img: dados.img || '', origem: dados.origem || (fonte === 'acervo' ? 'acervo' : '')
+      img: dados.img || '', origem: dados.origem || (fonte === 'acervo' ? 'acervo' : ''),
+      orig: dados, sha: dados._sha || null
     };
     $('f-title').value = dados.title || '';
     $('f-cat').value = dados.cat || 'Notícia';
@@ -1580,7 +1799,11 @@
     if(EDIT.img){ $('up-prev').src = EDIT.img; up.classList.add('tem'); }
     else { $('up-prev').src = ''; up.classList.remove('tem'); }
     $('edit-titulo').textContent = dados.title || dados.slug;
+    $('edit-banner').firstChild.textContent = fonte === 'pauta'
+      ? '✎ Editando matéria DA MESA (ainda não publicada): '
+      : '✎ Editando matéria publicada: ';
     $('edit-banner').style.display = 'block';
+    statusTexto();
     $('nova-titulo').textContent = 'Editar matéria';
     $('f-quando').parentElement.parentElement.style.display = 'none';
     $('btn-pub').textContent = 'Salvar edição';
