@@ -1,7 +1,7 @@
 {
  "numero": 1,
  "titulo": "Edição de estreia",
- "dataEdicao": "22 Jul 2026",
+ "dataEdicao": "24 Jul 2026",
  "status": "rascunho",
  "capa": {
   "img": "https://static.wixstatic.com/media/dbc9d1_ae9fe59ce9c342739f77b7417cd081a2~mv2.jpg",
@@ -74,6 +74,11 @@
   }
  ],
  "historico": [
+  {
+   "quando": "2026-07-23T00:48:30.450Z",
+   "quem": "Pedro Cobron",
+   "acao": "salva rascunho (9 páginas)"
+  },
   {
    "quando": "2026-07-22T22:58:59.388175+00:00",
    "quem": "Redação IA (Claude)",
