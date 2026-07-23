@@ -83,24 +83,54 @@ nova edição é o maior existente + 1. O site gera `revista-ed-<numero>.html`
 }
 ```
 
-## A equipe de agentes da revista (obrigatória na rodada semanal)
+## A redação de agentes da revista (obrigatória na rodada semanal)
 
-A edição NÃO é montada por um agente só: a rodada de quinta escala uma equipe
-de subagentes (ferramenta Task), cada um com um papel, e o coordenador fecha:
+A edição NÃO é montada por um agente só. A rodada de quinta escala uma
+redação completa de subagentes (ferramenta Task), em três ondas, com DOIS
+PORTÕES DE QUALIDADE que reprovam e devolvem o trabalho:
 
+**Onda 1 — Produção (em paralelo):**
 1. **Editor de capa** — escolhe a matéria mais forte da semana, escreve
    manchete e as 4 chamadas, garante a foto de capa.
 2. **Redatores de página** — um por matéria: título autoral, linha fina e
-   olho opcional (o corpo entra sozinho, paginado).
-3. **AGENDISTA** — pesquisa na web e escreve a página "A semana em cartaz":
-   conteúdo EXCLUSIVO da revista, cobrindo os 7 dias de SEXTA (dia seguinte
-   ao fechamento) até QUINTA, um destaque por dia com sessão CONFIRMADA na
-   fonte, alternando cidades, 1 frase de curadoria por item. NUNCA replicar
-   os guias do site (que cobrem só qui-dom): é outra apuração, outro texto.
-   Formato: campo "itens" da página agenda (ver abaixo).
+   olho opcional (o corpo entra sozinho, paginado pelo leitor).
+3. **AGENDISTA SP** e **AGENDISTA RIO** — um por cidade: cada um pesquisa na
+   web e escreve a SUA página "A semana em cartaz" (`{"tipo": "agenda",
+   "cidade": "São Paulo"}` e `{"tipo": "agenda", "cidade": "Rio de
+   Janeiro"}`), conteúdo EXCLUSIVO cobrindo de SEXTA a QUINTA (7 dias), 5 a
+   7 itens por cidade, cada item com sessão CONFIRMADA na fonte e 1 frase
+   de curadoria própria. NUNCA replicar os guias do site (cobrem só
+   qui-dom): outra apuração, outro texto. Dia sem sessão confirmada na
+   cidade se pula; nunca inventar.
 4. **Editorialista** — a carta ao leitor da semana.
-5. **Chefe de fechamento** — revisa tudo (travessão zero, citações reais,
-   links válidos), ordena o ritmo e grava o rascunho.
+
+**Onda 2 — PORTÃO DE TEXTO (revisão final obrigatória):**
+5. **Revisor** — relê TODA a edição pronta: travessão zero, clichês de IA,
+   ortografia, atribuições de citação reais, links internos existentes
+   (validar com ls), datas e nomes consistentes entre páginas. Reprova e
+   corrige antes de seguir.
+6. **Checador** — confere os SERVIÇOS contra as fontes (dia, horário,
+   teatro, preço, canal de venda de cada item de agenda e de cada matéria).
+   O que não confirmar, sai.
+
+**Onda 3 — PORTÃO DE DESIGN (diagramação obrigatória):**
+7. **Diagramador** — monta a edição de verdade e OLHA o resultado:
+   a) grava o JSON como rascunho e roda `python3 tools/build_pages.py` com
+      o status temporariamente em "publicada" numa cópia local (SEM commit)
+      para gerar o leitor;
+   b) sobe um servidor local (`python3 -m http.server 8077 &`), instala
+      playwright-core se preciso (`npm i playwright-core`) e roda o auditor
+      da casa: `node tools/checa_revista.js
+      http://localhost:8077/revista-ed-<N>.html`;
+   c) o auditor reprova ESTOURO (conteúdo passando da página), MUITO-VAZIA
+      (página de matéria/agenda com menos de 55% de ocupação) e
+      IMAGEM-QUEBRADA. Enquanto houver reprovação: ajustar (encurtar olho,
+      trocar foto, reordenar, reduzir itens de agenda) e rodar de novo até
+      o laudo sair `"problemas": []`;
+   d) restaurar o status "rascunho" e descartar artefatos gerados
+      (`git checkout -- .` nos html/xml gerados) antes da entrega.
+8. **Chefe de fechamento** — confere os dois portões cumpridos, ordena o
+   ritmo, registra o historico e faz o commit/push final.
 
 ## Receita de uma boa edição semanal
 

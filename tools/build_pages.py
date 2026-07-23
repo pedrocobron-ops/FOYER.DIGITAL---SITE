@@ -1682,6 +1682,11 @@ html[data-theme="dark"] .rv-sum .pnum{ color:var(--gold); }
   text-transform:uppercase; color:var(--wine); border-bottom:2px solid var(--gold);
   padding-bottom:8px; margin:0 0 14px; }
 html[data-theme="dark"] .rv-mat .cont-tit{ color:var(--gold); }
+.rv-mat.aperta .txt{ font-size:.82rem; line-height:1.7; }
+.rv-mat.aperta2 .txt{ font-size:.8rem; line-height:1.64; }
+.rv-mat .arte-fim{ display:none; }
+.rv-mat.compl .arte-fim{ display:block; flex:1; min-height:110px; width:100%;
+  border:2px solid var(--ink); opacity:.9; margin:16px 0 4px; }
 .rv-mat .segue{ margin-top:auto; padding-top:12px; font-family:var(--mono); font-size:.56rem;
   letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); }
 .rv-mat h3{ font-family:var(--didone); font-weight:400; font-size:clamp(1.5rem,3.6vw,2.1rem);
@@ -1739,6 +1744,8 @@ html[data-theme="dark"] .rv-mat .cont-tit{ color:var(--gold); }
   letter-spacing:.3em; text-transform:uppercase; color:var(--wine); }
 html[data-theme="dark"] .rv-agd .cab em{ color:var(--gold); }
 .rv-agd .cab h3{ font-family:var(--didone); font-weight:400; font-size:2.3rem; margin:4px 0 0; line-height:1; }
+.rv-agd .cab h3 .cid{ display:block; color:var(--wine); font-size:1.5rem; margin-top:2px; }
+html[data-theme="dark"] .rv-agd .cab h3 .cid{ color:var(--gold); }
 .rv-agd .lista{ flex:1; overflow:auto; padding:6px 0 60px; }
 .rv-agd .ag-item{ display:grid; grid-template-columns:74px 1fr; gap:14px; align-items:center;
   padding:12px 22px; border-bottom:1px solid var(--line); text-decoration:none; color:var(--ink); }
@@ -1837,30 +1844,34 @@ def _rv_folio(ed, num, escuro=False):
 _RV_ARTES = ['ph-1', 'ph-2', 'ph-3', 'ph-4', 'ph-5', 'ph-6']
 
 def _rv_quebra_corpo(corpo):
-    """Divide o corpo em páginas de tamanho padrão: o que não cabe segue
-    para a página seguinte (orçamento estimado por peso dos blocos)."""
+    """Divide o corpo em páginas de tamanho padrão. Modelo de ALTURA (px numa
+    página de 740px de largura): texto ~95 caracteres por linha de 27px;
+    foto no corpo ~430px; vídeo ~450px. O leitor faz o ajuste fino no
+    navegador (puxa blocos da página seguinte quando sobra espaço)."""
     partes = _re.split(r'(?<=</p>)|(?<=</h2>)|(?<=</h3>)|(?<=</figure>)|(?<=</blockquote>)', corpo)
     blocos = [p for p in partes if p.strip()]
-    def peso(b):
+    def altura(b):
         if '<figure' in b or '<img' in b:
-            return 1500
+            return 440
         if '<iframe' in b or 'art-video' in b or 'art-spotify' in b:
-            return 1600
-        base = len(_re.sub(r'<[^>]+>', '', b))
+            return 460
+        txt = _re.sub(r'<[^>]+>', '', b)
+        linhas = max(1, -(-len(txt) // 95))
+        alt = linhas * 27 + 14
         if '<h2' in b or '<h3' in b:
-            base += 180
+            alt += 46
         if '<blockquote' in b:
-            base = int(base * 1.3)
-        return base
-    ORC_PRIMEIRA, ORC_CONT = 820, 1780
-    paginas, atual, carga, lim = [], [], 0, ORC_PRIMEIRA
+            alt += 20
+        return alt
+    ALT_PRIMEIRA, ALT_CONT = 270, 700
+    paginas, atual, carga, lim = [], [], 0, ALT_PRIMEIRA
     for b in blocos:
-        pb = peso(b)
-        if atual and carga + pb > lim:
+        ab = altura(b)
+        if atual and carga + ab > lim:
             paginas.append(''.join(atual))
-            atual, carga, lim = [], 0, ORC_CONT
+            atual, carga, lim = [], 0, ALT_CONT
         atual.append(b)
-        carga += pb
+        carga += ab
     if atual:
         paginas.append(''.join(atual))
     return paginas or ['']
@@ -1926,7 +1937,9 @@ def _rv_rotulo_sumario(pg):
     if t == 'materia': return (pg.get('titulo', ''), 'A semana · ' + (pg.get('cat') or 'FOYER'))
     if t == 'exclusiva': return (pg.get('titulo', ''), 'Exclusivo da revista')
     if t == 'programas': return ('Na tela: os programas da semana', 'YouTube do FOYER')
-    if t == 'agenda': return ('A semana em cartaz: o que fazer até quinta', 'Agenda')
+    if t == 'agenda':
+        cid = pg.get('cidade')
+        return ((f'A semana em cartaz: {cid}' if cid else 'A semana em cartaz: o que fazer até quinta'), 'Agenda')
     if t == 'frase-celebre': return ('Entre mestres: a arte pela palavra', 'Exclusivo')
     if t == 'citacao': return ('A frase da semana', 'Entre aspas')
     if t == 'cartaz': return (pg.get('legenda') or 'Cartaz', 'Divulgação')
@@ -1970,7 +1983,7 @@ def _rv_pagina(pg, ed, num):
                   f'<p class="linhafina">{_rvesc(pg.get("chamada", ""))}</p>'
                   + olho
                   + (f'<div class="txt">{fatias[0]}</div>' if fatias[0] else '')
-                  + (leia if len(fatias) == 1 else '<span class="segue">continua na próxima página →</span>')
+                  + ((f'<svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="none"><use href="#{_RV_ARTES[(int(ed.get("numero", 1)) + 1) % len(_RV_ARTES)]}"/></svg>' + leia) if len(fatias) == 1 else '<span class="segue">continua na próxima página →</span>')
                   + f'</div>{fol}</section>')]
         for k, fatia in enumerate(fatias[1:], 2):
             ultima = (k == len(fatias))
@@ -1980,7 +1993,7 @@ def _rv_pagina(pg, ed, num):
                 f'<span>continuação</span></div><div class="miolo">'
                 f'<p class="cont-tit">{_rvesc(titulo_curto)}</p>'
                 f'<div class="txt">{fatia}</div>'
-                + (leia if ultima else '<span class="segue">continua na próxima página →</span>')
+                + ((f'<svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="none"><use href="#{_RV_ARTES[(int(ed.get("numero", 1)) + 1) % len(_RV_ARTES)]}"/></svg>' + leia) if ultima else '<span class="segue">continua na próxima página →</span>')
                 + f'</div>{fol}</section>')
         return saida
     if t == 'exclusiva':
@@ -2042,8 +2055,10 @@ def _rv_pagina(pg, ed, num):
                            + (f'<i>{_rvesc(it.get("texto", ""))}</i>' if it.get('texto') else '')
                            + (f'<small>{_rvesc(onde)}</small>' if onde else '')
                            + '</span>' + fecha)
+            cid = pg.get('cidade', '')
+            tit_ag = f'A semana em cartaz<span class="cid">{_rvesc(cid)}</span>' if cid else 'A semana em cartaz'
             return (f'<section class="rv-pg rv-agd"><div class="cab"><em>Sete dias, de sexta a quinta</em>'
-                    f'<h3>A semana em cartaz</h3></div>'
+                    f'<h3>{tit_ag}</h3></div>'
                     f'<div class="lista">{linhas}</div>'
                     f'<div class="ag-cta"><a href="cat-em-cartaz.html">Tudo que está em cartaz agora →</a></div>'
                     f'{fol}</section>')
@@ -2183,6 +2198,78 @@ def edicao_page(ed):
 <script>
 (function(){{
   var pgs = document.querySelectorAll('.rv-pg'), i = 0;
+  // diagramação fina: equilibra as páginas de matéria no tamanho real da tela
+  function diagrama(){{
+    function equilibrar(){{
+      var mats = document.querySelectorAll('.rv-pg.rv-mat');
+      for(var k = 0; k < mats.length - 1; k++){{
+        var a = mats[k], b = mats[k + 1];
+        if(!b.classList.contains('cont')) continue;
+        var ta = a.querySelector('.txt'), tb = b.querySelector('.txt');
+        if(!ta || !tb) continue;
+        var ma = a.querySelector('.miolo');
+        var eraA = a.classList.contains('on'), eraB = b.classList.contains('on');
+        a.classList.add('on'); b.classList.add('on');
+        var guarda = 0;
+        while(tb.firstElementChild && guarda++ < 40){{
+          var bloco = tb.firstElementChild;
+          ta.appendChild(bloco);
+          if(ma.scrollHeight > ma.clientHeight + 2){{ tb.insertBefore(bloco, tb.firstChild); break; }}
+        }}
+        guarda = 0;
+        while(ma.scrollHeight > ma.clientHeight + 2 && ta.lastElementChild && guarda++ < 40){{
+          tb.insertBefore(ta.lastElementChild, tb.firstChild);
+        }}
+        if(!eraA) a.classList.remove('on');
+        if(!eraB) b.classList.remove('on');
+      }}
+    }}
+    equilibrar();
+    // remove continuações esvaziadas, herdando botão e ornamento para a página anterior
+    document.querySelectorAll('.rv-pg.rv-mat').forEach(function(pg){{
+      var t = pg.querySelector('.txt');
+      if(pg.classList.contains('cont') && t && !t.firstElementChild){{
+        var ant = pg.previousElementSibling;
+        if(ant && ant.classList.contains('rv-mat')){{
+          var ma2 = ant.querySelector('.miolo');
+          var sg = ant.querySelector('.segue');
+          if(sg) sg.remove();
+          var lv = pg.querySelector('.leia');
+          var af = pg.querySelector('.arte-fim');
+          if(ma2 && af && !ant.querySelector('.arte-fim')) ma2.appendChild(af);
+          if(ma2 && lv) ma2.appendChild(lv);
+        }}
+        pg.remove();
+      }}
+    }});
+    equilibrar();
+    // liga o ornamento de fim de matéria quando sobra espaço na última página
+    document.querySelectorAll('.rv-pg.rv-mat').forEach(function(pg){{
+      if(!pg.querySelector('.leia')) return;
+      var era2 = pg.classList.contains('on');
+      pg.classList.add('on');
+      var m2 = pg.querySelector('.miolo');
+      if(m2 && m2.clientHeight - m2.scrollHeight > 150) pg.classList.add('compl');
+      if(!era2) pg.classList.remove('on');
+    }});
+    // última instância: entrelinha mais justa na página que ainda estoura
+    document.querySelectorAll('.rv-pg.rv-mat').forEach(function(pg){{
+      var era3 = pg.classList.contains('on');
+      pg.classList.add('on');
+      var m3 = pg.querySelector('.miolo');
+      if(m3 && m3.scrollHeight > m3.clientHeight + 2){{
+        pg.classList.add('aperta');
+        if(m3.scrollHeight > m3.clientHeight + 2) pg.classList.add('aperta2');
+      }}
+      if(!era3) pg.classList.remove('on');
+    }});
+    pgs = document.querySelectorAll('.rv-pg');
+    pgs.forEach(function(pg2, k2){{ var bb = pg2.querySelector('.rv-folio b'); if(bb) bb.textContent = k2 + 1; }});
+    document.getElementById('rv-ct').textContent = (i + 1) + ' / ' + pgs.length;
+  }}
+  try{{ diagrama(); }}catch(e){{}}
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){{ try{{ diagrama(); }}catch(e){{}} }});
+  window.addEventListener('load', function(){{ try{{ diagrama(); }}catch(e){{}} }});
   function vai(n){{
     i = Math.max(0, Math.min(pgs.length - 1, n));
     pgs.forEach(function(p, k){{ p.classList.toggle('on', k === i); }});
