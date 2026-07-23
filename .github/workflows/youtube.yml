@@ -1,0 +1,60 @@
+name: Relógio do YouTube
+
+on:
+  schedule:
+    # a cada 6 horas — vídeo novo no canal entra no site sozinho
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Buscar os episódios novos do canal
+        id: yt
+        run: |
+          python3 tools/atualiza_youtube.py
+          if git diff --quiet import/youtube.json; then
+            echo "mudou=nao" >> "$GITHUB_OUTPUT"
+            echo "Nenhum vídeo novo desde a última olhada."
+          else
+            echo "mudou=sim" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Guardar o retrato novo do canal
+        if: steps.yt.outputs.mudou == 'sim'
+        run: |
+          python3 tools/enciclopedia.py || true
+          git config user.name "Relógio do YouTube (Foyer)"
+          git config user.email "actions@github.com"
+          git add import/youtube.json import/enciclopedia.json
+          git commit -m "YouTube: episódios novos no site [skip ci]"
+          git push
+
+      - name: Gerar o site com os episódios novos
+        if: steps.yt.outputs.mudou == 'sim'
+        run: python3 tools/build_pages.py
+
+      - uses: actions/configure-pages@v5
+        if: steps.yt.outputs.mudou == 'sim'
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.yt.outputs.mudou == 'sim'
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4
+        if: steps.yt.outputs.mudou == 'sim'

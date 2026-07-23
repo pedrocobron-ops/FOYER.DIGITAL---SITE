@@ -761,13 +761,11 @@ news_cell('ph-5','Ópera','Montagem histórica retorna ao palco 30 anos depois d
 <section id="critica" class="wrap">
   <div class="sec-head">
     <h2>Crítica</h2>
-    <span class="note">Sem medo de opinião</span>
+    <span class="note">Em vídeo, por Kyra Piscitelli — os espetáculos em cartaz</span>
     <a href="critica.html" class="all">Todas as críticas →</a>
   </div>
-  <div class="crit-grid">
-''' + crit('ph-2','9.1','★★★★★','Uma montagem que ousa reescrever o clássico — e acerta','“A leitura contemporânea encontra o texto sem trair a sua alma. É a produção mais corajosa do ano.”','Teatro — Estreia nacional') + '\n' + \
-crit('ph-4','7.5','★★★★☆','O musical biográfico que canta melhor do que conta','“Números musicais impecáveis sustentam uma dramaturgia que ainda tropeça no segundo ato.”','Musical — Em cartaz em SP') + '\n' + \
-crit('ph-1','8.4','★★★★☆','Dança-teatro que transforma o palco em campo de batalha','“Um elenco em estado de urgência. Saímos do teatro com o corpo alerta.”','Dança — Temporada curta') + '''
+  <div class="ep-grid">
+__CRITICA_CAPA__
   </div>
   <div class="ad-slot" data-ad-slot="1002"></div>
 </section>
@@ -1266,13 +1264,11 @@ index_main = f'''<main>
 <section id="critica" class="wrap">
   <div class="sec-head">
     <h2>Crítica</h2>
-    <span class="note">Sem medo de opinião</span>
+    <span class="note">Em vídeo, por Kyra Piscitelli — os espetáculos em cartaz</span>
     <a href="critica.html" class="all">Todas as críticas →</a>
   </div>
-  <div class="crit-grid">
-''' + crit('ph-2','9.1','★★★★★','Uma montagem que ousa reescrever o clássico — e acerta','“A leitura contemporânea encontra o texto sem trair a sua alma. É a produção mais corajosa do ano.”','Teatro — Estreia nacional') + '\n' + \
-crit('ph-4','7.5','★★★★☆','O musical biográfico que canta melhor do que conta','“Números musicais impecáveis sustentam uma dramaturgia que ainda tropeça no segundo ato.”','Musical — Em cartaz em SP') + '\n' + \
-crit('ph-1','8.4','★★★★☆','Dança-teatro que transforma o palco em campo de batalha','“Um elenco em estado de urgência. Saímos do teatro com o corpo alerta.”','Dança — Temporada curta') + '''
+  <div class="ep-grid">
+__CRITICA_CAPA__
   </div>
   <div class="ad-slot" data-ad-slot="1002"></div>
 </section>
@@ -1898,28 +1894,37 @@ if _yt_progs:
 </main>
 '''
 
+    _kyra = [p for p in _yt_progs if p['nome'] == 'Críticas Teatrais']
+    _capa_crit = '\n'.join(yt_cell(v, 'Críticas Teatrais') for _, _n, v in _yt_videos(_kyra, 3))
+    index_main = index_main.replace('__CRITICA_CAPA__', _capa_crit)
+
     # ---------- CRÍTICA ----------
-    _crit_sel = []
-    for _p in _yt_por_papel('critica'):
-        _crit_sel += _yt_videos([_p], 3)
-    _crit_sel.sort(key=lambda x: x[0], reverse=True)
-    _crit_vids = '\n'.join(yt_cell(v, nome) for _, nome, v in _crit_sel)
+    _crit_vids = '\n'.join(yt_cell(v, 'Críticas Teatrais') for _, _n, v in _yt_videos(_kyra, 6))
+    _bruno = [p for p in _yt_progs if p['nome'] == 'Por Bruno Cavalcanti']
+    _bruno_vids = '\n'.join(yt_cell(v, 'Por Bruno Cavalcanti') for _, _n, v in _yt_videos(_bruno, 3))
     _crit_mats = [p for p in MATERIAS if p.get('cat') == 'Crítica'][:12]
     _crit_cells = '\n'.join(real_cell(p) for p in _crit_mats)
     critica_body = band('Editoria', 'Crítica', 'A redação assiste, pensa e assina — sem medo de opinião') + f'''
 <main class="wrap">
   <div class="sec-head">
     <h2>Crítica em vídeo</h2>
-    <span class="note">Críticas Teatrais &amp; Por Bruno Cavalcanti — no canal</span>
-    <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener" class="all">Ver no YouTube ↗</a>
+    <span class="note">Por Kyra Piscitelli — os espetáculos em cartaz, toda semana</span>
+    <a href="https://www.youtube.com/playlist?list=PLFPAp2PKrLk15leURL9x9-HQjDGTeXP2R" target="_blank" rel="noopener" class="all">Ver no YouTube ↗</a>
   </div>
   <div class="ep-grid">
 {_crit_vids}
   </div>
   <div class="ad-slot" data-ad-slot="1501"></div>
   <div class="sec-head">
-    <h2>Crítica escrita</h2>
-    <span class="note">Do acervo do FOYER</span>
+    <h2>Do acervo: Por Bruno Cavalcanti</h2>
+    <span class="note">Críticas em vídeo de temporadas passadas</span>
+  </div>
+  <div class="ep-grid">
+{_bruno_vids}
+  </div>
+  <div class="sec-head">
+    <h2>Do acervo: crítica escrita</h2>
+    <span class="note">Textos de temporadas passadas</span>
     <a href="cat-critica.html" class="all">Todas →</a>
   </div>
   <div class="news-grid three">
