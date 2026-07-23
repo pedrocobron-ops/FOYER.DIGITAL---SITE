@@ -1646,9 +1646,9 @@ _RV_CSS = '''<style>
 .rv-sum .arte{ position:absolute; right:16px; top:14px; width:84px; height:60px;
   border:2px solid var(--ink); opacity:.9; }
 .rv-sum ol{ list-style:none; margin:0; padding:8px 0 60px; flex:1; overflow:auto; }
-.rv-sum li{ display:grid; grid-template-columns:64px 1fr; gap:14px; align-items:baseline;
-  padding:10px 22px; border-bottom:1px solid var(--line); }
-.rv-sum .pnum{ font-family:var(--didone); font-size:1.7rem; color:var(--wine); text-align:right; }
+.rv-sum li{ display:grid; grid-template-columns:60px 1fr; gap:12px; align-items:baseline;
+  padding:8px 22px; border-bottom:1px solid var(--line); }
+.rv-sum .pnum{ font-family:var(--didone); font-size:1.45rem; color:var(--wine); text-align:right; }
 html[data-theme="dark"] .rv-sum .pnum{ color:var(--gold); }
 .rv-sum .pt{ font-weight:800; text-transform:uppercase; font-size:.82rem; line-height:1.25; }
 .rv-sum .ps{ display:block; font-family:var(--mono); font-size:.54rem; letter-spacing:.14em;
@@ -1670,15 +1670,20 @@ html[data-theme="dark"] .rv-sum .pnum{ color:var(--gold); }
 .rv-edi .ass{ font-family:var(--mono); font-size:.6rem; letter-spacing:.18em;
   text-transform:uppercase; margin-top:16px; }
 
-/* ---------- MATÉRIA (página longa: a matéria inteira mora aqui) ---------- */
-.rv-pg.rv-mat{ aspect-ratio:auto; min-height:min(135vw, 999px); }
+/* ---------- MATÉRIA (a íntegra, quebrada em páginas de tamanho padrão) ---------- */
 .rv-mat .foto{ position:relative; aspect-ratio:16/9; flex-shrink:0; border-bottom:3px solid var(--ink); }
 .rv-mat .foto img{ width:100%; height:100%; object-fit:cover; object-position:center 22%; }
 .rv-mat .foto .cat{ position:absolute; left:0; top:0; background:var(--gold); color:var(--wine);
   font-family:var(--mono); font-size:.56rem; font-weight:700; letter-spacing:.22em;
   text-transform:uppercase; padding:7px 14px; border-right:2px solid var(--ink);
   border-bottom:2px solid var(--ink); }
-.rv-mat .miolo{ padding:20px 26px 64px; flex:1; display:flex; flex-direction:column; }
+.rv-mat .miolo{ padding:20px 26px 64px; flex:1; display:flex; flex-direction:column; overflow:auto; }
+.rv-mat .cont-tit{ font-family:var(--mono); font-size:.6rem; font-weight:700; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--wine); border-bottom:2px solid var(--gold);
+  padding-bottom:8px; margin:0 0 14px; }
+html[data-theme="dark"] .rv-mat .cont-tit{ color:var(--gold); }
+.rv-mat .segue{ margin-top:auto; padding-top:12px; font-family:var(--mono); font-size:.56rem;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); }
 .rv-mat h3{ font-family:var(--didone); font-weight:400; font-size:clamp(1.5rem,3.6vw,2.1rem);
   line-height:1.02; margin:0 0 10px; }
 .rv-mat .linhafina{ font-size:.92rem; line-height:1.5; color:var(--ink);
@@ -1742,6 +1747,10 @@ html[data-theme="dark"] .rv-agd .cab em{ color:var(--gold); }
   border-right:3px solid var(--gold); padding-right:12px; }
 html[data-theme="dark"] .rv-agd .ag-dia{ color:var(--gold); }
 .rv-agd .ag-oq b{ display:block; font-size:.85rem; line-height:1.3; font-weight:800; }
+.rv-agd .ag-item.cur{ align-items:start; }
+.rv-agd .ag-item.cur .ag-dia{ font-size:.98rem; line-height:1.25; padding-top:2px; }
+.rv-agd .ag-oq i{ display:block; font-style:normal; font-size:.76rem; line-height:1.5;
+  color:var(--ink-soft); margin-top:3px; }
 .rv-agd .ag-oq small{ display:block; font-family:var(--mono); font-size:.56rem; letter-spacing:.08em;
   text-transform:uppercase; color:var(--ink-soft); margin-top:3px; }
 .rv-agd .ag-vazio{ padding:22px; font-size:.9rem; color:var(--ink-soft); }
@@ -1826,6 +1835,35 @@ def _rv_folio(ed, num, escuro=False):
             f'<b>{num}</b><span>{_rvesc(ed.get("dataEdicao", ""))}</span></div>')
 
 _RV_ARTES = ['ph-1', 'ph-2', 'ph-3', 'ph-4', 'ph-5', 'ph-6']
+
+def _rv_quebra_corpo(corpo):
+    """Divide o corpo em páginas de tamanho padrão: o que não cabe segue
+    para a página seguinte (orçamento estimado por peso dos blocos)."""
+    partes = _re.split(r'(?<=</p>)|(?<=</h2>)|(?<=</h3>)|(?<=</figure>)|(?<=</blockquote>)', corpo)
+    blocos = [p for p in partes if p.strip()]
+    def peso(b):
+        if '<figure' in b or '<img' in b:
+            return 1500
+        if '<iframe' in b or 'art-video' in b or 'art-spotify' in b:
+            return 1600
+        base = len(_re.sub(r'<[^>]+>', '', b))
+        if '<h2' in b or '<h3' in b:
+            base += 180
+        if '<blockquote' in b:
+            base = int(base * 1.3)
+        return base
+    ORC_PRIMEIRA, ORC_CONT = 820, 1780
+    paginas, atual, carga, lim = [], [], 0, ORC_PRIMEIRA
+    for b in blocos:
+        pb = peso(b)
+        if atual and carga + pb > lim:
+            paginas.append(''.join(atual))
+            atual, carga, lim = [], 0, ORC_CONT
+        atual.append(b)
+        carga += pb
+    if atual:
+        paginas.append(''.join(atual))
+    return paginas or ['']
 
 def _rv_corpo(slug, img):
     """Corpo completo da matéria (mesmo texto do site), sem repetir a foto de capa."""
@@ -1915,7 +1953,7 @@ def _rv_pagina(pg, ed, num):
                ) if pg.get('img') else ''
         leia = (f'<div class="leia"><a href="post-{_rvesc(pg.get("slug"))}.html">Abrir esta matéria no site →</a></div>'
                 ) if pg.get('slug') else ''
-        # a matéria INTEIRA mora na revista; o site é um extra, não uma continuação
+        # a matéria INTEIRA mora na revista, quebrada em páginas de tamanho padrão
         corpo = _rv_corpo(pg.get('slug'), pg.get('img'))
         olho = ''
         if pg.get('texto'):
@@ -1923,12 +1961,28 @@ def _rv_pagina(pg, ed, num):
                 olho = f'<div class="olho">{md_lite(pg["texto"])}</div>'
             else:
                 corpo = md_lite(pg['texto'])
-        return (f'<section class="rv-pg rv-mat">{img}<div class="miolo">'
-                f'<h3>{_rvesc(pg.get("titulo"))}</h3>'
-                f'<p class="linhafina">{_rvesc(pg.get("chamada", ""))}</p>'
-                + olho
-                + (f'<div class="txt">{corpo}</div>' if corpo else '')
-                + leia + f'</div>{fol}</section>')
+        fatias = _rv_quebra_corpo(corpo)
+        titulo_curto = pg.get('titulo', '')
+        if len(titulo_curto) > 54:
+            titulo_curto = titulo_curto[:54].rsplit(' ', 1)[0].rstrip(',.;:') + '…'
+        saida = [(f'<section class="rv-pg rv-mat">{img}<div class="miolo">'
+                  f'<h3>{_rvesc(pg.get("titulo"))}</h3>'
+                  f'<p class="linhafina">{_rvesc(pg.get("chamada", ""))}</p>'
+                  + olho
+                  + (f'<div class="txt">{fatias[0]}</div>' if fatias[0] else '')
+                  + (leia if len(fatias) == 1 else '<span class="segue">continua na próxima página →</span>')
+                  + f'</div>{fol}</section>')]
+        for k, fatia in enumerate(fatias[1:], 2):
+            ultima = (k == len(fatias))
+            saida.append(
+                f'<section class="rv-pg rv-mat cont"><div class="rv-kicker">'
+                f'<span class="tagz">{_rvesc(pg.get("cat") or "FOYER")}</span>'
+                f'<span>continuação</span></div><div class="miolo">'
+                f'<p class="cont-tit">{_rvesc(titulo_curto)}</p>'
+                f'<div class="txt">{fatia}</div>'
+                + (leia if ultima else '<span class="segue">continua na próxima página →</span>')
+                + f'</div>{fol}</section>')
+        return saida
     if t == 'exclusiva':
         return (f'<section class="rv-pg rv-livre"><div class="rv-kicker">'
                 f'<span class="tagz">Exclusivo da revista</span><span>Só aqui</span></div>'
@@ -1965,6 +2019,34 @@ def _rv_pagina(pg, ed, num):
                 'Assista a tudo no canal do FOYER →</a></div>'
                 f'{_rv_folio(ed, num)}</section>')
     if t == 'agenda':
+        # conteúdo EXCLUSIVO da revista: itens apurados pela equipe (sexta a quinta).
+        # Sem itens apurados, cai na lista automática de eventos das matérias.
+        _DIAS_PT = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo']
+        if pg.get('itens'):
+            linhas = ''
+            for it in pg['itens'][:8]:
+                try:
+                    _dt_i = datetime.strptime(it.get('dia', ''), '%Y-%m-%d')
+                    dia_rot = f'{_DIAS_PT[_dt_i.weekday()]} {_dt_i.day:02d}/{_dt_i.month:02d}'
+                except Exception:
+                    dia_rot = it.get('dia', '')
+                onde = ' · '.join(x for x in [it.get('local'), it.get('cidade')] if x)
+                link = it.get('link') or ''
+                abre = (f'<a class="ag-item cur" href="{_rvesc(link)}"'
+                        + (' target="_blank" rel="noopener"' if link.startswith('http') else '') + '>'
+                        ) if link else '<div class="ag-item cur">'
+                fecha = '</a>' if link else '</div>'
+                linhas += (abre
+                           + f'<span class="ag-dia">{_rvesc(dia_rot)}</span>'
+                           f'<span class="ag-oq"><b>{_rvesc(it.get("titulo", ""))}</b>'
+                           + (f'<i>{_rvesc(it.get("texto", ""))}</i>' if it.get('texto') else '')
+                           + (f'<small>{_rvesc(onde)}</small>' if onde else '')
+                           + '</span>' + fecha)
+            return (f'<section class="rv-pg rv-agd"><div class="cab"><em>Sete dias, de sexta a quinta</em>'
+                    f'<h3>A semana em cartaz</h3></div>'
+                    f'<div class="lista">{linhas}</div>'
+                    f'<div class="ag-cta"><a href="cat-em-cartaz.html">Tudo que está em cartaz agora →</a></div>'
+                    f'{fol}</section>')
         itens = _rv_agenda_itens()
         linhas = ''
         for e_ini, e_fim, m in itens:
@@ -2057,13 +2139,22 @@ def edicao_page(ed):
         + (f'<div class="faixa">{calls}</div>' if calls else '')
         + '<div class="rodape-capa"><span>foyer.digital · edição gratuita</span><span class="rv-barcode"></span></div>'
         '</div></section>')
-    # SUMÁRIO (página 2) + demais
+    # miolos primeiro: uma página lógica pode virar várias páginas físicas
+    # (matéria longa continua na página seguinte, como revista impressa)
+    blocos_por_pg, numeros_sum, prox = [], [], 3
+    for pg in paginas:
+        out = _rv_pagina(dict(pg), ed, '__NUMPG__')
+        blocos = out if isinstance(out, list) else [out]
+        numeros_sum.append(prox)
+        blocos_por_pg.append(blocos)
+        prox += len(blocos)
+    # SUMÁRIO (página 2) com os números reais
     linhas_sum = ''
     for i, pg in enumerate(paginas):
         titulo, secao = _rv_rotulo_sumario(pg)
         if len(titulo) > 76:
             titulo = titulo[:76].rsplit(' ', 1)[0].rstrip(',.;:') + '…'
-        linhas_sum += (f'<li><span class="pnum">{i + 3}</span><span><span class="pt">{_rvesc(titulo)}</span>'
+        linhas_sum += (f'<li><span class="pnum">{numeros_sum[i]}</span><span><span class="pt">{_rvesc(titulo)}</span>'
                        f'<span class="ps">{_rvesc(secao)}</span></span></li>')
     arte_sum = _RV_ARTES[int(ed.get('numero', 1)) % len(_RV_ARTES)]
     pg_sum = (
@@ -2072,8 +2163,11 @@ def edicao_page(ed):
         f'<svg class="arte" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#{arte_sum}"/></svg></div>'
         f'<ol>{linhas_sum}</ol>' + _rv_folio(ed, 2) + '</section>')
     pgs = [pg_capa, pg_sum]
-    for i, pg in enumerate(paginas):
-        pgs.append(_rv_pagina(dict(pg), ed, i + 3))
+    n = 3
+    for blocos in blocos_por_pg:
+        for b in blocos:
+            pgs.append(b.replace('__NUMPG__', str(n)))
+            n += 1
     corpo = '\n'.join(pgs)
     total = len(pgs)
     return (_RV_CSS + f'''

@@ -83,6 +83,25 @@ nova edição é o maior existente + 1. O site gera `revista-ed-<numero>.html`
 }
 ```
 
+## A equipe de agentes da revista (obrigatória na rodada semanal)
+
+A edição NÃO é montada por um agente só: a rodada de quinta escala uma equipe
+de subagentes (ferramenta Task), cada um com um papel, e o coordenador fecha:
+
+1. **Editor de capa** — escolhe a matéria mais forte da semana, escreve
+   manchete e as 4 chamadas, garante a foto de capa.
+2. **Redatores de página** — um por matéria: título autoral, linha fina e
+   olho opcional (o corpo entra sozinho, paginado).
+3. **AGENDISTA** — pesquisa na web e escreve a página "A semana em cartaz":
+   conteúdo EXCLUSIVO da revista, cobrindo os 7 dias de SEXTA (dia seguinte
+   ao fechamento) até QUINTA, um destaque por dia com sessão CONFIRMADA na
+   fonte, alternando cidades, 1 frase de curadoria por item. NUNCA replicar
+   os guias do site (que cobrem só qui-dom): é outra apuração, outro texto.
+   Formato: campo "itens" da página agenda (ver abaixo).
+4. **Editorialista** — a carta ao leitor da semana.
+5. **Chefe de fechamento** — revisa tudo (travessão zero, citações reais,
+   links válidos), ordena o ritmo e grava o rascunho.
+
 ## Receita de uma boa edição semanal
 
 1. **Capa** — manchete forte tirada da melhor matéria da semana; usar a foto
@@ -98,9 +117,12 @@ nova edição é o maior existente + 1. O site gera `revista-ed-<numero>.html`
    mais novo de cada programa do canal (últimos 14 dias), clicável direto
    para o YouTube. Incluir SEMPRE, intercalada entre as matérias (depois da
    2ª ou 3ª). Não tem campos.
-5. **A semana em cartaz** — `{"tipo": "agenda"}`: página automática com os
-   eventos reais em cartaz de hoje a quinta que vem (extraídos do campo
-   evento das matérias). Incluir SEMPRE, depois das matérias. Não tem campos.
+5. **A semana em cartaz** — `{"tipo": "agenda", "itens": [{"dia": "AAAA-MM-DD",
+   "titulo": "…", "texto": "1 frase de curadoria", "local": "…", "cidade": "…",
+   "link": "post-….html ou https://…"}]}`: a página EXCLUSIVA do agendista,
+   7 itens (sexta a quinta), um destaque por dia com sessão confirmada.
+   Incluir SEMPRE, depois das matérias. Sem "itens", o leitor cai numa lista
+   automática de eventos das matérias (só como reserva, não é o padrão).
 6. **Entre mestres** — `{"tipo": "frase-celebre"}`: página exclusiva com uma
    frase REAL e verificada de um grande nome das artes ou da filosofia
    (Shakespeare, Wilde, Nietzsche, Victor Hugo, Molière, Stanislavski,
