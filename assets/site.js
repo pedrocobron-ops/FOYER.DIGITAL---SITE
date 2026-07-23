@@ -122,8 +122,8 @@
   };
   function bater(tipo){
     var m = location.pathname.match(/post-([a-z0-9-]+)\.html$/);
-    if(!m) return;
-    var slug = m[1];
+    var slug = m ? m[1] : (/agenda\.html$/.test(location.pathname) ? 'pagina-agenda' : null);
+    if(!slug) return;
     if(tipo === 'view'){
       try{
         if(sessionStorage.getItem('fv-' + slug)) return;

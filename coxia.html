@@ -418,7 +418,7 @@
         <h2 class="hi" id="saudacao">Boa noite</h2>
         <p class="hi-sub">O panorama do FOYER neste momento</p>
         <div class="stats">
-          <div class="stat"><b>1516</b><span>matérias no acervo</span></div>
+          <div class="stat"><b>1515</b><span>matérias no acervo</span></div>
           <div class="stat"><b id="st-pub">—</b><span>publicadas pela Coxia</span></div>
           <div class="stat"><b id="st-ag">—</b><span>agendadas esperando a hora</span></div>
           <div class="stat"><b id="st-mesa">—</b><span>na mesa da Redação IA</span></div>
@@ -489,6 +489,17 @@
 **negrito**, *itálico*, [link](https://exemplo.com)
 
 > Uma citação destacada fica assim"></textarea>
+            </div>
+            <div>
+              <label>Evento (opcional — alimenta a Agenda do site)</label>
+              <div class="r2">
+                <div><label for="f-ev-ini" style="font-size:.52rem">Começa em</label><input type="date" id="f-ev-ini" style="width:100%;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:var(--mono);padding:10px 12px"></div>
+                <div><label for="f-ev-fim" style="font-size:.52rem">Termina em (vazio = sem data)</label><input type="date" id="f-ev-fim" style="width:100%;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:var(--mono);padding:10px 12px"></div>
+              </div>
+              <div class="r2" style="margin-top:10px">
+                <div><input type="text" id="f-ev-local" placeholder="Local — ex.: Teatro Sabesp Frei Caneca"></div>
+                <div><input type="text" id="f-ev-cidade" placeholder="Cidade — ex.: São Paulo"></div>
+              </div>
             </div>
             <div class="r2">
               <div>
@@ -1054,6 +1065,12 @@
     $('f-quando-dt').style.display = this.value === 'agendar' ? 'block' : 'none';
   });
 
+  function colherEvento(){
+    var ini = $('f-ev-ini').value;
+    if(!ini) return null;
+    return { inicio: ini, fim: $('f-ev-fim').value || '',
+             local: $('f-ev-local').value.trim(), cidade: $('f-ev-cidade').value.trim() };
+  }
   $('form').addEventListener('submit', function(e){
     e.preventDefault();
     var msg = $('msg');
@@ -1084,6 +1101,8 @@
           atualizadoEm: new Date().toISOString(),
           origem: EDIT.origem, editadoPor: USER.nome
         };
+        var evE = colherEvento();
+        if(evE) edicao.evento = evE;
         return ghPut('import/novas/' + slug + '.json', JSON.stringify(edicao, null, 1),
           assina('edita matéria publicada "' + title + '"'));
       }
@@ -1096,6 +1115,8 @@
           corpo: corpo, publishAt: publishAt,
           criadoEm: new Date().toISOString(), criadoPor: USER.nome
         };
+        var evN = colherEvento();
+        if(evN) dados.evento = evN;
         return ghPut('import/novas/' + slug + '.json', JSON.stringify(dados, null, 1),
           assina((quando === 'agendar' ? 'agenda' : 'publica') + ' "' + title + '"'));
       }
@@ -1110,6 +1131,8 @@
         sugestaoPublishAt: quando === 'agendar' ? publishAt : '',
         geradoEm: new Date().toISOString(), criadoPor: USER.nome
       };
+      var evP = colherEvento();
+      if(evP) pacote.evento = evP;
       return ghPut('import/pauta/' + slug + '.json', JSON.stringify(pacote, null, 1),
         assina('envia "' + title + '" para a aprovação do chefe'));
     }).then(function(){
@@ -1340,6 +1363,7 @@
       criadoEm: new Date().toISOString(),
       origem: d.origem === 'autor' ? 'autor' : 'redacao-ia', aprovadoPor: USER.nome
     };
+    if(d.evento) dados.evento = d.evento;
     ghPut('import/novas/' + slug + '.json', JSON.stringify(dados, null, 1),
           assina('aprova "' + d.title + '"' + (d.origem === 'autor' ? ' (matéria de ' + (d.criadoPor || d.author) + ')' : ' (Redação IA)')))
       .then(function(){ return ghDel(d._path, d._sha, assina('retira da mesa após aprovação')); })
@@ -1542,6 +1566,11 @@
     sel.value = dados.author || 'Redação Foyer';
     $('f-cred').value = dados.imgCredito || '';
     $('f-body').value = dados.corpo || '';
+    var ev = dados.evento || {};
+    $('f-ev-ini').value = ev.inicio || '';
+    $('f-ev-fim').value = ev.fim || '';
+    $('f-ev-local').value = ev.local || '';
+    $('f-ev-cidade').value = ev.cidade || '';
     CAPA = null;
     if(EDIT.img){ $('up-prev').src = EDIT.img; up.classList.add('tem'); }
     else { $('up-prev').src = ''; up.classList.remove('tem'); }

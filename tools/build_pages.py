@@ -1096,6 +1096,7 @@ if os.path.isdir(_novas_dir):
             'short': f'{_dd}.{_mo}', 'iso': _iso,
             'img': _n.get('img', ''), 'credito': _n.get('imgCredito', ''),
             'atualizado': _n.get('atualizadoEm', ''),
+            'evento': _n.get('evento') or None,
             'url': '', 'min': max(1, len(_txt)//1100),
         })
     if _novas:
@@ -1958,26 +1959,77 @@ if _yt_progs:
 
 # ---------------------------------------------------------------- AGENDA / SOBRE / CONTATO (conteúdo real)
 _MES_ABREV = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
-_AGD_CATS = {'Show', 'Festa', 'Audições', 'Edital', 'Exposições'}
-_agd_mats = [p for p in MATERIAS
-             if p.get('cat') in _AGD_CATS or 'estreia' in p.get('title', '').lower()][:14]
-_agd_rows = ''
-for _p in _agd_mats:
+
+def _agd_linha(p, destaque=''):
+    ev = p.get('evento') or {}
     try:
-        _y, _m, _d = _p['iso'].split('-')
+        _y, _m, _d = (ev.get('inicio') or p['iso']).split('-')
         _dia, _mes = str(int(_d)), _MES_ABREV[int(_m) - 1]
     except Exception:
         _dia, _mes = '·', ''
-    _agd_rows += f'''    <a class="agd-row" href="post-{_p['slug']}.html">
+    lugar = ', '.join(x for x in (ev.get('local', ''), ev.get('cidade', '')) if x)
+    meta = destaque or lugar or p['desc'][:100]
+    return f'''    <a class="agd-row" href="post-{p['slug']}.html">
       <span class="agd-date"><b>{_dia}</b><small>{_mes}</small></span>
-      <span class="agd-what"><h3>{_rvesc(_p['title'])}</h3><span class="agd-meta">{_rvesc(_p['desc'][:110])}…</span></span>
-      <span class="tag agd-tag">{_rvesc(_p['cat'])}</span>
+      <span class="agd-what"><h3>{_rvesc(p['title'])}</h3><span class="agd-meta">{_rvesc(meta)}</span></span>
+      <span class="tag agd-tag">{_rvesc(p['cat'])}</span>
     </a>\n'''
-agenda_body = band('Serviço', 'Agenda', 'O que estreia, o que abre inscrição e o que não dá para perder') + f'''
+
+_hoje = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+_hoje7 = (datetime.now(timezone.utc) + __import__('datetime').timedelta(days=7)).strftime('%Y-%m-%d')
+
+_com_evento = [p for p in MATERIAS if p.get('evento') and (p['evento'].get('inicio') or '')]
+_ativos = [p for p in _com_evento if not (p['evento'].get('fim') and p['evento']['fim'] < _hoje)]
+
+def _fmt_curta(iso):
+    try:
+        _y, _m, _d = iso.split('-')
+        return f'{int(_d)} de {_MES_ABREV[int(_m)-1]}'
+    except Exception:
+        return iso
+
+_sec_estreia, _sec_cartaz, _sec_ultimas, _sec_vemai = '', '', '', ''
+for p in sorted(_ativos, key=lambda x: x['evento']['inicio']):
+    ev = p['evento']
+    lugar = ', '.join(x for x in (ev.get('local', ''), ev.get('cidade', '')) if x)
+    if ev['inicio'] > _hoje7:
+        _sec_vemai += _agd_linha(p, f"a partir de {_fmt_curta(ev['inicio'])} · {lugar}")
+    elif ev['inicio'] > _hoje:
+        _sec_estreia += _agd_linha(p, f"estreia {_fmt_curta(ev['inicio'])} · {lugar}")
+    elif ev.get('fim') and ev['fim'] <= _hoje7:
+        _sec_ultimas += _agd_linha(p, f"até {_fmt_curta(ev['fim'])} · {lugar}")
+    else:
+        ate = f" · até {_fmt_curta(ev['fim'])}" if ev.get('fim') else ''
+        _sec_cartaz += _agd_linha(p, f"em cartaz · {lugar}{ate}")
+
+def _agd_sec(titulo, nota, linhas):
+    if not linhas:
+        return ''
+    return (f'<div class="sec-head"><h2>{titulo}</h2><span class="note">{nota}</span></div>'
+            f'\n  <div class="agd">\n{linhas}  </div>\n')
+
+_agd_corpo = (_agd_sec('Estreia esta semana', 'garanta o ingresso', _sec_estreia)
+              + _agd_sec('Últimas sessões', 'agora ou nunca', _sec_ultimas)
+              + _agd_sec('Em cartaz agora', 'rolando neste momento', _sec_cartaz)
+              + _agd_sec('Vem aí', 'já anunciado', _sec_vemai))
+
+_AGD_CATS = {'Show', 'Festa', 'Audições', 'Edital', 'Exposições'}
+_agd_mats = [p for p in MATERIAS
+             if p.get('cat') in _AGD_CATS or 'estreia' in p.get('title', '').lower()][:10]
+_cobertura = ''.join(_agd_linha(p) for p in _agd_mats)
+if not _agd_corpo:
+    _agd_corpo = ('<div class="vazio" style="border:2px dashed var(--line);padding:26px;'
+                  'font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;'
+                  'color:var(--ink-soft)">A agenda está em formação: as matérias novas com data de evento '
+                  'entram aqui sozinhas, e o que sai de cartaz some sozinho.</div>')
+
+agenda_body = band('Serviço', 'Agenda', 'O que está em cartaz, o que estreia e o que sai de cena, dia a dia') + f'''
 <main class="wrap">
-  <div class="agd">
-{_agd_rows}  </div>
+  {_agd_corpo}
   <div class="ad-slot" data-ad-slot="1701"></div>
+  <div class="sec-head"><h2>Últimas coberturas de eventos</h2><span class="note">do noticiário do FOYER</span></div>
+  <div class="agd">
+{_cobertura}  </div>
   <div class="filters" style="padding:18px 0 40px">
     <a href="cat-show.html">Shows</a>
     <a href="cat-exposicoes.html">Exposições</a>

@@ -142,9 +142,22 @@ citação real; `**negrito**` para nomes de obras; `[link](url)` se preciso.
   "ressalvas": ["pontos que o humano deve conferir antes de publicar"]
  },
  "geradoEm": "2026-07-22T12:00:00+00:00",
- "esteira": "pauteiro > reporter > editor-estilo > chefe-redacao"
+ "esteira": "pauteiro > reporter > editor-estilo > chefe-redacao",
+ "evento": {
+  "inicio": "2026-07-24",
+  "fim": "2026-08-16",
+  "local": "Teatro Sabesp Frei Caneca",
+  "cidade": "São Paulo"
+ }
 }
 ```
+
+- `evento` — OBRIGATÓRIO em toda matéria sobre evento com data (estreia,
+  temporada, show, exposição, festival, inscrição de edital): alimenta a
+  Agenda automática do site. `inicio` e `fim` no formato AAAA-MM-DD
+  (`fim` vazio se não divulgado; para edital, `fim` = prazo de
+  inscrição). Matéria sem evento (notícia, perfil, internacional sem
+  data no Brasil) simplesmente NÃO leva o campo.
 
 - `slug`: ASCII minúsculo, hifens, máx. 80 caracteres, sem acentos.
 - `cat` — uma de: Teatro, Cinema, Música, Dança, Crítica, Notícia,
