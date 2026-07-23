@@ -51,7 +51,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Gerar o site com as matérias liberadas
-        run: python3 tools/build_pages.py
+        run: |
+          python3 tools/atualiza_youtube.py || echo "YouTube fora do ar — usa o último retrato salvo"
+          python3 tools/build_pages.py
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

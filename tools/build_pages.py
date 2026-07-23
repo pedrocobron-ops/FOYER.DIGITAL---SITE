@@ -1703,6 +1703,152 @@ revista_body = band('Newsletter semanal', 'A Revista do Foyer',
 </main>
 '''
 
+# ---------------------------------------------------------------- YOUTUBE (programas, crítica e entrevistas reais)
+try:
+    YT = _json.load(open(os.path.join(ROOT, 'import/youtube.json')))
+except Exception:
+    YT = {'programas': []}
+
+def _yt_data(iso):
+    try:
+        _y, _m, _d = iso.split('-')
+        return f'{_d}.{_m}.{_y[2:]}'
+    except Exception:
+        return iso
+
+def yt_cell(v, rotulo):
+    return f'''    <article class="ep-cell">
+      <a class="ph" href="{_rvesc(v['url'])}" target="_blank" rel="noopener" aria-label="Assistir no YouTube">
+        <img src="{_rvesc(v['thumb'])}" alt="" loading="lazy" onerror="this.style.display='none'">
+        <span class="play">▶</span>
+      </a>
+      <div class="ep-body">
+        <span class="meta-l">{_rvesc(rotulo)}</span>
+        <h3>{_rvesc(v['titulo'])}</h3>
+        <div class="meta-row">
+          <span class="meta-l">{_yt_data(v.get('quando',''))}</span>
+          <button class="share-min" data-share="native" data-title="{safe(v['titulo'])}">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>'''
+
+_yt_progs = YT.get('programas', [])
+def _yt_por_papel(papel):
+    return [p for p in _yt_progs if p.get('papel') == papel]
+
+def _yt_videos(progs, n):
+    vids = []
+    for p in progs:
+        for v in p.get('videos', []):
+            vids.append((v.get('quando', ''), p['nome'], v))
+    vids.sort(key=lambda x: x[0], reverse=True)
+    return vids[:n]
+
+if _yt_progs:
+    # ---------- PROGRAMAS ----------
+    _PDESC = {
+        'Programa do Foyer': ('Talk — 6 temporadas', 'O talk do FOYER: conversas com elencos, criadores e os bastidores do teatro musical.'),
+        'Críticas Teatrais': ('Crítica em vídeo', 'A redação assiste, pensa e assina — em vídeo.'),
+        'Teatro a Sangue Frio': ('Crítica', 'Os espetáculos em cartaz analisados sem anestesia.'),
+        'Astro em Cena': ('Papo — Astrologia', 'Astrologia e artes em conversas cheias de insights.'),
+        'Trivia Musical Game Show': ('Game show', 'Artistas duelam no universo dos musicais. Quem sabe mais?'),
+        'Session Musical': ('Música em estúdio', 'O teatro musical brasileiro canta ao vivo no estúdio do FOYER.'),
+        'Coxixo de Coxia': ('Coxia — Humor', 'O papo solto de quem vive o teatro por trás da cortina.'),
+        'Corda Bamba': ('Série', 'Novos episódios no canal do FOYER.'),
+        'Por Bruno Cavalcanti': ('Coluna em vídeo', 'A coluna em vídeo de Bruno Cavalcanti.'),
+    }
+    _cards, _vistos_nomes = '', set()
+    for p in _yt_progs:
+        _nome = p['nome'].split(' — ')[0]
+        if _nome in _vistos_nomes:
+            continue
+        _vistos_nomes.add(_nome)
+        _rot, _desc = _PDESC.get(_nome, ('Programa', 'Novos episódios no canal do FOYER.'))
+        _cards += f'''      <a class="show" href="{_rvesc(p['urlPlaylist'])}" target="_blank" rel="noopener">
+        <span class="ep">{_rvesc(_rot)}</span><span class="tri">▶</span>
+        <h3>{_rvesc(_nome)}</h3>
+        <p>{_rvesc(_desc)}</p>
+      </a>\n'''
+    _ult = '\n'.join(yt_cell(v, nome.split(' — ')[0]) for _, nome, v in _yt_videos(_yt_progs, 12))
+    programas_body = band('O canal', 'Os Programas', 'YouTube &amp; Spotify — novos episódios toda semana') + f'''
+<section class="programas first">
+  <div class="wrap">
+    <div class="prog-grid" style="margin-top:40px">
+{_cards}    </div>
+    <div class="prog-cta">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">Assistir no YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Ouvir no Spotify ↗</a>
+    </div>
+  </div>
+</section>
+<main class="wrap">
+  <div class="sec-head">
+    <h2>Últimos episódios</h2>
+    <span class="note">Direto do canal</span>
+    <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener" class="all">Ver no YouTube ↗</a>
+  </div>
+  <div class="ep-grid">
+{_ult}
+  </div>
+  <div class="ad-slot" data-ad-slot="1401"></div>
+</main>
+'''
+
+    # ---------- CRÍTICA ----------
+    _crit_vids = '\n'.join(yt_cell(v, nome) for _, nome, v in _yt_videos(_yt_por_papel('critica'), 6))
+    _crit_mats = [p for p in MATERIAS if p.get('cat') == 'Crítica'][:12]
+    _crit_cells = '\n'.join(real_cell(p) for p in _crit_mats)
+    critica_body = band('Editoria', 'Crítica', 'A redação assiste, pensa e assina — sem medo de opinião') + f'''
+<main class="wrap">
+  <div class="sec-head">
+    <h2>Crítica em vídeo</h2>
+    <span class="note">Críticas Teatrais &amp; Teatro a Sangue Frio — no canal</span>
+    <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener" class="all">Ver no YouTube ↗</a>
+  </div>
+  <div class="ep-grid">
+{_crit_vids}
+  </div>
+  <div class="ad-slot" data-ad-slot="1501"></div>
+  <div class="sec-head">
+    <h2>Crítica escrita</h2>
+    <span class="note">Do acervo do FOYER</span>
+    <a href="cat-critica.html" class="all">Todas →</a>
+  </div>
+  <div class="news-grid three">
+{_crit_cells}
+  </div>
+</main>
+'''
+
+    # ---------- ENTREVISTAS ----------
+    _ent_vids = '\n'.join(yt_cell(v, 'Programa do Foyer') for _, _n, v in _yt_videos(_yt_por_papel('entrevista'), 9))
+    _ent_mats = [p for p in MATERIAS if p.get('cat') == 'Entrevista'][:6]
+    _ent_extra = ''
+    if _ent_mats:
+        _ent_cells = '\n'.join(real_cell(p) for p in _ent_mats)
+        _ent_extra = f'''  <div class="sec-head">
+    <h2>Entrevistas escritas</h2>
+    <span class="note">Do acervo do FOYER</span>
+  </div>
+  <div class="news-grid three">
+{_ent_cells}
+  </div>
+'''
+    entrevistas_body = band('Editoria', 'Entrevistas', 'Conversas longas com quem faz o palco acontecer') + f'''
+<main class="wrap">
+  <div class="sec-head">
+    <h2>No Programa do Foyer</h2>
+    <span class="note">O talk do canal — elencos, criadores e bastidores</span>
+    <a href="https://www.youtube.com/playlist?list=PLFPAp2PKrLk2xo9BULjM0wmganFcGd88C" target="_blank" rel="noopener" class="all">Temporada atual ↗</a>
+  </div>
+  <div class="ep-grid">
+{_ent_vids}
+  </div>
+  <div class="ad-slot" data-ad-slot="1601"></div>
+{_ent_extra}</main>
+'''
+    print(f"• YouTube: {sum(len(p.get('videos', [])) for p in _yt_progs)} episódios em {len(_yt_progs)} playlists")
+
 # ---------------------------------------------------------------- monta tudo
 
 # capa tem ordem própria: ticker+masthead antes da nav
