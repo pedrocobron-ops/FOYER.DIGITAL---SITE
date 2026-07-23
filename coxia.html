@@ -462,7 +462,7 @@
           <div class="stat"><b>1516</b><span>matérias no acervo</span></div>
           <div class="stat"><b id="st-pub">—</b><span>publicadas pela Coxia</span></div>
           <div class="stat"><b id="st-ag">—</b><span>agendadas esperando a hora</span></div>
-          <div class="stat"><b id="st-mesa">—</b><span>na mesa da Redação IA</span></div>
+          <div class="stat" id="card-mesa"><b id="st-mesa">—</b><span>na mesa de aprovação</span></div>
           <div class="stat"><b id="st-leituras">—</b><span>leituras no site (7 dias)</span></div>
           <div class="stat"><b id="st-assin">—</b><span>assinantes da newsletter</span></div>
         </div>
@@ -624,7 +624,7 @@
 
         <div class="eq-grid" id="eq-grid"></div>
 
-        <div class="sec-h"><h3 id="eq-form-t">Cadastrar autor(a)</h3><span>cada pessoa recebe uma senha única de entrada</span></div>
+        <div class="sec-h"><h3 id="eq-form-t">Cadastrar na equipe</h3><span>cada pessoa recebe uma senha única de entrada</span></div>
         <form class="f-form" id="eq-form" style="max-width:560px">
           <input type="hidden" id="e-id">
           <div class="r2">
@@ -635,8 +635,8 @@
             <div>
               <label for="e-papel">Papel</label>
               <select id="e-papel">
-                <option value="autor">Autor(a)</option>
-                <option value="editor">Editor(a) — aprova e edita, sem painel Equipe/Revista</option>
+                <option value="autor">Escritor(a) — escreve e envia para aprovação</option>
+                <option value="editor">Redator(a) — publica e edita o acervo</option>
                 <option value="chefe">Chefe (acesso total)</option>
               </select>
             </div>
@@ -647,11 +647,6 @@
               <input type="text" id="e-senha" placeholder="deixe em branco para manter a atual" autocomplete="off" style="flex:1">
               <button class="bt" type="button" id="e-gerar" style="white-space:nowrap">🎲 Gerar</button>
             </div>
-          </div>
-          <div>
-            <label style="display:flex; align-items:center; gap:10px; cursor:pointer; margin:0">
-              <input type="checkbox" id="e-mesa" style="width:auto"> Pode aprovar matérias da Redação IA
-            </label>
           </div>
           <button class="f-pub" type="submit" id="eq-salvar">Salvar na equipe</button>
           <span class="msg" id="eq-msg"></span>
@@ -919,9 +914,9 @@
       })).then(function(rs){ return rs.filter(Boolean)[0] || null; });
     });
   }
-  function podeMesa(){ return USER && (USER.papel === 'chefe' || USER.papel === 'editor' || (USER.permissoes && USER.permissoes.mesaIA)); }
+  function podeMesa(){ return USER && USER.papel === 'chefe'; }
   function podeEditar(){ return USER && (USER.papel === 'chefe' || USER.papel === 'editor'); }
-  var PAPEL_ROTULO = { chefe: 'Chefe da casa', editor: 'Editor(a)', autor: 'Autor(a)' };
+  var PAPEL_ROTULO = { chefe: 'Chefe da casa', editor: 'Redator(a)', autor: 'Escritor(a)' };
 
   function aplicarUsuario(){
     $('who-nome').textContent = USER.nome;
@@ -931,6 +926,7 @@
     $('mi-revista').classList.toggle('hid', USER.papel !== 'chefe');
     $('mi-ia').classList.toggle('hid', !podeMesa());
     $('mural-fixar-l').style.display = USER.papel === 'chefe' ? 'inline-flex' : 'none';
+    $('card-mesa').style.display = podeMesa() ? '' : 'none';
     $('q-ia').style.display = podeMesa() ? '' : 'none';
     // autores no formulário
     var sel = $('f-autor');
@@ -1054,12 +1050,14 @@
       $('st-pub').textContent = items.length - ag;
       $('st-ag').textContent = ag;
     }).catch(function(){ $('st-pub').textContent = '?'; $('st-ag').textContent = '?'; });
-    ghGet('import/pauta').then(function(list){
-      var n = (list || []).filter(function(f){ return f.name.endsWith('.json') && f.name !== 'diario.json'; }).length;
-      $('st-mesa').textContent = n;
-      var b = $('bdg-mesa');
-      b.textContent = n; b.style.display = n > 0 ? 'inline-block' : 'none';
-    }).catch(function(){ $('st-mesa').textContent = '?'; });
+    if(podeMesa()){
+      ghGet('import/pauta').then(function(list){
+        var n = (list || []).filter(function(f){ return f.name.endsWith('.json') && f.name !== 'diario.json'; }).length;
+        $('st-mesa').textContent = n;
+        var b = $('bdg-mesa');
+        b.textContent = n; b.style.display = n > 0 ? 'inline-block' : 'none';
+      }).catch(function(){ $('st-mesa').textContent = '?'; });
+    }
     fetch(RKC.url + '/rest/v1/foyer_painel?select=*', {
       headers: { 'apikey': RKC.key, 'Authorization': 'Bearer ' + RKC.key }
     }).then(function(r){ return r.json(); }).then(function(d){
@@ -1077,7 +1075,11 @@
       .then(function(cs){
         var movs = (cs || []).filter(function(c){
           var m = c.commit && c.commit.message || '';
-          return m.indexOf('Coxia') === 0 || m.indexOf('Redação IA') === 0 || m.indexOf('Redacao IA') === 0;
+          var ehCoxia = m.indexOf('Coxia') === 0 || m.indexOf('Redação IA') === 0 || m.indexOf('Redacao IA') === 0;
+          if(!ehCoxia) return false;
+          // quem não é chefe não vê nada da redação de agentes
+          if(!podeMesa() && /Reda(ç|c)[aã]o IA/i.test(m)) return false;
+          return true;
         }).slice(0, qtd);
         if(!movs.length){ el.innerHTML = '<div class="vazio">Nenhum movimento registrado ainda</div>'; return; }
         el.innerHTML = movs.map(function(c){
@@ -1730,8 +1732,8 @@
       el.innerHTML = lista.map(function(u){
         var ini = u.nome.trim().split(/\s+/).map(function(p){ return p[0]; }).slice(0,2).join('').toUpperCase();
         var per = u.papel === 'chefe' ? 'Acesso total — inclusive Equipe'
-          : u.papel === 'editor' ? 'Publica, edita o acervo e aprova a mesa<br>Sem painel Equipe/Revista'
-          : 'Escreve e envia para aprovação' + (u.permissoes && u.permissoes.mesaIA ? '<br>Aprova a Redação IA' : '');
+          : u.papel === 'editor' ? 'Publica e edita o acervo<br>Sem Equipe e Revista'
+          : 'Escreve e envia para aprovação do chefe';
         return '<div class="eq-card' + (u.papel === 'chefe' ? ' eq-chefe' : '') + '">' +
           '<div class="cab"><span class="ava">' + esc(ini) + '</span>' +
           '<span><b>' + esc(u.nome) + '</b><span class="pap">' + (PAPEL_ROTULO[u.papel] || 'Autor(a)') + '</span></span></div>' +
@@ -1759,7 +1761,7 @@
       var u = (EQUIPE.lista || []).filter(function(x){ return x.id === b.dataset.edt; })[0]
         || { id:'pedro', nome:'Pedro Cobron', papel:'chefe', permissoes:{ mesaIA:true } };
       $('e-id').value = u.id; $('e-nome').value = u.nome;
-      $('e-papel').value = u.papel; $('e-mesa').checked = !!(u.permissoes && u.permissoes.mesaIA);
+      $('e-papel').value = u.papel;
       $('e-senha').value = '';
       $('eq-form-t').textContent = 'Editar — ' + u.nome;
       $('eq-form').scrollIntoView({ behavior:'smooth', block:'center' });
@@ -1807,7 +1809,7 @@
       var novo = {
         id: id, nome: nome, papel: $('e-papel').value,
         salt: cred.salt, hash: cred.hash,
-        permissoes: { mesaIA: $('e-mesa').checked },
+        permissoes: {},
         criadoEm: atual ? (atual.criadoEm || '') : new Date().toISOString()
       };
       var prox = atual ? lista.map(function(x){ return x.id === id ? novo : x; }) : lista.concat([novo]);
@@ -1823,7 +1825,7 @@
           $('senha-out').classList.add('on');
         }
         $('eq-form').reset(); $('e-id').value = '';
-        $('eq-form-t').textContent = 'Cadastrar autor(a)';
+        $('eq-form-t').textContent = 'Cadastrar na equipe';
       });
     });
   });
