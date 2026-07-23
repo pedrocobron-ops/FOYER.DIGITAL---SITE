@@ -1647,10 +1647,10 @@ _RV_CSS = '''<style>
   border:2px solid var(--ink); opacity:.9; }
 .rv-sum ol{ list-style:none; margin:0; padding:8px 0 60px; flex:1; overflow:auto; }
 .rv-sum li{ display:grid; grid-template-columns:60px 1fr; gap:12px; align-items:baseline;
-  padding:8px 22px; border-bottom:1px solid var(--line); }
+  padding:6px 22px; border-bottom:1px solid var(--line); }
 .rv-sum .pnum{ font-family:var(--didone); font-size:1.45rem; color:var(--wine); text-align:right; }
 html[data-theme="dark"] .rv-sum .pnum{ color:var(--gold); }
-.rv-sum .pt{ font-weight:800; text-transform:uppercase; font-size:.82rem; line-height:1.25; }
+.rv-sum .pt{ font-weight:800; text-transform:uppercase; font-size:.8rem; line-height:1.22; }
 .rv-sum .ps{ display:block; font-family:var(--mono); font-size:.54rem; letter-spacing:.14em;
   text-transform:uppercase; color:var(--ink-soft); margin-top:3px; }
 

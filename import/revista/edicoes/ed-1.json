@@ -65,14 +65,15 @@
   },
   {
    "tipo": "agenda",
+   "cidade": "São Paulo",
    "itens": [
     {
      "dia": "2026-07-24",
-     "titulo": "Wicked",
-     "texto": "A bruxa verde sobrevoa a Barra só até 9 de agosto, e a sexta às 20h é a sessão de teatro cheio, do jeito que o final do primeiro ato pede.",
-     "local": "Cidade das Artes, sala Bibi Ferreira",
-     "cidade": "Rio de Janeiro",
-     "link": "post-wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.html"
+     "titulo": "Festa no Arraial, O Musical",
+     "texto": "Claudia Ohana puxa a quadrilha que Shakespeare nunca imaginou: na estreia de sexta às 20h, o Sonho de uma Noite de Verão desembarca no arraial com 14 artistas e fogueira acesa em plena Consolação.",
+     "local": "Teatro Sabesp Frei Caneca",
+     "cidade": "São Paulo",
+     "link": "post-festa-no-arraial-o-musical-shakespeare-festa-junina-frei-caneca.html"
     },
     {
      "dia": "2026-07-25",
@@ -84,11 +85,11 @@
     },
     {
      "dia": "2026-07-26",
-     "titulo": "História",
-     "texto": "A criação dos 25 anos da companhia brasileira de teatro, dirigida por Marcio Abreu, se despede do CCBB numa sessão só, domingo às 18h, com ingresso a 30 reais.",
-     "local": "CCBB Rio de Janeiro, Teatro II",
-     "cidade": "Rio de Janeiro",
-     "link": "https://ingressosccbb.com.br/teatro-historia__3845"
+     "titulo": "Djavan, O Musical: Vidas pra Contar",
+     "texto": "Recém-chegada da estreia de quinta, a segunda temporada paulistana do musical sobre o alagoano tem no domingo às 18h a sessão perfeita para sair cantando Oceano e ainda dormir no horário.",
+     "local": "Teatro Claro Mais SP",
+     "cidade": "São Paulo",
+     "link": "https://uhuu.com/evento/sp/sao-paulo/djavan-o-musical-vidas-pra-contar-16109"
     },
     {
      "dia": "2026-07-27",
@@ -99,20 +100,58 @@
      "link": "post-las-choronas-estreia-no-ccbb-sao-paulo-com-teatro-de-bonecos-danca-musica-e-libr.html"
     },
     {
-     "dia": "2026-07-28",
-     "titulo": "OSB toca a Nona de Mahler",
-     "texto": "Claudio Cruz rege a Orquestra Sinfônica Brasileira na sinfonia de despedida de Mahler, às 19h, em 90 minutos sem intervalo que valem a terça inteira.",
-     "local": "Theatro Municipal do Rio de Janeiro",
-     "cidade": "Rio de Janeiro",
-     "link": "https://feverup.com/m/646936"
-    },
-    {
      "dia": "2026-07-29",
      "titulo": "Tristão e Isolda",
      "texto": "Wagner volta ao palco do Municipal 47 anos depois da última montagem, em récita que começa cedo, às 17h, com Simon O'Neill e Annemarie Kremer no naufrágio amoroso.",
      "local": "Theatro Municipal de São Paulo",
      "cidade": "São Paulo",
      "link": "https://theatromunicipal.org.br/eventos/opera-tristao-e-isolda-de-richard-wagner/"
+    },
+    {
+     "dia": "2026-07-30",
+     "titulo": "Osesp toca Korngold e Bacewicz",
+     "texto": "Roberto González-Monjas defende dois injustiçados na quinta às 20h: o Concerto para Violino de Korngold nas mãos de Inmo Yang e a Quarta Sinfonia de Grazyna Bacewicz, raridade absoluta por aqui.",
+     "local": "Sala São Paulo",
+     "cidade": "São Paulo",
+     "link": "https://salasaopaulo.art.br/salasp/pt/concerto/1587"
+    }
+   ]
+  },
+  {
+   "tipo": "agenda",
+   "cidade": "Rio de Janeiro",
+   "itens": [
+    {
+     "dia": "2026-07-24",
+     "titulo": "Wicked",
+     "texto": "A bruxa verde sobrevoa a Barra só até 9 de agosto, e a sexta às 20h é a sessão de teatro cheio, do jeito que o final do primeiro ato pede.",
+     "local": "Cidade das Artes, sala Bibi Ferreira",
+     "cidade": "Rio de Janeiro",
+     "link": "post-wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.html"
+    },
+    {
+     "dia": "2026-07-25",
+     "titulo": "Improvável",
+     "texto": "No sábado às 20h30, os Barbixas transformam os gritos da plateia em cena na hora, e nem eles sabem qual espetáculo vai sair dali, o que é justamente a graça.",
+     "local": "Teatro Multiplan, VillageMall",
+     "cidade": "Rio de Janeiro",
+     "link": "https://bileto.sympla.com.br/event/120855/d/386331"
+    },
+    {
+     "dia": "2026-07-26",
+     "titulo": "História",
+     "texto": "A criação dos 25 anos da companhia brasileira de teatro, dirigida por Marcio Abreu, se despede do CCBB numa sessão só, domingo às 18h, com ingresso a 30 reais.",
+     "local": "CCBB Rio de Janeiro, Teatro II",
+     "cidade": "Rio de Janeiro",
+     "link": "https://ingressosccbb.com.br/teatro-historia__3845"
+    },
+    {
+     "dia": "2026-07-28",
+     "titulo": "OSB toca a Nona de Mahler",
+     "texto": "Claudio Cruz rege a Orquestra Sinfônica Brasileira na sinfonia de despedida de Mahler, às 19h, em 90 minutos sem intervalo que valem a terça inteira.",
+     "local": "Theatro Municipal do Rio de Janeiro",
+     "cidade": "Rio de Janeiro",
+     "link": "https://feverup.com/m/646936"
     },
     {
      "dia": "2026-07-30",
@@ -132,6 +171,11 @@
   }
  ],
  "historico": [
+  {
+   "quando": "2026-07-23T22:11:54+00:00",
+   "quem": "Agendista da revista (Claude)",
+   "acao": "divide a agenda em São Paulo e Rio e completa a semana"
+  },
   {
    "quando": "2026-07-23T21:52:42+00:00",
    "quem": "Agendista da revista (Claude)",
