@@ -1784,6 +1784,11 @@ page('404.html', 'Página não encontrada — FOYER', 'Página não encontrada n
 import glob as _g
 urls = sorted(os.path.basename(f) for f in _g.glob(os.path.join(ROOT, '*.html'))
               if os.path.basename(f) not in ('coxia.html', '404.html'))
+with open(os.path.join(ROOT, 'assets/busca-index.json'), 'w') as f:
+    _json.dump([{'t': _p['title'], 'c': _p.get('cat', ''), 'u': 'post-' + _p['slug'] + '.html'}
+                for _p in MATERIAS], f, ensure_ascii=False)
+print(f'busca: {len(MATERIAS)} matérias indexadas')
+
 with open(os.path.join(ROOT, 'sitemap.xml'), 'w') as f:
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
     for u in urls:
