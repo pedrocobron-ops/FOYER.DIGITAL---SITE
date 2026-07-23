@@ -1143,6 +1143,26 @@ if os.path.isdir(_novas_dir):
     elif _agendadas:
         print(f'• {_agendadas} matéria(s) agendada(s) aguardando a hora')
 
+# crédito real da capa nos CARTÕES: extrai a legenda do fotógrafo do corpo
+# (mesma fonte que a página da matéria usa) para valorizar o nome, não "Divulgação"
+_n_creds = 0
+for _p in MATERIAS:
+    if _p.get('credito') or not _p.get('img'):
+        continue
+    _cf = os.path.join(ROOT, 'import/corpo', _p['slug'] + '.html')
+    if not os.path.exists(_cf):
+        continue
+    _mc = _re.search(r'<figure class="art-img"><img src="' + _re.escape(_p['img']) +
+                     r'"[^>]*>(?:<figcaption>(.*?)</figcaption>)?</figure>',
+                     open(_cf).read(), _re.S)
+    if _mc and _mc.group(1):
+        _capc = _re.sub(r'<[^>]+>', '', _mc.group(1)).strip()
+        if _capc:
+            _p['credito'] = _capc
+            _n_creds += 1
+if _n_creds:
+    print(f'• crédito de fotógrafo herdado do corpo em {_n_creds} capas de cartão')
+
 _MES_N = {'Jan':'01','Feb':'02','Mar':'03','Apr':'04','May':'05','Jun':'06',
           'Jul':'07','Aug':'08','Sep':'09','Oct':'10','Nov':'11','Dec':'12'}
 
@@ -1157,8 +1177,22 @@ def wiximg(url, w=1200, h=675):
         return f'{url}/v1/fill/w_{w},h_{h},al_c,q_82/cover.jpg'
     return url
 
+def _cred_curto(p):
+    """Crédito curto para tarjas de cartão: o NOME do fotógrafo vem antes da
+    palavra 'Divulgação' (que só aparece quando não há fotógrafo conhecido)."""
+    c = (p.get('credito') or '').strip()
+    c = _re.sub(r'^(fotos?|reprodução|imagem)\s*:\s*', '', c, flags=_re.I)
+    if '/' in c:
+        antes = c.split('/')[0].strip()
+        if antes and antes.lower() not in ('divulgação', 'divulgacao', 'reprodução', 'reproducao'):
+            c = antes
+    c = c.strip(' .')
+    if len(c) > 38:
+        c = c[:38].rsplit(' ', 1)[0].rstrip(',.;:') + '…'
+    return c if c and c.lower() not in ('divulgação', 'divulgacao') else 'Divulgação'
+
 def real_ph(p, href, cap=True):
-    c = '<span class="ph-cap">Foto — Divulgação</span>' if cap else ''
+    c = f'<span class="ph-cap">Foto — {safe(_cred_curto(p))}</span>' if cap else ''
     return (f'<a class="ph" href="{href}" aria-label="Foto da matéria">'
             f'<img src="{wiximg(p["img"], 800, 450)}" alt="{safe(p["title"])}" loading="lazy" onerror="this.style.display=\'none\'">{c}</a>')
 
@@ -1244,7 +1278,7 @@ index_main = f'''<main>
     <article class="manchete">
       <a class="ph cover" href="post-{_p0['slug']}.html" aria-label="Foto da reportagem de capa">
         <img src="{wiximg(_p0['img'])}" alt="" loading="eager" onerror="this.style.display='none'">
-        <span class="ph-cap">Foto — Divulgação</span>
+        <span class="ph-cap">Foto — {safe(_cred_curto(_p0))}</span>
       </a>
       <div class="manchete-body">
         <div class="tags">
