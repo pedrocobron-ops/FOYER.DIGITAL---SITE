@@ -64,15 +64,26 @@
    "chamada": "A dama do teatro brasileiro encarna o ícone da moda nova-iorquina no Teatro Vannucci."
   },
   {
+   "tipo": "agenda"
+  },
+  {
    "tipo": "citacao",
    "frase": "Queremos que cada pessoa saia do teatro com a sensação de ter vivido uma noite mágica",
    "autor": "Thereza Falcão, diretora e autora de Festa no Arraial, O Musical"
+  },
+  {
+   "tipo": "frase-celebre"
   },
   {
    "tipo": "expediente"
   }
  ],
  "historico": [
+  {
+   "quando": "2026-07-23T21:39:35.926775+00:00",
+   "quem": "Pedro Amaral (pelo Claude)",
+   "acao": "acrescenta A semana em cartaz (agenda dinâmica) e Entre mestres (frase célebre)"
+  },
   {
    "quando": "2026-07-23T12:19:52.029444+00:00",
    "quem": "Pedro Amaral (pelo Claude)",

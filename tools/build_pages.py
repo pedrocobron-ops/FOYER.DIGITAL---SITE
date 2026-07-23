@@ -1728,6 +1728,41 @@ html[data-theme="dark"] .rv-sum .pnum{ color:var(--gold); }
 .rv-tela .rv-folio{ background:var(--wine); color:var(--gold); border-top-color:var(--gold); }
 .rv-tela .rv-folio b{ color:var(--gold); }
 
+/* ---------- AGENDA DA SEMANA ---------- */
+.rv-agd .cab{ padding:24px 22px 12px; border-bottom:3px solid var(--ink); }
+.rv-agd .cab em{ display:block; font-style:normal; font-family:var(--mono); font-size:.54rem;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-agd .cab em{ color:var(--gold); }
+.rv-agd .cab h3{ font-family:var(--didone); font-weight:400; font-size:2.3rem; margin:4px 0 0; line-height:1; }
+.rv-agd .lista{ flex:1; overflow:auto; padding:6px 0 60px; }
+.rv-agd .ag-item{ display:grid; grid-template-columns:74px 1fr; gap:14px; align-items:center;
+  padding:12px 22px; border-bottom:1px solid var(--line); text-decoration:none; color:var(--ink); }
+.rv-agd .ag-item:hover{ background:var(--paper-2); }
+.rv-agd .ag-dia{ font-family:var(--didone); font-size:1.35rem; color:var(--wine); text-align:right;
+  border-right:3px solid var(--gold); padding-right:12px; }
+html[data-theme="dark"] .rv-agd .ag-dia{ color:var(--gold); }
+.rv-agd .ag-oq b{ display:block; font-size:.85rem; line-height:1.3; font-weight:800; }
+.rv-agd .ag-oq small{ display:block; font-family:var(--mono); font-size:.56rem; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--ink-soft); margin-top:3px; }
+.rv-agd .ag-vazio{ padding:22px; font-size:.9rem; color:var(--ink-soft); }
+.rv-agd .ag-cta{ padding:10px 22px 54px; }
+.rv-agd .ag-cta a{ display:inline-block; border:2px solid var(--wine); color:var(--wine);
+  text-decoration:none; font-family:var(--mono); font-size:.58rem; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase; padding:11px 16px; }
+.rv-agd .ag-cta a:hover{ background:var(--wine); color:var(--gold); }
+
+/* ---------- ENTRE MESTRES (frase célebre) ---------- */
+.rv-mestre .miolo{ flex:1; display:flex; flex-direction:column; align-items:center;
+  justify-content:center; text-align:center; padding:6% 9% 64px; }
+.rv-mestre .aspa{ font-family:var(--didone); font-size:6.5rem; line-height:.55; color:var(--gold); }
+.rv-mestre .fr{ font-family:var(--didone); font-weight:400; font-size:clamp(1.5rem,4.6vw,2.4rem);
+  line-height:1.16; margin-top:8px; }
+.rv-mestre .au{ font-family:var(--mono); font-size:.64rem; font-weight:700; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--wine); margin-top:26px; }
+html[data-theme="dark"] .rv-mestre .au{ color:var(--gold); }
+.rv-mestre .bio{ font-size:.8rem; color:var(--ink-soft); margin-top:6px; }
+.rv-mestre .arte{ width:100%; height:110px; border:2px solid var(--ink); margin-top:30px; opacity:.9; }
+
 /* ---------- CITAÇÃO ---------- */
 .rv-cit{ background:var(--wine); color:var(--gold); align-items:center; justify-content:center;
   text-align:center; padding:8% 9%; }
@@ -1804,12 +1839,57 @@ def _rv_corpo(slug, img):
         corpo = pat.sub('', corpo, count=1)
     return corpo
 
+# frases REAIS e verificadas de mestres das artes e da filosofia (rotativas por edição)
+_RV_MESTRES = [
+    ('O mundo inteiro é um palco, e todos os homens e mulheres não passam de atores.',
+     'William Shakespeare', 'Em "Como Gostais", cerca de 1599'),
+    ('A vida imita a arte muito mais do que a arte imita a vida.',
+     'Oscar Wilde', 'No ensaio "A Decadência da Mentira", 1889'),
+    ('Temos a arte para não morrer da verdade.',
+     'Friedrich Nietzsche', 'Filósofo alemão, em fragmento de 1888'),
+    ('O teatro não é o país da realidade: é o país do verdadeiro.',
+     'Victor Hugo', 'Escritor francês, autor de "Os Miseráveis"'),
+    ('O dever da comédia é corrigir os homens, divertindo-os.',
+     'Molière', 'Dramaturgo francês, no prefácio de "Tartufo", 1664'),
+    ('Ame a arte em você, e não você na arte.',
+     'Constantin Stanislavski', 'Diretor russo, pai da atuação moderna'),
+    ('O sonho é que leva a gente para frente.',
+     'Ariano Suassuna', 'Dramaturgo de "O Auto da Compadecida"'),
+    ('Toda unanimidade é burra.',
+     'Nelson Rodrigues', 'Dramaturgo de "Vestido de Noiva"'),
+]
+
+def _rv_agenda_itens():
+    """Agenda dinâmica da revista: eventos reais em cartaz de hoje a quinta que vem."""
+    _ini = datetime.now(timezone.utc).date()
+    _fim = _ini + __import__('datetime').timedelta(days=7)
+    itens = []
+    for m in MATERIAS:
+        ev = m.get('evento') or {}
+        if not ev.get('inicio'):
+            continue
+        e_ini, e_fim = ev['inicio'], ev.get('fim') or ev['inicio']
+        if e_fim < _ini.isoformat() or e_ini > _fim.isoformat():
+            continue
+        itens.append((e_ini, e_fim, m))
+    itens.sort(key=lambda x: (x[0], x[1]))
+    return itens[:9]
+
+def _rv_data_curta(iso):
+    try:
+        _y, _m, _d = iso.split('-')
+        return f'{_d}/{_m}'
+    except Exception:
+        return iso
+
 def _rv_rotulo_sumario(pg):
     t = pg.get('tipo')
     if t == 'editorial': return (pg.get('titulo') or 'Carta ao leitor', 'Editorial')
     if t == 'materia': return (pg.get('titulo', ''), 'A semana · ' + (pg.get('cat') or 'FOYER'))
     if t == 'exclusiva': return (pg.get('titulo', ''), 'Exclusivo da revista')
     if t == 'programas': return ('Na tela: os programas da semana', 'YouTube do FOYER')
+    if t == 'agenda': return ('A semana em cartaz: o que fazer até quinta', 'Agenda')
+    if t == 'frase-celebre': return ('Entre mestres: a arte pela palavra', 'Exclusivo')
     if t == 'citacao': return ('A frase da semana', 'Entre aspas')
     if t == 'cartaz': return (pg.get('legenda') or 'Cartaz', 'Divulgação')
     if t == 'patrocinio': return (pg.get('legenda') or 'Página patrocinada', 'Publicidade')
@@ -1884,6 +1964,47 @@ def _rv_pagina(pg, ed, num):
                 '<div class="canal-cta"><a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">'
                 'Assista a tudo no canal do FOYER →</a></div>'
                 f'{_rv_folio(ed, num)}</section>')
+    if t == 'agenda':
+        itens = _rv_agenda_itens()
+        linhas = ''
+        for e_ini, e_fim, m in itens:
+            hoje = datetime.now(timezone.utc).date().isoformat()
+            if e_ini <= hoje and e_fim > hoje:
+                quando = f'em cartaz até {_rv_data_curta(e_fim)}'
+            elif e_ini == e_fim:
+                quando = f'dia {_rv_data_curta(e_ini)}'
+            else:
+                quando = f'de {_rv_data_curta(e_ini)} a {_rv_data_curta(e_fim)}'
+            ev = m.get('evento') or {}
+            onde = ' · '.join(x for x in [ev.get('local'), ev.get('cidade')] if x)
+            tit = m['title']
+            if len(tit) > 72:
+                tit = tit[:72].rsplit(' ', 1)[0].rstrip(',.;:') + '…'
+            linhas += (f'<a class="ag-item" href="post-{_rvesc(m["slug"])}.html">'
+                       f'<span class="ag-dia">{_rvesc(_rv_data_curta(e_ini))}</span>'
+                       f'<span class="ag-oq"><b>{_rvesc(tit)}</b>'
+                       f'<small>{_rvesc(quando)}{(" · " + _rvesc(onde)) if onde else ""}</small></span></a>')
+        if not linhas:
+            linhas = '<p class="ag-vazio">A agenda da semana está em formação. Confira as estreias no site.</p>'
+        return (f'<section class="rv-pg rv-agd"><div class="cab"><em>De hoje a quinta que vem</em>'
+                f'<h3>A semana em cartaz</h3></div>'
+                f'<div class="lista">{linhas}</div>'
+                f'<div class="ag-cta"><a href="cat-em-cartaz.html">Tudo que está em cartaz agora →</a></div>'
+                f'{_rv_folio(ed, num)}</section>')
+    if t == 'frase-celebre':
+        _fi = (int(ed.get('numero', 1)) - 1) % len(_RV_MESTRES)
+        frase = pg.get('frase') or _RV_MESTRES[_fi][0]
+        autor = pg.get('autor') or _RV_MESTRES[_fi][1]
+        sobre = pg.get('sobre') or _RV_MESTRES[_fi][2]
+        arte_m = _RV_ARTES[(int(ed.get('numero', 1)) + 4) % len(_RV_ARTES)]
+        return (f'<section class="rv-pg rv-mestre"><div class="rv-kicker">'
+                f'<span class="tagz">Entre mestres</span><span>A arte pela palavra</span></div>'
+                f'<div class="miolo"><div class="aspa">“</div>'
+                f'<div class="fr">{_rvesc(frase)}</div>'
+                f'<div class="au">{_rvesc(autor)}</div>'
+                f'<div class="bio">{_rvesc(sobre)}</div>'
+                f'<svg class="arte" viewBox="0 0 600 400" preserveAspectRatio="none"><use href="#{arte_m}"/></svg>'
+                f'</div>{_rv_folio(ed, num)}</section>')
     if t in ('cartaz', 'patrocinio'):
         rot = 'Publicidade' if t == 'patrocinio' else 'Divulgação'
         leg = _rvesc(pg.get('legenda', ''))

@@ -811,6 +811,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
               <option value="editorial">✍ Editorial / carta do editor</option>
               <option value="citacao">❝ Página de citação</option>
               <option value="programas">📺 Na tela — programas da semana (automático)</option>
+              <option value="agenda">📅 A semana em cartaz — agenda até quinta (automático)</option>
+              <option value="frase-celebre">✨ Entre mestres — frase de um grande nome (automático)</option>
               <option value="cartaz">🎭 Cartaz / divulgação de peça</option>
               <option value="patrocinio">💰 Página patrocinada</option>
               <option value="livre">📄 Página livre</option>
@@ -2353,10 +2355,12 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   /* ================= REVISTA (chefe) ================= */
   var RV = { ed: null, sha: null, idx: null, mats: null };
   var RV_IC = { materia:'📰', exclusiva:'⭐', editorial:'✍', citacao:'❝', cartaz:'🎭',
-                patrocinio:'💰', livre:'📄', expediente:'👥', programas:'📺' };
+                patrocinio:'💰', livre:'📄', expediente:'👥', programas:'📺',
+                agenda:'📅', 'frase-celebre':'✨' };
   var RV_NOME = { materia:'Matéria da semana', exclusiva:'Exclusivo', editorial:'Editorial',
                   citacao:'Citação', cartaz:'Cartaz / divulgação', patrocinio:'Patrocinada',
-                  livre:'Página livre', expediente:'Expediente', programas:'Na tela — programas da semana' };
+                  livre:'Página livre', expediente:'Expediente', programas:'Na tela — programas da semana',
+                  agenda:'A semana em cartaz (agenda)', 'frase-celebre':'Entre mestres (frase célebre)' };
 
   function carregarEdicoes(){
     var el = $('rv-lista');
@@ -2519,7 +2523,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       campos = '<div><label>Rótulo (opcional)</label><input type="text" id="pgf-rotulo" value="' + esc(d.rotulo || '') + '"></div>' +
         '<div><label>Título</label><input type="text" id="pgf-titulo" value="' + esc(d.titulo || '') + '"></div>' +
         '<div><label>Texto</label><textarea id="pgf-texto" rows="8">' + esc(d.texto || '') + '</textarea></div>';
-    } else if(tipo === 'expediente' || tipo === 'programas'){
+    } else if(tipo === 'expediente' || tipo === 'programas' || tipo === 'agenda' || tipo === 'frase-celebre'){
       RV.ed.paginas.push({ tipo: tipo });
       renderPgs();
       return;

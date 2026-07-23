@@ -71,6 +71,8 @@ nova edição é o maior existente + 1. O site gera `revista-ed-<numero>.html`
   {"tipo": "materia", "slug": "slug-no-site", "cat": "Teatro", "img": "…", "titulo": "…", "chamada": "linha fina", "texto": "olho opcional (1 parágrafo) — o corpo completo entra sozinho"},
   {"tipo": "exclusiva", "titulo": "…", "texto": "…", "img": "…", "imgCredito": "Foto: …"},
   {"tipo": "programas"},
+  {"tipo": "agenda"},
+  {"tipo": "frase-celebre"},
   {"tipo": "citacao", "frase": "…", "autor": "…"},
   {"tipo": "cartaz", "img": "…", "legenda": "…", "link": "https://…"},
   {"tipo": "patrocinio", "img": "…", "legenda": "…", "link": "https://…"},
@@ -96,17 +98,27 @@ nova edição é o maior existente + 1. O site gera `revista-ed-<numero>.html`
    mais novo de cada programa do canal (últimos 14 dias), clicável direto
    para o YouTube. Incluir SEMPRE, intercalada entre as matérias (depois da
    2ª ou 3ª). Não tem campos.
-5. **1 página de citação** — a melhor frase REAL da semana (de matéria ou
+5. **A semana em cartaz** — `{"tipo": "agenda"}`: página automática com os
+   eventos reais em cartaz de hoje a quinta que vem (extraídos do campo
+   evento das matérias). Incluir SEMPRE, depois das matérias. Não tem campos.
+6. **Entre mestres** — `{"tipo": "frase-celebre"}`: página exclusiva com uma
+   frase REAL e verificada de um grande nome das artes ou da filosofia
+   (Shakespeare, Wilde, Nietzsche, Victor Hugo, Molière, Stanislavski,
+   Suassuna, Nelson Rodrigues), rotativa por edição. Incluir SEMPRE. Sem
+   campos (ou frase/autor/sobre manuais, DESDE QUE a citação seja real e
+   com fonte, nunca inventada).
+7. **1 página de citação** — a melhor frase REAL da semana (de matéria ou
    entrevista), com atribuição.
-6. **1 exclusiva** (opcional, se houver material): análise ou panorama da
+   (Opcional) **1 exclusiva**, se houver material: análise ou panorama da
    semana escrito para a revista, no padrão profissional do FOYER
    (ver tools/REDACAO.md — nunca inventar fatos).
-7. **Cartazes/patrocínio** — NUNCA criar: só o chefe sobe. Se já existirem
+8. **Cartazes/patrocínio** — NUNCA criar: só o chefe sobe. Se já existirem
    páginas desses tipos na edição, preservá-las na ordem.
-8. **Expediente** — última página, `{"tipo": "expediente"}`.
+9. **Expediente** — última página, `{"tipo": "expediente"}`.
 
 Ritmo bom: capa → editorial → 2 matérias fortes → Na tela → mais matérias →
-citação como respiro → cartazes → expediente.
+A semana em cartaz → citação como respiro → Entre mestres → cartazes →
+expediente.
 
 ## Ao polir uma edição existente ("deixe incrível")
 
