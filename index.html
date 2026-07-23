@@ -24,6 +24,45 @@
 </head>
 <body>
 
+<div id="abre" hidden>
+<style>
+#abre{ position:fixed; inset:0; z-index:999; background:#380A06; opacity:1; transition:opacity .5s; }
+#abre.sai{ opacity:0; pointer-events:none; }
+#abre svg.fundo{ position:absolute; inset:0; width:100%; height:100%; }
+#abre .marca{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center;
+  justify-content:center; z-index:2; }
+#abre.alto .marca{ justify-content:flex-start; padding-top:64px; }
+#abre .marca img{ width:150px; filter:drop-shadow(0 4px 22px rgba(0,0,0,.55)); }
+#abre .marca span{ margin-top:18px; font-family:var(--mono); font-weight:600; font-size:.6rem;
+  letter-spacing:.34em; text-transform:uppercase; color:#CEB26A; text-align:center; padding:0 20px; }
+</style>
+<svg width="0" height="0" style="position:absolute">
+<defs>
+<filter id="ab-gr"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+<pattern id="ab-cab" width="62" height="44" patternUnits="userSpaceOnUse"><circle cx="31" cy="28" r="16" fill="#170606"/></pattern>
+<pattern id="ab-lmp" width="46" height="46" patternUnits="userSpaceOnUse"><circle cx="23" cy="23" r="6" fill="#CEB26A"/></pattern>
+<symbol id="ab-1" viewBox="0 0 390 844" preserveAspectRatio="xMidYMid slice"><rect width="390" height="844" fill="#380A06"/><polygon points="195,-40 30,844 360,844" fill="#E9CB85" opacity=".18"/><ellipse cx="195" cy="800" rx="150" ry="26" fill="#E9CB85" opacity=".3"/><circle cx="195" cy="690" r="26" fill="#120505"/><rect x="164" y="719" width="62" height="95" rx="10" fill="#120505"/><rect width="390" height="844" filter="url(#ab-gr)" opacity=".12"/></symbol>
+<symbol id="ab-2" viewBox="0 0 390 844" preserveAspectRatio="xMidYMid slice"><rect width="390" height="844" fill="#4E0F09"/><rect x="10" width="18" height="844" fill="#380A06"/><rect x="54" width="22" height="844" fill="#380A06"/><rect x="100" width="16" height="844" fill="#380A06"/><rect x="142" width="24" height="844" fill="#380A06"/><rect x="192" width="18" height="844" fill="#380A06"/><rect x="234" width="22" height="844" fill="#380A06"/><rect x="280" width="16" height="844" fill="#380A06"/><rect x="322" width="24" height="844" fill="#380A06"/><rect x="366" width="18" height="844" fill="#380A06"/><rect width="390" height="90" fill="#E9CB85" opacity=".14"/><rect y="760" width="390" height="14" fill="#CEB26A" opacity=".85"/><rect width="390" height="844" filter="url(#ab-gr)" opacity=".12"/></symbol>
+<symbol id="ab-3" viewBox="0 0 390 844" preserveAspectRatio="xMidYMid slice"><rect width="390" height="844" fill="#380A06"/><ellipse cx="195" cy="180" rx="300" ry="200" fill="#E9CB85" opacity=".13"/><rect y="560" width="390" height="284" fill="url(#ab-cab)"/><circle cx="217" cy="644" r="16" fill="#CEB26A"/><rect width="390" height="844" filter="url(#ab-gr)" opacity=".12"/></symbol>
+<symbol id="ab-4" viewBox="0 0 390 844" preserveAspectRatio="xMidYMid slice"><rect width="390" height="844" fill="#380A06"/><rect width="390" height="56" fill="url(#ab-lmp)" opacity=".9"/><rect y="788" width="390" height="56" fill="url(#ab-lmp)" opacity=".9"/><rect x="36" y="250" width="318" height="344" fill="none" stroke="#CEB26A" stroke-width="3"/><rect x="36" y="250" width="318" height="344" fill="#E9CB85" opacity=".08"/><rect width="390" height="844" filter="url(#ab-gr)" opacity=".12"/></symbol>
+<symbol id="ab-5" viewBox="0 0 390 844" preserveAspectRatio="xMidYMid slice"><rect width="390" height="844" fill="#380A06"/><rect x="62" width="4" height="844" fill="#CEB26A" opacity=".55"/><rect x="134" width="4" height="844" fill="#CEB26A" opacity=".4"/><rect x="206" width="4" height="844" fill="#CEB26A" opacity=".55"/><rect x="278" width="4" height="844" fill="#CEB26A" opacity=".4"/><rect x="336" width="4" height="844" fill="#CEB26A" opacity=".55"/><rect x="50" y="420" width="34" height="66" fill="#CEB26A" opacity=".32"/><rect x="194" y="240" width="34" height="66" fill="#CEB26A" opacity=".32"/><rect x="322" y="560" width="34" height="66" fill="#CEB26A" opacity=".32"/><rect width="390" height="844" filter="url(#ab-gr)" opacity=".12"/></symbol>
+<symbol id="ab-6" viewBox="0 0 390 844" preserveAspectRatio="xMidYMid slice"><rect width="390" height="844" fill="#380A06"/><circle cx="195" cy="320" r="34" fill="#E9CB85" opacity=".18"/><circle cx="195" cy="460" r="34" fill="#E9CB85" opacity=".38"/><circle cx="195" cy="650" r="46" fill="#CEB26A"/><g stroke="#E9CB85" stroke-width="3" opacity=".7"><line x1="195" y1="560" x2="195" y2="530"/><line x1="131" y1="586" x2="110" y2="565"/><line x1="259" y1="586" x2="280" y2="565"/><line x1="105" y1="650" x2="75" y2="650"/><line x1="285" y1="650" x2="315" y2="650"/></g><rect width="390" height="844" filter="url(#ab-gr)" opacity=".12"/></symbol>
+</defs>
+</svg>
+<svg class="fundo" viewBox="0 0 390 844" preserveAspectRatio="xMidYMid slice"><use id="abre-use" href="#ab-1"/></svg>
+<div class="marca"><img src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER"><span class="abre-frase">O saguão do teatro brasileiro</span></div>
+</div>
+<script>(function(){try{
+  var el = document.getElementById('abre');
+  var app = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  if(!app || sessionStorage.getItem('foyer-abriu')){ el.remove(); return; }
+  sessionStorage.setItem('foyer-abriu', '1');
+  var n = 1 + Math.floor(Math.random() * 6);
+  document.getElementById('abre-use').setAttribute('href', '#ab-' + n);
+  if(n === 6){ el.classList.add('alto'); el.querySelector('.abre-frase').textContent = 'Terceiro sinal: vai começar'; }
+  el.hidden = false;
+  setTimeout(function(){ el.classList.add('sai'); setTimeout(function(){ el.remove(); }, 550); }, 1400);
+}catch(e){}})();</script>
 <!-- artes de palco (placeholders de foto e capas da revista) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
