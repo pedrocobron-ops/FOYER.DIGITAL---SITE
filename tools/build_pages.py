@@ -39,6 +39,7 @@ def head(title, desc, og_img=None, og_type='website', og_url='', ld=''):
 <meta name="twitter:card" content="summary_large_image">
 <title>{t}</title>
 <link rel="canonical" href="{url}">
+<link rel="alternate" type="application/rss+xml" title="FOYER — Últimas" href="{BASE}/feed.xml">
 <link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
 <link rel="stylesheet" href="assets/site.css">
 {ORG_LD}{ld}
@@ -2242,7 +2243,7 @@ if ED_PUB:
     print(f'• {len(ED_PUB)} edição(ões) da revista no ar')
 
 # coxia: página sem nav de seções (área restrita) — cabeçalho mínimo
-coxia_html = (head('Coxia — FOYER', 'Área restrita da redação do Foyer.')
+coxia_html = (head('Coxia — FOYER', 'Área restrita da redação do Foyer.').replace('</head>', '<meta name="robots" content="noindex,nofollow"></head>')
               + '\n' + coxia_body.replace('__TOTAL__', str(len(MATERIAS))) + '\n'
               + '<script src="assets/site.js"></script></body>\n</html>\n')
 with open(os.path.join(ROOT, 'coxia.html'), 'w') as f:
@@ -2294,6 +2295,26 @@ with open(os.path.join(ROOT, 'sitemap-news.xml'), 'w') as f:
                 '<news:publication_date>' + p.get('iso', _hoje_sm) + '</news:publication_date>'
                 '<news:title>' + _html.escape(p['title']) + '</news:title></news:news></url>\n')
     f.write('</urlset>\n')
+from email.utils import format_datetime as _fmt822
+with open(os.path.join(ROOT, 'feed.xml'), 'w') as f:
+    f.write('<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel>'
+            '<title>FOYER</title><link>' + BASE + '/</link>'
+            '<description>Jornalismo de teatro, música e cultura</description>'
+            '<language>pt-BR</language>\n')
+    for p in MATERIAS[:30]:
+        try:
+            _dt = datetime.fromisoformat(p['iso'] + 'T09:00:00+00:00')
+            _pub = _fmt822(_dt)
+        except Exception:
+            _pub = ''
+        f.write('<item><title>' + _html.escape(p['title']) + '</title>'
+                '<link>' + BASE + '/post-' + p['slug'] + '.html</link>'
+                '<guid>' + BASE + '/post-' + p['slug'] + '.html</guid>'
+                '<description>' + _html.escape(p['desc'][:220]) + '</description>'
+                '<category>' + _html.escape(p.get('cat', '')) + '</category>'
+                + (f'<pubDate>{_pub}</pubDate>' if _pub else '') + '</item>\n')
+    f.write('</channel></rss>\n')
+
 with open(os.path.join(ROOT, 'robots.txt'), 'w') as f:
     f.write(f'User-agent: *\nAllow: /\nDisallow: /coxia.html\n\n'
             f'Sitemap: {BASE}/sitemap.xml\nSitemap: {BASE}/sitemap-news.xml\n')
