@@ -736,7 +736,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             <div><label>Chamadas de capa (uma por linha)</label><textarea id="rv-chamadas" rows="3" placeholder="Crítica: a estreia da semana&#10;Exclusivo: entrevista com…&#10;Agenda: 12 estreias"></textarea></div>
           </div>
 
-          <div class="sec-h"><h3>Páginas da edição</h3><span>arraste a ordem com ↑ ↓ — a capa é sempre a página 1</span></div>
+          <div class="sec-h"><h3>Páginas da edição</h3><span>ordem com ↑ ↓ — a capa é a página 1 e o Sumário é montado sozinho como página 2</span></div>
           <div class="fila" id="rv-pgs"></div>
 
           <div class="rv-add">
@@ -745,6 +745,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
               <option value="exclusiva">⭐ Conteúdo exclusivo da revista</option>
               <option value="editorial">✍ Editorial / carta do editor</option>
               <option value="citacao">❝ Página de citação</option>
+              <option value="programas">📺 Na tela — programas da semana (automático)</option>
               <option value="cartaz">🎭 Cartaz / divulgação de peça</option>
               <option value="patrocinio">💰 Página patrocinada</option>
               <option value="livre">📄 Página livre</option>
@@ -2256,10 +2257,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   /* ================= REVISTA (chefe) ================= */
   var RV = { ed: null, sha: null, idx: null, mats: null };
   var RV_IC = { materia:'📰', exclusiva:'⭐', editorial:'✍', citacao:'❝', cartaz:'🎭',
-                patrocinio:'💰', livre:'📄', expediente:'👥' };
+                patrocinio:'💰', livre:'📄', expediente:'👥', programas:'📺' };
   var RV_NOME = { materia:'Matéria da semana', exclusiva:'Exclusivo', editorial:'Editorial',
                   citacao:'Citação', cartaz:'Cartaz / divulgação', patrocinio:'Patrocinada',
-                  livre:'Página livre', expediente:'Expediente' };
+                  livre:'Página livre', expediente:'Expediente', programas:'Na tela — programas da semana' };
 
   function carregarEdicoes(){
     var el = $('rv-lista');
@@ -2422,8 +2423,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       campos = '<div><label>Rótulo (opcional)</label><input type="text" id="pgf-rotulo" value="' + esc(d.rotulo || '') + '"></div>' +
         '<div><label>Título</label><input type="text" id="pgf-titulo" value="' + esc(d.titulo || '') + '"></div>' +
         '<div><label>Texto</label><textarea id="pgf-texto" rows="8">' + esc(d.texto || '') + '</textarea></div>';
-    } else if(tipo === 'expediente'){
-      RV.ed.paginas.push({ tipo: 'expediente' });
+    } else if(tipo === 'expediente' || tipo === 'programas'){
+      RV.ed.paginas.push({ tipo: tipo });
       renderPgs();
       return;
     }

@@ -1532,128 +1532,324 @@ EDICOES.sort(key=lambda e: e.get('numero', 0), reverse=True)
 ED_PUB = [e for e in EDICOES if e.get('status') == 'publicada']
 
 _RV_CSS = '''<style>
-.rv-stage{ max-width:900px; margin:26px auto 90px; padding:0 16px; }
-.rv-pg{ display:none; border:2.5px solid var(--ink); background:var(--paper); min-height:74vh;
-  position:relative; overflow:hidden; animation:rvin .3s ease; }
-.rv-pg.on{ display:block; }
-@keyframes rvin{ from{ opacity:0; transform:translateX(14px);} to{ opacity:1; transform:none;} }
-.rv-rotulo{ display:inline-block; font-family:var(--mono); font-size:.58rem; font-weight:600;
-  letter-spacing:.22em; text-transform:uppercase; border:1.5px solid var(--ink); padding:6px 12px;
-  margin-bottom:18px; background:var(--gold); color:var(--wine); }
-.rv-pad{ padding:clamp(22px,5vw,52px); }
-.rv-pg h3{ font-family:var(--didone); font-weight:400; font-size:clamp(1.6rem,3.6vw,2.6rem);
-  line-height:1.05; margin:0 0 18px; }
-.rv-pg .art-body p{ margin:0 0 14px; line-height:1.85; }
-.rv-capa{ background:var(--wine); color:var(--gold); }
-.rv-capa .rv-capa-top{ display:flex; justify-content:space-between; align-items:center; gap:12px;
-  padding:18px 24px; border-bottom:1.5px solid var(--gold); font-family:var(--mono); font-size:.6rem;
-  letter-spacing:.2em; text-transform:uppercase; flex-wrap:wrap; }
-.rv-capa img.rv-capa-img{ width:100%; max-height:44vh; object-fit:cover; display:block;
-  border-bottom:1.5px solid var(--gold); }
-.rv-capa .rv-manchete{ font-family:var(--didone); font-weight:400;
-  font-size:clamp(2rem,5.4vw,3.6rem); line-height:.98; padding:26px 24px 8px; margin:0; }
-.rv-capa .rv-chamadas{ list-style:none; margin:0; padding:10px 24px 28px; }
-.rv-capa .rv-chamadas li{ font-family:var(--mono); font-size:.72rem; letter-spacing:.08em;
-  text-transform:uppercase; padding:9px 0; border-top:1px solid rgba(206,178,106,.35); }
-.rv-img{ width:100%; max-height:46vh; object-fit:cover; display:block; border-bottom:2px solid var(--ink); }
-.rv-cred{ position:absolute; right:0; top:0; background:var(--ink); color:var(--gold);
-  font-family:var(--mono); font-size:.52rem; letter-spacing:.1em; text-transform:uppercase; padding:5px 10px; }
-.rv-cartaz{ display:flex; flex-direction:column; }
-.rv-cartaz img{ width:100%; flex:1; object-fit:contain; background:var(--paper-2); max-height:64vh; }
-.rv-cartaz .rv-leg{ padding:16px 22px; border-top:2px solid var(--ink); font-family:var(--mono);
-  font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; }
-.rv-citacao{ background:var(--wine); color:var(--gold); display:flex; flex-direction:column;
-  align-items:center; justify-content:center; text-align:center; padding:8vh 8vw; }
-.rv-citacao .fr{ font-family:var(--didone); font-size:clamp(1.6rem,4.4vw,3rem); line-height:1.15; }
-.rv-citacao .au{ font-family:var(--mono); font-size:.64rem; letter-spacing:.2em;
-  text-transform:uppercase; margin-top:26px; }
-.rv-ass{ font-family:var(--mono); font-size:.66rem; letter-spacing:.14em; text-transform:uppercase;
-  margin-top:26px; }
-.rv-leia{ display:inline-block; margin-top:18px; border:2px solid var(--wine); background:var(--wine);
-  color:var(--gold); text-decoration:none; font-family:var(--mono); font-weight:600; font-size:.62rem;
-  letter-spacing:.16em; text-transform:uppercase; padding:12px 18px; }
-.rv-leia:hover{ background:var(--gold); color:var(--wine); border-color:var(--gold); }
+/* ============ A REVISTA — leitor em formato de página impressa ============ */
+.rv-stage{ max-width:740px; margin:26px auto 90px; padding:0 14px; }
+.rv-pg{ display:none; border:3px solid var(--ink); background:var(--paper);
+  aspect-ratio:3/4.05; position:relative; overflow:hidden; animation:rvin .3s ease; }
+.rv-pg.on{ display:flex; flex-direction:column; }
+@keyframes rvin{ from{ opacity:0; transform:translateX(16px);} to{ opacity:1; transform:none;} }
+.rv-folio{ position:absolute; left:0; right:0; bottom:0; display:flex; justify-content:space-between;
+  align-items:center; padding:10px 22px; border-top:1.5px solid var(--line);
+  font-family:var(--mono); font-size:.52rem; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--ink-soft); background:var(--paper); z-index:5; }
+.rv-folio b{ font-family:var(--didone); font-weight:400; font-size:1.05rem; color:var(--ink); }
+.rv-kicker{ display:flex; justify-content:space-between; align-items:center;
+  border-bottom:2px solid var(--ink); padding:12px 22px; font-family:var(--mono);
+  font-size:.54rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; }
+.rv-kicker .tagz{ background:var(--wine); color:var(--gold); padding:4px 10px; }
+
+/* ---------- CAPA ---------- */
+.rv-capa2{ background:var(--wine); }
+.rv-capa2 .bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  object-position:center 20%; }
+.rv-capa2 .veu{ position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(35,8,5,.55) 0%, rgba(35,8,5,0) 30%,
+    rgba(35,8,5,0) 45%, rgba(35,8,5,.88) 82%, rgba(35,8,5,.96) 100%); }
+.rv-capa2 .nameplate{ position:relative; z-index:3; padding:20px 22px 0; }
+.rv-capa2 .nameplate img{ width:100%; display:block;
+  filter:drop-shadow(0 2px 14px rgba(0,0,0,.55)); }
+.rv-capa2 .linha-ed{ position:relative; z-index:3; display:flex; justify-content:space-between;
+  padding:9px 22px; font-family:var(--mono); font-size:.55rem; font-weight:600;
+  letter-spacing:.24em; text-transform:uppercase; color:var(--gold);
+  text-shadow:0 1px 3px rgba(0,0,0,.9), 0 0 12px rgba(0,0,0,.6); }
+.rv-capa2 .calls{ position:absolute; right:0; top:26%; z-index:3; display:flex;
+  flex-direction:column; gap:8px; align-items:flex-end; max-width:56%; }
+.rv-capa2 .calls span{ background:rgba(35,8,5,.82); border:1.5px solid var(--gold);
+  border-right:0; color:var(--paper); font-family:var(--mono); font-size:.56rem;
+  letter-spacing:.1em; text-transform:uppercase; padding:8px 14px; text-align:right; }
+.rv-capa2 .manchete{ position:absolute; left:0; right:0; bottom:64px; z-index:3;
+  padding:0 22px; }
+.rv-capa2 .manchete em{ display:block; font-style:normal; font-family:var(--mono);
+  font-size:.58rem; font-weight:600; letter-spacing:.3em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:8px; }
+.rv-capa2 .manchete h2{ font-family:var(--didone); font-weight:400; color:#fff;
+  font-size:clamp(2rem,6.4vw,3.4rem); line-height:.98; margin:0;
+  text-shadow:0 2px 18px rgba(0,0,0,.6); }
+.rv-capa2 .rodape-capa{ position:absolute; left:0; right:0; bottom:0; z-index:4;
+  display:flex; justify-content:space-between; align-items:center; padding:10px 22px;
+  border-top:1.5px solid var(--gold); background:rgba(35,8,5,.85); color:var(--gold);
+  font-family:var(--mono); font-size:.52rem; letter-spacing:.2em; text-transform:uppercase; }
+.rv-barcode{ width:74px; height:26px; background:repeating-linear-gradient(90deg,
+  var(--gold) 0 2px, transparent 2px 4px, var(--gold) 4px 5px, transparent 5px 8px,
+  var(--gold) 8px 11px, transparent 11px 13px); }
+
+/* ---------- SUMÁRIO ---------- */
+.rv-sum{ background:var(--paper); }
+.rv-sum .cab{ padding:26px 22px 14px; border-bottom:3px solid var(--ink); position:relative; }
+.rv-sum .cab h3{ font-family:var(--didone); font-weight:400; font-size:2.6rem; margin:0; line-height:1; }
+.rv-sum .cab span{ font-family:var(--mono); font-size:.54rem; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--ink-soft); }
+.rv-sum .arte{ position:absolute; right:16px; top:14px; width:84px; height:60px;
+  border:2px solid var(--ink); opacity:.9; }
+.rv-sum ol{ list-style:none; margin:0; padding:8px 0 60px; flex:1; overflow:auto; }
+.rv-sum li{ display:grid; grid-template-columns:64px 1fr; gap:14px; align-items:baseline;
+  padding:10px 22px; border-bottom:1px solid var(--line); }
+.rv-sum .pnum{ font-family:var(--didone); font-size:1.7rem; color:var(--wine); text-align:right; }
+html[data-theme="dark"] .rv-sum .pnum{ color:var(--gold); }
+.rv-sum .pt{ font-weight:800; text-transform:uppercase; font-size:.82rem; line-height:1.25; }
+.rv-sum .ps{ display:block; font-family:var(--mono); font-size:.54rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-soft); margin-top:3px; }
+
+/* ---------- EDITORIAL ---------- */
+.rv-edi{ }
+.rv-edi .miolo{ padding:26px 30px 64px; flex:1; overflow:auto; }
+.rv-edi h3{ font-family:var(--didone); font-weight:400; font-size:2rem; line-height:1.05;
+  margin:0 0 18px; }
+.rv-edi .txt{ column-count:2; column-gap:26px; column-rule:1px solid var(--line);
+  font-size:.8rem; line-height:1.75; text-align:justify; hyphens:auto; }
+.rv-edi .txt p{ margin:0 0 12px; }
+.rv-edi .txt p:first-child::first-letter{ font-family:var(--didone); font-size:3.1em;
+  float:left; line-height:.8; padding:4px 8px 0 0; color:var(--wine); }
+.rv-edi .miolo{ display:flex; flex-direction:column; }
+.rv-edi .arte-edi{ margin-top:auto; width:100%; height:200px; border:2px solid var(--ink);
+  opacity:.9; }
+.rv-edi .ass{ font-family:var(--mono); font-size:.6rem; letter-spacing:.18em;
+  text-transform:uppercase; margin-top:16px; }
+
+/* ---------- MATÉRIA ---------- */
+.rv-mat .foto{ position:relative; height:44%; flex-shrink:0; border-bottom:3px solid var(--ink); }
+.rv-mat .foto img{ width:100%; height:100%; object-fit:cover; object-position:center 22%; }
+.rv-mat .foto .cat{ position:absolute; left:0; top:0; background:var(--gold); color:var(--wine);
+  font-family:var(--mono); font-size:.56rem; font-weight:700; letter-spacing:.22em;
+  text-transform:uppercase; padding:7px 14px; border-right:2px solid var(--ink);
+  border-bottom:2px solid var(--ink); }
+.rv-mat .miolo{ padding:18px 24px 60px; flex:1; overflow:auto; display:flex; flex-direction:column; }
+.rv-mat h3{ font-family:var(--didone); font-weight:400; font-size:clamp(1.4rem,3.4vw,1.9rem);
+  line-height:1.02; margin:0 0 10px; }
+.rv-mat .linhafina{ font-size:.9rem; line-height:1.5; color:var(--ink);
+  border-left:4px solid var(--gold); padding-left:12px; margin:0 0 14px; }
+.rv-mat .txt{ column-count:2; column-gap:22px; column-rule:1px solid var(--line);
+  font-size:.76rem; line-height:1.7; text-align:justify; hyphens:auto; }
+.rv-mat .txt p{ margin:0 0 10px; }
+.rv-mat .leia{ margin-top:auto; padding-top:12px; }
+.rv-mat .leia a{ display:inline-block; border:2px solid var(--wine); background:var(--wine);
+  color:var(--gold); text-decoration:none; font-family:var(--mono); font-weight:600;
+  font-size:.56rem; letter-spacing:.18em; text-transform:uppercase; padding:10px 16px; }
+.rv-mat .leia a:hover{ background:var(--gold); color:var(--wine); }
+
+/* ---------- NA TELA (programas da semana) ---------- */
+.rv-tela{ background:var(--wine); color:var(--paper); }
+.rv-tela .cab{ padding:24px 22px 12px; border-bottom:2px solid var(--gold); }
+.rv-tela .cab em{ display:block; font-style:normal; font-family:var(--mono); font-size:.54rem;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--gold); }
+.rv-tela .cab h3{ font-family:var(--didone); font-weight:400; color:var(--gold);
+  font-size:2.4rem; margin:4px 0 0; line-height:1; }
+.rv-tela .grade{ flex:1; overflow:auto; display:grid; grid-template-columns:1fr 1fr;
+  gap:12px; padding:16px 22px 60px; align-content:start; }
+.rv-tela .ep{ border:2px solid var(--gold); text-decoration:none; color:var(--paper);
+  background:rgba(0,0,0,.25); display:block; }
+.rv-tela .ep img{ width:100%; aspect-ratio:16/9; object-fit:cover; display:block;
+  border-bottom:2px solid var(--gold); }
+.rv-tela .ep .pr{ font-family:var(--mono); font-size:.5rem; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--gold); padding:8px 10px 2px; display:block; }
+.rv-tela .ep .tt{ font-size:.68rem; font-weight:700; line-height:1.3; padding:0 10px 10px; display:block; }
+.rv-tela .ep:hover{ background:rgba(206,178,106,.15); }
+.rv-tela .canal-cta{ padding:0 22px 54px; }
+.rv-tela .canal-cta a{ display:inline-block; border:2px solid var(--gold); color:var(--gold);
+  text-decoration:none; font-family:var(--mono); font-size:.58rem; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase; padding:11px 18px; }
+.rv-tela .canal-cta a:hover{ background:var(--gold); color:var(--wine); }
+.rv-tela .rv-folio{ background:var(--wine); color:var(--gold); border-top-color:var(--gold); }
+.rv-tela .rv-folio b{ color:var(--gold); }
+
+/* ---------- CITAÇÃO ---------- */
+.rv-cit{ background:var(--wine); color:var(--gold); align-items:center; justify-content:center;
+  text-align:center; padding:8% 9%; }
+.rv-cit .aspa{ font-family:var(--didone); font-size:7rem; line-height:.6; opacity:.5; }
+.rv-cit .fr{ font-family:var(--didone); font-size:clamp(1.5rem,4.4vw,2.5rem); line-height:1.14; }
+.rv-cit .au{ font-family:var(--mono); font-size:.58rem; letter-spacing:.22em;
+  text-transform:uppercase; margin-top:26px; color:var(--paper); }
+.rv-cit .arte{ width:120px; height:80px; border:2px solid var(--gold); margin-top:30px; opacity:.85; }
+
+/* ---------- CARTAZ / PATROCÍNIO ---------- */
+.rv-cartaz{ }
+.rv-cartaz img{ flex:1; width:100%; object-fit:contain; background:var(--paper-2); min-height:0; }
+.rv-cartaz .rv-leg{ padding:12px 22px 42px; border-top:2px solid var(--ink);
+  font-family:var(--mono); font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; }
+.rv-pat{ outline:8px double var(--gold); outline-offset:-16px; }
+
+/* ---------- EXPEDIENTE ---------- */
+.rv-exp .miolo{ padding:26px 30px 64px; flex:1; overflow:auto; }
+.rv-exp img{ width:120px; margin-bottom:18px; }
+.rv-exp img.only-dark{ display:none; }
+:root[data-theme="dark"] .rv-exp img.only-light{ display:none; }
+:root[data-theme="dark"] .rv-exp img.only-dark{ display:inline-block; }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme]) .rv-exp img.only-light{ display:none; }
+  :root:not([data-theme]) .rv-exp img.only-dark{ display:inline-block; }
+}
+.rv-exp h4{ font-family:var(--mono); font-size:.56rem; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--ink-soft); margin:18px 0 6px; border-bottom:1px solid var(--line);
+  padding-bottom:4px; }
+.rv-exp ul{ list-style:none; margin:0; padding:0; line-height:2; font-size:.82rem; }
+.rv-exp p{ font-size:.72rem; line-height:1.8; color:var(--ink-soft); }
+
+/* ---------- PÁGINA LIVRE / EXCLUSIVA ---------- */
+.rv-livre .miolo{ padding:24px 28px 64px; flex:1; overflow:auto; }
+.rv-livre h3{ font-family:var(--didone); font-weight:400; font-size:1.9rem; line-height:1.05; margin:0 0 12px; }
+.rv-livre .txt{ column-count:2; column-gap:24px; column-rule:1px solid var(--line);
+  font-size:.78rem; line-height:1.72; text-align:justify; hyphens:auto; }
+.rv-livre .txt p{ margin:0 0 11px; }
+
+/* ---------- NAVEGAÇÃO ---------- */
 .rv-nav{ position:sticky; bottom:18px; display:flex; justify-content:center; gap:8px; margin-top:18px; }
 .rv-nav button{ border:2px solid var(--ink); background:var(--paper); color:var(--ink); cursor:pointer;
-  font-family:var(--mono); font-weight:600; font-size:.66rem; letter-spacing:.12em;
-  text-transform:uppercase; padding:13px 18px; }
+  font-family:var(--mono); font-weight:600; font-size:.64rem; letter-spacing:.12em;
+  text-transform:uppercase; padding:12px 16px; }
 .rv-nav button:hover{ background:var(--ink); color:var(--gold); }
 .rv-nav .ct{ border:2px solid var(--ink); background:var(--gold); color:var(--wine);
-  font-family:var(--mono); font-weight:600; font-size:.66rem; letter-spacing:.12em; padding:13px 16px; }
-.rv-pat{ outline:6px double var(--gold); outline-offset:-14px; }
+  font-family:var(--mono); font-weight:600; font-size:.64rem; letter-spacing:.12em; padding:12px 14px; }
+@media (max-width:560px){
+  .rv-edi .txt, .rv-mat .txt, .rv-livre .txt{ column-count:1; }
+  .rv-capa2 .calls{ max-width:70%; }
+}
 @media print{
-  .rv-pg{ display:block !important; min-height:96vh; page-break-after:always; border-width:0 0 2px; }
+  .rv-pg{ display:flex !important; page-break-after:always; border-width:0; aspect-ratio:auto; min-height:96vh; }
   .rv-nav, nav.main, .ticker, footer, .warn{ display:none !important; }
 }
 </style>'''
 
-def _rv_pagina(pg, ed):
+def _rv_folio(ed, num, escuro=False):
+    return (f'<div class="rv-folio"><span>FOYER · A REVISTA · Nº {_rvesc(ed.get("numero"))}</span>'
+            f'<b>{num}</b><span>{_rvesc(ed.get("dataEdicao", ""))}</span></div>')
+
+_RV_ARTES = ['ph-1', 'ph-2', 'ph-3', 'ph-4', 'ph-5', 'ph-6']
+
+def _rv_rotulo_sumario(pg):
+    t = pg.get('tipo')
+    if t == 'editorial': return (pg.get('titulo') or 'Carta ao leitor', 'Editorial')
+    if t == 'materia': return (pg.get('titulo', ''), 'A semana · ' + (pg.get('cat') or 'FOYER'))
+    if t == 'exclusiva': return (pg.get('titulo', ''), 'Exclusivo da revista')
+    if t == 'programas': return ('Na tela: os programas da semana', 'YouTube do FOYER')
+    if t == 'citacao': return ('A frase da semana', 'Entre aspas')
+    if t == 'cartaz': return (pg.get('legenda') or 'Cartaz', 'Divulgação')
+    if t == 'patrocinio': return (pg.get('legenda') or 'Página patrocinada', 'Publicidade')
+    if t == 'expediente': return ('Expediente', 'Quem faz o FOYER')
+    return (pg.get('titulo', 'Página'), pg.get('rotulo', ''))
+
+def _rv_pagina(pg, ed, num):
     t = pg.get('tipo', 'livre')
+    fol = _rv_folio(ed, num)
     if t == 'editorial':
-        return ('<div class="rv-pad"><span class="rv-rotulo">Editorial</span>'
+        arte_edi = _RV_ARTES[(int(ed.get('numero', 1)) + 2) % len(_RV_ARTES)]
+        return (f'<section class="rv-pg rv-edi"><div class="rv-kicker"><span class="tagz">Editorial</span>'
+                f'<span>Carta ao leitor</span></div><div class="miolo">'
                 f'<h3>{_rvesc(pg.get("titulo"))}</h3>'
-                f'<div class="art-body">{md_lite(pg.get("texto",""))}</div>'
-                f'<p class="rv-ass">— {_rvesc(pg.get("assinatura") or "A direção do FOYER")}</p></div>')
+                f'<div class="txt">{md_lite(pg.get("texto", ""))}</div>'
+                f'<p class="ass">{_rvesc(pg.get("assinatura") or "A direção do FOYER")}</p>'
+                f'<svg class="arte-edi" viewBox="0 0 600 400" preserveAspectRatio="none">'
+                f'<use href="#{arte_edi}"/></svg>'
+                f'</div>{fol}</section>')
     if t == 'materia':
-        img = f'<img class="rv-img" src="{_rvesc(wiximg(pg.get("img",""), 1200, 500))}" alt="" onerror="this.style.display=\'none\'">' if pg.get('img') else ''
-        return (img + '<div class="rv-pad">'
-                f'<span class="rv-rotulo">{_rvesc(pg.get("cat") or "Na semana do FOYER")}</span>'
+        img = (f'<div class="foto"><img src="{_rvesc(wiximg(pg.get("img", ""), 1200, 700))}" alt="" '
+               f'onerror="this.style.display=\'none\'"><span class="cat">{_rvesc(pg.get("cat") or "FOYER")}</span></div>'
+               ) if pg.get('img') else ''
+        leia = (f'<div class="leia"><a href="post-{_rvesc(pg.get("slug"))}.html">Leia a íntegra no site →</a></div>'
+                ) if pg.get('slug') else ''
+        return (f'<section class="rv-pg rv-mat">{img}<div class="miolo">'
                 f'<h3>{_rvesc(pg.get("titulo"))}</h3>'
-                f'<div class="art-body"><p>{_rvesc(pg.get("chamada",""))}</p>{md_lite(pg.get("texto",""))}</div>'
-                + (f'<a class="rv-leia" href="post-{_rvesc(pg.get("slug"))}.html">Leia a matéria completa no site →</a>' if pg.get('slug') else '')
-                + '</div>')
+                f'<p class="linhafina">{_rvesc(pg.get("chamada", ""))}</p>'
+                + (f'<div class="txt">{md_lite(pg.get("texto", ""))}</div>' if pg.get('texto') else '')
+                + leia + f'</div>{fol}</section>')
     if t == 'exclusiva':
-        cred = f'<span class="rv-cred">{_rvesc(pg.get("imgCredito"))}</span>' if pg.get('imgCredito') else ''
-        img = f'{cred}<img class="rv-img" src="{_rvesc(pg.get("img",""))}" alt="" onerror="this.style.display=\'none\'">' if pg.get('img') else ''
-        return (img + '<div class="rv-pad"><span class="rv-rotulo">Exclusivo da revista</span>'
-                f'<h3>{_rvesc(pg.get("titulo"))}</h3>'
-                f'<div class="art-body">{md_lite(pg.get("texto",""))}</div></div>')
+        return (f'<section class="rv-pg rv-livre"><div class="rv-kicker">'
+                f'<span class="tagz">Exclusivo da revista</span><span>Só aqui</span></div>'
+                f'<div class="miolo"><h3>{_rvesc(pg.get("titulo"))}</h3>'
+                f'<div class="txt">{md_lite(pg.get("texto", ""))}</div></div>{fol}</section>')
+    if t == 'programas':
+        _hoje7atras = (datetime.now(timezone.utc) - __import__('datetime').timedelta(days=8)).strftime('%Y-%m-%d')
+        _eps = _yt_videos(_yt_progs, 60)
+        _semana = [(q, n, v) for q, n, v in _eps if q >= _hoje7atras][:6] or _eps[:6]
+        cels = ''.join(
+            f'<a class="ep" href="{_rvesc(v["url"])}" target="_blank" rel="noopener">'
+            f'<img src="{_rvesc(v["thumb"])}" alt="" loading="lazy" '
+            f'onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/{_rvesc(v.get("id",""))}/mqdefault.jpg\'">'
+            f'<span class="pr">{_rvesc(n.split(" — ")[0])}</span>'
+            f'<span class="tt">{_rvesc(v["titulo"][:90])}</span></a>'
+            for q, n, v in _semana)
+        return (f'<section class="rv-pg rv-tela"><div class="cab"><em>O canal, esta semana</em>'
+                f'<h3>Na tela</h3></div><div class="grade">{cels}</div>'
+                '<div class="canal-cta"><a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">'
+                'Assista a tudo no canal do FOYER →</a></div>'
+                f'{_rv_folio(ed, num)}</section>')
     if t in ('cartaz', 'patrocinio'):
         rot = 'Publicidade' if t == 'patrocinio' else 'Divulgação'
         leg = _rvesc(pg.get('legenda', ''))
-        img = f'<img src="{_rvesc(pg.get("img",""))}" alt="{leg}">'
+        img = f'<img src="{_rvesc(pg.get("img", ""))}" alt="{leg}">'
         if pg.get('link'):
-            img = f'<a href="{_rvesc(pg["link"])}" target="_blank" rel="noopener sponsored">{img}</a>'
-        klass = 'rv-cartaz rv-pat' if t == 'patrocinio' else 'rv-cartaz'
-        return (f'<div class="{klass}" style="min-height:74vh">{img}'
-                f'<div class="rv-leg">{rot}{" — " + leg if leg else ""}</div></div>')
+            img = f'<a style="display:contents" href="{_rvesc(pg["link"])}" target="_blank" rel="noopener sponsored">{img}</a>'
+        klass = 'rv-pg rv-cartaz rv-pat' if t == 'patrocinio' else 'rv-pg rv-cartaz'
+        return f'<section class="{klass}">{img}<div class="rv-leg">{rot}{" — " + leg if leg else ""}</div>{fol}</section>'
     if t == 'citacao':
-        return ('<div class="rv-citacao">'
-                f'<div class="fr">“{_rvesc(pg.get("frase"))}”</div>'
-                f'<div class="au">{_rvesc(pg.get("autor",""))}</div></div>')
+        arte = _RV_ARTES[num % len(_RV_ARTES)]
+        return (f'<section class="rv-pg rv-cit"><div class="aspa">“</div>'
+                f'<div class="fr">{_rvesc(pg.get("frase"))}</div>'
+                f'<div class="au">{_rvesc(pg.get("autor", ""))}</div>'
+                f'<svg class="arte" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#{arte}"/></svg>'
+                f'</section>')
     if t == 'expediente':
         try:
             _eq = _json.load(open(os.path.join(ROOT, 'import/equipe.json'))).get('usuarios', [])
         except Exception:
             _eq = []
-        nomes = ''.join(f'<li>{_rvesc(u["nome"])} — {"Direção" if u.get("papel")=="chefe" else "Redação"}</li>' for u in _eq)
-        return ('<div class="rv-pad"><span class="rv-rotulo">Expediente</span>'
-                '<h3>FOYER — jornalismo de cultura</h3>'
-                f'<div class="art-body"><ul style="list-style:none;padding:0;line-height:2.4">{nomes}</ul>'
-                '<p>Matérias assinadas como Redação Foyer podem contar com apuração assistida por '
-                'inteligência artificial, sempre revisadas e aprovadas por um editor humano.</p>'
-                f'<p>foyer.digital — edição nº {_rvesc(pg.get("numero",""))}</p></div></div>')
-    # livre
-    return ('<div class="rv-pad">'
-            + (f'<span class="rv-rotulo">{_rvesc(pg.get("rotulo"))}</span>' if pg.get('rotulo') else '')
-            + f'<h3>{_rvesc(pg.get("titulo",""))}</h3>'
-            f'<div class="art-body">{md_lite(pg.get("texto",""))}</div></div>')
+        nomes = ''.join(f'<li><b>{_rvesc(u["nome"])}</b> · {"Direção e edição" if u.get("papel") == "chefe" else "Redação"}</li>' for u in _eq)
+        return (f'<section class="rv-pg rv-exp"><div class="rv-kicker"><span class="tagz">Expediente</span>'
+                f'<span>Nº {_rvesc(ed.get("numero"))}</span></div><div class="miolo">'
+                f'<img src="assets/logo/foyer-stacked-wine-sm.png" alt="FOYER" class="only-light">'
+                f'<img src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" class="only-dark">'
+                f'<h4>Quem faz</h4><ul>{nomes}</ul>'
+                f'<h4>Transparência</h4><p>Matérias assinadas como Redação Foyer podem contar com apuração '
+                f'assistida por inteligência artificial, sempre revisadas e aprovadas por um editor humano. '
+                f'Fotografias de divulgação, com crédito.</p>'
+                f'<h4>Fale conosco</h4><p>foyer.digital · programafoyer@gmail.com · YouTube @Foyer.digital</p>'
+                f'</div>{fol}</section>')
+    return (f'<section class="rv-pg rv-livre"><div class="rv-kicker">'
+            f'<span class="tagz">{_rvesc(pg.get("rotulo") or "FOYER")}</span><span></span></div>'
+            f'<div class="miolo"><h3>{_rvesc(pg.get("titulo", ""))}</h3>'
+            f'<div class="txt">{md_lite(pg.get("texto", ""))}</div></div>{fol}</section>')
 
 def edicao_page(ed):
     capa = ed.get('capa', {})
-    cimg = f'<img class="rv-capa-img" src="{_rvesc(capa.get("img",""))}" alt="" onerror="this.style.display=\'none\'">' if capa.get('img') else ''
-    chamadas = ''.join(f'<li>{_rvesc(c)}</li>' for c in (capa.get('chamadas') or []) if c.strip())
-    pgs = [(
-        '<section class="rv-pg rv-capa on">'
-        '<div class="rv-capa-top"><span>A Revista do FOYER</span>'
-        f'<span>Nº {_rvesc(ed.get("numero"))} — {_rvesc(ed.get("dataEdicao",""))}</span></div>'
-        + cimg +
-        f'<h2 class="rv-manchete">{_rvesc(capa.get("manchete") or ed.get("titulo",""))}</h2>'
-        f'<ul class="rv-chamadas">{chamadas}</ul></section>'
-    )]
-    for pg in ed.get('paginas', []):
-        pg = dict(pg); pg.setdefault('numero', ed.get('numero'))
-        pgs.append(f'<section class="rv-pg">{_rv_pagina(pg, ed)}</section>')
+    paginas = list(ed.get('paginas', []))
+    # CAPA (página 1)
+    calls = ''.join(f'<span>{_rvesc(c)}</span>' for c in (capa.get('chamadas') or [])[:4] if c.strip())
+    pg_capa = (
+        '<section class="rv-pg rv-capa2 on">'
+        + (f'<img class="bg" src="{_rvesc(capa.get("img", ""))}" alt="">' if capa.get('img') else '')
+        + '<div class="veu"></div>'
+        '<div class="nameplate"><img src="assets/logo/foyer-horizontal-gold.png" alt="FOYER"></div>'
+        f'<div class="linha-ed"><span>A revista da semana</span><span>Nº {_rvesc(ed.get("numero"))} · {_rvesc(ed.get("dataEdicao", ""))}</span></div>'
+        f'<div class="calls">{calls}</div>'
+        f'<div class="manchete"><em>Nesta edição</em><h2>{_rvesc(capa.get("manchete") or ed.get("titulo", ""))}</h2></div>'
+        '<div class="rodape-capa"><span>foyer.digital · edição gratuita</span><span class="rv-barcode"></span></div>'
+        '</section>')
+    # SUMÁRIO (página 2) + demais
+    linhas_sum = ''
+    for i, pg in enumerate(paginas):
+        titulo, secao = _rv_rotulo_sumario(pg)
+        if len(titulo) > 76:
+            titulo = titulo[:76].rsplit(' ', 1)[0].rstrip(',.;:') + '…'
+        linhas_sum += (f'<li><span class="pnum">{i + 3}</span><span><span class="pt">{_rvesc(titulo)}</span>'
+                       f'<span class="ps">{_rvesc(secao)}</span></span></li>')
+    arte_sum = _RV_ARTES[int(ed.get('numero', 1)) % len(_RV_ARTES)]
+    pg_sum = (
+        '<section class="rv-pg rv-sum">'
+        '<div class="cab"><span>O que vem por aí</span><h3>Nesta edição</h3>'
+        f'<svg class="arte" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#{arte_sum}"/></svg></div>'
+        f'<ol>{linhas_sum}</ol>' + _rv_folio(ed, 2) + '</section>')
+    pgs = [pg_capa, pg_sum]
+    for i, pg in enumerate(paginas):
+        pgs.append(_rv_pagina(dict(pg), ed, i + 3))
     corpo = '\n'.join(pgs)
     total = len(pgs)
     return (_RV_CSS + f'''
@@ -2087,7 +2283,7 @@ except Exception:
     _EQ_PUB = []
 
 _eq_linhas = ''.join(
-    f'<li><b>{_rvesc(u["nome"])}</b> — {"Direção e edição" if u.get("papel") == "chefe" else "Redação"}</li>'
+    f'<li><b>{_rvesc(u["nome"])}</b> · {"Direção e edição" if u.get("papel") == "chefe" else "Redação"}</li>'
     for u in _EQ_PUB)
 _n_eps = sum(len(p.get('videos', [])) for p in YT.get('programas', []))
 sobre_body = band('O Foyer', 'Quem somos', 'Seu veículo de informação artístico') + f'''
