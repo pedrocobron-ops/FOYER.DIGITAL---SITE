@@ -20,7 +20,10 @@ ORG_LD = ('<script type="application/ld+json">{"@context":"https://schema.org",'
 def head(title, desc, og_img=None, og_type='website', og_url='', ld=''):
     t = _html.escape(title, quote=True)
     d = _html.escape(desc, quote=True)
-    img = _html.escape(og_img or f'{BASE}/assets/logo/src/foyer-banner.png', quote=True)
+    _img_raw = og_img or f'{BASE}/assets/logo/src/foyer-banner.png'
+    if not _img_raw.startswith('http'):
+        _img_raw = f'{BASE}/{_img_raw}'
+    img = _html.escape(_img_raw, quote=True)
     url = _html.escape(f'{BASE}/{og_url}', quote=True)
     return f'''<!DOCTYPE html>
 <html lang="pt-BR">
