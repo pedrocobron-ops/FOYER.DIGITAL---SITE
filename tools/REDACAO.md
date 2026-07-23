@@ -74,7 +74,15 @@ Matéria sem foto não vai para a mesa. Em cada pauta:
 3. No pacote: `"img": "assets/uploads/<slug>.jpg"` e
    `"imgCredito": "Foto: <fotógrafo se houver>/Divulgação"` — crédito
    verdadeiro, conforme a fonte identificar a imagem.
-4. Se NENHUMA foto de divulgação for encontrada, a pauta é descartada e
+4. **A foto deve mostrar o que importa: rostos e cena.** Preferir foto
+   HORIZONTAL de divulgação com os artistas visíveis. O site corta as
+   capas em 16:9 pelo centro-alto: antes de salvar, conferir com PIL
+   (`Image.open(...).size`) e, se a imagem for vertical (altura maior
+   que a largura, caso típico de cartaz), RECORTAR para 16:9 preservando
+   o terço superior, onde ficam os rostos:
+   `im.crop((0, int(h*0.06), w, int(h*0.06) + round(w*9/16)))`.
+   Nunca entregar capa em que o corte 16:9 decapite os retratados.
+5. Se NENHUMA foto de divulgação for encontrada, a pauta é descartada e
    o Pauteiro escolhe outra. Nunca usar foto que não seja de divulgação
    oficial do espetáculo/evento.
 

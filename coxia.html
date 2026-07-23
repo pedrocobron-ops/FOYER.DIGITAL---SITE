@@ -1102,11 +1102,19 @@
       var img = new Image();
       var url = URL.createObjectURL(file);
       img.onload = function(){
-        var W = Math.min(img.width, 1600);
-        var H = Math.round(W * img.height / img.width);
+        var sw = img.width, sh = img.height, sy = 0;
+        // foto em pé (cartaz)? recorta para 16:9 preservando o topo, onde ficam os rostos
+        if(sh > sw * 0.85){
+          var alvo = Math.round(sw * 9 / 16);
+          sy = Math.round(sh * 0.06);
+          if(sy + alvo > sh) sy = sh - alvo;
+          sh = alvo;
+        }
+        var W = Math.min(sw, 1600);
+        var H = Math.round(W * sh / sw);
         var c = document.createElement('canvas');
         c.width = W; c.height = H;
-        c.getContext('2d').drawImage(img, 0, 0, W, H);
+        c.getContext('2d').drawImage(img, 0, sy, sw, sh, 0, 0, W, H);
         URL.revokeObjectURL(url);
         res(c.toDataURL('image/jpeg', .85));
       };

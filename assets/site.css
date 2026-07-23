@@ -1098,3 +1098,7 @@ a:hover .tag, .tag:hover{ transform:translateY(-1px); }
 }
 .mast-tagline::after{ animation-delay:1.6s; }
 @keyframes tagpulse{ 0%,100%{ opacity:.25;} 50%{ opacity:.9;} }
+
+
+/* capas: o corte privilegia o terço superior (rostos) */
+.ph img, .art-cover img, .news-cell .ph img, .ep-cell .ph img{ object-position:center 22%; }
