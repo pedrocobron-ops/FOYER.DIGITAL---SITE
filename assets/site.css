@@ -1103,3 +1103,15 @@ a:hover .tag, .tag:hover{ transform:translateY(-1px); }
 /* capas: o corte privilegia o terço superior (rostos) */
 .ph img, .art-cover img, .news-cell .ph img{ object-position:center 22%; }
 .ep-cell .ph img{ object-position:center; }
+
+
+/* barra util no celular: só o essencial, sem cortes */
+@media (max-width:700px){
+  .util .wrap{ font-size:.54rem; letter-spacing:.06em; gap:6px; }
+  .util a[href*="youtube"], .util a[href*="spotify"]{ display:none; }
+  .util .cell{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    min-width:0; flex:1; }
+  .util .right{ gap:4px; flex-shrink:0; }
+  .util a{ padding:10px 8px; }
+  .theme-btn{ padding:10px 8px; font-size:.54rem; letter-spacing:.06em; }
+}

@@ -1443,7 +1443,7 @@ def post_page(i, p):
 
   <figure class="art-cover">
     <span class="ph"><img src="{wiximg(p['img'])}" alt="{safe(p['title'])}" loading="eager" onerror="this.style.display='none'"></span>
-    <figcaption>{safe(p['title'])} — {safe(p.get('credito') or 'Foto: Divulgação')}</figcaption>
+    <figcaption>{safe(p.get('credito') or 'Foto: Divulgação')}</figcaption>
   </figure>
 
   <div class="ad-slot" data-ad-slot="2001"></div>
