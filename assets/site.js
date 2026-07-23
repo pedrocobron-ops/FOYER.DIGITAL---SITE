@@ -247,3 +247,71 @@
   }
   setTimeout(abrir, 7000);
 })();
+
+/* ---------- notificações do aplicativo: convite gentil, 1 por dia ---------- */
+(function(){
+  var instalado = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  if(!instalado) return;
+  if(!('Notification' in window) || !('serviceWorker' in navigator) || !('PushManager' in window)) return;
+  if(Notification.permission !== 'default') return;   // já decidiu (sim ou não)
+  var K = 'foyer-push-aviso';
+  var visto = 0;
+  try{ visto = parseInt(localStorage.getItem(K) || '0', 10); }catch(e){}
+  if(Date.now() - visto < 30 * 864e5) return;         // "depois" vale por 30 dias
+
+  var PUB = 'BHiZh7pcDS8jkCBhcRRDv4onYO7-XUOPUrtRNiNJIXqr9uSmTCdll1HCp8REMHRjFZ89NejDhJj6gDkiJw3qswI';
+  var M = { url: 'https://jcaqjlrzmrtzjyfbljxh.supabase.co',
+            key: 'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB' };
+
+  function b64ParaBytes(b64){
+    var pad = '='.repeat((4 - b64.length % 4) % 4);
+    var raw = atob((b64 + pad).replace(/-/g, '+').replace(/_/g, '/'));
+    var out = new Uint8Array(raw.length);
+    for(var i = 0; i < raw.length; i++) out[i] = raw.charCodeAt(i);
+    return out;
+  }
+
+  function inscrever(){
+    return navigator.serviceWorker.ready.then(function(reg){
+      return reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64ParaBytes(PUB) });
+    }).then(function(sub){
+      return fetch(M.url + '/rest/v1/foyer_push', {
+        method: 'POST',
+        headers: { 'apikey': M.key, 'Authorization': 'Bearer ' + M.key,
+                   'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+        body: JSON.stringify({ endpoint: sub.endpoint, sub: sub.toJSON() })
+      });
+    });
+  }
+
+  function abrir(){
+    var b = document.createElement('div');
+    b.className = 'sino-faixa';
+    b.innerHTML =
+      '<div class="sino-txt"><b>🔔 Primeira fila das novidades?</b>' +
+      '<span>Uma notificação por dia com o melhor do teatro. Só isso, prometido.</span></div>' +
+      '<div class="sino-acoes"><button class="sino-sim">Ativar</button>' +
+      '<button class="sino-nao">Depois</button></div>';
+    document.body.appendChild(b);
+    requestAnimationFrame(function(){ b.classList.add('on'); });
+    function sair(){ b.classList.remove('on'); setTimeout(function(){ b.remove(); }, 300); }
+    b.querySelector('.sino-nao').addEventListener('click', function(){
+      try{ localStorage.setItem(K, String(Date.now())); }catch(e){}
+      sair();
+    });
+    b.querySelector('.sino-sim').addEventListener('click', function(){
+      Notification.requestPermission().then(function(p){
+        if(p === 'granted'){
+          inscrever().then(function(r){
+            if(r && (r.ok || r.status === 409)){
+              b.querySelector('.sino-txt').innerHTML = '<b>✓ Combinado!</b><span>Uma por dia, sempre com algo que vale a pena.</span>';
+              b.querySelector('.sino-acoes').remove();
+              setTimeout(sair, 2600);
+            } else { sair(); }
+          }).catch(sair);
+        } else { sair(); }
+      });
+    });
+  }
+  setTimeout(abrir, 12000);
+})();
