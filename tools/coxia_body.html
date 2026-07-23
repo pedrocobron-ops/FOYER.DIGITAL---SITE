@@ -2402,7 +2402,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       campos = '<div><label>Matéria do site</label><select id="pgf-mat"><option value="">Carregando…</option></select></div>' +
         '<div><label>Título na revista</label><input type="text" id="pgf-titulo" value="' + esc(d.titulo || '') + '"></div>' +
         '<div><label>Chamada (linha fina)</label><input type="text" id="pgf-chamada" value="' + esc(d.chamada || '') + '"></div>' +
-        '<div><label>Trecho / resumo para a página (opcional)</label><textarea id="pgf-texto" rows="4">' + esc(d.texto || '') + '</textarea></div>';
+        '<div><label>Olho / abertura (opcional) — a matéria completa entra sozinha na página</label><textarea id="pgf-texto" rows="3">' + esc(d.texto || '') + '</textarea></div>';
     } else if(tipo === 'exclusiva'){
       campos = '<div><label>Título</label><input type="text" id="pgf-titulo" value="' + esc(d.titulo || '') + '"></div>' +
         '<div><label>Texto (formato da Coxia: ## intertítulo, > citação, **negrito**)</label><textarea id="pgf-texto" rows="10">' + esc(d.texto || '') + '</textarea></div>' +

@@ -17,13 +17,26 @@ fechada, com cara de revista impressa: capa de banca, sumário, ritmo de
 leitura, começo, meio e fim. A regra que o Pedro deu: *"deve pegar as matérias
 do site e **transformar em conteúdo de revista**"*. Ou seja:
 
-- **Reescrever, nunca copiar.** A chamada e o `texto` de cada página de
-  matéria são escritos PARA a revista: tom de revista (mais autoral, mais
-  contexto, menos "hard news"), sem repetir o excerpt do site.
-- A página de matéria fecha com "Leia a íntegra no site" automaticamente —
-  o `texto` é um aperitivo bem escrito de 2–3 parágrafos, não a matéria inteira.
+- **A matéria INTEIRA mora na revista.** O leitor puxa o corpo completo da
+  matéria automaticamente (de import/corpo/) — a revista funciona sozinha,
+  sem obrigar ninguém a ir ao site. O botão "Abrir esta matéria no site"
+  aparece no fim como extra.
+- O que a IA escreve PARA a revista: o `titulo` (pode ser mais autoral que o
+  do site), a `chamada` (linha fina) e, opcionalmente, um `texto` curto que
+  vira o **olho** da página (1 parágrafo de abertura em itálico). NUNCA usar
+  `texto` para resumir a matéria: o corpo completo já entra sozinho.
+- **Ritmo de folheio.** A revista deve ser gostosa de folhear: intercalar.
+  Bom ritmo: editorial → 2 matérias fortes → Na tela → mais matérias →
+  citação como respiro → cartazes → expediente. Nunca um bloco só de
+  matérias iguais em sequência.
+- **Nunca mentir.** Citações com atribuição REAL: só escrever "ao FOYER" se
+  a frase foi dita ao FOYER (entrevista nossa). Se veio de release ou de
+  outra publicação, dizer a origem verdadeira ou apenas quem disse.
 - Padrão de escrita humana do FOYER vale aqui também (tools/REDACAO.md):
   travessão proibido, sem clichês de IA, fatos reais somente.
+- **A imagem manda na capa.** A capa mostra a foto quase inteira: as
+  chamadas entram sozinhas numa faixa na base, nunca sobre a imagem.
+  Escolher foto forte e vertical-amigável (rostos na metade de cima).
 
 ## Onde vivem as edições
 
@@ -55,7 +68,7 @@ nova edição é o maior existente + 1. O site gera `revista-ed-<numero>.html`
  },
  "paginas": [
   {"tipo": "editorial", "titulo": "…", "texto": "formato da Coxia", "assinatura": "A direção do FOYER"},
-  {"tipo": "materia", "slug": "slug-no-site", "cat": "Teatro", "img": "…", "titulo": "…", "chamada": "linha fina", "texto": "aperitivo reescrito (2–3 parágrafos)"},
+  {"tipo": "materia", "slug": "slug-no-site", "cat": "Teatro", "img": "…", "titulo": "…", "chamada": "linha fina", "texto": "olho opcional (1 parágrafo) — o corpo completo entra sozinho"},
   {"tipo": "exclusiva", "titulo": "…", "texto": "…", "img": "…", "imgCredito": "Foto: …"},
   {"tipo": "programas"},
   {"tipo": "citacao", "frase": "…", "autor": "…"},
@@ -78,11 +91,11 @@ nova edição é o maior existente + 1. O site gera `revista-ed-<numero>.html`
    o que aconteceu, o que vem aí, um ponto de vista da casa.
 3. **4 a 6 matérias da semana** — as melhores de `import/novas/` (da semana)
    e/ou as mais recentes de `import/materias.json`: usar `slug`, `img`, `cat`
-   reais; chamada nova e `texto` reescrito em linguagem de revista (ver acima).
-   Variar editorias.
-4. **Na tela** — `{"tipo": "programas"}`: página automática com os programas
-   do canal publicados nos últimos 8 dias, clicáveis direto para o YouTube.
-   Incluir SEMPRE, depois das matérias. Não tem campos.
+   reais; chamada nova; o corpo completo entra sozinho. Variar editorias.
+4. **Na tela** — `{"tipo": "programas"}`: página automática com o episódio
+   mais novo de cada programa do canal (últimos 14 dias), clicável direto
+   para o YouTube. Incluir SEMPRE, intercalada entre as matérias (depois da
+   2ª ou 3ª). Não tem campos.
 5. **1 página de citação** — a melhor frase REAL da semana (de matéria ou
    entrevista), com atribuição.
 6. **1 exclusiva** (opcional, se houver material): análise ou panorama da
@@ -92,7 +105,7 @@ nova edição é o maior existente + 1. O site gera `revista-ed-<numero>.html`
    páginas desses tipos na edição, preservá-las na ordem.
 8. **Expediente** — última página, `{"tipo": "expediente"}`.
 
-Ritmo bom: capa → editorial → matéria forte → variedade → Na tela →
+Ritmo bom: capa → editorial → 2 matérias fortes → Na tela → mais matérias →
 citação como respiro → cartazes → expediente.
 
 ## Ao polir uma edição existente ("deixe incrível")

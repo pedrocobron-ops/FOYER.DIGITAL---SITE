@@ -1553,8 +1553,8 @@ _RV_CSS = '''<style>
 .rv-capa2 .bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
   object-position:center 20%; }
 .rv-capa2 .veu{ position:absolute; inset:0;
-  background:linear-gradient(180deg, rgba(35,8,5,.55) 0%, rgba(35,8,5,0) 30%,
-    rgba(35,8,5,0) 45%, rgba(35,8,5,.88) 82%, rgba(35,8,5,.96) 100%); }
+  background:linear-gradient(180deg, rgba(35,8,5,.5) 0%, rgba(35,8,5,0) 26%,
+    rgba(35,8,5,0) 58%, rgba(35,8,5,.82) 84%, rgba(35,8,5,.95) 100%); }
 .rv-capa2 .nameplate{ position:relative; z-index:3; padding:20px 22px 0; }
 .rv-capa2 .nameplate img{ width:100%; display:block;
   filter:drop-shadow(0 2px 14px rgba(0,0,0,.55)); }
@@ -1562,20 +1562,20 @@ _RV_CSS = '''<style>
   padding:9px 22px; font-family:var(--mono); font-size:.55rem; font-weight:600;
   letter-spacing:.24em; text-transform:uppercase; color:var(--gold);
   text-shadow:0 1px 3px rgba(0,0,0,.9), 0 0 12px rgba(0,0,0,.6); }
-.rv-capa2 .calls{ position:absolute; right:0; top:26%; z-index:3; display:flex;
-  flex-direction:column; gap:8px; align-items:flex-end; max-width:56%; }
-.rv-capa2 .calls span{ background:rgba(35,8,5,.82); border:1.5px solid var(--gold);
-  border-right:0; color:var(--paper); font-family:var(--mono); font-size:.56rem;
-  letter-spacing:.1em; text-transform:uppercase; padding:8px 14px; text-align:right; }
-.rv-capa2 .manchete{ position:absolute; left:0; right:0; bottom:64px; z-index:3;
-  padding:0 22px; }
+.rv-capa2 .base{ position:absolute; left:0; right:0; bottom:0; z-index:3; }
+.rv-capa2 .manchete{ padding:0 22px 12px; }
 .rv-capa2 .manchete em{ display:block; font-style:normal; font-family:var(--mono);
   font-size:.58rem; font-weight:600; letter-spacing:.3em; text-transform:uppercase;
   color:var(--gold); margin-bottom:8px; }
 .rv-capa2 .manchete h2{ font-family:var(--didone); font-weight:400; color:#fff;
   font-size:clamp(2rem,6.4vw,3.4rem); line-height:.98; margin:0;
   text-shadow:0 2px 18px rgba(0,0,0,.6); }
-.rv-capa2 .rodape-capa{ position:absolute; left:0; right:0; bottom:0; z-index:4;
+.rv-capa2 .faixa{ display:flex; flex-wrap:wrap; align-items:center; gap:5px 12px;
+  padding:10px 22px; border-top:1.5px solid rgba(206,178,106,.55); color:var(--paper);
+  font-family:var(--mono); font-size:.54rem; font-weight:600; letter-spacing:.12em;
+  text-transform:uppercase; text-shadow:0 1px 3px rgba(0,0,0,.85); }
+.rv-capa2 .faixa i{ font-style:normal; color:var(--gold); }
+.rv-capa2 .rodape-capa{ position:relative;
   display:flex; justify-content:space-between; align-items:center; padding:10px 22px;
   border-top:1.5px solid var(--gold); background:rgba(35,8,5,.85); color:var(--gold);
   font-family:var(--mono); font-size:.52rem; letter-spacing:.2em; text-transform:uppercase; }
@@ -1611,26 +1611,38 @@ html[data-theme="dark"] .rv-sum .pnum{ color:var(--gold); }
 .rv-edi .txt p:first-child::first-letter{ font-family:var(--didone); font-size:3.1em;
   float:left; line-height:.8; padding:4px 8px 0 0; color:var(--wine); }
 .rv-edi .miolo{ display:flex; flex-direction:column; }
-.rv-edi .arte-edi{ margin-top:auto; width:100%; height:200px; border:2px solid var(--ink);
-  opacity:.9; }
+.rv-edi .arte-edi{ margin-top:18px; width:100%; flex:1; min-height:120px;
+  border:2px solid var(--ink); opacity:.9; }
 .rv-edi .ass{ font-family:var(--mono); font-size:.6rem; letter-spacing:.18em;
   text-transform:uppercase; margin-top:16px; }
 
-/* ---------- MATÉRIA ---------- */
-.rv-mat .foto{ position:relative; height:44%; flex-shrink:0; border-bottom:3px solid var(--ink); }
+/* ---------- MATÉRIA (página longa: a matéria inteira mora aqui) ---------- */
+.rv-pg.rv-mat{ aspect-ratio:auto; min-height:min(135vw, 999px); }
+.rv-mat .foto{ position:relative; aspect-ratio:16/9; flex-shrink:0; border-bottom:3px solid var(--ink); }
 .rv-mat .foto img{ width:100%; height:100%; object-fit:cover; object-position:center 22%; }
 .rv-mat .foto .cat{ position:absolute; left:0; top:0; background:var(--gold); color:var(--wine);
   font-family:var(--mono); font-size:.56rem; font-weight:700; letter-spacing:.22em;
   text-transform:uppercase; padding:7px 14px; border-right:2px solid var(--ink);
   border-bottom:2px solid var(--ink); }
-.rv-mat .miolo{ padding:18px 24px 60px; flex:1; overflow:auto; display:flex; flex-direction:column; }
-.rv-mat h3{ font-family:var(--didone); font-weight:400; font-size:clamp(1.4rem,3.4vw,1.9rem);
+.rv-mat .miolo{ padding:20px 26px 64px; flex:1; display:flex; flex-direction:column; }
+.rv-mat h3{ font-family:var(--didone); font-weight:400; font-size:clamp(1.5rem,3.6vw,2.1rem);
   line-height:1.02; margin:0 0 10px; }
-.rv-mat .linhafina{ font-size:.9rem; line-height:1.5; color:var(--ink);
+.rv-mat .linhafina{ font-size:.92rem; line-height:1.5; color:var(--ink);
   border-left:4px solid var(--gold); padding-left:12px; margin:0 0 14px; }
-.rv-mat .txt{ column-count:2; column-gap:22px; column-rule:1px solid var(--line);
-  font-size:.76rem; line-height:1.7; text-align:justify; hyphens:auto; }
-.rv-mat .txt p{ margin:0 0 10px; }
+.rv-mat .olho{ font-style:italic; font-size:.88rem; line-height:1.65; color:var(--ink-soft);
+  margin:0 0 14px; }
+.rv-mat .txt{ font-size:.84rem; line-height:1.78; text-align:justify; hyphens:auto; }
+.rv-mat .txt p{ margin:0 0 12px; }
+.rv-mat .txt > p:first-child::first-letter{ font-family:var(--didone); font-size:3em;
+  float:left; line-height:.8; padding:3px 7px 0 0; color:var(--wine); }
+.rv-mat .txt h2{ font-family:var(--didone); font-weight:400; font-size:1.4rem;
+  margin:20px 0 8px; line-height:1.1; }
+.rv-mat .txt figure{ margin:16px 0; }
+.rv-mat .txt img{ max-width:100%; height:auto; display:block; border:2px solid var(--ink); }
+.rv-mat .txt figcaption{ font-family:var(--mono); font-size:.54rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-soft); margin-top:6px; }
+.rv-mat .txt blockquote{ border-left:4px solid var(--gold); margin:14px 0;
+  padding:4px 0 4px 14px; font-style:italic; font-size:.9rem; }
 .rv-mat .leia{ margin-top:auto; padding-top:12px; }
 .rv-mat .leia a{ display:inline-block; border:2px solid var(--wine); background:var(--wine);
   color:var(--gold); text-decoration:none; font-family:var(--mono); font-weight:600;
@@ -1702,7 +1714,9 @@ html[data-theme="dark"] .rv-sum .pnum{ color:var(--gold); }
 .rv-livre .txt p{ margin:0 0 11px; }
 
 /* ---------- NAVEGAÇÃO ---------- */
-.rv-nav{ position:sticky; bottom:18px; display:flex; justify-content:center; gap:8px; margin-top:18px; }
+.rv-nav{ position:sticky; bottom:14px; display:flex; justify-content:center; gap:8px;
+  width:max-content; max-width:100%; margin:18px auto 0; padding:8px;
+  background:var(--paper); border:2px solid var(--ink); box-shadow:0 6px 22px rgba(0,0,0,.22); }
 .rv-nav button{ border:2px solid var(--ink); background:var(--paper); color:var(--ink); cursor:pointer;
   font-family:var(--mono); font-weight:600; font-size:.64rem; letter-spacing:.12em;
   text-transform:uppercase; padding:12px 16px; }
@@ -1710,8 +1724,7 @@ html[data-theme="dark"] .rv-sum .pnum{ color:var(--gold); }
 .rv-nav .ct{ border:2px solid var(--ink); background:var(--gold); color:var(--wine);
   font-family:var(--mono); font-weight:600; font-size:.64rem; letter-spacing:.12em; padding:12px 14px; }
 @media (max-width:560px){
-  .rv-edi .txt, .rv-mat .txt, .rv-livre .txt{ column-count:1; }
-  .rv-capa2 .calls{ max-width:70%; }
+  .rv-edi .txt, .rv-livre .txt{ column-count:1; }
 }
 @media print{
   .rv-pg{ display:flex !important; page-break-after:always; border-width:0; aspect-ratio:auto; min-height:96vh; }
@@ -1724,6 +1737,18 @@ def _rv_folio(ed, num, escuro=False):
             f'<b>{num}</b><span>{_rvesc(ed.get("dataEdicao", ""))}</span></div>')
 
 _RV_ARTES = ['ph-1', 'ph-2', 'ph-3', 'ph-4', 'ph-5', 'ph-6']
+
+def _rv_corpo(slug, img):
+    """Corpo completo da matéria (mesmo texto do site), sem repetir a foto de capa."""
+    path = os.path.join(ROOT, 'import/corpo', (slug or '') + '.html')
+    if not os.path.exists(path):
+        return ''
+    corpo = open(path).read()
+    if img:
+        pat = _re.compile(r'<figure class="art-img"><img src="' + _re.escape(img) +
+                          r'"[^>]*>(?:<figcaption>.*?</figcaption>)?</figure>\s*', _re.S)
+        corpo = pat.sub('', corpo, count=1)
+    return corpo
 
 def _rv_rotulo_sumario(pg):
     t = pg.get('tipo')
@@ -1754,12 +1779,21 @@ def _rv_pagina(pg, ed, num):
         img = (f'<div class="foto"><img src="{_rvesc(wiximg(pg.get("img", ""), 1200, 700))}" alt="" '
                f'onerror="this.style.display=\'none\'"><span class="cat">{_rvesc(pg.get("cat") or "FOYER")}</span></div>'
                ) if pg.get('img') else ''
-        leia = (f'<div class="leia"><a href="post-{_rvesc(pg.get("slug"))}.html">Leia a íntegra no site →</a></div>'
+        leia = (f'<div class="leia"><a href="post-{_rvesc(pg.get("slug"))}.html">Abrir esta matéria no site →</a></div>'
                 ) if pg.get('slug') else ''
+        # a matéria INTEIRA mora na revista; o site é um extra, não uma continuação
+        corpo = _rv_corpo(pg.get('slug'), pg.get('img'))
+        olho = ''
+        if pg.get('texto'):
+            if corpo:
+                olho = f'<div class="olho">{md_lite(pg["texto"])}</div>'
+            else:
+                corpo = md_lite(pg['texto'])
         return (f'<section class="rv-pg rv-mat">{img}<div class="miolo">'
                 f'<h3>{_rvesc(pg.get("titulo"))}</h3>'
                 f'<p class="linhafina">{_rvesc(pg.get("chamada", ""))}</p>'
-                + (f'<div class="txt">{md_lite(pg.get("texto", ""))}</div>' if pg.get('texto') else '')
+                + olho
+                + (f'<div class="txt">{corpo}</div>' if corpo else '')
                 + leia + f'</div>{fol}</section>')
     if t == 'exclusiva':
         return (f'<section class="rv-pg rv-livre"><div class="rv-kicker">'
@@ -1767,9 +1801,23 @@ def _rv_pagina(pg, ed, num):
                 f'<div class="miolo"><h3>{_rvesc(pg.get("titulo"))}</h3>'
                 f'<div class="txt">{md_lite(pg.get("texto", ""))}</div></div>{fol}</section>')
     if t == 'programas':
-        _hoje7atras = (datetime.now(timezone.utc) - __import__('datetime').timedelta(days=8)).strftime('%Y-%m-%d')
-        _eps = _yt_videos(_yt_progs, 60)
-        _semana = [(q, n, v) for q, n, v in _eps if q >= _hoje7atras][:6] or _eps[:6]
+        _lim = (datetime.now(timezone.utc) - __import__('datetime').timedelta(days=14)).strftime('%Y-%m-%d')
+        # o episódio mais novo de CADA programa dentro da quinzena (garante o Programa do Foyer),
+        # completando com os demais lançamentos recentes até 6
+        _semana, _vistos = [], set()
+        for _p in _yt_progs:
+            _vs = sorted(_p.get('videos', []), key=lambda v: v.get('quando', ''), reverse=True)
+            if _vs and _vs[0].get('quando', '') >= _lim:
+                _semana.append((_vs[0]['quando'], _p['nome'], _vs[0]))
+                _vistos.add(_vs[0].get('id'))
+        _semana.sort(key=lambda x: (x[0], x[1]), reverse=True)
+        for q, n, v in _yt_videos(_yt_progs, 60):
+            if len(_semana) >= 6:
+                break
+            if v.get('id') not in _vistos and q >= _lim:
+                _semana.append((q, n, v))
+                _vistos.add(v.get('id'))
+        _semana = sorted(_semana, key=lambda x: (x[0], x[1]), reverse=True)[:6] or _yt_videos(_yt_progs, 6)
         cels = ''.join(
             f'<a class="ep" href="{_rvesc(v["url"])}" target="_blank" rel="noopener">'
             f'<img src="{_rvesc(v["thumb"])}" alt="" loading="lazy" '
@@ -1822,17 +1870,18 @@ def edicao_page(ed):
     capa = ed.get('capa', {})
     paginas = list(ed.get('paginas', []))
     # CAPA (página 1)
-    calls = ''.join(f'<span>{_rvesc(c)}</span>' for c in (capa.get('chamadas') or [])[:4] if c.strip())
+    calls = '<i>✦</i>'.join(f'<span>{_rvesc(c)}</span>' for c in (capa.get('chamadas') or [])[:4] if c.strip())
     pg_capa = (
         '<section class="rv-pg rv-capa2 on">'
         + (f'<img class="bg" src="{_rvesc(capa.get("img", ""))}" alt="">' if capa.get('img') else '')
         + '<div class="veu"></div>'
         '<div class="nameplate"><img src="assets/logo/foyer-horizontal-gold.png" alt="FOYER"></div>'
         f'<div class="linha-ed"><span>A revista da semana</span><span>Nº {_rvesc(ed.get("numero"))} · {_rvesc(ed.get("dataEdicao", ""))}</span></div>'
-        f'<div class="calls">{calls}</div>'
+        '<div class="base">'
         f'<div class="manchete"><em>Nesta edição</em><h2>{_rvesc(capa.get("manchete") or ed.get("titulo", ""))}</h2></div>'
-        '<div class="rodape-capa"><span>foyer.digital · edição gratuita</span><span class="rv-barcode"></span></div>'
-        '</section>')
+        + (f'<div class="faixa">{calls}</div>' if calls else '')
+        + '<div class="rodape-capa"><span>foyer.digital · edição gratuita</span><span class="rv-barcode"></span></div>'
+        '</div></section>')
     # SUMÁRIO (página 2) + demais
     linhas_sum = ''
     for i, pg in enumerate(paginas):
