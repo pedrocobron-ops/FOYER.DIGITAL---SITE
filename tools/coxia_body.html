@@ -414,7 +414,7 @@
       <nav id="menu">
         <button data-view="palco" class="on" type="button">◐ &nbsp;Palco</button>
         <button data-view="saguao" type="button">🎭 &nbsp;Saguão</button>
-        <button data-view="nova" type="button">✎ &nbsp;Nova matéria</button>
+        <button data-view="nova" type="button">✎ &nbsp;Nova matéria<span class="bdg" id="bdg-rasc" style="display:none">rascunho</span></button>
         <button data-view="fila" type="button">🕐 &nbsp;Fila &amp; agendadas</button>
         <button data-view="ia" id="mi-ia" type="button">🤖 &nbsp;Redação IA<span class="bdg" id="bdg-mesa" style="display:none">0</span></button>
         <button data-view="revista" id="mi-revista" type="button">📖 &nbsp;Revista</button>
@@ -568,6 +568,10 @@
         <h2 class="hi">Fila &amp; agendadas</h2>
         <p class="hi-sub" id="fila-sub">Tudo o que a Coxia publicou ou agendou</p>
         <div class="fila" id="fila-list"><div class="vazio-box">Carregando…</div></div>
+        <div id="lix-box" style="display:none">
+          <div class="sec-h"><h3>Lixeira</h3><span>removidas ficam 30 dias aqui — dá para restaurar</span></div>
+          <div class="fila" id="lix-list"><div class="vazio-box">Carregando…</div></div>
+        </div>
         <div id="acervo-box">
           <div class="sec-h"><h3>Editar matéria do acervo</h3><span>busque entre todas as matérias publicadas — a edição sai com o selo "atualizada"</span></div>
           <form id="acervo-form" style="display:flex;gap:8px" onsubmit="return false">
@@ -608,6 +612,7 @@
               <label for="e-papel">Papel</label>
               <select id="e-papel">
                 <option value="autor">Autor(a)</option>
+                <option value="editor">Editor(a) — aprova e edita, sem painel Equipe/Revista</option>
                 <option value="chefe">Chefe (acesso total)</option>
               </select>
             </div>
@@ -637,6 +642,14 @@
           em ~2 minutos. <b>Guarde a senha na hora:</b> ela não fica
           gravada às claras — só uma impressão digital dela.
         </div>
+
+        <div class="sec-h"><h3>Enciclopédia — moderação de verbetes</h3><span>tirou um nome errado? some do site na próxima publicação</span></div>
+        <form id="verb-form" style="display:flex;gap:8px;max-width:560px" onsubmit="return false">
+          <input type="search" id="verb-q" placeholder="Busque o verbete a excluir…" style="flex:1;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:inherit;padding:11px 12px">
+        </form>
+        <div class="fila" id="verb-res" style="max-width:560px;margin-top:10px;display:none"></div>
+        <div class="sec-h" style="border-bottom:0;margin-bottom:6px"><span style="font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)">Excluídos:</span></div>
+        <div id="verb-exc" style="display:flex;gap:8px;flex-wrap:wrap;max-width:560px;margin-bottom:20px"></div>
 
         <div class="sec-h"><h3>Diário de atividades</h3><span>cada publicação, agendamento e aprovação, com autor e hora</span></div>
         <div class="ativ" id="ativ-eq"><div class="vazio">Carregando…</div></div>
@@ -673,6 +686,8 @@
               <b>1 aplauso</b> = clique de compartilhar. Matéria sua no topo?
               Print no mural, claro.
             </div>
+            <div class="sec-h"><h3>Placar das assinaturas</h3><span>leituras somadas por quem assina</span></div>
+            <div id="rank-autores"><div class="vazio-box">Carregando…</div></div>
             <div class="sec-h"><h3>Balcão de pautas</h3><span>viu algo que merece matéria? deixa aqui</span></div>
             <form id="pauta-form" style="display:flex;gap:8px">
               <input type="text" id="pauta-txt" placeholder="Sugira uma pauta…" style="flex:1;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:inherit;padding:11px 12px">
@@ -880,11 +895,13 @@
       })).then(function(rs){ return rs.filter(Boolean)[0] || null; });
     });
   }
-  function podeMesa(){ return USER && (USER.papel === 'chefe' || (USER.permissoes && USER.permissoes.mesaIA)); }
+  function podeMesa(){ return USER && (USER.papel === 'chefe' || USER.papel === 'editor' || (USER.permissoes && USER.permissoes.mesaIA)); }
+  function podeEditar(){ return USER && (USER.papel === 'chefe' || USER.papel === 'editor'); }
+  var PAPEL_ROTULO = { chefe: 'Chefe da casa', editor: 'Editor(a)', autor: 'Autor(a)' };
 
   function aplicarUsuario(){
     $('who-nome').textContent = USER.nome;
-    $('who-papel').textContent = USER.papel === 'chefe' ? 'Chefe da casa' : 'Autor(a)';
+    $('who-papel').textContent = PAPEL_ROTULO[USER.papel] || 'Autor(a)';
     $('ava').textContent = USER.nome.trim().split(/\s+/).map(function(p){ return p[0]; }).slice(0,2).join('').toUpperCase();
     $('mi-equipe').classList.toggle('hid', USER.papel !== 'chefe');
     $('mi-revista').classList.toggle('hid', USER.papel !== 'chefe');
@@ -895,19 +912,19 @@
     var sel = $('f-autor');
     var nomes = AUTORES_BASE.slice();
     (EQUIPE && EQUIPE.lista || []).forEach(function(u){ if(nomes.indexOf(u.nome) < 0) nomes.push(u.nome); });
-    if(USER.papel === 'chefe'){
+    if(podeEditar()){
       sel.innerHTML = nomes.map(function(n){ return '<option>' + esc(n) + '</option>'; }).join('');
       sel.disabled = false;
     } else {
       sel.innerHTML = '<option>' + esc(USER.nome) + '</option>';
       sel.disabled = true;
     }
-    $('fila-sub').textContent = USER.papel === 'chefe'
+    $('fila-sub').textContent = podeEditar()
       ? 'Tudo o que a Coxia publicou ou agendou'
       : 'Suas matérias — as publicadas e as que esperam o carimbo do chefe';
-    $('btn-pub').textContent = USER.papel === 'chefe' ? 'Enviar para o site' : 'Enviar para aprovação';
-    $('acervo-box').style.display = USER.papel === 'chefe' ? '' : 'none';
-    $('nova-nota').innerHTML = USER.papel === 'chefe'
+    $('btn-pub').textContent = podeEditar() ? 'Enviar para o site' : 'Enviar para aprovação';
+    $('acervo-box').style.display = podeEditar() ? '' : 'none';
+    $('nova-nota').innerHTML = podeEditar()
       ? '<b>Publicar agora:</b> no ar em ~2 minutos.<br><b>Agendada:</b> o relógio do site confere a cada 30 min e publica sozinho na hora marcada.<br><br>Capa, listagens, busca e compartilhamento se atualizam automaticamente.'
       : '<b>Como funciona:</b> sua matéria vai para a mesa do chefe, que aprova e programa a publicação.<br><br>Se você marcar uma data, ela segue como <b>sugestão</b> de agendamento.<br><br>Capriche na foto de capa e no crédito — matéria completa sobe mais rápido.';
   }
@@ -961,9 +978,9 @@
     document.querySelectorAll('#menu button').forEach(function(x){ x.classList.toggle('on', x.dataset.view === v); });
     document.querySelectorAll('.view').forEach(function(x){ x.classList.remove('on'); });
     $('view-' + v).classList.add('on');
-    if(v === 'fila') carregarFila();
+    if(v === 'fila'){ carregarFila(); carregarLixeira(); }
     if(v === 'ia'){ carregarMesa(); carregarDiario(); }
-    if(v === 'equipe'){ pintarEquipe(); carregarAtividade('ativ-eq', 30); }
+    if(v === 'equipe'){ pintarEquipe(); carregarAtividade('ativ-eq', 30); carregarVerbExc(); }
     if(v === 'palco') carregarPalco();
     if(v === 'saguao') carregarSaguao();
     if(v === 'revista') carregarEdicoes();
@@ -1157,16 +1174,17 @@
     }, 800);
   }
   ['f-title', 'f-body', 'f-cred'].forEach(function(id){ $(id).addEventListener('input', salvarRasc); });
-  function limparRasc(){ try{ localStorage.removeItem(RASC_K); }catch(e){} $('rasc-aviso').classList.remove('on'); }
+  function limparRasc(){ try{ localStorage.removeItem(RASC_K); }catch(e){} $('rasc-aviso').classList.remove('on'); $('bdg-rasc').style.display = 'none'; }
   function checarRasc(){
     try{
       var d = JSON.parse(localStorage.getItem(RASC_K) || 'null');
       if(d && (d.title || d.corpo) && !$('f-title').value && !$('f-body').value){
         $('rasc-aviso').classList.add('on');
+        $('bdg-rasc').style.display = 'inline-block';
         $('rasc-usar').onclick = function(){
           $('f-title').value = d.title || ''; $('f-cat').value = d.cat || 'Teatro';
           $('f-body').value = d.corpo || ''; $('f-cred').value = d.cred || '';
-          statusTexto(); $('rasc-aviso').classList.remove('on'); irPara('nova');
+          statusTexto(); $('rasc-aviso').classList.remove('on'); $('bdg-rasc').style.display = 'none'; irPara('nova');
         };
         $('rasc-descartar').onclick = limparRasc;
       }
@@ -1261,7 +1279,7 @@
     }
     var slug = EDIT ? EDIT.slug : slugify(title);
     var btn = $('btn-pub');
-    var ehChefe = USER.papel === 'chefe';
+    var ehChefe = podeEditar();
     btn.disabled = true; btn.textContent = 'Enviando…';
     var passo = CAPA ? subirImagem(CAPA, slug) : Promise.resolve('');
     passo.then(function(imgPath){
@@ -1365,10 +1383,10 @@
           .concat(fPauta.map(function(f){ return baixa(f, true); }))
       ).then(function(items){
         items = items.filter(Boolean);
-        if(USER.papel !== 'chefe'){
+        if(!podeEditar()){
           items = items.filter(function(d){ return d.author === USER.nome || d.criadoPor === USER.nome; });
         } else {
-          items = items.filter(function(d){ return !d._mesa; }); // p/ chefe a mesa fica na aba Redação IA
+          items = items.filter(function(d){ return !d._mesa; }); // a mesa fica na aba Redação IA
         }
         if(!items.length){ el.innerHTML = '<div class="vazio-box">Nenhuma matéria por aqui ainda</div>'; return; }
         items.sort(function(a,b){ return (b.publishAt || b.geradoEm || '').localeCompare(a.publishAt || a.geradoEm || ''); });
@@ -1382,8 +1400,11 @@
             ? '<img class="th" src="' + esc(d.img) + '" alt="" onerror="this.className=\'th no\';this.removeAttribute(\'src\')">'
             : '<span class="th no">sem foto</span>';
           FILA_CACHE[d.slug] = d;
-          var editar = (USER.papel === 'chefe' && !d._mesa)
+          var editar = (podeEditar() && !d._mesa)
             ? '<button class="bt" data-edtm="' + esc(d.slug) + '" type="button">✎ Editar</button>' : '';
+          if(podeEditar() && !d._mesa && d.atualizadoEm){
+            editar += '<button class="bt" data-vers="' + esc(d.slug) + '" type="button">🔍 Versões</button>';
+          }
           return '<div class="frow">' + th +
             '<span><span class="ti">' + esc(d.title) + '</span>' +
             '<span class="mt">' + esc(d.cat) + ' — ' + esc(d.author) + ' — ' + quando +
@@ -1396,12 +1417,71 @@
       });
     }).catch(function(){ el.innerHTML = '<div class="vazio-box">Erro ao carregar a fila</div>'; });
   }
+  function moverLixeira(dados, path, sha, acao){
+    var pac = {};
+    for(var k in dados){ if(k.charAt(0) !== '_') pac[k] = dados[k]; }
+    pac._origem = path;
+    pac.removidoPor = USER.nome;
+    pac.removidoEm = new Date().toISOString();
+    var nomeLix = 'import/lixeira/' + (dados.slug || 'item') + '-' + new Date().getTime() + '.json';
+    return ghPut(nomeLix, JSON.stringify(pac, null, 1), assina(acao))
+      .then(function(){ return ghDel(path, sha, assina(acao)); });
+  }
   document.addEventListener('click', function(e){
     var b = e.target.closest('[data-del]');
     if(!b) return;
     if(!token()){ alert('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
-    if(!confirm('Remover esta matéria do site?')) return;
-    ghDel(b.dataset.del, b.dataset.sha, assina('remove matéria')).then(function(){ carregarFila(); });
+    if(!confirm('Remover esta matéria do site? (ela fica 30 dias na lixeira)')) return;
+    var dados = null;
+    for(var slug in FILA_CACHE){ if(FILA_CACHE[slug]._path === b.dataset.del){ dados = FILA_CACHE[slug]; break; } }
+    moverLixeira(dados || { slug: 'materia' }, b.dataset.del, b.dataset.sha, 'remove matéria (lixeira)')
+      .then(function(){ carregarFila(); });
+  });
+
+  function carregarLixeira(){
+    $('lix-box').style.display = podeEditar() ? '' : 'none';
+    if(!podeEditar()) return;
+    var el = $('lix-list');
+    ghGet('import/lixeira').then(function(list){
+      var files = (list || []).filter(function(f){ return f.name.endsWith('.json'); });
+      if(!files.length){ el.innerHTML = '<div class="vazio-box">Lixeira vazia</div>'; return; }
+      return Promise.all(files.map(function(f){
+        return fetch(f.download_url).then(function(r){ return r.json(); })
+          .then(function(d){ d._path = f.path; d._sha = f.sha; return d; }).catch(function(){ return null; });
+      })).then(function(items){
+        items = items.filter(Boolean).sort(function(a, b){ return (b.removidoEm || '').localeCompare(a.removidoEm || ''); });
+        el.innerHTML = items.map(function(d, i){
+          return '<div class="frow" style="grid-template-columns:1fr auto auto">' +
+            '<span><span class="ti">' + esc(d.title || d.slug || '?') + '</span>' +
+            '<span class="mt">removida por ' + esc(d.removidoPor || '?') + ' — ' + rel(d.removidoEm || '') + '</span></span>' +
+            '<button class="bt" data-lixr="' + i + '" type="button">↩ Restaurar</button>' +
+            '<button class="bt danger" data-lixx="' + i + '" type="button">Excluir de vez</button>' +
+            '</div>';
+        }).join('');
+        el._itens = items;
+      });
+    }).catch(function(){ el.innerHTML = '<div class="vazio-box">Erro ao carregar a lixeira</div>'; });
+  }
+  document.addEventListener('click', function(e){
+    var b, itens = ($('lix-list') || {})._itens || [];
+    if((b = e.target.closest('[data-lixr]'))){
+      var d = itens[Number(b.dataset.lixr)];
+      if(!d || !d._origem) return;
+      var pac = {};
+      for(var k in d){ if(k.charAt(0) !== '_' && k !== 'removidoPor' && k !== 'removidoEm') pac[k] = d[k]; }
+      delete pac._origem;
+      var destino = d._origem;
+      ghPut(destino, JSON.stringify(pac, null, 1), assina('restaura da lixeira "' + (d.title || '') + '"'))
+        .then(function(){ return ghDel(d._path, d._sha, assina('limpa item restaurado')); })
+        .then(function(){ carregarLixeira(); carregarFila(); });
+      return;
+    }
+    if((b = e.target.closest('[data-lixx]'))){
+      var d2 = itens[Number(b.dataset.lixx)];
+      if(!d2) return;
+      if(!confirm('Excluir definitivamente? Não tem volta.')) return;
+      ghDel(d2._path, d2._sha, assina('exclui definitivamente da lixeira')).then(carregarLixeira);
+    }
   });
 
   /* ---------------- redação IA: diário ---------------- */
@@ -1612,8 +1692,8 @@
       var d = MESA[b.dataset.recusar];
       if(!d) return;
       if(!token()){ alert('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
-      if(!confirm('Recusar e descartar esta matéria da mesa?')) return;
-      ghDel(d._path, d._sha, assina('recusa matéria da Redação IA')).then(function(){ carregarMesa(); });
+      if(!confirm('Recusar esta matéria? (ela fica 30 dias na lixeira)')) return;
+      moverLixeira(d, d._path, d._sha, 'recusa matéria da mesa (lixeira)').then(function(){ carregarMesa(); });
     }
   });
 
@@ -1626,10 +1706,11 @@
       el.innerHTML = lista.map(function(u){
         var ini = u.nome.trim().split(/\s+/).map(function(p){ return p[0]; }).slice(0,2).join('').toUpperCase();
         var per = u.papel === 'chefe' ? 'Acesso total — inclusive Equipe'
-          : 'Escreve e publica as próprias matérias' + (u.permissoes && u.permissoes.mesaIA ? '<br>Aprova a Redação IA' : '');
+          : u.papel === 'editor' ? 'Publica, edita o acervo e aprova a mesa<br>Sem painel Equipe/Revista'
+          : 'Escreve e envia para aprovação' + (u.permissoes && u.permissoes.mesaIA ? '<br>Aprova a Redação IA' : '');
         return '<div class="eq-card' + (u.papel === 'chefe' ? ' eq-chefe' : '') + '">' +
           '<div class="cab"><span class="ava">' + esc(ini) + '</span>' +
-          '<span><b>' + esc(u.nome) + '</b><span class="pap">' + (u.papel === 'chefe' ? 'Chefe da casa' : 'Autor(a)') + '</span></span></div>' +
+          '<span><b>' + esc(u.nome) + '</b><span class="pap">' + (PAPEL_ROTULO[u.papel] || 'Autor(a)') + '</span></span></div>' +
           '<div class="per">' + per + '</div>' +
           '<div class="acts">' +
             '<button class="bt" type="button" data-edt="' + esc(u.id) + '">Editar</button>' +
@@ -1847,6 +1928,63 @@
     }
   });
 
+  // ---------------- comparador de versões ----------------
+  function diffPalavras(a, b){
+    var A = a.split(/(\s+)/), B = b.split(/(\s+)/);
+    var n = A.length, m = B.length;
+    if(n * m > 4000000) return '<p>(matéria longa demais para comparar palavra a palavra)</p>' + esc(b);
+    var L = [];
+    for(var i = 0; i <= n; i++){ L.push(new Int32Array(m + 1)); }
+    for(var i2 = n - 1; i2 >= 0; i2--)
+      for(var j = m - 1; j >= 0; j--)
+        L[i2][j] = A[i2] === B[j] ? L[i2+1][j+1] + 1 : Math.max(L[i2+1][j], L[i2][j+1]);
+    var out = '', x = 0, y = 0;
+    while(x < n && y < m){
+      if(A[x] === B[y]){ out += esc(A[x]); x++; y++; }
+      else if(L[x+1][y] >= L[x][y+1]){ out += '<del style="background:#f6d3cf;color:#8E1B10">' + esc(A[x]) + '</del>'; x++; }
+      else { out += '<ins style="background:#dcefd8;color:#2c6e2c;text-decoration:none">' + esc(B[y]) + '</ins>'; y++; }
+    }
+    while(x < n){ out += '<del style="background:#f6d3cf;color:#8E1B10">' + esc(A[x++]) + '</del>'; }
+    while(y < m){ out += '<ins style="background:#dcefd8;color:#2c6e2c;text-decoration:none">' + esc(B[y++]) + '</ins>'; }
+    return out;
+  }
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-vers]');
+    if(!b) return;
+    var d = FILA_CACHE[b.dataset.vers];
+    if(!d) return;
+    var path = 'import/novas/' + d.slug + '.json';
+    $('prev-body').innerHTML = '<p class="cred">Buscando a versão anterior…</p>';
+    $('prev-avisos').innerHTML = '';
+    $('prev-overlay').classList.add('on');
+    fetch(API_BASE + '/commits?sha=' + BRANCH + '&path=' + encodeURIComponent(path) + '&per_page=5',
+          { headers: hdr({}) })
+      .then(function(r){ return r.json(); })
+      .then(function(commits){
+        if(!commits || commits.length < 2){
+          $('prev-body').innerHTML = '<p class="cred">Só existe uma versão registrada desta matéria.</p>';
+          return;
+        }
+        var anterior = commits[1].sha;
+        return fetch(API + path + '?ref=' + anterior, { headers: hdr({}) })
+          .then(function(r){ return r.json(); })
+          .then(function(f){
+            var velho = JSON.parse(unb64(f.content));
+            $('prev-body').innerHTML =
+              '<span class="tag wine">Comparando versões</span>' +
+              '<h1 style="font-size:1.3rem">' + esc(d.title) + '</h1>' +
+              '<p class="cred"><del style="background:#f6d3cf">vermelho = saiu</del> · ' +
+              '<ins style="background:#dcefd8;text-decoration:none">verde = entrou</ins> · ' +
+              'versão de ' + new Date(commits[1].commit.author.date).toLocaleString('pt-BR') +
+              ' → atual</p>' +
+              (velho.title !== d.title ? '<p><b>Título:</b> ' + diffPalavras(velho.title, d.title) + '</p>' : '') +
+              '<div class="corpo" style="white-space:pre-wrap;font-size:.85rem;line-height:1.9">' +
+              diffPalavras(velho.corpo || '', d.corpo || '') + '</div>';
+          });
+      })
+      .catch(function(){ $('prev-body').innerHTML = '<p class="cred">Não deu para buscar as versões agora.</p>'; });
+  });
+
   /* ================= SAGUÃO ================= */
   var RKC = { url:'https://jcaqjlrzmrtzjyfbljxh.supabase.co',
               key:'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB' };
@@ -1948,7 +2086,7 @@
     if(TIT) return Promise.resolve(TIT);
     return fetch('assets/busca-index.json').then(function(r){ return r.json(); }).then(function(list){
       TIT = {};
-      list.forEach(function(i){ TIT[i.u.slice(5, -5)] = i.t; });
+      list.forEach(function(i){ if(i.u.indexOf('post-') === 0) TIT[i.u.slice(5, -5)] = { t: i.t, a: i.a || '' }; });
       return TIT;
     }).catch(function(){ TIT = {}; return TIT; });
   }
@@ -1970,8 +2108,27 @@
           el.innerHTML = '<div class="vazio-box">O contador acabou de estrear — as primeiras leituras aparecem aqui em breve</div>';
           return;
         }
+        var porAutor = {};
+        (rows || []).forEach(function(r){
+          var inf = map[r.slug];
+          if(inf && inf.a){
+            porAutor[inf.a] = porAutor[inf.a] || { v: 0, s: 0 };
+            porAutor[inf.a].v += r.v; porAutor[inf.a].s += r.s;
+          }
+        });
+        var autores = Object.keys(porAutor)
+          .map(function(a){ return { a: a, v: porAutor[a].v, s: porAutor[a].s, pts: porAutor[a].v + porAutor[a].s * 3 }; })
+          .sort(function(x, y){ return y.pts - x.pts; }).slice(0, 6);
+        $('rank-autores').innerHTML = autores.length
+          ? autores.map(function(x, i){
+              return '<div class="rk-row' + (i === 0 ? ' top' : '') + '"><span class="pos">' + (i + 1) + 'º</span>' +
+                '<span class="rt">' + esc(x.a) + '</span>' +
+                '<span class="rn">' + x.v + ' leitura(s)<br>' + x.s + ' aplauso(s)</span></div>';
+            }).join('')
+          : '<div class="vazio-box">Sem leituras atribuídas ainda</div>';
         el.innerHTML = rows.map(function(r, i){
-          var t = map[r.slug] || r.slug.replace(/-/g, ' ');
+          var inf2 = map[r.slug];
+          var t = (inf2 && inf2.t) || r.slug.replace(/-/g, ' ');
           return '<div class="rk-row' + (i === 0 ? ' top' : '') + '">' +
             '<span class="pos">' + (i + 1) + 'º</span>' +
             '<span class="rt"><a href="post-' + esc(r.slug) + '.html" target="_blank" rel="noopener">' + esc(t) + '</a></span>' +
@@ -1988,6 +2145,55 @@
       RK_MODO = b.dataset.rk;
       carregarRanking();
     });
+  });
+
+  // ---------------- moderação de verbetes ----------------
+  var VERB = { lista: [], sha: null, idx: null };
+  function carregarVerbExc(){
+    docJson('import/enciclopedia-excluidos.json').then(function(r){
+      VERB.lista = (r.data && r.data.slugs) || [];
+      VERB.sha = r.sha;
+      $('verb-exc').innerHTML = VERB.lista.length
+        ? VERB.lista.map(function(sp){
+            return '<span class="tag">' + esc(sp) + ' <a href="#" data-verbr="' + esc(sp) + '" style="color:inherit">↩</a></span>';
+          }).join('')
+        : '<span style="font-family:var(--mono);font-size:.6rem;color:var(--ink-soft)">nenhum</span>';
+    });
+  }
+  function salvarVerbExc(acao){
+    return ghPut('import/enciclopedia-excluidos.json', JSON.stringify({ slugs: VERB.lista }, null, 1),
+      assina(acao), VERB.sha).then(function(resp){ VERB.sha = resp.content && resp.content.sha; carregarVerbExc(); });
+  }
+  $('verb-q').addEventListener('input', function(){
+    var v = normTxt(this.value.trim()), res = $('verb-res');
+    if(v.length < 3){ res.style.display = 'none'; return; }
+    fetch('assets/pessoas-index.json').then(function(r){ return r.json(); }).then(function(list){
+      var hits = [];
+      for(var i = 0; i < list.length && hits.length < 8; i++)
+        if(normTxt(list[i].n).indexOf(v) !== -1) hits.push(list[i]);
+      res.style.display = 'block';
+      res.innerHTML = hits.length ? hits.map(function(p){
+        var sp = p.u.slice(7, -5);
+        return '<div class="frow" style="grid-template-columns:1fr auto">' +
+          '<span><span class="ti">' + esc(p.n) + '</span><span class="mt">' + p.c + ' aparições</span></span>' +
+          '<button class="bt danger" data-verbx="' + esc(sp) + '" type="button">Excluir verbete</button></div>';
+      }).join('') : '<div class="vazio-box">Nada encontrado</div>';
+    });
+  });
+  document.addEventListener('click', function(e){
+    var b;
+    if((b = e.target.closest('[data-verbx]'))){
+      if(!token()){ alert('Conecte a chave de publicação (aba Conexão)'); return; }
+      if(VERB.lista.indexOf(b.dataset.verbx) < 0) VERB.lista.push(b.dataset.verbx);
+      salvarVerbExc('exclui verbete ' + b.dataset.verbx);
+      $('verb-q').value = ''; $('verb-res').style.display = 'none';
+      return;
+    }
+    if((b = e.target.closest('[data-verbr]'))){
+      e.preventDefault();
+      VERB.lista = VERB.lista.filter(function(x){ return x !== b.dataset.verbr; });
+      salvarVerbExc('restaura verbete ' + b.dataset.verbr);
+    }
   });
 
   /* ================= REVISTA (chefe) ================= */

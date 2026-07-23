@@ -224,6 +224,19 @@ def main():
     por_video = {k: sorted({s for s in v if s in finais}) for k, v in por_video.items()}
     por_video = {k: v for k, v in por_video.items() if v}
 
+    # moderação: verbetes excluídos pelo chefe na Coxia
+    try:
+        _exc = set(json.load(open(f'{ROOT}/import/enciclopedia-excluidos.json')).get('slugs', []))
+    except Exception:
+        _exc = set()
+    if _exc:
+        finais = {k: v for k, v in finais.items() if k not in _exc}
+        por_materia = {k: [x for x in v if x in finais] for k, v in por_materia.items()}
+        por_materia = {k: v for k, v in por_materia.items() if v}
+        por_video = {k: [x for x in v if x in finais] for k, v in por_video.items()}
+        por_video = {k: v for k, v in por_video.items() if v}
+        print(f'moderação: {len(_exc)} verbete(s) excluído(s) pelo chefe')
+
     saida = {'pessoas': finais, 'porMateria': por_materia, 'porVideo': por_video}
     json.dump(saida, open(f'{ROOT}/import/enciclopedia.json', 'w'),
               ensure_ascii=False, indent=1)

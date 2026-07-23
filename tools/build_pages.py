@@ -2265,7 +2265,8 @@ import glob as _g
 urls = sorted(os.path.basename(f) for f in _g.glob(os.path.join(ROOT, '*.html'))
               if os.path.basename(f) not in ('coxia.html', '404.html'))
 with open(os.path.join(ROOT, 'assets/busca-index.json'), 'w') as f:
-    _json.dump([{'t': _p['title'], 'c': _p.get('cat', ''), 'u': 'post-' + _p['slug'] + '.html'}
+    _json.dump([{'t': _p['title'], 'c': _p.get('cat', ''), 'a': _p.get('author', ''),
+                 'u': 'post-' + _p['slug'] + '.html'}
                 for _p in MATERIAS]
                + [{'t': _pp['nome'], 'c': 'Enciclopédia', 'u': 'pessoa-' + _sp + '.html'}
                   for _sp, _pp in _top_pessoas], f, ensure_ascii=False)

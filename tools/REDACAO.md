@@ -232,4 +232,6 @@ lista `rodadas` (mais recente primeiro; manter no máximo 30):
    `Redação IA: matérias na mesa de aprovação da Coxia [skip ci]`
    (o `[skip ci]` evita um deploy desnecessário — pauta não aparece no site).
 6. `git push -u origin claude/foyer-digital-redesign-14l2b6`.
-7. Encerrar informando quantas matérias ficaram na mesa e seus títulos.
+7. Faxina da lixeira: apagar de `import/lixeira/` os arquivos com
+   `removidoEm` há mais de 30 dias (e incluir no commit).
+8. Encerrar informando quantas matérias ficaram na mesa e seus títulos.
