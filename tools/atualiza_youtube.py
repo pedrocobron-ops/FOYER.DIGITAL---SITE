@@ -46,7 +46,7 @@ def feed(playlist_id):
             'id': vid,
             'titulo': e.findtext('a:title', '', NS),
             'quando': (e.findtext('a:published', '', NS) or '')[:10],
-            'thumb': f'https://i.ytimg.com/vi/{vid}/hqdefault.jpg',
+            'thumb': f'https://i.ytimg.com/vi/{vid}/hq720.jpg',
             'url': f'https://www.youtube.com/watch?v={vid}&list={playlist_id}',
         })
     return videos

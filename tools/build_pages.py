@@ -1791,7 +1791,7 @@ def _yt_data(iso):
 def yt_cell(v, rotulo):
     return f'''    <article class="ep-cell">
       <a class="ph" href="{_rvesc(v['url'])}" target="_blank" rel="noopener" aria-label="Assistir no YouTube">
-        <img src="{_rvesc(v['thumb'])}" alt="{_rvesc(v['titulo'])}" loading="lazy" onerror="this.style.display='none'">
+        <img src="{_rvesc(v['thumb'])}" alt="{_rvesc(v['titulo'])}" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/{_rvesc(v.get('id',''))}/mqdefault.jpg'">
         <span class="play">▶</span>
       </a>
       <div class="ep-body">
