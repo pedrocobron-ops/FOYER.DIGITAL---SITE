@@ -1442,6 +1442,20 @@ def post_page(i, p):
                       '<span class="tag wine">Quem aparece nesta matéria</span>' + _chips + '</div></div>')
     corpo_path = os.path.join(ROOT, 'import/corpo', p['slug'] + '.html')
     corpo = open(corpo_path).read() if os.path.exists(corpo_path) else f"<p>{p['desc']}</p>"
+    # a capa aparecia de novo dentro do texto (herança do Wix): remove a duplicata
+    # e herda a legenda real (crédito do fotógrafo) para a foto de abertura
+    credito_real = ''
+    if p.get('img'):
+        _pat_dup = _re.compile(
+            r'<figure class="art-img"><img src="' + _re.escape(p['img']) +
+            r'"[^>]*>(?:<figcaption>(.*?)</figcaption>)?</figure>\s*', _re.S)
+        _mdup = _pat_dup.search(corpo)
+        if _mdup:
+            _cap = _re.sub(r'<[^>]+>', '', _mdup.group(1) or '').strip()
+            if _cap:
+                credito_real = _cap
+            corpo = _pat_dup.sub('', corpo, count=1)
+    cred_capa = p.get('credito') or credito_real or 'Foto: Divulgação'
     rel = [x for x in MATERIAS if x['cat'] == p['cat'] and x['slug'] != p['slug']][:3]
     if len(rel) < 3:
         rel += [x for x in MATERIAS if x['slug'] != p['slug'] and x not in rel][:3-len(rel)]
@@ -1468,7 +1482,7 @@ def post_page(i, p):
 
   <figure class="art-cover">
     <span class="ph"><img src="{wiximg(p['img'])}" alt="{safe(p['title'])}" loading="eager" onerror="this.style.display='none'"></span>
-    <figcaption>{safe(p.get('credito') or 'Foto: Divulgação')}</figcaption>
+    <figcaption>{safe(cred_capa)}</figcaption>
   </figure>
 
   <div class="ad-slot" data-ad-slot="2001"></div>
