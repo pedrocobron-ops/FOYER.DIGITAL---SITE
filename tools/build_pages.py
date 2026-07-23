@@ -1189,7 +1189,9 @@ def _cred_curto(p):
     c = c.strip(' .')
     if len(c) > 38:
         c = c[:38].rsplit(' ', 1)[0].rstrip(',.;:') + '…'
-    return c if c and c.lower() not in ('divulgação', 'divulgacao') else 'Divulgação'
+    if not c or _re.fullmatch(r'(fotos?\s+)?(de\s+)?divulga[çc][ãa]o', c, _re.I):
+        return 'Divulgação'
+    return c
 
 def real_ph(p, href, cap=True):
     c = f'<span class="ph-cap">Foto — {safe(_cred_curto(p))}</span>' if cap else ''
