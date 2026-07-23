@@ -1,6 +1,46 @@
 {
  "rodadas": [
   {
+   "quando": "2026-07-23T00:00:00+00:00",
+   "por": "Redação IA (Claude, rodada de cardápio a pedido do chefe)",
+   "buscas": [
+    "história Teatro Amazonas Manaus inauguração 1896 construção ciclo da borracha",
+    "Teatro Amazonas primeira ópera La Gioconda 7 de janeiro de 1897 reformas Festival Amazonas de Ópera",
+    "Enrico Caruso Teatro Amazonas mito nunca cantou lenda historiadores",
+    "Teatro Amazonas restauração cores da fachada Amazonas Filarmônica criação",
+    "por que se diz 'merda' antes da estreia teatro origem superstição",
+    "origem 'merde' teatro francês carruagens esterco 'break a leg' 'toi toi toi'",
+    "busca de imagens oficiais/Wikimedia Commons para as capas (Teatro Amazonas e pintura de Jean Béraud)"
+   ],
+   "consideradas": [
+    {
+     "assunto": "História do Teatro Amazonas (casas de espetáculo)",
+     "decisao": "escolhida",
+     "motivo": "teatro icônico ainda não coberto no acervo (conferido no materias.json); fontes fortes: Secretaria de Cultura do AM, CartaCapital (historiador da UFAM) e Página/12 (lenda de Caruso)"
+    },
+    {
+     "assunto": "História do Theatro Municipal de SP",
+     "decisao": "descartada",
+     "motivo": "a casa já aparece com frequência no noticiário do site; o Amazonas rende história mais distinta"
+    },
+    {
+     "assunto": "Curiosidade: por que se diz 'merda' antes da estreia",
+     "decisao": "escolhida",
+     "motivo": "termo de busca forte e não coberto; teoria das carruagens confirmada em três fontes independentes"
+    },
+    {
+     "assunto": "Curiosidade: luz fantasma (ghost light)",
+     "decisao": "descartada",
+     "motivo": "ficou como menção dentro da matéria da 'merda'; pode virar pauta própria adiante"
+    }
+   ],
+   "produzidas": [
+    "historia-do-teatro-amazonas-manaus",
+    "por-que-se-diz-merda-antes-da-estreia-no-teatro"
+   ],
+   "obs": "Capas de Wikimedia Commons com licença citada no crédito (CC BY 2.0 e domínio público). Capacidade da sala do Amazonas diverge entre fontes (684 oficial x 701 Wikipédia): texto usa o número oficial. Sem campo evento (matérias perenes). Sem commit/push nesta rodada, conforme instrução."
+  },
+  {
    "quando": "2026-07-23T15:30:33+00:00",
    "por": "Redação IA (Claude) — matéria avulsa formato Entenda",
    "buscas": [
