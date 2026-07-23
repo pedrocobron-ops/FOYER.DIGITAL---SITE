@@ -1063,6 +1063,31 @@ def md_lite(txt):
         if b.startswith('## '):
             out.append(f'<h2>{_h.escape(b[3:].strip())}</h2>')
             continue
+        if b.startswith('video:'):
+            _u = b[6:].strip()
+            _m = _re.search(r'(?:youtu\.be/|v=|shorts/|embed/)([A-Za-z0-9_-]{6,20})', _u)
+            if _m:
+                out.append(f'<div class="art-video"><iframe src="https://www.youtube-nocookie.com/embed/{_m.group(1)}" title="Vídeo" loading="lazy" allowfullscreen frameborder="0"></iframe></div>')
+            continue
+        if b.startswith('spotify:'):
+            _u = b[8:].strip().split('?')[0]
+            _u = _u.replace('open.spotify.com/intl-pt/', 'open.spotify.com/').replace('open.spotify.com/', 'open.spotify.com/embed/')
+            if 'open.spotify.com/embed/' in _u:
+                out.append(f'<div class="art-spotify"><iframe src="{_h.escape(_u)}" title="Spotify" loading="lazy" frameborder="0" allow="encrypted-media"></iframe></div>')
+            continue
+        if b.startswith('galeria:'):
+            _imgs = [x.strip() for x in b[8:].split('|') if x.strip()]
+            _cells = ''.join(f'<img src="{_h.escape(u)}" alt="" loading="lazy">' for u in _imgs)
+            out.append(f'<div class="art-galeria">{_cells}</div>')
+            continue
+        if b.startswith('botao:'):
+            _rot, _, _url = b[6:].partition('|')
+            if _url.strip():
+                out.append(f'<p class="art-cta"><a href="{_h.escape(_url.strip())}" target="_blank" rel="noopener">{_h.escape(_rot.strip())}</a></p>')
+            continue
+        if b.strip('* ') == '' and '*' in b:
+            out.append('<div class="art-div" aria-hidden="true">✦ ✦ ✦</div>')
+            continue
         e = _h.escape(b)
         e = _re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', e)
         e = _re.sub(r'\*(.+?)\*', r'<em>\1</em>', e)

@@ -167,6 +167,19 @@ reforçar notícia, conforme o que a varredura do dia render de melhor.
 Parágrafos separados por linha em branco; `## ` para intertítulo; `> ` para
 citação real; `**negrito**` para nomes de obras; `[link](url)` se preciso.
 
+Blocos opcionais (usar quando enriquecem de verdade):
+
+- `video:URL_DO_YOUTUBE` incorpora o vídeo (trailer oficial do
+  espetáculo, clipe ou episódio do canal do FOYER quando o assunto tiver
+  cobertura nossa) — ótimo para tempo de permanência na página.
+- `spotify:URL` incorpora o player de episódio/faixa do Spotify.
+- `galeria:caminho1 | caminho2 | caminho3` para 2+ fotos lado a lado
+  (baixar cada uma para assets/uploads/ como a capa).
+- `botao:Comprar ingressos | URL` botão de destaque; usar SEMPRE que a
+  matéria tiver venda de ingressos ou inscrição com link oficial
+  (inclusive um por indicação no Guia do Fim de Semana).
+- `***` sozinho numa linha: divisor decorativo entre grandes blocos.
+
 ## Formato do pacote — `import/pauta/<slug>.json`
 
 ```json

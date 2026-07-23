@@ -505,7 +505,10 @@
                 <button type="button" data-md="*">I — itálico</button>
                 <button type="button" data-md="## ">Intertítulo</button>
                 <button type="button" data-md="> ">Citação</button>
-                <button type="button" data-md="img:">Foto no texto</button>
+                <button type="button" data-md="img:">📷 Fotos (várias)</button>
+                <button type="button" data-md="video:">▶ Vídeo</button>
+                <button type="button" data-md="botao:">🎟 Botão de link</button>
+                <button type="button" data-md="***">✦ Divisor</button>
               </div>
               <textarea id="f-body" rows="14" placeholder="Escreva em parágrafos separados por linha em branco.
 
@@ -513,7 +516,10 @@
 
 **negrito**, *itálico*, [link](https://exemplo.com)
 
-> Uma citação destacada fica assim"></textarea>
+> Uma citação destacada fica assim
+
+Blocos opcionais pelos botões acima: fotos no texto, galeria,
+vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea>
             </div>
             <div>
               <label>Evento (opcional — alimenta a Agenda do site)</label>
@@ -1135,6 +1141,19 @@
       var novo;
       if(md === '**' || md === '*') novo = md + sel + md;
       else if(md === 'img:'){ corpoImgInput.click(); return; }
+      else if(md === 'video:'){
+        var vu = prompt('Cole o link do vídeo (YouTube) ou do episódio (Spotify):');
+        if(!vu) return;
+        novo = '\n\n' + (vu.indexOf('spotify.com') > -1 ? 'spotify:' : 'video:') + vu.trim() + '\n\n';
+      }
+      else if(md === 'botao:'){
+        var bt = prompt('Texto do botão (ex.: Comprar ingressos):', 'Comprar ingressos');
+        if(bt === null) return;
+        var bu = prompt('Endereço para onde o botão leva:', 'https://');
+        if(!bu) return;
+        novo = '\n\nbotao:' + (bt || 'Saiba mais') + ' | ' + bu.trim() + '\n\n';
+      }
+      else if(md === '***'){ novo = '\n\n***\n\n'; }
       else novo = '\n\n' + md + sel;
       ta.value = ta.value.slice(0, ini) + novo + ta.value.slice(fim);
       ta.focus();
@@ -1249,22 +1268,33 @@
 
   // ---------- foto no meio do texto, por upload ----------
   var corpoImgInput = document.createElement('input');
-  corpoImgInput.type = 'file'; corpoImgInput.accept = 'image/*'; corpoImgInput.style.display = 'none';
+  corpoImgInput.type = 'file'; corpoImgInput.accept = 'image/*';
+  corpoImgInput.multiple = true; corpoImgInput.style.display = 'none';
   document.body.appendChild(corpoImgInput);
   corpoImgInput.addEventListener('change', function(){
-    var file = this.files[0]; this.value = '';
-    if(!file) return;
+    var files = Array.prototype.slice.call(this.files); this.value = '';
+    if(!files.length) return;
     if(!token()){ alert('Conecte a chave de publicação para subir fotos (aba Conexão)'); return; }
-    var ta = $('f-body');
-    redimensionar(file).then(function(d){
-      var slugBase = slugify($('f-title').value || 'materia') || 'materia';
-      return subirImagem(d, slugBase + '-corpo');
-    }).then(function(caminho){
+    var ta = $('f-body'), slugBase = slugify($('f-title').value || 'materia') || 'materia';
+    var btnFoto = document.querySelector('[data-md="img:"]');
+    if(btnFoto) btnFoto.textContent = '⏳ Subindo ' + files.length + ' foto(s)…';
+    var caminhos = [];
+    var fila = files.reduce(function(p, file, i){
+      return p.then(function(){
+        return redimensionar(file)
+          .then(function(d){ return subirImagem(d, slugBase + '-corpo' + i); })
+          .then(function(c){ caminhos.push(c); });
+      });
+    }, Promise.resolve());
+    fila.then(function(){
       var ini = ta.selectionStart;
-      var trecho = '\n\nimg:' + caminho + ' | Escreva a legenda aqui\n\n';
+      var trecho = caminhos.length > 1
+        ? '\n\ngaleria:' + caminhos.join(' | ') + '\n\n'
+        : '\n\nimg:' + caminhos[0] + ' | Escreva a legenda aqui\n\n';
       ta.value = ta.value.slice(0, ini) + trecho + ta.value.slice(ini);
       statusTexto(); salvarRasc(); ta.focus();
-    }).catch(function(err){ alert('Falha ao subir a foto: ' + err.message); });
+    }).catch(function(err){ alert('Falha ao subir: ' + err.message); })
+      .finally(function(){ if(btnFoto) btnFoto.textContent = '📷 Fotos (várias)'; });
   });
 
   function colherEvento(){
@@ -1533,6 +1563,23 @@
       b = b.trim();
       if(!b) return '';
       if(b.indexOf('## ') === 0) return '<h3>' + esc(b.slice(3)) + '</h3>';
+      if(b.indexOf('video:') === 0){
+        var vm = b.slice(6).match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([A-Za-z0-9_-]{6,20})/);
+        return vm ? '<div style="aspect-ratio:16/9;border:2px solid var(--ink)"><iframe src="https://www.youtube-nocookie.com/embed/' + vm[1] + '" style="width:100%;height:100%" frameborder="0" allowfullscreen></iframe></div>' : '';
+      }
+      if(b.indexOf('spotify:') === 0){
+        var su = b.slice(8).trim().split('?')[0].replace('open.spotify.com/intl-pt/', 'open.spotify.com/').replace('open.spotify.com/', 'open.spotify.com/embed/');
+        return su.indexOf('embed') > -1 ? '<iframe src="' + esc(su) + '" style="width:100%;height:152px;border:2px solid var(--ink)" frameborder="0"></iframe>' : '';
+      }
+      if(b.indexOf('galeria:') === 0){
+        return '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px">' +
+          b.slice(8).split('|').map(function(u){ return '<img src="' + esc(u.trim()) + '" style="width:100%;aspect-ratio:4/3;object-fit:cover;border:2px solid var(--ink)">'; }).join('') + '</div>';
+      }
+      if(b.indexOf('botao:') === 0){
+        var bp = b.slice(6).split('|');
+        return bp[1] ? '<p><a href="' + esc((bp[1] || '').trim()) + '" target="_blank" style="display:inline-block;background:var(--wine);color:var(--gold);font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;padding:12px 20px;text-decoration:none">' + esc(bp[0].trim()) + '</a></p>' : '';
+      }
+      if(b.replace(/[* ]/g, '') === '' && b.indexOf('*') > -1) return '<div style="text-align:center;color:var(--gold);letter-spacing:1em">✦ ✦ ✦</div>';
       if(b.indexOf('img:') === 0){
         var resto = b.slice(4).split('|');
         return '<figure><img src="' + esc(resto[0].trim()) + '" alt="" style="max-width:100%">' +
