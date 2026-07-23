@@ -20,13 +20,13 @@ PROGRAMAS = [
     ('PLFPAp2PKrLk2xo9BULjM0wmganFcGd88C', 'Programa do Foyer — 6ª temporada', 'entrevista'),
     ('PLFPAp2PKrLk3jT3v-FXr9O73jhu3_KaC8', 'Programa do Foyer — 5ª temporada', 'entrevista'),
     ('PLFPAp2PKrLk15leURL9x9-HQjDGTeXP2R', 'Críticas Teatrais', 'critica'),
-    ('PLFPAp2PKrLk3MV6Gxs3yqncYjycC905VI', 'Teatro a Sangue Frio', 'critica'),
+    ('PLFPAp2PKrLk3MV6Gxs3yqncYjycC905VI', 'Teatro a Sangue Frio', 'programa'),
     ('PLFPAp2PKrLk3twR1PzHCo5l7afF0F5dPI', 'Astro em Cena', 'programa'),
     ('PLFPAp2PKrLk13Yccyp7Au8-TJ-R8extiv', 'Trivia Musical Game Show', 'programa'),
     ('PLFPAp2PKrLk0KP-K-Q8qL-LRk9AiAINmy', 'Session Musical', 'programa'),
     ('PLFPAp2PKrLk3dDXvpjoZgBh0obVCPYCmV', 'Coxixo de Coxia', 'programa'),
     ('PLFPAp2PKrLk1JMqCrXQk2_LBXIrJVSLpC', 'Corda Bamba', 'programa'),
-    ('PLFPAp2PKrLk2BpCq8k-eOGXHk-WlGZFHm', 'Por Bruno Cavalcanti', 'programa'),
+    ('PLFPAp2PKrLk2BpCq8k-eOGXHk-WlGZFHm', 'Por Bruno Cavalcanti', 'critica'),
 ]
 
 NS = {'a': 'http://www.w3.org/2005/Atom',

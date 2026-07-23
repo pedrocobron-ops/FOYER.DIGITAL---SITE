@@ -1749,13 +1749,13 @@ if _yt_progs:
     _PDESC = {
         'Programa do Foyer': ('Talk — 6 temporadas', 'O talk do FOYER: conversas com elencos, criadores e os bastidores do teatro musical.'),
         'Críticas Teatrais': ('Crítica em vídeo', 'A redação assiste, pensa e assina — em vídeo.'),
-        'Teatro a Sangue Frio': ('Crítica', 'Os espetáculos em cartaz analisados sem anestesia.'),
+        'Teatro a Sangue Frio': ('Série', 'O teatro contado com o sangue frio de quem viveu a cena.'),
         'Astro em Cena': ('Papo — Astrologia', 'Astrologia e artes em conversas cheias de insights.'),
         'Trivia Musical Game Show': ('Game show', 'Artistas duelam no universo dos musicais. Quem sabe mais?'),
         'Session Musical': ('Música em estúdio', 'O teatro musical brasileiro canta ao vivo no estúdio do FOYER.'),
         'Coxixo de Coxia': ('Coxia — Humor', 'O papo solto de quem vive o teatro por trás da cortina.'),
         'Corda Bamba': ('Série', 'Novos episódios no canal do FOYER.'),
-        'Por Bruno Cavalcanti': ('Coluna em vídeo', 'A coluna em vídeo de Bruno Cavalcanti.'),
+        'Por Bruno Cavalcanti': ('Crítica', 'A crítica assinada por Bruno Cavalcanti, em vídeo.'),
     }
     _cards, _vistos_nomes = '', set()
     for p in _yt_progs:
@@ -1795,14 +1795,18 @@ if _yt_progs:
 '''
 
     # ---------- CRÍTICA ----------
-    _crit_vids = '\n'.join(yt_cell(v, nome) for _, nome, v in _yt_videos(_yt_por_papel('critica'), 6))
+    _crit_sel = []
+    for _p in _yt_por_papel('critica'):
+        _crit_sel += _yt_videos([_p], 3)
+    _crit_sel.sort(key=lambda x: x[0], reverse=True)
+    _crit_vids = '\n'.join(yt_cell(v, nome) for _, nome, v in _crit_sel)
     _crit_mats = [p for p in MATERIAS if p.get('cat') == 'Crítica'][:12]
     _crit_cells = '\n'.join(real_cell(p) for p in _crit_mats)
     critica_body = band('Editoria', 'Crítica', 'A redação assiste, pensa e assina — sem medo de opinião') + f'''
 <main class="wrap">
   <div class="sec-head">
     <h2>Crítica em vídeo</h2>
-    <span class="note">Críticas Teatrais &amp; Teatro a Sangue Frio — no canal</span>
+    <span class="note">Críticas Teatrais &amp; Por Bruno Cavalcanti — no canal</span>
     <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener" class="all">Ver no YouTube ↗</a>
   </div>
   <div class="ep-grid">
