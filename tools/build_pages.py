@@ -179,14 +179,16 @@ FOOTER = '''<footer>
       <div class="foot-col">
         <h4>Programas</h4>
         <a href="programas.html">Programa do Foyer</a>
-        <a href="programas.html">Trivia Musical</a>
-        <a href="programas.html">Astro em Cena</a>
-        <a href="programas.html">Off Stage · Coxixo de Coxia</a>
+        <a href="programas.html">Críticas Teatrais · Por Bruno Cavalcanti</a>
+        <a href="programas.html">Trivia Musical · Astro em Cena</a>
+        <a href="programas.html">Session Musical · Coxixo de Coxia</a>
       </div>
       <div class="foot-col">
         <h4>Foyer</h4>
         <a href="revista.html">A Revista</a>
         <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="sobre.html">Quem somos</a>
+        <a href="contato.html">Contato</a>
         <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
         <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
         <a href="privacidade.html">Política de Privacidade</a>
@@ -1853,6 +1855,91 @@ if _yt_progs:
 '''
     print(f"• YouTube: {sum(len(p.get('videos', [])) for p in _yt_progs)} episódios em {len(_yt_progs)} playlists")
 
+# ---------------------------------------------------------------- AGENDA / SOBRE / CONTATO (conteúdo real)
+_MES_ABREV = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+_AGD_CATS = {'Show', 'Festa', 'Audições', 'Edital', 'Exposições'}
+_agd_mats = [p for p in MATERIAS
+             if p.get('cat') in _AGD_CATS or 'estreia' in p.get('title', '').lower()][:14]
+_agd_rows = ''
+for _p in _agd_mats:
+    try:
+        _y, _m, _d = _p['iso'].split('-')
+        _dia, _mes = str(int(_d)), _MES_ABREV[int(_m) - 1]
+    except Exception:
+        _dia, _mes = '·', ''
+    _agd_rows += f'''    <a class="agd-row" href="post-{_p['slug']}.html">
+      <span class="agd-date"><b>{_dia}</b><small>{_mes}</small></span>
+      <span class="agd-what"><h3>{_rvesc(_p['title'])}</h3><span class="agd-meta">{_rvesc(_p['desc'][:110])}…</span></span>
+      <span class="tag agd-tag">{_rvesc(_p['cat'])}</span>
+    </a>\n'''
+agenda_body = band('Serviço', 'Agenda', 'O que estreia, o que abre inscrição e o que não dá para perder') + f'''
+<main class="wrap">
+  <div class="agd">
+{_agd_rows}  </div>
+  <div class="ad-slot" data-ad-slot="1701"></div>
+  <div class="filters" style="padding:18px 0 40px">
+    <a href="cat-show.html">Shows</a>
+    <a href="cat-exposicoes.html">Exposições</a>
+    <a href="cat-audicoes.html">Audições</a>
+    <a href="cat-edital.html">Editais</a>
+    <a href="noticias.html">Todas as notícias →</a>
+  </div>
+</main>
+'''
+
+try:
+    _CFG = _json.load(open(os.path.join(ROOT, 'import/site.json')))
+except Exception:
+    _CFG = {}
+try:
+    _EQ_PUB = _json.load(open(os.path.join(ROOT, 'import/equipe.json'))).get('usuarios', [])
+except Exception:
+    _EQ_PUB = []
+
+_eq_linhas = ''.join(
+    f'<li><b>{_rvesc(u["nome"])}</b> — {"Direção e edição" if u.get("papel") == "chefe" else "Redação"}</li>'
+    for u in _EQ_PUB)
+_n_eps = sum(len(p.get('videos', [])) for p in YT.get('programas', []))
+sobre_body = band('O Foyer', 'Quem somos', 'Jornalismo de cultura feito por quem vive o teatro') + f'''
+<main class="wrap">
+  <div class="art" style="max-width:820px; margin:0 auto">
+    <div class="art-body" style="padding-top:34px">
+      <p class="drop">O FOYER é um portal brasileiro de jornalismo cultural dedicado ao teatro, à música e às artes — e também um canal de programas sobre a arte de quem faz o palco. Nascemos da plateia: cobrimos estreias, temporadas, bastidores e a economia da cena com a urgência de quem sabe que espetáculo tem dia para sair de cartaz.</p>
+      <h2>O que fazemos</h2>
+      <p>São <b>{len(MATERIAS)} matérias</b> publicadas — notícias, críticas, entrevistas e serviço — e <b>{_n_eps} episódios</b> nos programas do canal, entre eles o <b>Programa do Foyer</b> (nosso talk com elencos e criadores), as críticas em vídeo de <b>Críticas Teatrais</b> e <b>Por Bruno Cavalcanti</b>, o game show <b>Trivia Musical</b> e o <b>Session Musical</b>, em que o teatro musical brasileiro canta em estúdio.</p>
+      <h2>Como trabalhamos</h2>
+      <p>Título sem caça-clique, apuração com fonte e serviço completo ao final. Parte das matérias assinadas como <b>Redação Foyer</b> conta com apuração assistida por inteligência artificial — todas são revisadas, checadas e aprovadas por um editor humano antes de ir ao ar. Fotografias são sempre de divulgação oficial, com o devido crédito. Conteúdo publicitário, quando houver, é identificado como tal.</p>
+      <h2>Quem faz</h2>
+      <ul style="line-height:2.4; list-style:none; padding:0">{_eq_linhas}</ul>
+      <p>Quer falar com a redação? <a href="contato.html">Visite a página de contato</a>.</p>
+    </div>
+  </div>
+</main>
+'''
+
+_email = _CFG.get('emailContato', '')
+_email_bloco = (f'<p style="font-size:1.1rem">✉ <a href="mailto:{_rvesc(_email)}"><b>{_rvesc(_email)}</b></a></p>'
+                if _email else
+                '<p>✉ O e-mail da redação será publicado em breve.</p>')
+contato_body = band('Fale conosco', 'Contato', 'Pautas, convites de imprensa, parcerias e publicidade') + f'''
+<main class="wrap">
+  <div class="art" style="max-width:820px; margin:0 auto">
+    <div class="art-body" style="padding-top:34px">
+      <h2>Redação</h2>
+      <p>Sugestões de pauta, convites para coberturas e estreias, material de divulgação e errata:</p>
+      {_email_bloco}
+      <h2>Publicidade e parcerias</h2>
+      <p>Anúncios no site, páginas patrocinadas na Revista do FOYER e projetos especiais nos programas do canal — escreva para a redação com o assunto “Publicidade”.</p>
+      <h2>Nossos canais</h2>
+      <p>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube — @Foyer.digital ↗</a><br>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify — Programa do Foyer ↗</a>
+      </p>
+    </div>
+  </div>
+</main>
+'''
+
 # ---------------------------------------------------------------- monta tudo
 
 # capa tem ordem própria: ticker+masthead antes da nav
@@ -1895,6 +1982,8 @@ page('materia.html', 'A temporada em que o musical brasileiro decidiu contar as 
 page('artista.html', 'Marina Villas — Enciclopédia FOYER', 'Verbete de Marina Villas na Enciclopédia do Teatro Musical Brasileiro.', 'enciclopedia.html', artista_body)
 page('espetaculo.html', 'A Cidade Cantada — Enciclopédia FOYER', 'Ficha completa do musical A Cidade Cantada na Enciclopédia do Teatro Musical Brasileiro.', 'enciclopedia.html', espetaculo_body)
 page('busca.html', 'Buscar — FOYER', 'Busque matérias, críticas, artistas e espetáculos no FOYER.', 'busca.html', busca_body)
+page('sobre.html', 'Quem somos — FOYER', 'O FOYER: portal de jornalismo cultural e canal de programas sobre teatro, música e artes.', 'index.html', sobre_body)
+page('contato.html', 'Contato — FOYER', 'Fale com a redação do FOYER: pautas, imprensa, parcerias e publicidade.', 'index.html', contato_body)
 page('privacidade.html', 'Política de Privacidade — FOYER', 'Política de privacidade e cookies do FOYER.', 'privacidade.html', privacidade_body)
 
 for _i, _p in enumerate(MATERIAS):
