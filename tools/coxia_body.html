@@ -413,8 +413,12 @@
 
       <!-- ========== NOVA MATÉRIA ========== -->
       <section class="view" id="view-nova">
-        <h2 class="hi">Nova matéria</h2>
+        <h2 class="hi" id="nova-titulo">Nova matéria</h2>
         <p class="hi-sub">Escreva, suba a foto de capa e mande para o site</p>
+        <div id="edit-banner" style="display:none;border:2px solid var(--gold);background:var(--paper-2);padding:14px 16px;margin-bottom:18px;font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase">
+          ✎ Editando matéria publicada: <b id="edit-titulo"></b> — a data original é mantida e o site mostra o selo “atualizada em”.
+          <button class="bt" type="button" id="edit-cancelar" style="margin-left:10px">✕ Cancelar edição</button>
+        </div>
         <div class="f-grid">
           <form class="f-form" id="form">
             <div>
@@ -498,6 +502,13 @@
         <h2 class="hi">Fila &amp; agendadas</h2>
         <p class="hi-sub" id="fila-sub">Tudo o que a Coxia publicou ou agendou</p>
         <div class="fila" id="fila-list"><div class="vazio-box">Carregando…</div></div>
+        <div id="acervo-box">
+          <div class="sec-h"><h3>Editar matéria do acervo</h3><span>busque entre todas as matérias publicadas — a edição sai com o selo "atualizada"</span></div>
+          <form id="acervo-form" style="display:flex;gap:8px" onsubmit="return false">
+            <input type="search" id="acervo-q" placeholder="Busque pelo título da matéria…" style="flex:1;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:inherit;padding:11px 12px">
+          </form>
+          <div class="fila" id="acervo-res" style="margin-top:10px;display:none"></div>
+        </div>
       </section>
 
       <!-- ========== REDAÇÃO IA ========== -->
@@ -705,6 +716,8 @@
   var API_BASE = 'https://api.github.com/repos/' + OWNER + '/' + REPO;
 
   var USER = null;      // {id, nome, papel, permissoes}
+  var FILA_CACHE = {};  // slug -> matéria da fila (para edição)
+  var EDIT = null;      // edição de matéria publicada: {slug, publishAt, criadoEm, img, origem}
   var EQUIPE = null;    // {lista:[...], sha:'...'}
   var MESA = {};        // slug -> pacote
   var CAPA = null;      // dataURL da capa da nova matéria
@@ -819,6 +832,7 @@
       ? 'Tudo o que a Coxia publicou ou agendou'
       : 'Suas matérias — as publicadas e as que esperam o carimbo do chefe';
     $('btn-pub').textContent = USER.papel === 'chefe' ? 'Enviar para o site' : 'Enviar para aprovação';
+    $('acervo-box').style.display = USER.papel === 'chefe' ? '' : 'none';
     $('nova-nota').innerHTML = USER.papel === 'chefe'
       ? '<b>Publicar agora:</b> no ar em ~2 minutos.<br><b>Agendada:</b> o relógio do site confere a cada 30 min e publica sozinho na hora marcada.<br><br>Capa, listagens, busca e compartilhamento se atualizam automaticamente.'
       : '<b>Como funciona:</b> sua matéria vai para a mesa do chefe, que aprova e programa a publicação.<br><br>Se você marcar uma data, ela segue como <b>sugestão</b> de agendamento.<br><br>Capriche na foto de capa e no crédito — matéria completa sobe mais rápido.';
@@ -1033,12 +1047,25 @@
       if(!dt){ msg.textContent = 'Escolha a data e hora do agendamento'; msg.className = 'msg err'; return; }
       publishAt = new Date(dt).toISOString();
     }
-    var slug = slugify(title);
+    var slug = EDIT ? EDIT.slug : slugify(title);
     var btn = $('btn-pub');
     var ehChefe = USER.papel === 'chefe';
     btn.disabled = true; btn.textContent = 'Enviando…';
     var passo = CAPA ? subirImagem(CAPA, slug) : Promise.resolve('');
     passo.then(function(imgPath){
+      if(EDIT){
+        var edicao = {
+          title: title, slug: slug,
+          cat: $('f-cat').value, author: $('f-autor').value,
+          img: imgPath || EDIT.img, imgCredito: $('f-cred').value.trim(),
+          corpo: corpo, publishAt: EDIT.publishAt,
+          criadoEm: EDIT.criadoEm || EDIT.publishAt,
+          atualizadoEm: new Date().toISOString(),
+          origem: EDIT.origem, editadoPor: USER.nome
+        };
+        return ghPut('import/novas/' + slug + '.json', JSON.stringify(edicao, null, 1),
+          assina('edita matéria publicada "' + title + '"'));
+      }
       if(ehChefe){
         var dados = {
           title: title, slug: slug,
@@ -1066,6 +1093,11 @@
         assina('envia "' + title + '" para a aprovação do chefe'));
     }).then(function(){
       msg.className = 'msg ok';
+      if(EDIT){
+        msg.textContent = 'Edição salva ✓ — no ar em ~2 min, com o selo “atualizada em”';
+        sairEdicao();
+        return;
+      }
       msg.textContent = ehChefe
         ? (quando === 'agendar' ? 'Agendada ✓ — sai no site na hora marcada' : 'Enviada ✓ — no ar em ~2 minutos')
         : 'Enviada para a mesa do chefe ✓ — ele aprova e programa a publicação';
@@ -1074,7 +1106,7 @@
       CAPA = null; $('up-prev').src = ''; up.classList.remove('tem');
       aplicarUsuario();
     }).catch(function(err){ msg.className = 'msg err'; msg.textContent = 'Falha ao enviar: ' + err.message; })
-      .finally(function(){ btn.disabled = false; btn.textContent = ehChefe ? 'Enviar para o site' : 'Enviar para aprovação'; });
+      .finally(function(){ btn.disabled = false; if(!EDIT) btn.textContent = ehChefe ? 'Enviar para o site' : 'Enviar para aprovação'; });
   });
 
   /* ---------------- fila ---------------- */
@@ -1113,11 +1145,16 @@
           var th = d.img
             ? '<img class="th" src="' + esc(d.img) + '" alt="" onerror="this.className=\'th no\';this.removeAttribute(\'src\')">'
             : '<span class="th no">sem foto</span>';
+          FILA_CACHE[d.slug] = d;
+          var editar = (USER.papel === 'chefe' && !d._mesa)
+            ? '<button class="bt" data-edtm="' + esc(d.slug) + '" type="button">✎ Editar</button>' : '';
           return '<div class="frow">' + th +
             '<span><span class="ti">' + esc(d.title) + '</span>' +
-            '<span class="mt">' + esc(d.cat) + ' — ' + esc(d.author) + ' — ' + quando + '</span></span>' +
+            '<span class="mt">' + esc(d.cat) + ' — ' + esc(d.author) + ' — ' + quando +
+            (d.atualizadoEm ? ' — ✎ atualizada' : '') + '</span></span>' +
             '<span class="pill ' + cls + '">' + pill + '</span>' +
-            '<button class="bt danger" data-del="' + esc(d._path) + '" data-sha="' + esc(d._sha) + '" type="button">Remover</button>' +
+            '<span style="display:flex;gap:6px">' + editar +
+            '<button class="bt danger" data-del="' + esc(d._path) + '" data-sha="' + esc(d._sha) + '" type="button">Remover</button></span>' +
             '</div>';
         }).join('');
       });
@@ -1447,6 +1484,113 @@
       $('senha-copiar').textContent = 'Copiado ✓';
       setTimeout(function(){ $('senha-copiar').textContent = 'Copiar'; }, 1600);
     }).catch(function(){});
+  });
+
+  /* ================= EDIÇÃO DE MATÉRIA PUBLICADA ================= */
+  function htmlParaCoxia(h){
+    h = String(h || '')
+      .replace(/<h2[^>]*>([\s\S]*?)<\/h2>/gi, function(_, t){ return '\n\n## ' + t.replace(/<[^>]+>/g, '') + '\n\n'; })
+      .replace(/<blockquote[^>]*>([\s\S]*?)<\/blockquote>/gi, function(_, q){ return '\n\n> ' + q.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() + '\n\n'; })
+      .replace(/<figure[^>]*>[\s\S]*?<img[^>]*src="([^"]+)"[\s\S]*?(?:<figcaption[^>]*>([\s\S]*?)<\/figcaption>)?[\s\S]*?<\/figure>/gi,
+        function(_, src, cap){ return '\n\nimg:' + src + (cap ? ' | ' + cap.replace(/<[^>]+>/g, '').trim() : '') + '\n\n'; })
+      .replace(/<img[^>]*src="([^"]+)"[^>]*>/gi, '\n\nimg:$1\n\n')
+      .replace(/<(strong|b)[^>]*>([\s\S]*?)<\/\1>/gi, '**$2**')
+      .replace(/<(em|i)[^>]*>([\s\S]*?)<\/\1>/gi, '*$2*')
+      .replace(/<a [^>]*href="(https?:\/\/[^"]+)"[^>]*>([\s\S]*?)<\/a>/gi, '[$2]($1)')
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<\/p>/gi, '\n\n')
+      .replace(/<[^>]+>/g, '');
+    var ta = document.createElement('textarea');
+    ta.innerHTML = h;
+    return ta.value.replace(/\n{3,}/g, '\n\n').trim();
+  }
+
+  function entrarEdicao(dados, fonte){
+    EDIT = {
+      slug: dados.slug, fonte: fonte,
+      publishAt: dados.publishAt || (dados.iso ? dados.iso + 'T12:00:00.000Z' : new Date().toISOString()),
+      criadoEm: dados.criadoEm || dados.publishAt || '',
+      img: dados.img || '', origem: dados.origem || (fonte === 'acervo' ? 'acervo' : '')
+    };
+    $('f-title').value = dados.title || '';
+    $('f-cat').value = dados.cat || 'Notícia';
+    var sel = $('f-autor');
+    if(![].some.call(sel.options, function(o){ return o.value === dados.author; })){
+      sel.insertAdjacentHTML('beforeend', '<option>' + esc(dados.author || 'Redação Foyer') + '</option>');
+    }
+    sel.value = dados.author || 'Redação Foyer';
+    $('f-cred').value = dados.imgCredito || '';
+    $('f-body').value = dados.corpo || '';
+    CAPA = null;
+    if(EDIT.img){ $('up-prev').src = EDIT.img; up.classList.add('tem'); }
+    else { $('up-prev').src = ''; up.classList.remove('tem'); }
+    $('edit-titulo').textContent = dados.title || dados.slug;
+    $('edit-banner').style.display = 'block';
+    $('nova-titulo').textContent = 'Editar matéria';
+    $('f-quando').parentElement.parentElement.style.display = 'none';
+    $('btn-pub').textContent = 'Salvar edição';
+    irPara('nova');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function sairEdicao(){
+    EDIT = null;
+    $('edit-banner').style.display = 'none';
+    $('nova-titulo').textContent = 'Nova matéria';
+    $('f-quando').parentElement.parentElement.style.display = '';
+    $('form').reset();
+    CAPA = null; $('up-prev').src = ''; up.classList.remove('tem');
+    aplicarUsuario();
+  }
+  $('edit-cancelar').addEventListener('click', sairEdicao);
+
+  var MATS_ACERVO = null;
+  function acervoTodos(){
+    if(MATS_ACERVO) return Promise.resolve(MATS_ACERVO);
+    return fetch('import/materias.json', { cache: 'no-store' }).then(function(r){ return r.json(); })
+      .then(function(d){ MATS_ACERVO = d; return d; });
+  }
+  function normTxt(t){ return t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
+  $('acervo-q').addEventListener('input', function(){
+    var v = normTxt(this.value.trim()), res = $('acervo-res');
+    if(v.length < 3){ res.style.display = 'none'; return; }
+    acervoTodos().then(function(mats){
+      var hits = [];
+      for(var i = 0; i < mats.length && hits.length < 12; i++)
+        if(normTxt(mats[i].title).indexOf(v) !== -1) hits.push(mats[i]);
+      res.style.display = 'block';
+      res.innerHTML = hits.length ? hits.map(function(m){
+        return '<div class="frow" style="grid-template-columns:1fr auto">' +
+          '<span><span class="ti">' + esc(m.title) + '</span>' +
+          '<span class="mt">' + esc(m.cat) + ' — ' + esc(m.author) + ' — ' + esc(m.date || '') + '</span></span>' +
+          '<button class="bt" data-edta="' + esc(m.slug) + '" type="button">✎ Editar</button></div>';
+      }).join('') : '<div class="vazio-box">Nada encontrado com esse título</div>';
+    });
+  });
+
+  document.addEventListener('click', function(e){
+    var b;
+    if((b = e.target.closest('[data-edtm]'))){
+      var d = FILA_CACHE[b.dataset.edtm];
+      if(d) entrarEdicao(d, 'novas');
+      return;
+    }
+    if((b = e.target.closest('[data-edta]'))){
+      var slug = b.dataset.edta;
+      // se já existe versão editada na Coxia, parte dela; senão converte o corpo antigo
+      ghGet('import/novas/' + slug + '.json').then(function(f){
+        if(f){ entrarEdicao(JSON.parse(unb64(f.content)), 'novas'); return; }
+        acervoTodos().then(function(mats){
+          var m = mats.filter(function(x){ return x.slug === slug; })[0];
+          if(!m) return;
+          fetch('import/corpo/' + slug + '.html', { cache: 'no-store' })
+            .then(function(r){ return r.ok ? r.text() : ''; })
+            .then(function(html){
+              m = Object.assign({}, m, { corpo: htmlParaCoxia(html) || m.desc || '' });
+              entrarEdicao(m, 'acervo');
+            });
+        });
+      });
+    }
   });
 
   /* ================= SAGUÃO ================= */

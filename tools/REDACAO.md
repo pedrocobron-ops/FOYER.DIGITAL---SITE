@@ -38,6 +38,30 @@ não uma nota de agenda. Padrão obrigatório:
   não estiver nas fontes, não afirmar.
 - Assinatura: sempre `"author": "Redação Foyer"` — sem personas falsas.
 
+## Escrita humana (obrigatório — o Chefe de Redação REPROVA quem violar)
+
+O texto deve soar como jornalista de carne e osso. Padrões proibidos:
+
+1. **TRAVESSÃO É PROIBIDO.** Nem travessão (—) nem meia-risca (–) em
+   lugar nenhum do texto, do título ou do serviço. No lugar: vírgula,
+   dois-pontos, parênteses ou ponto final. Atribuição de citação com
+   vírgula: `"...", afirma Fulana, diretora do espetáculo.`
+2. Proibidas as fórmulas de IA: "não é X, é Y"; "mais do que X, é Y";
+   "verdadeiro(a) + substantivo"; "X não é detalhe"; "prova de que";
+   "é aí que entra"; "o resultado? "; pergunta retórica seguida de
+   resposta imediata.
+3. Proibidos os clichês de release: "imperdível", "vibrante",
+   "emocionante", "único", "mergulhar", "celebrar", "promete
+   emocionar", "experiência única", "sucesso absoluto", "vem
+   conquistando", "não poderia ser diferente".
+4. Evitar trios perfeitos ("emociona, diverte e transforma") e listas
+   de três adjetivos. Um adjetivo forte vale mais que três fracos.
+5. Variar o ritmo: parágrafos de tamanhos diferentes, frases curtas
+   misturadas com longas, começos de parágrafo variados (nunca três
+   parágrafos seguidos começando com "O", "A" ou o nome da peça).
+6. Informação antes de opinião: o texto informa; adjetivo só quando
+   sustentado por fato citado.
+
 ## Foto de capa — OBRIGATÓRIA, com crédito
 
 Matéria sem foto não vai para a mesa. Em cada pauta:

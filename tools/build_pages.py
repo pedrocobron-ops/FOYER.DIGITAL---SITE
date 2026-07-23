@@ -1095,6 +1095,7 @@ if os.path.isdir(_novas_dir):
             'date': f'{int(_dd)} de {_MESES_PT[int(_mo)-1]} de {_y}',
             'short': f'{_dd}.{_mo}', 'iso': _iso,
             'img': _n.get('img', ''), 'credito': _n.get('imgCredito', ''),
+            'atualizado': _n.get('atualizadoEm', ''),
             'url': '', 'min': max(1, len(_txt)//1100),
         })
     if _novas:
@@ -1409,6 +1410,21 @@ def listing_body(posts, page, pages, base, titulo, nota, active='*'):
 """
 
 # --- uma página por matéria (corpo completo importado do Wix)
+def selo_atualizada(p):
+    iso = p.get('atualizado', '')
+    if not iso:
+        return ''
+    try:
+        from zoneinfo import ZoneInfo
+        dt = datetime.fromisoformat(iso).astimezone(ZoneInfo('America/Sao_Paulo'))
+        quando = dt.strftime('%d/%m/%Y às %Hh%M')
+    except Exception:
+        quando = iso[:10]
+    return ('\n    <div style="font-family:var(--mono);font-size:.6rem;font-weight:600;'
+            'letter-spacing:.14em;text-transform:uppercase;color:var(--wine);'
+            'border:1.5px solid var(--gold);background:var(--paper-2);display:inline-block;'
+            f'padding:7px 12px;margin-top:10px">✎ Matéria atualizada em {quando}</div>')
+
 def post_page(i, p):
     _sps = globals().get('POR_MATERIA', {}).get(p['slug'], [])
     _pes = globals().get('PESSOAS', {})
@@ -1436,7 +1452,7 @@ def post_page(i, p):
     <div class="art-byline">
       <span>Por <b>{p['author']}</b></span>
       <span>{p['date']} · {p['min']} min de leitura</span>
-    </div>
+    </div>{selo_atualizada(p)}
     <div class="share-row" aria-label="Compartilhar esta matéria">
       <button class="sbtn" data-share="whats" data-title="{safe(p['title'])}">WhatsApp</button>
       <button class="sbtn" data-share="x" data-title="{safe(p['title'])}">X / Twitter</button>
