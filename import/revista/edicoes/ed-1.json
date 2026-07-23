@@ -64,7 +64,65 @@
    "chamada": "A dama do teatro brasileiro encarna o ícone da moda nova-iorquina no Teatro Vannucci."
   },
   {
-   "tipo": "agenda"
+   "tipo": "agenda",
+   "itens": [
+    {
+     "dia": "2026-07-24",
+     "titulo": "Wicked",
+     "texto": "A bruxa verde sobrevoa a Barra só até 9 de agosto, e a sexta às 20h é a sessão de teatro cheio, do jeito que o final do primeiro ato pede.",
+     "local": "Cidade das Artes, sala Bibi Ferreira",
+     "cidade": "Rio de Janeiro",
+     "link": "post-wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.html"
+    },
+    {
+     "dia": "2026-07-25",
+     "titulo": "Valsa Nº 6",
+     "texto": "Luisa Thiré tem apenas quatro sessões e uma saia de 12 metros para dar corpo ao delírio de Sônia, a menina morta de Nelson Rodrigues, e a das 14h30 ainda deixa a noite livre.",
+     "local": "Teatro Arena B3",
+     "cidade": "São Paulo",
+     "link": "post-luisa-thire-apresenta-valsa-no-6-de-nelson-rodrigues-no-teatro-arena-b3.html"
+    },
+    {
+     "dia": "2026-07-26",
+     "titulo": "História",
+     "texto": "A criação dos 25 anos da companhia brasileira de teatro, dirigida por Marcio Abreu, se despede do CCBB numa sessão só, domingo às 18h, com ingresso a 30 reais.",
+     "local": "CCBB Rio de Janeiro, Teatro II",
+     "cidade": "Rio de Janeiro",
+     "link": "https://ingressosccbb.com.br/teatro-historia__3845"
+    },
+    {
+     "dia": "2026-07-27",
+     "titulo": "Las Choronas",
+     "texto": "Segunda-feira costuma ser dia de palco apagado, mas os bonecos surrealistas de Byron O'Neill fazem às 19h a última sessão da temporada, com Libras integrada à cena.",
+     "local": "Teatro do CCBB São Paulo",
+     "cidade": "São Paulo",
+     "link": "post-las-choronas-estreia-no-ccbb-sao-paulo-com-teatro-de-bonecos-danca-musica-e-libr.html"
+    },
+    {
+     "dia": "2026-07-28",
+     "titulo": "OSB toca a Nona de Mahler",
+     "texto": "Claudio Cruz rege a Orquestra Sinfônica Brasileira na sinfonia de despedida de Mahler, às 19h, em 90 minutos sem intervalo que valem a terça inteira.",
+     "local": "Theatro Municipal do Rio de Janeiro",
+     "cidade": "Rio de Janeiro",
+     "link": "https://feverup.com/m/646936"
+    },
+    {
+     "dia": "2026-07-29",
+     "titulo": "Tristão e Isolda",
+     "texto": "Wagner volta ao palco do Municipal 47 anos depois da última montagem, em récita que começa cedo, às 17h, com Simon O'Neill e Annemarie Kremer no naufrágio amoroso.",
+     "local": "Theatro Municipal de São Paulo",
+     "cidade": "São Paulo",
+     "link": "https://theatromunicipal.org.br/eventos/opera-tristao-e-isolda-de-richard-wagner/"
+    },
+    {
+     "dia": "2026-07-30",
+     "titulo": "Dois de Nós",
+     "texto": "Quarenta anos de televisão separaram Antonio Fagundes e Christiane Torloni do mesmo palco, e a quinta às 20h no Leblon acerta essa conta longe da disputa do fim de semana.",
+     "local": "Teatro AXIA Casa Grande",
+     "cidade": "Rio de Janeiro",
+     "link": "post-dois-de-nos-fagundes-torloni.html"
+    }
+   ]
   },
   {
    "tipo": "frase-celebre"
@@ -74,6 +132,11 @@
   }
  ],
  "historico": [
+  {
+   "quando": "2026-07-23T21:52:42+00:00",
+   "quem": "Agendista da revista (Claude)",
+   "acao": "apura a agenda exclusiva de 24 a 30/07"
+  },
   {
    "quando": "2026-07-23T21:48:40.459569+00:00",
    "quem": "Pedro Amaral (pelo Claude)",
