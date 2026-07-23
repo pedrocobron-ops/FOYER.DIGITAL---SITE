@@ -207,16 +207,28 @@
     if(!esperado && !iOS) return;   // navegador sem suporte: não incomoda
     var v = document.createElement('div');
     v.className = 'app-veu';
+    var arte =
+      '<svg class="app-arte" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' +
+        '<filter id="app-grain"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>' +
+        '<rect width="600" height="400" fill="#380A06"/>' +
+        '<polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>' +
+        '<ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>' +
+        '<circle cx="300" cy="278" r="27" fill="#120505"/>' +
+        '<rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>' +
+        '<rect width="600" height="400" filter="url(#app-grain)" opacity=".12"/>' +
+      '</svg>';
     v.innerHTML =
-      '<div class="app-card" role="dialog" aria-label="Instalar o FOYER">' +
-        '<img src="assets/logo/pwa-192.png" alt="FOYER">' +
+      '<div class="app-card" role="dialog" aria-label="Instalar o FOYER">' + arte +
+        '<div class="app-miolo">' +
+        '<span class="app-kick">Entre em cena</span>' +
         '<h3>Leve o FOYER no bolso</h3>' +
-        '<p>Instale o site como aplicativo no seu celular: acesso direto da tela inicial, sem loja e sem ocupar espaço.</p>' +
+        '<p>Instale o site como aplicativo: acesso direto da tela inicial, sem loja e sem ocupar espaço.</p>' +
         (iOS && !esperado
           ? '<p class="app-ios">No Safari: toque em <b>Compartilhar</b> (o quadrado com a seta) e depois em <b>“Adicionar à Tela de Início”</b>.</p>' +
             '<div class="app-acoes"><button class="app-ok" data-fechar>Entendi</button></div>'
           : '<div class="app-acoes"><button class="app-ok" data-instalar>Instalar agora</button>' +
             '<button class="app-nao" data-fechar>Agora não</button></div>') +
+        '</div>' +
       '</div>';
     document.body.appendChild(v);
     requestAnimationFrame(function(){ v.classList.add('on'); });
