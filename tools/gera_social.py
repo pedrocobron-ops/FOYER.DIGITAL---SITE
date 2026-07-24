@@ -59,16 +59,42 @@ def _tokens_titulo(pg):
             for w in parte.split():
                 toks.append((w, i % 2 == 1))
         return toks
-    dentro = False
+    dentro, tem_ouro = False, False
     for w in t.split():
         abre = ('“' in w or '"' in w) and not dentro
         if abre:
             dentro = True
         toks.append((w, dentro))
-        if '”' in w or (w.count('"') and not abre) or (abre and w.count('"') == 2) or ('”' in w):
+        if dentro:
+            tem_ouro = True
+        if '”' in w or (w.count('"') and not abre) or (abre and w.count('"') == 2):
             dentro = False
         if abre and ('”' in w or w.rstrip(',.').endswith('"')):
             dentro = False
+    if not tem_ouro:
+        # sempre há um destaque: a maior sequência de nomes próprios do título
+        palavras = [w for w, _ in toks]
+        MIUDAS = {'A', 'O', 'As', 'Os', 'Um', 'Uma', 'De', 'Do', 'Da', 'Dos', 'Das',
+                  'E', 'Em', 'No', 'Na', 'Nos', 'Nas', 'Com', 'Por', 'Para', 'Que'}
+        melhor, atual = (0, 0), None
+        for i, w in enumerate(palavras):
+            limpo = w.strip('“”"\'.,:;!?')
+            proprio = limpo[:1].isupper() and (i > 0) and (limpo not in MIUDAS or atual is not None)
+            if proprio and limpo not in MIUDAS or (atual is not None and limpo in MIUDAS
+                    and i + 1 < len(palavras) and palavras[i + 1].strip('“”"\'.,:;!?')[:1].isupper()
+                    and palavras[i + 1].strip('“”"\'.,:;!?') not in MIUDAS):
+                if atual is None:
+                    atual = i
+            else:
+                if atual is not None and i - atual > melhor[1] - melhor[0]:
+                    melhor = (atual, i)
+                atual = None
+        if atual is not None and len(palavras) - atual > melhor[1] - melhor[0]:
+            melhor = (atual, len(palavras))
+        if melhor[1] > melhor[0]:
+            toks = [(w, melhor[0] <= i < melhor[1]) for i, (w, _) in enumerate(toks)]
+        else:
+            toks = [(w, i < 2) for i, (w, _) in enumerate(toks)]
     return toks
 
 
@@ -119,7 +145,9 @@ def _arco(dr, w, y_ini=138, y_fim=470):
 
 
 def gerar(pg, formato='feed'):
-    w, h = (1080, 1350) if formato == 'feed' else (1080, 1920)
+    if formato == 'story':
+        return _gerar_story(pg)
+    w, h = 1080, 1350
     base = Image.new('RGB', (w, h), (10, 6, 5))
     caminho = os.path.join(ROOT, pg.get('img', ''))
     if pg.get('img') and os.path.exists(caminho):
@@ -128,19 +156,67 @@ def gerar(pg, formato='feed'):
     dr = ImageDraw.Draw(base, 'RGB')
     _gradiente(base, 0, 340, 150, 0)
     _gradiente(base, h - 520, h, 0, 225)
-    _arco(dr, w, y_ini=140 if formato == 'feed' else 190,
-          y_fim=470 if formato == 'feed' else 560)
-    _cabecalho(dr, base, pg.get('cat'), y=130 if formato == 'feed' else 176)
+    _arco(dr, w, y_ini=140, y_fim=470)
+    _cabecalho(dr, base, pg.get('cat'), y=130)
     toks = _tokens_titulo(pg)
-    tam = 62 if formato == 'feed' else 66
+    tam = 52
     n = sum(len(w) for w, _ in toks)
-    if n > 70:
-        tam -= 6
-    margem_baixo = 120 if formato == 'feed' else 260
-    _desenha_titulo(dr, toks, 92, h - margem_baixo, w - 200, tam)
-    if formato == 'story':
-        f_mini = _fonte('Archivo-Bold.ttf', 34)
-        dr.text((92, h - 190), 'Leia a matéria completa em foyer.digital', font=f_mini, fill=OURO)
+    if n > 80:
+        tam -= 5
+    _desenha_titulo(dr, toks, 92, h - 120, w - 200, tam)
+    return base
+
+
+def _gerar_story(pg):
+    """Stories 1080x1920: a foto entra INTEIRA, emoldurada, sobre um fundo
+    feito dela mesma desfocada (nada de esticar a imagem)."""
+    w, h = 1080, 1920
+    base = Image.new('RGB', (w, h), (14, 8, 6))
+    caminho = os.path.join(ROOT, pg.get('img', ''))
+    foto = None
+    if pg.get('img') and os.path.exists(caminho):
+        foto = Image.open(caminho).convert('RGB')
+        fundo = _cover(foto, w, h, foco=0.5).filter(ImageFilter.GaussianBlur(46))
+        escuro = Image.new('RGB', (w, h), (10, 5, 4))
+        base = Image.blend(fundo, escuro, 0.55)
+    dr = ImageDraw.Draw(base, 'RGB')
+    _arco(dr, w, y_ini=196, y_fim=560)
+    _cabecalho(dr, base, pg.get('cat'), y=182)
+    if foto is not None:
+        larg_card = 940
+        alt_card = min(round(larg_card * foto.height / foto.width), 1000)
+        card = _cover(foto, larg_card, alt_card, foco=0.3) if \
+            round(larg_card * foto.height / foto.width) > alt_card else \
+            foto.resize((larg_card, round(larg_card * foto.height / foto.width)), Image.LANCZOS)
+        x0 = (w - larg_card) // 2
+        y0 = 420
+        dr.rectangle((x0 - 5, y0 - 5, x0 + larg_card + 5, y0 + card.height + 5),
+                     outline=OURO, width=4)
+        base.paste(card, (x0, y0))
+        y_texto_topo = y0 + card.height + 90
+    else:
+        y_texto_topo = 760
+    toks = _tokens_titulo(pg)
+    tam = 54
+    if sum(len(t) for t, _ in toks) > 80:
+        tam -= 5
+    f = _fonte('Archivo-Bold.ttf', tam)
+    # desenha do topo do bloco (calcula altura primeiro numa passada seca)
+    dr2 = ImageDraw.Draw(Image.new('RGB', (10, 10)))
+    esp = dr2.textlength(' ', font=f)
+    larg = w - 200
+    linhas, atual, cw = 1, [], 0
+    for t, _ in toks:
+        tw = dr2.textlength(t, font=f)
+        if atual and cw + tw > larg:
+            linhas += 1
+            atual, cw = [], 0
+        atual.append(t)
+        cw += tw + esp
+    alt_bloco = round(tam * 1.16) * linhas
+    _desenha_titulo(dr, toks, 92, min(y_texto_topo + alt_bloco, h - 250), larg, tam)
+    f_mini = _fonte('Archivo-Bold.ttf', 34)
+    dr.text((92, h - 170), 'Leia a matéria completa em foyer.digital', font=f_mini, fill=OURO)
     return base
 
 
