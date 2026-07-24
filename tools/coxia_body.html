@@ -224,6 +224,15 @@
     font-family:var(--mono); font-size:.66rem; line-height:1.95; color:var(--ink-soft); }
   .mesa-parecer b{ color:var(--ink); text-transform:uppercase; letter-spacing:.1em; font-size:.56rem; }
   .mesa-parecer ul{ margin:6px 0 0 16px; }
+  .mesa-insta{ padding:14px 18px; border-bottom:1px solid var(--line); }
+  .mesa-insta > b{ display:block; font-size:.85rem; margin-bottom:10px; }
+  .insta-artes{ display:flex; gap:12px; margin-bottom:10px; }
+  .insta-artes a{ display:block; text-decoration:none; color:var(--ink); text-align:center; }
+  .insta-artes img{ height:120px; border:1.5px solid var(--line); display:block; margin:0 auto 4px; }
+  .insta-artes span{ font-family:var(--sans); font-size:.72rem; font-weight:700; }
+  .insta-leg{ width:100%; border:1.5px solid var(--line); background:var(--paper-2); color:var(--ink);
+    font-family:var(--sans); font-size:.85rem; line-height:1.5; padding:10px; margin-bottom:8px; resize:vertical; }
+  .insta-nada{ font-size:.8rem; color:var(--ink-soft); margin:0; }
   .mesa-capa{ border-bottom:1px solid var(--line); position:relative; }
   .mesa-capa img{ width:100%; max-height:300px; object-fit:cover; vertical-align:top; }
   .mesa-cred{ position:absolute; right:0; bottom:0; background:var(--ink); color:var(--gold);
@@ -1711,12 +1720,26 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           var selo = ehAutor
             ? '<span class="mesa-nota" title="Enviada por autor(a) da equipe" style="font-size:1rem;padding:10px 12px">EQUIPE</span>'
             : '<span class="mesa-nota" title="Nota do Chefe de Redação (agente)">' + (ch.nota != null ? esc(ch.nota) : '—') + '<small style="font-size:.8rem">/10</small></span>';
+          var RAWB = 'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/';
+          var insta = '<div class="mesa-insta"><b>📱 Instagram</b><div class="insta-artes">' +
+            ['feed', 'story'].map(function(fmt){
+              var cam = 'assets/social/' + d.slug + '-' + fmt + '.jpg';
+              return '<a href="' + RAWB + cam + '" target="_blank" rel="noopener" title="Abrir para salvar">' +
+                '<img src="' + cam + '" data-p="' + cam + '" alt="" ' +
+                'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'' + RAWB + '\'+this.dataset.p}else{this.parentNode.style.display=\'none\'}">' +
+                '<span>' + (fmt === 'feed' ? '⬇ Post (feed)' : '⬇ Stories') + '</span></a>';
+            }).join('') + '</div>' +
+            (d.instagram && d.instagram.legenda
+              ? '<textarea class="insta-leg" readonly rows="5">' + esc(d.instagram.legenda) + '</textarea>' +
+                '<button class="bt" type="button" data-copialeg="' + esc(d.slug) + '">📋 Copiar legenda</button>'
+              : '<p class="insta-nada">Sem legenda pronta nesta matéria.</p>') +
+            '</div>';
           return '<article class="mesa-card" data-slug="' + esc(d.slug) + '">' +
             '<div class="mesa-head">' +
               '<span><span class="ti">' + esc(d.title) + '</span>' +
               '<span class="mt">' + esc([d.cat].concat(d.cats || []).join(' + ')) + ' — ' + palavras + ' palavras — ' + quando + ' — ' + origem + '</span></span>' +
               selo +
-            '</div>' + capa + parecer +
+            '</div>' + capa + parecer + insta +
             fontes +
             '<div class="mesa-corpo" id="corpo-' + esc(d.slug) + '">' + mdRender(d.corpo) + '</div>' +
             '<div class="mesa-acoes">' +
@@ -1766,6 +1789,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       origem: d.origem === 'autor' ? 'autor' : 'redacao-ia', aprovadoPor: USER.nome
     };
     if(d.cats && d.cats.length) dados.cats = d.cats;
+    if(d.instagram) dados.instagram = d.instagram;
     if(d.evento) dados.evento = d.evento;
     ghPut('import/novas/' + slug + '.json', JSON.stringify(dados, null, 1),
           assina('aprova "' + d.title + '"' + (d.origem === 'autor' ? ' (matéria de ' + (d.criadoPor || d.author) + ')' : ' (Redação IA)')))
@@ -1781,6 +1805,17 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var b;
     if((b = e.target.closest('[data-ler]'))){
       $('corpo-' + b.dataset.ler).classList.toggle('on'); return;
+    }
+    if((b = e.target.closest('[data-copialeg]'))){
+      var card = b.closest('.mesa-card');
+      var ta = card && card.querySelector('.insta-leg');
+      if(ta && navigator.clipboard){
+        navigator.clipboard.writeText(ta.value).then(function(){
+          var velho = b.textContent; b.textContent = '✓ Copiada';
+          setTimeout(function(){ b.textContent = velho; }, 1800);
+        });
+      }
+      return;
     }
     if((b = e.target.closest('[data-mesaedit]'))){
       var dm = MESA[b.dataset.mesaedit];

@@ -103,13 +103,13 @@ e **4 vêm do cardápio de formatos**, sempre incluindo o PRATO DO DIA:
 
 | Dia | Prato do dia (obrigatório) |
 |---|---|
-| Segunda | **Casas de Espetáculo** — a história de um teatro brasileiro, bem contada: fundação, reformas, glórias, incêndios, fantasmas, quem passou por lá (cat `Memória`) |
-| Terça | **Entenda** — explicador com pergunta direta no título: "O que faz um diretor musical?", "Quanto custa montar um musical no Brasil?" (cat `Entenda`) |
+| Segunda | **Casas de Espetáculo** — a história de um teatro brasileiro, bem contada: fundação, reformas, glórias, incêndios, fantasmas, quem passou por lá (cat `Teatro` + `Bastidores`) |
+| Terça | **Entenda** — explicador com pergunta direta no título: "O que faz um diretor musical?", "Quanto custa montar um musical no Brasil?" (cat `Bastidores` + a da área) |
 | Quarta | **Quem é** — perfil de um nome em alta no teatro/música, com trajetória e o que está fazendo agora (cat da área da pessoa) |
 | Quinta | **DOIS GUIAS DO FIM DE SEMANA, um por cidade** — duas matérias separadas: "O que fazer no fim de semana em São Paulo (DD a DD/MM)" e "O que fazer no fim de semana no Rio de Janeiro (DD a DD/MM)". NUNCA misturar as cidades na mesma agenda (quem segue a agenda está numa cidade só). Em cada uma: uma peça/evento por dia, de quinta a domingo, TODOS na mesma cidade, cada um com parágrafo de curadoria + serviço completo (local, horário, preço, onde comprar) + **FOTO PRÓPRIA DA PEÇA no corpo** (bloco `img:assets/uploads/<slug>-dia.jpg | legenda com crédito verdadeiro`, origem aceita conforme a regra de direitos e registrada em imgFonte): TODA peça do guia aparece com foto, sem exceção. A CAPA do guia é a foto da principal estreia da semana (ou da peça de maior relevância) daquela cidade. Assinado como curadoria da Redação Foyer (cat `Guia`). Na quinta, os dois guias ocupam o prato do dia + 1 vaga do cardápio (total do dia segue 6 matérias) |
 | Sexta | **Lista** — ranking/seleção evergreen com o ano no título: "Os 10 musicais brasileiros mais importantes (2026)" (cat `Guia`) |
-| Sábado | **Curiosidade bem explicada** — "Por que se diz 'merda' antes da estreia?", origem, versões, o que dizem os pesquisadores (cat `Entenda`) |
-| Domingo | **Memória** — efeméride ou episódio histórico das artes brasileiras ligado à data ou à semana (cat `Memória`) |
+| Sábado | **Curiosidade bem explicada** — "Por que se diz 'merda' antes da estreia?", origem, versões, o que dizem os pesquisadores (cat `Bastidores` + `Teatro`) |
+| Domingo | **Memória** — efeméride ou episódio histórico das artes brasileiras ligado à data ou à semana (cat `Bastidores` + a da área) |
 
 As outras 2 vagas do cardápio: repetir qualquer formato acima ou
 reforçar notícia, conforme o que a varredura do dia render de melhor.
@@ -237,6 +237,20 @@ Blocos opcionais (usar quando enriquecem de verdade):
   para bastidores/curiosidades/memória. Com o campo `evento` preenchido, a
   matéria entra e sai da página Em Cartaz sozinha, pela janela da
   temporada.
+- `instagram` — OBRIGATÓRIO em toda matéria: o pacote leva o post pronto
+  para o Instagram da casa. Formato:
+  `"instagram": {"titulo": "…", "legenda": "…"}`.
+  - `titulo`: o título da arte, com os DESTAQUES DOURADOS entre asteriscos
+    (nomes de pessoas e títulos de peça): ex.
+    `*Luisa Thiré* apresenta *"Valsa Nº 6"*, de Nelson Rodrigues, no Teatro Arena B3`.
+  - `legenda`: 2 parágrafos adaptados da matéria (lead + contexto, tom de
+    rede social, sem travessão), e o fecho EXATO da casa em 3 linhas:
+    `Para conferir a matéria completa, acesse o site: www.foyer.digital`
+    + `📷: <crédito sem o prefixo Foto:>` + `Por <autor>`.
+  - Depois de gravar o pacote, gerar as artes:
+    `python3 tools/gera_social.py import/pauta/<slug>.json`
+    (cria assets/social/<slug>-feed.jpg e <slug>-story.jpg no formato
+    clássico do FOYER; incluir assets/social/ no commit).
 - `evento` — OBRIGATÓRIO em toda matéria sobre evento com data (estreia,
   temporada, show, exposição, festival, inscrição de edital): alimenta a
   Agenda automática do site. `inicio` e `fim` no formato AAAA-MM-DD
@@ -275,7 +289,7 @@ lista `rodadas` (mais recente primeiro; manter no máximo 30):
 1. Salvar cada pacote em `import/pauta/<slug>.json`.
 2. Salvar as fotos de capa em `assets/uploads/`.
 3. Registrar a rodada em `import/pauta/diario.json` (formato acima).
-4. `git add import/pauta/ assets/uploads/` — e nada além disso.
+4. `git add import/pauta/ assets/uploads/ assets/social/` — e nada além disso.
 5. Commit na branch `claude/foyer-digital-redesign-14l2b6` com mensagem
    `Redação IA: matérias na mesa de aprovação da Coxia [skip ci]`
    (o `[skip ci]` evita um deploy desnecessário — pauta não aparece no site).
