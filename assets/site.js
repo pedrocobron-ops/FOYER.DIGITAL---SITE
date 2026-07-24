@@ -190,6 +190,13 @@
   var padrao = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
   if(padrao) return;                                  // já está instalado
   if(location.pathname.indexOf('coxia') >= 0) return; // não no admin
+  // nunca na primeira página da visita: quem chega do Google lê em paz
+  var pv = 1;
+  try{
+    pv = parseInt(sessionStorage.getItem('foyer-pv') || '0', 10) + 1;
+    sessionStorage.setItem('foyer-pv', String(pv));
+  }catch(e){}
+  if(pv < 2) return;
   var visto = 0;
   try{ visto = parseInt(localStorage.getItem(K) || '0', 10); }catch(e){}
   if(Date.now() - visto < 14 * 864e5) return;         // no máximo a cada 14 dias

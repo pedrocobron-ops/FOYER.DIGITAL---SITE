@@ -9,7 +9,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 import html as _html
 
-BASE = 'https://pedrocobron-ops.github.io/FOYER.DIGITAL---SITE'
+# Endereço público do site. Na chegada do domínio (03/08), troque para
+# 'https://foyer.digital' OU rode o build com FOYER_BASE=https://foyer.digital
+BASE = os.environ.get('FOYER_BASE', 'https://pedrocobron-ops.github.io/FOYER.DIGITAL---SITE')
 
 ORG_LD = ('<script type="application/ld+json">{"@context":"https://schema.org",'
           '"@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação",'
@@ -32,6 +34,7 @@ def head(title, desc, og_img=None, og_type='website', og_url='', ld=''):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="{d}">
 <meta name="theme-color" content="#4E0F09">
+<meta name="robots" content="max-image-preview:large">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/logo/pwa-192.png">
 <meta property="og:site_name" content="FOYER">
@@ -205,6 +208,7 @@ FOOTER = '''<footer>
         <a href="contato.html">Contato</a>
         <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
         <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="principios.html">Princípios Editoriais</a>
         <a href="privacidade.html">Política de Privacidade</a>
       </div>
     </div>
@@ -2904,6 +2908,27 @@ page('revista.html', 'A Revista — FOYER', 'A revista semanal do Foyer: ediçõ
 page('busca.html', 'Buscar — FOYER', 'Busque matérias, críticas, artistas e espetáculos no FOYER.', 'busca.html', busca_body)
 page('sobre.html', 'Quem somos — FOYER', 'O FOYER: portal de jornalismo cultural e canal de programas sobre teatro, música e artes.', 'index.html', sobre_body)
 page('contato.html', 'Contato — FOYER', 'Fale com a redação do FOYER: pautas, imprensa, parcerias e publicidade.', 'index.html', contato_body)
+principios_body = band('Institucional', 'Princípios Editoriais', 'Como o FOYER apura, escreve e corrige') + '''
+<main class="wrap">
+  <div class="art" style="max-width:820px; margin:0 auto">
+    <div class="art-body" style="padding-top:34px">
+      <h2>O que publicamos</h2>
+      <p>O FOYER cobre teatro, música e artes cênicas no Brasil e no mundo: notícias, guias de programação, explicadores, perfis e memória do palco. Todo conteúdo publicado é baseado em fatos verificáveis, com fontes citadas no próprio texto sempre que a informação não for de apuração direta da casa.</p>
+      <h2>Apuração e revisão</h2>
+      <p>Matérias assinadas como Redação Foyer podem contar com apuração assistida por inteligência artificial. Nenhuma delas chega ao site sem passar por revisão e aprovação de um editor humano, que responde pelo que foi publicado. Serviço (datas, horários, preços e locais) é conferido na fonte antes da publicação e vale para a data em que a matéria foi ao ar.</p>
+      <h2>Correções</h2>
+      <p>Erramos? Corrigimos. Matérias corrigidas ou ampliadas exibem o selo "Atualizada em" com data e horário da mudança. Para apontar um erro, escreva para <a href="mailto:programafoyer@gmail.com">programafoyer@gmail.com</a> com o endereço da matéria: respondemos e, quando for o caso, corrigimos com registro visível.</p>
+      <h2>Imagens e créditos</h2>
+      <p>Usamos fotografias de divulgação oficial das produções que cobrimos, imagens em licença livre (com autor e licença citados) e material próprio. O crédito do fotógrafo acompanha a imagem, no cartão e dentro da matéria.</p>
+      <h2>Independência</h2>
+      <p>Conteúdo publicitário ou patrocinado, quando existir, é identificado como tal. A curadoria dos guias e da agenda é decisão exclusiva da redação, sem interferência de bilheteiras ou produções.</p>
+      <h2>Quem responde</h2>
+      <p>O FOYER é dirigido por Pedro Amaral e Isabel Branquinha. Fale com a redação: <a href="mailto:programafoyer@gmail.com">programafoyer@gmail.com</a> ou pela página de <a href="contato.html">contato</a>.</p>
+    </div>
+  </div>
+</main>
+'''
+page('principios.html', 'Princípios Editoriais — FOYER', 'Como o FOYER apura, escreve, credita imagens e corrige: os princípios editoriais da casa.', 'principios.html', principios_body)
 page('privacidade.html', 'Política de Privacidade — FOYER', 'Política de privacidade e cookies do FOYER.', 'privacidade.html', privacidade_body)
 
 def _ld_materia(p):
@@ -3003,7 +3028,7 @@ with open(os.path.join(ROOT, 'sitemap-news.xml'), 'w') as f:
         f.write('<url><loc>' + BASE + '/post-' + p['slug'] + '.html</loc>'
                 '<news:news><news:publication><news:name>FOYER</news:name>'
                 '<news:language>pt</news:language></news:publication>'
-                '<news:publication_date>' + p.get('iso', _hoje_sm) + '</news:publication_date>'
+                '<news:publication_date>' + (p.get('isoFull') or p.get('iso', _hoje_sm)) + '</news:publication_date>'
                 '<news:title>' + _html.escape(p['title']) + '</news:title></news:news></url>\n')
     f.write('</urlset>\n')
 from email.utils import format_datetime as _fmt822
