@@ -132,16 +132,22 @@ def _cabecalho(dr, base, cat, y=132):
     dr.text((x + lw + 6, y + 26), sufixo, font=f_sans, fill=BRANCO)
 
 
-def _arco(dr, w, y_ini=138, y_fim=470):
-    """O arco branco da casa: entra reto da esquerda e mergulha à direita."""
-    pontos = []
+def _arco(base, y_ini=138, y_fim=470):
+    """O arco branco da casa, desenhado em 4x e reduzido (linha lisa, sem serrilhado)."""
+    w, h = base.size
+    F = 4
+    camada = Image.new('L', (w * F, h * F), 0)
+    dl = ImageDraw.Draw(camada)
     p0, p1, p2 = (-60, y_ini + 14), (int(w * 0.66), y_ini - 26), (w + 40, y_fim)
-    for i in range(81):
-        t = i / 80
+    pontos = []
+    for i in range(161):
+        t = i / 160
         px = (1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * p1[0] + t ** 2 * p2[0]
         py = (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * p1[1] + t ** 2 * p2[1]
-        pontos.append((px, py))
-    dr.line(pontos, fill=BRANCO, width=6, joint='curve')
+        pontos.append((px * F, py * F))
+    dl.line(pontos, fill=255, width=6 * F, joint='curve')
+    mascara = camada.resize((w, h), Image.LANCZOS)
+    base.paste(Image.new('RGB', (w, h), BRANCO), (0, 0), mascara)
 
 
 def gerar(pg, formato='feed'):
@@ -156,7 +162,7 @@ def gerar(pg, formato='feed'):
     dr = ImageDraw.Draw(base, 'RGB')
     _gradiente(base, 0, 340, 150, 0)
     _gradiente(base, h - 520, h, 0, 225)
-    _arco(dr, w, y_ini=140, y_fim=470)
+    _arco(base, y_ini=140, y_fim=470)
     _cabecalho(dr, base, pg.get('cat'), y=130)
     toks = _tokens_titulo(pg)
     tam = 52
@@ -180,7 +186,7 @@ def _gerar_story(pg):
         escuro = Image.new('RGB', (w, h), (10, 5, 4))
         base = Image.blend(fundo, escuro, 0.55)
     dr = ImageDraw.Draw(base, 'RGB')
-    _arco(dr, w, y_ini=196, y_fim=560)
+    _arco(base, y_ini=196, y_fim=560)
     _cabecalho(dr, base, pg.get('cat'), y=182)
     if foto is not None:
         larg_card = 940
