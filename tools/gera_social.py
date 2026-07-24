@@ -123,13 +123,18 @@ def _desenha_titulo(dr, toks, x, y_base, larg, tam, entre=1.16):
 
 
 def _cabecalho(dr, base, cat, y=132):
-    f_didone = _fonte('AbrilFatface-Regular.ttf', 84)
-    f_sans = _fonte('Archivo-Bold.ttf', 56)
+    """FOYER = a logo oficial da casa em branco + .EDITORIA em Archivo."""
+    logo = Image.open(os.path.join(ROOT, 'assets/logo/foyer-horizontal-gold.png'))
+    alt = 74
+    esc = alt / logo.height
+    logo = logo.resize((round(logo.width * esc), alt), Image.LANCZOS)
+    branca = Image.new('RGBA', logo.size, (255, 255, 255, 0))
+    branca.putalpha(logo.getchannel('A'))
     x = 92
-    dr.text((x, y), 'FOYER', font=f_didone, fill=BRANCO)
-    lw = dr.textlength('FOYER', font=f_didone)
+    base.paste(Image.new('RGB', logo.size, BRANCO), (x, y), logo.getchannel('A'))
+    f_sans = _fonte('Archivo-Bold.ttf', 50)
     sufixo = '.' + unicodedata.normalize('NFKD', cat or 'TEATRO').encode('ascii', 'ignore').decode().upper()
-    dr.text((x + lw + 6, y + 26), sufixo, font=f_sans, fill=BRANCO)
+    dr.text((x + logo.width + 8, y + alt - 54), sufixo, font=f_sans, fill=BRANCO)
 
 
 def _arco(base, y_ini=138, y_fim=470):
@@ -162,8 +167,8 @@ def gerar(pg, formato='feed'):
     dr = ImageDraw.Draw(base, 'RGB')
     _gradiente(base, 0, 340, 150, 0)
     _gradiente(base, h - 520, h, 0, 225)
-    _arco(base, y_ini=140, y_fim=470)
-    _cabecalho(dr, base, pg.get('cat'), y=130)
+    _arco(base, y_ini=76, y_fim=440)
+    _cabecalho(dr, base, pg.get('cat'), y=148)
     toks = _tokens_titulo(pg)
     tam = 52
     n = sum(len(w) for w, _ in toks)
@@ -186,8 +191,8 @@ def _gerar_story(pg):
         escuro = Image.new('RGB', (w, h), (10, 5, 4))
         base = Image.blend(fundo, escuro, 0.55)
     dr = ImageDraw.Draw(base, 'RGB')
-    _arco(base, y_ini=196, y_fim=560)
-    _cabecalho(dr, base, pg.get('cat'), y=182)
+    _arco(base, y_ini=112, y_fim=520)
+    _cabecalho(dr, base, pg.get('cat'), y=196)
     if foto is not None:
         larg_card = 940
         alt_card = min(round(larg_card * foto.height / foto.width), 1000)
