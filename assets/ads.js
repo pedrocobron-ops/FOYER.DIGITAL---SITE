@@ -23,6 +23,11 @@ window.FOYER_ADS = {
     console.warn('FOYER ads: configure o client ID em assets/ads.js');
     return;
   }
+  // LGPD: sem consentimento pleno, os anúncios rodam NÃO personalizados
+  if(!(window.foyerConsent && window.foyerConsent() === 'tudo')){
+    window.adsbygoogle = window.adsbygoogle || [];
+    window.adsbygoogle.requestNonPersonalizedAds = 1;
+  }
   document.body.classList.add('ads-on');
 
   var s = document.createElement('script');

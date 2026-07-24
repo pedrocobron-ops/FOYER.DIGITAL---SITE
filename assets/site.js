@@ -322,3 +322,37 @@
   }
   setTimeout(abrir, 12000);
 })();
+
+/* ---------- consentimento de cookies (LGPD) ---------- */
+(function(){
+  if(location.pathname.indexOf('coxia') >= 0) return;
+  var K = 'foyer-consent';
+  function escolha(){ try{ return (JSON.parse(localStorage.getItem(K) || 'null') || {}).nivel || ''; }catch(e){ return ''; } }
+  window.foyerConsent = escolha;   // ads.js e futuros scripts consultam aqui
+
+  function gravar(nivel){
+    try{ localStorage.setItem(K, JSON.stringify({ nivel: nivel, quando: new Date().toISOString() })); }catch(e){}
+  }
+  function abrir(){
+    if(document.getElementById('lgpd')) return;
+    var b = document.createElement('div');
+    b.id = 'lgpd';
+    b.innerHTML =
+      '<p><b>🍪 Cookies no FOYER.</b> Usamos armazenamento essencial (tema, sessão) e métricas anônimas de audiência. ' +
+      'Com anúncios ativos, parceiros como o Google podem usar cookies de publicidade. ' +
+      'Saiba mais na <a href="privacidade.html">Política de Privacidade</a>.</p>' +
+      '<div class="lgpd-acoes"><button class="lgpd-sim">Aceitar tudo</button>' +
+      '<button class="lgpd-min">Só o essencial</button></div>';
+    document.body.appendChild(b);
+    requestAnimationFrame(function(){ b.classList.add('on'); });
+    function sair(){ b.classList.remove('on'); setTimeout(function(){ b.remove(); }, 300); }
+    b.querySelector('.lgpd-sim').addEventListener('click', function(){ gravar('tudo'); sair(); });
+    b.querySelector('.lgpd-min').addEventListener('click', function(){ gravar('essencial'); sair(); });
+  }
+  if(!escolha()) setTimeout(abrir, 1200);
+  // reabrir pelas preferências no rodapé
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('[data-lgpd]');
+    if(a){ e.preventDefault(); try{ localStorage.removeItem(K); }catch(err){} abrir(); }
+  });
+})();
