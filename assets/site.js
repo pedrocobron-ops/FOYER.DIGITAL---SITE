@@ -255,17 +255,10 @@
   setTimeout(abrir, 7000);
 })();
 
-/* ---------- notificações do aplicativo: convite gentil, 1 por dia ---------- */
+/* ---------- notificações do aplicativo: convite claro na entrada ---------- */
 (function(){
-  var instalado = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
-  if(!instalado) return;
-  if(!('Notification' in window) || !('serviceWorker' in navigator) || !('PushManager' in window)) return;
-  if(Notification.permission !== 'default') return;   // já decidiu (sim ou não)
+  var suporta = ('Notification' in window) && ('serviceWorker' in navigator) && ('PushManager' in window);
   var K = 'foyer-push-aviso';
-  var visto = 0;
-  try{ visto = parseInt(localStorage.getItem(K) || '0', 10); }catch(e){}
-  if(Date.now() - visto < 30 * 864e5) return;         // "depois" vale por 30 dias
-
   var PUB = 'BHiZh7pcDS8jkCBhcRRDv4onYO7-XUOPUrtRNiNJIXqr9uSmTCdll1HCp8REMHRjFZ89NejDhJj6gDkiJw3qswI';
   var M = { url: 'https://jcaqjlrzmrtzjyfbljxh.supabase.co',
             key: 'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB' };
@@ -277,7 +270,6 @@
     for(var i = 0; i < raw.length; i++) out[i] = raw.charCodeAt(i);
     return out;
   }
-
   function inscrever(){
     return navigator.serviceWorker.ready.then(function(reg){
       return reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64ParaBytes(PUB) });
@@ -291,36 +283,70 @@
     });
   }
 
-  function abrir(){
-    var b = document.createElement('div');
-    b.className = 'sino-faixa';
-    b.innerHTML =
-      '<div class="sino-txt"><b>🔔 Primeira fila das novidades?</b>' +
-      '<span>Uma notificação por dia com o melhor do teatro. Só isso, prometido.</span></div>' +
-      '<div class="sino-acoes"><button class="sino-sim">Ativar</button>' +
-      '<button class="sino-nao">Depois</button></div>';
-    document.body.appendChild(b);
-    requestAnimationFrame(function(){ b.classList.add('on'); });
-    function sair(){ b.classList.remove('on'); setTimeout(function(){ b.remove(); }, 300); }
-    b.querySelector('.sino-nao').addEventListener('click', function(){
-      try{ localStorage.setItem(K, String(Date.now())); }catch(e){}
-      sair();
-    });
-    b.querySelector('.sino-sim').addEventListener('click', function(){
-      Notification.requestPermission().then(function(p){
-        if(p === 'granted'){
+  function abrirCartao(){
+    if(document.getElementById('sino-veu')) return;
+    var jaTem = suporta && Notification.permission === 'granted';
+    var v = document.createElement('div');
+    v.className = 'app-veu'; v.id = 'sino-veu';
+    v.innerHTML =
+      '<div class="app-card" role="dialog" aria-label="Notificações do FOYER">' +
+        '<div class="app-miolo" style="padding-top:26px">' +
+        '<div class="sino-ico">🔔</div>' +
+        '<span class="app-kick">Primeira fila</span>' +
+        '<h3>Fique por dentro das novidades</h3>' +
+        (jaTem
+          ? '<p>As notificações já estão ativas neste aparelho: uma por dia, sempre com algo que vale a pena.</p>' +
+            '<div class="app-acoes"><button class="app-ok" data-fechar>Combinado</button></div>'
+          : !suporta
+          ? '<p>Este navegador não recebe notificações. No celular, instale o FOYER como aplicativo (no iPhone, pela Tela de Início) e ative por aqui.</p>' +
+            '<div class="app-acoes"><button class="app-ok" data-fechar>Entendi</button></div>'
+          : '<p>Uma notificação por dia com o melhor do teatro: o guia da quinta, a curiosidade do sábado, a manchete do dia. Só isso, prometido.</p>' +
+            '<div class="app-acoes"><button class="app-ok" data-ativar>Ativar notificações</button>' +
+            '<button class="app-nao" data-fechar>Agora não</button></div>') +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(v);
+    requestAnimationFrame(function(){ v.classList.add('on'); });
+    function sair(){ v.classList.remove('on'); setTimeout(function(){ v.remove(); }, 300); }
+    v.addEventListener('click', function(e){
+      if(e.target === v || e.target.hasAttribute('data-fechar')){
+        try{ localStorage.setItem(K, String(Date.now())); }catch(err){}
+        sair(); return;
+      }
+      if(e.target.hasAttribute('data-ativar')){
+        var btn = e.target;
+        btn.disabled = true; btn.textContent = 'Ativando…';
+        Notification.requestPermission().then(function(p){
+          if(p !== 'granted'){ sair(); return; }
           inscrever().then(function(r){
             if(r && (r.ok || r.status === 409)){
-              b.querySelector('.sino-txt').innerHTML = '<b>✓ Combinado!</b><span>Uma por dia, sempre com algo que vale a pena.</span>';
-              b.querySelector('.sino-acoes').remove();
+              var mi = v.querySelector('.app-miolo');
+              mi.innerHTML = '<div class="sino-ico">✓</div><span class="app-kick">Combinado</span>' +
+                '<h3>Você está na primeira fila</h3>' +
+                '<p>Uma por dia, às 11h, sempre com algo que vale a pena. Até amanhã!</p>';
               setTimeout(sair, 2600);
             } else { sair(); }
           }).catch(sair);
-        } else { sair(); }
-      });
+        });
+      }
     });
   }
-  setTimeout(abrir, 12000);
+  window.foyerSino = abrirCartao;
+
+  // atalho permanente no rodapé
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('[data-sino]');
+    if(a){ e.preventDefault(); abrirCartao(); }
+  });
+
+  // convite automático: logo depois de abrir o APP instalado (depois da abertura)
+  var instalado = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  if(!instalado || !suporta) return;
+  if(Notification.permission !== 'default') return;
+  var visto = 0;
+  try{ visto = parseInt(localStorage.getItem(K) || '0', 10); }catch(e){}
+  if(Date.now() - visto < 7 * 864e5) return;   // "agora não" vale por 7 dias
+  setTimeout(abrirCartao, 2800);
 })();
 
 /* ---------- consentimento de cookies (LGPD) ---------- */
@@ -349,7 +375,11 @@
     b.querySelector('.lgpd-sim').addEventListener('click', function(){ gravar('tudo'); sair(); });
     b.querySelector('.lgpd-min').addEventListener('click', function(){ gravar('essencial'); sair(); });
   }
-  if(!escolha()) setTimeout(abrir, 1200);
+  function tentar(){
+    if(document.querySelector('.app-veu')){ setTimeout(tentar, 3000); return; }
+    abrir();
+  }
+  if(!escolha()) setTimeout(tentar, 1200);
   // reabrir pelas preferências no rodapé
   document.addEventListener('click', function(e){
     var a = e.target.closest && e.target.closest('[data-lgpd]');
