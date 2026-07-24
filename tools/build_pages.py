@@ -3055,4 +3055,40 @@ with open(os.path.join(ROOT, 'robots.txt'), 'w') as f:
     f.write(f'User-agent: *\nAllow: /\nDisallow: /coxia.html\n\n'
             f'Sitemap: {BASE}/sitemap.xml\nSitemap: {BASE}/sitemap-news.xml\n')
 print(f'sitemap: {len(urls)} URLs · news: {len(_news)} matéria(s) recentes')
+
+# ---------------------------------------------------------------- PONTES DO WIX
+# Os endereços antigos (foyer.digital/post/<slug-com-acentos>) seguem indexados
+# no Google e espalhados pela internet. Quando o domínio apontar para cá, cada
+# um deles precisa levar o leitor (e o Google) à matéria nova: página-ponte com
+# redirecionamento imediato + canonical, noindex na ponte.
+import urllib.parse as _up
+_n_pontes = 0
+for _m in MATERIAS:
+    _u = _m.get('url') or ''
+    if '/post/' not in _u:
+        continue
+    _ws = _up.unquote(_u.split('/post/')[1]).strip('/')
+    if not _ws or '/' in _ws:
+        continue
+    _alvo = f'{BASE}/post-{_m["slug"]}.html'
+    _dirp = os.path.join(ROOT, 'post', _ws)
+    os.makedirs(_dirp, exist_ok=True)
+    with open(os.path.join(_dirp, 'index.html'), 'w') as _fp:
+        _fp.write(f'''<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>{safe(_m['title'])} — FOYER</title>
+<link rel="canonical" href="{_alvo}">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url={_alvo}">
+<script>location.replace({_json.dumps(_alvo)});</script>
+</head>
+<body>
+<p>Esta matéria mudou de endereço: <a href="{_alvo}">{safe(_m['title'])}</a></p>
+</body>
+</html>
+''')
+    _n_pontes += 1
+print(f'• {_n_pontes} pontes dos endereços antigos do Wix em /post/')
 print('pronto')
