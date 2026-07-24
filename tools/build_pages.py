@@ -1126,10 +1126,21 @@ if os.path.isdir(_novas_dir):
         _desc = (_re.sub(r'\s+', ' ', _txt).strip()[:230] or _n.get('title',''))
         _iso = (_pub or _agora)[:10]
         _y, _mo, _dd = _iso.split('-')
+        # horário de publicação em Brasília (as antigas do Wix não têm hora registrada)
+        _hora = ''
+        try:
+            from zoneinfo import ZoneInfo as _ZI
+            _dtp = datetime.fromisoformat((_pub or _agora).replace('Z', '+00:00'))
+            _dtb = _dtp.astimezone(_ZI('America/Sao_Paulo'))
+            _hora = f'{_dtb.hour}h{_dtb.minute:02d}'
+            _iso_full = _dtb.isoformat(timespec='seconds')
+        except Exception:
+            _iso_full = ''
         _novas.append({
             'title': _n['title'], 'slug': _slug, 'desc': _desc,
             'cat': _n.get('cat', 'Notícia'), 'author': _n.get('author', 'Redação Foyer'),
             'date': f'{int(_dd)} de {_MESES_PT[int(_mo)-1]} de {_y}',
+            'hora': _hora, 'isoFull': _iso_full,
             'short': f'{_dd}.{_mo}', 'iso': _iso,
             'img': _n.get('img', ''), 'credito': _n.get('imgCredito', ''),
             'atualizado': _n.get('atualizadoEm', ''),
@@ -1523,7 +1534,7 @@ def post_page(i, p):
     <h1>{p['title']}</h1>
     <div class="art-byline">
       <span>Por <b>{p['author']}</b></span>
-      <span>{p['date']} · {p['min']} min de leitura</span>
+      <span>{p['date']}{(', às ' + p['hora']) if p.get('hora') else ''} · {p['min']} min de leitura</span>
     </div>{selo_atualizada(p)}
     <div class="share-row" aria-label="Compartilhar esta matéria">
       <button class="sbtn" data-share="whats" data-title="{safe(p['title'])}">WhatsApp</button>
@@ -2906,8 +2917,8 @@ def _ld_materia(p):
         'headline': p['title'][:110],
         'description': p['desc'][:200],
         'image': [img],
-        'datePublished': p.get('iso', ''),
-        'dateModified': (p.get('atualizado') or p.get('iso', ''))[:19],
+        'datePublished': p.get('isoFull') or p.get('iso', ''),
+        'dateModified': (p.get('atualizado') or p.get('isoFull') or p.get('iso', ''))[:25],
         'author': [{'@type': tipo_autor, 'name': autor}],
         'publisher': {'@type': 'NewsMediaOrganization', 'name': 'FOYER',
                       'logo': {'@type': 'ImageObject', 'url': f'{BASE}/assets/logo/foyer-stacked-gold.png'}},
