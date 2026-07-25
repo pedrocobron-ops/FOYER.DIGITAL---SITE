@@ -140,6 +140,11 @@
   .ig-leg{ width:100%; margin-top:8px; border:1.5px solid var(--line); background:var(--paper-2);
     color:var(--ink); font-family:var(--sans); font-size:.82rem; line-height:1.5; padding:8px; resize:vertical; }
   .ig-links .bt.ap{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
+  .ig-artes-grid{ display:flex; gap:16px; flex-wrap:wrap; }
+  .ig-arte{ display:flex; flex-direction:column; gap:8px; align-items:center; }
+  .ig-arte img{ width:200px; max-width:42vw; border:1.5px solid var(--line); display:block; }
+  .prev-body .ig-leg{ width:100%; border:1.5px solid var(--line); background:var(--paper-2); color:var(--ink);
+    font-family:var(--sans); font-size:.85rem; line-height:1.6; padding:10px; resize:vertical; }
   .quick{ display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
   .quick button, .quick a{ border:2px solid var(--ink); background:var(--paper); color:var(--ink);
     cursor:pointer; text-decoration:none; font-family:var(--mono); font-weight:600; font-size:.62rem;
@@ -879,7 +884,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             <div id="rank-list"><div class="vazio-box">Carregando o ranking…</div></div>
             <div class="f-note" style="margin-top:14px">
               Contagem real do site: <b>1 leitura</b> = visita à matéria ·
-              <b>1 aplauso</b> = clique de compartilhar. Matéria sua no topo?
+              <b>1 compartilhamento</b> = clique no botão de compartilhar. Matéria sua no topo?
               Print no mural, claro.
             </div>
             <div class="sec-h"><h3>Placar das assinaturas</h3><span>leituras somadas por quem assina</span></div>
@@ -1024,6 +1029,14 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       <button class="bt" type="button" id="prev-fechar">✕ Fechar</button></div>
     <div class="prev-body" id="prev-body"></div>
     <div class="prev-avisos" id="prev-avisos"></div>
+  </div>
+</div>
+
+<div class="prev-overlay" id="insta-overlay" role="dialog" aria-modal="true" aria-label="Post de Instagram da matéria">
+  <div class="prev-box">
+    <div class="prev-head"><span>📱 Post de Instagram</span>
+      <button class="bt" type="button" id="insta-fechar">✕ Fechar</button></div>
+    <div class="prev-body" id="insta-corpo"></div>
   </div>
 </div>
 
@@ -1771,6 +1784,38 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   $('estilo-fechar').addEventListener('click', fechaOverlays);
   $('bv-fechar').addEventListener('click', fechaOverlays);
   $('bv-overlay').addEventListener('click', function(e){ if(e.target === this) fechaOverlays(); });
+  $('insta-fechar').addEventListener('click', fechaOverlays);
+  $('insta-overlay').addEventListener('click', function(e){ if(e.target === this) fechaOverlays(); });
+  // abre o post de Instagram de uma matéria já lançada (artes ficam guardadas pelo slug)
+  function abrirInstaMateria(d){
+    if(!d) return;
+    var RB = 'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/';
+    var feed = 'assets/social/' + d.slug + '-feed.jpg', story = 'assets/social/' + d.slug + '-story.jpg';
+    var leg = (d.instagram && d.instagram.legenda) || '';
+    $('insta-corpo').innerHTML =
+      '<p style="font-family:var(--sans);font-size:.9rem;margin:0 0 14px"><b>' + esc(d.title) + '</b></p>' +
+      '<div class="ig-artes-grid">' +
+        ['feed', 'story'].map(function(fmt){
+          var cam = fmt === 'feed' ? feed : story;
+          return '<div class="ig-arte"><img src="' + cam + '" data-p="' + cam + '" alt="" ' +
+            'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'' + RB + '\'+this.dataset.p}else{this.parentNode.innerHTML=\'<p class=cred>arte não encontrada</p>\'}">' +
+            '<a class="bt" href="' + RB + cam + '" target="_blank" rel="noopener" download>⬇ Baixar ' + (fmt === 'feed' ? 'post (feed)' : 'stories') + '</a></div>';
+        }).join('') +
+      '</div>' +
+      (leg
+        ? '<label style="font-family:var(--sans);font-weight:700;font-size:.82rem;display:block;margin:16px 0 6px">Legenda</label>' +
+          '<textarea class="ig-leg" readonly rows="7">' + esc(leg) + '</textarea>' +
+          '<button class="bt" type="button" id="insta-copialeg" style="margin-top:8px">📋 Copiar legenda</button>'
+        : '<p class="cred" style="margin-top:14px">Esta matéria não tem legenda pronta.</p>');
+    abreOverlay('insta-overlay');
+    var cp = $('insta-copialeg');
+    if(cp) cp.addEventListener('click', function(){
+      var ta = $('insta-corpo').querySelector('.ig-leg');
+      if(ta && navigator.clipboard) navigator.clipboard.writeText(ta.value).then(function(){
+        var v = cp.textContent; cp.textContent = '✓ Copiada'; setTimeout(function(){ cp.textContent = v; }, 1600);
+      });
+    });
+  }
   var bvLink = $('bv-reabrir'); if(bvLink) bvLink.addEventListener('click', function(){
     if(!USER) return;
     try{ localStorage.removeItem('coxia-bemvindo-' + USER.papel); }catch(e){}
@@ -2016,7 +2061,13 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
               'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/\'+this.dataset.p}else{this.className=\'th no\';this.removeAttribute(\'src\')}">'
             : '<span class="th no">sem foto</span>';
           var proprio = d.author === USER.nome || d.criadoPor === USER.nome;
+          var jaSaiu = !d._mesa && !devolvida;  // publicada ou agendada (tem post de Instagram para pegar)
+          var jaPub = jaSaiu && (!d.publishAt || d.publishAt <= agora);
           var acoes = '';
+          // pegar as artes de Instagram DEPOIS de lançar (as artes ficam guardadas pelo slug)
+          if(jaSaiu && d.instagram){
+            acoes += '<button class="bt" data-igmat="' + esc(d.slug) + '" type="button">📱 Instagram</button>';
+          }
           // editar: chefe/editor em publicadas; autor na própria matéria ainda não publicada (mesa ou devolvida)
           if(podeEditar() && !d._mesa){
             acoes += '<button class="bt" data-edtm="' + esc(d.slug) + '" type="button">✎ Editar</button>';
@@ -2032,7 +2083,6 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           var recado = devolvida && d.devolucao
             ? '<div class="fa-devol">↩ Devolvida por ' + esc(d.devolucao.por || 'chefe') + ': ' + esc(d.devolucao.motivo || 'sem comentário') + '</div>'
             : '';
-          var jaPub = !d._mesa && !devolvida && (!d.publishAt || d.publishAt <= agora);
           var views = (jaPub ? '<span class="fr-views" data-vslug="' + esc(d.slug) + '"></span>' : '');
           return '<div class="frow' + (devolvida ? ' rec' : '') + '">' + th +
             '<span><span class="ti">' + esc(d.title) + '</span>' +
@@ -2791,6 +2841,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       if(dp) entrarEdicao(dp, 'pauta');
       return;
     }
+    if((b = e.target.closest('[data-igmat]'))){
+      abrirInstaMateria(FILA_CACHE[b.dataset.igmat]);
+      return;
+    }
     if((b = e.target.closest('[data-edta]'))){
       var slug = b.dataset.edta;
       // se já existe versão editada na Coxia, parte dela; senão converte o corpo antigo
@@ -3117,7 +3171,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           ? autores.map(function(x, i){
               return '<div class="rk-row' + (i === 0 ? ' top' : '') + '"><span class="pos">' + (i + 1) + 'º</span>' +
                 '<span class="rt">' + esc(x.a) + '</span>' +
-                '<span class="rn">' + x.v + ' leitura(s)<br>' + x.s + ' aplauso(s)</span></div>';
+                '<span class="rn">' + x.v + ' leitura(s)<br>' + x.s + ' compart.</span></div>';
             }).join('')
           : '<div class="vazio-box">Sem leituras atribuídas ainda</div>';
         el.innerHTML = rows.map(function(r, i){
@@ -3126,7 +3180,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           return '<div class="rk-row' + (i === 0 ? ' top' : '') + '">' +
             '<span class="pos">' + (i + 1) + 'º</span>' +
             '<span class="rt"><a href="post-' + esc(r.slug) + '.html" target="_blank" rel="noopener">' + esc(t) + '</a></span>' +
-            '<span class="rn">' + r.v + ' leitura(s)<br>' + r.s + ' aplauso(s)</span>' +
+            '<span class="rn">' + r.v + ' leitura(s)<br>' + r.s + ' compart.</span>' +
             '</div>';
         }).join('');
       });
