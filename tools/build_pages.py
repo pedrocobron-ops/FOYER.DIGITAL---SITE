@@ -1150,6 +1150,7 @@ if os.path.isdir(_novas_dir):
             'short': f'{_dd}.{_mo}', 'iso': _iso,
             'img': _n.get('img', ''), 'credito': _n.get('imgCredito', ''),
             'atualizado': _n.get('atualizadoEm', ''),
+            'correcao': _n.get('correcao') or None,
             'evento': _n.get('evento') or None,
             'cats': [c for c in (_n.get('cats') or []) if c][:3],
             'url': '', 'min': max(1, len(_txt)//1100),
@@ -1500,6 +1501,25 @@ def selo_atualizada(p):
             'border:1.5px solid var(--gold);background:var(--paper-2);display:inline-block;'
             f'padding:7px 12px;margin-top:10px">✎ Matéria atualizada em {quando}</div>')
 
+def nota_correcao(p):
+    c = p.get('correcao') or {}
+    txt = (c.get('texto') or '').strip()
+    if not txt:
+        return ''
+    quando = ''
+    try:
+        from zoneinfo import ZoneInfo as _ZIc
+        _dt = datetime.fromisoformat(c.get('quando', '')).astimezone(_ZIc('America/Sao_Paulo'))
+        quando = _dt.strftime(' (%d/%m/%Y)')
+    except Exception:
+        pass
+    if not txt.lower().startswith('corre'):
+        txt = 'Correção: ' + txt
+    return ('\n    <aside class="art-correcao" style="border-left:3px solid var(--wine);'
+            'background:var(--paper-2);padding:12px 16px;margin:22px 0 4px;'
+            'font-family:var(--sans);font-size:.92rem;line-height:1.6">'
+            f'<b>{safe(txt)}</b><span style="color:var(--ink-soft)">{quando}</span></aside>')
+
 def post_page(i, p):
     _sps = globals().get('POR_MATERIA', {}).get(p['slug'], [])
     _pes = globals().get('PESSOAS', {})
@@ -1560,7 +1580,7 @@ def post_page(i, p):
   <div class="art-body">
 {corpo}
   </div>
-
+  {nota_correcao(p)}
   {quem_bloco}
   <div class="art-foot">
     <div class="tags"><span class="tag">{p['cat']}</span><span class="tag">{p['author']}</span></div>

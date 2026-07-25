@@ -642,6 +642,11 @@
           ✎ Editando matéria publicada: <b id="edit-titulo"></b> — a data original é mantida e o site mostra o selo “atualizada em”.
           <button class="bt" type="button" id="edit-cancelar" style="margin-left:10px">✕ Cancelar edição</button>
         </div>
+        <div id="correcao-box" style="display:none;border:2px solid var(--wine);background:var(--paper);padding:14px 16px;margin-bottom:18px">
+          <label for="f-correcao" style="font-family:var(--sans);font-weight:700;font-size:.85rem;display:block;margin-bottom:6px">Nota de correção (opcional)</label>
+          <p style="font-family:var(--sans);font-size:.8rem;color:var(--ink-soft);margin:0 0 8px;line-height:1.5">Corrigiu um erro de fato? Escreva a nota que o leitor verá no rodapé da matéria. Ex.: “Uma versão anterior informava a data errada da estreia.” Deixe em branco para uma edição sem correção.</p>
+          <textarea id="f-correcao" rows="2" placeholder="Correção: ..." style="width:100%;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:var(--sans);font-size:.9rem;padding:10px;resize:vertical"></textarea>
+        </div>
         <div class="rasc-aviso" id="rasc-aviso">
           📄 Recuperei um rascunho não enviado deste navegador.
           <button class="bt" type="button" id="rasc-usar">Continuar de onde parei</button>
@@ -1942,11 +1947,19 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           atualizadoEm: new Date().toISOString(),
           origem: EDIT.origem, editadoPor: USER.nome
         };
+        // preserva o que a edição não mexe (post de Instagram, origem da foto, checagem)
+        var o = EDIT.orig || {};
+        if(o.instagram) edicao.instagram = o.instagram;
+        if(o.imgFonte) edicao.imgFonte = o.imgFonte;
+        if(o.checagem) edicao.checagem = o.checagem;
         edicao.cats = colherCats();
         var evE = colherEvento();
         if(evE) edicao.evento = evE;
+        var notaC = $('f-correcao').value.trim();
+        if(notaC){ edicao.correcao = { texto: notaC, quando: new Date().toISOString(), por: USER.nome }; }
+        else if(o.correcao){ edicao.correcao = o.correcao; }  // mantém correção anterior se não mexeu
         return ghPut('import/novas/' + slug + '.json', JSON.stringify(edicao, null, 1),
-          assina('edita matéria publicada "' + title + '"'));
+          assina('edita matéria publicada "' + title + '"' + (notaC ? ' (com nota de correção)' : '')));
       }
       if(ehChefe){
         var dados = {
@@ -2787,6 +2800,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       ? '✎ Editando matéria DA MESA (ainda não publicada): '
       : '✎ Editando matéria publicada: ';
     $('edit-banner').style.display = 'block';
+    // nota de correção só faz sentido em matéria JÁ publicada (não na que ainda está na mesa)
+    var jaPublicada = fonte === 'novas' || fonte === 'acervo';
+    $('correcao-box').style.display = jaPublicada ? 'block' : 'none';
+    $('f-correcao').value = (dados.correcao && dados.correcao.texto) || '';
     statusTexto();
     $('nova-titulo').textContent = 'Editar matéria';
     $('f-quando').parentElement.parentElement.style.display = 'none';
@@ -2797,6 +2814,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   function sairEdicao(){
     EDIT = null;
     $('edit-banner').style.display = 'none';
+    $('correcao-box').style.display = 'none';
+    $('f-correcao').value = '';
     $('nova-titulo').textContent = 'Nova matéria';
     $('f-quando').parentElement.parentElement.style.display = '';
     $('form').reset();
@@ -3328,18 +3347,32 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     RV.ed = { numero: num, titulo: '', dataEdicao: '', status: 'rascunho',
       capa: { img: '', manchete: '', chamadas: [] }, paginas: [],
       historico: [{ quando: new Date().toISOString(), quem: USER.nome, acao: 'cria a edição' }] };
-    RV.sha = null;
+    RV.sha = null; RV.mexeu = false;
     renderEd();
   });
   document.addEventListener('click', function(e){
     var b = e.target.closest('[data-rvabrir]');
     if(!b) return;
     ghGet('import/revista/edicoes/ed-' + b.dataset.rvabrir + '.json').then(function(f){
-      if(!f) return;
+      if(!f || !f.content) return;
       RV.ed = JSON.parse(unb64(f.content));
-      RV.sha = f.sha;
+      RV.sha = f.sha; RV.mexeu = false;
       renderEd();
+    }).catch(function(err){ alert(msgErro(err)); });
+  });
+  // marca "alterações não salvas" em qualquer mexida dentro do editor da revista
+  var rvEditor = $('rv-editor');
+  if(rvEditor){
+    rvEditor.addEventListener('input', function(){ if(RV.ed) RV.mexeu = true; });
+    rvEditor.addEventListener('change', function(){ if(RV.ed) RV.mexeu = true; });
+    rvEditor.addEventListener('click', function(e){
+      var bt = e.target.closest('button');
+      if(RV.ed && bt && bt.id !== 'rv-salvar' && bt.id !== 'rv-fechar') RV.mexeu = true;
     });
+  }
+  // guarda contra fechar a aba/janela com a edição por salvar
+  window.addEventListener('beforeunload', function(e){
+    if(RV.ed && RV.mexeu){ e.preventDefault(); e.returnValue = ''; return ''; }
   });
 
   function renderEd(){
@@ -3581,6 +3614,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       JSON.stringify(RV.ed, null, 1), assina('revista ed. ' + RV.ed.numero + ': ' + acao), RV.sha)
       .then(function(resp){
         RV.sha = resp.content && resp.content.sha;
+        RV.mexeu = false;
         renderHist();
         msg.className = 'msg ok';
         msg.textContent = 'Salvo ✓' + (RV.ed.status === 'publicada' ? ' — o site remonta a edição em ~2 min' : '');
@@ -3605,8 +3639,9 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     salvarEd('publica a edição').then(renderEd).catch(function(){});
   });
   $('rv-fechar').addEventListener('click', function(){
+    if(RV.ed && RV.mexeu && !confirm('Você tem alterações não salvas nesta edição. Fechar mesmo assim? (o que não foi salvo se perde)')) return;
     $('rv-editor').style.display = 'none';
-    RV.ed = null; RV.sha = null;
+    RV.ed = null; RV.sha = null; RV.mexeu = false;
   });
 })();
 </script>
