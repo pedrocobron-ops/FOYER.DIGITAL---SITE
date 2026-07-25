@@ -942,6 +942,28 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       return Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
     });
   }
+  // KDF forte para senhas novas (repo é público; sha256 puro é quebrável). 210 mil iterações.
+  var PBKDF_ITER = 210000;
+  function pbkdf2(senha, saltHex){
+    var enc = new TextEncoder();
+    var salt = new Uint8Array((saltHex.match(/.{2}/g) || []).map(function(h){ return parseInt(h, 16); }));
+    return crypto.subtle.importKey('raw', enc.encode(senha), 'PBKDF2', false, ['deriveBits'])
+      .then(function(k){
+        return crypto.subtle.deriveBits({ name:'PBKDF2', salt: salt, iterations: PBKDF_ITER, hash:'SHA-256' }, k, 256);
+      }).then(function(buf){
+        return Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
+      });
+  }
+  function novaCredencial(senha){
+    var salt = Array.from(crypto.getRandomValues(new Uint8Array(16)))
+      .map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
+    return pbkdf2(senha, salt).then(function(h){ return { salt: salt, hash: h, kdf: 'pbkdf2', iter: PBKDF_ITER }; });
+  }
+  function confereCredencial(u, senha){
+    if(u.kdf === 'pbkdf2') return pbkdf2(senha, u.salt || '').then(function(h){ return h === u.hash; });
+    // legado: sha256(salt:senha) — continua valendo até a pessoa trocar a senha
+    return sha256((u.salt || '') + ':' + senha).then(function(h){ return h === u.hash; });
+  }
   function slugify(t){
     return t.normalize('NFD').replace(/[\u0300-\u036f]/g,'')
       .replace(/[^a-zA-Z0-9]+/g,'-').replace(/^-+|-+$/g,'').toLowerCase().slice(0,80);
@@ -955,33 +977,60 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(s < 86400) return 'há ' + Math.round(s/3600) + ' h';
     return 'há ' + Math.round(s/86400) + ' dia(s)';
   }
+  // erro com o código HTTP anexado, para as mensagens amigáveis
+  function ghErro(status){ var e = new Error('HTTP ' + status); e.gh = status; return e; }
+  function checaResp(r){
+    if(r.ok) return r.json();
+    var rem = r.headers.get('x-ratelimit-remaining');
+    if(r.status === 403 && rem === '0') throw ghErro('rate');
+    if(r.status === 401 || r.status === 403){ marcarChaveInvalida(); throw ghErro(r.status); }
+    throw ghErro(r.status);
+  }
+  // traduz qualquer falha de gravação/leitura para o português da casa
+  function msgErro(e){
+    var g = e && e.gh;
+    if(g === 401 || g === 403) return 'Sua chave de publicação expirou ou foi revogada. Reconecte na aba Conexão.';
+    if(g === 'rate') return 'O GitHub limitou as consultas deste aparelho (sem chave, são 60 por hora). Conecte a chave na aba Conexão.';
+    if(g === 409 || g === 422) return 'Alguém salvou antes de você. Recarregue a página (a Coxia vai pegar a versão nova) e refaça esta ação.';
+    if(g === 404) return 'O arquivo não está mais lá. Recarregue a página.';
+    if(e && /Failed to fetch|NetworkError|Load failed/i.test(e.message || '')) return 'Sem conexão agora. Confira a internet e tente de novo.';
+    return 'Não deu certo agora. Tente de novo em instantes.';
+  }
+  var CHAVE_ALERTADA = false;
+  function marcarChaveInvalida(){
+    if(CHAVE_ALERTADA) return; CHAVE_ALERTADA = true;
+    var d = $('tk-dot');
+    if(d){ d.textContent = 'chave expirada — reconecte'; d.classList.remove('ok'); d.classList.add('err'); }
+    var st = $('tk-st'); if(st){ st.textContent = 'Sua chave expirou ou foi revogada. Cole uma nova aqui.'; st.className = 'st err'; }
+  }
   function ghGet(path){
     return fetch(API + path + '?ref=' + BRANCH, { headers: hdr({}), cache:'no-store' })
       .then(function(r){
         if(r.status === 404) return null;
-        if(!r.ok) throw new Error('HTTP ' + r.status);
-        return r.json();
+        return checaResp(r);
       });
   }
+  // grava re-buscando o sha fresco na hora (evita 409 por sha velho); em conflito real, mensagem clara
   function ghPut(path, content, msg, sha){
-    var body = { message: msg, content: b64(content), branch: BRANCH };
-    if(sha) body.sha = sha;
-    var go = sha ? Promise.resolve() : ghGet(path).then(function(ex){ if(ex && ex.sha) body.sha = ex.sha; });
-    return go.then(function(){
+    var go = ghGet(path).then(function(ex){ return ex && ex.sha ? ex.sha : (sha || null); },
+                              function(){ return sha || null; });
+    return go.then(function(shaFresco){
+      var body = { message: msg, content: b64(content), branch: BRANCH };
+      if(shaFresco) body.sha = shaFresco;
       return fetch(API + path, { method:'PUT',
-        headers: hdr({'Content-Type':'application/json'}), body: JSON.stringify(body) });
-    }).then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
+        headers: hdr({'Content-Type':'application/json'}), body: JSON.stringify(body) }).then(checaResp);
+    });
   }
   function ghPutRaw(path, base64content, msg){
     return fetch(API + path, { method:'PUT',
       headers: hdr({'Content-Type':'application/json'}),
       body: JSON.stringify({ message: msg, content: base64content, branch: BRANCH })
-    }).then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
+    }).then(checaResp);
   }
   function ghDel(path, sha, msg){
     return fetch(API + path, { method:'DELETE',
       headers: hdr({'Content-Type':'application/json'}),
-      body: JSON.stringify({ message: msg, sha: sha, branch: BRANCH }) });
+      body: JSON.stringify({ message: msg, sha: sha, branch: BRANCH }) }).then(checaResp);
   }
   function assina(acao){ return 'Coxia [' + (USER ? USER.nome : '?') + ']: ' + acao; }
 
@@ -1001,13 +1050,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   }
   function conferirSenha(senha){
     return carregarEquipe(true).then(function(eq){
-      if(!eq.lista.length){
-        // repositório ainda sem equipe.json: senha de fundação
-        return senha === 'terceirosinal'
-          ? { id:'pedro', nome:'Pedro Cobron', papel:'chefe', permissoes:{ mesaIA:true } } : null;
-      }
+      // sem equipe carregada = falha ao ler (rede/API); fecha a porta em vez de aceitar senha-mestra
+      if(!eq.lista.length) throw ghErro('rede');
       return Promise.all(eq.lista.map(function(u){
-        return sha256((u.salt || '') + ':' + senha).then(function(h){ return h === u.hash ? u : null; });
+        return confereCredencial(u, senha).then(function(ok){ return ok ? u : null; });
       })).then(function(rs){ return rs.filter(Boolean)[0] || null; });
     });
   }
@@ -1611,7 +1657,12 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     pac.removidoEm = new Date().toISOString();
     var nomeLix = 'import/lixeira/' + (dados.slug || 'item') + '-' + new Date().getTime() + '.json';
     return ghPut(nomeLix, JSON.stringify(pac, null, 1), assina(acao))
-      .then(function(){ return ghDel(path, sha, assina(acao)); });
+      .then(function(){
+        return ghDel(path, sha, assina(acao)).catch(function(e){
+          // a cópia foi para a lixeira mas o original não saiu: avisa em vez de deixar duplicado escondido
+          throw new Error('__PARCIAL__' + msgErro(e));
+        });
+      });
   }
   document.addEventListener('click', function(e){
     var b = e.target.closest('[data-del]');
@@ -1621,7 +1672,14 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var dados = null;
     for(var slug in FILA_CACHE){ if(FILA_CACHE[slug]._path === b.dataset.del){ dados = FILA_CACHE[slug]; break; } }
     moverLixeira(dados || { slug: 'materia' }, b.dataset.del, b.dataset.sha, 'remove matéria (lixeira)')
-      .then(function(){ carregarFila(); });
+      .then(function(){ carregarFila(); })
+      .catch(function(e){
+        var m = e.message || '';
+        alert(m.indexOf('__PARCIAL__') === 0
+          ? 'A matéria foi copiada para a lixeira, mas não saiu do site. Recarregue e confira. (' + m.slice(11) + ')'
+          : msgErro(e));
+        carregarFila();
+      });
   });
 
   function carregarLixeira(){
@@ -1659,14 +1717,16 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       var destino = d._origem;
       ghPut(destino, JSON.stringify(pac, null, 1), assina('restaura da lixeira "' + (d.title || '') + '"'))
         .then(function(){ return ghDel(d._path, d._sha, assina('limpa item restaurado')); })
-        .then(function(){ carregarLixeira(); carregarFila(); });
+        .then(function(){ carregarLixeira(); carregarFila(); })
+        .catch(function(e){ alert(msgErro(e)); carregarLixeira(); });
       return;
     }
     if((b = e.target.closest('[data-lixx]'))){
       var d2 = itens[Number(b.dataset.lixx)];
       if(!d2) return;
       if(!confirm('Excluir definitivamente? Não tem volta.')) return;
-      ghDel(d2._path, d2._sha, assina('exclui definitivamente da lixeira')).then(carregarLixeira);
+      ghDel(d2._path, d2._sha, assina('exclui definitivamente da lixeira'))
+        .then(carregarLixeira).catch(function(e){ alert(msgErro(e)); });
     }
   });
 
@@ -2003,20 +2063,17 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(!atual && !senha){ msg.textContent = 'Crie uma senha para quem entra agora (botão Gerar)'; msg.className = 'msg err'; return; }
 
     var prep = senha
-      ? (function(){
-          var salt = Array.from(crypto.getRandomValues(new Uint8Array(6)))
-            .map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
-          return sha256(salt + ':' + senha).then(function(h){ return { salt: salt, hash: h }; });
-        })()
-      : Promise.resolve({ salt: atual.salt, hash: atual.hash });
+      ? novaCredencial(senha)
+      : Promise.resolve({ salt: atual.salt, hash: atual.hash, kdf: atual.kdf, iter: atual.iter });
 
     prep.then(function(cred){
       var novo = {
         id: id, nome: nome, papel: $('e-papel').value,
         salt: cred.salt, hash: cred.hash,
-        permissoes: {},
+        permissoes: atual ? (atual.permissoes || {}) : {},
         criadoEm: atual ? (atual.criadoEm || '') : new Date().toISOString()
       };
+      if(cred.kdf){ novo.kdf = cred.kdf; novo.iter = cred.iter; }
       var prox = atual ? lista.map(function(x){ return x.id === id ? novo : x; }) : lista.concat([novo]);
       // garante que o chefe fundador não suma da lista vazia
       if(!prox.filter(function(x){ return x.papel === 'chefe'; }).length){
