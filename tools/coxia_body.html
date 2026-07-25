@@ -822,6 +822,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       <section class="view" id="view-conexao">
         <h2 class="hi">Conexão</h2>
         <p class="hi-sub">A chave que permite à Coxia gravar no site</p>
+        <div class="sec-h"><h3>Coxia no celular</h3><span>instale a central como aplicativo, com ícone na sua tela</span></div>
+        <div class="f-note" style="margin-bottom:22px">
+          <button class="f-pub" id="cx-app2" type="button" style="width:auto;padding:13px 20px">📲 Instalar a Coxia como app</button>
+          <p id="cx-app-dica" style="margin:10px 0 0"></p>
+        </div>
         <div class="cx-token">
           <span class="st" id="tk-st">Cole a chave de publicação — ela fica salva só neste navegador</span>
           <input type="password" id="tk" placeholder="github_pat_…" aria-label="Chave de publicação">
@@ -2365,18 +2370,30 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   /* ================= COXIA COMO APLICATIVO ================= */
   (function(){
     var jaApp = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
-    var btn = $('cx-app');
-    if(!btn || jaApp) return;
+    var botoes = [$('cx-app'), $('cx-app2')].filter(Boolean);
+    var dica = $('cx-app-dica');
+    if(jaApp){
+      botoes.forEach(function(b){ b.style.display = 'none'; });
+      if(dica) dica.textContent = '✓ Você já está usando a Coxia como aplicativo.';
+      return;
+    }
     var esperado = null;
-    var iOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
-    window.addEventListener('beforeinstallprompt', function(e){
-      e.preventDefault(); esperado = e; btn.style.display = 'block';
-    });
-    if(iOS) btn.style.display = 'block';
-    btn.addEventListener('click', function(){
-      if(esperado){ esperado.prompt(); esperado.userChoice.then(function(){ btn.style.display = 'none'; }); }
-      else alert('No Safari: toque em Compartilhar (o quadrado com a seta) e depois em "Adicionar à Tela de Início". A Coxia vira um app com ícone dourado.');
-    });
+    var ua = navigator.userAgent;
+    var iOS = /iphone|ipad|ipod/i.test(ua) && !window.MSStream;
+    var samsung = /SamsungBrowser/i.test(ua);
+    window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); esperado = e; });
+    botoes.forEach(function(b){ b.style.display = b.id === 'cx-app' ? 'block' : 'inline-block'; });
+    function instrucao(){
+      if(iOS) return 'No Safari: toque em Compartilhar (o quadrado com a seta) e depois em "Adicionar à Tela de Início".';
+      if(samsung) return 'No navegador da Samsung: toque no menu ☰ (embaixo à direita), depois em "Adicionar página a" e escolha "Tela inicial".';
+      return 'No menu do navegador (⋮), toque em "Instalar aplicativo" ou "Adicionar à tela inicial".';
+    }
+    function clicou(){
+      if(esperado){ esperado.prompt(); esperado.userChoice.then(function(){ botoes.forEach(function(b){ b.style.display = 'none'; }); }); }
+      else if(dica){ dica.innerHTML = '<b>' + instrucao() + '</b> O ícone da Coxia é a logo vinho sobre dourado.'; irPara('conexao'); }
+      else alert(instrucao());
+    }
+    botoes.forEach(function(b){ b.addEventListener('click', clicou); });
   })();
 
   /* ================= REVISTA (chefe) ================= */
