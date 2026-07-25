@@ -114,35 +114,101 @@
 })();
 
 
-// métricas — visualizações e compartilhamentos (alimenta o ranking da Coxia)
+// métricas — audiência anônima do site (alimenta o painel do chefe na Coxia)
+// LGPD: sem dado pessoal; identificador de visitante recorrente só com consentimento total
 (function(){
   var M = {
     url: 'https://jcaqjlrzmrtzjyfbljxh.supabase.co',
     key: 'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB'
   };
-  function bater(tipo){
+  function consent(){ try{ return localStorage.getItem('foyer-consent') || ''; }catch(e){ return ''; } }
+  function sid(){
+    try{
+      var s = sessionStorage.getItem('foyer-sessao');
+      if(!s){ s = Math.random().toString(36).slice(2, 10) + Date.now().toString(36); sessionStorage.setItem('foyer-sessao', s); }
+      return s;
+    }catch(e){ return null; }
+  }
+  function vid(){
+    if(consent() !== 'tudo') return null;
+    try{
+      var v = localStorage.getItem('foyer-vis');
+      if(!v){ v = Math.random().toString(36).slice(2, 12) + Date.now().toString(36); localStorage.setItem('foyer-vis', v); }
+      return v;
+    }catch(e){ return null; }
+  }
+  function slugDe(){
     var m = location.pathname.match(/post-([a-z0-9-]+)\.html$/);
-    var slug = m ? m[1] : (/agenda\.html$/.test(location.pathname) ? 'pagina-agenda' : null);
-    if(!slug) return;
-    if(tipo === 'view'){
-      try{
-        if(sessionStorage.getItem('fv-' + slug)) return;
-        sessionStorage.setItem('fv-' + slug, '1');
-      }catch(e){}
-    }
+    return m ? m[1] : (/agenda\.html$/.test(location.pathname) ? 'pagina-agenda' : null);
+  }
+  function pagina(){
+    var s = slugDe();
+    if(s) return s;
+    var p = location.pathname.replace(/^\//, '').replace(/index\.html$/, '').replace(/\.html$/, '');
+    return (p || 'capa').slice(0, 120);
+  }
+  function origem(){
+    try{
+      if(!document.referrer) return '';
+      var h = new URL(document.referrer).hostname.replace(/^www\./, '');
+      return h === location.hostname.replace(/^www\./, '') ? '' : h.slice(0, 80);
+    }catch(e){ return ''; }
+  }
+  function disp(){
+    var app = false;
+    try{ app = matchMedia('(display-mode: standalone)').matches || !!navigator.standalone; }catch(e){}
+    if(app) return 'app';
+    return matchMedia('(max-width: 820px)').matches ? 'celular' : 'computador';
+  }
+  function enviar(extra){
+    var corpo = {
+      slug: slugDe(), pagina: pagina(), tipo: extra.tipo,
+      sessao: sid(), visitante: vid(), ref: origem(),
+      utm: (function(){ try{ return (new URLSearchParams(location.search).get('utm_source') || '').slice(0, 60) || null; }catch(e){ return null; } })(),
+      disp: disp(), lingua: (navigator.language || '').slice(0, 10) || null
+    };
+    if(extra.segundos != null){ corpo.segundos = extra.segundos; corpo.rolagem = extra.rolagem; }
     try{
       fetch(M.url + '/rest/v1/foyer_metricas', {
         method: 'POST',
         headers: { 'apikey': M.key, 'Authorization': 'Bearer ' + M.key,
                    'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
-        body: JSON.stringify({ slug: slug, tipo: tipo }),
+        body: JSON.stringify(corpo),
         keepalive: true
       }).catch(function(){});
     }catch(e){}
   }
-  bater('view');
+  // visualização: uma por página por visita
+  var jaViu = false;
+  try{
+    jaViu = !!sessionStorage.getItem('fv-' + pagina());
+    if(!jaViu) sessionStorage.setItem('fv-' + pagina(), '1');
+  }catch(e){}
+  if(!jaViu) enviar({ tipo: 'view' });
+  // tempo de leitura + rolagem máxima (enviados quando a pessoa sai da página)
+  var t0 = Date.now(), rolMax = 0, fechou = false;
+  function medirRolagem(){
+    var d = document.documentElement, tot = d.scrollHeight - window.innerHeight;
+    if(tot > 40){
+      var p = Math.round((window.scrollY / tot) * 100);
+      if(p > rolMax) rolMax = Math.min(100, p);
+    }
+  }
+  window.addEventListener('scroll', medirRolagem, { passive: true });
+  medirRolagem();
+  function fechar(){
+    if(fechou) return;
+    var seg = Math.round((Date.now() - t0) / 1000);
+    if(seg < 3) return;
+    fechou = true;
+    enviar({ tipo: 'tempo', segundos: Math.min(seg, 1800), rolagem: rolMax });
+  }
+  window.addEventListener('pagehide', fechar);
+  document.addEventListener('visibilitychange', function(){
+    if(document.visibilityState === 'hidden') fechar();
+  });
   document.addEventListener('click', function(e){
-    if(e.target.closest('[data-share]')) bater('share');
+    if(e.target.closest('[data-share]')) enviar({ tipo: 'share' });
   });
 })();
 
