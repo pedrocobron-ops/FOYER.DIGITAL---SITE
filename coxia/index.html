@@ -2401,8 +2401,22 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var botoes = [$('cx-app'), $('cx-app2')].filter(Boolean);
     var dica = $('cx-app-dica');
     if(jaApp){
+      // pode ser o app da Coxia OU o app do site que capturou o link
+      var noEscopoCoxia = location.pathname.indexOf('/coxia/') >= 0 && !document.referrer;
       botoes.forEach(function(b){ b.style.display = 'none'; });
-      if(dica) dica.textContent = '✓ Você já está usando a Coxia como aplicativo.';
+      if(dica){
+        dica.innerHTML = 'Você está numa janela de aplicativo. Se este é o <b>app do site</b> (e não o da Coxia), ' +
+          'instale a Coxia separada assim: abra o <b>navegador</b>, digite o endereço ' +
+          '<b>pedrocobron-ops.github.io/FOYER.DIGITAL---SITE/coxia/</b> na barra (sem tocar em link) ' +
+          'e use o menu do navegador para adicionar à tela inicial. ' +
+          '<button class="bt" type="button" id="cx-copia-end">📋 Copiar endereço da Coxia</button>';
+        var cb = document.getElementById('cx-copia-end');
+        if(cb) cb.addEventListener('click', function(){
+          navigator.clipboard && navigator.clipboard.writeText('https://pedrocobron-ops.github.io/FOYER.DIGITAL---SITE/coxia/').then(function(){
+            cb.textContent = '✓ Copiado';
+          });
+        });
+      }
       return;
     }
     var esperado = null;
