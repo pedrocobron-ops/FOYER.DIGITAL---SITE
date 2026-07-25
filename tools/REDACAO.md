@@ -202,7 +202,10 @@ fato (diff das mudanças listadas) e commita.
 1. **Pauteiro** — varredura na web (busca) por notícias RECENTES (últimos
    7 dias). Antes, conferir os títulos já cobertos (primeiros ~60 de
    `import/materias.json` e tudo em `import/pauta/` e `import/novas/`)
-   para não repetir assunto. Produzir **6 pautas por rodada** seguindo a
+   para não repetir assunto. **Ler também `import/coxia/sugestoes.json`**:
+   toda sugestão com `"status": "aceita"` (marcada pela direção na Coxia)
+   é pauta PRIORITÁRIA e deve virar matéria da rodada quando couber;
+   registrar no diário qual sugestão foi aproveitada. Produzir **6 pautas por rodada** seguindo a
    GRADE SEMANAL acima: 2 vagas de notícia + 4 do cardápio, sempre com o
    prato do dia. Para as VAGAS DE NOTÍCIA, esta mistura:
 
