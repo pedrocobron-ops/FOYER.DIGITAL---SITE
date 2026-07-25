@@ -204,6 +204,21 @@
     text-transform:uppercase; border:1px solid var(--line); padding:5px 9px; white-space:nowrap; }
   .pill.ag{ background:var(--gold); color:var(--wine); border-color:var(--gold); }
   .pill.pb{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
+  .pill.rc{ background:#8E1B10; color:#fff; border-color:#8E1B10; }
+  html[data-theme="dark"] .pill.rc, body.dark .pill.rc{ background:var(--err, #E06A5A); color:#2a0806; border-color:var(--err, #E06A5A); }
+  /* bloco de agendadas no topo da fila */
+  .fila-agenda{ border:var(--b); padding:14px 18px; margin-bottom:18px; background:var(--paper); }
+  .fila-agenda > b{ display:block; font-family:var(--sans); font-size:.86rem; margin-bottom:10px;
+    text-transform:uppercase; letter-spacing:.05em; }
+  .fa-row{ display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:baseline;
+    padding:7px 0; border-top:1px dotted var(--line); }
+  .fa-q{ font-family:var(--sans); font-weight:700; font-size:.82rem; color:var(--wine); white-space:nowrap; }
+  html[data-theme="dark"] .fa-q, body.dark .fa-q{ color:var(--gold-hi, var(--gold)); }
+  .fa-t{ font-family:var(--sans); font-size:.9rem; }
+  .fa-devol{ font-family:var(--sans); font-size:.8rem; color:#8E1B10; margin-top:5px; line-height:1.5; }
+  html[data-theme="dark"] .fa-devol, body.dark .fa-devol{ color:var(--err, #E06A5A); }
+  .frow.rec{ background:rgba(142,27,16,.05); }
+  @media (max-width:700px){ .fa-row{ grid-template-columns:1fr; gap:2px; } }
   .bt{ background:none; border:1px solid var(--line); cursor:pointer; color:var(--ink);
     font-family:var(--mono); font-size:.56rem; letter-spacing:.1em; text-transform:uppercase; padding:7px 11px; }
   .bt:hover{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
@@ -271,15 +286,50 @@
   .mesa-fontes{ padding:10px 18px; border-bottom:1px solid var(--line); font-family:var(--mono);
     font-size:.6rem; line-height:2; word-break:break-all; }
   .mesa-fontes a{ color:var(--ink-soft); }
-  .mesa-corpo{ display:none; padding:18px; border-bottom:1px solid var(--line);
-    font-size:.88rem; line-height:1.85; max-height:480px; overflow:auto; }
-  .mesa-corpo.on{ display:block; }
+  .mesa-corpo{ padding:18px; font-size:.88rem; line-height:1.85; }
+  /* laudo do checador */
+  .mesa-checa{ padding:12px 18px; border-bottom:1px solid var(--line); font-family:var(--sans);
+    font-size:.84rem; line-height:1.6; background:rgba(46,110,46,.06); }
+  .mesa-checa > b{ color:#2c6e2c; }
+  html[data-theme="dark"] .mesa-checa > b, body.dark .mesa-checa > b{ color:var(--ok, #7FBF7F); }
+  .mesa-checa .ck-por{ font-family:var(--mono); font-size:.62rem; color:var(--ink-soft); }
+  .mesa-checa ul{ margin:6px 0 0 16px; }
+  .mesa-checa.semcheca{ background:rgba(142,27,16,.06); }
+  .mesa-checa.semcheca{ color:var(--ink); }
+  /* blocos que abrem/fecham no card */
+  .mesa-dobra, .mesa-insta{ border-bottom:1px solid var(--line); }
+  .mesa-dobra > summary, .mesa-insta > summary{ padding:12px 18px; cursor:pointer; font-family:var(--sans);
+    font-size:.86rem; font-weight:700; list-style:none; user-select:none; }
+  .mesa-dobra > summary::-webkit-details-marker, .mesa-insta > summary::-webkit-details-marker{ display:none; }
+  .mesa-dobra > summary::before, .mesa-insta > summary::before{ content:'▸ '; color:var(--gold); }
+  .mesa-dobra[open] > summary::before, .mesa-insta[open] > summary::before{ content:'▾ '; }
+  .mesa-dobra .mesa-corpo{ max-height:520px; overflow:auto; }
+  .mesa-insta .insta-artes, .mesa-insta .insta-leg, .mesa-insta .insta-nada,
+  .mesa-insta [data-copialeg]{ margin-left:18px; margin-right:18px; }
+  /* barra-resumo da rodada */
+  .mesa-resumo{ border:var(--b); padding:14px 18px; margin-bottom:18px; font-family:var(--sans);
+    font-size:.9rem; line-height:2; background:var(--paper); }
+  .mesa-resumo b{ display:block; margin-bottom:6px; font-size:.82rem; text-transform:uppercase; letter-spacing:.06em; }
+  .mesa-resumo a{ display:inline-block; margin:0 14px 4px 0; color:var(--wine); text-decoration:none;
+    border-bottom:1px solid var(--line); }
+  .mesa-resumo a:hover{ border-color:var(--gold); }
+  .mesa-resumo a small{ color:var(--ink-soft); font-family:var(--mono); font-size:.62rem; }
   .mesa-acoes{ padding:14px 18px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
   .mesa-acoes .bt.ap{ background:var(--wine); color:var(--gold); border:1.5px solid var(--wine); padding:10px 15px; }
   .mesa-acoes .bt.ap:hover{ background:var(--gold); color:var(--wine); border-color:var(--gold); }
+  .mesa-agenda{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .dt-rapido{ display:none; gap:6px; align-items:center; flex-wrap:wrap; }
+  .dt-rapido.on{ display:flex; }
+  .bt.mini{ padding:6px 9px; font-size:.66rem; }
   .mesa-acoes input[type=datetime-local]{ border:1.5px solid var(--line); background:var(--paper-2);
     color:var(--ink); font-family:var(--mono); font-size:.7rem; padding:9px 10px; display:none; }
   .mesa-acoes input[type=datetime-local].on{ display:inline-block; }
+  /* aviso flutuante */
+  .cx-toast{ position:fixed; left:50%; bottom:28px; transform:translate(-50%, 20px);
+    background:var(--wine); color:var(--gold); font-family:var(--sans); font-size:.9rem; font-weight:600;
+    padding:13px 22px; border-radius:3px; box-shadow:0 8px 30px rgba(0,0,0,.3); z-index:80;
+    opacity:0; transition:opacity .3s, transform .3s; max-width:90vw; text-align:center; }
+  .cx-toast.on{ opacity:1; transform:translate(-50%, 0); }
 
   /* equipe */
   .eq-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; }
@@ -1518,6 +1568,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         pac.img = imgPath || EDIT.img; pac.imgCredito = $('f-cred').value.trim();
         pac.corpo = corpo; pac.editadoPor = USER.nome;
         pac.status = 'aguardando_aprovacao';
+        delete pac.devolucao;  // reenviada: volta limpa para a mesa
         pac.cats = colherCats();
         var evM = colherEvento();
         if(evM) pac.evento = evM;
@@ -1620,34 +1671,79 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           items = items.filter(function(d){ return !d._mesa; }); // a mesa fica na aba Redação IA
         }
         if(!items.length){ el.innerHTML = '<div class="vazio-box">Nenhuma matéria por aqui ainda</div>'; return; }
+        var agora = new Date().toISOString();
+        items.forEach(function(d){ FILA_CACHE[d.slug] = d; });
+
+        // --- bloco AGENDADAS: o que ainda vai sair, em ordem cronológica ---
+        var agendadas = items.filter(function(d){ return !d._mesa && d.publishAt && d.publishAt > agora; })
+          .sort(function(a,b){ return (a.publishAt).localeCompare(b.publishAt); });
+        var blocoAg = '';
+        if(agendadas.length){
+          blocoAg = '<div class="fila-agenda"><b>🕐 Vão sair (' + agendadas.length + ')</b>' +
+            agendadas.map(function(d){
+              return '<div class="fa-row"><span class="fa-q">' + esc(qdRelativo(d.publishAt)) + '</span>' +
+                '<span class="fa-t">' + esc(d.title) + '</span>' +
+                '<span class="mt">' + esc(d.cat) + '</span></div>';
+            }).join('') + '</div>';
+        }
+
         items.sort(function(a,b){ return (b.publishAt || b.geradoEm || '').localeCompare(a.publishAt || a.geradoEm || ''); });
-        el.innerHTML = items.map(function(d){
+        el.innerHTML = blocoAg + items.map(function(d){
           var pill, cls;
-          if(d._mesa){ pill = 'Na mesa do chefe'; cls = 'ag'; }
-          else if(d.publishAt && d.publishAt > new Date().toISOString()){ pill = 'Agendada'; cls = 'ag'; }
+          var devolvida = d.status === 'devolvida';
+          if(devolvida){ pill = 'Devolvida'; cls = 'rc'; }
+          else if(d._mesa){ pill = 'Na mesa do chefe'; cls = 'ag'; }
+          else if(d.publishAt && d.publishAt > agora){ pill = 'Agendada'; cls = 'ag'; }
           else { pill = 'Publicada'; cls = 'pb'; }
-          var quando = new Date(d.publishAt || d.geradoEm).toLocaleString('pt-BR');
+          var quando = new Date(d.publishAt || d.geradoEm || d.criadoEm || Date.now()).toLocaleString('pt-BR');
           var th = d.img
             ? '<img class="th" src="' + esc(d.img) + '" alt="" data-p="' + esc(d.img) + '" ' +
               'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/\'+this.dataset.p}else{this.className=\'th no\';this.removeAttribute(\'src\')}">'
             : '<span class="th no">sem foto</span>';
-          FILA_CACHE[d.slug] = d;
-          var editar = (podeEditar() && !d._mesa)
-            ? '<button class="bt" data-edtm="' + esc(d.slug) + '" type="button">✎ Editar</button>' : '';
-          if(podeEditar() && !d._mesa && d.atualizadoEm){
-            editar += '<button class="bt" data-vers="' + esc(d.slug) + '" type="button">🔍 Versões</button>';
+          var proprio = d.author === USER.nome || d.criadoPor === USER.nome;
+          var acoes = '';
+          // editar: chefe/editor em publicadas; autor na própria matéria ainda não publicada (mesa ou devolvida)
+          if(podeEditar() && !d._mesa){
+            acoes += '<button class="bt" data-edtm="' + esc(d.slug) + '" type="button">✎ Editar</button>';
+            if(d.atualizadoEm) acoes += '<button class="bt" data-vers="' + esc(d.slug) + '" type="button">🔍 Versões</button>';
+          } else if(!podeEditar() && proprio && (d._mesa || devolvida)){
+            acoes += '<button class="bt" data-edtp="' + esc(d.slug) + '" type="button">' + (devolvida ? '✎ Corrigir e reenviar' : '✎ Editar') + '</button>';
           }
-          return '<div class="frow">' + th +
+          // remover: chefe/editor sempre; autor só no que ainda não foi publicado (nunca tira do ar matéria publicada/agendada)
+          var podeRemover = podeEditar() || (proprio && (d._mesa || devolvida));
+          if(podeRemover){
+            acoes += '<button class="bt danger" data-del="' + esc(d._path) + '" data-sha="' + esc(d._sha) + '" type="button">Remover</button>';
+          }
+          var recado = devolvida && d.devolucao
+            ? '<div class="fa-devol">↩ Devolvida por ' + esc(d.devolucao.por || 'chefe') + ': ' + esc(d.devolucao.motivo || 'sem comentário') + '</div>'
+            : '';
+          return '<div class="frow' + (devolvida ? ' rec' : '') + '">' + th +
             '<span><span class="ti">' + esc(d.title) + '</span>' +
             '<span class="mt">' + esc(d.cat) + ' — ' + esc(d.author) + ' — ' + quando +
-            (d.atualizadoEm ? ' — ✎ atualizada' : '') + '</span></span>' +
+            (d.atualizadoEm ? ' — ✎ atualizada' : '') + '</span>' + recado + '</span>' +
             '<span class="pill ' + cls + '">' + pill + '</span>' +
-            '<span style="display:flex;gap:6px">' + editar +
-            '<button class="bt danger" data-del="' + esc(d._path) + '" data-sha="' + esc(d._sha) + '" type="button">Remover</button></span>' +
+            '<span style="display:flex;gap:6px;flex-wrap:wrap">' + acoes + '</span>' +
             '</div>';
         }).join('');
       });
-    }).catch(function(){ el.innerHTML = '<div class="vazio-box">Erro ao carregar a fila</div>'; });
+    }).catch(function(e){
+      el.innerHTML = '<div class="vazio-box">Não deu para carregar a fila. ' + esc(msgErro(e)) +
+        '<br><button class="bt" type="button" id="fila-retry" style="margin-top:10px">↻ Tentar de novo</button></div>';
+      var rb = $('fila-retry'); if(rb) rb.addEventListener('click', carregarFila);
+    });
+  }
+  // "amanhã às 09h", "hoje às 18h", "seg 12/08 às 20h"
+  function qdRelativo(iso){
+    var dt = new Date(iso), ag = new Date();
+    var dia0 = new Date(ag.getFullYear(), ag.getMonth(), ag.getDate());
+    var dia1 = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
+    var difDias = Math.round((dia1 - dia0) / 86400000);
+    var hora = dt.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+    if(difDias === 0) return 'hoje às ' + hora;
+    if(difDias === 1) return 'amanhã às ' + hora;
+    if(difDias < 7){ return ['dom','seg','ter','qua','qui','sex','sáb'][dt.getDay()] + ' ' +
+      dt.toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit' }) + ' às ' + hora; }
+    return dt.toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit' }) + ' às ' + hora;
   }
   function moverLixeira(dados, path, sha, acao){
     var pac = {};
@@ -1815,7 +1911,13 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         return fetch(f.download_url).then(function(r){ return r.json(); })
           .then(function(d){ d._path = f.path; d._sha = f.sha; return d; }).catch(function(){ return null; });
       })).then(function(items){
-        items = items.filter(Boolean);
+        // não mostra na mesa do chefe o que já foi devolvido ao autor (está com ele, não esperando aprovação)
+        items = items.filter(Boolean).filter(function(d){ return d.status !== 'devolvida'; });
+        if(!items.length){
+          el.innerHTML = '<div class="vazio-box">Mesa vazia — nenhuma matéria aguardando aprovação.</div>';
+          var bdg0 = $('bdg-mesa'); if(bdg0){ bdg0.textContent = '0'; bdg0.style.display = 'none'; }
+          return;
+        }
         items.sort(function(a,b){ return (b.geradoEm || '').localeCompare(a.geradoEm || ''); });
         MESA = {};
         el.innerHTML = items.map(function(d){
@@ -1830,11 +1932,26 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             ? '<div class="mesa-fontes"><b style="font-family:var(--mono);font-size:.54rem;letter-spacing:.1em;text-transform:uppercase">Fontes apuradas:</b><br>' +
               d.fontes.map(function(u){ return '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(u) + '</a>'; }).join('<br>') + '</div>'
             : '';
+          var credLinha = d.imgCredito
+            ? (d.imgFonte && /^https?:/.test(d.imgFonte)
+                ? '<span class="mesa-cred">' + esc(d.imgCredito) + ' · <a href="' + esc(urlSegura(d.imgFonte)) + '" target="_blank" rel="noopener">ver origem da foto ↗</a></span>'
+                : '<span class="mesa-cred">' + esc(d.imgCredito) + '</span>')
+            : '';
           var capa = d.img
             ? '<div class="mesa-capa"><img src="' + esc(d.img) + '" alt="" data-p="' + esc(d.img) + '" ' +
               'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/\'+this.dataset.p}else{this.parentNode.outerHTML=\'<div class=mesa-semfoto>⚠ Foto no repositório ainda não carregou aqui, mas ela existe e sai na publicação</div>\'}">' +
-              (d.imgCredito ? '<span class="mesa-cred">' + esc(d.imgCredito) + '</span>' : '') + '</div>'
+              credLinha + '</div>'
             : '<div class="mesa-semfoto">⚠ Sem foto de capa — suba uma antes de aprovar</div>';
+          var chk = d.checagem;
+          var checagem = ehAutor ? ''
+            : (chk && chk.verificada
+              ? '<div class="mesa-checa"><b>✓ Conferido pelo checador independente</b>' +
+                (chk.por ? ' <span class="ck-por">' + esc(chk.por) + '</span>' : '') +
+                (chk.conferido ? '<br>' + esc(chk.conferido) : '') +
+                (chk.cortes && chk.cortes.length
+                  ? '<ul>' + chk.cortes.map(function(c){ return '<li>' + esc(c) + '</li>'; }).join('') + '</ul>' : '') +
+                '</div>'
+              : '<div class="mesa-checa semcheca">⚠ Esta matéria ainda não traz o registro do checador independente. Confira os fatos antes de aprovar.</div>');
           var quando = d.geradoEm ? new Date(d.geradoEm).toLocaleString('pt-BR') : '';
           var origem = ehAutor
             ? 'Enviada por ' + esc(d.criadoPor || d.author)
@@ -1848,11 +1965,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             ? '<span class="mesa-nota" title="Enviada por autor(a) da equipe" style="font-size:1rem;padding:10px 12px">EQUIPE</span>'
             : '<span class="mesa-nota" title="Nota do Chefe de Redação (agente)">' + (ch.nota != null ? esc(ch.nota) : '—') + '<small style="font-size:.8rem">/10</small></span>';
           var RAWB = 'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/';
-          var insta = '<div class="mesa-insta"><b>📱 Instagram</b><div class="insta-artes">' +
+          var insta = '<details class="mesa-insta"><summary><b>📱 Instagram</b> — post, stories e legenda</summary><div class="insta-artes">' +
             ['feed', 'story'].map(function(fmt){
               var cam = 'assets/social/' + d.slug + '-' + fmt + '.jpg';
               return '<a href="' + RAWB + cam + '" target="_blank" rel="noopener" title="Abrir para salvar">' +
-                '<img src="' + cam + '" data-p="' + cam + '" alt="" ' +
+                '<img src="' + cam + '" data-p="' + cam + '" alt="" loading="lazy" ' +
                 'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'' + RAWB + '\'+this.dataset.p}else{this.parentNode.style.display=\'none\'}">' +
                 '<span>' + (fmt === 'feed' ? '⬇ Post (feed)' : '⬇ Stories') + '</span></a>';
             }).join('') + '</div>' +
@@ -1860,28 +1977,49 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
               ? '<textarea class="insta-leg" readonly rows="5">' + esc(d.instagram.legenda) + '</textarea>' +
                 '<button class="bt" type="button" data-copialeg="' + esc(d.slug) + '">📋 Copiar legenda</button>'
               : '<p class="insta-nada">Sem legenda pronta nesta matéria.</p>') +
-            '</div>';
-          return '<article class="mesa-card" data-slug="' + esc(d.slug) + '">' +
+            '</details>';
+          var fontesBloco = fontes ? '<details class="mesa-dobra"><summary>Fontes apuradas</summary>' + fontes + '</details>' : '';
+          return '<article class="mesa-card" id="card-' + esc(d.slug) + '" data-slug="' + esc(d.slug) + '">' +
             '<div class="mesa-head">' +
               '<span><span class="ti">' + esc(d.title) + '</span>' +
               '<span class="mt">' + esc([d.cat].concat(d.cats || []).join(' + ')) + ' — ' + palavras + ' palavras — ' + quando + ' — ' + origem + '</span></span>' +
               selo +
-            '</div>' + capa + parecer + insta +
-            fontes +
-            '<div class="mesa-corpo" id="corpo-' + esc(d.slug) + '">' + mdRender(d.corpo) + '</div>' +
+            '</div>' + capa + parecer + checagem + insta +
+            fontesBloco +
+            '<details class="mesa-dobra"><summary>Ler a matéria inteira</summary>' +
+            '<div class="mesa-corpo" id="corpo-' + esc(d.slug) + '">' + mdRender(d.corpo) + '</div></details>' +
             '<div class="mesa-acoes">' +
-              '<button class="bt" type="button" data-ler="' + esc(d.slug) + '">📖 Ler a matéria</button>' +
               '<button class="bt" type="button" data-mesaedit="' + esc(d.slug) + '">✎ Editar texto</button>' +
               '<button class="bt" type="button" data-capa="' + esc(d.slug) + '">📷 ' + (d.img ? 'Trocar a capa' : 'Subir a capa') + '</button>' +
               '<button class="bt ap" type="button" data-aprovar="' + esc(d.slug) + '">✓ Aprovar e publicar</button>' +
-              '<button class="bt" type="button" data-agendar="' + esc(d.slug) + '">🕐 Aprovar e agendar</button>' +
-              '<input type="datetime-local" id="dt-' + esc(d.slug) + '" aria-label="Data e hora">' +
+              '<div class="mesa-agenda">' +
+                '<button class="bt" type="button" data-agendar="' + esc(d.slug) + '">🕐 Aprovar e agendar</button>' +
+                '<div class="dt-rapido" data-dtr="' + esc(d.slug) + '">' +
+                  '<button class="bt mini" type="button" data-quando="hoje18">Hoje 18h</button>' +
+                  '<button class="bt mini" type="button" data-quando="amanha9">Amanhã 9h</button>' +
+                  '<button class="bt mini" type="button" data-quando="sexta18">Sexta 18h</button>' +
+                  '<input type="datetime-local" id="dt-' + esc(d.slug) + '" aria-label="Data e hora">' +
+                '</div>' +
+              '</div>' +
               '<button class="bt danger" type="button" data-recusar="' + esc(d.slug) + '">✕ Recusar</button>' +
             '</div>' +
           '</article>';
         }).join('');
+        // barra-resumo da rodada (modo rodada): pular direto para cada matéria
+        if(items.length > 1){
+          var resumo = '<div class="mesa-resumo"><b>' + items.length + ' na mesa</b> — pule para: ' +
+            items.map(function(d){
+              var n = (d.chefe && d.chefe.nota != null) ? d.chefe.nota + '/10' : (d.origem === 'autor' ? 'equipe' : '—');
+              return '<a href="#card-' + esc(d.slug) + '">' + esc(d.title.slice(0, 42)) + (d.title.length > 42 ? '…' : '') + ' <small>' + n + '</small></a>';
+            }).join('') + '</div>';
+          el.insertAdjacentHTML('afterbegin', resumo);
+        }
       });
-    }).catch(function(){ el.innerHTML = '<div class="vazio-box">Erro ao carregar a mesa</div>'; });
+    }).catch(function(e){
+      el.innerHTML = '<div class="vazio-box">Não deu para carregar a mesa agora. ' + esc(msgErro(e)) +
+        '<br><button class="bt" type="button" id="mesa-retry" style="margin-top:10px">↻ Tentar de novo</button></div>';
+      var rb = $('mesa-retry'); if(rb) rb.addEventListener('click', carregarMesa);
+    });
   }
 
   var capaMesaSlug = null;
@@ -1902,11 +2040,35 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       .catch(function(err){ alert('Falha ao subir a capa: ' + err.message); });
   });
 
-  function aprovar(slug, publishAt){
+  function toast(txt){
+    var t = document.createElement('div');
+    t.className = 'cx-toast'; t.textContent = txt;
+    document.body.appendChild(t);
+    requestAnimationFrame(function(){ t.classList.add('on'); });
+    setTimeout(function(){ t.classList.remove('on'); setTimeout(function(){ t.remove(); }, 400); }, 3200);
+  }
+  function travarCard(card, travar){
+    if(!card) return;
+    card.style.opacity = travar ? '.5' : '1';
+    card.querySelectorAll('button, input').forEach(function(x){ x.disabled = travar; });
+  }
+  function tiraCardEatualiza(slug){
+    var card = document.getElementById('card-' + slug);
+    if(card) card.remove();
+    delete MESA[slug];
+    var restantes = document.querySelectorAll('#mesa-list .mesa-card').length;
+    var bdg = $('bdg-mesa'); if(bdg){ bdg.textContent = restantes; bdg.style.display = restantes ? '' : 'none'; }
+    var resumo = document.querySelector('.mesa-resumo');
+    if(resumo){ var a = resumo.querySelector('a[href="#card-' + slug + '"]'); if(a) a.remove();
+      var b = resumo.querySelector('b'); if(b) b.textContent = restantes + ' na mesa'; }
+    if(!restantes){ var el = $('mesa-list'); if(el) el.innerHTML = '<div class="vazio-box">Mesa limpa ✓ — nenhuma matéria esperando. Bom trabalho.</div>'; }
+    carregarPalco();
+  }
+  function aprovar(slug, publishAt, quando){
     var d = MESA[slug];
     if(!d) return;
-    var card = document.querySelector('.mesa-card[data-slug="' + slug + '"]');
-    if(card) card.style.opacity = '.4';
+    var card = document.getElementById('card-' + slug);
+    travarCard(card, true);
     var dados = {
       title: d.title, slug: d.slug, cat: d.cat,
       author: d.author || 'Redação Foyer', img: d.img || '',
@@ -1917,22 +2079,20 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     };
     if(d.cats && d.cats.length) dados.cats = d.cats;
     if(d.instagram) dados.instagram = d.instagram;
+    if(d.imgFonte) dados.imgFonte = d.imgFonte;
     if(d.evento) dados.evento = d.evento;
     ghPut('import/novas/' + slug + '.json', JSON.stringify(dados, null, 1),
           assina('aprova "' + d.title + '"' + (d.origem === 'autor' ? ' (matéria de ' + (d.criadoPor || d.author) + ')' : ' (Redação IA)')))
       .then(function(){ return ghDel(d._path, d._sha, assina('retira da mesa após aprovação')); })
-      .then(function(){ carregarMesa(); carregarPalco(); })
+      .then(function(){ toast('✓ ' + (quando || 'No ar em ~2 min') + ' — ' + d.title.slice(0, 40)); tiraCardEatualiza(slug); })
       .catch(function(err){
-        if(card) card.style.opacity = '1';
-        alert('Falha ao aprovar: ' + err.message);
+        travarCard(card, false);
+        alert(msgErro(err));
       });
   }
 
   document.addEventListener('click', function(e){
     var b;
-    if((b = e.target.closest('[data-ler]'))){
-      $('corpo-' + b.dataset.ler).classList.toggle('on'); return;
-    }
     if((b = e.target.closest('[data-copialeg]'))){
       var card = b.closest('.mesa-card');
       var ta = card && card.querySelector('.insta-leg');
@@ -1959,34 +2119,70 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         alert('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de aprovar.'); return;
       }
       if(!confirm('Aprovar e publicar esta matéria agora?')) return;
-      aprovar(b.dataset.aprovar, new Date().toISOString()); return;
+      aprovar(b.dataset.aprovar, new Date().toISOString(), 'No ar em ~2 min'); return;
+    }
+    if((b = e.target.closest('[data-quando]'))){
+      var slugQ = b.closest('[data-dtr]').dataset.dtr;
+      var alvo = new Date(); alvo.setSeconds(0, 0);
+      if(b.dataset.quando === 'hoje18'){ alvo.setHours(18, 0); }
+      else if(b.dataset.quando === 'amanha9'){ alvo.setDate(alvo.getDate() + 1); alvo.setHours(9, 0); }
+      else if(b.dataset.quando === 'sexta18'){ alvo.setDate(alvo.getDate() + ((5 - alvo.getDay() + 7) % 7 || 7)); alvo.setHours(18, 0); }
+      var inpQ = $('dt-' + slugQ);
+      inpQ.classList.add('on');
+      var loc = new Date(alvo.getTime() - alvo.getTimezoneOffset() * 60000);
+      inpQ.value = loc.toISOString().slice(0, 16);
+      return;
     }
     if((b = e.target.closest('[data-agendar]'))){
       var inp = $('dt-' + b.dataset.agendar);
-      if(!inp.classList.contains('on')){
+      var caixa = b.closest('.mesa-agenda').querySelector('.dt-rapido');
+      if(!caixa.classList.contains('on')){
         var dd = MESA[b.dataset.agendar];
         if(dd && dd.sugestaoPublishAt && !inp.value){
           var sug = new Date(dd.sugestaoPublishAt);
           sug.setMinutes(sug.getMinutes() - sug.getTimezoneOffset());
           inp.value = sug.toISOString().slice(0, 16);
         }
-        inp.classList.add('on'); inp.focus(); return;
+        caixa.classList.add('on'); inp.classList.add('on'); inp.focus(); return;
       }
-      if(!inp.value){ alert('Escolha a data e a hora do agendamento'); return; }
+      if(!inp.value){ alert('Escolha a data e a hora (ou use Hoje 18h / Amanhã 9h / Sexta 18h)'); return; }
       if(!token()){ alert('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
       if(MESA[b.dataset.agendar] && !MESA[b.dataset.agendar].img){
         alert('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de aprovar.'); return;
       }
-      aprovar(b.dataset.agendar, new Date(inp.value).toISOString()); return;
+      var qd = new Date(inp.value);
+      if(!confirm('Agendar para ' + qd.toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) + '?')) return;
+      aprovar(b.dataset.agendar, qd.toISOString(),
+        'Agendada para ' + qd.toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' })); return;
     }
     if((b = e.target.closest('[data-recusar]'))){
       var d = MESA[b.dataset.recusar];
       if(!d) return;
       if(!token()){ alert('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+      var ehAutorR = d.origem === 'autor';
+      if(ehAutorR){
+        var motivo = prompt('Por que está devolvendo "' + d.title + '"?\n(o autor vai ver este recado e pode corrigir e reenviar)');
+        if(motivo === null) return;
+        devolverAoAutor(d, motivo.trim()); return;
+      }
       if(!confirm('Recusar esta matéria? (ela fica 30 dias na lixeira)')) return;
-      moverLixeira(d, d._path, d._sha, 'recusa matéria da mesa (lixeira)').then(function(){ carregarMesa(); });
+      var cardR = document.getElementById('card-' + d.slug); travarCard(cardR, true);
+      moverLixeira(d, d._path, d._sha, 'recusa matéria da mesa (lixeira)')
+        .then(function(){ toast('Recusada — foi para a lixeira'); tiraCardEatualiza(d.slug); })
+        .catch(function(err){ travarCard(cardR, false); alert(msgErro(err)); });
     }
   });
+  // devolve a matéria do autor com o motivo, em vez de sumir na lixeira
+  function devolverAoAutor(d, motivo){
+    var card = document.getElementById('card-' + d.slug); travarCard(card, true);
+    var pac = {};
+    for(var k in d){ if(k.charAt(0) !== '_') pac[k] = d[k]; }
+    pac.status = 'devolvida';
+    pac.devolucao = { por: USER.nome, quando: new Date().toISOString(), motivo: motivo || 'sem comentário' };
+    ghPut(d._path, JSON.stringify(pac, null, 1), assina('devolve "' + d.title + '" ao autor com parecer'))
+      .then(function(){ toast('Devolvida ao autor com o seu recado'); tiraCardEatualiza(d.slug); })
+      .catch(function(err){ travarCard(card, false); alert(msgErro(err)); });
+  }
 
   /* ---------------- equipe ---------------- */
   function pintarEquipe(){
@@ -2196,6 +2392,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if((b = e.target.closest('[data-edtm]'))){
       var d = FILA_CACHE[b.dataset.edtm];
       if(d) entrarEdicao(d, 'novas');
+      return;
+    }
+    if((b = e.target.closest('[data-edtp]'))){
+      var dp = FILA_CACHE[b.dataset.edtp];
+      if(dp) entrarEdicao(dp, 'pauta');
       return;
     }
     if((b = e.target.closest('[data-edta]'))){
