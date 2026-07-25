@@ -1208,13 +1208,14 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         return checaResp(r);
       });
   }
-  // grava re-buscando o sha fresco na hora (evita 409 por sha velho); em conflito real, mensagem clara
+  // grava honrando o sha do caller (assim um conflito vira 409 de verdade, não sobrescreve o colega);
+  // sem sha, busca o atual só para criar-ou-atualizar. O 409 é traduzido em msgErro ("recarregue").
   function ghPut(path, content, msg, sha){
-    var go = ghGet(path).then(function(ex){ return ex && ex.sha ? ex.sha : (sha || null); },
-                              function(){ return sha || null; });
-    return go.then(function(shaFresco){
-      var body = { message: msg, content: b64(content), branch: BRANCH };
-      if(shaFresco) body.sha = shaFresco;
+    var body = { message: msg, content: b64(content), branch: BRANCH };
+    if(sha) body.sha = sha;
+    var go = sha ? Promise.resolve()
+                 : ghGet(path).then(function(ex){ if(ex && ex.sha) body.sha = ex.sha; }, function(){});
+    return go.then(function(){
       return fetch(API + path, { method:'PUT',
         headers: hdr({'Content-Type':'application/json'}), body: JSON.stringify(body) }).then(checaResp);
     });
@@ -1236,7 +1237,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   function carregarEquipe(force){
     if(EQUIPE && !force) return Promise.resolve(EQUIPE);
     return ghGet('import/equipe.json').then(function(f){
-      if(!f) { EQUIPE = { lista: [], sha: null }; return EQUIPE; }
+      if(!f || !f.content) { EQUIPE = { lista: [], sha: null }; return EQUIPE; }
       EQUIPE = { lista: (JSON.parse(unb64(f.content)).usuarios || []), sha: f.sha };
       return EQUIPE;
     }).catch(function(){
@@ -1981,7 +1982,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       limparRasc(); statusTexto();
       aplicarUsuario();
     }).catch(function(err){ if(err === 'cancelado') return; msg.className = 'msg err'; msg.textContent = msgErro(err); })
-      .finally(function(){ btn.disabled = false; if(!EDIT) btn.textContent = ehChefe ? 'Enviar para o site' : 'Enviar para aprovação'; });
+      .finally(function(){ btn.disabled = false; btn.textContent = EDIT ? 'Salvar edição' : (ehChefe ? 'Enviar para o site' : 'Enviar para aprovação'); });
   });
 
   /* ---------------- fila ---------------- */
@@ -2078,6 +2079,9 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     });
   }
   // grade da semana atual (segunda a domingo) com o que sai em cada dia
+  function diaLocal(d){  // AAAA-MM-DD no fuso do navegador (não em UTC)
+    return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+  }
   function gradeSemana(items){
     var hoje = new Date();
     var seg = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
@@ -2085,13 +2089,13 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var dias = [], nomes = ['seg', 'ter', 'qua', 'qui', 'sex', 'sáb', 'dom'];
     for(var i = 0; i < 7; i++){
       var d = new Date(seg); d.setDate(seg.getDate() + i);
-      dias.push({ data: d, chave: d.toISOString().slice(0, 10), itens: [] });
+      dias.push({ data: d, chave: diaLocal(d), itens: [] });
     }
-    var hojeChave = hoje.toISOString().slice(0, 10);
+    var hojeChave = diaLocal(hoje);
     items.forEach(function(m){
       if(m._mesa && m.status !== 'devolvida'){ return; }  // mesa entra à parte
       var ref = m.publishAt || m.geradoEm; if(!ref) return;
-      var k = new Date(ref).toISOString().slice(0, 10);
+      var k = diaLocal(new Date(ref));
       var alvo = dias.filter(function(x){ return x.chave === k; })[0];
       if(alvo) alvo.itens.push(m);
     });
@@ -2435,7 +2439,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       return ghPut(d._path, JSON.stringify(d, function(k,v){ return k.charAt(0) === '_' ? undefined : v; }, 1),
         assina('anexa capa na mesa "' + d.title + '"'), d._sha);
     }).then(function(){ carregarMesa(); })
-      .catch(function(err){ alert('Falha ao subir a capa: ' + err.message); });
+      .catch(function(err){ alert(msgErro(err)); });
   });
 
   function toast(txt){
@@ -2481,7 +2485,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(d.evento) dados.evento = d.evento;
     ghPut('import/novas/' + slug + '.json', JSON.stringify(dados, null, 1),
           assina('aprova "' + d.title + '"' + (d.origem === 'autor' ? ' (matéria de ' + (d.criadoPor || d.author) + ')' : ' (Redação IA)')))
-      .then(function(){ return ghDel(d._path, d._sha, assina('retira da mesa após aprovação')); })
+      .then(function(){ return ghDel(d._path, d._sha, assina('retira da mesa após aprovação'))
+        .catch(function(e){ if(e && e.gh === 404) return; throw e; }); })  // 404 = já saiu da mesa; publicação já deu certo
       .then(function(){
         toast('✓ ' + (quando || 'No ar em ~2 min') + ' — ' + d.title.slice(0, 40));
         tiraCardEatualiza(slug);
@@ -2657,7 +2662,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var conteudo = JSON.stringify({ usuarios: lista }, null, 1);
     return ghPut('import/equipe.json', conteudo, assina(acao), EQUIPE.sha)
       .then(function(){ EQUIPE = null; pintarEquipe(); })
-      .catch(function(err){ alert('Falha ao salvar a equipe: ' + err.message); });
+      .catch(function(err){ alert(msgErro(err)); });
   }
 
   $('eq-form').addEventListener('submit', function(e){
@@ -2899,7 +2904,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
 
   function docJson(path){
     return ghGet(path).then(function(f){
-      return f ? { data: JSON.parse(unb64(f.content)), sha: f.sha } : { data: null, sha: null };
+      return (f && f.content) ? { data: JSON.parse(unb64(f.content)), sha: f.sha } : { data: null, sha: null };
     });
   }
   function carregarSaguao(){ carregarMural(); carregarRanking(); carregarSug(); }
@@ -2940,7 +2945,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       assina('recado no mural'), MURAL.sha)
       .then(function(){ $('mural-txt').value = ''; $('mural-fixar').checked = false;
         msg.className = 'msg'; carregarMural(); })
-      .catch(function(err){ msg.textContent = 'Falha: ' + err.message; msg.className = 'msg err'; });
+      .catch(function(err){ msg.textContent = msgErro(err); msg.className = 'msg err'; carregarMural(); });
   });
 
   // ---- sugestões de pauta ----
@@ -2983,7 +2988,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     SUG.lista = SUG.lista.slice(0, 60);
     ghPut('import/coxia/sugestoes.json', JSON.stringify({ sugestoes: SUG.lista }, null, 1),
       assina('sugere pauta'), SUG.sha)
-      .then(function(){ $('pauta-txt').value = ''; carregarSug(); });
+      .then(function(){ $('pauta-txt').value = ''; carregarSug(); })
+      .catch(function(err){ alert(msgErro(err)); carregarSug(); });
   });
   document.addEventListener('click', function(e){
     var b;
@@ -2991,13 +2997,15 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       if(!confirm('Apagar este recado?')) return;
       MURAL.lista = MURAL.lista.filter(function(m){ return m.id !== b.dataset.mdel; });
       ghPut('import/coxia/mural.json', JSON.stringify({ recados: MURAL.lista }, null, 1),
-        assina('apaga recado do mural'), MURAL.sha).then(carregarMural);
+        assina('apaga recado do mural'), MURAL.sha).then(carregarMural)
+        .catch(function(err){ alert(msgErro(err)); carregarMural(); });
       return;
     }
     if((b = e.target.closest('[data-sdel]'))){
       SUG.lista = SUG.lista.filter(function(s){ return s.id !== b.dataset.sdel; });
       ghPut('import/coxia/sugestoes.json', JSON.stringify({ sugestoes: SUG.lista }, null, 1),
-        assina('remove sugestão de pauta'), SUG.sha).then(carregarSug).catch(function(err){ alert(msgErro(err)); });
+        assina('remove sugestão de pauta'), SUG.sha).then(carregarSug)
+        .catch(function(err){ alert(msgErro(err)); carregarSug(); });
       return;
     }
     if((b = e.target.closest('[data-sug]'))){
@@ -3006,7 +3014,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       SUG.lista.forEach(function(s){ if(s.id === b.dataset.sid) s.status = novo; });
       ghPut('import/coxia/sugestoes.json', JSON.stringify({ sugestoes: SUG.lista }, null, 1),
         assina('marca sugestão como ' + (novo || 'em aberto')), SUG.sha)
-        .then(carregarSug).catch(function(err){ alert(msgErro(err)); });
+        .then(carregarSug).catch(function(err){ alert(msgErro(err)); carregarSug(); });
     }
   });
 
@@ -3552,7 +3560,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         msg.textContent = 'Salvo ✓' + (RV.ed.status === 'publicada' ? ' — o site remonta a edição em ~2 min' : '');
         carregarEdicoes();
       })
-      .catch(function(err){ msg.className = 'msg err'; msg.textContent = 'Falha: ' + err.message; throw err; });
+      .catch(function(err){ msg.className = 'msg err'; msg.textContent = msgErro(err); throw err; });
   }
   $('rv-salvar').addEventListener('click', function(){ if(RV.ed) salvarEd('salva rascunho'); });
   $('rv-publicar').addEventListener('click', function(){
@@ -3560,7 +3568,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(RV.ed.status === 'publicada'){
       if(!confirm('Despublicar a edição Nº ' + RV.ed.numero + '? Ela sai da página da revista.')) return;
       RV.ed.status = 'rascunho';
-      salvarEd('despublica a edição').then(renderEd);
+      salvarEd('despublica a edição').then(renderEd).catch(function(){});
       return;
     }
     colherCampos();
@@ -3568,7 +3576,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(!(RV.ed.paginas || []).length){ alert('A edição precisa de pelo menos uma página além da capa'); return; }
     if(!confirm('Publicar a edição Nº ' + RV.ed.numero + '? Ela entra na página da revista do site.')) return;
     RV.ed.status = 'publicada';
-    salvarEd('publica a edição').then(renderEd);
+    salvarEd('publica a edição').then(renderEd).catch(function(){});
   });
   $('rv-fechar').addEventListener('click', function(){
     $('rv-editor').style.display = 'none';
