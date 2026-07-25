@@ -100,7 +100,7 @@ def auditar(caminho):
         if linha.startswith('> '):
             if '"' not in linha and '“' not in linha:
                 avisos.append(f'CITAÇÃO SEM ASPAS: {linha[:70]}…')
-            elif not re.search(r'(afirma|diz|disse|conta|contou|explica|explicou|resume|declarou|escreveu|lembra|lembrou|avalia|avaliou|comenta|comentou|segundo)', linha):
+            elif not re.search(r'(afirm|diz|disse|cont[ao]|explic|resum|declar|escrev|lembr|avali|coment|acrescent|complet|defend|respond|segundo)', linha):
                 avisos.append(f'CITAÇÃO SEM ATRIBUIÇÃO na linha: {linha[:70]}…')
 
     # 8. Editorias
