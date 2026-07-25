@@ -54,7 +54,12 @@
     text-transform:uppercase; padding:16px; cursor:pointer; transition:background .15s,color .15s; }
   .g8-form button:hover{ background:var(--gold); color:var(--wine); }
   .g8-err{ display:none; font-family:var(--mono); font-size:.62rem; letter-spacing:.12em;
-    text-transform:uppercase; color:#8E1B10; margin-top:12px; }
+    text-transform:uppercase; color:var(--err); margin-top:12px; }
+  .gate-lembrar{ display:flex; align-items:center; gap:8px; margin-top:14px; cursor:pointer;
+    font-family:var(--sans); font-size:.82rem; color:var(--ink-soft); text-transform:none; letter-spacing:0; }
+  .gate-lembrar input{ width:auto; }
+  .rede-off{ position:fixed; left:0; right:0; bottom:0; z-index:95; background:var(--err); color:#fff;
+    font-family:var(--sans); font-size:.85rem; line-height:1.4; padding:11px 16px; text-align:center; }
   @media (max-width:820px){ .g8{ grid-template-columns:1fr; grid-template-rows:auto 1fr; }
     .g8-brand{ padding:36px 24px; border-right:0; border-bottom:2px solid var(--gold); }
     .g8-brand img{ width:70px; margin-bottom:16px; } }
@@ -98,8 +103,8 @@
     color:var(--ink-soft); line-height:2.1; }
   .side-foot .clk{ font-family:var(--didone); font-size:1.6rem; letter-spacing:.02em; color:var(--ink);
     display:block; }
-  .tk-dot::before{ content:'●'; margin-right:7px; color:#8E1B10; }
-  .tk-dot.ok::before{ color:#2c6e2c; }
+  .tk-dot::before{ content:'●'; margin-right:7px; color:var(--err); }
+  .tk-dot.ok::before{ color:var(--ok); }
 
   .stage{ flex:1; padding:34px clamp(20px,4vw,48px) 80px; min-width:0; }
   .view{ display:none; max-width:1040px; }
@@ -193,7 +198,7 @@
     font-size:.62rem; letter-spacing:.06em; line-height:2.1; color:var(--ink-soft); text-transform:uppercase; }
   .f-note b{ color:var(--ink); }
   .msg{ font-family:var(--mono); font-size:.64rem; letter-spacing:.1em; text-transform:uppercase; display:none; }
-  .msg.ok{ display:block; color:#2c6e2c; } .msg.err{ display:block; color:#8E1B10; }
+  .msg.ok{ display:block; color:var(--ok); } .msg.err{ display:block; color:var(--err); }
   .mbar{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
   .mbar button{ background:var(--paper-2); border:1px solid var(--line); cursor:pointer;
     font-family:var(--mono); font-size:.58rem; letter-spacing:.08em; padding:6px 10px; color:var(--ink); }
@@ -215,7 +220,7 @@
     background:var(--paper); color:var(--ink); cursor:pointer; font-family:var(--mono); font-size:.56rem;
     letter-spacing:.1em; text-transform:uppercase; padding:6px 10px; }
   .up.tem .tira{ display:block; }
-  .up .tira:hover{ background:#8E1B10; color:#fff; border-color:#8E1B10; }
+  .up .tira:hover{ background:#8E1B10; color:#fff; border-color:var(--err); }
 
   /* fila */
   .fila{ border:var(--b); }
@@ -232,7 +237,7 @@
     text-transform:uppercase; border:1px solid var(--line); padding:5px 9px; white-space:nowrap; }
   .pill.ag{ background:var(--gold); color:var(--wine); border-color:var(--gold); }
   .pill.pb{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
-  .pill.rc{ background:#8E1B10; color:#fff; border-color:#8E1B10; }
+  .pill.rc{ background:#8E1B10; color:#fff; border-color:var(--err); }
   html[data-theme="dark"] .pill.rc, body.dark .pill.rc{ background:var(--err, #E06A5A); color:#2a0806; border-color:var(--err, #E06A5A); }
   /* bloco de agendadas no topo da fila */
   .fila-agenda{ border:var(--b); padding:14px 18px; margin-bottom:18px; background:var(--paper); }
@@ -243,14 +248,14 @@
   .fa-q{ font-family:var(--sans); font-weight:700; font-size:.82rem; color:var(--wine); white-space:nowrap; }
   html[data-theme="dark"] .fa-q, body.dark .fa-q{ color:var(--gold-hi, var(--gold)); }
   .fa-t{ font-family:var(--sans); font-size:.9rem; }
-  .fa-devol{ font-family:var(--sans); font-size:.8rem; color:#8E1B10; margin-top:5px; line-height:1.5; }
+  .fa-devol{ font-family:var(--sans); font-size:.8rem; color:var(--err); margin-top:5px; line-height:1.5; }
   html[data-theme="dark"] .fa-devol, body.dark .fa-devol{ color:var(--err, #E06A5A); }
   .frow.rec{ background:rgba(142,27,16,.05); }
   @media (max-width:700px){ .fa-row{ grid-template-columns:1fr; gap:2px; } }
   .bt{ background:none; border:1px solid var(--line); cursor:pointer; color:var(--ink);
     font-family:var(--mono); font-size:.56rem; letter-spacing:.1em; text-transform:uppercase; padding:7px 11px; }
   .bt:hover{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
-  .bt.danger:hover{ background:#8E1B10; border-color:#8E1B10; color:#fff; }
+  .bt.danger:hover{ background:#8E1B10; border-color:var(--err); color:#fff; }
   .vazio-box{ border:var(--b); padding:18px; font-family:var(--mono); font-size:.6rem; letter-spacing:.1em;
     text-transform:uppercase; color:var(--ink-soft); line-height:2; }
   @media (max-width:700px){ .frow{ grid-template-columns:1fr auto; } .frow .th{ display:none; } }
@@ -271,8 +276,8 @@
     text-transform:uppercase; color:var(--ink-soft); }
   .rod .rdet h5:first-child{ margin-top:0; }
   .rod .rdet ul{ margin:0 0 0 18px; padding:0; }
-  .rod .rdet .ok-p{ color:#2c6e2c; font-weight:700; }
-  .rod .rdet .no-p{ color:#8E1B10; font-weight:700; }
+  .rod .rdet .ok-p{ color:var(--ok); font-weight:700; }
+  .rod .rdet .no-p{ color:var(--err); font-weight:700; }
 
   /* mesa de aprovação */
   .mesa-card{ border:var(--b); margin-bottom:22px; background:var(--paper); }
@@ -302,7 +307,7 @@
     font-family:var(--mono); font-size:.54rem; letter-spacing:.1em; text-transform:uppercase; padding:5px 10px; }
   .mesa-semfoto{ border-bottom:1px solid var(--line); background:repeating-linear-gradient(45deg,
     var(--paper-2) 0 14px, var(--paper) 14px 28px); padding:16px 18px; font-family:var(--mono);
-    font-size:.62rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:#8E1B10; }
+    font-size:.62rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--err); }
   .mesa-corpo h3{ font-size:1rem; text-transform:uppercase; letter-spacing:.04em; margin:20px 0 8px;
     border-bottom:2px solid var(--gold); padding-bottom:6px; display:inline-block; }
   .mesa-corpo p{ margin:0 0 14px; }
@@ -318,7 +323,7 @@
   /* laudo do checador */
   .mesa-checa{ padding:12px 18px; border-bottom:1px solid var(--line); font-family:var(--sans);
     font-size:.84rem; line-height:1.6; background:rgba(46,110,46,.06); }
-  .mesa-checa > b{ color:#2c6e2c; }
+  .mesa-checa > b{ color:var(--ok); }
   html[data-theme="dark"] .mesa-checa > b, body.dark .mesa-checa > b{ color:var(--ok, #7FBF7F); }
   .mesa-checa .ck-por{ font-family:var(--mono); font-size:.62rem; color:var(--ink-soft); }
   .mesa-checa ul{ margin:6px 0 0 16px; }
@@ -388,7 +393,7 @@
     text-transform:uppercase; padding:13px 17px; cursor:pointer; }
   .cx-token .st{ font-family:var(--mono); font-size:.62rem; letter-spacing:.1em;
     text-transform:uppercase; color:var(--ink-soft); width:100%; }
-  .cx-token .st.ok{ color:#2c6e2c; } .cx-token .st.err{ color:#8E1B10; }
+  .cx-token .st.ok{ color:var(--ok); } .cx-token .st.err{ color:var(--err); }
   .bdg{ display:inline-block; min-width:18px; text-align:center; background:var(--gold);
     color:var(--wine); border-radius:0; font-size:.56rem; font-weight:700; padding:2px 5px;
     margin-left:8px; }
@@ -419,10 +424,10 @@
     font-family:var(--didone); font-size:1.1rem; }
   .prev-avisos{ border-top:2px solid var(--ink); padding:12px 18px; font-family:var(--mono);
     font-size:.6rem; letter-spacing:.08em; line-height:2; }
-  .prev-avisos .ok{ color:#2c6e2c; } .prev-avisos .err{ color:#8E1B10; }
+  .prev-avisos .ok{ color:var(--ok); } .prev-avisos .err{ color:var(--err); }
   .f-status{ font-family:var(--mono); font-size:.58rem; letter-spacing:.1em; text-transform:uppercase;
     color:var(--ink-soft); display:flex; gap:14px; flex-wrap:wrap; margin-top:6px; }
-  .f-status .err{ color:#8E1B10; font-weight:700; }
+  .f-status .err{ color:var(--err); font-weight:700; }
   .rasc-aviso{ display:none; border:2px solid var(--gold); background:var(--paper-2); padding:10px 14px;
     margin-bottom:14px; font-family:var(--mono); font-size:.6rem; letter-spacing:.1em;
     text-transform:uppercase; }
@@ -514,6 +519,27 @@
   .vazio-box, .vazio{ font-family:var(--sans); font-size:.85rem; letter-spacing:0; text-transform:none; line-height:1.6; }
   .up p{ font-family:var(--sans); font-size:.88rem; letter-spacing:0; text-transform:none; line-height:1.6; }
   .mbar button{ font-family:var(--sans); font-size:.78rem; font-weight:600; letter-spacing:0; text-transform:none; }
+  /* mensagens de estado e botões principais: fonte de leitura, tamanho confortável */
+  .msg{ font-family:var(--sans); font-size:.86rem; letter-spacing:0; text-transform:none; line-height:1.5; }
+  .g8-err{ font-family:var(--sans); font-size:.82rem; letter-spacing:0; text-transform:none; line-height:1.5; }
+  .cx-token .st{ font-family:var(--sans); font-size:.85rem; letter-spacing:0; text-transform:none; line-height:1.5; }
+  .rasc-aviso{ font-family:var(--sans); font-size:.88rem; letter-spacing:0; text-transform:none; }
+  .mesa-semfoto{ font-family:var(--sans); font-size:.86rem; letter-spacing:0; text-transform:none; }
+  .prev-avisos{ font-family:var(--sans); font-size:.82rem; letter-spacing:0; text-transform:none; }
+  .f-status{ font-family:var(--sans); font-size:.82rem; letter-spacing:0; text-transform:none; }
+  .quick button, .quick a{ font-family:var(--sans); font-weight:700; letter-spacing:.01em; text-transform:none; }
+  .tk-dot{ font-family:var(--sans); font-size:.8rem; letter-spacing:0; text-transform:none; }
+  #edit-banner{ font-family:var(--sans); letter-spacing:0; text-transform:none; }
+  .pill{ font-family:var(--sans); font-weight:700; letter-spacing:.02em; font-size:.66rem; }
+  /* alvos de toque no celular: botões de consequência com ao menos 44px de altura */
+  @media (max-width:820px){
+    .bt{ padding:12px 14px; min-height:44px; }
+    .bt.mini{ padding:9px 11px; min-height:40px; }
+    .mesa-acoes{ gap:10px; }
+    .mesa-acoes .bt.danger{ margin-top:4px; }
+    .up{ min-height:120px; }
+    .side nav button{ min-height:46px; }
+  }
 </style>
 
 <!-- ==================== PORTÃO ==================== -->
@@ -527,6 +553,7 @@
     <form id="gate-form">
       <label for="pass">Sua senha de acesso</label>
       <input type="password" id="pass" autocomplete="current-password" aria-label="Senha">
+      <label class="gate-lembrar"><input type="checkbox" id="gate-lembrar"> Manter conectado neste aparelho por 7 dias</label>
       <button type="submit" id="gate-btn">Terceiro sinal — entrar</button>
       <span class="g8-err" id="gate-err">Senha não confere</span>
       <span class="g8-err" id="gate-rede">Sem conexão agora. Confira a internet e tente de novo.</span>
@@ -1227,8 +1254,15 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     checarRasc();
   }
 
+  var PERSIST_K = 'coxia-user-persist';
   try{
     var salvo = sessionStorage.getItem('coxia-user');
+    if(!salvo){
+      // sessão que a pessoa pediu para manter neste aparelho (validade de 7 dias)
+      var p = JSON.parse(localStorage.getItem(PERSIST_K) || 'null');
+      if(p && p.exp && p.exp > Date.now() && p.user){ salvo = JSON.stringify(p.user); }
+      else if(p){ localStorage.removeItem(PERSIST_K); }
+    }
     if(salvo){ USER = JSON.parse(salvo); carregarEquipe().then(abrir); }
   }catch(e){}
 
@@ -1241,6 +1275,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       if(!u){ $('gate-err').style.display = 'block'; return; }
       USER = { id:u.id, nome:u.nome, papel:u.papel, permissoes:u.permissoes || {} };
       try{ sessionStorage.setItem('coxia-user', JSON.stringify(USER)); }catch(err){}
+      try{
+        if($('gate-lembrar').checked){
+          localStorage.setItem(PERSIST_K, JSON.stringify({ user: USER, exp: Date.now() + 7 * 864e5 }));
+        } else { localStorage.removeItem(PERSIST_K); }
+      }catch(err){}
       abrir();
     }).catch(function(){
       btn.textContent = 'Terceiro sinal — entrar';
@@ -1248,9 +1287,22 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     });
   });
   $('logout').addEventListener('click', function(){
-    try{ sessionStorage.removeItem('coxia-user'); }catch(e){}
+    try{ sessionStorage.removeItem('coxia-user'); localStorage.removeItem(PERSIST_K); }catch(e){}
     location.reload();
   });
+  // aviso de que está sem internet (a Coxia depende de rede para gravar)
+  function pintarRede(){
+    var jaTem = $('rede-off');
+    if(navigator.onLine){ if(jaTem) jaTem.remove(); return; }
+    if(jaTem) return;
+    var bar = document.createElement('div');
+    bar.id = 'rede-off'; bar.className = 'rede-off';
+    bar.textContent = '⚠ Sem internet — a Coxia não consegue salvar nem publicar agora. O que você digitar fica guardado como rascunho.';
+    document.body.appendChild(bar);
+  }
+  window.addEventListener('online', pintarRede);
+  window.addEventListener('offline', pintarRede);
+  pintarRede();
 
   /* ---------------- relógio ---------------- */
   function tic(){
@@ -1402,7 +1454,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
 
   var up = $('up');
   up.addEventListener('click', function(e){ if(e.target.id !== 'up-tira' && !CAPA) $('up-file').click(); });
-  up.addEventListener('keydown', function(e){ if(e.key === 'Enter' && !CAPA) $('up-file').click(); });
+  up.addEventListener('keydown', function(e){ if((e.key === 'Enter' || e.key === ' ') && !CAPA){ e.preventDefault(); $('up-file').click(); } });
   ['dragover','dragleave','drop'].forEach(function(ev){
     up.addEventListener(ev, function(e){
       e.preventDefault();
@@ -2620,7 +2672,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             (m.papel === 'chefe' ? '<span class="dirtag">Da direção</span>' : '') +
             '<b>' + esc(m.quem) + '</b><span>' + rel(m.quando) + '</span></div>' +
           '<div class="tx">' + esc(m.texto) + '</div>' +
-          (podeDel ? '<button class="bt danger del" data-mdel="' + esc(m.id) + '" type="button">✕</button>' : '') +
+          (podeDel ? '<button class="bt danger del" data-mdel="' + esc(m.id) + '" type="button" aria-label="Apagar recado">✕</button>' : '') +
           '</div>';
       }).join('');
     }).catch(function(){ el.innerHTML = '<div class="vazio-box">Não deu para carregar o mural</div>'; });
@@ -2652,7 +2704,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         var podeDel = USER.papel === 'chefe' || s.quem === USER.nome;
         return '<div class="sug"><span style="flex:1">' + esc(s.texto) + '</span>' +
           '<span class="sq">' + esc(s.quem) + ' — ' + rel(s.quando) + '</span>' +
-          (podeDel ? '<button class="bt danger" data-sdel="' + esc(s.id) + '" type="button">✕</button>' : '') +
+          (podeDel ? '<button class="bt danger" data-sdel="' + esc(s.id) + '" type="button" aria-label="Apagar sugestão">✕</button>' : '') +
           '</div>';
       }).join('');
     }).catch(function(){ el.innerHTML = '<div class="vazio-box">Não deu para carregar as sugestões</div>'; });
@@ -3013,10 +3065,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         '<span><span class="rt">' + esc(resumo) + '</span>' +
         '<span class="rn">página ' + (i + 2) + ' — ' + (RV_NOME[p.tipo] || p.tipo) + '</span></span>' +
         '<span class="acts">' +
-        '<button class="bt" data-rvup="' + i + '" type="button">↑</button>' +
-        '<button class="bt" data-rvdn="' + i + '" type="button">↓</button>' +
-        '<button class="bt" data-rved="' + i + '" type="button">✎</button>' +
-        '<button class="bt danger" data-rvdel="' + i + '" type="button">✕</button>' +
+        '<button class="bt" data-rvup="' + i + '" type="button" aria-label="Subir a página">↑</button>' +
+        '<button class="bt" data-rvdn="' + i + '" type="button" aria-label="Descer a página">↓</button>' +
+        '<button class="bt" data-rved="' + i + '" type="button" aria-label="Editar a página">✎</button>' +
+        '<button class="bt danger" data-rvdel="' + i + '" type="button" aria-label="Excluir a página">✕</button>' +
         '</span></div>';
     }).join('');
   }
