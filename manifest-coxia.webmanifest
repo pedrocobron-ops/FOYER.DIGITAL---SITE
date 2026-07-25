@@ -3,15 +3,30 @@
  "short_name": "Coxia",
  "description": "A central de controle do FOYER: mesa de aprovação, matérias, revista e equipe.",
  "lang": "pt-BR",
- "id": "./coxia",
- "start_url": "coxia.html",
- "scope": "./",
+ "id": "coxia",
+ "start_url": "coxia/",
+ "scope": "coxia/",
  "display": "standalone",
  "background_color": "#CEB26A",
  "theme_color": "#231005",
  "icons": [
-  { "src": "assets/logo/pwa-coxia-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-  { "src": "assets/logo/pwa-coxia-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-  { "src": "assets/logo/pwa-coxia-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  {
+   "src": "assets/logo/pwa-coxia-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "assets/logo/pwa-coxia-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "assets/logo/pwa-coxia-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
  ]
 }

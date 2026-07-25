@@ -2987,9 +2987,21 @@ coxia_html = (head('Coxia — FOYER', 'Área restrita da redação do Foyer.')
                        'rel="apple-touch-icon" href="assets/logo/pwa-coxia-192.png"')
               + '\n' + coxia_body.replace('__TOTAL__', str(len(MATERIAS))) + '\n'
               + '<script src="assets/site.js"></script></body>\n</html>\n')
-with open(os.path.join(ROOT, 'coxia.html'), 'w') as f:
+# a Coxia mora em /coxia/ (escopo próprio de aplicativo, separado do app do site);
+# o <base href="../"> mantém todos os caminhos relativos funcionando
+coxia_html = coxia_html.replace('<head>', '<head>\n<base href="../">', 1)
+os.makedirs(os.path.join(ROOT, 'coxia'), exist_ok=True)
+with open(os.path.join(ROOT, 'coxia/index.html'), 'w') as f:
     f.write(coxia_html)
-print('•', 'coxia.html', len(coxia_html)//1024, 'KB')
+# o endereço antigo segue vivo, redirecionando
+with open(os.path.join(ROOT, 'coxia.html'), 'w') as f:
+    f.write('<!DOCTYPE html>\n<html lang="pt-BR"><head><meta charset="UTF-8">'
+            '<meta name="robots" content="noindex,nofollow">'
+            '<meta http-equiv="refresh" content="0; url=coxia/">'
+            '<script>location.replace("coxia/");</script>'
+            '<title>Coxia — FOYER</title></head>'
+            '<body><p><a href="coxia/">Entrar na Coxia</a></p></body></html>\n')
+print('•', 'coxia/index.html', len(coxia_html)//1024, 'KB')
 
 nf_body = band('Erro 404', 'Esta página saiu de cartaz', 'O endereço não existe — mas o espetáculo continua') + '''
 <main class="wrap" style="padding-bottom:40px">
@@ -3058,7 +3070,7 @@ with open(os.path.join(ROOT, 'feed.xml'), 'w') as f:
     f.write('</channel></rss>\n')
 
 with open(os.path.join(ROOT, 'robots.txt'), 'w') as f:
-    f.write(f'User-agent: *\nAllow: /\nDisallow: /coxia.html\n\n'
+    f.write(f'User-agent: *\nAllow: /\nDisallow: /coxia.html\nDisallow: /coxia/\n\n'
             f'Sitemap: {BASE}/sitemap.xml\nSitemap: {BASE}/sitemap-news.xml\n')
 print(f'sitemap: {len(urls)} URLs · news: {len(_news)} matéria(s) recentes')
 
