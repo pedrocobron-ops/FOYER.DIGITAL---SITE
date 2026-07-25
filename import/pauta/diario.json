@@ -1,6 +1,140 @@
 {
  "rodadas": [
   {
+   "quando": "2026-07-25T13:50:00+00:00",
+   "por": "Redação IA (Claude, rodada de 2 matérias do cardápio de sábado)",
+   "buscas": [
+    "ghost light theater history superstition Playbill origin equity safety",
+    "\"luz fantasma\" teatro tradição \"ghost light\" palco lâmpada acesa superstição",
+    "teatro brasileiro pandemia 2020 \"luz fantasma\" OR \"ghost light\" lâmpada acesa palco fechado",
+    "Theatro Municipal Rio de Janeiro história inauguração 14 julho 1909 construção Francisco Oliveira Passos Albert Guilbert concurso",
+    "inauguração Theatro Municipal Rio 14 julho 1909 programa espetáculo primeira noite",
+    "extração das páginas oficiais (SECEC-RJ, Riotur) e de Rio Memórias, Wikipédia e Ensinar História",
+    "busca de imagens no Wikimedia Commons (categorias Ghost lights (theater) e Theatro Municipal (Rio de Janeiro))"
+   ],
+   "consideradas": [
+    {
+     "assunto": "Curiosidade: o que é a luz fantasma (ghost light)",
+     "decisao": "escolhida",
+     "motivo": "pauta deixada em aberto pela rodada de 23/07 (era só menção na matéria do 'merda'); aspas reais na Playbill, base factual na Wikipédia e fonte brasileira na Gazeta do Povo; gancho da pandemia"
+    },
+    {
+     "assunto": "Curiosidade: por que a cortina do teatro é vermelha",
+     "decisao": "descartada",
+     "motivo": "explicações divergentes e pouco documentadas nas fontes disponíveis; fica para rodada futura com apuração melhor"
+    },
+    {
+     "assunto": "Curiosidade: por que não se diz 'Macbeth' no teatro",
+     "decisao": "descartada",
+     "motivo": "assunto já tocado na matéria do 'merda' e citado de novo na da luz fantasma; renderia sobreposição"
+    },
+    {
+     "assunto": "História do Theatro Municipal do Rio de Janeiro",
+     "decisao": "escolhida",
+     "motivo": "casa icônica sem matéria própria no acervo, com gancho fresco (117 anos em 14/07/2026 e volta de Salvator Rosa em parceria com o Teatro Amazonas, que linka com matéria nossa)"
+    },
+    {
+     "assunto": "História do Teatro Oficina",
+     "decisao": "descartada",
+     "motivo": "o Municipal tinha gancho de data e fontes oficiais mais fartas; Oficina fica como candidato forte para a próxima casa de espetáculo"
+    },
+    {
+     "assunto": "História do Theatro da Paz (Belém)",
+     "decisao": "descartada",
+     "motivo": "boa candidata futura (a matéria do Amazonas já cita a casa), mas perdeu no critério de volume de busca para o Municipal do Rio"
+    }
+   ],
+   "produzidas": [
+    "o-que-e-a-luz-fantasma-dos-teatros",
+    "historia-do-theatro-municipal-do-rio-de-janeiro"
+   ],
+   "obs": "Capas e foto de corpo todas de Wikimedia Commons com autor e licença verificados no crédito e imgFonte registrado (Jon Ellwood CC BY-SA 3.0; Zeete CC BY-SA 4.0; Dennis G. Jarvis CC BY-SA 2.0). Aspas da Playbill traduzidas do inglês com atribuição. Divergência de capacidade do Municipal (2.252 SECEC x 2.361 Wikipédia) anotada nas ressalvas; texto usa o número oficial. Matérias perenes, sem campo evento. Artes de feed e story geradas. Sem commit/push nesta rodada, conforme instrução."
+  },
+  {
+   "quando": "2026-07-25T13:50:00+00:00",
+   "por": "Redação IA (Claude, cardápio: Entenda + Quem é)",
+   "buscas": [
+    "quanto custa montar um musical no Brasil milhões produção orçamento",
+    "\"O Fantasma da Ópera\" Brasil 2018 custo produção \"milhões\" musical orçamento",
+    "Lei Rouanet limite captação R$ 10 milhões musicais teatro portaria 2023",
+    "Myra Ruiz Wicked Rio de Janeiro 2026 Elphaba entrevista"
+   ],
+   "consideradas": [
+    {
+     "assunto": "Entenda: quanto custa montar um musical no Brasil",
+     "decisao": "escolhida",
+     "motivo": "Tema inédito no acervo (só a Lei Rouanet tinha explicador) e com gancho fresquíssimo: Claudia Raia abriu os números de Tarsila na B3 em 21/07/2026; dados públicos de Fantasma da Ópera e estudo FGV/SBTM completam a apuração."
+    },
+    {
+     "assunto": "Entenda: o que faz um diretor musical",
+     "decisao": "descartada",
+     "motivo": "Sem gancho de atualidade nesta semana; fica como opção para próxima rodada de cardápio."
+    },
+    {
+     "assunto": "Quem é: Myra Ruiz",
+     "decisao": "escolhida",
+     "motivo": "Em cartaz AGORA como Elphaba na primeira temporada carioca de Wicked (Cidade das Artes, até 06/09) e escalada para O Diabo Veste Prada em 2027; tem verbete pessoa-myra-ruiz.html no acervo e aspas reais da coletiva de estreia."
+    },
+    {
+     "assunto": "Quem é: Fabi Bang",
+     "decisao": "descartada",
+     "motivo": "Mesmo gancho de Wicked; Myra ganhou a vaga pelo acúmulo de estreias (Shrek, dublagem dos filmes, Prada). Fabi fica para um perfil futuro."
+    }
+   ],
+   "produzidas": [
+    "quanto-custa-montar-um-musical-no-brasil",
+    "quem-e-myra-ruiz-elphaba-brasileira-de-wicked"
+   ],
+   "obs": "Rodada parcial de 2 matérias do cardápio (Entenda + Quem é), sob encomenda. Capa do Entenda é divulgação de Tarsila, A Brasileira (reprodução do Seu Dinheiro, crédito Divulgação); capa do perfil é a foto oficial de Jairo Goldflus da dupla Myra e Fabi para Wicked, ambas com imgFonte registrado. O acervo não tem verbete de O Fantasma da Ópera, então a obra ficou sem link interno no Entenda. Valores da IN 23/2025 conferidos em análise do Instituto IDEA; sugerido checar a íntegra no DOU antes de publicar. Sem commit nesta rodada, por instrução do chamado."
+  },
+  {
+   "quando": "2026-07-25T13:35:00+00:00",
+   "por": "Redação IA (Claude), rodada de 2 notícias a pedido do chefe",
+   "buscas": [
+    "estreia teatro musical São Paulo anunciada julho 2026 temporada nova",
+    "theatre news this week July 2026 Broadway West End record announcement",
+    "\"anuncia\" OR \"abre vendas\" temporada peça teatro Rio de Janeiro São Paulo estreia agosto 2026",
+    "Festival Avignon 2026 edition bilan clôture juillet",
+    "\"Festival de Teatro do Rio\" Nova Cena programação julho 2026",
+    "peça estreia teatro São Paulo \"estreia em agosto\" anunciada semana julho 2026 elenco",
+    "Festival Avignon 2026 brésilien Christiane Jatahy OR brésil spectacle programmation",
+    "Jatahy \"Wagner Moura\" \"Un procès\" Avignon ennemi du peuple annonce",
+    "extração das fontes completas: Agenda Carioca, Diário do Rio (2x), Entretetizei, Ingresso.com, franceinfo (2x), ICI Vaucluse, Presse Agence, L'Écho du Mardi"
+   ],
+   "consideradas": [
+    {
+     "assunto": "2º Festival de Teatro do Rio (29/07 a 16/08, teatros Riachuelo e TotalEnergies)",
+     "decisao": "escolhida",
+     "motivo": "vaga única de circuito: abertura na próxima quarta, mostra Nova Cena repercutida nesta semana (Agenda Carioca, 21/07), aspas reais de Aniela Jordan e Maria Siman e foto de divulgação com fotógrafo identificado (João Pacca)"
+    },
+    {
+     "assunto": "Balanço do Festival de Avignon 2026 + ovação a Wagner Moura",
+     "decisao": "escolhida",
+     "motivo": "pauta fora da bolha: encerramento neste sábado (25), números do In (AFP/franceinfo, ICI Vaucluse) e do Off (Presse Agence, L'Écho du Mardi) divulgados entre 21 e 24/07, com gancho brasileiro forte (Moura ovacionado na peça de Christiane Jatahy)"
+    },
+    {
+     "assunto": "Meu Filho é um Musical em SP",
+     "decisao": "descartada",
+     "motivo": "já coberto pelo FOYER na rodada de 23/07"
+    },
+    {
+     "assunto": "Trainspotting no West End",
+     "decisao": "descartada",
+     "motivo": "já coberto pelo FOYER; instrução expressa do chefe para evitar"
+    },
+    {
+     "assunto": "Beetlejuice em Londres / Benjamin Button off-Broadway",
+     "decisao": "descartada",
+     "motivo": "menos gancho noticioso nesta semana que o encerramento de Avignon e sem ângulo brasileiro"
+    }
+   ],
+   "produzidas": [
+    "festival-de-teatro-do-rio-2026-segunda-edicao",
+    "festival-de-avignon-2026-balanco-wagner-moura"
+   ],
+   "obs": "Rodada de 2 notícias (sem cardápio, por pedido específico). Avignon: citações traduzidas do francês pela redação; total de 1,5 milhão de ingressos é soma de parciais (In até 21/07 + estimativa do Off), sinalizada como aproximação no texto; números do Off são pré-balanço de 23/07. Rio: preços por setor não divulgados nas fontes (só na bilheteria por espetáculo). Capas: cena de Mulher em Fuga por João Pacca (divulgação via Entretetizei/Clímax) e cena de Un Procès por Christophe Raynaud de Lage/Festival d'Avignon (via franceinfo); imgFonte registrado nos dois pacotes. Sem commit/push nesta rodada, conforme instrução."
+  },
+  {
    "quando": "2026-07-23T19:30:00+00:00",
    "por": "Redação IA (Claude, guia do fim de semana de São Paulo)",
    "buscas": [
