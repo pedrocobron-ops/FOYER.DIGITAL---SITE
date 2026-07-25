@@ -457,6 +457,7 @@
         <span class="clk" id="clk">—:—</span>
         <span id="hoje">—</span><br>
         <span class="tk-dot" id="tk-dot">sem chave de publicação</span>
+        <button class="bt" id="cx-app" type="button" style="display:none;margin-top:10px;width:100%">📲 Instalar a Coxia como app</button>
       </div>
     </aside>
 
@@ -2360,6 +2361,23 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       salvarVerbExc('restaura verbete ' + b.dataset.verbr);
     }
   });
+
+  /* ================= COXIA COMO APLICATIVO ================= */
+  (function(){
+    var jaApp = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+    var btn = $('cx-app');
+    if(!btn || jaApp) return;
+    var esperado = null;
+    var iOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+    window.addEventListener('beforeinstallprompt', function(e){
+      e.preventDefault(); esperado = e; btn.style.display = 'block';
+    });
+    if(iOS) btn.style.display = 'block';
+    btn.addEventListener('click', function(){
+      if(esperado){ esperado.prompt(); esperado.userChoice.then(function(){ btn.style.display = 'none'; }); }
+      else alert('No Safari: toque em Compartilhar (o quadrado com a seta) e depois em "Adicionar à Tela de Início". A Coxia vira um app com ícone dourado.');
+    });
+  })();
 
   /* ================= REVISTA (chefe) ================= */
   var RV = { ed: null, sha: null, idx: null, mats: null };

@@ -2980,7 +2980,11 @@ if ED_PUB:
     print(f'• {len(ED_PUB)} edição(ões) da revista no ar')
 
 # coxia: página sem nav de seções (área restrita) — cabeçalho mínimo
-coxia_html = (head('Coxia — FOYER', 'Área restrita da redação do Foyer.').replace('</head>', '<meta name="robots" content="noindex,nofollow"></head>')
+coxia_html = (head('Coxia — FOYER', 'Área restrita da redação do Foyer.')
+              .replace('</head>', '<meta name="robots" content="noindex,nofollow"></head>')
+              .replace('href="manifest.webmanifest"', 'href="manifest-coxia.webmanifest"')
+              .replace('rel="apple-touch-icon" href="assets/logo/pwa-192.png"',
+                       'rel="apple-touch-icon" href="assets/logo/pwa-coxia-192.png"')
               + '\n' + coxia_body.replace('__TOTAL__', str(len(MATERIAS))) + '\n'
               + '<script src="assets/site.js"></script></body>\n</html>\n')
 with open(os.path.join(ROOT, 'coxia.html'), 'w') as f:

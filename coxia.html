@@ -6,8 +6,8 @@
 <meta name="description" content="Área restrita da redação do Foyer.">
 <meta name="theme-color" content="#4E0F09">
 <meta name="robots" content="max-image-preview:large">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="assets/logo/pwa-192.png">
+<link rel="manifest" href="manifest-coxia.webmanifest">
+<link rel="apple-touch-icon" href="assets/logo/pwa-coxia-192.png">
 <meta property="og:site_name" content="FOYER">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Coxia — FOYER">
@@ -484,6 +484,7 @@
         <span class="clk" id="clk">—:—</span>
         <span id="hoje">—</span><br>
         <span class="tk-dot" id="tk-dot">sem chave de publicação</span>
+        <button class="bt" id="cx-app" type="button" style="display:none;margin-top:10px;width:100%">📲 Instalar a Coxia como app</button>
       </div>
     </aside>
 
@@ -494,7 +495,7 @@
         <h2 class="hi" id="saudacao">Boa noite</h2>
         <p class="hi-sub">O panorama do FOYER neste momento</p>
         <div class="stats">
-          <div class="stat"><b>1522</b><span>matérias no acervo</span></div>
+          <div class="stat"><b>1523</b><span>matérias no acervo</span></div>
           <div class="stat"><b id="st-pub">—</b><span>publicadas pela Coxia</span></div>
           <div class="stat"><b id="st-ag">—</b><span>agendadas esperando a hora</span></div>
           <div class="stat" id="card-mesa"><b id="st-mesa">—</b><span>na mesa de aprovação</span></div>
@@ -2387,6 +2388,23 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       salvarVerbExc('restaura verbete ' + b.dataset.verbr);
     }
   });
+
+  /* ================= COXIA COMO APLICATIVO ================= */
+  (function(){
+    var jaApp = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+    var btn = $('cx-app');
+    if(!btn || jaApp) return;
+    var esperado = null;
+    var iOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+    window.addEventListener('beforeinstallprompt', function(e){
+      e.preventDefault(); esperado = e; btn.style.display = 'block';
+    });
+    if(iOS) btn.style.display = 'block';
+    btn.addEventListener('click', function(){
+      if(esperado){ esperado.prompt(); esperado.userChoice.then(function(){ btn.style.display = 'none'; }); }
+      else alert('No Safari: toque em Compartilhar (o quadrado com a seta) e depois em "Adicionar à Tela de Início". A Coxia vira um app com ícone dourado.');
+    });
+  })();
 
   /* ================= REVISTA (chefe) ================= */
   var RV = { ed: null, sha: null, idx: null, mats: null };
