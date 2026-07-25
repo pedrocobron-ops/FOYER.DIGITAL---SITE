@@ -400,6 +400,14 @@
     border-bottom:2px solid var(--ink); padding:12px 18px; font-family:var(--mono);
     font-size:.6rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; }
   .prev-body{ padding:26px clamp(18px,4vw,42px) 42px; }
+  .prev-body.guia{ font-family:var(--sans); font-size:.95rem; line-height:1.7; }
+  .prev-body.guia h3{ font-family:var(--didone); font-weight:400; font-size:1.35rem; margin:24px 0 8px;
+    color:var(--wine); }
+  html[data-theme="dark"] .prev-body.guia h3, body.dark .prev-body.guia h3{ color:var(--gold-hi, var(--gold)); }
+  .prev-body.guia ul{ margin:0 0 6px 20px; }
+  .prev-body.guia li{ margin:0 0 7px; }
+  .prev-body.guia .guia-fecho{ margin-top:20px; padding-top:14px; border-top:1px solid var(--line);
+    color:var(--ink-soft); }
   .prev-body h1{ font-family:var(--didone); font-weight:400; font-size:1.9rem; line-height:1.1; margin:8px 0 14px; }
   .prev-body img.capa{ width:100%; max-height:340px; object-fit:cover; border:2px solid var(--ink); }
   .prev-body .cred{ font-family:var(--mono); font-size:.56rem; letter-spacing:.1em;
@@ -658,6 +666,7 @@
                 <button type="button" data-md="video:">▶ Vídeo</button>
                 <button type="button" data-md="botao:">🎟 Botão de link</button>
                 <button type="button" data-md="***">✦ Divisor</button>
+                <button type="button" id="btn-estilo" style="margin-left:auto">📖 Padrão da casa</button>
               </div>
               <textarea id="f-body" rows="14" placeholder="Escreva em parágrafos separados por linha em branco.
 
@@ -972,12 +981,50 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   </div>
 </div>
 
-<div class="prev-overlay" id="prev-overlay">
+<div class="prev-overlay" id="prev-overlay" role="dialog" aria-modal="true" aria-label="Pré-visualização da matéria">
   <div class="prev-box">
-    <div class="prev-head"><span>Pré-visualização — como sai no site</span>
+    <div class="prev-head"><span id="prev-titulo">Pré-visualização — como sai no site</span>
       <button class="bt" type="button" id="prev-fechar">✕ Fechar</button></div>
     <div class="prev-body" id="prev-body"></div>
     <div class="prev-avisos" id="prev-avisos"></div>
+  </div>
+</div>
+
+<div class="prev-overlay" id="estilo-overlay" role="dialog" aria-modal="true" aria-label="Padrão da casa">
+  <div class="prev-box">
+    <div class="prev-head"><span>📖 Padrão da casa — como o FOYER escreve</span>
+      <button class="bt" type="button" id="estilo-fechar">✕ Fechar</button></div>
+    <div class="prev-body guia">
+      <p>Uma matéria do FOYER é uma <b>reportagem</b> de cultura, não uma nota rápida. Antes de enviar, confira:</p>
+      <h3>Tamanho e estrutura</h3>
+      <ul>
+        <li><b>Entre 750 e 1.100 palavras.</b> Menos que isso, aprofunde.</li>
+        <li>Comece pelo <b>lide</b>: o quê, quem, quando, onde e por que importa, nos primeiros parágrafos.</li>
+        <li>Use <b>ao menos três intertítulos</b> (o botão <i>Intertítulo</i>) para respirar o texto.</li>
+        <li>Havendo evento, feche com o <b>serviço</b>: local, endereço, datas, horários, duração, classificação, preços e onde comprar.</li>
+        <li>Parágrafos curtos. Varie o tamanho das frases. Um adjetivo forte vale mais que três fracos.</li>
+      </ul>
+      <h3>O que é proibido</h3>
+      <ul>
+        <li><b>Nada de travessão</b> (— ou –). No lugar: vírgula, dois-pontos, parênteses ou ponto. A Coxia avisa se escapar um.</li>
+        <li><b>Não invente nada.</b> Todo nome, data, número e valor tem que vir de uma fonte real. Na dúvida, corte o dado.</li>
+        <li><b>Aspas só de verdade.</b> Só use aspas de uma fala que a pessoa realmente disse, com o nome de quem falou logo ao lado.</li>
+        <li>Fuja dos clichês de release: <i>imperdível, vibrante, promete emocionar, experiência única, sucesso absoluto</i>.</li>
+      </ul>
+      <h3>A foto de capa</h3>
+      <ul>
+        <li><b>Toda matéria precisa de foto</b>, com o <b>crédito de quem fez</b> (nome do fotógrafo, ou “Divulgação” quando for material oficial da produção coberta).</li>
+        <li>Use foto de <b>divulgação</b> da própria produção, foto sua, ou imagem de banco livre com licença citada. <b>Nunca</b> foto de agência (Getty, Reuters, AFP, Folhapress).</li>
+      </ul>
+      <h3>Como marcar o texto</h3>
+      <ul>
+        <li><b>**negrito**</b> para nomes de obras e espetáculos.</li>
+        <li><b>&gt;</b> no começo da linha para uma citação.</li>
+        <li><b>##</b> para um intertítulo.</li>
+        <li>Os botões acima do texto fazem tudo isso por você.</li>
+      </ul>
+      <p class="guia-fecho">Ao enviar, a Coxia já confere travessão, tamanho e se os links internos existem. O resto é com o seu olho de jornalista.</p>
+    </div>
   </div>
 </div>
 <script>
@@ -1423,6 +1470,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     $('st-palavras').textContent = n + ' palavra' + (n === 1 ? '' : 's') + (n && n < 300 ? ' (curta)' : '');
     var avisos = [];
     if(/[—–]/.test(t + $('f-title').value)) avisos.push('⚠ TRAVESSÃO no texto (banido no padrão da casa)');
+    var CLICHES = ['imperdível', 'vibrante', 'promete emocionar', 'experiência única', 'sucesso absoluto',
+                   'vem conquistando', 'não poderia ser diferente'];
+    var achou = CLICHES.filter(function(c){ return t.toLowerCase().indexOf(c) > -1; });
+    if(achou.length) avisos.push('⚠ clichê de release: ' + achou.join(', '));
     $('st-alerta').innerHTML = avisos.length ? '<span class="err">' + avisos.join(' · ') + '</span>' : '';
   }
   $('f-body').addEventListener('input', statusTexto);
@@ -1440,11 +1491,15 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     clearTimeout(rascTimer);
     rascTimer = setTimeout(function(){
       var d = { title: $('f-title').value, cat: $('f-cat').value, cats: colherCats(), corpo: $('f-body').value,
-                cred: $('f-cred').value, quando: new Date().toISOString() };
+                cred: $('f-cred').value, temFoto: !!CAPA,
+                ev: { ini: $('f-ev-ini').value, fim: $('f-ev-fim').value,
+                      local: $('f-ev-local').value, cidade: $('f-ev-cidade').value },
+                quando: new Date().toISOString() };
       if(d.title || d.corpo){ try{ localStorage.setItem(RASC_K, JSON.stringify(d)); }catch(e){} }
     }, 800);
   }
-  ['f-title', 'f-body', 'f-cred'].forEach(function(id){ $(id).addEventListener('input', salvarRasc); });
+  ['f-title', 'f-body', 'f-cred', 'f-cat', 'f-cat2', 'f-cat3', 'f-ev-ini', 'f-ev-fim', 'f-ev-local', 'f-ev-cidade']
+    .forEach(function(id){ var el = $(id); if(el) el.addEventListener('input', salvarRasc); el && el.addEventListener('change', salvarRasc); });
   function limparRasc(){ try{ localStorage.removeItem(RASC_K); }catch(e){} $('rasc-aviso').classList.remove('on'); $('bdg-rasc').style.display = 'none'; }
   function checarRasc(){
     try{
@@ -1456,7 +1511,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           $('f-title').value = d.title || ''; $('f-cat').value = d.cat || 'Teatro';
           aplicarCats(d.cats);
           $('f-body').value = d.corpo || ''; $('f-cred').value = d.cred || '';
+          if(d.ev){ $('f-ev-ini').value = d.ev.ini || ''; $('f-ev-fim').value = d.ev.fim || '';
+            $('f-ev-local').value = d.ev.local || ''; $('f-ev-cidade').value = d.ev.cidade || ''; }
           statusTexto(); $('rasc-aviso').classList.remove('on'); $('bdg-rasc').style.display = 'none'; irPara('nova');
+          if(d.temFoto) setTimeout(function(){ alert('Recuperei o texto do rascunho. A foto de capa não fica guardada no navegador, então reanexe a imagem antes de enviar.'); }, 200);
         };
         $('rasc-descartar').onclick = limparRasc;
       }
@@ -1496,7 +1554,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var links = [];
     corpo.replace(/\]\(((?:post-|pessoa-|cat-)[a-z0-9-]+\.html)\)/g, function(_, u){ links.push(u); return _; });
     $('prev-avisos').innerHTML = avisos.join(' · ') + (links.length ? ' · conferindo ' + links.length + ' link(s)…' : ' · <span class="err">sem links internos</span>');
-    $('prev-overlay').classList.add('on');
+    $('prev-titulo').textContent = 'Pré-visualização — como sai no site';
+    abreOverlay('prev-overlay');
     if(links.length){
       indicesLinks().then(function(ok){
         var ruins = links.filter(function(u){ return !ok[u]; });
@@ -1506,8 +1565,20 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       });
     }
   });
-  $('prev-fechar').addEventListener('click', function(){ $('prev-overlay').classList.remove('on'); });
-  $('prev-overlay').addEventListener('click', function(e){ if(e.target === this) this.classList.remove('on'); });
+  // fecha qualquer overlay: clique fora, botão fechar ou Esc; devolve o foco ao botão fechar ao abrir
+  function abreOverlay(id){
+    var ov = $(id); ov.classList.add('on');
+    var f = ov.querySelector('.prev-head .bt'); if(f) f.focus();
+  }
+  function fechaOverlays(){
+    document.querySelectorAll('.prev-overlay.on').forEach(function(o){ o.classList.remove('on'); });
+  }
+  $('prev-fechar').addEventListener('click', fechaOverlays);
+  $('prev-overlay').addEventListener('click', function(e){ if(e.target === this) fechaOverlays(); });
+  $('btn-estilo').addEventListener('click', function(){ abreOverlay('estilo-overlay'); });
+  $('estilo-fechar').addEventListener('click', fechaOverlays);
+  $('estilo-overlay').addEventListener('click', function(e){ if(e.target === this) fechaOverlays(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') fechaOverlays(); });
 
   // ---------- foto no meio do texto, por upload ----------
   var corpoImgInput = document.createElement('input');
@@ -1586,8 +1657,22 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var btn = $('btn-pub');
     var ehChefe = podeEditar();
     btn.disabled = true; btn.textContent = 'Enviando…';
-    var passo = CAPA ? subirImagem(CAPA, slug) : Promise.resolve('');
-    passo.then(function(imgPath){
+    // matéria nova: confere se já existe uma com esse endereço (evita sobrescrever a de outra pessoa)
+    var checaSlug = EDIT ? Promise.resolve(true) : Promise.all([
+      ghGet('import/novas/' + slug + '.json').catch(function(){ return null; }),
+      ghGet('import/pauta/' + slug + '.json').catch(function(){ return null; })
+    ]).then(function(ex){
+      if(ex[0] || ex[1]){
+        return confirm('Já existe uma matéria com este título (endereço "' + slug + '").\n' +
+          'Se continuar, você vai SOBRESCREVER a que já está lá.\n\nMude um pouco o título para publicar as duas. Continuar assim mesmo?');
+      }
+      return true;
+    });
+    checaSlug.then(function(segue){
+      if(!segue){ btn.disabled = false; btn.textContent = ehChefe ? 'Enviar para o site' : 'Enviar para aprovação'; msg.textContent = 'Envio cancelado — mude o título.'; msg.className = 'msg'; return Promise.reject('cancelado'); }
+      return CAPA ? subirImagem(CAPA, slug) : Promise.resolve('');
+    }).then(function(imgPath){
+      if(imgPath === undefined) return;
       if(EDIT && EDIT.fonte === 'pauta'){
         var pac = {};
         for(var k in EDIT.orig){ if(k.charAt(0) !== '_') pac[k] = EDIT.orig[k]; }
@@ -1669,7 +1754,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       CAPA = null; $('up-prev').src = ''; up.classList.remove('tem');
       limparRasc(); statusTexto();
       aplicarUsuario();
-    }).catch(function(err){ msg.className = 'msg err'; msg.textContent = 'Falha ao enviar: ' + err.message; })
+    }).catch(function(err){ if(err === 'cancelado') return; msg.className = 'msg err'; msg.textContent = msgErro(err); })
       .finally(function(){ btn.disabled = false; if(!EDIT) btn.textContent = ehChefe ? 'Enviar para o site' : 'Enviar para aprovação'; });
   });
 
@@ -2022,7 +2107,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
               '<button class="bt ap" type="button" data-aprovar="' + esc(d.slug) + '">✓ Aprovar e publicar</button>' +
               '<div class="mesa-agenda">' +
                 '<button class="bt" type="button" data-agendar="' + esc(d.slug) + '">🕐 Aprovar e agendar</button>' +
-                '<div class="dt-rapido" data-dtr="' + esc(d.slug) + '">' +
+                '<div class="dt-rapido" data-dtrmesa="' + esc(d.slug) + '">' +
                   '<button class="bt mini" type="button" data-quando="hoje18">Hoje 18h</button>' +
                   '<button class="bt mini" type="button" data-quando="amanha9">Amanhã 9h</button>' +
                   '<button class="bt mini" type="button" data-quando="sexta18">Sexta 18h</button>' +
@@ -2150,7 +2235,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       aprovar(b.dataset.aprovar, new Date().toISOString(), 'No ar em ~2 min'); return;
     }
     if((b = e.target.closest('[data-quando]'))){
-      var slugQ = b.closest('[data-dtr]').dataset.dtr;
+      var slugQ = b.closest('[data-dtrmesa]').dataset.dtrmesa;
       var alvo = new Date(); alvo.setSeconds(0, 0);
       if(b.dataset.quando === 'hoje18'){ alvo.setHours(18, 0); }
       else if(b.dataset.quando === 'amanha9'){ alvo.setDate(alvo.getDate() + 1); alvo.setHours(9, 0); }
@@ -2474,7 +2559,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var path = 'import/novas/' + d.slug + '.json';
     $('prev-body').innerHTML = '<p class="cred">Buscando a versão anterior…</p>';
     $('prev-avisos').innerHTML = '';
-    $('prev-overlay').classList.add('on');
+    $('prev-titulo').textContent = 'Comparar versões — o que mudou desde a versão anterior';
+    abreOverlay('prev-overlay');
     fetch(API_BASE + '/commits?sha=' + BRANCH + '&path=' + encodeURIComponent(path) + '&per_page=5',
           { headers: hdr({}) })
       .then(function(r){ return r.json(); })
