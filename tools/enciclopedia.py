@@ -85,6 +85,13 @@ Hospital Aeroporto Estádio Estadio Ginásio Ginasio Biblioteca Livraria Colégi
 
 CONECT = {'de', 'da', 'do', 'das', 'dos', 'del', 'von', 'van', 'di'}
 
+# preposição/contração que abre frase colada num nome ("Na Espanha", "Em Buenos Aires"):
+# apara da ponta, nunca vira parte do verbete
+PREP_PONTA = {'na', 'no', 'nas', 'nos', 'em', 'a', 'à', 'ao', 'às', 'aos', 'pela', 'pelo',
+              'pelas', 'pelos', 'com', 'sem', 'para', 'por', 'sob', 'sobre', 'entre',
+              'até', 'ate', 'desde', 'após', 'apos', 'durante', 'contra', 'segundo',
+              'conforme', 'perante', 'já', 'ja', 'e', 'ou', 'mas', 'se', 'quando', 'como'}
+
 TOKEN = r"[A-ZÁÂÃÀÉÊÍÓÔÕÚÜÇ][a-záâãàéêíóôõúüçñ'\-]+"
 NOME_RE = re.compile(rf"\b({TOKEN}(?:\s+(?:(?:{'|'.join(CONECT)})\s+)?{TOKEN}){{1,3}})\b")
 
@@ -119,9 +126,11 @@ def extrair_nomes(texto):
         if any(p in VETO_TOTAL for p in partes):
             continue
         # apara palavras bloqueadas do início ("Por Bruno Cavalcanti" -> "Bruno Cavalcanti")
-        while partes and (partes[0] in BLOQUEIO or partes[0].lower() in CONECT):
+        while partes and (partes[0] in BLOQUEIO or partes[0].lower() in CONECT
+                          or partes[0].lower() in PREP_PONTA):
             partes = partes[1:]
-        while partes and (partes[-1] in BLOQUEIO or partes[-1].lower() in CONECT):
+        while partes and (partes[-1] in BLOQUEIO or partes[-1].lower() in CONECT
+                          or partes[-1].lower() in PREP_PONTA):
             partes = partes[:-1]
         n = ' '.join(partes)
         if n and nome_valido(n):
