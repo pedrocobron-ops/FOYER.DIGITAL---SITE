@@ -37,6 +37,9 @@
   .top{ display:flex; align-items:center; gap:16px; border-bottom:2px solid var(--ink);
     padding:0 22px; height:62px; background:var(--paper); position:sticky; top:0; z-index:20; }
   .top img{ height:34px; }
+  .top img.only-dark{ display:none; }
+  html[data-theme="dark"] .top img.only-light, body.dark .top img.only-light{ display:none; }
+  html[data-theme="dark"] .top img.only-dark, body.dark .top img.only-dark{ display:inline; }
   .top-t{ font-family:var(--mono); font-weight:600; font-size:.68rem; letter-spacing:.2em;
     text-transform:uppercase; }
   .top-t em{ font-style:normal; color:var(--ink-soft); margin-left:10px; letter-spacing:.14em; }
@@ -440,6 +443,7 @@
       <input type="password" id="pass" autocomplete="current-password" aria-label="Senha">
       <button type="submit" id="gate-btn">Terceiro sinal — entrar</button>
       <span class="g8-err" id="gate-err">Senha não confere</span>
+      <span class="g8-err" id="gate-rede">Sem conexão agora. Confira a internet e tente de novo.</span>
     </form>
   </div>
 </div>
@@ -915,7 +919,16 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
 
   /* ---------------- utilidades ---------------- */
   function $(id){ return document.getElementById(id); }
-  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+  // URL segura para href/src: só http(s) e caminhos internos; barra javascript:, data:, aspas etc.
+  function urlSegura(u){
+    u = String(u == null ? '' : u).trim();
+    if(/^(https?:)?\/\//i.test(u) || /^\/(?!\/)/.test(u) || /^(post-|pessoa-|cat-|assets\/|import\/|\.\.?\/)/.test(u)){
+      return u.replace(/["'<>\s]/g, function(c){ return encodeURIComponent(c); });
+    }
+    return '#';
+  }
   function token(){ try{ return localStorage.getItem('coxia-token') || ''; }catch(e){ return ''; } }
   function hdr(extra){
     var h = extra || {};
@@ -934,7 +947,9 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       .replace(/[^a-zA-Z0-9]+/g,'-').replace(/^-+|-+$/g,'').toLowerCase().slice(0,80);
   }
   function rel(iso){
-    var s = (Date.now() - new Date(iso).getTime()) / 1000;
+    var t = new Date(iso).getTime();
+    if(!iso || isNaN(t)) return 'data desconhecida';
+    var s = (Date.now() - t) / 1000;
     if(s < 90) return 'agora há pouco';
     if(s < 3600) return 'há ' + Math.round(s/60) + ' min';
     if(s < 86400) return 'há ' + Math.round(s/3600) + ' h';
@@ -1049,6 +1064,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   $('gate-form').addEventListener('submit', function(e){
     e.preventDefault();
     var btn = $('gate-btn'); btn.textContent = 'Conferindo…';
+    $('gate-err').style.display = 'none'; $('gate-rede').style.display = 'none';
     conferirSenha($('pass').value).then(function(u){
       btn.textContent = 'Terceiro sinal — entrar';
       if(!u){ $('gate-err').style.display = 'block'; return; }
@@ -1057,7 +1073,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       abrir();
     }).catch(function(){
       btn.textContent = 'Terceiro sinal — entrar';
-      $('gate-err').style.display = 'block';
+      $('gate-rede').style.display = 'block';
     });
   });
   $('logout').addEventListener('click', function(){
@@ -1703,16 +1719,16 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       }
       if(b.indexOf('galeria:') === 0){
         return '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px">' +
-          b.slice(8).split('|').map(function(u){ return '<img src="' + esc(u.trim()) + '" style="width:100%;aspect-ratio:4/3;object-fit:cover;border:2px solid var(--ink)">'; }).join('') + '</div>';
+          b.slice(8).split('|').map(function(u){ return '<img src="' + esc(urlSegura(u.trim())) + '" style="width:100%;aspect-ratio:4/3;object-fit:cover;border:2px solid var(--ink)">'; }).join('') + '</div>';
       }
       if(b.indexOf('botao:') === 0){
         var bp = b.slice(6).split('|');
-        return bp[1] ? '<p><a href="' + esc((bp[1] || '').trim()) + '" target="_blank" style="display:inline-block;background:var(--wine);color:var(--gold);font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;padding:12px 20px;text-decoration:none">' + esc(bp[0].trim()) + '</a></p>' : '';
+        return bp[1] ? '<p><a href="' + esc(urlSegura((bp[1] || '').trim())) + '" target="_blank" rel="noopener" style="display:inline-block;background:var(--wine);color:var(--gold);font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;padding:12px 20px;text-decoration:none">' + esc(bp[0].trim()) + '</a></p>' : '';
       }
       if(b.replace(/[* ]/g, '') === '' && b.indexOf('*') > -1) return '<div style="text-align:center;color:var(--gold);letter-spacing:1em">✦ ✦ ✦</div>';
       if(b.indexOf('img:') === 0){
         var resto = b.slice(4).split('|');
-        return '<figure><img src="' + esc(resto[0].trim()) + '" alt="" style="max-width:100%">' +
+        return '<figure><img src="' + esc(urlSegura(resto[0].trim())) + '" alt="" style="max-width:100%">' +
                (resto[1] ? '<figcaption>' + esc(resto[1].trim()) + '</figcaption>' : '') + '</figure>';
       }
       var e = esc(b)
