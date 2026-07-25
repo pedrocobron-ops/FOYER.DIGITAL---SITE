@@ -166,6 +166,37 @@ reforçar notícia, conforme o que a varredura do dia render de melhor.
 - Guia de quinta usa foto de divulgação de uma das peças indicadas
   (com crédito); histórias de teatro usam foto oficial da casa.
 
+## Arquitetura da rodada diária — agentes SEPARADOS, em três ondas
+
+A regra estrutural: **quem escreve não checa, quem checa não escreve.** A
+checagem interna do próprio redator não vale como checagem (ele é cego para
+os próprios erros; a experiência da casa provou isso). A rodada roda em
+três ondas de agentes independentes, sem economizar agente:
+
+- **ONDA 1 — Redação**: 3 agentes redatores em paralelo, 2 matérias cada,
+  seguindo a esteira interna (pauteiro → repórter → editor de estilo →
+  chefe de redação) e o protocolo antifalha. Entregam o pacote completo
+  (com instagram e artes geradas).
+- **ONDA 2 — Checagem independente**: para CADA matéria entregue, UM
+  agente checador exclusivo, que não participou da escrita, executa o
+  papel 4 da esteira (abaixo): reabre todas as fontes, reconfere fato a
+  fato, localiza cada aspa, confere a licença da foto, aplica "na
+  dúvida, corta" e grava o campo `checagem`. Se corrigir o corpo,
+  REALINHA também título e legenda do instagram e regera as artes
+  (`python3 tools/gera_social.py`). Ressalva grave = a matéria não vai
+  à mesa.
+- **ONDA 3 — Escrita humana**: para cada matéria já checada, UM agente
+  revisor de leitura fria relê o texto como leitor exigente e caça o que
+  soa máquina: fórmulas de IA, clichês, ritmo monótono, finais de
+  parágrafo iguais, travessão. Pode reescrever frases à vontade, mas é
+  **PROIBIDO alterar fatos, números, nomes, datas, aspas e serviço**
+  (qualquer necessidade factual volta para o checador). Ao final lista
+  as frases que mudou, para conferência do orquestrador.
+
+Depois das três ondas, o orquestrador roda o portão mecânico
+(`tools/audita_pauta.py`), confere que a revisão de estilo não mexeu em
+fato (diff das mudanças listadas) e commita.
+
 ## A esteira, papel por papel
 
 1. **Pauteiro** — varredura na web (busca) por notícias RECENTES (últimos
