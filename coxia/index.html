@@ -183,6 +183,21 @@
   .ig-artes-grid{ display:flex; gap:16px; flex-wrap:wrap; }
   .ig-arte{ display:flex; flex-direction:column; gap:8px; align-items:center; }
   .ig-arte img{ width:200px; max-width:42vw; border:1.5px solid var(--line); display:block; }
+  /* perfis para marcar (@ de Instagram) */
+  .ig-arrobas{ margin:14px 18px 4px; }
+  .prev-body .ig-arrobas{ margin:18px 0 4px; }
+  .ig-arr-cab{ display:flex; align-items:center; gap:10px; font-family:var(--sans); font-weight:700;
+    font-size:.85rem; margin-bottom:9px; }
+  .ig-arr-chips{ display:flex; flex-wrap:wrap; gap:7px; }
+  .ig-chip{ border:1.5px solid var(--wine); background:var(--paper); color:var(--wine); cursor:pointer;
+    font-family:var(--mono); font-size:.72rem; padding:6px 10px; display:inline-flex; align-items:center; gap:6px;
+    transition:background .12s,color .12s; }
+  .ig-chip:hover{ background:var(--wine); color:var(--gold); }
+  .ig-chip small{ font-family:var(--sans); font-weight:600; font-size:.72rem; opacity:.75; }
+  .ig-chip.copiado{ background:var(--ok); color:#fff; border-color:var(--ok); }
+  .ig-chip.aconfirmar{ border-color:var(--ink-soft); color:var(--ink-soft); }
+  .ig-chip.aconfirmar em{ font-style:normal; font-weight:700; color:var(--err); }
+  .ig-arr-nota{ font-family:var(--sans); font-size:.74rem; color:var(--ink-soft); margin:8px 0 0; line-height:1.5; }
   .prev-body .ig-leg{ width:100%; border:1.5px solid var(--line); background:var(--paper-2); color:var(--ink);
     font-family:var(--sans); font-size:.85rem; line-height:1.6; padding:10px; resize:vertical; }
   .quick{ display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
@@ -1831,6 +1846,35 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   $('bv-overlay').addEventListener('click', function(e){ if(e.target === this) fechaOverlays(); });
   $('insta-fechar').addEventListener('click', fechaOverlays);
   $('insta-overlay').addEventListener('click', function(e){ if(e.target === this) fechaOverlays(); });
+  // bloco "Perfis para marcar" — @ de Instagram das pessoas/lugares/festivais citados
+  function blocoArrobas(insta){
+    var lista = (insta && insta.arrobas) || [];
+    lista = lista.filter(function(a){ return a && a.arroba; });
+    if(!lista.length) return '';
+    var todos = lista.map(function(a){ return a.arroba.charAt(0) === '@' ? a.arroba : '@' + a.arroba; }).join(' ');
+    return '<div class="ig-arrobas"><div class="ig-arr-cab">📎 Perfis para marcar ' +
+      '<button class="bt mini" type="button" data-arrtodos="' + esc(todos) + '">copiar todos</button></div>' +
+      '<div class="ig-arr-chips">' + lista.map(function(a){
+        var arr = a.arroba.charAt(0) === '@' ? a.arroba : '@' + a.arroba;
+        var conf = a.confirmado === false;
+        return '<button class="ig-chip' + (conf ? ' aconfirmar' : '') + '" type="button" data-arr="' + esc(arr) + '" ' +
+          'title="' + esc((a.nome || '') + (a.tipo ? ' · ' + a.tipo : '') + (conf ? ' · confira antes de marcar' : '')) + '">' +
+          esc(arr) + (a.nome ? ' <small>' + esc(a.nome) + '</small>' : '') + (conf ? ' <em>?</em>' : '') + '</button>';
+      }).join('') + '</div>' +
+      '<p class="ig-arr-nota">Clique num @ para copiar. Os marcados com <b>?</b> não puderam ser confirmados como conta oficial: confira antes de marcar.</p></div>';
+  }
+  // copiar @ (individual ou todos) — vale na mesa e no overlay da Fila
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-arr],[data-arrtodos]');
+    if(!b || !navigator.clipboard) return;
+    var txt = b.dataset.arr || b.dataset.arrtodos;
+    navigator.clipboard.writeText(txt).then(function(){
+      var g = b.classList.contains('ig-chip');
+      var v = b.innerHTML; b.classList.add('copiado');
+      if(!g){ var t = b.textContent; b.textContent = '✓ copiados'; setTimeout(function(){ b.textContent = t; }, 1500); }
+      else setTimeout(function(){ b.classList.remove('copiado'); }, 1200);
+    });
+  });
   // abre o post de Instagram de uma matéria já lançada (artes ficam guardadas pelo slug)
   function abrirInstaMateria(d){
     if(!d) return;
@@ -1851,7 +1895,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         ? '<label style="font-family:var(--sans);font-weight:700;font-size:.82rem;display:block;margin:16px 0 6px">Legenda</label>' +
           '<textarea class="ig-leg" readonly rows="7">' + esc(leg) + '</textarea>' +
           '<button class="bt" type="button" id="insta-copialeg" style="margin-top:8px">📋 Copiar legenda</button>'
-        : '<p class="cred" style="margin-top:14px">Esta matéria não tem legenda pronta.</p>');
+        : '<p class="cred" style="margin-top:14px">Esta matéria não tem legenda pronta.</p>') +
+      blocoArrobas(d.instagram);
     abreOverlay('insta-overlay');
     var cp = $('insta-copialeg');
     if(cp) cp.addEventListener('click', function(){
@@ -2454,6 +2499,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
               ? '<textarea class="insta-leg" readonly rows="5">' + esc(d.instagram.legenda) + '</textarea>' +
                 '<button class="bt" type="button" data-copialeg="' + esc(d.slug) + '">📋 Copiar legenda</button>'
               : '<p class="insta-nada">Sem legenda pronta nesta matéria.</p>') +
+            blocoArrobas(d.instagram) +
             '</details>';
           var fontesBloco = fontes ? '<details class="mesa-dobra"><summary>Fontes apuradas</summary>' + fontes + '</details>' : '';
           return '<article class="mesa-card" id="card-' + esc(d.slug) + '" data-slug="' + esc(d.slug) + '">' +

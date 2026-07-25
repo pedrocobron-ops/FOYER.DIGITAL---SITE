@@ -258,6 +258,13 @@ def main():
             print('•', os.path.relpath(destino, ROOT))
         print('--- legenda ---')
         print(legenda_de(pg))
+        arrobas = (pg.get('instagram') or {}).get('arrobas') or []
+        if arrobas:
+            print('--- perfis para marcar ---')
+            for a in arrobas:
+                if a.get('arroba'):
+                    marca = '' if a.get('confirmado', True) else '  (a confirmar)'
+                    print(f"  {a['arroba']}  {a.get('nome', '')}{marca}")
         print()
 
 

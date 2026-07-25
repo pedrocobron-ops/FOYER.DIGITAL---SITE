@@ -325,7 +325,7 @@ Blocos opcionais (usar quando enriquecem de verdade):
   temporada.
 - `instagram` — OBRIGATÓRIO em toda matéria: o pacote leva o post pronto
   para o Instagram da casa. Formato:
-  `"instagram": {"titulo": "…", "legenda": "…"}`.
+  `"instagram": {"titulo": "…", "legenda": "…", "arrobas": [...]}`.
   - `titulo`: o título da arte, com os DESTAQUES DOURADOS entre asteriscos
     (nomes de pessoas e títulos de peça): ex.
     `*Luisa Thiré* apresenta *"Valsa Nº 6"*, de Nelson Rodrigues, no Teatro Arena B3`.
@@ -333,6 +333,19 @@ Blocos opcionais (usar quando enriquecem de verdade):
     rede social, sem travessão), e o fecho EXATO da casa em 3 linhas:
     `Para conferir a matéria completa, acesse o site: www.foyer.digital`
     + `📷: <crédito sem o prefixo Foto:>` + `Por <autor>`.
+  - `arrobas`: lista de perfis de Instagram para o Pedro MARCAR no post e
+    pedir colaboração (isso multiplica o alcance). Cada pessoa, teatro,
+    companhia, festival ou espaço RELEVANTE citado na matéria vira um item
+    `{"nome": "Teatro Amazonas", "arroba": "@teatroamazonas", "tipo": "teatro", "confirmado": true}`.
+    **REGRA DE OURO: nunca invente um @.** Só inclua um handle depois de
+    ACHAR e CONFIRMAR por busca que aquela é a conta OFICIAL da entidade
+    (o site oficial linka o Instagram, a bio confirma, o número de
+    seguidores e o conteúdo batem). Se não conseguir confirmar, ou
+    inclua com `"confirmado": false` (a Coxia mostra com "?", para o
+    Pedro conferir antes de marcar) ou não inclua. Um @ errado marca a
+    conta errada de alguém, é pior que não marcar. O Checador confere os
+    handles junto com o resto. Ordem: os mais importantes primeiro
+    (protagonista, diretor, teatro, festival); 4 a 8 perfis bastam.
   - Depois de gravar o pacote, gerar as artes:
     `python3 tools/gera_social.py import/pauta/<slug>.json`
     (cria assets/social/<slug>-feed.jpg e <slug>-story.jpg no formato
