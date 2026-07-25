@@ -99,7 +99,7 @@ def _tokens_titulo(pg):
 
 
 def _desenha_titulo(dr, toks, x, y_base, larg, tam, entre=1.16):
-    f = _fonte('Archivo-Bold.ttf', tam)
+    f = _fonte('PTSans-Bold.ttf', tam)
     esp = dr.textlength(' ', font=f)
     linhas, atual, cw = [], [], 0
     for w, ouro in toks:
@@ -130,7 +130,7 @@ def _cabecalho(dr, base, cat, y=132):
     logo = logo.resize((round(logo.width * esc), alt), Image.LANCZOS)
     x = 92
     base.paste(Image.new('RGB', logo.size, BRANCO), (x, y), logo.getchannel('A'))
-    f_sans = _fonte('Archivo-Bold.ttf', 30)
+    f_sans = _fonte('PTSans-Bold.ttf', 30)
     sufixo = '.' + (cat or 'Teatro').upper()
     dr.text((x + logo.width + 5, y + alt - 33), sufixo, font=f_sans, fill=BRANCO)
 
@@ -209,7 +209,7 @@ def _gerar_story(pg):
     tam = 54
     if sum(len(t) for t, _ in toks) > 80:
         tam -= 5
-    f = _fonte('Archivo-Bold.ttf', tam)
+    f = _fonte('PTSans-Bold.ttf', tam)
     # desenha do topo do bloco (calcula altura primeiro numa passada seca)
     dr2 = ImageDraw.Draw(Image.new('RGB', (10, 10)))
     esp = dr2.textlength(' ', font=f)
@@ -224,7 +224,7 @@ def _gerar_story(pg):
         cw += tw + esp
     alt_bloco = round(tam * 1.16) * linhas
     _desenha_titulo(dr, toks, 92, min(y_texto_topo + alt_bloco, h - 250), larg, tam)
-    f_mini = _fonte('Archivo-Bold.ttf', 34)
+    f_mini = _fonte('PTSans-Bold.ttf', 34)
     dr.text((92, h - 170), 'Leia a matéria completa em foyer.digital', font=f_mini, fill=OURO)
     return base
 
