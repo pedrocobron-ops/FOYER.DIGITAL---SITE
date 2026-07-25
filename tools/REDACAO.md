@@ -3,8 +3,8 @@
 Este arquivo é o manual que o Claude segue quando a rotina diária da redação
 dispara (ou quando Pedro pede "rode a redação do Foyer"). São **6 matérias
 por rodada**. A esteira reproduz
-uma redação real: **Pauteiro → Repórter → Editor de Estilo → Chefe de
-Redação → Mesa de aprovação humana (Coxia)**.
+uma redação real: **Pauteiro → Repórter → Editor de Estilo → Checador
+independente → Chefe de Redação → Mesa de aprovação humana (Coxia)**.
 
 ## Regra de ouro (inegociável)
 
@@ -12,6 +12,41 @@ Redação → Mesa de aprovação humana (Coxia)**.
 com `"status": "aguardando_aprovacao"`. É proibido gravar em `import/novas/`,
 alterar páginas do site ou qualquer outro arquivo. Quem aprova e publica é um
 humano, na Coxia (aba Redação IA).
+
+## Verdade acima de tudo — o protocolo antifalha
+
+Um erro de fato publicado destrói a credibilidade do FOYER no Google News e
+com o leitor. Por isso a doutrina da casa é **"na dúvida, corta"**: uma
+matéria fica ótima sem o dado incerto; ela morre com o dado errado.
+
+1. **Todo fato verificável** (nome, data, número, valor, recorde,
+   capacidade, ano) precisa estar em ao menos UMA das fontes listadas em
+   `fontes`, e o Checador precisa conseguir reencontrá-lo lá. O que não
+   se reencontra, sai do texto.
+2. **Aspas**: só declarações textuais REAIS localizadas nas fontes.
+   Aspas traduzidas do estrangeiro levam o veículo de origem NOMEADO NO
+   PRÓPRIO TEXTO ("disse à Playbill", "em entrevista ao The Guardian").
+   "ao FOYER" é proibido para agentes: ninguém falou com a gente.
+3. **Fontes divergentes**: quando duas fontes dão números diferentes,
+   usar SOMENTE o da fonte oficial (produção, casa, órgão público). Se
+   não houver fonte oficial, o número sai do texto. Nunca escolher "o
+   mais impressionante".
+4. **Lenda, mito e tradição** aparecem sempre rotulados como tal no
+   texto ("a lenda diz", "segundo a tradição"), nunca afirmados como
+   fato.
+5. **Datas e superlativo**: "primeiro", "maior", "único", "recorde" só
+   entram se uma fonte confiável usa exatamente essa afirmação; caso
+   contrário, rebaixar para "um dos primeiros", ou cortar.
+6. **Ressalvas têm dois níveis** e o destino da matéria depende deles:
+   - **Nota de transparência** (não bloqueia): registro honesto de algo
+     JÁ RESOLVIDO pelas regras acima (aspas traduzidas com o veículo
+     citado no texto, lenda rotulada de lenda, número oficial escolhido
+     entre divergentes). Vai em `chefe.ressalvas` para o editor humano.
+   - **Ressalva grave** (bloqueia): fato que continua incerto, aspa não
+     localizada na fonte, direito de foto duvidoso, evento sem
+     confirmação. Matéria com ressalva grave **NÃO vai para a mesa**:
+     volta para o Repórter cortar/corrigir, ou a pauta é descartada e
+     registrada no diário.
 
 ## Estilo da casa — padrão PROFISSIONAL, sem matéria rasa
 
@@ -166,10 +201,21 @@ reforçar notícia, conforme o que a varredura do dia render de melhor.
    (750–1.100 palavras) no formato do corpo (abaixo).
 3. **Editor de Estilo** — reler e lapidar: ritmo, clareza, repetições,
    clichês, concordância. Não acrescentar fatos nem remover informações.
-4. **Chefe de Redação** — validação final com parecer honesto: título fiel
+4. **Checador independente** — um agente SEPARADO, que não escreveu o
+   texto, recebe o pacote pronto e o REVERIFICA contra as fontes: abre
+   cada URL de `fontes` e confere um a um os fatos verificáveis (nomes,
+   datas, números, valores), localiza cada aspa na fonte de origem e
+   confirma a licença/crédito da foto na página de `imgFonte`. Postura
+   adversarial: o trabalho dele é DERRUBAR a matéria, não aprová-la.
+   Cada achado vira: correção no texto (com o Repórter), corte do dado
+   ("na dúvida, corta") ou ressalva grave (a matéria não vai à mesa).
+   Registra o resultado no campo `checagem` do pacote.
+5. **Chefe de Redação** — validação final com parecer honesto: título fiel
    e sem sensacionalismo? Alguma afirmação sem fonte? Datas e nomes
-   consistentes? Dar nota 0–10, parecer em 1–2 frases e listar as
-   ressalvas que o editor humano deve conferir antes de publicar.
+   consistentes? O Checador passou e o campo `checagem` está preenchido?
+   Dar nota 0–10, parecer em 1–2 frases e listar em `chefe.ressalvas`
+   APENAS notas de transparência (ressalva grave segura a matéria, não
+   vai anotada para a mesa).
 
 ## Formato do corpo (formato da Coxia)
 
@@ -203,6 +249,12 @@ Blocos opcionais (usar quando enriquecem de verdade):
  "corpo": "texto no formato da Coxia…",
  "fontes": ["https://…", "https://…"],
  "status": "aguardando_aprovacao",
+ "checagem": {
+  "verificada": true,
+  "por": "checador independente",
+  "conferido": "fatos, aspas e licença da foto reconferidos nas fontes",
+  "cortes": ["dado X removido: não localizado em nenhuma fonte"]
+ },
  "chefe": {
   "aprovado": true,
   "nota": 8,
@@ -210,7 +262,7 @@ Blocos opcionais (usar quando enriquecem de verdade):
   "ressalvas": ["pontos que o humano deve conferir antes de publicar"]
  },
  "geradoEm": "2026-07-22T12:00:00+00:00",
- "esteira": "pauteiro > reporter > editor-estilo > chefe-redacao",
+ "esteira": "pauteiro > reporter > editor-estilo > checador > chefe-redacao",
  "evento": {
   "inicio": "2026-07-24",
   "fim": "2026-08-16",
@@ -288,12 +340,18 @@ lista `rodadas` (mais recente primeiro; manter no máximo 30):
 
 1. Salvar cada pacote em `import/pauta/<slug>.json`.
 2. Salvar as fotos de capa em `assets/uploads/`.
-3. Registrar a rodada em `import/pauta/diario.json` (formato acima).
-4. `git add import/pauta/ assets/uploads/ assets/social/` — e nada além disso.
-5. Commit na branch `claude/foyer-digital-redesign-14l2b6` com mensagem
+3. **Portão mecânico**: rodar
+   `python3 tools/audita_pauta.py import/pauta/<slug>.json`
+   e só seguir com laudo `✓` (ele confere travessão, tamanho, links,
+   foto+crédito+fonte, agências proibidas, fontes, instagram, artes,
+   editorias e status). Matéria reprovada NÃO entra no commit: corrigir
+   ou descartar com registro no diário.
+4. Registrar a rodada em `import/pauta/diario.json` (formato acima).
+5. `git add import/pauta/ assets/uploads/ assets/social/` — e nada além disso.
+6. Commit na branch `claude/foyer-digital-redesign-14l2b6` com mensagem
    `Redação IA: matérias na mesa de aprovação da Coxia [skip ci]`
    (o `[skip ci]` evita um deploy desnecessário — pauta não aparece no site).
-6. `git push -u origin claude/foyer-digital-redesign-14l2b6`.
-7. Faxina da lixeira: apagar de `import/lixeira/` os arquivos com
+7. `git push -u origin claude/foyer-digital-redesign-14l2b6`.
+8. Faxina da lixeira: apagar de `import/lixeira/` os arquivos com
    `removidoEm` há mais de 30 dias (e incluir no commit).
-8. Encerrar informando quantas matérias ficaram na mesa e seus títulos.
+9. Encerrar informando quantas matérias ficaram na mesa e seus títulos.

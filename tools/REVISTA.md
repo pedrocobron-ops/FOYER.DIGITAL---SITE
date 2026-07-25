@@ -111,7 +111,14 @@ PORTÕES DE QUALIDADE que reprovam e devolvem o trabalho:
    corrige antes de seguir.
 6. **Checador** — confere os SERVIÇOS contra as fontes (dia, horário,
    teatro, preço, canal de venda de cada item de agenda e de cada matéria).
-   O que não confirmar, sai.
+   O que não confirmar, sai. Para qualquer TEXTO NOVO escrito para a
+   edição (editorial, chamadas, itens de agenda, frase-celebre), vale o
+   protocolo antifalha de tools/REDACAO.md: fatos reencontrados na
+   fonte, aspas só reais com veículo de origem nomeado, lenda rotulada
+   de lenda, e "na dúvida, corta". A citação da página frase-celebre só
+   entra com fonte primária verificada (livro, entrevista publicada,
+   registro documentado); frase de atribuição duvidosa ("como dizia X"
+   da internet) é proibida.
 
 **Onda 3 — PORTÃO DE DESIGN (diagramação obrigatória):**
 7. **Diagramador** — monta a edição de verdade e OLHA o resultado:
