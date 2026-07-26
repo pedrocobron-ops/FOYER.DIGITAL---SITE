@@ -1,6 +1,50 @@
 {
  "rodadas": [
   {
+   "data": "2026-07-26",
+   "dia": "domingo",
+   "esteira": "pauteiro > reporter > editor-estilo > checador > revisor-tom > chefe (3 ondas, agentes separados)",
+   "entregues": [
+    {
+     "slug": "descoberta-teatro-hipodromo-grego-apollonia-libia",
+     "titulo": "Missão francesa revela teatro à beira-mar e hipódromo grego raro nas ruínas de Apollonia, na Líbia",
+     "formato": "notícia (patrimônio/achado)"
+    },
+    {
+     "slug": "martin-guerre-nova-versao-old-vic-londres",
+     "titulo": "Martin Guerre, o terceiro musical dos autores de Les Misérables, ganha nova versão no Old Vic de Londres",
+     "formato": "notícia (teatro musical mundial)"
+    },
+    {
+     "slug": "roda-viva-1968-ataque-ccc-chico-buarque",
+     "titulo": "Roda Viva: a noite de julho de 1968 em que o CCC invadiu o palco de Chico Buarque",
+     "formato": "memória (prato do dia)"
+    },
+    {
+     "slug": "quem-e-icaro-silva-hamlet-copan",
+     "titulo": "Quem é Ícaro Silva, o ator e cantor que assumiu o Hamlet do Copan",
+     "formato": "quem é (perfil)"
+    },
+    {
+     "slug": "como-funciona-a-meia-entrada-no-teatro",
+     "titulo": "Como funciona a meia-entrada no teatro? Quem tem direito e o que diz a lei",
+     "formato": "entenda (explicador)"
+    },
+    {
+     "slug": "por-que-nao-se-assobia-nos-bastidores-do-teatro",
+     "titulo": "Por que não se pode assobiar nos bastidores do teatro?",
+     "formato": "curiosidade"
+    }
+   ],
+   "correcoes_dos_checadores": [
+    "Roda Viva: 'Marília Pêra no lugar de Marieta Severo' (estava invertido); ataque de Porto Alegre sem mês falso; @marietaseveroo rebaixado (fan page)",
+    "Ícaro: reestreia corrigida para 16/05/2026; removido 'extinta' da Band",
+    "Apollonia: duas atribuições a Cailliau reajustadas às fontes",
+    "meia-entrada e assobio e Martin Guerre: confirmadas sem cortes"
+   ],
+   "descartadas": []
+  },
+  {
    "quando": "2026-07-25T13:50:00+00:00",
    "por": "Redação IA (Claude, rodada de 2 matérias do cardápio de sábado)",
    "buscas": [
