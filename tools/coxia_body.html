@@ -545,6 +545,10 @@
     white-space:nowrap; }
   .sug-selo.ok{ background:var(--ok); color:#fff; }
   .sug-selo.arq{ background:var(--paper-2); color:var(--ink-soft); border:1px solid var(--line); }
+  .sug-atrib{ display:inline-block; font-family:var(--mono); font-size:.6rem; letter-spacing:.04em;
+    padding:2px 8px; border:1.5px solid var(--gold); color:var(--wine); white-space:nowrap; margin-top:4px; }
+  html[data-theme="dark"] .sug-atrib, body.dark .sug-atrib{ color:var(--gold-hi, var(--gold)); }
+  .sug-atrib.meu{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
   .fr-views{ color:var(--wine); font-weight:700; }
   html[data-theme="dark"] .fr-views, body.dark .fr-views{ color:var(--gold-hi, var(--gold)); }
   /* revista */
@@ -1139,6 +1143,21 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       <button class="bt" type="button" id="prev-fechar">✕ Fechar</button></div>
     <div class="prev-body" id="prev-body"></div>
     <div class="prev-avisos" id="prev-avisos"></div>
+  </div>
+</div>
+
+<div class="cx-dlg" id="atrib-overlay" role="dialog" aria-modal="true" aria-label="Atribuir pauta">
+  <div class="cx-dlg-box">
+    <div class="cx-dlg-top">Atribuir pauta a alguém</div>
+    <p class="cx-dlg-msg" id="atrib-pauta" style="font-weight:800"></p>
+    <div class="cx-dlg-in"><label style="font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft)">Responsável</label>
+      <select id="atrib-autor" style="width:100%;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:inherit;padding:11px 12px;box-sizing:border-box;margin-top:5px"></select></div>
+    <div class="cx-dlg-in" style="margin-top:12px"><label style="font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft)">Prazo (opcional)</label>
+      <input type="date" id="atrib-prazo" style="margin-top:5px"></div>
+    <div class="cx-dlg-acoes">
+      <button class="bt" type="button" id="atrib-cancel">Cancelar</button>
+      <button class="bt ap" type="button" id="atrib-ok">Atribuir</button>
+    </div>
   </div>
 </div>
 
@@ -2082,6 +2101,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   document.addEventListener('keydown', function(e){
     if(e.key !== 'Escape') return;
     if(dlgResolve){ var temInput = $('dlg-in').style.display !== 'none'; dlgFecha(temInput ? null : false); return; }
+    var atrib = $('atrib-overlay'); if(atrib && atrib.classList.contains('on')){ atrib.classList.remove('on'); atribSid = null; return; }
     fechaOverlays();
   });
 
@@ -3434,12 +3454,16 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           : s.status === 'arquivada' ? '<span class="sug-selo arq">arquivada</span>' : '';
         var acoesChefe = ehChefe
           ? (s.status === 'aceita'
-              ? '<button class="bt" type="button" data-sug="reabrir" data-sid="' + esc(s.id) + '">↩ Reabrir</button>'
+              ? '<button class="bt" type="button" data-sug="reabrir" data-sid="' + esc(s.id) + '">↩ Reabrir</button>' +
+                '<button class="bt" type="button" data-atrib="' + esc(s.id) + '">👤 ' + (s.atribuida ? 'Reatribuir' : 'Atribuir') + '</button>'
               : '<button class="bt" type="button" data-sug="aceita" data-sid="' + esc(s.id) + '">✓ Aceitar</button>' +
+                '<button class="bt" type="button" data-atrib="' + esc(s.id) + '">👤 Atribuir</button>' +
                 '<button class="bt" type="button" data-sug="arquivada" data-sid="' + esc(s.id) + '">🗄 Arquivar</button>')
           : '';
+        var atrib = s.atribuida ? '<span class="sug-atrib' + (s.atribuida.para === USER.nome ? ' meu' : '') + '">📌 ' +
+          esc(s.atribuida.para) + (s.atribuida.prazo ? ' · prazo ' + s.atribuida.prazo.split('-').reverse().join('/') : '') + '</span>' : '';
         return '<div class="sug' + (s.status === 'arquivada' ? ' arq' : '') + '">' +
-          '<span style="flex:1">' + esc(s.texto) + ' ' + selo + '</span>' +
+          '<span style="flex:1">' + esc(s.texto) + ' ' + selo + ' ' + atrib + '</span>' +
           '<span class="sq">' + esc(s.quem) + ' — ' + rel(s.quando) + '</span>' +
           acoesChefe +
           (podeDel ? '<button class="bt danger" data-sdel="' + esc(s.id) + '" type="button" aria-label="Apagar sugestão">✕</button>' : '') +
@@ -3487,7 +3511,54 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       ghPut('import/coxia/sugestoes.json', JSON.stringify({ sugestoes: SUG.lista }, null, 1),
         assina('marca sugestão como ' + (novo || 'em aberto')), SUG.sha)
         .then(carregarSug).catch(function(err){ avisar(msgErro(err)); carregarSug(); });
+      return;
     }
+    if((b = e.target.closest('[data-atrib]'))){
+      if(USER.papel !== 'chefe') return;
+      abrirAtribuir(b.dataset.atrib);
+      return;
+    }
+  });
+
+  // ---- atribuir pauta a alguém, com prazo ----
+  var atribSid = null;
+  function abrirAtribuir(sid){
+    var s = (SUG.lista || []).filter(function(x){ return x.id === sid; })[0];
+    if(!s) return;
+    atribSid = sid;
+    $('atrib-pauta').textContent = s.texto;
+    var sel = $('atrib-autor');
+    carregarEquipe().then(function(eq){
+      var nomes = (eq.lista || []).map(function(u){ return u.nome; });
+      if(USER.nome && nomes.indexOf(USER.nome) < 0) nomes.unshift(USER.nome);
+      if(!nomes.length) nomes = [USER.nome || 'Redação'];
+      sel.innerHTML = nomes.map(function(n){ return '<option>' + esc(n) + '</option>'; }).join('');
+      if(s.atribuida && s.atribuida.para) sel.value = s.atribuida.para;
+      $('atrib-prazo').value = (s.atribuida && s.atribuida.prazo) || '';
+      $('atrib-overlay').classList.add('on');
+      setTimeout(function(){ sel.focus(); }, 30);
+    });
+  }
+  function fechaAtribuir(){ $('atrib-overlay').classList.remove('on'); atribSid = null; }
+  $('atrib-cancel').addEventListener('click', fechaAtribuir);
+  $('atrib-overlay').addEventListener('click', function(e){ if(e.target === this) fechaAtribuir(); });
+  $('atrib-ok').addEventListener('click', function(){
+    if(!atribSid) return;
+    if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão).'); return; }
+    var para = $('atrib-autor').value, prazo = $('atrib-prazo').value;
+    var sid = atribSid;
+    SUG.lista.forEach(function(s){
+      if(s.id === sid){
+        s.atribuida = { para: para, prazo: prazo || '', quando: new Date().toISOString(), por: USER.nome };
+        if(s.status !== 'aceita') s.status = 'aceita';
+      }
+    });
+    var b = $('atrib-ok'); b.disabled = true;
+    ghPut('import/coxia/sugestoes.json', JSON.stringify({ sugestoes: SUG.lista }, null, 1),
+      assina('atribui pauta a ' + para + (prazo ? ' (prazo ' + prazo + ')' : '')), SUG.sha)
+      .then(function(){ fechaAtribuir(); toast('Pauta atribuída a ' + para + ' ✓'); carregarSug(); })
+      .catch(function(err){ avisar(msgErro(err)); carregarSug(); })
+      .then(function(){ b.disabled = false; });
   });
 
   /* ================= MÉTRICAS (chefe) ================= */
