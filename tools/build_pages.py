@@ -49,10 +49,13 @@ def head(title, desc, og_img=None, og_type='website', og_url='', ld=''):
 <link rel="canonical" href="{url}">
 <link rel="alternate" type="application/rss+xml" title="FOYER — Últimas" href="{BASE}/feed.xml">
 <link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="preload" href="fonts/AbrilFatface-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Archivo-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/site.css">
 {ORG_LD}{ld}
 </head>
 <body>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 '''
 
 DEFS = '''<!-- artes de palco (placeholders de foto e capas da revista) -->
@@ -262,7 +265,7 @@ def page(fname, title, desc, current, body, quiet=False, og_img=None, og_type='w
 # ---------------------------------------------------------------- NOTÍCIAS
 
 noticias_body = band('Editoria', 'Notícias', 'Tudo o que acontece no teatro, na música e na cultura — atualizado o dia inteiro') + f'''
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="filters" aria-label="Filtrar por editoria">
     <a href="#" class="on">Todas</a><a href="#">Teatro</a><a href="#">Musicais</a><a href="#">Dança</a>
     <a href="#">Ópera</a><a href="#">Música</a><a href="#">Política cultural</a><a href="#">Mercado</a>
@@ -303,7 +306,7 @@ def crit(sym, score, stars, title, quote, meta):
     </article>'''
 
 critica_body = band('Editoria', 'Crítica', 'A redação assiste, pensa e assina — sem medo de opinião') + f'''
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="crit-grid">
 {crit('ph-2','9.1','★★★★★','Uma montagem que ousa reescrever o clássico — e acerta','“A leitura contemporânea encontra o texto sem trair a sua alma. É a produção mais corajosa do ano.”','Teatro — Estreia nacional')}
 {crit('ph-4','7.5','★★★★☆','O musical biográfico que canta melhor do que conta','“Números musicais impecáveis sustentam uma dramaturgia que ainda tropeça no segundo ato.”','Musical — Em cartaz em SP')}
@@ -332,7 +335,7 @@ def quote_card(sym, q, who, role):
     </article>'''
 
 entrevistas_body = band('Editoria', 'Entrevistas', 'Conversas longas com quem faz o palco acontecer') + f'''
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="quote-grid">
 {quote_card('ph-1','O palco é o único lugar onde eu digo a verdade inteira','Marina Villas','Atriz — em cartaz com A Cidade Cantada')}
 {quote_card('ph-3','O público do interior não é vitrine, é raiz','Téo Andrade','Diretor — turnê nacional 2026')}
@@ -354,7 +357,7 @@ def agd(day, month, what, meta, tag):
     </a>'''
 
 agenda_body = band('Serviço', 'Agenda', 'O que estreia, o que sai de cartaz e o que não dá para perder') + f'''
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="agd">
 {agd('24','Jul — Sex','Estreia: A Cidade Cantada','Theatro Municipal — São Paulo · 21h','Musical')}
 {agd('25','Jul — Sáb','Última sessão: Noturno','Teatro de Câmara — Rio de Janeiro · 20h','Teatro')}
@@ -422,7 +425,7 @@ programas_body = band('O canal', 'Os Programas', 'YouTube &amp; Spotify — novo
     </div>
   </div>
 </section>
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="sec-head">
     <h2>Últimos episódios</h2>
     <span class="note">Direto do canal</span>
@@ -447,7 +450,7 @@ def erow(nm, of, ct):
     </a>'''
 
 enciclopedia_body = band('Projeto Foyer', 'Enciclopédia do Teatro Musical Brasileiro', 'Memória viva — cada nome clicável leva à trajetória completa') + f'''
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="ency-stats">
     <div class="stat"><span class="n" data-v="312">0</span><span class="l">Espetáculos</span></div>
     <div class="stat"><span class="n" data-v="1240">0</span><span class="l">Artistas &amp; equipes</span></div>
@@ -502,7 +505,7 @@ def ed_card(sym, num, date, title, sum_, cover_title):
     </article>'''
 
 revista_body = band('Newsletter semanal', 'A Revista do Foyer', 'Toda sexta, uma edição fechada — como uma revista impressa, para ler na tela ou baixar') + f'''
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="rev-hero" id="assinar">
     <div class="rev-copy">
       <h2>Uma revista de verdade, entregue toda sexta</h2>
@@ -664,7 +667,7 @@ index_body = '''<!-- ===================== TICKER ===================== -->
 '''
 
 # nota: o masthead vem ANTES da nav na capa; o gerador da capa monta na ordem certa
-index_main = '''<main>
+index_main = '''<main id="conteudo">
 <section class="frontpage wrap">
   <div class="fp-grid">
     <article class="manchete">
@@ -875,7 +878,7 @@ coxia_body = open(os.path.join(ROOT, 'tools/coxia_body.html'), encoding='utf-8')
 
 # ---------------------------------------------------------------- MATÉRIA (modelo)
 
-materia_body = '''<main class="wrap">
+materia_body = '''<main id="conteudo" class="wrap">
 <article class="art">
   <div class="art-head">
     <div class="tags">
@@ -934,7 +937,7 @@ def credit(prod, fn, teatro, ano):
     </a>'''
 
 artista_body = band('Enciclopédia — Verbete', 'Marina Villas', 'Atriz · Cantora · Diretora musical — São Paulo, SP') + '''
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="ency-stats">
     <div class="stat"><span class="n" data-v="12">0</span><span class="l">Produções</span></div>
     <div class="stat"><span class="n" data-v="15">0</span><span class="l">Anos de carreira</span></div>
@@ -965,7 +968,7 @@ def ficha(fn, nome):
     </a>'''
 
 espetaculo_body = band('Enciclopédia — Espetáculo', 'A Cidade Cantada', 'Musical original — 2025 · Theatro Municipal, São Paulo') + '''
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="sec-head">
     <h2>Ficha técnica</h2>
     <span class="note">Cada nome é clicável — veja a trajetória completa</span>
@@ -987,7 +990,7 @@ ficha('Direção musical','Caio Bezerra') + '''
 # ---------------------------------------------------------------- BUSCA
 
 busca_body = band('Ferramenta', 'Buscar', 'Todo o acervo do Foyer — 1.514 matérias, artistas e espetáculos') + '''
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <form class="ency-search" style="border-top:var(--b); margin-top:26px" onsubmit="return false;">
     <input type="search" id="q" placeholder="Digite: espetáculo, artista, teatro…" aria-label="Buscar no site" autofocus>
     <button type="submit">Buscar</button>
@@ -1024,7 +1027,7 @@ busca_body = band('Ferramenta', 'Buscar', 'Todo o acervo do Foyer — 1.514 mat�
 # ---------------------------------------------------------------- PRIVACIDADE
 
 privacidade_body = band('Institucional', 'Política de Privacidade', 'Última atualização — julho de 2026') + '''
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="legal">
     <h2>Quem somos</h2>
     <p>O FOYER (foyer.digital) é um portal de jornalismo cultural dedicado ao teatro, à música e às artes no Brasil, com sede em São Paulo, SP.</p>
@@ -1294,12 +1297,12 @@ index_body = TICKER + '''
 </header>
 '''
 
-index_main = f'''<main>
+index_main = f'''<main id="conteudo">
 <section class="frontpage wrap">
   <div class="fp-grid">
     <article class="manchete">
       <a class="ph cover" href="post-{_p0['slug']}.html" aria-label="Foto da reportagem de capa">
-        <img src="{wiximg(_p0['img'])}" alt="" loading="eager" onerror="this.style.display='none'">
+        <img src="{wiximg(_p0['img'])}" alt="" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'">
         <span class="ph-cap">Foto — {safe(_cred_curto(_p0))}</span>
       </a>
       <div class="manchete-body">
@@ -1466,7 +1469,7 @@ def listing_body(posts, page, pages, base, titulo, nota, active='*'):
     chunk = posts[ini:ini+POR_PAGINA]
     grid = real_cell(chunk[0], big=True) + '\n' + '\n'.join(real_cell(x) for x in chunk[1:]) if chunk else ''
     return band('Editoria', titulo, nota) + f"""
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="filters" aria-label="Filtrar por editoria">
     {_filters(active)}
   </div>
@@ -1550,7 +1553,7 @@ def post_page(i, p):
     if len(rel) < 3:
         rel += [x for x in MATERIAS if x['slug'] != p['slug'] and x not in rel][:3-len(rel)]
     rel_cells = '\n'.join(real_cell(r) for r in rel)
-    return f"""<main class="wrap">
+    return f"""<main id="conteudo" class="wrap">
 <article class="art">
   <div class="art-head">
     <div class="tags">
@@ -1571,7 +1574,7 @@ def post_page(i, p):
   </div>
 
   <figure class="art-cover">
-    <span class="ph"><img src="{wiximg(p['img'])}" alt="{safe(p['title'])}" loading="eager" onerror="this.style.display='none'"></span>
+    <span class="ph"><img src="{wiximg(p['img'])}" alt="{safe(p['title'])}" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'"></span>
     <figcaption>{safe(cred_capa)}</figcaption>
   </figure>
 
@@ -2223,7 +2226,7 @@ def edicao_page(ed):
     corpo = '\n'.join(pgs)
     total = len(pgs)
     return (_RV_CSS + f'''
-<main class="rv-stage">
+<main id="conteudo" class="rv-stage">
 {corpo}
   <div class="rv-nav">
     <button type="button" id="rv-ant">← Anterior</button>
@@ -2357,7 +2360,7 @@ def revista_listagem():
 
 revista_body = band('Newsletter semanal', 'A Revista do Foyer',
                     'Toda sexta, uma edição fechada — como uma revista impressa, para ler na tela ou baixar') + f'''
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="rev-hero" id="assinar">
     <div class="rev-copy">
       <h2>Uma revista de verdade, entregue toda sexta</h2>
@@ -2429,7 +2432,7 @@ def pessoa_page(sp, p):
       <span class="agd-what"><h3 style="font-size:.95rem">{_rvesc(a['titulo'])}</h3></span>
       <span class="tag agd-tag">{tag}</span>
     </a>\n'''
-    return f'''<main class="wrap">
+    return f'''<main id="conteudo" class="wrap">
   <div class="art" style="max-width:900px; margin:0 auto">
     <div class="art-head" style="padding-top:30px">
       <div class="tags"><span class="tag wine">Enciclopédia do FOYER</span><span class="tag">{_papeis_resumo(aps)}</span></div>
@@ -2540,7 +2543,7 @@ if _yt_progs:
     </div>
   </div>
 </section>
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="sec-head">
     <h2>Últimos episódios</h2>
     <span class="note">Direto do canal</span>
@@ -2575,7 +2578,7 @@ if _yt_progs:
     _crit_mats = [p for p in MATERIAS if p.get('cat') == 'Crítica'][:12]
     _crit_cells = '\n'.join(real_cell(p) for p in _crit_mats)
     critica_body = band('Editoria', 'Crítica', 'A redação assiste, pensa e assina — sem medo de opinião') + f'''
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="sec-head">
     <h2>Crítica em vídeo</h2>
     <span class="note">Por Kyra Piscitelli — os espetáculos em cartaz, toda semana</span>
@@ -2618,7 +2621,7 @@ if _yt_progs:
   </div>
 '''
     entrevistas_body = band('Editoria', 'Entrevistas', 'Conversas longas com quem faz o palco acontecer') + f'''
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="sec-head">
     <h2>No Programa do Foyer</h2>
     <span class="note">O talk do canal — elencos, criadores e bastidores</span>
@@ -2699,7 +2702,7 @@ if not _agd_corpo:
                   'entram aqui sozinhas, e o que sai de cartaz some sozinho.</div>')
 
 agenda_body = band('Serviço', 'Agenda', 'O que está em cartaz, o que estreia e o que sai de cena, dia a dia') + f'''
-<main class="wrap">
+<main id="conteudo" class="wrap">
   {_agd_corpo}
   <div class="ad-slot" data-ad-slot="1701"></div>
   <div class="sec-head"><h2>Últimas coberturas de eventos</h2><span class="note">do noticiário do FOYER</span></div>
@@ -2729,7 +2732,7 @@ _eq_linhas = ''.join(
     for u in _EQ_PUB)
 _n_eps = sum(len(p.get('videos', [])) for p in YT.get('programas', []))
 sobre_body = band('O Foyer', 'Quem somos', 'Seu veículo de informação artístico') + f'''
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="art" style="max-width:820px; margin:0 auto">
     <div class="art-body" style="padding-top:34px">
       <p class="drop">O FOYER é um veículo de comunicação artístico — um destino online dedicado à cultura, à criatividade e à expressão artística. Nossa missão é proporcionar uma plataforma dinâmica onde artistas, entusiastas da arte e curiosos possam se conectar, explorar e se inspirar.</p>
@@ -2755,7 +2758,7 @@ _fones = ''.join(
     f'<p><b>{_rvesc(t["nome"])}</b> — {_rvesc(t["papel"])}<br>☎ {_rvesc(t["fone"])}</p>'
     for t in _CFG.get('telefones', []))
 contato_body = band('Fale conosco', 'Contato', 'Quer saber mais sobre o Foyer, sugerir uma pauta ou deixar uma mensagem?') + f'''
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="art" style="max-width:820px; margin:0 auto">
     <div class="art-body" style="padding-top:34px">
       <h2>Fale com a gente</h2>
@@ -2801,7 +2804,7 @@ _capa_enc += '</div>'
 index_main = index_main.replace('__ENCICLOPEDIA_CAPA__', _capa_enc)
 
 enciclopedia_body = band('Projeto Foyer', 'Enciclopédia do FOYER', 'Todas as pessoas que passaram pelas matérias e pelos programas — cada nome clicável leva ao histórico completo') + f'''
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="ency-stats">
     <div class="stat"><span class="n" data-v="{len(PESSOAS)}">0</span><span class="l">Pessoas mapeadas</span></div>
     <div class="stat"><span class="n" data-v="{len(MATERIAS)}">0</span><span class="l">Matérias no acervo</span></div>
@@ -2931,7 +2934,7 @@ page('busca.html', 'Buscar — FOYER', 'Busque matérias, críticas, artistas e 
 page('sobre.html', 'Quem somos — FOYER', 'O FOYER: portal de jornalismo cultural e canal de programas sobre teatro, música e artes.', 'index.html', sobre_body)
 page('contato.html', 'Contato — FOYER', 'Fale com a redação do FOYER: pautas, imprensa, parcerias e publicidade.', 'index.html', contato_body)
 principios_body = band('Institucional', 'Princípios Editoriais', 'Como o FOYER apura, escreve e corrige') + '''
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="art" style="max-width:820px; margin:0 auto">
     <div class="art-body" style="padding-top:34px">
       <h2>O que publicamos</h2>
@@ -2954,7 +2957,7 @@ page('principios.html', 'Princípios Editoriais — FOYER', 'Como o FOYER apura,
 page('privacidade.html', 'Política de Privacidade — FOYER', 'Política de privacidade e cookies do FOYER.', 'privacidade.html', privacidade_body)
 
 descadastrar_body = band('Newsletter', 'Descadastrar', 'Sair da lista da Revista do FOYER') + '''
-<main class="wrap">
+<main id="conteudo" class="wrap">
   <div class="legal">
     <div id="desc-estado"><p>Confirmando o seu descadastro…</p></div>
     <p style="margin-top:24px"><a href="index.html">Voltar para a capa do FOYER</a></p>
@@ -3048,7 +3051,7 @@ with open(os.path.join(ROOT, 'coxia.html'), 'w') as f:
 print('•', 'coxia/index.html', len(coxia_html)//1024, 'KB')
 
 nf_body = band('Erro 404', 'Esta página saiu de cartaz', 'O endereço não existe — mas o espetáculo continua') + '''
-<main class="wrap" style="padding-bottom:40px">
+<main id="conteudo" class="wrap" style="padding-bottom:40px">
   <div class="filters" style="padding-top:28px">
     <a href="index.html" class="on">← Voltar à capa</a>
     <a href="noticias.html">Notícias</a>
