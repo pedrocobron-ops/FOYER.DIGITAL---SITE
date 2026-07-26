@@ -728,6 +728,26 @@
                 <input type="file" id="up-file" accept="image/*">
               </div>
               <input type="text" id="f-cred" placeholder="Crédito da foto — ex.: Foto: João Silva/Divulgação" style="margin-top:8px">
+              <div class="r2" style="margin-top:8px">
+                <div><input type="text" id="f-imgfonte" placeholder="Origem da foto (link) — de onde ela saiu"></div>
+                <div>
+                  <select id="f-imgdir" style="width:100%;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:var(--mono);padding:10px 12px">
+                    <option value="">Direito da imagem…</option>
+                    <option value="Divulgação">Divulgação da produção coberta</option>
+                    <option value="Creative Commons / domínio público">Creative Commons / domínio público</option>
+                    <option value="Foto própria">Foto própria (nossa)</option>
+                  </select>
+                </div>
+              </div>
+              <p class="f-note" style="margin:6px 0 0">Só entra foto de divulgação da produção coberta, de Creative Commons/domínio público (com crédito e licença) ou nossa. Nunca de agência.</p>
+            </div>
+            <div>
+              <label for="f-fontes">Fontes de apuração (uma por linha — links, releases, quem falou)</label>
+              <textarea id="f-fontes" rows="4" placeholder="Cole aqui o que sustenta a matéria — uma fonte por linha.
+https://site-oficial-da-producao.com
+Release da assessoria (recebido em 20/07)
+Entrevista com o diretor em 21/07"></textarea>
+              <p class="f-note" style="margin:6px 0 0">O chefe vê estas fontes na hora de aprovar. Ajuda a checar sem partir do zero.</p>
             </div>
             <div>
               <label for="f-body">Texto</label>
@@ -1731,14 +1751,15 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     clearTimeout(rascTimer);
     rascTimer = setTimeout(function(){
       var d = { title: $('f-title').value, cat: $('f-cat').value, cats: colherCats(), corpo: $('f-body').value,
-                cred: $('f-cred').value, temFoto: !!CAPA,
+                cred: $('f-cred').value, imgfonte: $('f-imgfonte').value, imgdir: $('f-imgdir').value,
+                fontes: $('f-fontes').value, temFoto: !!CAPA,
                 ev: { ini: $('f-ev-ini').value, fim: $('f-ev-fim').value,
                       local: $('f-ev-local').value, cidade: $('f-ev-cidade').value },
                 quando: new Date().toISOString() };
       if(d.title || d.corpo){ try{ localStorage.setItem(RASC_K, JSON.stringify(d)); }catch(e){} }
     }, 800);
   }
-  ['f-title', 'f-body', 'f-cred', 'f-cat', 'f-cat2', 'f-cat3', 'f-ev-ini', 'f-ev-fim', 'f-ev-local', 'f-ev-cidade']
+  ['f-title', 'f-body', 'f-cred', 'f-imgfonte', 'f-imgdir', 'f-fontes', 'f-cat', 'f-cat2', 'f-cat3', 'f-ev-ini', 'f-ev-fim', 'f-ev-local', 'f-ev-cidade']
     .forEach(function(id){ var el = $(id); if(el) el.addEventListener('input', salvarRasc); el && el.addEventListener('change', salvarRasc); });
   function limparRasc(){ try{ localStorage.removeItem(RASC_K); }catch(e){} $('rasc-aviso').classList.remove('on'); $('bdg-rasc').style.display = 'none'; }
   function checarRasc(){
@@ -1751,6 +1772,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           $('f-title').value = d.title || ''; $('f-cat').value = d.cat || 'Teatro';
           aplicarCats(d.cats);
           $('f-body').value = d.corpo || ''; $('f-cred').value = d.cred || '';
+          $('f-imgfonte').value = d.imgfonte || ''; $('f-imgdir').value = d.imgdir || '';
+          $('f-fontes').value = d.fontes || '';
           if(d.ev){ $('f-ev-ini').value = d.ev.ini || ''; $('f-ev-fim').value = d.ev.fim || '';
             $('f-ev-local').value = d.ev.local || ''; $('f-ev-cidade').value = d.ev.cidade || ''; }
           statusTexto(); $('rasc-aviso').classList.remove('on'); $('bdg-rasc').style.display = 'none'; irPara('nova');
@@ -1926,6 +1949,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     return { inicio: ini, fim: $('f-ev-fim').value || '',
              local: $('f-ev-local').value.trim(), cidade: $('f-ev-cidade').value.trim() };
   }
+  function colherFontes(){
+    return ($('f-fontes').value || '').split(/\r?\n/)
+      .map(function(s){ return s.trim(); }).filter(Boolean);
+  }
   // editorias secundárias: os selects copiam as opções da principal
   [].forEach.call(['f-cat2','f-cat3'], function(id){
     var sel = $(id);
@@ -1990,6 +2017,9 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         pac.img = imgPath || EDIT.img; pac.imgCredito = $('f-cred').value.trim();
         pac.corpo = corpo; pac.editadoPor = USER.nome;
         pac.status = 'aguardando_aprovacao';
+        pac.fontes = colherFontes();
+        var _pif = $('f-imgfonte').value.trim(); if(_pif) pac.imgFonte = _pif; else delete pac.imgFonte;
+        var _pid = $('f-imgdir').value.trim(); if(_pid) pac.imgDireito = _pid; else delete pac.imgDireito;
         delete pac.devolucao;  // reenviada: volta limpa para a mesa
         pac.cats = colherCats();
         var evM = colherEvento();
@@ -2007,11 +2037,14 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           atualizadoEm: new Date().toISOString(),
           origem: EDIT.origem, editadoPor: USER.nome
         };
-        // preserva o que a edição não mexe (post de Instagram, origem da foto, checagem)
+        // preserva o que a edição não mexe (post de Instagram, checagem)
         var o = EDIT.orig || {};
         if(o.instagram) edicao.instagram = o.instagram;
-        if(o.imgFonte) edicao.imgFonte = o.imgFonte;
         if(o.checagem) edicao.checagem = o.checagem;
+        // origem da foto, direito e fontes: agora ficam no formulário, então recolhe de lá
+        var eif = $('f-imgfonte').value.trim(); if(eif) edicao.imgFonte = eif;
+        var eid = $('f-imgdir').value.trim(); if(eid) edicao.imgDireito = eid;
+        var efo = colherFontes(); if(efo.length) edicao.fontes = efo;
         edicao.cats = colherCats();
         var evE = colherEvento();
         if(evE) edicao.evento = evE;
@@ -2031,6 +2064,9 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           criadoEm: new Date().toISOString(), criadoPor: USER.nome
         };
         dados.cats = colherCats();
+        var cif = $('f-imgfonte').value.trim(); if(cif) dados.imgFonte = cif;
+        var cid = $('f-imgdir').value.trim(); if(cid) dados.imgDireito = cid;
+        var cfo = colherFontes(); if(cfo.length) dados.fontes = cfo;
         var evN = colherEvento();
         if(evN) dados.evento = evN;
         return ghPut('import/novas/' + slug + '.json', JSON.stringify(dados, null, 1),
@@ -2042,11 +2078,13 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         cat: $('f-cat').value,
         author: USER.nome,
         img: imgPath, imgCredito: $('f-cred').value.trim(),
-        corpo: corpo, fontes: [],
+        corpo: corpo, fontes: colherFontes(),
         status: 'aguardando_aprovacao', origem: 'autor',
         sugestaoPublishAt: quando === 'agendar' ? publishAt : '',
         geradoEm: new Date().toISOString(), criadoPor: USER.nome
       };
+      var _if = $('f-imgfonte').value.trim(); if(_if) pacote.imgFonte = _if;
+      var _id = $('f-imgdir').value.trim(); if(_id) pacote.imgDireito = _id;
       pacote.cats = colherCats();
       var evP = colherEvento();
       if(evP) pacote.evento = evP;
@@ -2429,10 +2467,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             ? '<div class="mesa-fontes"><b style="font-family:var(--mono);font-size:.54rem;letter-spacing:.1em;text-transform:uppercase">Fontes apuradas:</b><br>' +
               d.fontes.map(function(u){ return '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(u) + '</a>'; }).join('<br>') + '</div>'
             : '';
+          var dirBadge = d.imgDireito ? ' · <b>' + esc(d.imgDireito) + '</b>' : '';
           var credLinha = d.imgCredito
             ? (d.imgFonte && /^https?:/.test(d.imgFonte)
-                ? '<span class="mesa-cred">' + esc(d.imgCredito) + ' · <a href="' + esc(urlSegura(d.imgFonte)) + '" target="_blank" rel="noopener">ver origem da foto ↗</a></span>'
-                : '<span class="mesa-cred">' + esc(d.imgCredito) + '</span>')
+                ? '<span class="mesa-cred">' + esc(d.imgCredito) + dirBadge + ' · <a href="' + esc(urlSegura(d.imgFonte)) + '" target="_blank" rel="noopener">ver origem da foto ↗</a></span>'
+                : '<span class="mesa-cred">' + esc(d.imgCredito) + dirBadge + '</span>')
             : '';
           var capa = d.img
             ? '<div class="mesa-capa"><img src="' + esc(d.img) + '" alt="" data-p="' + esc(d.img) + '" ' +
@@ -2440,7 +2479,14 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
               credLinha + '</div>'
             : '<div class="mesa-semfoto">⚠ Sem foto de capa — suba uma antes de aprovar</div>';
           var chk = d.checagem;
-          var checagem = ehAutor ? ''
+          var nFontes = (d.fontes && d.fontes.length) || 0;
+          var apuracaoAutor = '<div class="mesa-checa' + (nFontes ? '' : ' semcheca') + '">' +
+            '<b>Apuração da equipe</b>' +
+            '<br>Foto: ' + (d.imgDireito ? esc(d.imgDireito) : '<i>direito não informado</i>') +
+              (d.imgFonte && /^https?:/.test(d.imgFonte) ? ' · <a href="' + esc(urlSegura(d.imgFonte)) + '" target="_blank" rel="noopener">origem ↗</a>' : '') +
+            '<br>' + (nFontes ? nFontes + ' fonte' + (nFontes > 1 ? 's' : '') + ' de apuração (abra abaixo)' : '⚠ Sem fontes de apuração declaradas — confira antes de aprovar') +
+            '</div>';
+          var checagem = ehAutor ? apuracaoAutor
             : (chk && chk.verificada
               ? '<div class="mesa-checa"><b>✓ Conferido pelo checador independente</b>' +
                 (chk.por ? ' <span class="ck-por">' + esc(chk.por) + '</span>' : '') +
@@ -2578,6 +2624,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(d.cats && d.cats.length) dados.cats = d.cats;
     if(d.instagram) dados.instagram = d.instagram;
     if(d.imgFonte) dados.imgFonte = d.imgFonte;
+    if(d.imgDireito) dados.imgDireito = d.imgDireito;
+    if(d.fontes && d.fontes.length) dados.fontes = d.fontes;
     if(d.evento) dados.evento = d.evento;
     ghPut('import/novas/' + slug + '.json', JSON.stringify(dados, null, 1),
           assina('aprova "' + d.title + '"' + (d.origem === 'autor' ? ' (matéria de ' + (d.criadoPor || d.author) + ')' : ' (Redação IA)')))
@@ -2847,6 +2895,9 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     }
     sel.value = dados.author || 'Redação Foyer';
     $('f-cred').value = dados.imgCredito || '';
+    $('f-imgfonte').value = dados.imgFonte || '';
+    $('f-imgdir').value = dados.imgDireito || '';
+    $('f-fontes').value = (dados.fontes && dados.fontes.length) ? dados.fontes.join('\n') : '';
     $('f-body').value = dados.corpo || '';
     var ev = dados.evento || {};
     $('f-ev-ini').value = ev.inicio || '';
