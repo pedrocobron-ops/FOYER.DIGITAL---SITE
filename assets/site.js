@@ -121,6 +121,9 @@
     url: 'https://jcaqjlrzmrtzjyfbljxh.supabase.co',
     key: 'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB'
   };
+  // não medir: a Coxia (ferramenta interna) nem quem é da casa (equipe logada neste navegador)
+  if(/\/coxia\//.test(location.pathname)) return;
+  try{ if(localStorage.getItem('foyer-equipe') === '1') return; }catch(e){}
   function consent(){ try{ return localStorage.getItem('foyer-consent') || ''; }catch(e){ return ''; } }
   function sid(){
     try{

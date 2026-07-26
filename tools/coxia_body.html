@@ -1312,6 +1312,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   function abrir(){
     $('gate').style.display = 'none';
     $('app').classList.add('on');
+    // marca este navegador como "da casa": as visitas da equipe ao site não entram na audiência
+    try{ localStorage.setItem('foyer-equipe', '1'); }catch(e){}
     aplicarUsuario();
     initToken();
     carregarPalco();
