@@ -233,7 +233,7 @@
       method: 'POST',
       headers: { 'apikey': M.key, 'Authorization': 'Bearer ' + M.key,
                  'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
-      body: JSON.stringify({ nome: nome.trim(), email: email.trim().toLowerCase() })
+      body: JSON.stringify({ nome: nome.trim(), email: email.trim().toLowerCase(), consent: true })
     }).then(function(r){
       if(r.ok || r.status === 409){
         ok.textContent = r.status === 409

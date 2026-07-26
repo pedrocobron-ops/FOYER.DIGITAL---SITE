@@ -2953,6 +2953,30 @@ principios_body = band('Institucional', 'Princípios Editoriais', 'Como o FOYER 
 page('principios.html', 'Princípios Editoriais — FOYER', 'Como o FOYER apura, escreve, credita imagens e corrige: os princípios editoriais da casa.', 'principios.html', principios_body)
 page('privacidade.html', 'Política de Privacidade — FOYER', 'Política de privacidade e cookies do FOYER.', 'privacidade.html', privacidade_body)
 
+descadastrar_body = band('Newsletter', 'Descadastrar', 'Sair da lista da Revista do FOYER') + '''
+<main class="wrap">
+  <div class="legal">
+    <div id="desc-estado"><p>Confirmando o seu descadastro…</p></div>
+    <p style="margin-top:24px"><a href="index.html">Voltar para a capa do FOYER</a></p>
+  </div>
+</main>
+<script>
+(function(){
+  var M = { url:'https://jcaqjlrzmrtzjyfbljxh.supabase.co', key:'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB' };
+  var t = new URLSearchParams(location.search).get('t');
+  var el = document.getElementById('desc-estado');
+  if(!t){ el.innerHTML = '<h2>Link incompleto</h2><p>Use o link de descadastro que veio no rodapé do e-mail.</p>'; return; }
+  fetch(M.url + '/rest/v1/rpc/foyer_nl_descadastrar', {
+    method:'POST', headers:{ 'apikey':M.key, 'Authorization':'Bearer '+M.key, 'Content-Type':'application/json' },
+    body: JSON.stringify({ t: t })
+  }).then(function(r){ return r.json(); }).then(function(d){
+    if(d && d.ok){ el.innerHTML = '<h2>Pronto, você saiu da lista</h2><p>Não vamos mais enviar a Revista do FOYER para <b>' + (d.email||'') + '</b>. Sentiremos sua falta. Se mudar de ideia, é só assinar de novo no site.</p>'; }
+    else { el.innerHTML = '<h2>Não encontramos esse cadastro</h2><p>Talvez você já tenha saído da lista. Se precisar, fale com a gente pela página de <a href="contato.html">contato</a>.</p>'; }
+  }).catch(function(){ el.innerHTML = '<h2>Não deu agora</h2><p>Tente de novo em instantes, ou fale com a gente pela página de <a href="contato.html">contato</a>.</p>'; });
+})();
+</script>'''
+page('descadastrar.html', 'Descadastrar — Revista do FOYER', 'Sair da lista de e-mails da Revista do FOYER.', 'descadastrar.html', descadastrar_body)
+
 def _ld_materia(p):
     img = wiximg(p['img'], 1200, 630) if p['img'] else f'{BASE}/assets/logo/src/foyer-banner.png'
     if not img.startswith('http'):

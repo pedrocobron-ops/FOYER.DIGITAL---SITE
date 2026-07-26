@@ -671,7 +671,7 @@
         <h2 class="hi" id="saudacao">Boa noite</h2>
         <p class="hi-sub">O panorama do FOYER neste momento</p>
         <div class="stats">
-          <div class="stat"><b>1525</b><span>matérias no acervo</span></div>
+          <div class="stat"><b>1530</b><span>matérias no acervo</span></div>
           <div class="stat"><b id="st-pub">—</b><span>publicadas pela Coxia</span></div>
           <div class="stat"><b id="st-ag">—</b><span>agendadas esperando a hora</span></div>
           <div class="stat" id="card-mesa"><b id="st-mesa">—</b><span>na mesa de aprovação</span></div>
@@ -975,6 +975,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             <span style="flex:1"></span>
             <button class="bt" type="button" id="rv-salvar">💾 Salvar rascunho</button>
             <button class="bt ap" type="button" id="rv-publicar" style="background:var(--wine);color:var(--gold);border-color:var(--wine)">🚀 Publicar edição</button>
+            <button class="bt" type="button" id="rv-enviar" style="display:none">📧 Enviar aos assinantes</button>
             <button class="bt" type="button" id="rv-fechar">↩ Fechar</button>
           </div>
 
@@ -3470,6 +3471,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     $('rv-status').textContent = ed.status;
     $('rv-status').className = 'pill ' + (ed.status === 'publicada' ? 'pb' : 'ag');
     $('rv-publicar').textContent = ed.status === 'publicada' ? '📥 Despublicar' : '🚀 Publicar edição';
+    $('rv-enviar').style.display = ed.status === 'publicada' ? 'inline-flex' : 'none';
     $('rv-titulo').value = ed.titulo || '';
     $('rv-data').value = ed.dataEdicao || '';
     $('rv-manchete').value = (ed.capa && ed.capa.manchete) || '';
@@ -3730,6 +3732,55 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(RV.ed && RV.mexeu && !confirm('Você tem alterações não salvas nesta edição. Fechar mesmo assim? (o que não foi salvo se perde)')) return;
     $('rv-editor').style.display = 'none';
     RV.ed = null; RV.sha = null; RV.mexeu = false;
+  });
+
+  // ---- envio da edição aos assinantes (Brevo, via Edge Function) ----
+  var NL_CHAVE = 'foyer-nl-terceiro-sinal-2026';
+  function contarAssinantes(){
+    return fetch(RKC.url + '/rest/v1/foyer_newsletter?select=id&ativo=eq.true', {
+      headers: { 'apikey': RKC.key, 'Authorization': 'Bearer ' + RKC.key, 'Prefer': 'count=exact', 'Range': '0-0' }
+    }).then(function(r){
+      var cr = r.headers.get('content-range') || '';
+      var m = cr.match(/\/(\d+)$/); return m ? Number(m[1]) : 0;
+    }).catch(function(){ return null; });
+  }
+  function enviarEdicao(teste){
+    var ed = RV.ed; if(!ed) return;
+    var RB = 'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/';
+    var capa = (ed.capa && ed.capa.img) ? (/^https?:/.test(ed.capa.img) ? ed.capa.img : RB + ed.capa.img) : '';
+    var payload = {
+      chave: NL_CHAVE,
+      assunto: 'Revista do FOYER · Edição Nº ' + ed.numero + (ed.titulo ? ' — ' + ed.titulo : ''),
+      edicao: { numero: ed.numero, titulo: ed.titulo || ('Edição Nº ' + ed.numero),
+                manchete: (ed.capa && ed.capa.manchete) || '', capa: capa,
+                url: 'https://foyer.digital/revista.html' },
+      teste: teste || undefined
+    };
+    var msg = $('rv-msg'); msg.className = 'msg'; msg.textContent = teste ? 'Enviando teste…' : 'Enviando para os assinantes…';
+    return fetch(RKC.url + '/functions/v1/enviar-revista', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+    }).then(function(r){ return r.json(); }).then(function(res){
+      if(res.pendente){ msg.className='msg err'; msg.textContent='Falta configurar a chave do Brevo no Supabase (secret BREVO_KEY). Assim que você criar a conta, me passe a chave que eu ligo.'; return; }
+      if(res.erro){ msg.className='msg err'; msg.textContent='Não deu: ' + res.erro; return; }
+      msg.className='msg ok';
+      msg.textContent = teste ? ('Teste enviado ✓ (' + res.enviados + ') — confira sua caixa')
+        : ('Enviada aos assinantes ✓ — ' + res.enviados + ' entregue(s)' + (res.falhas ? ', ' + res.falhas + ' falha(s)' : ''));
+    }).catch(function(){ msg.className='msg err'; msg.textContent='Não deu para enviar agora. Tente de novo.'; });
+  }
+  $('rv-enviar').addEventListener('click', function(){
+    if(!RV.ed) return;
+    contarAssinantes().then(function(n){
+      var qtd = (n == null) ? '?' : n;
+      if(n === 0){ alert('Ainda não há assinantes ativos. Quando alguém assinar a revista no site, a lista aparece aqui.'); return; }
+      var op = prompt('Enviar a Edição Nº ' + RV.ed.numero + ' para ' + qtd + ' assinante(s)?\n\n' +
+        'Digite ENVIAR para disparar para todos,\n' +
+        'ou um e-mail para mandar só um TESTE para você antes.', 'ENVIAR');
+      if(op === null) return;
+      op = op.trim();
+      if(op.toUpperCase() === 'ENVIAR') enviarEdicao(null);
+      else if(op.indexOf('@') > 0) enviarEdicao(op.toLowerCase());
+      else { alert('Cancelado. Digite ENVIAR ou um e-mail de teste.'); }
+    });
   });
 })();
 </script>
