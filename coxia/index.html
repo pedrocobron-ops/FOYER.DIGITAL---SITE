@@ -351,6 +351,15 @@
   .mesa-lote input[type=datetime-local]{ border:1.5px solid var(--line); background:var(--paper);
     color:var(--ink); font-family:var(--mono); padding:8px 10px; font-size:.7rem; }
   .mesa-lote button:disabled{ opacity:.45; cursor:not-allowed; }
+  .acervo-filtros{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .acervo-filtros input[type=search]{ flex:1; min-width:200px; }
+  .acervo-filtros input, .acervo-filtros select{ border:1.5px solid var(--line); background:var(--paper-2);
+    color:var(--ink); font-family:inherit; padding:10px 12px; }
+  .acervo-filtros label{ font-family:var(--mono); font-size:.6rem; text-transform:uppercase;
+    letter-spacing:.06em; color:var(--ink-soft); display:flex; align-items:center; gap:6px; }
+  .acervo-filtros label input{ font-family:var(--mono); }
+  .af-conta{ font-family:var(--mono); font-size:.62rem; color:var(--ink-soft); margin-top:8px;
+    text-transform:uppercase; letter-spacing:.06em; }
   .mesa-pick{ display:flex; align-items:center; padding-top:2px; cursor:pointer; }
   .mesa-pick input{ width:20px; height:20px; accent-color:var(--wine); cursor:pointer; }
   .mesa-pick input:disabled{ cursor:not-allowed; }
@@ -872,10 +881,16 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           <div class="fila" id="lix-list"><div class="vazio-box">Carregando…</div></div>
         </div>
         <div id="acervo-box">
-          <div class="sec-h"><h3>Editar matéria do acervo</h3><span>busque entre todas as matérias publicadas — a edição sai com o selo "atualizada"</span></div>
-          <form id="acervo-form" style="display:flex;gap:8px" onsubmit="return false">
-            <input type="search" id="acervo-q" placeholder="Busque pelo título da matéria…" style="flex:1;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:inherit;padding:11px 12px">
+          <div class="sec-h"><h3>Buscar no acervo</h3><span>procure entre todas as matérias publicadas por título, autor, editoria e período — a edição sai com o selo "atualizada"</span></div>
+          <form id="acervo-form" class="acervo-filtros" onsubmit="return false">
+            <input type="search" id="acervo-q" placeholder="Busque por título ou trecho…">
+            <select id="acervo-autor" aria-label="Filtrar por autor"><option value="">Todos os autores</option></select>
+            <select id="acervo-cat" aria-label="Filtrar por editoria"><option value="">Todas as editorias</option></select>
+            <label class="af-de">de <input type="date" id="acervo-de" aria-label="Data inicial"></label>
+            <label class="af-ate">até <input type="date" id="acervo-ate" aria-label="Data final"></label>
+            <button class="bt" type="button" id="acervo-limpar">limpar</button>
           </form>
+          <div id="acervo-cont" class="af-conta"></div>
           <div class="fila" id="acervo-res" style="margin-top:10px;display:none"></div>
         </div>
       </section>
@@ -3069,22 +3084,65 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       .then(function(d){ MATS_ACERVO = d; return d; });
   }
   function normTxt(t){ return t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
-  $('acervo-q').addEventListener('input', function(){
-    var v = normTxt(this.value.trim()), res = $('acervo-res');
-    if(v.length < 3){ res.style.display = 'none'; return; }
+  var acervoFiltrosProntos = false;
+  function preparaFiltrosAcervo(mats){
+    if(acervoFiltrosProntos) return;
+    acervoFiltrosProntos = true;
+    var autores = {}, cats = {};
+    mats.forEach(function(m){ if(m.author) autores[m.author] = 1; if(m.cat) cats[m.cat] = 1; });
+    var selA = $('acervo-autor'), selC = $('acervo-cat');
+    Object.keys(autores).sort(function(a,b){ return a.localeCompare(b, 'pt'); })
+      .forEach(function(a){ selA.insertAdjacentHTML('beforeend', '<option>' + esc(a) + '</option>'); });
+    Object.keys(cats).sort(function(a,b){ return a.localeCompare(b, 'pt'); })
+      .forEach(function(c){ selC.insertAdjacentHTML('beforeend', '<option>' + esc(c) + '</option>'); });
+  }
+  function buscaAcervo(){
+    var v = normTxt($('acervo-q').value.trim());
+    var autor = $('acervo-autor').value, cat = $('acervo-cat').value;
+    var de = $('acervo-de').value, ate = $('acervo-ate').value;
+    var res = $('acervo-res'), cont = $('acervo-cont');
+    var temFiltro = v.length >= 2 || autor || cat || de || ate;
+    if(!temFiltro){ res.style.display = 'none'; cont.textContent = ''; return; }
     acervoTodos().then(function(mats){
-      var hits = [];
-      for(var i = 0; i < mats.length && hits.length < 12; i++)
-        if(normTxt(mats[i].title).indexOf(v) !== -1) hits.push(mats[i]);
+      preparaFiltrosAcervo(mats);
+      var hits = mats.filter(function(m){
+        if(v && normTxt(m.title + ' ' + (m.desc || '')).indexOf(v) === -1) return false;
+        if(autor && m.author !== autor) return false;
+        if(cat && m.cat !== cat) return false;
+        var iso = m.iso || '';
+        if(de && (!iso || iso < de)) return false;
+        if(ate && (!iso || iso > ate)) return false;
+        return true;
+      });
+      var total = hits.length;
+      hits = hits.slice(0, 40);
       res.style.display = 'block';
+      cont.textContent = total ? (total > 40 ? 'Mostrando 40 de ' + total + ' matérias' : total + ' matéria' + (total > 1 ? 's' : '')) : '';
       res.innerHTML = hits.length ? hits.map(function(m){
         return '<div class="frow" style="grid-template-columns:1fr auto">' +
           '<span><span class="ti">' + esc(m.title) + '</span>' +
           '<span class="mt">' + esc(m.cat) + ' — ' + esc(m.author) + ' — ' + esc(m.date || '') + '</span></span>' +
           '<button class="bt" data-edta="' + esc(m.slug) + '" type="button">✎ Editar</button></div>';
-      }).join('') : '<div class="vazio-box">Nada encontrado com esse título</div>';
+      }).join('') : '<div class="vazio-box">Nenhuma matéria com esses filtros</div>';
     });
+  }
+  ['acervo-q', 'acervo-autor', 'acervo-cat', 'acervo-de', 'acervo-ate'].forEach(function(id){
+    var el = $(id); if(!el) return;
+    el.addEventListener('input', buscaAcervo);
+    el.addEventListener('change', buscaAcervo);
   });
+  (function(){
+    var lim = $('acervo-limpar');
+    if(lim) lim.addEventListener('click', function(){
+      ['acervo-q', 'acervo-autor', 'acervo-cat', 'acervo-de', 'acervo-ate'].forEach(function(id){ var el = $(id); if(el) el.value = ''; });
+      $('acervo-res').style.display = 'none'; $('acervo-cont').textContent = '';
+    });
+  })();
+  // popular os selects assim que a Fila abrir (sem esperar a primeira digitação)
+  (function(){
+    var mi = document.querySelector('[data-view="fila"]');
+    if(mi) mi.addEventListener('click', function(){ acervoTodos().then(preparaFiltrosAcervo); });
+  })();
 
   document.addEventListener('click', function(e){
     var b;
