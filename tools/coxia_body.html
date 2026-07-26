@@ -269,6 +269,19 @@
   .gs-furo{ font-family:var(--sans); font-size:.72rem; color:var(--err); font-weight:700; }
   .gs-vazio{ color:var(--ink-soft); }
   .gs-rev{ font-style:normal; }
+  .gs-ef{ display:block; font-family:var(--mono); font-size:.56rem; letter-spacing:.03em;
+    color:var(--wine); line-height:1.3; }
+  html[data-theme="dark"] .gs-ef, body.dark .gs-ef{ color:var(--gold-hi, var(--gold)); }
+  .gs-pauta{ display:block; font-family:var(--sans); font-size:.68rem; line-height:1.3;
+    border-left:2px dashed var(--gold); padding-left:5px; color:var(--ink-soft); margin-top:2px; }
+  .gs-pauta small{ font-family:var(--mono); font-size:.9em; color:var(--wine); }
+  html[data-theme="dark"] .gs-pauta small, body.dark .gs-pauta small{ color:var(--gold-hi, var(--gold)); }
+  #gs-aceitas{ margin-top:12px; }
+  .gs-aceitas-cab{ font-family:var(--mono); font-size:.58rem; text-transform:uppercase; letter-spacing:.08em;
+    color:var(--ink-soft); margin-bottom:6px; }
+  .gs-chip{ display:inline-block; font-family:var(--sans); font-size:.72rem; border:1.5px dashed var(--gold);
+    padding:4px 9px; margin:0 6px 6px 0; }
+  .gs-chip small{ font-family:var(--mono); color:var(--ink-soft); }
   @media (max-width:820px){ .gs-grid{ grid-template-columns:repeat(2,1fr); }
     .gs-dia{ min-height:auto; } }
   /* bloco de agendadas no topo da fila */
@@ -2399,6 +2412,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             '</div>';
         }).join('');
         preencherViews();
+        if(podeEditar()) enriquecerGrade();
       });
     }).catch(function(e){
       el.innerHTML = '<div class="vazio-box">Não deu para carregar a fila. ' + esc(msgErro(e)) +
@@ -2434,14 +2448,60 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       var corpo = x.itens.length
         ? x.itens.map(function(m){ return '<span class="gs-mat">' + esc(m.title.slice(0, 46)) + '</span>'; }).join('')
         : (passou ? '<span class="gs-vazio">—</span>' : '<span class="gs-furo">furo</span>');
-      return '<div class="gs-dia' + (ehHoje ? ' hoje' : '') + '">' +
+      return '<div class="gs-dia' + (ehHoje ? ' hoje' : '') + '" data-gd="' + x.chave + '">' +
         '<div class="gs-cab">' + nomes[x.data.getDay() === 0 ? 6 : x.data.getDay() - 1] + ' ' +
           x.data.getDate() + (ehQuinta ? ' <span class="gs-rev" title="dia da revista">📖</span>' : '') + '</div>' +
-        '<div class="gs-corpo">' + corpo + '</div></div>';
+        '<div class="gs-efem" data-gef="' + x.chave.slice(5) + '"></div>' +
+        '<div class="gs-corpo">' + corpo + '</div>' +
+        '<div class="gs-plan" data-gp="' + x.chave + '"></div></div>';
     }).join('');
     return '<div class="grade-sem"><div class="sec-h" style="margin:0 0 10px"><h3>A semana</h3>' +
-      '<span>o que já está publicado ou agendado, dia a dia (📖 = revista de quinta)</span></div>' +
-      '<div class="gs-grid">' + celulas + '</div></div>';
+      '<span>o que já saiu, o que vem e o que está planejado, dia a dia (📖 = revista de quinta)</span></div>' +
+      '<div class="gs-grid">' + celulas + '</div>' +
+      '<div id="gs-aceitas"></div></div>';
+  }
+  // efemérides fixas: mês-dia -> texto (curadas pela direção; o Claude pode ampliar a lista)
+  var EFEMERIDES_SEED = {
+    '03-27': 'Dia Mundial do Teatro',
+    '04-23': 'Dia Mundial do Livro',
+    '06-21': 'Dia Mundial da Música',
+    '11-19': 'Dia Nacional do Teatro Amador'
+  };
+  // enriquece a grade: efemérides, pautas atribuídas com prazo e sugestões aceitas
+  function enriquecerGrade(){
+    // efemérides (arquivo editável + semente)
+    docJson('import/coxia/efemerides.json').then(function(r){
+      var mapa = {}; for(var k in EFEMERIDES_SEED) mapa[k] = EFEMERIDES_SEED[k];
+      var arq = (r && r.data && r.data.datas) || {};
+      for(var k2 in arq) mapa[k2] = arq[k2];
+      document.querySelectorAll('.gs-efem[data-gef]').forEach(function(el){
+        var t = mapa[el.dataset.gef];
+        if(t) el.innerHTML = '<span class="gs-ef" title="efeméride">✦ ' + esc(t) + '</span>';
+      });
+    }).catch(function(){});
+    // pautas aceitas / atribuídas
+    docJson('import/coxia/sugestoes.json').then(function(r){
+      var lista = (r && r.data && r.data.sugestoes) || [];
+      // pautas com prazo nesta semana -> na célula do dia
+      lista.forEach(function(s){
+        if(s.atribuida && s.atribuida.prazo){
+          var cel = document.querySelector('.gs-plan[data-gp="' + s.atribuida.prazo + '"]');
+          if(cel) cel.insertAdjacentHTML('beforeend',
+            '<span class="gs-pauta" title="pauta atribuída a ' + esc(s.atribuida.para) + '">📌 ' +
+            esc(s.texto.slice(0, 40)) + ' <small>' + esc((s.atribuida.para || '').split(' ')[0]) + '</small></span>');
+        }
+      });
+      // faixa de aceitas sem data marcada
+      var aceitas = lista.filter(function(s){ return s.status === 'aceita' && !(s.atribuida && s.atribuida.prazo); });
+      var box = $('gs-aceitas');
+      if(box && aceitas.length){
+        box.innerHTML = '<div class="gs-aceitas-cab">Pautas aceitas para encaixar (' + aceitas.length + ')</div>' +
+          aceitas.map(function(s){
+            return '<span class="gs-chip">' + esc(s.texto.slice(0, 48)) +
+              (s.atribuida && s.atribuida.para ? ' <small>· ' + esc(s.atribuida.para.split(' ')[0]) + '</small>' : '') + '</span>';
+          }).join('');
+      }
+    }).catch(function(){});
   }
   // leituras por matéria (mostra o número ao lado das já publicadas, para todos verem o alcance do que escreveram)
   var VIEWS_MAP = null;
