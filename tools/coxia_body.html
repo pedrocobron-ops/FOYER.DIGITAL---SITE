@@ -1081,7 +1081,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           </div>
         </div>
         <p class="mx-nota" id="mx-nota"></p>
-        <button class="bt" id="mx-atualiza" type="button" style="margin-top:10px">↻ Atualizar os números</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+          <button class="bt" id="mx-atualiza" type="button">↻ Atualizar os números</button>
+          <button class="bt" id="mx-relatorio" type="button">⬇ Baixar relatório do mês (CSV)</button>
+        </div>
       </section>
 
       <!-- ========== CONEXÃO ========== -->
@@ -3340,6 +3343,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   }
   function mxNomePagina(pg, map){
     if(map[pg]) return map[pg].t;
+    if(pg.indexOf('post-') === 0 && map[pg.slice(5)]) return map[pg.slice(5)].t;
     var fixos = { 'capa': 'Capa do site', 'pagina-agenda': 'Agenda', 'busca': 'Busca',
                   'revista': 'Revista', 'videos': 'Vídeos', 'principios': 'Princípios editoriais',
                   'quem-somos': 'Quem somos', 'coxia/': 'Coxia' };
@@ -3369,7 +3373,9 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       $('mx-tiles').innerHTML = '<div class="stat"><b>✕</b><span>não deu para buscar os números agora</span></div>';
     });
   }
+  var MX_DADOS = null, MX_MAP = null;
   function pintarMetricas(d, map){
+    MX_DADOS = d; MX_MAP = map;
     var R = d.resumo || {};
     var rec = d.recorrentes7 || {};
     $('mx-tiles').innerHTML =
@@ -3415,6 +3421,67 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       'Leitores novos / que voltaram considera apenas quem aceitou todos os cookies. Atualizado em ' + (d.gerado_em || '—') + ' (Brasília).';
   }
   $('mx-atualiza').addEventListener('click', carregarMetricas);
+
+  // ---- relatório do mês (CSV para planilha) ----
+  function csvCampo(v){
+    v = (v == null ? '' : String(v));
+    return /[",;\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+  }
+  function csvLinha(cols){ return cols.map(csvCampo).join(';'); }
+  function relatorioMes(){
+    if(!USER || USER.papel !== 'chefe'){ alert('Relatório restrito à direção.'); return; }
+    if(!MX_DADOS){ alert('Espere os números carregarem (ou clique em Atualizar) antes de baixar o relatório.'); return; }
+    var d = MX_DADOS, map = MX_MAP || {}, R = d.resumo || {}, rec = d.recorrentes7 || {};
+    var L = [];
+    L.push(csvLinha(['FOYER — Relatório de audiência']));
+    L.push(csvLinha(['Gerado em', d.gerado_em || '']));
+    L.push('');
+    L.push(csvLinha(['RESUMO', 'valor']));
+    L.push(csvLinha(['Leituras hoje', R.hoje || 0]));
+    L.push(csvLinha(['Leituras ontem', R.ontem || 0]));
+    L.push(csvLinha(['Leituras em 7 dias', R.d7 || 0]));
+    L.push(csvLinha(['Leituras em 30 dias', R.d30 || 0]));
+    L.push(csvLinha(['Visitas (sessões) em 7 dias', R.sessoes7 || 0]));
+    L.push(csvLinha(['Tempo médio na página (s)', R.tempo_medio7 != null ? R.tempo_medio7 : '']));
+    L.push(csvLinha(['Rolagem média (%)', R.rolagem_media7 != null ? R.rolagem_media7 : '']));
+    L.push(csvLinha(['Compartilhamentos (7 dias)', R.shares7 || 0]));
+    L.push(csvLinha(['Leitores novos (7 dias)', rec.novos || 0]));
+    L.push(csvLinha(['Leitores que voltaram (7 dias)', rec.voltando || 0]));
+    L.push('');
+    L.push(csvLinha(['LEITURAS POR DIA (30 dias)', '']));
+    L.push(csvLinha(['dia', 'leituras']));
+    var por = {}; (d.serie30 || []).forEach(function(s){ por[s.dia] = s; });
+    var hoje = new Date();
+    for(var i = 29; i >= 0; i--){
+      var dt = new Date(hoje.getTime() - i * 86400000);
+      var k = dt.toISOString().slice(0, 10);
+      L.push(csvLinha([k, (por[k] || {}).views || 0]));
+    }
+    L.push('');
+    L.push(csvLinha(['MAIS LIDAS (7 dias)', '', '', '']));
+    L.push(csvLinha(['matéria', 'leituras', 'tempo médio (s)', 'rolagem (%)']));
+    (d.top7 || []).forEach(function(i){
+      L.push(csvLinha([mxNomePagina(i.pg, map), i.views, i.tempo != null ? i.tempo : '', i.rolagem != null ? i.rolagem : '']));
+    });
+    L.push('');
+    L.push(csvLinha(['DE ONDE VÊM (7 dias)', '']));
+    L.push(csvLinha(['origem', 'visitas']));
+    (d.origens7 || []).forEach(function(i){ L.push(csvLinha([i.origem, i.n])); });
+    L.push('');
+    L.push(csvLinha(['APARELHO (7 dias)', '']));
+    L.push(csvLinha(['aparelho', 'visitas']));
+    (d.disp7 || []).forEach(function(i){ L.push(csvLinha([i.disp, i.n])); });
+    // BOM para o Excel abrir os acentos certos
+    var blob = new Blob(['﻿' + L.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'foyer-relatorio-' + (new Date().toISOString().slice(0, 10)) + '.csv';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+    toast('Relatório baixado ✓');
+  }
+  $('mx-relatorio').addEventListener('click', relatorioMes);
 
   // ---- ranking (contagem real via Supabase) ----
   function titulos(){
