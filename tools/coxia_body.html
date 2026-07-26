@@ -313,6 +313,19 @@
 
   /* mesa de aprovação */
   .mesa-card{ border:var(--b); margin-bottom:22px; background:var(--paper); }
+  .mesa-lote{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:16px;
+    padding:12px 16px; border:1.5px solid var(--gold); background:var(--paper-2);
+    position:sticky; top:0; z-index:6; }
+  .mesa-lote .ml-todas{ font-family:var(--mono); font-size:.62rem; text-transform:uppercase;
+    letter-spacing:.08em; display:flex; align-items:center; gap:7px; cursor:pointer; }
+  .mesa-lote #ml-conta{ font-weight:800; color:var(--wine); }
+  .mesa-lote .ml-acoes{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-left:auto; }
+  .mesa-lote input[type=datetime-local]{ border:1.5px solid var(--line); background:var(--paper);
+    color:var(--ink); font-family:var(--mono); padding:8px 10px; font-size:.7rem; }
+  .mesa-lote button:disabled{ opacity:.45; cursor:not-allowed; }
+  .mesa-pick{ display:flex; align-items:center; padding-top:2px; cursor:pointer; }
+  .mesa-pick input{ width:20px; height:20px; accent-color:var(--wine); cursor:pointer; }
+  .mesa-pick input:disabled{ cursor:not-allowed; }
   .mesa-head{ padding:18px; border-bottom:1px solid var(--line); display:flex;
     gap:14px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; }
   .mesa-head .ti{ font-weight:800; font-size:1.02rem; text-transform:uppercase; line-height:1.3; }
@@ -845,6 +858,15 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         <p class="hi-sub">Pauteiro → Repórter → Editor de Estilo → Chefe de Redação → você. Nada entra no ar sem a sua aprovação.</p>
 
         <div class="sec-h"><h3>Mesa de aprovação</h3><span>Redação IA e matérias da equipe — nada publica sem o seu carimbo</span></div>
+        <div id="mesa-lote" class="mesa-lote" style="display:none">
+          <label class="ml-todas"><input type="checkbox" id="ml-marcar-todas"> marcar todas</label>
+          <span id="ml-conta">0 selecionadas</span>
+          <span class="ml-acoes">
+            <button class="bt ap" type="button" id="ml-aprovar">✓ Aprovar as selecionadas agora</button>
+            <button class="bt" type="button" id="ml-agendar">🕐 Agendar as selecionadas</button>
+            <input type="datetime-local" id="ml-data" aria-label="Data e hora do agendamento em lote">
+          </span>
+        </div>
         <div id="mesa-list"><div class="vazio-box">Carregando a mesa…</div></div>
 
         <div class="sec-h"><h3>Diário da redação</h3><span>como cada rodada foi apurada — buscas, pautas e decisões</span></div>
@@ -2438,6 +2460,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     ghGet('import/pauta').then(function(list){
       var files = (list || []).filter(function(f){ return f.name.endsWith('.json') && f.name !== 'diario.json'; });
       if(!files.length){
+        var bl0 = $('mesa-lote'); if(bl0) bl0.style.display = 'none';
         el.innerHTML = '<div class="vazio-box">Mesa vazia — nenhuma matéria de agente aguardando aprovação. ' +
           'A redação roda todo dia às 9h; para rodar agora, peça ao Claude: “rode a redação do Foyer”.</div>';
         return;
@@ -2449,6 +2472,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         // não mostra na mesa do chefe o que já foi devolvido ao autor (está com ele, não esperando aprovação)
         items = items.filter(Boolean).filter(function(d){ return d.status !== 'devolvida'; });
         if(!items.length){
+          var bl1 = $('mesa-lote'); if(bl1) bl1.style.display = 'none';
           el.innerHTML = '<div class="vazio-box">Mesa vazia — nenhuma matéria aguardando aprovação.</div>';
           var bdg0 = $('bdg-mesa'); if(bdg0){ bdg0.textContent = '0'; bdg0.style.display = 'none'; }
           return;
@@ -2525,6 +2549,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           var fontesBloco = fontes ? '<details class="mesa-dobra"><summary>Fontes apuradas</summary>' + fontes + '</details>' : '';
           return '<article class="mesa-card" id="card-' + esc(d.slug) + '" data-slug="' + esc(d.slug) + '">' +
             '<div class="mesa-head">' +
+              '<label class="mesa-pick" title="Selecionar para aprovar/agendar em lote"><input type="checkbox" class="mesa-check" data-pick="' + esc(d.slug) + '"' + (d.img ? '' : ' disabled') + '></label>' +
               '<span><span class="ti">' + esc(d.title) + '</span>' +
               '<span class="mt">' + esc([d.cat].concat(d.cats || []).join(' + ')) + ' — ' + palavras + ' palavras — ' + quando + ' — ' + origem + '</span></span>' +
               selo +
@@ -2558,8 +2583,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             }).join('') + '</div>';
           el.insertAdjacentHTML('afterbegin', resumo);
         }
+        atualizaLote();
       });
     }).catch(function(e){
+      var bl = $('mesa-lote'); if(bl) bl.style.display = 'none';
       el.innerHTML = '<div class="vazio-box">Não deu para carregar a mesa agora. ' + esc(msgErro(e)) +
         '<br><button class="bt" type="button" id="mesa-retry" style="margin-top:10px">↻ Tentar de novo</button></div>';
       var rb = $('mesa-retry'); if(rb) rb.addEventListener('click', carregarMesa);
@@ -2608,11 +2635,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(!restantes){ var el = $('mesa-list'); if(el) el.innerHTML = '<div class="vazio-box">Mesa limpa ✓ — nenhuma matéria esperando. Bom trabalho.</div>'; }
     carregarPalco();
   }
-  function aprovar(slug, publishAt, quando){
-    var d = MESA[slug];
-    if(!d) return;
-    var card = document.getElementById('card-' + slug);
-    travarCard(card, true);
+  // núcleo: publica a matéria e a retira da mesa; devolve uma promessa (sem UI)
+  function publicarDaMesa(d, publishAt){
     var dados = {
       title: d.title, slug: d.slug, cat: d.cat,
       author: d.author || 'Redação Foyer', img: d.img || '',
@@ -2627,10 +2651,17 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(d.imgDireito) dados.imgDireito = d.imgDireito;
     if(d.fontes && d.fontes.length) dados.fontes = d.fontes;
     if(d.evento) dados.evento = d.evento;
-    ghPut('import/novas/' + slug + '.json', JSON.stringify(dados, null, 1),
+    return ghPut('import/novas/' + d.slug + '.json', JSON.stringify(dados, null, 1),
           assina('aprova "' + d.title + '"' + (d.origem === 'autor' ? ' (matéria de ' + (d.criadoPor || d.author) + ')' : ' (Redação IA)')))
       .then(function(){ return ghDel(d._path, d._sha, assina('retira da mesa após aprovação'))
-        .catch(function(e){ if(e && e.gh === 404) return; throw e; }); })  // 404 = já saiu da mesa; publicação já deu certo
+        .catch(function(e){ if(e && e.gh === 404) return; throw e; }); });  // 404 = já saiu da mesa; publicação já deu certo
+  }
+  function aprovar(slug, publishAt, quando){
+    var d = MESA[slug];
+    if(!d) return;
+    var card = document.getElementById('card-' + slug);
+    travarCard(card, true);
+    publicarDaMesa(d, publishAt)
       .then(function(){
         toast('✓ ' + (quando || 'No ar em ~2 min') + ' — ' + d.title.slice(0, 40));
         tiraCardEatualiza(slug);
@@ -2640,6 +2671,48 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         travarCard(card, false);
         alert(msgErro(err));
       });
+  }
+  // ---------- aprovar / agendar em lote ----------
+  function slugsSelecionados(){
+    return [].map.call(document.querySelectorAll('.mesa-check:checked'), function(c){ return c.dataset.pick; });
+  }
+  function atualizaLote(){
+    var n = slugsSelecionados().length;
+    var barra = $('mesa-lote'); if(!barra) return;
+    var total = document.querySelectorAll('.mesa-check:not(:disabled)').length;
+    barra.style.display = total > 1 ? 'flex' : 'none';
+    $('ml-conta').textContent = n + (n === 1 ? ' selecionada' : ' selecionadas');
+    $('ml-aprovar').disabled = !n; $('ml-agendar').disabled = !n;
+    var todas = $('ml-marcar-todas');
+    if(todas) todas.checked = total > 0 && n === total;
+  }
+  function aprovarLote(slugs, publishAt, rotulo){
+    if(!token()){ alert('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+    var ds = slugs.map(function(s){ return MESA[s]; }).filter(Boolean);
+    var semFoto = ds.filter(function(d){ return !d.img; });
+    if(semFoto.length){ alert('Estas ainda estão sem foto de capa: ' + semFoto.map(function(d){ return '“' + d.title.slice(0,30) + '”'; }).join(', ') + '. Suba a capa antes.'); return; }
+    if(!ds.length) return;
+    if(!confirm((rotulo ? 'Agendar' : 'Aprovar e publicar') + ' ' + ds.length + ' matéria(s) ' + (rotulo || 'agora') + '?')) return;
+    $('ml-aprovar').disabled = true; $('ml-agendar').disabled = true;
+    var ok = 0, falhas = [];
+    // sequencial: evita corrida no GitHub e mantém a ordem
+    ds.reduce(function(p, d){
+      return p.then(function(){
+        var card = document.getElementById('card-' + d.slug);
+        travarCard(card, true);
+        return publicarDaMesa(d, publishAt).then(function(){
+          ok++; tiraCardEatualiza(d.slug);
+          if(d.instagram) registrarInsta(d);
+        }).catch(function(err){
+          travarCard(card, false);
+          falhas.push(d.title.slice(0, 30) + ' (' + msgErro(err) + ')');
+        });
+      });
+    }, Promise.resolve()).then(function(){
+      toast('✓ ' + ok + (rotulo ? ' agendada(s)' : ' publicada(s)') + (falhas.length ? ' · ' + falhas.length + ' com erro' : ''));
+      if(falhas.length) alert('Não deu para publicar:\n• ' + falhas.join('\n• ') + '\n\nElas continuam na mesa.');
+      atualizaLote();
+    });
   }
   // acrescenta a matéria aprovada à fila do Instagram (pendente de postar)
   function registrarInsta(d){
@@ -2654,6 +2727,31 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         assina('registra post de "' + d.title + '" na fila do Instagram'), r.sha);
     }).catch(function(){ /* silencioso: a matéria já foi publicada, isto é só a lista de apoio */ });
   }
+
+  // seleção em lote na mesa
+  var elMesa = $('mesa-list');
+  if(elMesa) elMesa.addEventListener('change', function(e){
+    if(e.target.classList && e.target.classList.contains('mesa-check')) atualizaLote();
+  });
+  (function(){
+    var todas = $('ml-marcar-todas');
+    if(todas) todas.addEventListener('change', function(){
+      [].forEach.call(document.querySelectorAll('.mesa-check:not(:disabled)'), function(c){ c.checked = todas.checked; });
+      atualizaLote();
+    });
+    var ba = $('ml-aprovar');
+    if(ba) ba.addEventListener('click', function(){
+      aprovarLote(slugsSelecionados(), new Date().toISOString(), '');
+    });
+    var bg = $('ml-agendar');
+    if(bg) bg.addEventListener('click', function(){
+      var v = $('ml-data').value;
+      if(!v){ alert('Escolha a data e a hora do agendamento em lote no campo ao lado.'); $('ml-data').focus(); return; }
+      var qd = new Date(v);
+      aprovarLote(slugsSelecionados(), qd.toISOString(),
+        'para ' + qd.toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }));
+    });
+  })();
 
   document.addEventListener('click', function(e){
     var b;
