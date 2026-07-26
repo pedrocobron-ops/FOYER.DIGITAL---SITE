@@ -482,6 +482,21 @@
   .prev-overlay{ display:none; position:fixed; inset:0; background:rgba(20,8,6,.72); z-index:90;
     padding:4vh 4vw; overflow:auto; }
   .prev-overlay.on{ display:block; }
+  /* diálogos no estilo da casa (substituem alert/confirm/prompt) */
+  .cx-dlg{ display:none; position:fixed; inset:0; background:rgba(20,8,6,.72); z-index:120;
+    align-items:center; justify-content:center; padding:5vh 5vw; }
+  .cx-dlg.on{ display:flex; }
+  .cx-dlg-box{ max-width:460px; width:100%; background:var(--paper); border:3px solid var(--ink);
+    box-shadow:0 18px 60px rgba(20,8,6,.5); }
+  .cx-dlg-top{ background:var(--wine); color:var(--gold); font-family:var(--mono); font-size:.58rem;
+    font-weight:600; letter-spacing:.16em; text-transform:uppercase; padding:11px 20px; }
+  .cx-dlg-msg{ font-family:var(--sans); font-size:.95rem; line-height:1.6; color:var(--ink);
+    padding:22px 24px 6px; white-space:pre-line; }
+  .cx-dlg-in{ margin:6px 24px 0; }
+  .cx-dlg-in input{ width:100%; border:1.5px solid var(--line); background:var(--paper-2); color:var(--ink);
+    font-family:inherit; padding:11px 12px; box-sizing:border-box; }
+  .cx-dlg-acoes{ display:flex; gap:10px; justify-content:flex-end; padding:20px 24px 22px; }
+  .cx-dlg-acoes .bt{ min-width:96px; }
   .prev-box{ max-width:780px; margin:0 auto; background:var(--paper); border:3px solid var(--ink); }
   .prev-head{ display:flex; justify-content:space-between; align-items:center; gap:10px;
     border-bottom:2px solid var(--ink); padding:12px 18px; font-family:var(--mono);
@@ -1154,6 +1169,18 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   </div>
 </div>
 
+<div class="cx-dlg" id="dlg-overlay" role="dialog" aria-modal="true" aria-labelledby="dlg-msg">
+  <div class="cx-dlg-box">
+    <div class="cx-dlg-top" id="dlg-top">Coxia</div>
+    <p class="cx-dlg-msg" id="dlg-msg"></p>
+    <div class="cx-dlg-in" id="dlg-in" style="display:none"><input type="text" id="dlg-input"></div>
+    <div class="cx-dlg-acoes">
+      <button class="bt" type="button" id="dlg-cancel" style="display:none">Cancelar</button>
+      <button class="bt ap" type="button" id="dlg-ok">OK</button>
+    </div>
+  </div>
+</div>
+
 <div class="prev-overlay" id="mail-overlay" role="dialog" aria-modal="true" aria-label="Prévia do e-mail da revista">
   <div class="prev-box">
     <div class="prev-head"><span id="mail-titulo">Prévia do e-mail — como chega na caixa do assinante</span>
@@ -1628,7 +1655,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           assina('marca post publicado no Instagram'), r.sha);
       }).then(function(){ toast('📱 Marcado como postado'); if(card2) card2.remove();
         if(!document.querySelectorAll('.ig-card').length) $('palco-insta').innerHTML = '';
-      }).catch(function(err){ if(card2){ card2.style.opacity = '1'; card2.querySelectorAll('button,a').forEach(function(x){ x.disabled = false; }); } alert(msgErro(err)); });
+      }).catch(function(err){ if(card2){ card2.style.opacity = '1'; card2.querySelectorAll('button,a').forEach(function(x){ x.disabled = false; }); } avisar(msgErro(err)); });
       return;
     }
   });
@@ -1752,7 +1779,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   function pegarCapa(file){
     redimensionar(file).then(function(d){
       CAPA = d; $('up-prev').src = d; up.classList.add('tem');
-    }).catch(function(){ alert('Não consegui ler essa imagem — tente JPG ou PNG.'); });
+    }).catch(function(){ avisar('Não consegui ler essa imagem — tente JPG ou PNG.'); });
   }
   $('up-tira').addEventListener('click', function(e){
     e.stopPropagation();
@@ -1760,30 +1787,36 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   });
 
   /* ---------------- nova matéria ---------------- */
+  function inserirNoCorpo(ta, ini, fim, novo){
+    ta.value = ta.value.slice(0, ini) + novo + ta.value.slice(fim);
+    ta.focus();
+  }
   document.querySelectorAll('.mbar button').forEach(function(b){
     b.addEventListener('click', function(){
       var ta = $('f-body');
       var md = b.dataset.md, ini = ta.selectionStart, fim = ta.selectionEnd;
       var sel = ta.value.slice(ini, fim) || 'texto';
-      var novo;
-      if(md === '**' || md === '*') novo = md + sel + md;
-      else if(md === 'img:'){ corpoImgInput.click(); return; }
-      else if(md === 'video:'){
-        var vu = prompt('Cole o link do vídeo (YouTube) ou do episódio (Spotify):');
-        if(!vu) return;
-        novo = '\n\n' + (vu.indexOf('spotify.com') > -1 ? 'spotify:' : 'video:') + vu.trim() + '\n\n';
+      if(md === '**' || md === '*'){ inserirNoCorpo(ta, ini, fim, md + sel + md); return; }
+      if(md === 'img:'){ corpoImgInput.click(); return; }
+      if(md === 'video:'){
+        perguntar('Cole o link do vídeo (YouTube) ou do episódio (Spotify):', '', { titulo:'Vídeo', rotuloOk:'Inserir' }).then(function(vu){
+          if(!vu) return;
+          inserirNoCorpo(ta, ini, fim, '\n\n' + (vu.indexOf('spotify.com') > -1 ? 'spotify:' : 'video:') + vu.trim() + '\n\n');
+        });
+        return;
       }
-      else if(md === 'botao:'){
-        var bt = prompt('Texto do botão (ex.: Comprar ingressos):', 'Comprar ingressos');
-        if(bt === null) return;
-        var bu = prompt('Endereço para onde o botão leva:', 'https://');
-        if(!bu) return;
-        novo = '\n\nbotao:' + (bt || 'Saiba mais') + ' | ' + bu.trim() + '\n\n';
+      if(md === 'botao:'){
+        perguntar('Texto do botão (ex.: Comprar ingressos):', 'Comprar ingressos', { titulo:'Botão de link', rotuloOk:'Avançar' }).then(function(bt){
+          if(bt === null) return;
+          perguntar('Endereço para onde o botão leva:', 'https://', { titulo:'Botão de link', rotuloOk:'Inserir' }).then(function(bu){
+            if(!bu) return;
+            inserirNoCorpo(ta, ini, fim, '\n\nbotao:' + (bt || 'Saiba mais') + ' | ' + bu.trim() + '\n\n');
+          });
+        });
+        return;
       }
-      else if(md === '***'){ novo = '\n\n***\n\n'; }
-      else novo = '\n\n' + md + sel;
-      ta.value = ta.value.slice(0, ini) + novo + ta.value.slice(fim);
-      ta.focus();
+      if(md === '***'){ inserirNoCorpo(ta, ini, fim, '\n\n***\n\n'); return; }
+      inserirNoCorpo(ta, ini, fim, '\n\n' + md + sel);
     });
   });
   $('f-quando').addEventListener('change', function(){
@@ -1855,7 +1888,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           if(d.ev){ $('f-ev-ini').value = d.ev.ini || ''; $('f-ev-fim').value = d.ev.fim || '';
             $('f-ev-local').value = d.ev.local || ''; $('f-ev-cidade').value = d.ev.cidade || ''; }
           statusTexto(); $('rasc-aviso').classList.remove('on'); $('bdg-rasc').style.display = 'none'; irPara('nova');
-          if(d.temFoto) setTimeout(function(){ alert('Recuperei o texto do rascunho. A foto de capa não fica guardada no navegador, então reanexe a imagem antes de enviar.'); }, 200);
+          if(d.temFoto) setTimeout(function(){ avisar('Recuperei o texto do rascunho. A foto de capa não fica guardada no navegador, então reanexe a imagem antes de enviar.'); }, 200);
         };
         $('rasc-descartar').onclick = limparRasc;
       }
@@ -1914,6 +1947,49 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   function fechaOverlays(){
     document.querySelectorAll('.prev-overlay.on').forEach(function(o){ o.classList.remove('on'); });
   }
+
+  // ---------- diálogos no estilo da casa (avisar / confirmar / perguntar) ----------
+  var dlgResolve = null, dlgFoco = null;
+  function dlgFecha(valor){
+    $('dlg-overlay').classList.remove('on');
+    var r = dlgResolve; dlgResolve = null;
+    if(dlgFoco && dlgFoco.focus){ try{ dlgFoco.focus(); }catch(e){} }
+    dlgFoco = null;
+    if(r) r(valor);
+  }
+  function dlgAbre(cfg){
+    // resolve um diálogo pendente antes de abrir outro (evita promessa presa)
+    if(dlgResolve) dlgFecha(cfg.tipo === 'confirmar' ? false : (cfg.tipo === 'perguntar' ? null : undefined));
+    dlgFoco = document.activeElement;
+    $('dlg-top').textContent = cfg.titulo || 'Coxia';
+    $('dlg-msg').textContent = cfg.msg || '';
+    var temInput = cfg.tipo === 'perguntar';
+    $('dlg-in').style.display = temInput ? 'block' : 'none';
+    if(temInput) $('dlg-input').value = cfg.valor || '';
+    $('dlg-cancel').style.display = (cfg.tipo === 'confirmar' || cfg.tipo === 'perguntar') ? 'inline-flex' : 'none';
+    $('dlg-cancel').textContent = cfg.rotuloCancel || 'Cancelar';
+    $('dlg-ok').textContent = cfg.rotuloOk || (cfg.tipo === 'avisar' ? 'OK' : 'Confirmar');
+    $('dlg-ok').className = 'bt' + (cfg.perigo ? ' danger' : ' ap');
+    $('dlg-overlay').classList.add('on');
+    setTimeout(function(){ (temInput ? $('dlg-input') : $('dlg-ok')).focus(); }, 30);
+    return new Promise(function(res){ dlgResolve = res; });
+  }
+  function avisar(msg, opts){ opts = opts || {}; return dlgAbre({ tipo:'avisar', msg:msg, titulo:opts.titulo, rotuloOk:opts.rotuloOk }); }
+  function confirmar(msg, opts){ opts = opts || {}; return dlgAbre({ tipo:'confirmar', msg:msg, titulo:opts.titulo, rotuloOk:opts.rotuloOk, rotuloCancel:opts.rotuloCancel, perigo:opts.perigo }); }
+  function perguntar(msg, valor, opts){ opts = opts || {}; return dlgAbre({ tipo:'perguntar', msg:msg, valor:valor, titulo:opts.titulo, rotuloOk:opts.rotuloOk }); }
+  $('dlg-ok').addEventListener('click', function(){
+    var temInput = $('dlg-in').style.display !== 'none';
+    dlgFecha(temInput ? $('dlg-input').value : true);
+  });
+  $('dlg-cancel').addEventListener('click', function(){
+    var temInput = $('dlg-in').style.display !== 'none';
+    dlgFecha(temInput ? null : false);
+  });
+  $('dlg-overlay').addEventListener('click', function(e){
+    if(e.target === this){ var temInput = $('dlg-in').style.display !== 'none'; dlgFecha(temInput ? null : false); }
+  });
+  $('dlg-input').addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); dlgFecha(this.value); } });
+
   $('prev-fechar').addEventListener('click', fechaOverlays);
   $('prev-overlay').addEventListener('click', function(e){ if(e.target === this) fechaOverlays(); });
   $('btn-estilo').addEventListener('click', function(){ abreOverlay('estilo-overlay'); });
@@ -1988,7 +2064,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     bemVindo();
   });
   $('estilo-overlay').addEventListener('click', function(e){ if(e.target === this) fechaOverlays(); });
-  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') fechaOverlays(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key !== 'Escape') return;
+    if(dlgResolve){ var temInput = $('dlg-in').style.display !== 'none'; dlgFecha(temInput ? null : false); return; }
+    fechaOverlays();
+  });
 
   // ---------- foto no meio do texto, por upload ----------
   var corpoImgInput = document.createElement('input');
@@ -1998,7 +2078,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   corpoImgInput.addEventListener('change', function(){
     var files = Array.prototype.slice.call(this.files); this.value = '';
     if(!files.length) return;
-    if(!token()){ alert('Conecte a chave de publicação para subir fotos (aba Conexão)'); return; }
+    if(!token()){ avisar('Conecte a chave de publicação para subir fotos (aba Conexão)'); return; }
     var ta = $('f-body'), slugBase = slugify($('f-title').value || 'materia') || 'materia';
     var btnFoto = document.querySelector('[data-md="img:"]');
     if(btnFoto) btnFoto.textContent = '⏳ Subindo ' + files.length + ' foto(s)…';
@@ -2017,7 +2097,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         : '\n\nimg:' + caminhos[0] + ' | Escreva a legenda aqui\n\n';
       ta.value = ta.value.slice(0, ini) + trecho + ta.value.slice(ini);
       statusTexto(); salvarRasc(); ta.focus();
-    }).catch(function(err){ alert('Falha ao subir: ' + err.message); })
+    }).catch(function(err){ avisar('Falha ao subir: ' + err.message); })
       .finally(function(){ if(btnFoto) btnFoto.textContent = '📷 Fotos (várias)'; });
   });
 
@@ -2077,8 +2157,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       ghGet('import/pauta/' + slug + '.json').catch(function(){ return null; })
     ]).then(function(ex){
       if(ex[0] || ex[1]){
-        return confirm('Já existe uma matéria com este título (endereço "' + slug + '").\n' +
-          'Se continuar, você vai SOBRESCREVER a que já está lá.\n\nMude um pouco o título para publicar as duas. Continuar assim mesmo?');
+        return confirmar('Já existe uma matéria com este título (endereço "' + slug + '").\n' +
+          'Se continuar, você vai SOBRESCREVER a que já está lá.\n\nMude um pouco o título para publicar as duas. Continuar assim mesmo?', { perigo:true });
       }
       return true;
     });
@@ -2376,19 +2456,21 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   document.addEventListener('click', function(e){
     var b = e.target.closest('[data-del]');
     if(!b) return;
-    if(!token()){ alert('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
-    if(!confirm('Remover esta matéria do site? (ela fica 30 dias na lixeira)')) return;
-    var dados = null;
-    for(var slug in FILA_CACHE){ if(FILA_CACHE[slug]._path === b.dataset.del){ dados = FILA_CACHE[slug]; break; } }
-    moverLixeira(dados || { slug: 'materia' }, b.dataset.del, b.dataset.sha, 'remove matéria (lixeira)')
-      .then(function(){ carregarFila(); })
-      .catch(function(e){
-        var m = e.message || '';
-        alert(m.indexOf('__PARCIAL__') === 0
-          ? 'A matéria foi copiada para a lixeira, mas não saiu do site. Recarregue e confira. (' + m.slice(11) + ')'
-          : msgErro(e));
-        carregarFila();
-      });
+    if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+    confirmar('Remover esta matéria do site? (ela fica 30 dias na lixeira)', { perigo:true, rotuloOk:'Remover' }).then(function(ok){
+      if(!ok) return;
+      var dados = null;
+      for(var slug in FILA_CACHE){ if(FILA_CACHE[slug]._path === b.dataset.del){ dados = FILA_CACHE[slug]; break; } }
+      moverLixeira(dados || { slug: 'materia' }, b.dataset.del, b.dataset.sha, 'remove matéria (lixeira)')
+        .then(function(){ carregarFila(); })
+        .catch(function(e){
+          var m = e.message || '';
+          avisar(m.indexOf('__PARCIAL__') === 0
+            ? 'A matéria foi copiada para a lixeira, mas não saiu do site. Recarregue e confira. (' + m.slice(11) + ')'
+            : msgErro(e));
+          carregarFila();
+        });
+    });
   });
 
   function carregarLixeira(){
@@ -2427,15 +2509,17 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       ghPut(destino, JSON.stringify(pac, null, 1), assina('restaura da lixeira "' + (d.title || '') + '"'))
         .then(function(){ return ghDel(d._path, d._sha, assina('limpa item restaurado')); })
         .then(function(){ carregarLixeira(); carregarFila(); })
-        .catch(function(e){ alert(msgErro(e)); carregarLixeira(); });
+        .catch(function(e){ avisar(msgErro(e)); carregarLixeira(); });
       return;
     }
     if((b = e.target.closest('[data-lixx]'))){
       var d2 = itens[Number(b.dataset.lixx)];
       if(!d2) return;
-      if(!confirm('Excluir definitivamente? Não tem volta.')) return;
-      ghDel(d2._path, d2._sha, assina('exclui definitivamente da lixeira'))
-        .then(carregarLixeira).catch(function(e){ alert(msgErro(e)); });
+      confirmar('Excluir definitivamente? Não tem volta.', { perigo:true, rotuloOk:'Excluir' }).then(function(ok){
+        if(!ok) return;
+        ghDel(d2._path, d2._sha, assina('exclui definitivamente da lixeira'))
+          .then(carregarLixeira).catch(function(e){ avisar(msgErro(e)); });
+      });
     }
   });
 
@@ -2664,7 +2748,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       return ghPut(d._path, JSON.stringify(d, function(k,v){ return k.charAt(0) === '_' ? undefined : v; }, 1),
         assina('anexa capa na mesa "' + d.title + '"'), d._sha);
     }).then(function(){ carregarMesa(); })
-      .catch(function(err){ alert(msgErro(err)); });
+      .catch(function(err){ avisar(msgErro(err)); });
   });
 
   function toast(txt){
@@ -2725,7 +2809,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       })
       .catch(function(err){
         travarCard(card, false);
-        alert(msgErro(err));
+        avisar(msgErro(err));
       });
   }
   // ---------- aprovar / agendar em lote ----------
@@ -2743,16 +2827,17 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(todas) todas.checked = total > 0 && n === total;
   }
   function aprovarLote(slugs, publishAt, rotulo){
-    if(!token()){ alert('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+    if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
     var ds = slugs.map(function(s){ return MESA[s]; }).filter(Boolean);
     var semFoto = ds.filter(function(d){ return !d.img; });
-    if(semFoto.length){ alert('Estas ainda estão sem foto de capa: ' + semFoto.map(function(d){ return '“' + d.title.slice(0,30) + '”'; }).join(', ') + '. Suba a capa antes.'); return; }
+    if(semFoto.length){ avisar('Estas ainda estão sem foto de capa: ' + semFoto.map(function(d){ return '“' + d.title.slice(0,30) + '”'; }).join(', ') + '. Suba a capa antes.'); return; }
     if(!ds.length) return;
-    if(!confirm((rotulo ? 'Agendar' : 'Aprovar e publicar') + ' ' + ds.length + ' matéria(s) ' + (rotulo || 'agora') + '?')) return;
-    $('ml-aprovar').disabled = true; $('ml-agendar').disabled = true;
-    var ok = 0, falhas = [];
-    // sequencial: evita corrida no GitHub e mantém a ordem
-    ds.reduce(function(p, d){
+    confirmar((rotulo ? 'Agendar' : 'Aprovar e publicar') + ' ' + ds.length + ' matéria(s) ' + (rotulo || 'agora') + '?').then(function(okc){
+      if(!okc) return;
+      $('ml-aprovar').disabled = true; $('ml-agendar').disabled = true;
+      var ok = 0, falhas = [];
+      // sequencial: evita corrida no GitHub e mantém a ordem
+      ds.reduce(function(p, d){
       return p.then(function(){
         var card = document.getElementById('card-' + d.slug);
         travarCard(card, true);
@@ -2764,10 +2849,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           falhas.push(d.title.slice(0, 30) + ' (' + msgErro(err) + ')');
         });
       });
-    }, Promise.resolve()).then(function(){
-      toast('✓ ' + ok + (rotulo ? ' agendada(s)' : ' publicada(s)') + (falhas.length ? ' · ' + falhas.length + ' com erro' : ''));
-      if(falhas.length) alert('Não deu para publicar:\n• ' + falhas.join('\n• ') + '\n\nElas continuam na mesa.');
-      atualizaLote();
+      }, Promise.resolve()).then(function(){
+        toast('✓ ' + ok + (rotulo ? ' agendada(s)' : ' publicada(s)') + (falhas.length ? ' · ' + falhas.length + ' com erro' : ''));
+        if(falhas.length) avisar('Não deu para publicar:\n• ' + falhas.join('\n• ') + '\n\nElas continuam na mesa.');
+        atualizaLote();
+      });
     });
   }
   // acrescenta a matéria aprovada à fila do Instagram (pendente de postar)
@@ -2802,7 +2888,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var bg = $('ml-agendar');
     if(bg) bg.addEventListener('click', function(){
       var v = $('ml-data').value;
-      if(!v){ alert('Escolha a data e a hora do agendamento em lote no campo ao lado.'); $('ml-data').focus(); return; }
+      if(!v){ avisar('Escolha a data e a hora do agendamento em lote no campo ao lado.'); $('ml-data').focus(); return; }
       var qd = new Date(v);
       aprovarLote(slugsSelecionados(), qd.toISOString(),
         'para ' + qd.toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }));
@@ -2828,16 +2914,19 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       return;
     }
     if((b = e.target.closest('[data-capa]'))){
-      if(!token()){ alert('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+      if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
       capaMesaSlug = b.dataset.capa; capaMesaInput.click(); return;
     }
     if((b = e.target.closest('[data-aprovar]'))){
-      if(!token()){ alert('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+      if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
       if(MESA[b.dataset.aprovar] && !MESA[b.dataset.aprovar].img){
-        alert('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de aprovar.'); return;
+        avisar('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de aprovar.'); return;
       }
-      if(!confirm('Aprovar e publicar esta matéria agora?')) return;
-      aprovar(b.dataset.aprovar, new Date().toISOString(), 'No ar em ~2 min'); return;
+      var slugAp = b.dataset.aprovar;
+      confirmar('Aprovar e publicar esta matéria agora?', { rotuloOk:'Publicar' }).then(function(ok){
+        if(ok) aprovar(slugAp, new Date().toISOString(), 'No ar em ~2 min');
+      });
+      return;
     }
     if((b = e.target.closest('[data-quando]'))){
       var slugQ = b.closest('[data-dtrmesa]').dataset.dtrmesa;
@@ -2863,31 +2952,38 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         }
         caixa.classList.add('on'); inp.classList.add('on'); inp.focus(); return;
       }
-      if(!inp.value){ alert('Escolha a data e a hora (ou use Hoje 18h / Amanhã 9h / Sexta 18h)'); return; }
-      if(!token()){ alert('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+      if(!inp.value){ avisar('Escolha a data e a hora (ou use Hoje 18h / Amanhã 9h / Sexta 18h)'); return; }
+      if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
       if(MESA[b.dataset.agendar] && !MESA[b.dataset.agendar].img){
-        alert('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de aprovar.'); return;
+        avisar('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de aprovar.'); return;
       }
       var qd = new Date(inp.value);
-      if(!confirm('Agendar para ' + qd.toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) + '?')) return;
-      aprovar(b.dataset.agendar, qd.toISOString(),
-        'Agendada para ' + qd.toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' })); return;
+      var slugAg = b.dataset.agendar;
+      confirmar('Agendar para ' + qd.toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) + '?', { rotuloOk:'Agendar' }).then(function(ok){
+        if(ok) aprovar(slugAg, qd.toISOString(),
+          'Agendada para ' + qd.toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }));
+      });
+      return;
     }
     if((b = e.target.closest('[data-recusar]'))){
       var d = MESA[b.dataset.recusar];
       if(!d) return;
-      if(!token()){ alert('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+      if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
       var ehAutorR = d.origem === 'autor';
       if(ehAutorR){
-        var motivo = prompt('Por que está devolvendo "' + d.title + '"?\n(o autor vai ver este recado e pode corrigir e reenviar)');
-        if(motivo === null) return;
-        devolverAoAutor(d, motivo.trim()); return;
+        perguntar('Por que está devolvendo "' + d.title + '"?\n(o autor vai ver este recado e pode corrigir e reenviar)', '', { titulo:'Devolver ao autor', rotuloOk:'Devolver' }).then(function(motivo){
+          if(motivo === null) return;
+          devolverAoAutor(d, motivo.trim());
+        });
+        return;
       }
-      if(!confirm('Recusar esta matéria? (ela fica 30 dias na lixeira)')) return;
-      var cardR = document.getElementById('card-' + d.slug); travarCard(cardR, true);
-      moverLixeira(d, d._path, d._sha, 'recusa matéria da mesa (lixeira)')
-        .then(function(){ toast('Recusada — foi para a lixeira'); tiraCardEatualiza(d.slug); })
-        .catch(function(err){ travarCard(cardR, false); alert(msgErro(err)); });
+      confirmar('Recusar esta matéria? (ela fica 30 dias na lixeira)', { perigo:true, rotuloOk:'Recusar' }).then(function(ok){
+        if(!ok) return;
+        var cardR = document.getElementById('card-' + d.slug); travarCard(cardR, true);
+        moverLixeira(d, d._path, d._sha, 'recusa matéria da mesa (lixeira)')
+          .then(function(){ toast('Recusada — foi para a lixeira'); tiraCardEatualiza(d.slug); })
+          .catch(function(err){ travarCard(cardR, false); avisar(msgErro(err)); });
+      });
     }
   });
   // devolve a matéria do autor com o motivo, em vez de sumir na lixeira
@@ -2899,7 +2995,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     pac.devolucao = { por: USER.nome, quando: new Date().toISOString(), motivo: motivo || 'sem comentário' };
     ghPut(d._path, JSON.stringify(pac, null, 1), assina('devolve "' + d.title + '" ao autor com parecer'))
       .then(function(){ toast('Devolvida ao autor com o seu recado'); tiraCardEatualiza(d.slug); })
-      .catch(function(err){ travarCard(card, false); alert(msgErro(err)); });
+      .catch(function(err){ travarCard(card, false); avisar(msgErro(err)); });
   }
 
   /* ---------------- equipe ---------------- */
@@ -2947,12 +3043,14 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       return;
     }
     if((b = e.target.closest('[data-exc]'))){
-      if(!token()){ alert('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+      if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
       var alvo = (EQUIPE.lista || []).filter(function(x){ return x.id === b.dataset.exc; })[0];
       if(!alvo) return;
-      if(!confirm('Excluir ' + alvo.nome + ' da equipe? A senha deixa de funcionar.')) return;
-      salvarEquipe(EQUIPE.lista.filter(function(x){ return x.id !== alvo.id; }),
-        'exclui ' + alvo.nome + ' da equipe');
+      confirmar('Excluir ' + alvo.nome + ' da equipe? A senha deixa de funcionar.', { perigo:true, rotuloOk:'Excluir' }).then(function(ok){
+        if(!ok) return;
+        salvarEquipe(EQUIPE.lista.filter(function(x){ return x.id !== alvo.id; }),
+          'exclui ' + alvo.nome + ' da equipe');
+      });
     }
   });
 
@@ -2960,7 +3058,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var conteudo = JSON.stringify({ usuarios: lista }, null, 1);
     return ghPut('import/equipe.json', conteudo, assina(acao), EQUIPE.sha)
       .then(function(){ EQUIPE = null; pintarEquipe(); })
-      .catch(function(err){ alert(msgErro(err)); });
+      .catch(function(err){ avisar(msgErro(err)); });
   }
 
   $('eq-form').addEventListener('submit', function(e){
@@ -3336,30 +3434,33 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     e.preventDefault();
     var tx = $('pauta-txt').value.trim();
     if(!tx) return;
-    if(!token()){ alert('Conecte a chave de publicação (aba Conexão)'); return; }
+    if(!token()){ avisar('Conecte a chave de publicação (aba Conexão)'); return; }
     SUG.lista.unshift({ id: String(new Date().getTime()), quem: USER.nome,
       texto: tx, quando: new Date().toISOString() });
     SUG.lista = SUG.lista.slice(0, 60);
     ghPut('import/coxia/sugestoes.json', JSON.stringify({ sugestoes: SUG.lista }, null, 1),
       assina('sugere pauta'), SUG.sha)
       .then(function(){ $('pauta-txt').value = ''; carregarSug(); })
-      .catch(function(err){ alert(msgErro(err)); carregarSug(); });
+      .catch(function(err){ avisar(msgErro(err)); carregarSug(); });
   });
   document.addEventListener('click', function(e){
     var b;
     if((b = e.target.closest('[data-mdel]'))){
-      if(!confirm('Apagar este recado?')) return;
-      MURAL.lista = MURAL.lista.filter(function(m){ return m.id !== b.dataset.mdel; });
-      ghPut('import/coxia/mural.json', JSON.stringify({ recados: MURAL.lista }, null, 1),
-        assina('apaga recado do mural'), MURAL.sha).then(carregarMural)
-        .catch(function(err){ alert(msgErro(err)); carregarMural(); });
+      var midDel = b.dataset.mdel;
+      confirmar('Apagar este recado?', { perigo:true, rotuloOk:'Apagar' }).then(function(ok){
+        if(!ok) return;
+        MURAL.lista = MURAL.lista.filter(function(m){ return m.id !== midDel; });
+        ghPut('import/coxia/mural.json', JSON.stringify({ recados: MURAL.lista }, null, 1),
+          assina('apaga recado do mural'), MURAL.sha).then(carregarMural)
+          .catch(function(err){ avisar(msgErro(err)); carregarMural(); });
+      });
       return;
     }
     if((b = e.target.closest('[data-sdel]'))){
       SUG.lista = SUG.lista.filter(function(s){ return s.id !== b.dataset.sdel; });
       ghPut('import/coxia/sugestoes.json', JSON.stringify({ sugestoes: SUG.lista }, null, 1),
         assina('remove sugestão de pauta'), SUG.sha).then(carregarSug)
-        .catch(function(err){ alert(msgErro(err)); carregarSug(); });
+        .catch(function(err){ avisar(msgErro(err)); carregarSug(); });
       return;
     }
     if((b = e.target.closest('[data-sug]'))){
@@ -3368,7 +3469,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       SUG.lista.forEach(function(s){ if(s.id === b.dataset.sid) s.status = novo; });
       ghPut('import/coxia/sugestoes.json', JSON.stringify({ sugestoes: SUG.lista }, null, 1),
         assina('marca sugestão como ' + (novo || 'em aberto')), SUG.sha)
-        .then(carregarSug).catch(function(err){ alert(msgErro(err)); carregarSug(); });
+        .then(carregarSug).catch(function(err){ avisar(msgErro(err)); carregarSug(); });
     }
   });
 
@@ -3467,8 +3568,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   }
   function csvLinha(cols){ return cols.map(csvCampo).join(';'); }
   function relatorioMes(){
-    if(!USER || USER.papel !== 'chefe'){ alert('Relatório restrito à direção.'); return; }
-    if(!MX_DADOS){ alert('Espere os números carregarem (ou clique em Atualizar) antes de baixar o relatório.'); return; }
+    if(!USER || USER.papel !== 'chefe'){ avisar('Relatório restrito à direção.'); return; }
+    if(!MX_DADOS){ avisar('Espere os números carregarem (ou clique em Atualizar) antes de baixar o relatório.'); return; }
     var d = MX_DADOS, map = MX_MAP || {}, R = d.resumo || {}, rec = d.recorrentes7 || {};
     var L = [];
     L.push(csvLinha(['FOYER — Relatório de audiência']));
@@ -3623,7 +3724,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   document.addEventListener('click', function(e){
     var b;
     if((b = e.target.closest('[data-verbx]'))){
-      if(!token()){ alert('Conecte a chave de publicação (aba Conexão)'); return; }
+      if(!token()){ avisar('Conecte a chave de publicação (aba Conexão)'); return; }
       if(VERB.lista.indexOf(b.dataset.verbx) < 0) VERB.lista.push(b.dataset.verbx);
       salvarVerbExc('exclui verbete ' + b.dataset.verbx);
       $('verb-q').value = ''; $('verb-res').style.display = 'none';
@@ -3674,7 +3775,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     function clicou(){
       if(esperado){ esperado.prompt(); esperado.userChoice.then(function(){ botoes.forEach(function(b){ b.style.display = 'none'; }); }); }
       else if(dica){ dica.innerHTML = '<b>' + instrucao() + '</b> O ícone da Coxia é a logo vinho sobre dourado.'; irPara('conexao'); }
-      else alert(instrucao());
+      else avisar(instrucao());
     }
     botoes.forEach(function(b){ b.addEventListener('click', clicou); });
   })();
@@ -3731,7 +3832,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       RV.ed = JSON.parse(unb64(f.content));
       RV.sha = f.sha; RV.mexeu = false;
       renderEd();
-    }).catch(function(err){ alert(msgErro(err)); });
+    }).catch(function(err){ avisar(msgErro(err)); });
   });
   // marca "alterações não salvas" em qualquer mexida dentro do editor da revista
   var rvEditor = $('rv-editor');
@@ -3803,13 +3904,13 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   $('rv-capa-file').addEventListener('change', function(){
     var f = this.files[0]; this.value = '';
     if(!f || !RV.ed) return;
-    if(!token()){ alert('Conecte a chave de publicação (aba Conexão)'); return; }
+    if(!token()){ avisar('Conecte a chave de publicação (aba Conexão)'); return; }
     redimensionar(f).then(function(d){ return subirImagem(d, 'revista-ed-' + RV.ed.numero + '-capa'); })
       .then(function(caminho){
         RV.ed.capa.img = caminho;
         $('rv-capa-prev').src = caminho;
         $('rv-capa-up').classList.add('tem');
-      }).catch(function(err){ alert('Falha na capa: ' + err.message); });
+      }).catch(function(err){ avisar('Falha na capa: ' + err.message); });
   });
   $('rv-capa-tira').addEventListener('click', function(e){
     e.stopPropagation();
@@ -3908,12 +4009,12 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         pg.titulo = $('pgf-titulo').value.trim();
         pg.chamada = $('pgf-chamada').value.trim();
         pg.texto = $('pgf-texto').value.trim();
-        if(!pg.titulo){ alert('Escolha a matéria (ou dê um título)'); return; }
+        if(!pg.titulo){ avisar('Escolha a matéria (ou dê um título)'); return; }
       } else if(tipo === 'exclusiva'){
         pg.titulo = $('pgf-titulo').value.trim();
         pg.texto = $('pgf-texto').value.trim();
         pg.imgCredito = $('pgf-cred').value.trim();
-        if(!pg.titulo || !pg.texto){ alert('Título e texto são obrigatórios'); return; }
+        if(!pg.titulo || !pg.texto){ avisar('Título e texto são obrigatórios'); return; }
       } else if(tipo === 'editorial'){
         pg.titulo = $('pgf-titulo').value.trim();
         pg.texto = $('pgf-texto').value.trim();
@@ -3921,7 +4022,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       } else if(tipo === 'citacao'){
         pg.frase = $('pgf-frase').value.trim();
         pg.autor = $('pgf-autor').value.trim();
-        if(!pg.frase){ alert('Escreva a frase'); return; }
+        if(!pg.frase){ avisar('Escreva a frase'); return; }
       } else if(tipo === 'cartaz' || tipo === 'patrocinio'){
         pg.legenda = $('pgf-leg').value.trim();
         pg.link = $('pgf-link').value.trim();
@@ -3932,20 +4033,20 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       }
       var fi = $('pgf-img');
       if(fi && fi.files && fi.files[0]){
-        if(!token()){ alert('Conecte a chave de publicação para subir imagens'); return; }
+        if(!token()){ avisar('Conecte a chave de publicação para subir imagens'); return; }
         pronto = redimensionar(fi.files[0]).then(function(dURL){
           return subirImagem(dURL, 'revista-ed-' + RV.ed.numero + '-p' + new Date().getTime());
         }).then(function(caminho){ pg.img = caminho; });
       }
       pronto.then(function(){
         if((pg.tipo === 'cartaz' || pg.tipo === 'patrocinio') && !pg.img){
-          alert('Suba a imagem do ' + (pg.tipo === 'cartaz' ? 'cartaz' : 'patrocínio')); return;
+          avisar('Suba a imagem do ' + (pg.tipo === 'cartaz' ? 'cartaz' : 'patrocínio')); return;
         }
         if(RV.idx == null) RV.ed.paginas.push(pg);
         $('rv-pgform').style.display = 'none';
         RV.idx = null;
         renderPgs();
-      }).catch(function(err){ alert('Falha na imagem: ' + err.message); });
+      }).catch(function(err){ avisar('Falha na imagem: ' + err.message); });
       return;
     }
     if((b = e.target.closest('[data-rvup]'))){
@@ -3964,9 +4065,12 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       return;
     }
     if((b = e.target.closest('[data-rvdel]'))){
-      if(!confirm('Remover esta página da edição?')) return;
-      RV.ed.paginas.splice(Number(b.dataset.rvdel), 1);
-      renderPgs();
+      var idxDel = Number(b.dataset.rvdel);
+      confirmar('Remover esta página da edição?', { perigo:true, rotuloOk:'Remover' }).then(function(ok){
+        if(!ok) return;
+        RV.ed.paginas.splice(idxDel, 1);
+        renderPgs();
+      });
     }
   });
 
@@ -4000,20 +4104,31 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   $('rv-publicar').addEventListener('click', function(){
     if(!RV.ed) return;
     if(RV.ed.status === 'publicada'){
-      if(!confirm('Despublicar a edição Nº ' + RV.ed.numero + '? Ela sai da página da revista.')) return;
-      RV.ed.status = 'rascunho';
-      salvarEd('despublica a edição').then(renderEd).catch(function(){});
+      confirmar('Despublicar a edição Nº ' + RV.ed.numero + '? Ela sai da página da revista.', { perigo:true, rotuloOk:'Despublicar' }).then(function(ok){
+        if(!ok) return;
+        RV.ed.status = 'rascunho';
+        salvarEd('despublica a edição').then(renderEd).catch(function(){});
+      });
       return;
     }
     colherCampos();
-    if(!RV.ed.capa.manchete){ alert('A capa precisa de manchete'); return; }
-    if(!(RV.ed.paginas || []).length){ alert('A edição precisa de pelo menos uma página além da capa'); return; }
-    if(!confirm('Publicar a edição Nº ' + RV.ed.numero + '? Ela entra na página da revista do site.')) return;
-    RV.ed.status = 'publicada';
-    salvarEd('publica a edição').then(renderEd).catch(function(){});
+    if(!RV.ed.capa.manchete){ avisar('A capa precisa de manchete'); return; }
+    if(!(RV.ed.paginas || []).length){ avisar('A edição precisa de pelo menos uma página além da capa'); return; }
+    confirmar('Publicar a edição Nº ' + RV.ed.numero + '? Ela entra na página da revista do site.', { rotuloOk:'Publicar' }).then(function(ok){
+      if(!ok) return;
+      RV.ed.status = 'publicada';
+      salvarEd('publica a edição').then(renderEd).catch(function(){});
+    });
   });
   $('rv-fechar').addEventListener('click', function(){
-    if(RV.ed && RV.mexeu && !confirm('Você tem alterações não salvas nesta edição. Fechar mesmo assim? (o que não foi salvo se perde)')) return;
+    if(RV.ed && RV.mexeu){
+      confirmar('Você tem alterações não salvas nesta edição. Fechar mesmo assim? (o que não foi salvo se perde)', { perigo:true, rotuloOk:'Fechar sem salvar' }).then(function(ok){
+        if(!ok) return;
+        $('rv-editor').style.display = 'none';
+        RV.ed = null; RV.sha = null; RV.mexeu = false;
+      });
+      return;
+    }
     $('rv-editor').style.display = 'none';
     RV.ed = null; RV.sha = null; RV.mexeu = false;
   });
@@ -4053,7 +4168,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       '</div></body></html>';
   }
   function preverEmail(){
-    var ed = RV.ed; if(!ed){ alert('Abra uma edição primeiro.'); return; }
+    var ed = RV.ed; if(!ed){ avisar('Abra uma edição primeiro.'); return; }
     colherCampos();  // reflete o que está digitado agora, mesmo sem salvar
     var RB = 'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/';
     var capa = (ed.capa && ed.capa.img) ? (/^https?:/.test(ed.capa.img) ? ed.capa.img : RB + ed.capa.img) : '';
@@ -4102,15 +4217,17 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(!RV.ed) return;
     contarAssinantes().then(function(n){
       var qtd = (n == null) ? '?' : n;
-      if(n === 0){ alert('Ainda não há assinantes ativos. Quando alguém assinar a revista no site, a lista aparece aqui.'); return; }
-      var op = prompt('Enviar a Edição Nº ' + RV.ed.numero + ' para ' + qtd + ' assinante(s)?\n\n' +
+      if(n === 0){ avisar('Ainda não há assinantes ativos. Quando alguém assinar a revista no site, a lista aparece aqui.'); return; }
+      perguntar('Enviar a Edição Nº ' + RV.ed.numero + ' para ' + qtd + ' assinante(s)?\n\n' +
         'Digite ENVIAR para disparar para todos,\n' +
-        'ou um e-mail para mandar só um TESTE para você antes.', 'ENVIAR');
-      if(op === null) return;
-      op = op.trim();
-      if(op.toUpperCase() === 'ENVIAR') enviarEdicao(null);
-      else if(op.indexOf('@') > 0) enviarEdicao(op.toLowerCase());
-      else { alert('Cancelado. Digite ENVIAR ou um e-mail de teste.'); }
+        'ou um e-mail para mandar só um TESTE para você antes.', 'ENVIAR',
+        { titulo:'Enviar a revista', rotuloOk:'Continuar' }).then(function(op){
+        if(op === null) return;
+        op = op.trim();
+        if(op.toUpperCase() === 'ENVIAR') enviarEdicao(null);
+        else if(op.indexOf('@') > 0) enviarEdicao(op.toLowerCase());
+        else { avisar('Cancelado. Digite ENVIAR ou um e-mail de teste.'); }
+      });
     });
   });
 })();
