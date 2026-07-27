@@ -339,17 +339,32 @@
     for(var i = 0; i < raw.length; i++) out[i] = raw.charCodeAt(i);
     return out;
   }
+  function salvarSub(sub){
+    return fetch(M.url + '/rest/v1/foyer_push', {
+      method: 'POST',
+      headers: { 'apikey': M.key, 'Authorization': 'Bearer ' + M.key,
+                 'Content-Type': 'application/json',
+                 // se o endpoint já existe, atualiza (não falha com 409): a inscrição fica sempre fresca
+                 'Prefer': 'return=minimal,resolution=merge-duplicates' },
+      body: JSON.stringify({ endpoint: sub.endpoint, sub: sub.toJSON() })
+    });
+  }
   function inscrever(){
     return navigator.serviceWorker.ready.then(function(reg){
       return reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64ParaBytes(PUB) });
-    }).then(function(sub){
-      return fetch(M.url + '/rest/v1/foyer_push', {
-        method: 'POST',
-        headers: { 'apikey': M.key, 'Authorization': 'Bearer ' + M.key,
-                   'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
-        body: JSON.stringify({ endpoint: sub.endpoint, sub: sub.toJSON() })
+    }).then(salvarSub);
+  }
+  // autocura: se a pessoa JÁ autorizou, garante que existe uma inscrição viva e a
+  // reenvia ao servidor (o navegador pode trocar/expirar a inscrição sozinho; sem
+  // isso, as notificações silenciosamente param de chegar mesmo com permissão dada).
+  function garantirInscricao(){
+    if(!suporta || Notification.permission !== 'granted') return;
+    navigator.serviceWorker.ready.then(function(reg){
+      return reg.pushManager.getSubscription().then(function(sub){
+        if(sub) return salvarSub(sub);              // reafirma a inscrição atual
+        return reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64ParaBytes(PUB) }).then(salvarSub);
       });
-    });
+    }).catch(function(){});
   }
 
   function abrirCartao(){
@@ -407,6 +422,9 @@
     var a = e.target.closest && e.target.closest('[data-sino]');
     if(a){ e.preventDefault(); abrirCartao(); }
   });
+
+  // mantém viva a inscrição de quem já autorizou (roda em qualquer navegador, toda visita)
+  garantirInscricao();
 
   // convite automático: logo depois de abrir o APP instalado (depois da abertura)
   var instalado = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
