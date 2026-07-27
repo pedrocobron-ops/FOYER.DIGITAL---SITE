@@ -1,6 +1,64 @@
 {
  "rodadas": [
   {
+   "quando": "2026-07-27T07:41:05-03:00",
+   "por": "Rotina diária (Claude) — arquitetura de três ondas",
+   "buscas": [
+    "Theatro Municipal de São Paulo história inauguração 1911 Semana de Arte Moderna 1922",
+    "origem expressão break a leg / quebre uma perna teatro",
+    "Cats Regent's Park Open Air Theatre 2026 Drew McOnie fastest selling",
+    "o que faz um diretor musical no teatro função",
+    "anfiteatro romano Cartagena georradar julho 2026 mayor de lo estimado",
+    "estreia Vestido de Noiva Nelson Rodrigues 1943 Ziembinski Theatro Municipal RJ"
+   ],
+   "consideradas": [
+    {
+     "assunto": "Theatro Municipal de SP (Casa de Espetáculo, prato do dia)",
+     "decisao": "escolhida",
+     "motivo": "prato de segunda; teatro bem documentado, foto CC no Wikimedia"
+    },
+    {
+     "assunto": "'quebre uma perna' (curiosidade)",
+     "decisao": "escolhida",
+     "motivo": "curiosidade evergreen ainda não coberta; origem incerta tratada como hipótese"
+    },
+    {
+     "assunto": "Nova Cats no Regent's Park (notícia musical mundial)",
+     "decisao": "escolhida",
+     "motivo": "recorde de venda atribuído ao teatro; foto de divulgação com fotógrafo creditado"
+    },
+    {
+     "assunto": "O que faz um diretor musical (Entenda)",
+     "decisao": "escolhida",
+     "motivo": "explicador evergreen; foto CC de fosso de orquestra"
+    },
+    {
+     "assunto": "Georradar no Anfiteatro Romano de Cartagena (notícia patrimônio)",
+     "decisao": "escolhida",
+     "motivo": "achado real de início de julho/2026; foto CC0; condicional preservado"
+    },
+    {
+     "assunto": "Estreia de Vestido de Noiva, 1943 (Memória)",
+     "decisao": "escolhida",
+     "motivo": "marco do teatro moderno; data exata confirmada em dissertação"
+    },
+    {
+     "assunto": "Estudo de 'palcos móveis' no teatro grego de Messene (GreekReporter 19/07)",
+     "decisao": "descartada",
+     "motivo": "apuração mostrou que é reciclagem de estudo de 2017; escreveria data errada"
+    }
+   ],
+   "produzidas": [
+    "historia-do-theatro-municipal-de-sao-paulo",
+    "por-que-os-atores-dizem-quebre-uma-perna",
+    "nova-cats-regents-park-open-air-theatre-londres",
+    "o-que-faz-um-diretor-musical-no-teatro",
+    "anfiteatro-romano-de-cartagena-georradar",
+    "estreia-vestido-de-noiva-1943-nelson-rodrigues"
+   ],
+   "obs": "6/6 aprovadas no portao apos 3 ondas (redacao / checagem independente / leitura fria). Checadores cortaram: 'Irlanda' da turne de Cats (nao confirmada); em SP, superlativo 'melhor palco', 'Charles Garnier' (fora das fontes) e uma misatribuicao do numero '20 mil'; rebaixaram 'o maior dramaturgo' para 'o mais influente do pais'. Orquestrador corrigiu 'adiantamento'->'prolongamento' na materia de Cats (fato apontado pela leitura fria e confirmado pela checagem). Transparencia: aspas de McOnie/Lloyd Webber sao traducoes de comunicado com veiculo nomeado no texto; foto do explicador de diretor musical e ilustrativa de contexto (fosso de orquestra em Minsk); @andrewlloydwebber marcado confirmado:false para o Pedro conferir; noticia de Cartagena e de inicio de julho (um pouco alem dos 7 dias, a mais fresca e solida do filao)."
+  },
+  {
    "data": "2026-07-26",
    "dia": "domingo",
    "esteira": "pauteiro > reporter > editor-estilo > checador > revisor-tom > chefe (3 ondas, agentes separados)",
