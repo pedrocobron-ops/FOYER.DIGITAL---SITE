@@ -376,6 +376,13 @@
   .acervo-filtros label input{ font-family:var(--mono); }
   .af-conta{ font-family:var(--mono); font-size:.62rem; color:var(--ink-soft); margin-top:8px;
     text-transform:uppercase; letter-spacing:.06em; }
+  .mesa-assina{ font-family:var(--sans); font-size:.82rem; line-height:1.5; padding:11px 18px;
+    border-bottom:1px solid var(--line); }
+  .mesa-assina.minha{ background:rgba(206,178,106,.16); border-left:4px solid var(--gold); }
+  .mesa-assina.outra{ background:var(--paper-2); border-left:4px solid var(--ink-soft); color:var(--ink-soft); }
+  .mesa-card.de-outro{ opacity:.9; }
+  .mesa-trava{ font-family:var(--mono); font-size:.6rem; text-transform:uppercase; letter-spacing:.08em;
+    color:var(--ink-soft); border:1.5px dashed var(--line); padding:10px 12px; display:inline-flex; align-items:center; }
   .mesa-pick{ display:flex; align-items:center; padding-top:2px; cursor:pointer; }
   .mesa-pick input{ width:20px; height:20px; accent-color:var(--wine); cursor:pointer; }
   .mesa-pick input:disabled{ cursor:not-allowed; }
@@ -728,7 +735,7 @@
         <h2 class="hi" id="saudacao">Boa noite</h2>
         <p class="hi-sub">O panorama do FOYER neste momento</p>
         <div class="stats">
-          <div class="stat"><b>1530</b><span>matérias no acervo</span></div>
+          <div class="stat"><b>1534</b><span>matérias no acervo</span></div>
           <div class="stat"><b id="st-pub">—</b><span>publicadas pela Coxia</span></div>
           <div class="stat"><b id="st-ag">—</b><span>agendadas esperando a hora</span></div>
           <div class="stat" id="card-mesa"><b id="st-mesa">—</b><span>na mesa de aprovação</span></div>
@@ -2815,29 +2822,33 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             blocoArrobas(d.instagram) +
             '</details>';
           var fontesBloco = fontes ? '<details class="mesa-dobra"><summary>Fontes apuradas</summary>' + fontes + '</details>' : '';
-          return '<article class="mesa-card" id="card-' + esc(d.slug) + '" data-slug="' + esc(d.slug) + '">' +
+          var meuNome = podeLiberarAssinatura(d);
+          return '<article class="mesa-card' + (meuNome ? '' : ' de-outro') + '" id="card-' + esc(d.slug) + '" data-slug="' + esc(d.slug) + '">' +
             '<div class="mesa-head">' +
-              '<label class="mesa-pick" title="Selecionar para aprovar/agendar em lote"><input type="checkbox" class="mesa-check" data-pick="' + esc(d.slug) + '"' + (d.img ? '' : ' disabled') + '></label>' +
+              '<label class="mesa-pick" title="' + (meuNome ? 'Selecionar para aprovar/agendar em lote' : 'Assinada por outra pessoa: só ela aprova') + '"><input type="checkbox" class="mesa-check" data-pick="' + esc(d.slug) + '"' + ((d.img && meuNome) ? '' : ' disabled') + '></label>' +
               '<span><span class="ti">' + esc(d.title) + '</span>' +
-              '<span class="mt">' + esc([d.cat].concat(d.cats || []).join(' + ')) + ' — ' + palavras + ' palavras — ' + quando + ' — ' + origem + '</span></span>' +
+              '<span class="mt">' + esc([d.cat].concat(d.cats || []).join(' + ')) + ' — ' + palavras + ' palavras — ' + quando + ' — ' + origem +
+                ' — assina: ' + esc(d.author || 'Redação Foyer') + '</span></span>' +
               selo +
-            '</div>' + capa + parecer + checagem + insta +
+            '</div>' + avisoAssinatura(d) + capa + parecer + checagem + insta +
             fontesBloco +
             '<details class="mesa-dobra"><summary>Ler a matéria inteira</summary>' +
             '<div class="mesa-corpo" id="corpo-' + esc(d.slug) + '">' + mdRender(d.corpo) + '</div></details>' +
             '<div class="mesa-acoes">' +
               '<button class="bt" type="button" data-mesaedit="' + esc(d.slug) + '">✎ Editar texto</button>' +
               '<button class="bt" type="button" data-capa="' + esc(d.slug) + '">📷 ' + (d.img ? 'Trocar a capa' : 'Subir a capa') + '</button>' +
-              '<button class="bt ap" type="button" data-aprovar="' + esc(d.slug) + '">✓ Aprovar e publicar</button>' +
-              '<div class="mesa-agenda">' +
-                '<button class="bt" type="button" data-agendar="' + esc(d.slug) + '">🕐 Aprovar e agendar</button>' +
-                '<div class="dt-rapido" data-dtrmesa="' + esc(d.slug) + '">' +
-                  '<button class="bt mini" type="button" data-quando="hoje18">Hoje 18h</button>' +
-                  '<button class="bt mini" type="button" data-quando="amanha9">Amanhã 9h</button>' +
-                  '<button class="bt mini" type="button" data-quando="sexta18">Sexta 18h</button>' +
-                  '<input type="datetime-local" id="dt-' + esc(d.slug) + '" aria-label="Data e hora">' +
-                '</div>' +
-              '</div>' +
+              (meuNome
+                ? '<button class="bt ap" type="button" data-aprovar="' + esc(d.slug) + '">✓ Aprovar e publicar</button>' +
+                  '<div class="mesa-agenda">' +
+                    '<button class="bt" type="button" data-agendar="' + esc(d.slug) + '">🕐 Aprovar e agendar</button>' +
+                    '<div class="dt-rapido" data-dtrmesa="' + esc(d.slug) + '">' +
+                      '<button class="bt mini" type="button" data-quando="hoje18">Hoje 18h</button>' +
+                      '<button class="bt mini" type="button" data-quando="amanha9">Amanhã 9h</button>' +
+                      '<button class="bt mini" type="button" data-quando="sexta18">Sexta 18h</button>' +
+                      '<input type="datetime-local" id="dt-' + esc(d.slug) + '" aria-label="Data e hora">' +
+                    '</div>' +
+                  '</div>'
+                : '<span class="mesa-trava">🔒 aprovação de ' + esc(donoDaAssinatura(d).split(' ')[0]) + '</span>') +
               '<button class="bt danger" type="button" data-recusar="' + esc(d.slug) + '">✕ Recusar</button>' +
             '</div>' +
           '</article>';
@@ -2903,6 +2914,30 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(!restantes){ var el = $('mesa-list'); if(el) el.innerHTML = '<div class="vazio-box">Mesa limpa ✓ — nenhuma matéria esperando. Bom trabalho.</div>'; }
     carregarPalco();
   }
+  // ---------- trava de assinatura ----------
+  // Matéria que vai sair assinada por uma PESSOA só pode ser liberada por essa pessoa.
+  // O nome de quem assina é o que responde pelo texto diante do leitor: ninguém publica
+  // no nome de outro. Matéria de "Redação Foyer" segue liberada por quem tem a mesa.
+  function ehAssinaturaColetiva(nome){
+    return !nome || /^reda(ç|c)ão/i.test(String(nome).trim());
+  }
+  function donoDaAssinatura(d){
+    var a = (d && d.author) ? String(d.author).trim() : '';
+    return ehAssinaturaColetiva(a) ? '' : a;
+  }
+  function podeLiberarAssinatura(d){
+    var dono = donoDaAssinatura(d);
+    if(!dono) return true;                       // Redação Foyer: qualquer editor da mesa
+    return USER && USER.nome && dono.toLowerCase() === String(USER.nome).trim().toLowerCase();
+  }
+  function avisoAssinatura(d){
+    var dono = donoDaAssinatura(d);
+    if(!dono) return '';
+    return podeLiberarAssinatura(d)
+      ? '<div class="mesa-assina minha">✍ Esta matéria vai ao ar <b>assinada por você</b>. Leia inteira antes de aprovar: é o seu nome que responde por ela.</div>'
+      : '<div class="mesa-assina outra">🔒 Assinada por <b>' + esc(dono) + '</b>. Só ' + esc(dono.split(' ')[0]) +
+        ' pode aprovar, porque é o nome dela(e) que vai ao ar. Você pode ler, editar e devolver com um recado.</div>';
+  }
   // núcleo: publica a matéria e a retira da mesa; devolve uma promessa (sem UI)
   function publicarDaMesa(d, publishAt){
     var dados = {
@@ -2927,6 +2962,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   function aprovar(slug, publishAt, quando){
     var d = MESA[slug];
     if(!d) return;
+    if(!podeLiberarAssinatura(d)){
+      avisar('Esta matéria vai sair assinada por ' + donoDaAssinatura(d) + '. Só ' + donoDaAssinatura(d).split(' ')[0] +
+             ' pode aprovar, porque é o nome dela(e) que responde pelo texto.\n\nSe quiser mudar isso, troque a assinatura no editor antes de aprovar.');
+      return;
+    }
     var card = document.getElementById('card-' + slug);
     travarCard(card, true);
     publicarDaMesa(d, publishAt)
@@ -2957,6 +2997,14 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   function aprovarLote(slugs, publishAt, rotulo){
     if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
     var ds = slugs.map(function(s){ return MESA[s]; }).filter(Boolean);
+    // assinadas por outra pessoa não entram no lote: só quem assina libera o próprio nome
+    var deOutro = ds.filter(function(d){ return !podeLiberarAssinatura(d); });
+    if(deOutro.length){
+      avisar('Estas estão assinadas por outra pessoa e só ela pode aprovar: ' +
+        deOutro.map(function(d){ return '“' + d.title.slice(0,28) + '” (' + donoDaAssinatura(d) + ')'; }).join(', ') +
+        '.\n\nDesmarque essas para seguir com o lote.');
+      return;
+    }
     var semFoto = ds.filter(function(d){ return !d.img; });
     if(semFoto.length){ avisar('Estas ainda estão sem foto de capa: ' + semFoto.map(function(d){ return '“' + d.title.slice(0,30) + '”'; }).join(', ') + '. Suba a capa antes.'); return; }
     if(!ds.length) return;
