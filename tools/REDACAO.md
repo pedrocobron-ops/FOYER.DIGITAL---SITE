@@ -71,7 +71,8 @@ não uma nota de agenda. Padrão obrigatório:
 - **Nunca inventar fatos, aspas ou dados** — tudo deve vir das fontes
   encontradas na apuração (mínimo de 3 fontes por matéria). Se um dado
   não estiver nas fontes, não afirmar.
-- Assinatura: sempre `"author": "Redação Foyer"` — sem personas falsas.
+- Assinatura: conforme a editoria da matéria (ver "Quem assina o quê", abaixo).
+  Nunca inventar persona: só os nomes reais da equipe ou "Redação Foyer".
 
 ## Escrita humana (obrigatório — o Chefe de Redação REPROVA quem violar)
 
@@ -130,6 +131,57 @@ Matéria sem foto não vai para a mesa. Em cada pauta:
    o Pauteiro escolhe outra. Nunca usar foto que não seja de divulgação
    oficial do espetáculo/evento.
 
+## Quem assina o quê — editorias e vozes
+
+O FOYER tem três assinaturas. Cada matéria nasce já destinada a uma delas,
+pela EDITORIA do assunto. A assinatura vai no campo `author` do pacote.
+
+| Assinatura | Cobre | `author` |
+|---|---|---|
+| **Pedro Amaral** | mercado e dinheiro do setor, economia criativa, bilheteria e financiamento, cinema e streaming | `Pedro Amaral` |
+| **Isabel Branquinha** | estreias e temporadas de peças, o que está acontecendo em São Paulo nas artes, artistas e montagens | `Isabel Branquinha` |
+| **Redação Foyer** | todo o resto: bastidores, explicadores, memória, curiosidades, listas, guias, patrimônio e notícia internacional | `Redação Foyer` |
+
+**REGRA INEGOCIÁVEL DA ASSINATURA.** Matéria destinada a uma pessoa vai para a
+mesa como as outras, com `status: aguardando_aprovacao`, e **só essa pessoa
+pode aprová-la na Coxia** (a Coxia bloqueia quem não é dono do nome). O nome
+que assina é quem responde pelo texto diante do leitor: ninguém publica no
+nome de outro. Na dúvida sobre a editoria, assine **Redação Foyer** — a
+assinatura coletiva nunca é erro.
+
+### A voz de Pedro Amaral
+
+Extraída das matérias dele no acervo. Pedro escreve **quente e perto do
+leitor**, com apetite pelo assunto e sem distância professoral.
+
+- Fala com o leitor, não sobre ele. Admite chamada direta no fecho
+  ("vale ficar de olho", "a conta não fecha"), sem virar publicidade.
+- Gosta do concreto: números, valores, quanto custa, quem paga, quanto
+  rende. É a voz certa para dinheiro e mercado.
+- Frases de tamanhos variados, ritmo rápido, parágrafos curtos.
+- Cinema e streaming entram pelo mesmo viés: bilheteria, catálogo,
+  janela de lançamento, o negócio por trás da obra.
+- **Cuidado herdado**: os textos antigos dele usavam expressões que a casa
+  hoje proíbe ("experiência única", "promete encantar", "icônica"). Manter
+  o calor e a proximidade, JAMAIS o clichê de release. As regras de
+  "Escrita humana" valem inteiras para ele também.
+
+### A voz de Isabel Branquinha
+
+Extraída das 1.257 matérias dela no acervo. Isabel escreve **sóbria,
+precisa e informativa**, com elegância e zero adjetivação gratuita.
+
+- Abre com o fato: o que estreia, quem assina, onde e quando. O lide dela
+  responde tudo na primeira frase.
+- Descreve a obra pelo sentido, não pelo elogio ("a narrativa se organiza
+  como um thriller psicológico", "a peça se interessa pelo que existe por
+  trás do ícone"). Nunca diz que é bom; diz o que é.
+- Contexto sempre: ano do texto original, trajetória da montagem,
+  temporadas anteriores, prêmios, quem já fez o papel.
+- Serviço completo e exato: datas, horários, sala, shopping, endereço.
+- Frases médias e bem construídas, português culto e limpo.
+- Cita declarações da produção quando existem, com atribuição clara.
+
 ## Grade semanal — o cardápio das 6 matérias do dia
 
 Das 6 matérias diárias: **2 são notícias quentes** (seguindo a mistura da
@@ -176,7 +228,16 @@ três ondas de agentes independentes, sem economizar agente:
 - **ONDA 1 — Redação**: 3 agentes redatores em paralelo, 2 matérias cada,
   seguindo a esteira interna (pauteiro → repórter → editor de estilo →
   chefe de redação) e o protocolo antifalha. Entregam o pacote completo
-  (com instagram e artes geradas).
+  (com instagram e artes geradas). **Cada redator escreve para UMA
+  assinatura e recebe o guia de voz dela** (ver "Quem assina o quê"):
+  - **Redator PEDRO** — pautas de mercado, dinheiro, economia criativa,
+    bilheteria, financiamento, cinema e streaming. Grava `author: "Pedro Amaral"`.
+  - **Redatora ISABEL** — estreias, temporadas e o que acontece nas artes
+    em São Paulo. Grava `author: "Isabel Branquinha"`.
+  - **Redator REDAÇÃO** — bastidores, explicadores, memória, curiosidades,
+    listas, guias, patrimônio e internacional. Grava `author: "Redação Foyer"`.
+  Escrever na voz de alguém NÃO autoriza publicar no nome dessa pessoa: a
+  matéria vai para a mesa e só o dono da assinatura libera.
 - **ONDA 2 — Checagem independente**: para CADA matéria entregue, UM
   agente checador exclusivo, que não participou da escrita, executa o
   papel 4 da esteira (abaixo): reabre todas as fontes, reconfere fato a
@@ -277,7 +338,7 @@ Blocos opcionais (usar quando enriquecem de verdade):
  "slug": "titulo-da-materia",
  "cat": "Teatro",
  "cats": ["Notícia", "Em Cartaz"],
- "author": "Redação Foyer",
+ "author": "Redação Foyer",          // ou "Pedro Amaral" / "Isabel Branquinha", pela editoria
  "img": "assets/uploads/<slug>.jpg",
  "imgCredito": "Foto: Divulgação",
  "corpo": "texto no formato da Coxia…",

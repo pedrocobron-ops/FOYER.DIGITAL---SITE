@@ -148,8 +148,12 @@ def auditar(caminho):
     ch = pg.get('chefe') or {}
     if not ch.get('parecer'):
         problemas.append('SEM parecer do chefe de redação')
-    if pg.get('author') != 'Redação Foyer':
-        problemas.append(f'AUTOR "{pg.get("author")}" (agente assina Redação Foyer)')
+    # assinaturas válidas: a coletiva ou uma pessoa real da equipe.
+    # Matéria assinada por pessoa só pode ser aprovada por ela na Coxia.
+    ASSINATURAS = {'Redação Foyer', 'Pedro Amaral', 'Isabel Branquinha'}
+    if pg.get('author') not in ASSINATURAS:
+        problemas.append(f'AUTOR "{pg.get("author")}" fora das assinaturas do FOYER '
+                         f'({", ".join(sorted(ASSINATURAS))})')
     if not pg.get('checagem', {}).get('verificada'):
         avisos.append('SEM registro do Checador independente (campo checagem.verificada)')
 
