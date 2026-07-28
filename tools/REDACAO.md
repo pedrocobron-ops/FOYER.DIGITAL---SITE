@@ -520,6 +520,13 @@ O boneco padrão, na ordem:
 | 11 | Expediente | `expediente` | automático |
 | 12 | **Contracapa** (na próxima edição) | `contracapa` | Chefe; se faltar, entra a da casa |
 
+**REGRA DO FECHAMENTO: a edição é um objeto parado no tempo.** A edição
+que sai na sexta fecha na quinta. NADA publicado depois do fechamento
+entra: nem matéria, nem aspa de recorte, nem vídeo do "Na tela". O
+gerador já congela as páginas automáticas na data da edição; quem monta
+as páginas manuais confere a data de publicação de cada conteúdo antes
+de usar. O leitor pode abrir a edição meses depois e ela é a mesma.
+
 Regras das seções novas:
 
 - **Recortes**: só aspas REAIS e JÁ PUBLICADAS, cada uma com quem disse

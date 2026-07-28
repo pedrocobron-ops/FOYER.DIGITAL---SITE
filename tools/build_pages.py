@@ -2081,9 +2081,23 @@ _RV_MESTRES = [
      'Nelson Rodrigues', 'Dramaturgo de "Vestido de Noiva"'),
 ]
 
-def _rv_agenda_itens():
-    """Agenda dinâmica da revista: eventos reais em cartaz de hoje a quinta que vem."""
-    _ini = datetime.now(timezone.utc).date()
+_MES_PT = {'jan': 1, 'fev': 2, 'feb': 2, 'mar': 3, 'abr': 4, 'apr': 4, 'mai': 5, 'may': 5,
+           'jun': 6, 'jul': 7, 'ago': 8, 'aug': 8, 'set': 9, 'sep': 9, 'out': 10, 'oct': 10,
+           'nov': 11, 'dez': 12, 'dec': 12}
+
+def _rv_iso_edicao(ed):
+    """Data de fechamento da edição em ISO. Uma edição fechada é um objeto
+    parado no tempo: nada publicado depois dela pode entrar, nem em rebuild."""
+    txt = str(ed.get('dataEdicao', '')).strip()
+    m = _re.match(r'(\d{1,2})\s+([A-Za-zç]{3})\w*\.?\s+(\d{4})', txt)
+    if m and m.group(2).lower()[:3] in _MES_PT:
+        return f'{int(m.group(3)):04d}-{_MES_PT[m.group(2).lower()[:3]]:02d}-{int(m.group(1)):02d}'
+    return None
+
+def _rv_agenda_itens(ref=None):
+    """Agenda dinâmica da revista: eventos reais em cartaz de hoje a quinta que vem
+    (ou da data de fechamento da edição, quando ela existe)."""
+    _ini = ref or datetime.now(timezone.utc).date()
     _fim = _ini + __import__('datetime').timedelta(days=7)
     itens = []
     for m in MATERIAS:
@@ -2177,12 +2191,16 @@ def _rv_pagina(pg, ed, num):
                 f'<div class="miolo"><h3>{_rvesc(pg.get("titulo"))}</h3>'
                 f'<div class="txt">{md_lite(pg.get("texto", ""))}</div></div>{fol}</section>')
     if t == 'programas':
-        _lim = (datetime.now(timezone.utc) - __import__('datetime').timedelta(days=14)).strftime('%Y-%m-%d')
+        # a página congela na data de fechamento da edição: nada publicado
+        # depois dela entra, mesmo que o site seja reconstruído meses depois
+        _ref = _rv_iso_edicao(ed) or datetime.now(timezone.utc).strftime('%Y-%m-%d')
+        _lim = (datetime.strptime(_ref, '%Y-%m-%d') - __import__('datetime').timedelta(days=14)).strftime('%Y-%m-%d')
         # o episódio mais novo de CADA programa dentro da quinzena (garante o Programa do Foyer),
         # completando com os demais lançamentos recentes até 6
         _semana, _vistos = [], set()
         for _p in _yt_progs:
-            _vs = sorted(_p.get('videos', []), key=lambda v: v.get('quando', ''), reverse=True)
+            _vs = sorted([v for v in _p.get('videos', []) if v.get('quando', '') <= _ref],
+                         key=lambda v: v.get('quando', ''), reverse=True)
             if _vs and _vs[0].get('quando', '') >= _lim:
                 _semana.append((_vs[0]['quando'], _p['nome'], _vs[0]))
                 _vistos.add(_vs[0].get('id'))
@@ -2190,10 +2208,11 @@ def _rv_pagina(pg, ed, num):
         for q, n, v in _yt_videos(_yt_progs, 60):
             if len(_semana) >= 6:
                 break
-            if v.get('id') not in _vistos and q >= _lim:
+            if v.get('id') not in _vistos and _lim <= q <= _ref:
                 _semana.append((q, n, v))
                 _vistos.add(v.get('id'))
-        _semana = sorted(_semana, key=lambda x: (x[0], x[1]), reverse=True)[:6] or _yt_videos(_yt_progs, 6)
+        _semana = (sorted(_semana, key=lambda x: (x[0], x[1]), reverse=True)[:6]
+                   or [(q, n, v) for q, n, v in _yt_videos(_yt_progs, 60) if q <= _ref][:6])
         cels = ''.join(
             f'<a class="ep" href="{_rvesc(v["url"])}" target="_blank" rel="noopener">'
             f'<img src="{_rvesc(v["thumb"])}" alt="" loading="lazy" '
@@ -2237,10 +2256,11 @@ def _rv_pagina(pg, ed, num):
                     f'<div class="lista">{linhas}</div>'
                     f'<div class="ag-cta"><a href="cat-em-cartaz.html">Tudo que está em cartaz agora →</a></div>'
                     f'{fol}</section>')
-        itens = _rv_agenda_itens()
+        _ref_ag = _rv_iso_edicao(ed)
+        itens = _rv_agenda_itens(datetime.strptime(_ref_ag, '%Y-%m-%d').date() if _ref_ag else None)
         linhas = ''
         for e_ini, e_fim, m in itens:
-            hoje = datetime.now(timezone.utc).date().isoformat()
+            hoje = _ref_ag or datetime.now(timezone.utc).date().isoformat()
             if e_ini <= hoje and e_fim > hoje:
                 quando = f'em cartaz até {_rv_data_curta(e_fim)}'
             elif e_ini == e_fim:
