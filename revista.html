@@ -162,15 +162,51 @@
     <h2>Edições</h2>
     <span class="note">Fechadas na Coxia, uma por semana</span>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px">
-    <a href="revista-ed-1.html" style="border:2px solid var(--ink);text-decoration:none;color:var(--ink);display:block;background:var(--paper)">
-      <img src="assets/uploads/wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.jpg" alt="" loading="lazy" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block" onerror="this.style.display='none'">
-      <div style="padding:14px 16px;border-top:2px solid var(--ink)">
-        <span style="font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)">Nº 1 — 23 Jul 2026</span>
-        <span style="display:block;font-family:var(--didone);font-size:1.3rem;line-height:1.1;margin-top:6px">A semana em que Oz desembarcou no Rio</span>
-      </div>
-    </a>
-  </div>
+  <style>
+/* a estante: as edições em pé, como numa prateleira de casa */
+.estante{ position:relative; padding:26px 18px 0; }
+.est-prateleira{ display:flex; align-items:flex-end; gap:26px; flex-wrap:wrap;
+  padding:0 12px 0; min-height:340px; }
+.est-rev{ position:relative; display:block; text-decoration:none; color:var(--ink);
+  width:214px; transition:transform .22s ease; transform-origin:bottom center; }
+.est-rev:hover{ transform:translateY(-14px) rotate(-1deg); }
+.est-rev:focus-visible{ outline:3px solid var(--gold); outline-offset:4px; }
+.est-capa{ position:relative; display:block; border:3px solid var(--ink); background:var(--wine);
+  aspect-ratio:3/4.05; overflow:hidden;
+  box-shadow:6px 0 0 -2px #d8cdb4, 9px 0 0 -3px var(--ink), 8px 10px 24px rgba(35,8,5,.3); }
+.est-capa img{ width:100%; height:100%; object-fit:cover; display:block; }
+.est-capa .veu{ position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(35,8,5,.55), transparent 34%, transparent 62%, rgba(35,8,5,.8)); }
+.est-capa .lg{ position:absolute; top:8px; left:10px; right:10px; }
+.est-capa .lg img{ width:100%; height:auto; object-fit:contain; filter:drop-shadow(0 1px 6px rgba(0,0,0,.6)); }
+.est-capa .mch{ position:absolute; left:12px; right:12px; bottom:10px; color:#fff;
+  font-family:var(--didone); font-size:1.05rem; line-height:1.06;
+  text-shadow:0 2px 10px rgba(0,0,0,.7); }
+.est-rot{ display:block; margin-top:10px; font-family:var(--mono); font-size:.56rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-soft); text-align:center; }
+.est-rot b{ color:var(--ink); }
+/* a próxima edição: ainda na gráfica */
+.est-fantasma{ width:214px; }
+.est-fantasma .est-capa{ background:var(--paper-2); border-style:dashed; box-shadow:none;
+  display:flex; align-items:center; justify-content:center; text-align:center; }
+.est-fantasma .est-capa span{ font-family:var(--mono); font-size:.6rem; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--ink-soft); padding:0 18px; line-height:2; }
+/* a madeira da prateleira */
+.est-tabua{ height:16px; border:3px solid var(--ink); background:var(--wine);
+  box-shadow:0 8px 0 -4px rgba(35,8,5,.35); margin-top:-3px; }
+@media (max-width:640px){ .est-prateleira{ justify-content:center; } }
+</style><div class="estante"><div class="est-prateleira">
+      <a class="est-rev" href="revista-ed-1.html" aria-label="Ler a edição 1">
+        <span class="est-capa"><img src="assets/uploads/wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.jpg" alt="" loading="lazy" onerror="this.style.display='none'"><span class="veu"></span>
+          <span class="lg"><img src="assets/logo/foyer-horizontal-gold.png" alt="FOYER"></span>
+          <span class="mch">A semana em que Oz desembarcou no Rio</span>
+        </span>
+        <span class="est-rot"><b>Nº 1</b> · 23 Jul 2026</span>
+      </a>
+      <span class="est-rev est-fantasma" aria-hidden="true">
+        <span class="est-capa"><span>Nº 2<br>em fechamento<br>na redação</span></span>
+        <span class="est-rot">chega sexta</span>
+      </span></div><div class="est-tabua"></div></div>
   <div class="ad-slot" data-ad-slot="1301"></div>
 </main>
 

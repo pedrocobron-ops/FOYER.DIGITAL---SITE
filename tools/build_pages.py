@@ -1640,11 +1640,88 @@ ED_PUB = [e for e in EDICOES if e.get('status') == 'publicada']
 
 _RV_CSS = '''<style>
 /* ============ A REVISTA — leitor em formato de página impressa ============ */
-.rv-stage{ max-width:740px; margin:26px auto 90px; padding:0 14px; }
+.rv-stage{ max-width:760px; margin:26px auto 90px; padding:0 14px; }
+/* no desktop largo, a revista abre em página dupla */
+@media (min-width:1080px){ body.rv-duplo .rv-stage{ max-width:1440px; } }
+.rv-book{ position:relative; display:flex; justify-content:center; align-items:stretch;
+  perspective:2600px; margin:0 auto; }
 .rv-pg{ display:none; border:3px solid var(--ink); background:var(--paper);
-  aspect-ratio:3/4.05; position:relative; overflow:hidden; animation:rvin .3s ease; }
+  aspect-ratio:3/4.05; position:relative; overflow:hidden; animation:rvin .3s ease;
+  width:100%; max-width:734px; flex-shrink:0; backface-visibility:hidden; }
 .rv-pg.on{ display:flex; flex-direction:column; }
 @keyframes rvin{ from{ opacity:0; transform:translateX(16px);} to{ opacity:1; transform:none;} }
+/* lado esquerdo e direito da página dupla */
+body.rv-duplo .rv-pg.on.pg-l{ border-right-width:1.5px; }
+body.rv-duplo .rv-pg.on.pg-r{ border-left-width:1.5px; }
+/* sombra da dobra central */
+body.rv-duplo .rv-pg.on.pg-l::after{ content:''; position:absolute; top:0; bottom:0; right:0; width:56px;
+  background:linear-gradient(270deg, rgba(35,8,5,.16), transparent); pointer-events:none; z-index:8; }
+body.rv-duplo .rv-pg.on.pg-r::after{ content:''; position:absolute; top:0; bottom:0; left:0; width:56px;
+  background:linear-gradient(90deg, rgba(35,8,5,.13), transparent); pointer-events:none; z-index:8; }
+/* página larga (pôster central): ocupa a dupla inteira */
+.rv-pg.rv-wide{ aspect-ratio:1.481; max-width:1440px; }
+body:not(.rv-duplo) .rv-pg.rv-wide{ max-width:734px; }
+/* a dupla aberta cabe inteira na altura da tela */
+body.rv-duplo .rv-pg{ max-width:min(720px, calc((100vh - 230px) * .7407)); }
+body.rv-duplo .rv-pg.rv-wide{ max-width:min(1440px, calc((100vh - 230px) * 1.4815)); }
+body.rv-sala.rv-duplo .rv-pg{ max-width:min(720px, calc((100vh - 120px) * .7407)); }
+body.rv-sala.rv-duplo .rv-pg.rv-wide{ max-width:min(1440px, calc((100vh - 120px) * 1.4815)); }
+/* grão de papel de revista (sutil; some na impressão) */
+.rv-pg::before{ content:''; position:absolute; inset:0; z-index:9; pointer-events:none;
+  opacity:.5; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.38 0 0 0 0 0.32 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23g)'/%3E%3C/svg%3E"); }
+html[data-theme="dark"] .rv-pg::before{ opacity:.25; }
+/* a virada de página */
+.rv-pg.vira-sai-dir{ transform-origin:left center; animation:viraSaiDir .24s ease-in forwards; }
+.rv-pg.vira-entra-dir{ transform-origin:left center; animation:viraEntraDir .26s ease-out; }
+.rv-pg.vira-sai-esq{ transform-origin:right center; animation:viraSaiEsq .24s ease-in forwards; }
+.rv-pg.vira-entra-esq{ transform-origin:right center; animation:viraEntraEsq .26s ease-out; }
+@keyframes viraSaiDir{ from{ transform:rotateY(0); filter:brightness(1);} to{ transform:rotateY(-88deg); filter:brightness(.72);} }
+@keyframes viraEntraDir{ from{ transform:rotateY(88deg); filter:brightness(.72);} to{ transform:rotateY(0); filter:brightness(1);} }
+@keyframes viraSaiEsq{ from{ transform:rotateY(0); filter:brightness(1);} to{ transform:rotateY(88deg); filter:brightness(.72);} }
+@keyframes viraEntraEsq{ from{ transform:rotateY(-88deg); filter:brightness(.72);} to{ transform:rotateY(0); filter:brightness(1);} }
+@media (prefers-reduced-motion:reduce){
+  .rv-pg.vira-sai-dir,.rv-pg.vira-entra-dir,.rv-pg.vira-sai-esq,.rv-pg.vira-entra-esq{ animation:none; }
+  .rv-pg{ animation:none; } }
+/* convite no canto: a pontinha da página dobra ao passar o mouse */
+.rv-canto{ position:absolute; right:0; bottom:0; width:64px; height:64px; z-index:11; cursor:pointer;
+  background:linear-gradient(315deg, var(--paper-2) 0%, var(--paper-2) 48%, transparent 50%);
+  clip-path:polygon(100% 0, 100% 100%, 0 100%); opacity:0; transition:opacity .2s, transform .2s;
+  transform:translate(8px,8px); border:0; padding:0; }
+.rv-pg:hover .rv-canto{ opacity:.85; transform:none; }
+.rv-canto:focus-visible{ opacity:1; transform:none; outline:2px solid var(--gold); }
+/* a espessura: as folhas que faltam (direita) e as já lidas (esquerda) */
+.rv-lombo{ position:absolute; top:8px; bottom:8px; width:0; z-index:0; pointer-events:none;
+  background:repeating-linear-gradient(90deg, #cfc4ab 0 1px, #efe8da 1px 3px);
+  border:1px solid var(--ink); border-left:0; transition:width .3s ease; }
+.rv-lombo.esq{ right:100%; border:1px solid var(--ink); border-right:0;
+  background:repeating-linear-gradient(270deg, #cfc4ab 0 1px, #efe8da 1px 3px); }
+.rv-lombo.dir{ left:100%; }
+html[data-theme="dark"] .rv-lombo{ background:repeating-linear-gradient(90deg, #1c1712 0 1px, #2e2820 1px 3px); }
+html[data-theme="dark"] .rv-lombo.esq{ background:repeating-linear-gradient(270deg, #1c1712 0 1px, #2e2820 1px 3px); }
+/* a fita marcadora */
+.rv-fita{ position:absolute; top:-3px; right:8px; width:16px; height:52px; z-index:12; pointer-events:none;
+  background:linear-gradient(180deg, var(--gold) 0%, #b89a55 100%);
+  clip-path:polygon(0 0, 100% 0, 100% 100%, 50% 84%, 0 100%);
+  box-shadow:0 3px 8px rgba(0,0,0,.3); }
+/* o aviso da fita (volta de leitura) */
+.rv-toast{ position:fixed; left:50%; bottom:86px; transform:translateX(-50%); z-index:60;
+  background:var(--wine); color:var(--gold); border:2px solid var(--gold); padding:12px 20px;
+  font-family:var(--mono); font-size:.62rem; letter-spacing:.14em; text-transform:uppercase;
+  box-shadow:0 8px 30px rgba(0,0,0,.4); animation:rvToast 4.2s ease forwards; }
+@keyframes rvToast{ 0%{ opacity:0; transform:translate(-50%,12px);} 8%{ opacity:1; transform:translate(-50%,0);}
+  86%{ opacity:1; } 100%{ opacity:0; } }
+/* sala de leitura: só a revista, luz apagada */
+body.rv-sala{ background:#17100c; }
+body.rv-sala .warn, body.rv-sala nav.main, body.rv-sala .ticker, body.rv-sala footer,
+body.rv-sala .band, body.rv-sala .ad-slot, body.rv-sala #ck-bar, body.rv-sala .cookie-bar{ display:none !important; }
+body.rv-sala .rv-stage{ margin-top:20px; }
+body.rv-sala .rv-lombo{ border-color:#000; }
+#rv-sala-sair{ display:none; position:fixed; top:14px; right:14px; z-index:70; border:2px solid var(--gold);
+  background:rgba(23,16,12,.85); color:var(--gold); font-family:var(--mono); font-size:.6rem;
+  letter-spacing:.14em; text-transform:uppercase; padding:10px 14px; cursor:pointer; }
+body.rv-sala #rv-sala-sair{ display:block; }
+#rv-sala-sair:hover{ background:var(--gold); color:var(--wine); }
 .rv-folio{ position:absolute; left:0; right:0; bottom:0; display:flex; justify-content:space-between;
   align-items:center; padding:10px 22px; border-top:1.5px solid var(--line);
   font-family:var(--mono); font-size:.52rem; letter-spacing:.18em; text-transform:uppercase;
@@ -1871,6 +1948,112 @@ html[data-theme="dark"] .rv-mestre .au{ color:var(--gold); }
   font-size:.78rem; line-height:1.72; text-align:justify; hyphens:auto; }
 .rv-livre .txt p{ margin:0 0 11px; }
 
+/* ---------- EX-LÍBRIS (no sumário) ---------- */
+.rv-exlibris{ margin:0 22px; padding:12px 16px; border:2px solid var(--wine); position:relative; }
+.rv-exlibris::before{ content:''; position:absolute; inset:3px; border:1px solid var(--wine); pointer-events:none; }
+.rv-exlibris em{ display:block; font-style:normal; font-family:var(--mono); font-size:.5rem;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-exlibris em{ color:var(--gold); }
+.rv-exlibris .dono{ font-family:var(--didone); font-size:1.15rem; border-bottom:1.5px dotted var(--ink-soft);
+  min-width:180px; display:inline-block; padding:2px 6px; outline:none; }
+.rv-exlibris .dono:empty::before{ content:'escreva seu nome aqui'; color:var(--ink-soft);
+  font-size:.85rem; font-style:italic; }
+.rv-sum ol{ padding-bottom:14px; }
+.rv-sum .rv-exlibris{ margin-bottom:56px; }
+
+/* ---------- PÔSTER CENTRAL ---------- */
+.rv-poster{ background:var(--ink); }
+.rv-poster img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.rv-poster .selo{ position:absolute; left:0; top:0; z-index:4; background:var(--gold); color:var(--wine);
+  font-family:var(--mono); font-size:.54rem; font-weight:700; letter-spacing:.24em; text-transform:uppercase;
+  padding:8px 14px; border-right:2px solid var(--ink); border-bottom:2px solid var(--ink); }
+.rv-poster .pe{ position:absolute; left:0; right:0; bottom:0; z-index:4; display:flex;
+  justify-content:space-between; align-items:center; gap:10px; padding:10px 16px;
+  background:linear-gradient(0deg, rgba(20,8,5,.82), rgba(20,8,5,0));
+  font-family:var(--mono); font-size:.54rem; letter-spacing:.16em; text-transform:uppercase; color:#efe8da; }
+.rv-poster .pe a{ color:var(--gold); border:2px solid var(--gold); padding:8px 12px; text-decoration:none;
+  font-weight:700; background:rgba(20,8,5,.5); }
+.rv-poster .pe a:hover{ background:var(--gold); color:var(--wine); }
+
+/* ---------- RECORTES DA SEMANA ---------- */
+.rv-rec .cab{ padding:24px 22px 12px; border-bottom:3px solid var(--ink); }
+.rv-rec .cab em{ display:block; font-style:normal; font-family:var(--mono); font-size:.54rem;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-rec .cab em{ color:var(--gold); }
+.rv-rec .cab h3{ font-family:var(--didone); font-weight:400; font-size:2.3rem; margin:4px 0 0; line-height:1; }
+.rv-rec .mural{ flex:1; overflow:auto; padding:22px 26px 64px; display:flex; flex-direction:column;
+  gap:18px; justify-content:center; }
+.rv-rec .rec{ position:relative; background:#f6f0e2; border:1px solid #d8cdb4; padding:18px 20px 14px;
+  box-shadow:2px 3px 10px rgba(35,8,5,.14); max-width:92%; }
+html[data-theme="dark"] .rv-rec .rec{ background:#241e16; border-color:#3a3226; }
+.rv-rec .rec:nth-child(odd){ transform:rotate(-1.2deg); align-self:flex-start; }
+.rv-rec .rec:nth-child(even){ transform:rotate(1deg); align-self:flex-end; }
+.rv-rec .rec::before{ content:''; position:absolute; top:-9px; left:50%; transform:translateX(-50%) rotate(-2deg);
+  width:74px; height:18px; background:rgba(206,178,106,.4); border:1px solid rgba(158,132,72,.35); }
+.rv-rec .rec .fr{ font-family:var(--didone); font-size:1.02rem; line-height:1.34; }
+.rv-rec .rec .fr::before{ content:'“'; color:var(--wine); }
+.rv-rec .rec .fr::after{ content:'”'; color:var(--wine); }
+html[data-theme="dark"] .rv-rec .rec .fr::before, html[data-theme="dark"] .rv-rec .rec .fr::after{ color:var(--gold); }
+.rv-rec .rec .qm{ margin-top:8px; font-family:var(--mono); font-size:.55rem; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
+.rv-rec .rec .qm i{ font-style:normal; font-weight:400; color:var(--ink-soft); display:block; margin-top:2px; }
+.rv-rec .rec a{ color:inherit; text-decoration:none; }
+
+/* ---------- PASSATEMPO ---------- */
+.rv-cx .cab{ padding:24px 22px 10px; border-bottom:3px solid var(--ink); }
+.rv-cx .cab em{ display:block; font-style:normal; font-family:var(--mono); font-size:.54rem;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-cx .cab em{ color:var(--gold); }
+.rv-cx .cab h3{ font-family:var(--didone); font-weight:400; font-size:2.1rem; margin:4px 0 0; line-height:1; }
+.rv-cx .miolo{ flex:1; overflow:auto; padding:16px 22px 60px; }
+.rv-cx{ --cx:34px; }
+@media (max-width:560px){ .rv-cx{ --cx:24px; } }
+.rv-cx .como{ font-size:.74rem; color:var(--ink-soft); margin:0 0 12px; line-height:1.5; }
+.rv-cx .grade-cx{ display:flex; flex-direction:column; gap:4px; margin-bottom:14px; overflow-x:auto; }
+.rv-cx .cx-linha{ display:flex; gap:4px; }
+.rv-cx .cx-cel{ width:calc(var(--cx) - 4px); height:calc(var(--cx) - 4px); border:2px solid var(--ink);
+  background:var(--paper); text-align:center; font-family:var(--mono); font-weight:700;
+  font-size:calc(var(--cx) * .48); text-transform:uppercase; padding:0; color:var(--ink); }
+.rv-cx .cx-cel:focus{ outline:3px solid var(--gold); outline-offset:-2px; }
+.rv-cx .cx-cel.chave{ background:rgba(206,178,106,.35); border-color:var(--wine); }
+.rv-cx .cx-cel.certa{ background:#e6efdd; }
+.rv-cx .cx-cel.errada{ background:#f3ded9; }
+html[data-theme="dark"] .rv-cx .cx-cel.certa{ background:#22301c; }
+html[data-theme="dark"] .rv-cx .cx-cel.errada{ background:#3a2019; }
+.rv-cx .cx-num{ width:22px; display:inline-flex; align-items:center; justify-content:center;
+  font-family:var(--didone); font-size:1rem; color:var(--wine); }
+html[data-theme="dark"] .rv-cx .cx-num{ color:var(--gold); }
+.rv-cx ol.dicas{ margin:0 0 14px; padding-left:22px; font-size:.76rem; line-height:1.7; }
+.rv-cx .cx-acoes{ display:flex; gap:8px; flex-wrap:wrap; }
+.rv-cx .cx-acoes button{ border:2px solid var(--ink); background:var(--paper); color:var(--ink);
+  font-family:var(--mono); font-weight:600; font-size:.58rem; letter-spacing:.14em; text-transform:uppercase;
+  padding:9px 13px; cursor:pointer; }
+.rv-cx .cx-acoes button:hover{ background:var(--ink); color:var(--gold); }
+.rv-cx .cx-res{ font-family:var(--mono); font-size:.62rem; letter-spacing:.12em; text-transform:uppercase;
+  margin-top:10px; color:var(--wine); }
+html[data-theme="dark"] .rv-cx .cx-res{ color:var(--gold); }
+
+/* ---------- CONTRACAPA ---------- */
+.rv-back{ background:var(--wine); color:var(--paper); }
+.rv-back .miolo{ flex:1; display:flex; flex-direction:column; padding:30px 30px 20px; }
+.rv-back em.rot{ font-style:normal; font-family:var(--mono); font-size:.56rem; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--gold); }
+.rv-back h3{ font-family:var(--didone); font-weight:400; color:var(--gold); font-size:2.2rem;
+  line-height:1.02; margin:6px 0 18px; }
+.rv-back ul.prox{ list-style:none; margin:0; padding:0; }
+.rv-back ul.prox li{ padding:10px 0; border-bottom:1px solid rgba(206,178,106,.35);
+  font-size:.9rem; line-height:1.4; }
+.rv-back ul.prox li::before{ content:'✦ '; color:var(--gold); }
+.rv-back .desp{ margin-top:auto; text-align:center; padding-top:24px; }
+.rv-back .desp .fr{ font-family:var(--didone); font-size:1.25rem; line-height:1.3; color:var(--paper); }
+.rv-back .desp .au{ font-family:var(--mono); font-size:.54rem; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--gold); margin-top:8px; }
+.rv-back .rodape{ display:flex; justify-content:space-between; align-items:center; margin-top:22px;
+  padding-top:14px; border-top:2px solid var(--gold); font-family:var(--mono); font-size:.52rem;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
+.rv-back .rodape img{ height:34px; }
+
 /* ---------- NAVEGAÇÃO ---------- */
 .rv-nav{ position:sticky; bottom:14px; display:flex; justify-content:center; gap:8px;
   width:max-content; max-width:100%; margin:18px auto 0; padding:8px;
@@ -1885,8 +2068,11 @@ html[data-theme="dark"] .rv-mestre .au{ color:var(--gold); }
   .rv-edi .txt, .rv-livre .txt{ column-count:1; }
 }
 @media print{
-  .rv-pg{ display:flex !important; page-break-after:always; border-width:0; aspect-ratio:auto; min-height:96vh; }
-  .rv-nav, nav.main, .ticker, footer, .warn{ display:none !important; }
+  .rv-pg{ display:flex !important; page-break-after:always; border-width:0; aspect-ratio:auto;
+    min-height:96vh; width:100% !important; max-width:100% !important; }
+  .rv-pg::before{ display:none; }
+  .rv-nav, nav.main, .ticker, footer, .warn, .rv-lombo, .rv-fita, .rv-canto,
+  #rv-sala-sair, .rv-toast, .cx-acoes{ display:none !important; }
 }
 </style>'''
 
@@ -1998,6 +2184,10 @@ def _rv_rotulo_sumario(pg):
     if t == 'cartaz': return (pg.get('legenda') or 'Cartaz', 'Divulgação')
     if t == 'patrocinio': return (pg.get('legenda') or 'Página patrocinada', 'Publicidade')
     if t == 'expediente': return ('Expediente', 'Quem faz o FOYER')
+    if t == 'poster': return (pg.get('legenda') or 'O pôster da semana', 'Para guardar')
+    if t == 'recortes': return ('Recortes: o que disseram na semana', 'Entre aspas')
+    if t == 'passatempo': return (pg.get('titulo') or 'Passatempo: a cruzadinha do FOYER', 'Para resolver')
+    if t == 'contracapa': return ('Na próxima edição', 'Contracapa')
     return (pg.get('titulo', 'Página'), pg.get('rotulo', ''))
 
 def _rv_pagina(pg, ed, num):
@@ -2186,6 +2376,82 @@ def _rv_pagina(pg, ed, num):
                 f'Fotografias de divulgação, com crédito.</p>'
                 f'<h4>Fale conosco</h4><p>foyer.digital · programafoyer@gmail.com · YouTube @Foyer.digital</p>'
                 f'</div>{fol}</section>')
+    if t == 'poster':
+        leg = _rvesc(pg.get('legenda', ''))
+        cred = _rvesc(pg.get('credito') or 'Divulgação')
+        img = _rvesc(pg.get('img', ''))
+        nome_arq = f'foyer-poster-ed{_rvesc(ed.get("numero"))}.jpg'
+        return (f'<section class="rv-pg rv-poster rv-wide">'
+                f'<img src="{img}" alt="{leg or "Pôster da semana"}">'
+                f'<span class="selo">O pôster da semana</span>'
+                f'<div class="pe"><span>{(leg + " · ") if leg else ""}Foto: {cred}</span>'
+                f'<a href="{img}" download="{nome_arq}">⤓ Guardar o pôster</a></div>'
+                f'</section>')
+    if t == 'recortes':
+        recs = ''
+        for it in (pg.get('itens') or [])[:4]:
+            quem = _rvesc(it.get('quem', ''))
+            onde = _rvesc(it.get('onde', ''))
+            fr = f'<div class="fr">{_rvesc(it.get("frase", ""))}</div>'
+            meta = (f'<div class="qm">{quem}' + (f'<i>{onde}</i>' if onde else '') + '</div>')
+            dentro = fr + meta
+            if it.get('slug'):
+                dentro = f'<a href="post-{_rvesc(it["slug"])}.html">{dentro}</a>'
+            recs += f'<div class="rec">{dentro}</div>'
+        return (f'<section class="rv-pg rv-rec"><div class="cab"><em>Entre aspas, com a origem</em>'
+                f'<h3>Recortes da semana</h3></div>'
+                f'<div class="mural">{recs}</div>{fol}</section>')
+    if t == 'passatempo':
+        oculta = (pg.get('oculta') or '').strip().upper()
+        linhas = pg.get('linhas') or []
+        # posição da letra-chave em cada palavra (onde a coluna vertical passa)
+        posicoes = []
+        for k, ln in enumerate(linhas):
+            pal = (ln.get('palavra') or '').strip().upper()
+            alvo = oculta[k] if k < len(oculta) else ''
+            pos = ln.get('pos')
+            if pos is None:
+                pos = pal.find(alvo) if alvo else 0
+            posicoes.append(max(0, pos))
+        maior = max(posicoes) if posicoes else 0
+        linhas_cx, dicas = '', ''
+        for k, ln in enumerate(linhas):
+            pal = (ln.get('palavra') or '').strip().upper()
+            pos = posicoes[k]
+            recuo = maior - pos          # empurra a linha até a coluna-chave alinhar
+            cels = ''.join(
+                f'<input class="cx-cel{" chave" if j == pos else ""}" maxlength="1" '
+                f'data-l="{_rvesc(c)}" aria-label="Letra {j+1} da palavra {k+1}">'
+                for j, c in enumerate(pal))
+            linhas_cx += (f'<div class="cx-linha" style="margin-left:calc({recuo} * var(--cx, 34px))">'
+                          f'<span class="cx-num">{k+1}</span>{cels}</div>')
+            dicas += f'<li>{_rvesc(ln.get("dica", ""))}</li>'
+        return (f'<section class="rv-pg rv-cx" data-oculta="{_rvesc(oculta)}">'
+                f'<div class="cab"><em>Para resolver com lápis ou dedo</em>'
+                f'<h3>{_rvesc(pg.get("titulo") or "A cruzadinha do FOYER")}</h3></div>'
+                f'<div class="miolo"><p class="como">{_rvesc(pg.get("como") or "Preencha as palavras na horizontal. A coluna destacada revela, na vertical, a palavra da semana.")}</p>'
+                f'<div class="grade-cx">{linhas_cx}</div>'
+                f'<ol class="dicas">{dicas}</ol>'
+                f'<div class="cx-acoes"><button type="button" data-cx="conferir">Conferir</button>'
+                f'<button type="button" data-cx="revelar">Revelar</button>'
+                f'<button type="button" data-cx="limpar">Recomeçar</button></div>'
+                f'<div class="cx-res" aria-live="polite"></div>'
+                f'</div>{fol}</section>')
+    if t == 'contracapa':
+        chamadas = ''.join(f'<li>{_rvesc(c)}</li>' for c in (pg.get('chamadas') or [])[:4] if c.strip())
+        desped = ''
+        if pg.get('frase'):
+            desped = (f'<div class="desp"><div class="fr">“{_rvesc(pg["frase"])}”</div>'
+                      + (f'<div class="au">{_rvesc(pg.get("autor", ""))}</div>' if pg.get('autor') else '')
+                      + '</div>')
+        return (f'<section class="rv-pg rv-back"><div class="miolo">'
+                f'<em class="rot">Fechamos esta edição. A cortina desce.</em>'
+                f'<h3>Na próxima edição</h3>'
+                f'<ul class="prox">{chamadas or "<li>A semana do teatro brasileiro, apurada e fechada como sempre</li>"}</ul>'
+                + desped +
+                f'<div class="rodape"><img src="assets/logo/foyer-horizontal-gold.png" alt="FOYER">'
+                f'<span>foyer.digital · toda sexta</span><span class="rv-barcode"></span></div>'
+                f'</div></section>')
     return (f'<section class="rv-pg rv-livre"><div class="rv-kicker">'
             f'<span class="tagz">{_rvesc(pg.get("rotulo") or "FOYER")}</span><span></span></div>'
             f'<div class="miolo"><h3>{_rvesc(pg.get("titulo", ""))}</h3>'
@@ -2207,6 +2473,9 @@ def edicao_page(ed):
         + (f'<div class="faixa">{calls}</div>' if calls else '')
         + '<div class="rodape-capa"><span>foyer.digital · edição gratuita</span><span class="rv-barcode"></span></div>'
         '</div></section>')
+    # toda edição fecha com contracapa; se a Coxia não montou uma, entra a da casa
+    if not any(p.get('tipo') == 'contracapa' for p in paginas):
+        paginas.append({'tipo': 'contracapa'})
     # miolos primeiro: uma página lógica pode virar várias páginas físicas
     # (matéria longa continua na página seguinte, como revista impressa)
     blocos_por_pg, numeros_sum, prox = [], [], 3
@@ -2229,24 +2498,37 @@ def edicao_page(ed):
         '<section class="rv-pg rv-sum">'
         '<div class="cab"><span>O que vem por aí</span><h3>Nesta edição</h3>'
         f'<svg class="arte" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#{arte_sum}"/></svg></div>'
-        f'<ol>{linhas_sum}</ol>' + _rv_folio(ed, 2) + '</section>')
+        f'<ol>{linhas_sum}</ol>'
+        '<div class="rv-exlibris"><em>Ex-líbris</em>'
+        '<span>Esta edição pertence a </span>'
+        '<span class="dono" id="rv-exlibris-nome" contenteditable="true" spellcheck="false" '
+        'aria-label="Escreva seu nome no ex-líbris"></span></div>'
+        + _rv_folio(ed, 2) + '</section>')
     pgs = [pg_capa, pg_sum]
     n = 3
-    for blocos in blocos_por_pg:
-        for b in blocos:
+    for bi, blocos in enumerate(blocos_por_pg):
+        for k, b in enumerate(blocos):
+            if k == 0:      # marca o começo da página lógica: o sumário se corrige no navegador
+                b = b.replace('<section class="rv-pg', f'<section data-sum="{bi}" class="rv-pg', 1)
             pgs.append(b.replace('__NUMPG__', str(n)))
             n += 1
     corpo = '\n'.join(pgs)
     total = len(pgs)
     return (_RV_CSS + f'''
 <main id="conteudo" class="rv-stage">
+  <div class="rv-book" id="rv-book">
+    <div class="rv-lombo esq" id="rv-lombo-esq" aria-hidden="true"></div>
 {corpo}
+    <div class="rv-lombo dir" id="rv-lombo-dir" aria-hidden="true"></div>
+  </div>
   <div class="rv-nav">
     <button type="button" id="rv-ant">← Anterior</button>
     <span class="ct" id="rv-ct">1 / {total}</span>
     <button type="button" id="rv-prox">Próxima →</button>
+    <button type="button" id="rv-sala" title="Só a revista, com a luz apagada">◐ Sala de leitura</button>
     <button type="button" onclick="window.print()" title="Imprimir ou salvar em PDF">⤓ PDF</button>
   </div>
+  <button type="button" id="rv-sala-sair">✕ Acender a luz</button>
 </main>
 <script>
 (function(){{
@@ -2321,55 +2603,281 @@ def edicao_page(ed):
     document.getElementById('rv-ct').textContent = (i + 1) + ' / ' + pgs.length;
   }}
   try{{ diagrama(); }}catch(e){{}}
-  if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){{ try{{ diagrama(); }}catch(e){{}} }});
-  window.addEventListener('load', function(){{ try{{ diagrama(); }}catch(e){{}} }});
-  function vai(n){{
-    i = Math.max(0, Math.min(pgs.length - 1, n));
-    pgs.forEach(function(p, k){{ p.classList.toggle('on', k === i); }});
-    document.getElementById('rv-ct').textContent = (i + 1) + ' / ' + pgs.length;
-    window.scrollTo({{ top: 0, behavior: 'smooth' }});
+
+  /* ============ o livro: dupla, virada, pilha, fita, sala ============ */
+  var NUM_ED = {_json.dumps(str(ed.get('numero', '')))};
+  var mqDuplo = window.matchMedia('(min-width:1080px)');
+  var mexeMenos = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var duplas = [];      // cada item: [idx] ou [idxEsq, idxDir]
+  var d = 0;            // dupla atual
+  var virando = false;
+  var fita = document.createElement('div'); fita.className = 'rv-fita';
+
+  function ehSolo(p){{ return p.classList.contains('rv-capa2') || p.classList.contains('rv-wide') || p.classList.contains('rv-back'); }}
+  // o sumário aponta a página certa mesmo depois da repaginação fina no navegador
+  function renumeraSumario(){{
+    var todas = document.querySelectorAll('.rv-pg');
+    document.querySelectorAll('.rv-sum ol li').forEach(function(li, k){{
+      var alvo = document.querySelector('[data-sum="' + k + '"]');
+      if(!alvo) return;
+      var pos = Array.prototype.indexOf.call(todas, alvo);
+      var el = li.querySelector('.pnum');
+      if(el && pos >= 0) el.textContent = pos + 1;
+    }});
   }}
-  document.getElementById('rv-ant').addEventListener('click', function(){{ vai(i - 1); }});
-  document.getElementById('rv-prox').addEventListener('click', function(){{ vai(i + 1); }});
+  function montaDuplas(){{
+    pgs = document.querySelectorAll('.rv-pg');
+    duplas = [];
+    if(!mqDuplo.matches || !document.body.classList.contains('rv-duplo-ok')){{
+      pgs.forEach(function(_, k){{ duplas.push([k]); }});
+      return;
+    }}
+    var k = 0;
+    while(k < pgs.length){{
+      if(ehSolo(pgs[k])){{ duplas.push([k]); k += 1; continue; }}
+      if(k + 1 < pgs.length && !ehSolo(pgs[k + 1])){{ duplas.push([k, k + 1]); k += 2; }}
+      else {{ duplas.push([k]); k += 1; }}
+    }}
+  }}
+  function duplaDe(idxPg){{
+    for(var s = 0; s < duplas.length; s++) if(duplas[s].indexOf(idxPg) >= 0) return s;
+    return 0;
+  }}
+  function pinta(){{
+    var par = duplas[d] || [0];
+    pgs.forEach(function(p, k){{
+      p.classList.remove('on', 'pg-l', 'pg-r');
+      var pos = par.indexOf(k);
+      if(pos >= 0){{
+        p.classList.add('on');
+        if(par.length === 2) p.classList.add(pos === 0 ? 'pg-l' : 'pg-r');
+      }}
+    }});
+    // contador: páginas humanas
+    var ini = par[0] + 1, fim = par[par.length - 1] + 1;
+    document.getElementById('rv-ct').textContent =
+      (ini === fim ? ini : ini + '–' + fim) + ' / ' + pgs.length;
+    // a espessura da revista dos dois lados
+    var lidas = par[0], faltam = pgs.length - (par[par.length - 1] + 1);
+    var le = document.getElementById('rv-lombo-esq'), ld = document.getElementById('rv-lombo-dir');
+    var prim = pgs[par[0]], ult = pgs[par[par.length - 1]];
+    var wEsq = Math.min(2 + lidas * 1.4, 16), wDir = Math.min(2 + faltam * 1.4, 16);
+    le.style.width = wEsq + 'px';
+    ld.style.width = wDir + 'px';
+    le.style.left = (prim.offsetLeft - wEsq) + 'px';
+    ld.style.left = (ult.offsetLeft + ult.offsetWidth) + 'px';
+    le.style.display = lidas > 0 ? 'block' : 'none';
+    ld.style.display = faltam > 0 ? 'block' : 'none';
+    // a fita marca a página em que o leitor está
+    if(d > 0 && !ult.classList.contains('rv-back')){{ ult.appendChild(fita); }}
+    else if(fita.parentNode){{ fita.parentNode.removeChild(fita); }}
+    try{{ localStorage.setItem('rv-fita-' + NUM_ED, String(par[0])); }}catch(e){{}}
+  }}
+  function vaiDupla(s, sentido){{
+    if(virando) return;
+    s = Math.max(0, Math.min(duplas.length - 1, s));
+    if(s === d){{ pinta(); return; }}
+    var anima = sentido && !mexeMenos.matches;
+    if(!anima){{ d = s; pinta(); window.scrollTo({{ top: 0, behavior: 'smooth' }}); return; }}
+    virando = true;
+    var parVelha = duplas[d];
+    var sai = pgs[parVelha[sentido > 0 ? parVelha.length - 1 : 0]];
+    sai.classList.add(sentido > 0 ? 'vira-sai-dir' : 'vira-sai-esq');
+    setTimeout(function(){{
+      sai.classList.remove('vira-sai-dir', 'vira-sai-esq');
+      d = s; pinta();
+      var parNova = duplas[d];
+      var entra = pgs[parNova[sentido > 0 ? 0 : parNova.length - 1]];
+      entra.classList.add(sentido > 0 ? 'vira-entra-esq' : 'vira-entra-dir');
+      setTimeout(function(){{
+        entra.classList.remove('vira-entra-esq', 'vira-entra-dir');
+        virando = false;
+      }}, 270);
+      window.scrollTo({{ top: 0, behavior: 'smooth' }});
+    }}, 230);
+  }}
+  function proxima(){{ vaiDupla(d + 1, 1); }}
+  function anterior(){{ vaiDupla(d - 1, -1); }}
+
+  // o convite no canto da página
+  pgs.forEach(function(p){{
+    if(p.classList.contains('rv-back')) return;
+    var c = document.createElement('button');
+    c.className = 'rv-canto'; c.type = 'button';
+    c.setAttribute('aria-label', 'Virar a página');
+    c.addEventListener('click', proxima);
+    p.appendChild(c);
+  }});
+
+  document.getElementById('rv-ant').addEventListener('click', anterior);
+  document.getElementById('rv-prox').addEventListener('click', proxima);
   document.addEventListener('keydown', function(e){{
-    if(e.key === 'ArrowRight') vai(i + 1);
-    if(e.key === 'ArrowLeft') vai(i - 1);
+    if(e.target.closest && e.target.closest('input, [contenteditable]')) return;
+    if(e.key === 'ArrowRight') proxima();
+    if(e.key === 'ArrowLeft') anterior();
+    if(e.key === 'Escape' && document.body.classList.contains('rv-sala')) salaSai();
   }});
   var x0 = null;
   document.addEventListener('touchstart', function(e){{ x0 = e.touches[0].clientX; }}, {{passive:true}});
   document.addEventListener('touchend', function(e){{
     if(x0 == null) return;
     var dx = e.changedTouches[0].clientX - x0;
-    if(Math.abs(dx) > 60) vai(dx < 0 ? i + 1 : i - 1);
+    if(Math.abs(dx) > 60) (dx < 0 ? proxima : anterior)();
     x0 = null;
   }}, {{passive:true}});
+
+  // sala de leitura
+  function salaEntra(){{ document.body.classList.add('rv-sala'); window.scrollTo({{ top: 0 }}); pinta(); }}
+  function salaSai(){{ document.body.classList.remove('rv-sala'); pinta(); }}
+  document.getElementById('rv-sala').addEventListener('click', function(){{
+    document.body.classList.contains('rv-sala') ? salaSai() : salaEntra();
+  }});
+  document.getElementById('rv-sala-sair').addEventListener('click', salaSai);
+
+  // ex-líbris: o nome do leitor fica no aparelho e vale para todas as edições
+  var exl = document.getElementById('rv-exlibris-nome');
+  if(exl){{
+    try{{ exl.textContent = localStorage.getItem('foyer-exlibris') || ''; }}catch(e){{}}
+    exl.addEventListener('input', function(){{
+      try{{ localStorage.setItem('foyer-exlibris', exl.textContent.trim().slice(0, 60)); }}catch(e){{}}
+    }});
+    exl.addEventListener('keydown', function(e){{ if(e.key === 'Enter'){{ e.preventDefault(); exl.blur(); }} }});
+  }}
+
+  // a cruzadinha
+  document.querySelectorAll('.rv-cx').forEach(function(cx){{
+    var cels = cx.querySelectorAll('.cx-cel');
+    cels.forEach(function(c){{
+      c.addEventListener('input', function(){{
+        c.value = c.value.toUpperCase();
+        c.classList.remove('certa', 'errada');
+        if(c.value){{
+          var linha = c.parentNode.querySelectorAll('.cx-cel');
+          var k = Array.prototype.indexOf.call(linha, c);
+          if(k + 1 < linha.length) linha[k + 1].focus();
+        }}
+      }});
+    }});
+    cx.addEventListener('click', function(e){{
+      var b = e.target.closest('[data-cx]');
+      if(!b) return;
+      var res = cx.querySelector('.cx-res');
+      if(b.dataset.cx === 'conferir'){{
+        var chaveOk = true, tudoOk = true;
+        cels.forEach(function(c){{
+          if(!c.value) {{ tudoOk = false; if(c.classList.contains('chave')) chaveOk = false; return; }}
+          var certa = c.value.toUpperCase() === c.dataset.l.toUpperCase();
+          c.classList.toggle('certa', certa);
+          c.classList.toggle('errada', !certa);
+          if(!certa){{ tudoOk = false; if(c.classList.contains('chave')) chaveOk = false; }}
+        }});
+        res.textContent = tudoOk ? 'Cravou tudo. A palavra da semana: ' + cx.dataset.oculta + ' ✓'
+          : (chaveOk ? 'A coluna da palavra da semana está certa: ' + cx.dataset.oculta + ' ✓ Falta acertar o resto.'
+                     : 'Ainda não. As casas em vermelho pedem outra letra.');
+      }}
+      if(b.dataset.cx === 'revelar'){{
+        cels.forEach(function(c){{ c.value = c.dataset.l.toUpperCase(); c.classList.add('certa'); c.classList.remove('errada'); }});
+        res.textContent = 'A palavra da semana: ' + cx.dataset.oculta;
+      }}
+      if(b.dataset.cx === 'limpar'){{
+        cels.forEach(function(c){{ c.value = ''; c.classList.remove('certa', 'errada'); }});
+        res.textContent = '';
+      }}
+    }});
+  }});
+
+  // arranque: mede, monta as duplas e volta para onde a fita ficou
+  function arranca(){{
+    document.body.classList.add('rv-duplo-ok');
+    document.body.classList.toggle('rv-duplo', mqDuplo.matches);
+    montaDuplas();
+    renumeraSumario();
+    var guardada = 0;
+    try{{ guardada = parseInt(localStorage.getItem('rv-fita-' + NUM_ED) || '0', 10) || 0; }}catch(e){{}}
+    if(guardada > 0 && guardada < pgs.length){{
+      d = duplaDe(guardada);
+      var t = document.createElement('div');
+      t.className = 'rv-toast';
+      t.textContent = 'A fita marcou onde você parou: página ' + (guardada + 1);
+      document.body.appendChild(t);
+      setTimeout(function(){{ t.remove(); }}, 4400);
+    }}
+    pinta();
+  }}
+  function reflui(){{
+    document.body.classList.toggle('rv-duplo', mqDuplo.matches);
+    var ancora = (duplas[d] || [0])[0];
+    montaDuplas();
+    renumeraSumario();
+    d = duplaDe(ancora);
+    pinta();
+  }}
+  if(mqDuplo.addEventListener) mqDuplo.addEventListener('change', reflui);
+  window.addEventListener('resize', function(){{ requestAnimationFrame(pinta); }});
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){{ try{{ diagrama(); reflui(); }}catch(e){{}} }});
+  window.addEventListener('load', function(){{ try{{ diagrama(); reflui(); }}catch(e){{}} }});
+  arranca();
 }})();
 </script>''')
 
+_ESTANTE_CSS = '''<style>
+/* a estante: as edições em pé, como numa prateleira de casa */
+.estante{ position:relative; padding:26px 18px 0; }
+.est-prateleira{ display:flex; align-items:flex-end; gap:26px; flex-wrap:wrap;
+  padding:0 12px 0; min-height:340px; }
+.est-rev{ position:relative; display:block; text-decoration:none; color:var(--ink);
+  width:214px; transition:transform .22s ease; transform-origin:bottom center; }
+.est-rev:hover{ transform:translateY(-14px) rotate(-1deg); }
+.est-rev:focus-visible{ outline:3px solid var(--gold); outline-offset:4px; }
+.est-capa{ position:relative; display:block; border:3px solid var(--ink); background:var(--wine);
+  aspect-ratio:3/4.05; overflow:hidden;
+  box-shadow:6px 0 0 -2px #d8cdb4, 9px 0 0 -3px var(--ink), 8px 10px 24px rgba(35,8,5,.3); }
+.est-capa img{ width:100%; height:100%; object-fit:cover; display:block; }
+.est-capa .veu{ position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(35,8,5,.55), transparent 34%, transparent 62%, rgba(35,8,5,.8)); }
+.est-capa .lg{ position:absolute; top:8px; left:10px; right:10px; }
+.est-capa .lg img{ width:100%; height:auto; object-fit:contain; filter:drop-shadow(0 1px 6px rgba(0,0,0,.6)); }
+.est-capa .mch{ position:absolute; left:12px; right:12px; bottom:10px; color:#fff;
+  font-family:var(--didone); font-size:1.05rem; line-height:1.06;
+  text-shadow:0 2px 10px rgba(0,0,0,.7); }
+.est-rot{ display:block; margin-top:10px; font-family:var(--mono); font-size:.56rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-soft); text-align:center; }
+.est-rot b{ color:var(--ink); }
+/* a próxima edição: ainda na gráfica */
+.est-fantasma{ width:214px; }
+.est-fantasma .est-capa{ background:var(--paper-2); border-style:dashed; box-shadow:none;
+  display:flex; align-items:center; justify-content:center; text-align:center; }
+.est-fantasma .est-capa span{ font-family:var(--mono); font-size:.6rem; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--ink-soft); padding:0 18px; line-height:2; }
+/* a madeira da prateleira */
+.est-tabua{ height:16px; border:3px solid var(--ink); background:var(--wine);
+  box-shadow:0 8px 0 -4px rgba(35,8,5,.35); margin-top:-3px; }
+@media (max-width:640px){ .est-prateleira{ justify-content:center; } }
+</style>'''
+
 def revista_listagem():
-    if ED_PUB:
-        cards = ''
-        for e in ED_PUB:
-            capa = e.get('capa', {})
-            img = (f'<img src="{_rvesc(capa.get("img",""))}" alt="" loading="lazy" '
-                   'style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block" '
-                   'onerror="this.style.display=\'none\'">') if capa.get('img') else \
-                  '<div style="aspect-ratio:3/4;background:var(--wine);display:flex;align-items:center;justify-content:center"><span style="font-family:var(--didone);color:var(--gold);font-size:3rem">FOY<br>ER</span></div>'
-            cards += f'''
-    <a href="revista-ed-{e.get("numero")}.html" style="border:2px solid var(--ink);text-decoration:none;color:var(--ink);display:block;background:var(--paper)">
-      {img}
-      <div style="padding:14px 16px;border-top:2px solid var(--ink)">
-        <span style="font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)">Nº {e.get("numero")} — {_rvesc(e.get("dataEdicao",""))}</span>
-        <span style="display:block;font-family:var(--didone);font-size:1.3rem;line-height:1.1;margin-top:6px">{_rvesc(capa.get("manchete") or e.get("titulo",""))}</span>
-      </div>
-    </a>'''
-        grade = f'<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px">{cards}\n  </div>'
-    else:
-        prox = EDICOES[0].get('numero') if EDICOES else 1
-        grade = (f'<div style="border:2px dashed var(--line);padding:34px;text-align:center;'
-                 'font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)">'
-                 f'A edição Nº {prox} está em produção na redação — assine acima para receber em primeira mão</div>')
-    return grade
+    prox = (max(int(e.get('numero', 0)) for e in EDICOES) + 1) if EDICOES else 1
+    revs = ''
+    for e in ED_PUB:
+        capa = e.get('capa', {})
+        img = (f'<img src="{_rvesc(capa.get("img", ""))}" alt="" loading="lazy" '
+               'onerror="this.style.display=\'none\'">') if capa.get('img') else ''
+        revs += f'''
+      <a class="est-rev" href="revista-ed-{e.get("numero")}.html" aria-label="Ler a edição {e.get("numero")}">
+        <span class="est-capa">{img}<span class="veu"></span>
+          <span class="lg"><img src="assets/logo/foyer-horizontal-gold.png" alt="FOYER"></span>
+          <span class="mch">{_rvesc(capa.get("manchete") or e.get("titulo", ""))}</span>
+        </span>
+        <span class="est-rot"><b>Nº {e.get("numero")}</b> · {_rvesc(e.get("dataEdicao", ""))}</span>
+      </a>'''
+    fantasma = f'''
+      <span class="est-rev est-fantasma" aria-hidden="true">
+        <span class="est-capa"><span>Nº {prox}<br>em fechamento<br>na redação</span></span>
+        <span class="est-rot">chega sexta</span>
+      </span>'''
+    return (_ESTANTE_CSS +
+            f'<div class="estante"><div class="est-prateleira">{revs}{fantasma}</div>'
+            '<div class="est-tabua"></div></div>')
 
 revista_body = band('Newsletter semanal', 'A Revista do Foyer',
                     'Toda sexta, uma edição fechada — como uma revista impressa, para ler na tela ou baixar') + f'''

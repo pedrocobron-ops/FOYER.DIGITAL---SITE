@@ -29,6 +29,29 @@
    "chamada": "Depois de uma década de espera e um milhão de espectadores em São Paulo, a superprodução ocupa a sala Bibi Ferreira, na Barra da Tijuca."
   },
   {
+   "tipo": "recortes",
+   "itens": [
+    {
+     "frase": "É uma questão democrática: o festival criado por Jean Vilar se fez sobre as férias remuneradas, para que todo mundo pudesse ter tempo de aproveitar essa viagem ao país do teatro",
+     "quem": "Tiago Rodrigues, diretor do Festival de Avignon",
+     "onde": "à rádio ICI Vaucluse",
+     "slug": "festival-de-avignon-2026-balanco-wagner-moura"
+    },
+    {
+     "frase": "Quando a gente fala em empurrar o PIB do país, todo mundo pensa em petróleo, pensa em gás, pensa em fertilizantes, pensa em combustíveis, mas a cultura é uma força empresarial incrível da nossa sociedade",
+     "quem": "Magda Chambriard, presidente da Petrobras",
+     "onde": "em fala publicada pela IstoÉ Dinheiro",
+     "slug": "petrobras-cultural-2026-edital-270-milhoes-prazo-31-julho"
+    },
+    {
+     "frase": "Vemos um movimento dessa linguagem, que são as manifestações de cultura gamificadas, tendo o game como uma forma de trabalhar diferentes atividades e construções em cultura",
+     "quem": "Alessandra Teixeira, gerente de patrocínios da Petrobras",
+     "onde": "ao Correio Braziliense",
+     "slug": "petrobras-cultural-2026-edital-270-milhoes-prazo-31-julho"
+    }
+   ]
+  },
+  {
    "tipo": "materia",
    "slug": "festa-no-arraial-o-musical-shakespeare-festa-junina-frei-caneca",
    "cat": "Teatro",
@@ -38,6 +61,12 @@
   },
   {
    "tipo": "programas"
+  },
+  {
+   "tipo": "poster",
+   "img": "assets/uploads/wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.jpg",
+   "credito": "Divulgação",
+   "legenda": "Myra Ruiz e Fabi Bang em Wicked, na Cidade das Artes"
   },
   {
    "tipo": "materia",
@@ -167,7 +196,44 @@
    "tipo": "frase-celebre"
   },
   {
+   "tipo": "passatempo",
+   "oculta": "FOYER",
+   "titulo": "A cruzadinha do FOYER",
+   "linhas": [
+    {
+     "palavra": "FIGURINO",
+     "dica": "A roupa desenhada para viver o personagem em cena"
+    },
+    {
+     "palavra": "CORO",
+     "dica": "O conjunto de vozes que canta junto no musical"
+    },
+    {
+     "palavra": "BROADWAY",
+     "dica": "A avenida de Nova York que virou sinônimo de teatro musical"
+    },
+    {
+     "palavra": "ENSAIO",
+     "dica": "A repetição do espetáculo antes de a plateia chegar"
+    },
+    {
+     "palavra": "DRAMATURGO",
+     "dica": "Quem escreve a peça"
+    }
+   ]
+  },
+  {
    "tipo": "expediente"
+  },
+  {
+   "tipo": "contracapa",
+   "chamadas": [
+    "O melhor da semana do site, fechado com começo, meio e fim",
+    "A agenda de sexta a quinta, o pôster para guardar e a cruzadinha",
+    "Os recortes: o que disseram as vozes do teatro e da cultura"
+   ],
+   "frase": "O sonho é que leva a gente para frente",
+   "autor": "Ariano Suassuna"
   }
  ],
  "historico": [

@@ -131,11 +131,88 @@
 
 <style>
 /* ============ A REVISTA — leitor em formato de página impressa ============ */
-.rv-stage{ max-width:740px; margin:26px auto 90px; padding:0 14px; }
+.rv-stage{ max-width:760px; margin:26px auto 90px; padding:0 14px; }
+/* no desktop largo, a revista abre em página dupla */
+@media (min-width:1080px){ body.rv-duplo .rv-stage{ max-width:1440px; } }
+.rv-book{ position:relative; display:flex; justify-content:center; align-items:stretch;
+  perspective:2600px; margin:0 auto; }
 .rv-pg{ display:none; border:3px solid var(--ink); background:var(--paper);
-  aspect-ratio:3/4.05; position:relative; overflow:hidden; animation:rvin .3s ease; }
+  aspect-ratio:3/4.05; position:relative; overflow:hidden; animation:rvin .3s ease;
+  width:100%; max-width:734px; flex-shrink:0; backface-visibility:hidden; }
 .rv-pg.on{ display:flex; flex-direction:column; }
 @keyframes rvin{ from{ opacity:0; transform:translateX(16px);} to{ opacity:1; transform:none;} }
+/* lado esquerdo e direito da página dupla */
+body.rv-duplo .rv-pg.on.pg-l{ border-right-width:1.5px; }
+body.rv-duplo .rv-pg.on.pg-r{ border-left-width:1.5px; }
+/* sombra da dobra central */
+body.rv-duplo .rv-pg.on.pg-l::after{ content:''; position:absolute; top:0; bottom:0; right:0; width:56px;
+  background:linear-gradient(270deg, rgba(35,8,5,.16), transparent); pointer-events:none; z-index:8; }
+body.rv-duplo .rv-pg.on.pg-r::after{ content:''; position:absolute; top:0; bottom:0; left:0; width:56px;
+  background:linear-gradient(90deg, rgba(35,8,5,.13), transparent); pointer-events:none; z-index:8; }
+/* página larga (pôster central): ocupa a dupla inteira */
+.rv-pg.rv-wide{ aspect-ratio:1.481; max-width:1440px; }
+body:not(.rv-duplo) .rv-pg.rv-wide{ max-width:734px; }
+/* a dupla aberta cabe inteira na altura da tela */
+body.rv-duplo .rv-pg{ max-width:min(720px, calc((100vh - 230px) * .7407)); }
+body.rv-duplo .rv-pg.rv-wide{ max-width:min(1440px, calc((100vh - 230px) * 1.4815)); }
+body.rv-sala.rv-duplo .rv-pg{ max-width:min(720px, calc((100vh - 120px) * .7407)); }
+body.rv-sala.rv-duplo .rv-pg.rv-wide{ max-width:min(1440px, calc((100vh - 120px) * 1.4815)); }
+/* grão de papel de revista (sutil; some na impressão) */
+.rv-pg::before{ content:''; position:absolute; inset:0; z-index:9; pointer-events:none;
+  opacity:.5; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.38 0 0 0 0 0.32 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23g)'/%3E%3C/svg%3E"); }
+html[data-theme="dark"] .rv-pg::before{ opacity:.25; }
+/* a virada de página */
+.rv-pg.vira-sai-dir{ transform-origin:left center; animation:viraSaiDir .24s ease-in forwards; }
+.rv-pg.vira-entra-dir{ transform-origin:left center; animation:viraEntraDir .26s ease-out; }
+.rv-pg.vira-sai-esq{ transform-origin:right center; animation:viraSaiEsq .24s ease-in forwards; }
+.rv-pg.vira-entra-esq{ transform-origin:right center; animation:viraEntraEsq .26s ease-out; }
+@keyframes viraSaiDir{ from{ transform:rotateY(0); filter:brightness(1);} to{ transform:rotateY(-88deg); filter:brightness(.72);} }
+@keyframes viraEntraDir{ from{ transform:rotateY(88deg); filter:brightness(.72);} to{ transform:rotateY(0); filter:brightness(1);} }
+@keyframes viraSaiEsq{ from{ transform:rotateY(0); filter:brightness(1);} to{ transform:rotateY(88deg); filter:brightness(.72);} }
+@keyframes viraEntraEsq{ from{ transform:rotateY(-88deg); filter:brightness(.72);} to{ transform:rotateY(0); filter:brightness(1);} }
+@media (prefers-reduced-motion:reduce){
+  .rv-pg.vira-sai-dir,.rv-pg.vira-entra-dir,.rv-pg.vira-sai-esq,.rv-pg.vira-entra-esq{ animation:none; }
+  .rv-pg{ animation:none; } }
+/* convite no canto: a pontinha da página dobra ao passar o mouse */
+.rv-canto{ position:absolute; right:0; bottom:0; width:64px; height:64px; z-index:11; cursor:pointer;
+  background:linear-gradient(315deg, var(--paper-2) 0%, var(--paper-2) 48%, transparent 50%);
+  clip-path:polygon(100% 0, 100% 100%, 0 100%); opacity:0; transition:opacity .2s, transform .2s;
+  transform:translate(8px,8px); border:0; padding:0; }
+.rv-pg:hover .rv-canto{ opacity:.85; transform:none; }
+.rv-canto:focus-visible{ opacity:1; transform:none; outline:2px solid var(--gold); }
+/* a espessura: as folhas que faltam (direita) e as já lidas (esquerda) */
+.rv-lombo{ position:absolute; top:8px; bottom:8px; width:0; z-index:0; pointer-events:none;
+  background:repeating-linear-gradient(90deg, #cfc4ab 0 1px, #efe8da 1px 3px);
+  border:1px solid var(--ink); border-left:0; transition:width .3s ease; }
+.rv-lombo.esq{ right:100%; border:1px solid var(--ink); border-right:0;
+  background:repeating-linear-gradient(270deg, #cfc4ab 0 1px, #efe8da 1px 3px); }
+.rv-lombo.dir{ left:100%; }
+html[data-theme="dark"] .rv-lombo{ background:repeating-linear-gradient(90deg, #1c1712 0 1px, #2e2820 1px 3px); }
+html[data-theme="dark"] .rv-lombo.esq{ background:repeating-linear-gradient(270deg, #1c1712 0 1px, #2e2820 1px 3px); }
+/* a fita marcadora */
+.rv-fita{ position:absolute; top:-3px; right:8px; width:16px; height:52px; z-index:12; pointer-events:none;
+  background:linear-gradient(180deg, var(--gold) 0%, #b89a55 100%);
+  clip-path:polygon(0 0, 100% 0, 100% 100%, 50% 84%, 0 100%);
+  box-shadow:0 3px 8px rgba(0,0,0,.3); }
+/* o aviso da fita (volta de leitura) */
+.rv-toast{ position:fixed; left:50%; bottom:86px; transform:translateX(-50%); z-index:60;
+  background:var(--wine); color:var(--gold); border:2px solid var(--gold); padding:12px 20px;
+  font-family:var(--mono); font-size:.62rem; letter-spacing:.14em; text-transform:uppercase;
+  box-shadow:0 8px 30px rgba(0,0,0,.4); animation:rvToast 4.2s ease forwards; }
+@keyframes rvToast{ 0%{ opacity:0; transform:translate(-50%,12px);} 8%{ opacity:1; transform:translate(-50%,0);}
+  86%{ opacity:1; } 100%{ opacity:0; } }
+/* sala de leitura: só a revista, luz apagada */
+body.rv-sala{ background:#17100c; }
+body.rv-sala .warn, body.rv-sala nav.main, body.rv-sala .ticker, body.rv-sala footer,
+body.rv-sala .band, body.rv-sala .ad-slot, body.rv-sala #ck-bar, body.rv-sala .cookie-bar{ display:none !important; }
+body.rv-sala .rv-stage{ margin-top:20px; }
+body.rv-sala .rv-lombo{ border-color:#000; }
+#rv-sala-sair{ display:none; position:fixed; top:14px; right:14px; z-index:70; border:2px solid var(--gold);
+  background:rgba(23,16,12,.85); color:var(--gold); font-family:var(--mono); font-size:.6rem;
+  letter-spacing:.14em; text-transform:uppercase; padding:10px 14px; cursor:pointer; }
+body.rv-sala #rv-sala-sair{ display:block; }
+#rv-sala-sair:hover{ background:var(--gold); color:var(--wine); }
 .rv-folio{ position:absolute; left:0; right:0; bottom:0; display:flex; justify-content:space-between;
   align-items:center; padding:10px 22px; border-top:1.5px solid var(--line);
   font-family:var(--mono); font-size:.52rem; letter-spacing:.18em; text-transform:uppercase;
@@ -362,6 +439,112 @@ html[data-theme="dark"] .rv-mestre .au{ color:var(--gold); }
   font-size:.78rem; line-height:1.72; text-align:justify; hyphens:auto; }
 .rv-livre .txt p{ margin:0 0 11px; }
 
+/* ---------- EX-LÍBRIS (no sumário) ---------- */
+.rv-exlibris{ margin:0 22px; padding:12px 16px; border:2px solid var(--wine); position:relative; }
+.rv-exlibris::before{ content:''; position:absolute; inset:3px; border:1px solid var(--wine); pointer-events:none; }
+.rv-exlibris em{ display:block; font-style:normal; font-family:var(--mono); font-size:.5rem;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-exlibris em{ color:var(--gold); }
+.rv-exlibris .dono{ font-family:var(--didone); font-size:1.15rem; border-bottom:1.5px dotted var(--ink-soft);
+  min-width:180px; display:inline-block; padding:2px 6px; outline:none; }
+.rv-exlibris .dono:empty::before{ content:'escreva seu nome aqui'; color:var(--ink-soft);
+  font-size:.85rem; font-style:italic; }
+.rv-sum ol{ padding-bottom:14px; }
+.rv-sum .rv-exlibris{ margin-bottom:56px; }
+
+/* ---------- PÔSTER CENTRAL ---------- */
+.rv-poster{ background:var(--ink); }
+.rv-poster img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.rv-poster .selo{ position:absolute; left:0; top:0; z-index:4; background:var(--gold); color:var(--wine);
+  font-family:var(--mono); font-size:.54rem; font-weight:700; letter-spacing:.24em; text-transform:uppercase;
+  padding:8px 14px; border-right:2px solid var(--ink); border-bottom:2px solid var(--ink); }
+.rv-poster .pe{ position:absolute; left:0; right:0; bottom:0; z-index:4; display:flex;
+  justify-content:space-between; align-items:center; gap:10px; padding:10px 16px;
+  background:linear-gradient(0deg, rgba(20,8,5,.82), rgba(20,8,5,0));
+  font-family:var(--mono); font-size:.54rem; letter-spacing:.16em; text-transform:uppercase; color:#efe8da; }
+.rv-poster .pe a{ color:var(--gold); border:2px solid var(--gold); padding:8px 12px; text-decoration:none;
+  font-weight:700; background:rgba(20,8,5,.5); }
+.rv-poster .pe a:hover{ background:var(--gold); color:var(--wine); }
+
+/* ---------- RECORTES DA SEMANA ---------- */
+.rv-rec .cab{ padding:24px 22px 12px; border-bottom:3px solid var(--ink); }
+.rv-rec .cab em{ display:block; font-style:normal; font-family:var(--mono); font-size:.54rem;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-rec .cab em{ color:var(--gold); }
+.rv-rec .cab h3{ font-family:var(--didone); font-weight:400; font-size:2.3rem; margin:4px 0 0; line-height:1; }
+.rv-rec .mural{ flex:1; overflow:auto; padding:22px 26px 64px; display:flex; flex-direction:column;
+  gap:18px; justify-content:center; }
+.rv-rec .rec{ position:relative; background:#f6f0e2; border:1px solid #d8cdb4; padding:18px 20px 14px;
+  box-shadow:2px 3px 10px rgba(35,8,5,.14); max-width:92%; }
+html[data-theme="dark"] .rv-rec .rec{ background:#241e16; border-color:#3a3226; }
+.rv-rec .rec:nth-child(odd){ transform:rotate(-1.2deg); align-self:flex-start; }
+.rv-rec .rec:nth-child(even){ transform:rotate(1deg); align-self:flex-end; }
+.rv-rec .rec::before{ content:''; position:absolute; top:-9px; left:50%; transform:translateX(-50%) rotate(-2deg);
+  width:74px; height:18px; background:rgba(206,178,106,.4); border:1px solid rgba(158,132,72,.35); }
+.rv-rec .rec .fr{ font-family:var(--didone); font-size:1.02rem; line-height:1.34; }
+.rv-rec .rec .fr::before{ content:'“'; color:var(--wine); }
+.rv-rec .rec .fr::after{ content:'”'; color:var(--wine); }
+html[data-theme="dark"] .rv-rec .rec .fr::before, html[data-theme="dark"] .rv-rec .rec .fr::after{ color:var(--gold); }
+.rv-rec .rec .qm{ margin-top:8px; font-family:var(--mono); font-size:.55rem; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
+.rv-rec .rec .qm i{ font-style:normal; font-weight:400; color:var(--ink-soft); display:block; margin-top:2px; }
+.rv-rec .rec a{ color:inherit; text-decoration:none; }
+
+/* ---------- PASSATEMPO ---------- */
+.rv-cx .cab{ padding:24px 22px 10px; border-bottom:3px solid var(--ink); }
+.rv-cx .cab em{ display:block; font-style:normal; font-family:var(--mono); font-size:.54rem;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-cx .cab em{ color:var(--gold); }
+.rv-cx .cab h3{ font-family:var(--didone); font-weight:400; font-size:2.1rem; margin:4px 0 0; line-height:1; }
+.rv-cx .miolo{ flex:1; overflow:auto; padding:16px 22px 60px; }
+.rv-cx{ --cx:34px; }
+@media (max-width:560px){ .rv-cx{ --cx:24px; } }
+.rv-cx .como{ font-size:.74rem; color:var(--ink-soft); margin:0 0 12px; line-height:1.5; }
+.rv-cx .grade-cx{ display:flex; flex-direction:column; gap:4px; margin-bottom:14px; overflow-x:auto; }
+.rv-cx .cx-linha{ display:flex; gap:4px; }
+.rv-cx .cx-cel{ width:calc(var(--cx) - 4px); height:calc(var(--cx) - 4px); border:2px solid var(--ink);
+  background:var(--paper); text-align:center; font-family:var(--mono); font-weight:700;
+  font-size:calc(var(--cx) * .48); text-transform:uppercase; padding:0; color:var(--ink); }
+.rv-cx .cx-cel:focus{ outline:3px solid var(--gold); outline-offset:-2px; }
+.rv-cx .cx-cel.chave{ background:rgba(206,178,106,.35); border-color:var(--wine); }
+.rv-cx .cx-cel.certa{ background:#e6efdd; }
+.rv-cx .cx-cel.errada{ background:#f3ded9; }
+html[data-theme="dark"] .rv-cx .cx-cel.certa{ background:#22301c; }
+html[data-theme="dark"] .rv-cx .cx-cel.errada{ background:#3a2019; }
+.rv-cx .cx-num{ width:22px; display:inline-flex; align-items:center; justify-content:center;
+  font-family:var(--didone); font-size:1rem; color:var(--wine); }
+html[data-theme="dark"] .rv-cx .cx-num{ color:var(--gold); }
+.rv-cx ol.dicas{ margin:0 0 14px; padding-left:22px; font-size:.76rem; line-height:1.7; }
+.rv-cx .cx-acoes{ display:flex; gap:8px; flex-wrap:wrap; }
+.rv-cx .cx-acoes button{ border:2px solid var(--ink); background:var(--paper); color:var(--ink);
+  font-family:var(--mono); font-weight:600; font-size:.58rem; letter-spacing:.14em; text-transform:uppercase;
+  padding:9px 13px; cursor:pointer; }
+.rv-cx .cx-acoes button:hover{ background:var(--ink); color:var(--gold); }
+.rv-cx .cx-res{ font-family:var(--mono); font-size:.62rem; letter-spacing:.12em; text-transform:uppercase;
+  margin-top:10px; color:var(--wine); }
+html[data-theme="dark"] .rv-cx .cx-res{ color:var(--gold); }
+
+/* ---------- CONTRACAPA ---------- */
+.rv-back{ background:var(--wine); color:var(--paper); }
+.rv-back .miolo{ flex:1; display:flex; flex-direction:column; padding:30px 30px 20px; }
+.rv-back em.rot{ font-style:normal; font-family:var(--mono); font-size:.56rem; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--gold); }
+.rv-back h3{ font-family:var(--didone); font-weight:400; color:var(--gold); font-size:2.2rem;
+  line-height:1.02; margin:6px 0 18px; }
+.rv-back ul.prox{ list-style:none; margin:0; padding:0; }
+.rv-back ul.prox li{ padding:10px 0; border-bottom:1px solid rgba(206,178,106,.35);
+  font-size:.9rem; line-height:1.4; }
+.rv-back ul.prox li::before{ content:'✦ '; color:var(--gold); }
+.rv-back .desp{ margin-top:auto; text-align:center; padding-top:24px; }
+.rv-back .desp .fr{ font-family:var(--didone); font-size:1.25rem; line-height:1.3; color:var(--paper); }
+.rv-back .desp .au{ font-family:var(--mono); font-size:.54rem; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--gold); margin-top:8px; }
+.rv-back .rodape{ display:flex; justify-content:space-between; align-items:center; margin-top:22px;
+  padding-top:14px; border-top:2px solid var(--gold); font-family:var(--mono); font-size:.52rem;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
+.rv-back .rodape img{ height:34px; }
+
 /* ---------- NAVEGAÇÃO ---------- */
 .rv-nav{ position:sticky; bottom:14px; display:flex; justify-content:center; gap:8px;
   width:max-content; max-width:100%; margin:18px auto 0; padding:8px;
@@ -376,17 +559,22 @@ html[data-theme="dark"] .rv-mestre .au{ color:var(--gold); }
   .rv-edi .txt, .rv-livre .txt{ column-count:1; }
 }
 @media print{
-  .rv-pg{ display:flex !important; page-break-after:always; border-width:0; aspect-ratio:auto; min-height:96vh; }
-  .rv-nav, nav.main, .ticker, footer, .warn{ display:none !important; }
+  .rv-pg{ display:flex !important; page-break-after:always; border-width:0; aspect-ratio:auto;
+    min-height:96vh; width:100% !important; max-width:100% !important; }
+  .rv-pg::before{ display:none; }
+  .rv-nav, nav.main, .ticker, footer, .warn, .rv-lombo, .rv-fita, .rv-canto,
+  #rv-sala-sair, .rv-toast, .cx-acoes{ display:none !important; }
 }
 </style>
 <main id="conteudo" class="rv-stage">
+  <div class="rv-book" id="rv-book">
+    <div class="rv-lombo esq" id="rv-lombo-esq" aria-hidden="true"></div>
 <section class="rv-pg rv-capa2 on"><img class="bg" src="assets/uploads/wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.jpg" alt=""><div class="veu"></div><div class="nameplate"><img src="assets/logo/foyer-horizontal-gold.png" alt="FOYER"></div><div class="linha-ed"><span>A revista da semana</span><span>Nº 1 · 23 Jul 2026</span></div><div class="base"><div class="manchete"><em>Nesta edição</em><h2>A semana em que Oz desembarcou no Rio</h2></div><div class="faixa"><span>Estreia: a nossa revista semanal, fechada como uma edição impressa</span><i>✦</i><span>Wicked chega à Cidade das Artes com Myra Ruiz e Fabi Bang</span><i>✦</i><span>Shakespeare cai no arraial no Teatro Sabesp Frei Caneca</span><i>✦</i><span>Nelson Rodrigues em dose dupla nos palcos paulistanos</span></div><div class="rodape-capa"><span>foyer.digital · edição gratuita</span><span class="rv-barcode"></span></div></div></section>
-<section class="rv-pg rv-sum"><div class="cab"><span>O que vem por aí</span><h3>Nesta edição</h3><svg class="arte" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#ph-2"/></svg></div><ol><li><span class="pnum">3</span><span><span class="pt">Carta ao leitor: por que uma revista?</span><span class="ps">Editorial</span></span></li><li><span class="pnum">4</span><span><span class="pt">Com Myra Ruiz e Fabi Bang, &quot;Wicked&quot; faz temporada carioca na Cidade das…</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">8</span><span><span class="pt">“Festa no Arraial, O Musical” transforma Shakespeare em festa junina no…</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">13</span><span><span class="pt">Na tela: os programas da semana</span><span class="ps">YouTube do FOYER</span></span></li><li><span class="pnum">14</span><span><span class="pt">Luisa Thiré apresenta “Valsa Nº 6”, de Nelson Rodrigues, no Teatro Arena B3</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">18</span><span><span class="pt">&quot;Os Últimos 5 Anos” volta a São Paulo em edição comemorativa pelos 25 anos…</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">22</span><span><span class="pt">Rosamaria Murtinho vive Iris Apfel em “Uma Vida em Cores” no Teatro Vannucci</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">26</span><span><span class="pt">A semana em cartaz: São Paulo</span><span class="ps">Agenda</span></span></li><li><span class="pnum">27</span><span><span class="pt">A semana em cartaz: Rio de Janeiro</span><span class="ps">Agenda</span></span></li><li><span class="pnum">28</span><span><span class="pt">Entre mestres: a arte pela palavra</span><span class="ps">Exclusivo</span></span></li><li><span class="pnum">29</span><span><span class="pt">Expediente</span><span class="ps">Quem faz o FOYER</span></span></li></ol><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>2</b><span>23 Jul 2026</span></div></section>
-<section class="rv-pg rv-edi"><div class="rv-kicker"><span class="tagz">Editorial</span><span>Carta ao leitor</span></div><div class="miolo"><h3>Carta ao leitor: por que uma revista?</h3><div class="txt"><p>O FOYER nasceu da urgência: a notícia de hoje, a crítica da estreia, a agenda que não espera. Esta revista nasce do movimento contrário. Uma vez por semana, paramos, escolhemos e fechamos uma edição com começo, meio e fim, como as revistas que a gente colecionava.</p>
+<section class="rv-pg rv-sum"><div class="cab"><span>O que vem por aí</span><h3>Nesta edição</h3><svg class="arte" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#ph-2"/></svg></div><ol><li><span class="pnum">3</span><span><span class="pt">Carta ao leitor: por que uma revista?</span><span class="ps">Editorial</span></span></li><li><span class="pnum">4</span><span><span class="pt">Com Myra Ruiz e Fabi Bang, &quot;Wicked&quot; faz temporada carioca na Cidade das…</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">8</span><span><span class="pt">Recortes: o que disseram na semana</span><span class="ps">Entre aspas</span></span></li><li><span class="pnum">9</span><span><span class="pt">“Festa no Arraial, O Musical” transforma Shakespeare em festa junina no…</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">14</span><span><span class="pt">Na tela: os programas da semana</span><span class="ps">YouTube do FOYER</span></span></li><li><span class="pnum">15</span><span><span class="pt">Myra Ruiz e Fabi Bang em Wicked, na Cidade das Artes</span><span class="ps">Para guardar</span></span></li><li><span class="pnum">16</span><span><span class="pt">Luisa Thiré apresenta “Valsa Nº 6”, de Nelson Rodrigues, no Teatro Arena B3</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">20</span><span><span class="pt">&quot;Os Últimos 5 Anos” volta a São Paulo em edição comemorativa pelos 25 anos…</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">24</span><span><span class="pt">Rosamaria Murtinho vive Iris Apfel em “Uma Vida em Cores” no Teatro Vannucci</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">28</span><span><span class="pt">A semana em cartaz: São Paulo</span><span class="ps">Agenda</span></span></li><li><span class="pnum">29</span><span><span class="pt">A semana em cartaz: Rio de Janeiro</span><span class="ps">Agenda</span></span></li><li><span class="pnum">30</span><span><span class="pt">Entre mestres: a arte pela palavra</span><span class="ps">Exclusivo</span></span></li><li><span class="pnum">31</span><span><span class="pt">A cruzadinha do FOYER</span><span class="ps">Para resolver</span></span></li><li><span class="pnum">32</span><span><span class="pt">Expediente</span><span class="ps">Quem faz o FOYER</span></span></li><li><span class="pnum">33</span><span><span class="pt">Na próxima edição</span><span class="ps">Contracapa</span></span></li></ol><div class="rv-exlibris"><em>Ex-líbris</em><span>Esta edição pertence a </span><span class="dono" id="rv-exlibris-nome" contenteditable="true" spellcheck="false" aria-label="Escreva seu nome no ex-líbris"></span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>2</b><span>23 Jul 2026</span></div></section>
+<section data-sum="0" class="rv-pg rv-edi"><div class="rv-kicker"><span class="tagz">Editorial</span><span>Carta ao leitor</span></div><div class="miolo"><h3>Carta ao leitor: por que uma revista?</h3><div class="txt"><p>O FOYER nasceu da urgência: a notícia de hoje, a crítica da estreia, a agenda que não espera. Esta revista nasce do movimento contrário. Uma vez por semana, paramos, escolhemos e fechamos uma edição com começo, meio e fim, como as revistas que a gente colecionava.</p>
 <p>Aqui dentro vai o melhor dos nossos sete dias: a reportagem que merece segunda leitura, a citação que ficou ecoando, o serviço para o seu fim de semana. Sem rolagem infinita. Quando a última página chega, a edição termina, e isso é parte do prazer.</p>
 <p>Nesta estreia, a semana foi generosa: Oz desembarcou no Rio depois de uma década de espera, Shakespeare caiu na quadrilha em plena Consolação e Nelson Rodrigues provou mais uma vez que não envelhece. Vire a página.</p></div><p class="ass">A direção do FOYER</p><svg class="arte-edi" viewBox="0 0 600 400" preserveAspectRatio="none"><use href="#ph-4"/></svg></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>3</b><span>23 Jul 2026</span></div></section>
-<section class="rv-pg rv-mat"><div class="foto"><img src="assets/uploads/wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.jpg" alt="" onerror="this.style.display='none'"><span class="cat">Teatro</span></div><div class="miolo"><h3>Com Myra Ruiz e Fabi Bang, &quot;Wicked&quot; faz temporada carioca na Cidade das Artes</h3><p class="linhafina">Depois de uma década de espera e um milhão de espectadores em São Paulo, a superprodução ocupa a sala Bibi Ferreira, na Barra da Tijuca.</p><div class="txt"><p>Os fãs cariocas esperaram uma década. O momento chegou. Depois de três temporadas de destaque em São Paulo, <strong>Wicked: A História Não Contada das Bruxas de Oz</strong> desembarcou pela primeira vez no Rio de Janeiro: desde 15 de julho, a superprodução ocupa a sala Bibi Ferreira da Cidade das Artes, na Barra da Tijuca, em temporada especial, com Myra Ruiz no papel de Elphaba e Fabi Bang como Glinda.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>4</b><span>23 Jul 2026</span></div></section>
+<section data-sum="1" class="rv-pg rv-mat"><div class="foto"><img src="assets/uploads/wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.jpg" alt="" onerror="this.style.display='none'"><span class="cat">Teatro</span></div><div class="miolo"><h3>Com Myra Ruiz e Fabi Bang, &quot;Wicked&quot; faz temporada carioca na Cidade das Artes</h3><p class="linhafina">Depois de uma década de espera e um milhão de espectadores em São Paulo, a superprodução ocupa a sala Bibi Ferreira, na Barra da Tijuca.</p><div class="txt"><p>Os fãs cariocas esperaram uma década. O momento chegou. Depois de três temporadas de destaque em São Paulo, <strong>Wicked: A História Não Contada das Bruxas de Oz</strong> desembarcou pela primeira vez no Rio de Janeiro: desde 15 de julho, a superprodução ocupa a sala Bibi Ferreira da Cidade das Artes, na Barra da Tijuca, em temporada especial, com Myra Ruiz no papel de Elphaba e Fabi Bang como Glinda.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>4</b><span>23 Jul 2026</span></div></section>
 <section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Com Myra Ruiz e Fabi Bang, &quot;Wicked&quot; faz temporada…</p><div class="txt">
 <p>O tamanho do fenômeno explica a expectativa. Desde a estreia brasileira, em 2016, o musical já foi assistido por mais de um milhão de pessoas no país e se consolidou como uma das produções mais grandiosas já montadas nos palcos nacionais, um marco na era dos megamusicais brasileiros: elenco numeroso, orquestra e cenografia de padrão internacional, tudo cantado em português. A vinda ao Rio atende a um pedido antigo do público carioca, que até agora precisava viajar a São Paulo para ver o espetáculo.</p>
 <h2>O outro lado de Oz</h2>
@@ -408,18 +596,19 @@ html[data-theme="dark"] .rv-mestre .au{ color:var(--gold); }
 <p>Quando: em cartaz desde 15 de julho de 2026, em temporada especial; quartas, quintas e sextas às 20h; sábados às 15h e às 19h; domingos às 14h e às 18h30</p>
 <p>Quanto: de R$ 50 a R$ 400, conforme o setor</p>
 <p>Vendas: plataforma Sympla e bilheteria física da Cidade das Artes</p></div><svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="none"><use href="#ph-3"/></svg><div class="leia"><a href="post-wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.html">Abrir esta matéria no site →</a></div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>7</b><span>23 Jul 2026</span></div></section>
-<section class="rv-pg rv-mat"><div class="foto"><img src="assets/uploads/festa-no-arraial-o-musical-shakespeare-festa-junina-frei-caneca.jpg" alt="" onerror="this.style.display='none'"><span class="cat">Teatro</span></div><div class="miolo"><h3>“Festa no Arraial, O Musical” transforma Shakespeare em festa junina no Teatro Sabesp Frei Caneca</h3><p class="linhafina">Sonho de uma Noite de Verão vira festa junina em musical inédito com Claudia Ohana à frente de 14 artistas.</p><div class="txt"><p>O clássico mais encantado de William Shakespeare vai parar no meio do arraial. Estreia nesta sexta-feira, 24 de julho, no Teatro Sabesp Frei Caneca, em São Paulo, <strong>Festa no Arraial, O Musical</strong>, adaptação livre de <strong>Sonho de uma Noite de Verão</strong> que troca o bosque encantado dos arredores de Atenas por uma vila nordestina em plena festa de São João. A temporada é curta, até 16 de agosto, com sessões de sexta a domingo.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>8</b><span>23 Jul 2026</span></div></section>
+<section data-sum="2" class="rv-pg rv-rec"><div class="cab"><em>Entre aspas, com a origem</em><h3>Recortes da semana</h3></div><div class="mural"><div class="rec"><a href="post-festival-de-avignon-2026-balanco-wagner-moura.html"><div class="fr">É uma questão democrática: o festival criado por Jean Vilar se fez sobre as férias remuneradas, para que todo mundo pudesse ter tempo de aproveitar essa viagem ao país do teatro</div><div class="qm">Tiago Rodrigues, diretor do Festival de Avignon<i>à rádio ICI Vaucluse</i></div></a></div><div class="rec"><a href="post-petrobras-cultural-2026-edital-270-milhoes-prazo-31-julho.html"><div class="fr">Quando a gente fala em empurrar o PIB do país, todo mundo pensa em petróleo, pensa em gás, pensa em fertilizantes, pensa em combustíveis, mas a cultura é uma força empresarial incrível da nossa sociedade</div><div class="qm">Magda Chambriard, presidente da Petrobras<i>em fala publicada pela IstoÉ Dinheiro</i></div></a></div><div class="rec"><a href="post-petrobras-cultural-2026-edital-270-milhoes-prazo-31-julho.html"><div class="fr">Vemos um movimento dessa linguagem, que são as manifestações de cultura gamificadas, tendo o game como uma forma de trabalhar diferentes atividades e construções em cultura</div><div class="qm">Alessandra Teixeira, gerente de patrocínios da Petrobras<i>ao Correio Braziliense</i></div></a></div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>8</b><span>23 Jul 2026</span></div></section>
+<section data-sum="3" class="rv-pg rv-mat"><div class="foto"><img src="assets/uploads/festa-no-arraial-o-musical-shakespeare-festa-junina-frei-caneca.jpg" alt="" onerror="this.style.display='none'"><span class="cat">Teatro</span></div><div class="miolo"><h3>“Festa no Arraial, O Musical” transforma Shakespeare em festa junina no Teatro Sabesp Frei Caneca</h3><p class="linhafina">Sonho de uma Noite de Verão vira festa junina em musical inédito com Claudia Ohana à frente de 14 artistas.</p><div class="txt"><p>O clássico mais encantado de William Shakespeare vai parar no meio do arraial. Estreia nesta sexta-feira, 24 de julho, no Teatro Sabesp Frei Caneca, em São Paulo, <strong>Festa no Arraial, O Musical</strong>, adaptação livre de <strong>Sonho de uma Noite de Verão</strong> que troca o bosque encantado dos arredores de Atenas por uma vila nordestina em plena festa de São João. A temporada é curta, até 16 de agosto, com sessões de sexta a domingo.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>9</b><span>23 Jul 2026</span></div></section>
 <section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">“Festa no Arraial, O Musical” transforma Shakespeare…</p><div class="txt">
 <p>A trama acompanha Hérmia e Lisandro, dois jovens apaixonados que planejam se casar durante a grande festa do arraial da vila. Como no original shakespeariano, nada sai como o planejado: o amor dos dois precisa enfrentar tradições, interesses de família e até forças encantadas da natureza, em uma história de reviravoltas, encontros e desencontros. Entre fogueiras acesas, quadrilhas animadas e criaturas encantadas da mata, o espetáculo mistura romance, comédia e fantasia em uma narrativa pensada para todas as idades.</p>
 <h2>Do bosque de Atenas ao arraial nordestino</h2>
 <p>Escrita por volta de 1595, <strong>Sonho de uma Noite de Verão</strong> é uma das comédias mais montadas de Shakespeare: a história dos casais que fogem para um bosque governado por seres mágicos e acabam enredados em feitiços e trocas de par. A nova versão brasileira transporta esse imaginário para o universo das festas juninas, celebrando as tradições populares do país: as fadas do bosque dão lugar às criaturas encantadas da mata, e a corte ateniense vira a vila em festa.</p>
-<p>A direção é de Thereza Falcão, que assina o texto ao lado de Mariana Mesquita. Conhecida do grande público como coautora de novelas da TV Globo (entre elas <strong>Novo Mundo</strong>, <strong>Nos Tempos do Imperador</strong> e <strong>Além da Ilusão</strong>, todas ao lado de Alessandro Marson), Thereza estreia no comando de um musical apostando no que suas tramas de época já mostravam: o gosto por histórias de amor atravessadas pelas tradições brasileiras.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>9</b><span>23 Jul 2026</span></div></section>
+<p>A direção é de Thereza Falcão, que assina o texto ao lado de Mariana Mesquita. Conhecida do grande público como coautora de novelas da TV Globo (entre elas <strong>Novo Mundo</strong>, <strong>Nos Tempos do Imperador</strong> e <strong>Além da Ilusão</strong>, todas ao lado de Alessandro Marson), Thereza estreia no comando de um musical apostando no que suas tramas de época já mostravam: o gosto por histórias de amor atravessadas pelas tradições brasileiras.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>10</b><span>23 Jul 2026</span></div></section>
 <section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">“Festa no Arraial, O Musical” transforma Shakespeare…</p><div class="txt">
 <blockquote class="pull">&quot;Festa no Arraial é um convite para que o público volte a acreditar na força dos encontros, dos sonhos e do amor. É uma história que celebra nossas raízes, nossa cultura e tudo aquilo que faz o coração bater mais forte. Queremos que cada pessoa saia do teatro com a sensação de ter vivido uma noite mágica&quot;, conta Thereza Falcão, diretora e autora do espetáculo.</blockquote>
 <h2>Quatorze artistas em cena, com Claudia Ohana à frente</h2>
 <p>O elenco reúne 14 atores, cantores e instrumentistas. Claudia Ohana, nome conhecido do público de teatro, cinema e televisão, lidera o time, que traz ainda Lorena Tucci, Cadu Libonati, Bernardo Mesquita, Erika Affonso, Danilo Dal Farra, Sofie Orleans, Rafa Canedo, Júlia Perré, Nestor Fonseca, Caio Padilha, Benji Iuler, Jude Fontenelle e Mariana Braga.</p>
 <p>Por se tratar de um musical inédito e inteiramente brasileiro, a produção aposta na música como fio condutor: são canções feitas, segundo a produção, para o público cantar junto do início ao fim. Em um mercado ainda dominado por adaptações de títulos internacionais, uma dramaturgia musical original sobre imaginário brasileiro é aposta rara. Quando dá certo, o público costuma abraçar.</p>
-<h2>Festa junina fora de época? Pelo contrário</h2></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>10</b><span>23 Jul 2026</span></div></section>
+<h2>Festa junina fora de época? Pelo contrário</h2></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>11</b><span>23 Jul 2026</span></div></section>
 <section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">“Festa no Arraial, O Musical” transforma Shakespeare…</p><div class="txt">
 <p>A estreia no fim de julho pega carona no calendário: passado o São João, as festas julinas e agostinas esticam a temporada de quadrilhas e fogueiras país afora. Para o público paulistano, é a chance de fechar o ciclo junino no teatro, de chapéu de palha e coração aberto, como pede a diretora.</p>
 <h2>Ingresso solidário e preços por setor</h2>
@@ -428,20 +617,21 @@ html[data-theme="dark"] .rv-mestre .au{ color:var(--gold); }
 <h2>Serviço</h2>
 <p><strong>Festa no Arraial, O Musical</strong></p>
 <p>Onde: Teatro Sabesp Frei Caneca (Shopping Frei Caneca), Rua Frei Caneca, 569, Consolação, São Paulo</p>
-<p>Quando: de 24 de julho a 16 de agosto de 2026, com sessões de sexta a domingo (os horários variam conforme o dia; confira na bilheteria ou no site de vendas)</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>11</b><span>23 Jul 2026</span></div></section>
+<p>Quando: de 24 de julho a 16 de agosto de 2026, com sessões de sexta a domingo (os horários variam conforme o dia; confira na bilheteria ou no site de vendas)</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>12</b><span>23 Jul 2026</span></div></section>
 <section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">“Festa no Arraial, O Musical” transforma Shakespeare…</p><div class="txt">
 <p>Quanto: Plateia I a R$ 150 (inteira) e R$ 75 (meia); Plateia II a R$ 120 e R$ 60; Plateia Superior a R$ 80 e R$ 40; ingresso solidário com 50% de desconto mais a doação de 1 kg de alimento não perecível</p>
 <p>Vendas: bilheteria do teatro e plataforma Uhuu</p>
-<p>Classificação: livre, programa para toda a família</p></div><svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="none"><use href="#ph-3"/></svg><div class="leia"><a href="post-festa-no-arraial-o-musical-shakespeare-festa-junina-frei-caneca.html">Abrir esta matéria no site →</a></div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>12</b><span>23 Jul 2026</span></div></section>
-<section class="rv-pg rv-tela"><div class="cab"><em>O canal, esta semana</em><h3>Na tela</h3></div><div class="grade"><a class="ep" href="https://www.youtube.com/watch?v=dk9BoNkIlEk&amp;list=PLFPAp2PKrLk15leURL9x9-HQjDGTeXP2R" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/dk9BoNkIlEk/hq720.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/dk9BoNkIlEk/mqdefault.jpg'"><span class="pr">Críticas Teatrais</span><span class="tt">O Caso Lorena - Crítica Teatral por Kyra Piscitelli</span></a><a class="ep" href="https://www.youtube.com/watch?v=y3BPxqbjaJ4&amp;list=PLFPAp2PKrLk15leURL9x9-HQjDGTeXP2R" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/y3BPxqbjaJ4/hq720.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/y3BPxqbjaJ4/mqdefault.jpg'"><span class="pr">Críticas Teatrais</span><span class="tt">Fafá de Belém, O Musical - Crítica Teatral por Kyra Piscitelli</span></a><a class="ep" href="https://www.youtube.com/watch?v=ag9JqNtRrUg&amp;list=PLFPAp2PKrLk15leURL9x9-HQjDGTeXP2R" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/ag9JqNtRrUg/hq720.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/ag9JqNtRrUg/mqdefault.jpg'"><span class="pr">Críticas Teatrais</span><span class="tt">Oleanna - Crítica Teatral por Kyra Piscitelli</span></a><a class="ep" href="https://www.youtube.com/watch?v=ZSf31l3MBZ8&amp;list=PLFPAp2PKrLk3dDXvpjoZgBh0obVCPYCmV" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/ZSf31l3MBZ8/hq720.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/ZSf31l3MBZ8/mqdefault.jpg'"><span class="pr">Coxixo de Coxia</span><span class="tt">Coxixo de Coxia - Re-Circo</span></a><a class="ep" href="https://www.youtube.com/watch?v=vPybBrpkg8s&amp;list=PLFPAp2PKrLk15leURL9x9-HQjDGTeXP2R" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/vPybBrpkg8s/hq720.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/vPybBrpkg8s/mqdefault.jpg'"><span class="pr">Críticas Teatrais</span><span class="tt">Vindos de Longe - Crítica Teatral por Kyra Piscitelli</span></a><a class="ep" href="https://www.youtube.com/watch?v=lsa2cE2RDAI&amp;list=PLFPAp2PKrLk3dDXvpjoZgBh0obVCPYCmV" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/lsa2cE2RDAI/hq720.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/lsa2cE2RDAI/mqdefault.jpg'"><span class="pr">Coxixo de Coxia</span><span class="tt">Coxixo de Coxia - Cuidado com as Flores Simpáticas</span></a></div><div class="canal-cta"><a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">Assista a tudo no canal do FOYER →</a></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>13</b><span>23 Jul 2026</span></div></section>
-<section class="rv-pg rv-mat"><div class="foto"><img src="assets/acervo/958d1c81f07580c4.jpg" alt="" onerror="this.style.display='none'"><span class="cat">Teatro</span></div><div class="miolo"><h3>Luisa Thiré apresenta “Valsa Nº 6”, de Nelson Rodrigues, no Teatro Arena B3</h3><p class="linhafina">Temporada relâmpago: quatro sessões do monólogo dirigido por Cláudio Torres Gonzaga, nos dias 25 e 26 de julho.</p><div class="txt"><h2><strong>Monólogo dirigido por Cláudio Torres Gonzaga terá quatro apresentações nos dias 25 e 26 de julho</strong></h2>
-<p>Um dos textos mais conhecidos de <strong>Nelson Rodrigues</strong> chega ao <strong>Teatro Arena B3</strong> em temporada relâmpago. Nos dias <strong>25 e 26 de julho</strong>, <strong>Luisa Thiré</strong> apresenta o monólogo <strong>“Valsa Nº 6”</strong>, com direção de <strong>Cláudio Torres Gonzaga</strong>, em quatro sessões exclusivas na programação da casa.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>14</b><span>23 Jul 2026</span></div></section>
+<p>Classificação: livre, programa para toda a família</p></div><svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="none"><use href="#ph-3"/></svg><div class="leia"><a href="post-festa-no-arraial-o-musical-shakespeare-festa-junina-frei-caneca.html">Abrir esta matéria no site →</a></div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>13</b><span>23 Jul 2026</span></div></section>
+<section data-sum="4" class="rv-pg rv-tela"><div class="cab"><em>O canal, esta semana</em><h3>Na tela</h3></div><div class="grade"><a class="ep" href="https://www.youtube.com/watch?v=dk9BoNkIlEk&amp;list=PLFPAp2PKrLk15leURL9x9-HQjDGTeXP2R" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/dk9BoNkIlEk/hq720.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/dk9BoNkIlEk/mqdefault.jpg'"><span class="pr">Críticas Teatrais</span><span class="tt">O Caso Lorena - Crítica Teatral por Kyra Piscitelli</span></a><a class="ep" href="https://www.youtube.com/watch?v=y3BPxqbjaJ4&amp;list=PLFPAp2PKrLk15leURL9x9-HQjDGTeXP2R" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/y3BPxqbjaJ4/hq720.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/y3BPxqbjaJ4/mqdefault.jpg'"><span class="pr">Críticas Teatrais</span><span class="tt">Fafá de Belém, O Musical - Crítica Teatral por Kyra Piscitelli</span></a><a class="ep" href="https://www.youtube.com/watch?v=ag9JqNtRrUg&amp;list=PLFPAp2PKrLk15leURL9x9-HQjDGTeXP2R" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/ag9JqNtRrUg/hq720.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/ag9JqNtRrUg/mqdefault.jpg'"><span class="pr">Críticas Teatrais</span><span class="tt">Oleanna - Crítica Teatral por Kyra Piscitelli</span></a><a class="ep" href="https://www.youtube.com/watch?v=ZSf31l3MBZ8&amp;list=PLFPAp2PKrLk3dDXvpjoZgBh0obVCPYCmV" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/ZSf31l3MBZ8/hq720.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/ZSf31l3MBZ8/mqdefault.jpg'"><span class="pr">Coxixo de Coxia</span><span class="tt">Coxixo de Coxia - Re-Circo</span></a><a class="ep" href="https://www.youtube.com/watch?v=vPybBrpkg8s&amp;list=PLFPAp2PKrLk15leURL9x9-HQjDGTeXP2R" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/vPybBrpkg8s/hq720.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/vPybBrpkg8s/mqdefault.jpg'"><span class="pr">Críticas Teatrais</span><span class="tt">Vindos de Longe - Crítica Teatral por Kyra Piscitelli</span></a><a class="ep" href="https://www.youtube.com/watch?v=lsa2cE2RDAI&amp;list=PLFPAp2PKrLk3dDXvpjoZgBh0obVCPYCmV" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/lsa2cE2RDAI/hq720.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/lsa2cE2RDAI/mqdefault.jpg'"><span class="pr">Coxixo de Coxia</span><span class="tt">Coxixo de Coxia - Cuidado com as Flores Simpáticas</span></a></div><div class="canal-cta"><a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">Assista a tudo no canal do FOYER →</a></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>14</b><span>23 Jul 2026</span></div></section>
+<section data-sum="5" class="rv-pg rv-poster rv-wide"><img src="assets/uploads/wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.jpg" alt="Myra Ruiz e Fabi Bang em Wicked, na Cidade das Artes"><span class="selo">O pôster da semana</span><div class="pe"><span>Myra Ruiz e Fabi Bang em Wicked, na Cidade das Artes · Foto: Divulgação</span><a href="assets/uploads/wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.jpg" download="foyer-poster-ed1.jpg">⤓ Guardar o pôster</a></div></section>
+<section data-sum="6" class="rv-pg rv-mat"><div class="foto"><img src="assets/acervo/958d1c81f07580c4.jpg" alt="" onerror="this.style.display='none'"><span class="cat">Teatro</span></div><div class="miolo"><h3>Luisa Thiré apresenta “Valsa Nº 6”, de Nelson Rodrigues, no Teatro Arena B3</h3><p class="linhafina">Temporada relâmpago: quatro sessões do monólogo dirigido por Cláudio Torres Gonzaga, nos dias 25 e 26 de julho.</p><div class="txt"><h2><strong>Monólogo dirigido por Cláudio Torres Gonzaga terá quatro apresentações nos dias 25 e 26 de julho</strong></h2>
+<p>Um dos textos mais conhecidos de <strong>Nelson Rodrigues</strong> chega ao <strong>Teatro Arena B3</strong> em temporada relâmpago. Nos dias <strong>25 e 26 de julho</strong>, <strong>Luisa Thiré</strong> apresenta o monólogo <strong>“Valsa Nº 6”</strong>, com direção de <strong>Cláudio Torres Gonzaga</strong>, em quatro sessões exclusivas na programação da casa.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>16</b><span>23 Jul 2026</span></div></section>
 <section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Luisa Thiré apresenta “Valsa Nº 6”, de Nelson…</p><div class="txt">
 <p>Escrita em <strong>1951</strong>, a peça acompanha <strong>Sônia</strong>, uma adolescente de 15 anos que, entre delírios, memórias fragmentadas e lapsos de consciência, tenta reconstruir os acontecimentos que levaram ao seu assassinato. Embalada pela <strong>Valsa Nº 6</strong>, de Chopin, a narrativa se organiza como um thriller psicológico, em que lembrança, trauma e imaginação se misturam.</p>
 <p>A montagem estrelada por Luisa Thiré celebra <strong>14 anos de trajetória</strong> em 2026. Desde sua estreia, em 2012, ano do centenário de nascimento de Nelson Rodrigues, o espetáculo circulou por cidades brasileiras e também passou por países como Espanha, Portugal e Cabo Verde.</p>
 <p>No palco, a atriz dá corpo a uma personagem em estado de vertigem. Sônia revisita episódios de sua vida como quem tenta montar um quebra-cabeça incompleto, atravessado por paixão, medo, violência, culpa e desejo. A estrutura do monólogo exige uma atuação em permanente deslocamento, entre a inocência da adolescente, a lucidez tardia da vítima e a atmosfera sombria característica da dramaturgia rodriguiana.</p>
 <p>Embora tenha sido escrita há mais de sete décadas, “Valsa Nº 6” permanece atual ao evidenciar temas como violência contra a mulher, machismo estrutural, culpabilização da vítima e silenciamento. O espetáculo observa como essas estruturas seguem atravessando o imaginário social e a forma como histórias de violência são contadas, justificadas ou esquecidas.</p>
-<p>A concepção visual da montagem também é parte central da experiência. O cenário de <strong>Sérgio Marimba</strong> aposta em uma estética não realista, enquanto o figurino de <strong>Teca Fichinski</strong> transforma o vestido usado por Luisa Thiré em elemento narrativo. A saia, com aproximadamente 12 metros de tecido, ocupa grande parte do palco e sugere a prisão de Sônia em suas próprias lembranças.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>15</b><span>23 Jul 2026</span></div></section>
+<p>A concepção visual da montagem também é parte central da experiência. O cenário de <strong>Sérgio Marimba</strong> aposta em uma estética não realista, enquanto o figurino de <strong>Teca Fichinski</strong> transforma o vestido usado por Luisa Thiré em elemento narrativo. A saia, com aproximadamente 12 metros de tecido, ocupa grande parte do palco e sugere a prisão de Sônia em suas próprias lembranças.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>17</b><span>23 Jul 2026</span></div></section>
 <section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Luisa Thiré apresenta “Valsa Nº 6”, de Nelson…</p><div class="txt">
 <p>Idealizado por Luisa Thiré a partir de sua relação com a obra de Nelson Rodrigues desde a formação em Artes Cênicas na UNIRIO, o projeto encontrou na direção de Cláudio Torres Gonzaga uma leitura que valoriza a dimensão psicológica e poética do texto.</p>
 <p>Em apenas um fim de semana, “Valsa Nº 6” oferece ao público paulistano a oportunidade de reencontrar um clássico da dramaturgia brasileira em uma montagem que atravessa mais de uma década de circulação. No centro da cena, permanece Sônia: uma voz interrompida tentando recuperar, pela palavra, aquilo que lhe foi arrancado.</p>
@@ -454,17 +644,17 @@ html[data-theme="dark"] .rv-mestre .au{ color:var(--gold); }
 <p><strong>Local:</strong> Teatro Arena B3</p>
 <p><strong>Endereço:</strong> Praça Antônio Prado, 48 — Centro Histórico de São Paulo</p>
 <p><strong>Duração:</strong> 55 minutos</p>
-<p><strong>Classificação indicativa:</strong> 14 anos</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>16</b><span>23 Jul 2026</span></div></section>
+<p><strong>Classificação indicativa:</strong> 14 anos</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>18</b><span>23 Jul 2026</span></div></section>
 <section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Luisa Thiré apresenta “Valsa Nº 6”, de Nelson…</p><div class="txt">
-<p><strong>Ingressos:</strong> Sympla</p></div><svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="none"><use href="#ph-3"/></svg><div class="leia"><a href="post-luisa-thire-apresenta-valsa-no-6-de-nelson-rodrigues-no-teatro-arena-b3.html">Abrir esta matéria no site →</a></div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>17</b><span>23 Jul 2026</span></div></section>
-<section class="rv-pg rv-mat"><div class="foto"><img src="assets/acervo/ef9bb4a99906cfca.jpg" alt="" onerror="this.style.display='none'"><span class="cat">Teatro</span></div><div class="miolo"><h3>&quot;Os Últimos 5 Anos” volta a São Paulo em edição comemorativa pelos 25 anos do musical</h3><p class="linhafina">O musical de Jason Robert Brown retorna a São Paulo em edição comemorativa pelos 25 anos da obra.</p><div class="txt"><h2><strong>Com Beto Sargentelli e Eline Porto, montagem brasileira retorna ao Teatro Nair Bello para curta temporada em outubro</strong></h2>
-<p>A montagem brasileira de <strong>“Os Últimos 5 Anos”</strong> volta aos palcos paulistanos em outubro, em uma edição comemorativa pelos <strong>25 anos de “The Last Five Years”</strong>, musical de <strong>Jason Robert Brown</strong>. Protagonizado por <strong>Beto Sargentelli</strong> e <strong>Eline Porto</strong>, o espetáculo será apresentado entre os dias <strong>9 e 18 de outubro</strong>, no <strong>Teatro Nair Bello</strong>, no Shopping Frei Caneca, em São Paulo.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>18</b><span>23 Jul 2026</span></div></section>
+<p><strong>Ingressos:</strong> Sympla</p></div><svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="none"><use href="#ph-3"/></svg><div class="leia"><a href="post-luisa-thire-apresenta-valsa-no-6-de-nelson-rodrigues-no-teatro-arena-b3.html">Abrir esta matéria no site →</a></div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>19</b><span>23 Jul 2026</span></div></section>
+<section data-sum="7" class="rv-pg rv-mat"><div class="foto"><img src="assets/acervo/ef9bb4a99906cfca.jpg" alt="" onerror="this.style.display='none'"><span class="cat">Teatro</span></div><div class="miolo"><h3>&quot;Os Últimos 5 Anos” volta a São Paulo em edição comemorativa pelos 25 anos do musical</h3><p class="linhafina">O musical de Jason Robert Brown retorna a São Paulo em edição comemorativa pelos 25 anos da obra.</p><div class="txt"><h2><strong>Com Beto Sargentelli e Eline Porto, montagem brasileira retorna ao Teatro Nair Bello para curta temporada em outubro</strong></h2>
+<p>A montagem brasileira de <strong>“Os Últimos 5 Anos”</strong> volta aos palcos paulistanos em outubro, em uma edição comemorativa pelos <strong>25 anos de “The Last Five Years”</strong>, musical de <strong>Jason Robert Brown</strong>. Protagonizado por <strong>Beto Sargentelli</strong> e <strong>Eline Porto</strong>, o espetáculo será apresentado entre os dias <strong>9 e 18 de outubro</strong>, no <strong>Teatro Nair Bello</strong>, no Shopping Frei Caneca, em São Paulo.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>20</b><span>23 Jul 2026</span></div></section>
 <section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">&quot;Os Últimos 5 Anos” volta a São Paulo em edição…</p><div class="txt">
 <p>Realizada pela <strong>H Produções Culturais</strong>, a montagem retorna em um momento de nova projeção internacional da obra, que em 2026 celebra um quarto de século desde sua estreia. A produção brasileira também foi mencionada no programa oficial comemorativo dos 25 anos do musical como representante da América do Sul, reconhecimento que reforça sua trajetória dentro da circulação internacional do título.</p>
 <p>A versão brasileira estreou em 2018, com direção de <strong>João Fonseca</strong>, direção musical de <strong>Thiago Gimenes</strong> e direção de movimento de <strong>Keila Bueno</strong>. Desde então, passou por temporadas em 2018, 2019 e 2023, além de apresentações em São Paulo e Curitiba. Ao longo desse percurso, recebeu indicações e prêmios do teatro musical brasileiro, incluindo o <strong>Prêmio Bibi Ferreira de Melhor Ator</strong> para Beto Sargentelli.</p>
 <p>“Enquanto o mundo celebra os 25 anos de <strong>The Last Five Years</strong> com novas montagens, é uma honra para nós recolocar em cena a produção brasileira, que ajudou a escrever a história desse musical fora dos Estados Unidos e foi reconhecida no programa oficial comemorativo como a única montagem da América do Sul”, afirma Beto Sargentelli.</p>
 <p>Escrito por Jason Robert Brown, <strong>“The Last Five Years”</strong> estreou em Chicago em 2001 e chegou Off-Broadway no ano seguinte. A obra acompanha o relacionamento entre <strong>Jamie</strong> e <strong>Cathy</strong> a partir de duas linhas narrativas opostas: ele conta a história do começo ao fim; ela, do fim ao começo. As trajetórias se cruzam apenas uma vez, em um dos momentos centrais do musical.</p>
-<p>Essa estrutura tornou a obra uma referência do teatro musical contemporâneo. Ao mesmo tempo em que acompanha o início e o fim de uma relação amorosa, o espetáculo trata de ambição, carreira, frustração, desencontro e das formas como duas pessoas podem viver a mesma história de modos completamente diferentes.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>19</b><span>23 Jul 2026</span></div></section>
+<p>Essa estrutura tornou a obra uma referência do teatro musical contemporâneo. Ao mesmo tempo em que acompanha o início e o fim de uma relação amorosa, o espetáculo trata de ambição, carreira, frustração, desencontro e das formas como duas pessoas podem viver a mesma história de modos completamente diferentes.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>21</b><span>23 Jul 2026</span></div></section>
 <section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">&quot;Os Últimos 5 Anos” volta a São Paulo em edição…</p><div class="txt">
 <p>Em 2014, a obra ganhou adaptação cinematográfica protagonizada por <strong>Anna Kendrick</strong> e <strong>Jeremy Jordan</strong>, ampliando seu alcance para além dos palcos. Em 2025, o musical chegou pela primeira vez à Broadway, em montagem estrelada por <strong>Nick Jonas</strong> e <strong>Adrienne Warren</strong>. No ano seguinte, as comemorações pelos 25 anos incluíram concertos com <strong>Ben Platt</strong> e <strong>Rachel Zegler</strong>, sob direção e regência do próprio Jason Robert Brown.</p>
 <p>Na versão brasileira, Beto Sargentelli e Eline Porto retomam os papéis de <strong>Jamie</strong> e <strong>Cathy</strong>, personagens que marcaram suas trajetórias no teatro musical. O retorno também celebra a permanência de uma montagem que, ao longo de quase uma década, construiu uma relação duradoura com o público brasileiro.</p>
@@ -472,7 +662,7 @@ html[data-theme="dark"] .rv-mestre .au{ color:var(--gold); }
 <p>Com partitura que transita entre o pop, o jazz, o folk e a música contemporânea, <strong>“Os Últimos 5 Anos”</strong> permanece como uma obra sobre amor, tempo e perspectiva. Mais do que revisitar um título consagrado, a temporada de outubro recoloca em cena uma pergunta que atravessa o musical desde sua origem: como duas pessoas podem estar tão próximas e, ainda assim, viver histórias tão diferentes?</p>
 <h2><strong>Serviço</strong></h2>
 <p><strong>Os Últimos 5 Anos — edição comemorativa pelos 25 anos do musical</strong></p>
-<p><strong>Texto e músicas:</strong> Jason Robert Brown</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>20</b><span>23 Jul 2026</span></div></section>
+<p><strong>Texto e músicas:</strong> Jason Robert Brown</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>22</b><span>23 Jul 2026</span></div></section>
 <section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">&quot;Os Últimos 5 Anos” volta a São Paulo em edição…</p><div class="txt">
 <p><strong>Direção:</strong> João Fonseca</p>
 <p><strong>Direção musical:</strong> Thiago Gimenes</p>
@@ -481,15 +671,15 @@ html[data-theme="dark"] .rv-mestre .au{ color:var(--gold); }
 <p><strong>Realização:</strong> H Produções Culturais</p>
 <p><strong>Temporada:</strong> de 9 a 18 de outubro de 2026</p>
 <p><strong>Local:</strong> Teatro Nair Bello — Shopping Frei Caneca</p>
-<p><strong>Endereço:</strong> Rua Frei Caneca, 569 — Consolação, São Paulo — SP</p></div><svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="none"><use href="#ph-3"/></svg><div class="leia"><a href="post-os-ultimos-5-anos-volta-a-sao-paulo-em-edicao-comemorativa-pelos-25-anos-do-musi.html">Abrir esta matéria no site →</a></div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>21</b><span>23 Jul 2026</span></div></section>
-<section class="rv-pg rv-mat"><div class="foto"><img src="assets/acervo/ce123049cecabc47.jpg" alt="" onerror="this.style.display='none'"><span class="cat">Teatro</span></div><div class="miolo"><h3>Rosamaria Murtinho vive Iris Apfel em “Uma Vida em Cores” no Teatro Vannucci</h3><p class="linhafina">A dama do teatro brasileiro encarna o ícone da moda nova-iorquina no Teatro Vannucci.</p><div class="txt"><h2><strong>Com texto e direção de Cacau Hygino, espetáculo estreia nova temporada em 4 de julho, com Sofia Mendonça e Simone Soares no elenco</strong></h2>
-<p>Aos 93 anos, <strong>Rosamaria Murtinho</strong> volta ao palco para interpretar <strong>Iris Apfel</strong>, empresária, designer de interiores e ícone de estilo que se tornou referência mundial por sua liberdade criativa. <strong>“Uma Vida em Cores”</strong> estreou no último, <strong>4 de julho</strong>, no <strong>Teatro Vannucci</strong>, no Shopping da Gávea, no Rio de Janeiro.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>22</b><span>23 Jul 2026</span></div></section>
+<p><strong>Endereço:</strong> Rua Frei Caneca, 569 — Consolação, São Paulo — SP</p></div><svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="none"><use href="#ph-3"/></svg><div class="leia"><a href="post-os-ultimos-5-anos-volta-a-sao-paulo-em-edicao-comemorativa-pelos-25-anos-do-musi.html">Abrir esta matéria no site →</a></div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>23</b><span>23 Jul 2026</span></div></section>
+<section data-sum="8" class="rv-pg rv-mat"><div class="foto"><img src="assets/acervo/ce123049cecabc47.jpg" alt="" onerror="this.style.display='none'"><span class="cat">Teatro</span></div><div class="miolo"><h3>Rosamaria Murtinho vive Iris Apfel em “Uma Vida em Cores” no Teatro Vannucci</h3><p class="linhafina">A dama do teatro brasileiro encarna o ícone da moda nova-iorquina no Teatro Vannucci.</p><div class="txt"><h2><strong>Com texto e direção de Cacau Hygino, espetáculo estreia nova temporada em 4 de julho, com Sofia Mendonça e Simone Soares no elenco</strong></h2>
+<p>Aos 93 anos, <strong>Rosamaria Murtinho</strong> volta ao palco para interpretar <strong>Iris Apfel</strong>, empresária, designer de interiores e ícone de estilo que se tornou referência mundial por sua liberdade criativa. <strong>“Uma Vida em Cores”</strong> estreou no último, <strong>4 de julho</strong>, no <strong>Teatro Vannucci</strong>, no Shopping da Gávea, no Rio de Janeiro.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>24</b><span>23 Jul 2026</span></div></section>
 <section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Rosamaria Murtinho vive Iris Apfel em “Uma Vida em…</p><div class="txt">
 <p>Com texto e direção de <strong>Cacau Hygino</strong>, a montagem fica em cartaz até <strong>2 de agosto</strong>, com sessões aos sábados, às 18h30, e domingos, às 17h. No palco, Rosamaria contracena com a neta <strong>Sofia Mendonça</strong> e com <strong>Simone Soares</strong>, em uma dramaturgia que aproxima memória, afeto e encontro entre gerações.</p>
 <p>Inspirado na trajetória de Iris Apfel, o espetáculo observa a figura pública da empresária americana sem se limitar à imagem extravagante dos óculos redondos, colares grandes e combinações de cores. A peça se interessa pelo que existe por trás do ícone: uma mulher que atravessou décadas mantendo uma relação própria com estilo, trabalho, envelhecimento e reinvenção.</p>
 <p>Iris Apfel morreu em 1º de março de 2024, aos 102 anos. Ao longo da vida, tornou-se conhecida tanto por seu trabalho no design de interiores quanto pela presença marcante no universo da moda, especialmente a partir dos anos 2000, quando passou a ser reconhecida como uma personalidade de alcance internacional.</p>
 <p>A origem do projeto remonta a 2017, quando Cacau Hygino descobriu Iris pelas redes sociais e iniciou uma tentativa de contato com a empresária em Nova York. O encontro deu origem a uma amizade e ao monólogo <strong>“Através da Iris”</strong>, protagonizado por <strong>Nathalia Timberg</strong>, que circulou pelo país até ser interrompido pela pandemia.</p>
-<p>Anos depois, Hygino retomou o material sob uma nova perspectiva. A versão atual abandona o formato de monólogo e transforma a história em um diálogo entre <strong>Iris</strong> e <strong>Emily</strong>, jovem jornalista e estagiária da Vogue americana interpretada por Sofia Mendonça. A personagem recebe a missão de entrevistar a empresária para uma matéria que pode definir seu futuro profissional.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>23</b><span>23 Jul 2026</span></div></section>
+<p>Anos depois, Hygino retomou o material sob uma nova perspectiva. A versão atual abandona o formato de monólogo e transforma a história em um diálogo entre <strong>Iris</strong> e <strong>Emily</strong>, jovem jornalista e estagiária da Vogue americana interpretada por Sofia Mendonça. A personagem recebe a missão de entrevistar a empresária para uma matéria que pode definir seu futuro profissional.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>25</b><span>23 Jul 2026</span></div></section>
 <section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Rosamaria Murtinho vive Iris Apfel em “Uma Vida em…</p><div class="txt">
 <p>O que começa como uma entrevista formal se transforma em uma conversa atravessada por humor, provocações e confidências. Entre memórias e reflexões, a peça aborda temas como etarismo, moda como expressão de identidade, amor, luto, legado e o valor do tempo vivido.</p>
 <p>A presença de Rosamaria Murtinho e Sofia Mendonça em cena adiciona uma camada particular à montagem. A relação real entre avó e neta dialoga diretamente com o eixo da peça, que propõe uma troca entre diferentes gerações sem transformar a maturidade em limite ou a juventude em oposição.</p>
@@ -498,7 +688,7 @@ html[data-theme="dark"] .rv-mestre .au{ color:var(--gold); }
 <p>Em “Uma Vida em Cores”, essa parceria ganha novo capítulo. A montagem transforma a vida de Iris Apfel em ponto de partida para discutir permanência, criatividade e liberdade em qualquer idade.</p>
 <h2><strong>Serviço</strong></h2>
 <p><strong>Uma Vida em Cores</strong></p>
-<p><strong>Texto e direção:</strong> Cacau Hygino</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>24</b><span>23 Jul 2026</span></div></section>
+<p><strong>Texto e direção:</strong> Cacau Hygino</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>26</b><span>23 Jul 2026</span></div></section>
 <section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Rosamaria Murtinho vive Iris Apfel em “Uma Vida em…</p><div class="txt">
 <p><strong>Elenco:</strong> Rosamaria Murtinho, Sofia Mendonça e Simone Soares</p>
 <p><strong>Produção geral:</strong> Mancuzo Entretenimento</p>
@@ -511,17 +701,23 @@ html[data-theme="dark"] .rv-mestre .au{ color:var(--gold); }
 <p><strong>Duração:</strong> 60 minutos</p>
 <p><strong>Gênero:</strong> comédia</p>
 <p><strong>Classificação indicativa:</strong> livre</p>
-<p><strong>Redes sociais:</strong> @roseiramur, @<em>sofiamendonca, @simonesoares, @uma_vida_em_cores</em> e @teatro.vannucci</p></div><svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="none"><use href="#ph-3"/></svg><div class="leia"><a href="post-rosamaria-murtinho-vive-iris-apfel-em-uma-vida-em-cores-no-teatro-vannucci.html">Abrir esta matéria no site →</a></div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>25</b><span>23 Jul 2026</span></div></section>
-<section class="rv-pg rv-agd"><div class="cab"><em>Sete dias, de sexta a quinta</em><h3>A semana em cartaz<span class="cid">São Paulo</span></h3></div><div class="lista"><a class="ag-item cur" href="post-festa-no-arraial-o-musical-shakespeare-festa-junina-frei-caneca.html"><span class="ag-dia">Sexta 24/07</span><span class="ag-oq"><b>Festa no Arraial, O Musical</b><i>Claudia Ohana puxa a quadrilha que Shakespeare nunca imaginou: na estreia de sexta às 20h, o Sonho de uma Noite de Verão desembarca no arraial com 14 artistas e fogueira acesa em plena Consolação.</i><small>Teatro Sabesp Frei Caneca · São Paulo</small></span></a><a class="ag-item cur" href="post-luisa-thire-apresenta-valsa-no-6-de-nelson-rodrigues-no-teatro-arena-b3.html"><span class="ag-dia">Sábado 25/07</span><span class="ag-oq"><b>Valsa Nº 6</b><i>Luisa Thiré tem apenas quatro sessões e uma saia de 12 metros para dar corpo ao delírio de Sônia, a menina morta de Nelson Rodrigues, e a das 14h30 ainda deixa a noite livre.</i><small>Teatro Arena B3 · São Paulo</small></span></a><a class="ag-item cur" href="https://uhuu.com/evento/sp/sao-paulo/djavan-o-musical-vidas-pra-contar-16109" target="_blank" rel="noopener"><span class="ag-dia">Domingo 26/07</span><span class="ag-oq"><b>Djavan, O Musical: Vidas pra Contar</b><i>Recém-chegada da estreia de quinta, a segunda temporada paulistana do musical sobre o alagoano tem no domingo às 18h a sessão perfeita para sair cantando Oceano e ainda dormir no horário.</i><small>Teatro Claro Mais SP · São Paulo</small></span></a><a class="ag-item cur" href="post-las-choronas-estreia-no-ccbb-sao-paulo-com-teatro-de-bonecos-danca-musica-e-libr.html"><span class="ag-dia">Segunda 27/07</span><span class="ag-oq"><b>Las Choronas</b><i>Segunda-feira costuma ser dia de palco apagado, mas os bonecos surrealistas de Byron O&#x27;Neill fazem às 19h a última sessão da temporada, com Libras integrada à cena.</i><small>Teatro do CCBB São Paulo · São Paulo</small></span></a><a class="ag-item cur" href="https://theatromunicipal.org.br/eventos/opera-tristao-e-isolda-de-richard-wagner/" target="_blank" rel="noopener"><span class="ag-dia">Quarta 29/07</span><span class="ag-oq"><b>Tristão e Isolda</b><i>Wagner volta ao palco do Municipal 47 anos depois da última montagem, em récita que começa cedo, às 17h, com Simon O&#x27;Neill e Annemarie Kremer no naufrágio amoroso.</i><small>Theatro Municipal de São Paulo · São Paulo</small></span></a><a class="ag-item cur" href="https://salasaopaulo.art.br/salasp/pt/concerto/1587" target="_blank" rel="noopener"><span class="ag-dia">Quinta 30/07</span><span class="ag-oq"><b>Osesp toca Korngold e Bacewicz</b><i>Roberto González-Monjas defende dois injustiçados na quinta às 20h: o Concerto para Violino de Korngold nas mãos de Inmo Yang e a Quarta Sinfonia de Grazyna Bacewicz, raridade absoluta por aqui.</i><small>Sala São Paulo · São Paulo</small></span></a></div><div class="ag-cta"><a href="cat-em-cartaz.html">Tudo que está em cartaz agora →</a></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>26</b><span>23 Jul 2026</span></div></section>
-<section class="rv-pg rv-agd"><div class="cab"><em>Sete dias, de sexta a quinta</em><h3>A semana em cartaz<span class="cid">Rio de Janeiro</span></h3></div><div class="lista"><a class="ag-item cur" href="post-wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.html"><span class="ag-dia">Sexta 24/07</span><span class="ag-oq"><b>Wicked</b><i>A bruxa verde sobrevoa a Barra só até 9 de agosto, e a sexta às 20h é a sessão de teatro cheio, do jeito que o final do primeiro ato pede.</i><small>Cidade das Artes, sala Bibi Ferreira · Rio de Janeiro</small></span></a><a class="ag-item cur" href="https://bileto.sympla.com.br/event/120855/d/386331" target="_blank" rel="noopener"><span class="ag-dia">Sábado 25/07</span><span class="ag-oq"><b>Improvável</b><i>No sábado às 20h30, os Barbixas transformam os gritos da plateia em cena na hora, e nem eles sabem qual espetáculo vai sair dali, o que é justamente a graça.</i><small>Teatro Multiplan, VillageMall · Rio de Janeiro</small></span></a><a class="ag-item cur" href="https://ingressosccbb.com.br/teatro-historia__3845" target="_blank" rel="noopener"><span class="ag-dia">Domingo 26/07</span><span class="ag-oq"><b>História</b><i>A criação dos 25 anos da companhia brasileira de teatro, dirigida por Marcio Abreu, se despede do CCBB numa sessão só, domingo às 18h, com ingresso a 30 reais.</i><small>CCBB Rio de Janeiro, Teatro II · Rio de Janeiro</small></span></a><a class="ag-item cur" href="https://feverup.com/m/646936" target="_blank" rel="noopener"><span class="ag-dia">Terça 28/07</span><span class="ag-oq"><b>OSB toca a Nona de Mahler</b><i>Claudio Cruz rege a Orquestra Sinfônica Brasileira na sinfonia de despedida de Mahler, às 19h, em 90 minutos sem intervalo que valem a terça inteira.</i><small>Theatro Municipal do Rio de Janeiro · Rio de Janeiro</small></span></a><a class="ag-item cur" href="post-dois-de-nos-fagundes-torloni.html"><span class="ag-dia">Quinta 30/07</span><span class="ag-oq"><b>Dois de Nós</b><i>Quarenta anos de televisão separaram Antonio Fagundes e Christiane Torloni do mesmo palco, e a quinta às 20h no Leblon acerta essa conta longe da disputa do fim de semana.</i><small>Teatro AXIA Casa Grande · Rio de Janeiro</small></span></a></div><div class="ag-cta"><a href="cat-em-cartaz.html">Tudo que está em cartaz agora →</a></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>27</b><span>23 Jul 2026</span></div></section>
-<section class="rv-pg rv-mestre"><div class="rv-kicker"><span class="tagz">Entre mestres</span><span>A arte pela palavra</span></div><div class="miolo"><div class="aspa">“</div><div class="fr">O mundo inteiro é um palco, e todos os homens e mulheres não passam de atores.</div><div class="au">William Shakespeare</div><div class="bio">Em &quot;Como Gostais&quot;, cerca de 1599</div><svg class="arte" viewBox="0 0 600 400" preserveAspectRatio="none"><use href="#ph-6"/></svg></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>28</b><span>23 Jul 2026</span></div></section>
-<section class="rv-pg rv-exp"><div class="rv-kicker"><span class="tagz">Expediente</span><span>Nº 1</span></div><div class="miolo"><img src="assets/logo/foyer-stacked-wine-sm.png" alt="FOYER" class="only-light"><img src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" class="only-dark"><h4>Quem faz</h4><ul><li><b>Pedro Amaral</b> · Direção e edição</li><li><b>Isabel Branquinha</b> · Direção e edição</li></ul><h4>Transparência</h4><p>Matérias assinadas como Redação Foyer podem contar com apuração assistida por inteligência artificial, sempre revisadas e aprovadas por um editor humano. Fotografias de divulgação, com crédito.</p><h4>Fale conosco</h4><p>foyer.digital · programafoyer@gmail.com · YouTube @Foyer.digital</p></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>29</b><span>23 Jul 2026</span></div></section>
+<p><strong>Redes sociais:</strong> @roseiramur, @<em>sofiamendonca, @simonesoares, @uma_vida_em_cores</em> e @teatro.vannucci</p></div><svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="none"><use href="#ph-3"/></svg><div class="leia"><a href="post-rosamaria-murtinho-vive-iris-apfel-em-uma-vida-em-cores-no-teatro-vannucci.html">Abrir esta matéria no site →</a></div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>27</b><span>23 Jul 2026</span></div></section>
+<section data-sum="9" class="rv-pg rv-agd"><div class="cab"><em>Sete dias, de sexta a quinta</em><h3>A semana em cartaz<span class="cid">São Paulo</span></h3></div><div class="lista"><a class="ag-item cur" href="post-festa-no-arraial-o-musical-shakespeare-festa-junina-frei-caneca.html"><span class="ag-dia">Sexta 24/07</span><span class="ag-oq"><b>Festa no Arraial, O Musical</b><i>Claudia Ohana puxa a quadrilha que Shakespeare nunca imaginou: na estreia de sexta às 20h, o Sonho de uma Noite de Verão desembarca no arraial com 14 artistas e fogueira acesa em plena Consolação.</i><small>Teatro Sabesp Frei Caneca · São Paulo</small></span></a><a class="ag-item cur" href="post-luisa-thire-apresenta-valsa-no-6-de-nelson-rodrigues-no-teatro-arena-b3.html"><span class="ag-dia">Sábado 25/07</span><span class="ag-oq"><b>Valsa Nº 6</b><i>Luisa Thiré tem apenas quatro sessões e uma saia de 12 metros para dar corpo ao delírio de Sônia, a menina morta de Nelson Rodrigues, e a das 14h30 ainda deixa a noite livre.</i><small>Teatro Arena B3 · São Paulo</small></span></a><a class="ag-item cur" href="https://uhuu.com/evento/sp/sao-paulo/djavan-o-musical-vidas-pra-contar-16109" target="_blank" rel="noopener"><span class="ag-dia">Domingo 26/07</span><span class="ag-oq"><b>Djavan, O Musical: Vidas pra Contar</b><i>Recém-chegada da estreia de quinta, a segunda temporada paulistana do musical sobre o alagoano tem no domingo às 18h a sessão perfeita para sair cantando Oceano e ainda dormir no horário.</i><small>Teatro Claro Mais SP · São Paulo</small></span></a><a class="ag-item cur" href="post-las-choronas-estreia-no-ccbb-sao-paulo-com-teatro-de-bonecos-danca-musica-e-libr.html"><span class="ag-dia">Segunda 27/07</span><span class="ag-oq"><b>Las Choronas</b><i>Segunda-feira costuma ser dia de palco apagado, mas os bonecos surrealistas de Byron O&#x27;Neill fazem às 19h a última sessão da temporada, com Libras integrada à cena.</i><small>Teatro do CCBB São Paulo · São Paulo</small></span></a><a class="ag-item cur" href="https://theatromunicipal.org.br/eventos/opera-tristao-e-isolda-de-richard-wagner/" target="_blank" rel="noopener"><span class="ag-dia">Quarta 29/07</span><span class="ag-oq"><b>Tristão e Isolda</b><i>Wagner volta ao palco do Municipal 47 anos depois da última montagem, em récita que começa cedo, às 17h, com Simon O&#x27;Neill e Annemarie Kremer no naufrágio amoroso.</i><small>Theatro Municipal de São Paulo · São Paulo</small></span></a><a class="ag-item cur" href="https://salasaopaulo.art.br/salasp/pt/concerto/1587" target="_blank" rel="noopener"><span class="ag-dia">Quinta 30/07</span><span class="ag-oq"><b>Osesp toca Korngold e Bacewicz</b><i>Roberto González-Monjas defende dois injustiçados na quinta às 20h: o Concerto para Violino de Korngold nas mãos de Inmo Yang e a Quarta Sinfonia de Grazyna Bacewicz, raridade absoluta por aqui.</i><small>Sala São Paulo · São Paulo</small></span></a></div><div class="ag-cta"><a href="cat-em-cartaz.html">Tudo que está em cartaz agora →</a></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>28</b><span>23 Jul 2026</span></div></section>
+<section data-sum="10" class="rv-pg rv-agd"><div class="cab"><em>Sete dias, de sexta a quinta</em><h3>A semana em cartaz<span class="cid">Rio de Janeiro</span></h3></div><div class="lista"><a class="ag-item cur" href="post-wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.html"><span class="ag-dia">Sexta 24/07</span><span class="ag-oq"><b>Wicked</b><i>A bruxa verde sobrevoa a Barra só até 9 de agosto, e a sexta às 20h é a sessão de teatro cheio, do jeito que o final do primeiro ato pede.</i><small>Cidade das Artes, sala Bibi Ferreira · Rio de Janeiro</small></span></a><a class="ag-item cur" href="https://bileto.sympla.com.br/event/120855/d/386331" target="_blank" rel="noopener"><span class="ag-dia">Sábado 25/07</span><span class="ag-oq"><b>Improvável</b><i>No sábado às 20h30, os Barbixas transformam os gritos da plateia em cena na hora, e nem eles sabem qual espetáculo vai sair dali, o que é justamente a graça.</i><small>Teatro Multiplan, VillageMall · Rio de Janeiro</small></span></a><a class="ag-item cur" href="https://ingressosccbb.com.br/teatro-historia__3845" target="_blank" rel="noopener"><span class="ag-dia">Domingo 26/07</span><span class="ag-oq"><b>História</b><i>A criação dos 25 anos da companhia brasileira de teatro, dirigida por Marcio Abreu, se despede do CCBB numa sessão só, domingo às 18h, com ingresso a 30 reais.</i><small>CCBB Rio de Janeiro, Teatro II · Rio de Janeiro</small></span></a><a class="ag-item cur" href="https://feverup.com/m/646936" target="_blank" rel="noopener"><span class="ag-dia">Terça 28/07</span><span class="ag-oq"><b>OSB toca a Nona de Mahler</b><i>Claudio Cruz rege a Orquestra Sinfônica Brasileira na sinfonia de despedida de Mahler, às 19h, em 90 minutos sem intervalo que valem a terça inteira.</i><small>Theatro Municipal do Rio de Janeiro · Rio de Janeiro</small></span></a><a class="ag-item cur" href="post-dois-de-nos-fagundes-torloni.html"><span class="ag-dia">Quinta 30/07</span><span class="ag-oq"><b>Dois de Nós</b><i>Quarenta anos de televisão separaram Antonio Fagundes e Christiane Torloni do mesmo palco, e a quinta às 20h no Leblon acerta essa conta longe da disputa do fim de semana.</i><small>Teatro AXIA Casa Grande · Rio de Janeiro</small></span></a></div><div class="ag-cta"><a href="cat-em-cartaz.html">Tudo que está em cartaz agora →</a></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>29</b><span>23 Jul 2026</span></div></section>
+<section data-sum="11" class="rv-pg rv-mestre"><div class="rv-kicker"><span class="tagz">Entre mestres</span><span>A arte pela palavra</span></div><div class="miolo"><div class="aspa">“</div><div class="fr">O mundo inteiro é um palco, e todos os homens e mulheres não passam de atores.</div><div class="au">William Shakespeare</div><div class="bio">Em &quot;Como Gostais&quot;, cerca de 1599</div><svg class="arte" viewBox="0 0 600 400" preserveAspectRatio="none"><use href="#ph-6"/></svg></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>30</b><span>23 Jul 2026</span></div></section>
+<section data-sum="12" class="rv-pg rv-cx" data-oculta="FOYER"><div class="cab"><em>Para resolver com lápis ou dedo</em><h3>A cruzadinha do FOYER</h3></div><div class="miolo"><p class="como">Preencha as palavras na horizontal. A coluna destacada revela, na vertical, a palavra da semana.</p><div class="grade-cx"><div class="cx-linha" style="margin-left:calc(7 * var(--cx, 34px))"><span class="cx-num">1</span><input class="cx-cel chave" maxlength="1" data-l="F" aria-label="Letra 1 da palavra 1"><input class="cx-cel" maxlength="1" data-l="I" aria-label="Letra 2 da palavra 1"><input class="cx-cel" maxlength="1" data-l="G" aria-label="Letra 3 da palavra 1"><input class="cx-cel" maxlength="1" data-l="U" aria-label="Letra 4 da palavra 1"><input class="cx-cel" maxlength="1" data-l="R" aria-label="Letra 5 da palavra 1"><input class="cx-cel" maxlength="1" data-l="I" aria-label="Letra 6 da palavra 1"><input class="cx-cel" maxlength="1" data-l="N" aria-label="Letra 7 da palavra 1"><input class="cx-cel" maxlength="1" data-l="O" aria-label="Letra 8 da palavra 1"></div><div class="cx-linha" style="margin-left:calc(6 * var(--cx, 34px))"><span class="cx-num">2</span><input class="cx-cel" maxlength="1" data-l="C" aria-label="Letra 1 da palavra 2"><input class="cx-cel chave" maxlength="1" data-l="O" aria-label="Letra 2 da palavra 2"><input class="cx-cel" maxlength="1" data-l="R" aria-label="Letra 3 da palavra 2"><input class="cx-cel" maxlength="1" data-l="O" aria-label="Letra 4 da palavra 2"></div><div class="cx-linha" style="margin-left:calc(0 * var(--cx, 34px))"><span class="cx-num">3</span><input class="cx-cel" maxlength="1" data-l="B" aria-label="Letra 1 da palavra 3"><input class="cx-cel" maxlength="1" data-l="R" aria-label="Letra 2 da palavra 3"><input class="cx-cel" maxlength="1" data-l="O" aria-label="Letra 3 da palavra 3"><input class="cx-cel" maxlength="1" data-l="A" aria-label="Letra 4 da palavra 3"><input class="cx-cel" maxlength="1" data-l="D" aria-label="Letra 5 da palavra 3"><input class="cx-cel" maxlength="1" data-l="W" aria-label="Letra 6 da palavra 3"><input class="cx-cel" maxlength="1" data-l="A" aria-label="Letra 7 da palavra 3"><input class="cx-cel chave" maxlength="1" data-l="Y" aria-label="Letra 8 da palavra 3"></div><div class="cx-linha" style="margin-left:calc(7 * var(--cx, 34px))"><span class="cx-num">4</span><input class="cx-cel chave" maxlength="1" data-l="E" aria-label="Letra 1 da palavra 4"><input class="cx-cel" maxlength="1" data-l="N" aria-label="Letra 2 da palavra 4"><input class="cx-cel" maxlength="1" data-l="S" aria-label="Letra 3 da palavra 4"><input class="cx-cel" maxlength="1" data-l="A" aria-label="Letra 4 da palavra 4"><input class="cx-cel" maxlength="1" data-l="I" aria-label="Letra 5 da palavra 4"><input class="cx-cel" maxlength="1" data-l="O" aria-label="Letra 6 da palavra 4"></div><div class="cx-linha" style="margin-left:calc(6 * var(--cx, 34px))"><span class="cx-num">5</span><input class="cx-cel" maxlength="1" data-l="D" aria-label="Letra 1 da palavra 5"><input class="cx-cel chave" maxlength="1" data-l="R" aria-label="Letra 2 da palavra 5"><input class="cx-cel" maxlength="1" data-l="A" aria-label="Letra 3 da palavra 5"><input class="cx-cel" maxlength="1" data-l="M" aria-label="Letra 4 da palavra 5"><input class="cx-cel" maxlength="1" data-l="A" aria-label="Letra 5 da palavra 5"><input class="cx-cel" maxlength="1" data-l="T" aria-label="Letra 6 da palavra 5"><input class="cx-cel" maxlength="1" data-l="U" aria-label="Letra 7 da palavra 5"><input class="cx-cel" maxlength="1" data-l="R" aria-label="Letra 8 da palavra 5"><input class="cx-cel" maxlength="1" data-l="G" aria-label="Letra 9 da palavra 5"><input class="cx-cel" maxlength="1" data-l="O" aria-label="Letra 10 da palavra 5"></div></div><ol class="dicas"><li>A roupa desenhada para viver o personagem em cena</li><li>O conjunto de vozes que canta junto no musical</li><li>A avenida de Nova York que virou sinônimo de teatro musical</li><li>A repetição do espetáculo antes de a plateia chegar</li><li>Quem escreve a peça</li></ol><div class="cx-acoes"><button type="button" data-cx="conferir">Conferir</button><button type="button" data-cx="revelar">Revelar</button><button type="button" data-cx="limpar">Recomeçar</button></div><div class="cx-res" aria-live="polite"></div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>31</b><span>23 Jul 2026</span></div></section>
+<section data-sum="13" class="rv-pg rv-exp"><div class="rv-kicker"><span class="tagz">Expediente</span><span>Nº 1</span></div><div class="miolo"><img src="assets/logo/foyer-stacked-wine-sm.png" alt="FOYER" class="only-light"><img src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" class="only-dark"><h4>Quem faz</h4><ul><li><b>Pedro Amaral</b> · Direção e edição</li><li><b>Isabel Branquinha</b> · Direção e edição</li></ul><h4>Transparência</h4><p>Matérias assinadas como Redação Foyer podem contar com apuração assistida por inteligência artificial, sempre revisadas e aprovadas por um editor humano. Fotografias de divulgação, com crédito.</p><h4>Fale conosco</h4><p>foyer.digital · programafoyer@gmail.com · YouTube @Foyer.digital</p></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>32</b><span>23 Jul 2026</span></div></section>
+<section data-sum="14" class="rv-pg rv-back"><div class="miolo"><em class="rot">Fechamos esta edição. A cortina desce.</em><h3>Na próxima edição</h3><ul class="prox"><li>O melhor da semana do site, fechado com começo, meio e fim</li><li>A agenda de sexta a quinta, o pôster para guardar e a cruzadinha</li><li>Os recortes: o que disseram as vozes do teatro e da cultura</li></ul><div class="desp"><div class="fr">“O sonho é que leva a gente para frente”</div><div class="au">Ariano Suassuna</div></div><div class="rodape"><img src="assets/logo/foyer-horizontal-gold.png" alt="FOYER"><span>foyer.digital · toda sexta</span><span class="rv-barcode"></span></div></div></section>
+    <div class="rv-lombo dir" id="rv-lombo-dir" aria-hidden="true"></div>
+  </div>
   <div class="rv-nav">
     <button type="button" id="rv-ant">← Anterior</button>
-    <span class="ct" id="rv-ct">1 / 29</span>
+    <span class="ct" id="rv-ct">1 / 33</span>
     <button type="button" id="rv-prox">Próxima →</button>
+    <button type="button" id="rv-sala" title="Só a revista, com a luz apagada">◐ Sala de leitura</button>
     <button type="button" onclick="window.print()" title="Imprimir ou salvar em PDF">⤓ PDF</button>
   </div>
+  <button type="button" id="rv-sala-sair">✕ Acender a luz</button>
 </main>
 <script>
 (function(){
@@ -596,28 +792,220 @@ html[data-theme="dark"] .rv-mestre .au{ color:var(--gold); }
     document.getElementById('rv-ct').textContent = (i + 1) + ' / ' + pgs.length;
   }
   try{ diagrama(); }catch(e){}
-  if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ try{ diagrama(); }catch(e){} });
-  window.addEventListener('load', function(){ try{ diagrama(); }catch(e){} });
-  function vai(n){
-    i = Math.max(0, Math.min(pgs.length - 1, n));
-    pgs.forEach(function(p, k){ p.classList.toggle('on', k === i); });
-    document.getElementById('rv-ct').textContent = (i + 1) + ' / ' + pgs.length;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  /* ============ o livro: dupla, virada, pilha, fita, sala ============ */
+  var NUM_ED = "1";
+  var mqDuplo = window.matchMedia('(min-width:1080px)');
+  var mexeMenos = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var duplas = [];      // cada item: [idx] ou [idxEsq, idxDir]
+  var d = 0;            // dupla atual
+  var virando = false;
+  var fita = document.createElement('div'); fita.className = 'rv-fita';
+
+  function ehSolo(p){ return p.classList.contains('rv-capa2') || p.classList.contains('rv-wide') || p.classList.contains('rv-back'); }
+  // o sumário aponta a página certa mesmo depois da repaginação fina no navegador
+  function renumeraSumario(){
+    var todas = document.querySelectorAll('.rv-pg');
+    document.querySelectorAll('.rv-sum ol li').forEach(function(li, k){
+      var alvo = document.querySelector('[data-sum="' + k + '"]');
+      if(!alvo) return;
+      var pos = Array.prototype.indexOf.call(todas, alvo);
+      var el = li.querySelector('.pnum');
+      if(el && pos >= 0) el.textContent = pos + 1;
+    });
   }
-  document.getElementById('rv-ant').addEventListener('click', function(){ vai(i - 1); });
-  document.getElementById('rv-prox').addEventListener('click', function(){ vai(i + 1); });
+  function montaDuplas(){
+    pgs = document.querySelectorAll('.rv-pg');
+    duplas = [];
+    if(!mqDuplo.matches || !document.body.classList.contains('rv-duplo-ok')){
+      pgs.forEach(function(_, k){ duplas.push([k]); });
+      return;
+    }
+    var k = 0;
+    while(k < pgs.length){
+      if(ehSolo(pgs[k])){ duplas.push([k]); k += 1; continue; }
+      if(k + 1 < pgs.length && !ehSolo(pgs[k + 1])){ duplas.push([k, k + 1]); k += 2; }
+      else { duplas.push([k]); k += 1; }
+    }
+  }
+  function duplaDe(idxPg){
+    for(var s = 0; s < duplas.length; s++) if(duplas[s].indexOf(idxPg) >= 0) return s;
+    return 0;
+  }
+  function pinta(){
+    var par = duplas[d] || [0];
+    pgs.forEach(function(p, k){
+      p.classList.remove('on', 'pg-l', 'pg-r');
+      var pos = par.indexOf(k);
+      if(pos >= 0){
+        p.classList.add('on');
+        if(par.length === 2) p.classList.add(pos === 0 ? 'pg-l' : 'pg-r');
+      }
+    });
+    // contador: páginas humanas
+    var ini = par[0] + 1, fim = par[par.length - 1] + 1;
+    document.getElementById('rv-ct').textContent =
+      (ini === fim ? ini : ini + '–' + fim) + ' / ' + pgs.length;
+    // a espessura da revista dos dois lados
+    var lidas = par[0], faltam = pgs.length - (par[par.length - 1] + 1);
+    var le = document.getElementById('rv-lombo-esq'), ld = document.getElementById('rv-lombo-dir');
+    var prim = pgs[par[0]], ult = pgs[par[par.length - 1]];
+    var wEsq = Math.min(2 + lidas * 1.4, 16), wDir = Math.min(2 + faltam * 1.4, 16);
+    le.style.width = wEsq + 'px';
+    ld.style.width = wDir + 'px';
+    le.style.left = (prim.offsetLeft - wEsq) + 'px';
+    ld.style.left = (ult.offsetLeft + ult.offsetWidth) + 'px';
+    le.style.display = lidas > 0 ? 'block' : 'none';
+    ld.style.display = faltam > 0 ? 'block' : 'none';
+    // a fita marca a página em que o leitor está
+    if(d > 0 && !ult.classList.contains('rv-back')){ ult.appendChild(fita); }
+    else if(fita.parentNode){ fita.parentNode.removeChild(fita); }
+    try{ localStorage.setItem('rv-fita-' + NUM_ED, String(par[0])); }catch(e){}
+  }
+  function vaiDupla(s, sentido){
+    if(virando) return;
+    s = Math.max(0, Math.min(duplas.length - 1, s));
+    if(s === d){ pinta(); return; }
+    var anima = sentido && !mexeMenos.matches;
+    if(!anima){ d = s; pinta(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    virando = true;
+    var parVelha = duplas[d];
+    var sai = pgs[parVelha[sentido > 0 ? parVelha.length - 1 : 0]];
+    sai.classList.add(sentido > 0 ? 'vira-sai-dir' : 'vira-sai-esq');
+    setTimeout(function(){
+      sai.classList.remove('vira-sai-dir', 'vira-sai-esq');
+      d = s; pinta();
+      var parNova = duplas[d];
+      var entra = pgs[parNova[sentido > 0 ? 0 : parNova.length - 1]];
+      entra.classList.add(sentido > 0 ? 'vira-entra-esq' : 'vira-entra-dir');
+      setTimeout(function(){
+        entra.classList.remove('vira-entra-esq', 'vira-entra-dir');
+        virando = false;
+      }, 270);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 230);
+  }
+  function proxima(){ vaiDupla(d + 1, 1); }
+  function anterior(){ vaiDupla(d - 1, -1); }
+
+  // o convite no canto da página
+  pgs.forEach(function(p){
+    if(p.classList.contains('rv-back')) return;
+    var c = document.createElement('button');
+    c.className = 'rv-canto'; c.type = 'button';
+    c.setAttribute('aria-label', 'Virar a página');
+    c.addEventListener('click', proxima);
+    p.appendChild(c);
+  });
+
+  document.getElementById('rv-ant').addEventListener('click', anterior);
+  document.getElementById('rv-prox').addEventListener('click', proxima);
   document.addEventListener('keydown', function(e){
-    if(e.key === 'ArrowRight') vai(i + 1);
-    if(e.key === 'ArrowLeft') vai(i - 1);
+    if(e.target.closest && e.target.closest('input, [contenteditable]')) return;
+    if(e.key === 'ArrowRight') proxima();
+    if(e.key === 'ArrowLeft') anterior();
+    if(e.key === 'Escape' && document.body.classList.contains('rv-sala')) salaSai();
   });
   var x0 = null;
   document.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; }, {passive:true});
   document.addEventListener('touchend', function(e){
     if(x0 == null) return;
     var dx = e.changedTouches[0].clientX - x0;
-    if(Math.abs(dx) > 60) vai(dx < 0 ? i + 1 : i - 1);
+    if(Math.abs(dx) > 60) (dx < 0 ? proxima : anterior)();
     x0 = null;
   }, {passive:true});
+
+  // sala de leitura
+  function salaEntra(){ document.body.classList.add('rv-sala'); window.scrollTo({ top: 0 }); pinta(); }
+  function salaSai(){ document.body.classList.remove('rv-sala'); pinta(); }
+  document.getElementById('rv-sala').addEventListener('click', function(){
+    document.body.classList.contains('rv-sala') ? salaSai() : salaEntra();
+  });
+  document.getElementById('rv-sala-sair').addEventListener('click', salaSai);
+
+  // ex-líbris: o nome do leitor fica no aparelho e vale para todas as edições
+  var exl = document.getElementById('rv-exlibris-nome');
+  if(exl){
+    try{ exl.textContent = localStorage.getItem('foyer-exlibris') || ''; }catch(e){}
+    exl.addEventListener('input', function(){
+      try{ localStorage.setItem('foyer-exlibris', exl.textContent.trim().slice(0, 60)); }catch(e){}
+    });
+    exl.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); exl.blur(); } });
+  }
+
+  // a cruzadinha
+  document.querySelectorAll('.rv-cx').forEach(function(cx){
+    var cels = cx.querySelectorAll('.cx-cel');
+    cels.forEach(function(c){
+      c.addEventListener('input', function(){
+        c.value = c.value.toUpperCase();
+        c.classList.remove('certa', 'errada');
+        if(c.value){
+          var linha = c.parentNode.querySelectorAll('.cx-cel');
+          var k = Array.prototype.indexOf.call(linha, c);
+          if(k + 1 < linha.length) linha[k + 1].focus();
+        }
+      });
+    });
+    cx.addEventListener('click', function(e){
+      var b = e.target.closest('[data-cx]');
+      if(!b) return;
+      var res = cx.querySelector('.cx-res');
+      if(b.dataset.cx === 'conferir'){
+        var chaveOk = true, tudoOk = true;
+        cels.forEach(function(c){
+          if(!c.value) { tudoOk = false; if(c.classList.contains('chave')) chaveOk = false; return; }
+          var certa = c.value.toUpperCase() === c.dataset.l.toUpperCase();
+          c.classList.toggle('certa', certa);
+          c.classList.toggle('errada', !certa);
+          if(!certa){ tudoOk = false; if(c.classList.contains('chave')) chaveOk = false; }
+        });
+        res.textContent = tudoOk ? 'Cravou tudo. A palavra da semana: ' + cx.dataset.oculta + ' ✓'
+          : (chaveOk ? 'A coluna da palavra da semana está certa: ' + cx.dataset.oculta + ' ✓ Falta acertar o resto.'
+                     : 'Ainda não. As casas em vermelho pedem outra letra.');
+      }
+      if(b.dataset.cx === 'revelar'){
+        cels.forEach(function(c){ c.value = c.dataset.l.toUpperCase(); c.classList.add('certa'); c.classList.remove('errada'); });
+        res.textContent = 'A palavra da semana: ' + cx.dataset.oculta;
+      }
+      if(b.dataset.cx === 'limpar'){
+        cels.forEach(function(c){ c.value = ''; c.classList.remove('certa', 'errada'); });
+        res.textContent = '';
+      }
+    });
+  });
+
+  // arranque: mede, monta as duplas e volta para onde a fita ficou
+  function arranca(){
+    document.body.classList.add('rv-duplo-ok');
+    document.body.classList.toggle('rv-duplo', mqDuplo.matches);
+    montaDuplas();
+    renumeraSumario();
+    var guardada = 0;
+    try{ guardada = parseInt(localStorage.getItem('rv-fita-' + NUM_ED) || '0', 10) || 0; }catch(e){}
+    if(guardada > 0 && guardada < pgs.length){
+      d = duplaDe(guardada);
+      var t = document.createElement('div');
+      t.className = 'rv-toast';
+      t.textContent = 'A fita marcou onde você parou: página ' + (guardada + 1);
+      document.body.appendChild(t);
+      setTimeout(function(){ t.remove(); }, 4400);
+    }
+    pinta();
+  }
+  function reflui(){
+    document.body.classList.toggle('rv-duplo', mqDuplo.matches);
+    var ancora = (duplas[d] || [0])[0];
+    montaDuplas();
+    renumeraSumario();
+    d = duplaDe(ancora);
+    pinta();
+  }
+  if(mqDuplo.addEventListener) mqDuplo.addEventListener('change', reflui);
+  window.addEventListener('resize', function(){ requestAnimationFrame(pinta); });
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ try{ diagrama(); reflui(); }catch(e){} });
+  window.addEventListener('load', function(){ try{ diagrama(); reflui(); }catch(e){} });
+  arranca();
 })();
 </script>
 <footer>

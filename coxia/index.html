@@ -1125,10 +1125,14 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
               <option value="programas">📺 Na tela — programas da semana (automático)</option>
               <option value="agenda">📅 A semana em cartaz — agenda até quinta (automático)</option>
               <option value="frase-celebre">✨ Entre mestres — frase de um grande nome (automático)</option>
+              <option value="poster">🖼 Pôster central — página dupla para guardar</option>
+              <option value="recortes">✂️ Recortes da semana — aspas reais com a origem</option>
+              <option value="passatempo">✏️ Passatempo — a cruzadinha do FOYER</option>
               <option value="cartaz">🎭 Cartaz / divulgação de peça</option>
               <option value="patrocinio">💰 Página patrocinada</option>
               <option value="livre">📄 Página livre</option>
               <option value="expediente">👥 Expediente (automático)</option>
+              <option value="contracapa">🚪 Contracapa — na próxima edição (fecha a revista)</option>
             </select>
             <button class="bt" type="button" id="rv-add">➕ Adicionar página</button>
           </div>
@@ -4052,11 +4056,14 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   var RV = { ed: null, sha: null, idx: null, mats: null };
   var RV_IC = { materia:'📰', exclusiva:'⭐', editorial:'✍', citacao:'❝', cartaz:'🎭',
                 patrocinio:'💰', livre:'📄', expediente:'👥', programas:'📺',
-                agenda:'📅', 'frase-celebre':'✨' };
+                agenda:'📅', 'frase-celebre':'✨', poster:'🖼', recortes:'✂️',
+                passatempo:'✏️', contracapa:'🚪' };
   var RV_NOME = { materia:'Matéria da semana', exclusiva:'Exclusivo', editorial:'Editorial',
                   citacao:'Citação', cartaz:'Cartaz / divulgação', patrocinio:'Patrocinada',
                   livre:'Página livre', expediente:'Expediente', programas:'Na tela — programas da semana',
-                  agenda:'A semana em cartaz (agenda)', 'frase-celebre':'Entre mestres (frase célebre)' };
+                  agenda:'A semana em cartaz (agenda)', 'frase-celebre':'Entre mestres (frase célebre)',
+                  poster:'Pôster central (página dupla)', recortes:'Recortes da semana',
+                  passatempo:'Passatempo (cruzadinha)', contracapa:'Contracapa — na próxima edição' };
 
   function carregarEdicoes(){
     var el = $('rv-lista');
@@ -4234,6 +4241,27 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       campos = '<div><label>Rótulo (opcional)</label><input type="text" id="pgf-rotulo" value="' + esc(d.rotulo || '') + '"></div>' +
         '<div><label>Título</label><input type="text" id="pgf-titulo" value="' + esc(d.titulo || '') + '"></div>' +
         '<div><label>Texto</label><textarea id="pgf-texto" rows="8">' + esc(d.texto || '') + '</textarea></div>';
+    } else if(tipo === 'poster'){
+      campos = '<div><label>A foto do pôster (deitada fica melhor: ela abre em página dupla)</label><input type="file" id="pgf-img" accept="image/*"></div>' +
+        '<div class="r2"><div><label>Crédito da foto (fotógrafo/Divulgação)</label><input type="text" id="pgf-cred" value="' + esc(d.credito || '') + '"></div>' +
+        '<div><label>Legenda (quem aparece, qual peça)</label><input type="text" id="pgf-leg" value="' + esc(d.legenda || '') + '"></div></div>';
+    } else if(tipo === 'recortes'){
+      var linhasRec = (d.itens || []).map(function(it){
+        return [it.frase, it.quem, it.onde, it.slug].filter(Boolean).join(' | ');
+      }).join('\n');
+      campos = '<div><label>Uma aspa por linha, no formato: frase | quem disse | onde saiu | slug-da-matéria (opcional)</label>' +
+        '<textarea id="pgf-recs" rows="8" placeholder="É uma questão democrática... | Tiago Rodrigues, diretor do Festival de Avignon | à rádio ICI Vaucluse | festival-de-avignon-2026">' + esc(linhasRec) + '</textarea></div>' +
+        '<div class="f-note">Só aspas REAIS, já publicadas, com quem disse e onde saiu. Sem travessão. Até 4 por página.</div>';
+    } else if(tipo === 'passatempo'){
+      var linhasCx = (d.linhas || []).map(function(l){ return (l.palavra || '') + ' | ' + (l.dica || ''); }).join('\n');
+      campos = '<div><label>Palavra da semana (vertical, revelada pela coluna destacada)</label><input type="text" id="pgf-oculta" value="' + esc(d.oculta || '') + '"></div>' +
+        '<div><label>Uma linha por palavra, no formato: PALAVRA | dica (a letra N da palavra da semana precisa existir na palavra N)</label>' +
+        '<textarea id="pgf-cxlinhas" rows="7" placeholder="FIGURINO | A roupa desenhada para viver o personagem em cena">' + esc(linhasCx) + '</textarea></div>';
+    } else if(tipo === 'contracapa'){
+      campos = '<div><label>Chamadas do que vem na próxima edição (uma por linha, até 4)</label>' +
+        '<textarea id="pgf-chamadas" rows="4">' + esc((d.chamadas || []).join('\n')) + '</textarea></div>' +
+        '<div class="r2"><div><label>Frase de despedida (opcional; só frase real e verificada)</label><input type="text" id="pgf-frase" value="' + esc(d.frase || '') + '"></div>' +
+        '<div><label>Autor da frase</label><input type="text" id="pgf-autor" value="' + esc(d.autor || '') + '"></div></div>';
     } else if(tipo === 'expediente' || tipo === 'programas' || tipo === 'agenda' || tipo === 'frase-celebre'){
       RV.ed.paginas.push({ tipo: tipo });
       renderPgs();
@@ -4298,6 +4326,38 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         pg.rotulo = $('pgf-rotulo').value.trim();
         pg.titulo = $('pgf-titulo').value.trim();
         pg.texto = $('pgf-texto').value.trim();
+      } else if(tipo === 'poster'){
+        pg.credito = $('pgf-cred').value.trim();
+        pg.legenda = $('pgf-leg').value.trim();
+        if(!pg.credito){ avisar('O pôster precisa do crédito da foto.'); return; }
+      } else if(tipo === 'recortes'){
+        var itens = $('pgf-recs').value.split('\n').map(function(l){
+          var p = l.split('|').map(function(x){ return x.trim(); });
+          return p[0] ? { frase: p[0], quem: p[1] || '', onde: p[2] || '', slug: p[3] || '' } : null;
+        }).filter(Boolean).slice(0, 4);
+        if(!itens.length){ avisar('Escreva pelo menos uma aspa (frase | quem | onde).'); return; }
+        var semDono = itens.filter(function(it){ return !it.quem; });
+        if(semDono.length){ avisar('Toda aspa precisa de quem disse. Confira: "' + semDono[0].frase.slice(0, 50) + '…"'); return; }
+        pg.itens = itens;
+      } else if(tipo === 'passatempo'){
+        pg.oculta = $('pgf-oculta').value.trim().toUpperCase();
+        var lns = $('pgf-cxlinhas').value.split('\n').map(function(l){
+          var p = l.split('|').map(function(x){ return x.trim(); });
+          return p[0] ? { palavra: p[0].toUpperCase(), dica: p[1] || '' } : null;
+        }).filter(Boolean);
+        if(!pg.oculta || lns.length < pg.oculta.length){
+          avisar('A palavra da semana precisa de uma linha para cada letra (' + (pg.oculta ? pg.oculta.length : 0) + ').'); return;
+        }
+        for(var li2 = 0; li2 < pg.oculta.length; li2++){
+          if(lns[li2].palavra.indexOf(pg.oculta[li2]) < 0){
+            avisar('A palavra ' + (li2 + 1) + ' ("' + lns[li2].palavra + '") não contém a letra "' + pg.oculta[li2] + '" da palavra da semana.'); return;
+          }
+        }
+        pg.linhas = lns;
+      } else if(tipo === 'contracapa'){
+        pg.chamadas = $('pgf-chamadas').value.split('\n').map(function(l){ return l.trim(); }).filter(Boolean).slice(0, 4);
+        pg.frase = $('pgf-frase').value.trim();
+        pg.autor = $('pgf-autor').value.trim();
       }
       var fi = $('pgf-img');
       if(fi && fi.files && fi.files[0]){
@@ -4307,8 +4367,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         }).then(function(caminho){ pg.img = caminho; });
       }
       pronto.then(function(){
-        if((pg.tipo === 'cartaz' || pg.tipo === 'patrocinio') && !pg.img){
-          avisar('Suba a imagem do ' + (pg.tipo === 'cartaz' ? 'cartaz' : 'patrocínio')); return;
+        if((pg.tipo === 'cartaz' || pg.tipo === 'patrocinio' || pg.tipo === 'poster') && !pg.img){
+          avisar('Suba a imagem do ' + (pg.tipo === 'cartaz' ? 'cartaz' : pg.tipo === 'poster' ? 'pôster' : 'patrocínio')); return;
         }
         if(RV.idx == null) RV.ed.paginas.push(pg);
         $('rv-pgform').style.display = 'none';
