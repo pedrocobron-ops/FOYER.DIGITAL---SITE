@@ -165,6 +165,17 @@
     color:var(--ink-soft); display:block; margin-top:8px; line-height:1.8; }
   /* painel de métricas (chefe) */
   .mx-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0 34px; }
+  /* leitores cadastrados (mídia kit) */
+  .lt-h{ font-family:var(--mono); font-size:.58rem; font-weight:600; letter-spacing:.2em;
+    text-transform:uppercase; color:var(--ink-soft); margin:0 0 8px; border-bottom:1px solid var(--line);
+    padding-bottom:5px; }
+  .lt-linha{ display:grid; grid-template-columns:150px 1fr 84px; gap:10px; align-items:center;
+    padding:4px 0; }
+  .lt-rot{ font-size:.76rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .lt-barra{ display:block; height:12px; background:var(--paper-2); border:1px solid var(--line); }
+  .lt-barra i{ display:block; height:100%; background:var(--wine); }
+  html[data-theme="dark"] .lt-barra i{ background:var(--gold); }
+  .lt-n{ font-family:var(--mono); font-size:.6rem; color:var(--ink-soft); text-align:right; }
   @media (max-width:960px){ .mx-grid{ grid-template-columns:1fr; } }
   .mx-linha{ display:flex; align-items:center; gap:10px; padding:7px 2px; border-bottom:1px dotted var(--line); }
   .mx-rot{ flex:0 0 46%; font-family:var(--sans); font-size:.8rem; line-height:1.35; }
@@ -1153,6 +1164,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         <h2 class="hi">Métricas do site</h2>
         <p class="hi-sub">Audiência e comportamento dos leitores — visível somente para a direção</p>
         <div class="stats" id="mx-tiles"><div class="stat"><b>—</b><span>carregando…</span></div></div>
+        <div class="sec-h"><h3>Leitores cadastrados</h3><span>quem assinou a revista: os números do mídia kit, sem nenhum dado pessoal</span></div>
+        <div id="mx-leitores"><div class="vazio">Carregando…</div></div>
         <div class="sec-h"><h3>Leituras por dia</h3><span>últimos 30 dias, no horário de Brasília</span></div>
         <div id="mx-serie"><div class="vazio">Carregando…</div></div>
         <div class="mx-grid">
@@ -3781,6 +3794,48 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     }).catch(function(){
       $('mx-tiles').innerHTML = '<div class="stat"><b>✕</b><span>não deu para buscar os números agora</span></div>';
     });
+    carregarLeitores();
+  }
+  // os leitores cadastrados: o retrato agregado que sustenta o mídia kit
+  function carregarLeitores(){
+    var el = $('mx-leitores');
+    if(!el) return;
+    fetch(RKC.url + '/rest/v1/rpc/foyer_leitores_resumo', {
+      method: 'POST',
+      headers: { 'apikey': RKC.key, 'Authorization': 'Bearer ' + RKC.key, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chave: MX_CHAVE })
+    }).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
+      var total = d.total || 0;
+      function barras(obj){
+        var pares = Object.keys(obj || {}).map(function(k){ return [k, obj[k]]; })
+          .sort(function(a, b){ return b[1] - a[1]; });
+        if(!pares.length) return '<div class="vazio" style="padding:10px 0">ainda sem respostas</div>';
+        var max = pares[0][1] || 1;
+        return pares.map(function(p){
+          var pct = total ? Math.round(p[1] * 100 / total) : 0;
+          return '<div class="lt-linha"><span class="lt-rot">' + esc(p[0]) + '</span>' +
+            '<span class="lt-barra"><i style="width:' + Math.max(3, Math.round(p[1] * 100 / max)) + '%"></i></span>' +
+            '<span class="lt-n">' + p[1] + ' · ' + pct + '%</span></div>';
+        }).join('');
+      }
+      el.innerHTML =
+        '<div class="stats" style="margin-bottom:18px">' +
+          '<div class="stat"><b>' + total + '</b><span>leitores na lista</span></div>' +
+          '<div class="stat"><b>' + (d.ultimos_30d || 0) + '</b><span>chegaram nos últimos 30 dias</span></div>' +
+          '<div class="stat"><b>' + pctDe(d.por_cidade, 'São Paulo', total) + '%</b><span>estão em São Paulo</span></div>' +
+        '</div>' +
+        '<div class="mx-grid">' +
+          '<div><h4 class="lt-h">Onde estão</h4>' + barras(d.por_cidade) + '</div>' +
+          '<div><h4 class="lt-h">Vão ao teatro…</h4>' + barras(d.por_frequencia) +
+          '<h4 class="lt-h" style="margin-top:16px">Querem acompanhar</h4>' + barras(d.por_interesse) + '</div>' +
+        '</div>';
+    }).catch(function(){
+      el.innerHTML = '<div class="vazio">não deu para buscar os leitores agora</div>';
+    });
+  }
+  function pctDe(obj, chave2, total){
+    if(!obj || !total) return 0;
+    return Math.round((obj[chave2] || 0) * 100 / total);
   }
   var MX_DADOS = null, MX_MAP = null;
   function pintarMetricas(d, map){

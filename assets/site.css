@@ -658,6 +658,27 @@ nav.main a.brand img.only-dark, .gate img.only-dark{ display:none; }
   font-family:var(--mono); font-size:.82rem; padding:13px 14px; width:100%;
 }
 .signup-card input:focus{ outline:2px solid var(--gold); outline-offset:-2px; }
+.signup-card .sg-r2{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.signup-card select{
+  border:1.5px solid var(--line); background:var(--paper); color:var(--ink);
+  font-family:var(--mono); font-size:.78rem; padding:13px 10px; width:100%;
+  appearance:none; -webkit-appearance:none;
+  background-image:linear-gradient(45deg, transparent 50%, var(--ink-soft) 50%),
+    linear-gradient(135deg, var(--ink-soft) 50%, transparent 50%);
+  background-position:calc(100% - 16px) 50%, calc(100% - 11px) 50%;
+  background-size:5px 5px; background-repeat:no-repeat; }
+.signup-card select:focus{ outline:2px solid var(--gold); outline-offset:-2px; }
+.signup-card select:invalid{ color:var(--ink-soft); }
+.signup-card .sg-ints{ display:flex; flex-wrap:wrap; gap:6px; }
+.signup-card .sg-ints label{
+  display:inline-flex; align-items:center; gap:6px; border:1.5px solid var(--line);
+  background:var(--paper); padding:8px 11px; cursor:pointer;
+  font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; }
+.signup-card .sg-ints label:has(input:checked){
+  background:var(--wine); color:var(--gold); border-color:var(--wine); }
+.signup-card .sg-ints input{ accent-color:var(--wine); margin:0; }
+.signup-card .sg-ints label:has(input:checked) input{ accent-color:var(--gold); }
+@media (max-width:560px){ .signup-card .sg-r2{ grid-template-columns:1fr; } }
 .signup-card button{
   border:1.5px solid var(--line); background:var(--ink); color:var(--gold);
   font-family:var(--mono); font-weight:600; font-size:.7rem; letter-spacing:.18em;

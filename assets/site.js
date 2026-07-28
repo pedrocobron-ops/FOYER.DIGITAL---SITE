@@ -226,14 +226,19 @@
     e.preventDefault();
     var nome = (f.querySelector('input[type=text]') || {}).value || '';
     var email = (f.querySelector('input[type=email]') || {}).value || '';
-    var btn = f.querySelector('button'), ok = document.getElementById('signup-ok');
+    var cidade = (document.getElementById('sg-cidade') || {}).value || '';
+    var freq = (document.getElementById('sg-freq') || {}).value || '';
+    var ints = [];
+    f.querySelectorAll('.sg-ints input:checked').forEach(function(c){ ints.push(c.value); });
+    var btn = f.querySelector('button[type=submit]'), ok = document.getElementById('signup-ok');
     if(!email) return;
     btn.disabled = true; btn.textContent = 'Enviando…';
     fetch(M.url + '/rest/v1/foyer_newsletter', {
       method: 'POST',
       headers: { 'apikey': M.key, 'Authorization': 'Bearer ' + M.key,
                  'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
-      body: JSON.stringify({ nome: nome.trim(), email: email.trim().toLowerCase(), consent: true })
+      body: JSON.stringify({ nome: nome.trim(), email: email.trim().toLowerCase(), consent: true,
+                             cidade: cidade, frequencia: freq, interesses: ints })
     }).then(function(r){
       if(r.ok || r.status === 409){
         ok.textContent = r.status === 409
