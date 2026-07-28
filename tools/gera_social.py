@@ -29,13 +29,8 @@ def _fonte(nome, tam):
 
 
 def _fonte_titulo(tam):
-    """A fonte dos posts da casa: Nunito ExtraBold, redonda e simpática."""
-    f = ImageFont.truetype(os.path.join(FONTES, 'Nunito.ttf'), tam)
-    try:
-        f.set_variation_by_axes([800])
-    except Exception:
-        pass
-    return f
+    """A fonte dos títulos dos posts: PT Sans Bold."""
+    return _fonte('PTSans-Bold.ttf', tam)
 
 
 def _cover(img, w, h, foco=0.38):
@@ -168,26 +163,6 @@ def _cabecalho(dr, base, cat, y=132):
     dr.text((x + logo.width + 6, y + alt - 35), sufixo, font=f_sans, fill=BRANCO)
 
 
-def _arco(base, y_topo=106, queda=430):
-    """A linha branca da casa: corre RETA no alto da arte e só dobra para
-    baixo na margem direita, descendo colada a ela (como nos posts)."""
-    w, h = base.size
-    F = 4
-    camada = Image.new('L', (w * F, h * F), 0)
-    dl = ImageDraw.Draw(camada)
-    x_dobra = w - 330                     # onde a reta começa a virar
-    pontos = [(-30 * F, y_topo * F), (x_dobra * F, y_topo * F)]
-    p0, p1, p2 = (x_dobra, y_topo), (w - 52, y_topo), (w + 18, y_topo + queda)
-    for i in range(1, 161):
-        t = i / 160
-        px = (1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * p1[0] + t ** 2 * p2[0]
-        py = (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * p1[1] + t ** 2 * p2[1]
-        pontos.append((px * F, py * F))
-    dl.line(pontos, fill=255, width=8 * F, joint='curve')
-    mascara = camada.resize((w, h), Image.LANCZOS)
-    base.paste(Image.new('RGB', (w, h), BRANCO), (0, 0), mascara)
-
-
 def gerar(pg, formato='feed'):
     if formato == 'story':
         return _gerar_story(pg)
@@ -201,7 +176,6 @@ def gerar(pg, formato='feed'):
     dr = ImageDraw.Draw(base, 'RGB')
     _gradiente(base, 0, 320, 130, 0)
     _gradiente(base, h - 560, h, 0, 235)
-    _arco(base)
     _cabecalho(dr, base, pg.get('cat'), y=150)
     toks = _tokens_titulo(pg)
     tam = 54
@@ -227,7 +201,6 @@ def _gerar_story(pg):
         escuro = Image.new('RGB', (w, h), (10, 5, 4))
         base = Image.blend(fundo, escuro, 0.55)
     dr = ImageDraw.Draw(base, 'RGB')
-    _arco(base, y_topo=140, queda=520)
     _cabecalho(dr, base, pg.get('cat'), y=196)
     if foto is not None:
         larg_card = 940
