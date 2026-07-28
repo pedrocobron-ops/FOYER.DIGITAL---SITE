@@ -1195,6 +1195,19 @@ def short_date(p):
 def safe(t):
     return t.replace('"', '”')
 
+# assinaturas com página própria (a definição completa fica em AUTORES, mais abaixo)
+_AUTOR_PAGINA = {
+    'Pedro Amaral': 'autor-pedro-amaral.html',
+    'Isabel Branquinha': 'autor-isabel-branquinha.html',
+    'Redação Foyer': 'autor-redacao-foyer.html',
+}
+
+def _byline_link(nome):
+    """Nome de quem assina, com link para a página da assinatura quando existir."""
+    n = (nome or 'Redação Foyer').strip()
+    alvo = _AUTOR_PAGINA.get(n)
+    return f'<a href="{alvo}" rel="author"><b>{n}</b></a>' if alvo else f'<b>{n}</b>'
+
 def wiximg(url, w=1200, h=675):
     if 'static.wixstatic.com/media/' in url and '/v1/' not in url:
         return f'{url}/v1/fill/w_{w},h_{h},al_c,q_82/cover.jpg'
@@ -1562,7 +1575,7 @@ def post_page(i, p):
     </div>
     <h1>{p['title']}</h1>
     <div class="art-byline">
-      <span>Por <b>{p['author']}</b></span>
+      <span>Por {_byline_link(p['author'])}</span>
       <span>{p['date']}{(', às ' + p['hora']) if p.get('hora') else ''} · {p['min']} min de leitura</span>
     </div>{selo_atualizada(p)}
     <div class="share-row" aria-label="Compartilhar esta matéria">
@@ -2456,6 +2469,79 @@ def pessoa_page(sp, p):
 </main>
 '''
 
+# ---------------------------------------------------------------- PÁGINAS DE AUTOR (assinaturas do FOYER)
+# Quem assina responde pelo texto: cada assinatura tem página própria, com o que
+# cobre e tudo o que já publicou. Serve ao leitor e à autoridade do site.
+AUTORES = {
+    'pedro-amaral': {
+        'nome': 'Pedro Amaral',
+        'cargo': 'Editor-chefe',
+        'cobre': 'Mercado e economia criativa, bilheteria e financiamento da cultura, cinema e streaming',
+        'bio': ('Editor-chefe do FOYER. Escreve sobre o dinheiro que move a cultura: quanto custa montar '
+                'um espetáculo, de onde vem o financiamento, como anda a bilheteria e o que o mercado de '
+                'cinema e streaming faz com o que nasce no palco.'),
+    },
+    'isabel-branquinha': {
+        'nome': 'Isabel Branquinha',
+        'cargo': 'Editora',
+        'cobre': 'Estreias e temporadas de teatro, a cena das artes em São Paulo',
+        'bio': ('Editora do FOYER. Acompanha as estreias e temporadas do teatro brasileiro e a agenda das '
+                'artes em São Paulo, com atenção à ficha técnica, à trajetória das montagens e ao serviço '
+                'completo para quem vai assistir.'),
+    },
+    'redacao-foyer': {
+        'nome': 'Redação Foyer',
+        'cargo': 'Assinatura coletiva',
+        'cobre': 'Bastidores, explicadores, memória, curiosidades, listas e guias, patrimônio e notícia internacional',
+        'bio': ('Assinatura coletiva da redação do FOYER. Reúne o trabalho de apuração da casa em bastidores, '
+                'explicadores sobre como o teatro funciona por dentro, memória das artes brasileiras e a '
+                'cobertura internacional. Todo texto passa por checagem independente antes de ir ao ar.'),
+    },
+}
+_AUTOR_SLUG = {a['nome']: sp for sp, a in AUTORES.items()}
+
+def autor_page(sp, a, mats):
+    rows = ''
+    for p in mats[:120]:
+        rows += f'''    <a class="agd-row" href="post-{p['slug']}.html">
+      <span class="agd-date"><b style="font-size:.9rem">{p.get('short','')}</b><small>{p.get('iso','')[:4]}</small></span>
+      <span class="agd-what"><h3 style="font-size:.95rem">{_rvesc(p['title'])}</h3></span>
+      <span class="tag agd-tag">{_rvesc(p.get('cat',''))}</span>
+    </a>\n'''
+    if not rows:
+        rows = '    <p class="vazio" style="padding:18px 0">Ainda sem matérias publicadas nesta assinatura.</p>\n'
+    total = len(mats)
+    anos = sorted(p.get('iso', '')[:4] for p in mats if p.get('iso'))
+    desde = anos[0] if anos else ''
+    mais = (f'<div class="filters" style="padding:6px 0 0"><a href="busca.html">Ver todas as {total} no acervo →</a></div>'
+            if total > 120 else '')
+    return f'''<main id="conteudo" class="wrap">
+  <div class="art" style="max-width:900px; margin:0 auto">
+    <div class="art-head" style="padding-top:30px">
+      <div class="tags"><span class="tag wine">Quem assina no FOYER</span><span class="tag">{_rvesc(a['cargo'])}</span></div>
+      <h1>{_rvesc(a['nome'])}</h1>
+      <div class="art-byline">
+        <span><b>{total}</b> matéria(s) publicada(s)</span>
+        {f'<span>No FOYER desde {desde}</span>' if desde else ''}
+      </div>
+      <p class="dek" style="margin-top:14px">{_rvesc(a['bio'])}</p>
+      <p class="meta-l" style="display:block;margin-top:10px"><b>Cobre:</b> {_rvesc(a['cobre'])}</p>
+      <div class="share-row" aria-label="Compartilhar esta página">
+        <button class="sbtn" data-share="copy" data-title="{safe(a['nome'])} no FOYER">Copiar link</button>
+      </div>
+    </div>
+    <div class="agd" style="margin-top:26px">
+{rows}    </div>
+    {mais}
+    <div class="filters" style="padding:24px 0 40px">
+      <a href="principios.html">Princípios editoriais</a>
+      <a href="sobre.html">Quem somos</a>
+      <a href="busca.html">Buscar no acervo</a>
+    </div>
+  </div>
+</main>
+'''
+
 def _yt_pessoas(v):
     sps = POR_VIDEO.get(v.get('id', ''), [])
     if not sps:
@@ -3006,6 +3092,13 @@ for _i, _p in enumerate(MATERIAS):
     page('post-' + _p['slug'] + '.html', _p['title'] + ' — FOYER', _p['desc'][:200], 'noticias.html', post_page(_i, _p), quiet=True,
          og_img=wiximg(_p['img'], 1200, 630) if _p['img'] else None, og_type='article', ld=_ld_materia(_p))
 print(f'• {len(MATERIAS)} páginas de matéria')
+
+for _asp, _aa in AUTORES.items():
+    _amats = [_m for _m in MATERIAS if _m.get('author') == _aa['nome']]
+    page('autor-' + _asp + '.html', _aa['nome'] + ' — FOYER',
+         f"{_aa['nome']}, {_aa['cargo'].lower()} do FOYER. {_aa['cobre']}.",
+         'sobre.html', autor_page(_asp, _aa, _amats), quiet=True)
+print(f'• {len(AUTORES)} páginas de autor')
 
 for _sp, _pp in PESSOAS.items():
     page('pessoa-' + _sp + '.html', _pp['nome'] + ' — Enciclopédia FOYER',
