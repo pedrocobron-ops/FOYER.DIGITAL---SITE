@@ -48,12 +48,36 @@ def auditar(caminho):
     titulo = pg.get('title', '')
     insta = pg.get('instagram') or {}
 
-    # 1. Travessão e meia-risca: proibidos em TODO o pacote
+    # 1. Travessão e meia-risca: proibidos como pontuação em TODO o pacote.
+    #    Passam só dentro de nome próprio que a matéria declare em "nomes_proprios"
+    #    (o nome oficial de uma montagem, filme ou disco), nunca como respiro de frase.
     campos = {'title': titulo, 'corpo': corpo,
               'instagram.titulo': insta.get('titulo', ''),
               'instagram.legenda': insta.get('legenda', '')}
+    pacote = '\n'.join(campos.values())
+    nomes = pg.get('nomes_proprios') or []
+    if not isinstance(nomes, list):
+        problemas.append('NOMES_PROPRIOS deve ser uma lista de nomes')
+        nomes = []
+    validos = []
+    for nome in nomes:
+        nome = str(nome).strip()
+        if not ('—' in nome or '–' in nome):
+            avisos.append(f'NOME PRÓPRIO "{nome}" declarado sem travessão (declaração inútil)')
+            continue
+        if len(nome) > 80 or re.search(r'[.!?;\n]', nome):
+            problemas.append(f'NOME PRÓPRIO "{nome[:60]}" não parece um nome: '
+                             f'longo demais ou com pontuação de frase')
+            continue
+        if nome not in pacote:
+            avisos.append(f'NOME PRÓPRIO "{nome}" declarado mas ausente do texto')
+            continue
+        validos.append(nome)
     for nome, valor in campos.items():
-        n = valor.count('—') + valor.count('–')
+        sobra = valor
+        for np in validos:
+            sobra = sobra.replace(np, '')
+        n = sobra.count('—') + sobra.count('–')
         if n:
             problemas.append(f'TRAVESSÃO em {nome} ({n} ocorrência(s))')
 

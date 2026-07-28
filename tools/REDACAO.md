@@ -78,10 +78,30 @@ não uma nota de agenda. Padrão obrigatório:
 
 O texto deve soar como jornalista de carne e osso. Padrões proibidos:
 
-1. **TRAVESSÃO É PROIBIDO.** Nem travessão (—) nem meia-risca (–) em
-   lugar nenhum do texto, do título ou do serviço. No lugar: vírgula,
-   dois-pontos, parênteses ou ponto final. Atribuição de citação com
-   vírgula: `"...", afirma Fulana, diretora do espetáculo.`
+1. **TRAVESSÃO É PROIBIDO COMO PONTUAÇÃO.** Nem travessão (—) nem
+   meia-risca (–) para abrir aposto, dar respiro na frase ou atribuir
+   citação, em lugar nenhum do texto, do título ou do serviço. No
+   lugar: vírgula, dois-pontos, parênteses ou ponto final. Atribuição
+   de citação com vírgula: `"...", afirma Fulana, diretora do
+   espetáculo.`
+
+   **ÚNICA EXCEÇÃO: nome próprio.** Quando o travessão faz parte do
+   nome oficial de uma montagem, filme, disco ou turnê, ele fica como
+   é: `Djavan – O Musical: Vidas pra Contar`. Nome de obra se escreve
+   como o dono batizou, não como a régua da casa preferia. Para isso o
+   pacote precisa **declarar o nome** no campo `nomes_proprios`:
+
+   ```json
+   "nomes_proprios": ["Djavan – O Musical: Vidas pra Contar"]
+   ```
+
+   O portão mecânico só perdoa o travessão dentro dos nomes
+   declarados; qualquer outro no pacote continua reprovando. Declarar
+   uma frase inteira para lavar pontuação não funciona: o portão
+   rejeita declaração com ponto, ponto e vírgula, exclamação,
+   interrogação ou mais de 80 caracteres. Na dúvida sobre a grafia
+   oficial, confira na bilheteria ou no material da produção; se a
+   fonte não mostrar travessão, não invente um.
 2. Proibidas as fórmulas de IA: "não é X, é Y"; "mais do que X, é Y";
    "verdadeiro(a) + substantivo"; "X não é detalhe"; "prova de que";
    "é aí que entra"; "o resultado? "; pergunta retórica seguida de
