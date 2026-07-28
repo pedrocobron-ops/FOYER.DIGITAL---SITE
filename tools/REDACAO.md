@@ -136,11 +136,20 @@ Matéria sem foto não vai para a mesa. Em cada pauta:
 O FOYER tem três assinaturas. Cada matéria nasce já destinada a uma delas,
 pela EDITORIA do assunto. A assinatura vai no campo `author` do pacote.
 
-| Assinatura | Cobre | `author` |
-|---|---|---|
-| **Pedro Amaral** | mercado e dinheiro do setor, economia criativa, bilheteria e financiamento, cinema e streaming | `Pedro Amaral` |
-| **Isabel Branquinha** | estreias e temporadas de peças, o que está acontecendo em São Paulo nas artes, artistas e montagens | `Isabel Branquinha` |
-| **Redação Foyer** | todo o resto: bastidores, explicadores, memória, curiosidades, listas, guias, patrimônio e notícia internacional | `Redação Foyer` |
+| Assinatura | Cobre | Por dia | `author` |
+|---|---|---|---|
+| **Pedro Amaral** | mercado e dinheiro do setor, economia criativa, bilheteria e financiamento, editais, cinema e streaming | **2** | `Pedro Amaral` |
+| **Isabel Branquinha** | estreias e temporadas de peças, o que está acontecendo em São Paulo nas artes, artistas e montagens | **2** | `Isabel Branquinha` |
+| **Redação Foyer** | todo o resto: bastidores, explicadores, memória, curiosidades, listas, guias, patrimônio e notícia internacional | **2** | `Redação Foyer` |
+
+**A COTA DIÁRIA É FIXA: 2 + 2 + 2 = as 6 matérias do dia.** Todo dia sai o
+mesmo número por assinatura, para o leitor ver nomes diferentes assinando
+sempre. Se uma pauta de uma assinatura cair (falta de foto, fato não
+confirmado), o redator daquela assinatura procura OUTRA pauta da MESMA
+editoria: não se transfere a vaga para outra assinatura, e não se completa o
+dia com duas da mesma pessoa. Se, mesmo assim, faltar pauta digna numa
+editoria, é melhor entregar 5 matérias e registrar no diário do que forçar
+uma pauta fraca ou assinar no nome errado.
 
 **REGRA INEGOCIÁVEL DA ASSINATURA.** Matéria destinada a uma pessoa vai para a
 mesa como as outras, com `status: aguardando_aprovacao`, e **só essa pessoa
@@ -184,9 +193,20 @@ precisa e informativa**, com elegância e zero adjetivação gratuita.
 
 ## Grade semanal — o cardápio das 6 matérias do dia
 
-Das 6 matérias diárias: **2 são notícias quentes** (seguindo a mistura da
-varredura abaixo: máximo 1 de circuito de release, o resto fora da bolha)
-e **4 vêm do cardápio de formatos**, sempre incluindo o PRATO DO DIA:
+As 6 do dia saem sempre na cota **2 Pedro + 2 Isabel + 2 Redação**. Dentro
+dessa divisão, cada assinatura tem um par fixo de encargos:
+
+| Assinatura | Matéria 1 | Matéria 2 |
+|---|---|---|
+| **Pedro Amaral** | 1 notícia quente de mercado/dinheiro/cinema (bilheteria, edital, financiamento, negócio do audiovisual) | 1 pauta do mesmo eixo com mais fôlego: explicador de dinheiro, número do setor, análise de bilheteria, perfil de quem produz ou financia |
+| **Isabel Branquinha** | 1 estreia ou temporada em São Paulo (a vaga de circuito da rodada, quando houver) | 1 segunda pauta da cena paulistana: outra estreia, perfil de artista em cartaz, montagem que prorroga, o que a cidade tem em cartaz |
+| **Redação Foyer** | **o PRATO DO DIA** (tabela abaixo) | 1 do cardápio: bastidor, curiosidade, memória, patrimônio ou notícia internacional fora da bolha |
+
+Regras que continuam valendo: **no máximo 1 pauta de circuito por rodada**
+(normalmente a primeira da Isabel) e o resto fora da bolha; notícia
+internacional é apurada e escrita como matéria própria do FOYER.
+
+O PRATO DO DIA, por dia da semana:
 
 | Dia | Prato do dia (obrigatório) |
 |---|---|
@@ -198,8 +218,20 @@ e **4 vêm do cardápio de formatos**, sempre incluindo o PRATO DO DIA:
 | Sábado | **Curiosidade bem explicada** — "Por que se diz 'merda' antes da estreia?", origem, versões, o que dizem os pesquisadores (cat `Bastidores` + `Teatro`) |
 | Domingo | **Memória** — efeméride ou episódio histórico das artes brasileiras ligado à data ou à semana (cat `Bastidores` + a da área) |
 
-As outras 2 vagas do cardápio: repetir qualquer formato acima ou
-reforçar notícia, conforme o que a varredura do dia render de melhor.
+**A QUINTA é a única exceção da cota**, porque leva os dois guias. Nela a
+divisão fica: o guia de **São Paulo assina Isabel Branquinha** (é a cena da
+cidade dela, e guia assinado por gente vale mais que guia anônimo), o guia
+do **Rio assina Redação Foyer**, e o dia fecha assim:
+
+| Quinta | |
+|---|---|
+| Isabel | guia de São Paulo + 1 estreia/temporada paulistana |
+| Pedro | as 2 de sempre (mercado/dinheiro/cinema) |
+| Redação | guia do Rio + 1 do cardápio |
+
+Nos demais dias, quando sobrar fôlego de pauta, a segunda vaga de cada
+assinatura pode repetir qualquer formato do cardápio, desde que fique
+dentro da editoria daquela assinatura.
 
 ### Regras de ranqueamento (valem para o cardápio)
 
@@ -225,11 +257,13 @@ checagem interna do próprio redator não vale como checagem (ele é cego para
 os próprios erros; a experiência da casa provou isso). A rodada roda em
 três ondas de agentes independentes, sem economizar agente:
 
-- **ONDA 1 — Redação**: 3 agentes redatores em paralelo, 2 matérias cada,
-  seguindo a esteira interna (pauteiro → repórter → editor de estilo →
-  chefe de redação) e o protocolo antifalha. Entregam o pacote completo
-  (com instagram e artes geradas). **Cada redator escreve para UMA
-  assinatura e recebe o guia de voz dela** (ver "Quem assina o quê"):
+- **ONDA 1 — Redação**: 3 agentes redatores em paralelo, **2 matérias cada,
+  o que fecha exatamente a cota diária de 2 + 2 + 2**, seguindo a esteira
+  interna (pauteiro → repórter → editor de estilo → chefe de redação) e o
+  protocolo antifalha. Entregam o pacote completo (com instagram e artes
+  geradas). **Cada redator escreve para UMA assinatura e recebe o guia de
+  voz dela** (ver "Quem assina o quê"). Nenhum redator escreve para duas
+  assinaturas, e nenhuma assinatura é coberta por dois redatores:
   - **Redator PEDRO** — pautas de mercado, dinheiro, economia criativa,
     bilheteria, financiamento, cinema e streaming. Grava `author: "Pedro Amaral"`.
   - **Redatora ISABEL** — estreias, temporadas e o que acontece nas artes
