@@ -508,30 +508,23 @@ O boneco padrão, na ordem:
 | # | Página | Tipo na Coxia | Quem prepara |
 |---|--------|---------------|--------------|
 | 1 | Capa (foto da semana + manchete + chamadas) | capa | Chefe |
-| 2 | Sumário + ex-líbris | automático | sozinho |
+| 2 | Sumário | automático | sozinho |
 | 3 | Carta ao leitor | `editorial` | Chefe (ou minuta da redação para o chefe editar) |
 | 4 | Reportagem de capa, na íntegra | `materia` | a melhor matéria da semana |
 | 5 | **Recortes da semana** | `recortes` | redação apura 3 aspas REAIS da semana |
 | 6 | 1 a 2 matérias fortes da semana | `materia` | Chefe escolhe |
 | 7 | Na tela (programas) | `programas` | automático |
-| 8 | **Pôster central** (página dupla) | `poster` | foto de divulgação da semana, com crédito |
-| 9 | mais 2 a 3 matérias da semana | `materia` | Chefe escolhe |
-| 10 | A semana em cartaz (SP e Rio) | `agenda` | automático ou apurado |
-| 11 | Entre mestres (frase) | `frase-celebre` | automático |
-| 12 | **Passatempo** (cruzadinha) | `passatempo` | redação monta, tema teatral |
-| 13 | Expediente | `expediente` | automático |
-| 14 | **Contracapa** (na próxima edição) | `contracapa` | Chefe; se faltar, entra a da casa |
+| 8 | mais 2 a 3 matérias da semana | `materia` | Chefe escolhe |
+| 9 | A semana em cartaz (SP e Rio) | `agenda` | automático ou apurado |
+| 10 | Entre mestres (frase) | `frase-celebre` | automático |
+| 11 | Expediente | `expediente` | automático |
+| 12 | **Contracapa** (na próxima edição) | `contracapa` | Chefe; se faltar, entra a da casa |
 
 Regras das seções novas:
 
 - **Recortes**: só aspas REAIS e JÁ PUBLICADAS, cada uma com quem disse
   e onde saiu (veículo nomeado). Aspa sem dono não entra. Formato no
   editor: `frase | quem | onde | slug-da-matéria`. Máximo 4.
-- **Pôster**: foto de divulgação da semana em página dupla, com crédito
-  obrigatório e botão de guardar. Foto deitada rende mais.
-- **Passatempo**: cruzadinha com palavra da semana na vertical. A letra
-  N da palavra oculta precisa existir na palavra N. Dicas curtas, tema
-  de teatro/música/cultura. O editor confere sozinho o encaixe.
 - **Contracapa**: até 4 chamadas do que vem na próxima edição (sem
   prometer pauta que não está de pé) e frase de despedida REAL e
   verificada, com autor.

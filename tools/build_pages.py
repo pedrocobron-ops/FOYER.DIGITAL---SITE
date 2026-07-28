@@ -1658,14 +1658,9 @@ body.rv-duplo .rv-pg.on.pg-l::after{ content:''; position:absolute; top:0; botto
   background:linear-gradient(270deg, rgba(35,8,5,.16), transparent); pointer-events:none; z-index:8; }
 body.rv-duplo .rv-pg.on.pg-r::after{ content:''; position:absolute; top:0; bottom:0; left:0; width:56px;
   background:linear-gradient(90deg, rgba(35,8,5,.13), transparent); pointer-events:none; z-index:8; }
-/* página larga (pôster central): ocupa a dupla inteira */
-.rv-pg.rv-wide{ aspect-ratio:1.481; max-width:1440px; }
-body:not(.rv-duplo) .rv-pg.rv-wide{ max-width:734px; }
 /* a dupla aberta cabe inteira na altura da tela */
 body.rv-duplo .rv-pg{ max-width:min(720px, calc((100vh - 230px) * .7407)); }
-body.rv-duplo .rv-pg.rv-wide{ max-width:min(1440px, calc((100vh - 230px) * 1.4815)); }
 body.rv-sala.rv-duplo .rv-pg{ max-width:min(720px, calc((100vh - 120px) * .7407)); }
-body.rv-sala.rv-duplo .rv-pg.rv-wide{ max-width:min(1440px, calc((100vh - 120px) * 1.4815)); }
 /* grão de papel de revista (sutil; some na impressão) */
 .rv-pg::before{ content:''; position:absolute; inset:0; z-index:9; pointer-events:none;
   opacity:.5; mix-blend-mode:multiply;
@@ -1948,33 +1943,6 @@ html[data-theme="dark"] .rv-mestre .au{ color:var(--gold); }
   font-size:.78rem; line-height:1.72; text-align:justify; hyphens:auto; }
 .rv-livre .txt p{ margin:0 0 11px; }
 
-/* ---------- EX-LÍBRIS (no sumário) ---------- */
-.rv-exlibris{ margin:0 22px; padding:12px 16px; border:2px solid var(--wine); position:relative; }
-.rv-exlibris::before{ content:''; position:absolute; inset:3px; border:1px solid var(--wine); pointer-events:none; }
-.rv-exlibris em{ display:block; font-style:normal; font-family:var(--mono); font-size:.5rem;
-  letter-spacing:.3em; text-transform:uppercase; color:var(--wine); }
-html[data-theme="dark"] .rv-exlibris em{ color:var(--gold); }
-.rv-exlibris .dono{ font-family:var(--didone); font-size:1.15rem; border-bottom:1.5px dotted var(--ink-soft);
-  min-width:180px; display:inline-block; padding:2px 6px; outline:none; }
-.rv-exlibris .dono:empty::before{ content:'escreva seu nome aqui'; color:var(--ink-soft);
-  font-size:.85rem; font-style:italic; }
-.rv-sum ol{ padding-bottom:14px; }
-.rv-sum .rv-exlibris{ margin-bottom:56px; }
-
-/* ---------- PÔSTER CENTRAL ---------- */
-.rv-poster{ background:var(--ink); }
-.rv-poster img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-.rv-poster .selo{ position:absolute; left:0; top:0; z-index:4; background:var(--gold); color:var(--wine);
-  font-family:var(--mono); font-size:.54rem; font-weight:700; letter-spacing:.24em; text-transform:uppercase;
-  padding:8px 14px; border-right:2px solid var(--ink); border-bottom:2px solid var(--ink); }
-.rv-poster .pe{ position:absolute; left:0; right:0; bottom:0; z-index:4; display:flex;
-  justify-content:space-between; align-items:center; gap:10px; padding:10px 16px;
-  background:linear-gradient(0deg, rgba(20,8,5,.82), rgba(20,8,5,0));
-  font-family:var(--mono); font-size:.54rem; letter-spacing:.16em; text-transform:uppercase; color:#efe8da; }
-.rv-poster .pe a{ color:var(--gold); border:2px solid var(--gold); padding:8px 12px; text-decoration:none;
-  font-weight:700; background:rgba(20,8,5,.5); }
-.rv-poster .pe a:hover{ background:var(--gold); color:var(--wine); }
-
 /* ---------- RECORTES DA SEMANA ---------- */
 .rv-rec .cab{ padding:24px 22px 12px; border-bottom:3px solid var(--ink); }
 .rv-rec .cab em{ display:block; font-style:normal; font-family:var(--mono); font-size:.54rem;
@@ -1999,40 +1967,6 @@ html[data-theme="dark"] .rv-rec .rec .fr::before, html[data-theme="dark"] .rv-re
 html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
 .rv-rec .rec .qm i{ font-style:normal; font-weight:400; color:var(--ink-soft); display:block; margin-top:2px; }
 .rv-rec .rec a{ color:inherit; text-decoration:none; }
-
-/* ---------- PASSATEMPO ---------- */
-.rv-cx .cab{ padding:24px 22px 10px; border-bottom:3px solid var(--ink); }
-.rv-cx .cab em{ display:block; font-style:normal; font-family:var(--mono); font-size:.54rem;
-  letter-spacing:.3em; text-transform:uppercase; color:var(--wine); }
-html[data-theme="dark"] .rv-cx .cab em{ color:var(--gold); }
-.rv-cx .cab h3{ font-family:var(--didone); font-weight:400; font-size:2.1rem; margin:4px 0 0; line-height:1; }
-.rv-cx .miolo{ flex:1; overflow:auto; padding:16px 22px 60px; }
-.rv-cx{ --cx:34px; }
-@media (max-width:560px){ .rv-cx{ --cx:24px; } }
-.rv-cx .como{ font-size:.74rem; color:var(--ink-soft); margin:0 0 12px; line-height:1.5; }
-.rv-cx .grade-cx{ display:flex; flex-direction:column; gap:4px; margin-bottom:14px; overflow-x:auto; }
-.rv-cx .cx-linha{ display:flex; gap:4px; }
-.rv-cx .cx-cel{ width:calc(var(--cx) - 4px); height:calc(var(--cx) - 4px); border:2px solid var(--ink);
-  background:var(--paper); text-align:center; font-family:var(--mono); font-weight:700;
-  font-size:calc(var(--cx) * .48); text-transform:uppercase; padding:0; color:var(--ink); }
-.rv-cx .cx-cel:focus{ outline:3px solid var(--gold); outline-offset:-2px; }
-.rv-cx .cx-cel.chave{ background:rgba(206,178,106,.35); border-color:var(--wine); }
-.rv-cx .cx-cel.certa{ background:#e6efdd; }
-.rv-cx .cx-cel.errada{ background:#f3ded9; }
-html[data-theme="dark"] .rv-cx .cx-cel.certa{ background:#22301c; }
-html[data-theme="dark"] .rv-cx .cx-cel.errada{ background:#3a2019; }
-.rv-cx .cx-num{ width:22px; display:inline-flex; align-items:center; justify-content:center;
-  font-family:var(--didone); font-size:1rem; color:var(--wine); }
-html[data-theme="dark"] .rv-cx .cx-num{ color:var(--gold); }
-.rv-cx ol.dicas{ margin:0 0 14px; padding-left:22px; font-size:.76rem; line-height:1.7; }
-.rv-cx .cx-acoes{ display:flex; gap:8px; flex-wrap:wrap; }
-.rv-cx .cx-acoes button{ border:2px solid var(--ink); background:var(--paper); color:var(--ink);
-  font-family:var(--mono); font-weight:600; font-size:.58rem; letter-spacing:.14em; text-transform:uppercase;
-  padding:9px 13px; cursor:pointer; }
-.rv-cx .cx-acoes button:hover{ background:var(--ink); color:var(--gold); }
-.rv-cx .cx-res{ font-family:var(--mono); font-size:.62rem; letter-spacing:.12em; text-transform:uppercase;
-  margin-top:10px; color:var(--wine); }
-html[data-theme="dark"] .rv-cx .cx-res{ color:var(--gold); }
 
 /* ---------- CONTRACAPA ---------- */
 .rv-back{ background:var(--wine); color:var(--paper); }
@@ -2072,7 +2006,7 @@ html[data-theme="dark"] .rv-cx .cx-res{ color:var(--gold); }
     min-height:96vh; width:100% !important; max-width:100% !important; }
   .rv-pg::before{ display:none; }
   .rv-nav, nav.main, .ticker, footer, .warn, .rv-lombo, .rv-fita, .rv-canto,
-  #rv-sala-sair, .rv-toast, .cx-acoes{ display:none !important; }
+  #rv-sala-sair, .rv-toast{ display:none !important; }
 }
 </style>'''
 
@@ -2184,9 +2118,7 @@ def _rv_rotulo_sumario(pg):
     if t == 'cartaz': return (pg.get('legenda') or 'Cartaz', 'Divulgação')
     if t == 'patrocinio': return (pg.get('legenda') or 'Página patrocinada', 'Publicidade')
     if t == 'expediente': return ('Expediente', 'Quem faz o FOYER')
-    if t == 'poster': return (pg.get('legenda') or 'O pôster da semana', 'Para guardar')
     if t == 'recortes': return ('Recortes: o que disseram na semana', 'Entre aspas')
-    if t == 'passatempo': return (pg.get('titulo') or 'Passatempo: a cruzadinha do FOYER', 'Para resolver')
     if t == 'contracapa': return ('Na próxima edição', 'Contracapa')
     return (pg.get('titulo', 'Página'), pg.get('rotulo', ''))
 
@@ -2376,17 +2308,6 @@ def _rv_pagina(pg, ed, num):
                 f'Fotografias de divulgação, com crédito.</p>'
                 f'<h4>Fale conosco</h4><p>foyer.digital · programafoyer@gmail.com · YouTube @Foyer.digital</p>'
                 f'</div>{fol}</section>')
-    if t == 'poster':
-        leg = _rvesc(pg.get('legenda', ''))
-        cred = _rvesc(pg.get('credito') or 'Divulgação')
-        img = _rvesc(pg.get('img', ''))
-        nome_arq = f'foyer-poster-ed{_rvesc(ed.get("numero"))}.jpg'
-        return (f'<section class="rv-pg rv-poster rv-wide">'
-                f'<img src="{img}" alt="{leg or "Pôster da semana"}">'
-                f'<span class="selo">O pôster da semana</span>'
-                f'<div class="pe"><span>{(leg + " · ") if leg else ""}Foto: {cred}</span>'
-                f'<a href="{img}" download="{nome_arq}">⤓ Guardar o pôster</a></div>'
-                f'</section>')
     if t == 'recortes':
         recs = ''
         for it in (pg.get('itens') or [])[:4]:
@@ -2401,42 +2322,6 @@ def _rv_pagina(pg, ed, num):
         return (f'<section class="rv-pg rv-rec"><div class="cab"><em>Entre aspas, com a origem</em>'
                 f'<h3>Recortes da semana</h3></div>'
                 f'<div class="mural">{recs}</div>{fol}</section>')
-    if t == 'passatempo':
-        oculta = (pg.get('oculta') or '').strip().upper()
-        linhas = pg.get('linhas') or []
-        # posição da letra-chave em cada palavra (onde a coluna vertical passa)
-        posicoes = []
-        for k, ln in enumerate(linhas):
-            pal = (ln.get('palavra') or '').strip().upper()
-            alvo = oculta[k] if k < len(oculta) else ''
-            pos = ln.get('pos')
-            if pos is None:
-                pos = pal.find(alvo) if alvo else 0
-            posicoes.append(max(0, pos))
-        maior = max(posicoes) if posicoes else 0
-        linhas_cx, dicas = '', ''
-        for k, ln in enumerate(linhas):
-            pal = (ln.get('palavra') or '').strip().upper()
-            pos = posicoes[k]
-            recuo = maior - pos          # empurra a linha até a coluna-chave alinhar
-            cels = ''.join(
-                f'<input class="cx-cel{" chave" if j == pos else ""}" maxlength="1" '
-                f'data-l="{_rvesc(c)}" aria-label="Letra {j+1} da palavra {k+1}">'
-                for j, c in enumerate(pal))
-            linhas_cx += (f'<div class="cx-linha" style="margin-left:calc({recuo} * var(--cx, 34px))">'
-                          f'<span class="cx-num">{k+1}</span>{cels}</div>')
-            dicas += f'<li>{_rvesc(ln.get("dica", ""))}</li>'
-        return (f'<section class="rv-pg rv-cx" data-oculta="{_rvesc(oculta)}">'
-                f'<div class="cab"><em>Para resolver com lápis ou dedo</em>'
-                f'<h3>{_rvesc(pg.get("titulo") or "A cruzadinha do FOYER")}</h3></div>'
-                f'<div class="miolo"><p class="como">{_rvesc(pg.get("como") or "Preencha as palavras na horizontal. A coluna destacada revela, na vertical, a palavra da semana.")}</p>'
-                f'<div class="grade-cx">{linhas_cx}</div>'
-                f'<ol class="dicas">{dicas}</ol>'
-                f'<div class="cx-acoes"><button type="button" data-cx="conferir">Conferir</button>'
-                f'<button type="button" data-cx="revelar">Revelar</button>'
-                f'<button type="button" data-cx="limpar">Recomeçar</button></div>'
-                f'<div class="cx-res" aria-live="polite"></div>'
-                f'</div>{fol}</section>')
     if t == 'contracapa':
         chamadas = ''.join(f'<li>{_rvesc(c)}</li>' for c in (pg.get('chamadas') or [])[:4] if c.strip())
         desped = ''
@@ -2498,12 +2383,7 @@ def edicao_page(ed):
         '<section class="rv-pg rv-sum">'
         '<div class="cab"><span>O que vem por aí</span><h3>Nesta edição</h3>'
         f'<svg class="arte" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#{arte_sum}"/></svg></div>'
-        f'<ol>{linhas_sum}</ol>'
-        '<div class="rv-exlibris"><em>Ex-líbris</em>'
-        '<span>Esta edição pertence a </span>'
-        '<span class="dono" id="rv-exlibris-nome" contenteditable="true" spellcheck="false" '
-        'aria-label="Escreva seu nome no ex-líbris"></span></div>'
-        + _rv_folio(ed, 2) + '</section>')
+        f'<ol>{linhas_sum}</ol>' + _rv_folio(ed, 2) + '</section>')
     pgs = [pg_capa, pg_sum]
     n = 3
     for bi, blocos in enumerate(blocos_por_pg):
@@ -2613,7 +2493,7 @@ def edicao_page(ed):
   var virando = false;
   var fita = document.createElement('div'); fita.className = 'rv-fita';
 
-  function ehSolo(p){{ return p.classList.contains('rv-capa2') || p.classList.contains('rv-wide') || p.classList.contains('rv-back'); }}
+  function ehSolo(p){{ return p.classList.contains('rv-capa2') || p.classList.contains('rv-back'); }}
   // o sumário aponta a página certa mesmo depois da repaginação fina no navegador
   function renumeraSumario(){{
     var todas = document.querySelectorAll('.rv-pg');
@@ -2733,58 +2613,6 @@ def edicao_page(ed):
     document.body.classList.contains('rv-sala') ? salaSai() : salaEntra();
   }});
   document.getElementById('rv-sala-sair').addEventListener('click', salaSai);
-
-  // ex-líbris: o nome do leitor fica no aparelho e vale para todas as edições
-  var exl = document.getElementById('rv-exlibris-nome');
-  if(exl){{
-    try{{ exl.textContent = localStorage.getItem('foyer-exlibris') || ''; }}catch(e){{}}
-    exl.addEventListener('input', function(){{
-      try{{ localStorage.setItem('foyer-exlibris', exl.textContent.trim().slice(0, 60)); }}catch(e){{}}
-    }});
-    exl.addEventListener('keydown', function(e){{ if(e.key === 'Enter'){{ e.preventDefault(); exl.blur(); }} }});
-  }}
-
-  // a cruzadinha
-  document.querySelectorAll('.rv-cx').forEach(function(cx){{
-    var cels = cx.querySelectorAll('.cx-cel');
-    cels.forEach(function(c){{
-      c.addEventListener('input', function(){{
-        c.value = c.value.toUpperCase();
-        c.classList.remove('certa', 'errada');
-        if(c.value){{
-          var linha = c.parentNode.querySelectorAll('.cx-cel');
-          var k = Array.prototype.indexOf.call(linha, c);
-          if(k + 1 < linha.length) linha[k + 1].focus();
-        }}
-      }});
-    }});
-    cx.addEventListener('click', function(e){{
-      var b = e.target.closest('[data-cx]');
-      if(!b) return;
-      var res = cx.querySelector('.cx-res');
-      if(b.dataset.cx === 'conferir'){{
-        var chaveOk = true, tudoOk = true;
-        cels.forEach(function(c){{
-          if(!c.value) {{ tudoOk = false; if(c.classList.contains('chave')) chaveOk = false; return; }}
-          var certa = c.value.toUpperCase() === c.dataset.l.toUpperCase();
-          c.classList.toggle('certa', certa);
-          c.classList.toggle('errada', !certa);
-          if(!certa){{ tudoOk = false; if(c.classList.contains('chave')) chaveOk = false; }}
-        }});
-        res.textContent = tudoOk ? 'Cravou tudo. A palavra da semana: ' + cx.dataset.oculta + ' ✓'
-          : (chaveOk ? 'A coluna da palavra da semana está certa: ' + cx.dataset.oculta + ' ✓ Falta acertar o resto.'
-                     : 'Ainda não. As casas em vermelho pedem outra letra.');
-      }}
-      if(b.dataset.cx === 'revelar'){{
-        cels.forEach(function(c){{ c.value = c.dataset.l.toUpperCase(); c.classList.add('certa'); c.classList.remove('errada'); }});
-        res.textContent = 'A palavra da semana: ' + cx.dataset.oculta;
-      }}
-      if(b.dataset.cx === 'limpar'){{
-        cels.forEach(function(c){{ c.value = ''; c.classList.remove('certa', 'errada'); }});
-        res.textContent = '';
-      }}
-    }});
-  }});
 
   // arranque: mede, monta as duplas e volta para onde a fita ficou
   function arranca(){{
