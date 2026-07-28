@@ -3825,9 +3825,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           '<div class="stat"><b>' + pctDe(d.por_cidade, 'São Paulo', total) + '%</b><span>estão em São Paulo</span></div>' +
         '</div>' +
         '<div class="mx-grid">' +
-          '<div><h4 class="lt-h">Onde estão</h4>' + barras(d.por_cidade) + '</div>' +
-          '<div><h4 class="lt-h">Vão ao teatro…</h4>' + barras(d.por_frequencia) +
-          '<h4 class="lt-h" style="margin-top:16px">Querem acompanhar</h4>' + barras(d.por_interesse) + '</div>' +
+          '<div><h4 class="lt-h">Onde estão</h4>' + barras(d.por_cidade) +
+          '<h4 class="lt-h" style="margin-top:16px">Veem arte ao vivo…</h4>' + barras(d.por_frequencia) + '</div>' +
+          '<div><h4 class="lt-h">Amam ver</h4>' + barras(d.por_interesse) +
+          '<h4 class="lt-h" style="margin-top:16px">Gostam de ler</h4>' + barras(d.por_conteudo) + '</div>' +
         '</div>';
     }).catch(function(){
       el.innerHTML = '<div class="vazio">não deu para buscar os leitores agora</div>';

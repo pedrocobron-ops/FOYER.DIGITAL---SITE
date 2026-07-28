@@ -216,43 +216,154 @@
 })();
 
 
-// newsletter da revista — cadastro real (grava no banco do FOYER)
+// a conversa da revista — o cadastro como um momento, não um formulário.
+// Uma pergunta por tela, com os três sinais do teatro marcando o caminho.
 (function(){
-  var f = document.getElementById('signup');
-  if(!f) return;
+  var gatilhos = document.querySelectorAll('[data-conversa]');
+  if(!gatilhos.length) return;
   var M = { url: 'https://jcaqjlrzmrtzjyfbljxh.supabase.co',
             key: 'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB' };
-  f.addEventListener('submit', function(e){
-    e.preventDefault();
-    var nome = (f.querySelector('input[type=text]') || {}).value || '';
-    var email = (f.querySelector('input[type=email]') || {}).value || '';
-    var cidade = (document.getElementById('sg-cidade') || {}).value || '';
-    var freq = (document.getElementById('sg-freq') || {}).value || '';
-    var ints = [];
-    f.querySelectorAll('.sg-ints input:checked').forEach(function(c){ ints.push(c.value); });
-    var btn = f.querySelector('button[type=submit]'), ok = document.getElementById('signup-ok');
-    if(!email) return;
-    btn.disabled = true; btn.textContent = 'Enviando…';
+  var R = { nome:'', email:'', cidade:'', frequencia:'', interesses:[], conteudos:[] };
+  var ov = null, passo = 0;
+
+  var PASSOS = [
+    { id:'nome', sinal:'🔔 primeiro sinal', titulo:'Que bom ter você no saguão.',
+      sub:'Como a gente te chama?', tipo:'texto', place:'seu nome (ou nome de cena)' },
+    { id:'email', sinal:'🔔 primeiro sinal', titulo:'A revista chega toda sexta, às 7h.',
+      sub:'Em qual caixa de entrada ela te encontra?', tipo:'email', place:'seu@email.com',
+      nota:'De graça, sem spam, e seus dados ficam só com o FOYER.' },
+    { id:'cidade', sinal:'🔔🔔 segundo sinal', titulo:'De onde você aplaude?',
+      sub:'A agenda certa depende disso.', tipo:'um',
+      ops:['São Paulo','Rio de Janeiro','Belo Horizonte','Brasília','Curitiba',
+           'Porto Alegre','Recife','Salvador','Outra cidade'] },
+    { id:'interesses', sinal:'🔔🔔 segundo sinal', titulo:'O que te faz sair de casa?',
+      sub:'Marque tudo o que te chama. Vale sonhar.', tipo:'varios',
+      ops:['Teatro','Musicais','Dança','Ópera e concertos','Shows e música ao vivo',
+           'Cinema','Circo','Stand-up e humor','Exposições e museus'] },
+    { id:'conteudos', sinal:'🔔🔔 segundo sinal', titulo:'E entre uma cortina e outra, o que você gosta de ler?',
+      sub:'A redação escreve mais do que você marcar.', tipo:'varios',
+      ops:['Estreias e o que entra em cartaz','Bastidores e como se faz','Histórias e memória',
+           'O dinheiro da arte','Guias de fim de semana','Entrevistas e perfis','Crítica'] },
+    { id:'frequencia', sinal:'🔔🔔🔔 terceiro sinal', titulo:'Com que frequência você vê arte ao vivo?',
+      sub:'Teatro, show, dança, o que for. Ao vivo.', tipo:'um',
+      ops:['Toda semana','Todo mês','Algumas vezes por ano','Quase nunca. Quero mudar isso'] }
+  ];
+
+  function abre(){
+    if(ov) ov.remove();
+    ov = document.createElement('div');
+    ov.className = 'cv-overlay';
+    ov.innerHTML = '<div class="cv-caixa" role="dialog" aria-modal="true" aria-label="Assinar a revista">' +
+      '<button type="button" class="cv-fechar" aria-label="Fechar">✕</button>' +
+      '<div class="cv-corpo"></div></div>';
+    document.body.appendChild(ov);
+    document.body.style.overflow = 'hidden';
+    ov.querySelector('.cv-fechar').addEventListener('click', fecha);
+    ov.addEventListener('click', function(e){ if(e.target === ov) fecha(); });
+    passo = 0;
+    pinta();
+  }
+  function fecha(){
+    if(ov){ ov.remove(); ov = null; }
+    document.body.style.overflow = '';
+  }
+  function pinta(){
+    var p = PASSOS[passo];
+    var c = ov.querySelector('.cv-corpo');
+    var miolo = '';
+    if(p.tipo === 'texto' || p.tipo === 'email'){
+      miolo = '<input class="cv-input" type="' + (p.tipo === 'email' ? 'email' : 'text') + '" ' +
+        'placeholder="' + p.place + '" value="' + (R[p.id] || '') + '" aria-label="' + p.sub + '">' +
+        (p.nota ? '<p class="cv-nota">' + p.nota + '</p>' : '') +
+        '<p class="cv-erro" aria-live="polite"></p>';
+    } else {
+      miolo = '<div class="cv-ops">' + p.ops.map(function(o){
+        var marcada = p.tipo === 'um' ? R[p.id] === o : R[p.id].indexOf(o) >= 0;
+        return '<button type="button" class="cv-op' + (marcada ? ' on' : '') + '" data-op="' + o + '">' + o + '</button>';
+      }).join('') + '</div>';
+    }
+    c.innerHTML =
+      '<span class="cv-sinal">' + p.sinal + '</span>' +
+      '<h3 class="cv-t">' + p.titulo + '</h3>' +
+      '<p class="cv-s">' + p.sub + '</p>' + miolo +
+      '<div class="cv-pe">' +
+        (passo > 0 ? '<button type="button" class="cv-volta">← voltar</button>' : '<span></span>') +
+        '<span class="cv-onde">' + (passo + 1) + ' de ' + PASSOS.length + '</span>' +
+        '<button type="button" class="cv-vai">' + (passo === PASSOS.length - 1 ? 'Abrir a cortina' : 'Continuar →') + '</button>' +
+      '</div>';
+    var inp = c.querySelector('.cv-input');
+    if(inp){
+      setTimeout(function(){ inp.focus(); }, 60);
+      inp.addEventListener('keydown', function(e){ if(e.key === 'Enter') avanca(); });
+    }
+    c.querySelectorAll('.cv-op').forEach(function(b){
+      b.addEventListener('click', function(){
+        var o = b.dataset.op;
+        if(p.tipo === 'um'){
+          R[p.id] = o;
+          c.querySelectorAll('.cv-op').forEach(function(x){ x.classList.toggle('on', x === b); });
+          setTimeout(avanca, 220);          // escolheu, a conversa segue sozinha
+        } else {
+          var i = R[p.id].indexOf(o);
+          if(i >= 0) R[p.id].splice(i, 1); else R[p.id].push(o);
+          b.classList.toggle('on');
+        }
+      });
+    });
+    var vv = c.querySelector('.cv-volta');
+    if(vv) vv.addEventListener('click', function(){ passo--; pinta(); });
+    c.querySelector('.cv-vai').addEventListener('click', avanca);
+  }
+  function avanca(){
+    var p = PASSOS[passo];
+    var c = ov.querySelector('.cv-corpo');
+    if(p.tipo === 'texto' || p.tipo === 'email'){
+      var v = (c.querySelector('.cv-input') || {}).value || '';
+      v = v.trim();
+      var erro = c.querySelector('.cv-erro');
+      if(p.tipo === 'texto' && !v){ erro.textContent = 'Pode ser só o primeiro nome.'; return; }
+      if(p.tipo === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){
+        erro.textContent = 'Confere esse e-mail? É por ele que a revista chega.'; return;
+      }
+      R[p.id] = v;
+    }
+    if(p.tipo === 'um' && !R[p.id]){ return; }   // precisa escolher uma
+    if(passo < PASSOS.length - 1){ passo++; pinta(); return; }
+    envia();
+  }
+  function envia(){
+    var c = ov.querySelector('.cv-corpo');
+    c.innerHTML = '<span class="cv-sinal">🔔🔔🔔</span><h3 class="cv-t">Reservando a sua cadeira…</h3>';
     fetch(M.url + '/rest/v1/foyer_newsletter', {
       method: 'POST',
       headers: { 'apikey': M.key, 'Authorization': 'Bearer ' + M.key,
                  'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
-      body: JSON.stringify({ nome: nome.trim(), email: email.trim().toLowerCase(), consent: true,
-                             cidade: cidade, frequencia: freq, interesses: ints })
+      body: JSON.stringify({ nome: R.nome, email: R.email.toLowerCase(), consent: true,
+                             cidade: R.cidade === 'Outra cidade' ? 'Outra' : R.cidade,
+                             frequencia: R.frequencia.toLowerCase(),
+                             interesses: R.interesses, conteudos: R.conteudos })
     }).then(function(r){
       if(r.ok || r.status === 409){
-        ok.textContent = r.status === 409
-          ? 'Esse e-mail já está na lista ✓'
-          : 'Pronto! Você está na lista da próxima edição ✓';
-        ok.style.display = 'block';
-        btn.textContent = 'Assinado ✓';
+        var ja = r.status === 409;
+        c.innerHTML = '<span class="cv-sinal">🎟</span>' +
+          '<h3 class="cv-t">' + (ja ? 'Você já tem cadeira marcada.' : ('Cadeira reservada' + (R.nome ? ', ' + R.nome.split(' ')[0] : '') + '.')) + '</h3>' +
+          '<p class="cv-s">' + (ja ? 'Esse e-mail já está na lista. A revista continua chegando toda sexta, às 7h.'
+                                   : 'A próxima revista chega sexta, às 7h. Enquanto a cortina não abre, o site está aí.') + '</p>' +
+          '<div class="cv-pe"><span></span><span></span><button type="button" class="cv-vai">Voltar ao site</button></div>';
+        c.querySelector('.cv-vai').addEventListener('click', fecha);
       } else { throw 0; }
     }).catch(function(){
-      btn.disabled = false; btn.textContent = 'Assinar grátis';
-      ok.textContent = 'Não deu agora — tente de novo em instantes';
-      ok.style.display = 'block';
+      c.innerHTML = '<span class="cv-sinal">✕</span>' +
+        '<h3 class="cv-t">A cortina emperrou.</h3>' +
+        '<p class="cv-s">Não deu para completar agora. Tenta de novo em instantes?</p>' +
+        '<div class="cv-pe"><span></span><span></span><button type="button" class="cv-vai">Tentar de novo</button></div>';
+      c.querySelector('.cv-vai').addEventListener('click', envia);
     });
+  }
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && ov) fecha();
   });
+  gatilhos.forEach(function(g){ g.addEventListener('click', abre); });
 })();
 
 /* ---------- FOYER no celular: instalar como aplicativo (PWA) ---------- */

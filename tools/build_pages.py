@@ -516,42 +516,12 @@ revista_body = band('Newsletter semanal', 'A Revista do Foyer', 'Toda sexta, uma
         <span>Grátis no seu e-mail, toda sexta às 7h</span>
       </div>
     </div>
-    <form class="signup-card" id="signup">
-      <h3>Receba a revista</h3>
-      <input type="text" placeholder="Seu nome" aria-label="Seu nome" required>
-      <input type="email" placeholder="seu@email.com" aria-label="Seu e-mail" required>
-      <div class="sg-r2">
-        <select id="sg-cidade" aria-label="Sua cidade" required>
-          <option value="" disabled selected>Sua cidade</option>
-          <option>São Paulo</option>
-          <option>Rio de Janeiro</option>
-          <option>Belo Horizonte</option>
-          <option>Brasília</option>
-          <option>Curitiba</option>
-          <option>Porto Alegre</option>
-          <option>Recife</option>
-          <option>Salvador</option>
-          <option value="Outra">Outra cidade</option>
-        </select>
-        <select id="sg-freq" aria-label="Com que frequência você vai ao teatro" required>
-          <option value="" disabled selected>Vou ao teatro…</option>
-          <option value="toda semana">toda semana</option>
-          <option value="todo mês">todo mês</option>
-          <option value="algumas vezes por ano">algumas vezes por ano</option>
-          <option value="raramente">raramente, quero começar</option>
-        </select>
-      </div>
-      <div class="sg-ints" role="group" aria-label="O que você quer acompanhar">
-        <label><input type="checkbox" value="teatro" checked>Teatro</label>
-        <label><input type="checkbox" value="musicais">Musicais</label>
-        <label><input type="checkbox" value="cinema">Cinema</label>
-        <label><input type="checkbox" value="música">Música</label>
-        <label><input type="checkbox" value="bastidores">Bastidores</label>
-      </div>
-      <button type="submit">Assinar grátis</button>
-      <span class="ok" id="signup-ok">Pronto! Você está na lista da próxima edição ✓</span>
-      <span class="fine">Sem spam, de graça, cancele quando quiser. Seus dados ficam só com o FOYER.</span>
-    </form>
+    <div class="signup-card" id="signup-conversa">
+      <h3>A revista chega toda sexta, às 7h</h3>
+      <p class="sg-chamada">Uma edição fechada, com começo, meio e fim, na sua caixa de entrada. De graça.</p>
+      <button type="button" class="sg-abrir" data-conversa>🎟 Quero a minha</button>
+      <span class="fine">Sem spam, cancele quando quiser. Seus dados ficam só com o FOYER.</span>
+    </div>
   </div>
 
   <div class="sec-head">
@@ -636,16 +606,6 @@ revista_body = band('Newsletter semanal', 'A Revista do Foyer', 'Toda sexta, uma
     if(e.key === 'Escape') reader.classList.remove('open');
     if(e.key === 'ArrowRight') show(i + 1);
     if(e.key === 'ArrowLeft') show(i - 1);
-  }});
-}})();
-// cadastro (demo local até o backend entrar)
-(function(){{
-  var f = document.getElementById('signup');
-  f.addEventListener('submit', function(e){{
-    e.preventDefault();
-    try{{ localStorage.setItem('foyer-newsletter', f.querySelector('input[type=email]').value); }}catch(err){{}}
-    document.getElementById('signup-ok').style.display = 'block';
-    f.querySelector('button').textContent = 'Assinado ✓';
   }});
 }})();
 </script>
@@ -2768,42 +2728,12 @@ revista_body = band('Newsletter semanal', 'A Revista do Foyer',
         <span>Grátis no seu e-mail, toda sexta às 7h</span>
       </div>
     </div>
-    <form class="signup-card" id="signup">
-      <h3>Receba a revista</h3>
-      <input type="text" placeholder="Seu nome" aria-label="Seu nome" required>
-      <input type="email" placeholder="seu@email.com" aria-label="Seu e-mail" required>
-      <div class="sg-r2">
-        <select id="sg-cidade" aria-label="Sua cidade" required>
-          <option value="" disabled selected>Sua cidade</option>
-          <option>São Paulo</option>
-          <option>Rio de Janeiro</option>
-          <option>Belo Horizonte</option>
-          <option>Brasília</option>
-          <option>Curitiba</option>
-          <option>Porto Alegre</option>
-          <option>Recife</option>
-          <option>Salvador</option>
-          <option value="Outra">Outra cidade</option>
-        </select>
-        <select id="sg-freq" aria-label="Com que frequência você vai ao teatro" required>
-          <option value="" disabled selected>Vou ao teatro…</option>
-          <option value="toda semana">toda semana</option>
-          <option value="todo mês">todo mês</option>
-          <option value="algumas vezes por ano">algumas vezes por ano</option>
-          <option value="raramente">raramente, quero começar</option>
-        </select>
-      </div>
-      <div class="sg-ints" role="group" aria-label="O que você quer acompanhar">
-        <label><input type="checkbox" value="teatro" checked>Teatro</label>
-        <label><input type="checkbox" value="musicais">Musicais</label>
-        <label><input type="checkbox" value="cinema">Cinema</label>
-        <label><input type="checkbox" value="música">Música</label>
-        <label><input type="checkbox" value="bastidores">Bastidores</label>
-      </div>
-      <button type="submit">Assinar grátis</button>
-      <span class="ok" id="signup-ok">Pronto! Você está na lista da próxima edição ✓</span>
-      <span class="fine">Sem spam, de graça, cancele quando quiser. Seus dados ficam só com o FOYER.</span>
-    </form>
+    <div class="signup-card" id="signup-conversa">
+      <h3>A revista chega toda sexta, às 7h</h3>
+      <p class="sg-chamada">Uma edição fechada, com começo, meio e fim, na sua caixa de entrada. De graça.</p>
+      <button type="button" class="sg-abrir" data-conversa>🎟 Quero a minha</button>
+      <span class="fine">Sem spam, cancele quando quiser. Seus dados ficam só com o FOYER.</span>
+    </div>
   </div>
 
   <div class="sec-head">
