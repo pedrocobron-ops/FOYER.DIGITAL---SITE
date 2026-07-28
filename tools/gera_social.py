@@ -19,12 +19,23 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FONTES = os.path.join(ROOT, 'tools/fonts')
 SAIDA = os.path.join(ROOT, 'assets/social')
-OURO = (206, 178, 106)
+OURO = (233, 203, 133)          # o dourado claro dos posts da casa (--gold-hi)
 BRANCO = (255, 255, 255)
+MOLDURA = 16                    # a moldura preta em volta da foto
 
 
 def _fonte(nome, tam):
     return ImageFont.truetype(os.path.join(FONTES, nome), tam)
+
+
+def _fonte_titulo(tam):
+    """A fonte dos posts da casa: Nunito ExtraBold, redonda e simpática."""
+    f = ImageFont.truetype(os.path.join(FONTES, 'Nunito.ttf'), tam)
+    try:
+        f.set_variation_by_axes([800])
+    except Exception:
+        pass
+    return f
 
 
 def _cover(img, w, h, foco=0.38):
@@ -98,8 +109,30 @@ def _tokens_titulo(pg):
     return toks
 
 
-def _desenha_titulo(dr, toks, x, y_base, larg, tam, entre=1.16):
-    f = _fonte('PTSans-Bold.ttf', tam)
+def _arruma_toks(toks):
+    """Cola pontuação solta na palavra anterior e troca aspas retas por curvas."""
+    saida = []
+    dentro = False
+    for w, ouro in toks:
+        novo = ''
+        for c in w:
+            if c == '"':
+                novo += '”' if dentro else '“'
+                dentro = not dentro
+            else:
+                novo += c
+        w = novo
+        if saida and w and w[0] in ',.;:!?…':
+            aw, ao = saida[-1]
+            saida[-1] = (aw + w, ao)
+        else:
+            saida.append((w, ouro))
+    return saida
+
+
+def _desenha_titulo(dr, toks, x, y_base, larg, tam, entre=1.14):
+    toks = _arruma_toks(toks)
+    f = _fonte_titulo(tam)
     esp = dr.textlength(' ', font=f)
     linhas, atual, cw = [], [], 0
     for w, ouro in toks:
@@ -125,30 +158,33 @@ def _desenha_titulo(dr, toks, x, y_base, larg, tam, entre=1.16):
 def _cabecalho(dr, base, cat, y=132):
     """FOYER = a logo oficial da casa em branco + .EDITORIA (discreto, como nos posts)."""
     logo = Image.open(os.path.join(ROOT, 'assets/logo/foyer-horizontal-gold.png'))
-    alt = 42
+    alt = 46
     esc = alt / logo.height
     logo = logo.resize((round(logo.width * esc), alt), Image.LANCZOS)
     x = 92
     base.paste(Image.new('RGB', logo.size, BRANCO), (x, y), logo.getchannel('A'))
-    f_sans = _fonte('PTSans-Bold.ttf', 30)
+    f_sans = _fonte('PTSans-Bold.ttf', 32)
     sufixo = '.' + (cat or 'Teatro').upper()
-    dr.text((x + logo.width + 5, y + alt - 33), sufixo, font=f_sans, fill=BRANCO)
+    dr.text((x + logo.width + 6, y + alt - 35), sufixo, font=f_sans, fill=BRANCO)
 
 
-def _arco(base, y_ini=138, y_fim=470):
-    """O arco branco da casa, desenhado em 4x e reduzido (linha lisa, sem serrilhado)."""
+def _arco(base, y_ini=150, y_fim=None):
+    """O arco branco da casa: passa alto, rente ao topo, e desce cruzando o
+    canto direito (como nos posts publicados; não mergulha na foto)."""
     w, h = base.size
+    if y_fim is None:
+        y_fim = int(h * 0.40)
     F = 4
     camada = Image.new('L', (w * F, h * F), 0)
     dl = ImageDraw.Draw(camada)
-    p0, p1, p2 = (-60, y_ini + 14), (int(w * 0.66), y_ini - 26), (w + 40, y_fim)
+    p0, p1, p2 = (-50, y_ini - 56), (int(w * 0.58), 44), (w + 40, y_fim)
     pontos = []
     for i in range(161):
         t = i / 160
         px = (1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * p1[0] + t ** 2 * p2[0]
         py = (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * p1[1] + t ** 2 * p2[1]
         pontos.append((px * F, py * F))
-    dl.line(pontos, fill=255, width=6 * F, joint='curve')
+    dl.line(pontos, fill=255, width=8 * F, joint='curve')
     mascara = camada.resize((w, h), Image.LANCZOS)
     base.paste(Image.new('RGB', (w, h), BRANCO), (0, 0), mascara)
 
@@ -157,22 +193,25 @@ def gerar(pg, formato='feed'):
     if formato == 'story':
         return _gerar_story(pg)
     w, h = 1080, 1350
-    base = Image.new('RGB', (w, h), (10, 6, 5))
+    base = Image.new('RGB', (w, h), (6, 4, 4))       # a moldura preta da casa
     caminho = os.path.join(ROOT, pg.get('img', ''))
     if pg.get('img') and os.path.exists(caminho):
         foto = Image.open(caminho).convert('RGB')
-        base.paste(_cover(foto, w, h))
+        m = MOLDURA
+        base.paste(_cover(foto, w - 2 * m, h - 2 * m), (m, m))
     dr = ImageDraw.Draw(base, 'RGB')
-    _gradiente(base, 0, 340, 150, 0)
-    _gradiente(base, h - 520, h, 0, 225)
-    _arco(base, y_ini=76, y_fim=440)
-    _cabecalho(dr, base, pg.get('cat'), y=148)
+    _gradiente(base, 0, 320, 130, 0)
+    _gradiente(base, h - 560, h, 0, 235)
+    _arco(base)
+    _cabecalho(dr, base, pg.get('cat'), y=150)
     toks = _tokens_titulo(pg)
-    tam = 46
+    tam = 54
     n = sum(len(w) for w, _ in toks)
-    if n > 90:
-        tam -= 4
-    _desenha_titulo(dr, toks, 92, h - 120, w - 200, tam)
+    if n > 70:
+        tam = 50
+    if n > 95:
+        tam = 46
+    _desenha_titulo(dr, toks, 92, h - 128, w - 200, tam)
     return base
 
 
@@ -189,8 +228,8 @@ def _gerar_story(pg):
         escuro = Image.new('RGB', (w, h), (10, 5, 4))
         base = Image.blend(fundo, escuro, 0.55)
     dr = ImageDraw.Draw(base, 'RGB')
-    _arco(base, y_ini=112, y_fim=520)
-    _cabecalho(dr, base, pg.get('cat'), y=196)
+    _arco(base, y_ini=170, y_fim=640)
+    _cabecalho(dr, base, pg.get('cat'), y=170)
     if foto is not None:
         larg_card = 940
         alt_card = min(round(larg_card * foto.height / foto.width), 1000)
@@ -206,10 +245,10 @@ def _gerar_story(pg):
     else:
         y_texto_topo = 760
     toks = _tokens_titulo(pg)
-    tam = 54
+    tam = 56
     if sum(len(t) for t, _ in toks) > 80:
         tam -= 5
-    f = _fonte('PTSans-Bold.ttf', tam)
+    f = _fonte_titulo(tam)
     # desenha do topo do bloco (calcula altura primeiro numa passada seca)
     dr2 = ImageDraw.Draw(Image.new('RGB', (10, 10)))
     esp = dr2.textlength(' ', font=f)
@@ -224,7 +263,7 @@ def _gerar_story(pg):
         cw += tw + esp
     alt_bloco = round(tam * 1.16) * linhas
     _desenha_titulo(dr, toks, 92, min(y_texto_topo + alt_bloco, h - 250), larg, tam)
-    f_mini = _fonte('PTSans-Bold.ttf', 34)
+    f_mini = _fonte_titulo(34)
     dr.text((92, h - 170), 'Leia a matéria completa em foyer.digital', font=f_mini, fill=OURO)
     return base
 
