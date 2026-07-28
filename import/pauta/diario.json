@@ -1,6 +1,74 @@
 {
  "rodadas": [
   {
+   "quando": "2026-07-28T12:00:23-03:00",
+   "por": "Rotina diária (Claude) — arquitetura de três ondas",
+   "buscas": [
+    "o que faz um contrarregra no teatro / decreto 82.385 1978 profissoes do espetaculo",
+    "Theatro Jose de Alencar Fortaleza historia 1910 estrutura escocesa Burle Marx",
+    "Hadestown stage film opening weekend record Hamilton capture box office",
+    "teatros historicos do Brasil em atividade / Unesco Teatros da Amazonia julho 2026",
+    "Tudo Preto uma re_vista CCBB Rio Companhia Negra de Revistas centenario",
+    "Laila Garin Piaf Eu Nao Me Arrependo Teatro Bradesco agosto 2026"
+   ],
+   "consideradas": [
+    {
+     "assunto": "Contrarregra (Entenda, prato do dia de terca)",
+     "decisao": "escolhida",
+     "motivo": "explicador de bastidor ainda nao coberto; base legal no decreto 82.385/1978"
+    },
+    {
+     "assunto": "Theatro Jose de Alencar (Casa de Espetaculo)",
+     "decisao": "escolhida",
+     "motivo": "casa nao coberta; foto em dominio publico do MTur"
+    },
+    {
+     "assunto": "Filme de Hadestown bate recorde de estreia",
+     "decisao": "escolhida",
+     "motivo": "noticia mundial fora da bolha, com numero oficial de bilheteria"
+    },
+    {
+     "assunto": "10 teatros historicos em atividade (Lista)",
+     "decisao": "escolhida",
+     "motivo": "gancho da Unesco de 27/07/2026; cada item com ano em fonte oficial"
+    },
+    {
+     "assunto": "Tudo Preto no CCBB Rio (unica vaga de circuito)",
+     "decisao": "escolhida",
+     "motivo": "centenario da Companhia Negra de Revistas; equipe premiada no Shell 2026"
+    },
+    {
+     "assunto": "Perfil de Laila Garin (Quem e)",
+     "decisao": "escolhida",
+     "motivo": "estreia como Piaf em 07/08; trajetoria documentada"
+    },
+    {
+     "assunto": "Palcos moveis no teatro grego de Messene",
+     "decisao": "descartada",
+     "motivo": "apuracao mostrou reciclagem de estudo de 2017; data estaria errada"
+    },
+    {
+     "assunto": "Tristao e Isolda no Theatro Municipal de SP",
+     "decisao": "descartada",
+     "motivo": "de 30/06 e a casa ja estava em outra materia da mesa"
+    },
+    {
+     "assunto": "Musical Bete Balanco com Gabz",
+     "decisao": "descartada",
+     "motivo": "unica fonte trazia erro grosseiro de data"
+    }
+   ],
+   "produzidas": [
+    "o-que-faz-um-contrarregra-no-teatro",
+    "historia-do-theatro-jose-de-alencar-fortaleza",
+    "filme-hadestown-supera-hamilton-recorde-captacao-teatro-cinema",
+    "teatros-historicos-do-brasil-em-atividade-2026",
+    "tudo-preto-uma-revista-ccbb-rio-centenario-companhia-negra",
+    "quem-e-laila-garin-atriz-cantora-piaf"
+   ],
+   "obs": "6/6 aprovadas no portao apos as 3 ondas. ACHADOS DOS CHECADORES: (1) a lista afirmava que o Theatro Sete de Abril (Pelotas) seguia interditado, quando reabriu em 07/07/2026 apos 16 anos fechado - erro grave corrigido; (2) o titulo do Hadestown dizia 'supera Hamilton', que lido solto sugere bilheteria total: reescrito para recorde de ESTREIA, com o acumulado do Hamilton (US$ 16,9 mi) explicitado no texto; (3) na materia do CCBB, uma fonte (blog) nao sustentava nada do que fora citado nela e foi removida; categoria do Shell corrigida para direcao musical; (4) no perfil da Laila Garin, duas publicacoes creditavam fotografos diferentes: credito rebaixado para 'Divulgacao'; dois premios sem segunda fonte cortados; (5) no Jose de Alencar, o ano do jardim de Burle Marx tinha sido eleito entre fontes divergentes sem dizer de onde vinha: agora atribuido fonte a fonte (1973/1974/1975); capacidade da sala cortada (711/752/800 divergiam); (6) no contrarregra, cortado o numero de sinais (sem fonte) e uma frase sobre cenotecnico cujo anexo nao consta da publicacao original do decreto. ORQUESTRADOR corrigiu ainda: inferencia sem fonte no contrarregra, afirmacao de centralidade no lide do Jose de Alencar, e precisao do ano da reedicao de Elis. TRANSPARENCIA: @teatroamazonas ficou confirmado:false (tres perfis concorrentes) e @teatrobradesco tambem (cobre mais de uma casa); foto do contrarregra e ilustrativa estrangeira; filme de Hadestown nao tem lancamento previsto no Brasil."
+  },
+  {
    "quando": "2026-07-27T07:41:05-03:00",
    "por": "Rotina diária (Claude) — arquitetura de três ondas",
    "buscas": [
