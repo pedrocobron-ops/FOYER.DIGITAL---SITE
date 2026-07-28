@@ -168,18 +168,17 @@ def _cabecalho(dr, base, cat, y=132):
     dr.text((x + logo.width + 6, y + alt - 35), sufixo, font=f_sans, fill=BRANCO)
 
 
-def _arco(base, y_ini=150, y_fim=None):
-    """O arco branco da casa: passa alto, rente ao topo, e desce cruzando o
-    canto direito (como nos posts publicados; não mergulha na foto)."""
+def _arco(base, y_topo=106, queda=430):
+    """A linha branca da casa: corre RETA no alto da arte e só dobra para
+    baixo na margem direita, descendo colada a ela (como nos posts)."""
     w, h = base.size
-    if y_fim is None:
-        y_fim = int(h * 0.40)
     F = 4
     camada = Image.new('L', (w * F, h * F), 0)
     dl = ImageDraw.Draw(camada)
-    p0, p1, p2 = (-50, y_ini - 56), (int(w * 0.58), 44), (w + 40, y_fim)
-    pontos = []
-    for i in range(161):
+    x_dobra = w - 330                     # onde a reta começa a virar
+    pontos = [(-30 * F, y_topo * F), (x_dobra * F, y_topo * F)]
+    p0, p1, p2 = (x_dobra, y_topo), (w - 52, y_topo), (w + 18, y_topo + queda)
+    for i in range(1, 161):
         t = i / 160
         px = (1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * p1[0] + t ** 2 * p2[0]
         py = (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * p1[1] + t ** 2 * p2[1]
@@ -228,8 +227,8 @@ def _gerar_story(pg):
         escuro = Image.new('RGB', (w, h), (10, 5, 4))
         base = Image.blend(fundo, escuro, 0.55)
     dr = ImageDraw.Draw(base, 'RGB')
-    _arco(base, y_ini=170, y_fim=640)
-    _cabecalho(dr, base, pg.get('cat'), y=170)
+    _arco(base, y_topo=140, queda=520)
+    _cabecalho(dr, base, pg.get('cat'), y=196)
     if foto is not None:
         larg_card = 940
         alt_card = min(round(larg_card * foto.height / foto.width), 1000)
