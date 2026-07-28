@@ -1,6 +1,38 @@
 {
  "rodadas": [
   {
+   "quando": "2026-07-28T15:08:20-03:00",
+   "por": "Rodada de teste das assinaturas (Claude) — tres ondas",
+   "buscas": [
+    "edital Petrobras cultural 2026 R$ 270 milhoes prazo inscricao",
+    "Dois Papas Celso Frateschi Zecarlos Machado TUCA temporada 2026",
+    "RSC Game of Thrones Mad King previews cancelled Stratford"
+   ],
+   "consideradas": [
+    {
+     "assunto": "Edital Petrobras de R$ 270 mi (voz Pedro)",
+     "decisao": "escolhida",
+     "motivo": "pauta de dinheiro com prazo fechando em 3 dias; numeros no regulamento oficial"
+    },
+    {
+     "assunto": "Dois Papas no TUCA (voz Isabel)",
+     "decisao": "escolhida",
+     "motivo": "estreia em SP em 31/07 com elenco de peso; servico completo na fonte oficial"
+    },
+    {
+     "assunto": "RSC cancela previews de Game of Thrones (voz Redacao)",
+     "decisao": "escolhida",
+     "motivo": "bastidor internacional; explica para que serve o periodo de pre-estreias"
+    }
+   ],
+   "produzidas": [
+    "petrobras-cultural-2026-edital-270-milhoes-prazo-31-julho",
+    "dois-papas-tuca-celso-frateschi-zecarlos-machado",
+    "game-of-thrones-mad-king-rsc-previews-cancelados-stratford"
+   ],
+   "obs": "PRIMEIRA rodada com o novo combinado de assinaturas: Pedro Amaral (mercado/dinheiro/economia criativa/cinema), Isabel Branquinha (estreias e artes em SP) e Redacao Foyer (o resto). Materia assinada por pessoa so pode ser aprovada por ela na Coxia. 3/3 aprovadas no portao. ACHADOS DOS CHECADORES: (1) Petrobras: foi ao regulamento oficial em PDF, corrigiu 'dinheiro em dezembro' para 'contratacao a partir de 15/12', cortou a atribuicao inventada 'a companhia nao preve prorrogacao' e corrigiu o credito da foto (Caru, nao Carol Pastor); (2) Dois Papas: corrigiu 'roteiro adaptado' para 'melhor roteiro', fez a aspa de Frateschi nomear a origem, derrubou uma ressalva que estava errada (os precos ESTAO na pagina oficial) e acrescentou o ingresso PUC-SP de R$ 20; (3) RSC: corrigiu o campo evento, que trazia 25/07, data em disputa E sessao cancelada, para 28/07; removeu @almeida_theatre (teatro sem papel na montagem); derrubou uma linha do tempo nascida de confusao de fuso. ORQUESTRADOR corrigiu ainda no texto do Pedro: 'dinheiro na conta' (afirmava mais que a fonte) e a atribuicao da faixa de 150 a 170 propostas. VOZES: as duas leituras frias das assinaturas pessoais mudaram UMA frase cada e registraram que o texto ja soava como a pessoa. As leituras frias receberam instrucao explicita de PRESERVAR a voz, para nao homogeneizar as tres assinaturas."
+  },
+  {
    "quando": "2026-07-28T12:00:23-03:00",
    "por": "Rotina diária (Claude) — arquitetura de três ondas",
    "buscas": [
