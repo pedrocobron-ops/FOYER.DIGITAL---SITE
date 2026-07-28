@@ -110,8 +110,23 @@
     background-image:radial-gradient(120% 170% at 100% -30%, rgba(233,203,133,.12), transparent 55%); }
   .stat:nth-child(3n){ border-right:0; }
   .stat:nth-child(-n+3){ border-bottom:1px solid var(--line); }
-  .stat{ border-right:1px solid var(--line); padding:24px 22px 20px; transition:background .15s; }
-  .stat:hover{ background:rgba(206,178,106,.10); }
+  .stat{ border:0; border-right:1px solid var(--line); padding:24px 22px 20px; transition:background .15s;
+    display:block; width:100%; text-align:left; background:none; color:inherit;
+    font-family:inherit; cursor:pointer; position:relative; }
+  .stat:hover:not(:disabled){ background:rgba(206,178,106,.10); }
+  .stat:focus-visible{ outline:3px solid var(--gold); outline-offset:-3px; }
+  .stat:disabled{ cursor:default; }
+  /* seta discreta que avisa que o número leva a algum lugar */
+  .stat:not(:disabled)::after{ content:'↗'; position:absolute; top:14px; right:14px; font-size:.72rem;
+    color:var(--ink-soft); opacity:0; transition:opacity .15s; }
+  .stat:hover:not(:disabled)::after, .stat:focus-visible::after{ opacity:.75; }
+  /* destaque do bloco de destino, quando se chega nele por um número do painel */
+  .foco-flash{ animation:focoFlash 1.6s ease-out 1; }
+  @keyframes focoFlash{
+    0%{ box-shadow:0 0 0 3px var(--gold); }
+    70%{ box-shadow:0 0 0 3px var(--gold); }
+    100%{ box-shadow:0 0 0 3px rgba(206,178,106,0); } }
+  @media (prefers-reduced-motion:reduce){ .foco-flash{ animation:none; box-shadow:0 0 0 3px var(--gold); } }
   .stat b{ display:block; font-family:var(--didone); font-weight:400; font-size:3rem; line-height:1;
     color:var(--wine); }
   html[data-theme="dark"] .stat b, body.dark .stat b{ color:var(--gold-hi); }
@@ -704,12 +719,12 @@
         <h2 class="hi" id="saudacao">Boa noite</h2>
         <p class="hi-sub">O panorama do FOYER neste momento</p>
         <div class="stats">
-          <div class="stat"><b>__TOTAL__</b><span>matérias no acervo</span></div>
-          <div class="stat"><b id="st-pub">—</b><span>publicadas pela Coxia</span></div>
-          <div class="stat"><b id="st-ag">—</b><span>agendadas esperando a hora</span></div>
-          <div class="stat" id="card-mesa"><b id="st-mesa">—</b><span>na mesa de aprovação</span></div>
-          <div class="stat"><b id="st-leituras">—</b><span>leituras no site (7 dias)</span></div>
-          <div class="stat"><b id="st-assin">—</b><span>assinantes da newsletter</span></div>
+          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>__TOTAL__</b><span>matérias no acervo</span></button>
+          <button class="stat" type="button" data-go="fila" data-foco="#fila-list"><b id="st-pub">—</b><span>publicadas pela Coxia</span></button>
+          <button class="stat" type="button" data-go="fila" data-foco=".fila-agenda" data-foco-alt="#fila-list"><b id="st-ag">—</b><span>agendadas esperando a hora</span></button>
+          <button class="stat" type="button" id="card-mesa" data-go="ia" data-foco="#mesa-list"><b id="st-mesa">—</b><span>na mesa de aprovação</span></button>
+          <button class="stat" type="button" id="card-leituras" data-go="metricas"><b id="st-leituras">—</b><span>leituras no site (7 dias)</span></button>
+          <button class="stat" type="button" id="card-assin" data-go="revista"><b id="st-assin">—</b><span>assinantes da newsletter</span></button>
         </div>
         <div id="palco-novidades"></div>
         <div class="quick">
@@ -1425,6 +1440,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     $('mi-ia').classList.toggle('hid', !podeMesa());
     $('mural-fixar-l').style.display = USER.papel === 'chefe' ? 'inline-flex' : 'none';
     $('card-mesa').style.display = podeMesa() ? '' : 'none';
+    // cada número do painel leva ao seu lugar; quem não tem a tela vê o dado sem o atalho
+    $('card-acervo').disabled = !podeEditar();      // a busca do acervo é de editor para cima
+    $('card-leituras').disabled = USER.papel !== 'chefe';
+    $('card-assin').disabled = USER.papel !== 'chefe';
     $('q-ia').style.display = podeMesa() ? '' : 'none';
     // autores no formulário
     var sel = $('f-autor');
@@ -1545,7 +1564,28 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   tic(); setInterval(tic, 30000);
 
   /* ---------------- navegação ---------------- */
-  function irPara(v){
+  // leva a tela até o bloco pedido e o acende por um instante. As listas chegam
+  // do GitHub, então o bloco pode ainda não existir: tenta por até 4 segundos.
+  function focarBloco(sel, reserva){
+    if(!sel) return;
+    var tentativas = 0;
+    (function tenta(){
+      var el = document.querySelector(sel);
+      if(el && el.offsetParent !== null){
+        el.scrollIntoView({ behavior:'smooth', block:'start' });
+        el.classList.remove('foco-flash');
+        void el.offsetWidth;               // reinicia a animação se já tinha rodado
+        el.classList.add('foco-flash');
+        setTimeout(function(){ el.classList.remove('foco-flash'); }, 1800);
+        return;
+      }
+      if(++tentativas < 20){ setTimeout(tenta, 100); return; }
+      // o bloco não existe (nenhuma agendada, por exemplo): cai no destino de reserva
+      if(reserva) focarBloco(reserva);
+    })();
+  }
+
+  function irPara(v, foco, focoAlt){
     document.querySelectorAll('#menu button').forEach(function(x){ x.classList.toggle('on', x.dataset.view === v); });
     document.querySelectorAll('.view').forEach(function(x){ x.classList.remove('on'); });
     $('view-' + v).classList.add('on');
@@ -1556,13 +1596,14 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(v === 'saguao') carregarSaguao();
     if(v === 'revista') carregarEdicoes();
     if(v === 'metricas') carregarMetricas();
+    if(foco) focarBloco(foco, focoAlt);
   }
   document.querySelectorAll('#menu button').forEach(function(b){
     b.addEventListener('click', function(){ irPara(b.dataset.view); });
   });
   document.addEventListener('click', function(e){
     var g = e.target.closest('[data-go]');
-    if(g) irPara(g.dataset.go);
+    if(g) irPara(g.dataset.go, g.dataset.foco, g.dataset.focoAlt);
   });
 
   /* ---------------- token ---------------- */
