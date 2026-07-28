@@ -19,20 +19,35 @@
   "https://commons.wikimedia.org/wiki/File:A_rehearsal_of_an_opera_occurs_on_stage,_at_Esplanade_(a_Centre_for_Performing_Arts),_in_Singapore.jpg"
  ],
  "status": "aguardando_aprovacao",
+ "checagem": {
+  "verificada": true,
+  "por": "checador independente",
+  "conferido": "As cinco URLs de fontes foram abertas e reconferidas uma a uma. CBTIJ/Geir Campos: os verbetes ENSAIAR, ENSAIO DE CENARIO (coluna inglesa 'Scene Rehearsal, Technical Rehearsal'), ENSAIO DE LUZ e ENSAIO GERAL ('Dress Rehearsal') batem palavra por palavra, e a Mencao 'Recomendacao Especial' da comissao de Sabato Magaldi, Yan Michalski e Decio de Almeida Prado consta no cabecalho do glossario. Dramatics: a anatomia da deixa (preface/action/trigger, exemplos Lights 59 e Projection 243), o exemplo da palavra impossivel de marcar, o hold, os standbys 30 segundos antes e as trocas rapidas com os camareiros conferem com o artigo de Andrea L. Shell. Broadway News (19/12/2022): o contrato de producao Actors' Equity x The Broadway League foi ratificado em 19 de dezembro de 2022 e a materia define '10 out of 12s' como ensaios tecnicos anteriores ao periodo de apresentacoes em que a companhia trabalha dez horas dentro de doze consecutivas, reduzindo o maximo permitido de sete para cinco. Actors' Equity (30/10/2025): o comunicado confirma a ratificacao do novo contrato valido ate setembro de 2028 e a fala de Al Vincent Jr. sobre 'humane scheduling', e NAO menciona numero de 10 out of 12; o texto nao estende a reducao de sete para cinco (que e do contrato de 2022) ao acordo de 2025. TUSP: o edital 01/2026 traz literalmente 'O espaco de apresentacao estara disponivel para montagem e ensaios na semana que antecede a estreia' e o item 10.1 sobre montagem tecnica e operacao de luz e som pela producao. Foto: pagina do Wikimedia Commons confirma licenca CC BY-SA 4.0, autor Rogbeer, obra propria, 4160x3120, 04/07/2023, ensaio de opera no palco do Esplanade (Cingapura); o recorte 16:9 em assets/uploads foi inspecionado pixel a pixel contra o original e removeu apenas os 780px superiores (teto e varas de luz), preservando integros o maestro, os cerca de cinquenta musicos e o ator de casaco vermelho. Arrobas @actorsequity e @tusp.teatrodausp confirmadas (a segunda linkada no proprio site usp.br/tusp). Os tres links internos existem e constam de assets/busca-index.json; zero travessoes; sem campo 'evento', correto para explicador.",
+  "cortes": [
+   "Formula proibida remanescente: 'O ensaio tecnico nao avanca por cenas. Avanca por deixas.' reescrita para 'O ensaio tecnico avanca deixa a deixa' no corpo e na legenda do Instagram (a construcao 'nao e X, e Y' seguia intacta, so quebrada por ponto e por virgula).",
+   "Aspa de Kate Shindle encurtada para trecho contiguo ('menos 10/12, menos horas de ensaio depois da estreia'): a versao anterior pulava o item 'significant EDI advances' no meio da lista sem reticencias.",
+   "Ensaio geral: 'e descrito como o ultimo da serie' corrigido para o que o glossario diz, 'geralmente o ultimo'.",
+   "'as trocas rapidas de figurino sao ensaiadas a parte' corrigido: a Dramatics descreve o oposto, a troca e acertada com os camareiros enquanto as deixas sao construidas e a sequencia volta ao ponto da saida para ser testada inteira.",
+   "'Qualquer integrante da equipe artistica pode pedir um hold' reescrito para o procedimento descrito na fonte (o ensaio para num hold quando alguem da equipe artistica precisa escrever ou ajustar uma deixa, e volta atras so o trecho necessario).",
+   "Cortada a generalizacao sem fonte 'Em montagens pequenas, essa semana encolhe para um dia... Em espetaculos de grande porte, ele se estende por varios dias': nenhuma das fontes descreve esses prazos no Brasil. O paragrafo agora so remete a materia do FOYER sobre custo de montagem.",
+   "'da uma medida concreta de teatro publico' rebaixado para 'de uma casa publica': o edital do TUSP descreve uma casa, nao um padrao do teatro publico brasileiro.",
+   "'Multiplicado por algumas centenas de deixas' rebaixado para 'dezenas ou centenas': a fonte so exemplifica numeracao de deixas (Projection 243), nao afirma media por espetaculo."
+  ]
+ },
  "chefe": {
   "aprovado": true,
   "nota": 8,
   "parecer": "Explicador evergreen sobre a etapa mais longa e menos visível de uma estreia, ancorado no glossário de Geir Campos publicado pelo CBTIJ, em artigo técnico da revista Dramatics, no contrato de produção da Actors' Equity com a The Broadway League e em edital de teatro público brasileiro. Foto sob licença CC verificada na página do arquivo.",
   "ressalvas": [
-   "As duas citações em bloco são traduções do FOYER: a de Andrea L. Shell foi publicada em inglês pela revista Dramatics e a de Kate Shindle foi divulgada em inglês pelo Broadway News. Os dois veículos estão nomeados no próprio texto e nenhuma declaração foi dada ao FOYER.",
+   "As duas citações em bloco são traduções do FOYER: a de Andrea L. Shell foi publicada em inglês pela revista Dramatics e a de Kate Shindle foi divulgada em inglês pelo Broadway News. Os dois veículos estão nomeados no próprio texto, a de Shindle foi encurtada para um trecho contíguo do original e nenhuma declaração foi dada ao FOYER.",
    "O comunicado da Actors' Equity de 30/10/2025 não detalha o número de ensaios 10 out of 12 do novo contrato; o texto por isso registra apenas o que o sindicato afirmou publicamente sobre escalas de trabalho, sem estender a redução de sete para cinco (que é do contrato de 2022) ao acordo atual.",
    "A regra dos 10 out of 12 vale para o contrato de produção da Broadway e não tem equivalente legal no Brasil; o texto atribui a informação e não generaliza.",
-   "Foto ilustrativa de um ensaio no palco do Esplanade, em Cingapura (CC BY-SA 4.0, autor Rogbeer, 4/7/2023), usada como imagem de contexto da etapa. Não retrata nenhuma das produções citadas. A imagem original é 4160x3120 e foi recortada em 16:9 preservando o palco e os músicos.",
+   "Foto ilustrativa estrangeira: ensaio de ópera no palco do Esplanade, em Cingapura (CC BY-SA 4.0, autor Rogbeer, 4/7/2023), usada como imagem de contexto da etapa. Não retrata nenhuma das produções citadas nem teatro brasileiro. A imagem original é 4160x3120 e o recorte 16:9 tirou só a faixa superior (teto e varas), sem cortar nenhuma das pessoas em cena.",
    "O edital 01/2026 do TUSP descreve a prática daquela casa e serve de exemplo brasileiro, não de padrão nacional; o texto atribui a fonte."
   ]
  },
  "geradoEm": "2026-07-28T12:00:00+00:00",
- "esteira": "pauteiro > reporter > editor-estilo > chefe-redacao",
+ "esteira": "pauteiro > reporter > editor-estilo > checador > chefe-redacao",
  "instagram": {
   "titulo": "O que é um *ensaio técnico* e por que ele demora tanto?",
   "legenda": "Nos dias que antecedem uma estreia, o palco fica sob luz de serviço e a cena avança poucos segundos por vez. O ensaio técnico avança deixa a deixa: cada mudança de luz, som ou cenário precisa ser construída, anotada e testada uma a uma, com o elenco voltando atrás quantas vezes for preciso.\n\nO FOYER reuniu o que dizem o glossário de termos teatrais de Geir Campos, publicado pelo CBTIJ, um artigo técnico da revista Dramatics sobre como se chama um espetáculo e o contrato de produção da Broadway, onde os ensaios de dez horas dentro de doze viraram tema de negociação sindical.\n\nPara conferir a matéria completa, acesse o site: www.foyer.digital\n📷: Rogbeer/Wikimedia Commons (CC BY-SA 4.0)\nPor Redação Foyer",
