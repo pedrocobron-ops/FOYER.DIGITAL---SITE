@@ -565,6 +565,64 @@
     "wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang"
    ],
    "obs": "Ambas com nota 8 do chefe de redação; falta foto de divulgação nas duas — anexar a capa na mesa antes de publicar."
+  },
+  {
+   "quando": "2026-07-28T17:05:00-03:00",
+   "por": "Rodada de teste da cota 2+2+2 (Claude) — tres ondas",
+   "buscas": [
+    "bilheteria brasileira semana 23 a 26 de julho de 2026 Filme B publico",
+    "morte Luiz Carlos Barreto produtor 22 julho 2026 Dona Flor bilheteria",
+    "Djavan O Musical Vidas pra Contar Teatro Claro Mais SP temporada ingressos",
+    "Meu Deus Bianca Bin Sergio Guize Teatro das Artes estreia",
+    "ensaio tecnico teatro glossario CBTIJ 10 out of 12 Equity",
+    "Theatro Sete de Abril Pelotas reabertura 7 julho 2026 restauro"
+   ],
+   "consideradas": [
+    {
+     "assunto": "Semana de cinema com 2,14 mi de ingressos e nenhum brasileiro no top 10 (voz Pedro)",
+     "decisao": "escolhida",
+     "motivo": "numero fechado do Filme B; leitura de mercado com quem paga e quem fica de fora"
+    },
+    {
+     "assunto": "Morte de Luiz Carlos Barreto lida pelo dinheiro do cinema brasileiro (voz Pedro)",
+     "decisao": "escolhida",
+     "motivo": "obituario com angulo de mercado que so o FOYER faz; morte em 22/07, materia sai com seis dias"
+    },
+    {
+     "assunto": "Djavan O Musical no Teatro Claro Mais SP (voz Isabel)",
+     "decisao": "escolhida",
+     "motivo": "temporada em cartaz em SP com servico completo e precos por setor"
+    },
+    {
+     "assunto": "Meu Deus, com Bianca Bin e Sergio Guize, no Teatro das Artes (voz Isabel)",
+     "decisao": "escolhida",
+     "motivo": "montagem em cartaz em SP, elenco de peso, servico verificado na bilheteria oficial"
+    },
+    {
+     "assunto": "O que e um ensaio tecnico (voz Redacao)",
+     "decisao": "escolhida",
+     "motivo": "explicador de bastidor com glossario do CBTIJ e regra sindical americana como referencia"
+    },
+    {
+     "assunto": "Theatro Sete de Abril de Pelotas reabre apos 16 anos (voz Redacao)",
+     "decisao": "escolhida",
+     "motivo": "patrimonio; reabertura em 7/7 com valores atribuidos a Prefeitura"
+    }
+   ],
+   "produzidas": [
+    "cinemas-2-14-milhoes-ingressos-filme-brasileiro-fora-do-top-10",
+    "morre-luiz-carlos-barreto-produtor-cinema-brasileiro-bilheteria",
+    "djavan-o-musical-vidas-pra-contar-teatro-claro-mais-sp",
+    "meu-deus-bianca-bin-sergio-guize-teatro-das-artes",
+    "o-que-e-um-ensaio-tecnico-no-teatro",
+    "theatro-sete-de-abril-pelotas-reabre-apos-16-anos"
+   ],
+   "cota": {
+    "Pedro Amaral": 2,
+    "Isabel Branquinha": 2,
+    "Redacao Foyer": 2
+   },
+   "obs": "Primeira rodada com a cota diaria fixa de 2 + 2 + 2, a pedido do Pedro. Um redator por assinatura, cada um com o guia de voz. Onda 2 (checagem independente) barrou: preco de meia vendido como preco de entrada no Djavan (R$ 25 era meia; a inteira mais barata e R$ 50, no Balcao), comparacao falsa de feriado e erro de aritmetica na materia de bilheteria, arroba errada de veiculo (@revistaexibidor virou @portal.exibidor), aspa de release atribuida a blog em Meu Deus, confusao entre 42% de receita e 6,5% de publico no obituario, uma frase que dizia o OPOSTO da fonte sobre trocas de figurino no explicador de ensaio tecnico, e dois adjetivos sem fonte na materia de Pelotas. Onda 3 (leitura fria) veio com ordem de PRESERVAR a voz de cada assinatura, nao homogeneizar: as seis voltaram com poucas frases mexidas e relato de que o texto ja soava como a pessoa. Materias na mesa da Coxia aguardando aprovacao humana; as de Pedro so ele aprova, as da Isabel so ela, pela trava de assinatura."
   }
  ]
 }
