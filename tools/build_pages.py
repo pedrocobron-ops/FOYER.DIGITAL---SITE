@@ -854,7 +854,8 @@ erow('Bia Camargo','Desenhista de luz','034') + '''
   <div class="wrap">
     <h2>A Revista do Foyer — toda sexta no seu e-mail</h2>
     <div class="go-rev">
-      <a href="revista.html">Conhecer &amp; assinar →</a>
+      <button type="button" data-conversa>🎟 Assinar em um minuto</button>
+      <a href="revista.html">conhecer a revista →</a>
     </div>
   </div>
 </section>
@@ -1408,7 +1409,8 @@ __ENCICLOPEDIA_CAPA__
   <div class="wrap">
     <h2>A Revista do Foyer — toda sexta no seu e-mail</h2>
     <div class="go-rev">
-      <a href="revista.html">Conhecer &amp; assinar →</a>
+      <button type="button" data-conversa>🎟 Assinar em um minuto</button>
+      <a href="revista.html">conhecer a revista →</a>
     </div>
   </div>
 </section>
@@ -1593,6 +1595,13 @@ def post_page(i, p):
       <button class="sbtn" data-share="copy" data-title="{safe(p['title'])}">Copiar link</button>
     </div>
   </div>
+  <aside class="cv-band">
+    <div class="cv-band-txt">
+      <b>Gostou desta leitura?</b>
+      <span>A revista do FOYER chega toda sexta, às 7h, com a semana fechada. De graça.</span>
+    </div>
+    <button type="button" data-conversa>🎟 Quero a minha</button>
+  </aside>
 </article>
 
 <section>
