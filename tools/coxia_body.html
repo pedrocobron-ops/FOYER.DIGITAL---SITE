@@ -1115,6 +1115,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                 <input type="file" id="rv-capa-file" accept="image/*">
               </div>
             </div>
+            <div><label>Crédito da foto de capa (fotógrafo/Divulgação)</label><input type="text" id="rv-capa-cred" placeholder="Divulgação"></div>
             <div><label>Manchete de capa</label><input type="text" id="rv-manchete" placeholder="A manchete grande da capa"></div>
             <div><label>Chamadas de capa (uma por linha)</label><textarea id="rv-chamadas" rows="3" placeholder="Crítica: a estreia da semana&#10;Exclusivo: entrevista com…&#10;Agenda: 12 estreias"></textarea></div>
           </div>
@@ -4273,6 +4274,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     $('rv-titulo').value = ed.titulo || '';
     $('rv-data').value = ed.dataEdicao || '';
     $('rv-manchete').value = (ed.capa && ed.capa.manchete) || '';
+    $('rv-capa-cred').value = (ed.capa && ed.capa.credito) || '';
     $('rv-chamadas').value = ((ed.capa && ed.capa.chamadas) || []).join('\n');
     var upEl = $('rv-capa-up');
     if(ed.capa && ed.capa.img){ $('rv-capa-prev').src = ed.capa.img; upEl.classList.add('tem'); }
@@ -4526,6 +4528,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     RV.ed.titulo = $('rv-titulo').value.trim();
     RV.ed.dataEdicao = $('rv-data').value.trim();
     RV.ed.capa.manchete = $('rv-manchete').value.trim();
+    RV.ed.capa.credito = $('rv-capa-cred').value.trim();
     RV.ed.capa.chamadas = $('rv-chamadas').value.split('\n').map(function(x){ return x.trim(); }).filter(Boolean);
   }
   function salvarEd(acao){

@@ -222,40 +222,41 @@ body.rv-duplo .rv-pg.on.pg-r .rv-folio b{ order:99; }
   font-size:.54rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; }
 .rv-kicker .tagz{ background:var(--wine); color:var(--gold); padding:4px 10px; }
 
-/* ---------- CAPA ---------- */
+/* ---------- CAPA (foto emoldurada no centro, como manda o cartaz) ---------- */
 .rv-capa2{ background:var(--wine); }
-.rv-capa2 .bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-  object-position:center 20%; }
-.rv-capa2 .veu{ position:absolute; inset:0;
-  background:linear-gradient(180deg, rgba(35,8,5,.5) 0%, rgba(35,8,5,0) 26%,
-    rgba(35,8,5,0) 58%, rgba(35,8,5,.82) 84%, rgba(35,8,5,.95) 100%); }
-.rv-capa2 .nameplate{ position:relative; z-index:3; padding:20px 22px 0; }
+.rv-capa2 .nameplate{ padding:24px 26px 0; }
 .rv-capa2 .nameplate img{ width:100%; display:block;
-  filter:drop-shadow(0 2px 14px rgba(0,0,0,.55)); }
-.rv-capa2 .linha-ed{ position:relative; z-index:3; display:flex; justify-content:space-between;
-  padding:9px 22px; font-family:var(--mono); font-size:.55rem; font-weight:600;
-  letter-spacing:.24em; text-transform:uppercase; color:var(--gold);
-  text-shadow:0 1px 3px rgba(0,0,0,.9), 0 0 12px rgba(0,0,0,.6); }
-.rv-capa2 .base{ position:absolute; left:0; right:0; bottom:0; z-index:3; }
-.rv-capa2 .manchete{ padding:0 22px 12px; }
+  filter:drop-shadow(0 2px 10px rgba(0,0,0,.4)); }
+.rv-capa2 .linha-ed{ display:flex; justify-content:space-between; padding:10px 26px 0;
+  font-family:var(--mono); font-size:.55rem; font-weight:600;
+  letter-spacing:.24em; text-transform:uppercase; color:var(--gold); }
+.rv-capa2 .moldura{ flex:1; min-height:0; margin:16px 26px; position:relative;
+  border:3px solid var(--gold); outline:1px solid rgba(206,178,106,.45); outline-offset:5px;
+  background:#1b0703; }
+.rv-capa2 .moldura img{ position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:center 25%; }
+.rv-capa2 .cred{ position:absolute; right:0; bottom:0; font-family:var(--mono); font-size:.5rem;
+  letter-spacing:.14em; text-transform:uppercase; color:#efe8da;
+  background:rgba(20,6,3,.72); padding:5px 9px; }
+.rv-capa2 .manchete{ padding:2px 26px 0; }
 .rv-capa2 .manchete em{ display:block; font-style:normal; font-family:var(--mono);
-  font-size:.58rem; font-weight:600; letter-spacing:.3em; text-transform:uppercase;
-  color:var(--gold); margin-bottom:8px; }
+  font-size:.56rem; font-weight:600; letter-spacing:.3em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:6px; }
 .rv-capa2 .manchete h2{ font-family:var(--didone); font-weight:400; color:#fff;
-  font-size:clamp(2rem,6.4vw,3.4rem); line-height:.98; margin:0;
-  text-shadow:0 2px 18px rgba(0,0,0,.6); }
+  font-size:clamp(1.5rem,4.6vw,2.4rem); line-height:1.02; margin:0; }
 .rv-capa2 .faixa{ display:flex; flex-wrap:wrap; align-items:center; gap:5px 12px;
-  padding:10px 22px; border-top:1.5px solid rgba(206,178,106,.55); color:var(--paper);
-  font-family:var(--mono); font-size:.54rem; font-weight:600; letter-spacing:.12em;
-  text-transform:uppercase; text-shadow:0 1px 3px rgba(0,0,0,.85); }
+  margin-top:12px; padding:10px 26px; border-top:1.5px solid rgba(206,178,106,.55);
+  color:var(--paper); font-family:var(--mono); font-size:.54rem; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; }
 .rv-capa2 .faixa i{ font-style:normal; color:var(--gold); }
-.rv-capa2 .rodape-capa{ position:relative;
-  display:flex; justify-content:space-between; align-items:center; padding:10px 22px;
-  border-top:1.5px solid var(--gold); background:rgba(35,8,5,.85); color:var(--gold);
-  font-family:var(--mono); font-size:.52rem; letter-spacing:.2em; text-transform:uppercase; }
+.rv-capa2 .rodape-capa{ display:flex; justify-content:space-between; align-items:center;
+  padding:10px 26px; border-top:1.5px solid var(--gold); background:rgba(27,7,3,.5);
+  color:var(--gold); font-family:var(--mono); font-size:.52rem; letter-spacing:.2em;
+  text-transform:uppercase; }
 .rv-barcode{ width:74px; height:26px; background:repeating-linear-gradient(90deg,
   var(--gold) 0 2px, transparent 2px 4px, var(--gold) 4px 5px, transparent 5px 8px,
   var(--gold) 8px 11px, transparent 11px 13px); }
+
 
 /* ---------- SUMÁRIO ---------- */
 .rv-sum{ background:var(--rv-papel); }
@@ -578,7 +579,7 @@ html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
 <main id="conteudo" class="rv-stage" data-libera="2026-07-24">
   <div class="rv-book" id="rv-book">
     <div class="rv-lombo esq" id="rv-lombo-esq" aria-hidden="true"></div>
-<section class="rv-pg rv-capa2 on"><img class="bg" src="assets/uploads/wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.jpg" alt=""><div class="veu"></div><div class="nameplate"><img src="assets/logo/foyer-horizontal-gold.png" alt="FOYER"></div><div class="linha-ed"><span>A revista da semana</span><span>Nº 1 · 23 Jul 2026</span></div><div class="base"><div class="manchete"><em>Nesta edição</em><h2>A semana em que Oz desembarcou no Rio</h2></div><div class="faixa"><span>Estreia: a nossa revista semanal, fechada como uma edição impressa</span><i>✦</i><span>Wicked chega à Cidade das Artes com Myra Ruiz e Fabi Bang</span><i>✦</i><span>Shakespeare cai no arraial no Teatro Sabesp Frei Caneca</span><i>✦</i><span>Nelson Rodrigues em dose dupla nos palcos paulistanos</span></div><div class="rodape-capa"><span>foyer.digital · edição gratuita</span><span class="rv-barcode"></span></div></div></section>
+<section class="rv-pg rv-capa2 on"><div class="nameplate"><img src="assets/logo/foyer-horizontal-gold.png" alt="FOYER"></div><div class="linha-ed"><span>A revista da semana</span><span>Nº 1 · 23 Jul 2026</span></div><div class="moldura"><img src="assets/uploads/wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.jpg" alt=""><span class="cred">Foto: Divulgação</span></div><div class="manchete"><em>Nesta edição</em><h2>A semana em que Oz desembarcou no Rio</h2></div><div class="faixa"><span>Estreia: a nossa revista semanal, fechada como uma edição impressa</span><i>✦</i><span>Wicked chega à Cidade das Artes com Myra Ruiz e Fabi Bang</span><i>✦</i><span>Shakespeare cai no arraial no Teatro Sabesp Frei Caneca</span><i>✦</i><span>Nelson Rodrigues em dose dupla nos palcos paulistanos</span></div><div class="rodape-capa"><span>foyer.digital · edição gratuita</span><span class="rv-barcode"></span></div></section>
 <section class="rv-pg rv-sum cheia"><div class="cab"><span>O que vem por aí</span><h3>Nesta edição</h3><svg class="arte" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#ph-2"/></svg></div><ol><li><span class="pnum">3</span><span><span class="pt">Carta ao leitor: por que uma revista?</span><span class="ps">Editorial</span></span></li><li><span class="pnum">4</span><span><span class="pt">Com Myra Ruiz e Fabi Bang, &quot;Wicked&quot; faz temporada carioca na Cidade das…</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">8</span><span><span class="pt">Recortes: o que disseram na semana</span><span class="ps">Entre aspas</span></span></li><li><span class="pnum">9</span><span><span class="pt">“Festa no Arraial, O Musical” transforma Shakespeare em festa junina no…</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">14</span><span><span class="pt">Na tela: os programas da semana</span><span class="ps">YouTube do FOYER</span></span></li><li><span class="pnum">15</span><span><span class="pt">Luisa Thiré apresenta “Valsa Nº 6”, de Nelson Rodrigues, no Teatro Arena B3</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">19</span><span><span class="pt">&quot;Os Últimos 5 Anos” volta a São Paulo em edição comemorativa pelos 25 anos…</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">23</span><span><span class="pt">Rosamaria Murtinho vive Iris Apfel em “Uma Vida em Cores” no Teatro Vannucci</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">27</span><span><span class="pt">A semana em cartaz: São Paulo</span><span class="ps">Agenda</span></span></li><li><span class="pnum">28</span><span><span class="pt">A semana em cartaz: Rio de Janeiro</span><span class="ps">Agenda</span></span></li><li><span class="pnum">29</span><span><span class="pt">Entre mestres: a arte pela palavra</span><span class="ps">Exclusivo</span></span></li><li><span class="pnum">30</span><span><span class="pt">Expediente</span><span class="ps">Quem faz o FOYER</span></span></li><li><span class="pnum">31</span><span><span class="pt">Na próxima edição</span><span class="ps">Contracapa</span></span></li></ol><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>2</b><span>23 Jul 2026</span></div></section>
 <section data-sum="0" class="rv-pg rv-edi"><div class="rv-kicker"><span class="tagz">Editorial</span><span>Carta ao leitor</span></div><div class="miolo"><h3>Carta ao leitor: por que uma revista?</h3><div class="txt"><p>O FOYER nasceu da urgência: a notícia de hoje, a crítica da estreia, a agenda que não espera. Esta revista nasce do movimento contrário. Uma vez por semana, paramos, escolhemos e fechamos uma edição com começo, meio e fim, como as revistas que a gente colecionava.</p>
 <p>Aqui dentro vai o melhor dos nossos sete dias: a reportagem que merece segunda leitura, a citação que ficou ecoando, o serviço para o seu fim de semana. Sem rolagem infinita. Quando a última página chega, a edição termina, e isso é parte do prazer.</p>

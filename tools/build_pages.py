@@ -1728,40 +1728,41 @@ body.rv-duplo .rv-pg.on.pg-r .rv-folio b{ order:99; }
   font-size:.54rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; }
 .rv-kicker .tagz{ background:var(--wine); color:var(--gold); padding:4px 10px; }
 
-/* ---------- CAPA ---------- */
+/* ---------- CAPA (foto emoldurada no centro, como manda o cartaz) ---------- */
 .rv-capa2{ background:var(--wine); }
-.rv-capa2 .bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-  object-position:center 20%; }
-.rv-capa2 .veu{ position:absolute; inset:0;
-  background:linear-gradient(180deg, rgba(35,8,5,.5) 0%, rgba(35,8,5,0) 26%,
-    rgba(35,8,5,0) 58%, rgba(35,8,5,.82) 84%, rgba(35,8,5,.95) 100%); }
-.rv-capa2 .nameplate{ position:relative; z-index:3; padding:20px 22px 0; }
+.rv-capa2 .nameplate{ padding:24px 26px 0; }
 .rv-capa2 .nameplate img{ width:100%; display:block;
-  filter:drop-shadow(0 2px 14px rgba(0,0,0,.55)); }
-.rv-capa2 .linha-ed{ position:relative; z-index:3; display:flex; justify-content:space-between;
-  padding:9px 22px; font-family:var(--mono); font-size:.55rem; font-weight:600;
-  letter-spacing:.24em; text-transform:uppercase; color:var(--gold);
-  text-shadow:0 1px 3px rgba(0,0,0,.9), 0 0 12px rgba(0,0,0,.6); }
-.rv-capa2 .base{ position:absolute; left:0; right:0; bottom:0; z-index:3; }
-.rv-capa2 .manchete{ padding:0 22px 12px; }
+  filter:drop-shadow(0 2px 10px rgba(0,0,0,.4)); }
+.rv-capa2 .linha-ed{ display:flex; justify-content:space-between; padding:10px 26px 0;
+  font-family:var(--mono); font-size:.55rem; font-weight:600;
+  letter-spacing:.24em; text-transform:uppercase; color:var(--gold); }
+.rv-capa2 .moldura{ flex:1; min-height:0; margin:16px 26px; position:relative;
+  border:3px solid var(--gold); outline:1px solid rgba(206,178,106,.45); outline-offset:5px;
+  background:#1b0703; }
+.rv-capa2 .moldura img{ position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:center 25%; }
+.rv-capa2 .cred{ position:absolute; right:0; bottom:0; font-family:var(--mono); font-size:.5rem;
+  letter-spacing:.14em; text-transform:uppercase; color:#efe8da;
+  background:rgba(20,6,3,.72); padding:5px 9px; }
+.rv-capa2 .manchete{ padding:2px 26px 0; }
 .rv-capa2 .manchete em{ display:block; font-style:normal; font-family:var(--mono);
-  font-size:.58rem; font-weight:600; letter-spacing:.3em; text-transform:uppercase;
-  color:var(--gold); margin-bottom:8px; }
+  font-size:.56rem; font-weight:600; letter-spacing:.3em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:6px; }
 .rv-capa2 .manchete h2{ font-family:var(--didone); font-weight:400; color:#fff;
-  font-size:clamp(2rem,6.4vw,3.4rem); line-height:.98; margin:0;
-  text-shadow:0 2px 18px rgba(0,0,0,.6); }
+  font-size:clamp(1.5rem,4.6vw,2.4rem); line-height:1.02; margin:0; }
 .rv-capa2 .faixa{ display:flex; flex-wrap:wrap; align-items:center; gap:5px 12px;
-  padding:10px 22px; border-top:1.5px solid rgba(206,178,106,.55); color:var(--paper);
-  font-family:var(--mono); font-size:.54rem; font-weight:600; letter-spacing:.12em;
-  text-transform:uppercase; text-shadow:0 1px 3px rgba(0,0,0,.85); }
+  margin-top:12px; padding:10px 26px; border-top:1.5px solid rgba(206,178,106,.55);
+  color:var(--paper); font-family:var(--mono); font-size:.54rem; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; }
 .rv-capa2 .faixa i{ font-style:normal; color:var(--gold); }
-.rv-capa2 .rodape-capa{ position:relative;
-  display:flex; justify-content:space-between; align-items:center; padding:10px 22px;
-  border-top:1.5px solid var(--gold); background:rgba(35,8,5,.85); color:var(--gold);
-  font-family:var(--mono); font-size:.52rem; letter-spacing:.2em; text-transform:uppercase; }
+.rv-capa2 .rodape-capa{ display:flex; justify-content:space-between; align-items:center;
+  padding:10px 26px; border-top:1.5px solid var(--gold); background:rgba(27,7,3,.5);
+  color:var(--gold); font-family:var(--mono); font-size:.52rem; letter-spacing:.2em;
+  text-transform:uppercase; }
 .rv-barcode{ width:74px; height:26px; background:repeating-linear-gradient(90deg,
   var(--gold) 0 2px, transparent 2px 4px, var(--gold) 4px 5px, transparent 5px 8px,
   var(--gold) 8px 11px, transparent 11px 13px); }
+
 
 /* ---------- SUMÁRIO ---------- */
 .rv-sum{ background:var(--rv-papel); }
@@ -2451,15 +2452,16 @@ def edicao_page(ed):
     calls = '<i>✦</i>'.join(f'<span>{_rvesc(c)}</span>' for c in (capa.get('chamadas') or [])[:4] if c.strip())
     pg_capa = (
         '<section class="rv-pg rv-capa2 on">'
-        + (f'<img class="bg" src="{_rvesc(capa.get("img", ""))}" alt="">' if capa.get('img') else '')
-        + '<div class="veu"></div>'
         '<div class="nameplate"><img src="assets/logo/foyer-horizontal-gold.png" alt="FOYER"></div>'
         f'<div class="linha-ed"><span>A revista da semana</span><span>Nº {_rvesc(ed.get("numero"))} · {_rvesc(ed.get("dataEdicao", ""))}</span></div>'
-        '<div class="base">'
+        '<div class="moldura">'
+        + (f'<img src="{_rvesc(capa.get("img", ""))}" alt="">' if capa.get('img') else '')
+        + (f'<span class="cred">Foto: {_rvesc(capa["credito"])}</span>' if capa.get('credito') else '')
+        + '</div>'
         f'<div class="manchete"><em>Nesta edição</em><h2>{_rvesc(capa.get("manchete") or ed.get("titulo", ""))}</h2></div>'
         + (f'<div class="faixa">{calls}</div>' if calls else '')
         + '<div class="rodape-capa"><span>foyer.digital · edição gratuita</span><span class="rv-barcode"></span></div>'
-        '</div></section>')
+        '</section>')
     # toda edição fecha com contracapa; se a Coxia não montou uma, entra a da casa
     if not any(p.get('tipo') == 'contracapa' for p in paginas):
         paginas.append({'tipo': 'contracapa'})
