@@ -4146,6 +4146,35 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     .az-passo{ display:none; }
     .az-passo.on{ display:block; animation:azSobe .35s ease; }
     @keyframes azSobe{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:none; } }
+    .az-passo.on > *{ animation:azFilho .45s ease backwards; }
+    .az-passo.on > *:nth-child(1){ animation-delay:.03s; } .az-passo.on > *:nth-child(2){ animation-delay:.09s; }
+    .az-passo.on > *:nth-child(3){ animation-delay:.15s; } .az-passo.on > *:nth-child(4){ animation-delay:.21s; }
+    .az-passo.on > *:nth-child(5){ animation-delay:.27s; } .az-passo.on > *:nth-child(6){ animation-delay:.33s; }
+    .az-passo.on > *:nth-child(n+7){ animation-delay:.39s; }
+    @keyframes azFilho{ from{ opacity:0; transform:translateY(8px);} to{ opacity:1; transform:none; } }
+    @keyframes azCarimbo{ 0%{ transform:scale(1);} 35%{ transform:scale(.96);} 70%{ transform:scale(1.03);} 100%{ transform:none; } }
+    .az-fcard.on, .az-op.on, #az-pf.on, #az-pj.on{ animation:azCarimbo .3s ease; }
+    .az-pts i.novo{ animation:azPonto .4s ease; }
+    @keyframes azPonto{ 0%{ transform:scale(.3);} 55%{ transform:scale(1.45);} 100%{ transform:none; } }
+    [data-arte] img{ animation:azEntraArte .5s ease; }
+    @keyframes azEntraArte{ from{ opacity:0; transform:scale(1.05);} to{ opacity:1; transform:none; } }
+    #az-arte-ok{ animation:azCarimbo .4s ease; }
+    #az-bloco-pf, #az-bloco-pj, #az-bloco-end{ animation:azSobe .35s ease; }
+    .az-sacola.brilha{ animation:azBrilha .7s ease; }
+    @keyframes azBrilha{ 0%{ background:rgba(206,178,106,.45);} 100%{ background:transparent; } }
+    .az-rev > div{ animation:azFilho .4s ease backwards; }
+    .az-rev > div:nth-child(1){ animation-delay:.03s; } .az-rev > div:nth-child(2){ animation-delay:.09s; }
+    .az-rev > div:nth-child(3){ animation-delay:.15s; } .az-rev > div:nth-child(4){ animation-delay:.21s; }
+    .az-rev > div:nth-child(5){ animation-delay:.27s; } .az-rev > div:nth-child(6){ animation-delay:.33s; }
+    .az-rev > div:nth-child(n+7){ animation-delay:.39s; }
+    .az-aceite.ok{ animation:azCarimbo .35s ease; border-color:var(--gold); }
+    .az-aceite.ok::after{ content:'\2726'; color:var(--wine); margin-left:auto; align-self:center;
+      animation:azPonto .5s ease; }
+    @media (prefers-reduced-motion:reduce){
+      .az-passo.on > *, .az-rev > div, .az-pts i.novo, .az-fcard.on, .az-op.on, #az-pf.on, #az-pj.on,
+      [data-arte] img, #az-arte-ok, #az-bloco-pf, #az-bloco-pj, #az-bloco-end,
+      .az-sacola.brilha, .az-aceite.ok, .az-aceite.ok::after{ animation:none !important; }
+    }
     .az-passo h4{ font-family:var(--didone); font-weight:400; font-size:1.3rem; margin:0 0 4px; }
     .az-passo .sub{ font-size:.86rem; color:var(--ink-soft); margin:0 0 14px; }
 
@@ -4310,7 +4339,9 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     .az-vai{ margin-left:auto; border:2px solid var(--wine); background:var(--wine); color:var(--gold);
       cursor:pointer; padding:12px 20px; font-family:var(--mono); font-weight:700; font-size:.62rem;
       letter-spacing:.12em; text-transform:uppercase; }
-    .az-vai:hover{ background:var(--gold); color:var(--wine); }
+    .az-vai{ transition:transform .18s ease, background .18s ease, color .18s ease; }
+    .az-vai:hover{ background:var(--gold); color:var(--wine); transform:translateY(-2px); }
+    .az-vai:active{ transform:translateY(0) scale(.97); }
     .az-erro{ color:#8a1f14; font-size:.82rem; margin:8px 18px 0; display:none; }
     .az-fim{ text-align:center; padding:34px 18px; display:none; }
     .az-fim.on{ display:block; animation:azSobe .4s ease; }
@@ -4733,6 +4764,23 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
 
   var pts = document.getElementById('az-pts');
   var maxVisto = 1;
+  var azMexeMenos = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var _orcaVal = 0, _orcaAnim = null;
+  function contaOrca(alvo){
+    var elT = document.querySelector('#az-orca .total');
+    if(!elT) return;
+    if(azMexeMenos || Math.abs(alvo - _orcaVal) < 1){ elT.textContent = moeda(alvo); _orcaVal = alvo; return; }
+    var de = _orcaVal, t0 = null;
+    if(_orcaAnim) cancelAnimationFrame(_orcaAnim);
+    function tique(ts){
+      if(!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0) / 450);
+      k = 1 - Math.pow(1 - k, 3);
+      elT.textContent = moeda(Math.round(de + (alvo - de) * k));
+      if(k < 1) _orcaAnim = requestAnimationFrame(tique); else _orcaVal = alvo;
+    }
+    _orcaAnim = requestAnimationFrame(tique);
+  }
   function pintaOrca(){
     var el = document.getElementById('az-orca');
     if(!el) return;
@@ -4746,10 +4794,13 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       return;
     }
     el.hidden = false;
+    var mudou = o.total !== _orcaVal;
     el.innerHTML = '<em>O orçamento, na hora</em>' +
       '<div class="parcelas">' + o.partes.join(' · ') + '</div>' +
-      '<div class="total">' + moeda(o.total) + '</div>' +
+      '<div class="total"></div>' +
       '<div class="nota-v">nota fiscal para todo anúncio; o pagamento se combina no WhatsApp</div>';
+    if(mudou) contaOrca(o.total);
+    else el.querySelector('.total').textContent = moeda(o.total);
   }
   function sacola(){
     var f = fmt(), el = document.getElementById('az-sacola');
@@ -4764,13 +4815,18 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       pecas.push(st.duracao + (oS ? ' · <b>' + moeda(oS.total) + '</b>' : ''));
     }
     if(v('az-nome')) pecas.push('por ' + v('az-nome'));
-    el.innerHTML = pecas.join('<span style="opacity:.4">·</span>');
+    var htmlNovo = pecas.join('<span style="opacity:.4">·</span>');
+    if(!el.hidden && el.dataset.antes && el.dataset.antes !== htmlNovo){
+      el.classList.remove('brilha'); void el.offsetWidth; el.classList.add('brilha');
+    }
+    el.dataset.antes = htmlNovo;
+    el.innerHTML = htmlNovo;
     el.hidden = false;
   }
   function pinta(){
     maxVisto = Math.max(maxVisto, passo);
     pts.innerHTML = '';
-    for(var i = 1; i <= TOTAL; i++) pts.innerHTML += '<i data-passo="' + i + '" title="' + ROT[i] + '" class="' + (i <= passo ? 'on' : '') + '"></i>';
+    for(var i = 1; i <= TOTAL; i++) pts.innerHTML += '<i data-passo="' + i + '" title="' + ROT[i] + '" class="' + (i < passo ? 'on' : (i === passo ? 'on novo' : '')) + '"></i>';
     pts.innerHTML += '<small>' + ROT[passo] + '</small>';
     sacola();
     document.querySelectorAll('.az-passo').forEach(function(p){
@@ -4844,6 +4900,9 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
   }
   document.getElementById('az-pf').addEventListener('click', function(){ mudaTP('pf'); });
   document.getElementById('az-pj').addEventListener('click', function(){ mudaTP('pj'); });
+  document.getElementById('az-aceite').addEventListener('change', function(){
+    document.querySelector('.az-aceite').classList.toggle('ok', this.checked);
+  });
   document.getElementById('az-cep').addEventListener('blur', function(){
     var cep = v('az-cep').replace(/\D/g, '');
     var stc = document.getElementById('az-cep-st');
@@ -4927,7 +4986,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
         : 'orçamento combinado na conversa';
       var zap = document.getElementById('az-zap');
       var oZ = orcamento();
-      zap.href = 'https://wa.me/5511995450954?text=' + encodeURIComponent(
+      zap.href = 'https://wa.me/5513991376169?text=' + encodeURIComponent(
         'Olá! Acabei de enviar um pedido de anúncio no FOYER (protocolo ' + proto + ', ' + f.nome +
         (oZ ? ', orçamento ' + moeda(oZ.total) : '') + '). Podemos falar?');
       try{ localStorage.removeItem(RK); }catch(e2){}
