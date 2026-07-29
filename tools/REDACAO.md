@@ -595,6 +595,14 @@ Regras das seções novas:
     = R$ 816). Acima de 4 edições, valor combinado na conversa. O
     passo a passo calcula e grava o orçamento no pedido
     (`valor_total`); o WhatsApp fecha só pagamento e datas.
+  - **Todo anúncio é clicável (ordem do Pedro, 29/07/2026)**: a
+    lógica da propaganda é ver, clicar e chegar. O passo a passo
+    exige o **link de destino** (bilheteria, Sympla, site da peça,
+    Instagram — escolha do anunciante), grava no pedido (coluna
+    `link`) e a Coxia mostra o destino no cartão. Os formatos do site
+    (faixa, cortina, entreato) e da revista (página inteira, meia
+    página) já envolvem a arte no link ao ir ao ar. Anúncio sem
+    destino não sobe.
   - **O pedido**: o passo a passo grava na tabela `foyer_anuncios`
     (Supabase; o site só insere, a leitura exige a chave da casa) e
     aparece na aba **Publicidade** da Coxia com botão de WhatsApp

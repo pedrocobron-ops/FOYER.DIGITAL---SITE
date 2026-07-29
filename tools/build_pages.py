@@ -4536,6 +4536,11 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
               <label>A sua linha na faixa (o texto é o anúncio)</label>
               <input type="text" id="az-faixa-tx" maxlength="90" placeholder="Peça X em cartaz no Teatro Y — ingressos com 20% off">
             </div>
+            <div class="az-campo" style="margin-top:10px">
+              <label>Para onde o clique leva</label>
+              <input type="url" id="az-link" placeholder="https://… bilheteria, Sympla, site da peça, Instagram">
+              <small id="az-link-eco">Todo anúncio no FOYER é clicável: quem toca na sua arte cai onde você escolher.</small>
+            </div>
           </div>
         </div>
       </div>
@@ -4763,6 +4768,12 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
   document.getElementById('az-faixa-tx').addEventListener('input', function(){
     document.getElementById('pv-faixa-tx').textContent = this.value || 'A sua mensagem, com link para a bilheteria';
   });
+  document.getElementById('az-link').addEventListener('input', function(){
+    var d = this.value.replace(/^https?:\/\//, '').split('/')[0];
+    document.getElementById('az-link-eco').textContent = d
+      ? 'quem toca no anúncio vai direto para ' + d
+      : 'Todo anúncio no FOYER é clicável: quem toca na sua arte cai onde você escolher.';
+  });
 
   var pts = document.getElementById('az-pts');
   var maxVisto = 1;
@@ -4811,6 +4822,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     var pecas = ['<em>O seu pedido</em>', '<b>' + f.nome + '</b>'];
     if(st.arte) pecas.push('arte enviada ✓');
     if(st.formato === 'faixa' && v('az-faixa-tx')) pecas.push('“' + v('az-faixa-tx').slice(0, 40) + '”');
+    if(v('az-link')) pecas.push('clique → ' + v('az-link').replace(/^https?:\/\//, '').split('/')[0]);
     if(v('az-inicio')) pecas.push('estreia: ' + v('az-inicio'));
     if(st.duracao){
       var oS = orcamento();
@@ -4847,6 +4859,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       ['Formato', f ? f.nome + ' · ' + f.onde : ''],
       ['A arte', st.arte ? '<img src="' + st.arte + '" alt="a sua arte">' :
         (st.formato === 'faixa' ? '“' + (v('az-faixa-tx') || 'a combinar') + '”' : 'a combinar na conversa')],
+      ['O clique leva para', v('az-link') || 'a combinar'],
       ['Estreia', v('az-inicio') || 'a combinar'],
       ['Duração', st.duracao || 'a combinar'],
       ['Orçamento', (function(){ var o = orcamento();
@@ -4925,6 +4938,12 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
   });
   function valida(){
     if(passo === 1 && !st.formato){ erro('Escolha um formato para seguir.'); return false; }
+    if(passo === 2){
+      var lk = v('az-link');
+      if(!lk){ erro('Diga para onde o clique leva: bilheteria, Sympla, site da peça, Instagram…'); return false; }
+      if(!/^https?:\/\//i.test(lk)){ lk = 'https://' + lk; document.getElementById('az-link').value = lk; }
+      if(!/^https?:\/\/[^\s]+\.[^\s]{2,}/i.test(lk)){ erro('Esse endereço não parece completo; confira o link.'); return false; }
+    }
     if(passo === 4){
       if(!st.tipoPessoa){ erro('Diga se a nota sai em pessoa física (CPF) ou empresa (CNPJ).'); return false; }
       if(st.tipoPessoa === 'pf'){
@@ -4965,7 +4984,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
         inicio: v('az-inicio'), duracao: st.duracao,
         nome: v('az-nome'), empresa: v('az-empresa'), email: v('az-email'),
         whatsapp: v('az-whats').replace(/\\D/g, ''), instagram: v('az-insta'),
-        mensagem: msg, arte: st.arte || null, protocolo: proto,
+        mensagem: msg, arte: st.arte || null, link: v('az-link'), protocolo: proto,
         tipo_pessoa: st.tipoPessoa,
         documento: (st.tipoPessoa === 'pf' ? v('az-cpf') : v('az-cnpj')).replace(/\D/g, ''),
         faturamento: st.tipoPessoa === 'pf' ? v('az-nome-pf') : v('az-razao'),
@@ -5054,7 +5073,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
   function salvaRasc(){
     try{
       localStorage.setItem(RK, JSON.stringify({
-        st: st, campos: ['az-faixa-tx','az-inicio','az-nome','az-empresa','az-email','az-whats','az-insta','az-msg',
+        st: st, campos: ['az-faixa-tx','az-link','az-inicio','az-nome','az-empresa','az-email','az-whats','az-insta','az-msg',
           'az-nome-pf','az-cpf','az-razao','az-fantasia','az-cnpj','az-im','az-resp',
           'az-cep','az-logr','az-num','az-compl','az-bairro','az-cidade','az-uf']
           .reduce(function(a, id){ a[id] = v(id); return a; }, {})

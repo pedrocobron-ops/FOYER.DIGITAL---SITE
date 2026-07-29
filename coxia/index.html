@@ -3780,6 +3780,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
               (p.aceite_regras ? '<br><small style="opacity:.7">aceitou as Regras de Publicidade em ' + esc(new Date(p.aceite_em).toLocaleString('pt-BR')) + '</small>' : '') +
               '</span></div>'
             : '') +
+          (p.link ? '<div class="pub-linha"><em>O clique leva para</em><span><a href="' + esc(p.link) + '" target="_blank" rel="noopener">' + esc(p.link) + '</a></span></div>' : '') +
           (p.mensagem ? '<div class="pub-linha"><em>O anúncio</em><span>' + esc(p.mensagem) + '</span></div>' : '') +
           (p.arte && /^data:image\//.test(p.arte)
             ? '<div class="pub-linha"><em>A arte</em><span><a href="' + p.arte + '" download="arte-' + esc(p.id).slice(0, 8) + '.jpg">' +
