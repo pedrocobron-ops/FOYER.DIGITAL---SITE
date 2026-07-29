@@ -243,7 +243,7 @@
     { id:'conteudos', sinal:'🔔🔔 segundo sinal', titulo:'E entre uma cortina e outra, o que você gosta de ler?',
       sub:'A redação escreve mais do que você marcar.', tipo:'varios',
       ops:['Estreias e o que entra em cartaz','Bastidores e como se faz','Histórias e memória',
-           'O dinheiro da arte','Guias de fim de semana','Entrevistas e perfis','Crítica'] },
+           'Mercado e bilheteria','Guias de fim de semana','Entrevistas e perfis','Crítica'] },
     { id:'frequencia', sinal:'🔔🔔🔔 terceiro sinal', titulo:'Com que frequência você vê arte ao vivo?',
       sub:'Teatro, show, dança, o que for. Ao vivo.', tipo:'um',
       ops:['Toda semana','Todo mês','Algumas vezes por ano','Quase nunca. Quero mudar isso'] }
@@ -261,15 +261,18 @@
     ov.querySelector('.cv-fechar').addEventListener('click', fecha);
     ov.addEventListener('click', function(e){ if(e.target === ov) fecha(); });
     passo = 0;
-    pinta();
+    pinta(0);
   }
   function fecha(){
     if(ov){ ov.remove(); ov = null; }
     document.body.style.overflow = '';
   }
-  function pinta(){
+  function pinta(dir){
     var p = PASSOS[passo];
     var c = ov.querySelector('.cv-corpo');
+    c.classList.remove('anima-f', 'anima-b');
+    void c.offsetWidth;                       // reinicia a animação da tela
+    c.classList.add(dir < 0 ? 'anima-b' : 'anima-f');
     var miolo = '';
     if(p.tipo === 'texto' || p.tipo === 'email'){
       miolo = '<input class="cv-input" type="' + (p.tipo === 'email' ? 'email' : 'text') + '" ' +
@@ -277,9 +280,10 @@
         (p.nota ? '<p class="cv-nota">' + p.nota + '</p>' : '') +
         '<p class="cv-erro" aria-live="polite"></p>';
     } else {
-      miolo = '<div class="cv-ops">' + p.ops.map(function(o){
+      miolo = '<div class="cv-ops">' + p.ops.map(function(o, k){
         var marcada = p.tipo === 'um' ? R[p.id] === o : R[p.id].indexOf(o) >= 0;
-        return '<button type="button" class="cv-op' + (marcada ? ' on' : '') + '" data-op="' + o + '">' + o + '</button>';
+        return '<button type="button" class="cv-op' + (marcada ? ' on' : '') + '" data-op="' + o + '" ' +
+          'style="animation-delay:' + (k * 45) + 'ms">' + o + '</button>';
       }).join('') + '</div>';
     }
     c.innerHTML =
@@ -329,7 +333,7 @@
       });
     });
     var vv = c.querySelector('.cv-volta');
-    if(vv) vv.addEventListener('click', function(){ passo--; pinta(); });
+    if(vv) vv.addEventListener('click', function(){ passo--; pinta(-1); });
     c.querySelector('.cv-vai').addEventListener('click', avanca);
   }
   function avanca(){
@@ -350,11 +354,12 @@
       var q = (c.querySelector('.cv-outra') || {}).value || '';
       if(q.trim()) R[p.id] = q.trim();
     }
-    if(passo < PASSOS.length - 1){ passo++; pinta(); return; }
+    if(passo < PASSOS.length - 1){ passo++; pinta(1); return; }
     envia();
   }
   function envia(){
     var c = ov.querySelector('.cv-corpo');
+    c.classList.remove('anima-f', 'anima-b'); void c.offsetWidth; c.classList.add('anima-f');
     c.innerHTML = '<span class="cv-sinal">🔔🔔🔔</span><h3 class="cv-t">Reservando a sua cadeira…</h3>';
     fetch(M.url + '/rest/v1/foyer_newsletter', {
       method: 'POST',
@@ -380,7 +385,8 @@
       throw 0;
     }).then(function(como){
       var ja = como === 'ja';
-      c.innerHTML = '<span class="cv-sinal">🎟</span>' +
+      c.classList.remove('anima-f', 'anima-b'); void c.offsetWidth; c.classList.add('anima-f');
+      c.innerHTML = '<span class="cv-sinal cv-carimbo">🎟</span>' +
         '<h3 class="cv-t">' + (ja ? 'Você já tinha cadeira marcada.' : ('Cadeira reservada' + (R.nome ? ', ' + R.nome.split(' ')[0] : '') + '.')) + '</h3>' +
         '<p class="cv-s">' + (ja ? 'Atualizamos seus gostos. A revista segue chegando toda sexta, às 7h.'
                                  : 'A próxima chega sexta, às 7h. Mas a cortina já está aberta:') + '</p>' +

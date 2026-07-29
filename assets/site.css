@@ -679,6 +679,27 @@ nav.main a.brand img.only-dark, .gate img.only-dark{ display:none; }
   color:var(--ink-soft); font-size:1rem; cursor:pointer; padding:8px; }
 .cv-fechar:hover{ color:var(--wine); }
 .cv-corpo{ padding:38px 40px 26px; display:flex; flex-direction:column; min-height:340px; }
+/* o movimento da conversa: telas deslizam, chips entram em cascata */
+.cv-corpo.anima-f{ animation:cvTelaF .34s ease; }
+.cv-corpo.anima-b{ animation:cvTelaB .34s ease; }
+@keyframes cvTelaF{ from{ opacity:0; transform:translateX(30px); } }
+@keyframes cvTelaB{ from{ opacity:0; transform:translateX(-30px); } }
+.cv-corpo .cv-op{ animation:cvOpIn .34s ease backwards; }
+@keyframes cvOpIn{ from{ opacity:0; transform:translateY(10px); } }
+.cv-corpo .cv-t, .cv-corpo .cv-s{ animation:cvSobeTexto .4s ease backwards; }
+.cv-corpo .cv-s{ animation-delay:.06s; }
+@keyframes cvSobeTexto{ from{ opacity:0; transform:translateY(8px); } }
+.cv-corpo .cv-input{ animation:cvSobeTexto .4s ease .1s backwards; }
+/* o sininho toca quando a tela chega */
+.cv-sinal{ display:inline-block; animation:cvSino .55s ease .15s; transform-origin:top center; }
+@keyframes cvSino{ 0%,100%{ transform:rotate(0); } 25%{ transform:rotate(7deg); }
+  50%{ transform:rotate(-6deg); } 75%{ transform:rotate(3deg); } }
+/* o ingresso carimba a chegada */
+.cv-carimbo{ font-size:2rem; animation:cvCarimbo .45s cubic-bezier(.2,1.6,.4,1) backwards; }
+@keyframes cvCarimbo{ from{ opacity:0; transform:scale(2.2) rotate(-14deg); } }
+@media (prefers-reduced-motion:reduce){
+  .cv-corpo.anima-f, .cv-corpo.anima-b, .cv-corpo .cv-op, .cv-corpo .cv-t,
+  .cv-corpo .cv-s, .cv-corpo .cv-input, .cv-sinal, .cv-carimbo{ animation:none; } }
 .cv-sinal{ font-family:var(--mono); font-size:.6rem; letter-spacing:.26em; text-transform:uppercase;
   color:var(--wine); margin-bottom:14px; }
 :root[data-theme="dark"] .cv-sinal{ color:var(--gold); }
