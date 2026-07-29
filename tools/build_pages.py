@@ -1637,15 +1637,15 @@ ED_PUB = [e for e in EDICOES if e.get('status') == 'publicada']
 
 _RV_CSS = '''<style>
 /* ============ A REVISTA — leitor em formato de página impressa ============ */
-.rv-stage{ max-width:760px; margin:26px auto 90px; padding:0 14px; --rv-papel:#F6F1E6; }
+.rv-stage{ margin:26px auto 90px; padding:0 14px; --rv-papel:#F6F1E6; }
 html[data-theme="dark"] .rv-stage{ --rv-papel:var(--paper); }
 /* no desktop largo, a revista abre em página dupla */
-@media (min-width:1080px){ body.rv-duplo .rv-stage{ max-width:1440px; } }
+.rv-palco{ position:relative; overflow:visible; }
 .rv-book{ position:relative; display:flex; justify-content:center; align-items:stretch;
-  perspective:2600px; margin:0 auto; }
+  perspective:2600px; margin:0 auto; width:max-content; transform-origin:top center; }
 .rv-pg{ display:none; border:3px solid var(--ink); background:var(--rv-papel);
-  aspect-ratio:3/4.05; position:relative; overflow:hidden; animation:rvin .3s ease;
-  width:100%; max-width:734px; flex-shrink:0; backface-visibility:hidden; }
+  width:720px; height:972px; position:relative; overflow:hidden; animation:rvin .3s ease;
+  flex-shrink:0; backface-visibility:hidden; }
 .rv-pg.on{ display:flex; flex-direction:column; }
 @keyframes rvin{ from{ opacity:0; transform:translateX(16px);} to{ opacity:1; transform:none;} }
 /* lado esquerdo e direito da página dupla */
@@ -1656,9 +1656,6 @@ body.rv-duplo .rv-pg.on.pg-l::after{ content:''; position:absolute; top:0; botto
   background:linear-gradient(270deg, rgba(35,8,5,.16), transparent); pointer-events:none; z-index:8; }
 body.rv-duplo .rv-pg.on.pg-r::after{ content:''; position:absolute; top:0; bottom:0; left:0; width:56px;
   background:linear-gradient(90deg, rgba(35,8,5,.13), transparent); pointer-events:none; z-index:8; }
-/* a dupla aberta cabe inteira na altura da tela */
-body.rv-duplo .rv-pg{ max-width:min(720px, calc((100vh - 230px) * .7407)); }
-body.rv-sala.rv-duplo .rv-pg{ max-width:min(720px, calc((100vh - 120px) * .7407)); }
 /* grão de papel de revista (sutil; some na impressão) */
 .rv-pg::before{ content:''; position:absolute; inset:0; z-index:9; pointer-events:none;
   opacity:.5; mix-blend-mode:multiply;
@@ -1736,7 +1733,7 @@ body.rv-duplo .rv-pg.on.pg-r .rv-folio b{ order:99; }
 .rv-capa2 .linha-ed{ display:flex; justify-content:space-between; padding:10px 26px 0;
   font-family:var(--mono); font-size:.55rem; font-weight:600;
   letter-spacing:.24em; text-transform:uppercase; color:var(--gold); }
-.rv-capa2 .moldura{ flex:1; min-height:0; margin:16px 26px; position:relative;
+.rv-capa2 .moldura{ flex:none; height:496px; margin:16px 26px; position:relative;
   border:3px solid var(--gold); outline:1px solid rgba(206,178,106,.45); outline-offset:5px;
   background:#1b0703; }
 .rv-capa2 .moldura img{ position:absolute; inset:0; width:100%; height:100%;
@@ -1744,14 +1741,15 @@ body.rv-duplo .rv-pg.on.pg-r .rv-folio b{ order:99; }
 .rv-capa2 .cred{ position:absolute; right:0; bottom:0; font-family:var(--mono); font-size:.5rem;
   letter-spacing:.14em; text-transform:uppercase; color:#efe8da;
   background:rgba(20,6,3,.72); padding:5px 9px; }
-.rv-capa2 .manchete{ padding:2px 26px 0; }
+.rv-capa2 .manchete{ padding:2px 26px 0; height:116px; overflow:hidden; }
 .rv-capa2 .manchete em{ display:block; font-style:normal; font-family:var(--mono);
   font-size:.56rem; font-weight:600; letter-spacing:.3em; text-transform:uppercase;
   color:var(--gold); margin-bottom:6px; }
 .rv-capa2 .manchete h2{ font-family:var(--didone); font-weight:400; color:#fff;
-  font-size:clamp(1.5rem,4.6vw,2.4rem); line-height:1.02; margin:0; }
-.rv-capa2 .faixa{ display:flex; flex-wrap:wrap; align-items:center; gap:5px 12px;
-  margin-top:12px; padding:10px 26px; border-top:1.5px solid rgba(206,178,106,.55);
+  font-size:2.1rem; line-height:1.04; margin:0; display:-webkit-box;
+  -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.rv-capa2 .faixa{ display:flex; flex-wrap:wrap; align-content:center; gap:5px 12px;
+  margin-top:auto; height:66px; overflow:hidden; padding:6px 26px; border-top:1.5px solid rgba(206,178,106,.55);
   color:var(--paper); font-family:var(--mono); font-size:.54rem; font-weight:600;
   letter-spacing:.12em; text-transform:uppercase; }
 .rv-capa2 .faixa i{ font-style:normal; color:var(--gold); }
@@ -1819,7 +1817,7 @@ html[data-theme="dark"] .rv-mat .cont-tit{ color:var(--gold); }
   border:2px solid var(--ink); opacity:.9; margin:16px 0 4px; }
 .rv-mat .segue{ margin-top:auto; padding-top:12px; font-family:var(--mono); font-size:.56rem;
   letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); }
-.rv-mat h3{ font-family:var(--didone); font-weight:400; font-size:clamp(1.5rem,3.6vw,2.1rem);
+.rv-mat h3{ font-family:var(--didone); font-weight:400; font-size:1.85rem;
   line-height:1.02; margin:0 0 10px; }
 .rv-mat .linhafina{ font-size:.92rem; line-height:1.5; color:var(--ink);
   border-left:4px solid var(--gold); padding-left:12px; margin:0 0 14px; }
@@ -1913,7 +1911,7 @@ html[data-theme="dark"] .rv-mestre .au{ color:var(--gold); }
 .rv-cit{ background:var(--wine); color:var(--gold); align-items:center; justify-content:center;
   text-align:center; padding:8% 9%; }
 .rv-cit .aspa{ font-family:var(--didone); font-size:7rem; line-height:.6; opacity:.5; }
-.rv-cit .fr{ font-family:var(--didone); font-size:clamp(1.5rem,4.4vw,2.5rem); line-height:1.14; }
+.rv-cit .fr{ font-family:var(--didone); font-size:2.2rem; line-height:1.14; }
 .rv-cit .au{ font-family:var(--mono); font-size:.58rem; letter-spacing:.22em;
   text-transform:uppercase; margin-top:26px; color:var(--paper); }
 .rv-cit .arte{ width:120px; height:80px; border:2px solid var(--gold); margin-top:30px; opacity:.85; }
@@ -2066,15 +2064,13 @@ html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
   .rv-edi .txt, .rv-livre .txt{ column-count:1; }
 }
 @media print{
-  /* no papel o livro se desmonta: uma página por folha, empilhadas */
-  .rv-book{ display:block !important; perspective:none !important; }
+  /* no papel, as mesmas páginas da tela: 720x972, uma por folha */
+  .rv-book{ display:block !important; perspective:none !important; transform:none !important; }
+  .rv-palco{ height:auto !important; }
   .rv-stage{ max-width:100% !important; margin:0 !important; padding:0 !important; }
   .rv-pg{ display:flex !important; page-break-after:always; break-inside:avoid;
-    border-width:0; aspect-ratio:auto; min-height:96vh; height:auto !important;
-    width:100% !important; max-width:100% !important; overflow:visible !important;
+    width:720px !important; height:972px !important; margin:0 auto;
     transform:none !important; animation:none !important; position:relative; }
-  .rv-pg .miolo, .rv-sum ol, .rv-agd .lista, .rv-rec .mural, .rv-tela .grade,
-  .rv-livre .miolo, .rv-exp .miolo{ overflow:visible !important; }
   body.rv-em-janela .rv-pg{ display:none !important; }
   body.rv-em-janela .rv-pg.rv-amostra{ display:flex !important; }
   .rv-pg::before{ display:none; }
@@ -2508,10 +2504,12 @@ def edicao_page(ed):
                    + __import__('datetime').timedelta(days=1)).strftime('%Y-%m-%d')
     return (_RV_CSS + f'''
 <main id="conteudo" class="rv-stage" data-libera="{_libera}">
+  <div class="rv-palco" id="rv-palco">
   <div class="rv-book" id="rv-book">
     <div class="rv-lombo esq" id="rv-lombo-esq" aria-hidden="true"></div>
 {corpo}
     <div class="rv-lombo dir" id="rv-lombo-dir" aria-hidden="true"></div>
+  </div>
   </div>
   <div class="rv-cortina" id="rv-cortina" role="dialog" aria-modal="true" aria-label="Edição para assinantes" hidden>
     <div class="ct-caixa">
@@ -2615,7 +2613,7 @@ def edicao_page(ed):
 
   /* ============ o livro: dupla, virada, pilha, fita, sala ============ */
   var NUM_ED = {_json.dumps(str(ed.get('numero', '')))};
-  var mqDuplo = window.matchMedia('(min-width:1080px)');
+  var mqDuplo = window.matchMedia('(min-width:860px)');
   var mexeMenos = window.matchMedia('(prefers-reduced-motion: reduce)');
   var duplas = [];      // cada item: [idx] ou [idxEsq, idxDir]
   var d = 0;            // dupla atual
@@ -2670,6 +2668,19 @@ def edicao_page(ed):
     for(var s = 0; s < duplas.length; s++) if(duplas[s].indexOf(idxPg) >= 0) return s;
     return 0;
   }}
+  function escala(){{
+    var livro = document.getElementById('rv-book');
+    var palco = document.getElementById('rv-palco');
+    var par = duplas[d] || [0];
+    var larguraLivro = 726 * par.length;           // 720 + bordas
+    var alturaLivro = 978;
+    var sala = document.body.classList.contains('rv-sala');
+    var w = palco.clientWidth || document.documentElement.clientWidth - 28;
+    var h = window.innerHeight - (sala ? 96 : 200);
+    var f = Math.min(1, w / larguraLivro, Math.max(0.3, h / alturaLivro));
+    livro.style.transform = f < 1 ? 'scale(' + f + ')' : '';
+    palco.style.height = Math.ceil(alturaLivro * f) + 'px';
+  }}
   function pinta(){{
     var par = duplas[d] || [0];
     pgs.forEach(function(p, k){{
@@ -2699,6 +2710,7 @@ def edicao_page(ed):
     if(d > 0 && !ult.classList.contains('rv-back')){{ ult.appendChild(fita); }}
     else if(fita.parentNode){{ fita.parentNode.removeChild(fita); }}
     try{{ localStorage.setItem('rv-fita-' + NUM_ED, String(par[0])); }}catch(e){{}}
+    escala();
   }}
   /* ---- a janela do assinante: hoje é dia de assinante ler primeiro? ---- */
   var SB = {{ url: 'https://jcaqjlrzmrtzjyfbljxh.supabase.co',
