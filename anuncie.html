@@ -309,6 +309,38 @@
     .mk-tile{ border:2px solid var(--ink); padding:10px 16px; min-width:130px; }
     .mk-tile b{ display:block; font-family:var(--didone); font-size:1.7rem; font-weight:400; color:var(--wine); }
     .mk-tile span{ font-family:var(--mono); font-size:.56rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); }
+    .az-rito{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:0 0 8px; }
+    @media (max-width:760px){ .az-rito{ grid-template-columns:1fr; } }
+    .az-rito-p{ display:flex; gap:10px; border:2px solid var(--ink); background:var(--paper); padding:12px 14px; }
+    .az-rito-p b{ font-family:var(--didone); font-weight:400; font-size:1.6rem; color:var(--wine); line-height:1; }
+    .az-rito-p span{ font-size:.82rem; line-height:1.5; }
+    .az-pts i{ cursor:pointer; }
+    .az-sacola{ display:flex; flex-wrap:wrap; gap:6px 14px; padding:9px 18px; border-bottom:2px solid var(--ink);
+      background:rgba(206,178,106,.12); font-size:.78rem; }
+    .az-sacola b{ font-weight:700; }
+    .az-sacola em{ font-style:normal; font-family:var(--mono); font-size:.52rem; letter-spacing:.14em;
+      text-transform:uppercase; color:var(--ink-soft); align-self:center; }
+    .az-garante{ margin:0; padding:0 18px 16px; font-family:var(--mono); font-size:.56rem;
+      letter-spacing:.08em; color:var(--ink-soft); }
+    .pv-caixa{ cursor:zoom-in; }
+    .pv-modal{ position:fixed; inset:0; z-index:130; background:rgba(20,6,3,.82); display:none;
+      align-items:center; justify-content:center; padding:16px; cursor:zoom-out; }
+    .pv-modal.on{ display:flex; }
+    .pv-modal .dentro{ max-height:94vh; max-width:94vw; transform:scale(1); }
+    .pv-modal .pv-site, .pv-modal .pv-pg{ display:block; }
+    .pv-modal .pv-pg{ display:flex; width:min(560px, 88vw); }
+    .pv-modal .pv-site{ width:min(560px, 88vw); max-width:none; }
+    .az-proto{ font-size:.95rem; margin:0 0 16px; }
+    .az-proto b{ font-family:var(--mono); letter-spacing:.1em; background:rgba(206,178,106,.25); padding:3px 8px; }
+    .az-linha-tempo{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; max-width:720px; margin:0 auto 18px; text-align:left; }
+    @media (max-width:700px){ .az-linha-tempo{ grid-template-columns:1fr; } }
+    .az-linha-tempo > div{ border-left:4px solid var(--gold); padding:4px 0 4px 12px; }
+    .az-linha-tempo b{ display:block; font-family:var(--mono); font-size:.56rem; font-weight:700;
+      letter-spacing:.16em; text-transform:uppercase; color:var(--wine); margin-bottom:3px; }
+    .az-linha-tempo span{ font-size:.8rem; line-height:1.5; color:var(--ink-soft); }
+    .az-zap{ display:inline-block; border:2px solid #2c5a2e; background:#2c5a2e; color:#fff;
+      font-family:var(--mono); font-weight:700; font-size:.62rem; letter-spacing:.1em; text-transform:uppercase;
+      padding:12px 18px; text-decoration:none; }
     @media (prefers-reduced-motion:reduce){ .az-cort.e,.az-cort.d{ animation:none; transform:scaleX(.04); } }
   </style>
 
@@ -322,8 +354,15 @@
     </div>
   </div>
 
+  <div class="az-rito">
+    <div class="az-rito-p"><b>1</b><span><strong>Você monta e vê.</strong> Escolhe o formato, sobe a arte e confere a aplicação real antes de qualquer compromisso.</span></div>
+    <div class="az-rito-p"><b>2</b><span><strong>O pedido cai na mesa da direção.</strong> Sem robô de vendas: quem lê é quem faz a revista.</span></div>
+    <div class="az-rito-p"><b>3</b><span><strong>A direção te chama no WhatsApp.</strong> Valores e datas fecham na conversa, e nada vai ao ar sem o seu ok final.</span></div>
+  </div>
+
   <div class="az-wiz" id="az-wiz">
     <div class="az-topo"><b>Contratar em 5 passos</b><span class="az-pts" id="az-pts"></span></div>
+    <div class="az-sacola" id="az-sacola" hidden></div>
     <div class="az-corpo">
 
       <div class="az-passo on" data-p="1">
@@ -411,14 +450,22 @@
       <button class="az-volta" type="button" id="az-volta" style="visibility:hidden">← Voltar</button>
       <button class="az-vai" type="button" id="az-vai">Avançar →</button>
     </div>
+    <p class="az-garante">Publicidade sempre rotulada · você aprova a versão final antes de ir ao ar · cancelamento simples antes da publicação</p>
     <div class="az-fim" id="az-fim">
       <span class="carimbo">Pedido na mesa</span>
       <h3>Recebido! Agora é com a gente.</h3>
-      <p>A direção do FOYER te chama no WhatsApp para fechar valores e datas.<br>Sem formulário de volta, sem vendedor: uma conversa e pronto.</p>
+      <p class="az-proto">O seu protocolo: <b id="az-proto-n"></b></p>
+      <div class="az-linha-tempo">
+        <div><b>Agora</b><span>o pedido (com a sua arte) está na mesa da direção</span></div>
+        <div><b>Em até 1 dia útil</b><span>a direção te chama no WhatsApp para fechar valores e datas</span></div>
+        <div><b>Antes de ir ao ar</b><span>você aprova a versão final; nada publica sem o seu ok</span></div>
+      </div>
+      <a class="az-zap" id="az-zap" target="_blank" rel="noopener" href="#">Quer agilizar? Fale agora com a direção no WhatsApp →</a>
     </div>
   </div>
   <p class="az-nota">Curadoria editorial não é negociável: anúncio é sempre rotulado, nunca vira matéria. Máximo de 2 páginas pagas por edição da revista.</p>
 
+  <div class="pv-modal" id="pv-modal" role="dialog" aria-label="Prévia ampliada"><div class="dentro"></div></div>
   <div class="mk-leitor" id="mk-leitor">
     <h2>O leitor da revista</h2>
     <p class="mk-nota">Retrato agregado e anônimo dos assinantes cadastrados, direto do censo da casa.</p>
@@ -530,6 +577,7 @@
         cv.getContext('2d').drawImage(im, 0, 0, w, h);
         st.arte = cv.toDataURL('image/jpeg', 0.85);
         aplicaArte();
+        sacola(); salvaRasc();
       };
       im.src = lr.result;
     };
@@ -540,10 +588,25 @@
   });
 
   var pts = document.getElementById('az-pts');
+  var maxVisto = 1;
+  function sacola(){
+    var f = fmt(), el = document.getElementById('az-sacola');
+    if(!f){ el.hidden = true; return; }
+    var pecas = ['<em>O seu pedido</em>', '<b>' + f.nome + '</b>' + (st.cupom ? ' + 🎟 cupom' : '')];
+    if(st.arte) pecas.push('arte enviada ✓');
+    if(st.formato === 'faixa' && v('az-faixa-tx')) pecas.push('“' + v('az-faixa-tx').slice(0, 40) + '”');
+    if(v('az-inicio')) pecas.push('estreia: ' + v('az-inicio'));
+    if(st.duracao) pecas.push(st.duracao);
+    if(v('az-nome')) pecas.push('por ' + v('az-nome'));
+    el.innerHTML = pecas.join('<span style="opacity:.4">·</span>');
+    el.hidden = false;
+  }
   function pinta(){
+    maxVisto = Math.max(maxVisto, passo);
     pts.innerHTML = '';
-    for(var i = 1; i <= TOTAL; i++) pts.innerHTML += '<i class="' + (i <= passo ? 'on' : '') + '"></i>';
+    for(var i = 1; i <= TOTAL; i++) pts.innerHTML += '<i data-passo="' + i + '" title="' + ROT[i] + '" class="' + (i <= passo ? 'on' : '') + '"></i>';
     pts.innerHTML += '<small>' + ROT[passo] + '</small>';
+    sacola();
     document.querySelectorAll('.az-passo').forEach(function(p){
       p.classList.toggle('on', Number(p.dataset.p) === passo);
     });
@@ -587,6 +650,7 @@
     var bt = document.getElementById('az-vai');
     bt.disabled = true; bt.textContent = 'Enviando…';
     var f = fmt();
+    var proto = 'FY-' + Date.now().toString(36).toUpperCase().slice(-6);
     var msg = v('az-msg');
     if(st.formato === 'faixa' && v('az-faixa-tx')) msg = ('Linha da faixa: “' + v('az-faixa-tx') + '”' + (msg ? ' — ' + msg : ''));
     fetch(M.url + '/rest/v1/foyer_anuncios', {
@@ -597,11 +661,16 @@
         inicio: v('az-inicio'), duracao: st.duracao,
         nome: v('az-nome'), empresa: v('az-empresa'), email: v('az-email'),
         whatsapp: v('az-whats').replace(/\D/g, ''), instagram: v('az-insta'),
-        mensagem: msg, arte: st.arte || null
+        mensagem: msg, arte: st.arte || null, protocolo: proto
       })
     }).then(function(r){
       if(r.status !== 201) throw 0;
-      document.querySelectorAll('.az-passo, .az-nav, .az-topo').forEach(function(x){ x.style.display = 'none'; });
+      document.querySelectorAll('.az-passo, .az-nav, .az-topo, .az-sacola, .az-garante').forEach(function(x){ x.style.display = 'none'; });
+      document.getElementById('az-proto-n').textContent = proto;
+      var zap = document.getElementById('az-zap');
+      zap.href = 'https://wa.me/5511995450954?text=' + encodeURIComponent(
+        'Olá! Acabei de enviar um pedido de anúncio no FOYER (protocolo ' + proto + ', ' + f.nome + '). Podemos falar?');
+      try{ localStorage.removeItem(RK); }catch(e2){}
       document.getElementById('az-fim').classList.add('on');
     }).catch(function(){
       bt.disabled = false; bt.textContent = 'Enviar o pedido ✦';
@@ -616,17 +685,20 @@
       document.querySelectorAll('.az-fcard').forEach(function(b){ b.classList.toggle('on', b === bf); });
       document.getElementById('az-cupom-bt').classList.toggle('on', st.cupom);
       pintaComo();
+      sacola(); salvaRasc();
       return;
     }
     if(e.target.closest('#az-cupom-bt')){
       st.cupom = !st.cupom;
       document.getElementById('az-cupom-bt').classList.toggle('on', st.cupom);
+      sacola(); salvaRasc();
       return;
     }
     var bd = e.target.closest('#az-duracao .az-op');
     if(bd){
       st.duracao = bd.dataset.d;
       document.querySelectorAll('#az-duracao .az-op').forEach(function(b){ b.classList.toggle('on', b === bd); });
+      sacola(); salvaRasc();
       return;
     }
     if(e.target.closest('#az-vai')){
@@ -635,8 +707,65 @@
       passo++; pinta();
       return;
     }
-    if(e.target.closest('#az-volta')){ if(passo > 1){ passo--; pinta(); } }
+    if(e.target.closest('#az-volta')){ if(passo > 1){ passo--; pinta(); } return; }
+    var pt = e.target.closest('.az-pts i');
+    if(pt){
+      var alvo = Number(pt.dataset.passo);
+      if(alvo <= maxVisto && (alvo < passo || valida())){ passo = alvo; pinta(); }
+      return;
+    }
+    var pv = e.target.closest('.pv-caixa');
+    if(pv && passo === 2){
+      var vivo = pv.querySelector('.pv-site, .pv-pg');
+      var visivel = Array.prototype.filter.call(pv.querySelectorAll('.pv-site, .pv-pg'), function(x){
+        return getComputedStyle(x).display !== 'none';
+      })[0];
+      if(!visivel) return;
+      var md = document.getElementById('pv-modal');
+      md.querySelector('.dentro').innerHTML = '';
+      md.querySelector('.dentro').appendChild(visivel.cloneNode(true));
+      md.classList.add('on');
+      return;
+    }
+    if(e.target.closest('#pv-modal')){ document.getElementById('pv-modal').classList.remove('on'); }
   });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') document.getElementById('pv-modal').classList.remove('on');
+  });
+  document.addEventListener('input', function(e){
+    if(e.target.closest('.az-wiz')){ sacola(); salvaRasc(); }
+  });
+  // o rascunho sobrevive: quem sai no meio volta de onde parou
+  var RK = 'foyer-anuncio-rascunho';
+  function salvaRasc(){
+    try{
+      localStorage.setItem(RK, JSON.stringify({
+        st: st, campos: ['az-faixa-tx','az-inicio','az-nome','az-empresa','az-email','az-whats','az-insta','az-msg']
+          .reduce(function(a, id){ a[id] = v(id); return a; }, {})
+      }));
+    }catch(e){}
+  }
+  (function restauraRasc(){
+    try{
+      var r = JSON.parse(localStorage.getItem(RK) || 'null');
+      if(!r || !r.st) return;
+      st = r.st;
+      Object.keys(r.campos || {}).forEach(function(id){
+        var el = document.getElementById(id);
+        if(el && r.campos[id]) el.value = r.campos[id];
+      });
+      if(st.formato){
+        document.querySelectorAll('.az-fcard').forEach(function(b){ b.classList.toggle('on', b.dataset.f === st.formato); });
+        document.getElementById('az-cupom-bt').classList.toggle('on', st.cupom);
+        pintaComo();
+      }
+      if(st.duracao) document.querySelectorAll('#az-duracao .az-op').forEach(function(b){
+        b.classList.toggle('on', b.dataset.d === st.duracao);
+      });
+      if(v('az-faixa-tx')) document.getElementById('pv-faixa-tx').textContent = v('az-faixa-tx');
+      aplicaArte();
+    }catch(e){}
+  })();
   pinta();
 
   fetch(M.url + '/rest/v1/rpc/foyer_leitores_resumo', {

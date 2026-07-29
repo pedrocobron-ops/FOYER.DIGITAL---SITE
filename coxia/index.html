@@ -3763,6 +3763,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           (PUB_NOME[p.formato] || p.formato) + (p.cupom ? ' + bilhete do leitor' : '') + '). Vamos fechar valores e datas?');
         return '<div class="pub-card">' +
           '<div class="pc-t"><b>' + esc(PUB_NOME[p.formato] || p.formato) + (p.cupom ? ' + 🎟 cupom' : '') + '</b>' +
+          (p.protocolo ? '<span class="mt">' + esc(p.protocolo) + '</span>' : '') +
           '<span class="pub-pill ' + esc(p.status) + '">' + esc(p.status.replace('-', ' ')) + '</span>' +
           '<span class="mt" style="margin-left:auto">' + esc(quando) + '</span></div>' +
           '<div class="pub-linha"><em>Quem</em><span>' + esc(p.nome + (p.empresa ? ' · ' + p.empresa : '')) + '</span></div>' +
