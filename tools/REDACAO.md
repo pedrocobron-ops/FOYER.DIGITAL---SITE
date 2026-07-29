@@ -568,12 +568,29 @@ Regras das seções novas:
   no link do anúncio (`?utm_source=foyer&cupom=CODIGO`) e o leitor
   copia com um toque: o anunciante vê na bilheteria e no site quantos
   ingressos o código do FOYER vendeu.
-- **Posições de anúncio** (as únicas vendáveis, por nome): **a ímpar
-  dos Recortes** (página inteira logo após a seção), **a face da
-  agenda** (ao lado da "Semana em cartaz") e **a porta da contracapa**
-  (a última página antes do fecho). **Máximo de 2 páginas pagas por
-  edição.** Valores sempre sob consulta (nunca impressos); a vitrine
-  comercial é a página pública `midia-kit.html`.
+- **O catálogo comercial da casa (Anuncie no FOYER)** — vitrine e
+  contratação em 5 passos na página pública `anuncie.html` (o antigo
+  `midia-kit.html` redireciona). Formatos:
+  - **No site** (controlados por `import/anuncios/site.json`, que a
+    aba Publicidade da Coxia edita; entram no ar no deploy seguinte):
+    **A Cortina de entrada** (abertura, 1x por dia por visitante, com
+    fechar), **O Entreato** (dentro das matérias, após o 4º
+    parágrafo) e **A Faixa de proscênio** (rodapé fixo, dispensável
+    pelo leitor). TODOS com rótulo "Publicidade"; nunca aparecem na
+    Coxia nem dentro da revista.
+  - **Na revista**: **página inteira** (posições nomeadas: a ímpar
+    dos Recortes, a face da agenda, a porta da contracapa; pode levar
+    o bilhete do leitor), **meia página** (campo `anuncioMeia` da
+    página de matéria: o anúncio ocupa o pé da última página da
+    matéria, no lugar da arte da casa) e o **bilhete do leitor**
+    (cupom, exclusivo da página inteira paga). **Máximo de 2 páginas
+    pagas por edição.**
+  - **O pedido**: o passo a passo grava na tabela `foyer_anuncios`
+    (Supabase; o site só insere, a leitura exige a chave da casa) e
+    aparece na aba **Publicidade** da Coxia com botão de WhatsApp
+    pronto. VALORES nunca são impressos: fecham-se na conversa,
+    registrada por escrito. Status do pedido: novo → em conversa →
+    fechado/descartado.
 - **Programa de sala** (`programa-sala`): o playbill da estreia da
   semana, com moldura dourada, "quem está em cena" e ficha técnica em
   colunas. Só nomes APURADOS na cobertura da casa; personagem sem

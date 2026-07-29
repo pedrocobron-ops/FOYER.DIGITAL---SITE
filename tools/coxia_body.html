@@ -737,6 +737,7 @@
         <button data-view="ia" id="mi-ia" type="button">🤖 &nbsp;Redação IA<span class="bdg" id="bdg-mesa" style="display:none">0</span></button>
         <button data-view="revista" id="mi-revista" type="button">📖 &nbsp;Revista</button>
         <button data-view="calendario" id="mi-cal" type="button">📅 &nbsp;Calendário<span class="bdg" id="bdg-cal" style="display:none">!</span></button>
+        <button data-view="pub" id="mi-pub" type="button">💰 &nbsp;Publicidade<span class="bdg" id="bdg-pub" style="display:none">0</span></button>
         <button data-view="equipe" id="mi-equipe" type="button">👥 &nbsp;Equipe</button>
         <button data-view="metricas" id="mi-metricas" type="button">📈 &nbsp;Métricas</button>
         <button data-view="conexao" type="button">⚡ &nbsp;Conexão</button>
@@ -1160,6 +1161,37 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       </section>
 
       <!-- ========== MÉTRICAS (chefe) ========== -->
+      <section class="view" id="view-pub">
+        <style>
+          .pub-card{ border:2px solid var(--ink,#231007); padding:14px 16px; margin-bottom:12px; }
+          .pub-card .pc-t{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+          .pub-card .pc-t b{ font-size:.95rem; }
+          .pub-pill{ font-family:var(--mono, monospace); font-size:.54rem; font-weight:700; letter-spacing:.12em;
+            text-transform:uppercase; padding:4px 9px; border:2px solid currentColor; }
+          .pub-pill.novo{ color:#8a6d1f; } .pub-pill.em-conversa{ color:#1f4d8a; }
+          .pub-pill.fechado{ color:#2c5a2e; } .pub-pill.descartado{ color:#8a1f14; }
+          .pub-linha{ display:flex; gap:10px; padding:3px 0; font-size:.84rem; }
+          .pub-linha em{ font-style:normal; font-family:var(--mono, monospace); font-size:.54rem; letter-spacing:.12em;
+            text-transform:uppercase; opacity:.65; min-width:96px; padding-top:3px; }
+          .pub-acoes{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+          .pub-whats{ display:inline-block; border:2px solid #2c5a2e; background:#2c5a2e; color:#fff;
+            font-family:var(--mono, monospace); font-weight:700; font-size:.6rem; letter-spacing:.1em;
+            text-transform:uppercase; padding:9px 13px; text-decoration:none; }
+          .pub-st{ border:2px solid var(--ink,#231007); background:transparent; cursor:pointer;
+            font-family:var(--mono, monospace); font-size:.56rem; letter-spacing:.1em; text-transform:uppercase; padding:8px 11px; }
+          .pub-form label{ display:block; font-family:var(--mono, monospace); font-size:.56rem; font-weight:700;
+            letter-spacing:.12em; text-transform:uppercase; opacity:.7; margin:10px 0 4px; }
+          .pub-form input{ width:100%; box-sizing:border-box; border:2px solid var(--ink,#231007);
+            background:transparent; color:inherit; font:inherit; padding:9px 11px; }
+          .pub-r3{ display:grid; grid-template-columns:2fr 2fr 1fr; gap:10px; }
+          @media (max-width:760px){ .pub-r3{ grid-template-columns:1fr; } }
+        </style>
+        <div class="sec-h"><h3>Pedidos de anúncio</h3><span>chegam prontos do passo a passo do site (anuncie.html); feche valores no WhatsApp</span></div>
+        <div id="pub-pedidos"><div class="vazio-box">Carregando pedidos…</div></div>
+        <div class="sec-h"><h3>Anúncios do site no ar</h3><span>a Faixa, a Cortina e o Entreato; salvar publica no próximo deploy, sempre com o rótulo Publicidade</span></div>
+        <div class="pub-form" id="pub-site"></div>
+      </section>
+
       <section class="view" id="view-calendario">
         <style>
           .cal-cab{ display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px; margin:0 0 12px; }
@@ -1577,6 +1609,15 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     checarRasc();
     bemVindo();
     calAviso();
+    pubAviso();
+  }
+  // pedidos de anúncio novos acendem a contagem no menu Publicidade
+  function pubAviso(){
+    pubRPC('foyer_anuncios_lista', { chave: 'foyer-cx-metricas-terceiro-sinal-9427' }).then(function(lista){
+      var n = (lista || []).filter(function(p){ return p.status === 'novo'; }).length;
+      var b = $('bdg-pub');
+      if(b){ b.style.display = n ? '' : 'none'; b.textContent = n; }
+    }).catch(function(){});
   }
   // o lembrete no menu: pendências do dia acendem a contagem no botão Calendário
   function calAviso(){
@@ -1721,6 +1762,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(v === 'saguao') carregarSaguao();
     if(v === 'revista') carregarEdicoes();
     if(v === 'calendario') carregarCalendario();
+    if(v === 'pub'){ carregarPedidosPub(); carregarSitePub(); }
     if(v === 'metricas') carregarMetricas();
     if(foco) focarBloco(foco, focoAlt);
   }
@@ -3661,6 +3703,94 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   });
 
   /* ================= SAGUÃO ================= */
+  /* ---------------- publicidade: pedidos do site + anúncios da casa ---------------- */
+  var PUB = { sitejson: null, siteSha: null };
+  var PUB_ARQ = 'import/anuncios/site.json';
+  var PUB_NOME = { cortina:'A Cortina de entrada (site)', entreato:'O Entreato (site)', faixa:'A Faixa de proscênio (site)',
+                   'pagina-inteira':'Página inteira (revista)', 'meia-pagina':'Meia página (revista)' };
+  function pubRPC(fn, corpo){
+    var RK = { url:'https://jcaqjlrzmrtzjyfbljxh.supabase.co', key:'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB' };
+    return fetch(RK.url + '/rest/v1/rpc/' + fn, {
+      method:'POST',
+      headers:{ 'apikey': RK.key, 'Authorization': 'Bearer ' + RK.key, 'Content-Type': 'application/json' },
+      body: JSON.stringify(corpo)
+    }).then(function(r){ if(!r.ok) throw 0; return r.text().then(function(t){ return t ? JSON.parse(t) : null; }); });
+  }
+  function carregarPedidosPub(){
+    var el = $('pub-pedidos');
+    pubRPC('foyer_anuncios_lista', { chave: 'foyer-cx-metricas-terceiro-sinal-9427' }).then(function(lista){
+      lista = lista || [];
+      var novos = lista.filter(function(p){ return p.status === 'novo'; }).length;
+      var b = $('bdg-pub');
+      if(b){ b.style.display = novos ? '' : 'none'; b.textContent = novos; }
+      if(!lista.length){ el.innerHTML = '<div class="vazio-box">Nenhum pedido ainda. O passo a passo público fica em anuncie.html.</div>'; return; }
+      el.innerHTML = lista.map(function(p){
+        var quando = new Date(p.criado_em).toLocaleString('pt-BR');
+        var zap = (p.whatsapp || '').replace(/\D/g, '');
+        if(zap && zap.length <= 11) zap = '55' + zap;
+        var oi = encodeURIComponent('Olá, ' + (p.nome || '') + '! Aqui é o FOYER. Recebi o seu pedido de anúncio (' +
+          (PUB_NOME[p.formato] || p.formato) + (p.cupom ? ' + bilhete do leitor' : '') + '). Vamos fechar valores e datas?');
+        return '<div class="pub-card">' +
+          '<div class="pc-t"><b>' + esc(PUB_NOME[p.formato] || p.formato) + (p.cupom ? ' + 🎟 cupom' : '') + '</b>' +
+          '<span class="pub-pill ' + esc(p.status) + '">' + esc(p.status.replace('-', ' ')) + '</span>' +
+          '<span class="mt" style="margin-left:auto">' + esc(quando) + '</span></div>' +
+          '<div class="pub-linha"><em>Quem</em><span>' + esc(p.nome + (p.empresa ? ' · ' + p.empresa : '')) + '</span></div>' +
+          '<div class="pub-linha"><em>Temporada</em><span>' + esc((p.inicio || 'a combinar') + ' · ' + (p.duracao || 'a combinar')) + '</span></div>' +
+          '<div class="pub-linha"><em>Contato</em><span>' + esc(p.whatsapp + ' · ' + p.email + (p.instagram ? ' · ' + p.instagram : '')) + '</span></div>' +
+          (p.mensagem ? '<div class="pub-linha"><em>O anúncio</em><span>' + esc(p.mensagem) + '</span></div>' : '') +
+          '<div class="pub-acoes">' +
+          '<a class="pub-whats" target="_blank" rel="noopener" href="https://wa.me/' + zap + '?text=' + oi + '">💬 Chamar no WhatsApp</a>' +
+          ['em-conversa', 'fechado', 'descartado'].map(function(s2){
+            return p.status === s2 ? '' : '<button class="pub-st" type="button" data-pub-st="' + s2 + '" data-pub-id="' + esc(p.id) + '">' + s2.replace('-', ' ') + '</button>';
+          }).join('') +
+          '</div></div>';
+      }).join('');
+    }).catch(function(){
+      el.innerHTML = '<div class="vazio-box">Sem acesso aos pedidos agora. Tente recarregar.</div>';
+    });
+  }
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-pub-st]');
+    if(!b) return;
+    pubRPC('foyer_anuncio_status', { chave: 'foyer-cx-metricas-terceiro-sinal-9427', p_id: b.dataset.pubId, p_status: b.dataset.pubSt })
+      .then(function(){ carregarPedidosPub(); })
+      .catch(function(){ avisar('Não mudou o status agora; tente de novo.'); });
+  });
+  function carregarSitePub(){
+    var el = $('pub-site');
+    ghGet(PUB_ARQ).then(function(f){
+      PUB.sitejson = f && f.content ? JSON.parse(unb64(f.content)) : { faixa:{}, cortina:{}, entreato:{} };
+      PUB.siteSha = f ? f.sha : null;
+      var d = PUB.sitejson;
+      function g(k, c){ return esc(((d[k] || {})[c]) || ''); }
+      el.innerHTML =
+        '<div class="f-note">Deixar os campos vazios = formato fora do ar. "Até" corta o anúncio sozinho no dia seguinte à data (AAAA-MM-DD).</div>' +
+        '<label>A FAIXA · texto</label><input type="text" id="pubf-texto" value="' + g('faixa', 'texto') + '" placeholder="Peça X em cartaz no Teatro Y — ingressos aqui">' +
+        '<div class="pub-r3"><div><label>Faixa · link</label><input type="text" id="pubf-link" value="' + g('faixa', 'link') + '"></div>' +
+        '<div><label>Faixa · até</label><input type="text" id="pubf-ate" value="' + g('faixa', 'ate') + '" placeholder="2026-08-31"></div><div></div></div>' +
+        '<label>A CORTINA · caminho da imagem (assets/uploads/…)</label><input type="text" id="pubc-img" value="' + g('cortina', 'img') + '">' +
+        '<div class="pub-r3"><div><label>Cortina · link</label><input type="text" id="pubc-link" value="' + g('cortina', 'link') + '"></div>' +
+        '<div><label>Cortina · legenda</label><input type="text" id="pubc-leg" value="' + g('cortina', 'legenda') + '"></div>' +
+        '<div><label>Cortina · até</label><input type="text" id="pubc-ate" value="' + g('cortina', 'ate') + '"></div></div>' +
+        '<label>O ENTREATO · caminho da imagem (assets/uploads/…)</label><input type="text" id="pube-img" value="' + g('entreato', 'img') + '">' +
+        '<div class="pub-r3"><div><label>Entreato · link</label><input type="text" id="pube-link" value="' + g('entreato', 'link') + '"></div>' +
+        '<div><label>Entreato · legenda</label><input type="text" id="pube-leg" value="' + g('entreato', 'legenda') + '"></div>' +
+        '<div><label>Entreato · até</label><input type="text" id="pube-ate" value="' + g('entreato', 'ate') + '"></div></div>' +
+        '<div class="f-note">Arte nova? Suba a imagem pela aba Nova matéria (campo de foto) ou me peça no chat que eu coloco em assets/uploads/.</div>' +
+        '<div style="margin-top:12px"><button class="f-pub" type="button" id="pub-salvar" style="padding:11px 16px">Salvar e publicar no próximo deploy</button></div>';
+      $('pub-salvar').addEventListener('click', function(){
+        var novo = {
+          faixa: { texto: $('pubf-texto').value.trim(), link: $('pubf-link').value.trim(), ate: $('pubf-ate').value.trim() },
+          cortina: { img: $('pubc-img').value.trim(), link: $('pubc-link').value.trim(), legenda: $('pubc-leg').value.trim(), ate: $('pubc-ate').value.trim() },
+          entreato: { img: $('pube-img').value.trim(), link: $('pube-link').value.trim(), legenda: $('pube-leg').value.trim(), ate: $('pube-ate').value.trim() }
+        };
+        ghPut(PUB_ARQ, JSON.stringify(novo, null, 1), assina('atualiza os anúncios do site'), PUB.siteSha)
+          .then(function(r){ if(r && r.content) PUB.siteSha = r.content.sha; avisar('Salvo! Entra no ar no próximo deploy.'); })
+          .catch(function(){ avisar('Não salvou; recarregue a aba e tente de novo.'); });
+      });
+    }).catch(function(){ el.innerHTML = '<div class="vazio-box">Sem acesso ao arquivo dos anúncios (confira a chave na aba Conexão).</div>'; });
+  }
+
   /* ---------------- calendário editorial (a semana da revista) ---------------- */
   var CAL = { doc: null, sha: null, chave: null };
   var CAL_ARQ = 'import/coxia/calendario-revista.json';

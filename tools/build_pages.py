@@ -248,6 +248,115 @@ def ph(sym, cap=True, extra='', href='materia.html'):
 def ad(slot):
     return f'<div class="ad-slot" data-ad-slot="{slot}"></div>'
 
+# ---------------------------------------------------------------- publicidade da casa
+# Anúncios vendidos pelo "Anuncie no FOYER": a Faixa (rodapé fixo), a Cortina
+# (abertura, 1x por dia) e o Entreato (no meio da matéria). Tudo controlado
+# por import/anuncios/site.json (a Coxia edita) e SEMPRE rotulado Publicidade.
+import datetime as _dtmod
+import json as _json0
+try:
+    _ANUN = _json0.load(open(os.path.join(ROOT, 'import/anuncios/site.json')))
+except Exception:
+    _ANUN = {}
+
+def _anun_ativo(k):
+    a = _ANUN.get(k) or {}
+    if not (a.get('img') or a.get('texto')):
+        return None
+    ate = (a.get('ate') or '').strip()
+    if ate and _dtmod.date.today().isoformat() > ate:
+        return None
+    return a
+
+def _monta_ads_casa():
+    fx, ct = _anun_ativo('faixa'), _anun_ativo('cortina')
+    if not (fx or ct):
+        return ''
+    css = ['<style>']
+    corpo = []
+    js = []
+    if fx:
+        css.append('''.pub-faixa{ position:fixed; left:0; right:0; bottom:0; z-index:80; display:flex;
+  align-items:center; gap:12px; background:var(--paper); border-top:2px solid var(--ink);
+  padding:9px 14px; box-shadow:0 -6px 22px rgba(0,0,0,.18); }
+.pub-faixa em{ font-style:normal; font-family:var(--mono); font-size:.5rem; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); flex-shrink:0; }
+.pub-faixa a{ flex:1; color:var(--ink); font-weight:600; font-size:.85rem; text-decoration:none;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.pub-faixa a:hover{ color:var(--wine); }
+.pub-faixa button{ border:2px solid var(--ink); background:transparent; cursor:pointer;
+  font-family:var(--mono); font-size:.6rem; padding:4px 9px; flex-shrink:0; }
+body.tem-faixa{ padding-bottom:52px; }''')
+        _l = fx.get('link') or '#'
+        corpo.append(f'<div class="pub-faixa" id="pub-faixa" hidden><em>Publicidade</em>'
+                     f'<a href="{_html.escape(_l)}" target="_blank" rel="noopener sponsored">{_html.escape(fx.get("texto", ""))}</a>'
+                     '<button type="button" id="pub-faixa-x" aria-label="Fechar">✕</button></div>')
+        js.append('''(function(){
+  var k = 'foyer-pub-faixa-' + new Date().toISOString().slice(0, 10);
+  try{ if(localStorage.getItem(k)) return; }catch(e){}
+  var f = document.getElementById('pub-faixa');
+  f.hidden = false; document.body.classList.add('tem-faixa');
+  document.getElementById('pub-faixa-x').addEventListener('click', function(){
+    f.hidden = true; document.body.classList.remove('tem-faixa');
+    try{ localStorage.setItem(k, '1'); }catch(e){}
+  });
+})();''')
+    if ct:
+        css.append('''.pub-cortina{ position:fixed; inset:0; z-index:120; display:flex; align-items:center;
+  justify-content:center; background:rgba(20,6,3,.78); padding:20px; }
+.pub-cortina .caixa{ position:relative; background:var(--paper); border:3px solid var(--ink);
+  max-width:520px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+.pub-cortina .rotulo{ display:block; font-family:var(--mono); font-size:.52rem; font-weight:700;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); padding:10px 14px 0; }
+.pub-cortina img{ display:block; width:100%; height:auto; padding:10px 14px; box-sizing:border-box; }
+.pub-cortina .leg{ padding:0 14px 14px; font-size:.85rem; }
+.pub-cortina .fechar{ position:absolute; top:-14px; right:-14px; width:34px; height:34px;
+  border:2px solid var(--ink); background:var(--gold); color:var(--wine); font-weight:700;
+  cursor:pointer; font-size:1rem; line-height:1; }''')
+        _lc = ct.get('link') or '#'
+        corpo.append(f'<div class="pub-cortina" id="pub-cortina" hidden><div class="caixa">'
+                     '<button class="fechar" type="button" id="pub-cortina-x" aria-label="Fechar">✕</button>'
+                     '<span class="rotulo">Publicidade</span>'
+                     f'<a href="{_html.escape(_lc)}" target="_blank" rel="noopener sponsored">'
+                     f'<img src="{_html.escape(ct.get("img", ""))}" alt="{_html.escape(ct.get("legenda", ""))}"></a>'
+                     + (f'<div class="leg">{_html.escape(ct["legenda"])}</div>' if ct.get('legenda') else '')
+                     + '</div></div>')
+        js.append('''(function(){
+  var k = 'foyer-pub-cortina-' + new Date().toISOString().slice(0, 10);
+  try{ if(localStorage.getItem(k)) return; }catch(e){}
+  var c = document.getElementById('pub-cortina');
+  setTimeout(function(){ c.hidden = false; }, 900);
+  function fecha(){ c.hidden = true; try{ localStorage.setItem(k, '1'); }catch(e){} }
+  document.getElementById('pub-cortina-x').addEventListener('click', fecha);
+  c.addEventListener('click', function(e){ if(e.target === c) fecha(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !c.hidden) fecha(); });
+})();''')
+    css.append('</style>')
+    return '\n'.join(css) + '\n' + '\n'.join(corpo) + '\n<script>\n' + '\n'.join(js) + '\n</script>\n'
+
+ADS_CASA = _monta_ads_casa()
+
+def _entreato_html():
+    en = _anun_ativo('entreato')
+    if not en:
+        return ''
+    _l = en.get('link') or '#'
+    leg = f'<figcaption>{_html.escape(en["legenda"])}</figcaption>' if en.get('legenda') else ''
+    return ('<aside class="pub-entreato"><em>Publicidade</em>'
+            f'<a href="{_html.escape(_l)}" target="_blank" rel="noopener sponsored">'
+            f'<img src="{_html.escape(en.get("img", ""))}" alt="{_html.escape(en.get("legenda", ""))}" loading="lazy"></a>'
+            f'{leg}</aside>')
+
+def _injeta_entreato(corpo):
+    """O Entreato entra depois do 4º parágrafo da matéria, sempre rotulado."""
+    bloco = _entreato_html()
+    if not bloco:
+        return corpo
+    partes = corpo.split('</p>', 4)
+    if len(partes) < 5:
+        return corpo
+    return '</p>'.join(partes[:4]) + '</p>\n' + bloco + partes[4]
+
 def news_cell(sym, tag, title, meta, desc=None, big=False):
     d = f'\n        <p>{desc}</p>' if desc else ''
     cap = '<span class="ph-cap">Foto — Divulgação</span>' if big else ''
@@ -266,7 +375,10 @@ def news_cell(sym, tag, title, meta, desc=None, big=False):
     </article>'''
 
 def page(fname, title, desc, current, body, quiet=False, og_img=None, og_type='website', ld=''):
-    html = head(title, desc, og_img=og_img, og_type=og_type, og_url=fname, ld=ld) + '\n' + DEFS + '\n' + UTIL + '\n' + nav(current) + '\n' + body + '\n' + FOOTER + '</body>\n</html>\n'
+    # a publicidade da casa entra em todo o site, MENOS na Coxia e dentro da
+    # revista (a edição fechada não carrega anúncio de site)
+    _pub = '' if (fname.startswith('coxia') or fname.startswith('revista-ed-')) else ADS_CASA
+    html = head(title, desc, og_img=og_img, og_type=og_type, og_url=fname, ld=ld) + '\n' + DEFS + '\n' + UTIL + '\n' + nav(current) + '\n' + body + '\n' + _pub + FOOTER + '</body>\n</html>\n'
     with open(os.path.join(ROOT, fname), 'w') as f:
         f.write(html)
     if not quiet:
@@ -1594,7 +1706,7 @@ def post_page(i, p):
   <div class="ad-slot" data-ad-slot="2001"></div>
 
   <div class="art-body">
-{corpo}
+{_injeta_entreato(corpo)}
   </div>
   {nota_correcao(p)}
   {quem_bloco}
@@ -1848,6 +1960,12 @@ html[data-theme="dark"] .rv-mat .cont-tit{ color:var(--gold); }
   text-transform:uppercase; color:var(--ink-soft); margin-top:6px; }
 .rv-mat .txt blockquote{ border-left:4px solid var(--gold); margin:14px 0;
   padding:4px 0 4px 14px; font-style:italic; font-size:.9rem; }
+/* a meia página vendida: o pé da última página da matéria, sempre rotulada */
+.rv-mat .rv-meia{ margin-top:auto; border:2px solid var(--ink); padding:10px 12px 12px; }
+.rv-mat .rv-meia em{ display:block; font-style:normal; font-family:var(--mono); font-size:.5rem;
+  font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px; }
+.rv-mat .rv-meia img{ display:block; width:100%; height:auto; max-height:380px; object-fit:contain; }
+.rv-mat .rv-meia span{ display:block; font-size:.74rem; color:var(--ink-soft); margin-top:6px; }
 .rv-mat .leia{ margin-top:auto; padding-top:12px; }
 .rv-mat .leia a{ display:inline-block; border:2px solid var(--wine); background:var(--wine);
   color:var(--gold); text-decoration:none; font-family:var(--mono); font-weight:600;
@@ -2410,6 +2528,19 @@ def _rv_pagina(pg, ed, num):
             else:
                 corpo = md_lite(pg['texto'])
         fatias = _rv_quebra_corpo(corpo)
+        # a MEIA PÁGINA vendida: quando existe, o anúncio ocupa o pé da última
+        # página da matéria (o lugar da arte da casa), sempre rotulado
+        _am = pg.get('anuncioMeia') or {}
+        if _am.get('img'):
+            _aml = (_am.get('link') or '').strip()
+            _ami = ((f'<a style="display:contents" href="{_rvesc(_aml)}" target="_blank" rel="noopener sponsored">' if _aml else '')
+                    + f'<img src="{_rvesc(_am["img"])}" alt="{_rvesc(_am.get("legenda", ""))}">'
+                    + ('</a>' if _aml else ''))
+            fim_arte = ('<div class="rv-meia"><em>Publicidade</em>' + _ami
+                        + (f'<span>{_rvesc(_am["legenda"])}</span>' if _am.get('legenda') else '')
+                        + '</div>')
+        else:
+            fim_arte = f'<svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#{_RV_ARTES[(int(ed.get("numero", 1)) + 1) % len(_RV_ARTES)]}"/></svg>'
         titulo_curto = pg.get('titulo', '')
         if len(titulo_curto) > 54:
             titulo_curto = titulo_curto[:54].rsplit(' ', 1)[0].rstrip(',.;:') + '…'
@@ -2418,7 +2549,7 @@ def _rv_pagina(pg, ed, num):
                   f'<p class="linhafina">{_rvesc(pg.get("chamada", ""))}</p>'
                   + olho
                   + (f'<div class="txt">{fatias[0]}</div>' if fatias[0] else '')
-                  + ((f'<svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#{_RV_ARTES[(int(ed.get("numero", 1)) + 1) % len(_RV_ARTES)]}"/></svg>' + leia) if len(fatias) == 1 else '<span class="segue">continua na próxima página →</span>')
+                  + ((fim_arte + leia) if len(fatias) == 1 else '<span class="segue">continua na próxima página →</span>')
                   + f'</div>{fol}</section>')]
         for k, fatia in enumerate(fatias[1:], 2):
             ultima = (k == len(fatias))
@@ -2428,7 +2559,7 @@ def _rv_pagina(pg, ed, num):
                 f'<span>continuação</span></div><div class="miolo">'
                 f'<p class="cont-tit">{_rvesc(titulo_curto)}</p>'
                 f'<div class="txt">{fatia}</div>'
-                + ((f'<svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#{_RV_ARTES[(int(ed.get("numero", 1)) + 1) % len(_RV_ARTES)]}"/></svg>' + leia) if ultima else '<span class="segue">continua na próxima página →</span>')
+                + ((fim_arte + leia) if ultima else '<span class="segue">continua na próxima página →</span>')
                 + f'</div>{fol}</section>')
         return saida
     if t == 'exclusiva':
@@ -2607,9 +2738,9 @@ def _rv_pagina(pg, ed, num):
                 f'<h4>Fotografias</h4><p>Imagens de divulgação das produções, sempre com crédito.</p>'
                 f'<h4>Cartas da plateia</h4><p>Escreva para programafoyer@gmail.com. As melhores cartas saem na revista, com nome e cidade.</p>'
                 f'<h4>Fale conosco</h4><p>foyer.digital · programafoyer@gmail.com · YouTube @Foyer.digital</p>'
-                '<div class="anuncie"><em>Anuncie na revista</em>'
-                '<p>Uma página inteira, leitor por assinatura e o bilhete do leitor com código exclusivo na bilheteria. '
-                'Posições e mídia kit: <a href="midia-kit.html">foyer.digital/midia-kit</a> · programafoyer@gmail.com</p></div>'
+                '<div class="anuncie"><em>Anuncie no FOYER</em>'
+                '<p>No site todos os dias ou na revista: página inteira, meia página e o bilhete do leitor com código exclusivo. '
+                'Contrate em 5 passos: <a href="anuncie.html">foyer.digital/anuncie</a> · programafoyer@gmail.com</p></div>'
                 f'</div>{fol}</section>')
     if t == 'programa-sala':
         # o programa clássico da estreia: moldura dourada, quem é quem, ficha em colunas
@@ -3908,7 +4039,7 @@ _SPLASH = '''<div id="abre" hidden>
 capa_html = (head('FOYER — Teatro, Cultura & Arte',
                   'FOYER — portal de teatro, música e cultura. Notícias, crítica, revista semanal, programas e a Enciclopédia do Teatro Musical Brasileiro.')
              + '\n' + _SPLASH + '\n' + DEFS + '\n' + index_body + '\n' + UTIL + '\n' + nav('index.html')
-             + '\n' + index_main + '\n' + FOOTER + '</body>\n</html>\n')
+             + '\n' + index_main + '\n' + ADS_CASA + FOOTER + '</body>\n</html>\n')
 with open(os.path.join(ROOT, 'index.html'), 'w') as f:
     f.write(capa_html)
 print('•', 'index.html', len(capa_html)//1024, 'KB')
@@ -3976,250 +4107,391 @@ page('principios.html', 'Princípios Editoriais — FOYER', 'Como o FOYER apura,
 page('privacidade.html', 'Política de Privacidade — FOYER', 'Política de privacidade e cookies do FOYER.', 'privacidade.html', privacidade_body)
 
 # ---- mídia kit: a página comercial da revista, com o retrato agregado do leitor
-midiakit_body = band('Comercial', 'Anuncie na revista', 'Uma página inteira na revista semanal do FOYER, que fecha como uma edição impressa') + '''
+anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na revista toda quinta. Escolha o formato, conte quem você é e feche direto no WhatsApp') + '''
 <main id="conteudo" class="wrap">
   <style>
-    /* ---- o palco de abertura: a cortina abre sozinha ---- */
-    .mk-palco{ position:relative; overflow:hidden; border:3px solid var(--ink); background:#380A06;
-      color:var(--paper); margin:26px 0; min-height:280px; display:flex; align-items:center; justify-content:center; }
-    .mk-palco .luz{ position:absolute; left:50%; top:-40px; width:520px; height:460px; transform:translateX(-50%);
+    .az-palco{ position:relative; overflow:hidden; border:3px solid var(--ink); background:#380A06;
+      color:var(--paper); margin:26px 0; min-height:250px; display:flex; align-items:center; justify-content:center; }
+    .az-palco .luz{ position:absolute; left:50%; top:-40px; width:520px; height:460px; transform:translateX(-50%);
       background:radial-gradient(ellipse at top, rgba(233,203,133,.32), transparent 62%); pointer-events:none; }
-    .mk-palco .dentro{ position:relative; text-align:center; padding:56px 24px; z-index:2; }
-    .mk-palco .dentro em{ display:block; font-style:normal; font-family:var(--mono); font-size:.6rem;
+    .az-palco .dentro{ position:relative; text-align:center; padding:48px 24px; z-index:2; }
+    .az-palco .dentro em{ display:block; font-style:normal; font-family:var(--mono); font-size:.6rem;
       letter-spacing:.3em; text-transform:uppercase; color:var(--gold); }
-    .mk-palco .dentro h2{ font-family:var(--didone); font-weight:400; font-size:clamp(2rem,5vw,3.2rem);
+    .az-palco .dentro h2{ font-family:var(--didone); font-weight:400; font-size:clamp(2rem,5vw,3rem);
       line-height:1.05; margin:10px 0 8px; color:var(--paper); }
-    .mk-palco .dentro p{ margin:0; color:rgba(239,232,218,.85); font-size:.95rem; }
-    .mk-cort{ position:absolute; top:0; bottom:0; width:54%; z-index:4;
+    .az-palco .dentro p{ margin:0; color:rgba(239,232,218,.85); font-size:.95rem; }
+    .az-cort{ position:absolute; top:0; bottom:0; width:54%; z-index:4;
       background:repeating-linear-gradient(90deg, #4E0F09 0 26px, #3d0c07 26px 52px);
       box-shadow:0 0 34px rgba(0,0,0,.5); }
-    .mk-cort.e{ left:0; transform-origin:left center; animation:mkAbre 1.2s .35s cubic-bezier(.7,0,.3,1) forwards; }
-    .mk-cort.d{ right:0; transform-origin:right center; animation:mkAbre 1.2s .35s cubic-bezier(.7,0,.3,1) forwards; }
-    @keyframes mkAbre{ to{ transform:scaleX(.04); } }
+    .az-cort.e{ left:0; transform-origin:left center; animation:azAbre 1.2s .35s cubic-bezier(.7,0,.3,1) forwards; }
+    .az-cort.d{ right:0; transform-origin:right center; animation:azAbre 1.2s .35s cubic-bezier(.7,0,.3,1) forwards; }
+    @keyframes azAbre{ to{ transform:scaleX(.04); } }
 
-    /* ---- as posições: o anúncio acende no miolo em miniatura ---- */
-    .mk-pos-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin:10px 0 26px; }
-    @media (max-width:860px){ .mk-pos-grid{ grid-template-columns:1fr; } }
-    .mk-poscard{ border:2px solid var(--ink); background:var(--paper); padding:16px; cursor:pointer;
-      transition:transform .18s ease, box-shadow .18s ease; }
-    .mk-poscard:hover{ transform:translateY(-4px); box-shadow:0 10px 26px rgba(35,8,5,.18); }
-    .mk-poscard .mini{ display:flex; gap:4px; justify-content:center; padding:14px 0 12px; perspective:700px; }
-    .mk-poscard .pgm{ width:74px; height:100px; border:2px solid var(--ink); background:#F6F1E6;
-      position:relative; overflow:hidden; transition:transform .3s ease, background .3s ease; }
-    .mk-poscard .pgm i{ position:absolute; left:10px; right:10px; height:3px; background:#d8cdb4; }
-    .mk-poscard .pgm i:nth-child(1){ top:14px; } .mk-poscard .pgm i:nth-child(2){ top:24px; }
-    .mk-poscard .pgm i:nth-child(3){ top:34px; width:60%; }
-    .mk-poscard .pgm.anun{ display:flex; align-items:center; justify-content:center; }
-    .mk-poscard .pgm.anun b{ font-family:var(--mono); font-size:.44rem; letter-spacing:.14em; text-align:center;
-      color:var(--wine); opacity:0; transform:rotate(-8deg) scale(.6); transition:opacity .3s, transform .3s; }
-    .mk-poscard:hover .pgm.anun, .mk-poscard.on .pgm.anun{ background:var(--gold);
-      transform:rotateY(-14deg) scale(1.06); box-shadow:0 6px 18px rgba(206,178,106,.5); }
-    .mk-poscard:hover .pgm.anun b, .mk-poscard.on .pgm.anun b{ opacity:1; transform:rotate(-4deg) scale(1); }
-    .mk-poscard h3{ font-family:var(--didone); font-weight:400; font-size:1.25rem; margin:4px 0 4px; }
-    .mk-poscard p{ margin:0; font-size:.82rem; color:var(--ink-soft); line-height:1.5; }
-    .mk-poscard .toque{ display:block; margin-top:10px; font-family:var(--mono); font-size:.52rem;
-      letter-spacing:.16em; text-transform:uppercase; color:var(--wine); opacity:.65; }
+    .az-sec h2{ font-family:var(--didone); font-weight:400; font-size:1.6rem; margin:26px 0 4px; }
+    .az-sec p.n{ margin:0 0 14px; font-size:.9rem; color:var(--ink-soft); }
+    .az-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:0 0 10px; }
+    @media (max-width:860px){ .az-grid{ grid-template-columns:1fr; } }
+    .az-card{ border:2px solid var(--ink); background:var(--paper); padding:14px; cursor:pointer;
+      transition:transform .18s ease, box-shadow .18s ease; position:relative; }
+    .az-card:hover{ transform:translateY(-4px); box-shadow:0 10px 26px rgba(35,8,5,.18); }
+    .az-card h3{ font-family:var(--didone); font-weight:400; font-size:1.2rem; margin:8px 0 4px; }
+    .az-card p{ margin:0; font-size:.8rem; color:var(--ink-soft); line-height:1.5; }
+    .az-card .cta{ display:inline-block; margin-top:10px; font-family:var(--mono); font-size:.54rem;
+      font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--wine);
+      border-bottom:2px solid var(--gold); padding-bottom:2px; }
+    /* miniaturas: a demonstração viva de cada formato */
+    .mini{ position:relative; height:120px; border:2px solid var(--ink); background:#F6F1E6; overflow:hidden; }
+    .mini i{ position:absolute; left:10%; right:10%; height:4px; background:#d8cdb4; }
+    .mini i:nth-of-type(1){ top:16px; } .mini i:nth-of-type(2){ top:28px; }
+    .mini i:nth-of-type(3){ top:40px; width:52%; } .mini i:nth-of-type(4){ top:60px; }
+    .mini i:nth-of-type(5){ top:72px; } .mini i:nth-of-type(6){ top:84px; width:64%; }
+    .mini .selo{ position:absolute; display:flex; align-items:center; justify-content:center;
+      background:var(--gold); color:var(--wine); font-family:var(--mono); font-size:.44rem;
+      font-weight:700; letter-spacing:.12em; text-transform:uppercase; text-align:center;
+      transition:transform .35s ease, opacity .35s ease; }
+    .mini-cortina .selo{ inset:14% 22%; opacity:0; transform:scale(.6); box-shadow:0 8px 20px rgba(0,0,0,.3); }
+    .az-card:hover .mini-cortina .selo{ opacity:1; transform:scale(1); }
+    .mini-entreato .selo{ left:10%; right:10%; top:46px; height:26px; opacity:0; transform:translateX(-18px); }
+    .az-card:hover .mini-entreato .selo{ opacity:1; transform:none; }
+    .mini-faixa .selo{ left:0; right:0; bottom:0; height:24px; transform:translateY(100%); }
+    .az-card:hover .mini-faixa .selo{ transform:none; }
+    .mini-inteira .selo{ inset:0; opacity:0; }
+    .az-card:hover .mini-inteira .selo{ opacity:1; }
+    .mini-meia .selo{ left:0; right:0; bottom:0; height:50%; transform:translateY(100%); }
+    .az-card:hover .mini-meia .selo{ transform:none; }
 
-    /* ---- o bilhete: destaca no clique ---- */
-    .mk-bilhete{ display:flex; align-items:stretch; border:2px dashed var(--wine); background:var(--paper);
-      position:relative; margin:10px 0 8px; max-width:560px; cursor:pointer; user-select:none;
-      transition:transform .15s ease; }
-    .mk-bilhete:hover{ transform:rotate(-.6deg) scale(1.01); }
-    .mk-bilhete::before{ content:'✂'; position:absolute; top:-13px; left:16px; color:var(--wine);
-      background:var(--paper-2, var(--paper)); padding:0 5px; font-size:.85rem; }
-    .mk-bilhete .be{ flex:1; padding:16px 18px; }
-    .mk-bilhete .be b{ font-family:var(--didone); font-weight:400; font-size:1.2rem; display:block; }
-    .mk-bilhete .be span{ font-size:.78rem; color:var(--ink-soft); line-height:1.5; display:block; margin-top:4px; }
-    .mk-bilhete .bd{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
-      padding:14px 20px; border-left:2px dashed var(--wine); background:rgba(206,178,106,.16);
-      min-width:130px; text-align:center; transition:transform .55s cubic-bezier(.5,0,.8,.4), opacity .55s; }
-    .mk-bilhete .bd em{ font-style:normal; font-family:var(--mono); font-size:.5rem; letter-spacing:.24em;
-      text-transform:uppercase; color:var(--wine); }
-    .mk-bilhete .bd strong{ font-family:var(--mono); font-size:1.05rem; letter-spacing:.08em; }
-    .mk-bilhete.rasga .bd{ transform:rotate(9deg) translate(46px,30px); opacity:0; }
-    .mk-nota-b{ font-family:var(--mono); font-size:.58rem; letter-spacing:.08em; color:var(--ink-soft); margin:0 0 26px; }
-
-    /* ---- o produto: cartões que sobem ---- */
-    .mk-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:0 0 26px; }
-    @media (max-width:720px){ .mk-grid{ grid-template-columns:1fr; } }
-    .mk-card{ border:2px solid var(--ink); padding:18px 20px; background:var(--paper);
-      transition:transform .18s ease, box-shadow .18s ease; }
-    .mk-card:hover{ transform:translateY(-4px); box-shadow:0 10px 26px rgba(35,8,5,.15); }
-    .mk-card h2, .mk-sec h2{ font-family:var(--didone); font-weight:400; font-size:1.5rem; margin:0 0 10px; }
-    .mk-card ul{ margin:0; padding-left:18px; }
-    .mk-card li{ margin:6px 0; line-height:1.55; }
-
-    /* ---- o leitor (só com 10+ cadastros) ---- */
+    /* o passo a passo */
+    .az-wiz{ border:3px solid var(--ink); background:var(--paper); margin:26px 0 10px; }
+    .az-topo{ display:flex; align-items:center; gap:8px; padding:14px 18px; border-bottom:2px solid var(--ink); flex-wrap:wrap; }
+    .az-topo b{ font-family:var(--didone); font-weight:400; font-size:1.3rem; }
+    .az-pts{ margin-left:auto; display:flex; gap:6px; }
+    .az-pts i{ width:10px; height:10px; border:2px solid var(--ink); background:transparent; }
+    .az-pts i.on{ background:var(--gold); }
+    .az-corpo{ padding:18px; }
+    .az-passo{ display:none; }
+    .az-passo.on{ display:block; animation:azSobe .35s ease; }
+    @keyframes azSobe{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:none; } }
+    .az-passo h4{ font-family:var(--didone); font-weight:400; font-size:1.25rem; margin:0 0 12px; }
+    .az-ops{ display:flex; flex-wrap:wrap; gap:10px; }
+    .az-op{ border:2px solid var(--ink); background:transparent; cursor:pointer; padding:10px 14px;
+      font-family:var(--sans, inherit); font-size:.88rem; font-weight:600; }
+    .az-op.on{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
+    .az-campo{ margin:0 0 12px; }
+    .az-campo label{ display:block; font-family:var(--mono); font-size:.58rem; font-weight:700;
+      letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:5px; }
+    .az-campo input, .az-campo textarea{ width:100%; box-sizing:border-box; border:2px solid var(--ink);
+      background:var(--paper); color:var(--ink); font:inherit; padding:10px 12px; }
+    .az-campo small{ display:block; font-size:.74rem; color:var(--ink-soft); margin-top:4px; }
+    .az-nav{ display:flex; gap:10px; padding:0 18px 18px; }
+    .az-volta{ border:2px solid var(--ink); background:transparent; cursor:pointer; padding:12px 16px;
+      font-family:var(--mono); font-weight:700; font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; }
+    .az-vai{ margin-left:auto; border:2px solid var(--wine); background:var(--wine); color:var(--gold);
+      cursor:pointer; padding:12px 20px; font-family:var(--mono); font-weight:700; font-size:.62rem;
+      letter-spacing:.12em; text-transform:uppercase; }
+    .az-vai:hover{ background:var(--gold); color:var(--wine); }
+    .az-erro{ color:#8a1f14; font-size:.82rem; margin:8px 18px 0; display:none; }
+    .az-rev{ border:2px dashed var(--wine); padding:12px 14px; margin-bottom:12px; }
+    .az-rev div{ display:flex; gap:10px; padding:3px 0; font-size:.86rem; }
+    .az-rev em{ font-style:normal; font-family:var(--mono); font-size:.56rem; letter-spacing:.12em;
+      text-transform:uppercase; color:var(--ink-soft); min-width:110px; padding-top:3px; }
+    .az-fim{ text-align:center; padding:34px 18px; display:none; }
+    .az-fim.on{ display:block; animation:azSobe .4s ease; }
+    .az-fim .carimbo{ display:inline-block; border:3px solid #2c5a2e; color:#2c5a2e; font-family:var(--mono);
+      font-weight:700; font-size:.8rem; letter-spacing:.2em; text-transform:uppercase; padding:10px 18px;
+      transform:rotate(-3deg); margin-bottom:14px; }
+    .az-fim h3{ font-family:var(--didone); font-weight:400; font-size:1.7rem; margin:0 0 8px; }
+    .az-fim p{ margin:0; color:var(--ink-soft); }
+    .az-nota{ font-family:var(--mono); font-size:.6rem; letter-spacing:.08em; color:var(--ink-soft); margin:10px 0 30px; }
     .mk-leitor{ display:none; border:2px solid var(--wine); padding:18px 20px; margin:0 0 26px; }
-    .mk-leitor.mostra{ display:block; animation:mkSobe .5s ease; }
-    @keyframes mkSobe{ from{ opacity:0; transform:translateY(14px);} to{ opacity:1; transform:none; } }
+    .mk-leitor.mostra{ display:block; }
     .mk-leitor h2{ font-family:var(--didone); font-weight:400; font-size:1.5rem; margin:0 0 4px; }
     .mk-leitor .mk-nota{ font-family:var(--mono); font-size:.62rem; letter-spacing:.08em; color:var(--ink-soft); }
     .mk-tiles{ display:flex; flex-wrap:wrap; gap:14px; margin:14px 0 4px; }
-    .mk-tile{ border:2px solid var(--ink); padding:10px 16px; min-width:130px;
-      transition:transform .18s ease, background .18s ease; }
-    .mk-tile:hover{ transform:translateY(-3px); background:rgba(206,178,106,.12); }
+    .mk-tile{ border:2px solid var(--ink); padding:10px 16px; min-width:130px; }
     .mk-tile b{ display:block; font-family:var(--didone); font-size:1.7rem; font-weight:400; color:var(--wine); }
-    html[data-theme="dark"] .mk-tile b{ color:var(--gold); }
     .mk-tile span{ font-family:var(--mono); font-size:.56rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); }
-
-    /* ---- a fita e o convite final ---- */
-    .mk-fita{ overflow:hidden; border-top:2px solid var(--ink); border-bottom:2px solid var(--ink);
-      background:var(--gold); margin:0 0 26px; }
-    .mk-fita div{ display:inline-block; white-space:nowrap; animation:mkRola 20s linear infinite;
-      font-family:var(--mono); font-weight:700; font-size:.66rem; letter-spacing:.22em;
-      text-transform:uppercase; color:var(--wine); padding:10px 0; }
-    .mk-fita:hover div{ animation-play-state:paused; }
-    @keyframes mkRola{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
-    .mk-cta{ display:inline-block; border:2px solid var(--wine); background:var(--wine); color:var(--gold);
-      font-family:var(--mono); font-weight:700; font-size:.7rem; letter-spacing:.14em; text-transform:uppercase;
-      padding:14px 22px; text-decoration:none; margin:2px 0 44px; transition:transform .15s ease, background .2s, color .2s; }
-    .mk-cta:hover{ background:var(--gold); color:var(--wine); transform:translateY(-2px); }
-    .mk-obs{ font-family:var(--mono); font-size:.6rem; letter-spacing:.08em; color:var(--ink-soft); margin:8px 0 20px; }
     @media (prefers-reduced-motion:reduce){
-      .mk-cort.e,.mk-cort.d{ animation:none; transform:scaleX(.04); }
-      .mk-fita div{ animation:none; }
-      .mk-poscard,.mk-card,.mk-tile,.mk-cta,.mk-bilhete{ transition:none; }
+      .az-cort.e,.az-cort.d{ animation:none; transform:scaleX(.04); }
+      .az-card,.mini .selo{ transition:none; }
     }
   </style>
 
-  <div class="mk-palco">
-    <div class="mk-cort e"></div><div class="mk-cort d"></div>
+  <div class="az-palco">
+    <div class="az-cort e"></div><div class="az-cort d"></div>
     <div class="luz"></div>
     <div class="dentro">
       <em>Terceiro sinal</em>
       <h2>A sua marca entra em cena</h2>
-      <p>Uma página inteira na revista que fecha como impresso: quem abre, lê até o fim.</p>
+      <p>Escolha o palco: o site, aberto todos os dias, ou a revista, que fecha como uma edição impressa.</p>
     </div>
   </div>
 
-  <div class="mk-sec"><h2>As posições — passe o mouse e veja o seu anúncio acender</h2></div>
-  <div class="mk-pos-grid">
-    <div class="mk-poscard" tabindex="0">
-      <div class="mini">
-        <div class="pgm"><i></i><i></i><i></i></div>
-        <div class="pgm anun"><b>SEU<br>ANÚNCIO<br>AQUI</b></div>
-      </div>
-      <h3>A ímpar dos Recortes</h3>
-      <p>Página inteira logo depois da seção mais compartilhada da edição.</p>
-      <span class="toque">tocar para fixar</span>
+  <div class="az-sec"><h2>No site — todos os dias</h2>
+  <p class="n">Passe o mouse em cada cartão para ver o formato em ação. Todos saem sempre com o rótulo Publicidade.</p></div>
+  <div class="az-grid">
+    <div class="az-card" data-az="cortina" tabindex="0">
+      <div class="mini mini-cortina"><i></i><i></i><i></i><i></i><i></i><i></i><span class="selo">Sua marca<br>na abertura</span></div>
+      <h3>A Cortina de entrada</h3>
+      <p>Uma vez por dia, quem chega ao FOYER vê a sua arte antes do pano abrir. Impossível passar batido.</p>
+      <span class="cta">Contratar este formato →</span>
     </div>
-    <div class="mk-poscard" tabindex="0">
-      <div class="mini">
-        <div class="pgm anun"><b>SEU<br>ANÚNCIO<br>AQUI</b></div>
-        <div class="pgm"><i></i><i></i><i></i></div>
-      </div>
-      <h3>A face da agenda</h3>
-      <p>Ao lado da "Semana em cartaz": a página de maior intenção de compra de ingresso.</p>
-      <span class="toque">tocar para fixar</span>
+    <div class="az-card" data-az="entreato" tabindex="0">
+      <div class="mini mini-entreato"><i></i><i></i><i></i><i></i><i></i><i></i><span class="selo">Seu anúncio no meio da leitura</span></div>
+      <h3>O Entreato</h3>
+      <p>Sua arte dentro das matérias, no meio da leitura, em todas as páginas de matéria do site.</p>
+      <span class="cta">Contratar este formato →</span>
     </div>
-    <div class="mk-poscard" tabindex="0">
-      <div class="mini">
-        <div class="pgm"><i></i><i></i><i></i></div>
-        <div class="pgm anun"><b>SEU<br>ANÚNCIO<br>AQUI</b></div>
-      </div>
-      <h3>A porta da contracapa</h3>
-      <p>A última página antes do fecho da edição: a despedida fica com você.</p>
-      <span class="toque">tocar para fixar</span>
+    <div class="az-card" data-az="faixa" tabindex="0">
+      <div class="mini mini-faixa"><i></i><i></i><i></i><i></i><i></i><i></i><span class="selo">Sua mensagem fixa no rodapé</span></div>
+      <h3>A Faixa de proscênio</h3>
+      <p>Uma linha sua, fixa no pé de todas as páginas do site, com link direto para a sua bilheteria.</p>
+      <span class="cta">Contratar este formato →</span>
     </div>
   </div>
-  <p class="mk-obs">No máximo 2 páginas pagas por edição. A curadoria editorial não é negociável e anúncio é sempre rotulado.</p>
 
-  <div class="mk-sec"><h2>O bilhete do leitor — toque para destacar</h2></div>
-  <div class="mk-bilhete" id="mk-bilhete" role="button" tabindex="0" aria-label="Demonstração do bilhete destacável">
-    <div class="be">
-      <b>O seu benefício, combinado por escrito</b>
-      <span>O leitor copia o código com um toque e o código viaja no link do anúncio. Você mede na bilheteria quantos ingressos o FOYER vendeu.</span>
+  <div class="az-sec"><h2>Na revista — toda quinta</h2>
+  <p class="n">A revista fecha como uma edição impressa e fica na estante para sempre: o anúncio não some no feed.</p></div>
+  <div class="az-grid">
+    <div class="az-card" data-az="pagina-inteira" tabindex="0">
+      <div class="mini mini-inteira"><i></i><i></i><i></i><i></i><i></i><i></i><span class="selo">Página inteira<br>720 × 972</span></div>
+      <h3>Página inteira</h3>
+      <p>A sua arte ocupa uma página da edição, com rótulo de Publicidade. Pode carregar o bilhete do leitor: cupom com código exclusivo que o leitor copia com um toque e você mede na bilheteria.</p>
+      <span class="cta">Contratar este formato →</span>
     </div>
-    <div class="bd"><em>código</em><strong>SUACASA10</strong></div>
+    <div class="az-card" data-az="meia-pagina" tabindex="0">
+      <div class="mini mini-meia"><i></i><i></i><i></i><span class="selo">Meia página no fim da matéria</span></div>
+      <h3>Meia página</h3>
+      <p>O pé da última página de uma matéria é seu: o leitor termina o texto e encontra a sua arte, como nas revistas impressas.</p>
+      <span class="cta">Contratar este formato →</span>
+    </div>
+    <div class="az-card" data-az="pagina-inteira" data-cupom="1" tabindex="0">
+      <div class="mini"><i></i><i></i><i></i><i></i><i></i><i></i><span class="selo" style="inset:auto 8% 12% 8%;height:34px;border:2px dashed var(--wine);background:rgba(206,178,106,.3)">✂ cupom do leitor</span></div>
+      <h3>Página inteira + Bilhete do leitor</h3>
+      <p>O cupom combinado por escrito vira um ingresso destacável dentro do anúncio; o código viaja no link e aparece na sua bilheteria.</p>
+      <span class="cta">Contratar este formato →</span>
+    </div>
   </div>
-  <p class="mk-nota-b">é assim que o cupom aparece dentro do seu anúncio na revista</p>
 
-  <div class="mk-grid">
-    <div class="mk-card">
-      <h2>O produto</h2>
-      <ul>
-        <li>Revista semanal com começo, meio e fim: fecha na quarta, o assinante lê na quinta às 7h, abre ao público na sexta.</li>
-        <li>A mesma página em toda parte: computador, celular, e-mail e PDF, sempre idêntica, como uma edição impressa.</li>
-        <li>As edições ficam na estante: o anúncio segue no acervo, não some no feed.</li>
-        <li>Página inteira (720×972), arte do anunciante, rótulo claro de Publicidade.</li>
-      </ul>
+  <div class="az-wiz" id="az-wiz">
+    <div class="az-topo"><b>Contratar em 5 passos</b><span class="az-pts" id="az-pts"></span></div>
+    <div class="az-corpo">
+      <div class="az-passo on" data-p="1">
+        <h4>1. Onde a sua marca entra?</h4>
+        <div class="az-ops" id="az-formatos"></div>
+        <div class="az-campo" id="az-cupom-op" style="display:none;margin-top:12px">
+          <label>Bilhete do leitor</label>
+          <button class="az-op" type="button" id="az-cupom-bt">🎟 Quero o cupom destacável no anúncio</button>
+          <small>O código é combinado por escrito na conversa; nada é publicado sem o seu ok.</small>
+        </div>
+      </div>
+      <div class="az-passo" data-p="2">
+        <h4>2. A temporada</h4>
+        <div class="az-campo"><label>Quando você quer estrear?</label>
+          <input type="text" id="az-inicio" placeholder="ex.: semana que vem · edição de 6 de agosto · o quanto antes"></div>
+        <div class="az-campo"><label>Por quanto tempo?</label>
+          <div class="az-ops" id="az-duracao"></div></div>
+      </div>
+      <div class="az-passo" data-p="3">
+        <h4>3. Quem assina</h4>
+        <div class="az-campo"><label>Seu nome *</label><input type="text" id="az-nome"></div>
+        <div class="az-campo"><label>Produção / empresa</label><input type="text" id="az-empresa" placeholder="ex.: nome do espetáculo, teatro ou produtora"></div>
+        <div class="az-campo"><label>E-mail *</label><input type="email" id="az-email"></div>
+        <div class="az-campo"><label>WhatsApp (com DDD) *</label><input type="tel" id="az-whats" placeholder="11 90000-0000">
+          <small>é por ele que fechamos valores e datas, sem vendedor no meio</small></div>
+        <div class="az-campo"><label>Instagram (opcional)</label><input type="text" id="az-insta" placeholder="@suacasa"></div>
+      </div>
+      <div class="az-passo" data-p="4">
+        <h4>4. O que você quer anunciar</h4>
+        <div class="az-campo"><label>Conte em poucas linhas</label>
+          <textarea id="az-msg" rows="4" placeholder="ex.: temporada de estreia da peça X no teatro Y, de agosto a setembro; já temos a arte pronta"></textarea>
+          <small>a arte a gente acerta na conversa; se já tiver um link dela, cole aqui</small></div>
+      </div>
+      <div class="az-passo" data-p="5">
+        <h4>5. Confira e suba ao palco</h4>
+        <div class="az-rev" id="az-rev"></div>
+        <p style="font-size:.84rem;color:var(--ink-soft);margin:0">Ao enviar, o pedido cai direto na mesa da direção do FOYER.
+        Valores são fechados na conversa de WhatsApp, sem tabela pública e sem intermediário.</p>
+      </div>
     </div>
-    <div class="mk-card">
-      <h2>Por que funciona</h2>
-      <ul>
-        <li>Leitor por assinatura: quem recebe a revista pediu para recebê-la.</li>
-        <li>Sem leilão, sem algoritmo: a sua página é a página, na edição inteira, para todo leitor.</li>
-        <li>Cupom rastreável: o resultado aparece na sua bilheteria, não num painel abstrato.</li>
-      </ul>
+    <p class="az-erro" id="az-erro"></p>
+    <div class="az-nav">
+      <button class="az-volta" type="button" id="az-volta" style="visibility:hidden">← Voltar</button>
+      <button class="az-vai" type="button" id="az-vai">Avançar →</button>
+    </div>
+    <div class="az-fim" id="az-fim">
+      <span class="carimbo">Pedido na mesa</span>
+      <h3>Recebido! Agora é com a gente.</h3>
+      <p>A direção do FOYER te chama no WhatsApp para fechar valores, datas e a arte.<br>Sem formulário de volta, sem vendedor: uma conversa e pronto.</p>
     </div>
   </div>
+  <p class="az-nota">Curadoria editorial não é negociável: anúncio é sempre rotulado, nunca vira matéria. Máximo de 2 páginas pagas por edição da revista.</p>
 
   <div class="mk-leitor" id="mk-leitor">
     <h2>O leitor da revista</h2>
     <p class="mk-nota">Retrato agregado e anônimo dos assinantes cadastrados, direto do censo da casa.</p>
     <div class="mk-tiles" id="mk-tiles"></div>
   </div>
-
-  <div class="mk-fita" aria-hidden="true"><div id="mk-fita-tx"></div></div>
-  <a class="mk-cta" href="mailto:programafoyer@gmail.com?subject=Anunciar%20na%20revista%20do%20FOYER">Pedir valores e datas · programafoyer@gmail.com</a>
 </main>
 <script>
 (function(){
-  // a fita que corre
-  var fx = document.getElementById('mk-fita-tx');
-  var trecho = 'Anuncie na revista do FOYER · uma página inteira · o bilhete do leitor · ';
-  fx.textContent = trecho.repeat(8);
-  // as posições fixam no toque
-  document.querySelectorAll('.mk-poscard').forEach(function(c){
-    c.addEventListener('click', function(){ c.classList.toggle('on'); });
-    c.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); c.classList.toggle('on'); } });
-  });
-  // o bilhete destaca e volta
-  var bi = document.getElementById('mk-bilhete');
-  bi.addEventListener('click', function(){
-    if(bi.classList.contains('rasga')) return;
-    bi.classList.add('rasga');
-    setTimeout(function(){ bi.classList.remove('rasga'); }, 1500);
-  });
-  // o retrato do leitor: só entra em cena com 10+ cadastros (antes disso não vende)
   var M = { url:'https://jcaqjlrzmrtzjyfbljxh.supabase.co', key:'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB' };
+  var FORMATOS = [
+    { id:'cortina', canal:'site', nome:'A Cortina de entrada (site)' },
+    { id:'entreato', canal:'site', nome:'O Entreato (site)' },
+    { id:'faixa', canal:'site', nome:'A Faixa de proscênio (site)' },
+    { id:'pagina-inteira', canal:'revista', nome:'Página inteira (revista)' },
+    { id:'meia-pagina', canal:'revista', nome:'Meia página (revista)' }
+  ];
+  var DURACOES = ['1 semana', '2 semanas', '1 mês', '1 edição', '2 edições', 'a combinar'];
+  var st = { formato:'', cupom:false, duracao:'' };
+  var passo = 1, TOTAL = 5;
+
+  var elF = document.getElementById('az-formatos');
+  elF.innerHTML = FORMATOS.map(function(f){
+    return '<button class="az-op" type="button" data-f="' + f.id + '">' + f.nome + '</button>';
+  }).join('');
+  var elD = document.getElementById('az-duracao');
+  elD.innerHTML = DURACOES.map(function(d){
+    return '<button class="az-op" type="button" data-d="' + d + '">' + d + '</button>';
+  }).join('');
+  var pts = document.getElementById('az-pts');
+  function pinta(){
+    pts.innerHTML = '';
+    for(var i = 1; i <= TOTAL; i++) pts.innerHTML += '<i class="' + (i <= passo ? 'on' : '') + '"></i>';
+    document.querySelectorAll('.az-passo').forEach(function(p){
+      p.classList.toggle('on', Number(p.dataset.p) === passo);
+    });
+    document.getElementById('az-volta').style.visibility = passo > 1 ? 'visible' : 'hidden';
+    document.getElementById('az-vai').textContent = passo === TOTAL ? 'Enviar o pedido ✦' : 'Avançar →';
+    document.getElementById('az-erro').style.display = 'none';
+    document.getElementById('az-cupom-op').style.display = st.formato === 'pagina-inteira' ? '' : 'none';
+    if(passo === TOTAL) montaRevisao();
+  }
+  function nomeFormato(){
+    var f = FORMATOS.filter(function(x){ return x.id === st.formato; })[0];
+    return f ? f.nome : '';
+  }
+  function v(id){ return document.getElementById(id).value.trim(); }
+  function montaRevisao(){
+    var linhas = [
+      ['Formato', nomeFormato() + (st.cupom ? ' + bilhete do leitor' : '')],
+      ['Estreia', v('az-inicio') || 'a combinar'],
+      ['Duração', st.duracao || 'a combinar'],
+      ['Quem', v('az-nome') + (v('az-empresa') ? ' · ' + v('az-empresa') : '')],
+      ['Contato', v('az-whats') + ' · ' + v('az-email') + (v('az-insta') ? ' · ' + v('az-insta') : '')],
+      ['O anúncio', v('az-msg') || '(a combinar na conversa)']
+    ];
+    document.getElementById('az-rev').innerHTML = linhas.map(function(l){
+      return '<div><em>' + l[0] + '</em><span>' + l[1].replace(/</g, '&lt;') + '</span></div>';
+    }).join('');
+  }
+  function erro(msg){
+    var e = document.getElementById('az-erro');
+    e.textContent = msg; e.style.display = 'block';
+  }
+  function valida(){
+    if(passo === 1 && !st.formato){ erro('Escolha um formato para seguir.'); return false; }
+    if(passo === 3){
+      if(!v('az-nome')){ erro('Diga o seu nome.'); return false; }
+      if(!/.+@.+\\..+/.test(v('az-email'))){ erro('Confira o e-mail.'); return false; }
+      if(v('az-whats').replace(/\\D/g, '').length < 10){ erro('Confira o WhatsApp (com DDD).'); return false; }
+    }
+    return true;
+  }
+  function envia(){
+    var bt = document.getElementById('az-vai');
+    bt.disabled = true; bt.textContent = 'Enviando…';
+    var f = FORMATOS.filter(function(x){ return x.id === st.formato; })[0];
+    fetch(M.url + '/rest/v1/foyer_anuncios', {
+      method: 'POST',
+      headers: { 'apikey': M.key, 'Authorization': 'Bearer ' + M.key, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        canal: f.canal, formato: st.formato, cupom: st.cupom,
+        inicio: v('az-inicio'), duracao: st.duracao,
+        nome: v('az-nome'), empresa: v('az-empresa'), email: v('az-email'),
+        whatsapp: v('az-whats').replace(/\\D/g, ''), instagram: v('az-insta'), mensagem: v('az-msg')
+      })
+    }).then(function(r){
+      if(r.status !== 201) throw 0;
+      document.querySelectorAll('.az-passo, .az-nav, .az-topo').forEach(function(x){ x.style.display = 'none'; });
+      document.getElementById('az-fim').classList.add('on');
+    }).catch(function(){
+      bt.disabled = false; bt.textContent = 'Enviar o pedido ✦';
+      erro('Não foi agora. Tente de novo em instantes ou escreva para programafoyer@gmail.com.');
+    });
+  }
+  document.addEventListener('click', function(e){
+    var card = e.target.closest('.az-card');
+    if(card){
+      st.formato = card.dataset.az;
+      st.cupom = card.dataset.cupom === '1';
+      passo = 1; pinta();
+      document.querySelectorAll('#az-formatos .az-op').forEach(function(b){
+        b.classList.toggle('on', b.dataset.f === st.formato);
+      });
+      document.getElementById('az-cupom-bt').classList.toggle('on', st.cupom);
+      document.getElementById('az-wiz').scrollIntoView({ behavior:'smooth' });
+      return;
+    }
+    var bf = e.target.closest('#az-formatos .az-op');
+    if(bf){
+      st.formato = bf.dataset.f;
+      if(st.formato !== 'pagina-inteira') st.cupom = false;
+      document.querySelectorAll('#az-formatos .az-op').forEach(function(b){ b.classList.toggle('on', b === bf); });
+      document.getElementById('az-cupom-op').style.display = st.formato === 'pagina-inteira' ? '' : 'none';
+      return;
+    }
+    if(e.target.closest('#az-cupom-bt')){
+      st.cupom = !st.cupom;
+      document.getElementById('az-cupom-bt').classList.toggle('on', st.cupom);
+      return;
+    }
+    var bd = e.target.closest('#az-duracao .az-op');
+    if(bd){
+      st.duracao = bd.dataset.d;
+      document.querySelectorAll('#az-duracao .az-op').forEach(function(b){ b.classList.toggle('on', b === bd); });
+      return;
+    }
+    if(e.target.closest('#az-vai')){
+      if(!valida()) return;
+      if(passo === TOTAL){ envia(); return; }
+      passo++; pinta();
+      return;
+    }
+    if(e.target.closest('#az-volta')){ if(passo > 1){ passo--; pinta(); } }
+  });
+  pinta();
+
+  // o retrato do leitor: só entra em cena com 10+ cadastros
   fetch(M.url + '/rest/v1/rpc/foyer_leitores_resumo', {
     method: 'POST',
     headers: { 'apikey': M.key, 'Authorization': 'Bearer ' + M.key, 'Content-Type': 'application/json' },
     body: JSON.stringify({ chave: 'foyer-cx-metricas-terceiro-sinal-9427' })
   }).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
     if(!d || !d.total || d.total < 10) return;
-    function topo(obj){
-      var ks = Object.keys(obj || {});
-      if(!ks.length) return null;
-      return ks.sort(function(a, b){ return obj[b] - obj[a]; })[0];
-    }
-    var tiles = [ [d.total, 'assinantes', true] ];
-    var cid = topo(d.por_cidade); if(cid) tiles.push([cid, 'cidade nº 1', false]);
-    var fr = topo(d.por_frequencia); if(fr) tiles.push([fr, 'vão ao vivo', false]);
-    var intr = topo(d.por_interesse); if(intr) tiles.push([intr, 'linguagem nº 1', false]);
-    var alvo = document.getElementById('mk-tiles');
-    alvo.innerHTML = tiles.map(function(t){
-      return '<div class="mk-tile"><b' + (t[2] ? ' data-conta="' + t[0] + '">0' : '>' + t[0]) + '</b><span>' + t[1] + '</span></div>';
+    function topo(o){ var ks = Object.keys(o || {}); return ks.length ? ks.sort(function(a, b){ return o[b] - o[a]; })[0] : null; }
+    var tiles = [[d.total, 'assinantes']];
+    var c1 = topo(d.por_cidade); if(c1) tiles.push([c1, 'cidade nº 1']);
+    var c2 = topo(d.por_frequencia); if(c2) tiles.push([c2, 'vão ao vivo']);
+    var c3 = topo(d.por_interesse); if(c3) tiles.push([c3, 'linguagem nº 1']);
+    document.getElementById('mk-tiles').innerHTML = tiles.map(function(t){
+      return '<div class="mk-tile"><b>' + t[0] + '</b><span>' + t[1] + '</span></div>';
     }).join('');
     document.getElementById('mk-leitor').classList.add('mostra');
-    // o número sobe até o total, como um contador de bilheteria
-    var b = alvo.querySelector('[data-conta]');
-    if(b){
-      var alvoN = parseInt(b.getAttribute('data-conta'), 10) || 0, atual = 0;
-      var passo = Math.max(1, Math.ceil(alvoN / 40));
-      var tique = setInterval(function(){
-        atual = Math.min(alvoN, atual + passo);
-        b.textContent = atual;
-        if(atual >= alvoN) clearInterval(tique);
-      }, 28);
-    }
-  }).catch(function(){ /* sem dado, sem seção: nada de vitrine vazia */ });
+  }).catch(function(){});
 })();
 </script>
 '''
-page('midia-kit.html', 'Anuncie na revista — FOYER', 'Mídia kit da revista semanal do FOYER: posições, bilhete do leitor com cupom rastreável e o retrato do assinante.', 'midia-kit.html', midiakit_body)
+page('anuncie.html', 'Anuncie no FOYER', 'Anuncie no site e na revista do FOYER: Cortina de entrada, Entreato, Faixa de proscênio, página inteira e meia página. Contrate em 5 passos, sem vendedor.', 'anuncie.html', anuncie_body)
+
+# o endereço antigo segue vivo: midia-kit.html leva ao Anuncie no FOYER
+with open(os.path.join(ROOT, 'midia-kit.html'), 'w') as _f:
+    _f.write('<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">'
+             '<meta http-equiv="refresh" content="0; url=anuncie.html">'
+             '<link rel="canonical" href="' + BASE + '/anuncie.html">'
+             '<title>Anuncie no FOYER</title></head>'
+             '<body><p>O mídia kit virou <a href="anuncie.html">Anuncie no FOYER</a>.</p></body></html>')
+print('• anuncie.html + ponte do midia-kit')
 
 descadastrar_body = band('Newsletter', 'Descadastrar', 'Sair da lista da Revista do FOYER') + '''
 <main id="conteudo" class="wrap">
