@@ -500,10 +500,16 @@ lista `rodadas` (mais recente primeiro; manter no máximo 30):
 
 ## A Revista — o boneco da edição semanal
 
-A revista fecha toda sexta na Coxia (aba Revista). É uma EDIÇÃO, não um
-apanhado: tem começo, meio e fim, e o leitor folheia como revista
-impressa (página dupla no computador, virada de página, pôster central).
-O boneco padrão, na ordem:
+**O rito da semana:** a edição FECHA na quarta (revisão final), SAI na
+quinta às 7h para os assinantes (divulgação massiva no dia; o link da
+lista entra direto) e ABRE para todo mundo na sexta. Na quinta, quem
+não assina vê capa, sumário e carta ao leitor; dali em diante a
+cortina pede o e-mail. A `dataEdicao` da edição é a QUINTA da saída: é
+por ela que o site calcula a abertura ao público (um dia depois).
+
+É uma EDIÇÃO, não um apanhado: tem começo, meio e fim, e o leitor
+folheia como revista impressa (página dupla no computador, virada de
+página). O boneco padrão, na ordem:
 
 | # | Página | Tipo na Coxia | Quem prepara |
 |---|--------|---------------|--------------|

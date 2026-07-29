@@ -508,16 +508,16 @@ revista_body = band('Newsletter semanal', 'A Revista do Foyer', 'Toda sexta, uma
 <main id="conteudo" class="wrap">
   <div class="rev-hero" id="assinar">
     <div class="rev-copy">
-      <h2>Uma revista de verdade, entregue toda sexta</h2>
+      <h2>Uma revista de verdade, toda quinta para assinantes</h2>
       <p>A semana do teatro brasileiro editada com começo, meio e fim: reportagem de capa, críticas da semana, agenda comentada e os bastidores dos programas — diagramada como uma revista impressa.</p>
       <div class="feats">
         <span>Edição fechada semanal — sem rolagem infinita</span>
         <span>Leia no site como revista ou baixe o PDF</span>
-        <span>Grátis no seu e-mail, toda sexta às 7h</span>
+        <span>Grátis no seu e-mail, toda quinta às 7h — um dia antes de todo mundo</span>
       </div>
     </div>
     <div class="signup-card" id="signup-conversa">
-      <h3>A revista chega toda sexta, às 7h</h3>
+      <h3>Assinante lê na quinta, às 7h</h3>
       <p class="sg-chamada">Uma edição fechada, com começo, meio e fim, na sua caixa de entrada. De graça.</p>
       <button type="button" class="sg-abrir" data-conversa>🎟 Quero a minha</button>
       <span class="fine">Sem spam, cancele quando quiser. Seus dados ficam só com o FOYER.</span>
@@ -852,7 +852,7 @@ erow('Bia Camargo','Desenhista de luz','034') + '''
 <!-- ===================== REVISTA ===================== -->
 <section class="news-bar">
   <div class="wrap">
-    <h2>A Revista do Foyer — toda sexta no seu e-mail</h2>
+    <h2>A Revista do Foyer — assinante lê um dia antes</h2>
     <div class="go-rev">
       <button type="button" data-conversa>🎟 Assinar em um minuto</button>
       <a href="revista.html">conhecer a revista →</a>
@@ -1407,7 +1407,7 @@ __ENCICLOPEDIA_CAPA__
 <!-- ===================== REVISTA ===================== -->
 <section class="news-bar">
   <div class="wrap">
-    <h2>A Revista do Foyer — toda sexta no seu e-mail</h2>
+    <h2>A Revista do Foyer — assinante lê um dia antes</h2>
     <div class="go-rev">
       <button type="button" data-conversa>🎟 Assinar em um minuto</button>
       <a href="revista.html">conhecer a revista →</a>
@@ -1598,7 +1598,7 @@ def post_page(i, p):
   <aside class="cv-band">
     <div class="cv-band-txt">
       <b>Gostou desta leitura?</b>
-      <span>A revista do FOYER chega toda sexta, às 7h, com a semana fechada. De graça.</span>
+      <span>A revista do FOYER sai toda quinta, às 7h, para assinantes. Aberta a todos só na sexta. De graça.</span>
     </div>
     <button type="button" data-conversa>🎟 Quero a minha</button>
   </aside>
@@ -2003,6 +2003,47 @@ html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
   letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
 .rv-back .rodape img{ height:34px; }
 
+/* ---------- A CORTINA (janela do assinante) ---------- */
+.rv-cortina{ position:fixed; inset:0; z-index:210; display:flex; align-items:center;
+  justify-content:center; padding:18px;
+  background:
+    radial-gradient(140% 90% at 50% -20%, rgba(0,0,0,.35), transparent 60%),
+    repeating-linear-gradient(90deg, #4E0F09 0 46px, #3a0b06 46px 92px);
+  animation:ctFundo .3s ease; }
+@keyframes ctFundo{ from{ opacity:0; } }
+.rv-cortina[hidden]{ display:none; }
+.ct-caixa{ width:min(540px, 100%); background:var(--paper); border:3px solid var(--ink);
+  box-shadow:0 26px 80px rgba(0,0,0,.55); padding:34px 36px 26px; display:flex;
+  flex-direction:column; gap:12px; animation:ctSobe .34s ease; }
+@keyframes ctSobe{ from{ opacity:0; transform:translateY(16px); } }
+@media (prefers-reduced-motion:reduce){ .rv-cortina, .ct-caixa{ animation:none; } }
+.ct-rot{ font-family:var(--mono); font-size:.6rem; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--wine); }
+.ct-caixa h3{ font-family:var(--didone); font-weight:400; font-size:clamp(1.4rem,4vw,1.9rem);
+  line-height:1.08; margin:0; }
+.ct-caixa p{ margin:0; font-size:.9rem; line-height:1.55; color:var(--ink-soft); }
+.ct-ja label{ display:block; font-family:var(--mono); font-size:.58rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-soft); margin-bottom:6px; }
+.ct-linha{ display:flex; gap:8px; }
+.ct-linha input{ flex:1; border:2px solid var(--ink); background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:.9rem; padding:11px 12px; min-width:0; }
+.ct-linha input:focus{ outline:2px solid var(--gold); outline-offset:-2px; }
+.ct-linha button{ border:2px solid var(--ink); background:var(--ink); color:var(--gold);
+  font-family:var(--mono); font-weight:700; font-size:.64rem; letter-spacing:.14em;
+  text-transform:uppercase; padding:11px 18px; cursor:pointer; }
+.ct-linha button:hover{ background:var(--wine); border-color:var(--wine); }
+.ct-erro{ font-family:var(--mono); font-size:.6rem; color:var(--wine); min-height:1em; }
+.ct-ou{ display:flex; align-items:center; gap:10px; color:var(--ink-soft);
+  font-family:var(--mono); font-size:.56rem; letter-spacing:.2em; text-transform:uppercase; }
+.ct-ou::before, .ct-ou::after{ content:''; flex:1; border-top:1px solid var(--line); }
+.ct-assinar{ border:2px solid var(--wine); background:var(--wine); color:var(--gold); cursor:pointer;
+  font-family:var(--mono); font-weight:700; font-size:.7rem; letter-spacing:.16em;
+  text-transform:uppercase; padding:15px; transition:transform .15s; }
+.ct-assinar:hover{ transform:translateY(-2px); background:var(--ink); border-color:var(--ink); }
+.ct-voltar{ border:0; background:none; color:var(--ink-soft); cursor:pointer; align-self:center;
+  font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; padding:4px; }
+.ct-voltar:hover{ color:var(--wine); }
+
 /* ---------- NAVEGAÇÃO ---------- */
 .rv-nav{ position:sticky; bottom:14px; display:flex; justify-content:center; gap:8px;
   width:max-content; max-width:100%; margin:18px auto 0; padding:8px;
@@ -2141,7 +2182,7 @@ def _rv_rotulo_sumario(pg):
     if t == 'programas': return ('Na tela: os programas da semana', 'YouTube do FOYER')
     if t == 'agenda':
         cid = pg.get('cidade')
-        return ((f'A semana em cartaz: {cid}' if cid else 'A semana em cartaz: o que fazer até quinta'), 'Agenda')
+        return ((f'A semana em cartaz: {cid}' if cid else 'A semana em cartaz'), 'Agenda')
     if t == 'frase-celebre': return ('Entre mestres: a arte pela palavra', 'Exclusivo')
     if t == 'citacao': return ('A frase da semana', 'Entre aspas')
     if t == 'cartaz': return (pg.get('legenda') or 'Cartaz', 'Divulgação')
@@ -2266,7 +2307,7 @@ def _rv_pagina(pg, ed, num):
                            + '</span>' + fecha)
             cid = pg.get('cidade', '')
             tit_ag = f'A semana em cartaz<span class="cid">{_rvesc(cid)}</span>' if cid else 'A semana em cartaz'
-            return (f'<section class="rv-pg rv-agd"><div class="cab"><em>Sete dias, de sexta a quinta</em>'
+            return (f'<section class="rv-pg rv-agd"><div class="cab"><em>Sete dias pela frente</em>'
                     f'<h3>{tit_ag}</h3></div>'
                     f'<div class="lista">{linhas}</div>'
                     f'<div class="ag-cta"><a href="cat-em-cartaz.html">Tudo que está em cartaz agora →</a></div>'
@@ -2293,7 +2334,7 @@ def _rv_pagina(pg, ed, num):
                        f'<small>{_rvesc(quando)}{(" · " + _rvesc(onde)) if onde else ""}</small></span></a>')
         if not linhas:
             linhas = '<p class="ag-vazio">A agenda da semana está em formação. Confira as estreias no site.</p>'
-        return (f'<section class="rv-pg rv-agd"><div class="cab"><em>De hoje a quinta que vem</em>'
+        return (f'<section class="rv-pg rv-agd"><div class="cab"><em>Sete dias pela frente</em>'
                 f'<h3>A semana em cartaz</h3></div>'
                 f'<div class="lista">{linhas}</div>'
                 f'<div class="ag-cta"><a href="cat-em-cartaz.html">Tudo que está em cartaz agora →</a></div>'
@@ -2380,7 +2421,7 @@ def _rv_pagina(pg, ed, num):
                 f'<ul class="prox">{chamadas or "<li>A semana do teatro brasileiro, apurada e fechada como sempre</li>"}</ul>'
                 + desped +
                 f'<div class="rodape"><img src="assets/logo/foyer-horizontal-gold.png" alt="FOYER">'
-                f'<span>foyer.digital · toda sexta</span><span class="rv-barcode"></span></div>'
+                f'<span>foyer.digital · assinante lê na quinta</span><span class="rv-barcode"></span></div>'
                 f'</div></section>')
     return (f'<section class="rv-pg rv-livre"><div class="rv-kicker">'
             f'<span class="tagz">{_rvesc(pg.get("rotulo") or "FOYER")}</span><span></span></div>'
@@ -2439,12 +2480,37 @@ def edicao_page(ed):
             n += 1
     corpo = '\n'.join(pgs)
     total = len(pgs)
+    # a janela do assinante: a edição sai quinta para a lista e abre para
+    # todos um dia depois. Antes disso, capa, sumário e carta ficam de
+    # amostra e a cortina pede o e-mail.
+    _iso_ed = _rv_iso_edicao(ed)
+    _libera = ''
+    if _iso_ed:
+        _libera = (datetime.strptime(_iso_ed, '%Y-%m-%d')
+                   + __import__('datetime').timedelta(days=1)).strftime('%Y-%m-%d')
     return (_RV_CSS + f'''
-<main id="conteudo" class="rv-stage">
+<main id="conteudo" class="rv-stage" data-libera="{_libera}">
   <div class="rv-book" id="rv-book">
     <div class="rv-lombo esq" id="rv-lombo-esq" aria-hidden="true"></div>
 {corpo}
     <div class="rv-lombo dir" id="rv-lombo-dir" aria-hidden="true"></div>
+  </div>
+  <div class="rv-cortina" id="rv-cortina" role="dialog" aria-modal="true" aria-label="Edição para assinantes" hidden>
+    <div class="ct-caixa">
+      <span class="ct-rot">🎪 Cortina fechada até sexta</span>
+      <h3>Esta edição é dos assinantes até amanhã.</h3>
+      <p>Capa, sumário e carta são de casa aberta. O resto abre para todo mundo na sexta.
+         Assinante lê tudo <b>hoje</b>, de graça.</p>
+      <div class="ct-ja">
+        <label for="ct-email">Já estou na lista:</label>
+        <div class="ct-linha"><input type="email" id="ct-email" placeholder="seu@email.com">
+        <button type="button" id="ct-entrar">Entrar</button></div>
+        <span class="ct-erro" id="ct-erro" aria-live="polite"></span>
+      </div>
+      <div class="ct-ou"><span>ou</span></div>
+      <button type="button" class="ct-assinar" data-conversa>🎟 Assinar em um minuto e ler agora</button>
+      <button type="button" class="ct-voltar" id="ct-voltar">← voltar para a amostra</button>
+    </div>
   </div>
   <div class="rv-nav">
     <button type="button" id="rv-ant">← Anterior</button>
@@ -2598,9 +2664,74 @@ def edicao_page(ed):
     else if(fita.parentNode){{ fita.parentNode.removeChild(fita); }}
     try{{ localStorage.setItem('rv-fita-' + NUM_ED, String(par[0])); }}catch(e){{}}
   }}
+  /* ---- a janela do assinante: hoje é dia de assinante ler primeiro? ---- */
+  var SB = {{ url: 'https://jcaqjlrzmrtzjyfbljxh.supabase.co',
+             key: 'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB' }};
+  function temCadeira(){{ try{{ return localStorage.getItem('foyer-cadeira') === '1'; }}catch(e){{ return false; }} }}
+  function daCadeira(){{ try{{ localStorage.setItem('foyer-cadeira', '1'); }}catch(e){{}} }}
+  try{{ if(new URLSearchParams(location.search).get('cadeira') === '1') daCadeira(); }}catch(e){{}}
+  function hojeISO(){{
+    var d2 = new Date();
+    var p2 = function(n){{ return (n < 10 ? '0' : '') + n; }};
+    return d2.getFullYear() + '-' + p2(d2.getMonth() + 1) + '-' + p2(d2.getDate());
+  }}
+  function emJanela(){{
+    var lib = document.querySelector('.rv-stage').dataset.libera || '';
+    return !!lib && hojeISO() < lib && !temCadeira();
+  }}
+  function limiteAmostra(){{
+    // a amostra vai até a carta ao leitor (capa e sumário inclusos)
+    var todas = document.querySelectorAll('.rv-pg');
+    var lim = Math.min(2, todas.length - 1);
+    todas.forEach(function(p2, k2){{ if(p2.classList.contains('rv-edi')) lim = Math.max(lim, k2); }});
+    return lim;
+  }}
+  function cortina(){{ return document.getElementById('rv-cortina'); }}
+  function abreCortina(){{
+    var c2 = cortina();
+    if(!c2) return;
+    c2.hidden = false;
+    var em = document.getElementById('ct-email');
+    if(em) setTimeout(function(){{ em.focus(); }}, 80);
+  }}
+  function fechaCortina(){{ var c2 = cortina(); if(c2) c2.hidden = true; }}
+  (function ligaCortina(){{
+    var c2 = cortina();
+    if(!c2) return;
+    document.getElementById('ct-voltar').addEventListener('click', fechaCortina);
+    var entrar = document.getElementById('ct-entrar'), em = document.getElementById('ct-email');
+    var erro = document.getElementById('ct-erro');
+    function verifica(){{
+      var v = (em.value || '').trim();
+      if(!/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(v)){{ erro.textContent = 'Confere esse e-mail?'; return; }}
+      entrar.disabled = true; entrar.textContent = '…';
+      fetch(SB.url + '/rest/v1/rpc/foyer_ja_assina', {{
+        method: 'POST',
+        headers: {{ 'apikey': SB.key, 'Authorization': 'Bearer ' + SB.key, 'Content-Type': 'application/json' }},
+        body: JSON.stringify({{ p_email: v }})
+      }}).then(function(r){{ return r.json(); }}).then(function(sim){{
+        entrar.disabled = false; entrar.textContent = 'Entrar';
+        if(sim === true){{ daCadeira(); fechaCortina(); proxima(); }}
+        else {{ erro.textContent = 'Não achei esse e-mail na lista. Assina em um minuto aqui embaixo?'; }}
+      }}).catch(function(){{
+        entrar.disabled = false; entrar.textContent = 'Entrar';
+        erro.textContent = 'Não deu para conferir agora. Tenta de novo?';
+      }});
+    }}
+    entrar.addEventListener('click', verifica);
+    em.addEventListener('keydown', function(e){{ if(e.key === 'Enter') verifica(); }});
+    // assinou pela conversa: a cadeira é dada na hora e a cortina sobe
+    window.addEventListener('foyer-assinou', function(){{ daCadeira(); fechaCortina(); }});
+  }})();
+
   function vaiDupla(s, sentido){{
     if(virando) return;
     s = Math.max(0, Math.min(duplas.length - 1, s));
+    if(emJanela()){{
+      var lim = limiteAmostra();
+      var par2 = duplas[s] || [0];
+      if(par2[0] > lim){{ abreCortina(); return; }}
+    }}
     if(s === d){{ pinta(); return; }}
     var anima = sentido && !mexeMenos.matches;
     if(!anima){{ d = s; pinta(); window.scrollTo({{ top: 0, behavior: 'smooth' }}); return; }}
@@ -2667,6 +2798,7 @@ def edicao_page(ed):
     renumeraSumario();
     var guardada = 0;
     try{{ guardada = parseInt(localStorage.getItem('rv-fita-' + NUM_ED) || '0', 10) || 0; }}catch(e){{}}
+    if(emJanela() && guardada > limiteAmostra()) guardada = 0;   // a fita respeita a cortina
     if(guardada > 0 && guardada < pgs.length){{
       d = duplaDe(guardada);
       var t = document.createElement('div');
@@ -2710,6 +2842,10 @@ _ESTANTE_CSS = '''<style>
   background:linear-gradient(180deg, rgba(35,8,5,.55), transparent 34%, transparent 62%, rgba(35,8,5,.8)); }
 .est-capa .lg{ position:absolute; top:8px; left:10px; right:10px; }
 .est-capa .lg img{ width:100%; height:auto; object-fit:contain; filter:drop-shadow(0 1px 6px rgba(0,0,0,.6)); }
+.est-selo{ position:absolute; top:10px; right:-8px; z-index:3; background:var(--gold); color:#16100D;
+  font-family:var(--mono); font-size:.52rem; font-weight:700; letter-spacing:.12em;
+  text-transform:uppercase; padding:6px 10px; box-shadow:2px 3px 0 rgba(0,0,0,.35);
+  transform:rotate(3deg); }
 .est-capa .mch{ position:absolute; left:12px; right:12px; bottom:10px; color:#fff;
   font-family:var(--didone); font-size:1.05rem; line-height:1.06;
   text-shadow:0 2px 10px rgba(0,0,0,.7); }
@@ -2735,8 +2871,12 @@ def revista_listagem():
         capa = e.get('capa', {})
         img = (f'<img src="{_rvesc(capa.get("img", ""))}" alt="" loading="lazy" '
                'onerror="this.style.display=\'none\'">') if capa.get('img') else ''
+        _iso_e = _rv_iso_edicao(e)
+        _lib_e = ((datetime.strptime(_iso_e, '%Y-%m-%d')
+                   + __import__('datetime').timedelta(days=1)).strftime('%Y-%m-%d')
+                  if _iso_e else '')
         revs += f'''
-      <a class="est-rev" href="revista-ed-{e.get("numero")}.html" aria-label="Ler a edição {e.get("numero")}">
+      <a class="est-rev" data-libera="{_lib_e}" href="revista-ed-{e.get("numero")}.html" aria-label="Ler a edição {e.get("numero")}">
         <span class="est-capa">{img}<span class="veu"></span>
           <span class="lg"><img src="assets/logo/foyer-horizontal-gold.png" alt="FOYER"></span>
           <span class="mch">{_rvesc(capa.get("manchete") or e.get("titulo", ""))}</span>
@@ -2746,27 +2886,33 @@ def revista_listagem():
     fantasma = f'''
       <span class="est-rev est-fantasma" aria-hidden="true">
         <span class="est-capa"><span>Nº {prox}<br>em fechamento<br>na redação</span></span>
-        <span class="est-rot">chega sexta</span>
+        <span class="est-rot">assinantes leem quinta</span>
       </span>'''
+    selo_js = ('<script>(function(){var d=new Date(),p=function(n){return (n<10?"0":"")+n};'
+               'var hoje=d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate());'
+               'document.querySelectorAll(".est-rev[data-libera]").forEach(function(a){'
+               'if(a.dataset.libera&&hoje<a.dataset.libera){'
+               'var s=document.createElement("span");s.className="est-selo";'
+               's.textContent="🎟 assinantes leem hoje";a.querySelector(".est-capa").appendChild(s);}});})();</script>')
     return (_ESTANTE_CSS +
             f'<div class="estante"><div class="est-prateleira">{revs}{fantasma}</div>'
-            '<div class="est-tabua"></div></div>')
+            '<div class="est-tabua"></div></div>' + selo_js)
 
 revista_body = band('Newsletter semanal', 'A Revista do Foyer',
                     'Toda sexta, uma edição fechada — como uma revista impressa, para ler na tela ou baixar') + f'''
 <main id="conteudo" class="wrap">
   <div class="rev-hero" id="assinar">
     <div class="rev-copy">
-      <h2>Uma revista de verdade, entregue toda sexta</h2>
+      <h2>Uma revista de verdade, toda quinta para assinantes</h2>
       <p>A semana do teatro brasileiro editada com começo, meio e fim: reportagem de capa, o melhor da semana do site, conteúdo exclusivo, cartazes e agenda — diagramada como uma revista impressa.</p>
       <div class="feats">
         <span>Edição fechada semanal — sem rolagem infinita</span>
         <span>Leia no site como revista ou baixe o PDF</span>
-        <span>Grátis no seu e-mail, toda sexta às 7h</span>
+        <span>Grátis no seu e-mail, toda quinta às 7h — um dia antes de todo mundo</span>
       </div>
     </div>
     <div class="signup-card" id="signup-conversa">
-      <h3>A revista chega toda sexta, às 7h</h3>
+      <h3>Assinante lê na quinta, às 7h</h3>
       <p class="sg-chamada">Uma edição fechada, com começo, meio e fim, na sua caixa de entrada. De graça.</p>
       <button type="button" class="sg-abrir" data-conversa>🎟 Quero a minha</button>
       <span class="fine">Sem spam, cancele quando quiser. Seus dados ficam só com o FOYER.</span>

@@ -219,8 +219,6 @@
 // a conversa da revista — o cadastro como um momento, não um formulário.
 // Uma pergunta por tela, com os três sinais do teatro marcando o caminho.
 (function(){
-  var gatilhos = document.querySelectorAll('[data-conversa]');
-  if(!gatilhos.length) return;
   var M = { url: 'https://jcaqjlrzmrtzjyfbljxh.supabase.co',
             key: 'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB' };
   var R = { nome:'', email:'', cidade:'', frequencia:'', interesses:[], conteudos:[] };
@@ -229,7 +227,7 @@
   var PASSOS = [
     { id:'nome', sinal:'🔔 primeiro sinal', titulo:'Que bom ter você no saguão.',
       sub:'Como a gente te chama?', tipo:'texto', place:'pode ser só o primeiro nome' },
-    { id:'email', sinal:'🔔 primeiro sinal', titulo:'A revista chega toda sexta, às 7h.',
+    { id:'email', sinal:'🔔 primeiro sinal', titulo:'Assinante lê na quinta, às 7h. Todo mundo, só na sexta.',
       sub:'Em qual caixa de entrada ela te encontra?', tipo:'email', place:'seu@email.com',
       nota:'De graça, sem spam, e seus dados ficam só com o FOYER. <a href="privacidade.html" target="_blank">Política de privacidade</a>' },
     { id:'cidade', sinal:'🔔🔔 segundo sinal', titulo:'De onde você aplaude?',
@@ -397,12 +395,14 @@
       throw 0;
     }).then(function(como){
       mede('conversa-fim');
+      try{ localStorage.setItem('foyer-cadeira', '1'); }catch(e){}
+      try{ window.dispatchEvent(new CustomEvent('foyer-assinou')); }catch(e){}
       var ja = como === 'ja';
       c.classList.remove('anima-f', 'anima-b'); void c.offsetWidth; c.classList.add('anima-f');
       c.innerHTML = '<span class="cv-sinal cv-carimbo">🎟</span>' +
         '<h3 class="cv-t">' + (ja ? 'Você já tinha cadeira marcada.' : ('Cadeira reservada' + (R.nome ? ', ' + R.nome.split(' ')[0] : '') + '.')) + '</h3>' +
-        '<p class="cv-s">' + (ja ? 'Atualizamos seus gostos. A revista segue chegando toda sexta, às 7h.'
-                                 : 'A próxima chega sexta, às 7h. Mas a cortina já está aberta:') + '</p>' +
+        '<p class="cv-s">' + (ja ? 'Atualizamos seus gostos. A próxima revista chega na quinta, às 7h.'
+                                 : 'A próxima chega quinta, às 7h, um dia antes de todo mundo. E a cortina desta já está aberta:') + '</p>' +
         '<div class="cv-pe"><span></span><span></span><span style="display:flex;gap:8px;flex-wrap:wrap">' +
           '<button type="button" class="cv-volta" id="cv-sair">voltar ao site</button>' +
           '<a class="cv-vai" style="text-decoration:none" href="revista.html#edicoes">📖 Ler a edição de estreia</a>' +
@@ -427,10 +427,11 @@
       else if(!e.shiftKey && document.activeElement === ult){ e.preventDefault(); prim.focus(); }
     }
   });
-  gatilhos.forEach(function(g){ g.addEventListener('click', abre); });
-  // o "Assine" do topo do site tambem abre a conversa, sem viagem intermediaria
-  document.querySelectorAll('a[href$="revista.html#assinar"]').forEach(function(a){
-    a.addEventListener('click', function(e){ e.preventDefault(); abre(); });
+  // gatilhos delegados: valem para botões que nascem depois (a cortina da revista)
+  document.addEventListener('click', function(e){
+    if(e.target.closest && e.target.closest('[data-conversa]')){ abre(); return; }
+    var a = e.target.closest && e.target.closest('a[href$="revista.html#assinar"]');
+    if(a){ e.preventDefault(); abre(); }   // o Assine do topo, sem viagem intermediária
   });
 })();
 

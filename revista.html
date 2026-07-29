@@ -140,16 +140,16 @@
 <main id="conteudo" class="wrap">
   <div class="rev-hero" id="assinar">
     <div class="rev-copy">
-      <h2>Uma revista de verdade, entregue toda sexta</h2>
+      <h2>Uma revista de verdade, toda quinta para assinantes</h2>
       <p>A semana do teatro brasileiro editada com começo, meio e fim: reportagem de capa, o melhor da semana do site, conteúdo exclusivo, cartazes e agenda — diagramada como uma revista impressa.</p>
       <div class="feats">
         <span>Edição fechada semanal — sem rolagem infinita</span>
         <span>Leia no site como revista ou baixe o PDF</span>
-        <span>Grátis no seu e-mail, toda sexta às 7h</span>
+        <span>Grátis no seu e-mail, toda quinta às 7h — um dia antes de todo mundo</span>
       </div>
     </div>
     <div class="signup-card" id="signup-conversa">
-      <h3>A revista chega toda sexta, às 7h</h3>
+      <h3>Assinante lê na quinta, às 7h</h3>
       <p class="sg-chamada">Uma edição fechada, com começo, meio e fim, na sua caixa de entrada. De graça.</p>
       <button type="button" class="sg-abrir" data-conversa>🎟 Quero a minha</button>
       <span class="fine">Sem spam, cancele quando quiser. Seus dados ficam só com o FOYER.</span>
@@ -177,6 +177,10 @@
   background:linear-gradient(180deg, rgba(35,8,5,.55), transparent 34%, transparent 62%, rgba(35,8,5,.8)); }
 .est-capa .lg{ position:absolute; top:8px; left:10px; right:10px; }
 .est-capa .lg img{ width:100%; height:auto; object-fit:contain; filter:drop-shadow(0 1px 6px rgba(0,0,0,.6)); }
+.est-selo{ position:absolute; top:10px; right:-8px; z-index:3; background:var(--gold); color:#16100D;
+  font-family:var(--mono); font-size:.52rem; font-weight:700; letter-spacing:.12em;
+  text-transform:uppercase; padding:6px 10px; box-shadow:2px 3px 0 rgba(0,0,0,.35);
+  transform:rotate(3deg); }
 .est-capa .mch{ position:absolute; left:12px; right:12px; bottom:10px; color:#fff;
   font-family:var(--didone); font-size:1.05rem; line-height:1.06;
   text-shadow:0 2px 10px rgba(0,0,0,.7); }
@@ -194,7 +198,7 @@
   box-shadow:0 8px 0 -4px rgba(35,8,5,.35); margin-top:-3px; }
 @media (max-width:640px){ .est-prateleira{ justify-content:center; } }
 </style><div class="estante"><div class="est-prateleira">
-      <a class="est-rev" href="revista-ed-1.html" aria-label="Ler a edição 1">
+      <a class="est-rev" data-libera="2026-07-24" href="revista-ed-1.html" aria-label="Ler a edição 1">
         <span class="est-capa"><img src="assets/uploads/wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.jpg" alt="" loading="lazy" onerror="this.style.display='none'"><span class="veu"></span>
           <span class="lg"><img src="assets/logo/foyer-horizontal-gold.png" alt="FOYER"></span>
           <span class="mch">A semana em que Oz desembarcou no Rio</span>
@@ -203,8 +207,8 @@
       </a>
       <span class="est-rev est-fantasma" aria-hidden="true">
         <span class="est-capa"><span>Nº 2<br>em fechamento<br>na redação</span></span>
-        <span class="est-rot">chega sexta</span>
-      </span></div><div class="est-tabua"></div></div>
+        <span class="est-rot">assinantes leem quinta</span>
+      </span></div><div class="est-tabua"></div></div><script>(function(){var d=new Date(),p=function(n){return (n<10?"0":"")+n};var hoje=d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate());document.querySelectorAll(".est-rev[data-libera]").forEach(function(a){if(a.dataset.libera&&hoje<a.dataset.libera){var s=document.createElement("span");s.className="est-selo";s.textContent="🎟 assinantes leem hoje";a.querySelector(".est-capa").appendChild(s);}});})();</script>
   <div class="ad-slot" data-ad-slot="1301"></div>
 </main>
 
