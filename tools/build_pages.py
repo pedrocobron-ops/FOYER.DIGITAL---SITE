@@ -3910,7 +3910,9 @@ _email_bloco = (f'<p style="font-size:1.1rem">✉ <a href="mailto:{_rvesc(_email
                 if _email else
                 '<p>✉ O e-mail da redação será publicado em breve.</p>')
 _fones = ''.join(
-    f'<p><b>{_rvesc(t["nome"])}</b> — {_rvesc(t["papel"])}<br>☎ {_rvesc(t["fone"])}</p>'
+    f'<p><b>{_rvesc(t["nome"])}</b> — {_rvesc(t["papel"])}<br>'
+    f'☎ <a href="https://wa.me/55{"".join(ch for ch in t["fone"] if ch.isdigit())}" target="_blank" rel="noopener">'
+    f'<b>{_rvesc(t["fone"])}</b></a> (WhatsApp)</p>'
     for t in _CFG.get('telefones', []))
 contato_body = band('Fale conosco', 'Contato', 'Quer saber mais sobre o Foyer, sugerir uma pauta ou deixar uma mensagem?') + f'''
 <main id="conteudo" class="wrap">
