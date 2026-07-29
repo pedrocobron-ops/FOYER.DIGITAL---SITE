@@ -3760,7 +3760,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         var zap = (p.whatsapp || '').replace(/\D/g, '');
         if(zap && zap.length <= 11) zap = '55' + zap;
         var oi = encodeURIComponent('Olá, ' + (p.nome || '') + '! Aqui é o FOYER. Recebi o seu pedido de anúncio (' +
-          (PUB_NOME[p.formato] || p.formato) + (p.cupom ? ' + bilhete do leitor' : '') + '). Vamos fechar valores e datas?');
+          (PUB_NOME[p.formato] || p.formato) + (p.protocolo ? ', protocolo ' + p.protocolo : '') +
+          (p.valor_total ? ', orçamento R$ ' + p.valor_total : '') + '). Vamos confirmar os dados e combinar o pagamento?');
         return '<div class="pub-card">' +
           '<div class="pc-t"><b>' + esc(PUB_NOME[p.formato] || p.formato) + (p.cupom ? ' + 🎟 cupom' : '') + '</b>' +
           (p.protocolo ? '<span class="mt">' + esc(p.protocolo) + '</span>' : '') +
@@ -3768,6 +3769,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           '<span class="mt" style="margin-left:auto">' + esc(quando) + '</span></div>' +
           '<div class="pub-linha"><em>Quem</em><span>' + esc(p.nome + (p.empresa ? ' · ' + p.empresa : '')) + '</span></div>' +
           '<div class="pub-linha"><em>Temporada</em><span>' + esc((p.inicio || 'a combinar') + ' · ' + (p.duracao || 'a combinar')) + '</span></div>' +
+          (p.valor_total ? '<div class="pub-linha"><em>Orçamento</em><span><b>R$ ' + esc(String(p.valor_total)) + '</b>' + (p.orcamento ? ' · ' + esc(p.orcamento) : '') + '</span></div>' : '') +
           '<div class="pub-linha"><em>Contato</em><span>' + esc(p.whatsapp + ' · ' + p.email + (p.instagram ? ' · ' + p.instagram : '')) + '</span></div>' +
           (p.documento
             ? '<div class="pub-linha"><em>Nota fiscal</em><span>' +

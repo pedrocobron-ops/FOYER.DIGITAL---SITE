@@ -578,13 +578,23 @@ Regras das seções novas:
     parágrafo) e **A Faixa de proscênio** (rodapé fixo, dispensável
     pelo leitor). TODOS com rótulo "Publicidade"; nunca aparecem na
     Coxia nem dentro da revista.
-  - **Na revista**: **página inteira** (posições nomeadas: a ímpar
-    dos Recortes, a face da agenda, a porta da contracapa; pode levar
-    o bilhete do leitor), **meia página** (campo `anuncioMeia` da
-    página de matéria: o anúncio ocupa o pé da última página da
-    matéria, no lugar da arte da casa) e o **bilhete do leitor**
-    (cupom, exclusivo da página inteira paga). **Máximo de 2 páginas
-    pagas por edição.**
+  - **Na revista**: **página inteira** (o formato do cartaz; posições
+    nomeadas: a ímpar dos Recortes, a face da agenda, a porta da
+    contracapa) e **meia página** (o formato da arte de Sympla; campo
+    `anuncioMeia` da página de matéria: o anúncio ocupa o pé da última
+    página da matéria). **Máximo de 2 páginas pagas por edição.**
+    O **bilhete do leitor (cupom) está FORA do funil de autosserviço**
+    (decisão do Pedro em 29/07/2026: exigia arte sob medida e cobria o
+    cartaz); segue possível apenas em combinação manual por escrito,
+    montado pela Coxia na página de patrocínio.
+  - **A TABELA DA CASA (aprovada pelo Pedro em 29/07/2026, por
+    edição/semana)**: Faixa R$ 90 · Entreato R$ 150 · Cortina R$ 200 ·
+    Meia página R$ 130 · Página inteira R$ 240. **Desconto de
+    extensão progressivo**: a 2ª edição sai com −10%, a 3ª com −20%,
+    a 4ª com −30% (ex.: página inteira por 4 edições = 240+216+192+168
+    = R$ 816). Acima de 4 edições, valor combinado na conversa. O
+    passo a passo calcula e grava o orçamento no pedido
+    (`valor_total`); o WhatsApp fecha só pagamento e datas.
   - **O pedido**: o passo a passo grava na tabela `foyer_anuncios`
     (Supabase; o site só insere, a leitura exige a chave da casa) e
     aparece na aba **Publicidade** da Coxia com botão de WhatsApp

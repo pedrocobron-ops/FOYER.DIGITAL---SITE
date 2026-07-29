@@ -2741,7 +2741,7 @@ def _rv_pagina(pg, ed, num):
                 f'<h4>Cartas da plateia</h4><p>Escreva para programafoyer@gmail.com. As melhores cartas saem na revista, com nome e cidade.</p>'
                 f'<h4>Fale conosco</h4><p>foyer.digital · programafoyer@gmail.com · YouTube @Foyer.digital</p>'
                 '<div class="anuncie"><em>Anuncie no FOYER</em>'
-                '<p>No site todos os dias ou na revista: página inteira, meia página e o bilhete do leitor com código exclusivo. '
+                '<p>No site todos os dias ou na revista: página inteira, meia página, cortina de entrada, entreato e faixa. '
                 'Contrate em 5 passos: <a href="anuncie.html">foyer.digital/anuncie</a> · programafoyer@gmail.com</p></div>'
                 f'</div>{fol}</section>')
     if t == 'programa-sala':
@@ -4222,6 +4222,12 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     .az-aceite{ display:flex; gap:10px; align-items:flex-start; border:2px solid var(--wine);
       padding:12px 14px; margin:14px 0 0; font-size:.85rem; line-height:1.5; }
     .az-aceite input{ width:18px; height:18px; margin-top:2px; accent-color:#4E0F09; }
+    .az-orca{ border:2px solid var(--wine); background:rgba(206,178,106,.1); padding:12px 16px; margin-top:6px; }
+    .az-orca em{ display:block; font-style:normal; font-family:var(--mono); font-size:.56rem; font-weight:700;
+      letter-spacing:.2em; text-transform:uppercase; color:var(--wine); margin-bottom:6px; }
+    .az-orca .parcelas{ font-size:.8rem; color:var(--ink-soft); }
+    .az-orca .total{ font-family:var(--didone); font-size:1.6rem; margin-top:4px; }
+    .az-orca .nota-v{ font-size:.72rem; color:var(--ink-soft); margin-top:4px; }
     .az-ops{ display:flex; flex-wrap:wrap; gap:10px; }
     .az-op{ border:2px solid var(--ink); background:transparent; cursor:pointer; padding:10px 14px;
       font:inherit; font-size:.88rem; font-weight:600; color:inherit; }
@@ -4286,11 +4292,6 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     .pv-meia em{ display:block; font-style:normal; font-family:var(--mono); font-size:.42rem; font-weight:700;
       letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:5px; }
     .pv-meia .arte{ aspect-ratio:16/9; }
-    .pv-cupom{ position:absolute; left:10px; right:10px; bottom:34px; z-index:3; display:none;
-      border:2px dashed var(--wine); background:var(--paper); padding:6px 8px; align-items:center; gap:8px; }
-    .pv-cupom i{ font-style:normal; font-size:.6rem; }
-    .pv-cupom span{ flex:1; font-size:.56rem; line-height:1.3; }
-    .pv-cupom b{ font-family:var(--mono); font-size:.6rem; border-left:2px dashed var(--wine); padding-left:8px; }
     /* a arte (ou o convite a ela) */
     .arte{ position:relative; background:#4E0F09; display:flex; align-items:center; justify-content:center; overflow:hidden; }
     .arte img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
@@ -4375,7 +4376,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
   <div class="az-rito">
     <div class="az-rito-p"><b>1</b><span><strong>Você monta e vê.</strong> Escolhe o formato, sobe a arte e confere a aplicação real antes de qualquer compromisso.</span></div>
     <div class="az-rito-p"><b>2</b><span><strong>O pedido cai na mesa da direção.</strong> Sem robô de vendas: quem lê é quem faz a revista.</span></div>
-    <div class="az-rito-p"><b>3</b><span><strong>A direção te chama no WhatsApp.</strong> Valores e datas fecham na conversa, e nada vai ao ar sem o seu ok final.</span></div>
+    <div class="az-rito-p"><b>3</b><span><strong>A direção te chama no WhatsApp.</strong> O orçamento você já viu na hora; na conversa fecham só o pagamento e a data, e nada vai ao ar sem o seu ok.</span></div>
   </div>
 
   <div class="az-wiz" id="az-wiz">
@@ -4415,7 +4416,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
             <span class="mini mrev mini-inteira"><span class="pgm"><i class="ln"></i><i class="ln"></i><i class="ln c"></i>
               <span class="selo">SUA ARTE<br>PÁGINA<br>INTEIRA</span><em class="fol"></em></span></span>
             <b>Página inteira</b>
-            <span class="fc-r">Uma página da edição é toda sua. Pode levar o cupom do leitor.</span>
+            <span class="fc-r">O formato do seu cartaz: uma página da edição é toda sua.</span>
           </button>
           <button class="az-fcard" type="button" data-f="meia-pagina">
             <span class="mini mrev mini-meia"><span class="pgm"><i class="tt"></i><i class="ln"></i><i class="ln"></i><i class="ln c"></i>
@@ -4425,11 +4426,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
           </button>
         </div>
         <div class="az-como" id="az-como"></div>
-        <div class="az-campo" id="az-cupom-op" style="display:none;margin-top:12px">
-          <label>Bilhete do leitor (só na página inteira)</label>
-          <button class="az-op" type="button" id="az-cupom-bt">🎟 Quero o cupom destacável no anúncio</button>
-          <small>um código exclusivo seu, que o leitor copia com um toque e você confere na bilheteria; o código é combinado por escrito na conversa</small>
-        </div>
+
       </div>
 
       <div class="az-passo" data-p="2">
@@ -4460,7 +4457,6 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
                 <div class="txts" id="pv-pg-txts" style="display:none"><div class="tit"></div>
                   <div class="ln"></div><div class="ln"></div><div class="ln c"></div><div class="ln"></div><div class="ln"></div><div class="ln c"></div></div>
                 <div class="pv-meia" id="pv-meia" style="display:none"><em>Publicidade</em><div class="arte" data-arte><span class="ph">Sua arte aqui</span></div></div>
-                <div class="pv-cupom" id="pv-cupom"><i>✂</i><span>O seu benefício para o leitor do FOYER</span><b>SEUCODIGO</b></div>
                 <div class="folio"><span>FOYER · A REVISTA</span><span>PÁG. 9</span></div>
               </div>
             </div>
@@ -4479,7 +4475,9 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
           <input type="text" id="az-inicio" placeholder="ex.: semana que vem · edição de 6 de agosto · o quanto antes"></div>
         <div class="az-campo"><label>Por quanto tempo?</label>
           <div class="az-ops" id="az-duracao"></div>
-          <small>o FOYER vive por edições: cada edição é uma semana da casa, de quinta a quarta — no site ou na revista</small></div>
+          <small>o FOYER vive por edições: cada edição é uma semana da casa, de quinta a quarta — no site ou na revista.
+          A edição seguinte é sempre mais barata: 2ª com −10%, 3ª com −20%, 4ª com −30%.</small></div>
+        <div class="az-orca" id="az-orca" hidden></div>
       </div>
 
       <div class="az-passo" data-p="4">
@@ -4529,8 +4527,8 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
         <label class="az-aceite"><input type="checkbox" id="az-aceite">
           <span>Li e estou de acordo com as <a href="regras-publicidade.html" target="_blank" rel="noopener"><b>Regras de Publicidade do FOYER</b></a>,
           e declaro que a arte e a oferta anunciadas as cumprem e que tenho os direitos sobre as imagens enviadas. *</span></label>
-        <p style="font-size:.84rem;color:var(--ink-soft);margin:12px 0 0">Ao enviar, o pedido (com a sua arte e os dados da nota) cai direto na mesa da direção do FOYER.
-        Na conversa de WhatsApp confirmamos os dados, conferimos a arte e combinamos só o pagamento. Nada vai ao ar sem o seu ok final.</p>
+        <p style="font-size:.84rem;color:var(--ink-soft);margin:12px 0 0">Ao enviar, o pedido (com a sua arte, o orçamento e os dados da nota) cai direto na mesa da direção do FOYER.
+        Na conversa de WhatsApp confirmamos os dados, conferimos a arte e combinamos só a forma de pagamento. Nada vai ao ar sem o seu ok final.</p>
       </div>
     </div>
     <p class="az-erro" id="az-erro"></p>
@@ -4544,9 +4542,9 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       <h3>Recebido! Agora é com a gente.</h3>
       <p class="az-proto">O seu protocolo: <b id="az-proto-n"></b></p>
       <div class="az-linha-tempo">
-        <div><b>Agora</b><span>o pedido (com a sua arte) está na mesa da direção</span></div>
-        <div><b>Em até 1 dia útil</b><span>a direção te chama no WhatsApp para fechar valores e datas</span></div>
-        <div><b>Antes de ir ao ar</b><span>você aprova a versão final; nada publica sem o seu ok</span></div>
+        <div><b>Agora</b><span>o pedido, a arte e o orçamento estão na mesa da direção</span></div>
+        <div><b>Em até 1 dia útil</b><span>a direção te chama no WhatsApp para confirmar os dados e combinar o pagamento</span></div>
+        <div><b>Antes de ir ao ar</b><span>a arte passa pela conferência das Regras e você aprova a versão final</span></div>
       </div>
       <a class="az-zap" id="az-zap" target="_blank" rel="noopener" href="#">Quer agilizar? Fale agora com a direção no WhatsApp →</a>
     </div>
@@ -4581,8 +4579,8 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       spec:'Sem imagem: escreva a sua linha abaixo e veja na hora' },
     { id:'pagina-inteira', canal:'revista', nome:'Página inteira', onde:'Na revista · uma página sua',
       resumo:'Uma página da edição é toda sua, para sempre no acervo.',
-      como:'Uma página INTEIRA da revista de quinta é sua: a arte ocupa a página toda, com o rótulo Publicidade. As posições têm nome (a ímpar dos Recortes, a face da agenda, a porta da contracapa) e a edição fica na estante para sempre: o seu anúncio não some no feed. Pode carregar o bilhete do leitor: um cupom destacável com código exclusivo.',
-      specs:['Arte: imagem na vertical, proporção da página (720×972; mande pelo menos 1440×1944)','Onde: uma página da edição, em posição nomeada','Permanência: a edição fica no acervo para sempre','Extra: o bilhete do leitor (cupom com código que você mede na bilheteria)'],
+      como:'Uma página INTEIRA da revista de quinta é sua: a arte ocupa a página toda, com o rótulo Publicidade. As posições têm nome (a ímpar dos Recortes, a face da agenda, a porta da contracapa) e a edição fica na estante para sempre: o seu anúncio não some no feed. O link do anúncio sai marcado (utm) para você medir de onde veio o leitor.',
+      specs:['Arte: imagem na vertical, proporção da página (720×972; mande pelo menos 1440×1944)','Onde: uma página da edição, em posição nomeada','Permanência: a edição fica no acervo para sempre','Link: na revista lida no site, a arte clica para o seu endereço, com marcação de origem (utm)'],
       spec:'Imagem na vertical, proporção 720×972 · mande pelo menos 1440×1944' },
     { id:'meia-pagina', canal:'revista', nome:'Meia página', onde:'Na revista · fim de matéria',
       resumo:'O leitor termina a matéria e encontra a sua arte.',
@@ -4591,6 +4589,21 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       spec:'Imagem na horizontal · recomendado 1400×760' }
   ];
   var DURACOES = ['1 edição', '2 edições', '3 edições', '4 edições', 'a combinar'];
+  var VALORES = { cortina:200, entreato:150, faixa:90, 'pagina-inteira':240, 'meia-pagina':130 };
+  var DESCONTO = [0, 0, .10, .20, .30];   // da 1ª à 4ª edição
+  function orcamento(){
+    var f = fmt();
+    if(!f || !st.duracao || st.duracao === 'a combinar') return null;
+    var n = Number(st.duracao.charAt(0));
+    var base = VALORES[f.id], total = 0, partes = [];
+    for(var i = 1; i <= n; i++){
+      var vi = Math.round(base * (1 - DESCONTO[i]));
+      total += vi;
+      partes.push(i + 'ª: R$ ' + vi + (DESCONTO[i] ? ' (−' + (DESCONTO[i] * 100) + '%)' : ''));
+    }
+    return { total: total, partes: partes, n: n, base: base };
+  }
+  function moeda(x){ return 'R$ ' + x.toLocaleString('pt-BR'); }
   var st = { formato:'', cupom:false, duracao:'', arte:'' };
   var passo = 1, TOTAL = 5;
   var ROT = { 1:'o formato', 2:'a arte', 3:'a temporada', 4:'quem assina', 5:'a revisão' };
@@ -4606,7 +4619,6 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     el.innerHTML = '<h5>Como aparece</h5><p>' + f.como + '</p><ul>' +
       f.specs.map(function(s2){ return '<li>' + s2 + '</li>'; }).join('') + '</ul>';
     el.classList.add('on');
-    document.getElementById('az-cupom-op').style.display = f.id === 'pagina-inteira' ? '' : 'none';
   }
   function pintaProva(){
     var f = fmt();
@@ -4620,7 +4632,6 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     document.getElementById('pv-pg-cheia').style.display = cheia ? 'flex' : 'none';
     document.getElementById('pv-pg-txts').style.display = f && f.id === 'meia-pagina' ? 'block' : 'none';
     document.getElementById('pv-meia').style.display = f && f.id === 'meia-pagina' ? 'block' : 'none';
-    document.getElementById('pv-cupom').style.display = cheia && st.cupom ? 'flex' : 'none';
     document.getElementById('az-faixa-campo').style.display = f && f.id === 'faixa' ? 'block' : 'none';
     document.getElementById('az-envio').style.display = f && f.id === 'faixa' ? 'none' : 'block';
     document.getElementById('az-arte-spec').textContent = f ? f.spec : '';
@@ -4672,14 +4683,36 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
 
   var pts = document.getElementById('az-pts');
   var maxVisto = 1;
+  function pintaOrca(){
+    var el = document.getElementById('az-orca');
+    if(!el) return;
+    var o = orcamento();
+    if(!o){
+      var f2 = fmt();
+      if(f2 && st.duracao === 'a combinar'){
+        el.hidden = false;
+        el.innerHTML = '<em>O orçamento</em><div class="parcelas">Temporadas maiores que 4 edições saem com valor combinado na conversa.</div>';
+      } else el.hidden = true;
+      return;
+    }
+    el.hidden = false;
+    el.innerHTML = '<em>O orçamento, na hora</em>' +
+      '<div class="parcelas">' + o.partes.join(' · ') + '</div>' +
+      '<div class="total">' + moeda(o.total) + '</div>' +
+      '<div class="nota-v">nota fiscal para todo anúncio; o pagamento se combina no WhatsApp</div>';
+  }
   function sacola(){
     var f = fmt(), el = document.getElementById('az-sacola');
+    pintaOrca();
     if(!f){ el.hidden = true; return; }
-    var pecas = ['<em>O seu pedido</em>', '<b>' + f.nome + '</b>' + (st.cupom ? ' + 🎟 cupom' : '')];
+    var pecas = ['<em>O seu pedido</em>', '<b>' + f.nome + '</b>'];
     if(st.arte) pecas.push('arte enviada ✓');
     if(st.formato === 'faixa' && v('az-faixa-tx')) pecas.push('“' + v('az-faixa-tx').slice(0, 40) + '”');
     if(v('az-inicio')) pecas.push('estreia: ' + v('az-inicio'));
-    if(st.duracao) pecas.push(st.duracao);
+    if(st.duracao){
+      var oS = orcamento();
+      pecas.push(st.duracao + (oS ? ' · <b>' + moeda(oS.total) + '</b>' : ''));
+    }
     if(v('az-nome')) pecas.push('por ' + v('az-nome'));
     el.innerHTML = pecas.join('<span style="opacity:.4">·</span>');
     el.hidden = false;
@@ -4703,11 +4736,13 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
   function montaRevisao(){
     var f = fmt();
     var linhas = [
-      ['Formato', (f ? f.nome + ' · ' + f.onde : '') + (st.cupom ? ' + bilhete do leitor' : '')],
+      ['Formato', f ? f.nome + ' · ' + f.onde : ''],
       ['A arte', st.arte ? '<img src="' + st.arte + '" alt="a sua arte">' :
         (st.formato === 'faixa' ? '“' + (v('az-faixa-tx') || 'a combinar') + '”' : 'a combinar na conversa')],
       ['Estreia', v('az-inicio') || 'a combinar'],
       ['Duração', st.duracao || 'a combinar'],
+      ['Orçamento', (function(){ var o = orcamento();
+        return o ? moeda(o.total) + ' (' + o.partes.join(' · ') + ')' : 'combinado na conversa'; })()],
       ['Nota fiscal', st.tipoPessoa === 'pj'
         ? v('az-razao') + ' · CNPJ ' + v('az-cnpj') + (v('az-im') ? ' · IM ' + v('az-im') : '')
         : v('az-nome-pf') + ' · CPF ' + v('az-cpf')],
@@ -4826,15 +4861,19 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
         fantasia: v('az-fantasia'), insc_municipal: v('az-im'),
         cep: v('az-cep').replace(/\D/g, ''), logradouro: v('az-logr'), numero: v('az-num'),
         complemento: v('az-compl'), bairro: v('az-bairro'), cidade: v('az-cidade'),
-        uf: v('az-uf').toUpperCase(), aceite_regras: true, aceite_em: new Date().toISOString()
+        uf: v('az-uf').toUpperCase(), aceite_regras: true, aceite_em: new Date().toISOString(),
+        valor_total: (orcamento() || {}).total || null,
+        orcamento: (function(){ var o = orcamento(); return o ? o.partes.join(' · ') + ' = R$ ' + o.total : 'a combinar'; })()
       })
     }).then(function(r){
       if(r.status !== 201) throw 0;
       document.querySelectorAll('.az-passo, .az-nav, .az-topo, .az-sacola, .az-garante').forEach(function(x){ x.style.display = 'none'; });
       document.getElementById('az-proto-n').textContent = proto;
       var zap = document.getElementById('az-zap');
+      var oZ = orcamento();
       zap.href = 'https://wa.me/5511995450954?text=' + encodeURIComponent(
-        'Olá! Acabei de enviar um pedido de anúncio no FOYER (protocolo ' + proto + ', ' + f.nome + '). Podemos falar?');
+        'Olá! Acabei de enviar um pedido de anúncio no FOYER (protocolo ' + proto + ', ' + f.nome +
+        (oZ ? ', orçamento ' + moeda(oZ.total) : '') + '). Podemos falar?');
       try{ localStorage.removeItem(RK); }catch(e2){}
       document.getElementById('az-fim').classList.add('on');
     }).catch(function(){
@@ -4846,16 +4885,9 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     var bf = e.target.closest('.az-fcard');
     if(bf){
       st.formato = bf.dataset.f;
-      if(st.formato !== 'pagina-inteira') st.cupom = false;
+      st.cupom = false;
       document.querySelectorAll('.az-fcard').forEach(function(b){ b.classList.toggle('on', b === bf); });
-      document.getElementById('az-cupom-bt').classList.toggle('on', st.cupom);
       pintaComo();
-      sacola(); salvaRasc();
-      return;
-    }
-    if(e.target.closest('#az-cupom-bt')){
-      st.cupom = !st.cupom;
-      document.getElementById('az-cupom-bt').classList.toggle('on', st.cupom);
       sacola(); salvaRasc();
       return;
     }
@@ -4923,7 +4955,6 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       });
       if(st.formato){
         document.querySelectorAll('.az-fcard').forEach(function(b){ b.classList.toggle('on', b.dataset.f === st.formato); });
-        document.getElementById('az-cupom-bt').classList.toggle('on', st.cupom);
         pintaComo();
       }
       if(st.duracao) document.querySelectorAll('#az-duracao .az-op').forEach(function(b){
