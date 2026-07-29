@@ -535,6 +535,12 @@ Regras das seções novas:
 - **Contracapa**: até 4 chamadas do que vem na próxima edição (sem
   prometer pauta que não está de pé) e frase de despedida REAL e
   verificada, com autor.
+- **Cupom no anúncio** (`cartaz`/`patrocinio`): anúncio de parceiro
+  pode carregar o bilhete do leitor, com código, benefício, como usar
+  e validade. REGRA: só entra código COMBINADO com o anunciante, por
+  escrito; a redação NUNCA inventa cupom, benefício ou validade. É o
+  argumento comercial da casa: o anunciante vê na bilheteria quantos
+  ingressos o código do FOYER vendeu.
 
 ## Entrega
 

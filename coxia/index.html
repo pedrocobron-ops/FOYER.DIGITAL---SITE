@@ -761,7 +761,7 @@
         <h2 class="hi" id="saudacao">Boa noite</h2>
         <p class="hi-sub">O panorama do FOYER neste momento</p>
         <div class="stats">
-          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1535</b><span>matérias no acervo</span></button>
+          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1536</b><span>matérias no acervo</span></button>
           <button class="stat" type="button" data-go="fila" data-foco="#fila-list"><b id="st-pub">—</b><span>publicadas pela Coxia</span></button>
           <button class="stat" type="button" data-go="fila" data-foco=".fila-agenda" data-foco-alt="#fila-list"><b id="st-ag">—</b><span>agendadas esperando a hora</span></button>
           <button class="stat" type="button" id="card-mesa" data-go="ia" data-foco="#mesa-list"><b id="st-mesa">—</b><span>na mesa de aprovação</span></button>
@@ -4288,7 +4288,12 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     } else if(tipo === 'cartaz' || tipo === 'patrocinio'){
       campos = '<div><label>' + (tipo === 'patrocinio' ? 'Arte do patrocinador' : 'Cartaz da peça / divulgação') + ' (imagem)</label><input type="file" id="pgf-img" accept="image/*"></div>' +
         '<div><label>Legenda</label><input type="text" id="pgf-leg" value="' + esc(d.legenda || '') + '"></div>' +
-        '<div><label>Link (opcional — para onde o cartaz leva)</label><input type="text" id="pgf-link" value="' + esc(d.link || '') + '"></div>';
+        '<div><label>Link (opcional — para onde o cartaz leva)</label><input type="text" id="pgf-link" value="' + esc(d.link || '') + '"></div>' +
+        '<div class="f-note"><b>🎟 Cupom do leitor (opcional)</b> — só com código COMBINADO com o anunciante. O bilhete aparece dentro do anúncio.</div>' +
+        '<div class="r2"><div><label>Código do cupom</label><input type="text" id="pgf-cupom" value="' + esc(d.cupom || '') + '" placeholder="FOYER20"></div>' +
+        '<div><label>Benefício</label><input type="text" id="pgf-benef" value="' + esc(d.beneficio || '') + '" placeholder="20% de desconto no ingresso"></div></div>' +
+        '<div class="r2"><div><label>Como usar</label><input type="text" id="pgf-comousar" value="' + esc(d.comoUsar || '') + '" placeholder="na bilheteria ou no site do teatro"></div>' +
+        '<div><label>Vale até</label><input type="text" id="pgf-validade" value="' + esc(d.validade || '') + '" placeholder="31 de agosto"></div></div>';
     } else if(tipo === 'livre'){
       campos = '<div><label>Rótulo (opcional)</label><input type="text" id="pgf-rotulo" value="' + esc(d.rotulo || '') + '"></div>' +
         '<div><label>Título</label><input type="text" id="pgf-titulo" value="' + esc(d.titulo || '') + '"></div>' +
@@ -4365,6 +4370,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       } else if(tipo === 'cartaz' || tipo === 'patrocinio'){
         pg.legenda = $('pgf-leg').value.trim();
         pg.link = $('pgf-link').value.trim();
+        pg.cupom = $('pgf-cupom').value.trim().toUpperCase();
+        pg.beneficio = $('pgf-benef').value.trim();
+        pg.comoUsar = $('pgf-comousar').value.trim();
+        pg.validade = $('pgf-validade').value.trim();
+        if(pg.cupom && !pg.beneficio){ avisar('Cupom precisa dizer o benefício (ex.: 20% de desconto).'); return; }
       } else if(tipo === 'livre'){
         pg.rotulo = $('pgf-rotulo').value.trim();
         pg.titulo = $('pgf-titulo').value.trim();

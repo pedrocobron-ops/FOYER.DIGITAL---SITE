@@ -410,6 +410,24 @@ html[data-theme="dark"] .rv-mestre .au{ color:var(--gold); }
 .rv-cartaz .rv-leg{ padding:12px 22px 42px; border-top:2px solid var(--ink);
   font-family:var(--mono); font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; }
 .rv-pat{ outline:8px double var(--gold); outline-offset:-16px; }
+/* o bilhete do leitor: cupom destacável dentro do anúncio */
+.rv-bilhete{ display:flex; align-items:stretch; margin:0 18px 12px; position:relative;
+  border:2px dashed var(--wine); background:var(--paper); }
+.rv-bilhete::before{ content:'✂'; position:absolute; top:-13px; left:16px; color:var(--wine);
+  background:var(--paper); padding:0 5px; font-size:.85rem; }
+.rv-bilhete .rb-esq{ flex:1; padding:14px 16px; display:flex; flex-direction:column; gap:3px; }
+.rv-bilhete .rb-esq b{ font-family:var(--didone); font-weight:400; font-size:1.15rem; line-height:1.1; }
+.rv-bilhete .rb-esq span{ font-size:.72rem; color:var(--ink-soft); line-height:1.45; }
+.rv-bilhete .rb-esq i{ font-style:normal; font-family:var(--mono); font-size:.54rem;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); margin-top:3px; }
+.rv-bilhete .rb-dir{ display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:2px; padding:12px 18px; border-left:2px dashed var(--wine); background:rgba(206,178,106,.16);
+  min-width:132px; text-align:center; }
+.rv-bilhete .rb-dir em{ font-style:normal; font-family:var(--mono); font-size:.5rem;
+  letter-spacing:.26em; text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-bilhete .rb-dir em{ color:var(--gold); }
+.rv-bilhete .rb-dir strong{ font-family:var(--mono); font-weight:700; font-size:1.05rem;
+  letter-spacing:.08em; }
 
 /* ---------- EXPEDIENTE ---------- */
 .rv-exp .miolo{ padding:26px 30px 64px; flex:1; overflow:auto; }
