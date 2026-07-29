@@ -231,7 +231,7 @@
       sub:'Como a gente te chama?', tipo:'texto', place:'pode ser só o primeiro nome' },
     { id:'email', sinal:'🔔 primeiro sinal', titulo:'A revista chega toda sexta, às 7h.',
       sub:'Em qual caixa de entrada ela te encontra?', tipo:'email', place:'seu@email.com',
-      nota:'De graça, sem spam, e seus dados ficam só com o FOYER.' },
+      nota:'De graça, sem spam, e seus dados ficam só com o FOYER. <a href="privacidade.html" target="_blank">Política de privacidade</a>' },
     { id:'cidade', sinal:'🔔🔔 segundo sinal', titulo:'De onde você aplaude?',
       sub:'A agenda certa depende disso.', tipo:'um', outra:true,
       ops:['São Paulo','Rio de Janeiro','Belo Horizonte','Brasília','Curitiba',
@@ -249,6 +249,17 @@
       ops:['Toda semana','Todo mês','Algumas vezes por ano','Quase nunca. Quero mudar isso'] }
   ];
 
+  function mede(tipo){
+    try{
+      fetch(M.url + '/rest/v1/foyer_metricas', {
+        method: 'POST',
+        headers: { 'apikey': M.key, 'Authorization': 'Bearer ' + M.key,
+                   'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+        body: JSON.stringify({ tipo: tipo, pagina: 'conversa-revista' }),
+        keepalive: true
+      }).catch(function(){});
+    }catch(e){}
+  }
   function abre(){
     if(ov) ov.remove();
     ov = document.createElement('div');
@@ -262,6 +273,7 @@
     ov.addEventListener('click', function(e){ if(e.target === ov) fecha(); });
     passo = 0;
     pinta(0);
+    mede('conversa-abre');
   }
   function fecha(){
     if(ov){ ov.remove(); ov = null; }
@@ -384,6 +396,7 @@
       if(r.ok) return 'nova';
       throw 0;
     }).then(function(como){
+      mede('conversa-fim');
       var ja = como === 'ja';
       c.classList.remove('anima-f', 'anima-b'); void c.offsetWidth; c.classList.add('anima-f');
       c.innerHTML = '<span class="cv-sinal cv-carimbo">🎟</span>' +
@@ -406,8 +419,19 @@
   }
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape' && ov) fecha();
+    if(e.key === 'Tab' && ov){
+      var focaveis = ov.querySelectorAll('button, input, a[href]');
+      if(!focaveis.length) return;
+      var prim = focaveis[0], ult = focaveis[focaveis.length - 1];
+      if(e.shiftKey && document.activeElement === prim){ e.preventDefault(); ult.focus(); }
+      else if(!e.shiftKey && document.activeElement === ult){ e.preventDefault(); prim.focus(); }
+    }
   });
   gatilhos.forEach(function(g){ g.addEventListener('click', abre); });
+  // o "Assine" do topo do site tambem abre a conversa, sem viagem intermediaria
+  document.querySelectorAll('a[href$="revista.html#assinar"]').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); abre(); });
+  });
 })();
 
 /* ---------- FOYER no celular: instalar como aplicativo (PWA) ---------- */

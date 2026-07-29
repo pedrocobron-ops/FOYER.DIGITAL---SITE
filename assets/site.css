@@ -712,6 +712,8 @@ nav.main a.brand img.only-dark, .gate img.only-dark{ display:none; }
 .cv-input::placeholder{ color:var(--ink-soft); opacity:.55; font-size:1.05rem; }
 .cv-nota{ font-family:var(--mono); font-size:.58rem; letter-spacing:.1em; text-transform:uppercase;
   color:var(--ink-soft); margin:14px 0 0; line-height:1.8; }
+.cv-nota a{ color:var(--wine); text-decoration:underline; }
+:root[data-theme="dark"] .cv-nota a{ color:var(--gold); }
 .cv-erro{ font-family:var(--mono); font-size:.62rem; letter-spacing:.08em; color:var(--wine);
   margin:10px 0 0; min-height:1em; }
 .cv-ops{ display:flex; flex-wrap:wrap; gap:8px; }
