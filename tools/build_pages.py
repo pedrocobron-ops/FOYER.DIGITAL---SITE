@@ -88,6 +88,8 @@ DEFS = '''<!-- artes de palco (placeholders de foto e capas da revista) -->
       <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
       <rect x="548" width="26" height="400" fill="#380A06"/>
       <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <!-- a cortina termina na ribalta; abaixo dela, o piso do palco -->
+      <rect y="348" width="600" height="52" fill="#2B0805"/>
       <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
       <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
     </symbol>
@@ -100,11 +102,17 @@ DEFS = '''<!-- artes de palco (placeholders de foto e capas da revista) -->
       <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
     </symbol>
     <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
-      <rect width="600" height="400" fill="#380A06"/>
-      <rect width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
-      <rect y="348" width="600" height="52" fill="url(#bulbs)" opacity=".9"/>
-      <rect x="70" y="110" width="460" height="180" fill="none" stroke="#CEB26A" stroke-width="3"/>
-      <rect x="70" y="110" width="460" height="180" fill="#E9CB85" opacity=".1"/>
+      <!-- teatro de arena: plateia completa e alinhada dos dois lados, um ator só no centro -->
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <g fill="#1F0805">
+        <circle cx="30" cy="34" r="12"/><circle cx="84" cy="34" r="12"/><circle cx="138" cy="34" r="12"/><circle cx="192" cy="34" r="12"/><circle cx="246" cy="34" r="12"/><circle cx="300" cy="34" r="12"/><circle cx="354" cy="34" r="12"/><circle cx="408" cy="34" r="12"/><circle cx="462" cy="34" r="12"/><circle cx="516" cy="34" r="12"/><circle cx="570" cy="34" r="12"/>
+        <circle cx="30" cy="78" r="12"/><circle cx="84" cy="78" r="12"/><circle cx="138" cy="78" r="12"/><circle cx="192" cy="78" r="12"/><circle cx="246" cy="78" r="12"/><circle cx="300" cy="78" r="12"/><circle cx="354" cy="78" r="12"/><circle cx="408" cy="78" r="12"/><circle cx="462" cy="78" r="12"/><circle cx="516" cy="78" r="12"/><circle cx="570" cy="78" r="12"/>
+        <circle cx="30" cy="322" r="12"/><circle cx="84" cy="322" r="12"/><circle cx="138" cy="322" r="12"/><circle cx="192" cy="322" r="12"/><circle cx="246" cy="322" r="12"/><circle cx="300" cy="322" r="12"/><circle cx="354" cy="322" r="12"/><circle cx="408" cy="322" r="12"/><circle cx="462" cy="322" r="12"/><circle cx="516" cy="322" r="12"/><circle cx="570" cy="322" r="12"/>
+        <circle cx="30" cy="366" r="12"/><circle cx="84" cy="366" r="12"/><circle cx="138" cy="366" r="12"/><circle cx="192" cy="366" r="12"/><circle cx="246" cy="366" r="12"/><circle cx="300" cy="366" r="12"/><circle cx="354" cy="366" r="12"/><circle cx="408" cy="366" r="12"/><circle cx="462" cy="366" r="12"/><circle cx="516" cy="366" r="12"/><circle cx="570" cy="366" r="12"/>
+      </g>
+      <rect x="120" y="136" width="360" height="128" fill="#380A06" stroke="#CEB26A" stroke-width="3"/>
+      <ellipse cx="300" cy="200" rx="72" ry="34" fill="#E9CB85" opacity=".16"/>
+      <circle cx="300" cy="200" r="13" fill="#CEB26A"/>
       <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
     </symbol>
     <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
@@ -2406,7 +2414,7 @@ def _rv_pagina(pg, ed, num):
                   f'<p class="linhafina">{_rvesc(pg.get("chamada", ""))}</p>'
                   + olho
                   + (f'<div class="txt">{fatias[0]}</div>' if fatias[0] else '')
-                  + ((f'<svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="none"><use href="#{_RV_ARTES[(int(ed.get("numero", 1)) + 1) % len(_RV_ARTES)]}"/></svg>' + leia) if len(fatias) == 1 else '<span class="segue">continua na próxima página →</span>')
+                  + ((f'<svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#{_RV_ARTES[(int(ed.get("numero", 1)) + 1) % len(_RV_ARTES)]}"/></svg>' + leia) if len(fatias) == 1 else '<span class="segue">continua na próxima página →</span>')
                   + f'</div>{fol}</section>')]
         for k, fatia in enumerate(fatias[1:], 2):
             ultima = (k == len(fatias))
@@ -2416,7 +2424,7 @@ def _rv_pagina(pg, ed, num):
                 f'<span>continuação</span></div><div class="miolo">'
                 f'<p class="cont-tit">{_rvesc(titulo_curto)}</p>'
                 f'<div class="txt">{fatia}</div>'
-                + ((f'<svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="none"><use href="#{_RV_ARTES[(int(ed.get("numero", 1)) + 1) % len(_RV_ARTES)]}"/></svg>' + leia) if ultima else '<span class="segue">continua na próxima página →</span>')
+                + ((f'<svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#{_RV_ARTES[(int(ed.get("numero", 1)) + 1) % len(_RV_ARTES)]}"/></svg>' + leia) if ultima else '<span class="segue">continua na próxima página →</span>')
                 + f'</div>{fol}</section>')
         return saida
     if t == 'exclusiva':
