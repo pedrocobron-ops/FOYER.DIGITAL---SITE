@@ -176,6 +176,32 @@
   .lt-barra i{ display:block; height:100%; background:var(--wine); }
   html[data-theme="dark"] .lt-barra i{ background:var(--gold); }
   .lt-n{ font-family:var(--mono); font-size:.6rem; color:var(--ink-soft); text-align:right; }
+  .lt-retrato{ border:2px solid var(--wine); background:var(--paper-2); padding:14px 18px; margin:0 0 16px; }
+  .lt-retrato em{ display:block; font-style:normal; font-family:var(--mono); font-size:.54rem;
+    letter-spacing:.24em; text-transform:uppercase; color:var(--wine); margin-bottom:4px; }
+  html[data-theme="dark"] .lt-retrato em{ color:var(--gold); }
+  .lt-retrato p{ margin:0; font-family:var(--didone); font-weight:400; font-size:1.2rem; line-height:1.35; }
+  .lt-serie{ display:flex; align-items:flex-end; gap:6px; height:110px; padding:6px 0 2px; }
+  .lt-col{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
+    height:100%; gap:3px; min-width:0; }
+  .lt-col i{ display:block; width:100%; max-width:38px; background:var(--wine); }
+  html[data-theme="dark"] .lt-col i{ background:var(--gold); }
+  .lt-col span{ font-family:var(--mono); font-size:.5rem; color:var(--ink-soft); white-space:nowrap; }
+  .lt-col b{ font-family:var(--mono); font-size:.56rem; }
+  .lt-tab{ width:100%; border-collapse:collapse; font-size:.74rem; }
+  .lt-tab th{ font-family:var(--mono); font-size:.52rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--ink-soft); text-align:center; padding:4px 6px; border-bottom:2px solid var(--ink); }
+  .lt-tab td{ text-align:center; padding:6px; border-bottom:1px solid var(--line); }
+  .lt-tab td.cid{ text-align:left; font-weight:700; }
+  .lt-tab td.zero{ color:var(--line); }
+  .lt-cheg{ list-style:none; margin:0; padding:0; }
+  .lt-cheg li{ display:flex; gap:10px; align-items:baseline; padding:6px 0; border-bottom:1px solid var(--line); }
+  .lt-cheg b{ font-size:.8rem; }
+  .lt-cheg span{ font-size:.72rem; color:var(--ink-soft); flex:1; }
+  .lt-cheg i{ font-style:normal; font-family:var(--mono); font-size:.56rem; color:var(--ink-soft); }
+  .lt-pe{ display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
+    margin-top:18px; padding-top:12px; border-top:1px solid var(--line);
+    font-family:var(--mono); font-size:.58rem; letter-spacing:.08em; color:var(--ink-soft); }
   @media (max-width:960px){ .mx-grid{ grid-template-columns:1fr; } }
   .mx-linha{ display:flex; align-items:center; gap:10px; padding:7px 2px; border-bottom:1px dotted var(--line); }
   .mx-rot{ flex:0 0 46%; font-family:var(--sans); font-size:.8rem; line-height:1.35; }
@@ -1164,7 +1190,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         <h2 class="hi">Métricas do site</h2>
         <p class="hi-sub">Audiência e comportamento dos leitores — visível somente para a direção</p>
         <div class="stats" id="mx-tiles"><div class="stat"><b>—</b><span>carregando…</span></div></div>
-        <div class="sec-h"><h3>Leitores cadastrados</h3><span>quem assinou a revista: os números do mídia kit, sem nenhum dado pessoal</span></div>
+        <div class="sec-h"><h3>Leitores cadastrados</h3><span>o censo do público da revista — só a direção vê</span></div>
         <div id="mx-leitores"><div class="vazio">Carregando…</div></div>
         <div class="sec-h"><h3>Leituras por dia</h3><span>últimos 30 dias, no horário de Brasília</span></div>
         <div id="mx-serie"><div class="vazio">Carregando…</div></div>
@@ -3805,6 +3831,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       headers: { 'apikey': RKC.key, 'Authorization': 'Bearer ' + RKC.key, 'Content-Type': 'application/json' },
       body: JSON.stringify({ chave: MX_CHAVE })
     }).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
+      LT_DADOS = d;
       var total = d.total || 0;
       function barras(obj){
         var pares = Object.keys(obj || {}).map(function(k){ return [k, obj[k]]; })
@@ -3813,30 +3840,120 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         var max = pares[0][1] || 1;
         return pares.map(function(p){
           var pct = total ? Math.round(p[1] * 100 / total) : 0;
-          return '<div class="lt-linha"><span class="lt-rot">' + esc(p[0]) + '</span>' +
+          return '<div class="lt-linha"><span class="lt-rot" title="' + esc(p[0]) + '">' + esc(p[0]) + '</span>' +
             '<span class="lt-barra"><i style="width:' + Math.max(3, Math.round(p[1] * 100 / max)) + '%"></i></span>' +
             '<span class="lt-n">' + p[1] + ' · ' + pct + '%</span></div>';
         }).join('');
       }
+      function topo(obj){
+        var m = null;
+        Object.keys(obj || {}).forEach(function(k){
+          if(k !== 'não informou' && (m == null || obj[k] > obj[m])) m = k;
+        });
+        return m;
+      }
+      // o retrato típico: as modas de cada corte viram uma frase
+      var retrato = '';
+      var tCid = topo(d.por_cidade), tFreq = topo(d.por_frequencia),
+          tInt = topo(d.por_interesse), tCont = topo(d.por_conteudo);
+      if(total > 0 && (tCid || tFreq || tInt)){
+        retrato = '<div class="lt-retrato"><em>O leitor típico do FOYER</em><p>' +
+          (tCid ? 'Está em <b>' + esc(tCid) + '</b>' : 'Ainda não disse de onde é') +
+          (tFreq ? ', vê arte ao vivo <b>' + esc(tFreq) + '</b>' : '') +
+          (tInt ? ', ama <b>' + esc(tInt.toLowerCase()) + '</b>' : '') +
+          (tCont ? ' e gosta de ler sobre <b>' + esc(tCont.toLowerCase()) + '</b>' : '') + '.</p></div>';
+      }
+      // crescimento: cadastros por semana (12 semanas)
+      var serie = d.serie_semanas || [];
+      var cresc = '';
+      if(serie.length){
+        var maxS = Math.max.apply(null, serie.map(function(s){ return s.n; }).concat([1]));
+        cresc = '<h4 class="lt-h">Crescimento da lista (por semana)</h4><div class="lt-serie">' +
+          serie.map(function(s){
+            var dt = s.semana.slice(8, 10) + '/' + s.semana.slice(5, 7);
+            return '<div class="lt-col" title="semana de ' + esc(dt) + ': ' + s.n + '">' +
+              '<i style="height:' + Math.max(6, Math.round(s.n * 100 / maxS)) + '%"></i>' +
+              '<span>' + esc(dt) + '</span><b>' + s.n + '</b></div>';
+          }).join('') + '</div>';
+      }
+      // cruzamento: as maiores cidades e como cada uma frequenta
+      var FREQS = ['toda semana', 'todo mês', 'algumas vezes por ano', 'quase nunca. quero mudar isso'];
+      var FREQ_ROT = ['semana', 'mês', 'às vezes', 'quase nunca'];
+      var cf = d.cidade_freq || [];
+      var cruz = '';
+      if(cf.length){
+        cruz = '<h4 class="lt-h">Cidade × frequência</h4><table class="lt-tab"><tr><th></th>' +
+          FREQ_ROT.map(function(f){ return '<th>' + f + '</th>'; }).join('') + '<th>total</th></tr>' +
+          cf.map(function(c){
+            return '<tr><td class="cid">' + esc(c.cidade) + '</td>' +
+              FREQS.map(function(f){
+                var n = (c.freqs || {})[f] || 0;
+                return '<td' + (n ? '' : ' class="zero"') + '>' + (n || '·') + '</td>';
+              }).join('') + '<td><b>' + c.total + '</b></td></tr>';
+          }).join('') + '</table>';
+      }
+      // as últimas chegadas: primeiro nome e cidade, sem e-mail
+      var cheg = '';
+      if((d.chegadas || []).length){
+        cheg = '<h4 class="lt-h">Últimas chegadas</h4><ul class="lt-cheg">' +
+          d.chegadas.map(function(u){
+            return '<li><b>' + esc(u.nome) + '</b><span>' + esc(u.cidade) + '</span><i>' + esc(u.quando) + '</i></li>';
+          }).join('') + '</ul>';
+      }
+      var fu = d.funil || {};
+      var conv = fu.abre_30d ? Math.round((fu.fim_30d || 0) * 100 / fu.abre_30d) : null;
+      var perfilPct = total ? Math.round((d.perfil_completo || 0) * 100 / total) : 0;
       el.innerHTML =
         '<div class="stats" style="margin-bottom:18px">' +
           '<div class="stat"><b>' + total + '</b><span>leitores na lista</span></div>' +
-          '<div class="stat"><b>' + (d.ultimos_30d || 0) + '</b><span>chegaram nos últimos 30 dias</span></div>' +
-          '<div class="stat"><b>' + pctDe(d.por_cidade, 'São Paulo', total) + '%</b><span>estão em São Paulo</span></div>' +
+          '<div class="stat"><b>' + (d.hoje || 0) + '</b><span>chegaram hoje</span></div>' +
+          '<div class="stat"><b>' + (d.ultimos_7d || 0) + '</b><span>nos últimos 7 dias</span></div>' +
+          '<div class="stat"><b>' + (d.ultimos_30d || 0) + '</b><span>nos últimos 30 dias</span></div>' +
+          '<div class="stat"><b>' + (conv == null ? '—' : conv + '%') + '</b><span>concluem a conversa (30 d)</span></div>' +
+          '<div class="stat"><b>' + (d.saidas || 0) + '</b><span>pediram para sair</span></div>' +
         '</div>' +
-        '<div class="mx-grid">' +
+        retrato + cresc +
+        '<div class="mx-grid" style="margin-top:16px">' +
           '<div><h4 class="lt-h">Onde estão</h4>' + barras(d.por_cidade) +
           '<h4 class="lt-h" style="margin-top:16px">Veem arte ao vivo…</h4>' + barras(d.por_frequencia) + '</div>' +
           '<div><h4 class="lt-h">Amam ver</h4>' + barras(d.por_interesse) +
           '<h4 class="lt-h" style="margin-top:16px">Gostam de ler</h4>' + barras(d.por_conteudo) + '</div>' +
-        '</div>';
+        '</div>' +
+        '<div class="mx-grid" style="margin-top:16px"><div>' + cruz + '</div><div>' + cheg + '</div></div>' +
+        '<div class="lt-pe"><span>' + perfilPct + '% preencheram o retrato completo (cidade + frequência)</span>' +
+        '<button class="bt" type="button" id="lt-csv">⤓ Baixar o resumo (CSV para o mídia kit)</button></div>';
+      var bcsv = $('lt-csv');
+      if(bcsv) bcsv.addEventListener('click', baixarLeitoresCSV);
     }).catch(function(){
       el.innerHTML = '<div class="vazio">não deu para buscar os leitores agora</div>';
     });
   }
-  function pctDe(obj, chave2, total){
-    if(!obj || !total) return 0;
-    return Math.round((obj[chave2] || 0) * 100 / total);
+  var LT_DADOS = null;
+  function baixarLeitoresCSV(){
+    if(!LT_DADOS) return;
+    var d = LT_DADOS, linhas = [];
+    function bloco(titulo, obj){
+      linhas.push([]); linhas.push([titulo]);
+      Object.keys(obj || {}).sort(function(a, b){ return obj[b] - obj[a]; })
+        .forEach(function(k){ linhas.push([k, obj[k]]); });
+    }
+    linhas.push(['Leitores do FOYER — resumo agregado', new Date().toLocaleDateString('pt-BR')]);
+    linhas.push(['Total na lista', d.total || 0]);
+    linhas.push(['Últimos 7 dias', d.ultimos_7d || 0]);
+    linhas.push(['Últimos 30 dias', d.ultimos_30d || 0]);
+    linhas.push(['Pediram para sair', d.saidas || 0]);
+    bloco('Onde estão', d.por_cidade);
+    bloco('Frequência de arte ao vivo', d.por_frequencia);
+    bloco('Amam ver', d.por_interesse);
+    bloco('Gostam de ler', d.por_conteudo);
+    var csv = '﻿' + linhas.map(function(l){
+      return l.map(function(c){ return csvCampo(String(c)); }).join(';');
+    }).join('\r\n');
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+    a.download = 'foyer-leitores-' + new Date().toISOString().slice(0, 10) + '.csv';
+    a.click();
+    URL.revokeObjectURL(a.href);
   }
   var MX_DADOS = null, MX_MAP = null;
   function pintarMetricas(d, map){
