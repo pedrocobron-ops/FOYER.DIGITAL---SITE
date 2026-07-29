@@ -1729,7 +1729,7 @@ body.rv-sala #rv-sala-sair{ display:block; }
 .rv-capa2 .linha-ed{ display:flex; justify-content:space-between; padding:10px 26px 0;
   font-family:var(--mono); font-size:.55rem; font-weight:600;
   letter-spacing:.24em; text-transform:uppercase; color:var(--wine); }
-.rv-capa2 .moldura{ flex:none; height:496px; margin:16px 26px; position:relative;
+.rv-capa2 .moldura{ flex:none; height:470px; margin:16px 26px; position:relative;
   border:3px solid var(--ink); outline:1px solid var(--gold); outline-offset:5px;
   background:#14100d; }
 .rv-capa2 .moldura img{ position:absolute; inset:0; width:100%; height:100%;
@@ -1744,11 +1744,12 @@ body.rv-sala #rv-sala-sair{ display:block; }
 .rv-capa2 .manchete h2{ font-family:var(--didone); font-weight:400; color:var(--ink);
   font-size:2.1rem; line-height:1.04; margin:0; display:-webkit-box;
   -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-.rv-capa2 .faixa{ display:flex; flex-wrap:wrap; align-content:center; gap:5px 12px;
-  margin-top:auto; height:66px; overflow:hidden; padding:6px 26px; border-top:1.5px solid var(--line);
-  color:var(--ink); font-family:var(--mono); font-size:.54rem; font-weight:600;
+.rv-capa2 .faixa{ display:flex; flex-direction:column; justify-content:center; gap:6px;
+  margin-top:auto; height:84px; overflow:hidden; padding:8px 26px; border-top:1.5px solid var(--line);
+  color:var(--ink); font-family:var(--mono); font-size:.56rem; font-weight:600;
   letter-spacing:.12em; text-transform:uppercase; }
-.rv-capa2 .faixa i{ font-style:normal; color:var(--wine); }
+.rv-capa2 .faixa .ch{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.rv-capa2 .faixa i{ font-style:normal; color:var(--wine); margin-right:8px; }
 .rv-capa2 .rodape-capa{ display:flex; justify-content:space-between; align-items:center;
   padding:10px 26px; border-top:2px solid var(--ink);
   color:var(--wine); font-family:var(--mono); font-size:.52rem; letter-spacing:.2em;
@@ -2452,7 +2453,8 @@ def edicao_page(ed):
     capa = ed.get('capa', {})
     paginas = list(ed.get('paginas', []))
     # CAPA (página 1)
-    calls = '<i>✦</i>'.join(f'<span>{_rvesc(c)}</span>' for c in (capa.get('chamadas') or [])[:4] if c.strip())
+    calls = ''.join(f'<span class="ch"><i>✦</i>{_rvesc(c)}</span>'
+                    for c in (capa.get('chamadas') or [])[:3] if c.strip())
     pg_capa = (
         '<section class="rv-pg rv-capa2 on">'
         '<div class="nameplate"><img src="assets/logo/foyer-horizontal-wine.png" alt="FOYER"></div>'
