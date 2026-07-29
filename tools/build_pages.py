@@ -1722,36 +1722,35 @@ body.rv-sala #rv-sala-sair{ display:block; }
   font-size:.54rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; }
 .rv-kicker .tagz{ background:var(--wine); color:var(--gold); padding:4px 10px; }
 
-/* ---------- CAPA (foto emoldurada no centro, como manda o cartaz) ---------- */
+/* ---------- CAPA: três zonas numa grade de 24 (cabeçalho, foto, texto) ---------- */
 .rv-capa2{ background:var(--rv-papel); }
-.rv-capa2 .nameplate{ padding:24px 26px 0; }
+.rv-capa2 .nameplate{ padding:20px 24px 0; }
 .rv-capa2 .nameplate img{ width:100%; display:block; }
-.rv-capa2 .linha-ed{ display:flex; justify-content:space-between; padding:10px 26px 0;
+.rv-capa2 .linha-ed{ display:flex; justify-content:space-between; align-items:center;
+  margin:12px 24px 0; padding:7px 2px; border-top:2px solid var(--ink);
+  border-bottom:2px solid var(--ink);
   font-family:var(--mono); font-size:.55rem; font-weight:600;
   letter-spacing:.24em; text-transform:uppercase; color:var(--wine); }
-.rv-capa2 .moldura{ flex:none; height:470px; margin:16px 26px; position:relative;
-  border:3px solid var(--ink); outline:1px solid var(--gold); outline-offset:5px;
-  background:#14100d; }
+.rv-capa2 .moldura{ flex:none; height:486px; margin:14px 24px 0; position:relative;
+  border:3px solid var(--ink); background:#14100d; }
 .rv-capa2 .moldura img{ position:absolute; inset:0; width:100%; height:100%;
   object-fit:cover; object-position:center 25%; }
 .rv-capa2 .cred{ position:absolute; right:0; bottom:0; font-family:var(--mono); font-size:.5rem;
   letter-spacing:.14em; text-transform:uppercase; color:#efe8da;
   background:rgba(20,6,3,.72); padding:5px 9px; }
-.rv-capa2 .manchete{ padding:2px 26px 0; height:116px; overflow:hidden; }
-.rv-capa2 .manchete em{ display:block; font-style:normal; font-family:var(--mono);
-  font-size:.56rem; font-weight:600; letter-spacing:.3em; text-transform:uppercase;
-  color:var(--wine); margin-bottom:6px; }
+.rv-capa2 .manchete{ padding:16px 24px 0; height:96px; overflow:hidden; }
 .rv-capa2 .manchete h2{ font-family:var(--didone); font-weight:400; color:var(--ink);
-  font-size:2.1rem; line-height:1.04; margin:0; display:-webkit-box;
+  font-size:2.2rem; line-height:1.03; margin:0; display:-webkit-box;
   -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
 .rv-capa2 .faixa{ display:flex; flex-direction:column; justify-content:center; gap:6px;
-  margin-top:auto; height:84px; overflow:hidden; padding:8px 26px; border-top:1.5px solid var(--line);
+  margin:auto 24px 0; height:82px; overflow:hidden; padding:8px 2px 6px;
+  border-top:1.5px solid var(--line);
   color:var(--ink); font-family:var(--mono); font-size:.56rem; font-weight:600;
   letter-spacing:.12em; text-transform:uppercase; }
 .rv-capa2 .faixa .ch{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .rv-capa2 .faixa i{ font-style:normal; color:var(--wine); margin-right:8px; }
 .rv-capa2 .rodape-capa{ display:flex; justify-content:space-between; align-items:center;
-  padding:10px 26px; border-top:2px solid var(--ink);
+  margin:0 24px; padding:10px 2px 18px; border-top:2px solid var(--ink);
   color:var(--wine); font-family:var(--mono); font-size:.52rem; letter-spacing:.2em;
   text-transform:uppercase; }
 .rv-barcode{ width:74px; height:26px; background:repeating-linear-gradient(90deg,
@@ -2463,7 +2462,7 @@ def edicao_page(ed):
         + (f'<img src="{_rvesc(capa.get("img", ""))}" alt="">' if capa.get('img') else '')
         + (f'<span class="cred">Foto: {_rvesc(capa["credito"])}</span>' if capa.get('credito') else '')
         + '</div>'
-        f'<div class="manchete"><em>Nesta edição</em><h2>{_rvesc(capa.get("manchete") or ed.get("titulo", ""))}</h2></div>'
+        f'<div class="manchete"><h2>{_rvesc(capa.get("manchete") or ed.get("titulo", ""))}</h2></div>'
         + (f'<div class="faixa">{calls}</div>' if calls else '')
         + '<div class="rodape-capa"><span>foyer.digital · edição gratuita</span><span class="rv-barcode"></span></div>'
         '</section>')
