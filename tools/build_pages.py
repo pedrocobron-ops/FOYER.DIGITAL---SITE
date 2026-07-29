@@ -2411,9 +2411,7 @@ def _rv_pagina(pg, ed, num):
                 f'<img src="assets/logo/foyer-stacked-wine-sm.png" alt="FOYER" class="only-light">'
                 f'<img src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" class="only-dark">'
                 f'<h4>Quem faz</h4><ul>{nomes}</ul>'
-                f'<h4>Transparência</h4><p>Matérias assinadas como Redação Foyer podem contar com apuração '
-                f'assistida por inteligência artificial, sempre revisadas e aprovadas por um editor humano. '
-                f'Fotografias de divulgação, com crédito.</p>'
+                f'<h4>Fotografias</h4><p>Imagens de divulgação das produções, sempre com crédito.</p>'
                 f'<h4>Fale conosco</h4><p>foyer.digital · programafoyer@gmail.com · YouTube @Foyer.digital</p>'
                 f'</div>{fol}</section>')
     if t == 'recortes':
