@@ -179,18 +179,61 @@
     .az-passo h4{ font-family:var(--didone); font-weight:400; font-size:1.3rem; margin:0 0 4px; }
     .az-passo .sub{ font-size:.86rem; color:var(--ink-soft); margin:0 0 14px; }
 
-    /* passo 1: os formatos como cartões explicados */
-    .az-fgrid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-    @media (max-width:760px){ .az-fgrid{ grid-template-columns:1fr; } }
+    /* passo 1: site e revista separados, cada formato desenhado e animado */
+    .az-canal{ display:flex; align-items:baseline; gap:10px; margin:18px 0 10px; padding-bottom:6px;
+      border-bottom:3px solid var(--wine); }
+    .az-canal.rev{ border-bottom-color:var(--gold); margin-top:26px; }
+    .az-canal b{ font-family:var(--didone); font-weight:400; font-size:1.3rem; }
+    .az-canal span{ font-family:var(--mono); font-size:.56rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); }
+    .az-fgrid{ display:grid; gap:12px; }
+    .az-fgrid.tres{ grid-template-columns:repeat(3,1fr); }
+    .az-fgrid.dois{ grid-template-columns:repeat(2,1fr); }
+    @media (max-width:760px){ .az-fgrid.tres, .az-fgrid.dois{ grid-template-columns:1fr; } }
     .az-fcard{ border:2px solid var(--ink); background:transparent; text-align:left; cursor:pointer;
-      padding:12px 14px; font:inherit; color:inherit; transition:transform .15s ease; }
-    .az-fcard:hover{ transform:translateY(-2px); }
+      padding:12px 14px; font:inherit; color:inherit; transition:transform .15s ease, box-shadow .15s ease; }
+    .az-fcard:hover{ transform:translateY(-3px); box-shadow:0 8px 22px rgba(35,8,5,.16); }
     .az-fcard.on{ background:var(--wine); color:var(--paper); border-color:var(--wine); }
-    .az-fcard.on .fc-onde{ color:var(--gold); }
-    .az-fcard b{ font-family:var(--didone); font-weight:400; font-size:1.1rem; display:block; }
-    .az-fcard .fc-onde{ font-family:var(--mono); font-size:.54rem; font-weight:700; letter-spacing:.14em;
-      text-transform:uppercase; color:var(--wine); display:block; margin-bottom:3px; }
-    .az-fcard span{ font-size:.8rem; line-height:1.45; display:block; margin-top:4px; opacity:.9; }
+    .az-fcard.on .fc-r{ color:rgba(239,232,218,.85); }
+    .az-fcard b{ font-family:var(--didone); font-weight:400; font-size:1.1rem; display:block; margin-top:10px; }
+    .az-fcard .fc-r{ font-size:.8rem; line-height:1.45; display:block; margin-top:4px; color:var(--ink-soft); }
+    /* o desenho: site em janelinha, revista em página */
+    .mini{ position:relative; display:block; height:120px; border:2px solid var(--ink); overflow:hidden; }
+    .mini.msite{ background:#F6F1E6; }
+    .mini .nv{ display:block; height:20px; background:var(--wine); }
+    .mini .ln{ display:block; height:6px; background:#e0d7c0; margin:9px 12px 0; }
+    .mini .ln.c{ width:55%; }
+    .mini .selo{ position:absolute; display:flex; align-items:center; justify-content:center;
+      background:var(--gold); color:var(--wine); font-family:var(--mono); font-size:.44rem; font-weight:700;
+      letter-spacing:.1em; text-align:center; line-height:1.5; padding:4px; }
+    .mini.mrev{ background:rgba(78,15,9,.06); display:flex; align-items:center; justify-content:center; }
+    .mini .pgm{ position:relative; display:block; width:80px; height:104px; border:2px solid var(--ink);
+      background:#F6F1E6; overflow:hidden; }
+    .mini .pgm .ln{ margin:8px 8px 0; height:5px; }
+    .mini .pgm .tt{ display:block; height:9px; background:#cfc4a6; margin:8px 8px 0; width:70%; }
+    .mini .pgm .fol{ position:absolute; left:0; right:0; bottom:0; height:10px; border-top:1px solid var(--ink); }
+    /* as animações: cada formato se apresenta sozinho, em loop */
+    .mini-cortina .selo{ inset:26% 20%; box-shadow:0 8px 18px rgba(0,0,0,.35);
+      animation:miPulso 5s ease-in-out infinite; }
+    @keyframes miPulso{ 0%,6%{ opacity:0; transform:scale(.55); } 14%,88%{ opacity:1; transform:scale(1); } 96%,100%{ opacity:0; transform:scale(.55); } }
+    .mini-entreato .selo{ left:12px; right:12px; top:46px; height:30px;
+      animation:miDesliza 5s ease-in-out infinite; }
+    @keyframes miDesliza{ 0%,6%{ opacity:0; transform:translateX(-20px); } 14%,88%{ opacity:1; transform:none; } 96%,100%{ opacity:0; transform:translateX(-20px); } }
+    .mini-faixa .selo{ left:0; right:0; bottom:0; height:26px;
+      animation:miSobe 5s ease-in-out infinite; }
+    @keyframes miSobe{ 0%,6%{ transform:translateY(110%); } 14%,88%{ transform:none; } 96%,100%{ transform:translateY(110%); } }
+    .mini-inteira .selo{ inset:0 0 10px 0; flex-direction:column;
+      animation:miVira 5s ease-in-out infinite; transform-origin:left center; }
+    @keyframes miVira{ 0%,6%{ opacity:0; transform:rotateY(70deg); } 16%,88%{ opacity:1; transform:none; } 96%,100%{ opacity:0; transform:rotateY(70deg); } }
+    .mini-meia .selo{ left:0; right:0; bottom:10px; height:44%;
+      animation:miSobe 5s ease-in-out infinite; }
+    /* entradas defasadas: sempre há um formato se apresentando */
+    .az-fgrid .az-fcard:nth-child(2) .selo{ animation-delay:.7s; }
+    .az-fgrid .az-fcard:nth-child(3) .selo{ animation-delay:1.4s; }
+    .az-fgrid.dois .az-fcard:nth-child(1) .selo{ animation-delay:.35s; }
+    .az-fgrid.dois .az-fcard:nth-child(2) .selo{ animation-delay:1.05s; }
+    @media (prefers-reduced-motion:reduce){
+      .mini .selo{ animation:none !important; opacity:1 !important; transform:none !important; }
+    }
     .az-como{ border-left:4px solid var(--gold); background:rgba(206,178,106,.1); padding:12px 16px; margin-top:14px; display:none; }
     .az-como.on{ display:block; animation:azSobe .3s ease; }
     .az-como h5{ font-family:var(--mono); font-size:.58rem; font-weight:700; letter-spacing:.18em;
@@ -367,8 +410,45 @@
 
       <div class="az-passo on" data-p="1">
         <h4>1. Onde a sua marca entra?</h4>
-        <p class="sub">Toque num formato para ver exatamente onde ele aparece e o que você precisa mandar.</p>
-        <div class="az-fgrid" id="az-formatos"></div>
+        <p class="sub">Os desenhos mostram cada formato em ação, sozinhos. Toque num deles para escolher e ver os detalhes.</p>
+
+        <div class="az-canal"><b>No site</b><span>todos os dias · para todo visitante do foyer.digital</span></div>
+        <div class="az-fgrid tres" id="az-formatos">
+          <button class="az-fcard" type="button" data-f="cortina">
+            <span class="mini msite mini-cortina"><i class="nv"></i><i class="ln"></i><i class="ln"></i><i class="ln c"></i><i class="ln"></i>
+              <span class="selo">SUA ARTE<br>NA ABERTURA</span></span>
+            <b>A Cortina de entrada</b>
+            <span class="fc-r">Quem chega vê a sua arte antes de tudo, 1x por dia.</span>
+          </button>
+          <button class="az-fcard" type="button" data-f="entreato">
+            <span class="mini msite mini-entreato"><i class="nv"></i><i class="ln"></i><i class="ln"></i>
+              <span class="selo">SEU ANÚNCIO NO MEIO DA LEITURA</span><i class="ln"></i><i class="ln c"></i></span>
+            <b>O Entreato</b>
+            <span class="fc-r">A sua arte dentro das matérias, no meio da leitura.</span>
+          </button>
+          <button class="az-fcard" type="button" data-f="faixa">
+            <span class="mini msite mini-faixa"><i class="nv"></i><i class="ln"></i><i class="ln"></i><i class="ln c"></i><i class="ln"></i>
+              <span class="selo">SUA MENSAGEM FIXA · COM LINK</span></span>
+            <b>A Faixa de proscênio</b>
+            <span class="fc-r">Uma linha sua, fixa no pé de todas as páginas.</span>
+          </button>
+        </div>
+
+        <div class="az-canal rev"><b>Na revista</b><span>toda quinta · fechada como uma edição impressa · fica no acervo para sempre</span></div>
+        <div class="az-fgrid dois">
+          <button class="az-fcard" type="button" data-f="pagina-inteira">
+            <span class="mini mrev mini-inteira"><span class="pgm"><i class="ln"></i><i class="ln"></i><i class="ln c"></i>
+              <span class="selo">SUA ARTE<br>PÁGINA<br>INTEIRA</span><em class="fol"></em></span></span>
+            <b>Página inteira</b>
+            <span class="fc-r">Uma página da edição é toda sua. Pode levar o cupom do leitor.</span>
+          </button>
+          <button class="az-fcard" type="button" data-f="meia-pagina">
+            <span class="mini mrev mini-meia"><span class="pgm"><i class="tt"></i><i class="ln"></i><i class="ln"></i><i class="ln c"></i>
+              <span class="selo">SUA ARTE<br>MEIA PÁGINA</span><em class="fol"></em></span></span>
+            <b>Meia página</b>
+            <span class="fc-r">O fim de uma matéria é seu: o leitor termina o texto na sua arte.</span>
+          </button>
+        </div>
         <div class="az-como" id="az-como"></div>
         <div class="az-campo" id="az-cupom-op" style="display:none;margin-top:12px">
           <label>Bilhete do leitor (só na página inteira)</label>
@@ -508,11 +588,6 @@
   var ROT = { 1:'o formato', 2:'a arte', 3:'a temporada', 4:'quem assina', 5:'a revisão' };
 
   function fmt(){ return FORMATOS.filter(function(x){ return x.id === st.formato; })[0]; }
-  var elF = document.getElementById('az-formatos');
-  elF.innerHTML = FORMATOS.map(function(f){
-    return '<button class="az-fcard" type="button" data-f="' + f.id + '">' +
-      '<span class="fc-onde">' + f.onde + '</span><b>' + f.nome + '</b><span>' + f.resumo + '</span></button>';
-  }).join('');
   document.getElementById('az-duracao').innerHTML = DURACOES.map(function(d){
     return '<button class="az-op" type="button" data-d="' + d + '">' + d + '</button>';
   }).join('');
