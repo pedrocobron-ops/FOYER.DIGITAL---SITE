@@ -228,7 +228,7 @@
 
   var PASSOS = [
     { id:'nome', sinal:'🔔 primeiro sinal', titulo:'Que bom ter você no saguão.',
-      sub:'Como a gente te chama?', tipo:'texto', place:'seu nome (ou nome de cena)' },
+      sub:'Como a gente te chama?', tipo:'texto', place:'pode ser só o primeiro nome' },
     { id:'email', sinal:'🔔 primeiro sinal', titulo:'A revista chega toda sexta, às 7h.',
       sub:'Em qual caixa de entrada ela te encontra?', tipo:'email', place:'seu@email.com',
       nota:'De graça, sem spam, e seus dados ficam só com o FOYER.' },
