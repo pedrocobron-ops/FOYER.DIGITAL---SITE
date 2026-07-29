@@ -554,6 +554,8 @@ html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
 @media print{
   .rv-pg{ display:flex !important; page-break-after:always; border-width:0; aspect-ratio:auto;
     min-height:96vh; width:100% !important; max-width:100% !important; }
+  body.rv-em-janela .rv-pg{ display:none !important; }
+  body.rv-em-janela .rv-pg.rv-amostra{ display:flex !important; }
   .rv-pg::before{ display:none; }
   .rv-nav, nav.main, .ticker, footer, .warn, .rv-lombo, .rv-fita, .rv-canto,
   #rv-sala-sair, .rv-toast{ display:none !important; }
@@ -874,7 +876,8 @@ html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
   var SB = { url: 'https://jcaqjlrzmrtzjyfbljxh.supabase.co',
              key: 'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB' };
   function temCadeira(){ try{ return localStorage.getItem('foyer-cadeira') === '1'; }catch(e){ return false; } }
-  function daCadeira(){ try{ localStorage.setItem('foyer-cadeira', '1'); }catch(e){} }
+  function daCadeira(){ try{ localStorage.setItem('foyer-cadeira', '1'); }catch(e){}
+    document.body.classList.remove('rv-em-janela'); }
   try{ if(new URLSearchParams(location.search).get('cadeira') === '1') daCadeira(); }catch(e){}
   function hojeISO(){
     var d2 = new Date();
@@ -904,6 +907,14 @@ html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
   (function ligaCortina(){
     var c2 = cortina();
     if(!c2) return;
+    if(emJanela()){
+      document.body.classList.add('rv-em-janela');
+      var lim0 = limiteAmostra();
+      document.querySelectorAll('.rv-pg').forEach(function(p3, k3){
+        if(k3 <= lim0) p3.classList.add('rv-amostra');
+      });
+      window.addEventListener('foyer-assinou', function(){ document.body.classList.remove('rv-em-janela'); });
+    }
     document.getElementById('ct-voltar').addEventListener('click', fechaCortina);
     var entrar = document.getElementById('ct-entrar'), em = document.getElementById('ct-email');
     var erro = document.getElementById('ct-erro');

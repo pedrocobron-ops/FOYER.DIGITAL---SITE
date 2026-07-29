@@ -4651,7 +4651,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     colherCampos();  // reflete o que está digitado agora, mesmo sem salvar
     var RB = 'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/';
     var capa = (ed.capa && ed.capa.img) ? (/^https?:/.test(ed.capa.img) ? ed.capa.img : RB + ed.capa.img) : '';
-    var url = 'https://foyer.digital/revista.html';
+    var url = 'https://foyer.digital/revista-ed-' + ed.numero + '.html?cadeira=1';
     var assunto = 'Revista do FOYER · Edição Nº ' + ed.numero + (ed.titulo ? ' — ' + ed.titulo : '');
     var html = corpoEmailRevista(ed, capa, url, 'previa');
     $('mail-assunto').innerHTML = '<b>Assunto:</b> ' + esc(assunto) +
