@@ -1637,12 +1637,13 @@ ED_PUB = [e for e in EDICOES if e.get('status') == 'publicada']
 
 _RV_CSS = '''<style>
 /* ============ A REVISTA — leitor em formato de página impressa ============ */
-.rv-stage{ max-width:760px; margin:26px auto 90px; padding:0 14px; }
+.rv-stage{ max-width:760px; margin:26px auto 90px; padding:0 14px; --rv-papel:#F6F1E6; }
+html[data-theme="dark"] .rv-stage{ --rv-papel:var(--paper); }
 /* no desktop largo, a revista abre em página dupla */
 @media (min-width:1080px){ body.rv-duplo .rv-stage{ max-width:1440px; } }
 .rv-book{ position:relative; display:flex; justify-content:center; align-items:stretch;
   perspective:2600px; margin:0 auto; }
-.rv-pg{ display:none; border:3px solid var(--ink); background:var(--paper);
+.rv-pg{ display:none; border:3px solid var(--ink); background:var(--rv-papel);
   aspect-ratio:3/4.05; position:relative; overflow:hidden; animation:rvin .3s ease;
   width:100%; max-width:734px; flex-shrink:0; backface-visibility:hidden; }
 .rv-pg.on{ display:flex; flex-direction:column; }
@@ -1684,10 +1685,10 @@ html[data-theme="dark"] .rv-pg::before{ opacity:.25; }
 .rv-canto:focus-visible{ opacity:1; transform:none; outline:2px solid var(--gold); }
 /* a espessura: as folhas que faltam (direita) e as já lidas (esquerda) */
 .rv-lombo{ position:absolute; top:8px; bottom:8px; width:0; z-index:0; pointer-events:none;
-  background:repeating-linear-gradient(90deg, #cfc4ab 0 1px, #efe8da 1px 3px);
+  background:repeating-linear-gradient(90deg, #d5cbb2 0 1px, #f6f1e6 1px 3px);
   border:1px solid var(--ink); border-left:0; transition:width .3s ease; }
 .rv-lombo.esq{ right:100%; border:1px solid var(--ink); border-right:0;
-  background:repeating-linear-gradient(270deg, #cfc4ab 0 1px, #efe8da 1px 3px); }
+  background:repeating-linear-gradient(270deg, #d5cbb2 0 1px, #f6f1e6 1px 3px); }
 .rv-lombo.dir{ left:100%; }
 html[data-theme="dark"] .rv-lombo{ background:repeating-linear-gradient(90deg, #1c1712 0 1px, #2e2820 1px 3px); }
 html[data-theme="dark"] .rv-lombo.esq{ background:repeating-linear-gradient(270deg, #1c1712 0 1px, #2e2820 1px 3px); }
@@ -1717,8 +1718,11 @@ body.rv-sala #rv-sala-sair{ display:block; }
 .rv-folio{ position:absolute; left:0; right:0; bottom:0; display:flex; justify-content:space-between;
   align-items:center; padding:10px 22px; border-top:1.5px solid var(--line);
   font-family:var(--mono); font-size:.52rem; letter-spacing:.18em; text-transform:uppercase;
-  color:var(--ink-soft); background:var(--paper); z-index:5; }
+  color:var(--ink-soft); background:var(--rv-papel); z-index:9; }
 .rv-folio b{ font-family:var(--didone); font-weight:400; font-size:1.05rem; color:var(--ink); }
+/* na dupla, o número mora no canto externo, como em revista impressa */
+body.rv-duplo .rv-pg.on.pg-l .rv-folio b{ order:-1; }
+body.rv-duplo .rv-pg.on.pg-r .rv-folio b{ order:99; }
 .rv-kicker{ display:flex; justify-content:space-between; align-items:center;
   border-bottom:2px solid var(--ink); padding:12px 22px; font-family:var(--mono);
   font-size:.54rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; }
@@ -1760,16 +1764,19 @@ body.rv-sala #rv-sala-sair{ display:block; }
   var(--gold) 8px 11px, transparent 11px 13px); }
 
 /* ---------- SUMÁRIO ---------- */
-.rv-sum{ background:var(--paper); }
+.rv-sum{ background:var(--rv-papel); }
 .rv-sum .cab{ padding:26px 22px 14px; border-bottom:3px solid var(--ink); position:relative; }
 .rv-sum .cab h3{ font-family:var(--didone); font-weight:400; font-size:2.6rem; margin:0; line-height:1; }
 .rv-sum .cab span{ font-family:var(--mono); font-size:.54rem; letter-spacing:.24em;
   text-transform:uppercase; color:var(--ink-soft); }
 .rv-sum .arte{ position:absolute; right:16px; top:14px; width:84px; height:60px;
   border:2px solid var(--ink); opacity:.9; }
-.rv-sum ol{ list-style:none; margin:0; padding:8px 0 60px; flex:1; overflow:auto; }
+.rv-sum ol{ list-style:none; margin:0; padding:8px 0 60px; flex:1; overflow:hidden; }
 .rv-sum li{ display:grid; grid-template-columns:60px 1fr; gap:12px; align-items:baseline;
   padding:6px 22px; border-bottom:1px solid var(--line); }
+.rv-sum.cheia li{ padding:4px 22px; }
+.rv-sum.cheia .pt{ font-size:.72rem; }
+.rv-sum.cheia .pnum{ font-size:1.2rem; }
 .rv-sum .pnum{ font-family:var(--didone); font-size:1.45rem; color:var(--wine); text-align:right; }
 html[data-theme="dark"] .rv-sum .pnum{ color:var(--gold); }
 .rv-sum .pt{ font-weight:800; text-transform:uppercase; font-size:.8rem; line-height:1.22; }
@@ -1778,7 +1785,7 @@ html[data-theme="dark"] .rv-sum .pnum{ color:var(--gold); }
 
 /* ---------- EDITORIAL ---------- */
 .rv-edi{ }
-.rv-edi .miolo{ padding:26px 30px 64px; flex:1; overflow:auto; }
+.rv-edi .miolo{ padding:26px 30px 64px; flex:1; overflow:hidden; }
 .rv-edi h3{ font-family:var(--didone); font-weight:400; font-size:2rem; line-height:1.05;
   margin:0 0 18px; }
 .rv-edi .txt{ column-count:2; column-gap:26px; column-rule:1px solid var(--line);
@@ -1799,7 +1806,7 @@ html[data-theme="dark"] .rv-sum .pnum{ color:var(--gold); }
   font-family:var(--mono); font-size:.56rem; font-weight:700; letter-spacing:.22em;
   text-transform:uppercase; padding:7px 14px; border-right:2px solid var(--ink);
   border-bottom:2px solid var(--ink); }
-.rv-mat .miolo{ padding:20px 26px 64px; flex:1; display:flex; flex-direction:column; overflow:auto; }
+.rv-mat .miolo{ padding:20px 26px 64px; flex:1; display:flex; flex-direction:column; overflow:hidden; }
 .rv-mat .cont-tit{ font-family:var(--mono); font-size:.6rem; font-weight:700; letter-spacing:.18em;
   text-transform:uppercase; color:var(--wine); border-bottom:2px solid var(--gold);
   padding-bottom:8px; margin:0 0 14px; }
@@ -1842,7 +1849,7 @@ html[data-theme="dark"] .rv-mat .cont-tit{ color:var(--gold); }
   letter-spacing:.3em; text-transform:uppercase; color:var(--gold); }
 .rv-tela .cab h3{ font-family:var(--didone); font-weight:400; color:var(--gold);
   font-size:2.4rem; margin:4px 0 0; line-height:1; }
-.rv-tela .grade{ flex:1; overflow:auto; display:grid; grid-template-columns:1fr 1fr;
+.rv-tela .grade{ flex:1; overflow:hidden; display:grid; grid-template-columns:1fr 1fr;
   gap:12px; padding:16px 22px 60px; align-content:start; }
 .rv-tela .ep{ border:2px solid var(--gold); text-decoration:none; color:var(--paper);
   background:rgba(0,0,0,.25); display:block; }
@@ -1868,7 +1875,7 @@ html[data-theme="dark"] .rv-agd .cab em{ color:var(--gold); }
 .rv-agd .cab h3{ font-family:var(--didone); font-weight:400; font-size:2.3rem; margin:4px 0 0; line-height:1; }
 .rv-agd .cab h3 .cid{ display:block; color:var(--wine); font-size:1.5rem; margin-top:2px; }
 html[data-theme="dark"] .rv-agd .cab h3 .cid{ color:var(--gold); }
-.rv-agd .lista{ flex:1; overflow:auto; padding:6px 0 60px; }
+.rv-agd .lista{ flex:1; overflow:hidden; padding:6px 0 60px; }
 .rv-agd .ag-item{ display:grid; grid-template-columns:74px 1fr; gap:14px; align-items:center;
   padding:12px 22px; border-bottom:1px solid var(--line); text-decoration:none; color:var(--ink); }
 .rv-agd .ag-item:hover{ background:var(--paper-2); }
@@ -1936,7 +1943,7 @@ html[data-theme="dark"] .rv-bilhete .rb-dir em{ color:var(--gold); }
   letter-spacing:.08em; }
 
 /* ---------- EXPEDIENTE ---------- */
-.rv-exp .miolo{ padding:26px 30px 64px; flex:1; overflow:auto; }
+.rv-exp .miolo{ padding:26px 30px 64px; flex:1; overflow:hidden; }
 .rv-exp img{ width:120px; margin-bottom:18px; }
 .rv-exp img.only-dark{ display:none; }
 :root[data-theme="dark"] .rv-exp img.only-light{ display:none; }
@@ -1952,7 +1959,7 @@ html[data-theme="dark"] .rv-bilhete .rb-dir em{ color:var(--gold); }
 .rv-exp p{ font-size:.72rem; line-height:1.8; color:var(--ink-soft); }
 
 /* ---------- PÁGINA LIVRE / EXCLUSIVA ---------- */
-.rv-livre .miolo{ padding:24px 28px 64px; flex:1; overflow:auto; }
+.rv-livre .miolo{ padding:24px 28px 64px; flex:1; overflow:hidden; }
 .rv-livre h3{ font-family:var(--didone); font-weight:400; font-size:1.9rem; line-height:1.05; margin:0 0 12px; }
 .rv-livre .txt{ column-count:2; column-gap:24px; column-rule:1px solid var(--line);
   font-size:.78rem; line-height:1.72; text-align:justify; hyphens:auto; }
@@ -1964,7 +1971,7 @@ html[data-theme="dark"] .rv-bilhete .rb-dir em{ color:var(--gold); }
   letter-spacing:.3em; text-transform:uppercase; color:var(--wine); }
 html[data-theme="dark"] .rv-rec .cab em{ color:var(--gold); }
 .rv-rec .cab h3{ font-family:var(--didone); font-weight:400; font-size:2.3rem; margin:4px 0 0; line-height:1; }
-.rv-rec .mural{ flex:1; overflow:auto; padding:22px 26px 64px; display:flex; flex-direction:column;
+.rv-rec .mural{ flex:1; overflow:hidden; padding:22px 26px 64px; display:flex; flex-direction:column;
   gap:18px; justify-content:center; }
 .rv-rec .rec{ position:relative; background:#f6f0e2; border:1px solid #d8cdb4; padding:18px 20px 14px;
   box-shadow:2px 3px 10px rgba(35,8,5,.14); max-width:92%; }
@@ -2475,7 +2482,7 @@ def edicao_page(ed):
                        f'<span class="ps">{_rvesc(secao)}</span></span></li>')
     arte_sum = _RV_ARTES[int(ed.get('numero', 1)) % len(_RV_ARTES)]
     pg_sum = (
-        '<section class="rv-pg rv-sum">'
+        f'<section class="rv-pg rv-sum{" cheia" if len(paginas) > 10 else ""}">'
         '<div class="cab"><span>O que vem por aí</span><h3>Nesta edição</h3>'
         f'<svg class="arte" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#{arte_sum}"/></svg></div>'
         f'<ol>{linhas_sum}</ol>' + _rv_folio(ed, 2) + '</section>')
@@ -2614,6 +2621,24 @@ def edicao_page(ed):
   var fita = document.createElement('div'); fita.className = 'rv-fita';
 
   function ehSolo(p){{ return p.classList.contains('rv-capa2') || p.classList.contains('rv-back'); }}
+  // o encaixador: em revista, todo conteúdo cabe na página. Mede cada miolo
+  // e aperta o corpo (zoom tipográfico) até a página fechar sem sobra.
+  function encaixa(){{
+    document.querySelectorAll('.rv-pg').forEach(function(pg2){{
+      var alvo = pg2.querySelector(':scope > .miolo, :scope > ol, :scope > .lista, :scope > .grade, :scope > .mural');
+      if(!alvo) return;
+      var era = pg2.classList.contains('on');
+      pg2.classList.add('on');
+      alvo.style.zoom = '';
+      var z = 1, guarda = 0;
+      while(alvo.scrollHeight > alvo.clientHeight + 2 && z > 0.66 && guarda++ < 14){{
+        z -= 0.03;
+        alvo.style.zoom = z;
+      }}
+      if(!era) pg2.classList.remove('on');
+    }});
+  }}
+
   // o sumário aponta a página certa mesmo depois da repaginação fina no navegador
   function renumeraSumario(){{
     var todas = document.querySelectorAll('.rv-pg');
@@ -2813,6 +2838,7 @@ def edicao_page(ed):
     document.body.classList.add('rv-duplo-ok');
     document.body.classList.toggle('rv-duplo', mqDuplo.matches);
     montaDuplas();
+    encaixa();
     renumeraSumario();
     var guardada = 0;
     try{{ guardada = parseInt(localStorage.getItem('rv-fita-' + NUM_ED) || '0', 10) || 0; }}catch(e){{}}
@@ -2831,6 +2857,7 @@ def edicao_page(ed):
     document.body.classList.toggle('rv-duplo', mqDuplo.matches);
     var ancora = (duplas[d] || [0])[0];
     montaDuplas();
+    encaixa();
     renumeraSumario();
     d = duplaDe(ancora);
     pinta();
