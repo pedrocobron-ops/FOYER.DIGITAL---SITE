@@ -767,6 +767,7 @@
         <button data-view="fila" type="button">🕐 &nbsp;Fila &amp; agendadas</button>
         <button data-view="ia" id="mi-ia" type="button">🤖 &nbsp;Redação IA<span class="bdg" id="bdg-mesa" style="display:none">0</span></button>
         <button data-view="revista" id="mi-revista" type="button">📖 &nbsp;Revista</button>
+        <button data-view="calendario" id="mi-cal" type="button">📅 &nbsp;Calendário<span class="bdg" id="bdg-cal" style="display:none">!</span></button>
         <button data-view="equipe" id="mi-equipe" type="button">👥 &nbsp;Equipe</button>
         <button data-view="metricas" id="mi-metricas" type="button">📈 &nbsp;Métricas</button>
         <button data-view="conexao" type="button">⚡ &nbsp;Conexão</button>
@@ -1190,6 +1191,53 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       </section>
 
       <!-- ========== MÉTRICAS (chefe) ========== -->
+      <section class="view" id="view-calendario">
+        <style>
+          .cal-cab{ display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px; margin:0 0 12px; }
+          .cal-cab h2{ font-family:var(--didone, Georgia); font-weight:400; font-size:1.5rem; margin:0; }
+          .cal-cab .cal-sai{ font-family:var(--mono, monospace); font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; opacity:.75; }
+          .cal-trilho{ border:2px solid currentColor; border-color:var(--ink,#231007); margin-bottom:18px; }
+          .cal-dia{ display:flex; gap:14px; padding:10px 14px; border-bottom:1px solid rgba(120,100,70,.3); align-items:flex-start; }
+          .cal-dia:last-child{ border-bottom:0; }
+          .cal-dia .cd-q{ font-family:var(--mono, monospace); font-size:.6rem; font-weight:700; letter-spacing:.12em;
+            text-transform:uppercase; min-width:118px; padding-top:2px; }
+          .cal-dia .cd-t{ flex:1; font-size:.86rem; line-height:1.5; }
+          .cal-dia.hoje{ background:rgba(206,178,106,.16); box-shadow:inset 4px 0 0 var(--gold,#CEB26A); }
+          .cal-dia.hoje .cd-q::after{ content:' · HOJE'; color:#8a6d1f; }
+          .cal-dia.atrasado{ box-shadow:inset 4px 0 0 #8a1f14; }
+          .cal-dia.atrasado .cd-q{ color:#8a1f14; }
+          .cal-perg{ border:2px solid var(--ink,#231007); padding:14px; margin-bottom:14px; }
+          .cal-perg .cp-t{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+          .cal-perg .cp-t b{ font-size:.95rem; }
+          .cal-perg .cp-t .mt{ font-family:var(--mono, monospace); font-size:.56rem; letter-spacing:.1em; text-transform:uppercase; opacity:.7; }
+          .cal-simnao{ display:flex; gap:8px; margin-left:auto; }
+          .cal-simnao button{ border:2px solid var(--ink,#231007); background:transparent; cursor:pointer;
+            font-family:var(--mono, monospace); font-weight:700; font-size:.62rem; letter-spacing:.12em;
+            text-transform:uppercase; padding:8px 14px; }
+          .cal-simnao button.on-sim{ background:#2c5a2e; color:#fff; border-color:#2c5a2e; }
+          .cal-simnao button.on-nao{ background:#8a1f14; color:#fff; border-color:#8a1f14; }
+          .cal-entrega{ margin:12px 0 0; padding-top:10px; border-top:1px dashed rgba(120,100,70,.5); }
+          .cal-check{ display:flex; align-items:center; gap:10px; padding:6px 0; font-size:.84rem; cursor:pointer; }
+          .cal-check input{ width:17px; height:17px; accent-color:#4E0F09; }
+          .cal-check.feito{ opacity:.6; text-decoration:line-through; }
+          .cal-fora{ margin-top:10px; font-family:var(--mono, monospace); font-size:.62rem; letter-spacing:.08em; color:#8a1f14; }
+          .cal-barra{ height:10px; border:2px solid var(--ink,#231007); margin:4px 0 16px; position:relative; }
+          .cal-barra i{ position:absolute; inset:0; width:0; background:var(--gold,#CEB26A); transition:width .4s ease; }
+          .cal-barra span{ position:absolute; right:6px; top:-22px; font-family:var(--mono, monospace); font-size:.6rem; font-weight:700; }
+          .cal-grade{ width:100%; border-collapse:collapse; font-size:.8rem; margin-bottom:20px; }
+          .cal-grade th, .cal-grade td{ border:1px solid rgba(120,100,70,.4); padding:8px 10px; text-align:left; vertical-align:top; }
+          .cal-grade th{ font-family:var(--mono, monospace); font-size:.58rem; letter-spacing:.12em; text-transform:uppercase; }
+          .cal-grade tr.hoje td{ background:rgba(206,178,106,.16); }
+          .cal-atalho{ display:inline-block; margin-top:8px; border:2px solid #4E0F09; background:#4E0F09; color:#CEB26A;
+            font-family:var(--mono, monospace); font-weight:700; font-size:.58rem; letter-spacing:.12em;
+            text-transform:uppercase; padding:8px 12px; cursor:pointer; }
+        </style>
+        <div class="sec-h"><h3>Calendário editorial</h3><span>a semana inteira da casa: o site todo dia, a revista pronta na quinta</span></div>
+        <div id="cal-rev"><div class="vazio-box">Carregando o calendário…</div></div>
+        <div class="sec-h"><h3>A grade do site, dia a dia</h3><span>cota fixa: 2 Pedro Amaral + 2 Isabel Branquinha + 2 Redação Foyer, todo dia às 7h; o prato do dia muda com a semana</span></div>
+        <div id="cal-grade"></div>
+      </section>
+
       <section class="view" id="view-metricas">
         <h2 class="hi">Métricas do site</h2>
         <p class="hi-sub">Audiência e comportamento dos leitores — visível somente para a direção</p>
@@ -1552,6 +1600,19 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     carregarPalco();
     checarRasc();
     bemVindo();
+    calAviso();
+  }
+  // o lembrete de terça: pergunta sem resposta acende o ponto no menu Calendário
+  function calAviso(){
+    ghGet(CAL_ARQ).then(function(f){
+      var doc = f && f.content ? JSON.parse(unb64(f.content)) : { edicoes: {} };
+      var quinta = calProximaQuinta();
+      var ed = (doc.edicoes || {})[calISO(quinta)] || { perguntas: {} };
+      var terca = new Date(quinta); terca.setDate(terca.getDate() - 2);
+      var pend = ['tp', 'cartas', 'anuncio'].filter(function(k){ return !(ed.perguntas || {})[k]; }).length;
+      var b = $('bdg-cal');
+      if(b) b.style.display = (calISO(new Date()) >= calISO(terca) && pend) ? '' : 'none';
+    }).catch(function(){});
   }
   // cartão de boas-vindas na primeira vez de cada pessoa (por papel)
   function bemVindo(){
@@ -1671,6 +1732,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(v === 'palco') carregarPalco();
     if(v === 'saguao') carregarSaguao();
     if(v === 'revista') carregarEdicoes();
+    if(v === 'calendario') carregarCalendario();
     if(v === 'metricas') carregarMetricas();
     if(foco) focarBloco(foco, focoAlt);
   }
@@ -3611,6 +3673,182 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   });
 
   /* ================= SAGUÃO ================= */
+  /* ---------------- calendário editorial (a semana da revista) ---------------- */
+  var CAL = { doc: null, sha: null, chave: null };
+  var CAL_ARQ = 'import/coxia/calendario-revista.json';
+  var CAL_PERGS = [
+    { id:'tp', nome:'Três perguntas (exclusiva da revista)', desc:'Vai ter a minientrevista nesta edição?', prazo:'responder até terça, 12h',
+      entrega:[ ['tpQuem','Quem é a pessoa: nome confirmado e contato feito'],
+                ['tpPerguntas','As 3 perguntas enviadas ao entrevistado'],
+                ['tpRespostas','Respostas recebidas POR ESCRITO (o registro fica guardado)'],
+                ['tpPagina','Página montada na aba Revista'] ] },
+    { id:'cartas', nome:'Cartas da plateia', desc:'Chegou carta real de leitor para esta edição?', prazo:'responder até terça, 12h',
+      entrega:[ ['caEscolha','2 a 3 cartas escolhidas, com nome e cidade'],
+                ['caAutoriza','Autorização de publicação registrada'],
+                ['caPagina','Página montada na aba Revista'] ] },
+    { id:'anuncio', nome:'Anúncio (Publicidade ou cartaz-cortesia)', desc:'Tem página comercial fechada para esta edição?', prazo:'responder até terça, 12h',
+      entrega:[ ['anArte','Arte do anunciante recebida (720×972, sem distorção)'],
+                ['anCupom','Cupom combinado POR ESCRITO (só na página paga)'],
+                ['anPagina','Página montada na aba Revista, com rótulo certo'] ] }
+  ];
+  var CAL_FECHO = [
+    ['fCapa','Capa: foto NOVA da semana na moldura, manchete e até 3 chamadas que se cumprem no miolo'],
+    ['fCarta','Carta ao leitor escrita (ou minuta da redação editada)'],
+    ['fMaterias','5 a 6 matérias da semana escolhidas e paginadas'],
+    ['fRecortes','Recortes: 3 aspas REAIS com dono e origem'],
+    ['fPrograma','Programa de sala da estreia da semana (só nomes apurados)'],
+    ['fBilhete','Bilhete da semana escolhido na agenda (a escolha da redação)'],
+    ['fAgendas','Agendas de SP e do Rio apuradas (sexta a quinta)'],
+    ['fContra','Contracapa: frase real e verificada, com autor'],
+    ['fLeitura','Leitura final da edição, página a página, sem imagem distorcida']
+  ];
+  function calProximaQuinta(){
+    var ag = new Date();
+    var dt = new Date(ag.getFullYear(), ag.getMonth(), ag.getDate());
+    var soma = (4 - dt.getDay() + 7) % 7;
+    if(soma === 0 && ag.getHours() >= 7) soma = 7;   // quinta depois das 7h: a edição já saiu, olha a próxima
+    dt.setDate(dt.getDate() + soma);
+    return dt;
+  }
+  function calISO(dt){
+    return dt.getFullYear() + '-' + ('0' + (dt.getMonth() + 1)).slice(-2) + '-' + ('0' + dt.getDate()).slice(-2);
+  }
+  function calDM(dt){ return ('0' + dt.getDate()).slice(-2) + '/' + ('0' + (dt.getMonth() + 1)).slice(-2); }
+  function calEd(){
+    if(!CAL.doc.edicoes) CAL.doc.edicoes = {};
+    if(!CAL.doc.edicoes[CAL.chave]) CAL.doc.edicoes[CAL.chave] = { perguntas:{}, entrega:{}, fecho:{} };
+    var e = CAL.doc.edicoes[CAL.chave];
+    e.perguntas = e.perguntas || {}; e.entrega = e.entrega || {}; e.fecho = e.fecho || {};
+    return e;
+  }
+  function carregarCalendario(){
+    ghGet(CAL_ARQ).then(function(f){
+      CAL.doc = f && f.content ? JSON.parse(unb64(f.content)) : { edicoes: {} };
+      CAL.sha = f ? f.sha : null;
+      CAL.chave = calISO(calProximaQuinta());
+      pintarCalendario();
+      pintarGradeSite();
+    }).catch(function(){
+      $('cal-rev').innerHTML = '<div class="vazio-box">Sem acesso ao calendário agora (confira a chave na aba Conexão)</div>';
+      pintarGradeSite();
+    });
+  }
+  function calSalva(){
+    var e = calEd();
+    e.atualizadoEm = new Date().toISOString();
+    e.por = USER ? USER.nome : '?';
+    return ghPut(CAL_ARQ, JSON.stringify(CAL.doc, null, 1), assina('atualiza o calendário da revista'), CAL.sha)
+      .then(function(r){ if(r && r.content) CAL.sha = r.content.sha; })
+      .catch(function(err){ msgErro && msgErro(err); alert('Não salvou: recarregue a aba Calendário e tente de novo.'); });
+  }
+  function pintarCalendario(){
+    var quinta = calProximaQuinta();
+    var d = function(off){ var x = new Date(quinta); x.setDate(x.getDate() + off); return x; };
+    var sex0 = d(-6), seg = d(-3), ter = d(-2), qua = d(-1), sexPub = d(1);
+    var hojeISO = calISO(new Date());
+    var agora = new Date();
+    var e = calEd();
+
+    // progresso: fecho + entregáveis das perguntas respondidas com sim
+    var itens = CAL_FECHO.map(function(x){ return ['fecho', x[0]]; });
+    CAL_PERGS.forEach(function(p){
+      if(e.perguntas[p.id] === 'sim') p.entrega.forEach(function(x){ itens.push(['entrega', x[0]]); });
+    });
+    var feitos = itens.filter(function(par){ return e[par[0]][par[1]]; }).length;
+    var pct = itens.length ? Math.round(feitos * 100 / itens.length) : 0;
+
+    // aviso no menu: terça (ou depois) com pergunta sem resposta
+    var pendentes = CAL_PERGS.filter(function(p){ return !e.perguntas[p.id]; }).length;
+    var depoisDeTerca = hojeISO >= calISO(ter);
+    var b = $('bdg-cal');
+    if(b) b.style.display = (depoisDeTerca && pendentes) ? '' : 'none';
+
+    function linhaDia(dt, rotulo, texto, pendente){
+      var iso = calISO(dt);
+      var cls = iso === hojeISO ? ' hoje' : '';
+      if(pendente && iso < hojeISO) cls += ' atrasado';
+      return '<div class="cal-dia' + cls + '"><span class="cd-q">' + rotulo + ' ' + calDM(dt) + '</span>' +
+             '<span class="cd-t">' + texto + '</span></div>';
+    }
+    var trilho =
+      linhaDia(sex0, 'Sexta', 'A edição anterior abre ao público. Nasce o boneco da próxima: foto de capa e reportagem principal entram no radar.') +
+      linhaDia(seg, 'Segunda', 'Começa a apuração das agendas de São Paulo e do Rio (sexta a quinta) e dos Recortes da semana.') +
+      linhaDia(ter, 'Terça', '<b>12h — As perguntas de terça (abaixo).</b> Responda sim ou não para cada seção opcional: o sim vira cobrança, o não tira a página desta edição.', pendentes > 0) +
+      linhaDia(qua, 'Quarta', '<b>12h — entregáveis do que foi "sim".</b> <b>18h — FECHAMENTO:</b> o checklist inteiro conferido, a edição congela. Nada publicado depois disso entra.', pct < 100) +
+      linhaDia(quinta, 'Quinta', '<b>7h — a edição sai para os assinantes.</b> O e-mail vai com o link da cadeira.') +
+      linhaDia(sexPub, 'Sexta', '7h — a edição abre ao público e a roda recomeça.');
+
+    var pergs = CAL_PERGS.map(function(p){
+      var resp = e.perguntas[p.id] || '';
+      var bloco = '';
+      if(resp === 'sim'){
+        bloco = '<div class="cal-entrega">' + p.entrega.map(function(it){
+          var ok = !!e.entrega[it[0]];
+          return '<label class="cal-check' + (ok ? ' feito' : '') + '"><input type="checkbox" data-cal-ent="' + it[0] + '"' +
+                 (ok ? ' checked' : '') + '> ' + it[1] + '</label>';
+        }).join('') + '<button class="cal-atalho" type="button" data-go="revista">montar a página na aba Revista →</button></div>';
+      } else if(resp === 'nao'){
+        bloco = '<div class="cal-fora">Fora desta edição: a página não entra. (Dá para mudar de ideia até quarta, 12h.)</div>';
+      }
+      return '<div class="cal-perg"><div class="cp-t"><b>' + p.nome + '</b><span class="mt">' + p.prazo + '</span>' +
+        '<span class="cal-simnao">' +
+        '<button type="button" data-cal-perg="' + p.id + '" data-v="sim" class="' + (resp === 'sim' ? 'on-sim' : '') + '">Sim</button>' +
+        '<button type="button" data-cal-perg="' + p.id + '" data-v="nao" class="' + (resp === 'nao' ? 'on-nao' : '') + '">Não</button>' +
+        '</span></div><div style="font-size:.82rem;opacity:.8;margin-top:4px">' + p.desc + '</div>' + bloco + '</div>';
+    }).join('');
+
+    var fecho = '<div class="cal-perg"><div class="cp-t"><b>Checklist do fechamento</b><span class="mt">quarta, 18h — a edição congela</span></div>' +
+      CAL_FECHO.map(function(it){
+        var ok = !!e.fecho[it[0]];
+        return '<label class="cal-check' + (ok ? ' feito' : '') + '"><input type="checkbox" data-cal-fecho="' + it[0] + '"' +
+               (ok ? ' checked' : '') + '> ' + it[1] + '</label>';
+      }).join('') + '</div>';
+
+    $('cal-rev').innerHTML =
+      '<div class="cal-cab"><h2>A semana da revista</h2>' +
+      '<span class="cal-sai">fecha quarta ' + calDM(qua) + ' · assinante quinta ' + calDM(quinta) + ', 7h · público sexta ' + calDM(sexPub) + '</span></div>' +
+      '<div class="cal-barra"><span>' + feitos + ' de ' + itens.length + ' · ' + pct + '%</span><i style="width:' + pct + '%"></i></div>' +
+      '<div class="cal-trilho">' + trilho + '</div>' +
+      '<div class="sec-h"><h3>As perguntas de terça</h3><span>o sim vira cobrança até quarta 12h; o não tira a página da edição</span></div>' +
+      pergs + fecho;
+  }
+  function pintarGradeSite(){
+    var DIAS = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+    var PRATO = {
+      1:'Casas de Espetáculo: a história de um teatro brasileiro',
+      2:'Entenda: explicador com pergunta direta no título',
+      3:'Quem é: perfil de um nome em alta',
+      4:'Guias do fim de semana: SP (Isabel) e Rio (Redação)',
+      5:'Lista: seleção evergreen com o ano no título',
+      6:'Curiosidade bem explicada',
+      0:'Memória: efeméride das artes brasileiras'
+    };
+    var hoje = new Date().getDay();
+    var linhas = [1,2,3,4,5,6,0].map(function(dw){
+      return '<tr' + (dw === hoje ? ' class="hoje"' : '') + '><td><b>' + DIAS[dw] + '</b></td>' +
+        '<td>' + PRATO[dw] + '</td>' +
+        '<td>2 Pedro (mercado/dinheiro) + 2 Isabel (cena SP)' + (dw === 4 ? ' — na quinta os guias ocupam 2 vagas' : ' + 2 Redação') + '</td></tr>';
+    }).join('');
+    $('cal-grade').innerHTML = '<table class="cal-grade"><tr><th>Dia</th><th>Prato do dia (Redação Foyer)</th><th>As 6 do dia</th></tr>' + linhas + '</table>' +
+      '<div class="f-note">A rodada diária roda às 7h e deixa tudo na mesa da aba Redação IA para aprovação. O calendário acima cuida do que é da REVISTA de quinta.</div>';
+  }
+  document.addEventListener('click', function(e){
+    var pb = e.target.closest('[data-cal-perg]');
+    if(pb){
+      var ed = calEd();
+      var atual = ed.perguntas[pb.dataset.calPerg];
+      ed.perguntas[pb.dataset.calPerg] = (atual === pb.dataset.v) ? '' : pb.dataset.v;
+      pintarCalendario(); calSalva();
+      return;
+    }
+  });
+  document.addEventListener('change', function(e){
+    var ent = e.target.closest('[data-cal-ent]');
+    if(ent){ calEd().entrega[ent.dataset.calEnt] = ent.checked; pintarCalendario(); calSalva(); return; }
+    var fc = e.target.closest('[data-cal-fecho]');
+    if(fc){ calEd().fecho[fc.dataset.calFecho] = fc.checked; pintarCalendario(); calSalva(); return; }
+  });
+
   var RKC = { url:'https://jcaqjlrzmrtzjyfbljxh.supabase.co',
               key:'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB' };
   var RK_MODO = 'semana', TIT = null;

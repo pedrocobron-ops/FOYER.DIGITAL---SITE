@@ -526,6 +526,16 @@ página). O boneco padrão, na ordem:
 | 11 | Expediente | `expediente` | automático |
 | 12 | **Contracapa** (a cortina desce) | `contracapa` | Chefe; se faltar, entra a da casa |
 
+**O RITO DA SEMANA (aba Calendário da Coxia).** A revista se constrói
+no calendário: sexta abre o boneco; segunda começam agendas e
+recortes; **terça 12h o chefe responde as três perguntas** (Três
+Perguntas? Cartas da Plateia? Anúncio?) — o "sim" vira lista de
+entregáveis cobrada até quarta 12h, o "não" tira a página da edição;
+**quarta 18h é o fechamento** com o checklist completo conferido;
+quinta 7h sai para assinantes; sexta abre ao público. O estado vive
+em `import/coxia/calendario-revista.json`, por edição. Um lembrete
+automático avisa o chefe toda terça ao meio-dia.
+
 **REGRA DO FECHAMENTO: a edição é um objeto parado no tempo.** A edição
 que sai na sexta fecha na quinta. NADA publicado depois do fechamento
 entra: nem matéria, nem aspa de recorte, nem vídeo do "Na tela". O
