@@ -4636,7 +4636,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       <p class="az-fim-casa">Enquanto isso, a casa é sua: <a href="revista.html">folheie a edição da semana</a> e veja a companhia que a sua marca vai ter.</p>
     </div>
   </div>
-  <p class="az-nota">Curadoria editorial não é negociável: anúncio é sempre rotulado, nunca vira matéria. Máximo de 2 páginas pagas por edição da revista.</p>
+  <p class="az-nota">Curadoria editorial não é negociável: anúncio é sempre rotulado, nunca vira matéria.</p>
 
   <div class="pv-modal" id="pv-modal" role="dialog" aria-label="Prévia ampliada"><div class="dentro"></div></div>
   <div class="mk-leitor" id="mk-leitor">

@@ -582,7 +582,12 @@ Regras das seções novas:
     nomeadas: a ímpar dos Recortes, a face da agenda, a porta da
     contracapa) e **meia página** (o formato da arte de Sympla; campo
     `anuncioMeia` da página de matéria: o anúncio ocupa o pé da última
-    página da matéria). **Máximo de 2 páginas pagas por edição.**
+    página da matéria). **SEM LIMITE de anúncios por edição (ordem do
+    Pedro, 29/07/2026)**: vende-se quanto se conseguir vender; a
+    revista cresce em páginas conforme os anúncios entram — é assim
+    que a operação se sustenta. Quantidade e encaixe de anúncios são
+    assunto INTERNO da montagem da edição: **nunca mencionar ao
+    público limite algum — nem que existe, nem que não existe.**
     O **bilhete do leitor (cupom) está FORA do funil de autosserviço**
     (decisão do Pedro em 29/07/2026: exigia arte sob medida e cobria o
     cartaz); segue possível apenas em combinação manual por escrito,
