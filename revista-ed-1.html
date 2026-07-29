@@ -500,11 +500,11 @@ html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
 .rv-back .rodape img{ height:34px; }
 
 /* as quinas de virar página: voltar na ponta esquerda, avançar na direita */
-.rv-quina{ position:absolute; bottom:10px; z-index:12; width:44px; height:44px;
-  border:2px solid var(--ink); background:var(--rv-papel); color:var(--wine); cursor:pointer;
-  font-size:.9rem; line-height:1; display:flex; align-items:center; justify-content:center;
-  box-shadow:2px 3px 0 rgba(27,20,15,.25); transition:transform .12s; }
-.rv-quina:hover{ transform:translateY(-2px); background:var(--wine); color:var(--gold); }
+.rv-quina{ position:absolute; bottom:6px; z-index:12; width:40px; height:40px;
+  border:0; background:none; color:var(--ink-soft); cursor:pointer;
+  font-size:.8rem; line-height:1; display:flex; align-items:center; justify-content:center;
+  transition:color .15s, transform .12s; }
+.rv-quina:hover{ color:var(--wine); transform:translateY(-1px); }
 .rv-quina:focus-visible{ outline:3px solid var(--gold); }
 .rv-quina.esq{ left:10px; }
 .rv-quina.dir{ right:10px; }
