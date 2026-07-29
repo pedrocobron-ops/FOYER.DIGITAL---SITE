@@ -1713,29 +1713,25 @@ body.rv-sala .rv-lombo{ border-color:#000; }
 body.rv-sala #rv-sala-sair{ display:block; }
 #rv-sala-sair:hover{ background:var(--gold); color:var(--wine); }
 .rv-folio{ position:absolute; left:0; right:0; bottom:0; display:flex; justify-content:space-between;
-  align-items:center; padding:10px 22px; border-top:1.5px solid var(--line);
+  align-items:center; padding:10px 62px; border-top:1.5px solid var(--line);
   font-family:var(--mono); font-size:.52rem; letter-spacing:.18em; text-transform:uppercase;
   color:var(--ink-soft); background:var(--rv-papel); z-index:9; }
 .rv-folio b{ font-family:var(--didone); font-weight:400; font-size:1.05rem; color:var(--ink); }
-/* na dupla, o número mora no canto externo, como em revista impressa */
-body.rv-duplo .rv-pg.on.pg-l .rv-folio b{ order:-1; }
-body.rv-duplo .rv-pg.on.pg-r .rv-folio b{ order:99; }
 .rv-kicker{ display:flex; justify-content:space-between; align-items:center;
   border-bottom:2px solid var(--ink); padding:12px 22px; font-family:var(--mono);
   font-size:.54rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; }
 .rv-kicker .tagz{ background:var(--wine); color:var(--gold); padding:4px 10px; }
 
 /* ---------- CAPA (foto emoldurada no centro, como manda o cartaz) ---------- */
-.rv-capa2{ background:var(--wine); }
+.rv-capa2{ background:var(--rv-papel); }
 .rv-capa2 .nameplate{ padding:24px 26px 0; }
-.rv-capa2 .nameplate img{ width:100%; display:block;
-  filter:drop-shadow(0 2px 10px rgba(0,0,0,.4)); }
+.rv-capa2 .nameplate img{ width:100%; display:block; }
 .rv-capa2 .linha-ed{ display:flex; justify-content:space-between; padding:10px 26px 0;
   font-family:var(--mono); font-size:.55rem; font-weight:600;
-  letter-spacing:.24em; text-transform:uppercase; color:var(--gold); }
+  letter-spacing:.24em; text-transform:uppercase; color:var(--wine); }
 .rv-capa2 .moldura{ flex:none; height:496px; margin:16px 26px; position:relative;
-  border:3px solid var(--gold); outline:1px solid rgba(206,178,106,.45); outline-offset:5px;
-  background:#1b0703; }
+  border:3px solid var(--ink); outline:1px solid var(--gold); outline-offset:5px;
+  background:#14100d; }
 .rv-capa2 .moldura img{ position:absolute; inset:0; width:100%; height:100%;
   object-fit:cover; object-position:center 25%; }
 .rv-capa2 .cred{ position:absolute; right:0; bottom:0; font-family:var(--mono); font-size:.5rem;
@@ -1744,22 +1740,22 @@ body.rv-duplo .rv-pg.on.pg-r .rv-folio b{ order:99; }
 .rv-capa2 .manchete{ padding:2px 26px 0; height:116px; overflow:hidden; }
 .rv-capa2 .manchete em{ display:block; font-style:normal; font-family:var(--mono);
   font-size:.56rem; font-weight:600; letter-spacing:.3em; text-transform:uppercase;
-  color:var(--gold); margin-bottom:6px; }
-.rv-capa2 .manchete h2{ font-family:var(--didone); font-weight:400; color:#fff;
+  color:var(--wine); margin-bottom:6px; }
+.rv-capa2 .manchete h2{ font-family:var(--didone); font-weight:400; color:var(--ink);
   font-size:2.1rem; line-height:1.04; margin:0; display:-webkit-box;
   -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
 .rv-capa2 .faixa{ display:flex; flex-wrap:wrap; align-content:center; gap:5px 12px;
-  margin-top:auto; height:66px; overflow:hidden; padding:6px 26px; border-top:1.5px solid rgba(206,178,106,.55);
-  color:var(--paper); font-family:var(--mono); font-size:.54rem; font-weight:600;
+  margin-top:auto; height:66px; overflow:hidden; padding:6px 26px; border-top:1.5px solid var(--line);
+  color:var(--ink); font-family:var(--mono); font-size:.54rem; font-weight:600;
   letter-spacing:.12em; text-transform:uppercase; }
-.rv-capa2 .faixa i{ font-style:normal; color:var(--gold); }
+.rv-capa2 .faixa i{ font-style:normal; color:var(--wine); }
 .rv-capa2 .rodape-capa{ display:flex; justify-content:space-between; align-items:center;
-  padding:10px 26px; border-top:1.5px solid var(--gold); background:rgba(27,7,3,.5);
-  color:var(--gold); font-family:var(--mono); font-size:.52rem; letter-spacing:.2em;
+  padding:10px 26px; border-top:2px solid var(--ink);
+  color:var(--wine); font-family:var(--mono); font-size:.52rem; letter-spacing:.2em;
   text-transform:uppercase; }
 .rv-barcode{ width:74px; height:26px; background:repeating-linear-gradient(90deg,
-  var(--gold) 0 2px, transparent 2px 4px, var(--gold) 4px 5px, transparent 5px 8px,
-  var(--gold) 8px 11px, transparent 11px 13px); }
+  var(--wine) 0 2px, transparent 2px 4px, var(--wine) 4px 5px, transparent 5px 8px,
+  var(--wine) 8px 11px, transparent 11px 13px); }
 
 
 /* ---------- SUMÁRIO ---------- */
@@ -2008,6 +2004,19 @@ html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
   padding-top:14px; border-top:2px solid var(--gold); font-family:var(--mono); font-size:.52rem;
   letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
 .rv-back .rodape img{ height:34px; }
+
+/* as quinas de virar página: voltar na ponta esquerda, avançar na direita */
+.rv-quina{ position:absolute; bottom:10px; z-index:12; width:44px; height:44px;
+  border:2px solid var(--ink); background:var(--rv-papel); color:var(--wine); cursor:pointer;
+  font-size:.9rem; line-height:1; display:flex; align-items:center; justify-content:center;
+  box-shadow:2px 3px 0 rgba(27,20,15,.25); transition:transform .12s; }
+.rv-quina:hover{ transform:translateY(-2px); background:var(--wine); color:var(--gold); }
+.rv-quina:focus-visible{ outline:3px solid var(--gold); }
+.rv-quina.esq{ left:10px; }
+.rv-quina.dir{ right:10px; }
+.rv-quina[hidden]{ display:none; }
+html[data-theme="dark"] .rv-quina{ color:var(--gold); }
+@media print{ .rv-quina{ display:none !important; } }
 
 /* ---------- A CORTINA (janela do assinante) ---------- */
 .rv-cortina{ position:fixed; inset:0; z-index:210; display:flex; align-items:center;
@@ -2448,7 +2457,7 @@ def edicao_page(ed):
     calls = '<i>✦</i>'.join(f'<span>{_rvesc(c)}</span>' for c in (capa.get('chamadas') or [])[:4] if c.strip())
     pg_capa = (
         '<section class="rv-pg rv-capa2 on">'
-        '<div class="nameplate"><img src="assets/logo/foyer-horizontal-gold.png" alt="FOYER"></div>'
+        '<div class="nameplate"><img src="assets/logo/foyer-horizontal-wine.png" alt="FOYER"></div>'
         f'<div class="linha-ed"><span>A revista da semana</span><span>Nº {_rvesc(ed.get("numero"))} · {_rvesc(ed.get("dataEdicao", ""))}</span></div>'
         '<div class="moldura">'
         + (f'<img src="{_rvesc(capa.get("img", ""))}" alt="">' if capa.get('img') else '')
@@ -2509,6 +2518,8 @@ def edicao_page(ed):
     <div class="rv-lombo esq" id="rv-lombo-esq" aria-hidden="true"></div>
 {corpo}
     <div class="rv-lombo dir" id="rv-lombo-dir" aria-hidden="true"></div>
+    <button type="button" class="rv-quina esq" id="rv-ant" aria-label="Página anterior">◀</button>
+    <button type="button" class="rv-quina dir" id="rv-prox" aria-label="Próxima página">▶</button>
   </div>
   </div>
   <div class="rv-cortina" id="rv-cortina" role="dialog" aria-modal="true" aria-label="Edição para assinantes" hidden>
@@ -2529,9 +2540,7 @@ def edicao_page(ed):
     </div>
   </div>
   <div class="rv-nav">
-    <button type="button" id="rv-ant">← Anterior</button>
     <span class="ct" id="rv-ct">1 / {total}</span>
-    <button type="button" id="rv-prox">Próxima →</button>
     <button type="button" id="rv-sala" title="Só a revista, com a luz apagada">◐ Sala de leitura</button>
     <button type="button" onclick="window.print()" title="Imprimir ou salvar em PDF">⤓ PDF</button>
   </div>
@@ -2710,6 +2719,9 @@ def edicao_page(ed):
     if(d > 0 && !ult.classList.contains('rv-back')){{ ult.appendChild(fita); }}
     else if(fita.parentNode){{ fita.parentNode.removeChild(fita); }}
     try{{ localStorage.setItem('rv-fita-' + NUM_ED, String(par[0])); }}catch(e){{}}
+    var qe = document.getElementById('rv-ant'), qd = document.getElementById('rv-prox');
+    if(qe) qe.hidden = (d === 0);
+    if(qd) qd.hidden = (d === duplas.length - 1);
     escala();
   }}
   /* ---- a janela do assinante: hoje é dia de assinante ler primeiro? ---- */

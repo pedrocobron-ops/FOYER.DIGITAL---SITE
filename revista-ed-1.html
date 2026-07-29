@@ -207,29 +207,25 @@ body.rv-sala .rv-lombo{ border-color:#000; }
 body.rv-sala #rv-sala-sair{ display:block; }
 #rv-sala-sair:hover{ background:var(--gold); color:var(--wine); }
 .rv-folio{ position:absolute; left:0; right:0; bottom:0; display:flex; justify-content:space-between;
-  align-items:center; padding:10px 22px; border-top:1.5px solid var(--line);
+  align-items:center; padding:10px 62px; border-top:1.5px solid var(--line);
   font-family:var(--mono); font-size:.52rem; letter-spacing:.18em; text-transform:uppercase;
   color:var(--ink-soft); background:var(--rv-papel); z-index:9; }
 .rv-folio b{ font-family:var(--didone); font-weight:400; font-size:1.05rem; color:var(--ink); }
-/* na dupla, o número mora no canto externo, como em revista impressa */
-body.rv-duplo .rv-pg.on.pg-l .rv-folio b{ order:-1; }
-body.rv-duplo .rv-pg.on.pg-r .rv-folio b{ order:99; }
 .rv-kicker{ display:flex; justify-content:space-between; align-items:center;
   border-bottom:2px solid var(--ink); padding:12px 22px; font-family:var(--mono);
   font-size:.54rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; }
 .rv-kicker .tagz{ background:var(--wine); color:var(--gold); padding:4px 10px; }
 
 /* ---------- CAPA (foto emoldurada no centro, como manda o cartaz) ---------- */
-.rv-capa2{ background:var(--wine); }
+.rv-capa2{ background:var(--rv-papel); }
 .rv-capa2 .nameplate{ padding:24px 26px 0; }
-.rv-capa2 .nameplate img{ width:100%; display:block;
-  filter:drop-shadow(0 2px 10px rgba(0,0,0,.4)); }
+.rv-capa2 .nameplate img{ width:100%; display:block; }
 .rv-capa2 .linha-ed{ display:flex; justify-content:space-between; padding:10px 26px 0;
   font-family:var(--mono); font-size:.55rem; font-weight:600;
-  letter-spacing:.24em; text-transform:uppercase; color:var(--gold); }
+  letter-spacing:.24em; text-transform:uppercase; color:var(--wine); }
 .rv-capa2 .moldura{ flex:none; height:496px; margin:16px 26px; position:relative;
-  border:3px solid var(--gold); outline:1px solid rgba(206,178,106,.45); outline-offset:5px;
-  background:#1b0703; }
+  border:3px solid var(--ink); outline:1px solid var(--gold); outline-offset:5px;
+  background:#14100d; }
 .rv-capa2 .moldura img{ position:absolute; inset:0; width:100%; height:100%;
   object-fit:cover; object-position:center 25%; }
 .rv-capa2 .cred{ position:absolute; right:0; bottom:0; font-family:var(--mono); font-size:.5rem;
@@ -238,22 +234,22 @@ body.rv-duplo .rv-pg.on.pg-r .rv-folio b{ order:99; }
 .rv-capa2 .manchete{ padding:2px 26px 0; height:116px; overflow:hidden; }
 .rv-capa2 .manchete em{ display:block; font-style:normal; font-family:var(--mono);
   font-size:.56rem; font-weight:600; letter-spacing:.3em; text-transform:uppercase;
-  color:var(--gold); margin-bottom:6px; }
-.rv-capa2 .manchete h2{ font-family:var(--didone); font-weight:400; color:#fff;
+  color:var(--wine); margin-bottom:6px; }
+.rv-capa2 .manchete h2{ font-family:var(--didone); font-weight:400; color:var(--ink);
   font-size:2.1rem; line-height:1.04; margin:0; display:-webkit-box;
   -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
 .rv-capa2 .faixa{ display:flex; flex-wrap:wrap; align-content:center; gap:5px 12px;
-  margin-top:auto; height:66px; overflow:hidden; padding:6px 26px; border-top:1.5px solid rgba(206,178,106,.55);
-  color:var(--paper); font-family:var(--mono); font-size:.54rem; font-weight:600;
+  margin-top:auto; height:66px; overflow:hidden; padding:6px 26px; border-top:1.5px solid var(--line);
+  color:var(--ink); font-family:var(--mono); font-size:.54rem; font-weight:600;
   letter-spacing:.12em; text-transform:uppercase; }
-.rv-capa2 .faixa i{ font-style:normal; color:var(--gold); }
+.rv-capa2 .faixa i{ font-style:normal; color:var(--wine); }
 .rv-capa2 .rodape-capa{ display:flex; justify-content:space-between; align-items:center;
-  padding:10px 26px; border-top:1.5px solid var(--gold); background:rgba(27,7,3,.5);
-  color:var(--gold); font-family:var(--mono); font-size:.52rem; letter-spacing:.2em;
+  padding:10px 26px; border-top:2px solid var(--ink);
+  color:var(--wine); font-family:var(--mono); font-size:.52rem; letter-spacing:.2em;
   text-transform:uppercase; }
 .rv-barcode{ width:74px; height:26px; background:repeating-linear-gradient(90deg,
-  var(--gold) 0 2px, transparent 2px 4px, var(--gold) 4px 5px, transparent 5px 8px,
-  var(--gold) 8px 11px, transparent 11px 13px); }
+  var(--wine) 0 2px, transparent 2px 4px, var(--wine) 4px 5px, transparent 5px 8px,
+  var(--wine) 8px 11px, transparent 11px 13px); }
 
 
 /* ---------- SUMÁRIO ---------- */
@@ -503,6 +499,19 @@ html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
   letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
 .rv-back .rodape img{ height:34px; }
 
+/* as quinas de virar página: voltar na ponta esquerda, avançar na direita */
+.rv-quina{ position:absolute; bottom:10px; z-index:12; width:44px; height:44px;
+  border:2px solid var(--ink); background:var(--rv-papel); color:var(--wine); cursor:pointer;
+  font-size:.9rem; line-height:1; display:flex; align-items:center; justify-content:center;
+  box-shadow:2px 3px 0 rgba(27,20,15,.25); transition:transform .12s; }
+.rv-quina:hover{ transform:translateY(-2px); background:var(--wine); color:var(--gold); }
+.rv-quina:focus-visible{ outline:3px solid var(--gold); }
+.rv-quina.esq{ left:10px; }
+.rv-quina.dir{ right:10px; }
+.rv-quina[hidden]{ display:none; }
+html[data-theme="dark"] .rv-quina{ color:var(--gold); }
+@media print{ .rv-quina{ display:none !important; } }
+
 /* ---------- A CORTINA (janela do assinante) ---------- */
 .rv-cortina{ position:fixed; inset:0; z-index:210; display:flex; align-items:center;
   justify-content:center; padding:18px;
@@ -576,7 +585,7 @@ html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
   <div class="rv-palco" id="rv-palco">
   <div class="rv-book" id="rv-book">
     <div class="rv-lombo esq" id="rv-lombo-esq" aria-hidden="true"></div>
-<section class="rv-pg rv-capa2 on"><div class="nameplate"><img src="assets/logo/foyer-horizontal-gold.png" alt="FOYER"></div><div class="linha-ed"><span>A revista da semana</span><span>Nº 1 · 23 Jul 2026</span></div><div class="moldura"><img src="assets/uploads/wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.jpg" alt=""><span class="cred">Foto: Divulgação</span></div><div class="manchete"><em>Nesta edição</em><h2>A semana em que Oz desembarcou no Rio</h2></div><div class="faixa"><span>Estreia: a nossa revista semanal, fechada como uma edição impressa</span><i>✦</i><span>Wicked chega à Cidade das Artes com Myra Ruiz e Fabi Bang</span><i>✦</i><span>Shakespeare cai no arraial no Teatro Sabesp Frei Caneca</span><i>✦</i><span>Nelson Rodrigues em dose dupla nos palcos paulistanos</span></div><div class="rodape-capa"><span>foyer.digital · edição gratuita</span><span class="rv-barcode"></span></div></section>
+<section class="rv-pg rv-capa2 on"><div class="nameplate"><img src="assets/logo/foyer-horizontal-wine.png" alt="FOYER"></div><div class="linha-ed"><span>A revista da semana</span><span>Nº 1 · 23 Jul 2026</span></div><div class="moldura"><img src="assets/uploads/wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.jpg" alt=""><span class="cred">Foto: Divulgação</span></div><div class="manchete"><em>Nesta edição</em><h2>A semana em que Oz desembarcou no Rio</h2></div><div class="faixa"><span>Estreia: a nossa revista semanal, fechada como uma edição impressa</span><i>✦</i><span>Wicked chega à Cidade das Artes com Myra Ruiz e Fabi Bang</span><i>✦</i><span>Shakespeare cai no arraial no Teatro Sabesp Frei Caneca</span><i>✦</i><span>Nelson Rodrigues em dose dupla nos palcos paulistanos</span></div><div class="rodape-capa"><span>foyer.digital · edição gratuita</span><span class="rv-barcode"></span></div></section>
 <section class="rv-pg rv-sum cheia"><div class="cab"><span>O que vem por aí</span><h3>Nesta edição</h3><svg class="arte" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#ph-2"/></svg></div><ol><li><span class="pnum">3</span><span><span class="pt">Carta ao leitor: por que uma revista?</span><span class="ps">Editorial</span></span></li><li><span class="pnum">4</span><span><span class="pt">Com Myra Ruiz e Fabi Bang, &quot;Wicked&quot; faz temporada carioca na Cidade das…</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">8</span><span><span class="pt">Recortes: o que disseram na semana</span><span class="ps">Entre aspas</span></span></li><li><span class="pnum">9</span><span><span class="pt">“Festa no Arraial, O Musical” transforma Shakespeare em festa junina no…</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">14</span><span><span class="pt">Na tela: os programas da semana</span><span class="ps">YouTube do FOYER</span></span></li><li><span class="pnum">15</span><span><span class="pt">Luisa Thiré apresenta “Valsa Nº 6”, de Nelson Rodrigues, no Teatro Arena B3</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">19</span><span><span class="pt">&quot;Os Últimos 5 Anos” volta a São Paulo em edição comemorativa pelos 25 anos…</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">23</span><span><span class="pt">Rosamaria Murtinho vive Iris Apfel em “Uma Vida em Cores” no Teatro Vannucci</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">27</span><span><span class="pt">A semana em cartaz: São Paulo</span><span class="ps">Agenda</span></span></li><li><span class="pnum">28</span><span><span class="pt">A semana em cartaz: Rio de Janeiro</span><span class="ps">Agenda</span></span></li><li><span class="pnum">29</span><span><span class="pt">Entre mestres: a arte pela palavra</span><span class="ps">Exclusivo</span></span></li><li><span class="pnum">30</span><span><span class="pt">Expediente</span><span class="ps">Quem faz o FOYER</span></span></li><li><span class="pnum">31</span><span><span class="pt">Na próxima edição</span><span class="ps">Contracapa</span></span></li></ol><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>2</b><span>23 Jul 2026</span></div></section>
 <section data-sum="0" class="rv-pg rv-edi"><div class="rv-kicker"><span class="tagz">Editorial</span><span>Carta ao leitor</span></div><div class="miolo"><h3>Carta ao leitor: por que uma revista?</h3><div class="txt"><p>O FOYER nasceu da urgência: a notícia de hoje, a crítica da estreia, a agenda que não espera. Esta revista nasce do movimento contrário. Uma vez por semana, paramos, escolhemos e fechamos uma edição com começo, meio e fim, como as revistas que a gente colecionava.</p>
 <p>Aqui dentro vai o melhor dos nossos sete dias: a reportagem que merece segunda leitura, a citação que ficou ecoando, o serviço para o seu fim de semana. Sem rolagem infinita. Quando a última página chega, a edição termina, e isso é parte do prazer.</p>
@@ -714,6 +723,8 @@ html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
 <section data-sum="11" class="rv-pg rv-exp"><div class="rv-kicker"><span class="tagz">Expediente</span><span>Nº 1</span></div><div class="miolo"><img src="assets/logo/foyer-stacked-wine-sm.png" alt="FOYER" class="only-light"><img src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" class="only-dark"><h4>Quem faz</h4><ul><li><b>Pedro Amaral</b> · Direção e edição</li><li><b>Isabel Branquinha</b> · Direção e edição</li></ul><h4>Transparência</h4><p>Matérias assinadas como Redação Foyer podem contar com apuração assistida por inteligência artificial, sempre revisadas e aprovadas por um editor humano. Fotografias de divulgação, com crédito.</p><h4>Fale conosco</h4><p>foyer.digital · programafoyer@gmail.com · YouTube @Foyer.digital</p></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 1</span><b>30</b><span>23 Jul 2026</span></div></section>
 <section data-sum="12" class="rv-pg rv-back"><div class="miolo"><em class="rot">Fechamos esta edição. A cortina desce.</em><h3>Na próxima edição</h3><ul class="prox"><li>O melhor da semana do site, fechado com começo, meio e fim</li><li>A agenda de sexta a quinta, em São Paulo e no Rio</li><li>Os recortes: o que disseram as vozes do teatro e da cultura</li></ul><div class="desp"><div class="fr">“O sonho é que leva a gente para frente”</div><div class="au">Ariano Suassuna</div></div><div class="rodape"><img src="assets/logo/foyer-horizontal-gold.png" alt="FOYER"><span>foyer.digital · assinante lê na quinta</span><span class="rv-barcode"></span></div></div></section>
     <div class="rv-lombo dir" id="rv-lombo-dir" aria-hidden="true"></div>
+    <button type="button" class="rv-quina esq" id="rv-ant" aria-label="Página anterior">◀</button>
+    <button type="button" class="rv-quina dir" id="rv-prox" aria-label="Próxima página">▶</button>
   </div>
   </div>
   <div class="rv-cortina" id="rv-cortina" role="dialog" aria-modal="true" aria-label="Edição para assinantes" hidden>
@@ -734,9 +745,7 @@ html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
     </div>
   </div>
   <div class="rv-nav">
-    <button type="button" id="rv-ant">← Anterior</button>
     <span class="ct" id="rv-ct">1 / 31</span>
-    <button type="button" id="rv-prox">Próxima →</button>
     <button type="button" id="rv-sala" title="Só a revista, com a luz apagada">◐ Sala de leitura</button>
     <button type="button" onclick="window.print()" title="Imprimir ou salvar em PDF">⤓ PDF</button>
   </div>
@@ -915,6 +924,9 @@ html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
     if(d > 0 && !ult.classList.contains('rv-back')){ ult.appendChild(fita); }
     else if(fita.parentNode){ fita.parentNode.removeChild(fita); }
     try{ localStorage.setItem('rv-fita-' + NUM_ED, String(par[0])); }catch(e){}
+    var qe = document.getElementById('rv-ant'), qd = document.getElementById('rv-prox');
+    if(qe) qe.hidden = (d === 0);
+    if(qd) qd.hidden = (d === duplas.length - 1);
     escala();
   }
   /* ---- a janela do assinante: hoje é dia de assinante ler primeiro? ---- */
