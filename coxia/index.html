@@ -3769,6 +3769,15 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           '<div class="pub-linha"><em>Quem</em><span>' + esc(p.nome + (p.empresa ? ' · ' + p.empresa : '')) + '</span></div>' +
           '<div class="pub-linha"><em>Temporada</em><span>' + esc((p.inicio || 'a combinar') + ' · ' + (p.duracao || 'a combinar')) + '</span></div>' +
           '<div class="pub-linha"><em>Contato</em><span>' + esc(p.whatsapp + ' · ' + p.email + (p.instagram ? ' · ' + p.instagram : '')) + '</span></div>' +
+          (p.documento
+            ? '<div class="pub-linha"><em>Nota fiscal</em><span>' +
+              esc((p.tipo_pessoa === 'pj' ? (p.faturamento || '') + (p.fantasia ? ' (' + p.fantasia + ')' : '') + ' · CNPJ ' : (p.faturamento || '') + ' · CPF ') + p.documento +
+                  (p.insc_municipal ? ' · IM ' + p.insc_municipal : '')) + '<br>' +
+              esc((p.logradouro || '') + ', ' + (p.numero || '') + (p.complemento ? ' ' + p.complemento : '') + ' · ' +
+                  (p.bairro || '') + ' · ' + (p.cidade || '') + '/' + (p.uf || '') + ' · CEP ' + (p.cep || '')) +
+              (p.aceite_regras ? '<br><small style="opacity:.7">aceitou as Regras de Publicidade em ' + esc(new Date(p.aceite_em).toLocaleString('pt-BR')) + '</small>' : '') +
+              '</span></div>'
+            : '') +
           (p.mensagem ? '<div class="pub-linha"><em>O anúncio</em><span>' + esc(p.mensagem) + '</span></div>' : '') +
           (p.arte && /^data:image\//.test(p.arte)
             ? '<div class="pub-linha"><em>A arte</em><span><a href="' + p.arte + '" download="arte-' + esc(p.id).slice(0, 8) + '.jpg">' +

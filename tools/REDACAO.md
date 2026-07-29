@@ -588,9 +588,20 @@ Regras das seções novas:
   - **O pedido**: o passo a passo grava na tabela `foyer_anuncios`
     (Supabase; o site só insere, a leitura exige a chave da casa) e
     aparece na aba **Publicidade** da Coxia com botão de WhatsApp
-    pronto. VALORES nunca são impressos: fecham-se na conversa,
-    registrada por escrito. Status do pedido: novo → em conversa →
-    fechado/descartado.
+    pronto. Status do pedido: novo → em conversa → fechado/descartado.
+  - **Nota fiscal em TODA publicidade**: o passo "Quem assina" coleta
+    os dados do tomador (PF: nome completo + CPF; PJ: razão social +
+    CNPJ + inscrição municipal opcional; ambos com endereço completo
+    validado por CEP). CPF/CNPJ passam por validação de dígito no
+    navegador. O WhatsApp fecha só pagamento e confirmação.
+  - **Regras de Publicidade** (`regras-publicidade.html`): o banco de
+    regras da casa — o que não entra (ilegal, tabaco, armas, apostas
+    e ganho fácil, conteúdo sexual explícito, risco a menores, saúde
+    milagrosa, ódio, desinformação, propaganda eleitoral), regras de
+    álcool, direitos sobre a arte, padrões da arte (nunca distorcida,
+    nunca imitando o editorial) e o direito de recusa da direção. O
+    ACEITE é obrigatório no envio e fica registrado com data e hora
+    no pedido; a arte só vai ao ar depois da conferência da direção.
 - **Programa de sala** (`programa-sala`): o playbill da estreia da
   semana, com moldura dourada, "quem está em cena" e ficha técnica em
   colunas. Só nomes APURADOS na cobertura da casa; personagem sem

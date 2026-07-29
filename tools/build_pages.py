@@ -4217,6 +4217,11 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     .az-campo input, .az-campo textarea{ width:100%; box-sizing:border-box; border:2px solid var(--ink);
       background:var(--paper); color:var(--ink); font:inherit; padding:10px 12px; }
     .az-campo small{ display:block; font-size:.74rem; color:var(--ink-soft); margin-top:4px; }
+    .az-grid2{ display:grid; grid-template-columns:1fr 1fr; gap:0 12px; }
+    @media (max-width:600px){ .az-grid2{ grid-template-columns:1fr; } }
+    .az-aceite{ display:flex; gap:10px; align-items:flex-start; border:2px solid var(--wine);
+      padding:12px 14px; margin:14px 0 0; font-size:.85rem; line-height:1.5; }
+    .az-aceite input{ width:18px; height:18px; margin-top:2px; accent-color:#4E0F09; }
     .az-ops{ display:flex; flex-wrap:wrap; gap:10px; }
     .az-op{ border:2px solid var(--ink); background:transparent; cursor:pointer; padding:10px 14px;
       font:inherit; font-size:.88rem; font-weight:600; color:inherit; }
@@ -4478,22 +4483,54 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       </div>
 
       <div class="az-passo" data-p="4">
-        <h4>4. Quem assina</h4>
-        <div class="az-campo"><label>Seu nome *</label><input type="text" id="az-nome"></div>
-        <div class="az-campo"><label>Produção / empresa</label><input type="text" id="az-empresa" placeholder="ex.: nome do espetáculo, teatro ou produtora"></div>
-        <div class="az-campo"><label>E-mail *</label><input type="email" id="az-email"></div>
-        <div class="az-campo"><label>WhatsApp (com DDD) *</label><input type="tel" id="az-whats" placeholder="11 90000-0000">
-          <small>é por ele que fechamos valores e datas, sem vendedor no meio</small></div>
-        <div class="az-campo"><label>Instagram (opcional)</label><input type="text" id="az-insta" placeholder="@suacasa"></div>
-        <div class="az-campo"><label>Algo mais sobre o anúncio? (opcional)</label>
-          <textarea id="az-msg" rows="3" placeholder="ex.: a temporada vai até setembro; queremos focar nos fins de semana"></textarea></div>
+        <h4>4. Quem assina — e os dados da nota fiscal</h4>
+        <p class="sub">Toda publicidade do FOYER sai com nota fiscal. Diga em nome de quem ela deve ser emitida:</p>
+        <div class="az-ops" style="margin-bottom:14px">
+          <button class="az-op" type="button" id="az-pf" data-tp="pf">👤 Pessoa física (CPF)</button>
+          <button class="az-op" type="button" id="az-pj" data-tp="pj">🏛 Empresa / produtora (CNPJ)</button>
+        </div>
+        <div id="az-bloco-pf" style="display:none">
+          <div class="az-campo"><label>Nome completo (como vai na nota) *</label><input type="text" id="az-nome-pf"></div>
+          <div class="az-campo"><label>CPF *</label><input type="text" id="az-cpf" inputmode="numeric" placeholder="000.000.000-00"></div>
+        </div>
+        <div id="az-bloco-pj" style="display:none">
+          <div class="az-campo"><label>Razão social (como vai na nota) *</label><input type="text" id="az-razao"></div>
+          <div class="az-campo"><label>Nome fantasia (opcional)</label><input type="text" id="az-fantasia" placeholder="ex.: Teatro Exemplo"></div>
+          <div class="az-campo"><label>CNPJ *</label><input type="text" id="az-cnpj" inputmode="numeric" placeholder="00.000.000/0000-00"></div>
+          <div class="az-campo"><label>Inscrição municipal (se a empresa for contribuinte de ISS; opcional)</label><input type="text" id="az-im"></div>
+          <div class="az-campo"><label>Quem fala com a gente (nome do responsável) *</label><input type="text" id="az-resp"></div>
+        </div>
+        <div id="az-bloco-end" style="display:none">
+          <div class="az-campo"><label>CEP *</label><input type="text" id="az-cep" inputmode="numeric" placeholder="00000-000">
+            <small id="az-cep-st">digite o CEP e o endereço se preenche sozinho</small></div>
+          <div class="az-campo"><label>Endereço (rua/avenida) *</label><input type="text" id="az-logr"></div>
+          <div class="az-grid2">
+            <div class="az-campo"><label>Número *</label><input type="text" id="az-num"></div>
+            <div class="az-campo"><label>Complemento</label><input type="text" id="az-compl" placeholder="sala, andar…"></div>
+          </div>
+          <div class="az-campo"><label>Bairro *</label><input type="text" id="az-bairro"></div>
+          <div class="az-grid2">
+            <div class="az-campo"><label>Cidade *</label><input type="text" id="az-cidade"></div>
+            <div class="az-campo"><label>UF *</label><input type="text" id="az-uf" maxlength="2" placeholder="SP"></div>
+          </div>
+          <div class="az-campo"><label>E-mail (recebe a nota e o orçamento) *</label><input type="email" id="az-email"></div>
+          <div class="az-campo"><label>WhatsApp (com DDD) *</label><input type="tel" id="az-whats" placeholder="11 90000-0000">
+            <small>é por ele que confirmamos os dados e combinamos o pagamento</small></div>
+          <div class="az-campo"><label>Instagram (opcional)</label><input type="text" id="az-insta" placeholder="@suacasa"></div>
+          <div class="az-campo"><label>Algo mais sobre o anúncio? (opcional)</label>
+            <textarea id="az-msg" rows="3" placeholder="ex.: a temporada vai até setembro; queremos focar nos fins de semana"></textarea></div>
+        </div>
+        <input type="hidden" id="az-nome"><input type="hidden" id="az-empresa">
       </div>
 
       <div class="az-passo" data-p="5">
         <h4>5. Confira e suba ao palco</h4>
         <div class="az-rev" id="az-rev"></div>
-        <p style="font-size:.84rem;color:var(--ink-soft);margin:0">Ao enviar, o pedido (com a sua arte) cai direto na mesa da direção do FOYER.
-        Valores são fechados na conversa de WhatsApp, sem tabela pública e sem intermediário. Nada vai ao ar sem o seu ok final.</p>
+        <label class="az-aceite"><input type="checkbox" id="az-aceite">
+          <span>Li e estou de acordo com as <a href="regras-publicidade.html" target="_blank" rel="noopener"><b>Regras de Publicidade do FOYER</b></a>,
+          e declaro que a arte e a oferta anunciadas as cumprem e que tenho os direitos sobre as imagens enviadas. *</span></label>
+        <p style="font-size:.84rem;color:var(--ink-soft);margin:12px 0 0">Ao enviar, o pedido (com a sua arte e os dados da nota) cai direto na mesa da direção do FOYER.
+        Na conversa de WhatsApp confirmamos os dados, conferimos a arte e combinamos só o pagamento. Nada vai ao ar sem o seu ok final.</p>
       </div>
     </div>
     <p class="az-erro" id="az-erro"></p>
@@ -4671,8 +4708,12 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
         (st.formato === 'faixa' ? '“' + (v('az-faixa-tx') || 'a combinar') + '”' : 'a combinar na conversa')],
       ['Estreia', v('az-inicio') || 'a combinar'],
       ['Duração', st.duracao || 'a combinar'],
-      ['Quem', v('az-nome') + (v('az-empresa') ? ' · ' + v('az-empresa') : '')],
-      ['Contato', v('az-whats') + ' · ' + v('az-email') + (v('az-insta') ? ' · ' + v('az-insta') : '')]
+      ['Nota fiscal', st.tipoPessoa === 'pj'
+        ? v('az-razao') + ' · CNPJ ' + v('az-cnpj') + (v('az-im') ? ' · IM ' + v('az-im') : '')
+        : v('az-nome-pf') + ' · CPF ' + v('az-cpf')],
+      ['Endereço', v('az-logr') + ', ' + v('az-num') + (v('az-compl') ? ' ' + v('az-compl') : '') + ' · ' +
+        v('az-bairro') + ' · ' + v('az-cidade') + '/' + v('az-uf').toUpperCase() + ' · CEP ' + v('az-cep')],
+      ['Contato', v('az-nome') + ' · ' + v('az-whats') + ' · ' + v('az-email') + (v('az-insta') ? ' · ' + v('az-insta') : '')]
     ];
     if(v('az-msg')) linhas.push(['Observações', v('az-msg')]);
     document.getElementById('az-rev').innerHTML = linhas.map(function(l){
@@ -4683,16 +4724,87 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     var e = document.getElementById('az-erro');
     e.textContent = msg; e.style.display = 'block';
   }
+  function validaCPF(c){
+    c = c.replace(/\D/g, '');
+    if(c.length !== 11 || /^(\d)\1+$/.test(c)) return false;
+    for(var t = 9; t < 11; t++){
+      var d = 0;
+      for(var i = 0; i < t; i++) d += Number(c[i]) * ((t + 1) - i);
+      d = ((10 * d) % 11) % 10;
+      if(d !== Number(c[t])) return false;
+    }
+    return true;
+  }
+  function validaCNPJ(c){
+    c = c.replace(/\D/g, '');
+    if(c.length !== 14 || /^(\d)\1+$/.test(c)) return false;
+    var p = [5,4,3,2,9,8,7,6,5,4,3,2];
+    function dv(pes){
+      var soma = 0;
+      for(var i = 0; i < pes.length; i++) soma += Number(c[i]) * pes[i];
+      var r = soma % 11;
+      return r < 2 ? 0 : 11 - r;
+    }
+    if(dv(p) !== Number(c[12])) return false;
+    return dv([6].concat(p)) === Number(c[13]);
+  }
+  function mudaTP(tp){
+    st.tipoPessoa = tp;
+    document.getElementById('az-pf').classList.toggle('on', tp === 'pf');
+    document.getElementById('az-pj').classList.toggle('on', tp === 'pj');
+    document.getElementById('az-bloco-pf').style.display = tp === 'pf' ? 'block' : 'none';
+    document.getElementById('az-bloco-pj').style.display = tp === 'pj' ? 'block' : 'none';
+    document.getElementById('az-bloco-end').style.display = tp ? 'block' : 'none';
+    sacola(); salvaRasc();
+  }
+  document.getElementById('az-pf').addEventListener('click', function(){ mudaTP('pf'); });
+  document.getElementById('az-pj').addEventListener('click', function(){ mudaTP('pj'); });
+  document.getElementById('az-cep').addEventListener('blur', function(){
+    var cep = v('az-cep').replace(/\D/g, '');
+    var stc = document.getElementById('az-cep-st');
+    if(cep.length !== 8){ return; }
+    stc.textContent = 'buscando o endereço…';
+    fetch('https://viacep.com.br/ws/' + cep + '/json/')
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(d.erro){ stc.textContent = 'CEP não encontrado; preencha à mão'; return; }
+        if(d.logradouro) document.getElementById('az-logr').value = d.logradouro;
+        if(d.bairro) document.getElementById('az-bairro').value = d.bairro;
+        if(d.localidade) document.getElementById('az-cidade').value = d.localidade;
+        if(d.uf) document.getElementById('az-uf').value = d.uf;
+        stc.textContent = 'endereço preenchido ✓ (confira o número)';
+        sacola(); salvaRasc();
+      })
+      .catch(function(){ stc.textContent = 'sem conexão com a busca de CEP; preencha à mão'; });
+  });
   function valida(){
     if(passo === 1 && !st.formato){ erro('Escolha um formato para seguir.'); return false; }
     if(passo === 4){
-      if(!v('az-nome')){ erro('Diga o seu nome.'); return false; }
-      if(!/.+@.+\\..+/.test(v('az-email'))){ erro('Confira o e-mail.'); return false; }
-      if(v('az-whats').replace(/\\D/g, '').length < 10){ erro('Confira o WhatsApp (com DDD).'); return false; }
+      if(!st.tipoPessoa){ erro('Diga se a nota sai em pessoa física (CPF) ou empresa (CNPJ).'); return false; }
+      if(st.tipoPessoa === 'pf'){
+        if(!v('az-nome-pf')){ erro('Diga o nome completo, como vai na nota.'); return false; }
+        if(!validaCPF(v('az-cpf'))){ erro('Esse CPF não confere; revise os números.'); return false; }
+      } else {
+        if(!v('az-razao')){ erro('Diga a razão social, como vai na nota.'); return false; }
+        if(!validaCNPJ(v('az-cnpj'))){ erro('Esse CNPJ não confere; revise os números.'); return false; }
+        if(!v('az-resp')){ erro('Diga quem fala com a gente (o responsável).'); return false; }
+      }
+      if(v('az-cep').replace(/\D/g, '').length !== 8){ erro('Confira o CEP.'); return false; }
+      if(!v('az-logr') || !v('az-num') || !v('az-bairro') || !v('az-cidade') || v('az-uf').length !== 2){
+        erro('Complete o endereço da nota (rua, número, bairro, cidade e UF).'); return false;
+      }
+      if(!/.+@.+\..+/.test(v('az-email'))){ erro('Confira o e-mail.'); return false; }
+      if(v('az-whats').replace(/\D/g, '').length < 10){ erro('Confira o WhatsApp (com DDD).'); return false; }
+      document.getElementById('az-nome').value = st.tipoPessoa === 'pf' ? v('az-nome-pf') : v('az-resp');
+      document.getElementById('az-empresa').value = st.tipoPessoa === 'pj' ? (v('az-fantasia') || v('az-razao')) : '';
+    }
+    if(passo === 5 && !document.getElementById('az-aceite').checked){
+      erro('Falta aceitar as Regras de Publicidade para enviar.'); return false;
     }
     return true;
   }
   function envia(){
+    if(!valida()) return;
     var bt = document.getElementById('az-vai');
     bt.disabled = true; bt.textContent = 'Enviando…';
     var f = fmt();
@@ -4707,7 +4819,14 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
         inicio: v('az-inicio'), duracao: st.duracao,
         nome: v('az-nome'), empresa: v('az-empresa'), email: v('az-email'),
         whatsapp: v('az-whats').replace(/\\D/g, ''), instagram: v('az-insta'),
-        mensagem: msg, arte: st.arte || null, protocolo: proto
+        mensagem: msg, arte: st.arte || null, protocolo: proto,
+        tipo_pessoa: st.tipoPessoa,
+        documento: (st.tipoPessoa === 'pf' ? v('az-cpf') : v('az-cnpj')).replace(/\D/g, ''),
+        faturamento: st.tipoPessoa === 'pf' ? v('az-nome-pf') : v('az-razao'),
+        fantasia: v('az-fantasia'), insc_municipal: v('az-im'),
+        cep: v('az-cep').replace(/\D/g, ''), logradouro: v('az-logr'), numero: v('az-num'),
+        complemento: v('az-compl'), bairro: v('az-bairro'), cidade: v('az-cidade'),
+        uf: v('az-uf').toUpperCase(), aceite_regras: true, aceite_em: new Date().toISOString()
       })
     }).then(function(r){
       if(r.status !== 201) throw 0;
@@ -4786,7 +4905,9 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
   function salvaRasc(){
     try{
       localStorage.setItem(RK, JSON.stringify({
-        st: st, campos: ['az-faixa-tx','az-inicio','az-nome','az-empresa','az-email','az-whats','az-insta','az-msg']
+        st: st, campos: ['az-faixa-tx','az-inicio','az-nome','az-empresa','az-email','az-whats','az-insta','az-msg',
+          'az-nome-pf','az-cpf','az-razao','az-fantasia','az-cnpj','az-im','az-resp',
+          'az-cep','az-logr','az-num','az-compl','az-bairro','az-cidade','az-uf']
           .reduce(function(a, id){ a[id] = v(id); return a; }, {})
       }));
     }catch(e){}
@@ -4809,6 +4930,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
         b.classList.toggle('on', b.dataset.d === st.duracao);
       });
       if(v('az-faixa-tx')) document.getElementById('pv-faixa-tx').textContent = v('az-faixa-tx');
+      if(st.tipoPessoa) mudaTP(st.tipoPessoa);
       aplicaArte();
     }catch(e){}
   })();
@@ -4834,6 +4956,76 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
 </script>
 '''
 page('anuncie.html', 'Anuncie no FOYER', 'Anuncie no site e na revista do FOYER: veja a aplicação da sua arte antes de fechar e contrate em 5 passos, sem vendedor.', 'anuncie.html', anuncie_body)
+
+regras_pub_body = band('Comercial', 'Regras de Publicidade', 'O que pode e o que não pode anunciar no FOYER — as regras que protegem o leitor, o anunciante e a casa') + '''
+<main id="conteudo" class="wrap">
+  <div class="legal">
+    <div class="legal-body">
+      <p>O FOYER é um veículo independente de jornalismo cultural. A venda de espaço publicitário sustenta a redação,
+      e exatamente por isso ela segue regras claras: o leitor precisa confiar no que lê, e o anunciante precisa saber
+      onde a marca dele está entrando. Estas regras valem para todos os formatos, no site e na revista.</p>
+
+      <h2>1. O princípio: anúncio é anúncio</h2>
+      <p>Toda publicidade sai com o rótulo <b>Publicidade</b> (ou <b>Divulgação</b>, nas cortesias da casa) e nunca se
+      disfarça de conteúdo editorial. Anúncio não vira matéria, não compra crítica e não interfere em pauta. A curadoria
+      editorial não é negociável.</p>
+
+      <h2>2. O que NÃO anunciamos</h2>
+      <p>Recusamos, sem exceção, anúncios de:</p>
+      <ul>
+        <li><b>Produtos e serviços ilegais</b>, ou que induzam a atividade ilegal;</li>
+        <li><b>Tabaco, cigarros eletrônicos e derivados</b> (vedados pela Lei 9.294/1996);</li>
+        <li><b>Armas de fogo, munições e explosivos</b>;</li>
+        <li><b>Conteúdo sexualmente explícito</b> ou de exploração sexual; nudez só quando integrar obra artística
+        anunciada e sem exposição gratuita;</li>
+        <li><b>Qualquer conteúdo que envolva erotização, exploração ou risco a crianças e adolescentes</b> — tolerância
+        zero, nos termos do ECA;</li>
+        <li><b>Apostas, jogos de azar e promessas de ganho fácil</b>, incluindo pirâmides e esquemas de investimento
+        com retorno garantido;</li>
+        <li><b>Produtos de saúde milagrosos</b>, tratamentos sem registro sanitário ou promessas de cura;</li>
+        <li><b>Discurso de ódio e discriminação</b> de qualquer natureza (raça, gênero, orientação, religião, origem,
+        deficiência);</li>
+        <li><b>Desinformação</b> e conteúdo que se passe por notícia;</li>
+        <li><b>Propaganda político-eleitoral</b>: a casa não veicula campanha, de nenhum lado.</li>
+      </ul>
+
+      <h2>3. Bebidas alcoólicas</h2>
+      <p>Só dentro das regras legais e do CONAR: nunca dirigidas a menores, nunca associando álcool a desempenho ou
+      sucesso, sempre com a cláusula de responsabilidade. Bares e casas de espetáculo podem anunciar a programação
+      normalmente.</p>
+
+      <h2>4. Direitos sobre a arte</h2>
+      <p>O anunciante declara, no envio do pedido, que <b>tem os direitos sobre todas as imagens, marcas, textos e
+      retratos</b> usados na arte, incluindo autorização de uso de imagem das pessoas retratadas (e dos responsáveis,
+      no caso de menores). O FOYER não veicula arte com direitos de terceiros sem licença, e a responsabilidade legal
+      pela arte é do anunciante.</p>
+
+      <h2>5. A oferta anunciada</h2>
+      <p>Preço, desconto e condições anunciados devem ser verdadeiros e cumpridos, nos termos do Código de Defesa do
+      Consumidor. Cupom do bilhete do leitor só entra com código combinado por escrito.</p>
+
+      <h2>6. Padrões da arte</h2>
+      <ul>
+        <li>Imagem nítida, na proporção do formato contratado — <b>nunca esticada ou distorcida</b> (regra da casa);</li>
+        <li>Texto legível; sem imitação do desenho editorial do FOYER (o anúncio não pode parecer matéria ou capa);</li>
+        <li>Sem urgência falsa ("últimas horas!" sem lastro), sem caça-clique enganoso;</li>
+        <li>A direção pode pedir ajustes de qualidade antes de veicular.</li>
+      </ul>
+
+      <h2>7. O direito de recusa</h2>
+      <p>A direção do FOYER pode recusar ou retirar qualquer anúncio que viole estas regras ou que, a seu critério
+      editorial, não combine com a casa — com devolução integral de valores ainda não veiculados. Publicidade é
+      bem-vinda; o leitor vem primeiro.</p>
+
+      <h2>8. Quem responde</h2>
+      <p>Dúvidas e casos não previstos: <a href="mailto:programafoyer@gmail.com">programafoyer@gmail.com</a>.
+      Estas regras integram a contratação feita em <a href="anuncie.html">Anuncie no FOYER</a>, e o aceite fica
+      registrado com data e hora no pedido.</p>
+    </div>
+  </div>
+</main>
+'''
+page('regras-publicidade.html', 'Regras de Publicidade — FOYER', 'O que pode e o que não pode anunciar no FOYER: as regras de publicidade da casa.', 'regras-publicidade.html', regras_pub_body)
 
 # o endereço antigo segue vivo: midia-kit.html leva ao Anuncie no FOYER
 with open(os.path.join(ROOT, 'midia-kit.html'), 'w') as _f:
