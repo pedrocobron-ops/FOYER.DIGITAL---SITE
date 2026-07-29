@@ -1869,11 +1869,16 @@ html[data-theme="dark"] .rv-mat .cont-tit{ color:var(--gold); }
 .rv-tela .canal-cta a:hover{ background:var(--gold); color:var(--wine); }
 .rv-tela .rv-folio{ background:var(--wine); color:var(--gold); border-top-color:var(--gold); }
 .rv-tela .rv-folio b{ color:var(--gold); }
-/* semana curta: até 3 episódios ganham cartão de coluna inteira */
-.rv-tela .grade.poucos{ grid-template-columns:1fr; align-content:start; gap:14px; }
-.rv-tela .grade.poucos .ep img{ aspect-ratio:auto; height:158px; }
-.rv-tela .grade.poucos .ep .tt{ font-size:.85rem; padding:2px 12px 10px; }
-.rv-tela .grade.poucos .ep .pr{ font-size:.56rem; }
+/* semana curta: até 3 episódios ganham cartão horizontal com a capa INTEIRA */
+.rv-tela .ep .mt{ display:contents; }
+.rv-tela .grade.poucos{ grid-template-columns:1fr; align-content:center; gap:16px; }
+.rv-tela .grade.poucos .ep{ display:flex; align-items:stretch; }
+.rv-tela .grade.poucos .ep img{ width:300px; height:auto; aspect-ratio:16/9; object-fit:cover;
+  flex-shrink:0; border-right:2px solid var(--gold); }
+.rv-tela .grade.poucos .ep .mt{ display:flex; flex-direction:column; justify-content:center;
+  gap:7px; padding:12px 18px; }
+.rv-tela .grade.poucos .ep .pr{ font-size:.56rem; padding:0; }
+.rv-tela .grade.poucos .ep .tt{ font-size:.92rem; line-height:1.35; padding:0; }
 /* thumb que não carrega mostra o pano da casa, não um ícone quebrado */
 .rv-tela .ep img{ background:linear-gradient(135deg, #3a0b07 0 40%, #5a1610 40% 60%, #3a0b07 60%);
   color:transparent; }
@@ -2445,8 +2450,8 @@ def _rv_pagina(pg, ed, num):
             f'<a class="ep" href="{_rvesc(v["url"])}" target="_blank" rel="noopener">'
             f'<img src="{_rvesc(v["thumb"])}" alt="" loading="lazy" '
             f'onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/{_rvesc(v.get("id",""))}/mqdefault.jpg\'">'
-            f'<span class="pr">{_rvesc(n.split(" — ")[0])}</span>'
-            f'<span class="tt">{_rvesc(v["titulo"][:90])}</span></a>'
+            f'<span class="mt"><span class="pr">{_rvesc(n.split(" — ")[0])}</span>'
+            f'<span class="tt">{_rvesc(v["titulo"][:90])}</span></span></a>'
             for q, n, v in _semana)
         _gr = 'grade poucos' if len(_semana) <= 3 else 'grade'
         return (f'<section class="rv-pg rv-tela"><div class="cab"><em>O canal, esta semana</em>'
