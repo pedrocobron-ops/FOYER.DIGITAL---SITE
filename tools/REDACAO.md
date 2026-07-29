@@ -589,9 +589,12 @@ Regras das seções novas:
 
 As 6 artes brutalistas da identidade (vinho/dourado/papel) foram
 aprovadas pelo Pedro em 29/07/2026 e estão salvas em `assets/artes/`:
-cada uma com o vetor mestre (`.svg`, 600x400) e 3 tamanhos em PNG
+cada uma com o vetor mestre (`.svg`, 600x400) e 5 tamanhos em PNG
 (`-paisagem` 1200x675 para cartões e site, `-faixa` 1200x400 para
-banners e e-mail, `-vertical` 1080x1350 para redes).
+banners e e-mail, `-vertical` 1080x1350 para feed de redes,
+`-quadrado` 1080x1080 para post, `-story` 1080x1920 para stories).
+Precisou de um tamanho novo? Exporta-se do vetor mestre, sem
+redesenhar nada.
 
 | Nº | Arquivo | Conceito |
 |---|---|---|
