@@ -4360,6 +4360,44 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     .az-zap{ display:inline-block; border:2px solid #2c5a2e; background:#2c5a2e; color:#fff;
       font-family:var(--mono); font-weight:700; font-size:.62rem; letter-spacing:.1em; text-transform:uppercase;
       padding:12px 18px; text-decoration:none; }
+    .az-fim{ position:relative; overflow:hidden; }
+    .az-aplauso{ position:absolute; inset:0; pointer-events:none; }
+    .az-aplauso i{ position:absolute; bottom:-24px; font-style:normal; color:var(--gold); opacity:0;
+      font-size:1.1rem; animation:azSobeEstrela 2.8s ease-out forwards; }
+    .az-aplauso i:nth-child(1){ left:8%; animation-delay:.1s; }
+    .az-aplauso i:nth-child(2){ left:22%; font-size:.8rem; animation-delay:.5s; }
+    .az-aplauso i:nth-child(3){ left:37%; animation-delay:.9s; }
+    .az-aplauso i:nth-child(4){ left:52%; font-size:1.4rem; animation-delay:.25s; }
+    .az-aplauso i:nth-child(5){ left:66%; animation-delay:.7s; }
+    .az-aplauso i:nth-child(6){ left:80%; font-size:.8rem; animation-delay:1.1s; }
+    .az-aplauso i:nth-child(7){ left:92%; animation-delay:.4s; }
+    @keyframes azSobeEstrela{ 0%{ opacity:0; transform:translateY(0) rotate(0); }
+      15%{ opacity:1; } 100%{ opacity:0; transform:translateY(-360px) rotate(200deg); } }
+    .az-fim-rot{ display:block; font-style:normal; font-family:var(--mono); font-size:.6rem; font-weight:700;
+      letter-spacing:.3em; text-transform:uppercase; color:var(--wine); margin-bottom:8px; }
+    .az-fim h3{ font-size:2.3rem; }
+    .az-fim-sub{ color:var(--ink-soft); margin:0 0 26px; }
+    .az-ingresso{ display:flex; align-items:stretch; max-width:520px; margin:6px auto 20px; text-align:left;
+      border:2px dashed var(--wine); background:rgba(206,178,106,.1); position:relative; }
+    .az-ingresso::before{ content:'✂'; position:absolute; top:-13px; left:16px; color:var(--wine);
+      background:var(--paper); padding:0 5px; font-size:.85rem; }
+    .az-ingresso .ai-e{ flex:1; padding:14px 16px; }
+    .az-ingresso .ai-e em{ display:block; font-style:normal; font-family:var(--mono); font-size:.5rem;
+      font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--wine); }
+    .az-ingresso .ai-e b{ font-family:var(--didone); font-weight:400; font-size:1.3rem; display:block; margin:3px 0 2px; }
+    .az-ingresso .ai-e span{ display:block; font-size:.8rem; }
+    .az-ingresso .ai-e i{ display:block; font-style:normal; font-family:var(--mono); font-size:.62rem;
+      color:var(--ink-soft); margin-top:4px; }
+    .az-ingresso .ai-d{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
+      padding:12px 16px; border-left:2px dashed var(--wine); min-width:120px; text-align:center; }
+    .az-ingresso .ai-d em{ font-style:normal; font-family:var(--mono); font-size:.48rem; letter-spacing:.24em;
+      text-transform:uppercase; color:var(--ink-soft); }
+    .az-ingresso .ai-d strong{ font-family:var(--mono); font-size:.95rem; letter-spacing:.08em; }
+    .az-ingresso .ai-d span{ font-family:var(--mono); font-size:.46rem; letter-spacing:.1em;
+      text-transform:uppercase; color:var(--ink-soft); }
+    .az-fim-casa{ margin:16px 0 0; font-size:.84rem; color:var(--ink-soft); }
+    .az-fim-casa a{ color:var(--wine); font-weight:700; }
+    @media (prefers-reduced-motion:reduce){ .az-aplauso i{ animation:none; opacity:0; } }
     @media (prefers-reduced-motion:reduce){ .az-cort.e,.az-cort.d{ animation:none; transform:scaleX(.04); } }
   </style>
 
@@ -4386,7 +4424,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
 
       <div class="az-passo on" data-p="1">
         <h4>1. Onde a sua marca entra?</h4>
-        <p class="sub">Os desenhos mostram cada formato em ação, sozinhos. Toque num deles para escolher e ver os detalhes.</p>
+        <p class="sub">Bem-vindo ao camarote comercial da casa. Os desenhos mostram cada formato em ação; toque num deles que a gente te conta o resto.</p>
 
         <div class="az-canal"><b>No site</b><span>todos os dias · para todo visitante do foyer.digital</span></div>
         <div class="az-fgrid tres" id="az-formatos">
@@ -4430,7 +4468,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       </div>
 
       <div class="az-passo" data-p="2">
-        <h4>2. A arte — veja como fica</h4>
+        <h4>2. A arte — deixa a gente te mostrar como fica</h4>
         <p class="sub" id="az-arte-sub">Suba a sua arte e ela entra na aplicação real, na hora.</p>
         <div class="az-prova">
           <div class="az-envio" id="az-envio">
@@ -4470,7 +4508,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       </div>
 
       <div class="az-passo" data-p="3">
-        <h4>3. A temporada</h4>
+        <h4>3. A temporada — e o orçamento na hora, sem surpresa</h4>
         <div class="az-campo"><label>Quando você quer estrear?</label>
           <input type="text" id="az-inicio" placeholder="ex.: semana que vem · edição de 6 de agosto · o quanto antes"></div>
         <div class="az-campo"><label>Por quanto tempo?</label>
@@ -4482,7 +4520,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
 
       <div class="az-passo" data-p="4">
         <h4>4. Quem assina — e os dados da nota fiscal</h4>
-        <p class="sub">Toda publicidade do FOYER sai com nota fiscal. Diga em nome de quem ela deve ser emitida:</p>
+        <p class="sub">A parte séria, rapidinho: toda publicidade do FOYER sai com nota fiscal. Diga em nome de quem ela deve ser emitida:</p>
         <div class="az-ops" style="margin-bottom:14px">
           <button class="az-op" type="button" id="az-pf" data-tp="pf">👤 Pessoa física (CPF)</button>
           <button class="az-op" type="button" id="az-pj" data-tp="pj">🏛 Empresa / produtora (CNPJ)</button>
@@ -4522,7 +4560,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       </div>
 
       <div class="az-passo" data-p="5">
-        <h4>5. Confira e suba ao palco</h4>
+        <h4>5. Última olhada no espelho — e o palco é seu</h4>
         <div class="az-rev" id="az-rev"></div>
         <label class="az-aceite"><input type="checkbox" id="az-aceite">
           <span>Li e estou de acordo com as <a href="regras-publicidade.html" target="_blank" rel="noopener"><b>Regras de Publicidade do FOYER</b></a>,
@@ -4538,15 +4576,26 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     </div>
     <p class="az-garante">Publicidade sempre rotulada · você aprova a versão final antes de ir ao ar · cancelamento simples antes da publicação</p>
     <div class="az-fim" id="az-fim">
-      <span class="carimbo">Pedido na mesa</span>
-      <h3>Recebido! Agora é com a gente.</h3>
-      <p class="az-proto">O seu protocolo: <b id="az-proto-n"></b></p>
-      <div class="az-linha-tempo">
-        <div><b>Agora</b><span>o pedido, a arte e o orçamento estão na mesa da direção</span></div>
-        <div><b>Em até 1 dia útil</b><span>a direção te chama no WhatsApp para confirmar os dados e combinar o pagamento</span></div>
-        <div><b>Antes de ir ao ar</b><span>a arte passa pela conferência das Regras e você aprova a versão final</span></div>
+      <div class="az-aplauso" aria-hidden="true"><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i></div>
+      <em class="az-fim-rot">O pano sobe</em>
+      <h3>Bravo! O palco é seu.</h3>
+      <p class="az-fim-sub">A sua marca acaba de entrar para a temporada do FOYER. A partir de agora, você é da casa.</p>
+      <div class="az-ingresso">
+        <div class="ai-e">
+          <em>FOYER · temporada de anúncios</em>
+          <b>Anunciante da casa</b>
+          <span id="az-fim-formato"></span>
+          <i id="az-fim-orca"></i>
+        </div>
+        <div class="ai-d"><em>protocolo</em><strong id="az-proto-n"></strong><span>guarde este número</span></div>
       </div>
-      <a class="az-zap" id="az-zap" target="_blank" rel="noopener" href="#">Quer agilizar? Fale agora com a direção no WhatsApp →</a>
+      <div class="az-linha-tempo">
+        <div><b>Agora</b><span>o seu pedido, a arte e o orçamento já estão na mesa da direção</span></div>
+        <div><b>Em até 1 dia útil</b><span>a direção te chama no WhatsApp, pelo nome, para confirmar tudo e combinar o pagamento</span></div>
+        <div><b>Antes de ir ao ar</b><span>você aprova a versão final; a estreia é sua decisão</span></div>
+      </div>
+      <a class="az-zap" id="az-zap" target="_blank" rel="noopener" href="#">Quer adiantar? A direção já está no WhatsApp →</a>
+      <p class="az-fim-casa">Enquanto isso, a casa é sua: <a href="revista.html">folheie a edição da semana</a> e veja a companhia que a sua marca vai ter.</p>
     </div>
   </div>
   <p class="az-nota">Curadoria editorial não é negociável: anúncio é sempre rotulado, nunca vira matéria. Máximo de 2 páginas pagas por edição da revista.</p>
@@ -4607,6 +4656,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
   var st = { formato:'', cupom:false, duracao:'', arte:'' };
   var passo = 1, TOTAL = 5;
   var ROT = { 1:'o formato', 2:'a arte', 3:'a temporada', 4:'quem assina', 5:'a revisão' };
+  var VAI = { 1:'Quero este palco →', 2:'Ficou bonito, seguir →', 3:'Fechar a temporada →', 4:'Dados prontos →', 5:'Subir ao palco ✦' };
 
   function fmt(){ return FORMATOS.filter(function(x){ return x.id === st.formato; })[0]; }
   document.getElementById('az-duracao').innerHTML = DURACOES.map(function(d){
@@ -4727,7 +4777,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       p.classList.toggle('on', Number(p.dataset.p) === passo);
     });
     document.getElementById('az-volta').style.visibility = passo > 1 ? 'visible' : 'hidden';
-    document.getElementById('az-vai').textContent = passo === TOTAL ? 'Enviar o pedido ✦' : 'Avançar →';
+    document.getElementById('az-vai').textContent = VAI[passo];
     document.getElementById('az-erro').style.display = 'none';
     if(passo === 2) pintaProva();
     if(passo === TOTAL) montaRevisao();
@@ -4869,6 +4919,12 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       if(r.status !== 201) throw 0;
       document.querySelectorAll('.az-passo, .az-nav, .az-topo, .az-sacola, .az-garante').forEach(function(x){ x.style.display = 'none'; });
       document.getElementById('az-proto-n').textContent = proto;
+      document.getElementById('az-fim-formato').textContent = f.nome + ' · ' + f.onde +
+        (st.duracao ? ' · ' + st.duracao : '');
+      var oF = orcamento();
+      document.getElementById('az-fim-orca').textContent = oF
+        ? 'orçamento ' + moeda(oF.total) + ' · nota fiscal em nome de ' + (st.tipoPessoa === 'pj' ? v('az-razao') : v('az-nome-pf'))
+        : 'orçamento combinado na conversa';
       var zap = document.getElementById('az-zap');
       var oZ = orcamento();
       zap.href = 'https://wa.me/5511995450954?text=' + encodeURIComponent(
@@ -4877,7 +4933,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       try{ localStorage.removeItem(RK); }catch(e2){}
       document.getElementById('az-fim').classList.add('on');
     }).catch(function(){
-      bt.disabled = false; bt.textContent = 'Enviar o pedido ✦';
+      bt.disabled = false; bt.textContent = VAI[TOTAL];
       erro('Não foi agora. Tente de novo em instantes ou escreva para programafoyer@gmail.com.');
     });
   }
