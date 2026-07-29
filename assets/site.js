@@ -233,7 +233,7 @@
       sub:'Em qual caixa de entrada ela te encontra?', tipo:'email', place:'seu@email.com',
       nota:'De graça, sem spam, e seus dados ficam só com o FOYER.' },
     { id:'cidade', sinal:'🔔🔔 segundo sinal', titulo:'De onde você aplaude?',
-      sub:'A agenda certa depende disso.', tipo:'um',
+      sub:'A agenda certa depende disso.', tipo:'um', outra:true,
       ops:['São Paulo','Rio de Janeiro','Belo Horizonte','Brasília','Curitiba',
            'Porto Alegre','Recife','Salvador','Outra cidade'] },
     { id:'interesses', sinal:'🔔🔔 segundo sinal', titulo:'O que te faz sair de casa?',
@@ -295,6 +295,9 @@
     if(inp){
       setTimeout(function(){ inp.focus(); }, 60);
       inp.addEventListener('keydown', function(e){ if(e.key === 'Enter') avanca(); });
+    } else {
+      var prim = c.querySelector('.cv-op');
+      if(prim) setTimeout(function(){ prim.focus(); }, 60);
     }
     c.querySelectorAll('.cv-op').forEach(function(b){
       b.addEventListener('click', function(){
@@ -302,6 +305,21 @@
         if(p.tipo === 'um'){
           R[p.id] = o;
           c.querySelectorAll('.cv-op').forEach(function(x){ x.classList.toggle('on', x === b); });
+          if(p.outra && o === 'Outra cidade'){       // conta pra gente qual
+            var caixa = c.querySelector('.cv-outra');
+            if(!caixa){
+              caixa = document.createElement('input');
+              caixa.className = 'cv-input cv-outra';
+              caixa.placeholder = 'qual? conta pra gente';
+              caixa.setAttribute('aria-label', 'Qual cidade?');
+              c.querySelector('.cv-ops').after(caixa);
+              caixa.addEventListener('keydown', function(e){ if(e.key === 'Enter') avanca(); });
+            }
+            caixa.focus();
+            return;
+          }
+          var caixaFora = c.querySelector('.cv-outra');
+          if(caixaFora) caixaFora.remove();
           setTimeout(avanca, 220);          // escolheu, a conversa segue sozinha
         } else {
           var i = R[p.id].indexOf(o);
@@ -328,6 +346,10 @@
       R[p.id] = v;
     }
     if(p.tipo === 'um' && !R[p.id]){ return; }   // precisa escolher uma
+    if(p.outra && R[p.id] === 'Outra cidade'){
+      var q = (c.querySelector('.cv-outra') || {}).value || '';
+      if(q.trim()) R[p.id] = q.trim();
+    }
     if(passo < PASSOS.length - 1){ passo++; pinta(); return; }
     envia();
   }
@@ -343,15 +365,31 @@
                              frequencia: R.frequencia.toLowerCase(),
                              interesses: R.interesses, conteudos: R.conteudos })
     }).then(function(r){
-      if(r.ok || r.status === 409){
-        var ja = r.status === 409;
-        c.innerHTML = '<span class="cv-sinal">🎟</span>' +
-          '<h3 class="cv-t">' + (ja ? 'Você já tem cadeira marcada.' : ('Cadeira reservada' + (R.nome ? ', ' + R.nome.split(' ')[0] : '') + '.')) + '</h3>' +
-          '<p class="cv-s">' + (ja ? 'Esse e-mail já está na lista. A revista continua chegando toda sexta, às 7h.'
-                                   : 'A próxima revista chega sexta, às 7h. Enquanto a cortina não abre, o site está aí.') + '</p>' +
-          '<div class="cv-pe"><span></span><span></span><button type="button" class="cv-vai">Voltar ao site</button></div>';
-        c.querySelector('.cv-vai').addEventListener('click', fecha);
-      } else { throw 0; }
+      if(r.status === 409){
+        // já era da casa: as respostas novas atualizam o retrato
+        return fetch(M.url + '/rest/v1/rpc/foyer_atualiza_assinatura', {
+          method: 'POST',
+          headers: { 'apikey': M.key, 'Authorization': 'Bearer ' + M.key, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ p_email: R.email, p_nome: R.nome,
+                                 p_cidade: R.cidade === 'Outra cidade' ? 'Outra' : R.cidade,
+                                 p_frequencia: R.frequencia.toLowerCase(),
+                                 p_interesses: R.interesses, p_conteudos: R.conteudos })
+        }).then(function(){ return 'ja'; }).catch(function(){ return 'ja'; });
+      }
+      if(r.ok) return 'nova';
+      throw 0;
+    }).then(function(como){
+      var ja = como === 'ja';
+      c.innerHTML = '<span class="cv-sinal">🎟</span>' +
+        '<h3 class="cv-t">' + (ja ? 'Você já tinha cadeira marcada.' : ('Cadeira reservada' + (R.nome ? ', ' + R.nome.split(' ')[0] : '') + '.')) + '</h3>' +
+        '<p class="cv-s">' + (ja ? 'Atualizamos seus gostos. A revista segue chegando toda sexta, às 7h.'
+                                 : 'A próxima chega sexta, às 7h. Mas a cortina já está aberta:') + '</p>' +
+        '<div class="cv-pe"><span></span><span></span><span style="display:flex;gap:8px;flex-wrap:wrap">' +
+          '<button type="button" class="cv-volta" id="cv-sair">voltar ao site</button>' +
+          '<a class="cv-vai" style="text-decoration:none" href="revista.html#edicoes">📖 Ler a edição de estreia</a>' +
+        '</span></div>';
+      var sair = c.querySelector('#cv-sair');
+      if(sair) sair.addEventListener('click', fecha);
     }).catch(function(){
       c.innerHTML = '<span class="cv-sinal">✕</span>' +
         '<h3 class="cv-t">A cortina emperrou.</h3>' +
