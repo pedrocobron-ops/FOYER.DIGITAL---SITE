@@ -1,6 +1,105 @@
 {
  "rodadas": [
   {
+   "quando": "2026-07-29T13:50:00+00:00",
+   "por": "Redator REDAÇÃO FOYER (Claude) — rodada de quarta 29/07, onda 1",
+   "buscas": [
+    "Liniker julho 2026 turnê Caju pausa carreira anúncio",
+    "Liniker 2026 shows notícias",
+    "Liniker Allianz Parque 11 de julho 2026 show Bye Bye Caju público",
+    "Liniker Grammy Latino 2025 venceu três categorias Caju quais",
+    "Liniker Caju indicação Grammy 2026 Best Global Music Album",
+    "Liniker instagram oficial seguidores",
+    "30e produtora instagram @30ebr oficial",
+    "Farmasi Arena instagram oficial",
+    "Priscila Senna cantora instagram oficial",
+    "Theatro Municipal de São Paulo instagram oficial",
+    "why are theatre seats and curtains red history opera houses",
+    "por que poltronas de teatro são vermelhas cor vermelha teatros história",
+    "Purkinje effect red appears dark scotopic vision low light"
+   ],
+   "consideradas": [
+    {
+     "assunto": "QUEM É: Liniker (prato do dia de quarta)",
+     "decisao": "escolhida",
+     "motivo": "nome em alta com gancho atual verificável: turnê Bye Bye Caju em andamento, estreia em estádio para 48 mil pessoas em 11/07 e próximas datas no Rio, Belém e Salvador; a casa nunca perfilou a artista (só notícias pontuais no acervo); foto CC BY-SA no Wikimedia Commons"
+    },
+    {
+     "assunto": "QUEM É: Fabi Bang (Glinda de Wicked no Rio)",
+     "decisao": "descartada",
+     "motivo": "repetiria o assunto e o gancho do perfil de Myra Ruiz, ainda na mesa da Coxia (mesma dupla, mesma temporada carioca)"
+    },
+    {
+     "assunto": "Curiosidade: por que as poltronas do teatro são vermelhas",
+     "decisao": "escolhida",
+     "motivo": "curiosidade perene de busca alta, nunca coberta pelo acervo; fontes localizadas (Whaleys, Catraca Livre, Britannica/efeito Purkinje, Seatment) e foto CC BY-SA da plateia do Municipal de SP no Commons"
+    },
+    {
+     "assunto": "Indicação de Caju ao Grammy americano 2026",
+     "decisao": "descartada",
+     "motivo": "não confirmada em nenhuma fonte (a categoria Best Global Music Album 2026 foi de Caetano Veloso e Maria Bethânia); dado cortado do perfil"
+    }
+   ],
+   "produzidas": [
+    "quem-e-liniker-turne-bye-bye-caju",
+    "por-que-as-poltronas-do-teatro-sao-vermelhas"
+   ],
+   "obs": "Onda 1 do redator Redação Foyer: 2/2 aprovadas no portão mecânico, aguardando checador independente (onda 2) e leitura fria (onda 3). Fotos das duas matérias vêm do Wikimedia Commons com licença verificada (CC BY-SA 2.0 e 4.0) por falta de imagem de divulgação oficial com direitos claros: a foto da Liniker é de show de 2022 no Festival Sensacional (BH), não da turnê atual. Handle @teatroamazonasof segue não confirmado (herdado de matéria anterior da casa, marcado confirmado: false). Preços da turnê Bye Bye Caju ficaram fora do texto por falta de tabela oficial completa. import/coxia/sugestoes.json estava vazio."
+  },
+  {
+   "quando": "2026-07-29T12:00:00+00:00",
+   "por": "Redatora Isabel (Claude)",
+   "buscas": [
+    "estreia teatro São Paulo agosto 2026 espetáculo temporada",
+    "\"estreia\" peça teatro São Paulo julho 2026",
+    "teatro São Paulo estreia 30 de julho / 31 de julho / 1º de agosto 2026",
+    "peça estreia Sesc São Paulo agosto 2026 temporada",
+    "7 Mulheres e Um Mistério musical estreia 30 de julho Teatro Santander 033 Rooftop",
+    "Mulheres em Chamas Teatro Liberdade agosto 2026",
+    "Autobiografia do Vermelho Teatro YouTube agosto 2026 São Paulo",
+    "Temporalmente Vivos Sesc Avenida Paulista estreia agosto 2026",
+    "estreias de agosto 2026 teatro São Paulo lista",
+    "verificação de arrobas: Bianca Comparato, Galeria Magalu, Daniela Thomas, Sesc Avenida Paulista, Gustavo Miranda, Corpo Rastreado"
+   ],
+   "consideradas": [
+    {
+     "assunto": "Estreia de 7 Mulheres e Um Mistério, O Musical no 033 Rooftop (30/07)",
+     "decisao": "descartada",
+     "motivo": "a casa já publicou a matéria da estreia e a nota sobre Paula Capovilla no elenco; seria repetição de assunto"
+    },
+    {
+     "assunto": "Dois Papas no TUCA (31/07)",
+     "decisao": "descartada",
+     "motivo": "já está na mesa de aprovação desta semana (pacote de 28/07)"
+    },
+    {
+     "assunto": "Mulheres em Chamas no Teatro Liberdade",
+     "decisao": "descartada",
+     "motivo": "são só duas apresentações de passagem (1º e 2/08), sem temporada; pauta fraca para a vaga de circuito"
+    },
+    {
+     "assunto": "Temporada paulistana de Piaf com Laila Garin no Teatro Bradesco",
+     "decisao": "descartada",
+     "motivo": "perfil de Laila Garin já cobriu a temporada do Teatro Bradesco dias atrás"
+    },
+    {
+     "assunto": "Nova temporada de Autobiografia do Vermelho no Teatro YouTube",
+     "decisao": "escolhida",
+     "motivo": "anúncio novo de julho, nomes fortes (Bianca Comparato e Daniela Thomas) e fato distinto da estreia de fevereiro, que a matéria linka"
+    },
+    {
+     "assunto": "Estreia de Temporalmente Vivos no Sesc Avenida Paulista",
+     "decisao": "escolhida",
+     "motivo": "estreia inédita da cena paulistana fora do circuito comercial, confirmada na página oficial do Sesc, com aspas reais no release"
+    }
+   ],
+   "produzidas": [
+    "autobiografia-do-vermelho-nova-temporada-teatro-youtube",
+    "temporalmente-vivos-estreia-sesc-avenida-paulista"
+   ],
+   "obs": "Duração de Temporalmente Vivos divergiu entre release (85 min) e página do Sesc (60 min): dado cortado. Capacidade do Teatro YouTube divergiu entre fontes (160 x 161 lugares): dado cortado. Fotos: divulgação oficial (Matheus José Maria via release da nova temporada; Mauricio Flórez via página do Sesc)."
+  },
+  {
    "quando": "2026-07-28T15:08:20-03:00",
    "por": "Rodada de teste das assinaturas (Claude) — tres ondas",
    "buscas": [
