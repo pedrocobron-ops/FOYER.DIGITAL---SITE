@@ -147,6 +147,7 @@ UTIL = '''<div class="util">
       <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
       <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
       <a href="revista.html#assinar">Assine</a>
+      <a href="anuncie.html">Anuncie</a>
       <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
     </span>
   </div>
@@ -219,6 +220,7 @@ FOOTER = '''<footer>
         <a href="enciclopedia.html">Enciclopédia</a>
         <a href="sobre.html">Quem somos</a>
         <a href="contato.html">Contato</a>
+        <a href="anuncie.html">Anuncie no FOYER</a>
         <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
         <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
         <a href="principios.html">Princípios Editoriais</a>
@@ -3894,6 +3896,9 @@ sobre_body = band('O Foyer', 'Quem somos', 'Seu veículo de informação artíst
       <p><b>Pedro Amaral</b> — Cofundador. Ator, dramaturgo, apresentador e produtor. Nascido em Santos e radicado em São Paulo, é bacharel em atuação pelo Célia Helena Centro de Artes e Educação e pós-graduado em Dramaturgia e Roteiro pela mesma instituição.</p>
       <h2>Como trabalhamos</h2>
       <p>Título sem caça-clique, apuração com fonte e serviço completo ao final. Parte das matérias assinadas como <b>Redação Foyer</b> conta com apuração assistida por inteligência artificial — todas são revisadas, checadas e aprovadas por um editor humano antes de ir ao ar. Fotografias são sempre de divulgação oficial, com o devido crédito. Conteúdo publicitário, quando houver, é identificado como tal.</p>
+      <p>O FOYER é um veículo independente: quem sustenta a redação é a venda de espaço publicitário,
+      nunca a interferência no que publicamos. Quer a sua marca aqui? Veja os formatos e contrate em
+      <a href="anuncie.html"><b>Anuncie no FOYER</b></a>.</p>
       <p>Quer falar com a redação? <a href="contato.html">Visite a página de contato</a>.</p>
     </div>
   </div>
@@ -3916,7 +3921,10 @@ contato_body = band('Fale conosco', 'Contato', 'Quer saber mais sobre o Foyer, s
       {_email_bloco}
       {_fones}
       <h2>Publicidade e parcerias</h2>
-      <p>Anúncios no site, páginas patrocinadas na Revista do FOYER e projetos especiais nos programas do canal — escreva para o e-mail acima com o assunto “Publicidade”.</p>
+      <p>Anúncios no site, páginas patrocinadas na Revista do FOYER e projetos especiais nos programas do canal.
+      Na página <a href="anuncie.html"><b>Anuncie no FOYER</b></a> você vê cada formato em ação, sobe a sua arte,
+      confere a aplicação e fecha em 5 passos — ou escreva para o e-mail acima com o assunto “Publicidade”.</p>
+      <p><a class="bt-anuncie" href="anuncie.html">Ver formatos e anunciar →</a></p>
       <h2>Nossos canais</h2>
       <p>
         <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube — @Foyer.digital ↗</a><br>

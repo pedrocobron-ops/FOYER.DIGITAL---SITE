@@ -1316,3 +1316,9 @@ html[data-theme="dark"] .sino-faixa{ box-shadow:6px 6px 0 rgba(0,0,0,.5); }
   font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px; }
 .pub-entreato img{ display:block; width:100%; height:auto; }
 .pub-entreato figcaption{ font-size:.78rem; color:var(--ink-soft); margin-top:8px; }
+
+/* botão Anuncie (contato) */
+.bt-anuncie{ display:inline-block; border:2px solid var(--wine); background:var(--wine); color:var(--gold);
+  font-family:var(--mono); font-weight:700; font-size:.66rem; letter-spacing:.14em; text-transform:uppercase;
+  padding:12px 18px; text-decoration:none; }
+.bt-anuncie:hover{ background:var(--gold); color:var(--wine); }
