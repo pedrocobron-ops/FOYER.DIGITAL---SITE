@@ -1839,7 +1839,7 @@ html[data-theme="dark"] .rv-mat .cont-tit{ color:var(--gold); }
 .rv-mat:not(.cont) .txt > p:first-child::first-letter{ font-family:var(--didone); font-size:3em;
   float:left; line-height:.8; padding:3px 7px 0 0; color:var(--wine); }
 .rv-mat .txt h2{ font-family:var(--didone); font-weight:400; font-size:1.4rem;
-  margin:20px 0 8px; line-height:1.1; }
+  margin:20px 0 8px; line-height:1.1; text-align:left; }
 /* a Abril Fatface não tem negrito: strong dentro de título viraria falso-bold */
 .rv-mat .txt h2 strong, .rv-mat .txt h2 b, .rv-mat h3 strong, .rv-mat h3 b{ font-weight:400; }
 .rv-mat .txt figure{ margin:16px 0; }
@@ -1902,6 +1902,9 @@ html[data-theme="dark"] .rv-prog em.rot{ color:var(--gold); }
 .rv-prog h3{ font-family:var(--didone); font-weight:400; font-size:2rem; line-height:1.05;
   text-align:center; margin:10px 0 4px; }
 .rv-prog .sub{ text-align:center; font-size:.85rem; color:var(--ink-soft); margin:0 0 6px; }
+.rv-prog .sinopse{ text-align:center; font-style:italic; font-size:.86rem; line-height:1.6;
+  color:var(--ink-soft); max-width:440px; margin:10px auto 4px; }
+.rv-prog .colunas{ margin-bottom:auto; }
 .rv-prog .colunas{ display:grid; grid-template-columns:1fr 1fr; gap:0 26px; margin-top:14px; }
 .rv-prog h4{ font-family:var(--mono); font-size:.56rem; font-weight:700; letter-spacing:.2em;
   text-transform:uppercase; color:var(--wine); border-bottom:2px solid var(--gold);
@@ -2395,13 +2398,11 @@ def _rv_pagina(pg, ed, num):
                 ) if pg.get('slug') else ''
         # a matéria INTEIRA mora na revista, quebrada em páginas de tamanho padrão
         corpo = _rv_corpo(pg.get('slug'), pg.get('img'))
-        # sem título triplicado: o h2 que repete o título já vive no alto da página
-        _m0 = _re.match(r'\s*<h2[^>]*>(.*?)</h2>\s*', corpo, _re.S)
+        # sem eco na abertura: o h2 inicial do post é o subtítulo do site, e a
+        # revista já tem título e linha fina próprios; ele sai sempre
+        _m0 = _re.match(r'\s*<h2[^>]*>.*?</h2>\s*', corpo, _re.S)
         if _m0:
-            _t0 = _re.sub(r'<[^>]+>', '', _m0.group(1)).strip().lower()
-            _t1 = (pg.get('titulo') or '').strip().lower()
-            if _t0 and _t1 and (_t0 in _t1 or _t1 in _t0):
-                corpo = corpo[_m0.end():]
+            corpo = corpo[_m0.end():]
         olho = ''
         if pg.get('texto'):
             if corpo:
@@ -2458,12 +2459,18 @@ def _rv_pagina(pg, ed, num):
                 _vistos.add(v.get('id'))
         _semana = (sorted(_semana, key=lambda x: (x[0], x[1]), reverse=True)[:6]
                    or [(q, n, v) for q, n, v in _yt_videos(_yt_progs, 60) if q <= _ref][:6])
+        def _ep_tit(nome_prog, tit):
+            # o rótulo já diz o programa: o título não precisa repeti-lo
+            t = tit.strip()
+            if t.lower().startswith(nome_prog.lower()):
+                t = t[len(nome_prog):].lstrip(' -–—:·|').strip() or tit.strip()
+            return t[:90]
         cels = ''.join(
             f'<a class="ep" href="{_rvesc(v["url"])}" target="_blank" rel="noopener">'
             f'<img src="{_rvesc(v["thumb"])}" alt="" loading="lazy" '
             f'onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/{_rvesc(v.get("id",""))}/mqdefault.jpg\'">'
             f'<span class="mt"><span class="pr">{_rvesc(n.split(" — ")[0])}</span>'
-            f'<span class="tt">{_rvesc(v["titulo"][:90])}</span></span></a>'
+            f'<span class="tt">{_rvesc(_ep_tit(n.split(" — ")[0], v["titulo"]))}</span></span></a>'
             for q, n, v in _semana)
         _gr = 'grade poucos' if len(_semana) <= 3 else 'grade'
         return (f'<section class="rv-pg rv-tela"><div class="cab"><em>O canal, esta semana</em>'
@@ -2620,6 +2627,7 @@ def _rv_pagina(pg, ed, num):
                 f'<em class="rot">Programa de sala · A estreia da semana</em>'
                 f'<h3>{_rvesc(pg.get("titulo", ""))}</h3>'
                 + (f'<p class="sub">{_rvesc(pg["subtitulo"])}</p>' if pg.get('subtitulo') else '')
+                + (f'<p class="sinopse">{_rvesc(pg["sinopse"])}</p>' if pg.get('sinopse') else '')
                 + (f'<div class="colunas">{colunas}</div>' if colunas else '')
                 + (f'<p class="serv">{_rvesc(pg["servico"])}</p>' if pg.get('servico') else '')
                 + f'</div>{fol}</section>')

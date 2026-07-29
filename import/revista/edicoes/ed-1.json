@@ -25,8 +25,8 @@
    "slug": "wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang",
    "cat": "Teatro",
    "img": "assets/uploads/wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.jpg",
-   "titulo": "Com Myra Ruiz e Fabi Bang, \"Wicked\" faz temporada carioca na Cidade das Artes",
-   "chamada": "Depois de uma década de espera e um milhão de espectadores em São Paulo, a superprodução ocupa a sala Bibi Ferreira, na Barra da Tijuca."
+   "titulo": "Com Myra Ruiz e Fabi Bang, “Wicked” faz temporada carioca na Cidade das Artes",
+   "chamada": "Depois de uma década de espera e mais de um milhão de espectadores em São Paulo, a superprodução ocupa a sala Bibi Ferreira, na Barra da Tijuca."
   },
   {
    "tipo": "recortes",
@@ -57,34 +57,72 @@
    "cat": "Teatro",
    "img": "assets/uploads/festa-no-arraial-o-musical-shakespeare-festa-junina-frei-caneca.jpg",
    "titulo": "“Festa no Arraial, O Musical” transforma Shakespeare em festa junina no Teatro Sabesp Frei Caneca",
-   "chamada": "Sonho de uma Noite de Verão vira festa junina em musical inédito com Claudia Ohana à frente de 14 artistas."
+   "chamada": "Sonho de uma Noite de Verão vira festa junina em musical inédito com Claudia Ohana à frente de um elenco de 14 artistas."
   },
   {
    "tipo": "programa-sala",
    "titulo": "Festa no Arraial, O Musical",
    "subtitulo": "Livremente inspirado em “Sonho de uma Noite de Verão”, de William Shakespeare",
    "quemEQuem": [
-    { "quem": "Claudia Ohana" },
-    { "quem": "Lorena Tucci" },
-    { "quem": "Cadu Libonati" },
-    { "quem": "Bernardo Mesquita" },
-    { "quem": "Erika Affonso" },
-    { "quem": "Danilo Dal Farra" },
-    { "quem": "Sofie Orleans" },
-    { "quem": "Rafa Canedo" },
-    { "quem": "Júlia Perré" },
-    { "quem": "Nestor Fonseca" },
-    { "quem": "Caio Padilha" },
-    { "quem": "Benji Iuler" },
-    { "quem": "Jude Fontenelle" },
-    { "quem": "Mariana Braga" }
+    {
+     "quem": "Claudia Ohana"
+    },
+    {
+     "quem": "Lorena Tucci"
+    },
+    {
+     "quem": "Cadu Libonati"
+    },
+    {
+     "quem": "Bernardo Mesquita"
+    },
+    {
+     "quem": "Erika Affonso"
+    },
+    {
+     "quem": "Danilo Dal Farra"
+    },
+    {
+     "quem": "Sofie Orleans"
+    },
+    {
+     "quem": "Rafa Canedo"
+    },
+    {
+     "quem": "Júlia Perré"
+    },
+    {
+     "quem": "Nestor Fonseca"
+    },
+    {
+     "quem": "Caio Padilha"
+    },
+    {
+     "quem": "Benji Iuler"
+    },
+    {
+     "quem": "Jude Fontenelle"
+    },
+    {
+     "quem": "Mariana Braga"
+    }
    ],
    "ficha": [
-    { "funcao": "Direção", "nome": "Thereza Falcão" },
-    { "funcao": "Texto", "nome": "Thereza Falcão e Mariana Mesquita" },
-    { "funcao": "Obra original", "nome": "William Shakespeare, c. 1595" }
+    {
+     "funcao": "Direção",
+     "nome": "Thereza Falcão"
+    },
+    {
+     "funcao": "Texto",
+     "nome": "Thereza Falcão e Mariana Mesquita"
+    },
+    {
+     "funcao": "Obra original",
+     "nome": "William Shakespeare, c. 1595"
+    }
    ],
-   "servico": "Teatro Sabesp Frei Caneca · 24 de julho a 16 de agosto de 2026 · sexta a domingo · vendas na plataforma Uhuu"
+   "servico": "Teatro Sabesp Frei Caneca · 24 de julho a 16 de agosto de 2026 · sexta a domingo · vendas na plataforma Uhuu",
+   "sinopse": "Hérmia e Lisandro planejam se casar durante a grande festa do arraial; como no original, nada sai como o planejado, e o amor dos dois enfrenta tradições, interesses de família e as criaturas encantadas da mata."
   },
   {
    "tipo": "programas"
@@ -102,8 +140,8 @@
    "slug": "os-ultimos-5-anos-volta-a-sao-paulo-em-edicao-comemorativa-pelos-25-anos-do-musi",
    "cat": "Teatro",
    "img": "assets/acervo/ef9bb4a99906cfca.jpg",
-   "titulo": "\"Os Últimos 5 Anos” volta a São Paulo em edição comemorativa pelos 25 anos do musical",
-   "chamada": "O musical de Jason Robert Brown retorna a São Paulo em edição comemorativa pelos 25 anos da obra."
+   "titulo": "“Os Últimos 5 Anos” volta a São Paulo em edição comemorativa pelos 25 anos do musical",
+   "chamada": "Com Beto Sargentelli e Eline Porto, a montagem dirigida por João Fonseca faz curta temporada de 9 a 18 de outubro no Teatro Nair Bello."
   },
   {
    "tipo": "materia",
@@ -217,7 +255,13 @@
      "cidade": "Rio de Janeiro",
      "link": "post-dois-de-nos-fagundes-torloni.html"
     }
-   ]
+   ],
+   "bilhete": {
+    "titulo": "Wicked",
+    "sessao": "Sexta 24/07, 20h · Cidade das Artes, sala Bibi Ferreira",
+    "frase": "A bruxa verde sobrevoa a Barra só até 9 de agosto, e a sexta à noite é a sessão de teatro cheio que o fim do primeiro ato pede.",
+    "assinatura": "A redação"
+   }
   },
   {
    "tipo": "frase-celebre"
@@ -232,6 +276,11 @@
   }
  ],
  "historico": [
+  {
+   "quando": "2026-07-29T17:10:00+00:00",
+   "quem": "Pedro Amaral (pelo Claude)",
+   "acao": "acata a leitura final: linhas finas reescritas com informação nova, aspas curvas padronizadas, sinopse no programa de sala e bilhete da semana carioca; registra que a contracapa perdeu a promessa de próxima edição por decisão da direção"
+  },
   {
    "quando": "2026-07-29T15:00:00+00:00",
    "quem": "Pedro Amaral (pelo Claude)",

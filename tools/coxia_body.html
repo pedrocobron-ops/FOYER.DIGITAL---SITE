@@ -4656,6 +4656,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         '<textarea id="pgf-elenco" rows="6" placeholder="Claudia Ohana | Titânia">' + esc(linhasElenco) + '</textarea></div>' +
         '<div><label>Ficha técnica (uma por linha: função | nome)</label>' +
         '<textarea id="pgf-ficha" rows="4" placeholder="Direção | Thereza Falcão">' + esc(linhasFicha) + '</textarea></div>' +
+        '<div><label>Sinopse curta (2-3 linhas, opcional; só o que a cobertura apurou)</label><textarea id="pgf-sinopse" rows="2">' + esc(d.sinopse || '') + '</textarea></div>' +
         '<div><label>Serviço (uma linha: casa · datas · vendas)</label><input type="text" id="pgf-serv" value="' + esc(d.servico || '') + '"></div>' +
         '<div class="f-note">Só nomes APURADOS na cobertura da casa. Personagem sem confirmação fica de fora (elenco sai só com os nomes).</div>';
     } else if(tipo === 'cartas'){
@@ -4773,6 +4774,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           var p = l.split('|').map(function(x){ return x.trim(); });
           return p[0] && p[1] ? { funcao: p[0], nome: p[1] } : null;
         }).filter(Boolean).slice(0, 14);
+        pg.sinopse = $('pgf-sinopse').value.trim();
         pg.servico = $('pgf-serv').value.trim();
         if(!pg.titulo){ avisar('O programa de sala precisa do título do espetáculo.'); return; }
         if(!pg.quemEQuem.length && !pg.ficha.length){ avisar('Programa vazio: preencha elenco ou ficha técnica.'); return; }
