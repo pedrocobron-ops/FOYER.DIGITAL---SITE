@@ -8,6 +8,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # ---------------------------------------------------------------- partials
 
 import html as _html
+import urllib.parse as _uq
 
 # Endereço público do site. Na chegada do domínio (03/08), troque para
 # 'https://foyer.digital' OU rode o build com FOYER_BASE=https://foyer.digital
@@ -1640,9 +1641,9 @@ _RV_CSS = '''<style>
 .rv-stage{ margin:26px auto 90px; padding:0 14px; --rv-papel:#F6F1E6; }
 html[data-theme="dark"] .rv-stage{ --rv-papel:var(--paper); }
 /* no desktop largo, a revista abre em página dupla */
-.rv-palco{ position:relative; overflow:visible; }
+.rv-palco{ position:relative; overflow:hidden; }
 .rv-book{ position:relative; display:flex; justify-content:center; align-items:stretch;
-  perspective:2600px; margin:0 auto; width:max-content; transform-origin:top center; }
+  perspective:2600px; margin:0; width:max-content; transform-origin:top left; }
 .rv-pg{ display:none; border:3px solid var(--ink); background:var(--rv-papel);
   width:720px; height:972px; position:relative; overflow:hidden; animation:rvin .3s ease;
   flex-shrink:0; backface-visibility:hidden; }
@@ -1680,6 +1681,8 @@ html[data-theme="dark"] .rv-pg::before{ opacity:.25; }
   transform:translate(8px,8px); border:0; padding:0; }
 .rv-pg:hover .rv-canto{ opacity:.85; transform:none; }
 .rv-canto:focus-visible{ opacity:1; transform:none; outline:2px solid var(--gold); }
+/* sem mouse (celular), a pontinha fica sempre à vista */
+@media (hover:none){ .rv-canto{ opacity:.55; transform:none; } }
 /* a espessura: as folhas que faltam (direita) e as já lidas (esquerda) */
 .rv-lombo{ position:absolute; top:8px; bottom:8px; width:0; z-index:0; pointer-events:none;
   background:repeating-linear-gradient(90deg, #d5cbb2 0 1px, #f6f1e6 1px 3px);
@@ -1797,6 +1800,9 @@ html[data-theme="dark"] .rv-sum .pnum{ color:var(--gold); }
 /* ---------- MATÉRIA (a íntegra, quebrada em páginas de tamanho padrão) ---------- */
 .rv-mat .foto{ position:relative; aspect-ratio:16/9; flex-shrink:0; border-bottom:3px solid var(--ink); }
 .rv-mat .foto img{ width:100%; height:100%; object-fit:cover; object-position:center 22%; }
+.rv-mat .foto .cred{ position:absolute; right:0; bottom:0; font-family:var(--mono); font-size:.5rem;
+  letter-spacing:.14em; text-transform:uppercase; color:#efe8da;
+  background:rgba(20,6,3,.72); padding:5px 9px; z-index:2; }
 .rv-mat .foto .cat{ position:absolute; left:0; top:0; background:var(--gold); color:var(--wine);
   font-family:var(--mono); font-size:.56rem; font-weight:700; letter-spacing:.22em;
   text-transform:uppercase; padding:7px 14px; border-right:2px solid var(--ink);
@@ -1821,10 +1827,12 @@ html[data-theme="dark"] .rv-mat .cont-tit{ color:var(--gold); }
   margin:0 0 14px; }
 .rv-mat .txt{ font-size:.84rem; line-height:1.78; text-align:justify; hyphens:auto; }
 .rv-mat .txt p{ margin:0 0 12px; }
-.rv-mat .txt > p:first-child::first-letter{ font-family:var(--didone); font-size:3em;
+.rv-mat:not(.cont) .txt > p:first-child::first-letter{ font-family:var(--didone); font-size:3em;
   float:left; line-height:.8; padding:3px 7px 0 0; color:var(--wine); }
 .rv-mat .txt h2{ font-family:var(--didone); font-weight:400; font-size:1.4rem;
   margin:20px 0 8px; line-height:1.1; }
+/* a Abril Fatface não tem negrito: strong dentro de título viraria falso-bold */
+.rv-mat .txt h2 strong, .rv-mat .txt h2 b, .rv-mat h3 strong, .rv-mat h3 b{ font-weight:400; }
 .rv-mat .txt figure{ margin:16px 0; }
 .rv-mat .txt img{ max-width:100%; height:auto; display:block; border:2px solid var(--ink); }
 .rv-mat .txt figcaption{ font-family:var(--mono); font-size:.54rem; letter-spacing:.14em;
@@ -1929,8 +1937,9 @@ html[data-theme="dark"] .rv-mestre .au{ color:var(--gold); }
 .rv-bilhete .rb-esq i{ font-style:normal; font-family:var(--mono); font-size:.54rem;
   letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); margin-top:3px; }
 .rv-bilhete .rb-dir{ display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:2px; padding:12px 18px; border-left:2px dashed var(--wine); background:rgba(206,178,106,.16);
-  min-width:132px; text-align:center; }
+  gap:2px; padding:12px 18px; border:0; border-left:2px dashed var(--wine); background:rgba(206,178,106,.16);
+  min-width:132px; text-align:center; color:inherit; cursor:pointer; }
+.rv-bilhete .rb-dir:hover{ background:rgba(206,178,106,.3); }
 .rv-bilhete .rb-dir em{ font-style:normal; font-family:var(--mono); font-size:.5rem;
   letter-spacing:.26em; text-transform:uppercase; color:var(--wine); }
 html[data-theme="dark"] .rv-bilhete .rb-dir em{ color:var(--gold); }
@@ -1996,17 +2005,22 @@ html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
 .rv-back ul.prox li{ padding:10px 0; border-bottom:1px solid rgba(206,178,106,.35);
   font-size:.9rem; line-height:1.4; }
 .rv-back ul.prox li::before{ content:'✦ '; color:var(--gold); }
-.rv-back .desp{ margin-top:auto; text-align:center; padding-top:24px; }
-.rv-back .desp .fr{ font-family:var(--didone); font-size:1.25rem; line-height:1.3; color:var(--paper); }
-.rv-back .desp .au{ font-family:var(--mono); font-size:.54rem; letter-spacing:.22em; text-transform:uppercase;
-  color:var(--gold); margin-top:8px; }
+/* a citação é o centro da contracapa: didone grande entre filetes dourados */
+.rv-back .desp{ margin-top:auto; margin-bottom:auto; text-align:center; padding:28px 10px; }
+.rv-back .desp::before, .rv-back .desp::after{ content:''; display:block; width:120px; height:2px;
+  background:var(--gold); margin:0 auto; }
+.rv-back .desp::before{ margin-bottom:22px; }
+.rv-back .desp::after{ margin-top:22px; }
+.rv-back .desp .fr{ font-family:var(--didone); font-size:2.5rem; line-height:1.14; color:var(--paper); }
+.rv-back .desp .au{ font-family:var(--mono); font-size:.56rem; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--gold); margin-top:16px; }
 .rv-back .rodape{ display:flex; justify-content:space-between; align-items:center; margin-top:22px;
   padding-top:14px; border-top:2px solid var(--gold); font-family:var(--mono); font-size:.52rem;
   letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
 .rv-back .rodape img{ height:34px; }
 
 /* as quinas de virar página: voltar na ponta esquerda, avançar na direita */
-.rv-quina{ position:absolute; bottom:6px; z-index:12; width:40px; height:40px;
+.rv-quina{ position:absolute; bottom:6px; z-index:12; width:44px; height:44px;
   border:0; background:none; color:var(--ink-soft); cursor:pointer;
   font-size:.8rem; line-height:1; display:flex; align-items:center; justify-content:center;
   transition:color .15s, transform .12s; }
@@ -2077,8 +2091,8 @@ html[data-theme="dark"] .rv-quina{ color:var(--gold); }
   .rv-book{ display:block !important; perspective:none !important; transform:none !important; }
   .rv-palco{ height:auto !important; }
   .rv-stage{ max-width:100% !important; margin:0 !important; padding:0 !important; }
-  .rv-pg{ display:flex !important; page-break-after:always; break-inside:avoid;
-    width:720px !important; height:972px !important; margin:0 auto;
+  .rv-pg{ display:flex !important; flex-direction:column !important; page-break-after:always;
+    break-inside:avoid; width:720px !important; height:972px !important; margin:0 auto;
     transform:none !important; animation:none !important; position:relative; }
   body.rv-em-janela .rv-pg{ display:none !important; }
   body.rv-em-janela .rv-pg.rv-amostra{ display:flex !important; }
@@ -2115,14 +2129,38 @@ def _rv_quebra_corpo(corpo):
             alt += 20
         return alt
     ALT_PRIMEIRA, ALT_CONT = 270, 700
+    def eh_titulo(b):
+        return bool(_re.match(r'\s*<h[23][\s>]', b))
+    # a ficha de Serviço é indivisível: do intertítulo ao fim, tudo na mesma página
+    unidade_servico = None
+    for i, b in enumerate(blocos):
+        if eh_titulo(b) and 'servi' in _re.sub(r'<[^>]+>', '', b).lower():
+            resto = blocos[i:]
+            if sum(altura(x) for x in resto) <= ALT_CONT:
+                # marca os blocos para o leitor não os separar na repaginação fina
+                unidade_servico = [_re.sub(r'^(\s*<\w+)', r'\1 data-junto="1"', x) for x in resto]
+                blocos = blocos[:i]
+            break
+    # intertítulo nunca fecha página sozinho: carrega o bloco seguinte consigo
+    unidades = []
+    i = 0
+    while i < len(blocos):
+        if eh_titulo(blocos[i]) and i + 1 < len(blocos):
+            unidades.append([blocos[i], blocos[i + 1]])
+            i += 2
+        else:
+            unidades.append([blocos[i]])
+            i += 1
+    if unidade_servico:
+        unidades.append(unidade_servico)
     paginas, atual, carga, lim = [], [], 0, ALT_PRIMEIRA
-    for b in blocos:
-        ab = altura(b)
-        if atual and carga + ab > lim:
+    for u in unidades:
+        au = sum(altura(b) for b in u)
+        if atual and carga + au > lim:
             paginas.append(''.join(atual))
             atual, carga, lim = [], 0, ALT_CONT
-        atual.append(b)
-        carga += ab
+        atual.extend(u)
+        carga += au
     if atual:
         paginas.append(''.join(atual))
     return paginas or ['']
@@ -2228,13 +2266,27 @@ def _rv_pagina(pg, ed, num):
                 f'<use href="#{arte_edi}"/></svg>'
                 f'</div>{fol}</section>')
     if t == 'materia':
+        # o crédito da foto de abertura: o expediente promete, a página cumpre
+        cred_foto = (pg.get('imgCredito') or '').strip()
+        if not cred_foto and pg.get('slug'):
+            _mm = next((m for m in MATERIAS if m.get('slug') == pg.get('slug')), None)
+            if _mm and (_mm.get('credito') or '').strip():
+                cred_foto = _cred_curto(_mm)
         img = (f'<div class="foto"><img src="{_rvesc(wiximg(pg.get("img", ""), 1200, 700))}" alt="" '
-               f'onerror="this.style.display=\'none\'"><span class="cat">{_rvesc(pg.get("cat") or "FOYER")}</span></div>'
-               ) if pg.get('img') else ''
+               f'onerror="this.style.display=\'none\'"><span class="cat">{_rvesc(pg.get("cat") or "FOYER")}</span>'
+               + (f'<span class="cred">Foto — {_rvesc(cred_foto)}</span>' if cred_foto else '')
+               + '</div>') if pg.get('img') else ''
         leia = (f'<div class="leia"><a href="post-{_rvesc(pg.get("slug"))}.html">Abrir esta matéria no site →</a></div>'
                 ) if pg.get('slug') else ''
         # a matéria INTEIRA mora na revista, quebrada em páginas de tamanho padrão
         corpo = _rv_corpo(pg.get('slug'), pg.get('img'))
+        # sem título triplicado: o h2 que repete o título já vive no alto da página
+        _m0 = _re.match(r'\s*<h2[^>]*>(.*?)</h2>\s*', corpo, _re.S)
+        if _m0:
+            _t0 = _re.sub(r'<[^>]+>', '', _m0.group(1)).strip().lower()
+            _t1 = (pg.get('titulo') or '').strip().lower()
+            if _t0 and _t1 and (_t0 in _t1 or _t1 in _t0):
+                corpo = corpo[_m0.end():]
         olho = ''
         if pg.get('texto'):
             if corpo:
@@ -2378,19 +2430,27 @@ def _rv_pagina(pg, ed, num):
     if t in ('cartaz', 'patrocinio'):
         rot = 'Publicidade' if t == 'patrocinio' else 'Divulgação'
         leg = _rvesc(pg.get('legenda', ''))
-        img = f'<img src="{_rvesc(pg.get("img", ""))}" alt="{leg}">'
-        if pg.get('link'):
-            img = f'<a style="display:contents" href="{_rvesc(pg["link"])}" target="_blank" rel="noopener sponsored">{img}</a>'
-        # o bilhete do leitor: anúncio com cupom combinado com o anunciante
+        link = (pg.get('link') or '').strip()
+        # o bilhete do leitor é EXCLUSIVO da página paga (rotulada Publicidade);
+        # o cartaz é cortesia da casa e sai limpo, sem cupom
         cupom = ''
-        if pg.get('cupom'):
+        if t == 'patrocinio' and pg.get('cupom'):
+            # o código viaja no clique: o anunciante vê de onde o leitor veio
+            if link:
+                link += ('&' if '?' in link else '?') + 'utm_source=foyer&cupom=' + _uq.quote(str(pg['cupom']))
             cupom = ('<div class="rv-bilhete"><div class="rb-esq">'
                      f'<b>{_rvesc(pg.get("beneficio") or "Vantagem do leitor do FOYER")}</b>'
                      + (f'<span>{_rvesc(pg["comoUsar"])}</span>' if pg.get('comoUsar') else
                         '<span>diga o código na bilheteria ou use na compra on-line</span>')
                      + (f'<i>vale até {_rvesc(pg["validade"])}</i>' if pg.get('validade') else '')
-                     + '</div><div class="rb-dir"><em>código</em>'
-                     f'<strong>{_rvesc(pg["cupom"])}</strong></div></div>')
+                     + '</div><button type="button" class="rb-dir" data-copia-cupom="'
+                     f'{_rvesc(pg["cupom"])}" title="Tocar para copiar o código"><em>código</em>'
+                     f'<strong>{_rvesc(pg["cupom"])}</strong></button></div>')
+        elif pg.get('cupom'):
+            print(f'  AVISO revista: cupom em página "cartaz" foi ignorado — o bilhete do leitor é exclusivo da página de Publicidade (patrocinio)')
+        img = f'<img src="{_rvesc(pg.get("img", ""))}" alt="{leg}">'
+        if link:
+            img = f'<a style="display:contents" href="{_rvesc(link)}" target="_blank" rel="noopener sponsored">{img}</a>'
         klass = 'rv-pg rv-cartaz rv-pat' if t == 'patrocinio' else 'rv-pg rv-cartaz'
         return f'<section class="{klass}">{img}{cupom}<div class="rv-leg">{rot}{" — " + leg if leg else ""}</div>{fol}</section>'
     if t == 'citacao':
@@ -2452,8 +2512,11 @@ def edicao_page(ed):
     capa = ed.get('capa', {})
     paginas = list(ed.get('paginas', []))
     # CAPA (página 1)
-    calls = ''.join(f'<span class="ch"><i>✦</i>{_rvesc(c)}</span>'
-                    for c in (capa.get('chamadas') or [])[:3] if c.strip())
+    _chs = [c for c in (capa.get('chamadas') or []) if c.strip()]
+    if len(_chs) > 3:
+        print(f'  AVISO revista Nº {ed.get("numero")}: a capa imprime só 3 chamadas — '
+              f'{len(_chs) - 3} descartada(s): ' + '; '.join(f'"{c}"' for c in _chs[3:]))
+    calls = ''.join(f'<span class="ch"><i>✦</i>{_rvesc(c)}</span>' for c in _chs[:3])
     pg_capa = (
         '<section class="rv-pg rv-capa2 on">'
         '<div class="nameplate"><img src="assets/logo/foyer-horizontal-wine.png" alt="FOYER"></div>'
@@ -2563,11 +2626,33 @@ def edicao_page(ed):
         var guarda = 0;
         while(tb.firstElementChild && guarda++ < 40){{
           var bloco = tb.firstElementChild;
+          if(bloco.hasAttribute('data-junto')){{
+            // a ficha de Serviço só muda de página inteira
+            var ficha = [];
+            while(tb.firstElementChild && tb.firstElementChild.hasAttribute('data-junto')){{
+              ficha.push(tb.firstElementChild); ta.appendChild(tb.firstElementChild);
+            }}
+            if(ma.scrollHeight > ma.clientHeight + 2){{
+              for(var fj = ficha.length - 1; fj >= 0; fj--) tb.insertBefore(ficha[fj], tb.firstChild);
+            }}
+            break;
+          }}
           ta.appendChild(bloco);
           if(ma.scrollHeight > ma.clientHeight + 2){{ tb.insertBefore(bloco, tb.firstChild); break; }}
         }}
         guarda = 0;
         while(ma.scrollHeight > ma.clientHeight + 2 && ta.lastElementChild && guarda++ < 40){{
+          var volta = ta.lastElementChild;
+          tb.insertBefore(volta, tb.firstChild);
+          // se o bloco devolvido pertence à ficha, ela volta inteira
+          if(volta.hasAttribute('data-junto')){{
+            while(ta.lastElementChild && ta.lastElementChild.hasAttribute('data-junto')){{
+              tb.insertBefore(ta.lastElementChild, tb.firstChild);
+            }}
+          }}
+        }}
+        // intertítulo nunca fecha a página: desce com o texto que anuncia
+        if(ta.lastElementChild && /^H[23]$/.test(ta.lastElementChild.tagName)){{
           tb.insertBefore(ta.lastElementChild, tb.firstChild);
         }}
         if(!eraA) a.classList.remove('on');
@@ -2594,12 +2679,14 @@ def edicao_page(ed):
     }});
     equilibrar();
     // liga o ornamento de fim de matéria quando sobra espaço na última página
+    // (o vão real é a distância entre o fim do texto e o botão, que gruda no pé)
     document.querySelectorAll('.rv-pg.rv-mat').forEach(function(pg){{
-      if(!pg.querySelector('.leia')) return;
+      var lv = pg.querySelector('.leia'), tx = pg.querySelector('.txt');
+      if(!lv || !tx) return;
       var era2 = pg.classList.contains('on');
       pg.classList.add('on');
-      var m2 = pg.querySelector('.miolo');
-      if(m2 && m2.clientHeight - m2.scrollHeight > 150) pg.classList.add('compl');
+      var vao = lv.offsetTop - (tx.offsetTop + tx.offsetHeight);
+      if(vao > 150) pg.classList.add('compl');
       if(!era2) pg.classList.remove('on');
     }});
     // última instância: entrelinha mais justa na página que ainda estoura
@@ -2686,7 +2773,10 @@ def edicao_page(ed):
     var w = palco.clientWidth || document.documentElement.clientWidth - 28;
     var h = window.innerHeight - (sala ? 96 : 200);
     var f = Math.min(1, w / larguraLivro, Math.max(0.3, h / alturaLivro));
-    livro.style.transform = f < 1 ? 'scale(' + f + ')' : '';
+    // origem no canto: o deslocamento centraliza a revista já na escala final,
+    // sem sobrar metade fora da tela no celular
+    var desloca = Math.max(0, (w - larguraLivro * f) / 2);
+    livro.style.transform = 'translateX(' + desloca + 'px) scale(' + f + ')';
     palco.style.height = Math.ceil(alturaLivro * f) + 'px';
   }}
   function pinta(){{
@@ -2804,20 +2894,28 @@ def edicao_page(ed):
     var anima = sentido && !mexeMenos.matches;
     if(!anima){{ d = s; pinta(); window.scrollTo({{ top: 0, behavior: 'smooth' }}); return; }}
     virando = true;
+    // rede de segurança: nada pode deixar o leitor travado
+    setTimeout(function(){{ virando = false; }}, 620);
     var parVelha = duplas[d];
     var sai = pgs[parVelha[sentido > 0 ? parVelha.length - 1 : 0]];
     sai.classList.add(sentido > 0 ? 'vira-sai-dir' : 'vira-sai-esq');
     setTimeout(function(){{
       sai.classList.remove('vira-sai-dir', 'vira-sai-esq');
-      d = s; pinta();
-      var parNova = duplas[d];
-      var entra = pgs[parNova[sentido > 0 ? 0 : parNova.length - 1]];
-      entra.classList.add(sentido > 0 ? 'vira-entra-esq' : 'vira-entra-dir');
-      setTimeout(function(){{
-        entra.classList.remove('vira-entra-esq', 'vira-entra-dir');
-        virando = false;
-      }}, 270);
-      window.scrollTo({{ top: 0, behavior: 'smooth' }});
+      try{{
+        // as duplas podem ter sido remontadas no meio da virada (resize)
+        d = Math.max(0, Math.min(duplas.length - 1, s));
+        pinta();
+        var parNova = duplas[d] || [0];
+        var entra = pgs[parNova[sentido > 0 ? 0 : parNova.length - 1]];
+        if(entra){{
+          entra.classList.add(sentido > 0 ? 'vira-entra-esq' : 'vira-entra-dir');
+          setTimeout(function(){{
+            entra.classList.remove('vira-entra-esq', 'vira-entra-dir');
+          }}, 270);
+        }}
+        window.scrollTo({{ top: 0, behavior: 'smooth' }});
+      }}catch(e){{}}
+      setTimeout(function(){{ virando = false; }}, 270);
     }}, 230);
   }}
   function proxima(){{ vaiDupla(d + 1, 1); }}
@@ -2835,6 +2933,16 @@ def edicao_page(ed):
 
   document.getElementById('rv-ant').addEventListener('click', anterior);
   document.getElementById('rv-prox').addEventListener('click', proxima);
+  // o código do cupom copia com um toque
+  document.querySelectorAll('[data-copia-cupom]').forEach(function(bt){{
+    bt.addEventListener('click', function(){{
+      var cod = bt.getAttribute('data-copia-cupom');
+      var em = bt.querySelector('em'), antes = em ? em.textContent : '';
+      function avisa(){{ if(em){{ em.textContent = 'copiado!'; setTimeout(function(){{ em.textContent = antes; }}, 1600); }} }}
+      if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(cod).then(avisa, avisa);
+      else avisa();
+    }});
+  }});
   document.addEventListener('keydown', function(e){{
     if(e.target.closest && e.target.closest('input, [contenteditable]')) return;
     if(e.key === 'ArrowRight') proxima();
@@ -2879,6 +2987,9 @@ def edicao_page(ed):
     pinta();
   }}
   function reflui(){{
+    // cancela virada pendente: as duplas vão mudar debaixo dela
+    virando = false;
+    pgs.forEach(function(p){{ p.classList.remove('vira-sai-dir', 'vira-sai-esq', 'vira-entra-dir', 'vira-entra-esq'); }});
     document.body.classList.toggle('rv-duplo', mqDuplo.matches);
     var ancora = (duplas[d] || [0])[0];
     montaDuplas();

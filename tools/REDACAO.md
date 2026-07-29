@@ -538,14 +538,25 @@ Regras das seções novas:
 - **Recortes**: só aspas REAIS e JÁ PUBLICADAS, cada uma com quem disse
   e onde saiu (veículo nomeado). Aspa sem dono não entra. Formato no
   editor: `frase | quem | onde | slug-da-matéria`. Máximo 4.
-- **Contracapa**: até 4 chamadas do que vem na próxima edição (sem
-  prometer pauta que não está de pé) e frase de despedida REAL e
-  verificada, com autor.
-- **Cupom no anúncio** (`cartaz`/`patrocinio`): anúncio de parceiro
-  pode carregar o bilhete do leitor, com código, benefício, como usar
-  e validade. REGRA: só entra código COMBINADO com o anunciante, por
-  escrito; a redação NUNCA inventa cupom, benefício ou validade. É o
-  argumento comercial da casa: o anunciante vê na bilheteria quantos
+- **Contracapa**: até 4 chamadas do que vem na próxima edição — sempre
+  CONCRETAS (espetáculo, casa, nome: "Tristão e Isolda no Municipal"),
+  nunca frase genérica que serviria para qualquer edição; sem prometer
+  pauta que não está de pé. Frase de despedida REAL e verificada, com
+  autor. No fechamento, o chefe confere chamada por chamada da CAPA
+  contra o sumário: chamada que não se cumpre no miolo sai da capa.
+- **Capa**: no máximo 3 chamadas — a capa não imprime a quarta. O
+  gerador e a Coxia avisam quando sobra chamada.
+- **Cartaz ≠ Publicidade**: `cartaz` é CORTESIA da casa (rótulo
+  "Divulgação") e sai limpo — imagem, legenda e link, SEM cupom.
+  O bilhete do leitor é EXCLUSIVO da página paga (`patrocinio`,
+  rótulo "Publicidade"): é o argumento de fechamento do produto
+  comercial. Cortesia igual ao produto pago mata o produto.
+- **Cupom no anúncio** (só `patrocinio`): a página paga pode carregar
+  o bilhete do leitor, com código, benefício, como usar e validade.
+  REGRA: só entra código COMBINADO com o anunciante, por escrito; a
+  redação NUNCA inventa cupom, benefício ou validade. O código viaja
+  no link do anúncio (`?utm_source=foyer&cupom=CODIGO`) e o leitor
+  copia com um toque: o anunciante vê na bilheteria e no site quantos
   ingressos o código do FOYER vendeu.
 
 ## Entrega

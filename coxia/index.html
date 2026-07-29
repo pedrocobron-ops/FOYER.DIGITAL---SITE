@@ -1148,7 +1148,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             </div>
             <div><label>Crédito da foto de capa (fotógrafo/Divulgação)</label><input type="text" id="rv-capa-cred" placeholder="Divulgação"></div>
             <div><label>Manchete de capa</label><input type="text" id="rv-manchete" placeholder="A manchete grande da capa"></div>
-            <div><label>Chamadas de capa (uma por linha)</label><textarea id="rv-chamadas" rows="3" placeholder="Crítica: a estreia da semana&#10;Exclusivo: entrevista com…&#10;Agenda: 12 estreias"></textarea></div>
+            <div><label>Chamadas de capa (uma por linha, até 3 — a capa não imprime mais que isso)</label><textarea id="rv-chamadas" rows="3" placeholder="Crítica: a estreia da semana&#10;Exclusivo: entrevista com…&#10;Agenda: 12 estreias"></textarea></div>
           </div>
 
           <div class="sec-h"><h3>Páginas da edição</h3><span>ordem com ↑ ↓ — a capa é a página 1 e o Sumário é montado sozinho como página 2</span></div>
@@ -4407,12 +4407,17 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     } else if(tipo === 'cartaz' || tipo === 'patrocinio'){
       campos = '<div><label>' + (tipo === 'patrocinio' ? 'Arte do patrocinador' : 'Cartaz da peça / divulgação') + ' (imagem)</label><input type="file" id="pgf-img" accept="image/*"></div>' +
         '<div><label>Legenda</label><input type="text" id="pgf-leg" value="' + esc(d.legenda || '') + '"></div>' +
-        '<div><label>Link (opcional — para onde o cartaz leva)</label><input type="text" id="pgf-link" value="' + esc(d.link || '') + '"></div>' +
-        '<div class="f-note"><b>🎟 Cupom do leitor (opcional)</b> — só com código COMBINADO com o anunciante. O bilhete aparece dentro do anúncio.</div>' +
+        '<div><label>Link (opcional — para onde o cartaz leva)</label><input type="text" id="pgf-link" value="' + esc(d.link || '') + '"></div>';
+      if(tipo === 'patrocinio'){
+        campos +=
+        '<div class="f-note"><b>🎟 Cupom do leitor (opcional)</b> — só com código COMBINADO com o anunciante. O bilhete aparece dentro do anúncio e é EXCLUSIVO da página paga.</div>' +
         '<div class="r2"><div><label>Código do cupom</label><input type="text" id="pgf-cupom" value="' + esc(d.cupom || '') + '" placeholder="FOYER20"></div>' +
         '<div><label>Benefício</label><input type="text" id="pgf-benef" value="' + esc(d.beneficio || '') + '" placeholder="20% de desconto no ingresso"></div></div>' +
         '<div class="r2"><div><label>Como usar</label><input type="text" id="pgf-comousar" value="' + esc(d.comoUsar || '') + '" placeholder="na bilheteria ou no site do teatro"></div>' +
         '<div><label>Vale até</label><input type="text" id="pgf-validade" value="' + esc(d.validade || '') + '" placeholder="31 de agosto"></div></div>';
+      } else {
+        campos += '<div class="f-note">Cartaz é cortesia da casa: sai limpo, sem cupom. O bilhete do leitor é exclusivo da página de Publicidade (patrocínio).</div>';
+      }
     } else if(tipo === 'livre'){
       campos = '<div><label>Rótulo (opcional)</label><input type="text" id="pgf-rotulo" value="' + esc(d.rotulo || '') + '"></div>' +
         '<div><label>Título</label><input type="text" id="pgf-titulo" value="' + esc(d.titulo || '') + '"></div>' +
@@ -4425,8 +4430,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         '<textarea id="pgf-recs" rows="8" placeholder="É uma questão democrática... | Tiago Rodrigues, diretor do Festival de Avignon | à rádio ICI Vaucluse | festival-de-avignon-2026">' + esc(linhasRec) + '</textarea></div>' +
         '<div class="f-note">Só aspas REAIS, já publicadas, com quem disse e onde saiu. Sem travessão. Até 4 por página.</div>';
         } else if(tipo === 'contracapa'){
-      campos = '<div><label>Chamadas do que vem na próxima edição (uma por linha, até 4)</label>' +
-        '<textarea id="pgf-chamadas" rows="4">' + esc((d.chamadas || []).join('\n')) + '</textarea></div>' +
+      campos = '<div><label>Chamadas do que vem na próxima edição (uma por linha, até 4 — promessas CONCRETAS da próxima edição, não frases genéricas da casa)</label>' +
+        '<textarea id="pgf-chamadas" rows="4" placeholder="Tristão e Isolda: Wagner de volta ao Municipal, 47 anos depois">' + esc((d.chamadas || []).join('\n')) + '</textarea></div>' +
         '<div class="r2"><div><label>Frase de despedida (opcional; só frase real e verificada)</label><input type="text" id="pgf-frase" value="' + esc(d.frase || '') + '"></div>' +
         '<div><label>Autor da frase</label><input type="text" id="pgf-autor" value="' + esc(d.autor || '') + '"></div></div>';
     } else if(tipo === 'expediente' || tipo === 'programas' || tipo === 'agenda' || tipo === 'frase-celebre'){
@@ -4489,11 +4494,16 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       } else if(tipo === 'cartaz' || tipo === 'patrocinio'){
         pg.legenda = $('pgf-leg').value.trim();
         pg.link = $('pgf-link').value.trim();
-        pg.cupom = $('pgf-cupom').value.trim().toUpperCase();
-        pg.beneficio = $('pgf-benef').value.trim();
-        pg.comoUsar = $('pgf-comousar').value.trim();
-        pg.validade = $('pgf-validade').value.trim();
-        if(pg.cupom && !pg.beneficio){ avisar('Cupom precisa dizer o benefício (ex.: 20% de desconto).'); return; }
+        if(tipo === 'patrocinio'){
+          pg.cupom = $('pgf-cupom').value.trim().toUpperCase();
+          pg.beneficio = $('pgf-benef').value.trim();
+          pg.comoUsar = $('pgf-comousar').value.trim();
+          pg.validade = $('pgf-validade').value.trim();
+          if(pg.cupom && !pg.beneficio){ avisar('Cupom precisa dizer o benefício (ex.: 20% de desconto).'); return; }
+        } else {
+          // cartaz é cortesia: nunca carrega cupom, mesmo herdado de edição antiga
+          delete pg.cupom; delete pg.beneficio; delete pg.comoUsar; delete pg.validade;
+        }
       } else if(tipo === 'livre'){
         pg.rotulo = $('pgf-rotulo').value.trim();
         pg.titulo = $('pgf-titulo').value.trim();
@@ -4560,7 +4570,12 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     RV.ed.dataEdicao = $('rv-data').value.trim();
     RV.ed.capa.manchete = $('rv-manchete').value.trim();
     RV.ed.capa.credito = $('rv-capa-cred').value.trim();
-    RV.ed.capa.chamadas = $('rv-chamadas').value.split('\n').map(function(x){ return x.trim(); }).filter(Boolean);
+    var chs = $('rv-chamadas').value.split('\n').map(function(x){ return x.trim(); }).filter(Boolean);
+    if(chs.length > 3){
+      avisar('A capa imprime só 3 chamadas — as demais foram descartadas: "' + chs.slice(3).join('" · "') + '"');
+      chs = chs.slice(0, 3);
+    }
+    RV.ed.capa.chamadas = chs;
   }
   function salvarEd(acao){
     var msg = $('rv-msg');
