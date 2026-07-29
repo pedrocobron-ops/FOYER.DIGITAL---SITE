@@ -787,7 +787,7 @@
         <h2 class="hi" id="saudacao">Boa noite</h2>
         <p class="hi-sub">O panorama do FOYER neste momento</p>
         <div class="stats">
-          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1536</b><span>matérias no acervo</span></button>
+          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1537</b><span>matérias no acervo</span></button>
           <button class="stat" type="button" data-go="fila" data-foco="#fila-list"><b id="st-pub">—</b><span>publicadas pela Coxia</span></button>
           <button class="stat" type="button" data-go="fila" data-foco=".fila-agenda" data-foco-alt="#fila-list"><b id="st-ag">—</b><span>agendadas esperando a hora</span></button>
           <button class="stat" type="button" id="card-mesa" data-go="ia" data-foco="#mesa-list"><b id="st-mesa">—</b><span>na mesa de aprovação</span></button>
@@ -1164,6 +1164,9 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
               <option value="agenda">📅 A semana em cartaz — agenda até quinta (automático)</option>
               <option value="frase-celebre">✨ Entre mestres — frase de um grande nome (automático)</option>
               <option value="recortes">✂️ Recortes da semana — aspas reais com a origem</option>
+              <option value="programa-sala">🎫 Programa de sala — o playbill da estreia</option>
+              <option value="cartas">💌 Cartas da plateia — o correio dos leitores</option>
+              <option value="tres-perguntas">🎤 Três perguntas — minientrevista só da revista</option>
               <option value="cartaz">🎭 Cartaz / divulgação de peça</option>
               <option value="patrocinio">💰 Página patrocinada</option>
               <option value="livre">📄 Página livre</option>
@@ -4228,12 +4231,15 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   var RV = { ed: null, sha: null, idx: null, mats: null };
   var RV_IC = { materia:'📰', exclusiva:'⭐', editorial:'✍', citacao:'❝', cartaz:'🎭',
                 patrocinio:'💰', livre:'📄', expediente:'👥', programas:'📺',
-                agenda:'📅', 'frase-celebre':'✨', recortes:'✂️', contracapa:'🚪' };
+                agenda:'📅', 'frase-celebre':'✨', recortes:'✂️', contracapa:'🚪',
+                'programa-sala':'🎫', cartas:'💌', 'tres-perguntas':'🎤' };
   var RV_NOME = { materia:'Matéria da semana', exclusiva:'Exclusivo', editorial:'Editorial',
                   citacao:'Citação', cartaz:'Cartaz / divulgação', patrocinio:'Patrocinada',
                   livre:'Página livre', expediente:'Expediente', programas:'Na tela — programas da semana',
                   agenda:'A semana em cartaz (agenda)', 'frase-celebre':'Entre mestres (frase célebre)',
-                  recortes:'Recortes da semana', contracapa:'Contracapa — na próxima edição' };
+                  recortes:'Recortes da semana', contracapa:'Contracapa — na próxima edição',
+                  'programa-sala':'Programa de sala', cartas:'Cartas da plateia',
+                  'tres-perguntas':'Três perguntas (exclusiva)' };
 
   function carregarEdicoes(){
     var el = $('rv-lista');
@@ -4429,6 +4435,38 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       campos = '<div><label>Uma aspa por linha, no formato: frase | quem disse | onde saiu | slug-da-matéria (opcional)</label>' +
         '<textarea id="pgf-recs" rows="8" placeholder="É uma questão democrática... | Tiago Rodrigues, diretor do Festival de Avignon | à rádio ICI Vaucluse | festival-de-avignon-2026">' + esc(linhasRec) + '</textarea></div>' +
         '<div class="f-note">Só aspas REAIS, já publicadas, com quem disse e onde saiu. Sem travessão. Até 4 por página.</div>';
+        } else if(tipo === 'programa-sala'){
+      var linhasElenco = (d.quemEQuem || []).map(function(it){
+        return [it.quem, it.papel].filter(Boolean).join(' | ');
+      }).join('\n');
+      var linhasFicha = (d.ficha || []).map(function(it){
+        return [it.funcao, it.nome].filter(Boolean).join(' | ');
+      }).join('\n');
+      campos = '<div><label>Espetáculo (título oficial)</label><input type="text" id="pgf-titulo" value="' + esc(d.titulo || '') + '"></div>' +
+        '<div><label>Linha de baixo (obra original, autor)</label><input type="text" id="pgf-sub" value="' + esc(d.subtitulo || '') + '" placeholder="Livremente inspirado em…, de …"></div>' +
+        '<div><label>Quem está em cena (um por linha: nome | personagem — personagem só se APURADO)</label>' +
+        '<textarea id="pgf-elenco" rows="6" placeholder="Claudia Ohana | Titânia">' + esc(linhasElenco) + '</textarea></div>' +
+        '<div><label>Ficha técnica (uma por linha: função | nome)</label>' +
+        '<textarea id="pgf-ficha" rows="4" placeholder="Direção | Thereza Falcão">' + esc(linhasFicha) + '</textarea></div>' +
+        '<div><label>Serviço (uma linha: casa · datas · vendas)</label><input type="text" id="pgf-serv" value="' + esc(d.servico || '') + '"></div>' +
+        '<div class="f-note">Só nomes APURADOS na cobertura da casa. Personagem sem confirmação fica de fora (elenco sai só com os nomes).</div>';
+    } else if(tipo === 'cartas'){
+      var linhasCartas = (d.itens || []).map(function(c){
+        return [c.texto, c.nome, c.cidade, c.resposta].filter(Boolean).join(' | ');
+      }).join('\n');
+      campos = '<div><label>Uma carta por linha: texto | nome | cidade | resposta da direção (opcional)</label>' +
+        '<textarea id="pgf-cartas" rows="8" placeholder="Adorei a edição de estreia… | Maria Silva | São Paulo | Obrigado, Maria…">' + esc(linhasCartas) + '</textarea></div>' +
+        '<div class="f-note">Só cartas REAIS chegadas ao e-mail da casa, com autorização de publicação e nome verdadeiro. NUNCA inventar carta: sem carta real, a página não entra na edição.</div>';
+    } else if(tipo === 'tres-perguntas'){
+      var ps = d.itens || [{}, {}, {}];
+      campos = '<div><label>Entrevistado (nome completo)</label><input type="text" id="pgf-quem" value="' + esc(d.entrevistado || '') + '"></div>' +
+        '<div><label>Quem é (uma linha de contexto)</label><input type="text" id="pgf-ctx" value="' + esc(d.contexto || '') + '"></div>' +
+        [0, 1, 2].map(function(k){
+          return '<div class="r2"><div><label>Pergunta ' + (k + 1) + '</label><input type="text" id="pgf-p' + k + '" value="' + esc((ps[k] || {}).pergunta || '') + '"></div>' +
+            '<div><label>Resposta ' + (k + 1) + ' (literal, como foi dada)</label><textarea id="pgf-r' + k + '" rows="2">' + esc((ps[k] || {}).resposta || '') + '</textarea></div></div>';
+        }).join('') +
+        '<div><label>Nota de registro (como e quando as respostas foram colhidas)</label><input type="text" id="pgf-nota" value="' + esc(d.nota || '') + '" placeholder="Respostas enviadas por escrito à redação em DD/MM/AAAA"></div>' +
+        '<div class="f-note">EXCLUSIVA de verdade: só entrevista feita pela casa, com as respostas guardadas por escrito. Resposta é aspa: entra LITERAL, nunca ajeitada. Sem registro escrito, a página não entra.</div>';
         } else if(tipo === 'contracapa'){
       campos = '<div><label>Chamadas do que vem na próxima edição (uma por linha, até 4 — promessas CONCRETAS da próxima edição, não frases genéricas da casa)</label>' +
         '<textarea id="pgf-chamadas" rows="4" placeholder="Tristão e Isolda: Wagner de volta ao Municipal, 47 anos depois">' + esc((d.chamadas || []).join('\n')) + '</textarea></div>' +
@@ -4517,7 +4555,38 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         var semDono = itens.filter(function(it){ return !it.quem; });
         if(semDono.length){ avisar('Toda aspa precisa de quem disse. Confira: "' + semDono[0].frase.slice(0, 50) + '…"'); return; }
         pg.itens = itens;
-            } else if(tipo === 'contracapa'){
+            } else if(tipo === 'programa-sala'){
+        pg.titulo = $('pgf-titulo').value.trim();
+        pg.subtitulo = $('pgf-sub').value.trim();
+        pg.quemEQuem = $('pgf-elenco').value.split('\n').map(function(l){
+          var p = l.split('|').map(function(x){ return x.trim(); });
+          return p[0] ? { quem: p[0], papel: p[1] || '' } : null;
+        }).filter(Boolean).slice(0, 16);
+        pg.ficha = $('pgf-ficha').value.split('\n').map(function(l){
+          var p = l.split('|').map(function(x){ return x.trim(); });
+          return p[0] && p[1] ? { funcao: p[0], nome: p[1] } : null;
+        }).filter(Boolean).slice(0, 14);
+        pg.servico = $('pgf-serv').value.trim();
+        if(!pg.titulo){ avisar('O programa de sala precisa do título do espetáculo.'); return; }
+        if(!pg.quemEQuem.length && !pg.ficha.length){ avisar('Programa vazio: preencha elenco ou ficha técnica.'); return; }
+      } else if(tipo === 'cartas'){
+        pg.itens = $('pgf-cartas').value.split('\n').map(function(l){
+          var p = l.split('|').map(function(x){ return x.trim(); });
+          return p[0] && p[1] ? { texto: p[0], nome: p[1], cidade: p[2] || '', resposta: p[3] || '' } : null;
+        }).filter(Boolean).slice(0, 3);
+        if(!pg.itens.length){ avisar('Sem carta real, a página não entra: escreva ao menos uma (texto | nome).'); return; }
+      } else if(tipo === 'tres-perguntas'){
+        pg.entrevistado = $('pgf-quem').value.trim();
+        pg.contexto = $('pgf-ctx').value.trim();
+        pg.nota = $('pgf-nota').value.trim();
+        pg.itens = [0, 1, 2].map(function(k){
+          var pp = $('pgf-p' + k).value.trim(), rr = $('pgf-r' + k).value.trim();
+          return pp && rr ? { pergunta: pp, resposta: rr } : null;
+        }).filter(Boolean);
+        if(!pg.entrevistado){ avisar('Diga quem é o entrevistado.'); return; }
+        if(pg.itens.length < 3){ avisar('São TRÊS perguntas: preencha as três, com respostas literais.'); return; }
+        if(!pg.nota){ avisar('Registre como as respostas foram colhidas (a nota sai na página).'); return; }
+      } else if(tipo === 'contracapa'){
         pg.chamadas = $('pgf-chamadas').value.split('\n').map(function(l){ return l.trim(); }).filter(Boolean).slice(0, 4);
         pg.frase = $('pgf-frase').value.trim();
         pg.autor = $('pgf-autor').value.trim();

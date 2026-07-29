@@ -60,6 +60,33 @@
    "chamada": "Sonho de uma Noite de Verão vira festa junina em musical inédito com Claudia Ohana à frente de 14 artistas."
   },
   {
+   "tipo": "programa-sala",
+   "titulo": "Festa no Arraial, O Musical",
+   "subtitulo": "Livremente inspirado em “Sonho de uma Noite de Verão”, de William Shakespeare",
+   "quemEQuem": [
+    { "quem": "Claudia Ohana" },
+    { "quem": "Lorena Tucci" },
+    { "quem": "Cadu Libonati" },
+    { "quem": "Bernardo Mesquita" },
+    { "quem": "Erika Affonso" },
+    { "quem": "Danilo Dal Farra" },
+    { "quem": "Sofie Orleans" },
+    { "quem": "Rafa Canedo" },
+    { "quem": "Júlia Perré" },
+    { "quem": "Nestor Fonseca" },
+    { "quem": "Caio Padilha" },
+    { "quem": "Benji Iuler" },
+    { "quem": "Jude Fontenelle" },
+    { "quem": "Mariana Braga" }
+   ],
+   "ficha": [
+    { "funcao": "Direção", "nome": "Thereza Falcão" },
+    { "funcao": "Texto", "nome": "Thereza Falcão e Mariana Mesquita" },
+    { "funcao": "Obra original", "nome": "William Shakespeare, c. 1595" }
+   ],
+   "servico": "Teatro Sabesp Frei Caneca · 24 de julho a 16 de agosto de 2026 · sexta a domingo · vendas na plataforma Uhuu"
+  },
+  {
    "tipo": "programas"
   },
   {
@@ -89,6 +116,12 @@
   {
    "tipo": "agenda",
    "cidade": "São Paulo",
+   "bilhete": {
+    "titulo": "Valsa Nº 6",
+    "sessao": "Sábado 25/07, 14h30 · Teatro Arena B3",
+    "frase": "Quatro sessões, uma saia de 12 metros e Nelson Rodrigues no centro do palco: se for para escolher uma só na semana, é esta.",
+    "assinatura": "A redação"
+   },
    "itens": [
     {
      "dia": "2026-07-24",
@@ -204,6 +237,11 @@
   }
  ],
  "historico": [
+  {
+   "quando": "2026-07-29T15:00:00+00:00",
+   "quem": "Pedro Amaral (pelo Claude)",
+   "acao": "estreia o Programa de Sala (Festa no Arraial) e o Bilhete da Semana na agenda de São Paulo"
+  },
   {
    "quando": "2026-07-29T00:00:00+00:00",
    "quem": "Pedro Amaral (pelo Claude)",

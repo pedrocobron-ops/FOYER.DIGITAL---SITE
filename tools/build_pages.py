@@ -1869,6 +1869,101 @@ html[data-theme="dark"] .rv-mat .cont-tit{ color:var(--gold); }
 .rv-tela .canal-cta a:hover{ background:var(--gold); color:var(--wine); }
 .rv-tela .rv-folio{ background:var(--wine); color:var(--gold); border-top-color:var(--gold); }
 .rv-tela .rv-folio b{ color:var(--gold); }
+/* semana curta: até 3 episódios ganham cartão de coluna inteira */
+.rv-tela .grade.poucos{ grid-template-columns:1fr; align-content:start; gap:14px; }
+.rv-tela .grade.poucos .ep img{ aspect-ratio:auto; height:158px; }
+.rv-tela .grade.poucos .ep .tt{ font-size:.85rem; padding:2px 12px 10px; }
+.rv-tela .grade.poucos .ep .pr{ font-size:.56rem; }
+/* thumb que não carrega mostra o pano da casa, não um ícone quebrado */
+.rv-tela .ep img{ background:linear-gradient(135deg, #3a0b07 0 40%, #5a1610 40% 60%, #3a0b07 60%);
+  color:transparent; }
+
+/* ---------- PROGRAMA DE SALA (o playbill da estreia) ---------- */
+.rv-prog{ background:var(--rv-papel); }
+.rv-prog .borda{ flex:1; margin:18px; border:3px double var(--gold); outline:1px solid var(--gold);
+  outline-offset:-9px; padding:26px 28px 60px; display:flex; flex-direction:column; overflow:hidden; }
+.rv-prog em.rot{ font-style:normal; font-family:var(--mono); font-size:.54rem; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--wine); text-align:center; }
+html[data-theme="dark"] .rv-prog em.rot{ color:var(--gold); }
+.rv-prog h3{ font-family:var(--didone); font-weight:400; font-size:2rem; line-height:1.05;
+  text-align:center; margin:10px 0 4px; }
+.rv-prog .sub{ text-align:center; font-size:.85rem; color:var(--ink-soft); margin:0 0 6px; }
+.rv-prog .colunas{ display:grid; grid-template-columns:1fr 1fr; gap:0 26px; margin-top:14px; }
+.rv-prog h4{ font-family:var(--mono); font-size:.56rem; font-weight:700; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--wine); border-bottom:2px solid var(--gold);
+  padding-bottom:5px; margin:10px 0 8px; }
+html[data-theme="dark"] .rv-prog h4{ color:var(--gold); }
+.rv-prog ul{ list-style:none; margin:0; padding:0; }
+.rv-prog .elenco li{ padding:4px 0; font-size:.8rem; border-bottom:1px dotted rgba(78,15,9,.25); }
+.rv-prog .elenco li i{ font-style:normal; color:var(--ink-soft); display:block; font-size:.68rem; }
+.rv-prog .fichat li{ display:flex; justify-content:space-between; gap:10px; padding:4px 0;
+  font-size:.74rem; border-bottom:1px dotted rgba(78,15,9,.25); }
+.rv-prog .fichat em{ font-style:normal; color:var(--ink-soft); flex-shrink:0; }
+.rv-prog .fichat span{ text-align:right; font-weight:600; }
+.rv-prog .serv{ margin-top:auto; padding-top:14px; text-align:center; font-family:var(--mono);
+  font-size:.6rem; letter-spacing:.08em; color:var(--ink-soft); }
+
+/* ---------- CARTAS DA PLATEIA ---------- */
+.rv-cartas .cab{ padding:24px 22px 12px; border-bottom:3px solid var(--ink); }
+.rv-cartas .cab em{ display:block; font-style:normal; font-family:var(--mono); font-size:.54rem;
+  letter-spacing:.26em; text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-cartas .cab em{ color:var(--gold); }
+.rv-cartas .cab h3{ font-family:var(--didone); font-weight:400; font-size:2.3rem; margin:4px 0 0; line-height:1; }
+.rv-cartas .lista{ flex:1; padding:16px 22px; display:flex; flex-direction:column; gap:14px; overflow:hidden; }
+.rv-cartas .carta{ border-left:4px solid var(--gold); padding:8px 0 8px 16px; }
+.rv-cartas .carta .tx{ font-size:.85rem; line-height:1.7; margin:0; }
+.rv-cartas .carta .ass{ font-family:var(--mono); font-size:.56rem; font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--wine); margin:8px 0 0; }
+html[data-theme="dark"] .rv-cartas .carta .ass{ color:var(--gold); }
+.rv-cartas .carta .resp{ margin:8px 0 0; padding:8px 12px; background:rgba(206,178,106,.14);
+  font-size:.78rem; line-height:1.6; }
+.rv-cartas .carta .resp span{ display:block; font-family:var(--mono); font-size:.52rem;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); margin-top:4px; }
+.rv-cartas .convite{ margin:0 22px 54px; padding-top:10px; border-top:2px solid var(--ink);
+  font-family:var(--mono); font-size:.58rem; letter-spacing:.06em; color:var(--ink-soft); }
+
+/* ---------- TRÊS PERGUNTAS (exclusiva da revista) ---------- */
+.rv-3p .miolo{ flex:1; padding:20px 28px 60px; display:flex; flex-direction:column; overflow:hidden; }
+.rv-3p em.rot{ font-style:normal; font-family:var(--mono); font-size:.56rem; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-3p em.rot{ color:var(--gold); }
+.rv-3p h3{ font-family:var(--didone); font-weight:400; font-size:2.4rem; line-height:1; margin:6px 0 4px; }
+.rv-3p .quem{ font-size:.85rem; color:var(--ink-soft); margin:0 0 14px; }
+.rv-3p .par{ margin-bottom:14px; }
+.rv-3p .pp{ font-family:var(--didone); font-size:1.15rem; line-height:1.25; margin:0 0 6px; color:var(--wine); }
+html[data-theme="dark"] .rv-3p .pp{ color:var(--gold); }
+.rv-3p .pp b{ font-weight:400; color:var(--gold); margin-right:4px; }
+.rv-3p .rr{ font-size:.88rem; line-height:1.7; margin:0; border-left:3px solid var(--gold); padding-left:14px; }
+.rv-3p .nota{ margin-top:auto; padding-top:12px; font-family:var(--mono); font-size:.54rem;
+  letter-spacing:.1em; color:var(--ink-soft); }
+
+/* ---------- O BILHETE DA SEMANA (abre a agenda) ---------- */
+.rv-bsem{ display:flex; align-items:stretch; margin:14px 22px 4px; position:relative;
+  border:2px dashed var(--wine); background:rgba(206,178,106,.1); }
+.rv-bsem .bs-esq{ flex:1; padding:12px 16px; display:flex; flex-direction:column; gap:3px; }
+.rv-bsem .bs-esq em{ font-style:normal; font-family:var(--mono); font-size:.5rem; letter-spacing:.26em;
+  text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-bsem .bs-esq em{ color:var(--gold); }
+.rv-bsem .bs-esq b{ font-family:var(--didone); font-weight:400; font-size:1.2rem; line-height:1.1; }
+.rv-bsem .bs-esq span{ font-family:var(--mono); font-size:.58rem; color:var(--ink-soft); }
+.rv-bsem .bs-esq i{ font-style:italic; font-size:.74rem; line-height:1.45; color:var(--ink-soft); margin-top:2px; }
+.rv-bsem .bs-dir{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
+  padding:10px 14px; border-left:2px dashed var(--wine); min-width:96px; text-align:center; }
+.rv-bsem .bs-dir em{ font-style:normal; font-family:var(--mono); font-size:.48rem; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--ink-soft); }
+.rv-bsem .bs-dir strong{ font-family:var(--mono); font-size:.6rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-bsem .bs-dir strong{ color:var(--gold); }
+
+/* ---------- ANUNCIE (expediente) ---------- */
+.rv-exp .anuncie{ margin-top:18px; border:2px solid var(--wine); padding:12px 14px; }
+.rv-exp .anuncie em{ display:block; font-style:normal; font-family:var(--mono); font-size:.56rem;
+  font-weight:700; letter-spacing:.24em; text-transform:uppercase; color:var(--wine); margin-bottom:5px; }
+html[data-theme="dark"] .rv-exp .anuncie{ border-color:var(--gold); }
+html[data-theme="dark"] .rv-exp .anuncie em{ color:var(--gold); }
+.rv-exp .anuncie p{ margin:0; font-size:.72rem; line-height:1.55; }
+.rv-exp .anuncie a{ color:var(--wine); font-weight:700; }
+html[data-theme="dark"] .rv-exp .anuncie a{ color:var(--gold); }
 
 /* ---------- AGENDA DA SEMANA ---------- */
 .rv-agd .cab{ padding:24px 22px 12px; border-bottom:3px solid var(--ink); }
@@ -2249,6 +2344,9 @@ def _rv_rotulo_sumario(pg):
     if t == 'patrocinio': return (pg.get('legenda') or 'Página patrocinada', 'Publicidade')
     if t == 'expediente': return ('Expediente', 'Quem faz o FOYER')
     if t == 'recortes': return ('Recortes: o que disseram na semana', 'Entre aspas')
+    if t == 'programa-sala': return (pg.get('titulo') or 'Programa de sala', 'Programa de sala')
+    if t == 'cartas': return ('Cartas da plateia', 'O correio da revista')
+    if t == 'tres-perguntas': return (f'Três perguntas para {pg.get("entrevistado", "")}'.strip(), 'Exclusivo da revista')
     if t == 'contracapa': return ('Na próxima edição', 'Contracapa')
     return (pg.get('titulo', 'Página'), pg.get('rotulo', ''))
 
@@ -2350,8 +2448,9 @@ def _rv_pagina(pg, ed, num):
             f'<span class="pr">{_rvesc(n.split(" — ")[0])}</span>'
             f'<span class="tt">{_rvesc(v["titulo"][:90])}</span></a>'
             for q, n, v in _semana)
+        _gr = 'grade poucos' if len(_semana) <= 3 else 'grade'
         return (f'<section class="rv-pg rv-tela"><div class="cab"><em>O canal, esta semana</em>'
-                f'<h3>Na tela</h3></div><div class="grade">{cels}</div>'
+                f'<h3>Na tela</h3></div><div class="{_gr}">{cels}</div>'
                 '<div class="canal-cta"><a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">'
                 'Assista a tudo no canal do FOYER →</a></div>'
                 f'{_rv_folio(ed, num)}</section>')
@@ -2381,8 +2480,18 @@ def _rv_pagina(pg, ed, num):
                            + '</span>' + fecha)
             cid = pg.get('cidade', '')
             tit_ag = f'A semana em cartaz<span class="cid">{_rvesc(cid)}</span>' if cid else 'A semana em cartaz'
+            # o bilhete da semana: a escolha única da redação abre a agenda como um ingresso
+            bi = pg.get('bilhete') or {}
+            bilhete = ''
+            if bi.get('titulo'):
+                bilhete = ('<div class="rv-bsem"><div class="bs-esq">'
+                           f'<em>O bilhete da semana</em><b>{_rvesc(bi["titulo"])}</b>'
+                           + (f'<span>{_rvesc(bi["sessao"])}</span>' if bi.get('sessao') else '')
+                           + (f'<i>“{_rvesc(bi["frase"])}” · {_rvesc(bi.get("assinatura") or "A redação")}</i>' if bi.get('frase') else '')
+                           + '</div><div class="bs-dir"><em>a escolha</em><strong>da redação</strong></div></div>')
             return (f'<section class="rv-pg rv-agd"><div class="cab"><em>Sete dias pela frente</em>'
                     f'<h3>{tit_ag}</h3></div>'
+                    + bilhete +
                     f'<div class="lista">{linhas}</div>'
                     f'<div class="ag-cta"><a href="cat-em-cartaz.html">Tudo que está em cartaz agora →</a></div>'
                     f'{fol}</section>')
@@ -2472,8 +2581,62 @@ def _rv_pagina(pg, ed, num):
                 f'<img src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" class="only-dark">'
                 f'<h4>Quem faz</h4><ul>{nomes}</ul>'
                 f'<h4>Fotografias</h4><p>Imagens de divulgação das produções, sempre com crédito.</p>'
+                f'<h4>Cartas da plateia</h4><p>Escreva para programafoyer@gmail.com. As melhores cartas saem na revista, com nome e cidade.</p>'
                 f'<h4>Fale conosco</h4><p>foyer.digital · programafoyer@gmail.com · YouTube @Foyer.digital</p>'
+                '<div class="anuncie"><em>Anuncie na revista</em>'
+                '<p>Uma página inteira, leitor por assinatura e o bilhete do leitor com código exclusivo na bilheteria. '
+                'Posições e mídia kit: <a href="midia-kit.html">foyer.digital/midia-kit</a> · programafoyer@gmail.com</p></div>'
                 f'</div>{fol}</section>')
+    if t == 'programa-sala':
+        # o programa clássico da estreia: moldura dourada, quem é quem, ficha em colunas
+        elenco = ''.join(
+            f'<li><b>{_rvesc(it.get("quem", ""))}</b>'
+            + (f'<i>{_rvesc(it["papel"])}</i>' if it.get('papel') else '') + '</li>'
+            for it in (pg.get('quemEQuem') or [])[:16] if it.get('quem'))
+        ficha = ''.join(
+            f'<li><em>{_rvesc(it.get("funcao", ""))}</em><span>{_rvesc(it.get("nome", ""))}</span></li>'
+            for it in (pg.get('ficha') or [])[:14] if it.get('nome'))
+        colunas = (
+            (f'<div class="pr-col"><h4>Quem está em cena</h4><ul class="elenco">{elenco}</ul></div>' if elenco else '')
+            + (f'<div class="pr-col"><h4>Ficha técnica</h4><ul class="fichat">{ficha}</ul></div>' if ficha else ''))
+        return (f'<section class="rv-pg rv-prog"><div class="borda">'
+                f'<em class="rot">Programa de sala · A estreia da semana</em>'
+                f'<h3>{_rvesc(pg.get("titulo", ""))}</h3>'
+                + (f'<p class="sub">{_rvesc(pg["subtitulo"])}</p>' if pg.get('subtitulo') else '')
+                + (f'<div class="colunas">{colunas}</div>' if colunas else '')
+                + (f'<p class="serv">{_rvesc(pg["servico"])}</p>' if pg.get('servico') else '')
+                + f'</div>{fol}</section>')
+    if t == 'cartas':
+        # o correio da plateia: cartas reais chegadas ao e-mail da casa
+        cs = ''
+        for c in (pg.get('itens') or [])[:3]:
+            if not (c.get('texto') and c.get('nome')):
+                continue
+            cs += ('<div class="carta"><p class="tx">' + _rvesc(c['texto']) + '</p>'
+                   f'<p class="ass">{_rvesc(c["nome"])}'
+                   + (f' · {_rvesc(c["cidade"])}' if c.get('cidade') else '') + '</p>'
+                   + (f'<p class="resp"><em>{_rvesc(c["resposta"])}</em><span>A direção</span></p>' if c.get('resposta') else '')
+                   + '</div>')
+        return (f'<section class="rv-pg rv-cartas"><div class="cab"><em>O correio da revista</em>'
+                f'<h3>Cartas da plateia</h3></div><div class="lista">{cs}</div>'
+                '<p class="convite">Escreva para a revista: programafoyer@gmail.com · as melhores cartas saem aqui, com nome e cidade</p>'
+                f'{fol}</section>')
+    if t == 'tres-perguntas':
+        # minientrevista exclusiva: as respostas nunca sobem ao site
+        qs = ''
+        for k, it in enumerate((pg.get('itens') or [])[:3], 1):
+            if not (it.get('pergunta') and it.get('resposta')):
+                continue
+            qs += (f'<div class="par"><p class="pp"><b>{k}.</b> {_rvesc(it["pergunta"])}</p>'
+                   f'<p class="rr">{_rvesc(it["resposta"])}</p></div>')
+        return (f'<section class="rv-pg rv-3p"><div class="rv-kicker">'
+                f'<span class="tagz">Exclusivo da revista</span><span>Só aqui</span></div>'
+                f'<div class="miolo"><em class="rot">Três perguntas para</em>'
+                f'<h3>{_rvesc(pg.get("entrevistado", ""))}</h3>'
+                + (f'<p class="quem">{_rvesc(pg["contexto"])}</p>' if pg.get('contexto') else '')
+                + qs
+                + (f'<p class="nota">{_rvesc(pg["nota"])}</p>' if pg.get('nota') else '')
+                + f'</div>{fol}</section>')
     if t == 'recortes':
         recs = ''
         for it in (pg.get('itens') or [])[:4]:
@@ -2713,6 +2876,7 @@ def edicao_page(ed):
   var duplas = [];      // cada item: [idx] ou [idxEsq, idxDir]
   var d = 0;            // dupla atual
   var virando = false;
+  var modoLargura = false;   // toque duplo: ler na largura da tela
   var fita = document.createElement('div'); fita.className = 'rv-fita';
 
   function ehSolo(p){{ return p.classList.contains('rv-capa2') || p.classList.contains('rv-back'); }}
@@ -2773,11 +2937,14 @@ def edicao_page(ed):
     var w = palco.clientWidth || document.documentElement.clientWidth - 28;
     var h = window.innerHeight - (sala ? 96 : 200);
     var f = Math.min(1, w / larguraLivro, Math.max(0.3, h / alturaLivro));
+    // zoom de leitura (toque duplo): amplia o corpo e deixa arrastar a página
+    if(modoLargura) f = Math.min(1, (w / larguraLivro) * 1.75);
     // origem no canto: o deslocamento centraliza a revista já na escala final,
     // sem sobrar metade fora da tela no celular
     var desloca = Math.max(0, (w - larguraLivro * f) / 2);
     livro.style.transform = 'translateX(' + desloca + 'px) scale(' + f + ')';
     palco.style.height = Math.ceil(alturaLivro * f) + 'px';
+    palco.style.overflowX = modoLargura ? 'auto' : '';
   }}
   function pinta(){{
     var par = duplas[d] || [0];
@@ -2949,14 +3116,49 @@ def edicao_page(ed):
     if(e.key === 'ArrowLeft') anterior();
     if(e.key === 'Escape' && document.body.classList.contains('rv-sala')) salaSai();
   }});
-  var x0 = null;
-  document.addEventListener('touchstart', function(e){{ x0 = e.touches[0].clientX; }}, {{passive:true}});
+  // toque duplo na página: alterna o modo "largura da tela" (corpo maior, rolagem vertical)
+  var tqTrava = 0;
+  function alternaLargura(){{
+    // no toque, o navegador ainda sintetiza um dblclick: um gesto, uma alternância
+    var agoraT = Date.now();
+    if(agoraT - tqTrava < 500) return;
+    tqTrava = agoraT;
+    var palco = document.getElementById('rv-palco');
+    var par = duplas[d] || [0];
+    var w = palco.clientWidth || document.documentElement.clientWidth - 28;
+    var cheia = Math.min(1, w / (726 * par.length));
+    var h = window.innerHeight - (document.body.classList.contains('rv-sala') ? 96 : 200);
+    var justa = Math.min(cheia, Math.max(0.3, h / 978));
+    var ampliada = Math.min(1, cheia * 1.75);
+    if(!modoLargura && ampliada - justa < 0.05) return;   // não faria diferença nesta tela
+    modoLargura = !modoLargura;
+    escala();
+    var t = document.createElement('div');
+    t.className = 'rv-toast';
+    t.textContent = modoLargura ? 'Zoom de leitura: arraste a página · toque duas vezes para voltar'
+                                : 'Página inteira de volta';
+    document.body.appendChild(t);
+    setTimeout(function(){{ t.remove(); }}, 2600);
+  }}
+  var x0 = null, y0 = null, tqUlt = 0;
+  document.addEventListener('touchstart', function(e){{
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+  }}, {{passive:true}});
   document.addEventListener('touchend', function(e){{
     if(x0 == null) return;
     var dx = e.changedTouches[0].clientX - x0;
-    if(Math.abs(dx) > 60) (dx < 0 ? proxima : anterior)();
-    x0 = null;
+    var dy = e.changedTouches[0].clientY - y0;
+    if(Math.abs(dx) > 60){{ if(!modoLargura) (dx < 0 ? proxima : anterior)(); tqUlt = 0; }}
+    else if(Math.abs(dx) < 24 && Math.abs(dy) < 24 && e.target.closest && e.target.closest('.rv-pg')){{
+      var agora = Date.now();
+      if(agora - tqUlt < 340){{ alternaLargura(); tqUlt = 0; }}
+      else tqUlt = agora;
+    }}
+    x0 = null; y0 = null;
   }}, {{passive:true}});
+  document.addEventListener('dblclick', function(e){{
+    if(e.target.closest && e.target.closest('.rv-pg') && !e.target.closest('a, button')) alternaLargura();
+  }});
 
   // sala de leitura
   function salaEntra(){{ document.body.classList.add('rv-sala'); window.scrollTo({{ top: 0 }}); pinta(); }}
@@ -3747,6 +3949,96 @@ principios_body = band('Institucional', 'Princípios Editoriais', 'Como o FOYER 
 '''
 page('principios.html', 'Princípios Editoriais — FOYER', 'Como o FOYER apura, escreve, credita imagens e corrige: os princípios editoriais da casa.', 'principios.html', principios_body)
 page('privacidade.html', 'Política de Privacidade — FOYER', 'Política de privacidade e cookies do FOYER.', 'privacidade.html', privacidade_body)
+
+# ---- mídia kit: a página comercial da revista, com o retrato agregado do leitor
+midiakit_body = band('Comercial', 'Anuncie na revista', 'Uma página inteira na revista semanal do FOYER, que fecha como uma edição impressa') + '''
+<main id="conteudo" class="wrap">
+  <style>
+    .mk-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:26px 0; }
+    @media (max-width:720px){ .mk-grid{ grid-template-columns:1fr; } }
+    .mk-card{ border:2px solid var(--ink); padding:18px 20px; background:var(--paper); }
+    .mk-card h2{ font-family:var(--didone); font-weight:400; font-size:1.5rem; margin:0 0 10px; }
+    .mk-card ul{ margin:0; padding-left:18px; }
+    .mk-card li{ margin:6px 0; line-height:1.55; }
+    .mk-pos{ border-left:4px solid var(--gold); padding:6px 0 6px 14px; margin:10px 0; }
+    .mk-pos b{ font-family:var(--didone); font-weight:400; font-size:1.1rem; display:block; }
+    .mk-pos span{ font-size:.85rem; color:var(--ink-soft); }
+    .mk-leitor{ border:2px solid var(--wine); padding:18px 20px; margin:0 0 26px; }
+    .mk-leitor h2{ font-family:var(--didone); font-weight:400; font-size:1.5rem; margin:0 0 4px; }
+    .mk-leitor .mk-nota{ font-family:var(--mono); font-size:.62rem; letter-spacing:.08em; color:var(--ink-soft); }
+    .mk-tiles{ display:flex; flex-wrap:wrap; gap:14px; margin:14px 0 4px; }
+    .mk-tile{ border:2px solid var(--ink); padding:10px 16px; min-width:130px; }
+    .mk-tile b{ display:block; font-family:var(--didone); font-size:1.7rem; font-weight:400; color:var(--wine); }
+    html[data-theme="dark"] .mk-tile b{ color:var(--gold); }
+    .mk-tile span{ font-family:var(--mono); font-size:.56rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); }
+    .mk-cta{ display:inline-block; border:2px solid var(--wine); background:var(--wine); color:var(--gold);
+      font-family:var(--mono); font-weight:700; font-size:.7rem; letter-spacing:.14em; text-transform:uppercase;
+      padding:14px 22px; text-decoration:none; margin:6px 0 40px; }
+    .mk-cta:hover{ background:var(--gold); color:var(--wine); }
+  </style>
+  <div class="mk-grid">
+    <div class="mk-card">
+      <h2>O produto</h2>
+      <ul>
+        <li>Revista semanal com começo, meio e fim: fecha na quarta, o assinante lê na quinta às 7h, abre ao público na sexta.</li>
+        <li>A mesma página em toda parte: computador, celular, e-mail e PDF, sempre idêntica, como uma edição impressa.</li>
+        <li>As edições ficam na estante: o anúncio segue no acervo, não some no feed.</li>
+        <li>Página inteira (720×972), arte do anunciante, rótulo claro de Publicidade.</li>
+      </ul>
+    </div>
+    <div class="mk-card">
+      <h2>O bilhete do leitor</h2>
+      <ul>
+        <li>Cupom com código exclusivo dentro do anúncio, combinado por escrito com o anunciante.</li>
+        <li>O leitor copia o código com um toque; o código também viaja no link do anúncio.</li>
+        <li>O anunciante mede na bilheteria e no site quantos ingressos o código do FOYER vendeu.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="mk-card" style="margin-bottom:26px">
+    <h2>As posições</h2>
+    <div class="mk-pos"><b>A ímpar dos Recortes</b><span>Página inteira logo após a seção mais compartilhada da edição.</span></div>
+    <div class="mk-pos"><b>A face da agenda</b><span>Ao lado da "Semana em cartaz": a página de maior intenção de compra de ingresso.</span></div>
+    <div class="mk-pos"><b>A porta da contracapa</b><span>A última página antes do fecho da edição.</span></div>
+    <p style="font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;color:var(--ink-soft);margin:10px 0 0">
+      No máximo 2 páginas pagas por edição. A curadoria editorial não é negociável e anúncio é sempre rotulado.</p>
+  </div>
+  <div class="mk-leitor">
+    <h2>O leitor da revista</h2>
+    <p class="mk-nota">Retrato agregado e anônimo dos assinantes cadastrados, direto do censo da casa.</p>
+    <div class="mk-tiles" id="mk-tiles"><div class="mk-tile"><b>…</b><span>carregando</span></div></div>
+  </div>
+  <a class="mk-cta" href="mailto:programafoyer@gmail.com?subject=Anunciar%20na%20revista%20do%20FOYER">Pedir valores e datas · programafoyer@gmail.com</a>
+</main>
+<script>
+(function(){
+  var M = { url:'https://jcaqjlrzmrtzjyfbljxh.supabase.co', key:'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB' };
+  var alvo = document.getElementById('mk-tiles');
+  fetch(M.url + '/rest/v1/rpc/foyer_leitores_resumo', {
+    method: 'POST',
+    headers: { 'apikey': M.key, 'Authorization': 'Bearer ' + M.key, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chave: 'foyer-cx-metricas-terceiro-sinal-9427' })
+  }).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
+    function topo(obj){
+      var ks = Object.keys(obj || {});
+      if(!ks.length) return null;
+      return ks.sort(function(a, b){ return obj[b] - obj[a]; })[0];
+    }
+    var tiles = [];
+    if(d.total) tiles.push(['' + d.total, 'assinantes']);
+    var cid = topo(d.por_cidade); if(cid) tiles.push([cid, 'cidade nº 1']);
+    var fr = topo(d.por_frequencia); if(fr) tiles.push([fr, 'vão ao vivo']);
+    var intr = topo(d.por_interesse); if(intr) tiles.push([intr, 'linguagem nº 1']);
+    alvo.innerHTML = tiles.length
+      ? tiles.map(function(t){ return '<div class="mk-tile"><b>' + t[0] + '</b><span>' + t[1] + '</span></div>'; }).join('')
+      : '<p style="margin:0">Retrato completo sob consulta com a redação.</p>';
+  }).catch(function(){
+    alvo.innerHTML = '<p style="margin:0">Retrato completo sob consulta com a redação.</p>';
+  });
+})();
+</script>
+'''
+page('midia-kit.html', 'Anuncie na revista — FOYER', 'Mídia kit da revista semanal do FOYER: posições, bilhete do leitor com cupom rastreável e o retrato do assinante.', 'midia-kit.html', midiakit_body)
 
 descadastrar_body = band('Newsletter', 'Descadastrar', 'Sair da lista da Revista do FOYER') + '''
 <main id="conteudo" class="wrap">

@@ -558,6 +558,32 @@ Regras das seções novas:
   no link do anúncio (`?utm_source=foyer&cupom=CODIGO`) e o leitor
   copia com um toque: o anunciante vê na bilheteria e no site quantos
   ingressos o código do FOYER vendeu.
+- **Posições de anúncio** (as únicas vendáveis, por nome): **a ímpar
+  dos Recortes** (página inteira logo após a seção), **a face da
+  agenda** (ao lado da "Semana em cartaz") e **a porta da contracapa**
+  (a última página antes do fecho). **Máximo de 2 páginas pagas por
+  edição.** Valores sempre sob consulta (nunca impressos); a vitrine
+  comercial é a página pública `midia-kit.html`.
+- **Programa de sala** (`programa-sala`): o playbill da estreia da
+  semana, com moldura dourada, "quem está em cena" e ficha técnica em
+  colunas. Só nomes APURADOS na cobertura da casa; personagem sem
+  confirmação fica de fora (o elenco sai só com os nomes). Serviço em
+  uma linha no pé.
+- **O bilhete da semana** (campo `bilhete` da página `agenda`): a
+  escolha ÚNICA da redação abrindo a agenda, impressa como ingresso:
+  título, sessão recomendada (dia, hora, casa) e uma frase curta
+  assinada "A redação". É curadoria da casa: nenhuma produção compra
+  o bilhete, e a frase só afirma o que a cobertura já apurou.
+- **Cartas da plateia** (`cartas`): 2 a 3 cartas REAIS chegadas ao
+  e-mail da casa, com autorização de publicação, nome verdadeiro e
+  cidade; resposta curta da direção quando couber. NUNCA inventar
+  carta: sem carta real, a página simplesmente não entra na edição.
+- **Três perguntas** (`tres-perguntas`): minientrevista EXCLUSIVA da
+  revista, que nunca sobe ao site. Só entrevista feita pela própria
+  casa, com as respostas guardadas POR ESCRITO (e-mail ou mensagem);
+  resposta é aspa: entra literal, nunca ajeitada. A página imprime a
+  nota de registro ("respostas enviadas por escrito à redação em
+  DD/MM"). Sem registro escrito, a página não entra.
 
 ## Entrega
 
