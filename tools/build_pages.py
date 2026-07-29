@@ -2058,13 +2058,20 @@ html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
   .rv-edi .txt, .rv-livre .txt{ column-count:1; }
 }
 @media print{
-  .rv-pg{ display:flex !important; page-break-after:always; border-width:0; aspect-ratio:auto;
-    min-height:96vh; width:100% !important; max-width:100% !important; }
+  /* no papel o livro se desmonta: uma página por folha, empilhadas */
+  .rv-book{ display:block !important; perspective:none !important; }
+  .rv-stage{ max-width:100% !important; margin:0 !important; padding:0 !important; }
+  .rv-pg{ display:flex !important; page-break-after:always; break-inside:avoid;
+    border-width:0; aspect-ratio:auto; min-height:96vh; height:auto !important;
+    width:100% !important; max-width:100% !important; overflow:visible !important;
+    transform:none !important; animation:none !important; position:relative; }
+  .rv-pg .miolo, .rv-sum ol, .rv-agd .lista, .rv-rec .mural, .rv-tela .grade,
+  .rv-livre .miolo, .rv-exp .miolo{ overflow:visible !important; }
   body.rv-em-janela .rv-pg{ display:none !important; }
   body.rv-em-janela .rv-pg.rv-amostra{ display:flex !important; }
   .rv-pg::before{ display:none; }
   .rv-nav, nav.main, .ticker, footer, .warn, .rv-lombo, .rv-fita, .rv-canto,
-  #rv-sala-sair, .rv-toast{ display:none !important; }
+  #rv-sala-sair, .rv-toast, .rv-cortina, .cv-overlay, .cv-band, #lgpd{ display:none !important; }
 }
 </style>'''
 
