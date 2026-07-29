@@ -585,6 +585,30 @@ Regras das seções novas:
   nota de registro ("respostas enviadas por escrito à redação em
   DD/MM"). Sem registro escrito, a página não entra.
 
+## As artes de palco da casa (conjunto APROVADO)
+
+As 6 artes brutalistas da identidade (vinho/dourado/papel) foram
+aprovadas pelo Pedro em 29/07/2026 e estão salvas em `assets/artes/`:
+cada uma com o vetor mestre (`.svg`, 600x400) e 3 tamanhos em PNG
+(`-paisagem` 1200x675 para cartões e site, `-faixa` 1200x400 para
+banners e e-mail, `-vertical` 1080x1350 para redes).
+
+| Nº | Arquivo | Conceito |
+|---|---|---|
+| 1 | `arte-1-refletor` | O ator sob o refletor: o facho desce, a silhueta no centro da luz |
+| 2 | `arte-2-cortina` | A cortina e a ribalta: as dobras terminam na ribalta; abaixo, o piso |
+| 3 | `arte-3-plateia` | Alguém na plateia: a pessoa dourada ocupa UMA cadeira da malha |
+| 4 | `arte-4-arena` | O teatro de arena: plateia completa dos dois lados, um ator só no centro |
+| 5 | `arte-5-urdimento` | As cordas da coxia com os contrapesos alinhados |
+| 6 | `arte-6-degraus` | A subida ao palco, com o canhão de luz aceso no alto |
+
+REGRAS: as artes são sempre RECORTADAS pelo centro (slice), nunca
+esticadas; nos recortes o padrão pode sangrar para fora do quadro, mas
+a composição interna fica inteira (fileiras completas, grades
+alinhadas). O desenho-fonte vive em `tools/build_pages.py` (bloco
+DEFS, símbolos `ph-1` a `ph-6`); mudar qualquer arte exige NOVA
+aprovação do Pedro e re-exportação dos arquivos de `assets/artes/`.
+
 ## Entrega
 
 1. Salvar cada pacote em `import/pauta/<slug>.json`.
