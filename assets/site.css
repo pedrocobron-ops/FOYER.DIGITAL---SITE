@@ -716,8 +716,8 @@ nav.main a.brand img.only-dark, .gate img.only-dark{ display:none; }
   margin:10px 0 0; min-height:1em; }
 .cv-ops{ display:flex; flex-wrap:wrap; gap:8px; }
 .cv-op{ border:2px solid var(--line); background:var(--paper-2); color:var(--ink); cursor:pointer;
-  font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase;
-  padding:12px 14px; transition:transform .12s; }
+  font-family:var(--sans); font-size:.92rem; font-weight:600; letter-spacing:0;
+  padding:12px 16px; transition:transform .12s; }
 .cv-op:hover{ transform:translateY(-2px); border-color:var(--ink); }
 .cv-op.on{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
 .cv-pe{ display:flex; justify-content:space-between; align-items:center; gap:10px;
