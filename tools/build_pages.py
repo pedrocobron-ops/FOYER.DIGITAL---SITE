@@ -2009,6 +2009,10 @@ html[data-theme="dark"] .rv-agd .ag-dia{ color:var(--gold); }
 .rv-agd .ag-cta a:hover{ background:var(--wine); color:var(--gold); }
 
 /* ---------- ENTRE MESTRES (frase célebre) ---------- */
+/* o ator sob o refletor cobre a página como marca d'água; a frase, legível, por cima */
+.rv-mestre .fundo{ position:absolute; inset:0; width:100%; height:100%; opacity:.12;
+  z-index:0; pointer-events:none; }
+.rv-mestre .rv-kicker, .rv-mestre .miolo, .rv-mestre .rv-folio{ position:relative; z-index:1; }
 .rv-mestre .miolo{ flex:1; display:flex; flex-direction:column; align-items:center;
   justify-content:center; text-align:center; padding:6% 9% 64px; }
 .rv-mestre .aspa{ font-family:var(--didone); font-size:6.5rem; line-height:.55; color:var(--gold); }
@@ -2018,7 +2022,6 @@ html[data-theme="dark"] .rv-agd .ag-dia{ color:var(--gold); }
   text-transform:uppercase; color:var(--wine); margin-top:26px; }
 html[data-theme="dark"] .rv-mestre .au{ color:var(--gold); }
 .rv-mestre .bio{ font-size:.8rem; color:var(--ink-soft); margin-top:6px; }
-.rv-mestre .arte{ width:100%; height:110px; border:2px solid var(--ink); margin-top:30px; opacity:.9; }
 
 /* ---------- CITAÇÃO ---------- */
 .rv-cit{ background:var(--wine); color:var(--gold); align-items:center; justify-content:center;
@@ -2361,7 +2364,7 @@ def _rv_rotulo_sumario(pg):
     if t == 'programa-sala': return (pg.get('titulo') or 'Programa de sala', 'Programa de sala')
     if t == 'cartas': return ('Cartas da plateia', 'O correio da revista')
     if t == 'tres-perguntas': return (f'Três perguntas para {pg.get("entrevistado", "")}'.strip(), 'Exclusivo da revista')
-    if t == 'contracapa': return ('Na próxima edição', 'Contracapa')
+    if t == 'contracapa': return ('A cortina desce', 'Contracapa')
     return (pg.get('titulo', 'Página'), pg.get('rotulo', ''))
 
 def _rv_pagina(pg, ed, num):
@@ -2541,14 +2544,14 @@ def _rv_pagina(pg, ed, num):
         frase = pg.get('frase') or _RV_MESTRES[_fi][0]
         autor = pg.get('autor') or _RV_MESTRES[_fi][1]
         sobre = pg.get('sobre') or _RV_MESTRES[_fi][2]
-        arte_m = _RV_ARTES[(int(ed.get('numero', 1)) + 4) % len(_RV_ARTES)]
-        return (f'<section class="rv-pg rv-mestre"><div class="rv-kicker">'
+        return (f'<section class="rv-pg rv-mestre">'
+                f'<svg class="fundo" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#ph-1"/></svg>'
+                f'<div class="rv-kicker">'
                 f'<span class="tagz">Entre mestres</span><span>A arte pela palavra</span></div>'
                 f'<div class="miolo"><div class="aspa">“</div>'
                 f'<div class="fr">{_rvesc(frase)}</div>'
                 f'<div class="au">{_rvesc(autor)}</div>'
                 f'<div class="bio">{_rvesc(sobre)}</div>'
-                f'<svg class="arte" viewBox="0 0 600 400" preserveAspectRatio="none"><use href="#{arte_m}"/></svg>'
                 f'</div>{_rv_folio(ed, num)}</section>')
     if t in ('cartaz', 'patrocinio'):
         rot = 'Publicidade' if t == 'patrocinio' else 'Divulgação'
@@ -2666,16 +2669,16 @@ def _rv_pagina(pg, ed, num):
                 f'<h3>Recortes da semana</h3></div>'
                 f'<div class="mural">{recs}</div>{fol}</section>')
     if t == 'contracapa':
-        chamadas = ''.join(f'<li>{_rvesc(c)}</li>' for c in (pg.get('chamadas') or [])[:4] if c.strip())
-        desped = ''
-        if pg.get('frase'):
-            desped = (f'<div class="desp"><div class="fr">“{_rvesc(pg["frase"])}”</div>'
-                      + (f'<div class="au">{_rvesc(pg.get("autor", ""))}</div>' if pg.get('autor') else '')
-                      + '</div>')
+        # a contracapa é a despedida: a cortina desce e a citação é o centro da página
+        frase, autor = pg.get('frase'), pg.get('autor', '')
+        if not frase:
+            _fr = _RV_MESTRES[(int(ed.get('numero', 1)) + 3) % len(_RV_MESTRES)]
+            frase, autor = _fr[0], _fr[1]
+        desped = (f'<div class="desp"><div class="fr">“{_rvesc(frase)}”</div>'
+                  + (f'<div class="au">{_rvesc(autor)}</div>' if autor else '')
+                  + '</div>')
         return (f'<section class="rv-pg rv-back"><div class="miolo">'
                 f'<em class="rot">Fechamos esta edição. A cortina desce.</em>'
-                f'<h3>Na próxima edição</h3>'
-                f'<ul class="prox">{chamadas or "<li>A semana do teatro brasileiro, apurada e fechada como sempre</li>"}</ul>'
                 + desped +
                 f'<div class="rodape"><img src="assets/logo/foyer-horizontal-gold.png" alt="FOYER">'
                 f'<span>foyer.digital · assinante lê na quinta</span><span class="rv-barcode"></span></div>'

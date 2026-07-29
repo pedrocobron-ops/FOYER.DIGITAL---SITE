@@ -524,7 +524,7 @@ página). O boneco padrão, na ordem:
 | 9 | A semana em cartaz (SP e Rio) | `agenda` | automático ou apurado |
 | 10 | Entre mestres (frase) | `frase-celebre` | automático |
 | 11 | Expediente | `expediente` | automático |
-| 12 | **Contracapa** (na próxima edição) | `contracapa` | Chefe; se faltar, entra a da casa |
+| 12 | **Contracapa** (a cortina desce) | `contracapa` | Chefe; se faltar, entra a da casa |
 
 **REGRA DO FECHAMENTO: a edição é um objeto parado no tempo.** A edição
 que sai na sexta fecha na quinta. NADA publicado depois do fechamento
@@ -538,12 +538,12 @@ Regras das seções novas:
 - **Recortes**: só aspas REAIS e JÁ PUBLICADAS, cada uma com quem disse
   e onde saiu (veículo nomeado). Aspa sem dono não entra. Formato no
   editor: `frase | quem | onde | slug-da-matéria`. Máximo 4.
-- **Contracapa**: até 4 chamadas do que vem na próxima edição — sempre
-  CONCRETAS (espetáculo, casa, nome: "Tristão e Isolda no Municipal"),
-  nunca frase genérica que serviria para qualquer edição; sem prometer
-  pauta que não está de pé. Frase de despedida REAL e verificada, com
-  autor. No fechamento, o chefe confere chamada por chamada da CAPA
-  contra o sumário: chamada que não se cumpre no miolo sai da capa.
+- **Contracapa**: a despedida da edição, SEM promessa de próxima
+  edição (decisão do Pedro em 29/07/2026). A cortina desce e a
+  citação é o centro da página: frase REAL e verificada, com autor;
+  sem frase montada pelo chefe, entra uma do acervo Entre Mestres.
+  No fechamento, o chefe confere chamada por chamada da CAPA contra
+  o sumário: chamada que não se cumpre no miolo sai da capa.
 - **Capa**: no máximo 3 chamadas — a capa não imprime a quarta. O
   gerador e a Coxia avisam quando sobra chamada.
 - **Cartaz ≠ Publicidade**: `cartaz` é CORTESIA da casa (rótulo

@@ -4209,6 +4209,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                   recortes:'Recortes da semana', contracapa:'Contracapa — na próxima edição',
                   'programa-sala':'Programa de sala', cartas:'Cartas da plateia',
                   'tres-perguntas':'Três perguntas (exclusiva)' };
+  RV_NOME.contracapa = 'Contracapa — a cortina desce';
 
   function carregarEdicoes(){
     var el = $('rv-lista');
@@ -4437,8 +4438,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         '<div><label>Nota de registro (como e quando as respostas foram colhidas)</label><input type="text" id="pgf-nota" value="' + esc(d.nota || '') + '" placeholder="Respostas enviadas por escrito à redação em DD/MM/AAAA"></div>' +
         '<div class="f-note">EXCLUSIVA de verdade: só entrevista feita pela casa, com as respostas guardadas por escrito. Resposta é aspa: entra LITERAL, nunca ajeitada. Sem registro escrito, a página não entra.</div>';
         } else if(tipo === 'contracapa'){
-      campos = '<div><label>Chamadas do que vem na próxima edição (uma por linha, até 4 — promessas CONCRETAS da próxima edição, não frases genéricas da casa)</label>' +
-        '<textarea id="pgf-chamadas" rows="4" placeholder="Tristão e Isolda: Wagner de volta ao Municipal, 47 anos depois">' + esc((d.chamadas || []).join('\n')) + '</textarea></div>' +
+      campos = '<div class="f-note">A contracapa é a despedida: a cortina desce e a citação é o centro da página. Sem frase, entra uma frase real do acervo Entre Mestres.</div>' +
         '<div class="r2"><div><label>Frase de despedida (opcional; só frase real e verificada)</label><input type="text" id="pgf-frase" value="' + esc(d.frase || '') + '"></div>' +
         '<div><label>Autor da frase</label><input type="text" id="pgf-autor" value="' + esc(d.autor || '') + '"></div></div>';
     } else if(tipo === 'expediente' || tipo === 'programas' || tipo === 'agenda' || tipo === 'frase-celebre'){
@@ -4556,7 +4556,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         if(pg.itens.length < 3){ avisar('São TRÊS perguntas: preencha as três, com respostas literais.'); return; }
         if(!pg.nota){ avisar('Registre como as respostas foram colhidas (a nota sai na página).'); return; }
       } else if(tipo === 'contracapa'){
-        pg.chamadas = $('pgf-chamadas').value.split('\n').map(function(l){ return l.trim(); }).filter(Boolean).slice(0, 4);
+        delete pg.chamadas;
         pg.frase = $('pgf-frase').value.trim();
         pg.autor = $('pgf-autor').value.trim();
       }
