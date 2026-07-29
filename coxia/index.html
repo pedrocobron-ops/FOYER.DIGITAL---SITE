@@ -1221,6 +1221,13 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           .cal-check input{ width:17px; height:17px; accent-color:#4E0F09; }
           .cal-check.feito{ opacity:.6; text-decoration:line-through; }
           .cal-fora{ margin-top:10px; font-family:var(--mono, monospace); font-size:.62rem; letter-spacing:.08em; color:#8a1f14; }
+          .cal-hoje{ border:2px solid var(--ink,#231007); padding:12px 14px; margin:0 0 14px;
+            display:flex; flex-direction:column; gap:4px; }
+          .cal-hoje.urgente{ border-color:#8a1f14; box-shadow:inset 4px 0 0 #8a1f14; }
+          .cal-hoje em{ font-style:normal; font-family:var(--mono, monospace); font-size:.56rem; font-weight:700;
+            letter-spacing:.22em; text-transform:uppercase; opacity:.7; }
+          .cal-hoje span{ font-size:.86rem; line-height:1.45; }
+          .cal-hoje.urgente span{ font-weight:600; }
           .cal-barra{ height:10px; border:2px solid var(--ink,#231007); margin:4px 0 16px; position:relative; }
           .cal-barra i{ position:absolute; inset:0; width:0; background:var(--gold,#CEB26A); transition:width .4s ease; }
           .cal-barra span{ position:absolute; right:6px; top:-22px; font-family:var(--mono, monospace); font-size:.6rem; font-weight:700; }
@@ -1602,16 +1609,28 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     bemVindo();
     calAviso();
   }
-  // o lembrete de terça: pergunta sem resposta acende o ponto no menu Calendário
+  // o lembrete no menu: pendências do dia acendem a contagem no botão Calendário
   function calAviso(){
     ghGet(CAL_ARQ).then(function(f){
       var doc = f && f.content ? JSON.parse(unb64(f.content)) : { edicoes: {} };
       var quinta = calProximaQuinta();
-      var ed = (doc.edicoes || {})[calISO(quinta)] || { perguntas: {} };
+      var ed = (doc.edicoes || {})[calISO(quinta)] || {};
+      ed.perguntas = ed.perguntas || {}; ed.entrega = ed.entrega || {}; ed.fecho = ed.fecho || {};
       var terca = new Date(quinta); terca.setDate(terca.getDate() - 2);
-      var pend = ['tp', 'cartas', 'anuncio'].filter(function(k){ return !(ed.perguntas || {})[k]; }).length;
+      var quarta = new Date(quinta); quarta.setDate(quarta.getDate() - 1);
+      var hoje = calISO(new Date());
+      var n = 0;
+      if(hoje >= calISO(terca))
+        n += CAL_PERGS.filter(function(p){ return !ed.perguntas[p.id]; }).length;
+      if(hoje >= calISO(quarta)){
+        n += CAL_FECHO.filter(function(x){ return !ed.fecho[x[0]]; }).length;
+        CAL_PERGS.forEach(function(p){
+          if(ed.perguntas[p.id] === 'sim')
+            n += p.entrega.filter(function(x){ return !ed.entrega[x[0]]; }).length;
+        });
+      }
       var b = $('bdg-cal');
-      if(b) b.style.display = (calISO(new Date()) >= calISO(terca) && pend) ? '' : 'none';
+      if(b){ b.style.display = n ? '' : 'none'; b.textContent = n; }
     }).catch(function(){});
   }
   // cartão de boas-vindas na primeira vez de cada pessoa (por papel)
@@ -3339,7 +3358,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           '<div class="per">' + per + '</div>' +
           '<div class="acts">' +
             '<button class="bt" type="button" data-edt="' + esc(u.id) + '">Editar</button>' +
-            (u.id !== USER.id ? '<button class="bt danger" type="button" data-exc="' + esc(u.id) + '">Excluir</button>' : '') +
+            (USER && u.id !== USER.id ? '<button class="bt danger" type="button" data-exc="' + esc(u.id) + '">Excluir</button>' : '') +
           '</div></div>';
       }).join('');
     });
@@ -3737,9 +3756,16 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var e = calEd();
     e.atualizadoEm = new Date().toISOString();
     e.por = USER ? USER.nome : '?';
-    return ghPut(CAL_ARQ, JSON.stringify(CAL.doc, null, 1), assina('atualiza o calendário da revista'), CAL.sha)
+    var corpo = JSON.stringify(CAL.doc, null, 1);
+    return ghPut(CAL_ARQ, corpo, assina('atualiza o calendário da revista'), CAL.sha)
       .then(function(r){ if(r && r.content) CAL.sha = r.content.sha; })
-      .catch(function(err){ msgErro && msgErro(err); alert('Não salvou: recarregue a aba Calendário e tente de novo.'); });
+      .catch(function(){
+        // conflito ou sha velho: busca o sha atual e tenta UMA vez de novo
+        return ghGet(CAL_ARQ).then(function(f){
+          return ghPut(CAL_ARQ, corpo, assina('atualiza o calendário da revista'), f && f.sha);
+        }).then(function(r){ if(r && r.content) CAL.sha = r.content.sha; })
+          .catch(function(){ alert('Não salvou: recarregue a aba Calendário e tente de novo.'); });
+      });
   }
   function pintarCalendario(){
     var quinta = calProximaQuinta();
@@ -3757,11 +3783,25 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var feitos = itens.filter(function(par){ return e[par[0]][par[1]]; }).length;
     var pct = itens.length ? Math.round(feitos * 100 / itens.length) : 0;
 
-    // aviso no menu: terça (ou depois) com pergunta sem resposta
+    // o dia manda: o que está pendente HOJE, dito com todas as letras
     var pendentes = CAL_PERGS.filter(function(p){ return !e.perguntas[p.id]; }).length;
     var depoisDeTerca = hojeISO >= calISO(ter);
+    var depoisDeQuarta = hojeISO >= calISO(qua);
+    var abertos = itens.length - feitos;
+    var hojeLista = [];
+    if(depoisDeTerca && pendentes)
+      hojeLista.push(pendentes + ' pergunta' + (pendentes > 1 ? 's' : '') + ' de terça sem resposta (sim ou não decide a edição)');
+    if(depoisDeQuarta && abertos)
+      hojeLista.push(abertos + ' item(ns) do fechamento em aberto — a edição congela às 18h de hoje' + (hojeISO > calISO(qua) ? ' (PRAZO PASSADO)' : ''));
+    if(hojeISO === calISO(quinta)) hojeLista.push('Dia de edição: sai às 7h para os assinantes');
+    if(!hojeLista.length) hojeLista.push('Nada vencendo hoje. O próximo marco está aceso no trilho abaixo.');
+    var caixaHoje = '<div class="cal-hoje' + ((depoisDeTerca && pendentes) || (depoisDeQuarta && abertos) ? ' urgente' : '') + '">' +
+      '<em>Hoje na casa</em>' + hojeLista.map(function(x){ return '<span>' + x + '</span>'; }).join('') + '</div>';
+
+    // aviso no menu: quantas pendências do dia
+    var nPend = ((depoisDeTerca && pendentes) ? pendentes : 0) + ((depoisDeQuarta && abertos) ? abertos : 0);
     var b = $('bdg-cal');
-    if(b) b.style.display = (depoisDeTerca && pendentes) ? '' : 'none';
+    if(b){ b.style.display = nPend ? '' : 'none'; b.textContent = nPend; }
 
     function linhaDia(dt, rotulo, texto, pendente){
       var iso = calISO(dt);
@@ -3807,6 +3847,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     $('cal-rev').innerHTML =
       '<div class="cal-cab"><h2>A semana da revista</h2>' +
       '<span class="cal-sai">fecha quarta ' + calDM(qua) + ' · assinante quinta ' + calDM(quinta) + ', 7h · público sexta ' + calDM(sexPub) + '</span></div>' +
+      caixaHoje +
       '<div class="cal-barra"><span>' + feitos + ' de ' + itens.length + ' · ' + pct + '%</span><i style="width:' + pct + '%"></i></div>' +
       '<div class="cal-trilho">' + trilho + '</div>' +
       '<div class="sec-h"><h3>As perguntas de terça</h3><span>o sim vira cobrança até quarta 12h; o não tira a página da edição</span></div>' +
