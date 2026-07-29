@@ -3738,6 +3738,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           '<div class="pub-linha"><em>Temporada</em><span>' + esc((p.inicio || 'a combinar') + ' · ' + (p.duracao || 'a combinar')) + '</span></div>' +
           '<div class="pub-linha"><em>Contato</em><span>' + esc(p.whatsapp + ' · ' + p.email + (p.instagram ? ' · ' + p.instagram : '')) + '</span></div>' +
           (p.mensagem ? '<div class="pub-linha"><em>O anúncio</em><span>' + esc(p.mensagem) + '</span></div>' : '') +
+          (p.arte && /^data:image\//.test(p.arte)
+            ? '<div class="pub-linha"><em>A arte</em><span><a href="' + p.arte + '" download="arte-' + esc(p.id).slice(0, 8) + '.jpg">' +
+              '<img src="' + p.arte + '" alt="arte do anunciante" style="max-width:220px;max-height:160px;border:2px solid currentColor;display:block"></a>' +
+              '<small style="font-size:.68rem;opacity:.7">tocar para baixar</small></span></div>'
+            : '') +
           '<div class="pub-acoes">' +
           '<a class="pub-whats" target="_blank" rel="noopener" href="https://wa.me/' + zap + '?text=' + oi + '">💬 Chamar no WhatsApp</a>' +
           ['em-conversa', 'fechado', 'descartado'].map(function(s2){
