@@ -2010,7 +2010,7 @@ html[data-theme="dark"] .rv-agd .ag-dia{ color:var(--gold); }
 
 /* ---------- ENTRE MESTRES (frase célebre) ---------- */
 /* o ator sob o refletor cobre a página como marca d'água; a frase, legível, por cima */
-.rv-mestre .fundo{ position:absolute; inset:0; width:100%; height:100%; opacity:.12;
+.rv-mestre .fundo{ position:absolute; inset:0; width:100%; height:100%; opacity:.2;
   z-index:0; pointer-events:none; }
 .rv-mestre .rv-kicker, .rv-mestre .miolo, .rv-mestre .rv-folio{ position:relative; z-index:1; }
 .rv-mestre .miolo{ flex:1; display:flex; flex-direction:column; align-items:center;
