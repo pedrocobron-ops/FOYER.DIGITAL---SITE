@@ -605,12 +605,22 @@ redesenhar nada.
 | 5 | `arte-5-urdimento` | As cordas da coxia com os contrapesos alinhados |
 | 6 | `arte-6-degraus` | A subida ao palco, com o canhão de luz aceso no alto |
 
-REGRAS: as artes são sempre RECORTADAS pelo centro (slice), nunca
-esticadas; nos recortes o padrão pode sangrar para fora do quadro, mas
-a composição interna fica inteira (fileiras completas, grades
-alinhadas). O desenho-fonte vive em `tools/build_pages.py` (bloco
-DEFS, símbolos `ph-1` a `ph-6`); mudar qualquer arte exige NOVA
-aprovação do Pedro e re-exportação dos arquivos de `assets/artes/`.
+**REGRA ABSOLUTA DA CASA — NENHUMA IMAGEM É DISTORCIDA, NUNCA**
+(ordem do Pedro, 29/07/2026). Vale para TODA imagem do site, da
+revista e da comunicação: fotos, artes, thumbnails, logos. Imagem
+entra na proporção original; quando a caixa tem outra proporção, a
+imagem é RECORTADA pelo centro (slice / `object-fit:cover`) ou
+exibida inteira com sobra (`contain`), JAMAIS esticada. Em código:
+`preserveAspectRatio="none"` é PROIBIDO em SVG; `width` + `height`
+fixos num `<img>` exigem `object-fit`. Antes de entregar qualquer
+página nova, conferir se nada ficou oval, achatado ou alargado.
+
+As artes são sempre recortadas pelo centro (slice); nos recortes o
+padrão pode sangrar para fora do quadro, mas a composição interna
+fica inteira (fileiras completas, grades alinhadas). O desenho-fonte
+vive em `tools/build_pages.py` (bloco DEFS, símbolos `ph-1` a
+`ph-6`); mudar qualquer arte exige NOVA aprovação do Pedro e
+re-exportação dos arquivos de `assets/artes/`.
 
 ## Entrega
 
