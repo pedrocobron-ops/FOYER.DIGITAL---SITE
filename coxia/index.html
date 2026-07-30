@@ -548,7 +548,7 @@
   .ag-horas button:hover, #ag-mins button:hover{ border-color:var(--ink); }
   .ag-horas button.on, #ag-mins button.on{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
   .ag-min{ margin-top:12px; }
-  #ag-mins{ display:grid; grid-template-columns:repeat(4,1fr); gap:4px; }
+  #ag-mins{ display:grid; grid-template-columns:repeat(3,1fr); gap:4px; }
   .ag-livre{ display:block; margin-top:12px; font-family:var(--mono); font-size:.56rem; letter-spacing:.12em;
     text-transform:uppercase; opacity:.75; }
   .ag-livre input{ display:block; width:100%; box-sizing:border-box; margin-top:5px; border:1.5px solid var(--line);
@@ -840,7 +840,7 @@
         <h2 class="hi" id="saudacao">Boa noite</h2>
         <p class="hi-sub">O panorama do FOYER neste momento</p>
         <div class="stats">
-          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1539</b><span>matérias no acervo</span></button>
+          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1541</b><span>matérias no acervo</span></button>
           <button class="stat" type="button" data-go="fila" data-foco="#fila-list"><b id="st-pub">—</b><span>publicadas pela Coxia</span></button>
           <button class="stat" type="button" data-go="fila" data-foco=".fila-agenda" data-foco-alt="#fila-list"><b id="st-ag">—</b><span>agendadas esperando a hora</span></button>
           <button class="stat" type="button" id="card-mesa" data-go="ia" data-foco="#mesa-list"><b id="st-mesa">—</b><span>na mesa de aprovação</span></button>
@@ -2187,6 +2187,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       var loc = new Date(quando.getTime() - quando.getTimezoneOffset() * 60000);
       $('f-data').value = loc.toISOString().slice(0, 16);
       $('f-marcar').textContent = '🗓 ' + qdRelativo(quando.toISOString()) + ' (trocar)';
+      agOcupa(quando, ($('f-title') && $('f-title').value) || 'esta matéria');
     });
   });
 
@@ -2348,7 +2349,19 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // ---------- marcador de hora: calendário, relógio e sugestões da casa ----------
   // As horas em que a casa publica. A revista sai quinta 7h e não se compete com ela.
   var AG_HORAS = [7, 9, 12, 15, 18, 20];
+  // REGRA DA CASA (ordem do Pedro, 30/07/2026): duas matérias nunca saem juntas.
+  // O horário marcado fecha, e o seguinte só abre 10 minutos depois.
+  var AG_INTERVALO = 10;
   var AG = { resolve:null, sel:null, mes:null, ocupados:[], lidoEm:0, foco:null };
+
+  // fecha um horário na hora em que ele é marcado, sem esperar o servidor:
+  // a próxima matéria da rodada já encontra o lugar ocupado
+  function agOcupa(quando, titulo){
+    var d = new Date(quando);
+    if(isNaN(d)) return;
+    AG.ocupados.push({ quando:d, title:titulo || 'matéria marcada' });
+    AG.ocupados.sort(function(a, b){ return a.quando - b.quando; });
+  }
 
   // o que já está marcado para sair: serve para não empilhar duas matérias na mesma hora
   function agCarregaOcupados(){
@@ -2382,9 +2395,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(!d) return null;
     for(var i = 0; i < AG.ocupados.length; i++){
       var o = AG.ocupados[i];
-      if(Math.abs(o.quando - d) < 45 * 60000){
-        return { tipo:'vizinha', texto:'já sai “' + o.title.slice(0, 38) + '” às ' +
-          o.quando.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }) };
+      if(Math.abs(o.quando - d) < AG_INTERVALO * 60000){
+        return { tipo:'vizinha', trava:true,
+          texto:'“' + o.title.slice(0, 34) + '” já sai às ' +
+            o.quando.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }) +
+            ', e a casa deixa ao menos ' + AG_INTERVALO + ' minutos entre uma matéria e outra' };
       }
     }
     var h = d.getHours() + d.getMinutes() / 60;
@@ -2397,13 +2412,26 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   function agProximaLivre(apartir){
     var d = new Date(apartir.getTime());
     for(var passo = 0; passo < 96; passo++){
-      var cand = null;
       for(var i = 0; i < AG_HORAS.length; i++){
         var t = new Date(d.getFullYear(), d.getMonth(), d.getDate(), AG_HORAS[i], 0, 0, 0);
-        if(t > apartir && !agChoque(t)){ cand = t; break; }
+        if(t <= apartir) continue;
+        // a hora redonda é a preferida; ocupada, escorrega de 10 em 10 minutos
+        for(var giro = 0; giro <= 5; giro++){
+          var c = new Date(t.getTime() + giro * AG_INTERVALO * 60000);
+          if(c > apartir && !agChoque(c)) return c;
+        }
       }
-      if(cand) return cand;
       d.setDate(d.getDate() + 1); d.setHours(0, 0, 0, 0);
+    }
+    return null;
+  }
+  // o primeiro instante livre logo depois de uma hora qualquer (para o botão de conserto)
+  function agLivreDepois(d){
+    var c = new Date(d.getTime());
+    for(var i = 0; i < 288; i++){
+      c = new Date(c.getTime() + AG_INTERVALO * 60000);
+      c.setSeconds(0, 0);
+      if(!agChoque(c) && c > new Date()) return c;
     }
     return null;
   }
@@ -2442,7 +2470,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       out.push({ quando:quando, rotulo:rot });
     }
     var jaJa = new Date(agora.getTime() + 15 * 60000);
-    jaJa.setMinutes(Math.ceil(jaJa.getMinutes() / 15) * 15, 0, 0);
+    jaJa.setMinutes(Math.ceil(jaJa.getMinutes() / 5) * 5, 0, 0);
+    if(agChoque(jaJa)) jaJa = agLivreDepois(jaJa);
     junta(jaJa, 'daqui a pouco');
     var hoje = agProximaLivre(new Date(agora.getTime() + 30 * 60000));
     if(hoje && agMesmoDia(hoje, agora)) junta(hoje, 'ainda hoje');
@@ -2452,7 +2481,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var noite = null;
     for(var k = 0; k < 7 && !noite; k++){
       var t = new Date(agora); t.setDate(t.getDate() + k); t.setHours(18, 0, 0, 0);
-      if(t > new Date(agora.getTime() + 60 * 60000) && !agChoque(t)) noite = t;
+      if(t <= new Date(agora.getTime() + 60 * 60000)) continue;
+      for(var g = 0; g <= 5 && !noite; g++){
+        var c2 = new Date(t.getTime() + g * AG_INTERVALO * 60000);
+        if(!agChoque(c2)) noite = c2;
+      }
     }
     junta(noite, 'no fim da tarde');
     return out;
@@ -2505,7 +2538,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     $('ag-horas').innerHTML = AG_HORAS.map(function(h){
       return '<button type="button" data-aghora="' + h + '" class="' + (hSel === h ? 'on' : '') + '">' + h + 'h</button>';
     }).join('');
-    $('ag-mins').innerHTML = [0, 15, 30, 45].map(function(m){
+    $('ag-mins').innerHTML = [0, 10, 20, 30, 40, 50].map(function(m){
       return '<button type="button" data-agmin="' + m + '" class="' + (AG.sel && mSel === m ? 'on' : '') + '">' +
         (m < 10 ? '0' + m : m) + '</button>';
     }).join('');
@@ -2525,10 +2558,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       if(AG.sel <= new Date()){
         aviso = '<span class="ag-alerta">Essa hora já passou: a matéria iria ao ar assim que o site montar.</span>';
       } else if(ch){
-        var livre = agProximaLivre(AG.sel);
-        aviso = '<span class="ag-alerta">Atenção: ' + esc(ch.texto) + '.' +
+        var livre = ch.trava ? agLivreDepois(AG.sel) : agProximaLivre(AG.sel);
+        aviso = '<span class="ag-alerta">' + (ch.trava ? 'Horário ocupado: ' : 'Atenção: ') + esc(ch.texto) + '.' +
           (livre ? '<button type="button" id="ag-usa-livre" data-agsug="' + livre.getTime() + '">usar ' +
             esc(agRotuloDia(livre)) + ' às ' + esc(agHoraTexto(livre)) + '</button>' : '') + '</span>';
+        if(ch.trava) $('ag-ok').disabled = true;
       }
       cx.innerHTML = '<b>' + esc(quandoTxt) + '</b>' + esc(agDaquiA(AG.sel)) + aviso;
     }
@@ -2550,7 +2584,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if((b = e.target.closest('[data-aghora]'))){
       var dh = new Date(AG.sel || new Date());
       if(!AG.sel){ dh.setDate(dh.getDate() + (new Date().getHours() >= Number(b.dataset.aghora) ? 1 : 0)); }
-      dh.setHours(Number(b.dataset.aghora), AG.sel ? dh.getMinutes() : 0, 0, 0);
+      // o botão diz "18h": então dá 18h em ponto (os minutos ficam com os botões de minuto)
+      dh.setHours(Number(b.dataset.aghora), 0, 0, 0);
       agDefine(dh); return;
     }
     if((b = e.target.closest('[data-agmin]'))){
@@ -3558,11 +3593,15 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       $('ml-aprovar').disabled = true; $('ml-agendar').disabled = true;
       var ok = 0, falhas = [];
       // sequencial: evita corrida no GitHub e mantém a ordem
-      ds.reduce(function(p, d){
+      var base = new Date(publishAt);
+      ds.reduce(function(p, d, iLote){
       return p.then(function(){
         var card = document.getElementById('card-' + d.slug);
         travarCard(card, true);
-        return publicarDaMesa(d, publishAt).then(function(){
+        // a regra da casa: uma a cada AG_INTERVALO minutos, na ordem da mesa
+        var quandoLote = new Date(base.getTime() + iLote * AG_INTERVALO * 60000).toISOString();
+        if(rotulo) agOcupa(quandoLote, d.title);
+        return publicarDaMesa(d, rotulo ? quandoLote : publishAt).then(function(){
           ok++; tiraCardEatualiza(d.slug);
           if(d.instagram) registrarInsta(d);
         }).catch(function(err){
@@ -3611,7 +3650,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       var n = slugsSelecionados().length;
       agAbre({ titulo:'Quando as ' + n + ' matérias selecionadas vão ao ar?' }).then(function(qd){
         if(!qd) return;
-        aprovarLote(slugsSelecionados(), qd.toISOString(), 'para ' + qdRelativo(qd.toISOString()));
+        var rot = n > 1
+          ? 'a partir de ' + qdRelativo(qd.toISOString()) + ', uma a cada ' + AG_INTERVALO + ' min'
+          : 'para ' + qdRelativo(qd.toISOString());
+        aprovarLote(slugsSelecionados(), qd.toISOString(), rot);
       });
     });
   })();
@@ -3659,6 +3701,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       agAbre({ titulo: 'Quando “' + ((dAg && dAg.title) || 'esta matéria').slice(0, 46) + '” vai ao ar?',
                inicial: dAg && dAg.sugestaoPublishAt }).then(function(quando){
         if(!quando) return;
+        agOcupa(quando, (dAg && dAg.title) || 'matéria');   // fecha o horário na hora
         aprovar(slugAg, quando.toISOString(), qdRelativo(quando.toISOString()));
       });
       return;
