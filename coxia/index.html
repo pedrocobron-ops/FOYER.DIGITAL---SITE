@@ -1297,6 +1297,22 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           .pub-prazo{ font-family:var(--mono, monospace); font-size:.56rem; letter-spacing:.1em;
             text-transform:uppercase; padding:3px 8px; border:1.5px solid currentColor; }
           .pub-prazo.perto{ color:#8a1f14; font-weight:700; }
+          .pub-slot{ border:2px solid var(--ink,#231007); padding:12px 14px; margin-bottom:12px; }
+          .ps-cab{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:10px; }
+          .ps-cab b{ font-family:var(--mono, monospace); font-size:.66rem; letter-spacing:.16em; }
+          .ps-cab span{ font-size:.76rem; opacity:.7; }
+          .ps-ped{ margin-left:auto; font-family:var(--mono, monospace); font-size:.54rem; letter-spacing:.1em;
+            border:1px solid currentColor; padding:2px 7px; opacity:.75; font-style:normal; }
+          .ps-arte{ display:flex; gap:12px; align-items:flex-start; margin-bottom:6px; }
+          .ps-mini{ width:150px; min-height:64px; border:1.5px dashed var(--ink,#231007); display:flex;
+            align-items:center; justify-content:center; overflow:hidden; flex-shrink:0; }
+          .ps-mini img{ max-width:100%; max-height:110px; width:auto; height:auto; display:block; }
+          .ps-mini span{ font-family:var(--mono, monospace); font-size:.54rem; letter-spacing:.1em; opacity:.55; }
+          .ps-bts{ display:flex; flex-direction:column; gap:6px; align-items:flex-start; }
+          .ps-bts small{ font-size:.72rem; opacity:.75; }
+          .ps-data{ width:100%; text-align:left; }
+          .ps-estado{ display:block; font-family:var(--mono, monospace); font-size:.56rem; letter-spacing:.1em;
+            text-transform:uppercase; opacity:.75; padding-top:10px; }
           .pub-r3{ display:grid; grid-template-columns:2fr 2fr 1fr; gap:10px; }
           @media (max-width:760px){ .pub-r3{ grid-template-columns:1fr; } }
         </style>
@@ -4522,49 +4538,170 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(p) pubNoAr(p);
   });
 
+  // ---- subir publicidade na mão: arte do arquivo, datas no calendário ----
+  var PUB_SLOTS = [
+    { id:'faixa',    nome:'A FAIXA',    dica:'tarja bem deitada no rodapé de todas as páginas · 1200×120', larg:1400, alt:140 },
+    { id:'cortina',  nome:'A CORTINA',  dica:'o cartaz que abre uma vez por dia · 1080×1350 ou 1200×900',  larg:1200, alt:1500 },
+    { id:'entreato', nome:'O ENTREATO', dica:'dentro da matéria, depois do 4º parágrafo · 1200×675',       larg:1400, alt:900 }
+  ];
+  function pubCampo(slot, campo, valor, rotulo, tipo){
+    return '<div><label>' + rotulo + '</label><input type="' + (tipo || 'text') +
+      '" id="pub-' + slot + '-' + campo + '" value="' + esc(valor || '') + '"></div>';
+  }
   function carregarSitePub(){
     var el = $('pub-site');
     ghGet(PUB_ARQ).then(function(f){
       PUB.sitejson = f && f.content ? JSON.parse(unb64(f.content)) : { faixa:{}, cortina:{}, entreato:{} };
       PUB.siteSha = f ? f.sha : null;
       var d = PUB.sitejson;
-      function g(k, c){ return esc(((d[k] || {})[c]) || ''); }
       el.innerHTML =
-        '<div class="f-note">Deixar os campos vazios = formato fora do ar. A temporada é de dias cheios: entra na virada da meia-noite do dia "de" e sai no fim do dia "até" (AAAA-MM-DD). Sem "de", entra no próximo deploy.</div>' +
-        '<label>A FAIXA · texto</label><input type="text" id="pubf-texto" value="' + g('faixa', 'texto') + '" placeholder="Peça X em cartaz no Teatro Y — ingressos aqui">' +
-        '<div class="pub-r3"><div><label>Faixa · link</label><input type="text" id="pubf-link" value="' + g('faixa', 'link') + '"></div>' +
-        '<div><label>Faixa · de</label><input type="text" id="pubf-de" value="' + g('faixa', 'de') + '" placeholder="2026-08-01"></div>' +
-        '<div><label>Faixa · até</label><input type="text" id="pubf-ate" value="' + g('faixa', 'ate') + '" placeholder="2026-08-31"></div></div>' +
-        '<label>A CORTINA · caminho da imagem (assets/uploads/…)</label><input type="text" id="pubc-img" value="' + g('cortina', 'img') + '">' +
-        '<div class="pub-r3"><div><label>Cortina · link</label><input type="text" id="pubc-link" value="' + g('cortina', 'link') + '"></div>' +
-        '<div><label>Cortina · legenda</label><input type="text" id="pubc-leg" value="' + g('cortina', 'legenda') + '"></div>' +
-        '<div><label>Cortina · até</label><input type="text" id="pubc-ate" value="' + g('cortina', 'ate') + '"></div></div>' +
-        '<div class="pub-r3"><div><label>Cortina · de</label><input type="text" id="pubc-de" value="' + g('cortina', 'de') + '" placeholder="2026-08-01"></div><div></div><div></div></div>' +
-        '<label>O ENTREATO · caminho da imagem (assets/uploads/…)</label><input type="text" id="pube-img" value="' + g('entreato', 'img') + '">' +
-        '<div class="pub-r3"><div><label>Entreato · link</label><input type="text" id="pube-link" value="' + g('entreato', 'link') + '"></div>' +
-        '<div><label>Entreato · legenda</label><input type="text" id="pube-leg" value="' + g('entreato', 'legenda') + '"></div>' +
-        '<div><label>Entreato · até</label><input type="text" id="pube-ate" value="' + g('entreato', 'ate') + '"></div></div>' +
-        '<div class="pub-r3"><div><label>Entreato · de</label><input type="text" id="pube-de" value="' + g('entreato', 'de') + '" placeholder="2026-08-01"></div><div></div><div></div></div>' +
-        '<div class="f-note">Arte nova? Suba a imagem pela aba Nova matéria (campo de foto) ou me peça no chat que eu coloco em assets/uploads/.</div>' +
-        '<div style="margin-top:12px"><button class="f-pub" type="button" id="pub-salvar" style="padding:11px 16px">Salvar e publicar no próximo deploy</button></div>';
+        '<div class="f-note">Aqui você sobe publicidade na mão: a sua, a de um projeto seu ou a de um anunciante que fechou fora do site. ' +
+        'A arte sai do seu computador e vai direto para o ar. A temporada é de dias cheios: entra na virada do dia "de" e sai no fim do dia "até". ' +
+        'Deixar tudo vazio tira o formato do ar.</div>' +
+        PUB_SLOTS.map(function(sl){
+          var c = d[sl.id] || {};
+          return '<div class="pub-slot" data-slot="' + sl.id + '">' +
+            '<div class="ps-cab"><b>' + sl.nome + '</b><span>' + esc(sl.dica) + '</span>' +
+              (c.pedido ? '<em class="ps-ped">' + esc(c.pedido) + '</em>' : '') + '</div>' +
+            '<div class="ps-arte">' +
+              '<div class="ps-mini" id="ps-mini-' + sl.id + '">' +
+                (c.img ? '<img src="../' + esc(c.img) + '" alt="arte no ar">' : '<span>sem arte</span>') + '</div>' +
+              '<div class="ps-bts">' +
+                '<label class="bt" for="ps-file-' + sl.id + '">📷 ' + (c.img ? 'Trocar a arte' : 'Subir a arte') + '</label>' +
+                '<input type="file" id="ps-file-' + sl.id + '" accept="image/*" style="display:none">' +
+                (c.img ? '<button class="bt" type="button" data-pub-limpa="' + sl.id + '">✕ Tirar do ar</button>' : '') +
+                '<small id="ps-st-' + sl.id + '"></small>' +
+              '</div>' +
+            '</div>' +
+            '<input type="hidden" id="pub-' + sl.id + '-img" value="' + esc(c.img || '') + '">' +
+            '<div class="pub-r3">' +
+              pubCampo(sl.id, 'link', c.link, 'Para onde o clique leva') +
+              pubCampo(sl.id, 'legenda', c.legenda || c.texto, 'Legenda (descreve a arte)') +
+              '<div><label>Quem é</label><input type="text" id="pub-' + sl.id + '-pedido" value="' + esc(c.pedido || '') +
+                '" placeholder="protocolo ou nome"></div>' +
+            '</div>' +
+            '<div class="pub-r3">' +
+              '<div><label>Começa em</label><button class="bt ps-data" type="button" data-pub-data="' + sl.id + '-de">' +
+                (c.de ? esc(c.de) : '🗓 escolher o dia') + '</button>' +
+                '<input type="hidden" id="pub-' + sl.id + '-de" value="' + esc(c.de || '') + '"></div>' +
+              '<div><label>Termina em</label><button class="bt ps-data" type="button" data-pub-data="' + sl.id + '-ate">' +
+                (c.ate ? esc(c.ate) : '🗓 escolher o dia') + '</button>' +
+                '<input type="hidden" id="pub-' + sl.id + '-ate" value="' + esc(c.ate || '') + '"></div>' +
+              '<div><label>&nbsp;</label><span class="ps-estado" id="ps-estado-' + sl.id + '">' + pubEstadoTexto(c) + '</span></div>' +
+            '</div>' +
+          '</div>';
+        }).join('') +
+        '<div style="margin-top:14px"><button class="f-pub" type="button" id="pub-salvar" style="padding:11px 16px">Salvar e pôr no ar</button></div>';
+
+      PUB_SLOTS.forEach(function(sl){
+        var inp = $('ps-file-' + sl.id);
+        if(inp) inp.addEventListener('change', function(){
+          var arq = this.files && this.files[0];
+          if(!arq) return;
+          var st = $('ps-st-' + sl.id);
+          st.textContent = 'preparando a arte…';
+          reduzLivre(arq, sl.larg, sl.alt).then(function(dataURL){
+            st.textContent = 'subindo…';
+            var caminho = 'assets/uploads/pub-' + sl.id + '-' + Date.now().toString(36) + '.jpg';
+            return ghPutRaw(caminho, dataURL.split(',')[1], assina('sobe a arte do anúncio (' + sl.id + ')'))
+              .then(function(){
+                $('pub-' + sl.id + '-img').value = caminho;
+                $('ps-mini-' + sl.id).innerHTML = '<img src="' + dataURL + '" alt="arte nova">';
+                st.textContent = '✓ arte pronta — falta salvar';
+              });
+          }).catch(function(e){ st.textContent = ''; avisar(msgErro(e)); });
+        });
+      });
+
       $('pub-salvar').addEventListener('click', function(){
-        var novo = {
-          faixa: { texto: $('pubf-texto').value.trim(), link: $('pubf-link').value.trim(),
-                   de: $('pubf-de').value.trim(), ate: $('pubf-ate').value.trim(),
-                   pedido: ((PUB.sitejson || {}).faixa || {}).pedido || '', img: ((PUB.sitejson || {}).faixa || {}).img || '' },
-          cortina: { img: $('pubc-img').value.trim(), link: $('pubc-link').value.trim(), legenda: $('pubc-leg').value.trim(),
-                     de: $('pubc-de').value.trim(), ate: $('pubc-ate').value.trim(),
-                     pedido: ((PUB.sitejson || {}).cortina || {}).pedido || '' },
-          entreato: { img: $('pube-img').value.trim(), link: $('pube-link').value.trim(), legenda: $('pube-leg').value.trim(),
-                      de: $('pube-de').value.trim(), ate: $('pube-ate').value.trim(),
-                      pedido: ((PUB.sitejson || {}).entreato || {}).pedido || '' }
-        };
+        var novo = {};
+        var erro = '';
+        PUB_SLOTS.forEach(function(sl){
+          var img = $('pub-' + sl.id + '-img').value.trim();
+          var de = $('pub-' + sl.id + '-de').value.trim(), ate = $('pub-' + sl.id + '-ate').value.trim();
+          if(img && de && ate && de > ate) erro = 'Em ' + sl.nome + ', o dia de início é depois do fim.';
+          novo[sl.id] = img ? {
+            img: img, link: $('pub-' + sl.id + '-link').value.trim(),
+            legenda: $('pub-' + sl.id + '-legenda').value.trim(),
+            de: de, ate: ate, pedido: $('pub-' + sl.id + '-pedido').value.trim()
+          } : {};
+        });
+        if(erro){ avisar(erro); return; }
         ghPut(PUB_ARQ, JSON.stringify(novo, null, 1), assina('atualiza os anúncios do site'), PUB.siteSha)
-          .then(function(r){ if(r && r.content) PUB.siteSha = r.content.sha; avisar('Salvo! Entra no ar no próximo deploy.'); })
-          .catch(function(){ avisar('Não salvou; recarregue a aba e tente de novo.'); });
+          .then(function(r){
+            if(r && r.content) PUB.siteSha = r.content.sha;
+            avisar('Salvo. Quem já está dentro da temporada entra no próximo deploy; quem começa depois sobe sozinho na virada do dia.');
+            carregarSitePub(); pubDesempenho();
+          })
+          .catch(function(e){ avisar(msgErro(e)); });
       });
     }).catch(function(){ el.innerHTML = '<div class="vazio-box">Sem acesso ao arquivo dos anúncios (confira a chave na aba Conexão).</div>'; });
   }
+  function pubEstadoTexto(c){
+    if(!(c && c.img)) return 'fora do ar';
+    var hoje = pubISO(new Date());
+    if(c.de && c.de > hoje) return 'começa em ' + c.de;
+    if(c.ate && c.ate < hoje) return 'temporada encerrada';
+    return c.ate ? 'no ar até ' + c.ate : 'no ar, sem data de fim';
+  }
+  // reduz a arte respeitando a proporção original (não corta, não distorce)
+  function reduzLivre(arquivo, maxL, maxA){
+    return new Promise(function(res, rej){
+      var url = URL.createObjectURL(arquivo), img = new Image();
+      img.onload = function(){
+        var w = img.width, h = img.height;
+        var r = Math.min(1, maxL / w, maxA / h);
+        var W = Math.round(w * r), H = Math.round(h * r);
+        var c = document.createElement('canvas');
+        c.width = W; c.height = H;
+        c.getContext('2d').drawImage(img, 0, 0, W, H);
+        URL.revokeObjectURL(url);
+        res(c.toDataURL('image/jpeg', .85));
+      };
+      img.onerror = function(){ URL.revokeObjectURL(url); rej(new Error('imagem inválida')); };
+      img.src = url;
+    });
+  }
+  // datas pelo mesmo calendário do resto da casa
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-pub-data]');
+    if(!b) return;
+    var alvo = b.dataset.pubData;
+    var atual = $('pub-' + alvo).value;
+    var ehFim = alvo.slice(-4) === '-ate';
+    var sugerido = null;
+    if(atual){
+      sugerido = new Date(atual + 'T00:00');
+    } else if(ehFim){
+      // o fim nasce sete dias cheios depois do início: uma semana redonda
+      var deVal = $('pub-' + alvo.replace('-ate', '-de')).value;
+      var base = deVal ? new Date(deVal + 'T00:00') : new Date(Date.now() + 86400000);
+      base.setHours(0, 0, 0, 0);
+      base.setDate(base.getDate() + 6);
+      sugerido = base;
+    }
+    AG.diasTemporada = ehFim ? 'o último dia da temporada, contado inteiro' : 'a temporada conta dias cheios, de meia-noite a meia-noite';
+    agAbre({ modo:'anuncio', inicial: sugerido,
+             titulo: ehFim ? 'Em que dia ela sai do ar?' : 'Em que dia esta publicidade começa?' })
+      .then(function(dia){
+        AG.diasTemporada = '';
+        if(!dia) return;
+        var iso = pubISO(dia);
+        $('pub-' + alvo).value = iso;
+        b.textContent = iso;
+      });
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-pub-limpa]');
+    if(!b) return;
+    var sl = b.dataset.pubLimpa;
+    confirmar('Tirar ' + sl + ' do ar agora?', { rotuloOk:'Tirar do ar' }).then(function(ok){
+      if(!ok) return;
+      $('pub-' + sl + '-img').value = '';
+      $('ps-mini-' + sl).innerHTML = '<span>sem arte</span>';
+      $('pub-salvar').click();
+    });
+  });
 
   /* ---------------- calendário editorial (a semana da revista) ---------------- */
   var CAL = { doc: null, sha: null, chave: null };

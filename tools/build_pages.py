@@ -296,16 +296,24 @@ def _monta_ads_casa():
 .pub-faixa em{ font-style:normal; font-family:var(--mono); font-size:.5rem; font-weight:700;
   letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); flex-shrink:0; }
 .pub-faixa a{ flex:1; color:var(--ink); font-weight:600; font-size:.85rem; text-decoration:none;
-  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:flex; align-items:center;
+  justify-content:center; min-width:0; }
 .pub-faixa a:hover{ color:var(--wine); }
+.pub-faixa img{ display:block; max-width:100%; max-height:56px; width:auto; height:auto; object-fit:contain; }
+@media (max-width:760px){ .pub-faixa img{ max-height:40px; } }
 .pub-faixa button{ border:2px solid var(--ink); background:transparent; cursor:pointer;
   font-family:var(--mono); font-size:.6rem; padding:4px 9px; flex-shrink:0; }
-body.tem-faixa{ padding-bottom:52px; }''')
+body.tem-faixa{ padding-bottom:78px; }
+@media (max-width:760px){ body.tem-faixa{ padding-bottom:62px; } }''')
         _l = fx.get('link') or '#'
         _kf = _pub_chave('faixa', fx)
+        _txf = fx.get('texto', '') or fx.get('legenda', '') or 'Publicidade'
+        # a faixa é uma tarja de arte; sem imagem, ela cai no texto (compatibilidade)
+        _mio = (f'<img src="{_html.escape(fx["img"])}" alt="{_html.escape(_txf)}">'
+                if fx.get('img') else _html.escape(_txf))
         corpo.append(f'<div class="pub-faixa" id="pub-faixa" data-pub-chave="{_html.escape(_kf)}" hidden><em>Publicidade</em>'
                      f'<a href="{_html.escape(_l)}" target="_blank" rel="noopener sponsored" '
-                     f'data-pub="{_html.escape(_kf)}">{_html.escape(fx.get("texto", ""))}</a>'
+                     f'data-pub="{_html.escape(_kf)}">{_mio}</a>'
                      '<button type="button" id="pub-faixa-x" aria-label="Fechar">✕</button></div>')
         js.append('''(function(){
   var k = 'foyer-pub-faixa-' + new Date().toISOString().slice(0, 10);
@@ -4353,6 +4361,10 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     .pv-faixa em{ font-style:normal; font-family:var(--mono); font-size:.4rem; font-weight:700;
       letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); }
     .pv-faixa span{ flex:1; font-size:.68rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .pv-faixa .arte{ flex:1; height:26px; display:flex; align-items:center; justify-content:center;
+      background:rgba(120,100,70,.12); overflow:hidden; }
+    .pv-faixa .arte img{ max-width:100%; max-height:26px; width:auto; height:auto; object-fit:contain; }
+    .pv-faixa .arte .ph{ font-family:var(--mono); font-size:.42rem; letter-spacing:.1em; text-transform:uppercase; opacity:.6; }
     .pv-faixa b{ font-size:.7rem; }
     /* a página da revista em miniatura */
     .pv-pg{ position:relative; width:300px; aspect-ratio:720/972; border:3px solid var(--ink);
@@ -4524,9 +4536,9 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
           </button>
           <button class="az-fcard" type="button" data-f="faixa">
             <span class="mini msite mini-faixa"><i class="nv"></i><i class="ln"></i><i class="ln"></i><i class="ln c"></i><i class="ln"></i>
-              <span class="selo">SUA MENSAGEM FIXA · COM LINK</span></span>
+              <span class="selo">SUA ARTE · TARJA FIXA</span></span>
             <b>A Faixa de proscênio</b>
-            <span class="fc-r">Uma linha sua, fixa no pé de todas as páginas.</span>
+            <span class="fc-r">Uma tarja sua, fixa no pé de todas as páginas.</span>
           </button>
         </div>
 
@@ -4569,7 +4581,8 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
                 <div class="pv-ent" id="pv-ent"><em>Publicidade</em><div class="arte" data-arte><span class="ph">Sua arte aqui</span></div></div>
                 <div class="ln"></div><div class="ln"></div><div class="ln c"></div><div class="ln"></div>
                 <div class="pv-cortina" id="pv-cortina"><div class="cx"><em>Publicidade</em><div class="arte" data-arte><span class="ph">Sua arte aqui</span></div></div></div>
-                <div class="pv-faixa" id="pv-faixa"><em>Publicidade</em><span id="pv-faixa-tx">A sua mensagem, com link para a bilheteria</span><b>✕</b></div>
+                <div class="pv-faixa" id="pv-faixa"><em>Publicidade</em>
+                  <div class="arte" data-arte><span class="ph">Sua arte aqui</span></div><b>✕</b></div>
               </div>
               <div class="pv-pg" id="pv-pg">
                 <span class="selo">Publicidade</span>
@@ -4582,8 +4595,9 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
             </div>
             <p class="pv-rot" id="pv-rot">a aplicação real do seu anúncio</p>
             <div class="az-campo" id="az-faixa-campo" style="display:none;margin-top:10px">
-              <label>A sua linha na faixa (o texto é o anúncio)</label>
-              <input type="text" id="az-faixa-tx" maxlength="90" placeholder="Peça X em cartaz no Teatro Y — ingressos com 20% off">
+              <label>Uma linha para descrever a arte (opcional)</label>
+              <input type="text" id="az-faixa-tx" maxlength="90" placeholder="Peça X em cartaz no Teatro Y">
+              <small>serve de legenda para quem usa leitor de tela e aparece se a imagem demorar a carregar.</small>
             </div>
             <div class="az-campo" style="margin-top:10px">
               <label>Para onde o clique leva</label>
@@ -4709,10 +4723,10 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       specs:['Arte: imagem na horizontal (recomendado 1200×675, JPG ou PNG)','Onde: todas as páginas de matéria do site','Frequência: sempre no ar durante a temporada contratada','Link: a arte clica para o seu endereço'],
       spec:'Imagem na horizontal · recomendado 1200×675' },
     { id:'faixa', canal:'site', nome:'A Faixa de proscênio', onde:'No site · rodapé fixo',
-      resumo:'Uma linha sua, fixa no pé de todas as páginas.',
-      como:'Uma única linha de texto, sua, fixa no rodapé de TODAS as páginas do site, com link direto para a sua bilheteria. O leitor pode dispensar a faixa; ela volta no dia seguinte. É o formato mais simples: nem precisa de arte.',
-      specs:['Arte: NENHUMA — só o texto (até 90 caracteres) e o link','Onde: o rodapé de todas as páginas do site','Frequência: sempre à vista; o leitor pode dispensar por 1 dia','Link: a linha inteira clica para o seu endereço'],
-      spec:'Sem imagem: escreva a sua linha abaixo e veja na hora' },
+      resumo:'Uma tarja sua, fixa no pé de todas as páginas.',
+      como:'Uma tarja com a sua arte, fixa no rodapé de TODAS as páginas do site, com link direto para a sua bilheteria. É o formato que acompanha o leitor por onde ele for. Ele pode dispensar a faixa; ela volta no dia seguinte.',
+      specs:['Arte: imagem bem deitada (recomendado 1200×120, JPG ou PNG)','Onde: o rodapé de todas as páginas do site','Frequência: sempre à vista; o leitor pode dispensar por 1 dia','Link: a tarja inteira clica para o seu endereço'],
+      spec:'Imagem deitada · recomendado 1200×120 (10:1)' },
     { id:'pagina-inteira', canal:'revista', nome:'Página inteira', onde:'Na revista · uma página sua',
       resumo:'Uma página da edição é toda sua, para sempre no acervo.',
       como:'Uma página INTEIRA da revista de quinta é sua: a arte ocupa a página toda, com o rótulo Publicidade. As posições têm nome (a ímpar dos Recortes, a face da agenda, a porta da contracapa) e a edição fica na estante para sempre: o seu anúncio não some no feed. O link do anúncio sai marcado (utm) para você medir de onde veio o leitor.',
@@ -4798,10 +4812,10 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     document.getElementById('pv-pg-txts').style.display = f && f.id === 'meia-pagina' ? 'block' : 'none';
     document.getElementById('pv-meia').style.display = f && f.id === 'meia-pagina' ? 'block' : 'none';
     document.getElementById('az-faixa-campo').style.display = f && f.id === 'faixa' ? 'block' : 'none';
-    document.getElementById('az-envio').style.display = f && f.id === 'faixa' ? 'none' : 'block';
+    document.getElementById('az-envio').style.display = 'block';
     document.getElementById('az-arte-spec').textContent = f ? f.spec : '';
     document.getElementById('az-arte-sub').textContent = f && f.id === 'faixa'
-      ? 'A faixa não usa imagem: escreva a sua linha e veja como ela fica no site.'
+      ? 'A faixa é uma tarja bem deitada: suba a arte e veja como ela fica no rodapé do site.'
       : 'Suba a sua arte e ela entra na aplicação real, na hora.';
     document.getElementById('pv-rot').textContent = f
       ? (f.canal === 'site' ? 'a aplicação real no site do FOYER' : 'a aplicação real na página da revista')
@@ -4843,7 +4857,8 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     lr.readAsDataURL(f);
   });
   document.getElementById('az-faixa-tx').addEventListener('input', function(){
-    document.getElementById('pv-faixa-tx').textContent = this.value || 'A sua mensagem, com link para a bilheteria';
+    var im = document.querySelector('#pv-faixa .arte img');
+    if(im) im.alt = this.value || 'anúncio';
   });
   document.getElementById('az-link').addEventListener('input', function(){
     var d = this.value.replace(/^https?:\/\//, '').split('/')[0];
@@ -4899,7 +4914,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     if(!f){ el.hidden = true; return; }
     var pecas = ['<em>O seu pedido</em>', '<b>' + f.nome + '</b>'];
     if(st.arte) pecas.push('arte enviada ✓');
-    if(st.formato === 'faixa' && v('az-faixa-tx')) pecas.push('“' + v('az-faixa-tx').slice(0, 40) + '”');
+
     if(v('az-link')) pecas.push('clique → ' + v('az-link').replace(/^https?:\/\//, '').split('/')[0]);
     if(v('az-inicio')) pecas.push('começa: ' + v('az-inicio'));
     if(st.duracao){
@@ -4935,8 +4950,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     var f = fmt();
     var linhas = [
       ['Formato', f ? f.nome + ' · ' + f.onde : ''],
-      ['A arte', st.arte ? '<img src="' + st.arte + '" alt="a sua arte">' :
-        (st.formato === 'faixa' ? '“' + (v('az-faixa-tx') || 'a combinar') + '”' : 'a combinar na conversa')],
+      ['A arte', st.arte ? '<img src="' + st.arte + '" alt="a sua arte">' : 'a combinar na conversa'],
       ['O clique leva para', v('az-link') || 'a combinar'],
       ['Começa', v('az-inicio') || 'a combinar'],
       ['Duração', st.duracao || 'a combinar'],
@@ -5054,7 +5068,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     var f = fmt();
     var proto = 'FY-' + Date.now().toString(36).toUpperCase().slice(-6);
     var msg = v('az-msg');
-    if(st.formato === 'faixa' && v('az-faixa-tx')) msg = ('Linha da faixa: “' + v('az-faixa-tx') + '”' + (msg ? ' — ' + msg : ''));
+    if(st.formato === 'faixa' && v('az-faixa-tx')) msg = ('Legenda da faixa: “' + v('az-faixa-tx') + '”' + (msg ? ' — ' + msg : ''));
     fetch(M.url + '/rest/v1/foyer_anuncios', {
       method: 'POST',
       headers: { 'apikey': M.key, 'Authorization': 'Bearer ' + M.key, 'Content-Type': 'application/json' },

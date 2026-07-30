@@ -621,6 +621,18 @@ Regras das seções novas:
     parágrafo) e **A Faixa de proscênio** (rodapé fixo, dispensável
     pelo leitor). TODOS com rótulo "Publicidade"; nunca aparecem na
     Coxia nem dentro da revista.
+  - **TODO FORMATO É IMAGEM (correção do Pedro, 30/07/2026)**: os cinco
+    formatos recebem arte. A faixa deixou de ser um campo de texto e
+    virou uma **tarja deitada** (recomendado 1200×120, 10:1) no rodapé;
+    a linha de texto sobrou só como legenda opcional, para leitor de tela
+    e para quando a imagem demora a carregar.
+  - **Publicidade na mão, pela Coxia (30/07/2026)**: a aba Publicidade
+    tem o formulário dos três espaços do site, e nele o chefe **sobe a
+    arte do próprio computador** (a imagem vai para `assets/uploads/`
+    sem sair da Coxia), escolhe **as datas pelo calendário da casa** (o
+    fim já nasce sete dias cheios depois do início), põe link, legenda e
+    de quem é. Serve para anunciante fechado fora do site e para projeto
+    da própria casa. O botão de tirar do ar limpa o espaço na hora.
   - **Na revista**: **página inteira** (o formato do cartaz; posições
     nomeadas: a ímpar dos Recortes, a face da agenda, a porta da
     contracapa) e **meia página** (o formato da arte de Sympla; campo
