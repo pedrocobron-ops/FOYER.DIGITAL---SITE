@@ -1314,7 +1314,9 @@ html[data-theme="dark"] .sino-faixa{ box-shadow:6px 6px 0 rgba(0,0,0,.5); }
 .pub-entreato{ margin:28px 0; border:2px solid var(--ink); background:var(--paper); padding:12px 14px; }
 .pub-entreato em{ display:block; font-style:normal; font-family:var(--mono); font-size:.5rem;
   font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px; }
-.pub-entreato img{ display:block; width:100%; height:auto; }
+/* teto de altura: o entreato mora dentro da matéria e não pode virar cartaz.
+   Arte mais em pé que o teto entra inteira, com margem de papel dos lados. */
+.pub-entreato img{ display:block; width:100%; height:auto; max-height:560px; object-fit:contain; }
 .pub-entreato figcaption{ font-size:.78rem; color:var(--ink-soft); margin-top:8px; }
 
 /* botão Anuncie (contato) */

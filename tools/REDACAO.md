@@ -670,8 +670,12 @@ Regras das seções novas:
     edições, ela **se recusa a reservar** em vez de chutar um número —
     chute viraria anúncio em edição fechada.
   - **O TAMANHO DE CADA ARTE (medido na própria página, 30/07/2026)**:
-    no site, **Cortina** 1080×1350 (em pé ou quadrada), **Entreato**
-    1200×675 (deitada) e **Faixa** 1200×120 (tarja bem deitada). Na
+    no site, **Cortina** 1080×1350 (em pé, 4:5; a caixa tem 514 de
+    largura e nunca passa da altura da tela), **Entreato** 1600×900
+    (deitada, 16:9; ocupa os 788 de largura da matéria, com teto de 560
+    de altura) e **Faixa** 1200×120 (tarja 10:1; 56 de altura no
+    computador, e no celular o rótulo sobe para uma linha só sua para a
+    arte pegar a largura toda). Na
     revista, **a largura é sempre a mesma; o que muda é a altura**
     (correção do Pedro, 30/07/2026): **página inteira** ocupa 714×896 e
     **meia página** ocupa 714×448, exatamente metade, sangrando de ponta

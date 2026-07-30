@@ -331,11 +331,19 @@ def _monta_ads_casa():
   justify-content:center; min-width:0; }
 .pub-faixa a:hover{ color:var(--wine); }
 .pub-faixa img{ display:block; max-width:100%; max-height:56px; width:auto; height:auto; object-fit:contain; }
-@media (max-width:760px){ .pub-faixa img{ max-height:40px; } }
+/* no celular o rótulo desce para uma linha só sua: sem isso o anúncio ficava
+   espremido entre o rótulo e o botão, com uns 240px de largura */
+@media (max-width:760px){
+  .pub-faixa{ flex-wrap:wrap; gap:3px 10px; padding:5px 12px 8px; }
+  .pub-faixa em{ order:-2; flex:1 1 auto; line-height:1.1; }
+  .pub-faixa button{ order:-1; }
+  .pub-faixa a{ order:0; flex-basis:100%; }
+  .pub-faixa img{ max-height:44px; margin:0 auto; }
+  body.tem-faixa{ padding-bottom:88px; }
+}
 .pub-faixa button{ border:2px solid var(--ink); background:transparent; cursor:pointer;
   font-family:var(--mono); font-size:.6rem; padding:4px 9px; flex-shrink:0; }
-body.tem-faixa{ padding-bottom:78px; }
-@media (max-width:760px){ body.tem-faixa{ padding-bottom:62px; } }''')
+body.tem-faixa{ padding-bottom:78px; }''')
         _l = fx.get('link') or '#'
         _kf = _pub_chave('faixa', fx)
         _txf = fx.get('texto', '') or fx.get('legenda', '') or 'Publicidade'
@@ -371,7 +379,10 @@ body.tem-faixa{ padding-bottom:78px; }
   max-width:520px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,.5); }
 .pub-cortina .rotulo{ display:block; font-family:var(--mono); font-size:.52rem; font-weight:700;
   letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); padding:10px 14px 0; }
-.pub-cortina img{ display:block; width:100%; height:auto; padding:10px 14px; box-sizing:border-box; }
+/* teto de altura: arte muito em pé não pode empurrar o botão de fechar para
+   fora da tela. O que passar do teto vira margem de papel, nunca corte. */
+.pub-cortina img{ display:block; width:100%; height:auto; object-fit:contain;
+  max-height:calc(100vh - 170px); padding:10px 14px; box-sizing:border-box; }
 .pub-cortina .leg{ padding:0 14px 14px; font-size:.85rem; }
 .pub-cortina .fechar{ position:absolute; top:-14px; right:-14px; width:34px; height:34px;
   border:2px solid var(--ink); background:var(--gold); color:var(--wine); font-weight:700;
@@ -4798,18 +4809,18 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     { id:'cortina', canal:'site', nome:'A Cortina de entrada', onde:'No site · na chegada',
       resumo:'A sua arte recebe quem chega ao FOYER, uma vez por dia.',
       como:'Quem abre qualquer página do site vê a sua arte numa caixa central, sobre o conteúdo, com o rótulo Publicidade e um botão de fechar. Aparece UMA vez por dia para cada visitante: presença garantida, sem irritar quem lê.',
-      specs:['Arte: imagem na vertical ou quadrada (recomendado 1080×1350, JPG ou PNG)','Onde: todas as páginas do site','Frequência: 1 vez por dia por visitante','Link: a arte inteira clica para o seu endereço'],
-      spec:'Imagem na vertical ou quadrada · recomendado 1080×1350' },
+      specs:['Arte: imagem em pé ou quadrada, 4:5 — mande 1080×1350 (a caixa tem 514 de largura no computador)','Onde: todas as páginas do site','Frequência: 1 vez por dia por visitante','A caixa nunca passa da altura da tela: arte muito comprida entra inteira, um pouco menor','Link: a arte inteira clica para o seu endereço'],
+      spec:'Imagem em pé ou quadrada, 4:5 · mande 1080×1350' },
     { id:'entreato', canal:'site', nome:'O Entreato', onde:'No site · dentro das matérias',
       resumo:'O seu anúncio no meio da leitura, em todas as matérias.',
       como:'A sua arte entra DENTRO das matérias do site, depois do 4º parágrafo, com o rótulo Publicidade. O leitor encontra o anúncio no meio da leitura, como o intervalo de um espetáculo: é o formato de maior convivência com o conteúdo.',
-      specs:['Arte: imagem na horizontal (recomendado 1200×675, JPG ou PNG)','Onde: todas as páginas de matéria do site','Frequência: sempre no ar durante a temporada contratada','Link: a arte clica para o seu endereço'],
-      spec:'Imagem na horizontal · recomendado 1200×675' },
+      specs:['Arte: imagem deitada, 16:9 — mande 1600×900 (ela ocupa a largura da matéria, 788 de largura no computador)','Onde: todas as páginas de matéria do site','Frequência: sempre no ar durante a temporada contratada','Arte mais em pé que 16:9 entra inteira, com margem de papel dos lados','Link: a arte clica para o seu endereço'],
+      spec:'Imagem deitada, 16:9 · mande 1600×900' },
     { id:'faixa', canal:'site', nome:'A Faixa de proscênio', onde:'No site · rodapé fixo',
       resumo:'Uma tarja sua, fixa no pé de todas as páginas.',
       como:'Uma tarja com a sua arte, fixa no rodapé de TODAS as páginas do site, com link direto para a sua bilheteria. É o formato que acompanha o leitor por onde ele for. Ele pode dispensar a faixa; ela volta no dia seguinte.',
-      specs:['Arte: imagem bem deitada (recomendado 1200×120, JPG ou PNG)','Onde: o rodapé de todas as páginas do site','Frequência: sempre à vista; o leitor pode dispensar por 1 dia','Link: a tarja inteira clica para o seu endereço'],
-      spec:'Imagem deitada · recomendado 1200×120 (10:1)' },
+      specs:['Arte: tarja bem deitada, 10:1 — mande 1200×120 (a tarja tem 56 de altura no computador e 40 no celular)','Onde: o rodapé de todas as páginas do site','Frequência: sempre à vista; o leitor pode dispensar por 1 dia','Link: a tarja inteira clica para o seu endereço'],
+      spec:'Tarja deitada, 10:1 · mande 1200×120' },
     { id:'pagina-inteira', canal:'revista', nome:'Página inteira', onde:'Na revista · uma página sua',
       resumo:'Uma página da edição é toda sua, para sempre no acervo.',
       como:'Uma página INTEIRA da revista de quinta é sua: a arte ocupa a página toda, com o rótulo Publicidade. As posições têm nome (a ímpar dos Recortes, a face da agenda, a porta da contracapa) e a edição fica na estante para sempre: o seu anúncio não some no feed. O link do anúncio sai marcado (utm) para você medir de onde veio o leitor.',
