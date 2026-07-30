@@ -4598,8 +4598,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
           <input type="text" id="az-inicio" placeholder="ex.: semana que vem · edição de 6 de agosto · o quanto antes"></div>
         <div class="az-campo"><label>Por quanto tempo?</label>
           <div class="az-ops" id="az-duracao"></div>
-          <small>o FOYER vive por edições: cada edição é uma semana da casa, de quinta a quarta — no site ou na revista.
-          A edição seguinte é sempre mais barata: 2ª com −10%, 3ª com −20%, 4ª com −30%.</small></div>
+          <small id="az-dur-nota">no site a temporada se vende por semana: 7 dias cheios, da meia-noite do dia combinado até o fim do último dia. A semana seguinte é sempre mais barata: 2ª com −10%, 3ª com −20%, 4ª com −30%.</small></div>
         <div class="az-orca" id="az-orca" hidden></div>
       </div>
 
@@ -4648,8 +4647,12 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
         <h4>5. Última olhada no espelho — e o palco é seu</h4>
         <div class="az-rev" id="az-rev"></div>
         <label class="az-aceite"><input type="checkbox" id="az-aceite">
-          <span>Li e estou de acordo com as <a href="regras-publicidade.html" target="_blank" rel="noopener"><b>Regras de Publicidade do FOYER</b></a>,
-          e declaro que a arte e a oferta anunciadas as cumprem e que tenho os direitos sobre as imagens enviadas. *</span></label>
+          <span>Li e aceito as <a href="regras-publicidade.html" target="_blank" rel="noopener"><b>Regras de Publicidade do FOYER</b></a>
+          (versão 2), que valem para esta contratação. Declaro que tenho os direitos sobre a arte enviada e que a oferta
+          anunciada é verdadeira, e estou ciente de que <b>a temporada é contada em dias cheios</b>, de que <b>o FOYER não
+          garante resultado de vendas ou cliques</b> e de que <b>não há devolução de valores em dinheiro</b>: desistência
+          antes da estreia vira crédito, e interrupção de responsabilidade da casa se compensa com extensão da
+          temporada. *</span></label>
         <p style="font-size:.84rem;color:var(--ink-soft);margin:12px 0 0">Ao enviar, o pedido (com a sua arte, o orçamento e os dados da nota) cai direto na mesa da direção do FOYER.
         Na conversa de WhatsApp confirmamos os dados, conferimos a arte e combinamos só a forma de pagamento. Nada vai ao ar sem o seu ok final.</p>
       </div>
@@ -4722,7 +4725,21 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       specs:['Arte: imagem na horizontal (recomendado 1400×760, JPG ou PNG)','Onde: o pé da última página de uma matéria da edição','Permanência: a edição fica no acervo para sempre','Link: na revista lida no site, a arte clica para o seu endereço'],
       spec:'Imagem na horizontal · recomendado 1400×760' }
   ];
-  var DURACOES = ['1 edição', '2 edições', '3 edições', '4 edições', 'a combinar'];
+  // o site se vende por SEMANA, a revista por EDIÇÃO; cada uma vale 7 dias
+  var DURACOES = {
+    site: ['1 semana', '2 semanas', '3 semanas', '4 semanas', 'a combinar'],
+    revista: ['1 edição', '2 edições', '3 edições', '4 edições', 'a combinar']
+  };
+  function duracoesDoCanal(){
+    var f = fmt();
+    return DURACOES[(f && f.canal) === 'revista' ? 'revista' : 'site'];
+  }
+  function unidadeDoCanal(pl){
+    var f = fmt();
+    var rev = (f && f.canal) === 'revista';
+    return rev ? (pl ? 'edições' : 'edição') : (pl ? 'semanas' : 'semana');
+  }
+  var REGRAS_VERSAO = '2';   // a versão das Regras de Publicidade que este funil apresenta
   var VALORES = { cortina:200, entreato:150, faixa:90, 'pagina-inteira':240, 'meia-pagina':130 };
   var DESCONTO = [0, 0, .10, .20, .30];   // da 1ª à 4ª edição
   function orcamento(){
@@ -4733,7 +4750,8 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     for(var i = 1; i <= n; i++){
       var vi = Math.round(base * (1 - DESCONTO[i]));
       total += vi;
-      partes.push(i + 'ª: R$ ' + vi + (DESCONTO[i] ? ' (−' + (DESCONTO[i] * 100) + '%)' : ''));
+      partes.push(i + 'ª ' + unidadeDoCanal(false) + ': R$ ' + vi +
+                  (DESCONTO[i] ? ' (−' + (DESCONTO[i] * 100) + '%)' : ''));
     }
     return { total: total, partes: partes, n: n, base: base };
   }
@@ -4744,9 +4762,22 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
   var VAI = { 1:'Quero este palco →', 2:'Ficou bonito, seguir →', 3:'Fechar a temporada →', 4:'Dados prontos →', 5:'Subir ao palco ✦' };
 
   function fmt(){ return FORMATOS.filter(function(x){ return x.id === st.formato; })[0]; }
-  document.getElementById('az-duracao').innerHTML = DURACOES.map(function(d){
-    return '<button class="az-op" type="button" data-d="' + d + '">' + d + '</button>';
-  }).join('');
+  function pintaDuracoes(){
+    var lista = duracoesDoCanal();
+    document.getElementById('az-duracao').innerHTML = lista.map(function(d){
+      return '<button class="az-op' + (st.duracao === d ? ' on' : '') + '" type="button" data-d="' + d + '">' + d + '</button>';
+    }).join('');
+    // trocou de canal? a duração antiga não vale mais
+    if(st.duracao && lista.indexOf(st.duracao) < 0) st.duracao = '';
+    var nota = document.getElementById('az-dur-nota');
+    if(nota){
+      var f = fmt(), rev = (f && f.canal) === 'revista';
+      nota.textContent = rev
+        ? 'a revista se vende por edição: cada edição é uma semana da casa, de quinta a quarta. A edição seguinte é sempre mais barata: 2ª com −10%, 3ª com −20%, 4ª com −30%.'
+        : 'no site a temporada se vende por semana: 7 dias cheios, da meia-noite do dia combinado até o fim do último dia. A semana seguinte é sempre mais barata: 2ª com −10%, 3ª com −20%, 4ª com −30%.';
+    }
+  }
+  pintaDuracoes();
 
   function pintaComo(){
     var f = fmt(), el = document.getElementById('az-como');
@@ -4849,7 +4880,8 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       var f2 = fmt();
       if(f2 && st.duracao === 'a combinar'){
         el.hidden = false;
-        el.innerHTML = '<em>O orçamento</em><div class="parcelas">Temporadas maiores que 4 edições saem com valor combinado na conversa.</div>';
+        el.innerHTML = '<em>O orçamento</em><div class="parcelas">Temporadas maiores que 4 ' +
+          unidadeDoCanal(true) + ' saem com valor combinado na conversa.</div>';
       } else el.hidden = true;
       return;
     }
@@ -4919,6 +4951,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       ['Contato', v('az-nome') + ' · ' + v('az-whats') + ' · ' + v('az-email') + (v('az-insta') ? ' · ' + v('az-insta') : '')]
     ];
     if(v('az-msg')) linhas.push(['Observações', v('az-msg')]);
+    linhas.push(['Regras', 'versão ' + REGRAS_VERSAO + ' das Regras de Publicidade, aceitas no envio']);
     document.getElementById('az-rev').innerHTML = linhas.map(function(l){
       return '<div><em>' + l[0] + '</em><span>' + (l[0] === 'A arte' ? l[1] : String(l[1]).replace(/</g, '&lt;')) + '</span></div>';
     }).join('');
@@ -5011,7 +5044,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       document.getElementById('az-empresa').value = st.tipoPessoa === 'pj' ? (v('az-fantasia') || v('az-razao')) : '';
     }
     if(passo === 5 && !document.getElementById('az-aceite').checked){
-      erro('Falta aceitar as Regras de Publicidade para enviar.'); return false;
+      erro('Falta marcar o aceite das Regras de Publicidade para enviar o pedido.'); return false;
     }
     return true;
   }
@@ -5039,6 +5072,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
         cep: v('az-cep').replace(/\D/g, ''), logradouro: v('az-logr'), numero: v('az-num'),
         complemento: v('az-compl'), bairro: v('az-bairro'), cidade: v('az-cidade'),
         uf: v('az-uf').toUpperCase(), aceite_regras: true, aceite_em: new Date().toISOString(),
+        aceite_versao: REGRAS_VERSAO,
         valor_total: (orcamento() || {}).total || null,
         orcamento: (function(){ var o = orcamento(); return o ? o.partes.join(' · ') + ' = R$ ' + o.total : 'a combinar'; })()
       })
@@ -5071,6 +5105,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       st.cupom = false;
       document.querySelectorAll('.az-fcard').forEach(function(b){ b.classList.toggle('on', b === bf); });
       pintaComo();
+      pintaDuracoes();          // site vende semana, revista vende edição
       sacola(); salvaRasc();
       return;
     }
@@ -5140,6 +5175,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
         document.querySelectorAll('.az-fcard').forEach(function(b){ b.classList.toggle('on', b.dataset.f === st.formato); });
         pintaComo();
       }
+      pintaDuracoes();
       if(st.duracao) document.querySelectorAll('#az-duracao .az-op').forEach(function(b){
         b.classList.toggle('on', b.dataset.d === st.duracao);
       });
@@ -5171,7 +5207,7 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
 '''
 page('anuncie.html', 'Anuncie no FOYER', 'Anuncie no site e na revista do FOYER: veja a aplicação da sua arte antes de fechar e contrate em 5 passos, sem vendedor.', 'anuncie.html', anuncie_body)
 
-regras_pub_body = band('Comercial', 'Regras de Publicidade', 'O que pode e o que não pode anunciar no FOYER — as regras que protegem o leitor, o anunciante e a casa') + '''
+regras_pub_body = band('Comercial', 'Regras de Publicidade', 'As regras que valem para toda contratação de anúncio no FOYER: o que pode entrar, como corre a temporada, prazos, trocas e o que a casa garante') + '''
 <main id="conteudo" class="wrap">
   <div class="legal">
     <div class="legal-body">
@@ -5228,13 +5264,110 @@ regras_pub_body = band('Comercial', 'Regras de Publicidade', 'O que pode e o que
 
       <h2>7. O direito de recusa</h2>
       <p>A direção do FOYER pode recusar ou retirar qualquer anúncio que viole estas regras ou que, a seu critério
-      editorial, não combine com a casa — com devolução integral de valores ainda não veiculados. Publicidade é
-      bem-vinda; o leitor vem primeiro.</p>
+      editorial, não combine com a casa. Publicidade é bem-vinda; o leitor vem primeiro. Quando a retirada partir
+      de decisão editorial da casa, sem falta do anunciante, os dias não veiculados viram crédito para outra
+      temporada (item 14). Quando a retirada decorrer de violação destas regras, não há crédito nem devolução.</p>
 
-      <h2>8. Quem responde</h2>
+      <h2>8. Como se contrata, e quando a temporada é sua</h2>
+      <p>O passo a passo de <a href="anuncie.html">Anuncie no FOYER</a> gera um <b>pedido</b>, que é uma proposta de
+      contratação, não uma reserva garantida. O espaço só fica reservado quando a direção confirma o pedido e o
+      pagamento é identificado. Antes disso, a data pretendida pode ser ocupada por outro anunciante.</p>
+      <p>O pagamento é <b>antecipado</b>, combinado por WhatsApp ou e-mail com a direção. A nota fiscal de serviço é
+      emitida com os dados informados no pedido; dados incorretos são de responsabilidade de quem contrata, e a
+      correção depende das regras da prefeitura para cancelamento e reemissão.</p>
+
+      <h2>9. A temporada é contada em dias cheios</h2>
+      <p>No site, a temporada se vende por <b>semana</b>; na revista, por <b>edição</b> (que é a semana da casa, de
+      quinta a quarta). Nos dois casos, cada unidade equivale a <b>7 dias cheios</b>: o anúncio entra na virada da
+      meia-noite do dia combinado e sai no fim do último dia, no horário de Brasília. Não há cobrança de meio dia
+      nem crédito por fração de dia.</p>
+      <p>Na revista, o anúncio acompanha a edição em que foi veiculado: a edição fica no acervo e o anúncio continua
+      nela, sem custo adicional e sem que isso configure prorrogação da temporada.</p>
+
+      <h2>10. A arte, e o prazo para entregá-la</h2>
+      <p>A arte é enviada pelo próprio passo a passo, no ato do pedido. Se a contratação for fechada sem arte, ela
+      precisa chegar até <b>2 dias úteis antes</b> da estreia combinada, dentro dos padrões do item 6.</p>
+      <p>Arte que chegar depois desse prazo, ou fora dos padrões, desloca a estreia para a primeira data livre
+      seguinte. <b>O atraso na entrega da arte não gera devolução, desconto nem extensão da temporada.</b></p>
+
+      <h2>11. O que a casa garante, e o que não garante</h2>
+      <p>O FOYER garante a <b>veiculação</b> do anúncio no formato, no lugar e pelo período contratados, com o rótulo
+      de publicidade e o link de destino informado.</p>
+      <p>O FOYER <b>não garante</b>, e não pode garantir: número de visualizações, de cliques, de vendas, de
+      ingressos ou qualquer resultado comercial; posição em buscadores; alcance em redes sociais; nem que um leitor
+      específico veja o anúncio. Publicidade é exposição, não é promessa de resultado.</p>
+      <p>Os números que a casa informa (vistas, cliques, pessoas) são medidos por ferramenta própria e são
+      <b>estimativas de boa-fé</b>. Bloqueadores de anúncio, cache de navegador, redes corporativas e falhas de
+      terceiros afetam a contagem. Divergência com a medição do anunciante não gera reembolso nem abatimento.</p>
+
+      <h2>12. Atrasos, quedas e interrupções</h2>
+      <p>O site do FOYER depende de serviços de terceiros (hospedagem, provedor de domínio, redes). Instabilidade,
+      manutenção, ataque, caso fortuito ou força maior podem interromper a veiculação sem que isso seja falha da
+      casa.</p>
+      <p>Quando a interrupção for atribuível ao FOYER e passar de <b>24 horas seguidas</b>, a casa <b>estende a
+      temporada</b> por tempo igual ao da interrupção, sem custo. <b>Essa extensão é a única compensação prevista:
+      não há devolução em dinheiro, desconto retroativo, multa nem indenização de qualquer natureza</b>, incluindo
+      lucros cessantes ou dano indireto.</p>
+      <p>Atraso na estreia por culpa da casa também se resolve por extensão equivalente ao fim da temporada.</p>
+
+      <h2>13. Não fazemos reembolso em dinheiro</h2>
+      <p>Esta é a regra mais importante desta página, e ela é assumida no aceite: <b>o FOYER não faz devolução de
+      valores em dinheiro</b>, em nenhuma hipótese, depois de confirmada a contratação.</p>
+      <p>Desistência comunicada <b>antes da estreia</b> vira <b>crédito integral</b>, válido por 90 dias, para uma
+      temporada futura em qualquer formato. Desistência <b>depois de o anúncio entrar no ar</b> não gera crédito nem
+      devolução: o espaço foi reservado, a temporada começou e o lugar deixou de ser oferecido a outro anunciante.</p>
+
+      <h2>14. Como funciona o crédito</h2>
+      <p>O crédito é nominal ao contratante, não é transferível nem conversível em dinheiro, e se usa em uma nova
+      temporada dentro de 90 dias, com valores da tabela vigente na data do novo uso. Crédito não usado no prazo
+      expira.</p>
+
+      <h2>15. Trocas durante a temporada</h2>
+      <p>Uma troca de arte ou de link por temporada é feita sem custo, pedida com pelo menos <b>2 dias úteis</b> de
+      antecedência. Trocas adicionais dependem de disponibilidade da casa. <b>Nenhuma troca estende o prazo</b> nem
+      interrompe a contagem dos dias.</p>
+
+      <h2>16. Posição, tamanho e convivência</h2>
+      <p>A casa pode ajustar enquadramento e escala da arte para caber no espaço, sem descaracterizar a peça e sem
+      distorcer a imagem. Posições nomeadas (a página ímpar dos Recortes, a face da agenda, a porta da contracapa)
+      só são garantidas quando combinadas por escrito.</p>
+      <p>Não há exclusividade de categoria: outro anunciante do mesmo ramo pode ocupar outro formato no mesmo
+      período, salvo acordo escrito em contrário.</p>
+
+      <h2>17. Do que o anunciante responde</h2>
+      <p>Quem contrata declara e responde, sozinho, por: veracidade de tudo o que a peça afirma (preços, datas,
+      elenco, condições, promoções); posse dos direitos de uso da imagem, da marca, da música, da fotografia e de
+      qualquer elemento da arte; conformidade da oferta com a lei; e cumprimento do que promete ao público.</p>
+      <p>Reclamação, notificação, autuação ou ação de terceiro relativa ao conteúdo do anúncio é resolvida pelo
+      anunciante, que <b>mantém o FOYER a salvo</b> de custos e responsabilidades daí decorrentes, inclusive
+      honorários. A casa retira a peça imediatamente ao ser notificada, e a retirada nessa hipótese não gera
+      crédito.</p>
+
+      <h2>18. Dados e privacidade</h2>
+      <p>Os dados do pedido são usados para emitir nota fiscal, falar com o anunciante e cumprir obrigações legais,
+      conforme a <a href="privacidade.html">Política de Privacidade</a>. As métricas do anúncio são agregadas e
+      anônimas: não identificam leitores. O FOYER não vende nem cede dados de leitores a anunciantes.</p>
+
+      <h2>19. Como a casa fala com você</h2>
+      <p>A comunicação oficial é o WhatsApp e o e-mail da direção informados no site. <b>Combinação que não esteja
+      por escrito não vale</b> — nem cupom, nem posição garantida, nem desconto, nem prorrogação. O protocolo do
+      pedido (FY-XXXXXX) identifica a contratação em qualquer conversa.</p>
+
+      <h2>20. Estas regras podem mudar</h2>
+      <p>A versão vigente é sempre a publicada nesta página, identificada abaixo. A versão que vale para uma
+      contratação é a do <b>dia do aceite</b>, registrado com data e hora no pedido. Mudanças não retroagem sobre
+      temporadas já contratadas.</p>
+
+      <h2>21. Lei e foro</h2>
+      <p>Aplica-se a legislação brasileira. Fica eleito o foro da comarca de São Paulo (SP) para o que não se
+      resolver na conversa, que é sempre o caminho preferido da casa.</p>
+
+      <h2>22. Quem responde</h2>
       <p>Dúvidas e casos não previstos: <a href="mailto:programafoyer@gmail.com">programafoyer@gmail.com</a>.
       Estas regras integram a contratação feita em <a href="anuncie.html">Anuncie no FOYER</a>, e o aceite fica
       registrado com data e hora no pedido.</p>
+
+      <p class="legal-versao">Versão 2 destas regras, em vigor desde 30 de julho de 2026.</p>
     </div>
   </div>
 </main>

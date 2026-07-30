@@ -635,6 +635,11 @@ Regras das seções novas:
     (decisão do Pedro em 29/07/2026: exigia arte sob medida e cobria o
     cartaz); segue possível apenas em combinação manual por escrito,
     montado pela Coxia na página de patrocínio.
+  - **A UNIDADE DE VENDA (correção do Pedro, 30/07/2026)**: o **site se
+    vende por SEMANA** (1 a 4 semanas) e a **revista por EDIÇÃO** (1 a 4
+    edições). As duas valem 7 dias cheios e o mesmo preço; o que muda é a
+    palavra, e ela precisa combinar com o canal em todo lugar: botões,
+    orçamento, revisão, pedido, WhatsApp e Coxia.
   - **A TABELA DA CASA (aprovada pelo Pedro em 29/07/2026, por
     edição/semana)**: Faixa R$ 90 · Entreato R$ 150 · Cortina R$ 200 ·
     Meia página R$ 130 · Página inteira R$ 240. **Desconto de
@@ -690,7 +695,24 @@ Regras das seções novas:
     CNPJ + inscrição municipal opcional; ambos com endereço completo
     validado por CEP). CPF/CNPJ passam por validação de dígito no
     navegador. O WhatsApp fecha só pagamento e confirmação.
-  - **Regras de Publicidade** (`regras-publicidade.html`): o banco de
+  - **Regras de Publicidade, versão 2** (`regras-publicidade.html`, em
+    vigor desde 30/07/2026): 22 regras, do princípio editorial ao foro.
+    Além do que não entra, a versão 2 fixa o lado comercial que protege a
+    casa: pedido é proposta e só vira reserva com pagamento identificado;
+    temporada em dias cheios; prazo de 2 dias úteis para a arte, e atraso
+    dela não gera devolução nem extensão; a casa garante VEICULAÇÃO, não
+    resultado (cliques, vendas, alcance), e os números são estimativas de
+    boa-fé; queda de mais de 24h de responsabilidade da casa se compensa
+    com EXTENSÃO da temporada, única compensação prevista; **nenhuma
+    devolução em dinheiro** (desistência antes da estreia vira crédito de
+    90 dias, depois da estreia não gera nada); uma troca de arte por
+    temporada, sem estender prazo; sem exclusividade de categoria salvo
+    acordo escrito; o anunciante responde por direitos e veracidade e
+    mantém a casa a salvo; combinação só vale por escrito. O aceite grava
+    a **versão** no pedido (`aceite_versao`), e a versão que vale é a do
+    dia do aceite. **Ao mudar as regras, subir o número da versão** em
+    `REGRAS_VERSAO` (no funil), no rodapé da página e aqui.
+  - **Regras de conteúdo** (dentro da mesma página): o banco de
     regras da casa — o que não entra (ilegal, tabaco, armas, apostas
     e ganho fácil, conteúdo sexual explícito, risco a menores, saúde
     milagrosa, ódio, desinformação, propaganda eleitoral), regras de

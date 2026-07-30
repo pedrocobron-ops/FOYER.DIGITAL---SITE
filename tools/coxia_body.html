@@ -4205,7 +4205,9 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                   (p.insc_municipal ? ' · IM ' + p.insc_municipal : '')) + '<br>' +
               esc((p.logradouro || '') + ', ' + (p.numero || '') + (p.complemento ? ' ' + p.complemento : '') + ' · ' +
                   (p.bairro || '') + ' · ' + (p.cidade || '') + '/' + (p.uf || '') + ' · CEP ' + (p.cep || '')) +
-              (p.aceite_regras ? '<br><small style="opacity:.7">aceitou as Regras de Publicidade em ' + esc(new Date(p.aceite_em).toLocaleString('pt-BR')) + '</small>' : '') +
+              (p.aceite_regras ? '<br><small style="opacity:.7">aceitou as Regras de Publicidade' +
+                 (p.aceite_versao ? ' (versão ' + esc(p.aceite_versao) + ')' : '') +
+                 ' em ' + esc(new Date(p.aceite_em).toLocaleString('pt-BR')) + '</small>' : '') +
               '</span></div>'
             : '') +
           (p.link ? '<div class="pub-linha"><em>O clique leva para</em><span><a href="' + esc(p.link) + '" target="_blank" rel="noopener">' + esc(p.link) + '</a></span></div>' : '') +
@@ -4324,8 +4326,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   }
 
   // ---- do pedido fechado direto para o ar: arte, link, prazo e registro, sozinho ----
-  var PUB_SEMANAS = { '1 edição':7, '2 edições':14, '3 edições':21, '4 edições':28 };
-  function pubDias(duracao){ return PUB_SEMANAS[duracao] || 7; }
+  // o site vende semana, a revista vende edição: as duas valem 7 dias cheios
+  function pubDias(duracao){
+    var m = /^(\d+)\s*(semana|edi)/i.exec(String(duracao || ''));
+    return m ? Number(m[1]) * 7 : 7;
+  }
   function pubISO(d){
     return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
   }

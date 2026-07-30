@@ -580,8 +580,7 @@
           <input type="text" id="az-inicio" placeholder="ex.: semana que vem · edição de 6 de agosto · o quanto antes"></div>
         <div class="az-campo"><label>Por quanto tempo?</label>
           <div class="az-ops" id="az-duracao"></div>
-          <small>o FOYER vive por edições: cada edição é uma semana da casa, de quinta a quarta — no site ou na revista.
-          A edição seguinte é sempre mais barata: 2ª com −10%, 3ª com −20%, 4ª com −30%.</small></div>
+          <small id="az-dur-nota">no site a temporada se vende por semana: 7 dias cheios, da meia-noite do dia combinado até o fim do último dia. A semana seguinte é sempre mais barata: 2ª com −10%, 3ª com −20%, 4ª com −30%.</small></div>
         <div class="az-orca" id="az-orca" hidden></div>
       </div>
 
@@ -630,8 +629,12 @@
         <h4>5. Última olhada no espelho — e o palco é seu</h4>
         <div class="az-rev" id="az-rev"></div>
         <label class="az-aceite"><input type="checkbox" id="az-aceite">
-          <span>Li e estou de acordo com as <a href="regras-publicidade.html" target="_blank" rel="noopener"><b>Regras de Publicidade do FOYER</b></a>,
-          e declaro que a arte e a oferta anunciadas as cumprem e que tenho os direitos sobre as imagens enviadas. *</span></label>
+          <span>Li e aceito as <a href="regras-publicidade.html" target="_blank" rel="noopener"><b>Regras de Publicidade do FOYER</b></a>
+          (versão 2), que valem para esta contratação. Declaro que tenho os direitos sobre a arte enviada e que a oferta
+          anunciada é verdadeira, e estou ciente de que <b>a temporada é contada em dias cheios</b>, de que <b>o FOYER não
+          garante resultado de vendas ou cliques</b> e de que <b>não há devolução de valores em dinheiro</b>: desistência
+          antes da estreia vira crédito, e interrupção de responsabilidade da casa se compensa com extensão da
+          temporada. *</span></label>
         <p style="font-size:.84rem;color:var(--ink-soft);margin:12px 0 0">Ao enviar, o pedido (com a sua arte, o orçamento e os dados da nota) cai direto na mesa da direção do FOYER.
         Na conversa de WhatsApp confirmamos os dados, conferimos a arte e combinamos só a forma de pagamento. Nada vai ao ar sem o seu ok final.</p>
       </div>
@@ -704,7 +707,21 @@
       specs:['Arte: imagem na horizontal (recomendado 1400×760, JPG ou PNG)','Onde: o pé da última página de uma matéria da edição','Permanência: a edição fica no acervo para sempre','Link: na revista lida no site, a arte clica para o seu endereço'],
       spec:'Imagem na horizontal · recomendado 1400×760' }
   ];
-  var DURACOES = ['1 edição', '2 edições', '3 edições', '4 edições', 'a combinar'];
+  // o site se vende por SEMANA, a revista por EDIÇÃO; cada uma vale 7 dias
+  var DURACOES = {
+    site: ['1 semana', '2 semanas', '3 semanas', '4 semanas', 'a combinar'],
+    revista: ['1 edição', '2 edições', '3 edições', '4 edições', 'a combinar']
+  };
+  function duracoesDoCanal(){
+    var f = fmt();
+    return DURACOES[(f && f.canal) === 'revista' ? 'revista' : 'site'];
+  }
+  function unidadeDoCanal(pl){
+    var f = fmt();
+    var rev = (f && f.canal) === 'revista';
+    return rev ? (pl ? 'edições' : 'edição') : (pl ? 'semanas' : 'semana');
+  }
+  var REGRAS_VERSAO = '2';   // a versão das Regras de Publicidade que este funil apresenta
   var VALORES = { cortina:200, entreato:150, faixa:90, 'pagina-inteira':240, 'meia-pagina':130 };
   var DESCONTO = [0, 0, .10, .20, .30];   // da 1ª à 4ª edição
   function orcamento(){
@@ -715,7 +732,8 @@
     for(var i = 1; i <= n; i++){
       var vi = Math.round(base * (1 - DESCONTO[i]));
       total += vi;
-      partes.push(i + 'ª: R$ ' + vi + (DESCONTO[i] ? ' (−' + (DESCONTO[i] * 100) + '%)' : ''));
+      partes.push(i + 'ª ' + unidadeDoCanal(false) + ': R$ ' + vi +
+                  (DESCONTO[i] ? ' (−' + (DESCONTO[i] * 100) + '%)' : ''));
     }
     return { total: total, partes: partes, n: n, base: base };
   }
@@ -726,9 +744,22 @@
   var VAI = { 1:'Quero este palco →', 2:'Ficou bonito, seguir →', 3:'Fechar a temporada →', 4:'Dados prontos →', 5:'Subir ao palco ✦' };
 
   function fmt(){ return FORMATOS.filter(function(x){ return x.id === st.formato; })[0]; }
-  document.getElementById('az-duracao').innerHTML = DURACOES.map(function(d){
-    return '<button class="az-op" type="button" data-d="' + d + '">' + d + '</button>';
-  }).join('');
+  function pintaDuracoes(){
+    var lista = duracoesDoCanal();
+    document.getElementById('az-duracao').innerHTML = lista.map(function(d){
+      return '<button class="az-op' + (st.duracao === d ? ' on' : '') + '" type="button" data-d="' + d + '">' + d + '</button>';
+    }).join('');
+    // trocou de canal? a duração antiga não vale mais
+    if(st.duracao && lista.indexOf(st.duracao) < 0) st.duracao = '';
+    var nota = document.getElementById('az-dur-nota');
+    if(nota){
+      var f = fmt(), rev = (f && f.canal) === 'revista';
+      nota.textContent = rev
+        ? 'a revista se vende por edição: cada edição é uma semana da casa, de quinta a quarta. A edição seguinte é sempre mais barata: 2ª com −10%, 3ª com −20%, 4ª com −30%.'
+        : 'no site a temporada se vende por semana: 7 dias cheios, da meia-noite do dia combinado até o fim do último dia. A semana seguinte é sempre mais barata: 2ª com −10%, 3ª com −20%, 4ª com −30%.';
+    }
+  }
+  pintaDuracoes();
 
   function pintaComo(){
     var f = fmt(), el = document.getElementById('az-como');
@@ -831,7 +862,8 @@
       var f2 = fmt();
       if(f2 && st.duracao === 'a combinar'){
         el.hidden = false;
-        el.innerHTML = '<em>O orçamento</em><div class="parcelas">Temporadas maiores que 4 edições saem com valor combinado na conversa.</div>';
+        el.innerHTML = '<em>O orçamento</em><div class="parcelas">Temporadas maiores que 4 ' +
+          unidadeDoCanal(true) + ' saem com valor combinado na conversa.</div>';
       } else el.hidden = true;
       return;
     }
@@ -901,6 +933,7 @@
       ['Contato', v('az-nome') + ' · ' + v('az-whats') + ' · ' + v('az-email') + (v('az-insta') ? ' · ' + v('az-insta') : '')]
     ];
     if(v('az-msg')) linhas.push(['Observações', v('az-msg')]);
+    linhas.push(['Regras', 'versão ' + REGRAS_VERSAO + ' das Regras de Publicidade, aceitas no envio']);
     document.getElementById('az-rev').innerHTML = linhas.map(function(l){
       return '<div><em>' + l[0] + '</em><span>' + (l[0] === 'A arte' ? l[1] : String(l[1]).replace(/</g, '&lt;')) + '</span></div>';
     }).join('');
@@ -993,7 +1026,7 @@
       document.getElementById('az-empresa').value = st.tipoPessoa === 'pj' ? (v('az-fantasia') || v('az-razao')) : '';
     }
     if(passo === 5 && !document.getElementById('az-aceite').checked){
-      erro('Falta aceitar as Regras de Publicidade para enviar.'); return false;
+      erro('Falta marcar o aceite das Regras de Publicidade para enviar o pedido.'); return false;
     }
     return true;
   }
@@ -1021,6 +1054,7 @@
         cep: v('az-cep').replace(/\D/g, ''), logradouro: v('az-logr'), numero: v('az-num'),
         complemento: v('az-compl'), bairro: v('az-bairro'), cidade: v('az-cidade'),
         uf: v('az-uf').toUpperCase(), aceite_regras: true, aceite_em: new Date().toISOString(),
+        aceite_versao: REGRAS_VERSAO,
         valor_total: (orcamento() || {}).total || null,
         orcamento: (function(){ var o = orcamento(); return o ? o.partes.join(' · ') + ' = R$ ' + o.total : 'a combinar'; })()
       })
@@ -1053,6 +1087,7 @@
       st.cupom = false;
       document.querySelectorAll('.az-fcard').forEach(function(b){ b.classList.toggle('on', b === bf); });
       pintaComo();
+      pintaDuracoes();          // site vende semana, revista vende edição
       sacola(); salvaRasc();
       return;
     }
@@ -1122,6 +1157,7 @@
         document.querySelectorAll('.az-fcard').forEach(function(b){ b.classList.toggle('on', b.dataset.f === st.formato); });
         pintaComo();
       }
+      pintaDuracoes();
       if(st.duracao) document.querySelectorAll('#az-duracao .az-op').forEach(function(b){
         b.classList.toggle('on', b.dataset.d === st.duracao);
       });
