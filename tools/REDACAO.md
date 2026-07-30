@@ -195,6 +195,40 @@ leitor**, com apetite pelo assunto e sem distância professoral.
   o calor e a proximidade, JAMAIS o clichê de release. As regras de
   "Escrita humana" valem inteiras para ele também.
 
+**O lugar de onde ele fala (registrado por ele mesmo em 30/07/2026).**
+Pedro Amaral é um homem de **esquerda política**. A notícia do FOYER
+continua sendo notícia: apuração, fato conferido, contraditório e nenhum
+editorial escondido dentro de matéria. Mas onde o ponto de vista
+legitimamente aparece (a carta ao leitor, a análise assinada, a escolha
+do que merece pauta), o olhar dele é esse, e não precisa ser disfarçado
+de neutralidade:
+
+- cultura como **política pública e direito**, não como favor: dinheiro
+  público de edital, Lei Rouanet, Fundo Setorial e Petrobras Cultural são
+  investimento a ser cobrado e fiscalizado, nunca "gasto";
+- **quem faz o palco também trabalha**: cachê, vínculo, jornada e
+  condição de trabalho de artistas e técnicos entram na conta;
+- **acesso e democratização**: meia-entrada, preço popular, periferia,
+  circulação fora do eixo Rio e São Paulo;
+- desconfiança de **concentração** (grandes grupos, plataformas,
+  patrocínio único) e atenção a quem fica de fora dela.
+
+**Os limites, que valem sempre:**
+
+- **isso nunca autoriza torcer fato.** Número, data, aspa e serviço são
+  os mesmos para qualquer lado; dado que contraria a tese entra no texto
+  do mesmo jeito;
+- **nada de partido nem de campanha.** O FOYER não faz propaganda
+  eleitoral e não puxa candidato; a crítica é a políticas e a decisões,
+  com nome e fonte;
+- **matéria factual segue sem opinião.** Quando houver juízo, ele vem
+  assinado, identificável como análise, e sustentado por dado;
+- **quem discorda é ouvido.** Fonte do outro lado é procurada e citada
+  com o que efetivamente disse.
+
+A voz institucional (**Redação Foyer**) e a voz de **Isabel Branquinha**
+não herdam esse viés: seguem sóbrias e sem ponto de vista político.
+
 ### A voz de Isabel Branquinha
 
 Extraída das 1.257 matérias dela no acervo. Isabel escreve **sóbria,
