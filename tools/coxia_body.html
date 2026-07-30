@@ -477,6 +477,57 @@
   .mesa-acoes .bt.ap{ background:var(--wine); color:var(--gold); border:1.5px solid var(--wine); padding:10px 15px; }
   .mesa-acoes .bt.ap:hover{ background:var(--gold); color:var(--wine); border-color:var(--gold); }
   .mesa-agenda{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  /* ---------- marcador de hora (agendador) ---------- */
+  .ag-box{ max-width:660px; width:100%; text-align:left; max-height:88vh; overflow:auto; }
+  .ag-titulo{ font-family:var(--didone,Georgia,serif); font-weight:400; font-size:1.5rem; margin:2px 0 12px; }
+  @media (max-width:620px){ .ag-titulo{ font-size:1.2rem; } .ag-sug button{ flex:1 1 100%; } }
+  .ag-sug{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+  .ag-sug button{ border:2px solid var(--ink); background:var(--paper-2); cursor:pointer; text-align:left;
+    padding:8px 12px; font:inherit; line-height:1.25; }
+  .ag-sug button:hover{ background:var(--ink); color:var(--gold); }
+  .ag-sug button b{ display:block; font-size:.9rem; }
+  .ag-sug button span{ display:block; font-family:var(--mono); font-size:.58rem; letter-spacing:.08em;
+    text-transform:uppercase; opacity:.7; margin-top:2px; }
+  .ag-grade{ display:grid; grid-template-columns:1fr 168px; gap:16px; align-items:start; }
+  @media (max-width:620px){ .ag-grade{ grid-template-columns:1fr; } }
+  .ag-cal{ border:2px solid var(--line); padding:10px 10px 6px; }
+  .ag-cal-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+  .ag-cal-top b{ font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; }
+  .ag-nav{ border:1.5px solid var(--line); background:transparent; cursor:pointer; width:28px; height:28px;
+    font-size:1rem; line-height:1; }
+  .ag-nav:hover{ background:var(--ink); color:var(--gold); }
+  .ag-sem, .ag-dias{ display:grid; grid-template-columns:repeat(7,1fr); gap:3px; }
+  .ag-sem span{ font-family:var(--mono); font-size:.55rem; text-align:center; opacity:.55; padding-bottom:3px; }
+  .ag-dias button{ position:relative; border:1.5px solid transparent; background:transparent; cursor:pointer;
+    padding:7px 0; font:inherit; font-size:.86rem; }
+  .ag-dias button:hover:not(:disabled){ border-color:var(--ink); }
+  .ag-dias button:disabled{ opacity:.25; cursor:default; }
+  .ag-dias button.hoje{ border-color:var(--gold); font-weight:700; }
+  .ag-dias button.on{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
+  .ag-dias button.tem::after{ content:'✦'; position:absolute; bottom:0; left:0; right:0; font-size:.5rem;
+    color:var(--gold); line-height:1; }
+  .ag-dias button.on.tem::after{ color:var(--paper); }
+  .ag-dias .vazio{ visibility:hidden; }
+  .ag-legenda{ font-family:var(--mono); font-size:.52rem; letter-spacing:.06em; opacity:.6; margin:8px 0 0; }
+  .ag-rot{ display:block; font-family:var(--mono); font-size:.56rem; font-weight:700; letter-spacing:.16em;
+    text-transform:uppercase; opacity:.7; margin-bottom:6px; }
+  .ag-horas{ display:grid; grid-template-columns:repeat(3,1fr); gap:4px; }
+  .ag-horas button, #ag-mins button{ border:1.5px solid var(--line); background:transparent; cursor:pointer;
+    padding:7px 0; font-family:var(--mono); font-size:.7rem; }
+  .ag-horas button:hover, #ag-mins button:hover{ border-color:var(--ink); }
+  .ag-horas button.on, #ag-mins button.on{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
+  .ag-min{ margin-top:12px; }
+  #ag-mins{ display:grid; grid-template-columns:repeat(4,1fr); gap:4px; }
+  .ag-livre{ display:block; margin-top:12px; font-family:var(--mono); font-size:.56rem; letter-spacing:.12em;
+    text-transform:uppercase; opacity:.75; }
+  .ag-livre input{ display:block; width:100%; box-sizing:border-box; margin-top:5px; border:1.5px solid var(--line);
+    background:var(--paper); color:var(--ink); font:inherit; padding:6px 8px; }
+  .ag-confere{ border-left:4px solid var(--gold); background:var(--paper-2); padding:10px 14px; margin:14px 0 0;
+    font-size:.9rem; line-height:1.5; }
+  .ag-confere b{ font-family:var(--didone,Georgia,serif); font-weight:400; font-size:1.15rem; display:block; }
+  .ag-confere .ag-alerta{ display:block; margin-top:6px; color:#8E1B10; font-size:.82rem; }
+  .ag-confere .ag-alerta button{ border:1.5px solid currentColor; background:transparent; color:inherit;
+    cursor:pointer; font:inherit; font-size:.78rem; padding:2px 8px; margin-left:6px; }
   .dt-rapido{ display:none; gap:6px; align-items:center; flex-wrap:wrap; }
   .dt-rapido.on{ display:flex; }
   .bt.mini{ padding:6px 9px; font-size:.66rem; }
@@ -908,13 +959,9 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                 </select>
               </div>
               <div id="f-quando-dt" style="display:none">
-                <label for="f-data">Data e hora (seu fuso)</label>
-                <input type="datetime-local" id="f-data">
-                <div class="dt-rapido">
-                  <button type="button" data-dtr="hoje18">Hoje 18h</button>
-                  <button type="button" data-dtr="amanha9">Amanhã 9h</button>
-                  <button type="button" data-dtr="sexta18">Sexta 18h</button>
-                </div>
+                <label>Data e hora (seu fuso)</label>
+                <button class="bt" type="button" id="f-marcar" style="width:100%;text-align:left">🗓 Escolher data e hora</button>
+                <input type="hidden" id="f-data">
               </div>
             </div>
             <div class="f-status"><span id="st-palavras">0 palavras</span><span id="st-alerta"></span></div>
@@ -973,7 +1020,6 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           <span class="ml-acoes">
             <button class="bt ap" type="button" id="ml-aprovar">✓ Aprovar as selecionadas agora</button>
             <button class="bt" type="button" id="ml-agendar">🕐 Agendar as selecionadas</button>
-            <input type="datetime-local" id="ml-data" aria-label="Data e hora do agendamento em lote">
           </span>
         </div>
         <div id="mesa-list"><div class="vazio-box">Carregando a mesa…</div></div>
@@ -1336,6 +1382,42 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     <div class="cx-dlg-acoes">
       <button class="bt" type="button" id="dlg-cancel" style="display:none">Cancelar</button>
       <button class="bt ap" type="button" id="dlg-ok">OK</button>
+    </div>
+  </div>
+</div>
+
+<div class="cx-dlg" id="ag-overlay" role="dialog" aria-modal="true" aria-labelledby="ag-titulo">
+  <div class="cx-dlg-box ag-box">
+    <div class="cx-dlg-top">Coxia</div>
+    <h4 class="ag-titulo" id="ag-titulo">Quando esta matéria vai ao ar?</h4>
+    <div class="ag-sug" id="ag-sug"></div>
+    <div class="ag-grade">
+      <div class="ag-cal">
+        <div class="ag-cal-top">
+          <button class="ag-nav" type="button" id="ag-mes-ant" aria-label="Mês anterior">‹</button>
+          <b id="ag-mes-nome">—</b>
+          <button class="ag-nav" type="button" id="ag-mes-prox" aria-label="Próximo mês">›</button>
+        </div>
+        <div class="ag-sem"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>
+        <div class="ag-dias" id="ag-dias"></div>
+        <p class="ag-legenda">✦ dia que já tem matéria marcada</p>
+      </div>
+      <div class="ag-hora">
+        <span class="ag-rot">A hora</span>
+        <div class="ag-horas" id="ag-horas"></div>
+        <div class="ag-min">
+          <span class="ag-rot">Minutos</span>
+          <div id="ag-mins"></div>
+        </div>
+        <label class="ag-livre">outra hora
+          <input type="time" id="ag-hora-livre" step="300">
+        </label>
+      </div>
+    </div>
+    <div class="ag-confere" id="ag-confere"></div>
+    <div class="cx-dlg-acoes">
+      <button class="bt" type="button" id="ag-cancel">Cancelar</button>
+      <button class="bt ap" type="button" id="ag-ok">Marcar a hora</button>
     </div>
   </div>
 </div>
@@ -2067,17 +2149,14 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   $('f-quando').addEventListener('change', function(){
     $('f-quando-dt').style.display = this.value === 'agendar' ? 'block' : 'none';
   });
-  document.addEventListener('click', function(e){
-    var b = e.target.closest('[data-dtr]');
-    if(!b) return;
-    var d = new Date();
-    if(b.dataset.dtr === 'hoje18'){ d.setHours(18, 0, 0, 0); }
-    if(b.dataset.dtr === 'amanha9'){ d.setDate(d.getDate() + 1); d.setHours(9, 0, 0, 0); }
-    if(b.dataset.dtr === 'sexta18'){
-      d.setDate(d.getDate() + ((5 - d.getDay() + 7) % 7 || 7)); d.setHours(18, 0, 0, 0);
-    }
-    d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
-    $('f-data').value = d.toISOString().slice(0, 16);
+  $('f-marcar').addEventListener('click', function(){
+    var atual = $('f-data').value ? new Date($('f-data').value) : null;
+    agAbre({ titulo:'Quando esta matéria vai ao ar?', inicial:atual }).then(function(quando){
+      if(!quando) return;
+      var loc = new Date(quando.getTime() - quando.getTimezoneOffset() * 60000);
+      $('f-data').value = loc.toISOString().slice(0, 16);
+      $('f-marcar').textContent = '🗓 ' + qdRelativo(quando.toISOString()) + ' (trocar)';
+    });
   });
 
   function statusTexto(){
@@ -2234,6 +2313,240 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   function fechaOverlays(){
     document.querySelectorAll('.prev-overlay.on').forEach(function(o){ o.classList.remove('on'); });
   }
+
+  // ---------- marcador de hora: calendário, relógio e sugestões da casa ----------
+  // As horas em que a casa publica. A revista sai quinta 7h e não se compete com ela.
+  var AG_HORAS = [7, 9, 12, 15, 18, 20];
+  var AG = { resolve:null, sel:null, mes:null, ocupados:[], lidoEm:0, foco:null };
+
+  // o que já está marcado para sair: serve para não empilhar duas matérias na mesma hora
+  function agCarregaOcupados(){
+    if(AG.lidoEm && Date.now() - AG.lidoEm < 300000) return Promise.resolve(AG.ocupados);
+    var doCache = Object.keys(FILA_CACHE).map(function(k){ return FILA_CACHE[k]; });
+    if(doCache.length){
+      AG.ocupados = agSoFuturas(doCache); AG.lidoEm = Date.now();
+      return Promise.resolve(AG.ocupados);
+    }
+    return ghGet('import/novas').then(function(list){
+      var fs = (list || []).filter(function(f){ return f.name.slice(-5) === '.json'; });
+      return Promise.all(fs.map(function(f){
+        return fetch(f.download_url).then(function(r){ return r.json(); }).catch(function(){ return null; });
+      }));
+    }).then(function(items){
+      AG.ocupados = agSoFuturas((items || []).filter(Boolean)); AG.lidoEm = Date.now();
+      return AG.ocupados;
+    }).catch(function(){ AG.ocupados = []; return AG.ocupados; });
+  }
+  function agSoFuturas(items){
+    var agora = new Date().toISOString();
+    return items.filter(function(d){ return d && d.publishAt && d.publishAt > agora; })
+      .map(function(d){ return { quando:new Date(d.publishAt), title:d.title || 'matéria' }; })
+      .sort(function(a, b){ return a.quando - b.quando; });
+  }
+  function agMesmoDia(a, b){
+    return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+  }
+  // choque: outra matéria a menos de 45 min, ou a estreia da revista na quinta de manhã
+  function agChoque(d){
+    if(!d) return null;
+    for(var i = 0; i < AG.ocupados.length; i++){
+      var o = AG.ocupados[i];
+      if(Math.abs(o.quando - d) < 45 * 60000){
+        return { tipo:'vizinha', texto:'já sai “' + o.title.slice(0, 38) + '” às ' +
+          o.quando.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }) };
+      }
+    }
+    var h = d.getHours() + d.getMinutes() / 60;
+    if(d.getDay() === 4 && h >= 6 && h < 9){
+      return { tipo:'revista', texto:'a revista da semana sai quinta às 7h e leva a atenção do leitor' };
+    }
+    return null;
+  }
+  // a primeira hora da casa que esteja livre a partir de um instante
+  function agProximaLivre(apartir){
+    var d = new Date(apartir.getTime());
+    for(var passo = 0; passo < 96; passo++){
+      var cand = null;
+      for(var i = 0; i < AG_HORAS.length; i++){
+        var t = new Date(d.getFullYear(), d.getMonth(), d.getDate(), AG_HORAS[i], 0, 0, 0);
+        if(t > apartir && !agChoque(t)){ cand = t; break; }
+      }
+      if(cand) return cand;
+      d.setDate(d.getDate() + 1); d.setHours(0, 0, 0, 0);
+    }
+    return null;
+  }
+  function agRotuloDia(d){
+    var ag = new Date();
+    var dif = Math.round((new Date(d.getFullYear(), d.getMonth(), d.getDate()) -
+                          new Date(ag.getFullYear(), ag.getMonth(), ag.getDate())) / 86400000);
+    if(dif === 0) return 'hoje';
+    if(dif === 1) return 'amanhã';
+    if(dif === 2) return 'depois de amanhã';
+    var sem = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'][d.getDay()];
+    if(dif < 7) return sem;
+    return d.toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit' });
+  }
+  function agHoraTexto(d){
+    return d.getMinutes() ? d.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }) + '' 
+                          : d.getHours() + 'h';
+  }
+  function agDaquiA(d){
+    var min = Math.round((d - new Date()) / 60000);
+    if(min < 1) return 'agora';
+    if(min < 60) return 'daqui a ' + min + ' min';
+    var h = Math.round(min / 60);
+    if(h < 24) return 'daqui a ' + h + (h === 1 ? ' hora' : ' horas');
+    var dias = Math.round(h / 24);
+    return 'daqui a ' + dias + (dias === 1 ? ' dia' : ' dias');
+  }
+  // as sugestões: nascem da hora atual e do que já está marcado, nunca repetem instante
+  function agSugestoes(){
+    var agora = new Date(), out = [], vistos = {};
+    function junta(quando, rot){
+      if(!quando || quando <= agora) return;
+      var k = quando.getTime();
+      if(vistos[k] || out.length >= 4) return;
+      vistos[k] = 1;
+      out.push({ quando:quando, rotulo:rot });
+    }
+    var jaJa = new Date(agora.getTime() + 15 * 60000);
+    jaJa.setMinutes(Math.ceil(jaJa.getMinutes() / 15) * 15, 0, 0);
+    junta(jaJa, 'daqui a pouco');
+    var hoje = agProximaLivre(new Date(agora.getTime() + 30 * 60000));
+    if(hoje && agMesmoDia(hoje, agora)) junta(hoje, 'ainda hoje');
+    var amanha = new Date(agora); amanha.setDate(amanha.getDate() + 1); amanha.setHours(0, 0, 0, 0);
+    var manha = agProximaLivre(new Date(amanha.getTime() + 8 * 3600000 + 59 * 60000));
+    if(manha) junta(manha, 'amanhã de manhã');
+    var noite = null;
+    for(var k = 0; k < 7 && !noite; k++){
+      var t = new Date(agora); t.setDate(t.getDate() + k); t.setHours(18, 0, 0, 0);
+      if(t > new Date(agora.getTime() + 60 * 60000) && !agChoque(t)) noite = t;
+    }
+    junta(noite, 'no fim da tarde');
+    return out;
+  }
+
+  function agAbre(opts){
+    opts = opts || {};
+    AG.foco = document.activeElement;
+    $('ag-titulo').textContent = opts.titulo || 'Quando esta matéria vai ao ar?';
+    var base = opts.inicial ? new Date(opts.inicial) : null;
+    AG.sel = base && !isNaN(base) ? base : null;
+    AG.mes = new Date((AG.sel || new Date()).getFullYear(), (AG.sel || new Date()).getMonth(), 1);
+    $('ag-overlay').classList.add('on');
+    agPinta();
+    agCarregaOcupados().then(agPinta);
+    return new Promise(function(res){ AG.resolve = res; });
+  }
+  function agFecha(valor){
+    $('ag-overlay').classList.remove('on');
+    var r = AG.resolve; AG.resolve = null;
+    if(AG.foco && AG.foco.focus) AG.foco.focus();
+    if(r) r(valor);
+  }
+  function agPinta(){
+    // sugestões
+    $('ag-sug').innerHTML = agSugestoes().map(function(s2){
+      return '<button type="button" data-agsug="' + s2.quando.getTime() + '">' +
+        '<b>' + esc(agRotuloDia(s2.quando)) + ' às ' + esc(agHoraTexto(s2.quando)) + '</b>' +
+        '<span>' + esc(s2.rotulo) + ' · ' + esc(agDaquiA(s2.quando)) + '</span></button>';
+    }).join('');
+    // calendário do mês
+    $('ag-mes-nome').textContent = AG.mes.toLocaleDateString('pt-BR', { month:'long', year:'numeric' });
+    var pri = new Date(AG.mes.getFullYear(), AG.mes.getMonth(), 1);
+    var dias = new Date(AG.mes.getFullYear(), AG.mes.getMonth() + 1, 0).getDate();
+    var hoje = new Date(); hoje.setHours(0, 0, 0, 0);
+    var html = '';
+    for(var v = 0; v < pri.getDay(); v++) html += '<button class="vazio" type="button" disabled></button>';
+    for(var dia = 1; dia <= dias; dia++){
+      var d = new Date(AG.mes.getFullYear(), AG.mes.getMonth(), dia);
+      var passado = d < hoje;
+      var tem = AG.ocupados.some(function(o){ return agMesmoDia(o.quando, d); });
+      var sel = AG.sel && agMesmoDia(AG.sel, d);
+      html += '<button type="button" data-agdia="' + dia + '"' + (passado ? ' disabled' : '') +
+        ' class="' + (sel ? 'on ' : '') + (agMesmoDia(d, new Date()) ? 'hoje ' : '') + (tem ? 'tem' : '') + '"' +
+        ' aria-label="' + d.toLocaleDateString('pt-BR', { day:'numeric', month:'long' }) + '">' + dia + '</button>';
+    }
+    $('ag-dias').innerHTML = html;
+    // relógio
+    var hSel = AG.sel ? AG.sel.getHours() : null, mSel = AG.sel ? AG.sel.getMinutes() : 0;
+    $('ag-horas').innerHTML = AG_HORAS.map(function(h){
+      return '<button type="button" data-aghora="' + h + '" class="' + (hSel === h ? 'on' : '') + '">' + h + 'h</button>';
+    }).join('');
+    $('ag-mins').innerHTML = [0, 15, 30, 45].map(function(m){
+      return '<button type="button" data-agmin="' + m + '" class="' + (AG.sel && mSel === m ? 'on' : '') + '">' +
+        (m < 10 ? '0' + m : m) + '</button>';
+    }).join('');
+    $('ag-hora-livre').value = AG.sel
+      ? ('0' + AG.sel.getHours()).slice(-2) + ':' + ('0' + AG.sel.getMinutes()).slice(-2) : '';
+    // conferência em português
+    var cx = $('ag-confere');
+    if(!AG.sel){
+      cx.innerHTML = '<b>Escolha o dia e a hora</b>Use uma sugestão acima ou toque no calendário.';
+      $('ag-ok').disabled = true;
+    } else {
+      $('ag-ok').disabled = false;
+      var ch = agChoque(AG.sel);
+      var quandoTxt = AG.sel.toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long' }) +
+        ', às ' + AG.sel.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+      var aviso = '';
+      if(AG.sel <= new Date()){
+        aviso = '<span class="ag-alerta">Essa hora já passou: a matéria iria ao ar assim que o site montar.</span>';
+      } else if(ch){
+        var livre = agProximaLivre(AG.sel);
+        aviso = '<span class="ag-alerta">Atenção: ' + esc(ch.texto) + '.' +
+          (livre ? '<button type="button" id="ag-usa-livre" data-agsug="' + livre.getTime() + '">usar ' +
+            esc(agRotuloDia(livre)) + ' às ' + esc(agHoraTexto(livre)) + '</button>' : '') + '</span>';
+      }
+      cx.innerHTML = '<b>' + esc(quandoTxt) + '</b>' + esc(agDaquiA(AG.sel)) + aviso;
+    }
+  }
+  function agDefine(quando){
+    AG.sel = new Date(quando);
+    AG.mes = new Date(AG.sel.getFullYear(), AG.sel.getMonth(), 1);
+    agPinta();
+  }
+  document.addEventListener('click', function(e){
+    var b;
+    if((b = e.target.closest('[data-agsug]'))){ agDefine(Number(b.dataset.agsug)); return; }
+    if((b = e.target.closest('[data-agdia]'))){
+      var base = AG.sel || new Date(new Date().getTime() + 3600000);
+      var d = new Date(AG.mes.getFullYear(), AG.mes.getMonth(), Number(b.dataset.agdia),
+                       AG.sel ? base.getHours() : 18, AG.sel ? base.getMinutes() : 0, 0, 0);
+      agDefine(d); return;
+    }
+    if((b = e.target.closest('[data-aghora]'))){
+      var dh = new Date(AG.sel || new Date());
+      if(!AG.sel){ dh.setDate(dh.getDate() + (new Date().getHours() >= Number(b.dataset.aghora) ? 1 : 0)); }
+      dh.setHours(Number(b.dataset.aghora), AG.sel ? dh.getMinutes() : 0, 0, 0);
+      agDefine(dh); return;
+    }
+    if((b = e.target.closest('[data-agmin]'))){
+      if(!AG.sel) return;
+      var dm = new Date(AG.sel); dm.setMinutes(Number(b.dataset.agmin), 0, 0); agDefine(dm); return;
+    }
+  });
+  $('ag-mes-ant').addEventListener('click', function(){
+    AG.mes = new Date(AG.mes.getFullYear(), AG.mes.getMonth() - 1, 1); agPinta();
+  });
+  $('ag-mes-prox').addEventListener('click', function(){
+    AG.mes = new Date(AG.mes.getFullYear(), AG.mes.getMonth() + 1, 1); agPinta();
+  });
+  $('ag-hora-livre').addEventListener('change', function(){
+    if(!this.value) return;
+    var p = this.value.split(':');
+    var d = new Date(AG.sel || new Date());
+    if(!AG.sel) d.setDate(d.getDate() + (new Date().getHours() >= Number(p[0]) ? 1 : 0));
+    d.setHours(Number(p[0]), Number(p[1]), 0, 0);
+    agDefine(d);
+  });
+  $('ag-cancel').addEventListener('click', function(){ agFecha(null); });
+  $('ag-ok').addEventListener('click', function(){ if(AG.sel) agFecha(new Date(AG.sel)); });
+  $('ag-overlay').addEventListener('click', function(e){ if(e.target === this) agFecha(null); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && $('ag-overlay').classList.contains('on')) agFecha(null);
+  });
 
   // ---------- diálogos no estilo da casa (avisar / confirmar / perguntar) ----------
   var dlgResolve = null, dlgFoco = null;
@@ -3043,12 +3356,6 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                 ? '<button class="bt ap" type="button" data-aprovar="' + esc(d.slug) + '">✓ Aprovar e publicar</button>' +
                   '<div class="mesa-agenda">' +
                     '<button class="bt" type="button" data-agendar="' + esc(d.slug) + '">🕐 Aprovar e agendar</button>' +
-                    '<div class="dt-rapido" data-dtrmesa="' + esc(d.slug) + '">' +
-                      '<button class="bt mini" type="button" data-quando="hoje18">Hoje 18h</button>' +
-                      '<button class="bt mini" type="button" data-quando="amanha9">Amanhã 9h</button>' +
-                      '<button class="bt mini" type="button" data-quando="sexta18">Sexta 18h</button>' +
-                      '<input type="datetime-local" id="dt-' + esc(d.slug) + '" aria-label="Data e hora">' +
-                    '</div>' +
                   '</div>'
                 : '<span class="mesa-trava">🔒 aprovação de ' + esc(nomesDaAssinatura(donoDaAssinatura(d))) + '</span>') +
               '<button class="bt danger" type="button" data-recusar="' + esc(d.slug) + '">✕ Recusar</button>' +
@@ -3270,11 +3577,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     });
     var bg = $('ml-agendar');
     if(bg) bg.addEventListener('click', function(){
-      var v = $('ml-data').value;
-      if(!v){ avisar('Escolha a data e a hora do agendamento em lote no campo ao lado.'); $('ml-data').focus(); return; }
-      var qd = new Date(v);
-      aprovarLote(slugsSelecionados(), qd.toISOString(),
-        'para ' + qd.toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }));
+      var n = slugsSelecionados().length;
+      agAbre({ titulo:'Quando as ' + n + ' matérias selecionadas vão ao ar?' }).then(function(qd){
+        if(!qd) return;
+        aprovarLote(slugsSelecionados(), qd.toISOString(), 'para ' + qdRelativo(qd.toISOString()));
+      });
     });
   })();
 
@@ -3311,40 +3618,17 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       });
       return;
     }
-    if((b = e.target.closest('[data-quando]'))){
-      var slugQ = b.closest('[data-dtrmesa]').dataset.dtrmesa;
-      var alvo = new Date(); alvo.setSeconds(0, 0);
-      if(b.dataset.quando === 'hoje18'){ alvo.setHours(18, 0); }
-      else if(b.dataset.quando === 'amanha9'){ alvo.setDate(alvo.getDate() + 1); alvo.setHours(9, 0); }
-      else if(b.dataset.quando === 'sexta18'){ alvo.setDate(alvo.getDate() + ((5 - alvo.getDay() + 7) % 7 || 7)); alvo.setHours(18, 0); }
-      var inpQ = $('dt-' + slugQ);
-      inpQ.classList.add('on');
-      var loc = new Date(alvo.getTime() - alvo.getTimezoneOffset() * 60000);
-      inpQ.value = loc.toISOString().slice(0, 16);
-      return;
-    }
     if((b = e.target.closest('[data-agendar]'))){
-      var inp = $('dt-' + b.dataset.agendar);
-      var caixa = b.closest('.mesa-agenda').querySelector('.dt-rapido');
-      if(!caixa.classList.contains('on')){
-        var dd = MESA[b.dataset.agendar];
-        if(dd && dd.sugestaoPublishAt && !inp.value){
-          var sug = new Date(dd.sugestaoPublishAt);
-          sug.setMinutes(sug.getMinutes() - sug.getTimezoneOffset());
-          inp.value = sug.toISOString().slice(0, 16);
-        }
-        caixa.classList.add('on'); inp.classList.add('on'); inp.focus(); return;
-      }
-      if(!inp.value){ avisar('Escolha a data e a hora (ou use Hoje 18h / Amanhã 9h / Sexta 18h)'); return; }
-      if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
-      if(MESA[b.dataset.agendar] && !MESA[b.dataset.agendar].img){
-        avisar('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de aprovar.'); return;
-      }
-      var qd = new Date(inp.value);
       var slugAg = b.dataset.agendar;
-      confirmar('Agendar para ' + qd.toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) + '?', { rotuloOk:'Agendar' }).then(function(ok){
-        if(ok) aprovar(slugAg, qd.toISOString(),
-          'Agendada para ' + qd.toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }));
+      var dAg = MESA[slugAg];
+      if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+      if(dAg && !dAg.img){
+        avisar('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de agendar.'); return;
+      }
+      agAbre({ titulo: 'Quando “' + ((dAg && dAg.title) || 'esta matéria').slice(0, 46) + '” vai ao ar?',
+               inicial: dAg && dAg.sugestaoPublishAt }).then(function(quando){
+        if(!quando) return;
+        aprovar(slugAg, quando.toISOString(), qdRelativo(quando.toISOString()));
       });
       return;
     }
