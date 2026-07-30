@@ -3,6 +3,8 @@ name: Relógio de matérias agendadas
 on:
   schedule:
     - cron: '*/30 * * * *'
+    # 00:02 em Brasília: a virada das temporadas de publicidade
+    - cron: '2 3 * * *'
   workflow_dispatch:
 
 permissions:
@@ -22,14 +24,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: check
-        name: Alguma matéria agendada chegou na hora?
+        name: Alguma matéria agendada ou temporada de anúncio chegou na hora?
         run: |
           python3 - <<'EOF' >> "$GITHUB_OUTPUT"
-          import json, os, glob
+          import json, glob
           from datetime import datetime, timezone, timedelta
           agora = datetime.now(timezone.utc)
           janela = (agora - timedelta(minutes=40)).isoformat()
           devido = False
+          motivo = ''
           for f in glob.glob('import/novas/*.json'):
               try:
                   n = json.load(open(f))
@@ -37,7 +40,26 @@ jobs:
                   continue
               pub = n.get('publishAt') or ''
               if pub and janela < pub <= agora.isoformat():
-                  devido = True
+                  devido, motivo = True, 'matéria agendada'
+          # publicidade: a temporada é de dias cheios, no fuso de Brasília (UTC-3).
+          # entra na virada do dia 'de' e sai depois do fim do dia 'ate'.
+          br = agora - timedelta(hours=3)
+          hoje = br.date().isoformat()
+          ontem = (br.date() - timedelta(days=1)).isoformat()
+          try:
+              anun = json.load(open('import/anuncios/site.json'))
+          except Exception:
+              anun = {}
+          for slot, cfg in (anun or {}).items():
+              cfg = cfg or {}
+              if not (cfg.get('img') or cfg.get('texto')):
+                  continue
+              if (cfg.get('de') or '') == hoje:
+                  devido, motivo = True, f'estreia da temporada em {slot}'
+              if (cfg.get('ate') or '') == ontem:
+                  devido, motivo = True, f'fim da temporada em {slot}'
+          if devido:
+              print(f'::notice::Publicando: {motivo}')
           print(f'publicar={"sim" if devido else "nao"}')
           EOF
 

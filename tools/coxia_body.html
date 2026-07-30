@@ -520,6 +520,8 @@
   #ag-mins{ display:grid; grid-template-columns:repeat(3,1fr); gap:4px; }
   .ag-livre{ display:block; margin-top:12px; font-family:var(--mono); font-size:.56rem; letter-spacing:.12em;
     text-transform:uppercase; opacity:.75; }
+  #ag-overlay.so-dia .ag-hora{ display:none; }
+  #ag-overlay.so-dia .ag-grade{ grid-template-columns:1fr; }
   .ag-livre input{ display:block; width:100%; box-sizing:border-box; margin-top:5px; border:1.5px solid var(--line);
     background:var(--paper); color:var(--ink); font:inherit; padding:6px 8px; }
   .ag-confere{ border-left:4px solid var(--gold); background:var(--paper-2); padding:10px 14px; margin:14px 0 0;
@@ -2410,7 +2412,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   }
   // choque: outra matéria a menos de 45 min, ou a estreia da revista na quinta de manhã
   function agChoque(d){
-    if(!d) return null;
+    if(!d || AG.modo === 'anuncio') return null;   // publicidade ocupa o dia, não o minuto
     for(var i = 0; i < AG.ocupados.length; i++){
       var o = AG.ocupados[i];
       if(Math.abs(o.quando - d) < AG_INTERVALO * 60000){
@@ -2515,6 +2517,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     $('ag-titulo').textContent = opts.titulo || 'Quando esta matéria vai ao ar?';
     AG.tituloAtual = opts.nome || 'esta matéria';
     AG.autorAtual = opts.autor || '';
+    AG.modo = opts.modo || 'materia';          // 'anuncio' = dia cheio, sem relógio
+    var soDia = AG.modo === 'anuncio';
+    $('ag-overlay').classList.toggle('so-dia', soDia);
+    $('ag-ok').textContent = soDia ? 'Marcar a estreia' : 'Marcar a hora';
     var base = opts.inicial ? new Date(opts.inicial) : null;
     AG.sel = base && !isNaN(base) ? base : null;
     AG.mes = new Date((AG.sel || new Date()).getFullYear(), (AG.sel || new Date()).getMonth(), 1);
@@ -2571,11 +2577,22 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       $('ag-ok').disabled = true;
     } else {
       $('ag-ok').disabled = false;
+      if(AG.modo === 'anuncio'){
+        var dz = new Date(); dz.setHours(0, 0, 0, 0);
+        if(AG.sel < dz) $('ag-ok').disabled = true;
+      }
       var ch = agChoque(AG.sel);
-      var quandoTxt = AG.sel.toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long' }) +
-        ', às ' + AG.sel.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+      var quandoTxt = AG.modo === 'anuncio'
+        ? 'estreia na virada para ' + AG.sel.toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long' })
+        : AG.sel.toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long' }) +
+          ', às ' + AG.sel.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
       var aviso = '';
-      if(AG.sel <= new Date()){
+      if(AG.modo === 'anuncio'){
+        var d0 = new Date(); d0.setHours(0, 0, 0, 0);
+        if(AG.sel < d0) aviso = '<span class="ag-alerta">Esse dia já passou; escolha hoje ou um dia à frente.</span>';
+        else if(AG.sel.getTime() === d0.getTime())
+          aviso = '<span class="ag-alerta" style="color:inherit;opacity:.8">Começa hoje: entra no ar no próximo deploy e o dia de hoje já conta.</span>';
+      } else if(AG.sel <= new Date()){
         aviso = '<span class="ag-alerta">Essa hora já passou: a matéria iria ao ar assim que o site montar.</span>';
       } else if(ch){
         var livre = ch.trava ? agLivreDepois(AG.sel) : agProximaLivre(AG.sel);
@@ -2584,7 +2601,9 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             esc(agRotuloDia(livre)) + ' às ' + esc(agHoraTexto(livre)) + '</button>' : '') + '</span>';
         if(ch.trava) $('ag-ok').disabled = true;
       }
-      cx.innerHTML = '<b>' + esc(quandoTxt) + '</b>' + esc(agDaquiA(AG.sel)) + aviso + agPintaDia();
+      var relativo = AG.modo === 'anuncio' ? (AG.diasTemporada || '') : agDaquiA(AG.sel);
+      cx.innerHTML = '<b>' + esc(quandoTxt) + '</b>' + esc(relativo) + aviso +
+        (AG.modo === 'anuncio' ? '' : agPintaDia());
     }
   }
   // o dia inteiro: o que já está marcado, quem assina, e a conta por assinatura
@@ -2618,6 +2637,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   }
   function agDefine(quando){
     AG.sel = new Date(quando);
+    if(AG.modo === 'anuncio') AG.sel.setHours(0, 0, 0, 0);   // a temporada vira à meia-noite
     AG.mes = new Date(AG.sel.getFullYear(), AG.sel.getMonth(), 1);
     agPinta();
   }
@@ -4261,14 +4281,14 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         if(!(c.img || c.texto)) return;
         var chave = 'pub:' + k + (c.pedido ? ':' + c.pedido : '');
         var m = dados.filter(function(d){ return d.anuncio === chave; })[0] || {};
-        linhas.push({ formato:k, chave:chave, ate:c.ate || '', pedido:c.pedido || '',
+        linhas.push({ formato:k, chave:chave, de:c.de || '', ate:c.ate || '', pedido:c.pedido || '',
                       vistas:Number(m.vistas || 0), cliques:Number(m.cliques || 0), pessoas:Number(m.pessoas || 0) });
       });
       // e o que tem número mas não está mais no ar (revista, temporadas passadas)
       dados.forEach(function(d){
         if(linhas.some(function(l){ return l.chave === d.anuncio; })) return;
         var p = String(d.anuncio || '').split(':');
-        linhas.push({ formato:p[1] || 'anúncio', chave:d.anuncio, ate:'', pedido:p[2] || '',
+        linhas.push({ formato:p[1] || 'anúncio', chave:d.anuncio, de:'', ate:'', pedido:p[2] || '',
                       vistas:Number(d.vistas || 0), cliques:Number(d.cliques || 0), pessoas:Number(d.pessoas || 0),
                       passado:true });
       });
@@ -4279,7 +4299,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       el.innerHTML = linhas.map(function(l){
         var ctr = l.vistas ? Math.round((l.cliques / l.vistas) * 1000) / 10 : null;
         var prazo = '';
-        if(l.ate){
+        var hojeI = pubISO(new Date());
+        if(l.de && l.de > hojeI){
+          var faltamEstreia = Math.round((new Date(l.de + 'T00:00') - new Date()) / 86400000);
+          prazo = '<span class="pub-prazo">estreia em ' + (faltamEstreia <= 1 ? 'amanhã' : faltamEstreia + ' dias') + '</span>';
+        } else if(l.ate){
           var faltam = Math.round((new Date(l.ate + 'T23:59') - new Date()) / 86400000);
           prazo = '<span class="pub-prazo' + (faltam <= 3 ? ' perto' : '') + '">' +
             (faltam < 0 ? 'fora do ar' : (faltam === 0 ? 'último dia' : 'mais ' + faltam + ' dia(s)')) + '</span>';
@@ -4302,9 +4326,14 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // ---- do pedido fechado direto para o ar: arte, link, prazo e registro, sozinho ----
   var PUB_SEMANAS = { '1 edição':7, '2 edições':14, '3 edições':21, '4 edições':28 };
   function pubDias(duracao){ return PUB_SEMANAS[duracao] || 7; }
-  function pubAteDe(p){
-    var d = new Date(); d.setDate(d.getDate() + pubDias(p.duracao));
-    return d.toISOString().slice(0, 10);
+  function pubISO(d){
+    return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+  }
+  // a temporada conta DIAS CHEIOS: entra na virada do dia 'de' e sai no fim do 'ate'
+  function pubTemporada(p, inicio){
+    var de = new Date(inicio); de.setHours(0, 0, 0, 0);
+    var ate = new Date(de); ate.setDate(ate.getDate() + pubDias(p.duracao) - 1);
+    return { de: pubISO(de), ate: pubISO(ate), dias: pubDias(p.duracao) };
   }
   // a arte viaja no pedido como data:image; aqui ela vira arquivo no site
   function pubSobeArte(p, caminho){
@@ -4319,14 +4348,13 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                                             p_id:p.id, p_status:'no-ar' }).catch(function(){});
   }
   // ---- formatos do site: faixa, cortina, entreato ----
-  function pubNoArSite(p){
+  function pubNoArSite(p, temporada){
     var slot = p.formato;
-    var ate = pubAteDe(p);
     var caminho = 'assets/uploads/pub-' + slot + '-' + String(p.protocolo || 'novo').toLowerCase() + '.jpg';
     return pubSobeArte(p, caminho).then(function(cam){
       return ghGet(PUB_ARQ).then(function(f){
         var doc = (f && f.content) ? JSON.parse(unb64(f.content)) : { faixa:{}, cortina:{}, entreato:{} };
-        var novo = { link:p.link || '', ate:ate, pedido:p.protocolo || '' };
+        var novo = { link:p.link || '', de:temporada.de, ate:temporada.ate, pedido:p.protocolo || '' };
         if(slot === 'faixa'){
           novo.texto = (p.mensagem || '').replace(/^Linha da faixa: “|”$/g, '').slice(0, 90) ||
                        ((p.empresa || p.nome || 'Anunciante') + ' no FOYER');
@@ -4338,7 +4366,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         doc[slot] = novo;
         return ghPut(PUB_ARQ, JSON.stringify(doc, null, 1),
                      assina('põe no ar o anúncio ' + (p.protocolo || '')), f && f.sha)
-          .then(function(){ return { ate:ate, arte:!!cam }; });
+          .then(function(){ return { de:temporada.de, ate:temporada.ate, dias:temporada.dias, arte:!!cam }; });
       });
     });
   }
@@ -4395,16 +4423,35 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
     var naRevista = p.canal === 'revista';
     var quem = p.empresa || p.nome || 'o anunciante';
-    var msg = naRevista
-      ? 'Pôr “' + quem + '” na edição da semana?\n\nA arte entra na revista sozinha, ' +
+    if(naRevista){
+      var msgR = 'Pôr “' + quem + '” na edição da semana?\n\nA arte entra na revista sozinha, ' +
         (p.formato === 'pagina-inteira' ? 'como página inteira' : 'como meia página no fim de uma matéria') +
-        ', e o clique leva para o link do pedido.'
-      : 'Pôr “' + quem + '” no ar em ' + (PUB_NOMES_F[p.formato] || p.formato) + ', por ' +
-        pubDias(p.duracao) + ' dias (até ' + pubAteDe(p) + ')?\n\nA arte e o link vêm do pedido, sem você digitar nada.';
-    confirmar(msg, { rotuloOk:'Pôr no ar' }).then(function(ok){
-      if(!ok) return;
+        ', e o clique leva para o link do pedido.';
+      confirmar(msgR, { rotuloOk:'Pôr no ar' }).then(function(ok){
+        if(ok) pubExecuta(p, null, true);
+      });
+      return;
+    }
+    // no site a temporada é de dias cheios: o chefe escolhe o dia da estreia
+    var amanha = new Date(); amanha.setDate(amanha.getDate() + 1); amanha.setHours(0, 0, 0, 0);
+    AG.diasTemporada = pubDias(p.duracao) + ' dias de temporada, terminando no fim do último dia';
+    agAbre({ modo:'anuncio', inicial:amanha,
+             titulo:'Quando começa a temporada de “' + String(quem).slice(0, 34) + '”?' }).then(function(dia){
+      AG.diasTemporada = '';
+      if(!dia) return;
+      var t = pubTemporada(p, dia);
+      confirmar('Pôr “' + quem + '” em ' + (PUB_NOMES_F[p.formato] || p.formato) +
+                ', de ' + t.de + ' a ' + t.ate + ' (' + t.dias + ' dias cheios)?' +
+                '\n\nEle entra sozinho na virada da meia-noite e sai sozinho no fim do último dia.',
+                { rotuloOk:'Pôr no ar' }).then(function(ok){
+        if(ok) pubExecuta(p, t, false);
+      });
+    });
+  }
+  function pubExecuta(p, temporada, naRevista){
+    {
       toast('Subindo a arte e ligando o anúncio…');
-      (naRevista ? pubNoArRevista(p) : pubNoArSite(p))
+      (naRevista ? pubNoArRevista(p) : pubNoArSite(p, temporada))
         .then(function(res){
           return pubMarcaNoAr(p).then(function(){ return res; });
         })
@@ -4414,8 +4461,12 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                    (res.rascunho ? '\n\nA edição é rascunho: ele vai ao ar quando você publicar a edição.'
                                  : '\n\nA edição já está publicada: entra no próximo deploy.'));
           } else {
-            avisar('No ar. ' + (res.arte ? 'A arte subiu do próprio pedido' : 'A faixa é texto, já está completa') +
-                   ' e o anúncio sai até ' + res.ate + '.\n\nEntra no próximo deploy, em poucos minutos.');
+            var hojeISO = pubISO(new Date());
+            avisar('Temporada marcada. ' + (res.arte ? 'A arte subiu do próprio pedido' : 'A faixa é texto, já está completa') +
+                   ' e o anúncio fica no ar de ' + res.de + ' a ' + res.ate + ', ' + res.dias + ' dias cheios.' +
+                   (res.de <= hojeISO
+                     ? '\n\nComeça hoje: entra no próximo deploy.'
+                     : '\n\nEle sobe sozinho na virada da meia-noite do dia ' + res.de + '. Você não precisa fazer mais nada.'));
           }
           carregarPedidosPub(); carregarSitePub(); pubDesempenho();
         })
@@ -4426,7 +4477,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           else if(m2 === 'sem matéria livre') avisar('Todas as matérias desta edição já têm meia página. Use uma página inteira ou espere a próxima edição.');
           else avisar(msgErro(e));
         });
-    });
+    }
   }
   document.addEventListener('click', function(e){
     var b = e.target.closest('[data-pub-noar]');
@@ -4443,25 +4494,34 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       var d = PUB.sitejson;
       function g(k, c){ return esc(((d[k] || {})[c]) || ''); }
       el.innerHTML =
-        '<div class="f-note">Deixar os campos vazios = formato fora do ar. "Até" corta o anúncio sozinho no dia seguinte à data (AAAA-MM-DD).</div>' +
+        '<div class="f-note">Deixar os campos vazios = formato fora do ar. A temporada é de dias cheios: entra na virada da meia-noite do dia "de" e sai no fim do dia "até" (AAAA-MM-DD). Sem "de", entra no próximo deploy.</div>' +
         '<label>A FAIXA · texto</label><input type="text" id="pubf-texto" value="' + g('faixa', 'texto') + '" placeholder="Peça X em cartaz no Teatro Y — ingressos aqui">' +
         '<div class="pub-r3"><div><label>Faixa · link</label><input type="text" id="pubf-link" value="' + g('faixa', 'link') + '"></div>' +
-        '<div><label>Faixa · até</label><input type="text" id="pubf-ate" value="' + g('faixa', 'ate') + '" placeholder="2026-08-31"></div><div></div></div>' +
+        '<div><label>Faixa · de</label><input type="text" id="pubf-de" value="' + g('faixa', 'de') + '" placeholder="2026-08-01"></div>' +
+        '<div><label>Faixa · até</label><input type="text" id="pubf-ate" value="' + g('faixa', 'ate') + '" placeholder="2026-08-31"></div></div>' +
         '<label>A CORTINA · caminho da imagem (assets/uploads/…)</label><input type="text" id="pubc-img" value="' + g('cortina', 'img') + '">' +
         '<div class="pub-r3"><div><label>Cortina · link</label><input type="text" id="pubc-link" value="' + g('cortina', 'link') + '"></div>' +
         '<div><label>Cortina · legenda</label><input type="text" id="pubc-leg" value="' + g('cortina', 'legenda') + '"></div>' +
         '<div><label>Cortina · até</label><input type="text" id="pubc-ate" value="' + g('cortina', 'ate') + '"></div></div>' +
+        '<div class="pub-r3"><div><label>Cortina · de</label><input type="text" id="pubc-de" value="' + g('cortina', 'de') + '" placeholder="2026-08-01"></div><div></div><div></div></div>' +
         '<label>O ENTREATO · caminho da imagem (assets/uploads/…)</label><input type="text" id="pube-img" value="' + g('entreato', 'img') + '">' +
         '<div class="pub-r3"><div><label>Entreato · link</label><input type="text" id="pube-link" value="' + g('entreato', 'link') + '"></div>' +
         '<div><label>Entreato · legenda</label><input type="text" id="pube-leg" value="' + g('entreato', 'legenda') + '"></div>' +
         '<div><label>Entreato · até</label><input type="text" id="pube-ate" value="' + g('entreato', 'ate') + '"></div></div>' +
+        '<div class="pub-r3"><div><label>Entreato · de</label><input type="text" id="pube-de" value="' + g('entreato', 'de') + '" placeholder="2026-08-01"></div><div></div><div></div></div>' +
         '<div class="f-note">Arte nova? Suba a imagem pela aba Nova matéria (campo de foto) ou me peça no chat que eu coloco em assets/uploads/.</div>' +
         '<div style="margin-top:12px"><button class="f-pub" type="button" id="pub-salvar" style="padding:11px 16px">Salvar e publicar no próximo deploy</button></div>';
       $('pub-salvar').addEventListener('click', function(){
         var novo = {
-          faixa: { texto: $('pubf-texto').value.trim(), link: $('pubf-link').value.trim(), ate: $('pubf-ate').value.trim() },
-          cortina: { img: $('pubc-img').value.trim(), link: $('pubc-link').value.trim(), legenda: $('pubc-leg').value.trim(), ate: $('pubc-ate').value.trim() },
-          entreato: { img: $('pube-img').value.trim(), link: $('pube-link').value.trim(), legenda: $('pube-leg').value.trim(), ate: $('pube-ate').value.trim() }
+          faixa: { texto: $('pubf-texto').value.trim(), link: $('pubf-link').value.trim(),
+                   de: $('pubf-de').value.trim(), ate: $('pubf-ate').value.trim(),
+                   pedido: ((PUB.sitejson || {}).faixa || {}).pedido || '', img: ((PUB.sitejson || {}).faixa || {}).img || '' },
+          cortina: { img: $('pubc-img').value.trim(), link: $('pubc-link').value.trim(), legenda: $('pubc-leg').value.trim(),
+                     de: $('pubc-de').value.trim(), ate: $('pubc-ate').value.trim(),
+                     pedido: ((PUB.sitejson || {}).cortina || {}).pedido || '' },
+          entreato: { img: $('pube-img').value.trim(), link: $('pube-link').value.trim(), legenda: $('pube-leg').value.trim(),
+                      de: $('pube-de').value.trim(), ate: $('pube-ate').value.trim(),
+                      pedido: ((PUB.sitejson || {}).entreato || {}).pedido || '' }
         };
         ghPut(PUB_ARQ, JSON.stringify(novo, null, 1), assina('atualiza os anúncios do site'), PUB.siteSha)
           .then(function(r){ if(r && r.content) PUB.siteSha = r.content.sha; avisar('Salvo! Entra no ar no próximo deploy.'); })

@@ -659,6 +659,15 @@ Regras das seções novas:
     quem clicou, com o aviso de quantos dias faltam para o fim da
     temporada. É o argumento de renovação: o anunciante vê quantas
     pessoas o FOYER levou até a bilheteria dele.
+  - **A TEMPORADA É DE DIAS CHEIOS (ordem do Pedro, 30/07/2026)**: todo
+    anúncio do site entra **na virada da meia-noite do dia combinado** e
+    sai **no fim do último dia**, para a cobrança ser por dia no ar, sem
+    meio-dia quebrado. No arquivo `import/anuncios/site.json` isso vive
+    em `de` e `ate` (AAAA-MM-DD, inclusive nos dois lados); 1 edição = 7
+    dias, 4 edições = 28. O relógio do site (workflow `agendadas.yml`,
+    que roda de 30 em 30 minutos e às 00:02 de Brasília) publica sozinho
+    quando um anúncio estreia ou termina: **o chefe só aprova, a subida é
+    automática**.
   - **Do pedido ao ar, num toque (30/07/2026)**: pedido `fechado` ganha o
     botão **Pôr no ar** na Coxia e o resto é automático, sem digitar nada.
     Nos formatos do site: a arte sai do próprio pedido e vira arquivo em

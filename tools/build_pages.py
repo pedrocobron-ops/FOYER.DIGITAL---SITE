@@ -267,12 +267,18 @@ def _pub_chave(formato, cfg=None):
     return f'pub:{formato}' + (f':{proto}' if proto else '')
 
 def _anun_ativo(k):
+    """O anúncio no ar hoje. A temporada é contada em DIAS CHEIOS: entra à
+    meia-noite do dia 'de' e sai no fim do dia 'ate' (ordem do Pedro, 30/07/2026)."""
     a = _ANUN.get(k) or {}
     if not (a.get('img') or a.get('texto')):
         return None
+    hoje = _dtmod.date.today().isoformat()
+    de = (a.get('de') or '').strip()
+    if de and hoje < de:
+        return None                      # temporada ainda não começou
     ate = (a.get('ate') or '').strip()
-    if ate and _dtmod.date.today().isoformat() > ate:
-        return None
+    if ate and hoje > ate:
+        return None                      # temporada terminou
     return a
 
 def _monta_ads_casa():
