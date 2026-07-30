@@ -1,0 +1,245 @@
+{
+ "numero": 2,
+ "titulo": "Laila Garin é Piaf",
+ "dataEdicao": "30 Jul 2026",
+ "status": "rascunho",
+ "capa": {
+  "img": "assets/uploads/revista-ed-2-capa.jpg",
+  "manchete": "Laila Garin é Piaf",
+  "chamadas": [
+   "Roda Viva, 1968: a noite em que o CCC subiu ao palco",
+   "Quanto custa montar um musical no Brasil?",
+   "Wagner Moura ovacionado em Avignon"
+  ]
+ },
+ "paginas": [
+  {
+   "tipo": "editorial",
+   "titulo": "A memória de casa cheia",
+   "texto": "Numa mesma semana, o teatro brasileiro olhou para trás e encontrou casa cheia. Em 27 de julho, a Unesco inscreveu o Theatro da Paz e o Teatro Amazonas na lista do Patrimônio Mundial sob o nome de Teatros da Amazônia, o primeiro título do gênero na Região Norte. Dois dias depois, o Grupo Galpão abriu a segunda edição do Festival de Teatro do Rio, que ocupa dois teatros cariocas até 16 de agosto. Entre uma data e outra, memória e bilheteria trocaram de lugar sem pedir licença.\n\nÉ desse trânsito que esta edição trata. Recontamos a noite de julho de 1968 em que o CCC invadiu o palco de Roda Viva, ferida que completa 58 anos, e mostramos o que floresceu depois dela: Laila Garin preparando sua Édith Piaf para o Teatro Bradesco, Ícaro Silva vestindo o Hamlet de um cinema abandonado do Copan, Wagner Moura aplaudido de pé num Festival de Avignon que somou cerca de 1,5 milhão de ingressos. Também abrimos a planilha e explicamos quanto custa montar um musical no Brasil, porque palco se sustenta com arte e com conta feita.\n\nA casa enxerga um fio costurando essas histórias. O país que viu atores espancados em cena aberta, e que deixou seus teatros da borracha atravessarem décadas de portas fechadas, hoje inscreve esses palcos no patrimônio da humanidade e forma fila do Riachuelo a Avignon. Guardar e lotar, aprendemos nesta semana, são o mesmo ofício. Boa leitura.",
+   "assinatura": "A direção do FOYER"
+  },
+  {
+   "tipo": "materia",
+   "slug": "quem-e-laila-garin-atriz-cantora-piaf",
+   "cat": "Teatro",
+   "img": "assets/uploads/quem-e-laila-garin-atriz-cantora-piaf.jpg",
+   "titulo": "Laila Garin, de Elis a Piaf",
+   "chamada": "A baiana que ganhou cinco prêmios como Elis Regina assume Édith Piaf em musical inédito, a partir de 7 de agosto de 2026, no Teatro Bradesco, em São Paulo.",
+   "texto": "Desde 2013, Laila Garin vem emendando papéis de cantora em cena. Formada em artes cênicas pela Universidade Federal da Bahia, ela viveu Elis Regina, passou por Joana de Gota d'Água [a seco] e por Macabéa de A Hora da Estrela, e chega agora ao repertório de Édith Piaf: de La Vie en Rose a Non, Je Ne Regrette Rien, com orquestra."
+  },
+  {
+   "tipo": "recortes",
+   "itens": [
+    {
+     "frase": "Tem gente que prefere não entender como funciona a Lei Rouanet. Você manda o seu projeto para o Ministério da Cultura, que avalia e devolve a possibilidade de captar. Depois, você pega o projeto debaixo do braço, algo que eu faço pessoalmente, e vai atrás dos patrocinadores para ver quem acredita naquele projeto. É uma peregrinação",
+     "quem": "Claudia Raia",
+     "onde": "site Seu Dinheiro",
+     "slug": "quanto-custa-montar-um-musical-no-brasil"
+    },
+    {
+     "frase": "Uma artista e uma mulher que escolheu fazer o que quis sem se dobrar às convenções. Não se casou, não teve filhos e comandou a própria carreira. Também era livre sexualmente",
+     "quem": "Laila Garin",
+     "onde": "jornal O Globo",
+     "slug": "quem-e-laila-garin-atriz-cantora-piaf"
+    },
+    {
+     "frase": "É uma questão democrática: o festival criado por Jean Vilar se fez sobre as férias remuneradas, para que todo mundo pudesse ter tempo de aproveitar essa viagem ao país do teatro",
+     "quem": "Tiago Rodrigues",
+     "onde": "rádio ICI Vaucluse",
+     "slug": "festival-de-avignon-2026-balanco-wagner-moura"
+    }
+   ]
+  },
+  {
+   "tipo": "materia",
+   "slug": "festival-de-teatro-do-rio-2026-segunda-edicao",
+   "cat": "Teatro",
+   "img": "assets/uploads/festival-de-teatro-do-rio-2026-segunda-edicao.jpg",
+   "titulo": "Galpão abre, Nanini fecha: a safra do teatro brasileiro desembarca no Rio",
+   "chamada": "A segunda edição do Festival de Teatro do Rio ocupa os teatros Riachuelo e TotalEnergies de 29 de julho a 16 de agosto, com Lilia Cabral, Fábio Porchat e uma mostra dedicada à nova geração.",
+   "texto": "Depois de estrear em 2025 com lotação esgotada todos os dias, o Festival de Teatro do Rio volta maior. De 29 de julho a 16 de agosto de 2026, os teatros Riachuelo e TotalEnergies concentram o que movimentou os palcos do país no último ano: o Grupo Galpão abre com (Um) Ensaio sobre a Cegueira, Lilia Cabral revive Rita Lee e Marco Nanini fecha a conta com Fim de Partida. No meio do caminho, a mostra Nova Cena reserva uma sala para quem está chegando ao teatro carioca."
+  },
+  {
+   "tipo": "materia",
+   "slug": "festival-de-avignon-2026-balanco-wagner-moura",
+   "cat": "Notícia",
+   "img": "assets/uploads/festival-de-avignon-2026-balanco-wagner-moura.jpg",
+   "titulo": "De pé para Wagner Moura: Avignon fecha 2026 com 1,5 milhão de ingressos",
+   "chamada": "Um dos maiores encontros de teatro do mundo encerrou a edição de 2026 em 25 de julho com casas cheias na mostra oficial e recorde de espetáculos no Off; a volta do ator brasileiro ao palco, na peça de Christiane Jatahy, terminou em longa ovação.",
+   "texto": "No Gymnase do liceu Aubanel, um júri sorteado na plateia decidia a cada noite se o médico vivido por Wagner Moura era mesmo um inimigo do povo. Fora dali, os números do festival do sul da França contavam um julgamento favorável: cerca de 1,5 milhão de ingressos entre o In e o Off, a língua coreana como convidada de honra e segredo absoluto guardado para os 80 anos, em julho de 2027."
+  },
+  {
+   "tipo": "programas"
+  },
+  {
+   "tipo": "materia",
+   "slug": "roda-viva-1968-ataque-ccc-chico-buarque",
+   "cat": "Bastidores",
+   "img": "assets/uploads/roda-viva-1968-ataque-ccc-chico-buarque.jpg",
+   "titulo": "Roda Viva, 1968: a noite em que o palco virou alvo",
+   "chamada": "Em 18 de julho de 1968, encapuzados do CCC invadiram o Teatro Ruth Escobar, destruíram o cenário e espancaram o elenco da primeira peça de Chico Buarque. A censura completou o que os cassetetes começaram.",
+   "texto": "Uma comédia musical sobre a fabricação de um ídolo pop acabou tratada como inimiga a ser destruída. Cinquenta e oito anos depois, o que houve na sala Galpão do Teatro Ruth Escobar ainda explica por que, no Brasil, um palco capaz de incomodar o poder pode virar alvo."
+  },
+  {
+   "tipo": "materia",
+   "slug": "quanto-custa-montar-um-musical-no-brasil",
+   "cat": "Bastidores",
+   "img": "assets/uploads/quanto-custa-montar-um-musical-no-brasil.jpg",
+   "titulo": "De R$ 700 mil por mês a R$ 45,3 milhões: o preço de montar um musical no Brasil",
+   "chamada": "Claudia Raia abriu a planilha de Tarsila, A Brasileira em evento na B3 em 21 de julho de 2026; entre a Lei Rouanet, o patrocínio e a bilheteria, o FOYER mostra quem paga a conta do teatro musical brasileiro.",
+   "texto": "Uma equipe fixa de 73 profissionais, tetos de captação que chegam a R$ 15 milhões e um mercado que movimentou R$ 1,1 bilhão na economia paulistana em 2023: os números que vieram a público dão a medida de quanto custa manter a cortina aberta."
+  },
+  {
+   "tipo": "materia",
+   "slug": "quem-e-icaro-silva-hamlet-copan",
+   "cat": "Teatro",
+   "img": "assets/uploads/quem-e-icaro-silva-hamlet-copan.jpg",
+   "titulo": "Diadema, Copan, Dinamarca: o Hamlet de Ícaro Silva",
+   "chamada": "Aos 39 anos, o ator e cantor assumiu o papel-título de Hamlet, Sonhos que Virão no canteiro de obras do Nu Cine Copan, em São Paulo, herdando de Gabriel Leone o papel numa montagem que já tinha levado mais de 25 mil pessoas ao antigo cinema.",
+   "texto": "Filho de um segurança de biblioteca que levava livros infantis emprestados para os filhos, Ícaro Silva publicou o primeiro livro aos oito anos e estreou na TV ainda menino. Entre 16 de maio e 16 de julho de 2026, coube a ele o príncipe de Shakespeare na encenação site-specific que ocupou o Nu Cine Copan, capítulo mais recente de uma carreira que corre em três pistas: teatro, música e televisão."
+  },
+  {
+   "tipo": "agenda",
+   "cidade": "São Paulo",
+   "itens": [
+    {
+     "dia": "2026-07-31",
+     "titulo": "7 Mulheres e Um Mistério",
+     "texto": "Na noite de estreia, às 20h, Anna Toledo verte a comédia policial de Robert Thomas em musical: sete mulheres presas numa mansão na véspera de Natal, todas com bom motivo e péssimo álibi.",
+     "local": "033 Rooftop",
+     "cidade": "São Paulo",
+     "link": "post-7-mulheres-e-um-misterio-o-musical-estreia-em-julho-no-033-rooftop-em-sao-paulo.html"
+    },
+    {
+     "dia": "2026-08-01",
+     "titulo": "Tiago Iorc, turnê Troco Likes 10 Anos",
+     "texto": "A noite que abre a turnê dos dez anos de Troco Likes, o disco em que Tiago Iorc passou a compor em português e mudou de tamanho; show às 22h no Espaço Unimed.",
+     "local": "Espaço Unimed",
+     "cidade": "São Paulo",
+     "link": "https://www.espacounimed.com.br/show/tiago-iorc/"
+    },
+    {
+     "dia": "2026-08-02",
+     "titulo": "Tristão e Isolda, de Wagner",
+     "texto": "Última récita da montagem de Allex Aguilera para a ópera em que Wagner leva amor e morte ao limite, aberta pelo célebre acorde de Tristão, com a Sinfônica Municipal regida por Roberto Minczuk, às 17h.",
+     "local": "Theatro Municipal de São Paulo",
+     "cidade": "São Paulo",
+     "link": "https://theatromunicipal.org.br/eventos/opera-tristao-e-isolda-de-richard-wagner/"
+    },
+    {
+     "dia": "2026-08-03",
+     "titulo": "Atlântico Sertão, último dia",
+     "texto": "Segunda-feira é a despedida da mostra gratuita que reúne mais de 70 artistas por todos os andares do prédio histórico para pensar o sertão como território de resistência; das 9h às 20h.",
+     "local": "CCBB São Paulo",
+     "cidade": "São Paulo",
+     "link": "https://ccbb.com.br/sao-paulo/programacao/atlantico-sertao/"
+    },
+    {
+     "dia": "2026-08-04",
+     "titulo": "Toda Terça um Jazz",
+     "texto": "O projeto que ocupa as terças do clube de clima New Orleans em Moema com artistas da cena independente relendo lendas da música; sessão única às 20h.",
+     "local": "Bourbon Street Music Club",
+     "cidade": "São Paulo",
+     "link": "https://www.bourbonstreet.com.br/"
+    },
+    {
+     "dia": "2026-08-05",
+     "titulo": "Marcelo Cigano convida Sébastien Giniaux Trio",
+     "texto": "O acordeom de Marcelo Cigano encontra a guitarra do francês Sébastien Giniaux para cruzar o jazz manouche de Django Reinhardt com a música dos Bálcãs, às 20h.",
+     "local": "Blue Note São Paulo",
+     "cidade": "São Paulo",
+     "link": "https://bluenotesp.com/shows/marcelo-cigano-convida-sebastien-giniaux-trio/"
+    },
+    {
+     "dia": "2026-08-06",
+     "titulo": "Osesp toca Gershwin e Rachmaninov",
+     "texto": "A regente búlgara Delyana Lazarova volta à Osesp para uma noite de grandes melodistas do século 20: o Concerto em Fá de Gershwin com a pianista Joyce Yang e a Sinfonia nº 2 de Rachmaninov, às 20h.",
+     "local": "Sala São Paulo",
+     "cidade": "São Paulo",
+     "link": "https://osesp.art.br/osesp/pt/concerto/1625?date=2026-08-06T23:00:00.000Z"
+    }
+   ]
+  },
+  {
+   "tipo": "agenda",
+   "cidade": "Rio de Janeiro",
+   "itens": [
+    {
+     "dia": "2026-07-31",
+     "titulo": "(Um) Ensaio sobre a Cegueira",
+     "texto": "O Grupo Galpão encerra nesta sexta, às 20h, as três noites de sua versão para o romance de Saramago, espetáculo que abriu a segunda edição do Festival de Teatro do Rio.",
+     "local": "Teatro Riachuelo",
+     "cidade": "Rio de Janeiro",
+     "link": "post-festival-de-teatro-do-rio-2026-segunda-edicao.html"
+    },
+    {
+     "dia": "2026-08-01",
+     "titulo": "Negra Palavra: Poesia do Samba",
+     "texto": "O Complexo Negra Palavra dedica a noite de sábado, às 20h, à poesia dos compositores do samba, em uma só apresentação dentro do festival.",
+     "local": "Teatro TotalEnergies",
+     "cidade": "Rio de Janeiro",
+     "link": "https://www.ingresso.com/espetaculos/poesia-do-samba"
+    },
+    {
+     "dia": "2026-08-02",
+     "titulo": "Ideias para Adiar o Fim do Mundo",
+     "texto": "Yumo Apurinã parte do livro de Ailton Krenak para perguntar, em cena, que humanidade é essa; a sessão de domingo, às 18h, tem direção de João Bernardo Caldeira.",
+     "local": "Teatro TotalEnergies",
+     "cidade": "Rio de Janeiro",
+     "link": "https://www.ingresso.com/espetaculos/ftr-ideias-para-adiar-o-fim-do-mundo"
+    },
+    {
+     "dia": "2026-08-04",
+     "titulo": "Rita Lee: Balada da Louca",
+     "texto": "Lilia Cabral apresenta ao público carioca, às 20h, o solo em que vive Rita Lee, na primeira de duas noites, depois de esgotar a temporada de estreia em São Paulo.",
+     "local": "Teatro Riachuelo",
+     "cidade": "Rio de Janeiro",
+     "link": "https://www.ingresso.com/espetaculos/2-festival-de-teatro-do-rio-de-janeiro-rita-lee-a-balada-da-louca"
+    },
+    {
+     "dia": "2026-08-05",
+     "titulo": "O Motociclista no Globo da Morte",
+     "texto": "Eduardo Moscovis faz duas sessões na mesma quarta, às 18h e às 20h, com o espetáculo que lhe rendeu prêmios; quem perder ainda encontra a despedida na quinta.",
+     "local": "Teatro TotalEnergies",
+     "cidade": "Rio de Janeiro",
+     "link": "https://www.ingresso.com/espetaculos/motociclista-no-globo-da-morte"
+    },
+    {
+     "dia": "2026-08-06",
+     "titulo": "Wicked",
+     "texto": "Fora do festival, a superprodução das bruxas de Oz segue na Cidade das Artes com Myra Ruiz e Fabi Bang; na quinta, a sessão é às 20h.",
+     "local": "Cidade das Artes",
+     "cidade": "Rio de Janeiro",
+     "link": "post-wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang.html"
+    }
+   ]
+  },
+  {
+   "tipo": "frase-celebre"
+  },
+  {
+   "tipo": "expediente"
+  },
+  {
+   "tipo": "contracapa"
+  }
+ ],
+ "historico": [
+  {
+   "quando": "2026-07-30T14:24:39.627131+00:00",
+   "quem": "Redação IA (Claude)",
+   "acao": "monta o rascunho da edição 2: capa Laila Garin é Piaf, editorial, 6 matérias, recortes, agendas SP e Rio apuradas para 31/07 a 06/08"
+  },
+  {
+   "quando": "2026-07-30T14:27:24.118158+00:00",
+   "quem": "Redação IA (Claude)",
+   "acao": "revisão de texto do portão 1: quebra da fórmula repetida 'De X a Y' em dois títulos, gramática na chamada de Ícaro Silva, pontuação da chamada de Piaf, ajustes em dois itens da agenda SP; travessões zero, links internos e atribuições conferidos"
+  },
+  {
+   "quando": "2026-07-30T14:35:53.847322+00:00",
+   "quem": "Redação IA (Claude)",
+   "acao": "checagem de serviços do portão 1: 13 itens de agenda (7 SP, 6 Rio) reconferidos nas fontes oficiais (Theatro Municipal, Espaço Unimed, CCBB, Bourbon Street, Blue Note, Osesp, Ingresso.com, Wicked Brasil), todos confirmados em dia, local e horário; fatos do editorial conferidos com os corpos (Unesco 27/07, festival 29/07 a 16/08, 58 anos de Roda Viva, Piaf no Bradesco); 3 aspas dos recortes idênticas aos corpos com atribuição correta; grafias Hamlet, Sonhos que Virão e Yumo Apurinã confirmadas; 4 ajustes de precisão: cerca de 1,5 milhão no editorial, orquestra sem ao vivo no olho de Piaf, Complexo Negra Palavra e prêmios sem diversos na agenda Rio"
+  }
+ ]
+}
