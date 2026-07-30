@@ -3050,7 +3050,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                       '<input type="datetime-local" id="dt-' + esc(d.slug) + '" aria-label="Data e hora">' +
                     '</div>' +
                   '</div>'
-                : '<span class="mesa-trava">🔒 aprovação de ' + esc(donoDaAssinatura(d).split(' ')[0]) + '</span>') +
+                : '<span class="mesa-trava">🔒 aprovação de ' + esc(nomesDaAssinatura(donoDaAssinatura(d))) + '</span>') +
               '<button class="bt danger" type="button" data-recusar="' + esc(d.slug) + '">✕ Recusar</button>' +
             '</div>' +
           '</article>';
@@ -3130,14 +3130,19 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   function podeLiberarAssinatura(d){
     var dono = donoDaAssinatura(d);
     if(!dono) return true;                       // Redação Foyer: qualquer editor da mesa
-    return USER && USER.nome && dono.toLowerCase() === String(USER.nome).trim().toLowerCase();
+    // assinatura dupla ("Pedro Amaral e Isabel Branquinha"): qualquer um dos dois aprova
+    var meu = (USER && USER.nome) ? String(USER.nome).trim().toLowerCase() : '';
+    return !!meu && dono.toLowerCase().split(' e ').some(function(n){ return n.trim() === meu; });
+  }
+  function nomesDaAssinatura(dono){
+    return String(dono || '').split(' e ').map(function(n){ return n.trim().split(' ')[0]; }).join(' ou ');
   }
   function avisoAssinatura(d){
     var dono = donoDaAssinatura(d);
     if(!dono) return '';
     return podeLiberarAssinatura(d)
       ? '<div class="mesa-assina minha">✍ Esta matéria vai ao ar <b>assinada por você</b>. Leia inteira antes de aprovar: é o seu nome que responde por ela.</div>'
-      : '<div class="mesa-assina outra">🔒 Assinada por <b>' + esc(dono) + '</b>. Só ' + esc(dono.split(' ')[0]) +
+      : '<div class="mesa-assina outra">🔒 Assinada por <b>' + esc(dono) + '</b>. Só ' + esc(nomesDaAssinatura(dono)) +
         ' pode aprovar, porque é o nome dela(e) que vai ao ar. Você pode ler, editar e devolver com um recado.</div>';
   }
   // núcleo: publica a matéria e a retira da mesa; devolve uma promessa (sem UI)

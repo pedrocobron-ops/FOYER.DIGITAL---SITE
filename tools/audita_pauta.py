@@ -174,7 +174,10 @@ def auditar(caminho):
         problemas.append('SEM parecer do chefe de redação')
     # assinaturas válidas: a coletiva ou uma pessoa real da equipe.
     # Matéria assinada por pessoa só pode ser aprovada por ela na Coxia.
-    ASSINATURAS = {'Redação Foyer', 'Pedro Amaral', 'Isabel Branquinha'}
+    # a dupla assina os guias de fim de semana (ordem do Pedro, 30/07/2026):
+    # qualquer um dos dois pode aprovar na Coxia
+    ASSINATURAS = {'Redação Foyer', 'Pedro Amaral', 'Isabel Branquinha',
+                   'Pedro Amaral e Isabel Branquinha'}
     if pg.get('author') not in ASSINATURAS:
         problemas.append(f'AUTOR "{pg.get("author")}" fora das assinaturas do FOYER '
                          f'({", ".join(sorted(ASSINATURAS))})')

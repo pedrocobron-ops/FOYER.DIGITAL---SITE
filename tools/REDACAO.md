@@ -245,9 +245,18 @@ do **Rio assina Redação Foyer**, e o dia fecha assim:
 
 | Quinta | |
 |---|---|
-| Isabel | guia de São Paulo + 1 estreia/temporada paulistana |
+| **A dupla** (Pedro Amaral e Isabel Branquinha) | os DOIS guias de fim de semana (SP e Rio), com `author: "Pedro Amaral e Isabel Branquinha"` |
+| Isabel | 1 estreia/temporada paulistana |
 | Pedro | as 2 de sempre (mercado/dinheiro/cinema) |
-| Redação | guia do Rio + 1 do cardápio |
+| Redação | 1 do cardápio |
+
+**Assinatura dupla dos guias (ordem do Pedro, 30/07/2026):** os guias de
+fim de semana de SP e do Rio saem assinados **"Pedro Amaral e Isabel
+Branquinha"**, e na Coxia **qualquer um dos dois pode aprovar e lançar**
+(a trava de assinatura aceita os dois nomes). A dupla vale SÓ para os
+guias; as demais matérias seguem com assinatura individual e trava
+exclusiva do dono. Nas páginas de autor do site, o guia aparece na
+página dos dois.
 
 Nos demais dias, quando sobrar fôlego de pauta, a segunda vaga de cada
 assinatura pode repetir qualquer formato do cardápio, desde que fique

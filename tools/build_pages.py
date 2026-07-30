@@ -1333,10 +1333,16 @@ _AUTOR_PAGINA = {
 }
 
 def _byline_link(nome):
-    """Nome de quem assina, com link para a página da assinatura quando existir."""
+    """Nome de quem assina, com link para a página da assinatura quando existir.
+    Assinatura dupla ("Pedro Amaral e Isabel Branquinha") linka as duas páginas."""
     n = (nome or 'Redação Foyer').strip()
     alvo = _AUTOR_PAGINA.get(n)
-    return f'<a href="{alvo}" rel="author"><b>{n}</b></a>' if alvo else f'<b>{n}</b>'
+    if alvo:
+        return f'<a href="{alvo}" rel="author"><b>{n}</b></a>'
+    partes = [p.strip() for p in n.split(' e ')]
+    if len(partes) > 1 and all(p in _AUTOR_PAGINA for p in partes):
+        return ' e '.join(f'<a href="{_AUTOR_PAGINA[p]}" rel="author"><b>{p}</b></a>' for p in partes)
+    return f'<b>{n}</b>'
 
 def wiximg(url, w=1200, h=675):
     if 'static.wixstatic.com/media/' in url and '/v1/' not in url:
@@ -5272,7 +5278,8 @@ for _i, _p in enumerate(MATERIAS):
 print(f'• {len(MATERIAS)} páginas de matéria')
 
 for _asp, _aa in AUTORES.items():
-    _amats = [_m for _m in MATERIAS if _m.get('author') == _aa['nome']]
+    _amats = [_m for _m in MATERIAS
+              if _aa['nome'] in [p.strip() for p in str(_m.get('author') or '').split(' e ')]]
     page('autor-' + _asp + '.html', _aa['nome'] + ' — FOYER',
          f"{_aa['nome']}, {_aa['cargo'].lower()} do FOYER. {_aa['cobre']}.",
          'sobre.html', autor_page(_asp, _aa, _amats), quiet=True)
