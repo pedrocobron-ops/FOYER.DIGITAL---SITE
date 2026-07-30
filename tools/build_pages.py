@@ -278,7 +278,8 @@ def _monta_ads_casa():
     corpo = []
     js = []
     if fx:
-        css.append('''.pub-faixa{ position:fixed; left:0; right:0; bottom:0; z-index:80; display:flex;
+        css.append('''.pub-faixa[hidden]{ display:none !important; }
+.pub-faixa{ position:fixed; left:0; right:0; bottom:0; z-index:80; display:flex;
   align-items:center; gap:12px; background:var(--paper); border-top:2px solid var(--ink);
   padding:9px 14px; box-shadow:0 -6px 22px rgba(0,0,0,.18); }
 .pub-faixa em{ font-style:normal; font-family:var(--mono); font-size:.5rem; font-weight:700;
@@ -296,15 +297,22 @@ body.tem-faixa{ padding-bottom:52px; }''')
         js.append('''(function(){
   var k = 'foyer-pub-faixa-' + new Date().toISOString().slice(0, 10);
   try{ if(localStorage.getItem(k)) return; }catch(e){}
-  var f = document.getElementById('pub-faixa');
-  f.hidden = false; document.body.classList.add('tem-faixa');
-  document.getElementById('pub-faixa-x').addEventListener('click', function(){
-    f.hidden = true; document.body.classList.remove('tem-faixa');
-    try{ localStorage.setItem(k, '1'); }catch(e){}
-  });
+  // a publicidade espera a casa terminar a conversa dos cookies
+  function livre(){ try{ return !!localStorage.getItem('foyer-consent'); }catch(e){ return true; } }
+  function entra(){
+    var f = document.getElementById('pub-faixa');
+    f.hidden = false; document.body.classList.add('tem-faixa');
+    document.getElementById('pub-faixa-x').addEventListener('click', function(){
+      f.hidden = true; document.body.classList.remove('tem-faixa');
+      try{ localStorage.setItem(k, '1'); }catch(e){}
+    });
+  }
+  if(livre()) entra();
+  else var iv = setInterval(function(){ if(livre()){ clearInterval(iv); entra(); } }, 600);
 })();''')
     if ct:
-        css.append('''.pub-cortina{ position:fixed; inset:0; z-index:120; display:flex; align-items:center;
+        css.append('''.pub-cortina[hidden]{ display:none !important; }
+.pub-cortina{ position:fixed; inset:0; z-index:120; display:flex; align-items:center;
   justify-content:center; background:rgba(20,6,3,.78); padding:20px; }
 .pub-cortina .caixa{ position:relative; background:var(--paper); border:3px solid var(--ink);
   max-width:520px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,.5); }
@@ -326,12 +334,21 @@ body.tem-faixa{ padding-bottom:52px; }''')
         js.append('''(function(){
   var k = 'foyer-pub-cortina-' + new Date().toISOString().slice(0, 10);
   try{ if(localStorage.getItem(k)) return; }catch(e){}
+  function livre(){ try{ return !!localStorage.getItem('foyer-consent'); }catch(e){ return true; } }
   var c = document.getElementById('pub-cortina');
-  setTimeout(function(){ c.hidden = false; }, 900);
+  function entra(){
+    setTimeout(function(){
+      c.hidden = false;
+      // 1x por dia de verdade: vista ao abrir, e não só ao fechar
+      try{ localStorage.setItem(k, '1'); }catch(e){}
+    }, 900);
+  }
   function fecha(){ c.hidden = true; try{ localStorage.setItem(k, '1'); }catch(e){} }
   document.getElementById('pub-cortina-x').addEventListener('click', fecha);
   c.addEventListener('click', function(e){ if(e.target === c) fecha(); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !c.hidden) fecha(); });
+  if(livre()) entra();
+  else var iv = setInterval(function(){ if(livre()){ clearInterval(iv); entra(); } }, 600);
 })();''')
     css.append('</style>')
     return '\n'.join(css) + '\n' + '\n'.join(corpo) + '\n<script>\n' + '\n'.join(js) + '\n</script>\n'
@@ -379,7 +396,7 @@ def news_cell(sym, tag, title, meta, desc=None, big=False):
 def page(fname, title, desc, current, body, quiet=False, og_img=None, og_type='website', ld=''):
     # a publicidade da casa entra em todo o site, MENOS na Coxia e dentro da
     # revista (a edição fechada não carrega anúncio de site)
-    _pub = '' if (fname.startswith('coxia') or fname.startswith('revista-ed-')) else ADS_CASA
+    _pub = '' if (fname.startswith('coxia') or fname.startswith('revista-ed-') or fname.startswith('anuncie')) else ADS_CASA
     html = head(title, desc, og_img=og_img, og_type=og_type, og_url=fname, ld=ld) + '\n' + DEFS + '\n' + UTIL + '\n' + nav(current) + '\n' + body + '\n' + _pub + FOOTER + '</body>\n</html>\n'
     with open(os.path.join(ROOT, fname), 'w') as f:
         f.write(html)
