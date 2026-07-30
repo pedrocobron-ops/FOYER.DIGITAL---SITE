@@ -659,11 +659,19 @@ Regras das seções novas:
     quem clicou, com o aviso de quantos dias faltam para o fim da
     temporada. É o argumento de renovação: o anunciante vê quantas
     pessoas o FOYER levou até a bilheteria dele.
-  - **Do pedido ao ar**: pedido com status `fechado` nos formatos do site
-    ganha o botão **Pôr no ar** na Coxia, que preenche
-    `import/anuncios/site.json` com o link, o protocolo e a data de fim
-    calculada pela duração contratada (1 edição = 7 dias). A arte da
-    cortina e do entreato ainda é subida à mão em `assets/uploads/`.
+  - **Do pedido ao ar, num toque (30/07/2026)**: pedido `fechado` ganha o
+    botão **Pôr no ar** na Coxia e o resto é automático, sem digitar nada.
+    Nos formatos do site: a arte sai do próprio pedido e vira arquivo em
+    `assets/uploads/pub-<formato>-<protocolo>.jpg`, e
+    `import/anuncios/site.json` recebe imagem, link, protocolo e a data
+    de fim calculada pela duração (1 edição = 7 dias, 4 = 28). Nos
+    formatos da revista: a arte entra na edição mais nova em rascunho,
+    página inteira como página de `patrocinio` antes do expediente, meia
+    página no pé da última matéria ainda sem anúncio, com registro no
+    histórico da edição. O pedido passa ao estágio **no ar**
+    (novo → em conversa → fechado → no ar) e o painel conta quantos
+    estão rendendo. Pedido sem arte avisa para pedir a arte no WhatsApp;
+    nada sobe pela metade.
   - **O pedido**: o passo a passo grava na tabela `foyer_anuncios`
     (Supabase; o site só insere, a leitura exige a chave da casa) e
     aparece na aba **Publicidade** da Coxia com botão de WhatsApp

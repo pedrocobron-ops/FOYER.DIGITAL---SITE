@@ -1262,6 +1262,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             text-transform:uppercase; padding:4px 9px; border:2px solid currentColor; }
           .pub-pill.novo{ color:#8a6d1f; } .pub-pill.em-conversa{ color:#1f4d8a; }
           .pub-pill.fechado{ color:#2c5a2e; } .pub-pill.descartado{ color:#8a1f14; }
+          .pub-pill.no-ar{ color:#4E0F09; background:rgba(206,178,106,.35); }
           .pub-linha{ display:flex; gap:10px; padding:3px 0; font-size:.84rem; }
           .pub-linha em{ font-style:normal; font-family:var(--mono, monospace); font-size:.54rem; letter-spacing:.12em;
             text-transform:uppercase; opacity:.65; min-width:96px; padding-top:3px; }
@@ -4227,9 +4228,9 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             : '') +
           '<div class="pub-acoes">' +
           '<a class="pub-whats" target="_blank" rel="noopener" href="https://wa.me/' + zap + '?text=' + oi + '">💬 Chamar no WhatsApp</a>' +
-          (p.status === 'fechado' && ['faixa','cortina','entreato'].indexOf(p.formato) >= 0
-            ? '<button class="pub-st" type="button" data-pub-noar="' + esc(p.id) + '">📡 Pôr no ar</button>' : '') +
-          ['em-conversa', 'fechado', 'descartado'].map(function(s2){
+          (p.status === 'fechado'
+            ? '<button class="pub-st ap" type="button" data-pub-noar="' + esc(p.id) + '">📡 Pôr no ar</button>' : '') +
+          ['em-conversa', 'fechado', 'no-ar', 'descartado'].map(function(s2){
             return p.status === s2 ? '' : '<button class="pub-st" type="button" data-pub-st="' + s2 + '" data-pub-id="' + esc(p.id) + '">' + s2.replace('-', ' ') + '</button>';
           }).join('') +
           '</div></div>';
@@ -4256,7 +4257,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       return d.getMonth() === agora.getMonth() && d.getFullYear() === agora.getFullYear();
     });
     function soma(ps){ return ps.reduce(function(t, p){ return t + (Number(p.valor_total) || 0); }, 0); }
-    var fechados = doMes.filter(function(p){ return p.status === 'fechado'; });
+    var fechados = doMes.filter(function(p){ return p.status === 'fechado' || p.status === 'no-ar'; });
+    var noAr = (lista || []).filter(function(p){ return p.status === 'no-ar'; });
     var conversa = doMes.filter(function(p){ return p.status === 'em-conversa' || p.status === 'novo'; });
     var novos = (lista || []).filter(function(p){ return p.status === 'novo'; });
     function reais(v){ return 'R$ ' + Number(v || 0).toLocaleString('pt-BR'); }
@@ -4267,6 +4269,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         '<small>' + conversa.length + ' pedido(s) em aberto</small></div>' +
       '<div class="pub-n"><b>' + novos.length + '</b><span>esperando resposta</span>' +
         '<small>' + (novos.length ? 'chame no WhatsApp' : 'nenhum na fila') + '</small></div>' +
+      '<div class="pub-n"><b>' + noAr.length + '</b><span>no ar agora</span>' +
+        '<small>' + (noAr.length ? 'rendendo cliques' : 'nenhum publicado') + '</small></div>' +
       '<div class="pub-n"><b>' + doMes.length + '</b><span>pedidos no mês</span>' +
         '<small>' + agora.toLocaleDateString('pt-BR', { month:'long' }) + '</small></div>';
   }
@@ -4326,43 +4330,133 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     });
   }
 
-  // ---- do pedido fechado direto para o ar, sem redigitar nada ----
-  function pubNoAr(p){
-    var slot = { 'cortina':'cortina', 'entreato':'entreato', 'faixa':'faixa' }[p.formato];
-    if(!slot){
-      avisar('Este formato é da revista: a arte entra na edição, pela aba 📖 Revista.');
-      return;
-    }
-    var ate = '';
-    var sem = { '1 edição':7, '2 edições':14, '3 edições':21, '4 edições':28 }[p.duracao] || 7;
-    var d = new Date(); d.setDate(d.getDate() + sem);
-    ate = d.toISOString().slice(0, 10);
-    confirmar('Pôr “' + (p.empresa || p.nome) + '” no ar em ' + (PUB_NOMES_F[p.formato] || p.formato) +
-              ', até ' + ate + '?\n\nA arte e o link vêm do pedido. Entra no próximo deploy.',
-              { rotuloOk:'Pôr no ar' }).then(function(ok){
-      if(!ok) return;
-      ghGet(PUB_ARQ).then(function(f){
+  // ---- do pedido fechado direto para o ar: arte, link, prazo e registro, sozinho ----
+  var PUB_SEMANAS = { '1 edição':7, '2 edições':14, '3 edições':21, '4 edições':28 };
+  function pubDias(duracao){ return PUB_SEMANAS[duracao] || 7; }
+  function pubAteDe(p){
+    var d = new Date(); d.setDate(d.getDate() + pubDias(p.duracao));
+    return d.toISOString().slice(0, 10);
+  }
+  // a arte viaja no pedido como data:image; aqui ela vira arquivo no site
+  function pubSobeArte(p, caminho){
+    var arte = p.arte || '';
+    var m = /^data:image\/[a-z+]+;base64,(.+)$/i.exec(arte);
+    if(!m) return Promise.resolve(null);           // sem arte (faixa é texto)
+    return ghPutRaw(caminho, m[1], assina('sobe a arte do anúncio ' + (p.protocolo || '')))
+      .then(function(){ return caminho; });
+  }
+  function pubMarcaNoAr(p){
+    return pubRPC('foyer_anuncio_status', { chave:'foyer-cx-metricas-terceiro-sinal-9427',
+                                            p_id:p.id, p_status:'no-ar' }).catch(function(){});
+  }
+  // ---- formatos do site: faixa, cortina, entreato ----
+  function pubNoArSite(p){
+    var slot = p.formato;
+    var ate = pubAteDe(p);
+    var caminho = 'assets/uploads/pub-' + slot + '-' + String(p.protocolo || 'novo').toLowerCase() + '.jpg';
+    return pubSobeArte(p, caminho).then(function(cam){
+      return ghGet(PUB_ARQ).then(function(f){
         var doc = (f && f.content) ? JSON.parse(unb64(f.content)) : { faixa:{}, cortina:{}, entreato:{} };
-        var novo = { link: p.link || '', ate: ate, pedido: p.protocolo || '' };
+        var novo = { link:p.link || '', ate:ate, pedido:p.protocolo || '' };
         if(slot === 'faixa'){
           novo.texto = (p.mensagem || '').replace(/^Linha da faixa: “|”$/g, '').slice(0, 90) ||
-                       ((p.empresa || p.nome) + ' no FOYER');
+                       ((p.empresa || p.nome || 'Anunciante') + ' no FOYER');
+          if(cam) novo.img = cam;
         } else {
           novo.legenda = p.empresa || p.nome || '';
-          novo.img = 'assets/uploads/pub-' + slot + '-' + (p.protocolo || 'novo').toLowerCase() + '.jpg';
+          if(cam) novo.img = cam;
         }
         doc[slot] = novo;
         return ghPut(PUB_ARQ, JSON.stringify(doc, null, 1),
-                     assina('põe no ar o anúncio ' + (p.protocolo || '')), f && f.sha).then(function(){
-          if(slot === 'faixa'){
-            avisar('No ar no próximo deploy. A faixa é texto, então já está completa.');
+                     assina('põe no ar o anúncio ' + (p.protocolo || '')), f && f.sha)
+          .then(function(){ return { ate:ate, arte:!!cam }; });
+      });
+    });
+  }
+  // ---- formatos da revista: entra no rascunho da edição da semana ----
+  function pubNoArRevista(p){
+    return ghGet('import/revista/edicoes').then(function(lista){
+      var arqs = (lista || []).filter(function(f){ return /^ed-\d+\.json$/.test(f.name); })
+        .sort(function(a, b){ return Number(b.name.match(/\d+/)[0]) - Number(a.name.match(/\d+/)[0]); });
+      if(!arqs.length) throw new Error('sem edição');
+      // a edição mais nova que ainda é rascunho; senão, a mais nova de todas
+      return Promise.all(arqs.slice(0, 3).map(function(f){
+        return ghGet(f.path).then(function(x){
+          return { path:f.path, sha:x.sha, doc:JSON.parse(unb64(x.content)) };
+        }).catch(function(){ return null; });
+      })).then(function(eds){
+        eds = eds.filter(Boolean);
+        var alvo = eds.filter(function(e){ return e.doc.status === 'rascunho'; })[0] || eds[0];
+        if(!alvo) throw new Error('sem edição');
+        var caminho = 'assets/uploads/pub-rev-' + (alvo.doc.numero || 'x') + '-' +
+                      String(p.protocolo || 'novo').toLowerCase() + '.jpg';
+        return pubSobeArte(p, caminho).then(function(cam){
+          if(!cam) throw new Error('sem arte');
+          var pags = alvo.doc.paginas || [];
+          var onde = '';
+          if(p.formato === 'pagina-inteira'){
+            var pag = { tipo:'patrocinio', img:cam, legenda:(p.empresa || p.nome || ''),
+                        link:p.link || '', pedido:p.protocolo || '' };
+            // antes do expediente, para a publicidade não fechar a edição
+            var iExp = pags.findIndex(function(x){ return x.tipo === 'expediente'; });
+            if(iExp < 0) iExp = pags.length;
+            pags.splice(iExp, 0, pag);
+            onde = 'como página inteira, antes do expediente';
           } else {
-            avisar('Quase lá: falta subir a arte como ' + novo.img +
-                   '.\n\nBaixe a arte no próprio pedido (toque na miniatura) e me peça no chat para colocá-la nesse caminho.');
+            // meia página: no pé da última matéria que ainda não tem anúncio
+            var mats = pags.filter(function(x){ return x.tipo === 'materia' && !x.anuncioMeia; });
+            if(!mats.length) throw new Error('sem matéria livre');
+            var alvoM = mats[mats.length - 1];
+            alvoM.anuncioMeia = { img:cam, legenda:(p.empresa || p.nome || ''),
+                                  link:p.link || '', pedido:p.protocolo || '' };
+            onde = 'no pé da matéria “' + String(alvoM.titulo || '').slice(0, 34) + '”';
           }
-          carregarSitePub(); pubDesempenho();
+          alvo.doc.paginas = pags;
+          (alvo.doc.historico = alvo.doc.historico || []).push({
+            quando:new Date().toISOString(), quem:'Coxia [' + (USER ? USER.nome : '?') + ']',
+            acao:'entra a publicidade ' + (p.protocolo || '') + ' (' + p.formato + ')' });
+          return ghPut(alvo.path, JSON.stringify(alvo.doc, null, 1),
+                       assina('põe no ar o anúncio ' + (p.protocolo || '') + ' na revista'), alvo.sha)
+            .then(function(){ return { edicao:alvo.doc.numero, onde:onde, rascunho:alvo.doc.status === 'rascunho' }; });
         });
-      }).catch(function(e){ avisar(msgErro(e)); });
+      });
+    });
+  }
+  function pubNoAr(p){
+    if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+    var naRevista = p.canal === 'revista';
+    var quem = p.empresa || p.nome || 'o anunciante';
+    var msg = naRevista
+      ? 'Pôr “' + quem + '” na edição da semana?\n\nA arte entra na revista sozinha, ' +
+        (p.formato === 'pagina-inteira' ? 'como página inteira' : 'como meia página no fim de uma matéria') +
+        ', e o clique leva para o link do pedido.'
+      : 'Pôr “' + quem + '” no ar em ' + (PUB_NOMES_F[p.formato] || p.formato) + ', por ' +
+        pubDias(p.duracao) + ' dias (até ' + pubAteDe(p) + ')?\n\nA arte e o link vêm do pedido, sem você digitar nada.';
+    confirmar(msg, { rotuloOk:'Pôr no ar' }).then(function(ok){
+      if(!ok) return;
+      toast('Subindo a arte e ligando o anúncio…');
+      (naRevista ? pubNoArRevista(p) : pubNoArSite(p))
+        .then(function(res){
+          return pubMarcaNoAr(p).then(function(){ return res; });
+        })
+        .then(function(res){
+          if(naRevista){
+            avisar('Pronto. O anúncio entrou na edição ' + res.edicao + ' ' + res.onde + '.' +
+                   (res.rascunho ? '\n\nA edição é rascunho: ele vai ao ar quando você publicar a edição.'
+                                 : '\n\nA edição já está publicada: entra no próximo deploy.'));
+          } else {
+            avisar('No ar. ' + (res.arte ? 'A arte subiu do próprio pedido' : 'A faixa é texto, já está completa') +
+                   ' e o anúncio sai até ' + res.ate + '.\n\nEntra no próximo deploy, em poucos minutos.');
+          }
+          carregarPedidosPub(); carregarSitePub(); pubDesempenho();
+        })
+        .catch(function(e){
+          var m2 = String(e && e.message || '');
+          if(m2 === 'sem arte') avisar('Este pedido veio sem arte. Peça a arte ao anunciante pelo WhatsApp e depois ponha no ar.');
+          else if(m2 === 'sem edição') avisar('Não achei nenhuma edição da revista para receber o anúncio.');
+          else if(m2 === 'sem matéria livre') avisar('Todas as matérias desta edição já têm meia página. Use uma página inteira ou espere a próxima edição.');
+          else avisar(msgErro(e));
+        });
     });
   }
   document.addEventListener('click', function(e){
