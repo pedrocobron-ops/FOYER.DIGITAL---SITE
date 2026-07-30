@@ -695,7 +695,7 @@ Regras das seções novas:
     CNPJ + inscrição municipal opcional; ambos com endereço completo
     validado por CEP). CPF/CNPJ passam por validação de dígito no
     navegador. O WhatsApp fecha só pagamento e confirmação.
-  - **Regras de Publicidade, versão 2** (`regras-publicidade.html`, em
+  - **Regras de Publicidade, versão 3** (`regras-publicidade.html`, em
     vigor desde 30/07/2026): 22 regras, do princípio editorial ao foro.
     Além do que não entra, a versão 2 fixa o lado comercial que protege a
     casa: pedido é proposta e só vira reserva com pagamento identificado;
@@ -703,15 +703,27 @@ Regras das seções novas:
     dela não gera devolução nem extensão; a casa garante VEICULAÇÃO, não
     resultado (cliques, vendas, alcance), e os números são estimativas de
     boa-fé; queda de mais de 24h de responsabilidade da casa se compensa
-    com EXTENSÃO da temporada, única compensação prevista; **nenhuma
-    devolução em dinheiro** (desistência antes da estreia vira crédito de
-    90 dias, depois da estreia não gera nada); uma troca de arte por
-    temporada, sem estender prazo; sem exclusividade de categoria salvo
+    com EXTENSÃO da temporada, única compensação prevista; **o valor pago
+    NÃO É ESTORNÁVEL em nenhuma hipótese e NÃO EXISTE SISTEMA DE CRÉDITOS**
+    (correção do Pedro, 30/07/2026): quem desiste, ou manda tirar do ar
+    um anúncio já pago e já veiculando, perde o valor, porque o período
+    foi reservado no calendário; **o período combinado não muda depois
+    que as veiculações começam** (não adia, não pausa, não transfere, não
+    divide); retirada por decisão editorial da casa, sem falta do
+    anunciante, se repõe em VEICULAÇÃO equivalente, nunca em dinheiro;
+    uma troca de arte por período, sem estender prazo; sem exclusividade de categoria salvo
     acordo escrito; o anunciante responde por direitos e veracidade e
     mantém a casa a salvo; combinação só vale por escrito. O aceite grava
     a **versão** no pedido (`aceite_versao`), e a versão que vale é a do
     dia do aceite. **Ao mudar as regras, subir o número da versão** em
     `REGRAS_VERSAO` (no funil), no rodapé da página e aqui.
+  - **NÃO DIZER "ESTREIA" NA PUBLICIDADE (correção do Pedro, 30/07/2026)**:
+    o anunciante pode entrar em qualquer momento da temporada em cartaz,
+    e quando anunciar é decisão da produção. No funil e nas regras usa-se
+    "quando você quer começar", "primeiro dia" e "início das veiculações".
+    A palavra estreia fica para o editorial, que fala de espetáculos.
+  - **Nada de promessa que a regra desminta**: a linha de garantias do
+    funil não pode oferecer cancelamento nem devolução.
   - **Regras de conteúdo** (dentro da mesma página): o banco de
     regras da casa — o que não entra (ilegal, tabaco, armas, apostas
     e ganho fácil, conteúdo sexual explícito, risco a menores, saúde

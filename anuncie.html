@@ -282,6 +282,8 @@
     .az-aceite{ display:flex; gap:10px; align-items:flex-start; border:2px solid var(--wine);
       padding:12px 14px; margin:14px 0 0; font-size:.85rem; line-height:1.5; }
     .az-aceite input{ width:18px; height:18px; margin-top:2px; accent-color:#4E0F09; }
+    .az-leia{ margin:8px 0 0; font-size:.82rem; }
+    .az-leia a{ color:var(--wine); }
     .az-orca{ border:2px solid var(--wine); background:rgba(206,178,106,.1); padding:12px 16px; margin-top:6px; }
     .az-orca em{ display:block; font-style:normal; font-family:var(--mono); font-size:.56rem; font-weight:700;
       letter-spacing:.2em; text-transform:uppercase; color:var(--wine); margin-bottom:6px; }
@@ -576,8 +578,9 @@
 
       <div class="az-passo" data-p="3">
         <h4>3. A temporada — e o orçamento na hora, sem surpresa</h4>
-        <div class="az-campo"><label>Quando você quer estrear?</label>
-          <input type="text" id="az-inicio" placeholder="ex.: semana que vem · edição de 6 de agosto · o quanto antes"></div>
+        <div class="az-campo"><label>Quando você quer começar?</label>
+          <input type="text" id="az-inicio" placeholder="ex.: semana que vem · edição de 6 de agosto · o quanto antes">
+          <small>o anúncio pode entrar a qualquer momento da sua temporada em cartaz, não só na estreia.</small></div>
         <div class="az-campo"><label>Por quanto tempo?</label>
           <div class="az-ops" id="az-duracao"></div>
           <small id="az-dur-nota">no site a temporada se vende por semana: 7 dias cheios, da meia-noite do dia combinado até o fim do último dia. A semana seguinte é sempre mais barata: 2ª com −10%, 3ª com −20%, 4ª com −30%.</small></div>
@@ -629,12 +632,8 @@
         <h4>5. Última olhada no espelho — e o palco é seu</h4>
         <div class="az-rev" id="az-rev"></div>
         <label class="az-aceite"><input type="checkbox" id="az-aceite">
-          <span>Li e aceito as <a href="regras-publicidade.html" target="_blank" rel="noopener"><b>Regras de Publicidade do FOYER</b></a>
-          (versão 2), que valem para esta contratação. Declaro que tenho os direitos sobre a arte enviada e que a oferta
-          anunciada é verdadeira, e estou ciente de que <b>a temporada é contada em dias cheios</b>, de que <b>o FOYER não
-          garante resultado de vendas ou cliques</b> e de que <b>não há devolução de valores em dinheiro</b>: desistência
-          antes da estreia vira crédito, e interrupção de responsabilidade da casa se compensa com extensão da
-          temporada. *</span></label>
+          <span>Li e aceito as <b>Regras de Publicidade do FOYER</b>. *</span></label>
+        <p class="az-leia"><a href="regras-publicidade.html" target="_blank" rel="noopener">Se quiser ler as regras, clique aqui</a></p>
         <p style="font-size:.84rem;color:var(--ink-soft);margin:12px 0 0">Ao enviar, o pedido (com a sua arte, o orçamento e os dados da nota) cai direto na mesa da direção do FOYER.
         Na conversa de WhatsApp confirmamos os dados, conferimos a arte e combinamos só a forma de pagamento. Nada vai ao ar sem o seu ok final.</p>
       </div>
@@ -644,7 +643,7 @@
       <button class="az-volta" type="button" id="az-volta" style="visibility:hidden">← Voltar</button>
       <button class="az-vai" type="button" id="az-vai">Avançar →</button>
     </div>
-    <p class="az-garante">Publicidade sempre rotulada · você aprova a versão final antes de ir ao ar · cancelamento simples antes da publicação</p>
+    <p class="az-garante">Publicidade sempre rotulada · você aprova a versão final antes de ir ao ar · o período combinado não muda depois que as veiculações começam</p>
     <div class="az-fim" id="az-fim">
       <div class="az-aplauso" aria-hidden="true"><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i></div>
       <em class="az-fim-rot">O pano sobe</em>
@@ -721,7 +720,7 @@
     var rev = (f && f.canal) === 'revista';
     return rev ? (pl ? 'edições' : 'edição') : (pl ? 'semanas' : 'semana');
   }
-  var REGRAS_VERSAO = '2';   // a versão das Regras de Publicidade que este funil apresenta
+  var REGRAS_VERSAO = '3';   // a versão das Regras de Publicidade que este funil apresenta
   var VALORES = { cortina:200, entreato:150, faixa:90, 'pagina-inteira':240, 'meia-pagina':130 };
   var DESCONTO = [0, 0, .10, .20, .30];   // da 1ª à 4ª edição
   function orcamento(){
@@ -884,7 +883,7 @@
     if(st.arte) pecas.push('arte enviada ✓');
     if(st.formato === 'faixa' && v('az-faixa-tx')) pecas.push('“' + v('az-faixa-tx').slice(0, 40) + '”');
     if(v('az-link')) pecas.push('clique → ' + v('az-link').replace(/^https?:\/\//, '').split('/')[0]);
-    if(v('az-inicio')) pecas.push('estreia: ' + v('az-inicio'));
+    if(v('az-inicio')) pecas.push('começa: ' + v('az-inicio'));
     if(st.duracao){
       var oS = orcamento();
       pecas.push(st.duracao + (oS ? ' · <b>' + moeda(oS.total) + '</b>' : ''));
@@ -921,7 +920,7 @@
       ['A arte', st.arte ? '<img src="' + st.arte + '" alt="a sua arte">' :
         (st.formato === 'faixa' ? '“' + (v('az-faixa-tx') || 'a combinar') + '”' : 'a combinar na conversa')],
       ['O clique leva para', v('az-link') || 'a combinar'],
-      ['Estreia', v('az-inicio') || 'a combinar'],
+      ['Começa', v('az-inicio') || 'a combinar'],
       ['Duração', st.duracao || 'a combinar'],
       ['Orçamento', (function(){ var o = orcamento();
         return o ? moeda(o.total) + ' (' + o.partes.join(' · ') + ')' : 'combinado na conversa'; })()],
