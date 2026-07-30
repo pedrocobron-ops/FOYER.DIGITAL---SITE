@@ -140,9 +140,18 @@
 </nav>
 
 <main id="conteudo" class="wrap">
+  <style>
+    .au-topo{ display:flex; gap:22px; align-items:flex-start; }
+    .au-foto{ flex:0 0 152px; width:152px; height:152px; border:3px solid var(--ink);
+      background:var(--paper-2); overflow:hidden; }
+    .au-foto img{ width:100%; height:100%; object-fit:cover; object-position:center 25%; display:block; }
+    @media (max-width:620px){ .au-topo{ flex-direction:column; gap:14px; }
+      .au-foto{ flex:0 0 116px; width:116px; height:116px; } }
+  </style>
   <div class="art" style="max-width:900px; margin:0 auto">
     <div class="art-head" style="padding-top:30px">
       <div class="tags"><span class="tag wine">Quem assina no FOYER</span><span class="tag">Assinatura coletiva</span></div>
+      <div class="au-topo"><div style="min-width:0">
       <h1>Redação Foyer</h1>
       <div class="art-byline">
         <span><b>24</b> matéria(s) publicada(s)</span>
@@ -150,6 +159,7 @@
       </div>
       <p class="dek" style="margin-top:14px">Assinatura coletiva da redação do FOYER. Reúne o trabalho de apuração da casa em bastidores, explicadores sobre como o teatro funciona por dentro, memória das artes brasileiras e a cobertura internacional. Todo texto passa por checagem independente antes de ir ao ar.</p>
       <p class="meta-l" style="display:block;margin-top:10px"><b>Cobre:</b> Bastidores, explicadores, memória, curiosidades, listas e guias, patrimônio e notícia internacional</p>
+      </div></div>
       <div class="share-row" aria-label="Compartilhar esta página">
         <button class="sbtn" data-share="copy" data-title="Redação Foyer no FOYER">Copiar link</button>
       </div>

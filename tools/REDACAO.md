@@ -292,6 +292,18 @@ guias; as demais matérias seguem com assinatura individual e trava
 exclusiva do dono. Nas páginas de autor do site, o guia aparece na
 página dos dois.
 
+**O PERFIL DE QUEM ASSINA (ordem do Pedro, 30/07/2026):** a página de
+autor do site é montada a partir da aba **Equipe** da Coxia. Cada pessoa
+tem **foto, cargo, o que cobre e bio**, gravados em `import/equipe.json`
+(campos `foto`, `cargo`, `cobre`, `bio`) e desenhados em
+`autor-<nome>.html`. Quem entra na equipe **ganha página própria
+automaticamente** e o nome dela passa a linkar no pé das matérias, sem
+ninguém mexer no código. A foto entra numa moldura quadrada e é cortada
+no centro — **nunca espremida**. Campo vazio simplesmente não aparece na
+página: sem bio, sem parágrafo; sem foto, o título ocupa a linha toda.
+A bio é escrita na voz da casa, em dois ou três períodos, e diz o que o
+leitor encontra naquela assinatura.
+
 Nos demais dias, quando sobrar fôlego de pauta, a segunda vaga de cada
 assinatura pode repetir qualquer formato do cardápio, desde que fique
 dentro da editoria daquela assinatura.
@@ -657,6 +669,17 @@ Regras das seções novas:
     conteúdo depois de fechada. Se a Coxia não conseguir ler a lista de
     edições, ela **se recusa a reservar** em vez de chutar um número —
     chute viraria anúncio em edição fechada.
+  - **O TAMANHO DE CADA ARTE (medido na própria página, 30/07/2026)**:
+    no site, **Cortina** 1080×1350 (em pé ou quadrada), **Entreato**
+    1200×675 (deitada) e **Faixa** 1200×120 (tarja bem deitada). Na
+    revista, **página inteira** ocupa 714×896 na página, então a arte
+    vai em pé na proporção 4:5 — o ideal é mandar **1440×1800**; e
+    **meia página** ocupa 634×380 no pé da matéria, arte deitada na
+    proporção 5:3 — o ideal é mandar **1280×760**. A arte entra
+    **inteira**: nada é cortado nem esticado, e o que sobra vira margem
+    de papel. Esses números aparecem iguais nos dois lugares — na página
+    do anunciante e na Coxia — e é assim que devem ser passados por
+    WhatsApp.
   - **Na revista**: **página inteira** (o formato do cartaz; posições
     nomeadas: a ímpar dos Recortes, a face da agenda, a porta da
     contracapa) e **meia página** (o formato da arte de Sympla; campo

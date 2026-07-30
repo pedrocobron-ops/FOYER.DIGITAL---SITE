@@ -612,6 +612,23 @@
     color:var(--ink-soft); line-height:1.9; border-top:1px solid var(--line); padding-top:10px; }
   .eq-card .acts{ display:flex; gap:8px; }
   .eq-chefe{ outline:2px solid var(--gold); outline-offset:-6px; }
+  .eq-card .ava{ overflow:hidden; padding:0; }
+  .eq-card .ava img{ width:100%; height:100%; object-fit:cover; object-position:center 25%; display:block; }
+  .eq-card .perfil{ font-family:var(--mono); font-size:.54rem; letter-spacing:.1em; text-transform:uppercase; }
+  .eq-card .perfil.falta{ color:var(--wine); }
+  .eq-sep{ border-top:2px solid var(--ink); padding-top:12px; margin-top:6px; }
+  .eq-sep b{ font-family:var(--didone); font-weight:400; font-size:1.05rem; display:block; }
+  .eq-sep span{ font-family:var(--mono); font-size:.54rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--ink-soft); display:block; margin-top:4px; }
+  .eq-foto{ display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+  .eq-mini{ width:96px; height:96px; border:2px dashed var(--ink-soft); display:flex; align-items:center;
+    justify-content:center; overflow:hidden; flex:0 0 96px; }
+  .eq-mini span{ font-family:var(--mono); font-size:.5rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--ink-soft); }
+  .eq-mini img{ width:100%; height:100%; object-fit:cover; object-position:center 25%; display:block; }
+  .eq-foto-bts{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .eq-foto-bts small{ font-family:var(--mono); font-size:.52rem; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--ink-soft); flex-basis:100%; }
   .senha-out{ border:2px solid var(--gold); background:var(--paper-2); padding:14px 16px;
     font-family:var(--mono); font-size:.85rem; letter-spacing:.16em; display:none; align-items:center;
     gap:14px; justify-content:space-between; }
@@ -1109,6 +1126,33 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                 <option value="chefe">Chefe (acesso total)</option>
               </select>
             </div>
+          </div>
+          <div class="eq-sep"><b>O perfil no site</b>
+            <span>foto e texto aparecem na página de quem assina, quando o leitor clica no nome da matéria</span></div>
+          <div class="eq-foto">
+            <div class="eq-mini" id="e-foto-mini"><span>sem foto</span></div>
+            <div class="eq-foto-bts">
+              <label class="bt" for="e-file">📷 Subir a foto</label>
+              <input type="file" id="e-file" accept="image/*" style="display:none">
+              <button class="bt" type="button" id="e-foto-tira">Tirar a foto</button>
+              <small id="e-foto-st">retrato de frente · o corte é quadrado, a imagem nunca é espremida</small>
+            </div>
+            <input type="hidden" id="e-foto" value="">
+          </div>
+          <div class="r2">
+            <div>
+              <label for="e-cargo">Cargo (como sai no site)</label>
+              <input type="text" id="e-cargo" placeholder="Editor-chefe, Repórter, Crítica…">
+            </div>
+            <div>
+              <label for="e-cobre">O que cobre</label>
+              <input type="text" id="e-cobre" placeholder="Estreias e temporadas de teatro em São Paulo">
+            </div>
+          </div>
+          <div>
+            <label for="e-bio">Bio <small style="text-transform:none;letter-spacing:0">— dois ou três períodos, na voz da casa</small></label>
+            <textarea id="e-bio" rows="4" placeholder="Quem é, o que faz no FOYER e o que o leitor encontra nas matérias desta assinatura."></textarea>
+            <span class="msg" id="e-bio-conta"></span>
           </div>
           <div>
             <label for="e-senha">Senha de entrada</label>
@@ -1699,7 +1743,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // o mesmo pedido não vai duas vezes ao GitHub em menos de um minuto:
   // a Coxia lê as mesmas pastas em várias abas, e o limite por hora é curto
   // a Coxia muda toda semana: este carimbo diz qual versão está aberta
-  var COXIA_VERSAO = '20260730-224136';
+  var COXIA_VERSAO = '20260730-230145';
   var GH_CACHE = {};
   function ghCacheGet(chave){
     var c = GH_CACHE[chave];
@@ -4023,10 +4067,17 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         var per = u.papel === 'chefe' ? 'Acesso total — inclusive Equipe'
           : u.papel === 'editor' ? 'Publica e edita o acervo<br>Sem Equipe e Revista'
           : 'Escreve e envia para aprovação do chefe';
+        var temBio = !!(u.bio || '').trim(), temFoto = !!(u.foto || '').trim();
+        var perfil = temBio && temFoto ? 'Perfil completo no site'
+          : (!temBio && !temFoto ? 'Sem foto e sem bio no site'
+             : (temBio ? 'Falta a foto no site' : 'Falta a bio no site'));
         return '<div class="eq-card' + (u.papel === 'chefe' ? ' eq-chefe' : '') + '">' +
-          '<div class="cab"><span class="ava">' + esc(ini) + '</span>' +
-          '<span><b>' + esc(u.nome) + '</b><span class="pap">' + (PAPEL_ROTULO[u.papel] || 'Autor(a)') + '</span></span></div>' +
+          '<div class="cab"><span class="ava">' +
+            (temFoto ? '<img src="' + esc(u.foto) + '" alt="' + esc(u.nome) + '">' : esc(ini)) + '</span>' +
+          '<span><b>' + esc(u.nome) + '</b><span class="pap">' +
+            esc((u.cargo || '').trim() || PAPEL_ROTULO[u.papel] || 'Autor(a)') + '</span></span></div>' +
           '<div class="per">' + per + '</div>' +
+          '<div class="perfil' + (temBio && temFoto ? '' : ' falta') + '">' + perfil + '</div>' +
           '<div class="acts">' +
             '<button class="bt" type="button" data-edt="' + esc(u.id) + '">Editar</button>' +
             (USER && u.id !== USER.id ? '<button class="bt danger" type="button" data-exc="' + esc(u.id) + '">Excluir</button>' : '') +
@@ -4034,6 +4085,41 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       }).join('');
     });
   }
+
+  // ---- o perfil de quem assina: foto e bio, que o site mostra na página do autor ----
+  function eqPintaFoto(cam){
+    $('e-foto').value = cam || '';
+    $('e-foto-mini').innerHTML = cam ? '<img src="' + esc(cam) + '" alt="foto">' : '<span>sem foto</span>';
+  }
+  function eqContaBio(){
+    var n = $('e-bio').value.trim().length;
+    var c = $('e-bio-conta');
+    c.className = 'msg' + (n > 480 ? ' err' : '');
+    c.textContent = !n ? '' : (n + ' caracteres' + (n > 480 ? ' — está longa; a página do autor pede duas ou três frases' : ''));
+  }
+  $('e-bio').addEventListener('input', eqContaBio);
+  $('e-foto-tira').addEventListener('click', function(){ eqPintaFoto(''); $('e-foto-st').textContent = 'foto tirada — salve para valer no site'; });
+  $('e-file').addEventListener('change', function(){
+    var arq = this.files && this.files[0];
+    if(!arq) return;
+    if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); this.value = ''; return; }
+    var nome = $('e-nome').value.trim();
+    if(!nome){ avisar('Diga o nome da pessoa antes de subir a foto.'); this.value = ''; return; }
+    var id = $('e-id').value || slugify(nome);
+    var st = $('e-foto-st');
+    st.textContent = 'preparando a foto…';
+    // quadrado grande: o site corta no centro, sem nunca espremer a imagem
+    reduzLivre(arq, 900, 900).then(function(dataURL){
+      st.textContent = 'subindo…';
+      var caminho = 'assets/uploads/equipe-' + id + '-' + Date.now().toString(36) + '.jpg';
+      return ghPutRaw(caminho, dataURL.split(',')[1], assina('sobe a foto de ' + nome))
+        .then(function(){
+          eqPintaFoto(caminho);
+          $('e-foto-mini').innerHTML = '<img src="' + dataURL + '" alt="foto nova">';
+          st.textContent = '✓ foto pronta — falta salvar na equipe';
+        });
+    }).catch(function(e){ st.textContent = ''; avisar(msgErro(e)); });
+  });
 
   function gerarSenha(){
     var pal = ['cortina','plateia','ribalta','ensaio','coxia','rotunda','proscenio','camarim','gambiarra','urdimento'];
@@ -4052,6 +4138,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       $('e-id').value = u.id; $('e-nome').value = u.nome;
       $('e-papel').value = u.papel;
       $('e-senha').value = '';
+      $('e-cargo').value = u.cargo || ''; $('e-cobre').value = u.cobre || '';
+      $('e-bio').value = u.bio || '';
+      eqPintaFoto(u.foto || '');
+      eqContaBio();
       $('eq-form-t').textContent = 'Editar — ' + u.nome;
       $('eq-form').scrollIntoView({ behavior:'smooth', block:'center' });
       return;
@@ -4096,6 +4186,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       var novo = {
         id: id, nome: nome, papel: $('e-papel').value,
         salt: cred.salt, hash: cred.hash,
+        // o perfil público: o site lê daqui para montar a página de quem assina
+        cargo: $('e-cargo').value.trim(),
+        cobre: $('e-cobre').value.trim(),
+        bio: $('e-bio').value.trim(),
+        foto: $('e-foto').value.trim(),
         permissoes: atual ? (atual.permissoes || {}) : {},
         criadoEm: atual ? (atual.criadoEm || '') : new Date().toISOString()
       };
@@ -4107,12 +4202,14 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       }
       return salvarEquipe(prox, (atual ? 'edita ' : 'cadastra ') + nome + ' na equipe').then(function(){
         msg.className = 'msg ok';
-        msg.textContent = (atual ? 'Atualizado' : 'Cadastrado') + ' ✓ — a senha passa a valer no site em ~2 min';
+        msg.textContent = (atual ? 'Atualizado' : 'Cadastrado') + ' ✓ — ' +
+          (senha ? 'a senha passa a valer' : 'a página de quem assina se refaz') + ' no site em ~2 min';
         if(senha){
           $('senha-out-v').textContent = 'Senha de ' + nome.split(' ')[0] + ': ' + senha;
           $('senha-out').classList.add('on');
         }
         $('eq-form').reset(); $('e-id').value = '';
+        eqPintaFoto(''); eqContaBio(); $('e-foto-st').textContent = '';
         $('eq-form-t').textContent = 'Cadastrar na equipe';
       });
     });
@@ -4584,6 +4681,12 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     });
   }
   var PUB_REV_ARQ = 'import/anuncios/revista.json';
+  // o tamanho de cada arte, medido na própria página da revista (a arte entra
+  // inteira, sem corte e sem esticar: o que sobra vira margem de papel)
+  var PUB_MEDIDA = {
+    'pagina-inteira': 'Arte em pé, 4:5 — mande 1440 × 1800 px (o espaço na página é 714 × 896). JPG ou PNG.',
+    'meia-pagina':    'Arte deitada, 5:3 — mande 1280 × 760 px (o espaço no pé da matéria é 634 × 380). JPG ou PNG.'
+  };
   // a publicidade só entra em edição que ainda não fechou: a próxima em diante
   function pubProximaEdicao(eds){
     var rascunhos = eds.filter(function(e){ return e.doc.status === 'rascunho'; })
@@ -4776,6 +4879,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             '<button class="az-op on" type="button" data-rvf="pagina-inteira">Página inteira</button>' +
             '<button class="az-op" type="button" data-rvf="meia-pagina">Meia página</button>' +
           '</div>' +
+          '<div class="ps-estado" id="pub-rev-medida" style="padding-top:8px">' + esc(PUB_MEDIDA['pagina-inteira']) + '</div>' +
           '<div class="ps-arte" style="margin-top:10px">' +
             '<div class="ps-mini" id="ps-mini-rev"><span>sem arte</span></div>' +
             '<div class="ps-bts">' +
@@ -4827,6 +4931,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         b2.addEventListener('click', function(){
           revFmt = b2.dataset.rvf;
           document.querySelectorAll('#pub-rev-fmt .az-op').forEach(function(x){ x.classList.toggle('on', x === b2); });
+          $('pub-rev-medida').textContent = PUB_MEDIDA[revFmt] || '';
         });
       });
       function revPintaEdicoes(){

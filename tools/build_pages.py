@@ -3655,7 +3655,33 @@ AUTORES = {
                 'cobertura internacional. Todo texto passa por checagem independente antes de ir ao ar.'),
     },
 }
+def _autores_da_equipe():
+    """O perfil de quem assina vem da Coxia (aba Equipe): foto, cargo, o que
+    cobre e bio ficam em import/equipe.json e mandam na página do autor.
+    Quem entra novo na equipe ganha página própria sem ninguém mexer no código."""
+    try:
+        _eq = _json.load(open(os.path.join(ROOT, 'import/equipe.json'))).get('usuarios', [])
+    except Exception:
+        return
+    _papel_cargo = {'chefe': 'Chefe da casa', 'editor': 'Redator(a)', 'autor': 'Escritor(a)'}
+    for u in _eq:
+        nome = (u.get('nome') or '').strip()
+        if not nome:
+            continue
+        import unicodedata as _u
+        sp = _re.sub(r'[^a-z0-9]+', '-',
+                     _u.normalize('NFKD', nome).encode('ascii', 'ignore').decode().lower()).strip('-')
+        a = AUTORES.setdefault(sp, {'nome': nome, 'cargo': _papel_cargo.get(u.get('papel'), 'Escritor(a)'),
+                                    'cobre': '', 'bio': ''})
+        a['nome'] = nome
+        for campo in ('cargo', 'cobre', 'bio', 'foto'):
+            v = (u.get(campo) or '').strip()
+            if v:
+                a[campo] = v
+_autores_da_equipe()
 _AUTOR_SLUG = {a['nome']: sp for sp, a in AUTORES.items()}
+# o byline linka para a página de quem assina — inclusive de quem entrou hoje na equipe
+_AUTOR_PAGINA.update({a['nome']: 'autor-' + sp + '.html' for sp, a in AUTORES.items()})
 
 def autor_page(sp, a, mats):
     rows = ''
@@ -3672,17 +3698,33 @@ def autor_page(sp, a, mats):
     desde = anos[0] if anos else ''
     mais = (f'<div class="filters" style="padding:6px 0 0"><a href="busca.html">Ver todas as {total} no acervo →</a></div>'
             if total > 120 else '')
+    # a foto é opcional e NUNCA é distorcida: moldura quadrada, imagem cortada no centro
+    _foto = (a.get('foto') or '').strip()
+    _retrato = (f'<div class="au-foto"><img src="{_rvesc(_foto)}" alt="{safe(a["nome"])}" '
+                f'width="200" height="200" loading="lazy"></div>') if _foto else ''
+    _bio = (a.get('bio') or '').strip()
+    _cobre = (a.get('cobre') or '').strip()
     return f'''<main id="conteudo" class="wrap">
+  <style>
+    .au-topo{{ display:flex; gap:22px; align-items:flex-start; }}
+    .au-foto{{ flex:0 0 152px; width:152px; height:152px; border:3px solid var(--ink);
+      background:var(--paper-2); overflow:hidden; }}
+    .au-foto img{{ width:100%; height:100%; object-fit:cover; object-position:center 25%; display:block; }}
+    @media (max-width:620px){{ .au-topo{{ flex-direction:column; gap:14px; }}
+      .au-foto{{ flex:0 0 116px; width:116px; height:116px; }} }}
+  </style>
   <div class="art" style="max-width:900px; margin:0 auto">
     <div class="art-head" style="padding-top:30px">
       <div class="tags"><span class="tag wine">Quem assina no FOYER</span><span class="tag">{_rvesc(a['cargo'])}</span></div>
+      <div class="au-topo">{_retrato}<div style="min-width:0">
       <h1>{_rvesc(a['nome'])}</h1>
       <div class="art-byline">
         <span><b>{total}</b> matéria(s) publicada(s)</span>
         {f'<span>No FOYER desde {desde}</span>' if desde else ''}
       </div>
-      <p class="dek" style="margin-top:14px">{_rvesc(a['bio'])}</p>
-      <p class="meta-l" style="display:block;margin-top:10px"><b>Cobre:</b> {_rvesc(a['cobre'])}</p>
+      {f'<p class="dek" style="margin-top:14px">{_rvesc(_bio)}</p>' if _bio else ''}
+      {f'<p class="meta-l" style="display:block;margin-top:10px"><b>Cobre:</b> {_rvesc(_cobre)}</p>' if _cobre else ''}
+      </div></div>
       <div class="share-row" aria-label="Compartilhar esta página">
         <button class="sbtn" data-share="copy" data-title="{safe(a['nome'])} no FOYER">Copiar link</button>
       </div>
@@ -4766,13 +4808,13 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     { id:'pagina-inteira', canal:'revista', nome:'Página inteira', onde:'Na revista · uma página sua',
       resumo:'Uma página da edição é toda sua, para sempre no acervo.',
       como:'Uma página INTEIRA da revista de quinta é sua: a arte ocupa a página toda, com o rótulo Publicidade. As posições têm nome (a ímpar dos Recortes, a face da agenda, a porta da contracapa) e a edição fica na estante para sempre: o seu anúncio não some no feed. O link do anúncio sai marcado (utm) para você medir de onde veio o leitor.',
-      specs:['Arte: imagem na vertical, proporção da página (720×972; mande pelo menos 1440×1944)','Onde: uma página da edição, em posição nomeada','Permanência: a edição fica no acervo para sempre','Link: na revista lida no site, a arte clica para o seu endereço, com marcação de origem (utm)'],
-      spec:'Imagem na vertical, proporção 720×972 · mande pelo menos 1440×1944' },
+      specs:['Arte: imagem em pé, proporção 4:5 — mande 1440×1800 (o espaço na página é 714×896)','Onde: uma página da edição, em posição nomeada','Permanência: a edição fica no acervo para sempre','A arte entra inteira: nada é cortado nem esticado; o que sobra vira margem de papel','Link: na revista lida no site, a arte clica para o seu endereço, com marcação de origem (utm)'],
+      spec:'Imagem em pé, 4:5 · mande 1440×1800' },
     { id:'meia-pagina', canal:'revista', nome:'Meia página', onde:'Na revista · fim de matéria',
       resumo:'O leitor termina a matéria e encontra a sua arte.',
       como:'O pé da última página de uma matéria da edição é seu, como nas revistas impressas: o leitor termina o texto e encontra a sua arte, emoldurada e com o rótulo Publicidade. É o formato de entrada da revista, no lugar mais lido de todos: o fim de uma boa matéria.',
-      specs:['Arte: imagem na horizontal (recomendado 1400×760, JPG ou PNG)','Onde: o pé da última página de uma matéria da edição','Permanência: a edição fica no acervo para sempre','Link: na revista lida no site, a arte clica para o seu endereço'],
-      spec:'Imagem na horizontal · recomendado 1400×760' }
+      specs:['Arte: imagem deitada, proporção 5:3 — mande 1280×760 (o espaço no pé da matéria é 634×380)','Onde: o pé da última página de uma matéria da edição','Permanência: a edição fica no acervo para sempre','A arte entra inteira: nada é cortado nem esticado; o que sobra vira margem de papel','Link: na revista lida no site, a arte clica para o seu endereço'],
+      spec:'Imagem deitada, 5:3 · mande 1280×760' }
   ];
   // o site se vende por SEMANA, a revista por EDIÇÃO; cada uma vale 7 dias
   var DURACOES = {
@@ -5497,8 +5539,10 @@ print(f'• {len(MATERIAS)} páginas de matéria')
 for _asp, _aa in AUTORES.items():
     _amats = [_m for _m in MATERIAS
               if _aa['nome'] in [p.strip() for p in str(_m.get('author') or '').split(' e ')]]
-    page('autor-' + _asp + '.html', _aa['nome'] + ' — FOYER',
-         f"{_aa['nome']}, {_aa['cargo'].lower()} do FOYER. {_aa['cobre']}.",
+    _adesc = f"{_aa['nome']}, {_aa['cargo'].lower()} do FOYER."
+    if (_aa.get('cobre') or '').strip():
+        _adesc += ' ' + _aa['cobre'].strip().rstrip('.') + '.'
+    page('autor-' + _asp + '.html', _aa['nome'] + ' — FOYER', _adesc,
          'sobre.html', autor_page(_asp, _aa, _amats), quiet=True)
 print(f'• {len(AUTORES)} páginas de autor')
 

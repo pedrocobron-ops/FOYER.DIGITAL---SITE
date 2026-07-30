@@ -140,9 +140,18 @@
 </nav>
 
 <main id="conteudo" class="wrap">
+  <style>
+    .au-topo{ display:flex; gap:22px; align-items:flex-start; }
+    .au-foto{ flex:0 0 152px; width:152px; height:152px; border:3px solid var(--ink);
+      background:var(--paper-2); overflow:hidden; }
+    .au-foto img{ width:100%; height:100%; object-fit:cover; object-position:center 25%; display:block; }
+    @media (max-width:620px){ .au-topo{ flex-direction:column; gap:14px; }
+      .au-foto{ flex:0 0 116px; width:116px; height:116px; } }
+  </style>
   <div class="art" style="max-width:900px; margin:0 auto">
     <div class="art-head" style="padding-top:30px">
       <div class="tags"><span class="tag wine">Quem assina no FOYER</span><span class="tag">Editora</span></div>
+      <div class="au-topo"><div style="min-width:0">
       <h1>Isabel Branquinha</h1>
       <div class="art-byline">
         <span><b>1259</b> matéria(s) publicada(s)</span>
@@ -150,6 +159,7 @@
       </div>
       <p class="dek" style="margin-top:14px">Editora do FOYER. Acompanha as estreias e temporadas do teatro brasileiro e a agenda das artes em São Paulo, com atenção à ficha técnica, à trajetória das montagens e ao serviço completo para quem vai assistir.</p>
       <p class="meta-l" style="display:block;margin-top:10px"><b>Cobre:</b> Estreias e temporadas de teatro, a cena das artes em São Paulo</p>
+      </div></div>
       <div class="share-row" aria-label="Compartilhar esta página">
         <button class="sbtn" data-share="copy" data-title="Isabel Branquinha no FOYER">Copiar link</button>
       </div>
