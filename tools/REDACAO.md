@@ -642,6 +642,12 @@ Regras das seções novas:
     fim já nasce sete dias cheios depois do início), põe link, legenda e
     de quem é. Serve para anunciante fechado fora do site e para projeto
     da própria casa. O botão de tirar do ar limpa o espaço na hora.
+    **Na revista funciona igual**, no bloco "Na revista, na mão": escolhe
+    o formato (página inteira ou meia página), sobe a arte e **marca em
+    quais edições ela entra** (uma ou várias, como na compra pelo site);
+    a página de publicidade entra antes do expediente e a meia página no
+    pé da última matéria ainda livre, com registro no histórico da
+    edição.
   - **Na revista**: **página inteira** (o formato do cartaz; posições
     nomeadas: a ímpar dos Recortes, a face da agenda, a porta da
     contracapa) e **meia página** (o formato da arte de Sympla; campo

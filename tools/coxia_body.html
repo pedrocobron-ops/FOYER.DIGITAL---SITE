@@ -1284,6 +1284,16 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           .ps-bts{ display:flex; flex-direction:column; gap:6px; align-items:flex-start; }
           .ps-bts small{ font-size:.72rem; opacity:.75; }
           .ps-data{ width:100%; text-align:left; }
+          .ps-rot{ display:block; font-family:var(--mono, monospace); font-size:.56rem; font-weight:700;
+            letter-spacing:.12em; text-transform:uppercase; opacity:.7; margin:0 0 6px; }
+          .pub-eds{ display:flex; gap:8px; flex-wrap:wrap; }
+          .pub-ed{ display:flex; align-items:center; gap:7px; border:1.5px solid var(--line,#c9b99a);
+            padding:7px 11px; cursor:pointer; }
+          .pub-ed b{ font-size:.85rem; }
+          .pub-ed span{ font-size:.74rem; opacity:.7; }
+          .pub-ed em{ font-style:normal; font-family:var(--mono, monospace); font-size:.5rem;
+            letter-spacing:.1em; text-transform:uppercase; opacity:.6; }
+          .pub-ed:has(input:checked){ border-color:var(--wine,#4E0F09); background:rgba(206,178,106,.16); }
           .ps-estado{ display:block; font-family:var(--mono, monospace); font-size:.56rem; letter-spacing:.1em;
             text-transform:uppercase; opacity:.75; padding-top:10px; }
           .pub-r3{ display:grid; grid-template-columns:2fr 2fr 1fr; gap:10px; }
@@ -2142,28 +2152,40 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   });
 
   // lembrete de fechamento da revista (quinta/sexta, se a edição da semana ainda não saiu)
+  // a data da edição vem escrita como "30 Jul 2026"; aqui ela vira data de verdade
+  var RV_MESES = { jan:0, fev:1, mar:2, abr:3, mai:4, jun:5, jul:6, ago:7, set:8, out:9, nov:10, dez:11 };
+  function rvData(ed){
+    var t = String((ed && ed.dataEdicao) || '').trim();
+    var m = /^(\d{1,2})\s+([A-Za-zçÇ]{3})[a-zç]*\s+(\d{4})$/.exec(t);
+    if(m){
+      var mes = RV_MESES[m[2].toLowerCase().slice(0, 3)];
+      if(mes != null) return new Date(Number(m[3]), mes, Number(m[1]));
+    }
+    // sem data escrita, vale o último registro do histórico
+    var h = (ed && ed.historico) || [];
+    var ult = h.length ? new Date(h[h.length - 1].quando) : null;
+    return (ult && !isNaN(ult)) ? ult : null;
+  }
   function lembreteRevista(){
     var hoje = new Date().getDay();
+    var nov = $('palco-novidades');
+    if(nov) nov.querySelectorAll('.aviso-rev').forEach(function(x){ x.remove(); });  // nunca repetir o aviso
     if(hoje !== 4 && hoje !== 5) return;
-    ghGet('import/revista/edicoes').then(function(list){
-      var arqs = (list || []).filter(function(f){ return /^ed-\d+\.json$/.test(f.name); });
-      if(!arqs.length) return;
-      return Promise.all(arqs.map(function(f){ return fetch(f.download_url).then(function(r){ return r.json(); }).catch(function(){ return null; }); }))
-        .then(function(eds){
-          eds = (eds || []).filter(Boolean);
-          var seteDias = Date.now() - 7 * 864e5;
-          var recente = eds.some(function(ed){
-            var q = new Date(ed.publicadaEm || ed.criadaEm || 0).getTime();
-            return ed.status === 'publicada' && q > seteDias;
-          });
-          var rascunho = eds.some(function(ed){ return ed.status === 'rascunho'; });
-          if(!recente){
-            var nov = $('palco-novidades');
-            nov.insertAdjacentHTML('beforeend', '<div class="aviso-rev">📖 <b>Revista da semana:</b> ' +
-              (rascunho ? 'a edição está em rascunho esperando o seu fechamento.' : 'ainda não saiu esta semana.') +
-              ' <button class="bt" type="button" data-go="revista">Abrir a Revista</button></div>');
-          }
-        });
+    pubEdicoes().then(function(eds){
+      if(!eds.length) return;
+      var seteDias = Date.now() - 7 * 864e5;
+      var publicadaDaSemana = eds.some(function(e){
+        var d = rvData(e.doc);
+        return e.doc.status === 'publicada' && d && d.getTime() > seteDias;
+      });
+      if(publicadaDaSemana) return;                      // saiu: a casa fica quieta
+      var rascunho = eds.filter(function(e){ return e.doc.status === 'rascunho'; })[0];
+      var nov2 = $('palco-novidades');
+      if(!nov2) return;
+      nov2.insertAdjacentHTML('beforeend', '<div class="aviso-rev">📖 <b>Revista da semana:</b> ' +
+        (rascunho ? 'a edição ' + (rascunho.doc.numero || '') + ' está em rascunho esperando o seu fechamento.'
+                  : 'ainda não saiu esta semana.') +
+        ' <button class="bt" type="button" data-go="revista">Abrir a Revista</button></div>');
     }).catch(function(){});
   }
 
@@ -4489,55 +4511,60 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       });
     });
   }
-  // ---- formatos da revista: entra no rascunho da edição da semana ----
-  function pubNoArRevista(p){
+  // as edições da revista, da mais nova para a mais velha
+  function pubEdicoes(){
     return ghGet('import/revista/edicoes').then(function(lista){
       var arqs = (lista || []).filter(function(f){ return /^ed-\d+\.json$/.test(f.name); })
         .sort(function(a, b){ return Number(b.name.match(/\d+/)[0]) - Number(a.name.match(/\d+/)[0]); });
-      if(!arqs.length) throw new Error('sem edição');
-      // a edição mais nova que ainda é rascunho; senão, a mais nova de todas
-      return Promise.all(arqs.slice(0, 3).map(function(f){
+      return Promise.all(arqs.slice(0, 8).map(function(f){
         return ghGet(f.path).then(function(x){
           return { path:f.path, sha:x.sha, doc:JSON.parse(unb64(x.content)) };
         }).catch(function(){ return null; });
-      })).then(function(eds){
-        eds = eds.filter(Boolean);
-        var alvo = eds.filter(function(e){ return e.doc.status === 'rascunho'; })[0] || eds[0];
-        if(!alvo) throw new Error('sem edição');
-        var caminho = 'assets/uploads/pub-rev-' + (alvo.doc.numero || 'x') + '-' +
-                      String(p.protocolo || 'novo').toLowerCase() + '.jpg';
-        return pubSobeArte(p, caminho).then(function(cam){
-          if(!cam) throw new Error('sem arte');
-          var pags = alvo.doc.paginas || [];
-          var onde = '';
-          if(p.formato === 'pagina-inteira'){
-            var pag = { tipo:'patrocinio', img:cam, legenda:(p.empresa || p.nome || ''),
-                        link:p.link || '', pedido:p.protocolo || '' };
-            // antes do expediente, para a publicidade não fechar a edição
-            var iExp = pags.findIndex(function(x){ return x.tipo === 'expediente'; });
-            if(iExp < 0) iExp = pags.length;
-            pags.splice(iExp, 0, pag);
-            onde = 'como página inteira, antes do expediente';
-          } else {
-            // meia página: no pé da última matéria que ainda não tem anúncio
-            var mats = pags.filter(function(x){ return x.tipo === 'materia' && !x.anuncioMeia; });
-            if(!mats.length) throw new Error('sem matéria livre');
-            var alvoM = mats[mats.length - 1];
-            alvoM.anuncioMeia = { img:cam, legenda:(p.empresa || p.nome || ''),
-                                  link:p.link || '', pedido:p.protocolo || '' };
-            onde = 'no pé da matéria “' + String(alvoM.titulo || '').slice(0, 34) + '”';
-          }
-          alvo.doc.paginas = pags;
-          (alvo.doc.historico = alvo.doc.historico || []).push({
-            quando:new Date().toISOString(), quem:'Coxia [' + (USER ? USER.nome : '?') + ']',
-            acao:'entra a publicidade ' + (p.protocolo || '') + ' (' + p.formato + ')' });
-          return ghPut(alvo.path, JSON.stringify(alvo.doc, null, 1),
-                       assina('põe no ar o anúncio ' + (p.protocolo || '') + ' na revista'), alvo.sha)
-            .then(function(){ return { edicao:alvo.doc.numero, onde:onde, rascunho:alvo.doc.status === 'rascunho' }; });
-        });
+      })).then(function(eds){ return eds.filter(Boolean); });
+    }).catch(function(){ return []; });
+  }
+  // põe uma arte numa edição: página inteira vira página de publicidade,
+  // meia página se encaixa no pé da última matéria ainda livre
+  function pubEntraNaEdicao(ed, formato, dados){
+    var pags = ed.doc.paginas || [];
+    var onde = '';
+    if(formato === 'pagina-inteira'){
+      var iExp = pags.findIndex(function(x){ return x.tipo === 'expediente'; });
+      if(iExp < 0) iExp = pags.length;
+      pags.splice(iExp, 0, { tipo:'patrocinio', img:dados.img, legenda:dados.legenda || '',
+                             link:dados.link || '', pedido:dados.pedido || '' });
+      onde = 'como página inteira, antes do expediente';
+    } else {
+      var livres = pags.filter(function(x){ return x.tipo === 'materia' && !x.anuncioMeia; });
+      if(!livres.length) throw new Error('sem matéria livre');
+      var alvoM = livres[livres.length - 1];
+      alvoM.anuncioMeia = { img:dados.img, legenda:dados.legenda || '', link:dados.link || '', pedido:dados.pedido || '' };
+      onde = 'no pé da matéria “' + String(alvoM.titulo || '').slice(0, 34) + '”';
+    }
+    ed.doc.paginas = pags;
+    (ed.doc.historico = ed.doc.historico || []).push({
+      quando:new Date().toISOString(), quem:'Coxia [' + (USER ? USER.nome : '?') + ']',
+      acao:'entra a publicidade ' + (dados.pedido || '') + ' (' + formato + ')' });
+    return ghPut(ed.path, JSON.stringify(ed.doc, null, 1),
+                 assina('põe publicidade na edição ' + (ed.doc.numero || '')), ed.sha)
+      .then(function(){ return { edicao: ed.doc.numero, onde: onde, rascunho: ed.doc.status === 'rascunho' }; });
+  }
+
+  // ---- formatos da revista: entra no rascunho da edição da semana ----
+  function pubNoArRevista(p){
+    return pubEdicoes().then(function(eds){
+      if(!eds.length) throw new Error('sem edição');
+      var alvo = eds.filter(function(e){ return e.doc.status === 'rascunho'; })[0] || eds[0];
+      var caminho = 'assets/uploads/pub-rev-' + (alvo.doc.numero || 'x') + '-' +
+                    String(p.protocolo || 'novo').toLowerCase() + '.jpg';
+      return pubSobeArte(p, caminho).then(function(cam){
+        if(!cam) throw new Error('sem arte');
+        return pubEntraNaEdicao(alvo, p.formato, {
+          img: cam, legenda: p.empresa || p.nome || '', link: p.link || '', pedido: p.protocolo || '' });
       });
     });
   }
+
   function pubNoAr(p){
     if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
     var naRevista = p.canal === 'revista';
@@ -4658,7 +4685,33 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             '</div>' +
           '</div>';
         }).join('') +
-        '<div style="margin-top:14px"><button class="f-pub" type="button" id="pub-salvar" style="padding:11px 16px">Salvar e pôr no ar</button></div>';
+        '<div style="margin-top:14px"><button class="f-pub" type="button" id="pub-salvar" style="padding:11px 16px">Salvar e pôr no ar</button></div>' +
+        '<div class="sec-h" style="margin-top:26px"><h3>Na revista, na mão</h3>' +
+          '<span>a mesma coisa para a edição: escolha o formato, suba a arte e diga em quais edições ela entra</span></div>' +
+        '<div class="pub-slot" id="pub-rev-bloco" data-slot="revista">' +
+          '<div class="ps-cab"><b>NA REVISTA</b><span>página inteira ocupa uma página; meia página entra no pé de uma matéria</span></div>' +
+          '<div class="az-ops" id="pub-rev-fmt">' +
+            '<button class="az-op on" type="button" data-rvf="pagina-inteira">Página inteira</button>' +
+            '<button class="az-op" type="button" data-rvf="meia-pagina">Meia página</button>' +
+          '</div>' +
+          '<div class="ps-arte" style="margin-top:10px">' +
+            '<div class="ps-mini" id="ps-mini-rev"><span>sem arte</span></div>' +
+            '<div class="ps-bts">' +
+              '<label class="bt" for="ps-file-rev">📷 Subir a arte</label>' +
+              '<input type="file" id="ps-file-rev" accept="image/*" style="display:none">' +
+              '<small id="ps-st-rev"></small>' +
+            '</div>' +
+          '</div>' +
+          '<input type="hidden" id="pub-rev-img" value="">' +
+          '<div class="pub-r3">' +
+            '<div><label>Para onde o clique leva</label><input type="text" id="pub-rev-link"></div>' +
+            '<div><label>Legenda (descreve a arte)</label><input type="text" id="pub-rev-legenda"></div>' +
+            '<div><label>Quem é</label><input type="text" id="pub-rev-pedido" placeholder="protocolo ou nome"></div>' +
+          '</div>' +
+          '<div style="margin-top:8px"><label class="ps-rot">Em quais edições</label>' +
+            '<div id="pub-rev-eds" class="pub-eds">carregando as edições…</div></div>' +
+          '<div style="margin-top:12px"><button class="f-pub" type="button" id="pub-rev-por" style="padding:11px 16px">Pôr na edição</button></div>' +
+        '</div>';
 
       PUB_SLOTS.forEach(function(sl){
         var inp = $('ps-file-' + sl.id);
@@ -4677,6 +4730,75 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                 st.textContent = '✓ arte pronta — falta salvar';
               });
           }).catch(function(e){ st.textContent = ''; avisar(msgErro(e)); });
+        });
+      });
+
+      // ---- o bloco da revista: formato, arte e as edições escolhidas ----
+      var revFmt = 'pagina-inteira';
+      document.querySelectorAll('#pub-rev-fmt .az-op').forEach(function(b2){
+        b2.addEventListener('click', function(){
+          revFmt = b2.dataset.rvf;
+          document.querySelectorAll('#pub-rev-fmt .az-op').forEach(function(x){ x.classList.toggle('on', x === b2); });
+        });
+      });
+      pubEdicoes().then(function(eds){
+        var cx = $('pub-rev-eds');
+        if(!cx) return;
+        if(!eds.length){ cx.innerHTML = '<span class="ps-estado">nenhuma edição encontrada</span>'; return; }
+        cx.innerHTML = eds.map(function(e){
+          var n = e.doc.numero;
+          return '<label class="pub-ed"><input type="checkbox" value="' + esc(String(n)) + '">' +
+            '<b>Nº ' + esc(String(n)) + '</b><span>' + esc(e.doc.dataEdicao || '') + '</span>' +
+            '<em>' + (e.doc.status === 'rascunho' ? 'rascunho' : 'publicada') + '</em></label>';
+        }).join('');
+        PUB.edicoes = eds;
+      });
+      $('ps-file-rev').addEventListener('change', function(){
+        var arq = this.files && this.files[0];
+        if(!arq) return;
+        var st = $('ps-st-rev');
+        st.textContent = 'preparando a arte…';
+        reduzLivre(arq, 1400, 1900).then(function(dataURL){
+          st.textContent = 'subindo…';
+          var caminho = 'assets/uploads/pub-rev-' + Date.now().toString(36) + '.jpg';
+          return ghPutRaw(caminho, dataURL.split(',')[1], assina('sobe a arte de publicidade da revista'))
+            .then(function(){
+              $('pub-rev-img').value = caminho;
+              $('ps-mini-rev').innerHTML = '<img src="' + dataURL + '" alt="arte nova">';
+              st.textContent = '✓ arte pronta — escolha as edições';
+            });
+        }).catch(function(e){ st.textContent = ''; avisar(msgErro(e)); });
+      });
+      $('pub-rev-por').addEventListener('click', function(){
+        var img = $('pub-rev-img').value.trim();
+        if(!img){ avisar('Suba a arte da publicidade antes.'); return; }
+        var escolhidas = [].slice.call(document.querySelectorAll('#pub-rev-eds input:checked'))
+          .map(function(i){ return Number(i.value); });
+        if(!escolhidas.length){ avisar('Escolha ao menos uma edição.'); return; }
+        var alvos = (PUB.edicoes || []).filter(function(e){ return escolhidas.indexOf(Number(e.doc.numero)) >= 0; });
+        var dados = { img: img, link: $('pub-rev-link').value.trim(),
+                      legenda: $('pub-rev-legenda').value.trim(), pedido: $('pub-rev-pedido').value.trim() };
+        confirmar('Pôr esta arte como ' + (revFmt === 'pagina-inteira' ? 'página inteira' : 'meia página') +
+                  ' em ' + alvos.length + ' edição(ões): ' + alvos.map(function(e){ return 'Nº ' + e.doc.numero; }).join(', ') + '?',
+                  { rotuloOk:'Pôr na edição' }).then(function(ok){
+          if(!ok) return;
+          toast('Entrando na revista…');
+          var feitos = [], falhas = [];
+          alvos.reduce(function(pr, e){
+            return pr.then(function(){
+              return pubEntraNaEdicao(e, revFmt, dados)
+                .then(function(r){ feitos.push('Nº ' + r.edicao + ' ' + r.onde); })
+                .catch(function(err){
+                  falhas.push('Nº ' + e.doc.numero + ': ' +
+                    (String(err && err.message) === 'sem matéria livre' ? 'todas as matérias já têm meia página' : msgErro(err)));
+                });
+            });
+          }, Promise.resolve()).then(function(){
+            avisar((feitos.length ? 'Entrou em: ' + feitos.join(' · ') : 'Nada entrou.') +
+                   (falhas.length ? '\n\nNão deu em: ' + falhas.join(' · ') : '') +
+                   (feitos.length ? '\n\nRascunho entra ao publicar a edição; edição já publicada entra no próximo deploy.' : ''));
+            carregarSitePub(); pubDesempenho();
+          });
         });
       });
 
