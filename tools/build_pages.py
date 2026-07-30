@@ -2042,12 +2042,17 @@ html[data-theme="dark"] .rv-mat .cont-tit{ color:var(--gold); }
   text-transform:uppercase; color:var(--ink-soft); margin-top:6px; }
 .rv-mat .txt blockquote{ border-left:4px solid var(--gold); margin:14px 0;
   padding:4px 0 4px 14px; font-style:italic; font-size:.9rem; }
-/* a meia página vendida: o pé da última página da matéria, sempre rotulada */
-.rv-mat .rv-meia{ margin-top:auto; border:2px solid var(--ink); padding:10px 12px 12px; }
+/* a meia página vendida: o pé da última página da matéria, sempre rotulada.
+   Ela sangra até a borda do papel (os -26px anulam a margem da coluna de
+   texto), então tem a MESMA LARGURA da página inteira e METADE da altura:
+   714×448 contra 714×896. É o que o nome promete ao anunciante. */
+.rv-mat .rv-meia{ margin:auto -26px 0; border-top:2px solid var(--ink);
+  border-bottom:2px solid var(--ink); padding:10px 0 12px; }
 .rv-mat .rv-meia em{ display:block; font-style:normal; font-family:var(--mono); font-size:.5rem;
-  font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px; }
-.rv-mat .rv-meia img{ display:block; width:100%; height:auto; max-height:380px; object-fit:contain; }
-.rv-mat .rv-meia span{ display:block; font-size:.74rem; color:var(--ink-soft); margin-top:6px; }
+  font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft);
+  margin-bottom:8px; padding:0 26px; }
+.rv-mat .rv-meia img{ display:block; width:100%; height:448px; object-fit:contain; }
+.rv-mat .rv-meia span{ display:block; font-size:.74rem; color:var(--ink-soft); margin-top:6px; padding:0 26px; }
 .rv-mat .leia{ margin-top:auto; padding-top:12px; }
 /* com publicidade no pé, o botão anda junto com ela: nada de vão no meio da página */
 .rv-mat .rv-meia + .leia{ margin-top:0; }
@@ -4813,8 +4818,8 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     { id:'meia-pagina', canal:'revista', nome:'Meia página', onde:'Na revista · fim de matéria',
       resumo:'O leitor termina a matéria e encontra a sua arte.',
       como:'O pé da última página de uma matéria da edição é seu, como nas revistas impressas: o leitor termina o texto e encontra a sua arte, emoldurada e com o rótulo Publicidade. É o formato de entrada da revista, no lugar mais lido de todos: o fim de uma boa matéria.',
-      specs:['Arte: imagem deitada, proporção 5:3 — mande 1280×760 (o espaço no pé da matéria é 634×380)','Onde: o pé da última página de uma matéria da edição','Permanência: a edição fica no acervo para sempre','A arte entra inteira: nada é cortado nem esticado; o que sobra vira margem de papel','Link: na revista lida no site, a arte clica para o seu endereço'],
-      spec:'Imagem deitada, 5:3 · mande 1280×760' }
+      specs:['Arte: mesma largura da página inteira, metade da altura — mande 1440×900 (o espaço é 714×448)','Onde: o pé da última página de uma matéria da edição, de ponta a ponta do papel','Permanência: a edição fica no acervo para sempre','A arte entra inteira: nada é cortado nem esticado; o que sobra vira margem de papel','Link: na revista lida no site, a arte clica para o seu endereço'],
+      spec:'Metade da página · mande 1440×900' }
   ];
   // o site se vende por SEMANA, a revista por EDIÇÃO; cada uma vale 7 dias
   var DURACOES = {

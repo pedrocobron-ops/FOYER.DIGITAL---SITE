@@ -672,10 +672,11 @@ Regras das seções novas:
   - **O TAMANHO DE CADA ARTE (medido na própria página, 30/07/2026)**:
     no site, **Cortina** 1080×1350 (em pé ou quadrada), **Entreato**
     1200×675 (deitada) e **Faixa** 1200×120 (tarja bem deitada). Na
-    revista, **página inteira** ocupa 714×896 na página, então a arte
-    vai em pé na proporção 4:5 — o ideal é mandar **1440×1800**; e
-    **meia página** ocupa 634×380 no pé da matéria, arte deitada na
-    proporção 5:3 — o ideal é mandar **1280×760**. A arte entra
+    revista, **a largura é sempre a mesma; o que muda é a altura**
+    (correção do Pedro, 30/07/2026): **página inteira** ocupa 714×896 e
+    **meia página** ocupa 714×448, exatamente metade, sangrando de ponta
+    a ponta do papel no pé da matéria. Manda-se o dobro, para ficar
+    nítido em tela boa: **1440×1800** e **1440×900**. A arte entra
     **inteira**: nada é cortado nem esticado, e o que sobra vira margem
     de papel. Esses números aparecem iguais nos dois lugares — na página
     do anunciante e na Coxia — e é assim que devem ser passados por

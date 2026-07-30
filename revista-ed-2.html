@@ -342,12 +342,17 @@ html[data-theme="dark"] .rv-mat .cont-tit{ color:var(--gold); }
   text-transform:uppercase; color:var(--ink-soft); margin-top:6px; }
 .rv-mat .txt blockquote{ border-left:4px solid var(--gold); margin:14px 0;
   padding:4px 0 4px 14px; font-style:italic; font-size:.9rem; }
-/* a meia página vendida: o pé da última página da matéria, sempre rotulada */
-.rv-mat .rv-meia{ margin-top:auto; border:2px solid var(--ink); padding:10px 12px 12px; }
+/* a meia página vendida: o pé da última página da matéria, sempre rotulada.
+   Ela sangra até a borda do papel (os -26px anulam a margem da coluna de
+   texto), então tem a MESMA LARGURA da página inteira e METADE da altura:
+   714×448 contra 714×896. É o que o nome promete ao anunciante. */
+.rv-mat .rv-meia{ margin:auto -26px 0; border-top:2px solid var(--ink);
+  border-bottom:2px solid var(--ink); padding:10px 0 12px; }
 .rv-mat .rv-meia em{ display:block; font-style:normal; font-family:var(--mono); font-size:.5rem;
-  font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px; }
-.rv-mat .rv-meia img{ display:block; width:100%; height:auto; max-height:380px; object-fit:contain; }
-.rv-mat .rv-meia span{ display:block; font-size:.74rem; color:var(--ink-soft); margin-top:6px; }
+  font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft);
+  margin-bottom:8px; padding:0 26px; }
+.rv-mat .rv-meia img{ display:block; width:100%; height:448px; object-fit:contain; }
+.rv-mat .rv-meia span{ display:block; font-size:.74rem; color:var(--ink-soft); margin-top:6px; padding:0 26px; }
 .rv-mat .leia{ margin-top:auto; padding-top:12px; }
 /* com publicidade no pé, o botão anda junto com ela: nada de vão no meio da página */
 .rv-mat .rv-meia + .leia{ margin-top:0; }
