@@ -136,6 +136,9 @@
     color:var(--ink-soft); }
 
   /* palco */
+  .palco-aviso{ border-left:4px solid var(--gold,#CEB26A); background:rgba(206,178,106,.14);
+    padding:12px 16px; margin:14px 0 0; font-size:.88rem; line-height:1.55; }
+  .palco-aviso .bt{ margin-left:8px; }
   .stats{ display:grid; grid-template-columns:repeat(3,1fr); border:2px solid var(--wine);
     background:var(--paper);
     background-image:radial-gradient(120% 170% at 100% -30%, rgba(233,203,133,.12), transparent 55%); }
@@ -864,6 +867,7 @@
           <button class="stat" type="button" id="card-leituras" data-go="metricas"><b id="st-leituras">—</b><span>leituras no site (7 dias)</span></button>
           <button class="stat" type="button" id="card-assin" data-go="revista"><b id="st-assin">—</b><span>assinantes da newsletter</span></button>
         </div>
+        <div id="palco-aviso" class="palco-aviso" style="display:none"></div>
         <div id="palco-novidades"></div>
         <div class="quick">
           <button data-go="nova" type="button">✎ Escrever matéria</button>
@@ -1423,6 +1427,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           <button type="button" id="tk-save">Conectar</button>
           <button type="button" id="tk-clear" class="bt danger" style="padding:12px 16px">Desconectar</button>
         </div>
+        <div style="margin-top:12px">
+          <button class="bt" type="button" id="tk-testar">🔎 Conferir a chave e as consultas</button>
+          <div id="tk-diag" class="f-note" style="margin-top:10px;display:none"></div>
+        </div>
         <div class="f-note" style="margin-top:16px">
           <b>Como criar a chave (o chefe faz uma vez e entrega à equipe):</b><br>
           github.com → Settings → Developer settings → Fine-grained tokens →
@@ -1672,6 +1680,33 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(d){ d.textContent = 'chave expirada — reconecte'; d.classList.remove('ok'); d.classList.add('err'); }
     var st = $('tk-st'); if(st){ st.textContent = 'Sua chave expirou ou foi revogada. Cole uma nova aqui.'; st.className = 'st err'; }
   }
+  // o mesmo pedido não vai duas vezes ao GitHub em menos de um minuto:
+  // a Coxia lê as mesmas pastas em várias abas, e o limite por hora é curto
+  var GH_CACHE = {};
+  function ghCacheGet(chave){
+    var c = GH_CACHE[chave];
+    return (c && Date.now() - c.quando < 60000) ? c.valor : undefined;
+  }
+  function ghCachePut(chave, valor){ GH_CACHE[chave] = { quando: Date.now(), valor: valor }; }
+  function ghCacheLimpa(){ GH_CACHE = {}; }
+
+  // quanto ainda dá para consultar o GitHub neste aparelho, e se a chave está valendo
+  function ghDiagnostico(){
+    return fetch('https://api.github.com/rate_limit', { headers: hdr({}), cache:'no-store' })
+      .then(function(r){ return r.json().then(function(d){ return { status:r.status, dados:d }; }); })
+      .then(function(res){
+        var c = ((res.dados || {}).resources || {}).core || {};
+        var comChave = c.limit && c.limit > 100;
+        return {
+          ok: res.status === 200,
+          chaveValendo: !!(token() && comChave),
+          temChave: !!token(),
+          limite: c.limit || 0, restam: c.remaining == null ? null : c.remaining,
+          volta: c.reset ? new Date(c.reset * 1000) : null
+        };
+      }).catch(function(){ return { ok:false, temChave:!!token(), chaveValendo:false, limite:0, restam:null, volta:null }; });
+  }
+
   // GET genérico da API com o mesmo salvavidas do ghGet: chave morta não cega a leitura
   function ghFetchGet(url){
     return fetch(url, { headers: hdr({}), cache:'no-store' }).then(function(r){
@@ -1683,11 +1718,15 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       return r;
     });
   }
-  function ghGet(path){
+  function ghGet(path, semCache){
     var url = API + path + '?ref=' + BRANCH;
+    if(!semCache){
+      var doCache = ghCacheGet(url);
+      if(doCache !== undefined) return Promise.resolve(doCache);
+    }
     return fetch(url, { headers: hdr({}), cache:'no-store' })
       .then(function(r){
-        if(r.status === 404) return null;
+        if(r.status === 404){ ghCachePut(url, null); return null; }
         // chave morta não pode cegar a casa: o repositório é público, então a
         // LEITURA segue sem chave (o aviso de reconectar fica de pé; gravar/aprovar
         // continua exigindo chave nova)
@@ -1696,11 +1735,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           marcarChaveInvalida();
           return fetch(url, { headers: { 'Accept': 'application/vnd.github+json' }, cache:'no-store' })
             .then(function(r2){
-              if(r2.status === 404) return null;
-              return checaResp(r2);
+              if(r2.status === 404){ ghCachePut(url, null); return null; }
+              return checaResp(r2).then(function(v){ ghCachePut(url, v); return v; });
             });
         }
-        return checaResp(r);
+        return checaResp(r).then(function(v){ ghCachePut(url, v); return v; });
       });
   }
   // grava honrando o sha do caller (assim um conflito vira 409 de verdade, não sobrescreve o colega);
@@ -1712,7 +1751,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                  : ghGet(path).then(function(ex){ if(ex && ex.sha) body.sha = ex.sha; }, function(){});
     return go.then(function(){
       return fetch(API + path, { method:'PUT',
-        headers: hdr({'Content-Type':'application/json'}), body: JSON.stringify(body) }).then(checaResp);
+        headers: hdr({'Content-Type':'application/json'}), body: JSON.stringify(body) })
+        .then(checaResp).then(function(v){ ghCacheLimpa(); return v; });
     });
   }
   function ghPutRaw(path, base64content, msg){
@@ -1724,7 +1764,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   function ghDel(path, sha, msg){
     return fetch(API + path, { method:'DELETE',
       headers: hdr({'Content-Type':'application/json'}),
-      body: JSON.stringify({ message: msg, sha: sha, branch: BRANCH }) }).then(checaResp);
+      body: JSON.stringify({ message: msg, sha: sha, branch: BRANCH }) })
+      .then(checaResp).then(function(v){ ghCacheLimpa(); return v; });
   }
   function assina(acao){ return 'Coxia [' + (USER ? USER.nome : '?') + ']: ' + acao; }
 
@@ -1984,6 +2025,31 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       initToken();
     }).catch(function(){ st.textContent = 'Chave inválida ou sem acesso ao repositório'; st.className = 'st err'; });
   });
+  $('tk-testar').addEventListener('click', function(){
+    var cx = $('tk-diag');
+    cx.style.display = 'block';
+    cx.innerHTML = 'Conferindo…';
+    ghDiagnostico().then(function(d){
+      var volta = d.volta ? d.volta.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }) : '—';
+      if(!d.ok){
+        cx.innerHTML = '<b>Não deu para falar com o GitHub agora.</b> Confira a internet e tente de novo.';
+        return;
+      }
+      if(d.chaveValendo){
+        cx.innerHTML = '<b>✓ Chave valendo.</b> Restam <b>' + d.restam + '</b> consultas de ' + d.limite +
+          ' nesta hora (recomeça às ' + volta + '). Publicar, aprovar e subir arte estão liberados.';
+      } else if(d.temChave){
+        cx.innerHTML = '<b>⚠ A chave não está sendo aceita.</b> Ela pode ter expirado, sido revogada ou perdido a ' +
+          'permissão Contents: Read and write. Gere uma nova no GitHub e cole aqui. ' +
+          'Enquanto isso a casa lê o site como visitante, com ' + d.restam + ' de ' + d.limite +
+          ' consultas nesta hora (recomeça às ' + volta + ').';
+      } else {
+        cx.innerHTML = '<b>Sem chave neste navegador.</b> Dá para ler tudo, mas o GitHub libera só <b>' + d.limite +
+          '</b> consultas por hora (restam ' + d.restam + ', recomeça às ' + volta + '), e nada pode ser publicado. ' +
+          'Cole a chave acima: o limite sobe para 5.000 por hora.';
+      }
+    });
+  });
   $('tk-clear').addEventListener('click', function(){
     try{ localStorage.removeItem('coxia-token'); }catch(e){}
     $('tk-st').textContent = 'Chave removida deste navegador'; $('tk-st').className = 'st';
@@ -1991,7 +2057,39 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   });
 
   /* ---------------- palco ---------------- */
+  // quando o GitHub barra a leitura, a casa diz por quê e o que fazer
+  var PALCO_AVISADO = false;
+  function palcoAviso(e){
+    if(PALCO_AVISADO) return;
+    PALCO_AVISADO = true;
+    var cx = $('palco-aviso');
+    if(!cx) return;
+    var g = e && e.gh;
+    ghDiagnostico().then(function(d){
+      var txt;
+      if(g === 'rate' || (d.restam === 0)){
+        var quando = d.volta ? d.volta.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }) : 'daqui a pouco';
+        txt = d.chaveValendo
+          ? '<b>O GitHub pausou as consultas deste aparelho.</b> Elas voltam às ' + quando + '. Nada se perdeu: é só esperar e recarregar.'
+          : '<b>Sem chave conectada, o GitHub libera só 60 consultas por hora neste aparelho</b>, e elas acabaram. ' +
+            'Voltam às ' + quando + '. Conecte a chave na aba <b>⚡ Conexão</b> e o limite sobe para 5.000 por hora.';
+      } else if(g === 401 || g === 403){
+        txt = '<b>A chave não está sendo aceita.</b> Reconecte na aba <b>⚡ Conexão</b>; lá tem o botão de conferir a chave.';
+      } else {
+        txt = '<b>Não deu para falar com o GitHub agora.</b> ' + esc(msgErro(e)) +
+              ' Os números voltam sozinhos quando a conexão normalizar.';
+      }
+      cx.innerHTML = txt + ' <button class="bt mini" type="button" id="palco-retry">↻ Tentar de novo</button>';
+      cx.style.display = 'block';
+      var rb = $('palco-retry');
+      if(rb) rb.addEventListener('click', function(){
+        PALCO_AVISADO = false; cx.style.display = 'none'; ghCacheLimpa(); carregarPalco();
+      });
+    });
+  }
   function carregarPalco(){
+    PALCO_AVISADO = false;
+    var cxa = $('palco-aviso'); if(cxa) cxa.style.display = 'none';
     ghGet('import/novas').then(function(list){
       var fs = (list || []).filter(function(f){ return f.name.endsWith('.json'); });
       return Promise.all(fs.map(function(f){
@@ -2003,14 +2101,14 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       var ag = items.filter(function(d){ return d.publishAt && d.publishAt > agora; }).length;
       $('st-pub').textContent = items.length - ag;
       $('st-ag').textContent = ag;
-    }).catch(function(){ $('st-pub').textContent = '?'; $('st-ag').textContent = '?'; });
+    }).catch(function(e){ $('st-pub').textContent = '—'; $('st-ag').textContent = '—'; palcoAviso(e); });
     if(podeMesa()){
       ghGet('import/pauta').then(function(list){
         var n = (list || []).filter(function(f){ return f.name.endsWith('.json') && f.name !== 'diario.json'; }).length;
         $('st-mesa').textContent = n;
         var b = $('bdg-mesa');
         b.textContent = n; b.style.display = n > 0 ? 'inline-block' : 'none';
-      }).catch(function(){ $('st-mesa').textContent = '?'; });
+      }).catch(function(e){ $('st-mesa').textContent = '—'; palcoAviso(e); });
     }
     fetch(RKC.url + '/rest/v1/foyer_painel?select=*', {
       headers: { 'apikey': RKC.key, 'Authorization': 'Bearer ' + RKC.key }

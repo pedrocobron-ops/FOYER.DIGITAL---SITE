@@ -626,6 +626,15 @@ Regras das seções novas:
     virou uma **tarja deitada** (recomendado 1200×120, 10:1) no rodapé;
     a linha de texto sobrou só como legenda opcional, para leitor de tela
     e para quando a imagem demora a carregar.
+  - **O limite do GitHub, e por que a Coxia às vezes mostra travessão
+    (30/07/2026)**: sem chave conectada, o GitHub libera **60 consultas
+    por hora** por aparelho; com a chave da casa, 5.000. Quando o limite
+    estoura, os números do Palco viram "—" e a casa **explica o motivo,
+    diz a que horas volta e oferece tentar de novo**, em vez de mostrar
+    "?" sem explicação. A aba ⚡ Conexão tem o botão **Conferir a chave**,
+    que diz se ela está sendo aceita e quantas consultas restam. Para
+    gastar menos, a Coxia guarda cada leitura do GitHub por 1 minuto
+    (o cache morre a cada gravação, para a tela nunca mostrar o passado).
   - **Publicidade na mão, pela Coxia (30/07/2026)**: a aba Publicidade
     tem o formulário dos três espaços do site, e nele o chefe **sobe a
     arte do próprio computador** (a imagem vai para `assets/uploads/`
