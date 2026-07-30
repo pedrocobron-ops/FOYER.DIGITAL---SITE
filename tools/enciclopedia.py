@@ -181,17 +181,21 @@ def main():
     for m in materias:
         url = f"post-{m['slug']}.html"
         autor = (m.get('author') or '').strip()
-        if autor and autor.lower() not in ('redação foyer', 'redacao foyer') and nome_valido(autor):
-            sp = registra(autor, 'materia', 'autor', m['title'], url, m.get('iso', ''))
-            if sp:
-                por_materia[m['slug']].append(sp)
+        # assinatura dupla ("Fulana e Sicrano") são DUAS pessoas, cada uma com seu verbete
+        assinantes = [a.strip() for a in autor.split(' e ')] if ' e ' in autor else ([autor] if autor else [])
+        for _as in assinantes:
+            if _as and _as.lower() not in ('redação foyer', 'redacao foyer') and nome_valido(_as):
+                sp = registra(_as, 'materia', 'autor', m['title'], url, m.get('iso', ''))
+                if sp:
+                    por_materia[m['slug']].append(sp)
         corpo_path = f"{ROOT}/import/corpo/{m['slug']}.html"
         texto = m['title'] + '. ' + m.get('desc', '')
         if os.path.exists(corpo_path):
             texto += ' ' + re.sub(r'<[^>]+>', ' ', open(corpo_path).read())
+        _slugs_autores = {slugify(a) for a in assinantes if a}
         for nome in extrair_nomes(texto):
             sp = slugify(nome)
-            if sp and slugify(autor) == sp:
+            if sp and sp in _slugs_autores:
                 continue
             spp = registra(nome, 'materia', 'citado', m['title'], url, m.get('iso', ''))
             if spp:
