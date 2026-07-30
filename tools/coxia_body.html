@@ -526,6 +526,21 @@
     font-size:.9rem; line-height:1.5; }
   .ag-confere b{ font-family:var(--didone,Georgia,serif); font-weight:400; font-size:1.15rem; display:block; }
   .ag-confere .ag-alerta{ display:block; margin-top:6px; color:#8E1B10; font-size:.82rem; }
+  .ag-dia{ margin-top:12px; border-top:1.5px solid var(--line); padding-top:10px; }
+  .ag-dia ul{ list-style:none; margin:0; padding:0; }
+  .ag-dia li{ display:flex; gap:10px; align-items:baseline; padding:4px 0; font-size:.84rem;
+    border-bottom:1px dotted var(--line); }
+  .ag-dia li:last-child{ border-bottom:0; }
+  .ag-dia li b{ font-family:var(--mono); font-size:.72rem; display:inline; }
+  .ag-dia li span{ flex:1; }
+  .ag-dia li em{ font-style:normal; font-family:var(--mono); font-size:.56rem; letter-spacing:.1em;
+    text-transform:uppercase; border:1px solid var(--line); padding:1px 6px; white-space:nowrap; }
+  .ag-dia li.nova{ background:rgba(206,178,106,.28); font-weight:700; }
+  .ag-dia li.nova em{ border-color:var(--wine); }
+  .ag-conta{ margin:8px 0 0; font-family:var(--mono); font-size:.6rem; letter-spacing:.1em;
+    text-transform:uppercase; opacity:.8; }
+  .ag-conta i{ font-style:normal; opacity:.35; margin:0 6px; }
+  .ag-conta .muito{ color:var(--wine); font-weight:700; }
   .ag-confere .ag-alerta button{ border:1.5px solid currentColor; background:transparent; color:inherit;
     cursor:pointer; font:inherit; font-size:.78rem; padding:2px 8px; margin-left:6px; }
   .dt-rapido{ display:none; gap:6px; align-items:center; flex-wrap:wrap; }
@@ -2151,12 +2166,15 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   });
   $('f-marcar').addEventListener('click', function(){
     var atual = $('f-data').value ? new Date($('f-data').value) : null;
-    agAbre({ titulo:'Quando esta matéria vai ao ar?', inicial:atual }).then(function(quando){
+    agAbre({ titulo:'Quando esta matéria vai ao ar?', inicial:atual,
+             nome: ($('f-title') && $('f-title').value) || 'esta matéria',
+             autor: ($('f-autor') && $('f-autor').value) || (USER && USER.nome) }).then(function(quando){
       if(!quando) return;
       var loc = new Date(quando.getTime() - quando.getTimezoneOffset() * 60000);
       $('f-data').value = loc.toISOString().slice(0, 16);
       $('f-marcar').textContent = '🗓 ' + qdRelativo(quando.toISOString()) + ' (trocar)';
-      agOcupa(quando, ($('f-title') && $('f-title').value) || 'esta matéria');
+      agOcupa(quando, ($('f-title') && $('f-title').value) || 'esta matéria',
+              ($('f-autor') && $('f-autor').value) || (USER && USER.nome));
     });
   });
 
@@ -2325,10 +2343,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
 
   // fecha um horário na hora em que ele é marcado, sem esperar o servidor:
   // a próxima matéria da rodada já encontra o lugar ocupado
-  function agOcupa(quando, titulo){
+  function agOcupa(quando, titulo, autor){
     var d = new Date(quando);
     if(isNaN(d)) return;
-    AG.ocupados.push({ quando:d, title:titulo || 'matéria marcada' });
+    AG.ocupados.push({ quando:d, title:titulo || 'matéria marcada', author:autor || '' });
     AG.ocupados.sort(function(a, b){ return a.quando - b.quando; });
   }
 
@@ -2350,11 +2368,19 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       return AG.ocupados;
     }).catch(function(){ AG.ocupados = []; return AG.ocupados; });
   }
+  // a agenda inteira: o que já saiu hoje também conta na hora de equilibrar o dia
   function agSoFuturas(items){
-    var agora = new Date().toISOString();
-    return items.filter(function(d){ return d && d.publishAt && d.publishAt > agora; })
-      .map(function(d){ return { quando:new Date(d.publishAt), title:d.title || 'matéria' }; })
+    return items.filter(function(d){ return d && d.publishAt; })
+      .map(function(d){ return { quando:new Date(d.publishAt), title:d.title || 'matéria',
+                                 author:d.author || '' }; })
       .sort(function(a, b){ return a.quando - b.quando; });
+  }
+  // primeiro nome de cada assinatura: Pedro, Isabel, Redação, Pedro e Isabel
+  function agAssinaturaCurta(a){
+    var n = String(a || '').trim();
+    if(!n) return 'sem assinatura';
+    if(/reda[çc][ãa]o/i.test(n)) return 'Redação';
+    return n.split(' e ').map(function(p){ return p.trim().split(' ')[0]; }).join(' e ');
   }
   function agMesmoDia(a, b){
     return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
@@ -2464,6 +2490,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     opts = opts || {};
     AG.foco = document.activeElement;
     $('ag-titulo').textContent = opts.titulo || 'Quando esta matéria vai ao ar?';
+    AG.tituloAtual = opts.nome || 'esta matéria';
+    AG.autorAtual = opts.autor || '';
     var base = opts.inicial ? new Date(opts.inicial) : null;
     AG.sel = base && !isNaN(base) ? base : null;
     AG.mes = new Date((AG.sel || new Date()).getFullYear(), (AG.sel || new Date()).getMonth(), 1);
@@ -2533,8 +2561,37 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             esc(agRotuloDia(livre)) + ' às ' + esc(agHoraTexto(livre)) + '</button>' : '') + '</span>';
         if(ch.trava) $('ag-ok').disabled = true;
       }
-      cx.innerHTML = '<b>' + esc(quandoTxt) + '</b>' + esc(agDaquiA(AG.sel)) + aviso;
+      cx.innerHTML = '<b>' + esc(quandoTxt) + '</b>' + esc(agDaquiA(AG.sel)) + aviso + agPintaDia();
     }
+  }
+  // o dia inteiro: o que já está marcado, quem assina, e a conta por assinatura
+  function agPintaDia(){
+    if(!AG.sel) return '';
+    var doDia = AG.ocupados.filter(function(o){ return agMesmoDia(o.quando, AG.sel); });
+    var linhas = doDia.map(function(o){
+      return { quando:o.quando, title:o.title, author:o.author, nova:false };
+    });
+    linhas.push({ quando:AG.sel, title:AG.tituloAtual || 'esta matéria',
+                  author:AG.autorAtual || '', nova:true });
+    linhas.sort(function(a, b){ return a.quando - b.quando; });
+    var contas = {};
+    linhas.forEach(function(l){
+      var k = agAssinaturaCurta(l.author);
+      contas[k] = (contas[k] || 0) + 1;
+    });
+    var resumo = Object.keys(contas).sort(function(a, b){ return contas[b] - contas[a]; })
+      .map(function(k){
+        return '<span' + (contas[k] >= 3 ? ' class="muito"' : '') + '>' + contas[k] + ' ' + esc(k) + '</span>';
+      }).join('<i>·</i>');
+    return '<div class="ag-dia"><span class="ag-rot">O dia ' +
+      esc(AG.sel.toLocaleDateString('pt-BR', { day:'numeric', month:'long' })) + ', com esta</span>' +
+      '<ul>' + linhas.map(function(l){
+        return '<li' + (l.nova ? ' class="nova"' : '') + '>' +
+          '<b>' + l.quando.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }) + '</b>' +
+          '<span>' + esc(String(l.title).slice(0, 52)) + (String(l.title).length > 52 ? '…' : '') + '</span>' +
+          '<em>' + esc(agAssinaturaCurta(l.author)) + '</em></li>';
+      }).join('') + '</ul>' +
+      '<p class="ag-conta">' + resumo + '</p></div>';
   }
   function agDefine(quando){
     AG.sel = new Date(quando);
@@ -3569,7 +3626,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         travarCard(card, true);
         // a regra da casa: uma a cada AG_INTERVALO minutos, na ordem da mesa
         var quandoLote = new Date(base.getTime() + iLote * AG_INTERVALO * 60000).toISOString();
-        if(rotulo) agOcupa(quandoLote, d.title);
+        if(rotulo) agOcupa(quandoLote, d.title, d.author);
         return publicarDaMesa(d, rotulo ? quandoLote : publishAt).then(function(){
           ok++; tiraCardEatualiza(d.slug);
           if(d.instagram) registrarInsta(d);
@@ -3617,7 +3674,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var bg = $('ml-agendar');
     if(bg) bg.addEventListener('click', function(){
       var n = slugsSelecionados().length;
-      agAbre({ titulo:'Quando as ' + n + ' matérias selecionadas vão ao ar?' }).then(function(qd){
+      agAbre({ titulo:'Quando as ' + n + ' matérias selecionadas vão ao ar?',
+               nome:'as ' + n + ' selecionadas', autor:'' }).then(function(qd){
         if(!qd) return;
         var rot = n > 1
           ? 'a partir de ' + qdRelativo(qd.toISOString()) + ', uma a cada ' + AG_INTERVALO + ' min'
@@ -3668,9 +3726,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         avisar('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de agendar.'); return;
       }
       agAbre({ titulo: 'Quando “' + ((dAg && dAg.title) || 'esta matéria').slice(0, 46) + '” vai ao ar?',
+               nome: dAg && dAg.title, autor: dAg && dAg.author,
                inicial: dAg && dAg.sugestaoPublishAt }).then(function(quando){
         if(!quando) return;
-        agOcupa(quando, (dAg && dAg.title) || 'matéria');   // fecha o horário na hora
+        agOcupa(quando, (dAg && dAg.title) || 'matéria', dAg && dAg.author);   // fecha o horário na hora
         aprovar(slugAg, quando.toISOString(), qdRelativo(quando.toISOString()));
       });
       return;
