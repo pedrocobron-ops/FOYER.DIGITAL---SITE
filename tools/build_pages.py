@@ -261,6 +261,11 @@ try:
 except Exception:
     _ANUN = {}
 
+def _pub_chave(formato, cfg=None):
+    """O nome do anúncio nas métricas: pub:<formato>[:<protocolo do pedido>]."""
+    proto = ((cfg or {}).get('pedido') or '').strip()
+    return f'pub:{formato}' + (f':{proto}' if proto else '')
+
 def _anun_ativo(k):
     a = _ANUN.get(k) or {}
     if not (a.get('img') or a.get('texto')):
@@ -291,8 +296,10 @@ def _monta_ads_casa():
   font-family:var(--mono); font-size:.6rem; padding:4px 9px; flex-shrink:0; }
 body.tem-faixa{ padding-bottom:52px; }''')
         _l = fx.get('link') or '#'
-        corpo.append(f'<div class="pub-faixa" id="pub-faixa" hidden><em>Publicidade</em>'
-                     f'<a href="{_html.escape(_l)}" target="_blank" rel="noopener sponsored">{_html.escape(fx.get("texto", ""))}</a>'
+        _kf = _pub_chave('faixa', fx)
+        corpo.append(f'<div class="pub-faixa" id="pub-faixa" data-pub-chave="{_html.escape(_kf)}" hidden><em>Publicidade</em>'
+                     f'<a href="{_html.escape(_l)}" target="_blank" rel="noopener sponsored" '
+                     f'data-pub="{_html.escape(_kf)}">{_html.escape(fx.get("texto", ""))}</a>'
                      '<button type="button" id="pub-faixa-x" aria-label="Fechar">✕</button></div>')
         js.append('''(function(){
   var k = 'foyer-pub-faixa-' + new Date().toISOString().slice(0, 10);
@@ -302,6 +309,7 @@ body.tem-faixa{ padding-bottom:52px; }''')
   function entra(){
     var f = document.getElementById('pub-faixa');
     f.hidden = false; document.body.classList.add('tem-faixa');
+    if(window.foyerPubVista) window.foyerPubVista(f.getAttribute('data-pub-chave'));
     document.getElementById('pub-faixa-x').addEventListener('click', function(){
       f.hidden = true; document.body.classList.remove('tem-faixa');
       try{ localStorage.setItem(k, '1'); }catch(e){}
@@ -324,10 +332,12 @@ body.tem-faixa{ padding-bottom:52px; }''')
   border:2px solid var(--ink); background:var(--gold); color:var(--wine); font-weight:700;
   cursor:pointer; font-size:1rem; line-height:1; }''')
         _lc = ct.get('link') or '#'
-        corpo.append(f'<div class="pub-cortina" id="pub-cortina" hidden><div class="caixa">'
+        _kc = _pub_chave('cortina', ct)
+        corpo.append(f'<div class="pub-cortina" id="pub-cortina" data-pub-chave="{_html.escape(_kc)}" hidden><div class="caixa">'
                      '<button class="fechar" type="button" id="pub-cortina-x" aria-label="Fechar">✕</button>'
                      '<span class="rotulo">Publicidade</span>'
-                     f'<a href="{_html.escape(_lc)}" target="_blank" rel="noopener sponsored">'
+                     f'<a href="{_html.escape(_lc)}" target="_blank" rel="noopener sponsored" '
+                     f'data-pub="{_html.escape(_kc)}">'
                      f'<img src="{_html.escape(ct.get("img", ""))}" alt="{_html.escape(ct.get("legenda", ""))}"></a>'
                      + (f'<div class="leg">{_html.escape(ct["legenda"])}</div>' if ct.get('legenda') else '')
                      + '</div></div>')
@@ -339,6 +349,7 @@ body.tem-faixa{ padding-bottom:52px; }''')
   function entra(){
     setTimeout(function(){
       c.hidden = false;
+      if(window.foyerPubVista) window.foyerPubVista(c.getAttribute('data-pub-chave'));
       // 1x por dia de verdade: vista ao abrir, e não só ao fechar
       try{ localStorage.setItem(k, '1'); }catch(e){}
     }, 900);
@@ -360,9 +371,10 @@ def _entreato_html():
     if not en:
         return ''
     _l = en.get('link') or '#'
+    _ke = _pub_chave('entreato', en)
     leg = f'<figcaption>{_html.escape(en["legenda"])}</figcaption>' if en.get('legenda') else ''
-    return ('<aside class="pub-entreato"><em>Publicidade</em>'
-            f'<a href="{_html.escape(_l)}" target="_blank" rel="noopener sponsored">'
+    return (f'<aside class="pub-entreato" data-pub-chave="{_html.escape(_ke)}"><em>Publicidade</em>'
+            f'<a href="{_html.escape(_l)}" target="_blank" rel="noopener sponsored" data-pub="{_html.escape(_ke)}">'
             f'<img src="{_html.escape(en.get("img", ""))}" alt="{_html.escape(en.get("legenda", ""))}" loading="lazy"></a>'
             f'{leg}</aside>')
 
@@ -2558,10 +2570,12 @@ def _rv_pagina(pg, ed, num):
         _am = pg.get('anuncioMeia') or {}
         if _am.get('img'):
             _aml = (_am.get('link') or '').strip()
-            _ami = ((f'<a style="display:contents" href="{_rvesc(_aml)}" target="_blank" rel="noopener sponsored">' if _aml else '')
+            _akm = _pub_chave('meia-pagina', _am)
+            _ami = ((f'<a style="display:contents" href="{_rvesc(_aml)}" target="_blank" '
+                     f'rel="noopener sponsored" data-pub="{_rvesc(_akm)}">' if _aml else '')
                     + f'<img src="{_rvesc(_am["img"])}" alt="{_rvesc(_am.get("legenda", ""))}">'
                     + ('</a>' if _aml else ''))
-            fim_arte = ('<div class="rv-meia"><em>Publicidade</em>' + _ami
+            fim_arte = (f'<div class="rv-meia" data-pub-chave="{_rvesc(_akm)}"><em>Publicidade</em>' + _ami
                         + (f'<span>{_rvesc(_am["legenda"])}</span>' if _am.get('legenda') else '')
                         + '</div>')
         else:
@@ -2738,10 +2752,14 @@ def _rv_pagina(pg, ed, num):
         elif pg.get('cupom'):
             print(f'  AVISO revista: cupom em página "cartaz" foi ignorado — o bilhete do leitor é exclusivo da página de Publicidade (patrocinio)')
         img = f'<img src="{_rvesc(pg.get("img", ""))}" alt="{leg}">'
+        _kp = _pub_chave('pagina-inteira', pg) if t == 'patrocinio' else ''
         if link:
-            img = f'<a style="display:contents" href="{_rvesc(link)}" target="_blank" rel="noopener sponsored">{img}</a>'
+            _mk = f' data-pub="{_rvesc(_kp)}"' if _kp else ''
+            img = (f'<a style="display:contents" href="{_rvesc(link)}" target="_blank" '
+                   f'rel="noopener sponsored"{_mk}>{img}</a>')
         klass = 'rv-pg rv-cartaz rv-pat' if t == 'patrocinio' else 'rv-pg rv-cartaz'
-        return f'<section class="{klass}">{img}{cupom}<div class="rv-leg">{rot}{" — " + leg if leg else ""}</div>{fol}</section>'
+        _mkp = f' data-pub-chave="{_rvesc(_kp)}"' if _kp else ''
+        return f'<section class="{klass}"{_mkp}>{img}{cupom}<div class="rv-leg">{rot}{" — " + leg if leg else ""}</div>{fol}</section>'
     if t == 'citacao':
         arte = _RV_ARTES[num % len(_RV_ARTES)]
         return (f'<section class="rv-pg rv-cit"><div class="aspa">“</div>'

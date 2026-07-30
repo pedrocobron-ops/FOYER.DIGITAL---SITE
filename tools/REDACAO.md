@@ -651,6 +651,19 @@ Regras das seções novas:
     (faixa, cortina, entreato) e da revista (página inteira, meia
     página) já envolvem a arte no link ao ir ao ar. Anúncio sem
     destino não sobe.
+  - **A conta que o anunciante recebe (30/07/2026)**: cada anúncio marca
+    **vista** (uma por visita, por anúncio) e **clique** em
+    `foyer_metricas`, com o nome `pub:<formato>[:<protocolo>]`; a leitura
+    agregada sai pela RPC `foyer_pub_desempenho(chave)`. Na aba
+    Publicidade da Coxia isso vira vistas, cliques, pessoas e a taxa de
+    quem clicou, com o aviso de quantos dias faltam para o fim da
+    temporada. É o argumento de renovação: o anunciante vê quantas
+    pessoas o FOYER levou até a bilheteria dele.
+  - **Do pedido ao ar**: pedido com status `fechado` nos formatos do site
+    ganha o botão **Pôr no ar** na Coxia, que preenche
+    `import/anuncios/site.json` com o link, o protocolo e a data de fim
+    calculada pela duração contratada (1 edição = 7 dias). A arte da
+    cortina e do entreato ainda é subida à mão em `assets/uploads/`.
   - **O pedido**: o passo a passo grava na tabela `foyer_anuncios`
     (Supabase; o site só insere, a leitura exige a chave da casa) e
     aparece na aba **Publicidade** da Coxia com botão de WhatsApp

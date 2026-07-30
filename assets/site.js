@@ -213,6 +213,71 @@
   document.addEventListener('click', function(e){
     if(e.target.closest('[data-share]')) enviar({ tipo: 'share' });
   });
+
+  /* ---------- publicidade: a conta que o anunciante recebe ----------
+     Cada anúncio marca VISTA (uma por visita) e CLIQUE. O identificador vem
+     do próprio anúncio (data-pub), montado com o formato e o protocolo do
+     pedido, para o número voltar certinho ao dono na Coxia. */
+  function pubEnvia(tipo, chave){
+    if(!chave) return;
+    var corpo = {
+      slug: String(chave).slice(0, 120), pagina: pagina(), tipo: tipo,
+      sessao: sid(), visitante: vid(), ref: origem(), disp: disp(),
+      lingua: (navigator.language || '').slice(0, 10) || null
+    };
+    try{
+      var pronto = JSON.stringify(corpo);
+      var enviouBeacon = false;
+      if(tipo === 'pub-clique' && navigator.sendBeacon){
+        // o clique leva a pessoa embora: o beacon sobrevive à saída da página
+        enviouBeacon = navigator.sendBeacon(
+          M.url + '/rest/v1/foyer_metricas?apikey=' + encodeURIComponent(M.key),
+          new Blob([pronto], { type: 'application/json' }));
+      }
+      if(!enviouBeacon){
+        fetch(M.url + '/rest/v1/foyer_metricas', {
+          method: 'POST',
+          headers: { 'apikey': M.key, 'Authorization': 'Bearer ' + M.key,
+                     'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+          body: pronto, keepalive: true
+        }).catch(function(){});
+      }
+    }catch(e){}
+  }
+  window.foyerPubVista = function(chave){
+    if(!chave) return;
+    try{
+      var k = 'fpv-' + chave;
+      if(sessionStorage.getItem(k)) return;   // uma vista por visita, por anúncio
+      sessionStorage.setItem(k, '1');
+    }catch(e){}
+    pubEnvia('pub-vista', chave);
+  };
+  document.addEventListener('click', function(e){
+    var al = e.target.closest('[data-pub]');
+    if(al) pubEnvia('pub-clique', al.getAttribute('data-pub'));
+  }, true);
+  // vista de qualquer anúncio que entre em cena (entreato, página da revista)
+  try{
+    if('IntersectionObserver' in window){
+      var ioPub = new IntersectionObserver(function(es){
+        es.forEach(function(en){
+          // a revista mostra páginas por um instante só para medir a diagramação:
+          // quando o retorno chega, elas já sumiram, e aí não é vista de verdade
+          if(en.isIntersecting && en.target.getClientRects().length){
+            window.foyerPubVista(en.target.getAttribute('data-pub-chave'));
+            ioPub.unobserve(en.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      var liga = function(){
+        document.querySelectorAll('[data-pub-chave]').forEach(function(el){ ioPub.observe(el); });
+      };
+      liga();
+      // a revista monta páginas conforme se folheia: reobserva quando chegam
+      document.addEventListener('foyer-pub-nova', liga);
+    }
+  }catch(e){}
 })();
 
 
