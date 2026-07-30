@@ -2,7 +2,7 @@
  "numero": 2,
  "titulo": "Laila Garin é Piaf",
  "dataEdicao": "30 Jul 2026",
- "status": "rascunho",
+ "status": "publicada",
  "capa": {
   "img": "assets/uploads/revista-ed-2-capa.jpg",
   "manchete": "Laila Garin é Piaf",
@@ -10,7 +10,8 @@
    "Roda Viva, 1968: a noite em que o CCC subiu ao palco",
    "Quanto custa montar um musical no Brasil?",
    "Wagner Moura ovacionado em Avignon"
-  ]
+  ],
+  "credito": ""
  },
  "paginas": [
   {
@@ -226,6 +227,11 @@
   }
  ],
  "historico": [
+  {
+   "quando": "2026-07-30T15:00:38.541Z",
+   "quem": "Pedro Amaral",
+   "acao": "publica a edição (15 páginas)"
+  },
   {
    "quando": "2026-07-30T14:24:39.627131+00:00",
    "quem": "Redação IA (Claude)",
