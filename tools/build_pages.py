@@ -261,6 +261,37 @@ try:
 except Exception:
     _ANUN = {}
 
+# publicidade reservada para edições da revista (inclusive as que ainda não existem):
+# a reserva vive num arquivo só, e a edição continua sendo objeto editorial
+try:
+    _RESERVAS = (_json0.load(open(os.path.join(ROOT, 'import/anuncios/revista.json'))) or {}).get('reservas', [])
+except Exception:
+    _RESERVAS = []
+
+def _aplica_reservas(ed):
+    """Encaixa na edição a publicidade vendida para o número dela."""
+    num = ed.get('numero')
+    minhas = [r for r in _RESERVAS if str(r.get('numero')) == str(num) and r.get('img')]
+    if not minhas:
+        return ed
+    import copy as _copy
+    pgs = _copy.deepcopy(list(ed.get('paginas') or []))   # a edição no disco nunca é tocada
+    for r in minhas:
+        dados = {'img': r.get('img', ''), 'legenda': r.get('legenda', ''),
+                 'link': r.get('link', ''), 'pedido': r.get('pedido', '')}
+        if r.get('formato') == 'meia-pagina':
+            livres = [p for p in pgs if p.get('tipo') == 'materia' and not p.get('anuncioMeia')]
+            if livres:
+                livres[-1]['anuncioMeia'] = dados
+            else:
+                print(f'  AVISO revista: edição {num} sem matéria livre para a meia página de {r.get("pedido","")}')
+        else:
+            pagina = dict(dados); pagina['tipo'] = 'patrocinio'
+            i = next((k for k, p in enumerate(pgs) if p.get('tipo') == 'expediente'), len(pgs))
+            pgs.insert(i, pagina)
+    ed = dict(ed); ed['paginas'] = pgs
+    return ed
+
 def _pub_chave(formato, cfg=None):
     """O nome do anúncio nas métricas: pub:<formato>[:<protocolo do pedido>]."""
     proto = ((cfg or {}).get('pedido') or '').strip()
@@ -1802,7 +1833,7 @@ if os.path.isdir(_ed_dir):
     for _f in sorted(os.listdir(_ed_dir)):
         if _f.endswith('.json'):
             try:
-                EDICOES.append(_json.load(open(os.path.join(_ed_dir, _f))))
+                EDICOES.append(_aplica_reservas(_json.load(open(os.path.join(_ed_dir, _f)))))
             except Exception:
                 pass
 EDICOES.sort(key=lambda e: e.get('numero', 0), reverse=True)
@@ -2018,6 +2049,8 @@ html[data-theme="dark"] .rv-mat .cont-tit{ color:var(--gold); }
 .rv-mat .rv-meia img{ display:block; width:100%; height:auto; max-height:380px; object-fit:contain; }
 .rv-mat .rv-meia span{ display:block; font-size:.74rem; color:var(--ink-soft); margin-top:6px; }
 .rv-mat .leia{ margin-top:auto; padding-top:12px; }
+/* com publicidade no pé, o botão anda junto com ela: nada de vão no meio da página */
+.rv-mat .rv-meia + .leia{ margin-top:0; }
 .rv-mat .leia a{ display:inline-block; border:2px solid var(--wine); background:var(--wine);
   color:var(--gold); text-decoration:none; font-family:var(--mono); font-weight:600;
   font-size:.56rem; letter-spacing:.18em; text-transform:uppercase; padding:10px 16px; }
@@ -3047,6 +3080,9 @@ def edicao_page(ed):
           if(sg) sg.remove();
           var lv = pg.querySelector('.leia');
           var af = pg.querySelector('.arte-fim');
+          // a publicidade vendida nunca morre com a página vazia: ela desce junto
+          var mp = pg.querySelector('.rv-meia');
+          if(ma2 && mp && !ant.querySelector('.rv-meia')) ma2.appendChild(mp);
           if(ma2 && af && !ant.querySelector('.arte-fim')) ma2.appendChild(af);
           if(ma2 && lv) ma2.appendChild(lv);
         }}
@@ -5491,7 +5527,8 @@ coxia_html = (head('Coxia — FOYER', 'Área restrita da redação do Foyer.')
               .replace('href="manifest.webmanifest"', 'href="manifest-coxia.webmanifest"')
               .replace('rel="apple-touch-icon" href="assets/logo/pwa-192.png"',
                        'rel="apple-touch-icon" href="assets/logo/pwa-coxia-192.png"')
-              + '\n' + coxia_body.replace('__TOTAL__', str(len(MATERIAS))) + '\n'
+              + '\n' + coxia_body.replace('__TOTAL__', str(len(MATERIAS)))
+                                  .replace('__VERSAO_COXIA__', _dtmod.datetime.now().strftime('%Y%m%d-%H%M%S')) + '\n'
               + '<script src="assets/site.js"></script></body>\n</html>\n')
 # a Coxia mora em /coxia/ (escopo próprio de aplicativo, separado do app do site);
 # o <base href="../"> mantém todos os caminhos relativos funcionando

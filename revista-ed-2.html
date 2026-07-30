@@ -349,6 +349,8 @@ html[data-theme="dark"] .rv-mat .cont-tit{ color:var(--gold); }
 .rv-mat .rv-meia img{ display:block; width:100%; height:auto; max-height:380px; object-fit:contain; }
 .rv-mat .rv-meia span{ display:block; font-size:.74rem; color:var(--ink-soft); margin-top:6px; }
 .rv-mat .leia{ margin-top:auto; padding-top:12px; }
+/* com publicidade no pé, o botão anda junto com ela: nada de vão no meio da página */
+.rv-mat .rv-meia + .leia{ margin-top:0; }
 .rv-mat .leia a{ display:inline-block; border:2px solid var(--wine); background:var(--wine);
   color:var(--gold); text-decoration:none; font-family:var(--mono); font-weight:600;
   font-size:.56rem; letter-spacing:.18em; text-transform:uppercase; padding:10px 16px; }
@@ -980,6 +982,9 @@ html[data-theme="dark"] .rv-quina{ color:var(--gold); }
           if(sg) sg.remove();
           var lv = pg.querySelector('.leia');
           var af = pg.querySelector('.arte-fim');
+          // a publicidade vendida nunca morre com a página vazia: ela desce junto
+          var mp = pg.querySelector('.rv-meia');
+          if(ma2 && mp && !ant.querySelector('.rv-meia')) ma2.appendChild(mp);
           if(ma2 && af && !ant.querySelector('.arte-fim')) ma2.appendChild(af);
           if(ma2 && lv) ma2.appendChild(lv);
         }

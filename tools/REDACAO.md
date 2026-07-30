@@ -643,11 +643,20 @@ Regras das seções novas:
     de quem é. Serve para anunciante fechado fora do site e para projeto
     da própria casa. O botão de tirar do ar limpa o espaço na hora.
     **Na revista funciona igual**, no bloco "Na revista, na mão": escolhe
-    o formato (página inteira ou meia página), sobe a arte e **marca em
-    quais edições ela entra** (uma ou várias, como na compra pelo site);
-    a página de publicidade entra antes do expediente e a meia página no
-    pé da última matéria ainda livre, com registro no histórico da
-    edição.
+    o formato (página inteira ou meia página), sobe a arte e diz **por
+    quantas edições** ela sai (1 a 4).
+  - **A RESERVA DA REVISTA (ordem do Pedro, 30/07/2026): publicidade só
+    entra a partir da PRÓXIMA edição, nunca numa edição já fechada.**
+    A próxima é o rascunho aberto; se não houver rascunho, é o número
+    seguinte ao maior já existente — uma edição que ainda nem nasceu
+    também pode ser vendida, e a reserva espera por ela. O anúncio
+    **não é escrito dentro do arquivo da edição**: fica em
+    `import/anuncios/revista.json`, e o gerador encaixa na hora de montar
+    a página (página inteira antes do expediente, meia página no pé da
+    última matéria ainda livre). Assim edição já publicada nunca muda de
+    conteúdo depois de fechada. Se a Coxia não conseguir ler a lista de
+    edições, ela **se recusa a reservar** em vez de chutar um número —
+    chute viraria anúncio em edição fechada.
   - **Na revista**: **página inteira** (o formato do cartaz; posições
     nomeadas: a ímpar dos Recortes, a face da agenda, a porta da
     contracapa) e **meia página** (o formato da arte de Sympla; campo

@@ -136,6 +136,12 @@
     color:var(--ink-soft); }
 
   /* palco */
+  #cx-nova{ position:fixed; left:0; right:0; bottom:0; z-index:200; display:flex; gap:12px;
+    align-items:center; justify-content:center; flex-wrap:wrap; background:var(--wine,#4E0F09);
+    color:var(--gold,#CEB26A); padding:12px 16px; box-shadow:0 -6px 22px rgba(0,0,0,.3); }
+  #cx-nova span{ font-weight:600; }
+  #cx-nova .bt{ border-color:currentColor; color:inherit; background:transparent; }
+  #cx-nova .bt:hover{ background:var(--gold,#CEB26A); color:var(--wine,#4E0F09); }
   .palco-aviso{ border-left:4px solid var(--gold,#CEB26A); background:rgba(206,178,106,.14);
     padding:12px 16px; margin:14px 0 0; font-size:.88rem; line-height:1.55; }
   .palco-aviso .bt{ margin-left:8px; }
@@ -1692,6 +1698,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   }
   // o mesmo pedido não vai duas vezes ao GitHub em menos de um minuto:
   // a Coxia lê as mesmas pastas em várias abas, e o limite por hora é curto
+  // a Coxia muda toda semana: este carimbo diz qual versão está aberta
+  var COXIA_VERSAO = '20260730-224136';
   var GH_CACHE = {};
   function ghCacheGet(chave){
     var c = GH_CACHE[chave];
@@ -1911,6 +1919,33 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     abreOverlay('bv-overlay');
     try{ localStorage.setItem(K, '1'); }catch(e){}
   }
+
+  // versão nova no ar? a casa avisa em vez de deixar a pessoa com a tela velha
+  function conferirVersao(){
+    // atenção: a Coxia tem <base href="../">, então o caminho precisa ser explícito
+    fetch('coxia/index.html?v=' + Date.now(), { cache:'no-store' })
+      .then(function(r){ return r.ok ? r.text() : null; })
+      .then(function(t){
+        if(!t) return;
+        var m = /var COXIA_VERSAO = '([^']+)'/.exec(t);
+        if(!m || !m[1] || m[1] === COXIA_VERSAO) return;
+        if(document.getElementById('cx-nova')) return;
+        var b = document.createElement('div');
+        b.id = 'cx-nova';
+        b.innerHTML = '<span>Há uma versão nova da Coxia.</span>' +
+          '<button class="bt" type="button" id="cx-nova-sim">↻ Atualizar agora</button>' +
+          '<button class="bt" type="button" id="cx-nova-nao">agora não</button>';
+        document.body.appendChild(b);
+        document.getElementById('cx-nova-sim').addEventListener('click', function(){
+          location.reload(true);
+        });
+        document.getElementById('cx-nova-nao').addEventListener('click', function(){ b.remove(); });
+      }).catch(function(){});
+  }
+  setTimeout(conferirVersao, 4000);
+  document.addEventListener('visibilitychange', function(){
+    if(document.visibilityState === 'visible') conferirVersao();
+  });
 
   var PERSIST_K = 'coxia-user-persist';
   try{
@@ -4498,6 +4533,12 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var m = /^(\d+)\s*(semana|edi)/i.exec(String(duracao || ''));
     return m ? Number(m[1]) * 7 : 7;
   }
+  // quantas edições o pedido comprou (a revista vende edição, nunca dia)
+  function pubQtdEdicoes(duracao){
+    var m = /^(\d+)/.exec(String(duracao || '').trim());
+    var n = m ? Number(m[1]) : 1;
+    return Math.min(4, Math.max(1, n));
+  }
   function pubISO(d){
     return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
   }
@@ -4542,56 +4583,65 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       });
     });
   }
-  // as edições da revista, da mais nova para a mais velha
-  function pubEdicoes(){
+  var PUB_REV_ARQ = 'import/anuncios/revista.json';
+  // a publicidade só entra em edição que ainda não fechou: a próxima em diante
+  function pubProximaEdicao(eds){
+    var rascunhos = eds.filter(function(e){ return e.doc.status === 'rascunho'; })
+      .sort(function(a, b){ return Number(a.doc.numero) - Number(b.doc.numero); });
+    if(rascunhos.length) return Number(rascunhos[0].doc.numero);
+    var maior = eds.reduce(function(m, e){ return Math.max(m, Number(e.doc.numero) || 0); }, 0);
+    return maior + 1;   // a próxima ainda nem nasceu; a reserva espera por ela
+  }
+  // as edições da revista, da mais nova para a mais velha.
+  // com 'firme', a leitura que falha vira erro: para reservar publicidade a lista
+  // precisa ser confiável, senão uma lista vazia viraria "a próxima é a Nº 1" e o
+  // anúncio cairia numa edição já fechada
+  function pubEdicoes(firme){
     return ghGet('import/revista/edicoes').then(function(lista){
       var arqs = (lista || []).filter(function(f){ return /^ed-\d+\.json$/.test(f.name); })
         .sort(function(a, b){ return Number(b.name.match(/\d+/)[0]) - Number(a.name.match(/\d+/)[0]); });
+      if(firme && !arqs.length) throw new Error('sem lista de edições');
       return Promise.all(arqs.slice(0, 8).map(function(f){
         return ghGet(f.path).then(function(x){
-          return { path:f.path, sha:x.sha, doc:JSON.parse(unb64(x.content)) };
-        }).catch(function(){ return null; });
+          var d = JSON.parse(unb64(x.content));
+          if(firme && !Number(d.numero)) throw new Error('sem lista de edições');
+          return { path:f.path, sha:x.sha, doc:d };
+        }).catch(function(e){ if(firme) throw e; return null; });
       })).then(function(eds){ return eds.filter(Boolean); });
-    }).catch(function(){ return []; });
+    }).catch(function(e){
+      if(firme) throw new Error('sem lista de edições');
+      return [];
+    });
   }
-  // põe uma arte numa edição: página inteira vira página de publicidade,
-  // meia página se encaixa no pé da última matéria ainda livre
-  function pubEntraNaEdicao(ed, formato, dados){
-    var pags = ed.doc.paginas || [];
-    var onde = '';
-    if(formato === 'pagina-inteira'){
-      var iExp = pags.findIndex(function(x){ return x.tipo === 'expediente'; });
-      if(iExp < 0) iExp = pags.length;
-      pags.splice(iExp, 0, { tipo:'patrocinio', img:dados.img, legenda:dados.legenda || '',
-                             link:dados.link || '', pedido:dados.pedido || '' });
-      onde = 'como página inteira, antes do expediente';
-    } else {
-      var livres = pags.filter(function(x){ return x.tipo === 'materia' && !x.anuncioMeia; });
-      if(!livres.length) throw new Error('sem matéria livre');
-      var alvoM = livres[livres.length - 1];
-      alvoM.anuncioMeia = { img:dados.img, legenda:dados.legenda || '', link:dados.link || '', pedido:dados.pedido || '' };
-      onde = 'no pé da matéria “' + String(alvoM.titulo || '').slice(0, 34) + '”';
-    }
-    ed.doc.paginas = pags;
-    (ed.doc.historico = ed.doc.historico || []).push({
-      quando:new Date().toISOString(), quem:'Coxia [' + (USER ? USER.nome : '?') + ']',
-      acao:'entra a publicidade ' + (dados.pedido || '') + ' (' + formato + ')' });
-    return ghPut(ed.path, JSON.stringify(ed.doc, null, 1),
-                 assina('põe publicidade na edição ' + (ed.doc.numero || '')), ed.sha)
-      .then(function(){ return { edicao: ed.doc.numero, onde: onde, rascunho: ed.doc.status === 'rascunho' }; });
+  // a reserva: uma linha por edição, num arquivo só, lida pelo gerador ao montar a revista
+  function pubReserva(numeros, formato, img, dados){
+    return ghGet(PUB_REV_ARQ, true).then(function(f){
+      var doc = (f && f.content) ? JSON.parse(unb64(f.content)) : { reservas: [] };
+      doc.reservas = doc.reservas || [];
+      numeros.forEach(function(n){
+        doc.reservas.push({ numero: n, formato: formato, img: img,
+                            link: dados.link || '', legenda: dados.legenda || '',
+                            pedido: dados.pedido || '', criadoEm: new Date().toISOString() });
+      });
+      return ghPut(PUB_REV_ARQ, JSON.stringify(doc, null, 1),
+                   assina('reserva publicidade na revista (' + numeros.join(', ') + ')'), f && f.sha);
+    });
   }
-
-  // ---- formatos da revista: entra no rascunho da edição da semana ----
+  // ---- formatos da revista: reserva a partir da próxima edição ----
+  // a arte não é escrita dentro da edição: quem encaixa é o gerador, na hora de montar.
+  // assim uma edição já fechada nunca muda, e a reserva espera a edição que ainda vai nascer.
   function pubNoArRevista(p){
-    return pubEdicoes().then(function(eds){
-      if(!eds.length) throw new Error('sem edição');
-      var alvo = eds.filter(function(e){ return e.doc.status === 'rascunho'; })[0] || eds[0];
-      var caminho = 'assets/uploads/pub-rev-' + (alvo.doc.numero || 'x') + '-' +
-                    String(p.protocolo || 'novo').toLowerCase() + '.jpg';
+    return pubEdicoes(true).then(function(eds){
+      var prox = pubProximaEdicao(eds);
+      var quantas = pubQtdEdicoes(p.duracao);
+      var nums = [];
+      for(var i = 0; i < quantas; i++) nums.push(prox + i);
+      var caminho = 'assets/uploads/pub-rev-' + String(p.protocolo || 'novo').toLowerCase() + '.jpg';
       return pubSobeArte(p, caminho).then(function(cam){
         if(!cam) throw new Error('sem arte');
-        return pubEntraNaEdicao(alvo, p.formato, {
-          img: cam, legenda: p.empresa || p.nome || '', link: p.link || '', pedido: p.protocolo || '' });
+        return pubReserva(nums, p.formato, cam,
+          { link: p.link || '', legenda: p.empresa || p.nome || '', pedido: p.protocolo || '' })
+          .then(function(){ return { edicoes: nums }; });
       });
     });
   }
@@ -4601,9 +4651,12 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var naRevista = p.canal === 'revista';
     var quem = p.empresa || p.nome || 'o anunciante';
     if(naRevista){
-      var msgR = 'Pôr “' + quem + '” na edição da semana?\n\nA arte entra na revista sozinha, ' +
+      var qtdR = pubQtdEdicoes(p.duracao);
+      var msgR = 'Reservar “' + quem + '” para ' + qtdR + (qtdR > 1 ? ' edições' : ' edição') +
+        ', a partir da próxima?\n\nA arte entra sozinha ' +
         (p.formato === 'pagina-inteira' ? 'como página inteira' : 'como meia página no fim de uma matéria') +
-        ', e o clique leva para o link do pedido.';
+        ' quando cada edição for montada, e o clique leva para o link do pedido.' +
+        '\n\nEdição já fechada nunca recebe anúncio.';
       confirmar(msgR, { rotuloOk:'Pôr no ar' }).then(function(ok){
         if(ok) pubExecuta(p, null, true);
       });
@@ -4634,9 +4687,9 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         })
         .then(function(res){
           if(naRevista){
-            avisar('Pronto. O anúncio entrou na edição ' + res.edicao + ' ' + res.onde + '.' +
-                   (res.rascunho ? '\n\nA edição é rascunho: ele vai ao ar quando você publicar a edição.'
-                                 : '\n\nA edição já está publicada: entra no próximo deploy.'));
+            avisar('Reservado. O anúncio entra n' + (res.edicoes.length > 1 ? 'as edições ' : 'a edição ') +
+                   res.edicoes.map(function(n){ return 'Nº ' + n; }).join(', ') +
+                   ', a partir da próxima. Cada edição recebe a arte sozinha quando for publicada.');
           } else {
             var hojeISO = pubISO(new Date());
             avisar('Temporada marcada. ' + (res.arte ? 'A arte subiu do próprio pedido' : 'A faixa é texto, já está completa') +
@@ -4650,8 +4703,6 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         .catch(function(e){
           var m2 = String(e && e.message || '');
           if(m2 === 'sem arte') avisar('Este pedido veio sem arte. Peça a arte ao anunciante pelo WhatsApp e depois ponha no ar.');
-          else if(m2 === 'sem edição') avisar('Não achei nenhuma edição da revista para receber o anúncio.');
-          else if(m2 === 'sem matéria livre') avisar('Todas as matérias desta edição já têm meia página. Use uma página inteira ou espere a próxima edição.');
           else avisar(msgErro(e));
         });
     }
@@ -4739,9 +4790,15 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             '<div><label>Legenda (descreve a arte)</label><input type="text" id="pub-rev-legenda"></div>' +
             '<div><label>Quem é</label><input type="text" id="pub-rev-pedido" placeholder="protocolo ou nome"></div>' +
           '</div>' +
-          '<div style="margin-top:8px"><label class="ps-rot">Em quais edições</label>' +
-            '<div id="pub-rev-eds" class="pub-eds">carregando as edições…</div></div>' +
-          '<div style="margin-top:12px"><button class="f-pub" type="button" id="pub-rev-por" style="padding:11px 16px">Pôr na edição</button></div>' +
+          '<div style="margin-top:8px"><label class="ps-rot">Por quantas edições, a partir da próxima</label>' +
+            '<div class="az-ops" id="pub-rev-dur">' +
+              [1,2,3,4].map(function(n){
+                return '<button class="az-op' + (n === 1 ? ' on' : '') + '" type="button" data-rvn="' + n + '">' +
+                  n + (n === 1 ? ' edição' : ' edições') + '</button>';
+              }).join('') +
+            '</div>' +
+            '<div id="pub-rev-eds" class="ps-estado" style="padding-top:8px">calculando…</div></div>' +
+          '<div style="margin-top:12px"><button class="f-pub" type="button" id="pub-rev-por" style="padding:11px 16px">Reservar na revista</button></div>' +
         '</div>';
 
       PUB_SLOTS.forEach(function(sl){
@@ -4764,25 +4821,37 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         });
       });
 
-      // ---- o bloco da revista: formato, arte e as edições escolhidas ----
-      var revFmt = 'pagina-inteira';
+      // ---- o bloco da revista: formato, arte e quantas edições, sempre a partir da próxima ----
+      var revFmt = 'pagina-inteira', revQtd = 1, revProxima = null;
       document.querySelectorAll('#pub-rev-fmt .az-op').forEach(function(b2){
         b2.addEventListener('click', function(){
           revFmt = b2.dataset.rvf;
           document.querySelectorAll('#pub-rev-fmt .az-op').forEach(function(x){ x.classList.toggle('on', x === b2); });
         });
       });
-      pubEdicoes().then(function(eds){
+      function revPintaEdicoes(){
         var cx = $('pub-rev-eds');
-        if(!cx) return;
-        if(!eds.length){ cx.innerHTML = '<span class="ps-estado">nenhuma edição encontrada</span>'; return; }
-        cx.innerHTML = eds.map(function(e){
-          var n = e.doc.numero;
-          return '<label class="pub-ed"><input type="checkbox" value="' + esc(String(n)) + '">' +
-            '<b>Nº ' + esc(String(n)) + '</b><span>' + esc(e.doc.dataEdicao || '') + '</span>' +
-            '<em>' + (e.doc.status === 'rascunho' ? 'rascunho' : 'publicada') + '</em></label>';
-        }).join('');
-        PUB.edicoes = eds;
+        if(!cx || revProxima == null) return;
+        var nums = [];
+        for(var i = 0; i < revQtd; i++) nums.push(revProxima + i);
+        cx.textContent = 'vai entrar na' + (revQtd > 1 ? 's edições ' : ' edição ') +
+          nums.map(function(n){ return 'Nº ' + n; }).join(', ') +
+          ' — a partir da próxima, nunca numa edição já fechada';
+      }
+      document.querySelectorAll('#pub-rev-dur .az-op').forEach(function(b2){
+        b2.addEventListener('click', function(){
+          revQtd = Number(b2.dataset.rvn);
+          document.querySelectorAll('#pub-rev-dur .az-op').forEach(function(x){ x.classList.toggle('on', x === b2); });
+          revPintaEdicoes();
+        });
+      });
+      pubEdicoes(true).then(function(eds){
+        revProxima = pubProximaEdicao(eds);
+        revPintaEdicoes();
+      }).catch(function(){
+        revProxima = null;
+        var cx = $('pub-rev-eds');
+        if(cx) cx.textContent = 'não consegui ler as edições agora — sem isso não reservo, para não cair numa edição já fechada';
       });
       $('ps-file-rev').addEventListener('change', function(){
         var arq = this.files && this.files[0];
@@ -4796,40 +4865,37 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             .then(function(){
               $('pub-rev-img').value = caminho;
               $('ps-mini-rev').innerHTML = '<img src="' + dataURL + '" alt="arte nova">';
-              st.textContent = '✓ arte pronta — escolha as edições';
+              st.textContent = '✓ arte pronta — escolha por quantas edições';
             });
         }).catch(function(e){ st.textContent = ''; avisar(msgErro(e)); });
       });
       $('pub-rev-por').addEventListener('click', function(){
         var img = $('pub-rev-img').value.trim();
         if(!img){ avisar('Suba a arte da publicidade antes.'); return; }
-        var escolhidas = [].slice.call(document.querySelectorAll('#pub-rev-eds input:checked'))
-          .map(function(i){ return Number(i.value); });
-        if(!escolhidas.length){ avisar('Escolha ao menos uma edição.'); return; }
-        var alvos = (PUB.edicoes || []).filter(function(e){ return escolhidas.indexOf(Number(e.doc.numero)) >= 0; });
-        var dados = { img: img, link: $('pub-rev-link').value.trim(),
-                      legenda: $('pub-rev-legenda').value.trim(), pedido: $('pub-rev-pedido').value.trim() };
-        confirmar('Pôr esta arte como ' + (revFmt === 'pagina-inteira' ? 'página inteira' : 'meia página') +
-                  ' em ' + alvos.length + ' edição(ões): ' + alvos.map(function(e){ return 'Nº ' + e.doc.numero; }).join(', ') + '?',
-                  { rotuloOk:'Pôr na edição' }).then(function(ok){
+        if(revProxima == null){
+          avisar('Ainda não sei qual é a próxima edição. Sem isso não reservo nada, para o anúncio nunca cair numa edição já fechada. Abra a aba de novo daqui a pouco.');
+          return;
+        }
+        var nums = [];
+        for(var i = 0; i < revQtd; i++) nums.push(revProxima + i);
+        var dados = { link: $('pub-rev-link').value.trim(), legenda: $('pub-rev-legenda').value.trim(),
+                      pedido: $('pub-rev-pedido').value.trim() };
+        confirmar('Reservar esta arte como ' + (revFmt === 'pagina-inteira' ? 'página inteira' : 'meia página') +
+                  ' n' + (nums.length > 1 ? 'as edições ' : 'a edição ') +
+                  nums.map(function(n){ return 'Nº ' + n; }).join(', ') + '?' +
+                  '\n\nEdição que ainda não existe recebe o anúncio sozinha quando for montada.',
+                  { rotuloOk:'Reservar' }).then(function(ok){
           if(!ok) return;
-          toast('Entrando na revista…');
-          var feitos = [], falhas = [];
-          alvos.reduce(function(pr, e){
-            return pr.then(function(){
-              return pubEntraNaEdicao(e, revFmt, dados)
-                .then(function(r){ feitos.push('Nº ' + r.edicao + ' ' + r.onde); })
-                .catch(function(err){
-                  falhas.push('Nº ' + e.doc.numero + ': ' +
-                    (String(err && err.message) === 'sem matéria livre' ? 'todas as matérias já têm meia página' : msgErro(err)));
-                });
-            });
-          }, Promise.resolve()).then(function(){
-            avisar((feitos.length ? 'Entrou em: ' + feitos.join(' · ') : 'Nada entrou.') +
-                   (falhas.length ? '\n\nNão deu em: ' + falhas.join(' · ') : '') +
-                   (feitos.length ? '\n\nRascunho entra ao publicar a edição; edição já publicada entra no próximo deploy.' : ''));
-            carregarSitePub(); pubDesempenho();
-          });
+          toast('Reservando na revista…');
+          pubReserva(nums, revFmt, img, dados)
+            .then(function(){
+              avisar('Reservado. O anúncio entra n' + (nums.length > 1 ? 'as edições ' : 'a edição ') +
+                     nums.map(function(n){ return 'Nº ' + n; }).join(', ') +
+                     (nums.length > 1 ? ', quando cada uma for publicada' : ', quando ela for publicada') +
+                     ', sem você fazer mais nada.');
+              carregarSitePub(); pubDesempenho();
+            })
+            .catch(function(e){ avisar(msgErro(e)); });
         });
       });
 
