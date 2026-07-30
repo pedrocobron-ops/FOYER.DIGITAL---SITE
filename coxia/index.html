@@ -1534,10 +1534,34 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(d){ d.textContent = 'chave expirada — reconecte'; d.classList.remove('ok'); d.classList.add('err'); }
     var st = $('tk-st'); if(st){ st.textContent = 'Sua chave expirou ou foi revogada. Cole uma nova aqui.'; st.className = 'st err'; }
   }
+  // GET genérico da API com o mesmo salvavidas do ghGet: chave morta não cega a leitura
+  function ghFetchGet(url){
+    return fetch(url, { headers: hdr({}), cache:'no-store' }).then(function(r){
+      var rem = r.headers.get('x-ratelimit-remaining');
+      if((r.status === 401 || r.status === 403) && token() && !(r.status === 403 && rem === '0')){
+        marcarChaveInvalida();
+        return fetch(url, { headers: { 'Accept': 'application/vnd.github+json' }, cache:'no-store' });
+      }
+      return r;
+    });
+  }
   function ghGet(path){
-    return fetch(API + path + '?ref=' + BRANCH, { headers: hdr({}), cache:'no-store' })
+    var url = API + path + '?ref=' + BRANCH;
+    return fetch(url, { headers: hdr({}), cache:'no-store' })
       .then(function(r){
         if(r.status === 404) return null;
+        // chave morta não pode cegar a casa: o repositório é público, então a
+        // LEITURA segue sem chave (o aviso de reconectar fica de pé; gravar/aprovar
+        // continua exigindo chave nova)
+        var rem = r.headers.get('x-ratelimit-remaining');
+        if((r.status === 401 || r.status === 403) && token() && !(r.status === 403 && rem === '0')){
+          marcarChaveInvalida();
+          return fetch(url, { headers: { 'Accept': 'application/vnd.github+json' }, cache:'no-store' })
+            .then(function(r2){
+              if(r2.status === 404) return null;
+              return checaResp(r2);
+            });
+        }
         return checaResp(r);
       });
   }
@@ -1958,7 +1982,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
 
   function carregarAtividade(alvo, qtd){
     var el = $(alvo);
-    fetch(API_BASE + '/commits?sha=' + BRANCH + '&per_page=50', { headers: hdr({}) })
+    ghFetchGet(API_BASE + '/commits?sha=' + BRANCH + '&per_page=50')
       .then(function(r){ return r.json(); })
       .then(function(cs){
         var movs = (cs || []).filter(function(c){
@@ -3705,8 +3729,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     $('prev-avisos').innerHTML = '';
     $('prev-titulo').textContent = 'Comparar versões — o que mudou desde a versão anterior';
     abreOverlay('prev-overlay');
-    fetch(API_BASE + '/commits?sha=' + BRANCH + '&path=' + encodeURIComponent(path) + '&per_page=5',
-          { headers: hdr({}) })
+    ghFetchGet(API_BASE + '/commits?sha=' + BRANCH + '&path=' + encodeURIComponent(path) + '&per_page=5')
       .then(function(r){ return r.json(); })
       .then(function(commits){
         if(!commits || commits.length < 2){
