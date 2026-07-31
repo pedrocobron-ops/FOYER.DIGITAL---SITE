@@ -10,9 +10,26 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 import html as _html
 import urllib.parse as _uq
 
-# Endereço público do site. Na chegada do domínio (03/08), troque para
-# 'https://foyer.digital' OU rode o build com FOYER_BASE=https://foyer.digital
-BASE = os.environ.get('FOYER_BASE', 'https://pedrocobron-ops.github.io/FOYER.DIGITAL---SITE')
+# O endereço público do site, que assina o canonical, o og:url, o sitemap e o
+# robots. A virada para o domínio próprio (03/08/2026) é UM arquivo só: quando
+# existe um CNAME na raiz, é ele que manda. É o mesmo arquivo que o GitHub
+# Pages usa para reivindicar o domínio, então não há como o site dizer um
+# endereço e o servidor responder por outro. Dá para forçar outro valor com a
+# variável FOYER_BASE, útil para testar antes da hora.
+def _endereco_do_site():
+    forcado = os.environ.get('FOYER_BASE')
+    if forcado:
+        return forcado.rstrip('/')
+    try:
+        with open(os.path.join(ROOT, 'CNAME')) as _f:
+            dominio = _f.read().strip().splitlines()[0].strip()
+        if dominio:
+            return 'https://' + dominio
+    except Exception:
+        pass
+    return 'https://pedrocobron-ops.github.io/FOYER.DIGITAL---SITE'
+
+BASE = _endereco_do_site()
 
 ORG_LD = ('<script type="application/ld+json">{"@context":"https://schema.org",'
           '"@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação",'
@@ -225,6 +242,7 @@ FOOTER = '''<footer>
         <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
         <a href="principios.html">Princípios Editoriais</a>
         <a href="privacidade.html">Política de Privacidade</a>
+        <a href="termos.html">Termos de Uso</a>
         <a href="#" data-lgpd>Preferências de cookies</a>
         <a href="#" data-sino>🔔 Notificações</a>
       </div>
@@ -4345,6 +4363,75 @@ principios_body = band('Institucional', 'Princípios Editoriais', 'Como o FOYER 
 '''
 page('principios.html', 'Princípios Editoriais — FOYER', 'Como o FOYER apura, escreve, credita imagens e corrige: os princípios editoriais da casa.', 'principios.html', principios_body)
 page('privacidade.html', 'Política de Privacidade — FOYER', 'Política de privacidade e cookies do FOYER.', 'privacidade.html', privacidade_body)
+
+# ---------------------------------------------------------------- TERMOS DE USO
+# A página que faltava para o lançamento (31/07/2026). Ela não inventa regra
+# nova: junta num lugar só o que a casa já pratica e já diz espalhado pelo
+# site (direito de imagem das fotos, correção de erro, publicidade rotulada,
+# uso do acervo por terceiros). Escrita para ser LIDA, não para se defender.
+termos_body = band('Institucional', 'Termos de Uso',
+    'O que você pode esperar do FOYER, e o que a casa espera de quem lê. Última atualização: 31 de julho de 2026') + '''
+<main id="conteudo" class="wrap">
+  <div class="legal">
+    <h2>Quem é o FOYER</h2>
+    <p>O FOYER (foyer.digital) é um portal brasileiro de jornalismo cultural dedicado ao teatro, à música e às
+    artes, publicado por Foyer Estúdio e Comunicação, em São Paulo. Ao usar o site você concorda com estes termos.
+    Se não concordar com algum deles, o caminho honesto é não usar.</p>
+
+    <h2>O conteúdo é nosso, e a leitura é sua</h2>
+    <p>Os textos, as fotos próprias, os vídeos, as ilustrações, a Enciclopédia do Teatro Musical Brasileiro e as
+    edições da Revista do Foyer pertencem ao FOYER ou a quem nos licenciou o uso. Você pode ler, imprimir para
+    uso pessoal, citar trechos curtos com <b>crédito e link</b>, e compartilhar os endereços à vontade.</p>
+    <p>Não pode: republicar a matéria inteira em outro site ou rede, usar nosso conteúdo para treinar sistemas
+    comerciais sem acordo, nem apresentar nosso material como se fosse seu. Quem quiser reproduzir algo maior,
+    escreva para <a href="mailto:programafoyer@gmail.com">programafoyer@gmail.com</a>: costuma dar certo.</p>
+
+    <h2>As fotos têm dono</h2>
+    <p>As imagens de espetáculos são de divulgação das produções ou de bancos com licença livre, sempre com o
+    crédito ao lado. O direito de uso é da produção ou do fotógrafo, não nosso: o crédito no site <b>não</b>
+    autoriza você a reutilizar a foto. Se você é o autor de uma imagem e ela está aqui sem a devida autorização,
+    escreva para nós que retiramos ou corrigimos o crédito no mesmo dia.</p>
+
+    <h2>Quando a gente erra</h2>
+    <p>Jornal erra. O que o FOYER promete é o que fazemos com o erro: matéria corrigida ganha uma
+    <b>nota de correção visível no próprio texto</b>, dizendo o que estava errado e quando foi corrigido. Não
+    apagamos o rastro e não corrigimos em silêncio. Viu um erro? Escreva.</p>
+
+    <h2>Publicidade sempre com nome</h2>
+    <p>Todo anúncio no site e na revista é <b>rotulado como Publicidade</b> e nunca se disfarça de matéria. Nenhum
+    anunciante escolhe, aprova ou vê pauta antes de publicada, e ninguém compra o que a crítica vai dizer. As
+    condições de quem contrata estão nas <a href="regras-publicidade.html">Regras de Publicidade</a>.</p>
+
+    <h2>Seus dados</h2>
+    <p>O cadastro da revista pede o que é preciso para entregá-la, e nada além. O que fazemos com isso está na
+    <a href="privacidade.html">Política de Privacidade</a>, que faz parte destes termos. Você pode sair da lista
+    a qualquer momento pelo link no rodapé de cada edição.</p>
+
+    <h2>A revista e o acervo</h2>
+    <p>Assinar é de graça. O assinante lê a edição na quinta às 7h; ela abre para todo mundo na sexta e fica no
+    acervo. Podemos mudar dia, formato ou frequência avisando na própria revista, e não cobramos nada para
+    ler.</p>
+
+    <h2>O que o site não é</h2>
+    <p>Informações de agenda, preço, horário e local são publicadas conforme divulgadas pelas produções e
+    <b>mudam sem aviso</b>. Confirme sempre na bilheteria antes de sair de casa. Também não somos responsáveis
+    pelo conteúdo de sites de terceiros para os quais apontamos.</p>
+
+    <h2>Área restrita</h2>
+    <p>A Coxia é a área interna da redação. O acesso é pessoal, individual e registrado. Entrar sem autorização,
+    ou emprestar o acesso, é violação destes termos.</p>
+
+    <h2>Mudanças e conversa</h2>
+    <p>Estes termos podem mudar, e a data de atualização no alto da página sempre dirá quando. Aplica-se a lei
+    brasileira, e o foro é o da comarca de São Paulo. Antes disso, porém, existe o caminho mais curto: escreva
+    para <a href="mailto:programafoyer@gmail.com">programafoyer@gmail.com</a> que a gente resolve conversando.</p>
+  </div>
+</main>
+'''
+page('termos.html', 'Termos de Uso — FOYER',
+     'Os termos de uso do FOYER: direitos do conteúdo, uso das fotos, correções, publicidade e dados.',
+     'termos.html', termos_body)
+
 
 # ---- mídia kit: a página comercial da revista, com o retrato agregado do leitor
 anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na revista toda quinta. Veja como o seu anúncio fica antes de fechar — e feche direto no WhatsApp') + '''

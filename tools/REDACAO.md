@@ -700,6 +700,18 @@ Regras das seções novas:
     quem, quando, quanto, protocolo) e **oferece conselho antes de falar em
     dinheiro** — se o formato escolhido é mesmo o melhor para aquele caso.
     Termina sempre com "nada sobe sem o seu ok".
+  - **A VIRADA DO DOMÍNIO É UM ARQUIVO SÓ (31/07/2026)**: o endereço público
+    que assina canonical, og:url, sitemap e robots sai da função
+    `_endereco_do_site()`, que lê o **CNAME da raiz**. É o mesmo arquivo que o
+    GitHub Pages usa para reivindicar o domínio, então não existe o cenário de
+    o site dizer um endereço e o servidor responder por outro. Para virar:
+    `bash tools/virar-dominio.sh` (tem `--ensaio` para testar sem publicar).
+    O script **se recusa a rodar** enquanto o DNS não apontar para o GitHub
+    Pages, porque publicar o CNAME antes da propagação tira o site do ar; a
+    checagem está em `tools/dns-pages.py`. Depois de rodar, faltam três passos
+    que só o dono da conta faz: marcar o domínio em Settings → Pages, esperar
+    o certificado e ligar o Enforce HTTPS. **Nenhum story vai ao ar antes do
+    HTTPS estar verde.**
   - **O BANCO DE ARTES DE DIVULGAÇÃO (31/07/2026)**: a Coxia tem a aba
     **Divulgação**, um banco de peças para o Instagram desenhadas com a
     tipografia e as cores da casa (Abril Fatface, Archivo, IBM Plex Mono,
