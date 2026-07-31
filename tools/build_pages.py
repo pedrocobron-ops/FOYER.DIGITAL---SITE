@@ -5750,6 +5750,7 @@ coxia_html = (head('Coxia — FOYER', 'Área restrita da redação do Foyer.')
                        'rel="apple-touch-icon" href="assets/logo/pwa-coxia-192.png"')
               + '\n' + coxia_body.replace('__TOTAL__', str(len(MATERIAS)))
                                   .replace('__VERSAO_COXIA__', _dtmod.datetime.now().strftime('%Y%m%d-%H%M%S')) + '\n'
+              + '<script src="assets/artes.js"></script>\n'
               + '<script src="assets/site.js"></script></body>\n</html>\n')
 # a Coxia mora em /coxia/ (escopo próprio de aplicativo, separado do app do site);
 # o <base href="../"> mantém todos os caminhos relativos funcionando

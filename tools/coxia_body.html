@@ -832,6 +832,7 @@
         <button data-view="revista" id="mi-revista" type="button">📖 &nbsp;Revista</button>
         <button data-view="calendario" id="mi-cal" type="button">📅 &nbsp;Calendário<span class="bdg" id="bdg-cal" style="display:none">!</span></button>
         <button data-view="pub" id="mi-pub" type="button">💰 &nbsp;Publicidade<span class="bdg" id="bdg-pub" style="display:none">0</span></button>
+        <button data-view="divulgacao" id="mi-div" type="button">📣 &nbsp;Divulgação</button>
         <button data-view="equipe" id="mi-equipe" type="button">👥 &nbsp;Equipe</button>
         <button data-view="metricas" id="mi-metricas" type="button">📈 &nbsp;Métricas</button>
         <button data-view="conexao" type="button">⚡ &nbsp;Conexão</button>
@@ -1371,6 +1372,82 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         <div id="pub-desempenho"><div class="vazio-box">Carregando os números…</div></div>
         <div class="sec-h"><h3>Anúncios do site no ar</h3><span>a Faixa, a Cortina e o Entreato; salvar publica no próximo deploy, sempre com o rótulo Publicidade</span></div>
         <div class="pub-form" id="pub-site"></div>
+      </section>
+
+      <!-- ===================== DIVULGAÇÃO: O BANCO DE ARTES =====================
+           O portal precisa ser divulgado, e antes disso o Pedro dependia de
+           alguém desenhar peça a peça. Aqui as artes nascem prontas, com a
+           tipografia e as cores da casa, em stories e em feed, e podem ser
+           editadas e guardadas no banco para a próxima vez. (31/07/2026) -->
+      <section class="view" id="view-divulgacao">
+        <style>
+          .dv-grid{ display:grid; grid-template-columns:300px 1fr; gap:22px; align-items:start; }
+          @media (max-width:900px){ .dv-grid{ grid-template-columns:1fr; } }
+          .dv-lista{ border:2px solid var(--ink,#231007); max-height:70vh; overflow:auto; }
+          .dv-item{ display:block; width:100%; text-align:left; border:0; border-bottom:1px solid var(--line,#ddd0bb);
+            background:transparent; padding:11px 13px; cursor:pointer; font:inherit; }
+          .dv-item:hover{ background:rgba(206,178,106,.18); }
+          .dv-item.on{ background:var(--wine,#4E0F09); color:var(--gold,#CEB26A); }
+          .dv-item b{ display:block; font-size:.9rem; }
+          .dv-item span{ font-family:var(--mono,monospace); font-size:.56rem; letter-spacing:.12em;
+            text-transform:uppercase; opacity:.7; }
+          .dv-palco{ display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap; }
+          .dv-tela{ border:2px solid var(--ink,#231007); background:#0d0605; padding:8px; }
+          .dv-tela canvas{ display:block; width:270px; height:auto; }
+          .dv-campos{ flex:1; min-width:260px; display:flex; flex-direction:column; gap:9px; }
+          .dv-campos label{ font-family:var(--mono,monospace); font-size:.56rem; letter-spacing:.14em;
+            text-transform:uppercase; color:var(--ink-soft,#6b5a4e); display:block; margin-bottom:3px; }
+          .dv-campos input, .dv-campos textarea{ width:100%; box-sizing:border-box; border:1.5px solid var(--line,#ddd0bb);
+            background:var(--paper,#EFE9DB); color:var(--ink,#16100D); padding:8px 10px; font:inherit; font-size:.86rem; }
+          .dv-campos textarea{ resize:vertical; }
+          .dv-ops{ display:flex; gap:6px; flex-wrap:wrap; }
+          .dv-op{ font-family:var(--mono,monospace); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase;
+            border:1.5px solid var(--ink,#231007); background:transparent; padding:6px 11px; cursor:pointer; }
+          .dv-op.on{ background:var(--ink,#231007); color:var(--gold,#CEB26A); }
+          .dv-acoes{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+        </style>
+        <div class="sec-h"><h3>Divulgação</h3>
+          <span>o banco de artes do portal: escolha a peça, ajuste o texto e baixe pronta para o Instagram</span></div>
+        <div class="dv-grid">
+          <div>
+            <div class="dv-lista" id="dv-lista"></div>
+            <div class="dv-acoes">
+              <button class="bt" type="button" id="dv-nova">＋ Peça nova</button>
+              <button class="bt" type="button" id="dv-todas">⬇ Baixar todas</button>
+            </div>
+          </div>
+          <div>
+            <div class="dv-palco">
+              <div class="dv-tela"><canvas id="dv-canvas" width="1080" height="1920"></canvas></div>
+              <div class="dv-campos">
+                <div class="dv-ops" id="dv-formato">
+                  <button class="dv-op on" type="button" data-fmt="stories">Stories 1080×1920</button>
+                  <button class="dv-op" type="button" data-fmt="feed">Feed 1080×1080</button>
+                </div>
+                <div class="dv-ops" id="dv-estilo">
+                  <button class="dv-op" type="button" data-est="cortina">Cortina</button>
+                  <button class="dv-op" type="button" data-est="papel">Papel</button>
+                  <button class="dv-op" type="button" data-est="palco">Palco</button>
+                </div>
+                <div><label>Etiqueta</label><input type="text" id="dv-etiqueta" maxlength="34"></div>
+                <div><label>Título</label><textarea id="dv-titulo" rows="2" maxlength="120"></textarea></div>
+                <div><label>A linha de apoio</label><textarea id="dv-linha" rows="3" maxlength="260"></textarea></div>
+                <div><label>Itens (um por linha, opcional)</label><textarea id="dv-itens" rows="3"></textarea></div>
+                <div><label>Endereço no rodapé</label><input type="text" id="dv-cta" maxlength="46"></div>
+                <div><label>Recado embaixo do endereço</label><input type="text" id="dv-recado" maxlength="46"></div>
+              </div>
+            </div>
+            <div class="dv-acoes">
+              <button class="f-pub" type="button" id="dv-baixar" style="padding:10px 15px">⬇ Baixar esta arte</button>
+              <button class="bt" type="button" id="dv-salvar">💾 Guardar no banco</button>
+              <button class="bt" type="button" id="dv-reverter">↺ Voltar ao texto original</button>
+              <button class="bt" type="button" id="dv-apagar" style="display:none">🗑 Apagar do banco</button>
+            </div>
+            <div class="f-note" style="margin-top:10px">As artes saem em PNG, no tamanho certo do Instagram. O texto que você
+              guarda no banco fica salvo para todo mundo da casa, e a peça continua sendo redesenhada na hora, sempre com a
+              tipografia do FOYER.</div>
+          </div>
+        </div>
       </section>
 
       <section class="view" id="view-calendario">
@@ -2071,6 +2148,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(v === 'calendario') carregarCalendario();
     if(v === 'pub'){ carregarPedidosPub(); carregarSitePub(); pubDesempenho(); }
     if(v === 'metricas') carregarMetricas();
+    if(v === 'divulgacao') carregarDivulgacao();
     if(foco) focarBloco(foco, focoAlt);
   }
   document.querySelectorAll('#menu button').forEach(function(b){
@@ -5279,6 +5357,186 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       $('ps-mini-' + sl).innerHTML = '<span>sem arte</span>';
       $('pub-salvar').click();
     });
+  });
+
+
+  /* ================= DIVULGAÇÃO: o banco de artes do portal =================
+     O desenho mora em assets/artes.js, o mesmo arquivo que a exportação em
+     lote usa: o que aparece aqui na prévia é exatamente o PNG que sai. As
+     peças da casa vêm de lá; as que o Pedro criar ficam em
+     import/coxia/divulgacao.json e valem para todo mundo da redação. */
+  var DV = { peca:null, formato:'stories', banco:[], sha:null, logoG:null, logoV:null, prontas:false };
+  var DV_ARQ = 'import/coxia/divulgacao.json';
+
+  function dvImagem(src){
+    return new Promise(function(ok){
+      var im = new Image(); im.onload = function(){ ok(im); }; im.onerror = function(){ ok(null); };
+      im.src = src;
+    });
+  }
+  function dvPrepara(){
+    if(DV.prontas) return Promise.resolve();
+    return Promise.all([
+      (window.FoyerArtes ? FoyerArtes.prontas() : Promise.resolve()),
+      dvImagem('assets/logo/foyer-stacked-gold.png'),
+      dvImagem('assets/logo/foyer-stacked-wine-sm.png')
+    ]).then(function(r){ DV.logoG = r[1]; DV.logoV = r[2]; DV.prontas = true; });
+  }
+  function dvCatalogo(){
+    var casa = (window.FoyerArtes ? FoyerArtes.PECAS : []).map(function(p){
+      var meu = DV.banco.filter(function(b){ return b.id === p.id; })[0];
+      return Object.assign({ daCasa:true }, p, meu || {});
+    });
+    var minhas = DV.banco.filter(function(b){
+      return !(window.FoyerArtes ? FoyerArtes.PECAS : []).some(function(p){ return p.id === b.id; });
+    });
+    return casa.concat(minhas);
+  }
+  function dvPintaLista(){
+    var el = $('dv-lista'); if(!el) return;
+    el.innerHTML = dvCatalogo().map(function(p){
+      var alterada = !p.daCasa || DV.banco.some(function(b){ return b.id === p.id; });
+      return '<button class="dv-item' + (DV.peca && DV.peca.id === p.id ? ' on' : '') + '" type="button" data-dv="' +
+        esc(p.id) + '"><b>' + esc(p.nome || p.titulo) + '</b><span>' + esc(p.etiqueta || '') +
+        (alterada && p.daCasa ? ' · editada' : (p.daCasa ? '' : ' · sua')) + '</span></button>';
+    }).join('');
+  }
+  function dvCarregaCampos(p){
+    $('dv-etiqueta').value = p.etiqueta || '';
+    $('dv-titulo').value = p.titulo || '';
+    $('dv-linha').value = p.linha || '';
+    $('dv-itens').value = (p.itens || []).join('\n');
+    $('dv-cta').value = p.cta || 'foyer.digital';
+    $('dv-recado').value = p.recado === undefined ? 'o link está na bio' : p.recado;
+    document.querySelectorAll('#dv-estilo .dv-op').forEach(function(b){ b.classList.toggle('on', b.dataset.est === p.estilo); });
+    $('dv-apagar').style.display = p.daCasa ? 'none' : 'inline-flex';
+  }
+  function dvDoFormulario(){
+    var est = document.querySelector('#dv-estilo .dv-op.on');
+    return {
+      id: DV.peca ? DV.peca.id : 'peca',
+      nome: DV.peca ? (DV.peca.nome || DV.peca.titulo) : 'Peça',
+      daCasa: DV.peca ? !!DV.peca.daCasa : false,
+      estilo: est ? est.dataset.est : 'cortina',
+      etiqueta: $('dv-etiqueta').value,
+      titulo: $('dv-titulo').value,
+      linha: $('dv-linha').value,
+      itens: $('dv-itens').value.split('\n').map(function(x){ return x.trim(); }).filter(Boolean),
+      cta: $('dv-cta').value,
+      recado: $('dv-recado').value
+    };
+  }
+  function dvDesenha(cv, peca, formato){
+    var m = FoyerArtes.MEDIDAS[formato];
+    cv.width = m.w; cv.height = m.h;
+    var ctx = cv.getContext('2d');
+    FoyerArtes.pinta(ctx, peca, { formato: formato, recado: peca.recado,
+      logo: peca.estilo === 'papel' ? DV.logoV : DV.logoG });
+    return cv;
+  }
+  function dvPrevia(){
+    if(!window.FoyerArtes || !DV.peca) return;
+    dvPrepara().then(function(){ dvDesenha($('dv-canvas'), dvDoFormulario(), DV.formato); });
+  }
+  function dvBaixa(peca, formato){
+    var cv = document.createElement('canvas');
+    dvDesenha(cv, peca, formato);
+    return new Promise(function(ok){
+      cv.toBlob(function(b){
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(b);
+        a.download = 'foyer-' + formato + '-' + (peca.id || 'arte') + '.png';
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function(){ URL.revokeObjectURL(a.href); ok(); }, 400);
+      }, 'image/png');
+    });
+  }
+  function carregarDivulgacao(){
+    if(!$('dv-lista')) return;
+    dvPrepara().then(function(){
+      return ghGet(DV_ARQ).then(function(f){
+        DV.banco = (f && f.content) ? (JSON.parse(unb64(f.content)).pecas || []) : [];
+        DV.sha = f ? f.sha : null;
+      }).catch(function(){ DV.banco = []; DV.sha = null; });
+    }).then(function(){
+      if(!DV.peca) DV.peca = dvCatalogo()[0];
+      dvPintaLista(); if(DV.peca) dvCarregaCampos(DV.peca); dvPrevia();
+    });
+  }
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-dv]');
+    if(!b) return;
+    DV.peca = dvCatalogo().filter(function(p){ return p.id === b.dataset.dv; })[0];
+    dvPintaLista(); dvCarregaCampos(DV.peca); dvPrevia();
+  });
+  ['dv-etiqueta','dv-titulo','dv-linha','dv-itens','dv-cta','dv-recado'].forEach(function(id){
+    document.addEventListener('input', function(e){ if(e.target && e.target.id === id) dvPrevia(); });
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('#dv-formato .dv-op');
+    if(!b) return;
+    DV.formato = b.dataset.fmt;
+    document.querySelectorAll('#dv-formato .dv-op').forEach(function(x){ x.classList.toggle('on', x === b); });
+    dvPrevia();
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('#dv-estilo .dv-op');
+    if(!b) return;
+    document.querySelectorAll('#dv-estilo .dv-op').forEach(function(x){ x.classList.toggle('on', x === b); });
+    dvPrevia();
+  });
+  if($('dv-baixar')) $('dv-baixar').addEventListener('click', function(){
+    dvBaixa(dvDoFormulario(), DV.formato).then(function(){ toast('Arte baixada ✓'); });
+  });
+  if($('dv-todas')) $('dv-todas').addEventListener('click', function(){
+    var lista = dvCatalogo(), fmt = DV.formato;
+    confirmar('Baixar as ' + lista.length + ' artes em ' + FoyerArtes.MEDIDAS[fmt].nome + '?\n\n' +
+              'O navegador pode pedir permissão para vários downloads de uma vez.',
+              { rotuloOk:'Baixar todas' }).then(function(ok){
+      if(!ok) return;
+      var i = 0;
+      (function proxima(){
+        if(i >= lista.length){ toast('As ' + lista.length + ' artes foram baixadas ✓'); return; }
+        dvBaixa(lista[i++], fmt).then(function(){ setTimeout(proxima, 350); });
+      })();
+    });
+  });
+  if($('dv-nova')) $('dv-nova').addEventListener('click', function(){
+    perguntar('Que nome esta peça leva no banco?', 'Peça nova', { titulo:'Peça nova' }).then(function(nome){
+      if(!nome) return;
+      var id = 'p' + Date.now().toString(36);
+      DV.peca = { id:id, nome:nome, daCasa:false, estilo:'cortina', etiqueta:'FOYER',
+                  titulo:nome, linha:'', itens:[], cta:'foyer.digital', recado:'o link está na bio' };
+      DV.banco.push(DV.peca);
+      dvPintaLista(); dvCarregaCampos(DV.peca); dvPrevia();
+      avisar('Peça criada. Escreva o texto e clique em "Guardar no banco" para ela valer para a casa toda.');
+    });
+  });
+  if($('dv-salvar')) $('dv-salvar').addEventListener('click', function(){
+    if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+    var atual = dvDoFormulario();
+    DV.banco = DV.banco.filter(function(b){ return b.id !== atual.id; }).concat([atual]);
+    ghGet(DV_ARQ).then(function(f){
+      return ghPut(DV_ARQ, JSON.stringify({ pecas: DV.banco }, null, 1),
+                   assina('guarda a arte de divulgação ' + atual.id), f && f.sha);
+    }).then(function(){ dvPintaLista(); avisar('Guardado no banco. A peça fica assim para todo mundo da casa.'); })
+      .catch(function(e){ avisar(msgErro(e)); });
+  });
+  if($('dv-apagar')) $('dv-apagar').addEventListener('click', function(){
+    var atual = dvDoFormulario();
+    confirmar('Apagar “' + (DV.peca.nome || atual.titulo) + '” do banco?', { rotuloOk:'Apagar', perigo:true }).then(function(ok){
+      if(!ok) return;
+      DV.banco = DV.banco.filter(function(b){ return b.id !== atual.id; });
+      ghGet(DV_ARQ).then(function(f){
+        return ghPut(DV_ARQ, JSON.stringify({ pecas: DV.banco }, null, 1), assina('apaga arte de divulgação'), f && f.sha);
+      }).then(function(){ DV.peca = dvCatalogo()[0]; dvPintaLista(); dvCarregaCampos(DV.peca); dvPrevia(); })
+        .catch(function(e){ avisar(msgErro(e)); });
+    });
+  });
+  if($('dv-reverter')) $('dv-reverter').addEventListener('click', function(){
+    if(!DV.peca || !DV.peca.daCasa){ avisar('Esta peça é sua, não tem texto original da casa.'); return; }
+    var orig = FoyerArtes.PECAS.filter(function(p){ return p.id === DV.peca.id; })[0];
+    if(orig){ DV.peca = Object.assign({ daCasa:true }, orig); dvCarregaCampos(DV.peca); dvPrevia(); }
   });
 
   /* ---------------- calendário editorial (a semana da revista) ---------------- */

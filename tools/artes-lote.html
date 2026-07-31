@@ -1,0 +1,24 @@
+<!doctype html><meta charset="utf-8">
+<link rel="stylesheet" href="/assets/site.css">
+<body style="margin:0;background:#222">
+<script src="/assets/artes.js"></script>
+<script>
+window.gera = async function(formato){
+  await FoyerArtes.prontas();
+  const logo = new Image();
+  logo.src = '/assets/logo/foyer-stacked-gold.png';
+  const logoW = new Image();
+  logoW.src = '/assets/logo/foyer-stacked-wine-sm.png';
+  await Promise.all([logo.decode().catch(()=>{}), logoW.decode().catch(()=>{})]);
+  const m = FoyerArtes.MEDIDAS[formato];
+  const out = [];
+  for (const p of FoyerArtes.PECAS) {
+    const cv = document.createElement('canvas');
+    cv.width = m.w; cv.height = m.h;
+    const ctx = cv.getContext('2d');
+    FoyerArtes.pinta(ctx, p, { formato, logo: p.estilo === 'papel' ? logoW : logo });
+    out.push({ id: p.id, nome: p.nome, dataURL: cv.toDataURL('image/jpeg', 0.92) });
+  }
+  return out;
+};
+</script>

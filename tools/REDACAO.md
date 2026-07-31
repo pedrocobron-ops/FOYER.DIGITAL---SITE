@@ -700,6 +700,20 @@ Regras das seções novas:
     quem, quando, quanto, protocolo) e **oferece conselho antes de falar em
     dinheiro** — se o formato escolhido é mesmo o melhor para aquele caso.
     Termina sempre com "nada sobe sem o seu ok".
+  - **O BANCO DE ARTES DE DIVULGAÇÃO (31/07/2026)**: a Coxia tem a aba
+    **Divulgação**, um banco de peças para o Instagram desenhadas com a
+    tipografia e as cores da casa (Abril Fatface, Archivo, IBM Plex Mono,
+    vinho, dourado e papel). Três estilos: **cortina** (veludo com letra
+    dourada, para anúncio), **papel** (editorial, para falar de conteúdo) e
+    **palco** (escuro com refletor, para chamada de ação). Sai em **stories
+    1080×1920** e **feed 1080×1080**, sempre respeitando a faixa que o
+    Instagram cobre em cima e embaixo. O desenho mora em `assets/artes.js`,
+    que é a ÚNICA fonte: a prévia da Coxia e a exportação em lote
+    (`tools/artes-lote.html`) usam o mesmo código, então o que se vê na tela
+    é o PNG que sai. O texto de cada peça é editável e, ao **guardar no
+    banco**, vai para `import/coxia/divulgacao.json` e vale para a casa toda;
+    peças novas podem ser criadas do zero. As artes prontas ficam em
+    `assets/divulgacao/`.
   - **A PRESTAÇÃO DE CONTAS (31/07/2026)**: o anunciante pagava e não via
     número nenhum. Agora cada anúncio na Coxia tem o botão **Prestação de
     contas**, que monta o relatório da temporada (vistas, pessoas, cliques,
