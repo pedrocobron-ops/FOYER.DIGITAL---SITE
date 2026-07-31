@@ -671,6 +671,21 @@ Regras das seções novas:
     lado) e na capa, dentro do Giro (230 de lado), ao lado da manchete
     do dia. Quando há Cartaz vendido, ele ocupa o lugar de uma chamada
     do Giro, para a coluna não crescer.
+  - **A REVISTA É OUTRA COISA (ordem do Pedro, 31/07/2026)**: na revista
+    **não há limite de anúncios por edição** — se um dia forem muitos, a casa
+    diminui. E o anúncio da revista é **FIXO**: depois que a edição sai, ele
+    fica no mesmo lugar para sempre. O sorteio a cada visita vale **só para o
+    site** (Entreato e Cartaz); a revista é objeto fechado, como papel
+    impresso, e o leitor que voltar à edição encontra a mesma página no mesmo
+    lugar. Confirmado na prática: duas remontagens seguidas devolvem a mesma
+    ordem, e nenhuma página da revista tem `data-pub-slot`.
+    A ressalva que sobra: a **meia página** mora no pé de uma matéria, então
+    uma edição só comporta tantas meias quanto tiver matérias. Vender além
+    disso fazia o anúncio sumir em silêncio (o aviso saía só no log da
+    montagem, que ninguém lê). Agora a Coxia **conta as vagas antes**, avisa
+    quantas matérias a edição tem e quantas meias já estão reservadas, e não
+    grava a reserva que não caberia. A página inteira não tem esse limite:
+    ela cria a própria página.
   - **A PRESTAÇÃO DE CONTAS (31/07/2026)**: o anunciante pagava e não via
     número nenhum. Agora cada anúncio na Coxia tem o botão **Prestação de
     contas**, que monta o relatório da temporada (vistas, pessoas, cliques,

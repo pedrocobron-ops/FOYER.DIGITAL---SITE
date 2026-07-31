@@ -4758,6 +4758,25 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // ---- formatos da revista: reserva a partir da próxima edição ----
   // a arte não é escrita dentro da edição: quem encaixa é o gerador, na hora de montar.
   // assim uma edição já fechada nunca muda, e a reserva espera a edição que ainda vai nascer.
+  // Na revista NÃO há limite de anúncios (ordem do Pedro, 31/07/2026): se um
+  // dia forem muitos, a casa diminui. Mas a meia página mora no pé de uma
+  // matéria, e uma edição só tem as matérias que tem. Vender mais meias do
+  // que matérias faz o anúncio simplesmente não aparecer, e até aqui o único
+  // sinal disso era uma linha no log da montagem, que ninguém lê. Agora a
+  // Coxia conta as vagas ANTES e avisa; quem decide seguir é o chefe.
+  function pubMeiasQueCabem(eds, numero){
+    var ed = (eds || []).filter(function(e){ return Number(e.doc.numero) === Number(numero); })[0];
+    if(!ed) return null;
+    return (ed.doc.paginas || []).filter(function(pg){ return pg.tipo === 'materia'; }).length;
+  }
+  function pubMeiasReservadas(numero){
+    return ghGet(PUB_REV_ARQ, true).then(function(f){
+      var doc = (f && f.content) ? JSON.parse(unb64(f.content)) : { reservas: [] };
+      return (doc.reservas || []).filter(function(r){
+        return String(r.numero) === String(numero) && r.formato === 'meia-pagina';
+      }).length;
+    }).catch(function(){ return 0; });
+  }
   function pubNoArRevista(p){
     return pubEdicoes(true).then(function(eds){
       var prox = pubProximaEdicao(eds);
@@ -4765,11 +4784,27 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       var nums = [];
       for(var i = 0; i < quantas; i++) nums.push(prox + i);
       var caminho = 'assets/uploads/pub-rev-' + String(p.protocolo || 'novo').toLowerCase() + '.jpg';
-      return pubSobeArte(p, caminho).then(function(cam){
-        if(!cam) throw new Error('sem arte');
-        return pubReserva(nums, p.formato, cam,
-          { link: p.link || '', legenda: p.empresa || p.nome || '', pedido: p.protocolo || '' })
-          .then(function(){ return { edicoes: nums }; });
+      var aviso = Promise.resolve(null);
+      if(p.formato === 'meia-pagina'){
+        aviso = pubMeiasReservadas(nums[0]).then(function(jaTem){
+          var cabem = pubMeiasQueCabem(eds, nums[0]);
+          if(cabem !== null && jaTem >= cabem){
+            return 'A edição Nº ' + nums[0] + ' tem ' + cabem + ' matéria(s) e já tem ' + jaTem +
+                   ' meia(s) página(s) reservada(s). O pé de matéria acabou: esta arte seria reservada, ' +
+                   'mas NÃO apareceria na edição.\n\nO caminho limpo é combinar a partir da edição seguinte, ' +
+                   'ou vender uma página inteira, que não depende de matéria.';
+          }
+          return null;
+        });
+      }
+      return aviso.then(function(semVaga){
+        if(semVaga){ var e = new Error('SEM PE DE MATERIA'); e.semVaga = semVaga; throw e; }
+        return pubSobeArte(p, caminho).then(function(cam){
+          if(!cam) throw new Error('sem arte');
+          return pubReserva(nums, p.formato, cam,
+            { link: p.link || '', legenda: p.empresa || p.nome || '', pedido: p.protocolo || '' })
+            .then(function(){ return { edicoes: nums }; });
+        });
       });
     });
   }
@@ -4835,6 +4870,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         .catch(function(e){
           var m2 = String(e && e.message || '');
           if(m2 === 'sem arte') avisar('Este pedido veio sem arte. Peça a arte ao anunciante pelo WhatsApp e depois ponha no ar.');
+          else if(e && e.semVaga){ avisar(e.semVaga, { titulo:'A meia página não caberia' }); }
           else if(e && e.lotado){
             // a trava que impede vender duas vezes o mesmo lugar
             var L = e.lotado;
