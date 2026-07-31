@@ -638,6 +638,21 @@ Regras das seções novas:
     formatos recebem arte, e a legenda de uma linha é opcional em todos
     (serve de texto alternativo para leitor de tela e para quando a
     imagem demora a carregar).
+  - **QUANTOS ANUNCIANTES CABEM EM CADA FORMATO (ordem do Pedro,
+    31/07/2026)**: a Cortina tem **1 vaga** (interrompe a leitura; duas seria
+    hostil). O Entreato e o Cartaz têm **3 vagas cada**, e o lugar **gira**:
+    a conta é feita pelo endereço da matéria (e pelo dia, na capa), então é
+    sempre a mesma na remontagem e cada anunciante fica com uma fatia igual.
+    Teto de civilidade: **uma matéria nunca mostra mais de 2 anúncios no
+    corpo**, com parágrafos entre eles. O Entreato entra depois do 4º
+    parágrafo (só em matéria com 6 ou mais); o Cartaz depois do 10º, e em
+    matéria curta fecha o texto, sem interromper ninguém. Na capa o Cartaz
+    tem dois lugares: o Giro e uma célula da grade de Notícias.
+    O arquivo `import/anuncios/site.json` aceita as duas formas, um anúncio
+    só ou uma lista, então nada antigo quebra. A Coxia mostra o **mapa de
+    ocupação** ("2 de 3 vagas · 1 livre", "vendido até 10/08") e **trava** o
+    "Pôr no ar" quando o período está lotado: diz quem ocupa, quando abre a
+    próxima vaga, e não mexe em nada no site.
   - **A FAIXA SAIU E NASCEU O CARTAZ (ordem do Pedro, 30/07/2026)**: a
     Faixa de proscênio foi **retirada do site inteiro**. O motivo, nas
     palavras dele: exigia uma arte muito específica, e numa tarja de
@@ -648,6 +663,13 @@ Regras das seções novas:
     lado) e na capa, dentro do Giro (230 de lado), ao lado da manchete
     do dia. Quando há Cartaz vendido, ele ocupa o lugar de uma chamada
     do Giro, para a coluna não crescer.
+  - **A PRESTAÇÃO DE CONTAS (31/07/2026)**: o anunciante pagava e não via
+    número nenhum. Agora cada anúncio na Coxia tem o botão **Prestação de
+    contas**, que monta o relatório da temporada (vistas, pessoas, cliques,
+    proporção) em texto limpo, pronto para mandar no WhatsApp do anunciante,
+    com a explicação de como a casa conta. Quando a temporada acaba, o painel
+    lembra que é a hora de mandar e conversar a renovação. É o que faz um
+    anunciante comprar a segunda temporada.
   - **O limite do GitHub, e por que a Coxia às vezes mostra travessão
     (30/07/2026)**: sem chave conectada, o GitHub libera **60 consultas
     por hora** por aparelho; com a chave da casa, 5.000. Quando o limite

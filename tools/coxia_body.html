@@ -1313,6 +1313,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           .pub-des .pd-t b{ font-size:.95rem; }
           .pub-des .pd-t .mt{ margin-left:auto; }
           .pub-nums{ display:flex; gap:20px; flex-wrap:wrap; margin-top:8px; }
+          .pd-acoes{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:10px;
+            border-top:1px dashed var(--line,#ddd0bb); padding-top:9px; }
+          .pd-acoes small{ font-size:.72rem; color:var(--ink-soft,#6b5a4e); }
+          .pd-conta{ font-size:.74rem; }
           .pub-nums div{ min-width:78px; }
           .pub-nums u{ display:block; text-decoration:none; font-family:var(--didone, Georgia); font-size:1.35rem; }
           .pub-nums em{ display:block; font-style:normal; font-family:var(--mono, monospace); font-size:.52rem;
@@ -1321,6 +1325,17 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             text-transform:uppercase; padding:3px 8px; border:1.5px solid currentColor; }
           .pub-prazo.perto{ color:#8a1f14; font-weight:700; }
           .pub-slot{ border:2px solid var(--ink,#231007); padding:12px 14px; margin-bottom:12px; }
+          /* o mapa de ocupação: um bloco por formato, com as vagas dentro */
+          .pub-formato{ border-left:4px solid var(--gold,#C9A227); padding-left:12px; margin:0 0 22px; }
+          .pf-cab{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+          .pf-cab b{ font-family:var(--mono,monospace); font-size:.72rem; letter-spacing:.14em; }
+          .pf-cab span{ font-size:.74rem; color:var(--ink-soft,#6b5a4e); flex:1; min-width:180px; }
+          .pf-vagas{ font-style:normal; font-family:var(--mono,monospace); font-size:.6rem; font-weight:700;
+            letter-spacing:.1em; text-transform:uppercase; background:var(--gold,#C9A227); color:var(--wine,#4E0F09);
+            padding:3px 8px; white-space:nowrap; }
+          .pf-vagas.cheio{ background:var(--wine,#4E0F09); color:var(--gold,#C9A227); }
+          .pub-slot .ps-cab span{ font-family:var(--mono,monospace); font-size:.58rem; letter-spacing:.12em;
+            text-transform:uppercase; opacity:.6; }
           .ps-cab{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:10px; }
           .ps-cab b{ font-family:var(--mono, monospace); font-size:.66rem; letter-spacing:.16em; }
           .ps-cab span{ font-size:.76rem; opacity:.7; }
@@ -1502,7 +1517,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   <div class="cx-dlg-box">
     <div class="cx-dlg-top" id="dlg-top">Coxia</div>
     <p class="cx-dlg-msg" id="dlg-msg"></p>
-    <div class="cx-dlg-in" id="dlg-in" style="display:none"><input type="text" id="dlg-input"></div>
+    <div class="cx-dlg-in" id="dlg-in" style="display:none"><input type="text" id="dlg-input"><textarea id="dlg-area" rows="12" style="display:none;width:100%;box-sizing:border-box"></textarea></div>
     <div class="cx-dlg-acoes">
       <button class="bt" type="button" id="dlg-cancel" style="display:none">Cancelar</button>
       <button class="bt ap" type="button" id="dlg-ok">OK</button>
@@ -2914,22 +2929,26 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     $('dlg-top').textContent = cfg.titulo || 'Coxia';
     $('dlg-msg').textContent = cfg.msg || '';
     var temInput = cfg.tipo === 'perguntar';
+    var largo = temInput && !!cfg.multilinha;          // texto de várias linhas
     $('dlg-in').style.display = temInput ? 'block' : 'none';
-    if(temInput) $('dlg-input').value = cfg.valor || '';
+    $('dlg-input').style.display = temInput && !largo ? '' : 'none';
+    $('dlg-area').style.display = largo ? 'block' : 'none';
+    if(temInput) (largo ? $('dlg-area') : $('dlg-input')).value = cfg.valor || '';
     $('dlg-cancel').style.display = (cfg.tipo === 'confirmar' || cfg.tipo === 'perguntar') ? 'inline-flex' : 'none';
     $('dlg-cancel').textContent = cfg.rotuloCancel || 'Cancelar';
     $('dlg-ok').textContent = cfg.rotuloOk || (cfg.tipo === 'avisar' ? 'OK' : 'Confirmar');
     $('dlg-ok').className = 'bt' + (cfg.perigo ? ' danger' : ' ap');
     $('dlg-overlay').classList.add('on');
-    setTimeout(function(){ (temInput ? $('dlg-input') : $('dlg-ok')).focus(); }, 30);
+    setTimeout(function(){ (temInput ? (largo ? $('dlg-area') : $('dlg-input')) : $('dlg-ok')).focus(); }, 30);
     return new Promise(function(res){ dlgResolve = res; });
   }
   function avisar(msg, opts){ opts = opts || {}; return dlgAbre({ tipo:'avisar', msg:msg, titulo:opts.titulo, rotuloOk:opts.rotuloOk }); }
   function confirmar(msg, opts){ opts = opts || {}; return dlgAbre({ tipo:'confirmar', msg:msg, titulo:opts.titulo, rotuloOk:opts.rotuloOk, rotuloCancel:opts.rotuloCancel, perigo:opts.perigo }); }
-  function perguntar(msg, valor, opts){ opts = opts || {}; return dlgAbre({ tipo:'perguntar', msg:msg, valor:valor, titulo:opts.titulo, rotuloOk:opts.rotuloOk }); }
+  function perguntar(msg, valor, opts){ opts = opts || {}; return dlgAbre({ tipo:'perguntar', msg:msg, valor:valor, titulo:opts.titulo, rotuloOk:opts.rotuloOk, multilinha:opts.multilinha }); }
   $('dlg-ok').addEventListener('click', function(){
     var temInput = $('dlg-in').style.display !== 'none';
-    dlgFecha(temInput ? $('dlg-input').value : true);
+    var largo = $('dlg-area').style.display !== 'none';
+    dlgFecha(temInput ? (largo ? $('dlg-area') : $('dlg-input')).value : true);
   });
   $('dlg-cancel').addEventListener('click', function(){
     var temInput = $('dlg-in').style.display !== 'none';
@@ -4429,7 +4448,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
 
   /* ================= SAGUÃO ================= */
   /* ---------------- publicidade: pedidos do site + anúncios da casa ---------------- */
-  var PUB = { sitejson: null, siteSha: null, pedidos: [] };
+  var PUB = { sitejson: null, siteSha: null, pedidos: [], linhasDes: {} };
   var PUB_ARQ = 'import/anuncios/site.json';
   var PUB_NOME = { cortina:'A Cortina de entrada (site)', entreato:'O Entreato (site)', cartaz:'O Cartaz (site)',
                    'pagina-inteira':'Página inteira (revista)', 'meia-pagina':'Meia página (revista)' };
@@ -4547,12 +4566,13 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       var linhas = [];
       // o que a casa colocou no ar (mesmo sem clique ainda) entra na lista
       ['cartaz','cortina','entreato'].forEach(function(k){
-        var c = site[k] || {};
-        if(!(c.img || c.texto)) return;
-        var chave = 'pub:' + k + (c.pedido ? ':' + c.pedido : '');
-        var m = dados.filter(function(d){ return d.anuncio === chave; })[0] || {};
-        linhas.push({ formato:k, chave:chave, de:c.de || '', ate:c.ate || '', pedido:c.pedido || '',
-                      vistas:Number(m.vistas || 0), cliques:Number(m.cliques || 0), pessoas:Number(m.pessoas || 0) });
+        pubVagas(site, k).forEach(function(c){
+          var chave = 'pub:' + k + (c.pedido ? ':' + c.pedido : '');
+          var m = dados.filter(function(d){ return d.anuncio === chave; })[0] || {};
+          linhas.push({ formato:k, chave:chave, de:c.de || '', ate:c.ate || '', pedido:c.pedido || '',
+                        legenda:c.legenda || '',
+                        vistas:Number(m.vistas || 0), cliques:Number(m.cliques || 0), pessoas:Number(m.pessoas || 0) });
+        });
       });
       // e o que tem número mas não está mais no ar (revista, temporadas passadas)
       dados.forEach(function(d){
@@ -4578,6 +4598,9 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           prazo = '<span class="pub-prazo' + (faltam <= 3 ? ' perto' : '') + '">' +
             (faltam < 0 ? 'fora do ar' : (faltam === 0 ? 'último dia' : 'mais ' + faltam + ' dia(s)')) + '</span>';
         } else if(l.passado){ prazo = '<span class="pub-prazo">fora do ar</span>'; }
+        var encerrado = !!(l.passado || (l.ate && l.ate < hojeI));
+        PUB.linhasDes = PUB.linhasDes || {};
+        PUB.linhasDes[l.chave] = l;
         return '<div class="pub-des"><div class="pd-t"><b>' + esc(PUB_NOMES_F[l.formato] || l.formato) + '</b>' +
           (l.pedido ? '<span class="mt">' + esc(l.pedido) + '</span>' : '') +
           '<span class="mt">' + prazo + '</span></div>' +
@@ -4586,7 +4609,13 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             '<div><u>' + l.cliques.toLocaleString('pt-BR') + '</u><em>cliques</em></div>' +
             '<div><u>' + l.pessoas.toLocaleString('pt-BR') + '</u><em>pessoas</em></div>' +
             (ctr !== null ? '<div><u>' + String(ctr).replace('.', ',') + '%</u><em>dos que viram</em></div>' : '') +
-          '</div></div>';
+          '</div>' +
+          (l.vistas || l.cliques
+            ? '<div class="pd-acoes"><button class="bt pd-conta" type="button" data-pub-conta="' + esc(l.chave) + '">📄 Prestação de contas</button>' +
+              (encerrado ? '<small>a temporada acabou: é a hora de mandar os números e conversar a renovação</small>' : '') +
+              '</div>'
+            : '') +
+          '</div>';
       }).join('');
     }).catch(function(){
       el.innerHTML = '<div class="vazio-box">Não deu para ler os números agora.</div>';
@@ -4604,6 +4633,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var m = /^(\d+)/.exec(String(duracao || '').trim());
     var n = m ? Number(m[1]) : 1;
     return Math.min(4, Math.max(1, n));
+  }
+  // 2026-08-12 -> 12/08
+  function pubDiaBR(iso){
+    if(!iso || iso.length < 10) return iso || '';
+    return iso.slice(8, 10) + '/' + iso.slice(5, 7);
   }
   function pubISO(d){
     return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
@@ -4627,21 +4661,47 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                                             p_id:p.id, p_status:'no-ar' }).catch(function(){});
   }
   // ---- formatos do site: cartaz, cortina, entreato ----
+  // Duas temporadas se cruzam? (dias cheios, os dois lados inclusive)
+  function pubCruza(a, b){
+    if(!a.de || !a.ate || !b.de || !b.ate) return true;   // sem data, o seguro é considerar ocupado
+    return a.de <= b.ate && b.de <= a.ate;
+  }
   function pubNoArSite(p, temporada){
     var slot = p.formato;
     var caminho = 'assets/uploads/pub-' + slot + '-' + String(p.protocolo || 'novo').toLowerCase() + '.jpg';
     return pubSobeArte(p, caminho).then(function(cam){
       return ghGet(PUB_ARQ).then(function(f){
-        var doc = (f && f.content) ? JSON.parse(unb64(f.content)) : { cartaz:{}, cortina:{}, entreato:{} };
+        var doc = (f && f.content) ? JSON.parse(unb64(f.content)) : {};
+        var lista = pubVagas(doc, slot);
         var novo = { link:p.link || '', de:temporada.de, ate:temporada.ate, pedido:p.protocolo || '' };
         // a legenda que o anunciante escreveu no pedido vira o texto alternativo da arte
         var _leg = /Legenda da arte: “([^”]+)”/.exec(p.mensagem || '');
         novo.legenda = (_leg ? _leg[1] : '').slice(0, 90) || p.empresa || p.nome || '';
         if(cam) novo.img = cam;
-        doc[slot] = novo;
+        // se este mesmo pedido já está no ar, é troca de arte, não vaga nova
+        var ondeJa = -1;
+        lista.forEach(function(c, i){ if(c.pedido && c.pedido === novo.pedido) ondeJa = i; });
+        if(ondeJa >= 0){ lista[ondeJa] = novo; }
+        else {
+          // limpa quem já venceu e conta quem divide o período com este
+          var hoje = pubISO(new Date());
+          lista = lista.filter(function(c){ return !c.ate || c.ate >= hoje; });
+          var cruzam = lista.filter(function(c){ return pubCruza(c, novo); });
+          var max = PUB_VAGAS[slot] || 1;
+          if(cruzam.length >= max){
+            var fim = cruzam.map(function(c){ return c.ate || ''; }).sort()[0] || '';
+            var e = new Error('LOTADO');
+            e.lotado = { formato:slot, max:max, ate:fim,
+                         quem:cruzam.map(function(c){ return c.pedido || c.legenda || 'anunciante'; }) };
+            throw e;
+          }
+          lista.push(novo);
+        }
+        doc[slot] = lista;
         return ghPut(PUB_ARQ, JSON.stringify(doc, null, 1),
                      assina('põe no ar o anúncio ' + (p.protocolo || '')), f && f.sha)
-          .then(function(){ return { de:temporada.de, ate:temporada.ate, dias:temporada.dias, arte:!!cam }; });
+          .then(function(){ return { de:temporada.de, ate:temporada.ate, dias:temporada.dias,
+                                     arte:!!cam, vagas:(PUB_VAGAS[slot] || 1) - lista.length }; });
       });
     });
   }
@@ -4764,13 +4824,26 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                    ' e o anúncio fica no ar de ' + res.de + ' a ' + res.ate + ', ' + res.dias + ' dias cheios.' +
                    (res.de <= hojeISO
                      ? '\n\nComeça hoje: entra no próximo deploy.'
-                     : '\n\nEle sobe sozinho na virada da meia-noite do dia ' + res.de + '. Você não precisa fazer mais nada.'));
+                     : '\n\nEle sobe sozinho na virada da meia-noite do dia ' + res.de + '. Você não precisa fazer mais nada.') +
+                   (res.vagas === 0 ? '\n\nAtenção: com este, ' + (PUB_NOMES_F[p.formato] || p.formato) +
+                                      ' ficou sem vaga nesse período. O próximo pedido desse formato precisa de outras datas.'
+                                    : (res.vagas > 0 ? '\n\nAinda cabe' + (res.vagas > 1 ? 'm ' + res.vagas + ' anunciantes' : ' mais 1 anunciante') +
+                                                       ' nesse formato, ao mesmo tempo.' : '')));
           }
           carregarPedidosPub(); carregarSitePub(); pubDesempenho();
         })
         .catch(function(e){
           var m2 = String(e && e.message || '');
           if(m2 === 'sem arte') avisar('Este pedido veio sem arte. Peça a arte ao anunciante pelo WhatsApp e depois ponha no ar.');
+          else if(e && e.lotado){
+            // a trava que impede vender duas vezes o mesmo lugar
+            var L = e.lotado;
+            avisar((PUB_NOMES_F[L.formato] || L.formato) + ' não tem vaga nesse período: ' +
+                   (L.max === 1 ? 'o formato só aceita um anunciante por vez'
+                                : 'as ' + L.max + ' vagas já estão vendidas') + ' (' + L.quem.join(', ') + ').' +
+                   (L.ate ? '\n\nA primeira vaga abre em ' + pubDiaBR(L.ate) + '.' : '') +
+                   '\n\nNADA foi mudado no site. Combine outra data com o anunciante e ponha no ar de novo.');
+          }
           else avisar(msgErro(e));
         });
     }
@@ -4783,6 +4856,24 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   });
 
   // ---- subir publicidade na mão: arte do arquivo, datas no calendário ----
+  // Quantos anunciantes cabem ao mesmo tempo em cada formato (ordem do Pedro,
+  // 31/07/2026). A Cortina interrompe a leitura e fica em 1; Entreato e Cartaz
+  // convivem com o texto e aceitam 3, em rodízio.
+  var PUB_VAGAS = { cortina:1, entreato:3, cartaz:3 };
+  // O arquivo aceita as duas formas: um anúncio só (como era) ou uma lista.
+  function pubVagas(doc, id){
+    var v = doc ? doc[id] : null;
+    var l = Array.isArray(v) ? v.slice() : (v && (v.img || v.texto) ? [v] : []);
+    return l.filter(function(c){ return c && (c.img || c.texto); });
+  }
+  // até quando o formato está tomado, e a partir de quando volta a ter vaga
+  function pubOcupacao(doc, id){
+    var l = pubVagas(doc, id), max = PUB_VAGAS[id] || 1, hoje = pubISO(new Date());
+    var vivos = l.filter(function(c){ return !c.ate || c.ate >= hoje; });
+    var livre = max - vivos.length;
+    var fim = vivos.map(function(c){ return c.ate || ''; }).sort()[0] || '';
+    return { usadas:vivos.length, max:max, livre:livre, primeiroFim:fim, lista:l };
+  }
   var PUB_SLOTS = [
     { id:'cartaz',   nome:'O CARTAZ',   dica:'no meio da matéria e na capa, ao lado da manchete · quadrada 1:1 · mande 1080×1080', larg:1200, alt:1200 },
     { id:'cortina',  nome:'A CORTINA',  dica:'o cartaz que abre uma vez por dia · em pé 4:5 · mande 1080×1350',      larg:1200, alt:1500 },
@@ -4803,37 +4894,51 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         'A arte sai do seu computador e vai direto para o ar. A temporada é de dias cheios: entra na virada do dia "de" e sai no fim do dia "até". ' +
         'Deixar tudo vazio tira o formato do ar.</div>' +
         PUB_SLOTS.map(function(sl){
-          var c = d[sl.id] || {};
-          return '<div class="pub-slot" data-slot="' + sl.id + '">' +
-            '<div class="ps-cab"><b>' + sl.nome + '</b><span>' + esc(sl.dica) + '</span>' +
+          var oc = pubOcupacao(d, sl.id);
+          var fichas = oc.lista.slice(0, oc.max);
+          if(fichas.length < oc.max) fichas.push({});          // a vaga vazia, pronta para receber
+          return '<div class="pub-formato"><div class="pf-cab"><b>' + sl.nome + '</b>' +
+            '<span>' + esc(sl.dica) + '</span>' +
+            '<em class="pf-vagas' + (oc.livre ? '' : ' cheio') + '">' +
+              (oc.max === 1
+                ? (oc.usadas ? 'vendido' + (oc.primeiroFim ? ' até ' + pubDiaBR(oc.primeiroFim) : '') : 'vaga livre')
+                : oc.usadas + ' de ' + oc.max + ' vagas' +
+                  (oc.livre ? ' · ' + oc.livre + ' livre' + (oc.livre > 1 ? 's' : '')
+                            : (oc.primeiroFim ? ' · a próxima vaga abre em ' + pubDiaBR(oc.primeiroFim) : ''))) +
+            '</em></div>' + fichas.map(function(c, ix){
+          var vg = sl.id + '-' + ix;
+          return '<div class="pub-slot" data-slot="' + vg + '">' +
+            '<div class="ps-cab"><b>' + (oc.max > 1 ? 'Vaga ' + (ix + 1) : sl.nome) + '</b>' +
+              (c.img ? '' : '<span>livre</span>') +
               (c.pedido ? '<em class="ps-ped">' + esc(c.pedido) + '</em>' : '') + '</div>' +
             '<div class="ps-arte">' +
-              '<div class="ps-mini" id="ps-mini-' + sl.id + '">' +
+              '<div class="ps-mini" id="ps-mini-' + vg + '">' +
                 (c.img ? '<img src="../' + esc(c.img) + '" alt="arte no ar">' : '<span>sem arte</span>') + '</div>' +
               '<div class="ps-bts">' +
-                '<label class="bt" for="ps-file-' + sl.id + '">📷 ' + (c.img ? 'Trocar a arte' : 'Subir a arte') + '</label>' +
-                '<input type="file" id="ps-file-' + sl.id + '" accept="image/*" style="display:none">' +
-                (c.img ? '<button class="bt" type="button" data-pub-limpa="' + sl.id + '">✕ Tirar do ar</button>' : '') +
-                '<small id="ps-st-' + sl.id + '"></small>' +
+                '<label class="bt" for="ps-file-' + vg + '">📷 ' + (c.img ? 'Trocar a arte' : 'Subir a arte') + '</label>' +
+                '<input type="file" id="ps-file-' + vg + '" accept="image/*" style="display:none">' +
+                (c.img ? '<button class="bt" type="button" data-pub-limpa="' + vg + '">✕ Tirar do ar</button>' : '') +
+                '<small id="ps-st-' + vg + '"></small>' +
               '</div>' +
             '</div>' +
-            '<input type="hidden" id="pub-' + sl.id + '-img" value="' + esc(c.img || '') + '">' +
+            '<input type="hidden" id="pub-' + vg + '-img" value="' + esc(c.img || '') + '">' +
             '<div class="pub-r3">' +
-              pubCampo(sl.id, 'link', c.link, 'Para onde o clique leva') +
-              pubCampo(sl.id, 'legenda', c.legenda || c.texto, 'Legenda (descreve a arte)') +
-              '<div><label>Quem é</label><input type="text" id="pub-' + sl.id + '-pedido" value="' + esc(c.pedido || '') +
+              pubCampo(vg, 'link', c.link, 'Para onde o clique leva') +
+              pubCampo(vg, 'legenda', c.legenda || c.texto, 'Legenda (descreve a arte)') +
+              '<div><label>Quem é</label><input type="text" id="pub-' + vg + '-pedido" value="' + esc(c.pedido || '') +
                 '" placeholder="protocolo ou nome"></div>' +
             '</div>' +
             '<div class="pub-r3">' +
-              '<div><label>Começa em</label><button class="bt ps-data" type="button" data-pub-data="' + sl.id + '-de">' +
+              '<div><label>Começa em</label><button class="bt ps-data" type="button" data-pub-data="' + vg + '-de">' +
                 (c.de ? esc(c.de) : '🗓 escolher o dia') + '</button>' +
-                '<input type="hidden" id="pub-' + sl.id + '-de" value="' + esc(c.de || '') + '"></div>' +
-              '<div><label>Termina em</label><button class="bt ps-data" type="button" data-pub-data="' + sl.id + '-ate">' +
+                '<input type="hidden" id="pub-' + vg + '-de" value="' + esc(c.de || '') + '"></div>' +
+              '<div><label>Termina em</label><button class="bt ps-data" type="button" data-pub-data="' + vg + '-ate">' +
                 (c.ate ? esc(c.ate) : '🗓 escolher o dia') + '</button>' +
-                '<input type="hidden" id="pub-' + sl.id + '-ate" value="' + esc(c.ate || '') + '"></div>' +
-              '<div><label>&nbsp;</label><span class="ps-estado" id="ps-estado-' + sl.id + '">' + pubEstadoTexto(c) + '</span></div>' +
+                '<input type="hidden" id="pub-' + vg + '-ate" value="' + esc(c.ate || '') + '"></div>' +
+              '<div><label>&nbsp;</label><span class="ps-estado" id="ps-estado-' + vg + '">' + pubEstadoTexto(c) + '</span></div>' +
             '</div>' +
           '</div>';
+          }).join('') + '</div>';
         }).join('') +
         '<div style="margin-top:14px"><button class="f-pub" type="button" id="pub-salvar" style="padding:11px 16px">Salvar e pôr no ar</button></div>' +
         '<div class="sec-h" style="margin-top:26px"><h3>Na revista, na mão</h3>' +
@@ -4871,23 +4976,26 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         '</div>';
 
       PUB_SLOTS.forEach(function(sl){
-        var inp = $('ps-file-' + sl.id);
-        if(inp) inp.addEventListener('change', function(){
-          var arq = this.files && this.files[0];
-          if(!arq) return;
-          var st = $('ps-st-' + sl.id);
-          st.textContent = 'preparando a arte…';
-          reduzLivre(arq, sl.larg, sl.alt).then(function(dataURL){
-            st.textContent = 'subindo…';
-            var caminho = 'assets/uploads/pub-' + sl.id + '-' + Date.now().toString(36) + '.jpg';
-            return ghPutRaw(caminho, dataURL.split(',')[1], assina('sobe a arte do anúncio (' + sl.id + ')'))
-              .then(function(){
-                $('pub-' + sl.id + '-img').value = caminho;
-                $('ps-mini-' + sl.id).innerHTML = '<img src="' + dataURL + '" alt="arte nova">';
-                st.textContent = '✓ arte pronta — falta salvar';
-              });
-          }).catch(function(e){ st.textContent = ''; avisar(msgErro(e)); });
-        });
+        for(var iv = 0; iv < (PUB_VAGAS[sl.id] || 1); iv++) (function(vg){
+          var inp = $('ps-file-' + vg);
+          if(!inp) return;
+          inp.addEventListener('change', function(){
+            var arq = this.files && this.files[0];
+            if(!arq) return;
+            var st = $('ps-st-' + vg);
+            st.textContent = 'preparando a arte…';
+            reduzLivre(arq, sl.larg, sl.alt).then(function(dataURL){
+              st.textContent = 'subindo…';
+              var caminho = 'assets/uploads/pub-' + vg + '-' + Date.now().toString(36) + '.jpg';
+              return ghPutRaw(caminho, dataURL.split(',')[1], assina('sobe a arte do anúncio (' + vg + ')'))
+                .then(function(){
+                  $('pub-' + vg + '-img').value = caminho;
+                  $('ps-mini-' + vg).innerHTML = '<img src="' + dataURL + '" alt="arte nova">';
+                  st.textContent = '✓ arte pronta — falta salvar';
+                });
+            }).catch(function(e){ st.textContent = ''; avisar(msgErro(e)); });
+          });
+        })(sl.id + '-' + iv);
       });
 
       // ---- o bloco da revista: formato, arte e quantas edições, sempre a partir da próxima ----
@@ -4973,14 +5081,19 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         var novo = {};
         var erro = '';
         PUB_SLOTS.forEach(function(sl){
-          var img = $('pub-' + sl.id + '-img').value.trim();
-          var de = $('pub-' + sl.id + '-de').value.trim(), ate = $('pub-' + sl.id + '-ate').value.trim();
-          if(img && de && ate && de > ate) erro = 'Em ' + sl.nome + ', o dia de início é depois do fim.';
-          novo[sl.id] = img ? {
-            img: img, link: $('pub-' + sl.id + '-link').value.trim(),
-            legenda: $('pub-' + sl.id + '-legenda').value.trim(),
-            de: de, ate: ate, pedido: $('pub-' + sl.id + '-pedido').value.trim()
-          } : {};
+          var lista = [];
+          for(var iv = 0; iv < (PUB_VAGAS[sl.id] || 1); iv++){
+            var vg = sl.id + '-' + iv;
+            if(!$('pub-' + vg + '-img')) continue;            // vaga não está na tela
+            var img = $('pub-' + vg + '-img').value.trim();
+            if(!img) continue;
+            var de = $('pub-' + vg + '-de').value.trim(), ate = $('pub-' + vg + '-ate').value.trim();
+            if(de && ate && de > ate) erro = 'Em ' + sl.nome + ' (vaga ' + (iv + 1) + '), o dia de início é depois do fim.';
+            lista.push({ img: img, link: $('pub-' + vg + '-link').value.trim(),
+                         legenda: $('pub-' + vg + '-legenda').value.trim(),
+                         de: de, ate: ate, pedido: $('pub-' + vg + '-pedido').value.trim() });
+          }
+          novo[sl.id] = lista;
         });
         if(erro){ avisar(erro); return; }
         ghPut(PUB_ARQ, JSON.stringify(novo, null, 1), assina('atualiza os anúncios do site'), PUB.siteSha)
@@ -4993,6 +5106,47 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       });
     }).catch(function(){ el.innerHTML = '<div class="vazio-box">Sem acesso ao arquivo dos anúncios (confira a chave na aba Conexão).</div>'; });
   }
+  /* ---------------- prestação de contas do anunciante ----------------
+     O anunciante paga e, até aqui, ficava sem ver número nenhum. Este botão
+     monta o relatório da temporada em texto limpo, pronto para o WhatsApp:
+     é o que faz o produtor renovar, porque ele vê o que comprou. */
+  function pubContaTexto(l){
+    var ped = (PUB.pedidos || []).filter(function(p){ return (p.protocolo || '') === l.pedido; })[0] || {};
+    var quem = ped.empresa || ped.nome || l.legenda || '';
+    var ctr = l.vistas ? (Math.round((l.cliques / l.vistas) * 1000) / 10).toString().replace('.', ',') : null;
+    var per = (l.de && l.ate) ? ('de ' + pubDiaBR(l.de) + ' a ' + pubDiaBR(l.ate)) : 'na temporada contratada';
+    var n = function(x){ return Number(x || 0).toLocaleString('pt-BR'); };
+    return 'FOYER · prestação de contas' +
+      (quem ? '\n' + quem : '') +
+      '\n' + (PUB_NOMES_F[l.formato] || l.formato) + ', ' + per +
+      '\n\n' + n(l.vistas) + ' vistas do anúncio' +
+      '\n' + n(l.pessoas) + ' pessoas diferentes' +
+      '\n' + n(l.cliques) + ' cliques' + (ctr ? ' (' + ctr + '% de quem viu)' : '') +
+      '\n\nComo a casa conta: a vista é registrada uma vez por pessoa a cada visita ao site, ' +
+      'e o clique é quem tocou na arte e foi para o seu endereço. Sem estimativa e sem número inflado.' +
+      '\n\nObrigado por anunciar no FOYER. foyer.digital';
+  }
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-pub-conta]');
+    if(!b) return;
+    var l = (PUB.linhasDes || {})[b.dataset.pubConta];
+    if(!l) return;
+    var txt = pubContaTexto(l);
+    var ped = (PUB.pedidos || []).filter(function(p){ return (p.protocolo || '') === l.pedido; })[0] || {};
+    var zap = String(ped.whatsapp || '').replace(/\D/g, '');
+    perguntar('Confira, corrija se quiser, e mande para o anunciante.', txt,
+              { titulo:'Prestação de contas', multilinha:true,
+                rotuloOk: zap ? 'Mandar no WhatsApp' : 'Copiar' })
+      .then(function(final){
+        if(final === null) return;
+        if(zap){
+          var num = zap.length <= 11 ? '55' + zap : zap;
+          window.open('https://wa.me/' + num + '?text=' + encodeURIComponent(final), '_blank', 'noopener');
+        } else if(navigator.clipboard){
+          navigator.clipboard.writeText(final).then(function(){ toast('Relatório copiado — é só colar onde quiser.'); });
+        }
+      });
+  });
   function pubEstadoTexto(c){
     if(!(c && c.img)) return 'fora do ar';
     var hoje = pubISO(new Date());
@@ -5051,7 +5205,9 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var b = e.target.closest('[data-pub-limpa]');
     if(!b) return;
     var sl = b.dataset.pubLimpa;
-    confirmar('Tirar ' + sl + ' do ar agora?', { rotuloOk:'Tirar do ar' }).then(function(ok){
+    var _pt = sl.split('-'), _nm = (PUB_NOMES_F[_pt[0]] || _pt[0]) +
+              ((PUB_VAGAS[_pt[0]] || 1) > 1 ? ' (vaga ' + (Number(_pt[1]) + 1) + ')' : '');
+    confirmar('Tirar ' + _nm + ' do ar agora?', { rotuloOk:'Tirar do ar' }).then(function(ok){
       if(!ok) return;
       $('pub-' + sl + '-img').value = '';
       $('ps-mini-' + sl).innerHTML = '<span>sem arte</span>';

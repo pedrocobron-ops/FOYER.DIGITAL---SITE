@@ -274,6 +274,10 @@
     .az-como p{ margin:0 0 8px; font-size:.88rem; line-height:1.6; }
     .az-como ul{ margin:0; padding-left:16px; font-size:.8rem; color:var(--ink-soft); }
     .az-como li{ margin:3px 0; }
+    .az-vaga{ display:none; }
+    .az-vaga.on{ display:block; margin-top:10px; padding:8px 10px; border:1.5px solid var(--ink);
+      background:var(--paper); font-size:.8rem; line-height:1.5; }
+    .az-vaga.urge{ border-color:var(--wine); }
     .az-campo{ margin:0 0 12px; }
     .az-campo label{ display:block; font-family:var(--mono); font-size:.58rem; font-weight:700;
       letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:5px; }
@@ -686,17 +690,17 @@
     { id:'cortina', canal:'site', nome:'A Cortina de entrada', onde:'No site · na chegada',
       resumo:'A sua arte recebe quem chega ao FOYER, uma vez por dia.',
       como:'Quem abre qualquer página do site vê a sua arte numa caixa central, sobre o conteúdo, com o rótulo Publicidade e um botão de fechar. Aparece UMA vez por dia para cada visitante: presença garantida, sem irritar quem lê.',
-      specs:['Arte: imagem em pé ou quadrada, 4:5 — mande 1080×1350 (a caixa tem 514 de largura no computador)','Onde: todas as páginas do site','Frequência: 1 vez por dia por visitante','A caixa nunca passa da altura da tela: arte muito comprida entra inteira, um pouco menor','Link: a arte inteira clica para o seu endereço'],
+      specs:['Arte: imagem em pé ou quadrada, 4:5 — mande 1080×1350 (a caixa tem 514 de largura no computador)','Onde: todas as páginas do site','Frequência: 1 vez por dia por visitante','Exclusividade: a Cortina tem UMA vaga; enquanto a sua temporada corre, nenhum outro anunciante entra nela','A caixa nunca passa da altura da tela: arte muito comprida entra inteira, um pouco menor','Link: a arte inteira clica para o seu endereço'],
       spec:'Imagem em pé ou quadrada, 4:5 · mande 1080×1350' },
     { id:'entreato', canal:'site', nome:'O Entreato', onde:'No site · dentro das matérias',
       resumo:'O seu anúncio no meio da leitura, em todas as matérias.',
       como:'A sua arte entra DENTRO das matérias do site, depois do 4º parágrafo, com o rótulo Publicidade. O leitor encontra o anúncio no meio da leitura, como o intervalo de um espetáculo: é o formato de maior convivência com o conteúdo.',
-      specs:['Arte: imagem deitada, 16:9 — mande 1600×900 (ela ocupa a largura da matéria, 788 de largura no computador)','Onde: todas as páginas de matéria do site','Frequência: sempre no ar durante a temporada contratada','Arte mais em pé que 16:9 entra inteira, com margem de papel dos lados','Link: a arte clica para o seu endereço'],
+      specs:['Arte: imagem deitada, 16:9 — mande 1600×900 (ela ocupa a largura da matéria, 788 de largura no computador)','Onde: dentro das matérias do site','Frequência: no ar durante toda a temporada. O formato tem 3 vagas: com mais de um anunciante, o lugar gira de matéria em matéria, em partes iguais','Arte mais em pé que 16:9 entra inteira, com margem de papel dos lados','Link: a arte clica para o seu endereço'],
       spec:'Imagem deitada, 16:9 · mande 1600×900' },
     { id:'cartaz', canal:'site', nome:'O Cartaz', onde:'No site · na matéria e na capa',
       resumo:'A arte quadrada da peça, no meio da matéria e na capa.',
       como:'O formato que você já tem pronto: a arte quadrada do Instagram, a mesma do cartaz do espetáculo. Ela entra DENTRO das matérias, mais para o fim da leitura, e também na CAPA do site, no lugar de uma das chamadas ao lado da manchete do dia. É o único formato que aparece nos dois lugares.',
-      specs:['Arte: quadrada, 1:1 — mande 1080×1080, a mesma do Instagram','Onde: no meio das matérias (468 de lado) e na capa, dentro do Giro (230 de lado)','Frequência: sempre no ar durante a temporada contratada','A arte entra inteira: nada é cortado nem esticado','Link: a arte clica para o seu endereço'],
+      specs:['Arte: quadrada, 1:1 — mande 1080×1080, a mesma do Instagram','Onde: no meio das matérias (468 de lado) e na capa, no Giro e na grade de Notícias (230 e 280 de lado)','Frequência: no ar durante toda a temporada. O formato tem 3 vagas: com mais de um anunciante, os lugares giram entre eles, em partes iguais','A arte entra inteira: nada é cortado nem esticado','Link: a arte clica para o seu endereço'],
       spec:'Arte quadrada, 1:1 · mande 1080×1080' },
     { id:'pagina-inteira', canal:'revista', nome:'Página inteira', onde:'Na revista · uma página sua',
       resumo:'Uma página da edição é toda sua, para sempre no acervo.',
@@ -767,9 +771,38 @@
     var f = fmt(), el = document.getElementById('az-como');
     if(!f){ el.classList.remove('on'); return; }
     el.innerHTML = '<h5>Como aparece</h5><p>' + f.como + '</p><ul>' +
-      f.specs.map(function(s2){ return '<li>' + s2 + '</li>'; }).join('') + '</ul>';
+      f.specs.map(function(s2){ return '<li>' + s2 + '</li>'; }).join('') + '</ul>' +
+      '<div class="az-vaga" id="az-vaga"></div>';
     el.classList.add('on');
+    pintaVaga();
   }
+  // Quantas vagas restam neste formato. O aviso só aparece quando é escasso
+  // (uma vaga ou nenhuma): dizer "3 livres" só contaria ao anunciante que
+  // ninguém está anunciando. Silêncio quando há espaço de sobra.
+  var VAGAS_SITE = { cortina:1, entreato:3, cartaz:3 };
+  var OCUPACAO = null;
+  function pintaVaga(){
+    var el = document.getElementById('az-vaga'), f = fmt();
+    if(!el || !f || !OCUPACAO || f.canal !== 'site') return;
+    var hoje = new Date().toISOString().slice(0, 10);
+    var bruto = OCUPACAO[f.id];
+    var lista = (Array.isArray(bruto) ? bruto : (bruto ? [bruto] : []))
+      .filter(function(c){ return c && c.img && (!c.ate || c.ate >= hoje); });
+    var max = VAGAS_SITE[f.id] || 1, livre = max - lista.length;
+    if(livre > 1) return;                       // sobra espaço: não se comenta
+    var fim = lista.map(function(c){ return c.ate || ''; }).sort()[0] || '';
+    var dia = fim ? fim.slice(8, 10) + '/' + fim.slice(5, 7) : '';
+    el.textContent = livre === 1
+      ? (max === 1 ? '⚡ Este formato tem uma vaga só, e ela está livre.'
+                   : '⚡ Resta 1 vaga neste formato.')
+      : '⏳ Este formato está com as vagas tomadas' + (dia ? ' até ' + dia : '') +
+        '. Você pode reservar a partir daí: mande o pedido que a direção combina a data com você.';
+    el.className = 'az-vaga on' + (livre === 1 ? ' urge' : '');
+  }
+  fetch('import/anuncios/site.json', { cache:'no-store' })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(d){ if(d){ OCUPACAO = d; pintaVaga(); } })
+    .catch(function(){});
   function pintaProva(){
     var f = fmt();
     var site = document.getElementById('pv-site'), pg = document.getElementById('pv-pg');

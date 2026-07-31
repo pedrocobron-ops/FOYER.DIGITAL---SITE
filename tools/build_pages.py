@@ -297,20 +297,65 @@ def _pub_chave(formato, cfg=None):
     proto = ((cfg or {}).get('pedido') or '').strip()
     return f'pub:{formato}' + (f':{proto}' if proto else '')
 
-def _anun_ativo(k):
-    """O anúncio no ar hoje. A temporada é contada em DIAS CHEIOS: entra à
-    meia-noite do dia 'de' e sai no fim do dia 'ate' (ordem do Pedro, 30/07/2026)."""
-    a = _ANUN.get(k) or {}
-    if not (a.get('img') or a.get('texto')):
-        return None
+# Quantos anunciantes cabem em cada formato ao mesmo tempo (ordem do Pedro,
+# 31/07/2026). A Cortina interrompe a leitura: duas seria hostil, fica em 1.
+# Entreato e Cartaz convivem com o texto e aceitam até 3, em rodízio.
+VAGAS = { 'cortina': 1, 'entreato': 3, 'cartaz': 3 }
+# Teto de civilidade: uma matéria nunca mostra mais de 2 anúncios no corpo,
+# não importa quantos estejam vendidos. Quem sobra aparece em outras matérias.
+ADS_POR_MATERIA = 2
+
+def _anun_lista(k):
+    """Os anúncios NO AR hoje neste formato, em ordem de contratação. A
+    temporada é contada em DIAS CHEIOS: entra à meia-noite do dia 'de' e sai no
+    fim do dia 'ate' (ordem do Pedro, 30/07/2026).
+
+    O arquivo aceita as duas formas: um anúncio só (como era até 30/07) ou uma
+    lista de anúncios (desde 31/07, quando o mesmo formato passou a caber mais
+    de um anunciante). Assim nenhum arquivo antigo quebra."""
+    bruto = _ANUN.get(k)
+    itens = bruto if isinstance(bruto, list) else [bruto or {}]
     hoje = _dtmod.date.today().isoformat()
-    de = (a.get('de') or '').strip()
-    if de and hoje < de:
-        return None                      # temporada ainda não começou
-    ate = (a.get('ate') or '').strip()
-    if ate and hoje > ate:
-        return None                      # temporada terminou
-    return a
+    vivos = []
+    for a in itens:
+        if not isinstance(a, dict) or not (a.get('img') or a.get('texto')):
+            continue
+        de = (a.get('de') or '').strip()
+        if de and hoje < de:
+            continue                     # temporada ainda não começou
+        ate = (a.get('ate') or '').strip()
+        if ate and hoje > ate:
+            continue                     # temporada terminou
+        vivos.append(a)
+    return vivos[:VAGAS.get(k, 1)]
+
+def _anun_ativo(k):
+    """O primeiro anúncio no ar do formato (para quem só precisa de um)."""
+    l = _anun_lista(k)
+    return l[0] if l else None
+
+def _rodizio(itens, semente):
+    """Escolhe qual anunciante entra AQUI. Com um só contratado, é sempre ele
+    e nada muda. Com dois ou três, o lugar gira: cada matéria (e cada dia, na
+    capa) começa por um anunciante diferente, para ninguém ficar sempre com a
+    sobra. A conta é a mesma toda vez que a página é remontada, então o site
+    não fica piscando anúncio a cada build."""
+    if not itens:
+        return []
+    n = len(itens)
+    p = (abs(hash(str(semente))) if not isinstance(semente, int) else semente) % n
+    return itens[p:] + itens[:p]
+
+def _semente_slug(slug):
+    """Um número estável tirado do endereço da matéria (o hash do Python muda
+    a cada processo; este não)."""
+    n = 0
+    for ch in str(slug):
+        n = (n * 31 + ord(ch)) % 1000003
+    return n
+
+def _dia_do_ano():
+    return _dtmod.date.today().timetuple().tm_yday
 
 def _monta_ads_casa():
     """A publicidade que mora no site inteiro. Hoje é só a Cortina: a Faixa de
@@ -373,8 +418,8 @@ def _monta_ads_casa():
 
 ADS_CASA = _monta_ads_casa()
 
-def _entreato_html():
-    en = _anun_ativo('entreato')
+def _entreato_html(en=None):
+    en = en or _anun_ativo('entreato')
     if not en:
         return ''
     _l = en.get('link') or '#'
@@ -385,22 +430,12 @@ def _entreato_html():
             f'<img src="{_html.escape(en.get("img", ""))}" alt="{_html.escape(en.get("legenda", ""))}" loading="lazy"></a>'
             f'{leg}</aside>')
 
-def _injeta_entreato(corpo):
-    """O Entreato entra depois do 4º parágrafo da matéria, sempre rotulado."""
-    bloco = _entreato_html()
-    if not bloco:
-        return corpo
-    partes = corpo.split('</p>', 4)
-    if len(partes) < 5:
-        return corpo
-    return '</p>'.join(partes[:4]) + '</p>\n' + bloco + partes[4]
-
 # ---------------------------------------------------------------- O CARTAZ (quadrado)
 # O formato que o produtor já tem pronto: a arte quadrada do Instagram, a mesma
-# do cartaz do espetáculo. Entra no meio da matéria e também na capa, no lugar
-# de uma linha do Giro. (Formato criado em 30/07/2026, no lugar da Faixa.)
-def _cartaz_html(onde='materia'):
-    ca = _anun_ativo('cartaz')
+# do cartaz do espetáculo. Entra no meio da matéria e também na capa, em dois
+# lugares. (Formato criado em 30/07/2026, no lugar da Faixa.)
+def _cartaz_html(ca=None, onde='materia'):
+    ca = ca or _anun_ativo('cartaz')
     if not ca or not ca.get('img'):
         return ''
     _l = ca.get('link') or '#'
@@ -413,20 +448,45 @@ def _cartaz_html(onde='materia'):
         return (f'<div class="giro-cartaz" data-pub-chave="{_html.escape(_k)}">'
                 f'<em>Publicidade</em>{_arte}'
                 + (f'<span>{_leg}</span>' if _leg else '') + '</div>\n')
+    if onde == 'grade':
+        return (f'<article class="news-cell cell-cartaz" data-pub-chave="{_html.escape(_k)}">'
+                f'<em>Publicidade</em>{_arte}'
+                + (f'<span class="leg">{_leg}</span>' if _leg else '') + '</article>\n')
     return (f'<aside class="pub-cartaz" data-pub-chave="{_html.escape(_k)}"><em>Publicidade</em>'
             f'{_arte}' + (f'<figcaption>{_leg}</figcaption>' if _leg else '') + '</aside>')
 
-def _injeta_cartaz(corpo):
-    """O Cartaz entra mais para o fim da leitura, depois do 8º parágrafo. Se a
-    matéria for curta, ele fecha o texto: o anunciante nunca fica de fora."""
-    bloco = _cartaz_html()
-    if not bloco:
-        return corpo
-    partes = corpo.split('</p>', 8)
-    if len(partes) < 9:
-        return corpo + '\n' + bloco
-    return '</p>'.join(partes[:8]) + '</p>\n' + bloco + partes[8]
+def _injeta_ads_materia(corpo, slug=''):
+    """A publicidade DENTRO da matéria, com duas regras de casa:
 
+    1. No máximo DOIS anúncios por texto, sempre com parágrafos entre eles. O
+       Entreato abre depois do 4º parágrafo; o Cartaz entra depois do 10º, e
+       em matéria mais curta ele fecha a leitura, sem interromper ninguém.
+    2. Com mais de um anunciante no mesmo formato, o lugar gira de matéria em
+       matéria: cada um pega a vez, e a conta é sempre a mesma para o mesmo
+       endereço, então a página não fica trocando de anúncio a cada remontagem.
+    """
+    ents = _rodizio(_anun_lista('entreato'), _semente_slug(slug))
+    cars = _rodizio(_anun_lista('cartaz'), _semente_slug(slug) + 1)
+    if not (ents or cars):
+        return corpo
+    n_par = corpo.count('</p>')
+    saida = corpo
+    # o Cartaz primeiro, para o corte do Entreato não mexer na contagem
+    if cars:
+        bloco = _cartaz_html(cars[0])
+        if bloco:
+            if n_par >= 12:
+                partes = saida.split('</p>', 10)
+                saida = '</p>'.join(partes[:10]) + '</p>\n' + bloco + partes[10]
+            else:
+                saida = saida + '\n' + bloco     # matéria curta: fecha o texto
+    if ents and n_par >= 6:
+        bloco = _entreato_html(ents[0])
+        if bloco:
+            partes = saida.split('</p>', 4)
+            if len(partes) >= 5:
+                saida = '</p>'.join(partes[:4]) + '</p>\n' + bloco + partes[4]
+    return saida
 def news_cell(sym, tag, title, meta, desc=None, big=False):
     d = f'\n        <p>{desc}</p>' if desc else ''
     cap = '<span class="ph-cap">Foto — Divulgação</span>' if big else ''
@@ -1470,11 +1530,16 @@ for _i, _p in enumerate(MATERIAS[1:4]):
     </article>
 '''
 
+# Os Cartazes que vão para a CAPA hoje, já na ordem do dia. O rodízio é pelo
+# dia do ano: com dois ou três contratados, quem abre o Giro muda todo dia, e
+# ninguém fica sempre com o lugar de baixo.
+_CARTAZ_CAPA = _rodizio(_anun_lista('cartaz'), _dia_do_ano())
+
 def _giro_linhas():
     """O Giro da capa. Quando há Cartaz vendido, ele entra depois da terceira
     linha e ocupa o lugar de uma delas: a coluna não cresce, o leitor vê a arte
     sem rolar, e o anunciante fica ao lado da manchete do dia."""
-    cartaz = _cartaz_html('giro')
+    cartaz = _cartaz_html(_CARTAZ_CAPA[0], 'giro') if _CARTAZ_CAPA else ''
     mats = MATERIAS[4:10] if cartaz else MATERIAS[4:11]
     linha = lambda p: (f'''        <a class="giro-item" href="post-{p['slug']}.html">'''
                        f'''<span class="t">{short_date(p)}</span><span class="h">{p['title']}</span></a>\n''')
@@ -1483,6 +1548,10 @@ def _giro_linhas():
     return (''.join(linha(p) for p in mats[:3]) + '        ' + cartaz
             + ''.join(linha(p) for p in mats[3:]))
 _giro = _giro_linhas()
+# O SEGUNDO lugar do Cartaz na capa: uma célula da grade de Notícias, do
+# tamanho de um card. Só entra quando há um segundo anunciante contratado; com
+# um só, ele fica no Giro e a grade continua inteira de matérias.
+_cartaz_grade = ('  ' + _cartaz_html(_CARTAZ_CAPA[1], 'grade')) if len(_CARTAZ_CAPA) > 1 else ''
 
 index_body = TICKER + '''
 
@@ -1561,7 +1630,7 @@ index_main = f'''<main id="conteudo">
 {real_cell(MATERIAS[4], big=True)}
 {real_cell(MATERIAS[5])}
 {real_cell(MATERIAS[6])}
-{real_cell(MATERIAS[7])}
+{_cartaz_grade}{real_cell(MATERIAS[7])}
 {real_cell(MATERIAS[8])}
   </div>
   <div class="ad-slot" data-ad-slot="1001"></div>
@@ -1792,7 +1861,7 @@ def post_page(i, p):
   <div class="ad-slot" data-ad-slot="2001"></div>
 
   <div class="art-body">
-{_injeta_cartaz(_injeta_entreato(corpo))}
+{_injeta_ads_materia(corpo, p['slug'])}
   </div>
   {nota_correcao(p)}
   {quem_bloco}
@@ -4387,6 +4456,10 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     .az-como p{ margin:0 0 8px; font-size:.88rem; line-height:1.6; }
     .az-como ul{ margin:0; padding-left:16px; font-size:.8rem; color:var(--ink-soft); }
     .az-como li{ margin:3px 0; }
+    .az-vaga{ display:none; }
+    .az-vaga.on{ display:block; margin-top:10px; padding:8px 10px; border:1.5px solid var(--ink);
+      background:var(--paper); font-size:.8rem; line-height:1.5; }
+    .az-vaga.urge{ border-color:var(--wine); }
     .az-campo{ margin:0 0 12px; }
     .az-campo label{ display:block; font-family:var(--mono); font-size:.58rem; font-weight:700;
       letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:5px; }
@@ -4799,17 +4872,17 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     { id:'cortina', canal:'site', nome:'A Cortina de entrada', onde:'No site · na chegada',
       resumo:'A sua arte recebe quem chega ao FOYER, uma vez por dia.',
       como:'Quem abre qualquer página do site vê a sua arte numa caixa central, sobre o conteúdo, com o rótulo Publicidade e um botão de fechar. Aparece UMA vez por dia para cada visitante: presença garantida, sem irritar quem lê.',
-      specs:['Arte: imagem em pé ou quadrada, 4:5 — mande 1080×1350 (a caixa tem 514 de largura no computador)','Onde: todas as páginas do site','Frequência: 1 vez por dia por visitante','A caixa nunca passa da altura da tela: arte muito comprida entra inteira, um pouco menor','Link: a arte inteira clica para o seu endereço'],
+      specs:['Arte: imagem em pé ou quadrada, 4:5 — mande 1080×1350 (a caixa tem 514 de largura no computador)','Onde: todas as páginas do site','Frequência: 1 vez por dia por visitante','Exclusividade: a Cortina tem UMA vaga; enquanto a sua temporada corre, nenhum outro anunciante entra nela','A caixa nunca passa da altura da tela: arte muito comprida entra inteira, um pouco menor','Link: a arte inteira clica para o seu endereço'],
       spec:'Imagem em pé ou quadrada, 4:5 · mande 1080×1350' },
     { id:'entreato', canal:'site', nome:'O Entreato', onde:'No site · dentro das matérias',
       resumo:'O seu anúncio no meio da leitura, em todas as matérias.',
       como:'A sua arte entra DENTRO das matérias do site, depois do 4º parágrafo, com o rótulo Publicidade. O leitor encontra o anúncio no meio da leitura, como o intervalo de um espetáculo: é o formato de maior convivência com o conteúdo.',
-      specs:['Arte: imagem deitada, 16:9 — mande 1600×900 (ela ocupa a largura da matéria, 788 de largura no computador)','Onde: todas as páginas de matéria do site','Frequência: sempre no ar durante a temporada contratada','Arte mais em pé que 16:9 entra inteira, com margem de papel dos lados','Link: a arte clica para o seu endereço'],
+      specs:['Arte: imagem deitada, 16:9 — mande 1600×900 (ela ocupa a largura da matéria, 788 de largura no computador)','Onde: dentro das matérias do site','Frequência: no ar durante toda a temporada. O formato tem 3 vagas: com mais de um anunciante, o lugar gira de matéria em matéria, em partes iguais','Arte mais em pé que 16:9 entra inteira, com margem de papel dos lados','Link: a arte clica para o seu endereço'],
       spec:'Imagem deitada, 16:9 · mande 1600×900' },
     { id:'cartaz', canal:'site', nome:'O Cartaz', onde:'No site · na matéria e na capa',
       resumo:'A arte quadrada da peça, no meio da matéria e na capa.',
       como:'O formato que você já tem pronto: a arte quadrada do Instagram, a mesma do cartaz do espetáculo. Ela entra DENTRO das matérias, mais para o fim da leitura, e também na CAPA do site, no lugar de uma das chamadas ao lado da manchete do dia. É o único formato que aparece nos dois lugares.',
-      specs:['Arte: quadrada, 1:1 — mande 1080×1080, a mesma do Instagram','Onde: no meio das matérias (468 de lado) e na capa, dentro do Giro (230 de lado)','Frequência: sempre no ar durante a temporada contratada','A arte entra inteira: nada é cortado nem esticado','Link: a arte clica para o seu endereço'],
+      specs:['Arte: quadrada, 1:1 — mande 1080×1080, a mesma do Instagram','Onde: no meio das matérias (468 de lado) e na capa, no Giro e na grade de Notícias (230 e 280 de lado)','Frequência: no ar durante toda a temporada. O formato tem 3 vagas: com mais de um anunciante, os lugares giram entre eles, em partes iguais','A arte entra inteira: nada é cortado nem esticado','Link: a arte clica para o seu endereço'],
       spec:'Arte quadrada, 1:1 · mande 1080×1080' },
     { id:'pagina-inteira', canal:'revista', nome:'Página inteira', onde:'Na revista · uma página sua',
       resumo:'Uma página da edição é toda sua, para sempre no acervo.',
@@ -4880,9 +4953,38 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     var f = fmt(), el = document.getElementById('az-como');
     if(!f){ el.classList.remove('on'); return; }
     el.innerHTML = '<h5>Como aparece</h5><p>' + f.como + '</p><ul>' +
-      f.specs.map(function(s2){ return '<li>' + s2 + '</li>'; }).join('') + '</ul>';
+      f.specs.map(function(s2){ return '<li>' + s2 + '</li>'; }).join('') + '</ul>' +
+      '<div class="az-vaga" id="az-vaga"></div>';
     el.classList.add('on');
+    pintaVaga();
   }
+  // Quantas vagas restam neste formato. O aviso só aparece quando é escasso
+  // (uma vaga ou nenhuma): dizer "3 livres" só contaria ao anunciante que
+  // ninguém está anunciando. Silêncio quando há espaço de sobra.
+  var VAGAS_SITE = { cortina:1, entreato:3, cartaz:3 };
+  var OCUPACAO = null;
+  function pintaVaga(){
+    var el = document.getElementById('az-vaga'), f = fmt();
+    if(!el || !f || !OCUPACAO || f.canal !== 'site') return;
+    var hoje = new Date().toISOString().slice(0, 10);
+    var bruto = OCUPACAO[f.id];
+    var lista = (Array.isArray(bruto) ? bruto : (bruto ? [bruto] : []))
+      .filter(function(c){ return c && c.img && (!c.ate || c.ate >= hoje); });
+    var max = VAGAS_SITE[f.id] || 1, livre = max - lista.length;
+    if(livre > 1) return;                       // sobra espaço: não se comenta
+    var fim = lista.map(function(c){ return c.ate || ''; }).sort()[0] || '';
+    var dia = fim ? fim.slice(8, 10) + '/' + fim.slice(5, 7) : '';
+    el.textContent = livre === 1
+      ? (max === 1 ? '⚡ Este formato tem uma vaga só, e ela está livre.'
+                   : '⚡ Resta 1 vaga neste formato.')
+      : '⏳ Este formato está com as vagas tomadas' + (dia ? ' até ' + dia : '') +
+        '. Você pode reservar a partir daí: mande o pedido que a direção combina a data com você.';
+    el.className = 'az-vaga on' + (livre === 1 ? ' urge' : '');
+  }
+  fetch('import/anuncios/site.json', { cache:'no-store' })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(d){ if(d){ OCUPACAO = d; pintaVaga(); } })
+    .catch(function(){});
   function pintaProva(){
     var f = fmt();
     var site = document.getElementById('pv-site'), pg = document.getElementById('pv-pg');
