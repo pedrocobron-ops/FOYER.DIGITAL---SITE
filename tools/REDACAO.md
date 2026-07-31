@@ -253,24 +253,33 @@ apodrece: bilheteria de fim de semana, catálogo, janela de lançamento e decis�
 de plataforma não sobrevivem a uma fila de dias. O que a rodada da manhã produz
 pode esperar; o que sai ao meio-dia, não.
 
-**AS DUAS MATÉRIAS**
+**AS DUAS MATÉRIAS — AS DUAS ASSINAM PEDRO AMARAL** (ordem dele, 31/07/2026)
 
 | | Assinatura | O que é |
 |---|---|---|
-| 1 | **Redação Foyer** | a NOTÍCIA do dia em cinema ou streaming, apurada e direta |
-| 2 | **Pedro Amaral** | a matéria de ÂNGULO: o dinheiro por trás do fato |
+| 1 | **Pedro Amaral** | a NOTÍCIA do dia em cinema ou streaming, apurada e direta |
+| 2 | **Pedro Amaral** | o ÂNGULO: a pauta quente, o acontecimento de grande repercussão do dia |
 
-A assinatura misturada é de propósito. A notícia direta assina a Redação, que
-**qualquer editor da mesa aprova**; se fosse tudo no nome do Pedro, a rodada
-ficaria parada esperando uma pessoa só. O ângulo, esse, é dele.
+A edição do meio-dia é a coluna de cinema e streaming do Pedro, e por isso sai
+inteira no nome dele. Consequência prática, que ele conhece e aceitou: a trava
+de assinatura da Coxia só deixa o dono da assinatura aprovar, então **as duas
+matérias das 12h dependem exclusivamente do Pedro para ir ao ar**. Se ele não
+abrir a mesa, elas não publicam — e como são quentes, não publicar no mesmo dia
+é perdê-las. Nada de "Redação Foyer" nesta rodada.
 
-**O ÂNGULO É O DINHEIRO, NUNCA A NOTÍCIA REPETIDA.** É a regra que decide se a
-pauta presta. Em cinema e streaming o FOYER chega depois de Omelete, AdoroCinema
-e Tela Viva, e não vai ganhar deles na corrida. O que ninguém faz é o viés da
-casa: quanto rendeu, quem financiou, quanto custa, o que a janela de lançamento
-faz com o filme brasileiro, o que a decisão da plataforma muda para quem
-trabalha. "X bateu US$ 639 milhões" é de todo mundo. "O que esses US$ 639
-milhões fazem com a sala de cinema brasileira" é só nosso.
+**O ÂNGULO É A PAUTA QUENTE: O ACONTECIMENTO DE GRANDE REPERCUSSÃO DO DIA.** É
+a regra que decide se a pauta presta. Não é a segunda notícia qualquer nem o
+assunto morno de catálogo: é o fato de cinema ou streaming que está movendo o
+dia — o que o público está comentando, o que estourou nas últimas horas, o que
+todo mundo vai querer ler hoje. Se a pauta não tem repercussão, não é ângulo, e
+é melhor entregar uma só.
+
+O que separa o FOYER de Omelete, AdoroCinema e Tela Viva não é chegar antes — é
+o tratamento. Sobre o mesmo fato quente, a casa entrega o que os outros não
+param para apurar: o tamanho real do número, quem financiou, o que aquilo muda
+para quem trabalha, o que a decisão da plataforma faz com o filme brasileiro.
+Pega-se a pauta de maior repercussão do dia e escreve-se ela **melhor**, não
+diferente do assunto.
 
 **PUBLICAÇÃO NO MESMO DIA.** As duas nascem com `"quente": true` no pacote, e a
 mesa da Coxia marca elas com o selo QUENTE. Matéria quente aprovada **publica
