@@ -50,6 +50,10 @@ def head(title, desc, og_img=None, og_type='website', og_url='', ld=''):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>/* o tema antes da primeira pintura: a casa abre com a luz da sala em
+todo aparelho, e só fica no Blackout se o leitor tiver apertado o botão. Fica
+aqui, no alto do cabeçalho, para não haver piscada de claro antes do escuro. */
+try{{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}}catch(e){{}}</script>
 <meta name="description" content="{d}">
 <meta name="theme-color" content="#4E0F09">
 <meta name="robots" content="max-image-preview:large">
@@ -2384,10 +2388,6 @@ html[data-theme="dark"] .rv-bilhete .rb-dir em{ color:var(--gold); }
 .rv-exp img.only-dark{ display:none; }
 :root[data-theme="dark"] .rv-exp img.only-light{ display:none; }
 :root[data-theme="dark"] .rv-exp img.only-dark{ display:inline-block; }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme]) .rv-exp img.only-light{ display:none; }
-  :root:not([data-theme]) .rv-exp img.only-dark{ display:inline-block; }
-}
 .rv-exp h4{ font-family:var(--mono); font-size:.56rem; letter-spacing:.24em;
   text-transform:uppercase; color:var(--ink-soft); margin:18px 0 6px; border-bottom:1px solid var(--line);
   padding-bottom:4px; }

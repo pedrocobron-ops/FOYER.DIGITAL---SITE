@@ -52,21 +52,11 @@
   --b: 2px solid var(--line);
 }
 
-@media (prefers-color-scheme: dark){
-  :root{
-    --paper:   #131414;
-    --paper-2: #1B1C1C;
-    --ink:     #EDE5D2;
-    --ink-soft:#9B9284;
-    --wine:    #4E0F09;
-    --wine-deep:#2A0705;
-    --gold:    #CEB26A;
-    --gold-hi: #E9CB85;
-    --line:    #EDE5D2;
-    --err:     #E06A5A;
-    --ok:      #7FBF7F;
-  }
-}
+/* A CASA ABRE COM A LUZ ACESA, em qualquer aparelho.
+   Antes o site herdava o modo escuro do celular e abria no Blackout, enquanto
+   no computador abria claro — dois FOYER diferentes conforme o aparelho. A
+   primeira impressão é sempre a mesma agora, e o Blackout continua a um toque
+   no botão da barra (a escolha fica guardada no aparelho, em assets/site.js). */
 :root[data-theme="light"]{
   --paper:#EFE9DB; --paper-2:#E6DECB; --ink:#16100D; --ink-soft:#6B6152;
   --wine:#4E0F09; --wine-deep:#380A06; --gold:#CEB26A; --gold-hi:#E9CB85;
@@ -259,12 +249,6 @@ nav.main a.brand img.only-dark, .gate img.only-dark{ display:none; }
 :root[data-theme="dark"] .gate img.only-light{ display:none; }
 :root[data-theme="dark"] nav.main a.brand img.only-dark{ display:block; }
 :root[data-theme="dark"] .gate img.only-dark{ display:block; margin:0 auto 18px; }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme]) nav.main a.brand img.only-light,
-  :root:not([data-theme]) .gate img.only-light{ display:none; }
-  :root:not([data-theme]) nav.main a.brand img.only-dark{ display:block; }
-  :root:not([data-theme]) .gate img.only-dark{ display:block; margin:0 auto 18px; }
-}
 
 /* ================= FAIXA DE TÍTULO (páginas internas) ================= */
 .page-band{

@@ -4,6 +4,10 @@
 <base href="../">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>/* o tema antes da primeira pintura: a casa abre com a luz da sala em
+todo aparelho, e só fica no Blackout se o leitor tiver apertado o botão. Fica
+aqui, no alto do cabeçalho, para não haver piscada de claro antes do escuro. */
+try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
 <meta name="description" content="Área restrita da redação do Foyer.">
 <meta name="theme-color" content="#4E0F09">
 <meta name="robots" content="max-image-preview:large">
@@ -1839,7 +1843,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // o mesmo pedido não vai duas vezes ao GitHub em menos de um minuto:
   // a Coxia lê as mesmas pastas em várias abas, e o limite por hora é curto
   // a Coxia muda toda semana: este carimbo diz qual versão está aberta
-  var COXIA_VERSAO = '20260731-141009';
+  var COXIA_VERSAO = '20260731-143134';
   var GH_CACHE = {};
   function ghCacheGet(chave){
     var c = GH_CACHE[chave];

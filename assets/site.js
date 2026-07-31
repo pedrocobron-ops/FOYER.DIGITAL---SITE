@@ -1,13 +1,23 @@
 /* FOYER — comportamento compartilhado de todas as páginas */
 
 // tema: Blackout (escuro) / Luz da sala (claro)
+// A casa abre com a LUZ DA SALA em todo aparelho — celular, aplicativo ou
+// computador. Antes o site perguntava o modo do sistema, e quem tinha o
+// celular no escuro entrava no FOYER de Blackout sem ter pedido. Agora o
+// Blackout só acontece quando o leitor aperta o botão, e essa escolha fica
+// guardada no aparelho para as próximas páginas e as próximas visitas.
 (function(){
   var root = document.documentElement;
   var btn = document.getElementById('theme');
+  var CHAVE = 'foyer-tema';
+  function guardado(){
+    try{
+      var t = localStorage.getItem(CHAVE);
+      return (t === 'dark' || t === 'light') ? t : null;
+    }catch(e){ return null; }
+  }
   function current(){
-    var t = root.getAttribute('data-theme');
-    if(t) return t;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    return root.getAttribute('data-theme') || guardado() || 'light';
   }
   function apply(t){
     root.setAttribute('data-theme', t);
@@ -15,7 +25,9 @@
   }
   apply(current());
   if(btn) btn.addEventListener('click', function(){
-    apply(current() === 'dark' ? 'light' : 'dark');
+    var novo = current() === 'dark' ? 'light' : 'dark';
+    apply(novo);
+    try{ localStorage.setItem(CHAVE, novo); }catch(e){}
   });
 })();
 

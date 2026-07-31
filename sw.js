@@ -1,5 +1,8 @@
 /* FOYER — service worker: rede primeiro, cache como socorro (offline) */
-var CACHE = 'foyer-v2';
+/* v3: a virada do tema (a casa abre com a luz da sala em todo aparelho). O
+   nome novo joga fora as cópias guardadas do CSS antigo, para que nem o
+   aplicativo aberto sem rede volte a abrir no Blackout. */
+var CACHE = 'foyer-v3';
 
 self.addEventListener('install', function (e) {
   self.skipWaiting();
