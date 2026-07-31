@@ -4707,18 +4707,18 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     .az-fim-casa{ margin:16px 0 0; font-size:.84rem; color:var(--ink-soft); }
     .az-fim-casa a{ color:var(--wine); font-weight:700; }
     @media (prefers-reduced-motion:reduce){ .az-aplauso i{ animation:none; opacity:0; } }
-    /* Quem tem "reduzir movimento" ligado no aparelho não vê a cortina abrir:
-       é o certo, uma cortina varrendo a tela é exatamente o tipo de movimento
-       que essa preferência existe para evitar. Mas antes o palco simplesmente
-       aparecia pronto, com dois riscos nas bordas e nenhuma explicação, e
-       parecia defeito. Agora a luz sobe no lugar do movimento: sem nada se
-       deslocar, mas com a cena acontecendo. (31/07/2026) */
-    @media (prefers-reduced-motion:reduce){
-      .az-cort.e,.az-cort.d{ animation:none; transform:scaleX(.04); }
-      .az-palco .luz{ animation:azLuz 1.6s ease-out both; }
-      .az-palco .dentro{ animation:azLuz 1.4s .25s ease-out both; }
-      @keyframes azLuz{ from{ opacity:0; } to{ opacity:1; } }
-    }
+    /* A CORTINA ABRE PARA TODO MUNDO (ordem do Pedro, 31/07/2026).
+       Ela ficava parada para quem tem "reduzir movimento" ligado no aparelho.
+       O Pedro pediu a cortina de volta como era, e é a casa dele: a abertura
+       do palco é a primeira coisa que o anunciante vê e é ela que diz que
+       aqui é teatro. O movimento é de UMA vez só, dura 1,2s e não se repete,
+       que é o tipo mais brando de animação nesse quesito. A luz do refletor
+       sobe junto, para a cena não chegar seca. Os selos dos cartões, esses
+       sim, seguem parados com a preferência ligada: eles são um laço
+       infinito, e laço infinito é o que de fato incomoda quem pediu menos
+       movimento. */
+    .az-palco .luz{ animation:azLuz 1.8s .2s ease-out both; }
+    @keyframes azLuz{ from{ opacity:0; } to{ opacity:1; } }
   </style>
 
   <div class="az-palco">
