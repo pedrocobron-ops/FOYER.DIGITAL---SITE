@@ -201,11 +201,7 @@
     .az-aceite.ok{ animation:azCarimbo .35s ease; border-color:var(--gold); }
     .az-aceite.ok::after{ content:'º6'; color:var(--wine); margin-left:auto; align-self:center;
       animation:azPonto .5s ease; }
-    @media (prefers-reduced-motion:reduce){
-      .az-passo.on > *, .az-rev > div, .az-pts i.novo, .az-fcard.on, .az-op.on, #az-pf.on, #az-pj.on,
-      [data-arte] img, #az-arte-ok, #az-bloco-pf, #az-bloco-pj, #az-bloco-end,
-      .az-sacola.brilha, .az-aceite.ok, .az-aceite.ok::after{ animation:none !important; }
-    }
+
     .az-passo h4{ font-family:var(--didone); font-weight:400; font-size:1.3rem; margin:0 0 4px; }
     .az-passo .sub{ font-size:.86rem; color:var(--ink-soft); margin:0 0 14px; }
 
@@ -303,9 +299,14 @@
     .az-fgrid .az-fcard:nth-child(3) .selo{ animation-delay:1.4s; }
     .az-fgrid.dois .az-fcard:nth-child(1) .selo{ animation-delay:.35s; }
     .az-fgrid.dois .az-fcard:nth-child(2) .selo{ animation-delay:1.05s; }
-    @media (prefers-reduced-motion:reduce){
-      .mini .selo{ animation:none !important; opacity:1 !important; transform:none !important; }
-    }
+    /* ESTA PÁGINA ANIMA PARA TODO MUNDO (ordem do Pedro, 31/07/2026).
+       O anuncie.html é a vitrine comercial da casa: é aqui que o produtor
+       decide se o FOYER parece um veículo vivo ou um panfleto. O Pedro pediu
+       a cortina de volta e, depois, os cartões — então a regra passa a ser
+       uma só, e não um remendo: nesta página nada é desligado por causa da
+       preferência de movimento reduzido. O RESTO DO SITE continua obedecendo
+       (matéria, capa, revista, cadastro), porque lá o leitor está lendo, e
+       ali a preferência dele manda. */
     .az-como{ border-left:4px solid var(--gold); background:rgba(206,178,106,.1); padding:12px 16px; margin-top:14px; display:none; }
     .az-como.on{ display:block; animation:azSobe .3s ease; }
     .az-como h5{ font-family:var(--mono); font-size:.58rem; font-weight:700; letter-spacing:.18em;
@@ -505,7 +506,6 @@
       text-transform:uppercase; color:var(--ink-soft); }
     .az-fim-casa{ margin:16px 0 0; font-size:.84rem; color:var(--ink-soft); }
     .az-fim-casa a{ color:var(--wine); font-weight:700; }
-    @media (prefers-reduced-motion:reduce){ .az-aplauso i{ animation:none; opacity:0; } }
     /* A CORTINA ABRE PARA TODO MUNDO (ordem do Pedro, 31/07/2026).
        Ela ficava parada para quem tem "reduzir movimento" ligado no aparelho.
        O Pedro pediu a cortina de volta como era, e é a casa dele: a abertura
@@ -923,7 +923,7 @@
 
   var pts = document.getElementById('az-pts');
   var maxVisto = 1;
-  var azMexeMenos = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var azMexeMenos = false;   // nesta página o orçamento sobe contando, para todo mundo
   var _orcaVal = 0, _orcaAnim = null;
   function contaOrca(alvo){
     var elT = document.querySelector('#az-orca .total');
