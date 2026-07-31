@@ -4707,7 +4707,18 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     .az-fim-casa{ margin:16px 0 0; font-size:.84rem; color:var(--ink-soft); }
     .az-fim-casa a{ color:var(--wine); font-weight:700; }
     @media (prefers-reduced-motion:reduce){ .az-aplauso i{ animation:none; opacity:0; } }
-    @media (prefers-reduced-motion:reduce){ .az-cort.e,.az-cort.d{ animation:none; transform:scaleX(.04); } }
+    /* Quem tem "reduzir movimento" ligado no aparelho não vê a cortina abrir:
+       é o certo, uma cortina varrendo a tela é exatamente o tipo de movimento
+       que essa preferência existe para evitar. Mas antes o palco simplesmente
+       aparecia pronto, com dois riscos nas bordas e nenhuma explicação, e
+       parecia defeito. Agora a luz sobe no lugar do movimento: sem nada se
+       deslocar, mas com a cena acontecendo. (31/07/2026) */
+    @media (prefers-reduced-motion:reduce){
+      .az-cort.e,.az-cort.d{ animation:none; transform:scaleX(.04); }
+      .az-palco .luz{ animation:azLuz 1.6s ease-out both; }
+      .az-palco .dentro{ animation:azLuz 1.4s .25s ease-out both; }
+      @keyframes azLuz{ from{ opacity:0; } to{ opacity:1; } }
+    }
   </style>
 
   <div class="az-palco">
