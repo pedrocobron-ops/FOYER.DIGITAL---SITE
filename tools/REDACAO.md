@@ -710,10 +710,21 @@ Regras das seções novas:
     Instagram cobre em cima e embaixo. O desenho mora em `assets/artes.js`,
     que é a ÚNICA fonte: a prévia da Coxia e a exportação em lote
     (`tools/artes-lote.html`) usam o mesmo código, então o que se vê na tela
-    é o PNG que sai. O texto de cada peça é editável e, ao **guardar no
+    é o arquivo que sai. O texto de cada peça é editável e, ao **guardar no
     banco**, vai para `import/coxia/divulgacao.json` e vale para a casa toda;
     peças novas podem ser criadas do zero. As artes prontas ficam em
     `assets/divulgacao/`.
+  - **O FUNDO É MARCA D'ÁGUA, NUNCA LISTRA (correção do Pedro, 31/07/2026)**:
+    a primeira versão usava veludo listrado de fundo e o Pedro reprovou, com
+    razão: as listras brigavam com as palavras e não dava para ler. Agora o
+    fundo são as **artes brutalistas da casa** (`assets/artes/`: refletor,
+    cortina, plateia, arena, urdimento, degraus), cobrindo a peça, com
+    **desfoque** para virar textura em vez de ilustração, e por cima um
+    **véu** da cor do estilo. O desfoque não é enfeite: sem ele as arestas
+    duras do desenho viram emendas atrás do texto. A régua é medida, não
+    sentida: o contraste do texto contra o fundo puro fica em **mediana de 10
+    a 14:1**, com menos de 1% da área do texto abaixo de 4,5:1 (só o grão da
+    ilustração). Na Coxia dá para trocar a arte de fundo de cada peça.
   - **A PRESTAÇÃO DE CONTAS (31/07/2026)**: o anunciante pagava e não via
     número nenhum. Agora cada anúncio na Coxia tem o botão **Prestação de
     contas**, que monta o relatório da temporada (vistas, pessoas, cliques,

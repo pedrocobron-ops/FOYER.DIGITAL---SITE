@@ -3,6 +3,22 @@
 <body style="margin:0;background:#222">
 <script src="/assets/artes.js"></script>
 <script>
+// só o fundo, sem texto: serve para medir o contraste de verdade
+window.geraFundos = async function(formato){
+  await FoyerArtes.prontas();
+  const m = FoyerArtes.MEDIDAS[formato];
+  const out = [];
+  for (const p of FoyerArtes.PECAS) {
+    const arq = FoyerArtes.arquivoFundo(p.fundo, formato);
+    let im = null;
+    if (arq) { im = new Image(); im.src = '/' + arq; await im.decode().catch(()=>{}); }
+    const cv = document.createElement('canvas'); cv.width = m.w; cv.height = m.h;
+    FoyerArtes.pinta(cv.getContext('2d'), { estilo:p.estilo, etiqueta:'', titulo:'', linha:'', itens:[], cta:'', recado:'' },
+                     { formato, arte: im, logo: null });
+    out.push({ id:p.id, estilo:p.estilo, dataURL: cv.toDataURL('image/png') });
+  }
+  return out;
+};
 window.gera = async function(formato){
   await FoyerArtes.prontas();
   const logo = new Image();
@@ -12,11 +28,20 @@ window.gera = async function(formato){
   await Promise.all([logo.decode().catch(()=>{}), logoW.decode().catch(()=>{})]);
   const m = FoyerArtes.MEDIDAS[formato];
   const out = [];
+  const cache = {};
+  async function fundoDe(p){
+    const arq = FoyerArtes.arquivoFundo(p.fundo, formato);
+    if (!arq) return null;
+    if (cache[arq]) return cache[arq];
+    const im = new Image(); im.src = '/' + arq;
+    await im.decode().catch(()=>{});
+    cache[arq] = im; return im;
+  }
   for (const p of FoyerArtes.PECAS) {
     const cv = document.createElement('canvas');
     cv.width = m.w; cv.height = m.h;
     const ctx = cv.getContext('2d');
-    FoyerArtes.pinta(ctx, p, { formato, logo: p.estilo === 'papel' ? logoW : logo });
+    FoyerArtes.pinta(ctx, p, { formato, arte: await fundoDe(p), logo: p.estilo === 'papel' ? logoW : logo });
     out.push({ id: p.id, nome: p.nome, dataURL: cv.toDataURL('image/jpeg', 0.92) });
   }
   return out;

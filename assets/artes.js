@@ -19,6 +19,23 @@
     feed:    { w:1080, h:1080, nome:'Feed',    margem:78, topo:110, base:962 }
   };
 
+  // As artes brutalistas da casa (assets/artes/), que entram atrás do texto
+  // como marca d'água. Substituíram as listras de veludo em 31/07/2026: o
+  // listrado brigava com a leitura e o Pedro tinha razão, não dava para ler.
+  var FUNDOS = [
+    { id:'refletor',   nome:'O refletor',  arq:'arte-1-refletor'  },
+    { id:'cortina',    nome:'A cortina',   arq:'arte-2-cortina'   },
+    { id:'plateia',    nome:'A plateia',   arq:'arte-3-plateia'   },
+    { id:'arena',      nome:'A arena',     arq:'arte-4-arena'     },
+    { id:'urdimento',  nome:'O urdimento', arq:'arte-5-urdimento' },
+    { id:'degraus',    nome:'Os degraus',  arq:'arte-6-degraus'   }
+  ];
+  function arquivoFundo(id, formato) {
+    var f = FUNDOS.filter(function (x) { return x.id === id; })[0];
+    if (!f) return null;
+    return 'assets/artes/' + f.arq + (formato === 'feed' ? '-quadrado' : '-story') + '.png';
+  }
+
   // ---------------------------------------------------------------- desenho
   // Letra espaçada na mão: nem todo navegador tem ctx.letterSpacing, e a
   // caixa-alta espaçada é a assinatura tipográfica da casa.
@@ -47,22 +64,6 @@
     return linhas;
   }
 
-  // O veludo: listras verticais como as dobras de uma cortina de teatro.
-  function veludo(ctx, x, y, w, h, base, brilho) {
-    ctx.save();
-    ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
-    ctx.fillStyle = base; ctx.fillRect(x, y, w, h);
-    var passo = 34;
-    for (var i = 0; i < w; i += passo) {
-      var g = ctx.createLinearGradient(x + i, 0, x + i + passo, 0);
-      g.addColorStop(0, 'rgba(0,0,0,.24)');
-      g.addColorStop(.5, brilho);
-      g.addColorStop(1, 'rgba(0,0,0,.24)');
-      ctx.fillStyle = g; ctx.fillRect(x + i, y, passo, h);
-    }
-    ctx.restore();
-  }
-
   // A luz do refletor, que é como a casa ilumina quem entra.
   function refletor(ctx, cx, cy, r, cor) {
     var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
@@ -71,36 +72,64 @@
     ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
   }
 
+  // A marca d'água: a arte brutalista cobrindo a peça, e por cima um véu da
+  // cor da casa que empurra o desenho para o fundo. É o véu que garante a
+  // leitura: sem ele o texto disputa espaço com a ilustração.
+  // Desenha a arte cobrindo a peça, com um desfoque leve. O desfoque é o que
+  // transforma a ilustração em TEXTURA: sem ele as arestas duras do desenho
+  // brutalista viram emendas atrás das palavras e a leitura sofre.
+  function cobre(ctx, m, arte, desfoque) {
+    if (!(arte && arte.complete && arte.naturalWidth)) return;
+    var ea = Math.max(m.w / arte.naturalWidth, m.h / arte.naturalHeight);
+    var dw = arte.naturalWidth * ea, dh = arte.naturalHeight * ea;
+    var x = (m.w - dw) / 2, y = (m.h - dh) / 2;
+    var temFiltro = typeof ctx.filter === 'string';
+    if (temFiltro && desfoque) {
+      ctx.save(); ctx.filter = 'blur(' + desfoque + 'px)';
+      // desenha maior que a tela para o desfoque não clarear as bordas
+      ctx.drawImage(arte, x - 40, y - 40, dw + 80, dh + 80);
+      ctx.restore();
+    } else {
+      ctx.drawImage(arte, x, y, dw, dh);
+    }
+  }
+  function marcaDagua(ctx, m, arte, cor, veu) {
+    cobre(ctx, m, arte, 9);
+    ctx.globalAlpha = veu; ctx.fillStyle = cor; ctx.fillRect(0, 0, m.w, m.h); ctx.globalAlpha = 1;
+    // vinheta: escurece as beiradas e afunila o olho para o miolo
+    var g = ctx.createRadialGradient(m.w / 2, m.h * .42, m.w * .25, m.w / 2, m.h * .5, m.h * .72);
+    g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,.42)');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, m.w, m.h);
+  }
+
   var ESTILOS = {
-    // veludo fechado, letra dourada: a peça de anúncio, a mais solene
-    cortina: function (ctx, m) {
-      veludo(ctx, 0, 0, m.w, m.h, COR.wineDeep, 'rgba(120,26,16,.95)');
-      refletor(ctx, m.w / 2, m.h * .30, m.w * .78, 'rgba(206,178,106,.20)');
+    // vinho fundo com letra dourada: a peça de anúncio, a mais solene
+    cortina: function (ctx, m, arte) {
+      ctx.fillStyle = COR.wineDeep; ctx.fillRect(0, 0, m.w, m.h);
+      marcaDagua(ctx, m, arte, COR.wineDeep, .66);
       ctx.strokeStyle = COR.gold; ctx.lineWidth = 5;
       ctx.strokeRect(28, 28, m.w - 56, m.h - 56);
-      return { titulo: COR.paper, texto: 'rgba(239,233,219,.88)', etiqueta: COR.gold,
+      return { titulo: COR.paper, texto: 'rgba(239,233,219,.90)', etiqueta: COR.gold,
                regra: COR.gold, rodape: COR.gold, logo: 'gold' };
     },
-    // papel de jornal: a peça editorial, para falar de conteúdo
-    papel: function (ctx, m) {
+    // papel de jornal: a arte entra clarinha, como carimbo apagado
+    papel: function (ctx, m, arte) {
       ctx.fillStyle = COR.paper; ctx.fillRect(0, 0, m.w, m.h);
-      // moldura dupla, como caixa de jornal antigo
+      ctx.save(); ctx.globalAlpha = .16; cobre(ctx, m, arte, 26); ctx.restore();
       ctx.strokeStyle = COR.ink; ctx.lineWidth = 5;
       ctx.strokeRect(34, 34, m.w - 68, m.h - 68);
       ctx.lineWidth = 1.5;
       ctx.strokeRect(50, 50, m.w - 100, m.h - 100);
-      // um fio dourado no alto, a fita da casa
       ctx.fillStyle = COR.gold; ctx.fillRect(50, 50, m.w - 100, 10);
       return { titulo: COR.ink, texto: COR.inkSoft, etiqueta: COR.wine,
                regra: COR.wine, rodape: COR.wine, logo: 'wine' };
     },
-    // o palco escuro com o refletor: para chamada de ação
-    palco: function (ctx, m) {
+    // o palco quase preto: para chamada de ação, com a arte mais presente
+    palco: function (ctx, m, arte) {
       ctx.fillStyle = '#120503'; ctx.fillRect(0, 0, m.w, m.h);
-      refletor(ctx, m.w / 2, m.h * .24, m.w * .95, 'rgba(206,178,106,.30)');
-      veludo(ctx, 0, 0, 46, m.h, COR.wineDeep, 'rgba(110,24,14,.9)');
-      veludo(ctx, m.w - 46, 0, 46, m.h, COR.wineDeep, 'rgba(110,24,14,.9)');
-      return { titulo: COR.goldHi, texto: 'rgba(239,233,219,.85)', etiqueta: COR.gold,
+      marcaDagua(ctx, m, arte, '#120503', .58);
+      refletor(ctx, m.w / 2, m.h * .26, m.w * .95, 'rgba(206,178,106,.16)');
+      return { titulo: COR.goldHi, texto: 'rgba(239,233,219,.88)', etiqueta: COR.gold,
                regra: 'rgba(206,178,106,.6)', rodape: COR.gold, logo: 'gold' };
     }
   };
@@ -108,44 +137,44 @@
   // ---------------------------------------------------------------- o catálogo
   // Cada peça é um argumento de venda do portal, em uma frase só.
   var PECAS = [
-    { id:'estreia', nome:'Véspera (teaser)', estilo:'palco', etiqueta:'Primeiro sinal',
+    { id:'estreia', fundo:'refletor', nome:'Véspera (teaser)', estilo:'palco', etiqueta:'Primeiro sinal',
       titulo:'Segunda-feira o FOYER estreia',
       linha:'O saguão do teatro brasileiro ganha casa nova: notícia todo dia, crítica em vídeo, revista toda quinta e a Enciclopédia do Teatro Musical Brasileiro.',
       itens:[], cta:'foyer.digital', recado:'segunda-feira, no ar' },
-    { id:'casa-nova', nome:'O anúncio do lançamento', estilo:'cortina', etiqueta:'Terceiro sinal',
+    { id:'casa-nova', fundo:'cortina', nome:'O anúncio do lançamento', estilo:'cortina', etiqueta:'Terceiro sinal',
       titulo:'O FOYER tem casa nova',
       linha:'Um portal inteiro de teatro, música e cultura. Notícia todo dia, crítica em vídeo, revista toda quinta e a Enciclopédia do Teatro Musical Brasileiro.',
       itens:['Notícias e crítica','Revista semanal','Enciclopédia','Agenda de SP e Rio'],
       cta:'foyer.digital' },
-    { id:'noticias', nome:'Notícias', estilo:'papel', etiqueta:'Notícias',
+    { id:'noticias', fundo:'degraus', nome:'Notícias', estilo:'papel', etiqueta:'Notícias',
       titulo:'Teatro e cultura, todo dia',
       linha:'Matéria apurada, com fonte citada e crédito de foto. Sem caça-clique e sem release copiado.',
       itens:[], cta:'foyer.digital' },
-    { id:'critica', nome:'Crítica em vídeo', estilo:'palco', etiqueta:'Crítica',
+    { id:'critica', fundo:'refletor', nome:'Crítica em vídeo', estilo:'palco', etiqueta:'Crítica',
       titulo:'A crítica que você assiste',
       linha:'Kyra Piscitelli vê o espetáculo e conta o que achou, em vídeo, com a régua sempre à mostra.',
       itens:[], cta:'foyer.digital/critica' },
-    { id:'revista', nome:'A revista de quinta', estilo:'cortina', etiqueta:'Revista',
+    { id:'revista', fundo:'urdimento', nome:'A revista de quinta', estilo:'cortina', etiqueta:'Revista',
       titulo:'Toda quinta, uma revista de verdade',
       linha:'Uma edição fechada, com capa, pôster e acervo permanente. Assinante lê na quinta às 7h; o resto do mundo, na sexta.',
       itens:[], cta:'foyer.digital/revista' },
-    { id:'enciclopedia', nome:'Enciclopédia', estilo:'papel', etiqueta:'Enciclopédia',
+    { id:'enciclopedia', fundo:'arena', nome:'Enciclopédia', estilo:'papel', etiqueta:'Enciclopédia',
       titulo:'A Enciclopédia do Teatro Musical Brasileiro',
       linha:'Quem fez o quê, em que montagem, em que ano. A memória do musical brasileiro num lugar só.',
       itens:[], cta:'foyer.digital/enciclopedia' },
-    { id:'agenda', nome:'Agenda do fim de semana', estilo:'papel', etiqueta:'Agenda',
+    { id:'agenda', fundo:'plateia', nome:'Agenda do fim de semana', estilo:'papel', etiqueta:'Agenda',
       titulo:'O que fazer no fim de semana',
       linha:'São Paulo e Rio de Janeiro, toda semana, com endereço, horário e preço. Escolha antes de sair de casa.',
       itens:[], cta:'foyer.digital/agenda' },
-    { id:'programas', nome:'Programas', estilo:'palco', etiqueta:'Programas',
+    { id:'programas', fundo:'arena', nome:'Programas', estilo:'palco', etiqueta:'Programas',
       titulo:'As conversas de quem faz o palco',
       linha:'Os programas do FOYER, com gente do teatro brasileiro, no YouTube e no Spotify.',
       itens:[], cta:'foyer.digital/programas' },
-    { id:'assine', nome:'Assine (captação)', estilo:'palco', etiqueta:'Assine',
+    { id:'assine', fundo:'plateia', nome:'Assine (captação)', estilo:'palco', etiqueta:'Assine',
       titulo:'Assine de graça',
       linha:'A revista da semana na sua caixa de entrada, antes de todo mundo. Sem spam, e seus dados ficam só com o FOYER.',
       itens:[], cta:'foyer.digital/assine' },
-    { id:'anuncie', nome:'Anuncie (produtores)', estilo:'cortina', etiqueta:'Anuncie',
+    { id:'anuncie', fundo:'cortina', nome:'Anuncie (produtores)', estilo:'cortina', etiqueta:'Anuncie',
       titulo:'Sua peça no saguão do teatro brasileiro',
       linha:'Monte o anúncio, veja como ele fica no site antes de qualquer compromisso e feche a conversa no WhatsApp, com gente de verdade.',
       itens:['Cortina de entrada','Entreato','Cartaz','Página na revista'],
@@ -162,7 +191,7 @@
     opts = opts || {};
     var m = MEDIDAS[opts.formato || 'stories'];
     var stories = m.h > 1400;
-    var paleta = (ESTILOS[peca.estilo] || ESTILOS.cortina)(ctx, m);
+    var paleta = (ESTILOS[peca.estilo] || ESTILOS.cortina)(ctx, m, opts.arte);
     var meio = m.w / 2, larg = m.w - m.margem * 2;
     ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
 
@@ -254,6 +283,7 @@
 
   raiz.FoyerArtes = {
     COR: COR, MEDIDAS: MEDIDAS, PECAS: PECAS, ESTILOS: Object.keys(ESTILOS),
+    FUNDOS: FUNDOS, arquivoFundo: arquivoFundo,
     pinta: pinta,
     // carrega as fontes da casa antes de desenhar (senão o canvas usa a de sistema)
     prontas: function () {

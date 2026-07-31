@@ -1429,6 +1429,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                   <button class="dv-op" type="button" data-est="papel">Papel</button>
                   <button class="dv-op" type="button" data-est="palco">Palco</button>
                 </div>
+                <div><label>Arte de fundo (marca d'água)</label>
+                  <div class="dv-ops" id="dv-fundo"></div></div>
                 <div><label>Etiqueta</label><input type="text" id="dv-etiqueta" maxlength="34"></div>
                 <div><label>Título</label><textarea id="dv-titulo" rows="2" maxlength="120"></textarea></div>
                 <div><label>A linha de apoio</label><textarea id="dv-linha" rows="3" maxlength="260"></textarea></div>
@@ -5409,6 +5411,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     $('dv-cta').value = p.cta || 'foyer.digital';
     $('dv-recado').value = p.recado === undefined ? 'o link está na bio' : p.recado;
     document.querySelectorAll('#dv-estilo .dv-op').forEach(function(b){ b.classList.toggle('on', b.dataset.est === p.estilo); });
+    dvPintaFundos(p.fundo || 'cortina');
     $('dv-apagar').style.display = p.daCasa ? 'none' : 'inline-flex';
   }
   function dvDoFormulario(){
@@ -5418,6 +5421,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       nome: DV.peca ? (DV.peca.nome || DV.peca.titulo) : 'Peça',
       daCasa: DV.peca ? !!DV.peca.daCasa : false,
       estilo: est ? est.dataset.est : 'cortina',
+      fundo: (document.querySelector('#dv-fundo .dv-op.on') || {}).dataset ?
+             document.querySelector('#dv-fundo .dv-op.on').dataset.fun : (DV.peca ? DV.peca.fundo : 'cortina'),
       etiqueta: $('dv-etiqueta').value,
       titulo: $('dv-titulo').value,
       linha: $('dv-linha').value,
@@ -5426,29 +5431,49 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       recado: $('dv-recado').value
     };
   }
-  function dvDesenha(cv, peca, formato){
+  // as artes brutalistas da casa, que entram como marca d'água
+  DV.fundos = {};
+  function dvFundo(id, formato){
+    var arq = FoyerArtes.arquivoFundo(id, formato);
+    if(!arq) return Promise.resolve(null);
+    if(DV.fundos[arq]) return Promise.resolve(DV.fundos[arq]);
+    return dvImagem(arq).then(function(im){ DV.fundos[arq] = im; return im; });
+  }
+  function dvDesenha(cv, peca, formato, arte){
     var m = FoyerArtes.MEDIDAS[formato];
     cv.width = m.w; cv.height = m.h;
     var ctx = cv.getContext('2d');
-    FoyerArtes.pinta(ctx, peca, { formato: formato, recado: peca.recado,
+    FoyerArtes.pinta(ctx, peca, { formato: formato, recado: peca.recado, arte: arte || null,
       logo: peca.estilo === 'papel' ? DV.logoV : DV.logoG });
     return cv;
   }
   function dvPrevia(){
     if(!window.FoyerArtes || !DV.peca) return;
-    dvPrepara().then(function(){ dvDesenha($('dv-canvas'), dvDoFormulario(), DV.formato); });
+    var atual = dvDoFormulario();
+    dvPrepara()
+      .then(function(){ return dvFundo(atual.fundo, DV.formato); })
+      .then(function(arte){ dvDesenha($('dv-canvas'), atual, DV.formato, arte); });
+  }
+  function dvPintaFundos(sel){
+    var el = $('dv-fundo'); if(!el) return;
+    el.innerHTML = FoyerArtes.FUNDOS.map(function(f){
+      return '<button class="dv-op' + (f.id === sel ? ' on' : '') + '" type="button" data-fun="' +
+        f.id + '">' + f.nome + '</button>';
+    }).join('');
   }
   function dvBaixa(peca, formato){
     var cv = document.createElement('canvas');
-    dvDesenha(cv, peca, formato);
+    return dvFundo(peca.fundo, formato).then(function(arte){
+    dvDesenha(cv, peca, formato, arte);
     return new Promise(function(ok){
       cv.toBlob(function(b){
         var a = document.createElement('a');
         a.href = URL.createObjectURL(b);
-        a.download = 'foyer-' + formato + '-' + (peca.id || 'arte') + '.png';
+        a.download = 'foyer-' + formato + '-' + (peca.id || 'arte') + '.jpg';
         document.body.appendChild(a); a.click(); a.remove();
         setTimeout(function(){ URL.revokeObjectURL(a.href); ok(); }, 400);
-      }, 'image/png');
+      }, 'image/jpeg', 0.92);
+    });
     });
   }
   function carregarDivulgacao(){
@@ -5480,6 +5505,12 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     dvPrevia();
   });
   document.addEventListener('click', function(e){
+    var b = e.target.closest('#dv-fundo .dv-op');
+    if(!b) return;
+    document.querySelectorAll('#dv-fundo .dv-op').forEach(function(x){ x.classList.toggle('on', x === b); });
+    dvPrevia();
+  });
+  document.addEventListener('click', function(e){
     var b = e.target.closest('#dv-estilo .dv-op');
     if(!b) return;
     document.querySelectorAll('#dv-estilo .dv-op').forEach(function(x){ x.classList.toggle('on', x === b); });
@@ -5505,7 +5536,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     perguntar('Que nome esta peça leva no banco?', 'Peça nova', { titulo:'Peça nova' }).then(function(nome){
       if(!nome) return;
       var id = 'p' + Date.now().toString(36);
-      DV.peca = { id:id, nome:nome, daCasa:false, estilo:'cortina', etiqueta:'FOYER',
+      DV.peca = { id:id, nome:nome, daCasa:false, estilo:'cortina', fundo:'cortina', etiqueta:'FOYER',
                   titulo:nome, linha:'', itens:[], cta:'foyer.digital', recado:'o link está na bio' };
       DV.banco.push(DV.peca);
       dvPintaLista(); dvCarregaCampos(DV.peca); dvPrevia();
