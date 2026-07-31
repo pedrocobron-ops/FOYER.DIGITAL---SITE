@@ -1758,7 +1758,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // o mesmo pedido não vai duas vezes ao GitHub em menos de um minuto:
   // a Coxia lê as mesmas pastas em várias abas, e o limite por hora é curto
   // a Coxia muda toda semana: este carimbo diz qual versão está aberta
-  var COXIA_VERSAO = '20260731-013959';
+  var COXIA_VERSAO = '20260731-015207';
   var GH_CACHE = {};
   function ghCacheGet(chave){
     var c = GH_CACHE[chave];
@@ -4483,6 +4483,31 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   var PUB_ARQ = 'import/anuncios/site.json';
   var PUB_NOME = { cortina:'A Cortina de entrada (site)', entreato:'O Entreato (site)', cartaz:'O Cartaz (site)',
                    'pagina-inteira':'Página inteira (revista)', 'meia-pagina':'Meia página (revista)' };
+  // a primeira fala da direção com o anunciante, no WhatsApp
+  function pubPrimeiraFala(p){
+    var meu = String((typeof USER !== 'undefined' && USER && USER.nome) || 'FOYER').split(' ')[0];
+    var dele = String(p.nome || '').split(' ')[0];
+    var quem = p.empresa || p.nome || '';
+    var fmt = (PUB_NOMES_F[p.formato] || PUB_NOME[p.formato] || p.formato);
+    var quando = (p.inicio && p.inicio !== 'a combinar') ? p.inicio : '';
+    var linhas = [];
+    linhas.push('Olá, ' + (dele || 'tudo bem') + '. Aqui é o ' + meu + ', do FOYER.');
+    linhas.push('');
+    linhas.push('Seu pedido chegou na nossa mesa e eu li com calma: ' + fmt +
+      (quem && quem !== p.nome ? ' para ' + quem : '') +
+      (p.duracao && p.duracao !== 'a combinar' ? ', ' + p.duracao : '') +
+      (quando ? ', começando ' + quando : '') +
+      (p.valor_total ? ', no orçamento de R$ ' + p.valor_total : '') + '.' +
+      (p.protocolo ? ' (protocolo ' + p.protocolo + ')' : ''));
+    linhas.push('');
+    linhas.push('Antes de fechar eu queria te ouvir: me conta um pouco do que você está anunciando, ' +
+      'que eu te digo com honestidade se esse é mesmo o melhor formato para o seu caso. ' +
+      'Às vezes vale outro, às vezes vale esperar uma semana melhor.');
+    linhas.push('');
+    linhas.push('Estando tudo certo, eu te passo os dados do pagamento por aqui mesmo e a sua arte ' +
+      'entra no ar na data que a gente combinar. Nada sobe sem o seu ok.');
+    return linhas.join('\n');
+  }
   function pubRPC(fn, corpo){
     var RK = { url:'https://jcaqjlrzmrtzjyfbljxh.supabase.co', key:'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB' };
     return fetch(RK.url + '/rest/v1/rpc/' + fn, {
@@ -4505,9 +4530,14 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         var quando = new Date(p.criado_em).toLocaleString('pt-BR');
         var zap = (p.whatsapp || '').replace(/\D/g, '');
         if(zap && zap.length <= 11) zap = '55' + zap;
-        var oi = encodeURIComponent('Olá, ' + (p.nome || '') + '! Aqui é o FOYER. Recebi o seu pedido de anúncio (' +
-          (PUB_NOME[p.formato] || p.formato) + (p.protocolo ? ', protocolo ' + p.protocolo : '') +
-          (p.valor_total ? ', orçamento R$ ' + p.valor_total : '') + '). Vamos confirmar os dados e combinar o pagamento?');
+        // A CONVERSA FINAL É DE GENTE (ordem do Pedro, 31/07/2026). O site faz
+        // tudo até o pedido; o fecho é uma pessoa real chamando outra pelo
+        // nome. Num veículo que ainda não é conhecido por vender anúncio, é
+        // essa conversa que dá credibilidade. Por isso a mensagem sai
+        // assinada por quem está na Coxia, mostra que o pedido foi LIDO por
+        // alguém (formato, quem é, quando e quanto) e oferece conselho antes
+        // de falar em dinheiro.
+        var oi = encodeURIComponent(pubPrimeiraFala(p));
         return '<div class="pub-card">' +
           '<div class="pc-t"><b>' + esc(PUB_NOME[p.formato] || p.formato) + (p.cupom ? ' + 🎟 cupom' : '') + '</b>' +
           (p.protocolo ? '<span class="mt">' + esc(p.protocolo) + '</span>' : '') +

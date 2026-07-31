@@ -686,6 +686,20 @@ Regras das seções novas:
     quantas matérias a edição tem e quantas meias já estão reservadas, e não
     grava a reserva que não caberia. A página inteira não tem esse limite:
     ela cria a própria página.
+  - **O FECHO É DE GENTE, E ISSO É ESCOLHA (ordem do Pedro, 31/07/2026)**:
+    o site faz tudo até o pedido (formato, arte, prévia real, orçamento na
+    hora, dados de nota fiscal, aceite das regras). O **último passo — a
+    conversa final e o pagamento — é feito por WhatsApp, por uma pessoa
+    real**. Não é falta de ferramenta: é decisão. O FOYER é conhecido como
+    página há três anos, mas ainda não é conhecido como veículo que vende
+    anúncio, e é essa conversa que dá credibilidade e humanidade à venda.
+    **Não propor gateway de pagamento, Pix automático nem carrinho** enquanto
+    o volume for pequeno; quando virar volume, a casa reavalia. Por isso a
+    primeira fala no WhatsApp sai **assinada por quem está na Coxia** (nome
+    de gente, não "o FOYER"), mostra que o pedido foi LIDO (formato, para
+    quem, quando, quanto, protocolo) e **oferece conselho antes de falar em
+    dinheiro** — se o formato escolhido é mesmo o melhor para aquele caso.
+    Termina sempre com "nada sobe sem o seu ok".
   - **A PRESTAÇÃO DE CONTAS (31/07/2026)**: o anunciante pagava e não via
     número nenhum. Agora cada anúncio na Coxia tem o botão **Prestação de
     contas**, que monta o relatório da temporada (vistas, pessoas, cliques,
