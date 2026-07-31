@@ -629,15 +629,25 @@ Regras das seções novas:
   - **No site** (controlados por `import/anuncios/site.json`, que a
     aba Publicidade da Coxia edita; entram no ar no deploy seguinte):
     **A Cortina de entrada** (abertura, 1x por dia por visitante, com
-    fechar), **O Entreato** (dentro das matérias, após o 4º
-    parágrafo) e **A Faixa de proscênio** (rodapé fixo, dispensável
-    pelo leitor). TODOS com rótulo "Publicidade"; nunca aparecem na
-    Coxia nem dentro da revista.
+    fechar), **O Entreato** (dentro das matérias, após o 4º parágrafo)
+    e **O Cartaz** (arte quadrada, depois do 8º parágrafo da matéria —
+    ou fechando o texto, se a matéria for curta — e também na CAPA,
+    dentro do Giro, no lugar de uma chamada). TODOS com rótulo
+    "Publicidade"; nunca aparecem na Coxia nem dentro da revista.
   - **TODO FORMATO É IMAGEM (correção do Pedro, 30/07/2026)**: os cinco
-    formatos recebem arte. A faixa deixou de ser um campo de texto e
-    virou uma **tarja deitada** (recomendado 1200×120, 10:1) no rodapé;
-    a linha de texto sobrou só como legenda opcional, para leitor de tela
-    e para quando a imagem demora a carregar.
+    formatos recebem arte, e a legenda de uma linha é opcional em todos
+    (serve de texto alternativo para leitor de tela e para quando a
+    imagem demora a carregar).
+  - **A FAIXA SAIU E NASCEU O CARTAZ (ordem do Pedro, 30/07/2026)**: a
+    Faixa de proscênio foi **retirada do site inteiro**. O motivo, nas
+    palavras dele: exigia uma arte muito específica, e numa tarja de
+    10:1 não cabe imagem de verdade de um espetáculo — ninguém iria
+    querer. No lugar entrou **O CARTAZ**: arte **quadrada 1:1**, a mesma
+    que o produtor já tem pronta para o Instagram. É o único formato do
+    site que aparece em **dois lugares**: no meio da matéria (468 de
+    lado) e na capa, dentro do Giro (230 de lado), ao lado da manchete
+    do dia. Quando há Cartaz vendido, ele ocupa o lugar de uma chamada
+    do Giro, para a coluna não crescer.
   - **O limite do GitHub, e por que a Coxia às vezes mostra travessão
     (30/07/2026)**: sem chave conectada, o GitHub libera **60 consultas
     por hora** por aparelho; com a chave da casa, 5.000. Quando o limite
@@ -673,9 +683,8 @@ Regras das seções novas:
     no site, **Cortina** 1080×1350 (em pé, 4:5; a caixa tem 514 de
     largura e nunca passa da altura da tela), **Entreato** 1600×900
     (deitada, 16:9; ocupa os 788 de largura da matéria, com teto de 560
-    de altura) e **Faixa** 1200×120 (tarja 10:1; 56 de altura no
-    computador, e no celular o rótulo sobe para uma linha só sua para a
-    arte pegar a largura toda). Na
+    de altura) e **Cartaz** 1080×1080 (quadrada 1:1; 468 de lado na
+    matéria e 230 na capa). Na
     revista, **a largura é sempre a mesma; o que muda é a altura**
     (correção do Pedro, 30/07/2026): **página inteira** ocupa 714×896 e
     **meia página** ocupa 714×448, exatamente metade, sangrando de ponta
@@ -705,7 +714,7 @@ Regras das seções novas:
     palavra, e ela precisa combinar com o canal em todo lugar: botões,
     orçamento, revisão, pedido, WhatsApp e Coxia.
   - **A TABELA DA CASA (aprovada pelo Pedro em 29/07/2026, por
-    edição/semana)**: Faixa R$ 90 · Entreato R$ 150 · Cortina R$ 200 ·
+    edição/semana)**: Entreato R$ 150 · Cartaz R$ 180 · Cortina R$ 200 ·
     Meia página R$ 130 · Página inteira R$ 240. **Desconto de
     extensão progressivo**: a 2ª edição sai com −10%, a 3ª com −20%,
     a 4ª com −30% (ex.: página inteira por 4 edições = 240+216+192+168
@@ -717,7 +726,7 @@ Regras das seções novas:
     exige o **link de destino** (bilheteria, Sympla, site da peça,
     Instagram — escolha do anunciante), grava no pedido (coluna
     `link`) e a Coxia mostra o destino no cartão. Os formatos do site
-    (faixa, cortina, entreato) e da revista (página inteira, meia
+    (cartaz, cortina, entreato) e da revista (página inteira, meia
     página) já envolvem a arte no link ao ir ao ar. Anúncio sem
     destino não sobe.
   - **A conta que o anunciante recebe (30/07/2026)**: cada anúncio marca

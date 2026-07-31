@@ -4431,7 +4431,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   /* ---------------- publicidade: pedidos do site + anúncios da casa ---------------- */
   var PUB = { sitejson: null, siteSha: null, pedidos: [] };
   var PUB_ARQ = 'import/anuncios/site.json';
-  var PUB_NOME = { cortina:'A Cortina de entrada (site)', entreato:'O Entreato (site)', faixa:'A Faixa de proscênio (site)',
+  var PUB_NOME = { cortina:'A Cortina de entrada (site)', entreato:'O Entreato (site)', cartaz:'O Cartaz (site)',
                    'pagina-inteira':'Página inteira (revista)', 'meia-pagina':'Meia página (revista)' };
   function pubRPC(fn, corpo){
     var RK = { url:'https://jcaqjlrzmrtzjyfbljxh.supabase.co', key:'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB' };
@@ -4506,7 +4506,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       .catch(function(){ avisar('Não mudou o status agora; tente de novo.'); });
   });
   // ---- os números da casa: o mês, o que está fechado e o que ainda é conversa ----
-  var PUB_NOMES_F = { faixa:'A Faixa', cortina:'A Cortina', entreato:'O Entreato',
+  var PUB_NOMES_F = { cartaz:'O Cartaz', cortina:'A Cortina', entreato:'O Entreato',
                       'pagina-inteira':'Página inteira', 'meia-pagina':'Meia página' };
   function pubPainel(lista){
     var el = $('pub-painel'); if(!el) return;
@@ -4546,7 +4546,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       var hoje = new Date().toISOString().slice(0, 10);
       var linhas = [];
       // o que a casa colocou no ar (mesmo sem clique ainda) entra na lista
-      ['faixa','cortina','entreato'].forEach(function(k){
+      ['cartaz','cortina','entreato'].forEach(function(k){
         var c = site[k] || {};
         if(!(c.img || c.texto)) return;
         var chave = 'pub:' + k + (c.pedido ? ':' + c.pedido : '');
@@ -4618,7 +4618,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   function pubSobeArte(p, caminho){
     var arte = p.arte || '';
     var m = /^data:image\/[a-z+]+;base64,(.+)$/i.exec(arte);
-    if(!m) return Promise.resolve(null);           // sem arte (faixa é texto)
+    if(!m) return Promise.resolve(null);           // pedido sem arte
     return ghPutRaw(caminho, m[1], assina('sobe a arte do anúncio ' + (p.protocolo || '')))
       .then(function(){ return caminho; });
   }
@@ -4626,22 +4626,18 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     return pubRPC('foyer_anuncio_status', { chave:'foyer-cx-metricas-terceiro-sinal-9427',
                                             p_id:p.id, p_status:'no-ar' }).catch(function(){});
   }
-  // ---- formatos do site: faixa, cortina, entreato ----
+  // ---- formatos do site: cartaz, cortina, entreato ----
   function pubNoArSite(p, temporada){
     var slot = p.formato;
     var caminho = 'assets/uploads/pub-' + slot + '-' + String(p.protocolo || 'novo').toLowerCase() + '.jpg';
     return pubSobeArte(p, caminho).then(function(cam){
       return ghGet(PUB_ARQ).then(function(f){
-        var doc = (f && f.content) ? JSON.parse(unb64(f.content)) : { faixa:{}, cortina:{}, entreato:{} };
+        var doc = (f && f.content) ? JSON.parse(unb64(f.content)) : { cartaz:{}, cortina:{}, entreato:{} };
         var novo = { link:p.link || '', de:temporada.de, ate:temporada.ate, pedido:p.protocolo || '' };
-        if(slot === 'faixa'){
-          novo.texto = (p.mensagem || '').replace(/^Linha da faixa: “|”$/g, '').slice(0, 90) ||
-                       ((p.empresa || p.nome || 'Anunciante') + ' no FOYER');
-          if(cam) novo.img = cam;
-        } else {
-          novo.legenda = p.empresa || p.nome || '';
-          if(cam) novo.img = cam;
-        }
+        // a legenda que o anunciante escreveu no pedido vira o texto alternativo da arte
+        var _leg = /Legenda da arte: “([^”]+)”/.exec(p.mensagem || '');
+        novo.legenda = (_leg ? _leg[1] : '').slice(0, 90) || p.empresa || p.nome || '';
+        if(cam) novo.img = cam;
         doc[slot] = novo;
         return ghPut(PUB_ARQ, JSON.stringify(doc, null, 1),
                      assina('põe no ar o anúncio ' + (p.protocolo || '')), f && f.sha)
@@ -4764,7 +4760,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                    ', a partir da próxima. Cada edição recebe a arte sozinha quando for publicada.');
           } else {
             var hojeISO = pubISO(new Date());
-            avisar('Temporada marcada. ' + (res.arte ? 'A arte subiu do próprio pedido' : 'A faixa é texto, já está completa') +
+            avisar('Temporada marcada. ' + (res.arte ? 'A arte subiu do próprio pedido' : 'O pedido veio sem arte') +
                    ' e o anúncio fica no ar de ' + res.de + ' a ' + res.ate + ', ' + res.dias + ' dias cheios.' +
                    (res.de <= hojeISO
                      ? '\n\nComeça hoje: entra no próximo deploy.'
@@ -4788,7 +4784,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
 
   // ---- subir publicidade na mão: arte do arquivo, datas no calendário ----
   var PUB_SLOTS = [
-    { id:'faixa',    nome:'A FAIXA',    dica:'tarja no rodapé de todas as páginas · deitada 10:1 · mande 1200×120',  larg:1400, alt:140 },
+    { id:'cartaz',   nome:'O CARTAZ',   dica:'no meio da matéria e na capa, ao lado da manchete · quadrada 1:1 · mande 1080×1080', larg:1200, alt:1200 },
     { id:'cortina',  nome:'A CORTINA',  dica:'o cartaz que abre uma vez por dia · em pé 4:5 · mande 1080×1350',      larg:1200, alt:1500 },
     { id:'entreato', nome:'O ENTREATO', dica:'dentro da matéria, depois do 4º parágrafo · deitada 16:9 · mande 1600×900', larg:1600, alt:920 }
   ];
@@ -4799,7 +4795,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   function carregarSitePub(){
     var el = $('pub-site');
     ghGet(PUB_ARQ).then(function(f){
-      PUB.sitejson = f && f.content ? JSON.parse(unb64(f.content)) : { faixa:{}, cortina:{}, entreato:{} };
+      PUB.sitejson = f && f.content ? JSON.parse(unb64(f.content)) : { cartaz:{}, cortina:{}, entreato:{} };
       PUB.siteSha = f ? f.sha : null;
       var d = PUB.sitejson;
       el.innerHTML =

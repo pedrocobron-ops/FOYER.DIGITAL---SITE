@@ -248,8 +248,11 @@
     .mini-entreato .selo{ left:12px; right:12px; top:46px; height:30px;
       animation:miDesliza 5s ease-in-out infinite; }
     @keyframes miDesliza{ 0%,6%{ opacity:0; transform:translateX(-20px); } 14%,88%{ opacity:1; transform:none; } 96%,100%{ opacity:0; transform:translateX(-20px); } }
-    .mini-faixa .selo{ left:0; right:0; bottom:0; height:26px;
-      animation:miSobe 5s ease-in-out infinite; }
+    .mini-cartaz .selo{ left:50%; top:50%; width:64px; height:64px; transform:translate(-50%,-50%);
+      animation:miCartaz 5s ease-in-out infinite; }
+    @keyframes miCartaz{ 0%,6%{ opacity:0; transform:translate(-50%,-50%) scale(.6); }
+      16%,88%{ opacity:1; transform:translate(-50%,-50%) scale(1); }
+      96%,100%{ opacity:0; transform:translate(-50%,-50%) scale(.6); } }
     @keyframes miSobe{ 0%,6%{ transform:translateY(110%); } 14%,88%{ transform:none; } 96%,100%{ transform:translateY(110%); } }
     .mini-inteira .selo{ inset:0 0 10px 0; flex-direction:column;
       animation:miVira 5s ease-in-out infinite; transform-origin:left center; }
@@ -330,16 +333,10 @@
     .pv-cortina em{ display:block; font-style:normal; font-family:var(--mono); font-size:.44rem; font-weight:700;
       letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); margin:2px 0 6px; }
     .pv-cortina .arte{ aspect-ratio:4/5; }
-    .pv-faixa{ position:absolute; left:0; right:0; bottom:0; background:var(--paper); border-top:2px solid var(--ink);
-      display:none; align-items:center; gap:8px; padding:8px 10px; box-shadow:0 -4px 14px rgba(0,0,0,.2); }
-    .pv-faixa em{ font-style:normal; font-family:var(--mono); font-size:.4rem; font-weight:700;
-      letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); }
-    .pv-faixa span{ flex:1; font-size:.68rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .pv-faixa .arte{ flex:1; height:26px; display:flex; align-items:center; justify-content:center;
-      background:rgba(120,100,70,.12); overflow:hidden; }
-    .pv-faixa .arte img{ max-width:100%; max-height:26px; width:auto; height:auto; object-fit:contain; }
-    .pv-faixa .arte .ph{ font-family:var(--mono); font-size:.42rem; letter-spacing:.1em; text-transform:uppercase; opacity:.6; }
-    .pv-faixa b{ font-size:.7rem; }
+    .pv-cartaz{ margin:12px; border:2px solid var(--ink); padding:8px; display:none; }
+    .pv-cartaz em{ display:block; font-style:normal; font-family:var(--mono); font-size:.44rem; font-weight:700;
+      letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:6px; }
+    .pv-cartaz .arte{ aspect-ratio:1/1; max-width:150px; margin:0 auto; }
     /* a página da revista em miniatura */
     .pv-pg{ position:relative; width:300px; aspect-ratio:720/972; border:3px solid var(--ink);
       background:#F6F1E6; overflow:hidden; display:none; flex-direction:column; }
@@ -508,11 +505,11 @@
             <b>O Entreato</b>
             <span class="fc-r">A sua arte dentro das matérias, no meio da leitura.</span>
           </button>
-          <button class="az-fcard" type="button" data-f="faixa">
-            <span class="mini msite mini-faixa"><i class="nv"></i><i class="ln"></i><i class="ln"></i><i class="ln c"></i><i class="ln"></i>
-              <span class="selo">SUA ARTE · TARJA FIXA</span></span>
-            <b>A Faixa de proscênio</b>
-            <span class="fc-r">Uma tarja sua, fixa no pé de todas as páginas.</span>
+          <button class="az-fcard" type="button" data-f="cartaz">
+            <span class="mini msite mini-cartaz"><i class="nv"></i><i class="ln"></i><i class="ln"></i><i class="ln c"></i><i class="ln"></i>
+              <span class="selo">O SEU<br>CARTAZ</span></span>
+            <b>O Cartaz</b>
+            <span class="fc-r">A arte quadrada da peça, no meio da matéria e na capa.</span>
           </button>
         </div>
 
@@ -522,7 +519,7 @@
             <span class="mini mrev mini-inteira"><span class="pgm"><i class="ln"></i><i class="ln"></i><i class="ln c"></i>
               <span class="selo">SUA ARTE<br>PÁGINA<br>INTEIRA</span><em class="fol"></em></span></span>
             <b>Página inteira</b>
-            <span class="fc-r">O formato do seu cartaz: uma página da edição é toda sua.</span>
+            <span class="fc-r">O formato do seu pôster: uma página da edição é toda sua.</span>
           </button>
           <button class="az-fcard" type="button" data-f="meia-pagina">
             <span class="mini mrev mini-meia"><span class="pgm"><i class="tt"></i><i class="ln"></i><i class="ln"></i><i class="ln c"></i>
@@ -555,8 +552,8 @@
                 <div class="pv-ent" id="pv-ent"><em>Publicidade</em><div class="arte" data-arte><span class="ph">Sua arte aqui</span></div></div>
                 <div class="ln"></div><div class="ln"></div><div class="ln c"></div><div class="ln"></div>
                 <div class="pv-cortina" id="pv-cortina"><div class="cx"><em>Publicidade</em><div class="arte" data-arte><span class="ph">Sua arte aqui</span></div></div></div>
-                <div class="pv-faixa" id="pv-faixa"><em>Publicidade</em>
-                  <div class="arte" data-arte><span class="ph">Sua arte aqui</span></div><b>✕</b></div>
+                <div class="pv-cartaz" id="pv-cartaz"><em>Publicidade</em>
+                  <div class="arte" data-arte><span class="ph">Sua arte aqui</span></div></div>
               </div>
               <div class="pv-pg" id="pv-pg">
                 <span class="selo">Publicidade</span>
@@ -568,9 +565,9 @@
               </div>
             </div>
             <p class="pv-rot" id="pv-rot">a aplicação real do seu anúncio</p>
-            <div class="az-campo" id="az-faixa-campo" style="display:none;margin-top:10px">
+            <div class="az-campo" id="az-legenda-campo" style="display:none;margin-top:10px">
               <label>Uma linha para descrever a arte (opcional)</label>
-              <input type="text" id="az-faixa-tx" maxlength="90" placeholder="Peça X em cartaz no Teatro Y">
+              <input type="text" id="az-legenda-tx" maxlength="90" placeholder="Peça X em cartaz no Teatro Y">
               <small>serve de legenda para quem usa leitor de tela e aparece se a imagem demorar a carregar.</small>
             </div>
             <div class="az-campo" style="margin-top:10px">
@@ -696,11 +693,11 @@
       como:'A sua arte entra DENTRO das matérias do site, depois do 4º parágrafo, com o rótulo Publicidade. O leitor encontra o anúncio no meio da leitura, como o intervalo de um espetáculo: é o formato de maior convivência com o conteúdo.',
       specs:['Arte: imagem deitada, 16:9 — mande 1600×900 (ela ocupa a largura da matéria, 788 de largura no computador)','Onde: todas as páginas de matéria do site','Frequência: sempre no ar durante a temporada contratada','Arte mais em pé que 16:9 entra inteira, com margem de papel dos lados','Link: a arte clica para o seu endereço'],
       spec:'Imagem deitada, 16:9 · mande 1600×900' },
-    { id:'faixa', canal:'site', nome:'A Faixa de proscênio', onde:'No site · rodapé fixo',
-      resumo:'Uma tarja sua, fixa no pé de todas as páginas.',
-      como:'Uma tarja com a sua arte, fixa no rodapé de TODAS as páginas do site, com link direto para a sua bilheteria. É o formato que acompanha o leitor por onde ele for. Ele pode dispensar a faixa; ela volta no dia seguinte.',
-      specs:['Arte: tarja bem deitada, 10:1 — mande 1200×120 (a tarja tem 56 de altura no computador e 40 no celular)','Onde: o rodapé de todas as páginas do site','Frequência: sempre à vista; o leitor pode dispensar por 1 dia','Link: a tarja inteira clica para o seu endereço'],
-      spec:'Tarja deitada, 10:1 · mande 1200×120' },
+    { id:'cartaz', canal:'site', nome:'O Cartaz', onde:'No site · na matéria e na capa',
+      resumo:'A arte quadrada da peça, no meio da matéria e na capa.',
+      como:'O formato que você já tem pronto: a arte quadrada do Instagram, a mesma do cartaz do espetáculo. Ela entra DENTRO das matérias, mais para o fim da leitura, e também na CAPA do site, no lugar de uma das chamadas ao lado da manchete do dia. É o único formato que aparece nos dois lugares.',
+      specs:['Arte: quadrada, 1:1 — mande 1080×1080, a mesma do Instagram','Onde: no meio das matérias (468 de lado) e na capa, dentro do Giro (230 de lado)','Frequência: sempre no ar durante a temporada contratada','A arte entra inteira: nada é cortado nem esticado','Link: a arte clica para o seu endereço'],
+      spec:'Arte quadrada, 1:1 · mande 1080×1080' },
     { id:'pagina-inteira', canal:'revista', nome:'Página inteira', onde:'Na revista · uma página sua',
       resumo:'Uma página da edição é toda sua, para sempre no acervo.',
       como:'Uma página INTEIRA da revista de quinta é sua: a arte ocupa a página toda, com o rótulo Publicidade. As posições têm nome (a ímpar dos Recortes, a face da agenda, a porta da contracapa) e a edição fica na estante para sempre: o seu anúncio não some no feed. O link do anúncio sai marcado (utm) para você medir de onde veio o leitor.',
@@ -727,7 +724,7 @@
     return rev ? (pl ? 'edições' : 'edição') : (pl ? 'semanas' : 'semana');
   }
   var REGRAS_VERSAO = '3';   // a versão das Regras de Publicidade que este funil apresenta
-  var VALORES = { cortina:200, entreato:150, faixa:90, 'pagina-inteira':240, 'meia-pagina':130 };
+  var VALORES = { cortina:200, entreato:150, cartaz:180, 'pagina-inteira':240, 'meia-pagina':130 };
   var DESCONTO = [0, 0, .10, .20, .30];   // da 1ª à 4ª edição
   function orcamento(){
     var f = fmt();
@@ -779,17 +776,17 @@
     site.style.display = f && f.canal === 'site' ? 'block' : 'none';
     pg.style.display = f && f.canal === 'revista' ? 'flex' : 'none';
     document.getElementById('pv-cortina').style.display = f && f.id === 'cortina' ? 'flex' : 'none';
-    document.getElementById('pv-faixa').style.display = f && f.id === 'faixa' ? 'flex' : 'none';
+    document.getElementById('pv-cartaz').style.display = f && f.id === 'cartaz' ? 'block' : 'none';
     document.getElementById('pv-ent').style.display = f && f.id === 'entreato' ? 'block' : 'none';
     var cheia = f && f.id === 'pagina-inteira';
     document.getElementById('pv-pg-cheia').style.display = cheia ? 'flex' : 'none';
     document.getElementById('pv-pg-txts').style.display = f && f.id === 'meia-pagina' ? 'block' : 'none';
     document.getElementById('pv-meia').style.display = f && f.id === 'meia-pagina' ? 'block' : 'none';
-    document.getElementById('az-faixa-campo').style.display = f && f.id === 'faixa' ? 'block' : 'none';
+    document.getElementById('az-legenda-campo').style.display = f ? 'block' : 'none';
     document.getElementById('az-envio').style.display = 'block';
     document.getElementById('az-arte-spec').textContent = f ? f.spec : '';
-    document.getElementById('az-arte-sub').textContent = f && f.id === 'faixa'
-      ? 'A faixa é uma tarja bem deitada: suba a arte e veja como ela fica no rodapé do site.'
+    document.getElementById('az-arte-sub').textContent = f && f.id === 'cartaz'
+      ? 'O cartaz é quadrado: suba a arte e veja como ela fica na matéria e na capa.'
       : 'Suba a sua arte e ela entra na aplicação real, na hora.';
     document.getElementById('pv-rot').textContent = f
       ? (f.canal === 'site' ? 'a aplicação real no site do FOYER' : 'a aplicação real na página da revista')
@@ -830,9 +827,9 @@
     };
     lr.readAsDataURL(f);
   });
-  document.getElementById('az-faixa-tx').addEventListener('input', function(){
-    var im = document.querySelector('#pv-faixa .arte img');
-    if(im) im.alt = this.value || 'anúncio';
+  document.getElementById('az-legenda-tx').addEventListener('input', function(){
+    var v2 = this.value || 'anúncio';
+    document.querySelectorAll('[data-arte] img').forEach(function(im){ im.alt = v2; });
   });
   document.getElementById('az-link').addEventListener('input', function(){
     var d = this.value.replace(/^https?:\/\//, '').split('/')[0];
@@ -1042,7 +1039,7 @@
     var f = fmt();
     var proto = 'FY-' + Date.now().toString(36).toUpperCase().slice(-6);
     var msg = v('az-msg');
-    if(st.formato === 'faixa' && v('az-faixa-tx')) msg = ('Legenda da faixa: “' + v('az-faixa-tx') + '”' + (msg ? ' — ' + msg : ''));
+    if(v('az-legenda-tx')) msg = ('Legenda da arte: “' + v('az-legenda-tx') + '”' + (msg ? ' — ' + msg : ''));
     fetch(M.url + '/rest/v1/foyer_anuncios', {
       method: 'POST',
       headers: { 'apikey': M.key, 'Authorization': 'Bearer ' + M.key, 'Content-Type': 'application/json' },
@@ -1142,7 +1139,7 @@
   function salvaRasc(){
     try{
       localStorage.setItem(RK, JSON.stringify({
-        st: st, campos: ['az-faixa-tx','az-link','az-inicio','az-nome','az-empresa','az-email','az-whats','az-insta','az-msg',
+        st: st, campos: ['az-legenda-tx','az-link','az-inicio','az-nome','az-empresa','az-email','az-whats','az-insta','az-msg',
           'az-nome-pf','az-cpf','az-razao','az-fantasia','az-cnpj','az-im','az-resp',
           'az-cep','az-logr','az-num','az-compl','az-bairro','az-cidade','az-uf']
           .reduce(function(a, id){ a[id] = v(id); return a; }, {})
@@ -1166,7 +1163,7 @@
       if(st.duracao) document.querySelectorAll('#az-duracao .az-op').forEach(function(b){
         b.classList.toggle('on', b.dataset.d === st.duracao);
       });
-      if(v('az-faixa-tx')) document.getElementById('pv-faixa-tx').textContent = v('az-faixa-tx');
+
       if(st.tipoPessoa) mudaTP(st.tipoPessoa);
       aplicaArte();
     }catch(e){}

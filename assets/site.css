@@ -1319,6 +1319,26 @@ html[data-theme="dark"] .sino-faixa{ box-shadow:6px 6px 0 rgba(0,0,0,.5); }
 .pub-entreato img{ display:block; width:100%; height:auto; max-height:560px; object-fit:contain; }
 .pub-entreato figcaption{ font-size:.78rem; color:var(--ink-soft); margin-top:8px; }
 
+/* ================= PUBLICIDADE DA CASA: O CARTAZ (quadrado) =================
+   O formato que o produtor já tem pronto: a arte do Instagram, a mesma do
+   cartaz da peça. Entra no meio da matéria e na capa, dentro do Giro. */
+.pub-cartaz{ margin:30px auto; border:2px solid var(--ink); background:var(--paper);
+  padding:12px 14px 14px; max-width:500px; }
+.pub-cartaz em{ display:block; font-style:normal; font-family:var(--mono); font-size:.5rem;
+  font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px; }
+.pub-cartaz img{ display:block; width:100%; aspect-ratio:1/1; object-fit:contain;
+  background:var(--paper-2); }
+.pub-cartaz figcaption{ font-size:.78rem; color:var(--ink-soft); margin-top:8px; }
+/* na capa, dentro do Giro: ocupa o lugar de uma linha, sem esticar a coluna */
+.giro-cartaz{ flex:0 0 auto; padding:12px 18px 14px; border-bottom:1px solid var(--line);
+  display:flex; flex-direction:column; align-items:center; }
+.giro-cartaz em{ align-self:flex-start; font-style:normal; font-family:var(--mono); font-size:.5rem;
+  font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px; }
+.giro-cartaz a{ display:block; width:100%; max-width:230px; }
+.giro-cartaz img{ display:block; width:100%; aspect-ratio:1/1; object-fit:contain;
+  background:var(--paper-2); border:1px solid var(--line); }
+.giro-cartaz span{ align-self:flex-start; font-size:.72rem; color:var(--ink-soft); margin-top:6px; }
+
 /* botão Anuncie (contato) */
 .bt-anuncie{ display:inline-block; border:2px solid var(--wine); background:var(--wine); color:var(--gold);
   font-family:var(--mono); font-weight:700; font-size:.66rem; letter-spacing:.14em; text-transform:uppercase;
