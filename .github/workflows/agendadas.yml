@@ -26,8 +26,14 @@ jobs:
       - id: check
         name: Alguma matéria agendada ou temporada de anúncio chegou na hora?
         run: |
+          # ATENÇÃO: a saída deste script vai DIRETO para o $GITHUB_OUTPUT, que
+          # só aceita linhas 'chave=valor'. Recado para o log (::notice::) tem de
+          # sair pelo stderr, senão o interpretador rejeita o arquivo inteiro e o
+          # job morre. Foi o que aconteceu em 31/07/2026, justamente na primeira
+          # vez em que havia matéria para publicar: o erro só aparecia quando
+          # devido=True, então passou despercebido em todas as rodadas vazias.
           python3 - <<'EOF' >> "$GITHUB_OUTPUT"
-          import json, glob
+          import json, glob, sys
           from datetime import datetime, timezone, timedelta
           agora = datetime.now(timezone.utc)
           janela = (agora - timedelta(minutes=40)).isoformat()
@@ -59,7 +65,7 @@ jobs:
               if (cfg.get('ate') or '') == ontem:
                   devido, motivo = True, f'fim da temporada em {slot}'
           if devido:
-              print(f'::notice::Publicando: {motivo}')
+              print(f'::notice::Publicando: {motivo}', file=sys.stderr)
           print(f'publicar={"sim" if devido else "nao"}')
           EOF
 
