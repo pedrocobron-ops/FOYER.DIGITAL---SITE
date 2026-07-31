@@ -3817,7 +3817,17 @@ def autor_page(sp, a, mats):
     _foto = (a.get('foto') or '').strip()
     _retrato = (f'<div class="au-foto"><img src="{_rvesc(_foto)}" alt="{safe(a["nome"])}" '
                 f'width="200" height="200" loading="lazy"></div>') if _foto else ''
-    _bio = (a.get('bio') or '').strip()
+    # A bio aceita PARÁGRAFOS (linhas em branco separam). O primeiro sai em
+    # corpo de abertura, como um lide, e os seguintes em corpo de texto: assim
+    # uma bio longa vira leitura, e não um bloco maciço em fonte grande.
+    # (31/07/2026: antes era um parágrafo único e o campo pedia duas frases.)
+    _bio_bruta = (a.get('bio') or '').strip()
+    _bio_pars = [x.strip() for x in _re.split(r'\n\s*\n', _bio_bruta) if x.strip()]
+    _bio = ''
+    if _bio_pars:
+        _bio = f'<p class="dek" style="margin-top:14px">{_rvesc(_bio_pars[0])}</p>'
+        for _p in _bio_pars[1:]:
+            _bio += f'<p class="au-bio-p">{_rvesc(_p)}</p>'
     _cobre = (a.get('cobre') or '').strip()
     return f'''<main id="conteudo" class="wrap">
   <style>
@@ -3825,6 +3835,7 @@ def autor_page(sp, a, mats):
     .au-foto{{ flex:0 0 152px; width:152px; height:152px; border:3px solid var(--ink);
       background:var(--paper-2); overflow:hidden; }}
     .au-foto img{{ width:100%; height:100%; object-fit:cover; object-position:center 25%; display:block; }}
+    .au-bio-p{{ font-size:.95rem; line-height:1.6; color:var(--ink-soft); margin:0 0 12px; }}
     @media (max-width:620px){{ .au-topo{{ flex-direction:column; gap:14px; }}
       .au-foto{{ flex:0 0 116px; width:116px; height:116px; }} }}
   </style>
@@ -3837,7 +3848,7 @@ def autor_page(sp, a, mats):
         <span><b>{total}</b> matéria(s) publicada(s)</span>
         {f'<span>No FOYER desde {desde}</span>' if desde else ''}
       </div>
-      {f'<p class="dek" style="margin-top:14px">{_rvesc(_bio)}</p>' if _bio else ''}
+      {_bio}
       {f'<p class="meta-l" style="display:block;margin-top:10px"><b>Cobre:</b> {_rvesc(_cobre)}</p>' if _cobre else ''}
       </div></div>
       <div class="share-row" aria-label="Compartilhar esta página">

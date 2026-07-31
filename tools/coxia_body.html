@@ -1120,8 +1120,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
             </div>
           </div>
           <div>
-            <label for="e-bio">Bio <small style="text-transform:none;letter-spacing:0">— dois ou três períodos, na voz da casa</small></label>
-            <textarea id="e-bio" rows="4" placeholder="Quem é, o que faz no FOYER e o que o leitor encontra nas matérias desta assinatura."></textarea>
+            <label for="e-bio">Bio <small style="text-transform:none;letter-spacing:0">— quem é, o que faz e por que confiar. Pule uma linha para separar parágrafos</small></label>
+            <textarea id="e-bio" rows="9" placeholder="Formação e ofício, o que cobre no FOYER e o que o leitor encontra nas matérias desta assinatura.&#10;&#10;Deixe uma linha em branco para começar outro parágrafo: o primeiro sai em corpo de abertura, os seguintes em corpo de texto."></textarea>
             <span class="msg" id="e-bio-conta"></span>
           </div>
           <div>
@@ -4159,11 +4159,18 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     $('e-foto').value = cam || '';
     $('e-foto-mini').innerHTML = cam ? '<img src="' + esc(cam) + '" alt="foto">' : '<span>sem foto</span>';
   }
+  // A bio cabe à vontade: a página do autor quebra em parágrafos e uma bio
+  // completa é o que dá autoridade a quem assina. O aviso só aparece quando
+  // passa de 1.400, que é onde a leitura começa a cansar de verdade.
   function eqContaBio(){
-    var n = $('e-bio').value.trim().length;
+    var t = $('e-bio').value.trim();
+    var n = t.length;
+    var pars = t ? t.split(/\n\s*\n/).filter(function(x){ return x.trim(); }).length : 0;
     var c = $('e-bio-conta');
-    c.className = 'msg' + (n > 480 ? ' err' : '');
-    c.textContent = !n ? '' : (n + ' caracteres' + (n > 480 ? ' — está longa; a página do autor pede duas ou três frases' : ''));
+    c.className = 'msg' + (n > 1400 ? ' err' : '');
+    c.textContent = !n ? ''
+      : n + ' caracteres · ' + pars + (pars === 1 ? ' parágrafo' : ' parágrafos') +
+        (n > 1400 ? ' — está bem longa; considere cortar o que não prova nada ao leitor' : '');
   }
   $('e-bio').addEventListener('input', eqContaBio);
   $('e-foto-tira').addEventListener('click', function(){ eqPintaFoto(''); $('e-foto-st').textContent = 'foto tirada — salve para valer no site'; });
