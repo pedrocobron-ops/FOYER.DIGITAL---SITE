@@ -241,22 +241,61 @@
     .mini .pgm .ln{ margin:8px 8px 0; height:5px; }
     .mini .pgm .tt{ display:block; height:9px; background:#cfc4a6; margin:8px 8px 0; width:70%; }
     .mini .pgm .fol{ position:absolute; left:0; right:0; bottom:0; height:10px; border-top:1px solid var(--ink); }
-    /* as animações: cada formato se apresenta sozinho, em loop */
+    /* As animações: cada formato se apresenta sozinho, em loop.
+       Cada gesto imita o que o formato FAZ na página — a cortina abre, o
+       entreato entra pela lateral no meio do texto, o cartaz é pregado na
+       parede, a página vira, a meia sobe do pé. E nenhum deles congela no
+       meio do caminho: depois de entrar, o selo continua respirando, para a
+       fileira nunca parecer uma foto. (Refeito em 31/07/2026: antes o
+       movimento durava 1,2s de cada 5s e o resto era pura imobilidade.) */
     .mini-cortina .selo{ inset:26% 20%; box-shadow:0 8px 18px rgba(0,0,0,.35);
       animation:miPulso 5s ease-in-out infinite; }
-    @keyframes miPulso{ 0%,6%{ opacity:0; transform:scale(.55); } 14%,88%{ opacity:1; transform:scale(1); } 96%,100%{ opacity:0; transform:scale(.55); } }
+    @keyframes miPulso{
+      0%,4%{ opacity:0; transform:scale(.55); }
+      13%{ opacity:1; transform:scale(1.06); }
+      18%{ transform:scale(1); }
+      50%{ transform:scale(1.035); }
+      82%{ opacity:1; transform:scale(1); }
+      93%,100%{ opacity:0; transform:scale(.55); } }
     .mini-entreato .selo{ left:12px; right:12px; top:46px; height:30px;
       animation:miDesliza 5s ease-in-out infinite; }
-    @keyframes miDesliza{ 0%,6%{ opacity:0; transform:translateX(-20px); } 14%,88%{ opacity:1; transform:none; } 96%,100%{ opacity:0; transform:translateX(-20px); } }
-    .mini-cartaz .selo{ left:50%; top:50%; width:64px; height:64px; transform:translate(-50%,-50%);
+    @keyframes miDesliza{
+      0%,4%{ opacity:0; transform:translateX(-26px); }
+      14%{ opacity:1; transform:translateX(6px); }
+      20%{ transform:translateX(0); }
+      50%{ transform:translateX(5px); }
+      80%{ transform:translateX(0); opacity:1; }
+      93%,100%{ opacity:0; transform:translateX(26px); } }
+    /* o cartaz é PREGADO na parede: sobe de baixo, torto, e assenta */
+    .mini-cartaz .selo{ left:50%; top:50%; width:64px; height:64px;
+      transform:translate(-50%,-50%); transform-origin:50% 0;
       animation:miCartaz 5s ease-in-out infinite; }
-    @keyframes miCartaz{ 0%,6%{ opacity:0; transform:translate(-50%,-50%) scale(.6); }
-      16%,88%{ opacity:1; transform:translate(-50%,-50%) scale(1); }
-      96%,100%{ opacity:0; transform:translate(-50%,-50%) scale(.6); } }
-    @keyframes miSobe{ 0%,6%{ transform:translateY(110%); } 14%,88%{ transform:none; } 96%,100%{ transform:translateY(110%); } }
+    @keyframes miCartaz{
+      0%,4%{ opacity:0; transform:translate(-50%,20px) rotate(-9deg) scale(.86); }
+      15%{ opacity:1; transform:translate(-50%,-58%) rotate(4deg) scale(1.04); }
+      24%{ transform:translate(-50%,-50%) rotate(-2deg) scale(1); }
+      34%{ transform:translate(-50%,-50%) rotate(0deg); }
+      60%{ transform:translate(-50%,-52%) rotate(1.5deg); }
+      82%{ opacity:1; transform:translate(-50%,-50%) rotate(0deg); }
+      93%,100%{ opacity:0; transform:translate(-50%,18px) rotate(7deg) scale(.86); } }
+    @keyframes miSobe{
+      0%,4%{ transform:translateY(115%); }
+      14%{ transform:translateY(-8%); }
+      20%{ transform:translateY(0); }
+      44%{ transform:translateY(-13%); }
+      64%{ transform:translateY(-3%); }
+      82%{ transform:translateY(0); }
+      93%,100%{ transform:translateY(115%); } }
     .mini-inteira .selo{ inset:0 0 10px 0; flex-direction:column;
       animation:miVira 5s ease-in-out infinite; transform-origin:left center; }
-    @keyframes miVira{ 0%,6%{ opacity:0; transform:rotateY(70deg); } 16%,88%{ opacity:1; transform:none; } 96%,100%{ opacity:0; transform:rotateY(70deg); } }
+    @keyframes miVira{
+      0%,4%{ opacity:0; transform:rotateY(78deg); }
+      16%{ opacity:1; transform:rotateY(-6deg); }
+      26%{ transform:rotateY(0deg); }
+      44%{ transform:rotateY(11deg); }
+      64%{ transform:rotateY(-4deg); }
+      82%{ opacity:1; transform:rotateY(0deg); }
+      93%,100%{ opacity:0; transform:rotateY(78deg); } }
     .mini-meia .selo{ left:0; right:0; bottom:10px; height:44%;
       animation:miSobe 5s ease-in-out infinite; }
     /* entradas defasadas: sempre há um formato se apresentando */
