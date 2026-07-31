@@ -425,7 +425,7 @@ def _entreato_html(en=None):
     _l = en.get('link') or '#'
     _ke = _pub_chave('entreato', en)
     leg = f'<figcaption>{_html.escape(en["legenda"])}</figcaption>' if en.get('legenda') else ''
-    return (f'<aside class="pub-entreato" data-pub-chave="{_html.escape(_ke)}"><em>Publicidade</em>'
+    return (f'<aside class="pub-entreato" data-pub-slot="entreato" data-pub-chave="{_html.escape(_ke)}"><em>Publicidade</em>'
             f'<a href="{_html.escape(_l)}" target="_blank" rel="noopener sponsored" data-pub="{_html.escape(_ke)}">'
             f'<img src="{_html.escape(en.get("img", ""))}" alt="{_html.escape(en.get("legenda", ""))}" loading="lazy"></a>'
             f'{leg}</aside>')
@@ -445,15 +445,31 @@ def _cartaz_html(ca=None, onde='materia'):
              f'data-pub="{_html.escape(_k)}">'
              f'<img src="{_html.escape(ca["img"])}" alt="{_leg}" loading="lazy"></a>')
     if onde == 'giro':
-        return (f'<div class="giro-cartaz" data-pub-chave="{_html.escape(_k)}">'
+        return (f'<div class="giro-cartaz" data-pub-slot="cartaz" data-pub-chave="{_html.escape(_k)}">'
                 f'<em>Publicidade</em>{_arte}'
                 + (f'<span>{_leg}</span>' if _leg else '') + '</div>\n')
     if onde == 'grade':
-        return (f'<article class="news-cell cell-cartaz" data-pub-chave="{_html.escape(_k)}">'
+        return (f'<article class="news-cell cell-cartaz" data-pub-slot="cartaz" data-pub-chave="{_html.escape(_k)}">'
                 f'<em>Publicidade</em>{_arte}'
                 + (f'<span class="leg">{_leg}</span>' if _leg else '') + '</article>\n')
-    return (f'<aside class="pub-cartaz" data-pub-chave="{_html.escape(_k)}"><em>Publicidade</em>'
+    return (f'<aside class="pub-cartaz" data-pub-slot="cartaz" data-pub-chave="{_html.escape(_k)}"><em>Publicidade</em>'
             f'{_arte}' + (f'<figcaption>{_leg}</figcaption>' if _leg else '') + '</aside>')
+
+def _elenco_pub(formatos=('entreato', 'cartaz')):
+    """O elenco de anunciantes no ar hoje, que a página leva consigo para o
+    sorteio acontecer no navegador. Só entra quem tem mais de um contratado no
+    formato: com um só não há o que sortear, e o JSON não precisa existir."""
+    pool = {}
+    for f in formatos:
+        vivos = _anun_lista(f)
+        if len(vivos) > 1:
+            pool[f] = [{'chave': _pub_chave(f, a), 'img': a.get('img', ''),
+                        'link': a.get('link') or '#', 'legenda': a.get('legenda', '')}
+                       for a in vivos if a.get('img')]
+    if not pool:
+        return ''
+    return ('<script id="foyer-pub-elenco" type="application/json">'
+            + _json0.dumps(pool, ensure_ascii=False).replace('<', '\\u003c') + '</script>')
 
 def _injeta_ads_materia(corpo, slug=''):
     """A publicidade DENTRO da matéria, com duas regras de casa:
@@ -1680,6 +1696,8 @@ __ENCICLOPEDIA_CAPA__
   </div>
 </section>
 </main>
+{_elenco_pub()}
+
 
 <!-- ===================== REVISTA ===================== -->
 <section class="news-bar">
@@ -1892,6 +1910,7 @@ def post_page(i, p):
   <div class="ad-slot" data-ad-slot="2003"></div>
 </section>
 </main>
+{_elenco_pub()}
 """
 
 # ---------------------------------------------------------------- REVISTA (edições reais)
@@ -4877,12 +4896,12 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     { id:'entreato', canal:'site', nome:'O Entreato', onde:'No site · dentro das matérias',
       resumo:'O seu anúncio no meio da leitura, em todas as matérias.',
       como:'A sua arte entra DENTRO das matérias do site, depois do 4º parágrafo, com o rótulo Publicidade. O leitor encontra o anúncio no meio da leitura, como o intervalo de um espetáculo: é o formato de maior convivência com o conteúdo.',
-      specs:['Arte: imagem deitada, 16:9 — mande 1600×900 (ela ocupa a largura da matéria, 788 de largura no computador)','Onde: dentro das matérias do site','Frequência: no ar durante toda a temporada. O formato tem 3 vagas: com mais de um anunciante, o lugar gira de matéria em matéria, em partes iguais','Arte mais em pé que 16:9 entra inteira, com margem de papel dos lados','Link: a arte clica para o seu endereço'],
+      specs:['Arte: imagem deitada, 16:9 — mande 1600×900 (ela ocupa a largura da matéria, 788 de largura no computador)','Onde: dentro das matérias do site','Frequência: no ar durante toda a temporada. O formato tem 3 vagas: com mais de um anunciante, o lugar é SORTEADO a cada visita, em partes iguais para todos','Arte mais em pé que 16:9 entra inteira, com margem de papel dos lados','Link: a arte clica para o seu endereço'],
       spec:'Imagem deitada, 16:9 · mande 1600×900' },
     { id:'cartaz', canal:'site', nome:'O Cartaz', onde:'No site · na matéria e na capa',
       resumo:'A arte quadrada da peça, no meio da matéria e na capa.',
       como:'O formato que você já tem pronto: a arte quadrada do Instagram, a mesma do cartaz do espetáculo. Ela entra DENTRO das matérias, mais para o fim da leitura, e também na CAPA do site, no lugar de uma das chamadas ao lado da manchete do dia. É o único formato que aparece nos dois lugares.',
-      specs:['Arte: quadrada, 1:1 — mande 1080×1080, a mesma do Instagram','Onde: no meio das matérias (468 de lado) e na capa, no Giro e na grade de Notícias (230 e 280 de lado)','Frequência: no ar durante toda a temporada. O formato tem 3 vagas: com mais de um anunciante, os lugares giram entre eles, em partes iguais','A arte entra inteira: nada é cortado nem esticado','Link: a arte clica para o seu endereço'],
+      specs:['Arte: quadrada, 1:1 — mande 1080×1080, a mesma do Instagram','Onde: no meio das matérias (468 de lado) e na capa, no Giro e na grade de Notícias (230 e 280 de lado)','Frequência: no ar durante toda a temporada. O formato tem 3 vagas: com mais de um anunciante, os lugares são SORTEADOS a cada visita, em partes iguais para todos','A arte entra inteira: nada é cortado nem esticado','Link: a arte clica para o seu endereço'],
       spec:'Arte quadrada, 1:1 · mande 1080×1080' },
     { id:'pagina-inteira', canal:'revista', nome:'Página inteira', onde:'Na revista · uma página sua',
       resumo:'Uma página da edição é toda sua, para sempre no acervo.',

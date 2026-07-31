@@ -640,9 +640,17 @@ Regras das seções novas:
     imagem demora a carregar).
   - **QUANTOS ANUNCIANTES CABEM EM CADA FORMATO (ordem do Pedro,
     31/07/2026)**: a Cortina tem **1 vaga** (interrompe a leitura; duas seria
-    hostil). O Entreato e o Cartaz têm **3 vagas cada**, e o lugar **gira**:
-    a conta é feita pelo endereço da matéria (e pelo dia, na capa), então é
-    sempre a mesma na remontagem e cada anunciante fica com uma fatia igual.
+    hostil). O Entreato e o Cartaz têm **3 vagas cada**, e o lugar é
+    **SORTEADO a cada visita**, no navegador do leitor: quem abre a página
+    tira na sorte qual anunciante fica em cada lugar. Ninguém fica sempre com
+    o pé da página, e todos passam pela capa. Dois lugares do mesmo formato
+    na mesma página nunca recebem o mesmo anunciante (enquanto houver
+    anunciante de sobra). A página já vem montada do servidor com um anúncio
+    de verdade, então quem está sem JavaScript vê publicidade legítima; o
+    sorteio roda ANTES do contador, e vista e clique são sempre creditados a
+    quem de fato apareceu. O elenco de anunciantes viaja na própria página
+    (`<script id="foyer-pub-elenco">`) e só é publicado quando o formato tem
+    mais de um contratado.
     Teto de civilidade: **uma matéria nunca mostra mais de 2 anúncios no
     corpo**, com parágrafos entre eles. O Entreato entra depois do 4º
     parágrafo (só em matéria com 6 ou mais); o Cartaz depois do 10º, e em

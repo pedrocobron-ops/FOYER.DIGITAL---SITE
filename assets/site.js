@@ -257,6 +257,46 @@
     var al = e.target.closest('[data-pub]');
     if(al) pubEnvia('pub-clique', al.getAttribute('data-pub'));
   }, true);
+  /* ------------------------------------------------------------------
+     O SORTEIO DOS ANUNCIANTES (ordem do Pedro, 31/07/2026)
+     Formato com mais de um contratado não pode ter lugar fixo: a cada vez
+     que alguém abre a página, sorteia-se quem vai em cada lugar. Assim
+     ninguém fica sempre com o pé da página e todos passam pela capa.
+     A página já vem montada do servidor (quem está sem JavaScript vê um
+     anúncio de verdade); aqui só trocamos a arte, o link e o nome do
+     anúncio nas métricas. Roda ANTES do contador de vistas, para a vista
+     ser contada para quem realmente apareceu. */
+  function pubSorteia(){
+    var fonte = document.getElementById('foyer-pub-elenco');
+    if(!fonte) return;
+    var elenco; try{ elenco = JSON.parse(fonte.textContent); }catch(e){ return; }
+    Object.keys(elenco || {}).forEach(function(fmt){
+      var pool = (elenco[fmt] || []).filter(function(a){ return a && a.img; });
+      var lugares = [].slice.call(document.querySelectorAll('[data-pub-slot="' + fmt + '"]'));
+      if(pool.length < 2 || !lugares.length) return;
+      // embaralha o elenco (Fisher-Yates) e distribui um por lugar: enquanto
+      // houver anunciante de sobra, ninguém se repete na mesma página
+      var ordem = pool.slice();
+      for(var i = ordem.length - 1; i > 0; i--){
+        var j = Math.floor(Math.random() * (i + 1));
+        var t = ordem[i]; ordem[i] = ordem[j]; ordem[j] = t;
+      }
+      lugares.forEach(function(el, ix){
+        var a = ordem[ix % ordem.length];
+        var link = el.querySelector('a'), img = el.querySelector('img');
+        if(!link || !img) return;
+        el.setAttribute('data-pub-chave', a.chave);
+        link.setAttribute('href', a.link || '#');
+        link.setAttribute('data-pub', a.chave);
+        img.setAttribute('src', a.img);
+        img.setAttribute('alt', a.legenda || '');
+        var leg = el.querySelector('figcaption, .leg, span:not(.ph)');
+        if(leg && leg !== img) leg.textContent = a.legenda || '';
+      });
+    });
+  }
+  try{ pubSorteia(); }catch(e){}
+
   // vista de qualquer anúncio que entre em cena (entreato, página da revista)
   try{
     if('IntersectionObserver' in window){
