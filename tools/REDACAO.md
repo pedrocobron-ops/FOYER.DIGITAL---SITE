@@ -245,6 +245,49 @@ precisa e informativa**, com elegância e zero adjetivação gratuita.
 - Frases médias e bem construídas, português culto e limpo.
 - Cita declarações da produção quando existem, com atribuição clara.
 
+## A SEGUNDA EDIÇÃO DO DIA — 12h, cinema e streaming (ordem do Pedro, 31/07/2026)
+
+Além da rodada da manhã, a casa faz uma **segunda edição às 12h de Brasília**,
+com **DUAS matérias** de cinema e streaming. Ela existe porque essa editoria
+apodrece: bilheteria de fim de semana, catálogo, janela de lançamento e decisão
+de plataforma não sobrevivem a uma fila de dias. O que a rodada da manhã produz
+pode esperar; o que sai ao meio-dia, não.
+
+**AS DUAS MATÉRIAS**
+
+| | Assinatura | O que é |
+|---|---|---|
+| 1 | **Redação Foyer** | a NOTÍCIA do dia em cinema ou streaming, apurada e direta |
+| 2 | **Pedro Amaral** | a matéria de ÂNGULO: o dinheiro por trás do fato |
+
+A assinatura misturada é de propósito. A notícia direta assina a Redação, que
+**qualquer editor da mesa aprova**; se fosse tudo no nome do Pedro, a rodada
+ficaria parada esperando uma pessoa só. O ângulo, esse, é dele.
+
+**O ÂNGULO É O DINHEIRO, NUNCA A NOTÍCIA REPETIDA.** É a regra que decide se a
+pauta presta. Em cinema e streaming o FOYER chega depois de Omelete, AdoroCinema
+e Tela Viva, e não vai ganhar deles na corrida. O que ninguém faz é o viés da
+casa: quanto rendeu, quem financiou, quanto custa, o que a janela de lançamento
+faz com o filme brasileiro, o que a decisão da plataforma muda para quem
+trabalha. "X bateu US$ 639 milhões" é de todo mundo. "O que esses US$ 639
+milhões fazem com a sala de cinema brasileira" é só nosso.
+
+**PUBLICAÇÃO NO MESMO DIA.** As duas nascem com `"quente": true` no pacote, e a
+mesa da Coxia marca elas com o selo QUENTE. Matéria quente aprovada **publica
+agora**, não entra em fila: é o botão "publicar agora", não o "agendar". Uma
+notícia de bilheteria agendada para dali a uma semana é lixo, e teria sido
+melhor não escrever.
+
+**O RESTO NÃO MUDA.** Valem as três ondas (quem escreve não checa, quem checa
+não escreve, e depois a leitura fria), o protocolo antifalha "na dúvida, corta",
+a foto com direitos, os 3+ links internos, o campo `instagram` com os @
+verificados e o portão `audita_pauta.py`. Duas matérias com checagem valem mais
+que quatro sem, e entregar UMA e registrar no diário é melhor que forçar a
+segunda.
+
+**A COTA DA MANHÃ NÃO MUDA.** As 6 da manhã seguem 2+2+2. Estas duas são
+adicionais, e o dia fecha em 8.
+
 ## Grade semanal — o cardápio das 6 matérias do dia
 
 As 6 do dia saem sempre na cota **2 Pedro + 2 Isabel + 2 Redação**. Dentro

@@ -411,6 +411,8 @@
   .mesa-assina.minha{ background:rgba(206,178,106,.16); border-left:4px solid var(--gold); }
   .mesa-assina.outra{ background:var(--paper-2); border-left:4px solid var(--ink-soft); color:var(--ink-soft); }
   .mesa-card.de-outro{ opacity:.9; }
+  .mesa-quente{ font-family:var(--mono); font-size:.58rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:.1em; background:#8a1f14; color:#fff; padding:4px 9px; margin-left:8px; white-space:nowrap; }
   .mesa-trava{ font-family:var(--mono); font-size:.6rem; text-transform:uppercase; letter-spacing:.08em;
     color:var(--ink-soft); border:1.5px dashed var(--line); padding:10px 12px; display:inline-flex; align-items:center; }
   .mesa-pick{ display:flex; align-items:center; padding-top:2px; cursor:pointer; }
@@ -3793,6 +3795,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
               '<span><span class="ti">' + esc(d.title) + '</span>' +
               '<span class="mt">' + esc([d.cat].concat(d.cats || []).join(' + ')) + ' — ' + palavras + ' palavras — ' + quando + ' — ' + origem +
                 ' — assina: ' + esc(d.author || 'Redação Foyer') + '</span></span>' +
+              // matéria da edição do meio-dia: perece rápido, e a mesa precisa
+              // ver isso antes de agendar para semana que vem (31/07/2026)
+              (d.quente ? '<span class="mesa-quente" title="Cinema e streaming: publique hoje, não agende">' +
+                          '🔥 QUENTE — publicar hoje</span>' : '') +
               selo +
             '</div>' + avisoAssinatura(d) + capa + parecer + checagem + insta +
             fontesBloco +
