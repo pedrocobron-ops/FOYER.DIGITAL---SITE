@@ -1541,6 +1541,23 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       <section class="view" id="view-conexao">
         <h2 class="hi">Conexão</h2>
         <p class="hi-sub">A chave que permite à Coxia gravar no site</p>
+
+        <!-- A CHAVE DA CASA: guardada uma vez pelo chefe, vale para toda a equipe
+             em qualquer aparelho. O bloco abaixo (chave deste navegador) virou a
+             reserva de emergência, para o caso de o servidor sair do ar. -->
+        <div class="sec-h"><h3>A chave da casa</h3><span>guardada uma vez, vale para todo mundo, em qualquer computador</span></div>
+        <div class="f-note" id="casa-box" style="margin-bottom:22px">
+          <p id="casa-st" role="status" aria-live="polite" style="margin:0 0 10px"><b>Conferindo…</b></p>
+          <div id="casa-chefe" style="display:none">
+            <div class="cx-token" style="margin-top:6px">
+              <input type="password" id="casa-tk" placeholder="github_pat_…" aria-label="Chave da casa">
+              <button type="button" id="casa-save">Guardar para toda a casa</button>
+            </div>
+            <p style="margin:10px 0 0">Depois de guardada, ninguém mais precisa colar chave em lugar nenhum:
+            quem entrar na Coxia com o próprio usuário já publica, em qualquer aparelho.</p>
+          </div>
+        </div>
+
         <div class="sec-h"><h3>Coxia no celular</h3><span>instale a central como aplicativo, com ícone na sua tela</span></div>
         <div class="f-note" style="margin-bottom:22px">
           <button class="f-pub" id="cx-app2" type="button" style="width:auto;padding:13px 20px">📲 Instalar a Coxia como app</button>
@@ -1714,6 +1731,48 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   var API = 'https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/';
   var API_BASE = 'https://api.github.com/repos/' + OWNER + '/' + REPO;
 
+  /* ---------------- a chave da casa ----------------
+     A chave de publicação mora no servidor, não mais em cada navegador. Quem
+     entra na Coxia com a própria senha ganha uma sessão, e é a sessão que abre a
+     ponte: o servidor grava no GitHub com a chave da casa e devolve o resultado.
+     Ninguém mais cola chave em computador nenhum, e a chave nunca chega ao
+     navegador. O chefe guarda a chave uma vez, na aba Conexão, e ela passa a
+     valer para toda a equipe, em qualquer aparelho.
+
+     A chave local antiga continua existindo como RESERVA: se o servidor estiver
+     fora do ar, quem tiver chave neste navegador ainda publica. É o que impede
+     um servidor caído de parar a casa inteira. */
+  var CASA = 'https://jcaqjlrzmrtzjyfbljxh.supabase.co/functions/v1/coxia';
+  var CASA_TEM_CHAVE = false;
+  function sessao(){ try{ return localStorage.getItem('coxia-sessao') || ''; }catch(e){ return ''; } }
+  function guardaSessao(t, temChave){
+    try{ if(t) localStorage.setItem('coxia-sessao', t); else localStorage.removeItem('coxia-sessao'); }catch(e){}
+    CASA_TEM_CHAVE = !!temChave;
+  }
+  function casaLigada(){ return !!sessao() && CASA_TEM_CHAVE; }
+  function casaPede(corpo){
+    return fetch(CASA, { method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(corpo) });
+  }
+  // a ponte: mesma assinatura de fetch(), para os ghGet/ghPut não precisarem saber
+  // por onde a gravação foi. Se a ponte falhar por motivo NOSSO (sessão morta,
+  // chave da casa ausente, servidor fora), cai na chave local sem perder a ação.
+  function ghFetch(url, opts){
+    opts = opts || {};
+    if(!casaLigada()) return fetch(url, opts);
+    var corpo;
+    try{ corpo = opts.body ? JSON.parse(opts.body) : undefined; }catch(e){ corpo = undefined; }
+    return casaPede({ acao:'gh', sessao: sessao(), metodo: opts.method || 'GET',
+                      caminho: url.replace('https://api.github.com', ''), corpo: corpo })
+      .then(function(r){
+        var meu = r.headers.get('x-coxia-erro');
+        if(meu === 'sessao'){ guardaSessao('', false); return fetch(url, opts); }
+        if(meu === 'sem-chave'){ CASA_TEM_CHAVE = false; return fetch(url, opts); }
+        return r;
+      })
+      .catch(function(){ return fetch(url, opts); });
+  }
+
   var USER = null;      // {id, nome, papel, permissoes}
   var FILA_CACHE = {};  // slug -> matéria da fila (para edição)
   var EDIT = null;      // edição de matéria publicada: {slug, publishAt, criadoEm, img, origem}
@@ -1845,7 +1904,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
 
   // GET genérico da API com o mesmo salvavidas do ghGet: chave morta não cega a leitura
   function ghFetchGet(url){
-    return fetch(url, { headers: hdr({}), cache:'no-store' }).then(function(r){
+    return ghFetch(url, { headers: hdr({}), cache:'no-store' }).then(function(r){
       var rem = r.headers.get('x-ratelimit-remaining');
       if((r.status === 401 || r.status === 403) && token() && !(r.status === 403 && rem === '0')){
         marcarChaveInvalida();
@@ -1860,7 +1919,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       var doCache = ghCacheGet(url);
       if(doCache !== undefined) return Promise.resolve(doCache);
     }
-    return fetch(url, { headers: hdr({}), cache:'no-store' })
+    return ghFetch(url, { headers: hdr({}), cache:'no-store' })
       .then(function(r){
         if(r.status === 404){ ghCachePut(url, null); return null; }
         // chave morta não pode cegar a casa: o repositório é público, então a
@@ -1886,19 +1945,19 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var go = sha ? Promise.resolve()
                  : ghGet(path).then(function(ex){ if(ex && ex.sha) body.sha = ex.sha; }, function(){});
     return go.then(function(){
-      return fetch(API + path, { method:'PUT',
+      return ghFetch(API + path, { method:'PUT',
         headers: hdr({'Content-Type':'application/json'}), body: JSON.stringify(body) })
         .then(checaResp).then(function(v){ ghCacheLimpa(); return v; });
     });
   }
   function ghPutRaw(path, base64content, msg){
-    return fetch(API + path, { method:'PUT',
+    return ghFetch(API + path, { method:'PUT',
       headers: hdr({'Content-Type':'application/json'}),
       body: JSON.stringify({ message: msg, content: base64content, branch: BRANCH })
     }).then(checaResp);
   }
   function ghDel(path, sha, msg){
-    return fetch(API + path, { method:'DELETE',
+    return ghFetch(API + path, { method:'DELETE',
       headers: hdr({'Content-Type':'application/json'}),
       body: JSON.stringify({ message: msg, sha: sha, branch: BRANCH }) })
       .then(checaResp).then(function(v){ ghCacheLimpa(); return v; });
@@ -2065,6 +2124,29 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(document.visibilityState === 'visible') conferirVersao();
   });
 
+  // troca a senha da pessoa por uma sessão do servidor. A senha não fica guardada
+  // em lugar nenhum: vai uma vez, volta um token de sete dias.
+  function abrirSessaoDaCasa(id, senha){
+    return casaPede({ acao:'entrar', id: id, senha: senha })
+      .then(function(r){ return r.json().then(function(d){ return { ok: r.ok, d: d }; }); })
+      .then(function(x){
+        if(!x.ok || !x.d.sessao) throw new Error(x.d.erro || 'sem sessão');
+        guardaSessao(x.d.sessao, x.d.chaveDaCasa);
+      });
+  }
+  // ao voltar num aparelho que já entrou, a sessão guardada ainda pode estar de pé
+  function conferirSessaoDaCasa(){
+    if(!sessao()) return Promise.resolve(false);
+    return casaPede({ acao:'estado', sessao: sessao() })
+      .then(function(r){ return r.json().then(function(d){ return { ok: r.ok, d: d }; }); })
+      .then(function(x){
+        if(!x.ok){ guardaSessao('', false); return false; }
+        CASA_TEM_CHAVE = !!(x.d.temChave && x.d.valendo);
+        return CASA_TEM_CHAVE;
+      })
+      .catch(function(){ return false; });
+  }
+
   var PERSIST_K = 'coxia-user-persist';
   try{
     var salvo = sessionStorage.getItem('coxia-user');
@@ -2074,14 +2156,19 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       if(p && p.exp && p.exp > Date.now() && p.user){ salvo = JSON.stringify(p.user); }
       else if(p){ localStorage.removeItem(PERSIST_K); }
     }
-    if(salvo){ USER = JSON.parse(salvo); carregarEquipe().then(abrir); }
+    if(salvo){
+      USER = JSON.parse(salvo);
+      // quem voltou sem passar pelo portão pode ter sessão de casa ainda válida
+      conferirSessaoDaCasa().then(function(){ carregarEquipe().then(abrir); });
+    }
   }catch(e){}
 
   $('gate-form').addEventListener('submit', function(e){
     e.preventDefault();
     var btn = $('gate-btn'); btn.textContent = 'Conferindo…';
     $('gate-err').style.display = 'none'; $('gate-rede').style.display = 'none';
-    conferirSenha($('pass').value).then(function(u){
+    var senhaDigitada = $('pass').value;
+    conferirSenha(senhaDigitada).then(function(u){
       btn.textContent = 'Terceiro sinal — entrar';
       if(!u){ $('gate-err').style.display = 'block'; return; }
       USER = { id:u.id, nome:u.nome, papel:u.papel, permissoes:u.permissoes || {} };
@@ -2091,7 +2178,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           localStorage.setItem(PERSIST_K, JSON.stringify({ user: USER, exp: Date.now() + 7 * 864e5 }));
         } else { localStorage.removeItem(PERSIST_K); }
       }catch(err){}
-      abrir();
+      // a mesma senha abre a sessão no servidor, que é o que dá acesso à chave da
+      // casa. Se o servidor não responder, a Coxia abre assim mesmo e trabalha com
+      // a chave local, se houver: servidor fora do ar não pode trancar a redação.
+      abrirSessaoDaCasa(u.id, senhaDigitada).then(abrir, abrir);
     }).catch(function(){
       btn.textContent = 'Terceiro sinal — entrar';
       $('gate-rede').style.display = 'block';
@@ -2246,8 +2336,92 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       })
       .catch(function(){ return true; });
   }
+  /* ---------------- a chave da casa, na tela ---------------- */
+  function pintarCasa(){
+    var st = $('casa-st'), bloco = $('casa-chefe');
+    if(!st) return;
+    var ehChefe = USER && USER.papel === 'chefe';
+    if(bloco) bloco.style.display = ehChefe ? '' : 'none';
+    if(!sessao()){
+      st.innerHTML = '<b>Servidor da casa fora de alcance.</b> A Coxia está trabalhando com a chave deste ' +
+        'navegador, se houver uma. Recarregue a página para tentar de novo.';
+      return;
+    }
+    st.innerHTML = '<b>Conferindo…</b>';
+    casaPede({ acao:'estado', sessao: sessao() })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(d && d.temChave && d.valendo){
+          CASA_TEM_CHAVE = true;
+          var quando = d.guardada_em ? new Date(d.guardada_em).toLocaleDateString('pt-BR') : '';
+          st.innerHTML = '<b>✓ Ligada.</b> A chave da casa está guardada no servidor (final ' +
+            esc(d.fim || '····') + ', por ' + esc(d.guardada_por || '—') +
+            (quando ? ', em ' + quando : '') + '). Toda a equipe publica sem colar chave em aparelho nenhum.' +
+            (ehChefe ? ' Para trocar por outra, guarde a nova abaixo.' : '');
+          pintarReserva();
+        } else if(d && d.temChave){
+          CASA_TEM_CHAVE = false;
+          st.innerHTML = '<b>⚠ A chave da casa não está sendo aceita pelo GitHub</b> (código ' + (d.http || '—') + '). ' +
+            (ehChefe ? 'Gere uma chave nova no GitHub e guarde abaixo.'
+                     : 'Avise o Pedro: só o chefe de redação pode trocar a chave da casa.');
+          pintarReserva();
+        } else {
+          CASA_TEM_CHAVE = false;
+          st.innerHTML = '<b>Ainda não há chave da casa.</b> ' +
+            (ehChefe ? 'Guarde-a abaixo e ela passa a valer para toda a equipe.'
+                     : 'Peça ao Pedro para guardar a chave da casa; até lá, só publica quem tem chave no próprio navegador.');
+          pintarReserva();
+        }
+      })
+      .catch(function(){
+        st.innerHTML = '<b>Não deu para falar com o servidor da casa agora.</b> A Coxia segue funcionando ' +
+          'com a chave deste navegador, se houver uma.';
+      });
+  }
+  var btCasa = $('casa-save');
+  if(btCasa) btCasa.addEventListener('click', function(){
+    var v = $('casa-tk').value.replace(/\s+/g, ''), st = $('casa-st');
+    if(!v){ st.innerHTML = '<b>Cole a chave antes de guardar.</b>'; return; }
+    btCasa.disabled = true; btCasa.textContent = 'Guardando…';
+    st.innerHTML = '<b>Conferindo a chave com o GitHub…</b>';
+    casaPede({ acao:'guardar', sessao: sessao(), chave: v })
+      .then(function(r){ return r.json().then(function(d){ return { ok:r.ok, d:d }; }); })
+      .then(function(x){
+        btCasa.disabled = false; btCasa.textContent = 'Guardar para toda a casa';
+        if(!x.ok){
+          st.innerHTML = x.d && x.d.erro === 'github-recusou'
+            ? '<b>O GitHub recusou esta chave</b> (código ' + (x.d.http || '—') + '). Se for 404, o token não ' +
+              'enxerga o repositório: em Repository access marque ' + OWNER + '/' + REPO + ', e em Permissions ' +
+              'deixe Contents como Read and write.'
+            : '<b>Não deu para guardar:</b> ' + esc((x.d && x.d.erro) || 'erro desconhecido');
+          return;
+        }
+        $('casa-tk').value = '';
+        CASA_TEM_CHAVE = true;
+        pintarCasa();
+      })
+      .catch(function(){
+        btCasa.disabled = false; btCasa.textContent = 'Guardar para toda a casa';
+        st.innerHTML = '<b>Não deu para falar com o servidor da casa.</b> Confira a internet e tente de novo.';
+      });
+  });
+
+  // a reserva só é boa notícia quando a chave da casa está de pé; sem ela, um
+  // navegador vazio quer dizer que nada pode ser publicado, e isso tem que estar
+  // escrito
+  function pintarReserva(){
+    if(token()) return;
+    if(CASA_TEM_CHAVE){
+      tkPinta('sem chave neste navegador',
+        'Reserva vazia, e está tudo bem: com a chave da casa ligada, você não precisa de chave neste aparelho.');
+    } else {
+      tkPinta('sem chave em lugar nenhum',
+        'Não há chave da casa nem chave neste navegador: por enquanto dá para ler tudo, mas nada pode ser publicado.');
+    }
+  }
   function initToken(){
-    if(!token()){ tkPinta('sem chave de publicação', 'Sem chave neste computador. Cole a chave abaixo para poder publicar.'); return; }
+    pintarCasa();
+    if(!token()){ pintarReserva(); return; }
     tkPinta('conferindo a chave…', 'Perguntando ao GitHub se a chave deste computador ainda vale…');
     tkConfere();
   }
