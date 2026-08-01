@@ -1791,7 +1791,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // traduz qualquer falha de gravação/leitura para o português da casa
   function msgErro(e){
     var g = e && e.gh;
-    if(g === 401 || g === 403) return 'Sua chave de publicação expirou ou foi revogada. Reconecte na aba Conexão.';
+    if(g === 401 || g === 403) return 'O GitHub não aceitou a chave DESTE computador. A causa mais comum não é o prazo: ' +
+      'é ter gerado uma chave nova em outra máquina, o que mata a antiga na hora. Cole a chave nova na aba Conexão e refaça esta ação.';
     if(g === 'rate') return 'O GitHub limitou as consultas deste aparelho (sem chave, são 60 por hora). Conecte a chave na aba Conexão.';
     if(g === 409 || g === 422) return 'Alguém salvou antes de você. Recarregue a página (a Coxia vai pegar a versão nova) e refaça esta ação.';
     if(g === 404) return 'O arquivo não está mais lá. Recarregue a página.';
@@ -1802,8 +1803,13 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   function marcarChaveInvalida(){
     if(CHAVE_ALERTADA) return; CHAVE_ALERTADA = true;
     var d = $('tk-dot');
-    if(d){ d.textContent = 'chave expirada — reconecte'; d.classList.remove('ok'); d.classList.add('err'); }
-    var st = $('tk-st'); if(st){ st.textContent = 'Sua chave expirou ou foi revogada. Cole uma nova aqui.'; st.className = 'st err'; }
+    if(d){ d.textContent = 'chave não vale mais — reconecte'; d.classList.remove('ok'); d.classList.add('err'); }
+    var st = $('tk-st');
+    if(st){
+      st.textContent = 'O GitHub recusou a chave deste computador. Se você gerou uma chave nova em outra máquina, ' +
+        'esta aqui morreu no mesmo instante. Cole a nova abaixo.' + (typeof tkFrase === 'function' && tkFrase() ? ' (' + tkFrase() + ')' : '');
+      st.className = 'st err';
+    }
   }
   // o mesmo pedido não vai duas vezes ao GitHub em menos de um minuto:
   // a Coxia lê as mesmas pastas em várias abas, e o limite por hora é curto
@@ -2164,18 +2170,92 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   });
 
   /* ---------------- token ---------------- */
+  // A chave mora no localStorage: ela é DESTE navegador, neste computador.
+  // Cada máquina guarda a sua cópia e nenhuma conversa com a outra, então
+  // trocar a chave aqui não troca lá. Antes a Coxia dizia "chave conectada" só
+  // porque havia alguma coisa guardada, sem nunca perguntar ao GitHub se ela
+  // ainda valia — e a pessoa só descobria que estava morta ao clicar em
+  // publicar, com a matéria pronta na tela. Agora a casa confere ao abrir e
+  // mostra as quatro últimas letras da chave e a validade, para dar para
+  // comparar dois computadores sem adivinhação.
+  function tkGuarda(chave, valor){
+    try{ if(valor) localStorage.setItem(chave, valor); else localStorage.removeItem(chave); }catch(e){}
+  }
+  function tkLe(chave){ try{ return localStorage.getItem(chave) || ''; }catch(e){ return ''; } }
+  function tkFim(){ var t = token(); return t ? '…' + t.slice(-4) : ''; }
+  // O GitHub manda a validade da chave no cabeçalho
+  // github-authentication-token-expiration, mas HOJE ele não está na lista do
+  // Access-Control-Expose-Headers da API (conferido em 01/08/2026), e o
+  // navegador esconde de nós o que a resposta traz. Ou seja: esta anotação vem
+  // vazia na prática, e a frase de estado simplesmente não mostra data — não é
+  // defeito. Fica escrito porque no dia em que o GitHub expuser o cabeçalho a
+  // validade aparece sozinha, sem ninguém mexer aqui.
+  function tkAnotaValidade(r){
+    tkGuarda('coxia-token-vence', r.headers.get('github-authentication-token-expiration') || '');
+    tkGuarda('coxia-token-quando', new Date().toISOString());
+  }
+  function tkVence(){
+    var v = tkLe('coxia-token-vence');
+    if(!v) return null;
+    var d = new Date(v.replace(' UTC', 'Z').replace(' ', 'T'));
+    return isNaN(d.getTime()) ? null : d;
+  }
+  function tkFrase(){
+    var partes = [], d = tkVence();
+    if(tkFim()) partes.push('chave ' + tkFim() + ' neste computador');
+    if(d){
+      var dias = Math.floor((d.getTime() - Date.now()) / 864e5);
+      var quando = d.toLocaleDateString('pt-BR');
+      partes.push(dias < 0 ? 'venceu em ' + quando
+        : dias === 0 ? 'vence HOJE (' + quando + ')'
+        : 'vence em ' + quando + ' (' + dias + ' dia' + (dias > 1 ? 's' : '') + ')');
+    }
+    return partes.join(' · ');
+  }
+  function tkPinta(estado, recado){
+    var d = $('tk-dot'), st = $('tk-st');
+    if(d){ d.textContent = estado; d.classList.toggle('ok', estado.indexOf('valendo') >= 0); d.classList.toggle('err', estado.indexOf('não') >= 0 || estado.indexOf('expir') >= 0); }
+    if(st){ st.textContent = recado; st.className = 'st ' + (estado.indexOf('valendo') >= 0 ? 'ok' : estado.indexOf('confer') >= 0 ? '' : 'err'); }
+  }
+  // pergunta ao GitHub se a chave ainda vale. /rate_limit não gasta consulta.
+  function tkConfere(){
+    if(!token()) return Promise.resolve(false);
+    return fetch('https://api.github.com/rate_limit', { headers: hdr({}), cache: 'no-store' })
+      .then(function(r){
+        if(r.status === 401 || r.status === 403){
+          tkPinta('chave não vale mais — reconecte',
+            'O GitHub recusou a chave deste computador. ' + tkFrase() +
+            '. Se você gerou uma chave nova em outra máquina, esta aqui morreu na hora: ' +
+            'cole a nova abaixo.');
+          return false;
+        }
+        if(!r.ok) return true; // problema de rede: não acusa a chave à toa
+        tkAnotaValidade(r);
+        var d = tkVence(), dias = d ? Math.floor((d.getTime() - Date.now()) / 864e5) : null;
+        if(dias !== null && dias <= 3){
+          tkPinta('chave valendo, mas vencendo',
+            'Chave valendo ✓, e ela ' + (dias <= 0 ? 'vence hoje' : 'vence em ' + dias + ' dia' + (dias > 1 ? 's' : '')) +
+            '. Gere a próxima antes que pare no meio de uma publicação. ' + tkFrase() + '.');
+        } else {
+          tkPinta('chave valendo', 'Chave valendo ✓ — pronto para publicar. ' + tkFrase() + '.');
+        }
+        return true;
+      })
+      .catch(function(){ return true; });
+  }
   function initToken(){
-    var ok = !!token();
-    $('tk-dot').textContent = ok ? 'chave conectada' : 'sem chave de publicação';
-    $('tk-dot').classList.toggle('ok', ok);
-    if(ok){ $('tk-st').textContent = 'Chave conectada ✓ — pronto para publicar'; $('tk-st').className = 'st ok'; }
+    if(!token()){ tkPinta('sem chave de publicação', 'Sem chave neste computador. Cole a chave abaixo para poder publicar.'); return; }
+    tkPinta('conferindo a chave…', 'Perguntando ao GitHub se a chave deste computador ainda vale…');
+    tkConfere();
   }
   $('tk-save').addEventListener('click', function(){
     var v = $('tk').value.trim(), st = $('tk-st');
     if(!v){ st.textContent = 'Cole a chave antes de conectar'; st.className = 'st err'; return; }
     fetch(API_BASE, { headers: { 'Authorization': 'Bearer ' + v } }).then(function(r){
       if(!r.ok) throw 0;
-      try{ localStorage.setItem('coxia-token', v); }catch(e){}
+      tkGuarda('coxia-token', v);
+      tkAnotaValidade(r);
+      CHAVE_ALERTADA = false;
       $('tk').value = '';
       initToken();
     }).catch(function(){ st.textContent = 'Chave inválida ou sem acesso ao repositório'; st.className = 'st err'; });
