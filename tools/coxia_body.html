@@ -1547,11 +1547,14 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           <p id="cx-app-dica" style="margin:10px 0 0"></p>
         </div>
         <div class="cx-token">
-          <span class="st" id="tk-st">Cole a chave de publicação — ela fica salva só neste navegador</span>
           <input type="password" id="tk" placeholder="github_pat_…" aria-label="Chave de publicação">
           <button type="button" id="tk-save">Conectar</button>
           <button type="button" id="tk-clear" class="bt danger" style="padding:12px 16px">Desconectar</button>
         </div>
+        <!-- a resposta do "Conectar" fica DEPOIS do botão, no caminho do olho de
+             quem acabou de clicar. Ficava acima do campo, e quem apertava não via
+             nada acontecer. -->
+        <span class="st" id="tk-st" role="status" aria-live="polite" style="display:block;margin-top:12px">Cole a chave de publicação — ela fica salva só neste navegador</span>
         <div style="margin-top:12px">
           <button class="bt" type="button" id="tk-testar">🔎 Conferir a chave e as consultas</button>
           <div id="tk-diag" class="f-note" style="margin-top:10px;display:none"></div>
@@ -2249,16 +2252,37 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     tkConfere();
   }
   $('tk-save').addEventListener('click', function(){
-    var v = $('tk').value.trim(), st = $('tk-st');
+    // limpa espaço e quebra de linha que vêm junto na cópia
+    var v = $('tk').value.replace(/\s+/g, ''), st = $('tk-st'), bt = $('tk-save');
     if(!v){ st.textContent = 'Cole a chave antes de conectar'; st.className = 'st err'; return; }
+    // o clique precisa dar sinal de vida ANTES da resposta do GitHub, senão
+    // parece que o botão não fez nada
+    st.textContent = 'Conferindo a chave com o GitHub…'; st.className = 'st';
+    bt.disabled = true; bt.textContent = 'Conferindo…';
+    function solta(){ bt.disabled = false; bt.textContent = 'Conectar'; }
     fetch(API_BASE, { headers: { 'Authorization': 'Bearer ' + v } }).then(function(r){
-      if(!r.ok) throw 0;
+      if(!r.ok){ var e = new Error('http'); e.gh = r.status; throw e; }
       tkGuarda('coxia-token', v);
       tkAnotaValidade(r);
       CHAVE_ALERTADA = false;
       $('tk').value = '';
+      solta();
       initToken();
-    }).catch(function(){ st.textContent = 'Chave inválida ou sem acesso ao repositório'; st.className = 'st err'; });
+    }).catch(function(e){
+      solta();
+      // cada recusa pede um conserto diferente, e dizer só "chave inválida"
+      // manda a pessoa gerar chave nova quando o problema é permissão
+      var g = e && e.gh;
+      st.className = 'st err';
+      if(g === 401) st.textContent = 'O GitHub não reconheceu esta chave. Confira se ela veio inteira na cópia ' +
+        '(começa em github_pat_) e se não foi revogada ou regenerada em outro computador.';
+      else if(g === 404) st.textContent = 'A chave é válida, mas não enxerga este repositório. No GitHub, edite o token: ' +
+        'em Repository access marque ' + OWNER + '/' + REPO + ', e em Permissions deixe Contents como Read and write.';
+      else if(g === 403) st.textContent = 'A chave foi aceita, mas está sem permissão de escrita. No GitHub, deixe Contents ' +
+        'como Read and write neste token.';
+      else if(g) st.textContent = 'O GitHub respondeu com erro ' + g + '. Tente de novo em instantes.';
+      else st.textContent = 'Não deu para falar com o GitHub. Confira a internet e tente de novo.';
+    });
   });
   $('tk-testar').addEventListener('click', function(){
     var cx = $('tk-diag');
