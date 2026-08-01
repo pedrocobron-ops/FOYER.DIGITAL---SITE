@@ -1548,6 +1548,15 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         <div class="sec-h"><h3>A chave da casa</h3><span>guardada uma vez, vale para todo mundo, em qualquer computador</span></div>
         <div class="f-note" id="casa-box" style="margin-bottom:22px">
           <p id="casa-st" role="status" aria-live="polite" style="margin:0 0 10px"><b>Conferindo…</b></p>
+          <!-- quem entrou por "lembrar deste aparelho" nunca digitou a senha depois
+               da mudança, e sem senha não há sessão para falar com o servidor.
+               Este bloco pede a senha uma vez, só neste aparelho. -->
+          <div id="casa-login" style="display:none">
+            <div class="cx-token" style="margin-top:6px">
+              <input type="password" id="casa-senha" placeholder="sua senha da Coxia" aria-label="Sua senha da Coxia">
+              <button type="button" id="casa-entrar">Ligar este aparelho</button>
+            </div>
+          </div>
           <div id="casa-chefe" style="display:none">
             <div class="cx-token" style="margin-top:6px">
               <input type="password" id="casa-tk" placeholder="github_pat_…" aria-label="Chave da casa">
@@ -2338,13 +2347,16 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   }
   /* ---------------- a chave da casa, na tela ---------------- */
   function pintarCasa(){
-    var st = $('casa-st'), bloco = $('casa-chefe');
+    var st = $('casa-st'), bloco = $('casa-chefe'), login = $('casa-login');
     if(!st) return;
     var ehChefe = USER && USER.papel === 'chefe';
-    if(bloco) bloco.style.display = ehChefe ? '' : 'none';
+    if(bloco) bloco.style.display = (ehChefe && sessao()) ? '' : 'none';
+    if(login) login.style.display = sessao() ? 'none' : '';
+    // sem sessão não é servidor fora do ar: é este aparelho que ainda não se
+    // apresentou. Quem entrou por "lembrar deste aparelho" cai exatamente aqui.
     if(!sessao()){
-      st.innerHTML = '<b>Servidor da casa fora de alcance.</b> A Coxia está trabalhando com a chave deste ' +
-        'navegador, se houver uma. Recarregue a página para tentar de novo.';
+      st.innerHTML = '<b>Este aparelho ainda não está ligado à chave da casa.</b> Confirme a sua senha da Coxia ' +
+        'abaixo, uma única vez neste computador, e ele passa a publicar pelo servidor.';
       return;
     }
     st.innerHTML = '<b>Conferindo…</b>';
@@ -2378,6 +2390,28 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           'com a chave deste navegador, se houver uma.';
       });
   }
+  var btLigar = $('casa-entrar');
+  if(btLigar) btLigar.addEventListener('click', function(){
+    var senha = $('casa-senha').value, st = $('casa-st');
+    if(!senha){ st.innerHTML = '<b>Digite a sua senha da Coxia para ligar este aparelho.</b>'; return; }
+    if(!USER){ st.innerHTML = '<b>Entre na Coxia antes.</b>'; return; }
+    btLigar.disabled = true; btLigar.textContent = 'Ligando…';
+    st.innerHTML = '<b>Conferindo a senha com o servidor da casa…</b>';
+    abrirSessaoDaCasa(USER.id, senha).then(function(){
+      btLigar.disabled = false; btLigar.textContent = 'Ligar este aparelho';
+      $('casa-senha').value = '';
+      pintarCasa();
+    }, function(e){
+      btLigar.disabled = false; btLigar.textContent = 'Ligar este aparelho';
+      var m = String((e && e.message) || '');
+      st.innerHTML = /senha|conferem/i.test(m)
+        ? '<b>Senha não confere.</b> É a mesma senha com que você entra na Coxia.'
+        : /Failed to fetch|NetworkError|Load failed/i.test(m)
+          ? '<b>Não deu para falar com o servidor da casa.</b> Confira a internet e tente de novo.'
+          : '<b>Não deu para ligar este aparelho:</b> ' + esc(m || 'erro desconhecido');
+    });
+  });
+
   var btCasa = $('casa-save');
   if(btCasa) btCasa.addEventListener('click', function(){
     var v = $('casa-tk').value.replace(/\s+/g, ''), st = $('casa-st');
