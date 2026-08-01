@@ -1812,6 +1812,14 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         var meu = r.headers.get('x-coxia-erro');
         if(meu === 'sessao'){ guardaSessao('', false); return fetch(url, opts); }
         if(meu === 'sem-chave'){ CASA_TEM_CHAVE = false; return fetch(url, opts); }
+        // 401/403 SEM x-coxia-erro veio do GitHub, ou seja, quem morreu foi a
+        // chave da CASA. Sem esta linha a Coxia acusaria a chave local, que pode
+        // estar perfeita — e mandaria a pessoa consertar o que não está quebrado.
+        if(r.status === 401 || r.status === 403){
+          CASA_TEM_CHAVE = false;
+          if($('casa-st')) pintarCasa();
+          return fetch(url, opts);
+        }
         return r;
       })
       .catch(function(){ return fetch(url, opts); });
@@ -1920,7 +1928,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // o mesmo pedido não vai duas vezes ao GitHub em menos de um minuto:
   // a Coxia lê as mesmas pastas em várias abas, e o limite por hora é curto
   // a Coxia muda toda semana: este carimbo diz qual versão está aberta
-  var COXIA_VERSAO = '20260801-143358';
+  var COXIA_VERSAO = '20260801-143822';
   var GH_CACHE = {};
   function ghCacheGet(chave){
     var c = GH_CACHE[chave];

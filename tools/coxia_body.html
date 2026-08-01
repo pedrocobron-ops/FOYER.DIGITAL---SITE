@@ -1777,6 +1777,14 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         var meu = r.headers.get('x-coxia-erro');
         if(meu === 'sessao'){ guardaSessao('', false); return fetch(url, opts); }
         if(meu === 'sem-chave'){ CASA_TEM_CHAVE = false; return fetch(url, opts); }
+        // 401/403 SEM x-coxia-erro veio do GitHub, ou seja, quem morreu foi a
+        // chave da CASA. Sem esta linha a Coxia acusaria a chave local, que pode
+        // estar perfeita — e mandaria a pessoa consertar o que não está quebrado.
+        if(r.status === 401 || r.status === 403){
+          CASA_TEM_CHAVE = false;
+          if($('casa-st')) pintarCasa();
+          return fetch(url, opts);
+        }
         return r;
       })
       .catch(function(){ return fetch(url, opts); });
