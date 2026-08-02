@@ -28,6 +28,12 @@ const REMETENTE_NOME = 'Revista do FOYER'
 // antes do domínio verificado, aponte REVISTA_FROM para um e-mail verificado no
 // Brevo; depois da verificação do domínio, revista@foyer.digital funciona sozinho
 const REMETENTE_EMAIL = Deno.env.get('REVISTA_FROM') || 'revista@foyer.digital'
+// Para ENVIAR, o endereço não precisa de caixa postal: basta o domínio estar
+// verificado no Brevo. Mas quem responder o e-mail escreve para o remetente, e
+// aí a resposta some se não houver caixa nem apelido. O REVISTA_REPLYTO manda a
+// resposta para um endereço que existe de verdade, sem depender de apelido
+// nenhum estar configurado.
+const RESPONDER_PARA = Deno.env.get('REVISTA_REPLYTO') || ''
 const BASE = Deno.env.get('FOYER_BASE') || 'https://foyer.digital'
 
 const cors = {
@@ -124,6 +130,7 @@ Deno.serve(async (req) => {
         headers: { 'api-key': BREVO, 'Content-Type': 'application/json', 'accept': 'application/json' },
         body: JSON.stringify({
           sender: { name: REMETENTE_NOME, email: REMETENTE_EMAIL },
+          ...(RESPONDER_PARA ? { replyTo: { email: RESPONDER_PARA, name: REMETENTE_NOME } } : {}),
           to: [{ email: d.email, name: d.nome || undefined }],
           subject: assunto,
           htmlContent: html,
@@ -147,6 +154,7 @@ Deno.serve(async (req) => {
     return devolve({
       ok: true, enviados, falhas, total: destinatarios.length,
       remetente: REMETENTE_EMAIL,
+      respostaVaiPara: RESPONDER_PARA || undefined,
       motivo: motivo || undefined,
       quemFalhou: quemFalhou.length ? quemFalhou.slice(0, 10) : undefined,
     })
