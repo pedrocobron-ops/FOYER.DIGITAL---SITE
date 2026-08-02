@@ -42,6 +42,34 @@ TTL dos nameservers: 6 horas. É o tempo máximo para a troca valer no mundo
 inteiro — quem já consultou o domínio nas últimas 6h continua indo à Wix até
 o prazo vencer.
 
+### Por que a ordem importa, e por que não foi feito em 02/08
+
+A GoDaddy não deixa cadastrar registro nenhum enquanto o DNS estiver na Wix.
+A tela diz, com todas as letras: *"Para atualizar os registros DNS, altere
+seus servidores de nomes para os servidores de nomes padrão da GoDaddy"*.
+Ou seja, a zona só abre para edição DEPOIS da troca — e nasce vazia.
+
+Entre a troca e a última linha cadastrada, o `foyer.digital` fica sem
+servidor de e-mail. Quem escrever para `pedroamaral@foyer.digital` nesse
+intervalo pode receber a mensagem de volta. Digitando com cuidado, são 15 a
+20 minutos.
+
+Por isso a mudança foi adiada de 02/08 (véspera do lançamento) para 04/08:
+o DNS na Wix não custa nada e não atrapalha nada. O único motivo para mudar
+é poder cancelar o plano da Wix, e isso espera.
+
+### A ordem de execução, no dia
+
+1. **GoDaddy → Domínio → DNS → Servidores de nomes → usar os padrão da
+   GoDaddy.** É a partir daqui que o relógio corre.
+2. **Primeiro o e-mail:** os 5 `MX` da Google e o `TXT` do SPF. Nada mais
+   antes disso. Com essas seis linhas no ar, o pior já passou.
+3. **Depois o site:** os 4 `A` do GitHub Pages e o `CNAME` do `www`.
+4. **Por último o Google:** os 2 `TXT` de `google-site-verification`.
+5. **Não recriar** o `CNAME pt`.
+6. Conferir tudo no ar (`dig` ou dns.google) antes de dar por encerrado.
+7. **Só então** cancelar o plano da Wix.
+
 ## 0. O RETRATO DE ANTES — para desfazer, se precisar
 
 Estado do domínio em 02/08/2026, 12h20 de Brasília, antes de mexer em nada.
