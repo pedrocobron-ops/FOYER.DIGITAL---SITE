@@ -890,7 +890,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
         <h2 class="hi" id="saudacao">Boa noite</h2>
         <p class="hi-sub">O panorama do FOYER neste momento</p>
         <div class="stats">
-          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1556</b><span>matérias no acervo</span></button>
+          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1557</b><span>matérias no acervo</span></button>
           <button class="stat" type="button" data-go="fila" data-foco="#fila-list"><b id="st-pub">—</b><span>publicadas pela Coxia</span></button>
           <button class="stat" type="button" data-go="fila" data-foco=".fila-agenda" data-foco-alt="#fila-list"><b id="st-ag">—</b><span>agendadas esperando a hora</span></button>
           <button class="stat" type="button" id="card-mesa" data-go="ia" data-foco="#mesa-list"><b id="st-mesa">—</b><span>na mesa de aprovação</span></button>
@@ -1794,6 +1794,23 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     CASA_TEM_CHAVE = !!temChave;
   }
   function casaLigada(){ return !!sessao() && CASA_TEM_CHAVE; }
+
+  // ESTA PERGUNTA É A QUE OS BOTÕES DEVEM FAZER: dá para gravar no site?
+  // Tanto faz por onde — pela chave da casa (servidor) ou pela chave deste
+  // navegador (a reserva). Quando a chave da casa entrou, a gravação passou a
+  // ir pelo servidor, mas todos os botões continuaram perguntando pela chave
+  // LOCAL antes de deixar a pessoa agir. Resultado: quem entrava sem chave no
+  // aparelho não publicava nada, mesmo com a chave da casa funcionando. Era
+  // exatamente o problema que a chave da casa existe para resolver.
+  function podeGravar(){ return !!token() || casaLigada(); }
+  // e quando não dá, o recado precisa apontar o conserto certo para cada caso
+  function recadoSemChave(){
+    if(!sessao())
+      return 'Este aparelho ainda não está ligado à chave da casa. Vá na aba Conexão e confirme a sua senha da Coxia — é uma vez só neste computador.';
+    if(!CASA_TEM_CHAVE)
+      return 'A chave da casa não está ligada no servidor. Só o Pedro pode guardá-la, na aba Conexão. Enquanto isso, dá para ler tudo, mas não dá para publicar.';
+    return 'Sem chave de publicação neste aparelho (aba Conexão).';
+  }
   function casaPede(corpo){
     return fetch(CASA, { method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify(corpo) });
@@ -1928,7 +1945,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // o mesmo pedido não vai duas vezes ao GitHub em menos de um minuto:
   // a Coxia lê as mesmas pastas em várias abas, e o limite por hora é curto
   // a Coxia muda toda semana: este carimbo diz qual versão está aberta
-  var COXIA_VERSAO = '20260802-133107';
+  var COXIA_VERSAO = '20260802-134306';
   var GH_CACHE = {};
   function ghCacheGet(chave){
     var c = GH_CACHE[chave];
@@ -2932,7 +2949,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   var btnGuardar = $('btn-guardar');
   if(btnGuardar) btnGuardar.addEventListener('click', function(){
     if(EDIT){ avisar('Você está editando uma matéria que já existe — as mudanças vão direto nela ao salvar/enviar. O rascunho na nuvem é só para matérias novas.'); return; }
-    if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão) para guardar na nuvem.'); return; }
+    if(!podeGravar()){ avisar(recadoSemChave()); return; }
     var d = coletarRasc();
     if(!d.title && !d.corpo){ avisar('Escreva algo antes de guardar o rascunho.'); return; }
     d.por = USER.nome;
@@ -2966,7 +2983,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         $('rasc-usar').onclick = function(){ aplicarRascunho(cand); };
         $('rasc-descartar').onclick = function(){
           limparRasc();
-          if(nuvem && token()){ ghGet(caminhoRascServidor()).then(function(ff){ if(ff) ghDel(caminhoRascServidor(), ff.sha, assina('descarta rascunho da nuvem')).catch(function(){}); }); }
+          if(nuvem && podeGravar()){ ghGet(caminhoRascServidor()).then(function(ff){ if(ff) ghDel(caminhoRascServidor(), ff.sha, assina('descarta rascunho da nuvem')).catch(function(){}); }); }
         };
       }
     });
@@ -3485,7 +3502,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   corpoImgInput.addEventListener('change', function(){
     var files = Array.prototype.slice.call(this.files); this.value = '';
     if(!files.length) return;
-    if(!token()){ avisar('Conecte a chave de publicação para subir fotos (aba Conexão)'); return; }
+    if(!podeGravar()){ avisar(recadoSemChave()); return; }
     var ta = $('f-body'), slugBase = slugify($('f-title').value || 'materia') || 'materia';
     var btnFoto = document.querySelector('[data-md="img:"]');
     if(btnFoto) btnFoto.textContent = '⏳ Subindo ' + files.length + ' foto(s)…';
@@ -3543,7 +3560,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   $('form').addEventListener('submit', function(e){
     e.preventDefault();
     var msg = $('msg');
-    if(!token()){ msg.textContent = 'Conecte a chave de publicação (aba Conexão)'; msg.className = 'msg err'; return; }
+    if(!podeGravar()){ msg.textContent = recadoSemChave(); msg.className = 'msg err'; return; }
     var title = $('f-title').value.trim();
     var corpo = $('f-body').value.trim();
     if(!title || !corpo){ msg.textContent = 'Preencha título e texto'; msg.className = 'msg err'; return; }
@@ -3674,7 +3691,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       CAPA = null; $('up-prev').src = ''; up.classList.remove('tem');
       limparRasc(); statusTexto();
       // limpa também o rascunho na nuvem (a matéria já foi enviada)
-      if(!EDIT && token()) ghGet(caminhoRascServidor()).then(function(ff){ if(ff) ghDel(caminhoRascServidor(), ff.sha, assina('limpa rascunho da nuvem (matéria enviada)')).catch(function(){}); }).catch(function(){});
+      if(!EDIT && podeGravar()) ghGet(caminhoRascServidor()).then(function(ff){ if(ff) ghDel(caminhoRascServidor(), ff.sha, assina('limpa rascunho da nuvem (matéria enviada)')).catch(function(){}); }).catch(function(){});
       aplicarUsuario();
     }).catch(function(err){ if(err === 'cancelado') return; msg.className = 'msg err'; msg.textContent = msgErro(err); })
       .finally(function(){ btn.disabled = false; btn.textContent = EDIT ? 'Salvar edição' : (ehChefe ? 'Enviar para o site' : 'Enviar para aprovação'); });
@@ -3912,7 +3929,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   document.addEventListener('click', function(e){
     var b = e.target.closest('[data-del]');
     if(!b) return;
-    if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+    if(!podeGravar()){ avisar(recadoSemChave()); return; }
     confirmar('Remover esta matéria do site? (ela fica 30 dias na lixeira)', { perigo:true, rotuloOk:'Remover' }).then(function(ok){
       if(!ok) return;
       var dados = null;
@@ -4319,7 +4336,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(todas) todas.checked = total > 0 && n === total;
   }
   function aprovarLote(slugs, publishAt, rotulo){
-    if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+    if(!podeGravar()){ avisar(recadoSemChave()); return; }
     var ds = slugs.map(function(s){ return MESA[s]; }).filter(Boolean);
     // assinadas por outra pessoa não entram no lote: só quem assina libera o próprio nome
     var deOutro = ds.filter(function(d){ return !podeLiberarAssinatura(d); });
@@ -4422,11 +4439,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       return;
     }
     if((b = e.target.closest('[data-capa]'))){
-      if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+      if(!podeGravar()){ avisar(recadoSemChave()); return; }
       capaMesaSlug = b.dataset.capa; capaMesaInput.click(); return;
     }
     if((b = e.target.closest('[data-aprovar]'))){
-      if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+      if(!podeGravar()){ avisar(recadoSemChave()); return; }
       if(MESA[b.dataset.aprovar] && !MESA[b.dataset.aprovar].img){
         avisar('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de aprovar.'); return;
       }
@@ -4439,7 +4456,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if((b = e.target.closest('[data-agendar]'))){
       var slugAg = b.dataset.agendar;
       var dAg = MESA[slugAg];
-      if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+      if(!podeGravar()){ avisar(recadoSemChave()); return; }
       if(dAg && !dAg.img){
         avisar('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de agendar.'); return;
       }
@@ -4455,7 +4472,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if((b = e.target.closest('[data-recusar]'))){
       var d = MESA[b.dataset.recusar];
       if(!d) return;
-      if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+      if(!podeGravar()){ avisar(recadoSemChave()); return; }
       var ehAutorR = d.origem === 'autor';
       if(ehAutorR){
         perguntar('Por que está devolvendo "' + d.title + '"?\n(o autor vai ver este recado e pode corrigir e reenviar)', '', { titulo:'Devolver ao autor', rotuloOk:'Devolver' }).then(function(motivo){
@@ -4538,7 +4555,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   $('e-file').addEventListener('change', function(){
     var arq = this.files && this.files[0];
     if(!arq) return;
-    if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); this.value = ''; return; }
+    if(!podeGravar()){ avisar(recadoSemChave()); this.value = ''; return; }
     var nome = $('e-nome').value.trim();
     if(!nome){ avisar('Diga o nome da pessoa antes de subir a foto.'); this.value = ''; return; }
     var id = $('e-id').value || slugify(nome);
@@ -4583,7 +4600,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       return;
     }
     if((b = e.target.closest('[data-exc]'))){
-      if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+      if(!podeGravar()){ avisar(recadoSemChave()); return; }
       var alvo = (EQUIPE.lista || []).filter(function(x){ return x.id === b.dataset.exc; })[0];
       if(!alvo) return;
       confirmar('Excluir ' + alvo.nome + ' da equipe? A senha deixa de funcionar.', { perigo:true, rotuloOk:'Excluir' }).then(function(ok){
@@ -4604,7 +4621,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   $('eq-form').addEventListener('submit', function(e){
     e.preventDefault();
     var msg = $('eq-msg');
-    if(!token()){ msg.textContent = 'Conecte a chave de publicação (aba Conexão)'; msg.className = 'msg err'; return; }
+    if(!podeGravar()){ msg.textContent = recadoSemChave(); msg.className = 'msg err'; return; }
     var nome = $('e-nome').value.trim();
     if(!nome){ msg.textContent = 'Diga o nome'; msg.className = 'msg err'; return; }
     var id = $('e-id').value || slugify(nome);
@@ -5288,7 +5305,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   }
 
   function pubNoAr(p){
-    if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+    if(!podeGravar()){ avisar(recadoSemChave()); return; }
     var naRevista = p.canal === 'revista';
     var quem = p.empresa || p.nome || 'o anunciante';
     if(naRevista){
@@ -5912,7 +5929,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     });
   });
   if($('dv-salvar')) $('dv-salvar').addEventListener('click', function(){
-    if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão)'); return; }
+    if(!podeGravar()){ avisar(recadoSemChave()); return; }
     var atual = dvDoFormulario();
     DV.banco = DV.banco.filter(function(b){ return b.id !== atual.id; }).concat([atual]);
     ghGet(DV_ARQ).then(function(f){
@@ -6175,7 +6192,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     e.preventDefault();
     var msg = $('mural-msg'), tx = $('mural-txt').value.trim();
     if(!tx) return;
-    if(!token()){ msg.textContent = 'Conecte a chave (aba Conexão)'; msg.className = 'msg err'; return; }
+    if(!podeGravar()){ msg.textContent = recadoSemChave(); msg.className = 'msg err'; return; }
     MURAL.lista.unshift({ id: String(new Date().getTime()), quem: USER.nome, papel: USER.papel,
       texto: tx, quando: new Date().toISOString(),
       fixado: USER.papel === 'chefe' && $('mural-fixar').checked });
@@ -6225,7 +6242,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     e.preventDefault();
     var tx = $('pauta-txt').value.trim();
     if(!tx) return;
-    if(!token()){ avisar('Conecte a chave de publicação (aba Conexão)'); return; }
+    if(!podeGravar()){ avisar(recadoSemChave()); return; }
     SUG.lista.unshift({ id: String(new Date().getTime()), quem: USER.nome,
       texto: tx, quando: new Date().toISOString() });
     SUG.lista = SUG.lista.slice(0, 60);
@@ -6294,7 +6311,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   $('atrib-overlay').addEventListener('click', function(e){ if(e.target === this) fechaAtribuir(); });
   $('atrib-ok').addEventListener('click', function(){
     if(!atribSid) return;
-    if(!token()){ avisar('Conecte a chave de publicação primeiro (aba Conexão).'); return; }
+    if(!podeGravar()){ avisar(recadoSemChave()); return; }
     var para = $('atrib-autor').value, prazo = $('atrib-prazo').value;
     var sid = atribSid;
     SUG.lista.forEach(function(s){
@@ -6696,7 +6713,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   document.addEventListener('click', function(e){
     var b;
     if((b = e.target.closest('[data-verbx]'))){
-      if(!token()){ avisar('Conecte a chave de publicação (aba Conexão)'); return; }
+      if(!podeGravar()){ avisar(recadoSemChave()); return; }
       if(VERB.lista.indexOf(b.dataset.verbx) < 0) VERB.lista.push(b.dataset.verbx);
       salvarVerbExc('exclui verbete ' + b.dataset.verbx);
       $('verb-q').value = ''; $('verb-res').style.display = 'none';
@@ -6882,7 +6899,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   $('rv-capa-file').addEventListener('change', function(){
     var f = this.files[0]; this.value = '';
     if(!f || !RV.ed) return;
-    if(!token()){ avisar('Conecte a chave de publicação (aba Conexão)'); return; }
+    if(!podeGravar()){ avisar(recadoSemChave()); return; }
     redimensionar(f).then(function(d){ return subirImagem(d, 'revista-ed-' + RV.ed.numero + '-capa'); })
       .then(function(caminho){
         RV.ed.capa.img = caminho;
@@ -7120,7 +7137,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       }
       var fi = $('pgf-img');
       if(fi && fi.files && fi.files[0]){
-        if(!token()){ avisar('Conecte a chave de publicação para subir imagens'); return; }
+        if(!podeGravar()){ avisar(recadoSemChave()); return; }
         pronto = redimensionar(fi.files[0]).then(function(dURL){
           return subirImagem(dURL, 'revista-ed-' + RV.ed.numero + '-p' + new Date().getTime());
         }).then(function(caminho){ pg.img = caminho; });
@@ -7175,7 +7192,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   }
   function salvarEd(acao){
     var msg = $('rv-msg');
-    if(!token()){ msg.textContent = 'Conecte a chave de publicação (aba Conexão)'; msg.className = 'msg err'; return Promise.reject(new Error('sem chave')); }
+    if(!podeGravar()){ msg.textContent = recadoSemChave(); msg.className = 'msg err'; return Promise.reject(new Error('sem chave')); }
     colherCampos();
     RV.ed.historico = RV.ed.historico || [];
     RV.ed.historico.unshift({ quando: new Date().toISOString(), quem: USER.nome,
