@@ -1481,6 +1481,26 @@ _AUTOR_PAGINA = {
     'Redação Foyer': 'autor-redacao-foyer.html',
 }
 
+def _tempo_de_leitura(p):
+    """Quatro matérias do acervo são só um vídeo — nenhum texto para cronometrar,
+    e a linha da assinatura dizia '0 min de leitura', que soa a página com
+    defeito. Nelas, o selo passa a anunciar o que a matéria de fato é."""
+    try:
+        m = int(p.get('min') or 0)
+    except (TypeError, ValueError):
+        m = 0
+    if m >= 1:
+        return f'{m} min de leitura'
+    try:
+        with open(os.path.join(ROOT, 'import/corpo', p['slug'] + '.html')) as _f:
+            corpo = _f.read()
+    except Exception:
+        corpo = ''
+    if 'art-video' in corpo or '<iframe' in corpo:
+        return 'em vídeo'
+    return '1 min de leitura'
+
+
 def _byline_link(nome):
     """Nome de quem assina, com link para a página da assinatura quando existir.
     Assinatura dupla ("Pedro Amaral e Isabel Branquinha") linka as duas páginas."""
@@ -1883,7 +1903,7 @@ def post_page(i, p):
     <h1>{p['title']}</h1>
     <div class="art-byline">
       <span>Por {_byline_link(p['author'])}</span>
-      <span>{p['date']}{(', às ' + p['hora']) if p.get('hora') else ''} · {p['min']} min de leitura</span>
+      <span>{p['date']}{(', às ' + p['hora']) if p.get('hora') else ''} · {_tempo_de_leitura(p)}</span>
     </div>{selo_atualizada(p)}
     <div class="share-row" aria-label="Compartilhar esta matéria">
       <button class="sbtn" data-share="whats" data-title="{safe(p['title'])}">WhatsApp</button>
