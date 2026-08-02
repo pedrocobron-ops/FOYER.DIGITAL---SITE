@@ -651,6 +651,12 @@ html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
 .rv-quina.esq{ left:10px; }
 .rv-quina.dir{ right:10px; }
 .rv-quina[hidden]{ display:none; }
+/* A tarja de cookies é presa no fim da tela e passa por cima de tudo. Ela
+   cobria exatamente estas duas setas: o leitor de primeira viagem abria a
+   revista e não conseguia virar a página. Enquanto a tarja está no ar, as
+   setas (e a barra de navegação da revista) sobem a altura dela. */
+html.tem-aviso .rv-quina{ bottom:calc(6px + var(--aviso-alt, 0px)); }
+html.tem-aviso .rv-nav{ bottom:calc(14px + var(--aviso-alt, 0px)); }
 html[data-theme="dark"] .rv-quina{ color:var(--gold); }
 @media print{ .rv-quina{ display:none !important; } }
 

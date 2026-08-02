@@ -1290,6 +1290,10 @@ html[data-theme="dark"] .sino-faixa{ box-shadow:6px 6px 0 rgba(0,0,0,.5); }
   font-family:var(--sans); font-weight:600; font-size:.78rem; padding:8px 12px; }
 @media (max-width:640px){ #lgpd{ flex-direction:column; align-items:stretch; }
   .lgpd-acoes{ flex-direction:row; } .lgpd-sim,.lgpd-min{ flex:1; } }
+/* enquanto a tarja está no ar, a página abre espaço embaixo. Sem isto, tudo
+   que mora no rodapé (as setas de virar a página da revista, por exemplo)
+   fica coberto pela tarja e não recebe clique. */
+html.tem-aviso body{ padding-bottom:var(--aviso-alt, 0px); }
 
 /* ícone do cartão de notificações */
 .sino-ico{ font-size:2.6rem; line-height:1; margin-bottom:10px; }

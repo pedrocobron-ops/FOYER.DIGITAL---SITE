@@ -759,8 +759,28 @@
       '<div class="lgpd-acoes"><button class="lgpd-sim">Aceitar tudo</button>' +
       '<button class="lgpd-min">Só o essencial</button></div>';
     document.body.appendChild(b);
-    requestAnimationFrame(function(){ b.classList.add('on'); });
-    function sair(){ b.classList.remove('on'); setTimeout(function(){ b.remove(); }, 300); }
+    // O aviso é uma tarja presa no fim da tela. Sem abrir espaço para ela, o
+    // que estiver encostado no rodapé fica DEBAIXO do aviso e não recebe
+    // clique — foi assim que ele engoliu as setas de virar a página da
+    // revista. Aqui a página inteira sobe a altura da tarja enquanto ela
+    // estiver no ar, e volta ao normal quando o leitor responde.
+    function abreEspaco(){
+      var alt = b.offsetHeight || 0;
+      if(!alt) return;
+      document.documentElement.style.setProperty('--aviso-alt', (alt + 18) + 'px');
+      document.documentElement.classList.add('tem-aviso');
+    }
+    function fechaEspaco(){
+      document.documentElement.classList.remove('tem-aviso');
+      document.documentElement.style.removeProperty('--aviso-alt');
+    }
+    requestAnimationFrame(function(){ b.classList.add('on'); abreEspaco(); });
+    window.addEventListener('resize', abreEspaco);
+    function sair(){
+      b.classList.remove('on'); fechaEspaco();
+      window.removeEventListener('resize', abreEspaco);
+      setTimeout(function(){ b.remove(); }, 300);
+    }
     b.querySelector('.lgpd-sim').addEventListener('click', function(){ gravar('tudo'); sair(); });
     b.querySelector('.lgpd-min').addEventListener('click', function(){ gravar('essencial'); sair(); });
   }
