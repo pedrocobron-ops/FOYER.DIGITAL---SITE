@@ -82,6 +82,31 @@ window.FOYER_ADS = {
     ins.setAttribute('data-ad-format', el.getAttribute('data-ad-format') || 'auto');
     ins.setAttribute('data-full-width-responsive', 'true');
     el.appendChild(ins);
+    vigiaVazio(el, ins);
     try{ (window.adsbygoogle = window.adsbygoogle || []).push({}); }catch(e){}
+  }
+
+  // Nem todo espaço é vendido a toda hora. Quando o Google não tem anúncio
+  // para aquele lugar, ele marca o bloco como "unfilled" e a caixa fica ali,
+  // vazia, com "Publicidade" escrito por cima — cara de site quebrado, num
+  // lugar onde o leitor decide se fica. Aqui a caixa some sozinha, e o texto
+  // volta a correr como se o espaço nunca tivesse existido.
+  function vigiaVazio(caixa, ins){
+    function confere(){
+      var st = ins.getAttribute('data-ad-status');
+      if(st === 'unfilled'){ caixa.style.display = 'none'; return true; }
+      return st === 'filled';
+    }
+    if(confere()) return;
+    if(!window.MutationObserver) return;
+    var obs = new MutationObserver(function(){ if(confere()) obs.disconnect(); });
+    obs.observe(ins, { attributes: true, attributeFilter: ['data-ad-status'] });
+    // rede fora do ar, bloqueador de anúncio, resposta que nunca chega: em
+    // 12 segundos a caixa vazia sai de cena de qualquer jeito
+    setTimeout(function(){
+      obs.disconnect();
+      if(ins.getAttribute('data-ad-status') !== 'filled' && !ins.offsetHeight)
+        caixa.style.display = 'none';
+    }, 12000);
   }
 })();
