@@ -5970,9 +5970,30 @@ with open(os.path.join(ROOT, 'sitemap.xml'), 'w') as f:
         f.write(f'<url><loc>{loc}</loc><lastmod>{_mod.get(u, _hoje_sm)}</lastmod></url>\n')
     f.write('</urlset>\n')
 
-# sitemap de notícias (Google News): matérias das últimas 48 horas
-_corte_news = (datetime.now(timezone.utc) - __import__('datetime').timedelta(days=2)).strftime('%Y-%m-%d')
-_news = [p for p in MATERIAS if (p.get('iso') or '') >= _corte_news]
+# sitemap de notícias (Google News): matérias das últimas 48 HORAS de verdade.
+# O corte era por DIA, e dia não é hora: uma matéria de anteontem às 7h da
+# manhã tem 65 horas e entrava assim mesmo. O Google descarta o que passa de
+# 48h, então cada uma dessas gastava uma linha à toa e sujava o arquivo.
+# Quando há hora registrada (as da Coxia têm), a conta é feita com ela;
+# quando só há a data (as do acervo antigo), vale a data.
+_agora_utc = datetime.now(timezone.utc)
+# sem hora registrada, o mais tarde que a matéria pode ser é meia-noite de
+# ontem — 48h no pior caso. Usar anteontem deixaria passar até 72h.
+_corte_dia = (_agora_utc - __import__('datetime').timedelta(days=1)).strftime('%Y-%m-%d')
+
+def _fresca(p):
+    cheia = p.get('isoFull') or ''
+    if cheia:
+        try:
+            d = datetime.fromisoformat(cheia)
+            if d.tzinfo is None:
+                d = d.replace(tzinfo=timezone.utc)
+            return (_agora_utc - d).total_seconds() <= 48 * 3600
+        except Exception:
+            pass
+    return (p.get('iso') or '') >= _corte_dia
+
+_news = [p for p in MATERIAS if _fresca(p)]
 with open(os.path.join(ROOT, 'sitemap-news.xml'), 'w') as f:
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
