@@ -3,6 +3,45 @@
 Checklist na ordem exata. Nada aqui é destrutivo até o passo 4; dá para voltar
 atrás a qualquer momento removendo o arquivo CNAME.
 
+## 00. A ZONA COMPLETA — para recriar na GoDaddy
+
+Tudo o que existe no DNS de `foyer.digital` em 02/08/2026, 21h30 de Brasília,
+já com a virada do site feita. Ao mudar os nameservers da Wix para a GoDaddy,
+TODAS estas linhas precisam existir do outro lado ANTES da troca. O que não
+estiver lá some no instante em que a GoDaddy assume — inclusive o e-mail.
+
+| Tipo | Nome | Valor | Prioridade |
+|---|---|---|---|
+| A | `@` | `185.199.108.153` | — |
+| A | `@` | `185.199.109.153` | — |
+| A | `@` | `185.199.110.153` | — |
+| A | `@` | `185.199.111.153` | — |
+| CNAME | `www` | `pedrocobron-ops.github.io` | — |
+| MX | `@` | `aspmx.l.google.com` | 10 |
+| MX | `@` | `alt1.aspmx.l.google.com` | 20 |
+| MX | `@` | `alt2.aspmx.l.google.com` | 30 |
+| MX | `@` | `alt3.aspmx.l.google.com` | 40 |
+| MX | `@` | `alt4.aspmx.l.google.com` | 50 |
+| TXT | `@` | `v=spf1 include:_spf.google.com ~all` | — |
+| TXT | `@` | `google-site-verification=JIdgUmQ6Rhk8ZCyaMWJNAX9JUiDGQ6whWs5KxJahbM8` | — |
+| TXT | `@` | `google-site-verification=D_UqCmCcYkqqKg8YGniJZfd_UAqmfHZolfj5TUKSneE` | — |
+
+**Os dois TXT do `google-site-verification` não são decoração.** São eles que
+sustentam a verificação do domínio no Search Console — que, por sua vez,
+sustenta a publicação no Publisher Center. Perder os dois é perder as duas
+coisas de uma vez.
+
+**Fica de fora, de propósito:** o `CNAME pt → cdn1.wixdns.net`. É sobra do
+recurso de tradução da Wix, nenhuma página do site aponta para ele
+(conferido), e recriá-lo amarraria o domínio à Wix justamente na hora de
+soltá-lo.
+
+**Não existe hoje, e não precisa criar:** CAA e DMARC.
+
+TTL dos nameservers: 6 horas. É o tempo máximo para a troca valer no mundo
+inteiro — quem já consultou o domínio nas últimas 6h continua indo à Wix até
+o prazo vencer.
+
 ## 0. O RETRATO DE ANTES — para desfazer, se precisar
 
 Estado do domínio em 02/08/2026, 12h20 de Brasília, antes de mexer em nada.
