@@ -41,7 +41,8 @@ window.FOYER_ADS = {
   ligado: true,
   editor: 'ca-pub-5861702469763970',    // conta programafoyer@gmail.com
   unidades: [
-    '5626283619',                       // "FOYER — geral"  (1º espaço da página)
+    '5626283619',                       // "FOYER — geral"         (1º espaço da página)
+    '2828015872',                       // "FOYER — segundo lugar"  (2º espaço da página)
   ]
 };
 
