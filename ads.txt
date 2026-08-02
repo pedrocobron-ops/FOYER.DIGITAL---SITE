@@ -1,11 +1,13 @@
 # FOYER — ads.txt
 #
-# Este arquivo é o Google conferindo quem tem direito de vender anúncio
-# em foyer.digital. Sem ele preenchido, o AdSense trata o site como
-# "vendedor não declarado" e paga menos, ou não paga.
+# Este arquivo é o Google conferindo quem tem direito de vender anúncio em
+# foyer.digital. Sem a linha abaixo, o AdSense trata o site como "vendedor
+# não declarado" e paga bem menos, ou não paga.
 #
-# PARA LIGAR: apague o # da linha abaixo e troque pub-0000000000000000
-# pelo ID de editor (adsense.google.com → Conta → Informações da conta).
-# Tem que ser o MESMO número que está em assets/ads.js.
+# O site antigo (Wix) tinha esta mesma linha, e é por isso que o painel do
+# AdSense já mostrava "Autorizado". Como o domínio passou a ser servido
+# daqui em 02/08/2026, ela precisava vir junto.
 #
-# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+# Conta: programafoyer@gmail.com
+
+google.com, pub-5861702469763970, DIRECT, f08c47fec0942fa0

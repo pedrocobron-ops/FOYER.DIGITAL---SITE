@@ -29,9 +29,9 @@
    ============================================================ */
 
 window.FOYER_ADS = {
-  ligado: false,
-  editor: 'ca-pub-0000000000000000',
-  unidade: ''
+  ligado: false,                        // vira true quando 'unidade' estiver preenchida
+  editor: 'ca-pub-5861702469763970',    // conta programafoyer@gmail.com
+  unidade: ''                           // ← falta: número da unidade criada no AdSense
 };
 
 (function(){
