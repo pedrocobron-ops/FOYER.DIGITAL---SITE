@@ -890,7 +890,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
         <h2 class="hi" id="saudacao">Boa noite</h2>
         <p class="hi-sub">O panorama do FOYER neste momento</p>
         <div class="stats">
-          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1577</b><span>matérias no acervo</span></button>
+          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1578</b><span>matérias no acervo</span></button>
           <button class="stat" type="button" data-go="fila" data-foco="#fila-list"><b id="st-pub">—</b><span>publicadas pela Coxia</span></button>
           <button class="stat" type="button" data-go="fila" data-foco=".fila-agenda" data-foco-alt="#fila-list"><b id="st-ag">—</b><span>agendadas esperando a hora</span></button>
           <button class="stat" type="button" id="card-mesa" data-go="ia" data-foco="#mesa-list"><b id="st-mesa">—</b><span>na mesa de aprovação</span></button>
@@ -1739,9 +1739,16 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       <p>Uma matéria do FOYER é uma <b>reportagem</b> de cultura, não uma nota rápida. Antes de enviar, confira:</p>
       <h3>Tamanho e estrutura</h3>
       <ul>
-        <li><b>Entre 750 e 1.100 palavras.</b> Menos que isso, aprofunde.</li>
+        <li><b>O tamanho vem do tipo da matéria</b>, não é o mesmo para tudo:
+          <ul>
+            <li><b>Release de peça com serviço:</b> 350 a 500 palavras, <b>sem intertítulo</b> (texto corrido).</li>
+            <li><b>Tema quente</b> (a notícia do dia): 400 a 600 palavras, até 2 intertítulos.</li>
+            <li><b>Matéria contextualizada</b> (perfil, explicador, memória): 700 a 1.100 palavras, 3 a 5 intertítulos.</li>
+            <li><b>Lista ou guia:</b> 900 a 1.500 palavras, uma seção por indicação.</li>
+          </ul>
+          Na dúvida entre dois tamanhos, fique com o menor. Encher linguiça para bater a marca é pior que entregar curto.</li>
         <li>Comece pelo <b>lide</b>: o quê, quem, quando, onde e por que importa, nos primeiros parágrafos.</li>
-        <li>Use <b>ao menos três intertítulos</b> (o botão <i>Intertítulo</i>) para respirar o texto.</li>
+        <li>Os intertítulos (o botão <i>Intertítulo</i>) servem para respirar o texto. O <b>Serviço</b> e as <b>Perguntas rápidas</b> não contam nessa conta: são blocos fixos da casa.</li>
         <li>Havendo evento, feche com o <b>serviço</b>: local, endereço, datas, horários, duração, classificação, preços e onde comprar.</li>
         <li>Parágrafos curtos. Varie o tamanho das frases. Um adjetivo forte vale mais que três fracos.</li>
       </ul>
@@ -1945,7 +1952,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // o mesmo pedido não vai duas vezes ao GitHub em menos de um minuto:
   // a Coxia lê as mesmas pastas em várias abas, e o limite por hora é curto
   // a Coxia muda toda semana: este carimbo diz qual versão está aberta
-  var COXIA_VERSAO = '20260802-222644';
+  var COXIA_VERSAO = '20260802-234416';
   var GH_CACHE = {};
   function ghCacheGet(chave){
     var c = GH_CACHE[chave];

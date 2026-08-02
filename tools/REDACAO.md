@@ -55,15 +55,52 @@ teatro, música e artes. Uma matéria do FOYER é uma REPORTAGEM completa,
 não uma nota de agenda. Padrão obrigatório:
 
 - Português do Brasil, jornalismo cultural profissional.
-- **Entre 750 e 1.100 palavras.** Menos de 750 palavras = matéria
-  reprovada, volta para o Repórter aprofundar.
+- **O tamanho vem do PORTE da matéria** (tabela abaixo), não de uma régua
+  única. Toda matéria declara `"porte"` no pacote, e o portão mecânico
+  cobra a faixa e a cota de intertítulos daquele porte.
 - Estrutura de reportagem: lide forte (o quê, quem, quando, onde e por
-  que importa); desenvolvimento com **3 ou mais intertítulos** (`## `);
-  contexto e histórico (trajetória dos artistas, montagens anteriores,
-  cenário do setor); detalhes de produção (ficha, números, bastidores
-  que as fontes tragam); e bloco de serviço completo ao final quando
-  houver evento (local, endereço, datas, horários, duração,
-  classificação, preços por setor, onde comprar).
+  que importa); desenvolvimento no fôlego que o porte pedir; contexto e
+  histórico (trajetória dos artistas, montagens anteriores, cenário do
+  setor); detalhes de produção (ficha, números, bastidores que as fontes
+  tragam); e bloco de serviço completo ao final quando houver evento
+  (local, endereço, datas, horários, duração, classificação, preços por
+  setor, onde comprar).
+
+### O PORTE DA MATÉRIA (ordem do Pedro, 02/08/2026)
+
+Até aqui a casa tinha **uma faixa só para tudo, 750 a 1.100 palavras**, e o
+resultado apareceu na medição das 28 últimas matérias publicadas: média de
+**1.027 palavras**, só uma abaixo de 700, e oito passando do teto. O piso
+virou alvo e o teto virou conselho. Pior: **23 das 28 tinham exatamente 4 ou
+5 intertítulos**. Era o mesmo esqueleto em toda matéria, e é isso que dá a
+sensação de padronizado.
+
+Por isso cada matéria nasce com um **porte**, e o porte manda em duas coisas
+ao mesmo tempo: quantas palavras e quantas seções. **Mexer só no tamanho não
+quebra o molde** — uma matéria de 400 palavras cortada em 5 seções continua
+sendo a mesma fôrma, só menor.
+
+| `porte` | Quando usar | Palavras | Intertítulos `## ` |
+|---|---|---|---|
+| `release` | release de peça/show com serviço: o serviço É a matéria | **350 a 500** | **nenhum** (texto corrido) |
+| `quente` | a notícia do dia, escrita para ser lida hoje | **400 a 600** | **até 2** |
+| `contextualizada` | a reportagem com fôlego: perfil, explicador, memória, casa de espetáculo, internacional apurada | **700 a 1.100** | **3 a 5** |
+| `lista` | lista, ranking e guia de fim de semana: cada indicação é uma seção | **900 a 1.500** | **5 a 14** |
+
+**`## Serviço` e `## Perguntas rápidas` não contam** como intertítulo: são
+blocos fixos da casa, não o esqueleto narrativo. Um release de 400 palavras
+leva o serviço normalmente, e deve levar.
+
+**O teto agora barra.** Abaixo do piso reprova; acima do teto reprova, com
+10% de folga (que sai como aviso). Não adianta declarar `contextualizada`
+numa matéria que é release para ganhar espaço: quem escolhe o porte é a
+PAUTA, e o Chefe de Redação confere se o porte declarado bate com o assunto.
+Na dúvida entre dois portes, **fica com o menor**: matéria curta bem apurada
+é melhor que matéria esticada.
+
+**Faixa, não número.** O piso não é meta. Um release resolvido em 380
+palavras está pronto em 380; encher para chegar a 500 é exatamente o vício
+que o piso de 750 criou.
 - Citações (`> `) sempre que as fontes trouxerem declarações textuais
   REAIS de artistas, diretores ou produtores, com atribuição no texto.
   Enriquecem muito a matéria — procurar ativamente por elas na apuração.
@@ -415,7 +452,32 @@ três ondas de agentes independentes, sem economizar agente:
   (qualquer necessidade factual volta para o checador). Ao final lista
   as frases que mudou, para conferência do orquestrador.
 
-Depois das três ondas, o orquestrador roda o portão mecânico
+### QUANTAS ONDAS CADA MATÉRIA LEVA (ordem do Pedro, 02/08/2026)
+
+A rodada de 03/08 gastou **1,38 milhão de tokens para 4 matérias** — cerca de
+345 mil cada. O texto é a menor parte disso: o gasto está em **dois agentes e
+meio por matéria**. Encolher a matéria sem encolher a esteira não economiza
+quase nada.
+
+Por isso o número de ondas segue o **porte**:
+
+| Porte | Onda 1 | Onda 2 (checagem) | Onda 3 (leitura fria) |
+|---|---|---|---|
+| `release` | sim | **sim** | **não** (o redator relê) |
+| `quente` | sim | sim | sim |
+| `contextualizada` | sim | sim | sim |
+| `lista` | sim | sim | sim |
+
+**A checagem NUNCA cai, em porte nenhum.** Num release, data, preço e
+endereço são a matéria inteira: errar ali é pior que errar numa contextualizada,
+porque o leitor vai até a bilheteria. O que cai no release é a **leitura fria
+em agente separado** — 400 palavras corridas não escondem ritmo de máquina do
+jeito que 1.100 escondem, e o próprio redator dá conta da releitura, com as
+regras de "Escrita humana" na mão.
+
+Nas demais, as três ondas seguem inteiras, sem economia.
+
+Depois das ondas, o orquestrador roda o portão mecânico
 (`tools/audita_pauta.py`), confere que a revisão de estilo não mexeu em
 fato (diff das mudanças listadas) e commita.
 
@@ -453,8 +515,9 @@ fato (diff das mudanças listadas) e commita.
 2. **Repórter** — apurar cada pauta A FUNDO, com várias buscas:
    confirmar datas, locais, nomes completos, valores de ingresso,
    declarações públicas, trajetória dos envolvidos, contexto do setor.
-   Baixar a foto oficial de divulgação. Escrever a REPORTAGEM completa
-   (750–1.100 palavras) no formato do corpo (abaixo).
+   Baixar a foto oficial de divulgação. Escrever a matéria no formato do
+   corpo (abaixo), **no tamanho e no número de seções do `porte`** que a
+   pauta pediu (ver "O PORTE DA MATÉRIA").
 3. **Editor de Estilo** — reler e lapidar: ritmo, clareza, repetições,
    clichês, concordância. Não acrescentar fatos nem remover informações.
 4. **Checador independente** — um agente SEPARADO, que não escreveu o
@@ -500,6 +563,7 @@ Blocos opcionais (usar quando enriquecem de verdade):
  "cat": "Teatro",
  "cats": ["Notícia", "Em Cartaz"],
  "author": "Redação Foyer",          // ou "Pedro Amaral" / "Isabel Branquinha", pela editoria
+ "porte": "contextualizada",         // release | quente | contextualizada | lista
  "img": "assets/uploads/<slug>.jpg",
  "imgCredito": "Foto: Divulgação",
  "corpo": "texto no formato da Coxia…",

@@ -30,6 +30,22 @@ CLICHES = ['imperdível', 'vibrante', 'promete emocionar', 'experiência única'
 
 FECHO_INSTA = 'Para conferir a matéria completa, acesse o site: www.foyer.digital'
 
+BLOCOS_FIXOS = {'serviço', 'servico', 'perguntas rápidas', 'perguntas rapidas'}
+
+# Os quatro portes de matéria (ordem do Pedro, 02/08/2026).
+# piso e teto de palavras, mínimo e máximo de intertítulos "## ".
+PORTES = {
+    # release de peça com serviço: o serviço É a matéria; texto corrido,
+    # sem quebra, porque quebrar 400 palavras em seções é encenação.
+    'release':          (350,  500, 0, 0),
+    # tema quente: notícia do dia, escrita para ser lida agora.
+    'quente':           (400,  600, 0, 2),
+    # matéria contextualizada: a reportagem com fôlego, o padrão da casa.
+    'contextualizada':  (700, 1100, 3, 5),
+    # lista, guia e ranking: cada item é uma seção, então intertítulo sobra.
+    'lista':            (900, 1500, 5, 14),
+}
+
 
 def _texto_limpo(corpo):
     t = re.sub(r'\[([^\]]+)\]\([^)]*\)', r'\1', corpo)
@@ -81,12 +97,39 @@ def auditar(caminho):
         if n:
             problemas.append(f'TRAVESSÃO em {nome} ({n} ocorrência(s))')
 
-    # 2. Tamanho da reportagem
+    # 2. Tamanho e forma da reportagem, pelo PORTE declarado no pacote.
+    #    Uma faixa só para tudo (o antigo 750-1.100) fazia toda matéria sair
+    #    do mesmo tamanho e com o mesmo esqueleto de 4 ou 5 intertítulos.
+    #    Cada porte agora tem faixa própria E cota própria de intertítulos:
+    #    é a segunda que quebra o molde, porque tamanho sozinho não quebra.
+    porte = (pg.get('porte') or 'contextualizada').strip().lower()
+    if porte not in PORTES:
+        problemas.append(f'PORTE desconhecido: "{porte}" '
+                         f'(use {", ".join(sorted(PORTES))})')
+        porte = 'contextualizada'
+    piso, teto, it_min, it_max = PORTES[porte]
     palavras = len(_texto_limpo(corpo).split())
-    if palavras < 750:
-        problemas.append(f'CURTA: {palavras} palavras (mínimo 750)')
-    elif palavras > 1300:
-        avisos.append(f'LONGA: {palavras} palavras (alvo 750 a 1.100)')
+    if palavras < piso:
+        problemas.append(f'CURTA: {palavras} palavras '
+                         f'(porte "{porte}" pede {piso} a {teto})')
+    elif palavras > teto * 1.1:
+        # o teto antigo era conselho e ninguém obedecia: 8 das 28 últimas
+        # passaram das 1.100. Agora ele barra, com 10% de folga.
+        problemas.append(f'LONGA: {palavras} palavras '
+                         f'(porte "{porte}" tem teto de {teto}; corte)')
+    elif palavras > teto:
+        avisos.append(f'ACIMA DO TETO: {palavras} palavras '
+                      f'(porte "{porte}" pede até {teto})')
+
+    # "Serviço" e "Perguntas rápidas" são blocos fixos da casa, não o
+    # esqueleto narrativo: não entram na conta. Sem isso, um release de 400
+    # palavras não poderia levar o serviço, que é justamente a razão dele.
+    inter = len([t for t in re.findall(r'^## +(.+)$', corpo, flags=re.M)
+                 if t.strip().lower().rstrip(':') not in BLOCOS_FIXOS])
+    if inter < it_min or inter > it_max:
+        alvo = f'{it_min} a {it_max}' if it_max else 'nenhum'
+        problemas.append(f'INTERTÍTULOS: {inter} '
+                         f'(porte "{porte}" pede {alvo})')
 
     # 3. Links internos: 3+, todos existindo no disco
     internos = [l for l in re.findall(r'\]\(([^)]+)\)', corpo) if not l.startswith('http')]
