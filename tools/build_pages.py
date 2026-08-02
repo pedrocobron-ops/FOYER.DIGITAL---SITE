@@ -6020,7 +6020,15 @@ print(f'sitemap: {len(urls)} URLs · news: {len(_news)} matéria(s) recentes')
 # Os endereços antigos (foyer.digital/post/<slug-com-acentos>) seguem indexados
 # no Google e espalhados pela internet. Quando o domínio apontar para cá, cada
 # um deles precisa levar o leitor (e o Google) à matéria nova: página-ponte com
-# redirecionamento imediato + canonical, noindex na ponte.
+# redirecionamento imediato + canonical.
+#
+# SEM noindex, de propósito. A ponte tinha as duas marcas ao mesmo tempo, e o
+# próprio Google avisa para não misturar: o canonical diz "a página de valor é
+# aquela ali", e o noindex diz "não indexe". Juntas, o noindex pode escorregar
+# para o destino — e o destino são as 1.531 matérias que carregam toda a
+# autoridade que o site juntou desde 2023. O canonical sozinho já impede a
+# ponte de aparecer na busca, e o redirecionamento imediato faz o Google
+# tratá-la como mudança de endereço, que é o que ela é.
 import urllib.parse as _up
 _n_pontes = 0
 for _m in MATERIAS:
@@ -6040,7 +6048,6 @@ for _m in MATERIAS:
 <meta charset="UTF-8">
 <title>{safe(_m['title'])} — FOYER</title>
 <link rel="canonical" href="{_alvo}">
-<meta name="robots" content="noindex">
 <meta http-equiv="refresh" content="0; url={_alvo}">
 <script>location.replace({_json.dumps(_alvo)});</script>
 </head>
