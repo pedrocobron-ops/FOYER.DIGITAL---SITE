@@ -3697,9 +3697,12 @@ revista_body = band('Newsletter semanal', 'A Revista do Foyer',
     <span class="note">Fechadas na Coxia, uma por semana</span>
   </div>
   {revista_listagem()}
-  <div class="ad-slot" data-ad-slot="1301"></div>
 </main>
 '''
+# A revista não recebe anúncio de rede. Ela é o que o leitor ganha por ter
+# deixado o e-mail, e é o espaço que a casa vende a preço de capa ao
+# anunciante direto — anúncio automático de terceiro ali enfraquece os dois.
+# (ordem do Pedro, 02/08/2026)
 
 # ---------------------------------------------------------------- ENCICLOPÉDIA (pessoas do acervo)
 try:

@@ -1,5 +1,11 @@
-# FOYER — ads.txt (exigido pelo Google AdSense)
-# Quando o AdSense aprovar o site, descomente a linha abaixo e
-# troque pub-0000000000000000 pelo seu ID de editor:
+# FOYER — ads.txt
+#
+# Este arquivo é o Google conferindo quem tem direito de vender anúncio
+# em foyer.digital. Sem ele preenchido, o AdSense trata o site como
+# "vendedor não declarado" e paga menos, ou não paga.
+#
+# PARA LIGAR: apague o # da linha abaixo e troque pub-0000000000000000
+# pelo ID de editor (adsense.google.com → Conta → Informações da conta).
+# Tem que ser o MESMO número que está em assets/ads.js.
 #
 # google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
