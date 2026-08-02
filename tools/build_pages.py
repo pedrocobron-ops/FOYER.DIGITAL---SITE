@@ -5932,6 +5932,13 @@ with open(os.path.join(ROOT, 'feed.xml'), 'w') as f:
                 + (f'<pubDate>{_pub}</pubDate>' if _pub else '') + '</item>\n')
     f.write('</channel></rss>\n')
 
+# O site da Wix servia o mesmo feed em /blog-feed.xml, e é esse endereço que
+# está guardado em quem assinou o RSS de lá. Depois da virada do domínio, ele
+# precisa continuar respondendo — com as matérias de hoje, não com a cópia
+# congelada de julho que estava parada aqui.
+import shutil as _shutil
+_shutil.copyfile(os.path.join(ROOT, 'feed.xml'), os.path.join(ROOT, 'blog-feed.xml'))
+
 with open(os.path.join(ROOT, 'robots.txt'), 'w') as f:
     f.write(f'User-agent: *\nAllow: /\nDisallow: /coxia.html\nDisallow: /coxia/\n\n'
             f'Sitemap: {BASE}/sitemap.xml\nSitemap: {BASE}/sitemap-news.xml\n')
