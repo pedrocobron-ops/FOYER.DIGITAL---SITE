@@ -1,6 +1,82 @@
 {
  "rodadas": [
   {
+   "quando": "2026-08-03T02:50:00+00:00",
+   "por": "Redator PEDRO (Claude), edição de segunda 03/08, 2 matérias, assinatura Pedro Amaral",
+   "buscas": [
+    "Ancine edital audiovisual agosto 2026 R$ milhões",
+    "box office July 2026 Variety weekend streaming deal",
+    "\"agosto de 2026\" cultura edital Lei Aldir Blanc Ministério da Cultura repasse",
+    "Ancine mercado audiovisual brasileiro notícia 31 de julho 2026",
+    "Cinemark second quarter 2026 results box office record earnings",
+    "Spotify Q2 2026 results royalties payouts music industry",
+    "Live Nation second quarter 2026 results concerts revenue record",
+    "bilheteria brasileira julho 2026 público cinemas Comscore Brasil filme nacional",
+    "\"julho de 2026\" cinema brasileiro financiamento notícia mercado Ancine FSA retomada",
+    "Live Nation Ticketmaster antitrust trial 2026 Department of Justice",
+    "filme brasileiro bilheteria 2026 milhão de espectadores julho agosto notícia",
+    "Netflix Prime Video investimento produção brasileira anúncio julho 2026",
+    "Deadline Variety film industry news week July 30 2026 studio deal streaming money",
+    "Cinemark Brasil salas número de cinemas 2026 maior rede exibidora",
+    "Filme B primeiro semestre 2026 bilheteria R$ 1,35 bilhão 62,4 milhões ingressos",
+    "Live Nation Rock in Rio participação acionária Brasil Ticketmaster operação",
+    "SEC EDGAR: Cinemark Holdings 10-Q 30/06/2026 e 10-K 31/12/2025",
+    "SEC EDGAR: Live Nation Entertainment 10-Q 30/06/2026, 10-K 2025, 10-Q 1T2018 e 8-K/A 2018 (Rock City S.A.)",
+    "Wikimedia Commons: Cinemark Guarulhos / Cinemark Brasil / Rock in Rio / Lollapalooza Brasil (licenças e tamanhos)",
+    "Cinemark Brasil Instagram oficial @cinemarkbrasil perfil",
+    "Rock in Rio Instagram oficial @rockinrio Ticketmaster Brasil instagram oficial",
+    "Ancine instagram oficial perfil agência nacional do cinema",
+    "\"instagram.com/livenation\" Live Nation official instagram account followers"
+   ],
+   "consideradas": [
+    {
+     "assunto": "Cinemark: primeiro trimestre de US$ 1 bilhão (resultado de 30/07/2026)",
+     "decisao": "escolhida",
+     "motivo": "Notícia de mercado da semana, apurada no 10-Q e no 10-K da SEC, com gancho brasileiro forte e inédito na imprensa daqui: preço do ingresso latino-americano contra o americano, 84 complexos e 615 salas no Brasil e o Brasil como única linha de país aberta no balanço. Foto Creative Commons verificada."
+    },
+    {
+     "assunto": "Live Nation: receita recorde de US$ 7,67 bilhões e US$ 450 milhões provisionados pela condenação antitruste",
+     "decisao": "escolhida",
+     "motivo": "Recorde e condenação no mesmo balanço, tudo em documento oficial. Amarra no Brasil pela compra de metade da Rock City S.A. (registrada na SEC em 2018) e pelo crescimento da América do Sul citado pela própria empresa. Foto Creative Commons verificada."
+    },
+    {
+     "assunto": "Bilheteria do fim de semana (Homem-Aranha, A Odisseia) e público dos cinemas brasileiros",
+     "decisao": "descartada",
+     "motivo": "Assunto já coberto por quatro matérias na mesa (Homem-Aranha, A Odisseia, 2,14 milhões de ingressos, maior fim de semana dos EUA). Entraria como repetição."
+    },
+    {
+     "assunto": "Para onde vai o dinheiro do ingresso de cinema no Brasil",
+     "decisao": "descartada",
+     "motivo": "Já agendada. A matéria da Cinemark foi escrita evitando o rateio da bilheteria entre distribuidor e exibidor, para não encostar nesse texto."
+    },
+    {
+     "assunto": "FSA/Ancine: linha Núcleos Criativos reaberta depois de nove anos, inscrições até 04/09/2026",
+     "decisao": "descartada",
+     "motivo": "Pauta boa e brasileira, mas não se achou foto de divulgação nem imagem de licença verificável, e o assunto encosta no explicador do Fundo Setorial que já está na mesa. Fica anotada para quando houver imagem."
+    },
+    {
+     "assunto": "Petrobras Cultural 2026, edital de R$ 270 milhões encerrado em 31/07",
+     "decisao": "descartada",
+     "motivo": "Já publicada/agendada pela casa."
+    },
+    {
+     "assunto": "Spotify e o pagamento de royalties (relatório Loud & Clear)",
+     "decisao": "descartada",
+     "motivo": "O relatório é de março de 2026, fora da janela de sete dias. Sem gancho novo na semana."
+    },
+    {
+     "assunto": "IMAX e Marcus Theatres, resultados do mesmo dia",
+     "decisao": "descartada",
+     "motivo": "Mesmo eixo da matéria da Cinemark, sem operação no Brasil que justifique uma segunda peça de exibição no mesmo dia."
+    }
+   ],
+   "produzidas": [
+    "cinemark-primeiro-trimestre-us-1-bilhao-america-latina-brasil",
+    "live-nation-trimestre-recorde-450-milhoes-condenacao-antitruste"
+   ],
+   "obs": "As duas matérias saem com checagem.verificada = false de propósito: nesta rodada o redator não faz o papel do checador, e a checagem independente e a leitura fria ficam para os agentes seguintes. As duas capas são Creative Commons do Wikimedia Commons, com autor e licença conferidos na página do arquivo, e não divulgação de produção: está registrado em chefe.ressalvas nos dois pacotes. Cortes feitos por não se reencontrar o dado na fonte: bilheteria brasileira do 1º semestre (R$ 1,35 bilhão / 62,4 milhões de ingressos), indenização de US$ 1,72 por ingresso no caso Live Nation, e as datas da próxima edição do Rock in Rio."
+  },
+  {
    "quando": "2026-08-03T02:30:00+00:00",
    "por": "Redator REDAÇÃO (Claude), edição de segunda 03/08, 2 matérias, assinatura Redação Foyer",
    "buscas": [
