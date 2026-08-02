@@ -37,6 +37,16 @@ ORG_LD = ('<script type="application/ld+json">{"@context":"https://schema.org",'
           '"sameAs":["https://www.youtube.com/@Foyer.digital","https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm"]'
           '}</script>')
 
+# A caixa de pesquisa que o Google mostra logo abaixo do site no resultado de
+# busca. Quem procura "foyer" ganha um campo para procurar DENTRO do acervo
+# sem precisar entrar antes — e o acervo do FOYER tem 1.531 matérias que
+# ninguém mais tem. Só aparece na capa; nas outras páginas não faz sentido.
+BUSCA_LD = ('<script type="application/ld+json">{"@context":"https://schema.org",'
+            '"@type":"WebSite","name":"FOYER",'
+            f'"url":"{BASE}/","potentialAction":{{"@type":"SearchAction",'
+            f'"target":{{"@type":"EntryPoint","urlTemplate":"{BASE}/busca.html?q={{search_term_string}}"}},'
+            '"query-input":"required name=search_term_string"}}</script>')
+
 def head(title, desc, og_img=None, og_type='website', og_url='', ld=''):
     t = _html.escape(title, quote=True)
     d = _html.escape(desc, quote=True)
@@ -1299,6 +1309,20 @@ busca_body = band('Ferramenta', 'Buscar', 'Todo o acervo do Foyer — 1.514 mat�
       : '<div class="ency-row"><span class="of">Nada encontrado</span></div>';
   }
   q.addEventListener('input', render);
+  // busca.html?q=alguma-coisa já chega procurando. Serve para link de fora,
+  // para o buscador do Google (a caixa de pesquisa que ele mostra abaixo do
+  // site) e para a pessoa poder mandar o resultado de uma busca a alguém.
+  try{
+    var veio = new URLSearchParams(location.search).get('q');
+    if(veio){
+      q.value = veio;
+      var tenta = 0;
+      (function espera(){
+        if(IDX.length || tenta++ > 40){ render(); return; }
+        setTimeout(espera, 100);
+      })();
+    }
+  }catch(e){}
 })();
 </script>
 '''
@@ -4335,7 +4359,8 @@ _SPLASH = '''<div id="abre" hidden>
 
 # capa tem ordem própria: ticker+masthead antes da nav
 capa_html = (head('FOYER — Teatro, Cultura & Arte',
-                  'FOYER — portal de teatro, música e cultura. Notícias, crítica, revista semanal, programas e a Enciclopédia do Teatro Musical Brasileiro.')
+                  'FOYER — portal de teatro, música e cultura. Notícias, crítica, revista semanal, programas e a Enciclopédia do Teatro Musical Brasileiro.',
+                  ld=BUSCA_LD)
              + '\n' + _SPLASH + '\n' + DEFS + '\n' + index_body + '\n' + UTIL + '\n' + nav('index.html')
              + '\n' + index_main + '\n' + ADS_CASA + FOOTER + '</body>\n</html>\n')
 with open(os.path.join(ROOT, 'index.html'), 'w') as f:
@@ -5819,6 +5844,13 @@ def _ld_materia(p):
         img = f'{BASE}/{img}'
     autor = p.get('author') or 'Redação Foyer'
     tipo_autor = 'Organization' if 'reda' in autor.lower() else 'Person'
+    # Assinatura com endereço próprio: no Google Notícias, quem assina conta
+    # tanto quanto o que está escrito, e a página do autor é o que prova que
+    # existe gente com nome por trás da matéria.
+    _a = {'@type': tipo_autor, 'name': autor}
+    _pag_autor = _AUTOR_PAGINA.get(autor)
+    if _pag_autor:
+        _a['url'] = f'{BASE}/{_pag_autor}'
     dados = {
         '@context': 'https://schema.org', '@type': 'NewsArticle',
         'headline': p['title'][:110],
@@ -5826,14 +5858,25 @@ def _ld_materia(p):
         'image': [img],
         'datePublished': p.get('isoFull') or p.get('iso', ''),
         'dateModified': (p.get('atualizado') or p.get('isoFull') or p.get('iso', ''))[:25],
-        'author': [{'@type': tipo_autor, 'name': autor}],
+        'author': [_a],
         'publisher': {'@type': 'NewsMediaOrganization', 'name': 'FOYER',
                       'logo': {'@type': 'ImageObject', 'url': f'{BASE}/assets/logo/foyer-stacked-gold.png'}},
         'mainEntityOfPage': f"{BASE}/post-{p['slug']}.html",
         'inLanguage': 'pt-BR',
         'articleSection': p.get('cat', ''),
     }
-    return '<script type="application/ld+json">' + _json.dumps(dados, ensure_ascii=False) + '</script>'
+    # A trilha "FOYER › Teatro › matéria" que o Google mostra no lugar do
+    # endereço cru no resultado de busca. Muda o que o leitor vê antes de
+    # clicar, e não custa nada.
+    _cat = (p.get('cat') or '').strip()
+    _pag_cat = f"cat-{_cat_slug(_cat)}.html" if _cat else ""
+    trilha = [{'@type': 'ListItem', 'position': 1, 'name': 'FOYER', 'item': f'{BASE}/'}]
+    if _cat and os.path.exists(os.path.join(ROOT, _pag_cat)):
+        trilha.append({'@type': 'ListItem', 'position': 2, 'name': _cat, 'item': f'{BASE}/{_pag_cat}'})
+    trilha.append({'@type': 'ListItem', 'position': len(trilha) + 1, 'name': p['title'][:110]})
+    migalhas = {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': trilha}
+    return ('<script type="application/ld+json">' + _json.dumps(dados, ensure_ascii=False) + '</script>'
+            '<script type="application/ld+json">' + _json.dumps(migalhas, ensure_ascii=False) + '</script>')
 
 for _i, _p in enumerate(MATERIAS):
     page('post-' + _p['slug'] + '.html', _p['title'] + ' — FOYER', _p['desc'][:200], 'noticias.html', post_page(_i, _p), quiet=True,

@@ -181,6 +181,20 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
       : '<div class="ency-row"><span class="of">Nada encontrado</span></div>';
   }
   q.addEventListener('input', render);
+  // busca.html?q=alguma-coisa já chega procurando. Serve para link de fora,
+  // para o buscador do Google (a caixa de pesquisa que ele mostra abaixo do
+  // site) e para a pessoa poder mandar o resultado de uma busca a alguém.
+  try{
+    var veio = new URLSearchParams(location.search).get('q');
+    if(veio){
+      q.value = veio;
+      var tenta = 0;
+      (function espera(){
+        if(IDX.length || tenta++ > 40){ render(); return; }
+        setTimeout(espera, 100);
+      })();
+    }
+  }catch(e){}
 })();
 </script>
 
