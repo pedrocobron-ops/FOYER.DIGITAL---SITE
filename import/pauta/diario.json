@@ -1,6 +1,66 @@
 {
  "rodadas": [
   {
+   "quando": "2026-08-03T02:30:00+00:00",
+   "por": "Redator REDAÇÃO (Claude), edição de segunda 03/08, 2 matérias, assinatura Redação Foyer",
+   "buscas": [
+    "Teatro Municipal de Ouro Preto Casa da Ópera 1770 teatro mais antigo das Américas",
+    "Casa da Ópera Ouro Preto João de Souza Lisboa 1770 restauro 2023 reabertura Iphan",
+    "Ouro Preto 1980 Unesco patrimônio mundial primeira cidade brasileira lista",
+    "ópera teatro notícia mundial agosto 2026 anúncio histórico",
+    "teatro notícia internacional julho 2026 patrimônio restauração ópera reabertura",
+    "theatre news July 2026 Playbill The Stage discovery archive",
+    "Playbill Broadway news week July 27 2026",
+    "West End theatre news announcement 31 July 2026 / 1 August 2026",
+    "Guardian stage news theatre discovery restoration late July 2026",
+    "St George's Guildhall King's Lynn oldest working theatre Shakespeare stage restoration 2026",
+    "\"August 2026\" theatre archaeology discovery ancient theatre excavation",
+    "\"ponto\" teatro profissão soprava texto ator \"caixa do ponto\" concha história",
+    "\"ponto\" teatro brasileiro história profissão Procópio Ferreira decorar texto",
+    "Enciclopédia Itaú Cultural verbete \"ponto\" teatro termo técnico ator esquecer texto Brasil",
+    "\"Sopro\" Tiago Rodrigues Cristina Vidal ponto Avignon 2017 espetáculo Brasil temporada",
+    "Marco Nanini \"ponto eletrônico\" teatro entrevista revelou usa",
+    "Wikimedia Commons: Casa da Opera Ouro Preto / prompt box / Souffleurkasten / buca del suggeritore / apuntador teatro"
+   ],
+   "consideradas": [
+    {
+     "assunto": "Casa da Ópera de Vila Rica / Teatro Municipal de Ouro Preto (1770)",
+     "decisao": "escolhida",
+     "motivo": "prato do dia de segunda (Casas de Espetáculo) sem colidir com o Theatro José de Alencar já agendado; fartura de fonte oficial (Prefeitura de Ouro Preto), três aspas reais no O Tempo e foto CC BY-SA 4.0 do interior no Wikimedia Commons"
+    },
+    {
+     "assunto": "O ofício do ponto no teatro",
+     "decisao": "escolhida",
+     "motivo": "ofício invisível ainda não coberto pela casa, distinto do explicador de contrarregra, com gancho recente (oficina do Teatro Nacional D. Maria II em janeiro de 2026 para formar e contratar um ponto) e aspas reais em Observador, Russia Beyond e Diário do Grande ABC"
+    },
+    {
+     "assunto": "Unesco declara os teatros de ópera da Amazônia patrimônio mundial (27/07/2026)",
+     "decisao": "descartada",
+     "motivo": "a casa já publicou as histórias do Teatro Amazonas e do Theatro da Paz cobrindo o mesmo fato; entrou apenas como contexto e link interno"
+    },
+    {
+     "assunto": "Reabertura do Teatro Castro Alves, em Salvador (01/07/2026)",
+     "decisao": "descartada",
+     "motivo": "boa pauta, mas seria a segunda história de casa de espetáculo do mesmo dia e o eixo forte dela é orçamento de reforma, o que a empurra para a editoria de mercado"
+    },
+    {
+     "assunto": "St George's Guildhall, em King's Lynn, e o palco ligado a Shakespeare",
+     "decisao": "descartada",
+     "motivo": "fontes divergem sobre a data de reabertura (2026 em uma reportagem, 2028 na informação oficial do conselho municipal); sem confirmação, não vai à mesa"
+    },
+    {
+     "assunto": "Rodada de notícia internacional de Broadway e West End da semana",
+     "decisao": "descartada",
+     "motivo": "a varredura de 31/07 a 02/08 não achou fato de repercussão que já não estivesse na mesa (Trainspotting, Cats, Game of Thrones no RSC, Ragtime, Hadestown)"
+    }
+   ],
+   "produzidas": [
+    "casa-da-opera-ouro-preto-teatro-mais-antigo-das-americas",
+    "o-que-faz-o-ponto-no-teatro"
+   ],
+   "obs": "As duas matérias passaram no portão mecânico com um único aviso, o de checagem independente pendente: quem escreveu não checa, e a onda 2 preenche o campo checagem. Dois cortes por dúvida: o valor da restauração da Casa da Ópera saiu do texto (R$ 750 mil no O Tempo contra R$ 800 mil no Estado de Minas e na Itatiaia, sem fonte oficial que decida), e o tempo de profissão de Cristina Vidal saiu porque o dado é de 2017. A capa da matéria do ponto é o caderno de ponto da estreia de Die Räuber (1782), do Reiss-Engelhorn-Museen, em domínio público no Wikimedia Commons: não há foto de espetáculo porque a matéria não cobre montagem específica. Um único arroba entrou sem confirmação (@marconanini), marcado como tal para o Pedro conferir antes de marcar."
+  },
+  {
    "quando": "2026-08-02T12:00:00+00:00",
    "por": "Redator REDAÇÃO (Claude) — rodada de domingo 02/08, 2 matérias, assinatura Redação Foyer",
    "buscas": [
