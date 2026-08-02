@@ -7248,7 +7248,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var mo = $('mail-overlay'); if(mo) mo.addEventListener('click', function(e){ if(e.target === this) fechaOverlays(); });
   })();
 
-  function enviarEdicao(teste){
+  function enviarEdicao(teste, forcar){
     var ed = RV.ed; if(!ed) return;
     var RB = 'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/';
     var capa = (ed.capa && ed.capa.img) ? (/^https?:/.test(ed.capa.img) ? ed.capa.img : RB + ed.capa.img) : '';
@@ -7258,16 +7258,38 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       edicao: { numero: ed.numero, titulo: ed.titulo || ('Edição Nº ' + ed.numero),
                 manchete: (ed.capa && ed.capa.manchete) || '', capa: capa,
                 url: 'https://foyer.digital/revista.html' },
-      teste: teste || undefined
+      teste: teste || undefined,
+      forcar: forcar || undefined
     };
     var msg = $('rv-msg'); msg.className = 'msg'; msg.textContent = teste ? 'Enviando teste…' : 'Enviando para os assinantes…';
     return fetch(RKC.url + '/functions/v1/enviar-revista', {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
     }).then(function(r){ return r.json(); }).then(function(res){
-      if(res.pendente){ msg.className='msg err'; msg.textContent='Falta configurar a chave do Brevo no Supabase (secret BREVO_KEY). Assim que você criar a conta, me passe a chave que eu ligo.'; return; }
+      if(res.pendente){
+        msg.className='msg err';
+        msg.textContent='Falta a chave do Brevo. No painel do Supabase: Edge Functions → Secrets → BREVO_KEY. ' +
+          'A chave você mesmo cola lá; ela não passa por aqui.';
+        return;
+      }
+      // a edição já saiu uma vez: e-mail não tem botão de desfazer, então a
+      // repetição só acontece se a pessoa insistir sabendo o que está fazendo
+      if(res.jaEnviada){
+        msg.className='msg err'; msg.textContent = res.erro;
+        confirmar(res.erro + ' Só repita se a primeira leva não chegou.',
+          { titulo:'Enviar a edição Nº ' + res.numero + ' DE NOVO?', rotuloOk:'Enviar de novo', perigo:true })
+          .then(function(sim){ if(sim) enviarEdicao(teste, true); });
+        return;
+      }
       if(res.erro){ msg.className='msg err'; msg.textContent='Não deu: ' + res.erro; return; }
+      // falha com motivo: sem isto, "3 falhas" não diz o que consertar
+      if(res.falhas && res.motivo){
+        msg.className='msg err';
+        msg.textContent = (res.enviados ? res.enviados + ' entregue(s) e ' : '') + res.falhas + ' falha(s). ' +
+          res.motivo + (res.remetente ? ' (remetente usado: ' + res.remetente + ')' : '');
+        return;
+      }
       msg.className='msg ok';
-      msg.textContent = teste ? ('Teste enviado ✓ (' + res.enviados + ') — confira sua caixa')
+      msg.textContent = teste ? ('Teste enviado ✓ (' + res.enviados + ') — confira sua caixa, inclusive o spam')
         : ('Enviada aos assinantes ✓ — ' + res.enviados + ' entregue(s)' + (res.falhas ? ', ' + res.falhas + ' falha(s)' : ''));
     }).catch(function(){ msg.className='msg err'; msg.textContent='Não deu para enviar agora. Tente de novo.'; });
   }
