@@ -29,9 +29,9 @@
    ============================================================ */
 
 window.FOYER_ADS = {
-  ligado: false,                        // vira true quando 'unidade' estiver preenchida
+  ligado: true,
   editor: 'ca-pub-5861702469763970',    // conta programafoyer@gmail.com
-  unidade: ''                           // ← falta: número da unidade criada no AdSense
+  unidade: '5626283619'                 // bloco "FOYER — geral", display responsivo
 };
 
 (function(){
@@ -49,6 +49,13 @@ window.FOYER_ADS = {
     return;
   }
 
+  // Página sem espaço reservado (a revista) não carrega NADA do Google. Não
+  // basta não montar os espaços: a conta do FOYER está com "anúncios
+  // automáticos" ligada, e o script sozinho já autoriza o Google a enfiar
+  // anúncio onde ele quiser — inclusive no meio do folhear da revista.
+  var espacos = document.querySelectorAll('.ad-slot');
+  if(!espacos.length) return;
+
   // sem "Aceitar tudo" explícito, o anúncio roda sem perfilar ninguém
   if(!(window.foyerConsent && window.foyerConsent() === 'tudo')){
     window.adsbygoogle = window.adsbygoogle || [];
@@ -62,7 +69,6 @@ window.FOYER_ADS = {
   s.crossOrigin = 'anonymous';
   document.head.appendChild(s);
 
-  var espacos = document.querySelectorAll('.ad-slot');
   for(var i = 0; i < espacos.length; i++){
     var el = espacos[i];
     var ins = document.createElement('ins');
