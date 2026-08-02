@@ -15,6 +15,7 @@ ou é citada em 2+ matérias diferentes (corta falso positivo de citação únic
 """
 import json, os, re, unicodedata
 from collections import defaultdict
+from datetime import datetime, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -143,6 +144,9 @@ def main():
     # inclui as matérias publicadas pela Coxia (import/novas) que não estão no índice do Wix
     ja = {m['slug'] for m in materias}
     novas_dir = f'{ROOT}/import/novas'
+    # a mesma hora que o build_pages usa para decidir o que já está no ar
+    agora_utc = datetime.now(timezone.utc).isoformat()
+    agendadas = 0
     if os.path.isdir(novas_dir):
         for f in sorted(os.listdir(novas_dir)):
             if not f.endswith('.json'):
@@ -152,6 +156,13 @@ def main():
             except Exception:
                 continue
             if n.get('slug') in ja:
+                continue
+            # matéria agendada ainda não tem página. Citar o nome dela aqui
+            # criaria um link para o vazio na página da pessoa — e a
+            # enciclopédia entregaria a pauta antes da hora.
+            pub = n.get('publishAt') or ''
+            if pub and pub > agora_utc:
+                agendadas += 1
                 continue
             materias.insert(0, {'slug': n['slug'], 'title': n['title'],
                                 'author': n.get('author', ''), 'desc': '',
@@ -253,7 +264,8 @@ def main():
     saida = {'pessoas': finais, 'porMateria': por_materia, 'porVideo': por_video}
     json.dump(saida, open(f'{ROOT}/import/enciclopedia.json', 'w'),
               ensure_ascii=False, indent=1)
-    print(f'pessoas com verbete: {len(finais)}')
+    print(f'pessoas com verbete: {len(finais)}'
+          + (f' · {agendadas} matéria(s) agendada(s) fora, ainda sem página' if agendadas else ''))
     top = sorted(finais.items(), key=lambda x: len(x[1]['aparicoes']), reverse=True)[:25]
     for sp, p in top:
         print(f"  {len(p['aparicoes']):4d}  {p['nome']}")
