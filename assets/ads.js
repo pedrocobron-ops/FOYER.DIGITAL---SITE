@@ -28,10 +28,21 @@
    conservador, e só afrouxa com um "Aceitar tudo" explícito.
    ============================================================ */
 
+// Uma unidade por LUGAR da página, nunca a mesma duas vezes na mesma tela.
+// Com os dois espaços da capa pedindo pela mesma unidade, o Google entendeu
+// que era o mesmo lugar e mandou o mesmo anúncio duas vezes — na estreia,
+// a Starlink apareceu em cima e embaixo. Blocos distintos resolvem, e é o
+// que o próprio Google recomenda: um bloco por posição.
+//
+// A lista é percorrida na ordem em que os espaços aparecem na página. Como
+// nenhuma página do FOYER tem mais de dois, duas unidades já bastam; a
+// terceira fica de folga para quando algum lugar novo entrar.
 window.FOYER_ADS = {
   ligado: true,
   editor: 'ca-pub-5861702469763970',    // conta programafoyer@gmail.com
-  unidade: '5626283619'                 // bloco "FOYER — geral", display responsivo
+  unidades: [
+    '5626283619',                       // "FOYER — geral"  (1º espaço da página)
+  ]
 };
 
 (function(){
@@ -75,9 +86,13 @@ window.FOYER_ADS = {
     ins.className = 'adsbygoogle';
     ins.style.display = 'block';
     ins.setAttribute('data-ad-client', cfg.editor);
-    // o número da unidade vem do AdSense. Os números do HTML (1001, 2001…)
+    // O número da unidade vem do AdSense. Os números do HTML (1001, 2001…)
     // dizem só a posição no desenho, e o Google não os conhece.
-    var u = el.getAttribute('data-ad-unidade') || cfg.unidade;
+    // Cada espaço da página pega a unidade seguinte da lista; se a lista
+    // acabar, ela recomeça — pior caso, volta a repetir, que é o que já
+    // acontecia antes.
+    var lista = cfg.unidades && cfg.unidades.length ? cfg.unidades : [cfg.unidade];
+    var u = el.getAttribute('data-ad-unidade') || lista[i % lista.length];
     if(u) ins.setAttribute('data-ad-slot', u);
     ins.setAttribute('data-ad-format', el.getAttribute('data-ad-format') || 'auto');
     ins.setAttribute('data-full-width-responsive', 'true');
