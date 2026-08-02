@@ -3,6 +3,33 @@
 Checklist na ordem exata. Nada aqui é destrutivo até o passo 4; dá para voltar
 atrás a qualquer momento removendo o arquivo CNAME.
 
+## 0. O RETRATO DE ANTES — para desfazer, se precisar
+
+Estado do domínio em 02/08/2026, 12h20 de Brasília, antes de mexer em nada.
+Registrador: GoDaddy (vence 24/06/2027). DNS: nameservers da Wix
+(`ns4.wixdns.net`, `ns5.wixdns.net`), então quem manda nos registros é o
+painel da Wix. TTL de 1 hora — mudanças levam até uma hora para valer para
+todo mundo.
+
+| O quê | Valor de antes |
+|---|---|
+| `A` de `foyer.digital` | `185.230.63.186`, `185.230.63.171`, `185.230.63.107` (Wix) |
+| `CNAME` de `www` | `cdn1.wixdns.net` |
+| `MX` | `aspmx.l.google.com` (10), `alt1` (20), `alt2` (30), `alt3` (40), `alt4` (50) |
+| `TXT` | `v=spf1 include:_spf.google.com ~all` |
+| `TXT` | `google-site-verification=JIdgUmQ6Rhk8ZCyaMWJNAX9JUiDGQ6whWs5KxJahbM8` |
+| `TXT` | `google-site-verification=D_UqCmCcYkqqKg8YGniJZfd_UAqmfHZolfj5TUKSneE` |
+| `CAA` | nenhum |
+| `_dmarc` | nenhum |
+
+**Para voltar atrás:** devolver os três `A` e o `CNAME` de `www` acima, e
+apagar o arquivo `CNAME` da raiz do repositório. O site antigo volta em até
+uma hora.
+
+**Nunca mexer no `MX` nem nos `TXT`:** são o e-mail da empresa
+(`pedroamaral@foyer.digital`) e a verificação do Google. Trocar o site não
+tem nada a ver com o e-mail — o e-mail continua na Google, onde sempre esteve.
+
 ## 1. DNS (no painel onde o domínio está registrado)
 
 - Registro `A` de `foyer.digital` para os IPs do GitHub Pages:
