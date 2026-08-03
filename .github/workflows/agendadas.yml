@@ -6,6 +6,13 @@ on:
     # 00:02 em Brasília: a virada das temporadas de publicidade
     - cron: '2 3 * * *'
   workflow_dispatch:
+  # O pêndulo do Supabase. O horário do GitHub acima é uma intenção, não uma
+  # promessa: em 03/08/2026 ele ficou 2h43 sem rodar e segurou no ar uma
+  # matéria marcada para as 9h10. O relógio do Supabase bate na hora, e de
+  # dez em dez minutos manda este aviso. Quem decide se há algo vencido
+  # continua sendo a etapa "verificar" logo abaixo.
+  repository_dispatch:
+    types: [relogio]
 
 permissions:
   contents: read
