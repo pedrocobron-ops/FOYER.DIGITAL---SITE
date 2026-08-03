@@ -381,6 +381,16 @@ guias; as demais matérias seguem com assinatura individual e trava
 exclusiva do dono. Nas páginas de autor do site, o guia aparece na
 página dos dois.
 
+**A PÁGINA "QUEM SOMOS" CRESCE SOZINHA (ordem do Pedro, 03/08/2026):** ela
+mostra o perfil de quem assina (retrato, cargo, o que cobre, bio e quantas
+matérias) e abre num "Ver todos que fazem o FOYER acontecer" com a casa
+inteira. **Nada disso está escrito no gerador**: tudo sai da aba **Equipe da
+Coxia**, o mesmo cadastro que sustenta a página de autor. Quem entra na
+redação aparece na página no deploy seguinte, sem ninguém mexer no código.
+Sem foto, a moldura mostra o monograma da pessoa em vez de ficar vazia.
+A lista traz só a equipe da casa: críticos e apresentadores convidados dos
+programas assinam o que dizem em vídeo e não entram como redação.
+
 **O PERFIL DE QUEM ASSINA (ordem do Pedro, 30/07/2026):** a página de
 autor do site é montada a partir da aba **Equipe** da Coxia. Cada pessoa
 tem **foto, cargo, o que cobre e bio**, gravados em `import/equipe.json`

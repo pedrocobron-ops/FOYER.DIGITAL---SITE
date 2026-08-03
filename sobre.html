@@ -152,15 +152,98 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 </header>
 
 <main id="conteudo" class="wrap">
+  <style>
+    .eq-bloco{ max-width:900px; margin:34px auto 0; }
+    .eq-card{ display:flex; gap:24px; align-items:flex-start; border:var(--b);
+      background:var(--paper-2); padding:22px; margin-bottom:16px; }
+    /* a moldura é quadrada e a foto é CORTADA no centro, nunca espremida */
+    .eq-foto{ flex:0 0 132px; width:132px; height:132px; border:3px solid var(--ink);
+      background:var(--wine); overflow:hidden; display:flex; align-items:center; justify-content:center; }
+    .eq-foto img{ width:100%; height:100%; object-fit:cover; object-position:center 25%; display:block; }
+    .eq-foto .mono{ font-family:var(--didone); font-size:2.6rem; color:var(--gold); line-height:1; }
+    .eq-txt{ min-width:0; }
+    .eq-txt h3{ font-family:var(--didone); font-weight:400; font-size:1.9rem; line-height:1; margin:0 0 6px; }
+    .eq-cargo{ display:inline-block; font-family:var(--mono); font-size:.56rem; font-weight:600;
+      letter-spacing:.18em; text-transform:uppercase; color:var(--gold-hi);
+      background:var(--wine); padding:5px 9px 4px; margin-bottom:12px; }
+    .eq-txt p{ font-size:.95rem; line-height:1.65; margin:0 0 10px; }
+    .eq-cobre{ color:var(--ink-soft); }
+    .eq-mais{ display:inline-block; font-family:var(--sans); font-weight:700; font-size:.82rem;
+      border-bottom:2px solid var(--gold); padding-bottom:2px; }
+    .eq-todos{ border:var(--b); background:var(--paper); margin-top:8px; }
+    .eq-todos summary{ cursor:pointer; padding:16px 20px; font-family:var(--sans); font-weight:800;
+      font-size:.92rem; list-style:none; display:flex; align-items:center; gap:10px; }
+    .eq-todos summary::-webkit-details-marker{ display:none; }
+    .eq-todos summary::before{ content:'▸'; color:var(--gold); font-size:1.1rem; }
+    .eq-todos[open] summary::before{ content:'▾'; }
+    .eq-todos summary:hover{ background:var(--paper-2); }
+    .eq-todos summary:focus-visible{ outline:3px solid var(--gold); outline-offset:-3px; }
+    .eq-rol{ border-top:var(--b); }
+    .eq-linha{ display:grid; grid-template-columns:1fr auto auto 20px; gap:14px; align-items:baseline;
+      padding:14px 20px; border-bottom:1px solid var(--line); }
+    .eq-linha:last-child{ border-bottom:0; }
+    .eq-linha:hover{ background:var(--paper-2); }
+    .eq-n{ font-family:var(--sans); font-weight:800; font-size:.98rem; }
+    .eq-f{ font-family:var(--mono); font-size:.58rem; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--ink-soft); }
+    .eq-q{ font-family:var(--mono); font-size:.58rem; letter-spacing:.08em; color:var(--ink-soft); }
+    .eq-nota{ font-size:.86rem; line-height:1.6; color:var(--ink-soft);
+      padding:14px 20px 18px; margin:0; border-top:1px solid var(--line); }
+    @media (max-width:620px){
+      .eq-card{ flex-direction:column; gap:14px; padding:16px; }
+      .eq-foto{ flex:0 0 104px; width:104px; height:104px; }
+      .eq-txt h3{ font-size:1.5rem; }
+      .eq-linha{ grid-template-columns:1fr 20px; gap:2px 10px; }
+      .eq-f, .eq-q{ grid-column:1; }
+      .eq-linha .ar{ grid-row:1; grid-column:2; }
+    }
+  </style>
   <div class="art" style="max-width:820px; margin:0 auto">
     <div class="art-body" style="padding-top:34px">
       <p class="drop">O FOYER é um veículo de comunicação artístico — um destino online dedicado à cultura, à criatividade e à expressão artística. Nossa missão é proporcionar uma plataforma dinâmica onde artistas, entusiastas da arte e curiosos possam se conectar, explorar e se inspirar.</p>
       <p>Com uma ampla variedade de conteúdo, da música e do teatro à literatura e à dança, abraçamos todas as formas de expressão criativa: somos o ponto de encontro para descobrir talentos emergentes, acompanhar as tendências e mergulhar nas histórias por trás das obras e das performances. Seja você um artista em ascensão, um apreciador de arte ou alguém que busca se envolver no mundo da cultura, o FOYER é o seu guia para explorar, aprender e se conectar.</p>
       <h2>O que fazemos</h2>
       <p>São <b>1578 matérias</b> publicadas — notícias, críticas, entrevistas e serviço — e <b>132 episódios</b> nos programas do canal, entre eles o <b>Programa do Foyer</b> (nosso talk com elencos e criadores), as críticas em vídeo de <b>Críticas Teatrais</b> e <b>Por Bruno Cavalcanti</b>, o game show <b>Trivia Musical</b> e o <b>Session Musical</b>, em que o teatro musical brasileiro canta em estúdio.</p>
-      <h2>Quem fundou</h2>
-      <p><b>Isabel Branquinha</b> — Cofundadora. Jornalista, atriz, dramaturga, apresentadora e produtora. Graduada com ênfase na crítica teatral, atuou em diversas áreas — inclusive como tradutora-intérprete de produtores internacionais do Festival Lollapalooza. Atua como social media, assessora de imprensa, redatora, jornalista cultural, diretora de conteúdo e produtora cultural.</p>
-      <p><b>Pedro Amaral</b> — Cofundador. Ator, dramaturgo, apresentador e produtor. Nascido em Santos e radicado em São Paulo, é bacharel em atuação pelo Célia Helena Centro de Artes e Educação e pós-graduado em Dramaturgia e Roteiro pela mesma instituição.</p>
+    </div>
+  </div>
+
+  <section class="eq-bloco" aria-labelledby="eq-tit">
+    <div class="sec-head"><h2 id="eq-tit">Quem assina</h2>
+      <span class="note">os dois que fundaram a casa em 2023 e seguem à frente dela</span></div>
+      <article class="eq-card">
+        <div class="eq-foto"><img src="assets/uploads/equipe-pedro-ms8zcb5h.jpg" alt="Pedro Amaral" width="132" height="132" loading="lazy"></div>
+        <div class="eq-txt">
+          <h3>Pedro Amaral</h3>
+          <span class="eq-cargo">Fundador e editor-chefe</span>
+          <p class="eq-cobre"><b>Cobre:</b> mercado e economia criativa, bilheteria e financiamento da cultura, cinema e streaming</p><p>Ator, dramaturgo, apresentador e produtor. Nascido em Santos e radicado em São Paulo, é bacharel em atuação pelo Célia Helena Centro de Artes e Educação, onde também se pós-graduou em Dramaturgia e Roteiro.</p><p>Fundou o FOYER em 2023, com Isabel Branquinha, e dirige a redação desde então.</p>
+          <a class="eq-mais" href="autor-pedro-amaral.html">Ver as 124 matérias de Pedro →</a>
+        </div>
+      </article>
+      <article class="eq-card">
+        <div class="eq-foto"><span class="mono" aria-hidden="true">IB</span></div>
+        <div class="eq-txt">
+          <h3>Isabel Branquinha</h3>
+          <span class="eq-cargo">Cofundadora e editora</span>
+          <p class="eq-cobre"><b>Cobre:</b> estreias e temporadas de teatro, a cena das artes em São Paulo</p><p>Jornalista, atriz, dramaturga, apresentadora e produtora. Graduada com ênfase na crítica teatral, atuou em diversas áreas, inclusive como tradutora-intérprete de produtores internacionais do Festival Lollapalooza.</p><p>Fundou o FOYER em 2023, com Pedro Amaral, e edita a cobertura de teatro desde então.</p>
+          <a class="eq-mais" href="autor-isabel-branquinha.html">Ver as 1274 matérias de Isabel →</a>
+        </div>
+      </article>
+
+    <details class="eq-todos">
+      <summary>Ver todos que fazem o FOYER acontecer (3)</summary>
+      <div class="eq-rol">
+      <a class="eq-linha" href="autor-pedro-amaral.html"><span class="eq-n">Pedro Amaral</span><span class="eq-f">Fundador e editor-chefe</span><span class="eq-q">124 matérias</span><span class="ar">→</span></a>
+      <a class="eq-linha" href="autor-isabel-branquinha.html"><span class="eq-n">Isabel Branquinha</span><span class="eq-f">Cofundadora e editora</span><span class="eq-q">1274 matérias</span><span class="ar">→</span></a>
+      <a class="eq-linha" href="autor-redacao-foyer.html"><span class="eq-n">Redação Foyer</span><span class="eq-f">Assinatura coletiva da casa</span><span class="eq-q">31 matérias</span><span class="ar">→</span></a>
+      </div>
+      <p class="eq-nota">Esta lista é a equipe da casa. Quem entra na redação aparece aqui, com página
+      própria e o nome linkado no pé de cada matéria que assinar. Os programas do canal têm ainda
+      críticos e apresentadores convidados, que assinam o que dizem em vídeo.</p>
+    </details>
+  </section>
+
+  <div class="art" style="max-width:820px; margin:0 auto">
+    <div class="art-body">
       <h2>Como trabalhamos</h2>
       <p>Título sem caça-clique, apuração com fonte e serviço completo ao final. Parte das matérias assinadas como <b>Redação Foyer</b> conta com apuração assistida por inteligência artificial — todas são revisadas, checadas e aprovadas por um editor humano antes de ir ao ar. Fotografias são sempre de divulgação oficial, com o devido crédito. Conteúdo publicitário, quando houver, é identificado como tal.</p>
       <p>O FOYER é um veículo independente: quem sustenta a redação é a venda de espaço publicitário,

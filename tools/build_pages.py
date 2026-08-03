@@ -4285,21 +4285,162 @@ try:
 except Exception:
     _EQ_PUB = []
 
-_eq_linhas = ''.join(
-    f'<li><b>{_rvesc(u["nome"])}</b> · {"Direção e edição" if u.get("papel") == "chefe" else "Redação"}</li>'
-    for u in _EQ_PUB)
 _n_eps = sum(len(p.get('videos', [])) for p in YT.get('programas', []))
+
+# ---- QUEM FAZ O FOYER (ordem do Pedro, 03/08/2026)
+# A página "Quem somos" tinha dois parágrafos secos sobre os fundadores e
+# nada mais. Agora ela mostra o perfil de quem assina, com retrato, e abre
+# para a casa inteira.
+#
+# A REGRA QUE MANDA AQUI: nada nesta seção é escrito no código. Nome, cargo,
+# o que a pessoa cobre, bio e foto saem da aba **Equipe da Coxia**
+# (import/equipe.json), com o mesmo texto que já sustenta a página de autor.
+# Quem entra na casa aparece nesta página sozinho, sem ninguém mexer no
+# gerador — que é justamente o que o Pedro pediu.
+_mats_por_autor = {}
+for _p in MATERIAS:
+    _mats_por_autor[_p.get('author', '')] = _mats_por_autor.get(_p.get('author', ''), 0) + 1
+
+def _eq_slug(nome):
+    import unicodedata as _u
+    return _re.sub(r'[^a-z0-9]+', '-',
+                   _u.normalize('NFKD', nome).encode('ascii', 'ignore').decode().lower()).strip('-')
+
+def _iniciais(nome):
+    partes = [x for x in str(nome).split() if len(x) > 2]
+    return ''.join(p[0] for p in partes[:2]).upper() or (str(nome)[:1].upper() or '·')
+
+def _perfil(nome):
+    """Junta o que a casa sabe de uma pessoa: o registro da Coxia por cima do
+    que o gerador já conhece das assinaturas."""
+    sp = _eq_slug(nome)
+    base = dict(AUTORES.get(sp) or {'nome': nome, 'cargo': '', 'cobre': '', 'bio': ''})
+    base['slug'] = sp
+    base['materias'] = _mats_por_autor.get(nome, 0)
+    return base
+
+def _cartao_equipe(nome):
+    a = _perfil(nome)
+    foto = (a.get('foto') or '').strip()
+    # sem retrato a moldura não some: entra o monograma, e a página não fica
+    # com um buraco onde deveria haver uma pessoa
+    retrato = (f'<img src="{_rvesc(foto)}" alt="{safe(a["nome"])}" width="132" height="132" loading="lazy">'
+               if foto else f'<span class="mono" aria-hidden="true">{_iniciais(nome)}</span>')
+    cobre = f'<p class="eq-cobre"><b>Cobre:</b> {_rvesc(a["cobre"])}</p>' if a.get('cobre') else ''
+    # a bio pode ter parágrafos; na página da casa entram os dois primeiros e
+    # o resto fica para a página da pessoa
+    pars = [x.strip() for x in _re.split(r'\n\s*\n', (a.get('bio') or '').strip()) if x.strip()][:2]
+    bio = ''.join(f'<p>{_rvesc(x)}</p>' for x in pars)
+    quantas = (f'<a class="eq-mais" href="autor-{a["slug"]}.html">Ver as {a["materias"]} matérias de {_rvesc(nome.split()[0])} →</a>'
+               if a['materias'] else f'<a class="eq-mais" href="autor-{a["slug"]}.html">Ver a página de {_rvesc(nome.split()[0])} →</a>')
+    return f'''      <article class="eq-card">
+        <div class="eq-foto">{retrato}</div>
+        <div class="eq-txt">
+          <h3>{_rvesc(nome)}</h3>
+          <span class="eq-cargo">{_rvesc(a.get('cargo') or 'Redação')}</span>
+          {cobre}{bio}
+          {quantas}
+        </div>
+      </article>'''
+
+_FUNDADORES = ['Pedro Amaral', 'Isabel Branquinha']
+_eq_cards = '\n'.join(_cartao_equipe(n) for n in _FUNDADORES)
+
+# a casa inteira: os fundadores, mais quem a Coxia tiver cadastrado, mais a
+# assinatura coletiva. Sem repetir ninguém e sem inventar gente.
+_papel_rot = {'chefe': 'Direção e edição', 'editor': 'Redação', 'autor': 'Colaboração'}
+_vistos, _eq_rol = set(), ''
+for _u in _EQ_PUB:
+    _nome = (_u.get('nome') or '').strip()
+    if not _nome or _nome in _vistos:
+        continue
+    _vistos.add(_nome)
+    _a = _perfil(_nome)
+    _funcao = (_u.get('cargo') or '').strip() or _a.get('cargo') or _papel_rot.get(_u.get('papel'), 'Redação')
+    _qtd = f'{_a["materias"]} matérias' if _a['materias'] else 'na casa'
+    _eq_rol += (f'      <a class="eq-linha" href="autor-{_a["slug"]}.html">'
+                f'<span class="eq-n">{_rvesc(_nome)}</span>'
+                f'<span class="eq-f">{_rvesc(_funcao)}</span>'
+                f'<span class="eq-q">{_qtd}</span><span class="ar">→</span></a>\n')
+_eq_rol += ('      <a class="eq-linha" href="autor-redacao-foyer.html">'
+            '<span class="eq-n">Redação Foyer</span>'
+            '<span class="eq-f">Assinatura coletiva da casa</span>'
+            f'<span class="eq-q">{_mats_por_autor.get("Redação Foyer", 0)} matérias</span><span class="ar">→</span></a>\n')
+_eq_quantos = len(_vistos)
 sobre_body = band('O Foyer', 'Quem somos', 'Seu veículo de informação artístico') + f'''
 <main id="conteudo" class="wrap">
+  <style>
+    .eq-bloco{{ max-width:900px; margin:34px auto 0; }}
+    .eq-card{{ display:flex; gap:24px; align-items:flex-start; border:var(--b);
+      background:var(--paper-2); padding:22px; margin-bottom:16px; }}
+    /* a moldura é quadrada e a foto é CORTADA no centro, nunca espremida */
+    .eq-foto{{ flex:0 0 132px; width:132px; height:132px; border:3px solid var(--ink);
+      background:var(--wine); overflow:hidden; display:flex; align-items:center; justify-content:center; }}
+    .eq-foto img{{ width:100%; height:100%; object-fit:cover; object-position:center 25%; display:block; }}
+    .eq-foto .mono{{ font-family:var(--didone); font-size:2.6rem; color:var(--gold); line-height:1; }}
+    .eq-txt{{ min-width:0; }}
+    .eq-txt h3{{ font-family:var(--didone); font-weight:400; font-size:1.9rem; line-height:1; margin:0 0 6px; }}
+    .eq-cargo{{ display:inline-block; font-family:var(--mono); font-size:.56rem; font-weight:600;
+      letter-spacing:.18em; text-transform:uppercase; color:var(--gold-hi);
+      background:var(--wine); padding:5px 9px 4px; margin-bottom:12px; }}
+    .eq-txt p{{ font-size:.95rem; line-height:1.65; margin:0 0 10px; }}
+    .eq-cobre{{ color:var(--ink-soft); }}
+    .eq-mais{{ display:inline-block; font-family:var(--sans); font-weight:700; font-size:.82rem;
+      border-bottom:2px solid var(--gold); padding-bottom:2px; }}
+    .eq-todos{{ border:var(--b); background:var(--paper); margin-top:8px; }}
+    .eq-todos summary{{ cursor:pointer; padding:16px 20px; font-family:var(--sans); font-weight:800;
+      font-size:.92rem; list-style:none; display:flex; align-items:center; gap:10px; }}
+    .eq-todos summary::-webkit-details-marker{{ display:none; }}
+    .eq-todos summary::before{{ content:'▸'; color:var(--gold); font-size:1.1rem; }}
+    .eq-todos[open] summary::before{{ content:'▾'; }}
+    .eq-todos summary:hover{{ background:var(--paper-2); }}
+    .eq-todos summary:focus-visible{{ outline:3px solid var(--gold); outline-offset:-3px; }}
+    .eq-rol{{ border-top:var(--b); }}
+    .eq-linha{{ display:grid; grid-template-columns:1fr auto auto 20px; gap:14px; align-items:baseline;
+      padding:14px 20px; border-bottom:1px solid var(--line); }}
+    .eq-linha:last-child{{ border-bottom:0; }}
+    .eq-linha:hover{{ background:var(--paper-2); }}
+    .eq-n{{ font-family:var(--sans); font-weight:800; font-size:.98rem; }}
+    .eq-f{{ font-family:var(--mono); font-size:.58rem; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--ink-soft); }}
+    .eq-q{{ font-family:var(--mono); font-size:.58rem; letter-spacing:.08em; color:var(--ink-soft); }}
+    .eq-nota{{ font-size:.86rem; line-height:1.6; color:var(--ink-soft);
+      padding:14px 20px 18px; margin:0; border-top:1px solid var(--line); }}
+    @media (max-width:620px){{
+      .eq-card{{ flex-direction:column; gap:14px; padding:16px; }}
+      .eq-foto{{ flex:0 0 104px; width:104px; height:104px; }}
+      .eq-txt h3{{ font-size:1.5rem; }}
+      .eq-linha{{ grid-template-columns:1fr 20px; gap:2px 10px; }}
+      .eq-f, .eq-q{{ grid-column:1; }}
+      .eq-linha .ar{{ grid-row:1; grid-column:2; }}
+    }}
+  </style>
   <div class="art" style="max-width:820px; margin:0 auto">
     <div class="art-body" style="padding-top:34px">
       <p class="drop">O FOYER é um veículo de comunicação artístico — um destino online dedicado à cultura, à criatividade e à expressão artística. Nossa missão é proporcionar uma plataforma dinâmica onde artistas, entusiastas da arte e curiosos possam se conectar, explorar e se inspirar.</p>
       <p>Com uma ampla variedade de conteúdo, da música e do teatro à literatura e à dança, abraçamos todas as formas de expressão criativa: somos o ponto de encontro para descobrir talentos emergentes, acompanhar as tendências e mergulhar nas histórias por trás das obras e das performances. Seja você um artista em ascensão, um apreciador de arte ou alguém que busca se envolver no mundo da cultura, o FOYER é o seu guia para explorar, aprender e se conectar.</p>
       <h2>O que fazemos</h2>
       <p>São <b>{len(MATERIAS)} matérias</b> publicadas — notícias, críticas, entrevistas e serviço — e <b>{_n_eps} episódios</b> nos programas do canal, entre eles o <b>Programa do Foyer</b> (nosso talk com elencos e criadores), as críticas em vídeo de <b>Críticas Teatrais</b> e <b>Por Bruno Cavalcanti</b>, o game show <b>Trivia Musical</b> e o <b>Session Musical</b>, em que o teatro musical brasileiro canta em estúdio.</p>
-      <h2>Quem fundou</h2>
-      <p><b>Isabel Branquinha</b> — Cofundadora. Jornalista, atriz, dramaturga, apresentadora e produtora. Graduada com ênfase na crítica teatral, atuou em diversas áreas — inclusive como tradutora-intérprete de produtores internacionais do Festival Lollapalooza. Atua como social media, assessora de imprensa, redatora, jornalista cultural, diretora de conteúdo e produtora cultural.</p>
-      <p><b>Pedro Amaral</b> — Cofundador. Ator, dramaturgo, apresentador e produtor. Nascido em Santos e radicado em São Paulo, é bacharel em atuação pelo Célia Helena Centro de Artes e Educação e pós-graduado em Dramaturgia e Roteiro pela mesma instituição.</p>
+    </div>
+  </div>
+
+  <section class="eq-bloco" aria-labelledby="eq-tit">
+    <div class="sec-head"><h2 id="eq-tit">Quem assina</h2>
+      <span class="note">os dois que fundaram a casa em 2023 e seguem à frente dela</span></div>
+{_eq_cards}
+
+    <details class="eq-todos">
+      <summary>Ver todos que fazem o FOYER acontecer ({_eq_quantos + 1})</summary>
+      <div class="eq-rol">
+{_eq_rol}      </div>
+      <p class="eq-nota">Esta lista é a equipe da casa. Quem entra na redação aparece aqui, com página
+      própria e o nome linkado no pé de cada matéria que assinar. Os programas do canal têm ainda
+      críticos e apresentadores convidados, que assinam o que dizem em vídeo.</p>
+    </details>
+  </section>
+
+  <div class="art" style="max-width:820px; margin:0 auto">
+    <div class="art-body">
       <h2>Como trabalhamos</h2>
       <p>Título sem caça-clique, apuração com fonte e serviço completo ao final. Parte das matérias assinadas como <b>Redação Foyer</b> conta com apuração assistida por inteligência artificial — todas são revisadas, checadas e aprovadas por um editor humano antes de ir ao ar. Fotografias são sempre de divulgação oficial, com o devido crédito. Conteúdo publicitário, quando houver, é identificado como tal.</p>
       <p>O FOYER é um veículo independente: quem sustenta a redação é a venda de espaço publicitário,
