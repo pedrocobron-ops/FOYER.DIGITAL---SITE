@@ -143,6 +143,12 @@
     color:var(--ink-soft); display:block; margin-top:8px; line-height:1.8; }
   /* painel de métricas (chefe) */
   .mx-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0 34px; }
+  /* a passagem de buscador, fora da conta da audiência e com cara de nota de
+     rodapé: quem bate o olho no painel não pode confundir isto com leitor */
+  .mx-robo:not(:empty){ display:block; margin:12px 0 0; padding:12px 16px;
+    border:1px dashed var(--line); background:transparent; }
+  .mx-robo b{ display:block; font-family:var(--sans); font-size:.8rem; color:var(--ink-soft); margin-bottom:4px; }
+  .mx-robo span{ display:block; font-family:var(--sans); font-size:.78rem; line-height:1.5; color:var(--ink-soft); }
   /* leitores cadastrados (mídia kit) */
   .lt-h{ font-family:var(--mono); font-size:.58rem; font-weight:600; letter-spacing:.2em;
     text-transform:uppercase; color:var(--ink-soft); margin:0 0 8px; border-bottom:1px solid var(--line);
@@ -1581,8 +1587,9 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
 
       <section class="view" id="view-metricas">
         <h2 class="hi">Métricas do site</h2>
-        <p class="hi-sub">Audiência e comportamento dos leitores — visível somente para a direção</p>
+        <p class="hi-sub">Audiência e comportamento dos leitores — visível somente para a direção. Os números abaixo são de gente: passagem de buscador fica separada, no quadro cinza.</p>
         <div class="stats" id="mx-tiles"><div class="stat"><b>—</b><span>carregando…</span></div></div>
+        <div class="mx-robo" id="mx-robo"></div>
         <div class="sec-h"><h3>Leitores cadastrados</h3><span>o censo do público da revista — só a direção vê</span></div>
         <div id="mx-leitores"><div class="vazio">Carregando…</div></div>
         <div class="sec-h"><h3>Leituras por dia</h3><span>últimos 30 dias, no horário de Brasília</span></div>
@@ -6549,16 +6556,36 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     MX_DADOS = d; MX_MAP = map;
     var R = d.resumo || {};
     var rec = d.recorrentes7 || {};
+    var rb = d.robo || {};
+    // Os números abaixo já saem do banco com o robô descontado. Toda visita
+    // nascida num minuto de chegada em bloco (12 ou mais de uma vez) conta
+    // como varredura, e varredura vai para o quadro cinza do fim, nunca para
+    // a audiência. Este painel é a base do que a casa mostra a anunciante.
     $('mx-tiles').innerHTML =
       '<div class="stat"><b>' + (R.hoje || 0) + '</b><span>leituras hoje</span></div>' +
       '<div class="stat"><b>' + (R.ontem || 0) + '</b><span>leituras ontem</span></div>' +
       '<div class="stat"><b>' + (R.d7 || 0) + '</b><span>leituras em 7 dias</span></div>' +
       '<div class="stat"><b>' + (R.d30 || 0) + '</b><span>leituras em 30 dias</span></div>' +
       '<div class="stat"><b>' + (R.sessoes7 || 0) + '</b><span>visitas (sessões) em 7 dias</span></div>' +
-      '<div class="stat"><b>' + mxTempo(R.tempo_medio7) + '</b><span>tempo médio na página</span></div>' +
-      '<div class="stat"><b>' + (R.rolagem_media7 != null ? R.rolagem_media7 + '%' : 'sem dados') + '</b><span>rolagem média da página</span></div>' +
+      '<div class="stat"><b>' + mxTempo(R.tempo_medio7) + '</b><span>tempo médio na página' +
+        (R.amostra7 ? ' <i style="font-style:normal;opacity:.65">(' + R.amostra7 + ' visita' + (R.amostra7 > 1 ? 's' : '') + ')</i>' : '') + '</span></div>' +
+      '<div class="stat"><b>' + (R.rolagem_media7 != null ? R.rolagem_media7 + '%' : 'sem dados') + '</b><span>rolagem média da página' +
+        (R.amostra7 ? ' <i style="font-style:normal;opacity:.65">(' + R.amostra7 + ' visita' + (R.amostra7 > 1 ? 's' : '') + ')</i>' : '') + '</span></div>' +
       '<div class="stat"><b>' + (R.shares7 || 0) + '</b><span>compartilhamentos (7 dias)</span></div>' +
-      '<div class="stat"><b>' + ((rec.novos || 0) + ' / ' + (rec.voltando || 0)) + '</b><span>leitores novos / que voltaram</span></div>';
+      // sem consentimento de cookies o site não guarda quem volta. "0 / 0"
+      // parecia defeito; agora a Coxia diz o que realmente está havendo.
+      '<div class="stat"><b>' + (rec.medivel ? ((rec.novos || 0) + ' / ' + (rec.voltando || 0)) : 'sem dados') + '</b>' +
+        '<span>leitores novos / que voltaram' +
+        (rec.medivel ? '' : ' <i style="font-style:normal;opacity:.65">(ninguém aceitou todos os cookies ainda)</i>') + '</span></div>';
+    var elRobo = $('mx-robo');
+    if(elRobo){
+      elRobo.innerHTML = (rb.d7 || rb.d30)
+        ? '<b>🤖 Fora da conta: passagem de robô</b>' +
+          '<span>' + (rb.d7 || 0) + ' páginas abertas em ' + (rb.sessoes7 || 0) +
+          ' passagens nos últimos 7 dias' + (rb.ultima ? ', a última em ' + esc(rb.ultima) : '') + '. ' +
+          'São buscadores varrendo o acervo, e não leitores. Ficam de fora de tudo que está acima.</span>'
+        : '<b>🤖 Fora da conta: passagem de robô</b><span>nenhuma varredura nos últimos 7 dias.</span>';
+    }
     // série de 30 dias (preenche os dias sem leitura)
     var por = {}; (d.serie30 || []).forEach(function(s){ por[s.dia] = s; });
     var dias = [], hoje = new Date();
