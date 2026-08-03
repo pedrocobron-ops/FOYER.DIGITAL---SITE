@@ -5164,13 +5164,13 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     <p class="az-garante">Publicidade sempre rotulada · você aprova a versão final antes de ir ao ar · o período combinado não muda depois que as veiculações começam</p>
     <div class="az-fim" id="az-fim">
       <div class="az-aplauso" aria-hidden="true"><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i></div>
-      <em class="az-fim-rot">O pano sobe</em>
-      <h3>Bravo! O palco é seu.</h3>
-      <p class="az-fim-sub">A sua marca acaba de entrar para a temporada do FOYER. A partir de agora, você é da casa.</p>
+      <em class="az-fim-rot">O pedido chegou</em>
+      <h3>Recebemos o seu pedido.</h3>
+      <p class="az-fim-sub">Está na mesa da direção com a arte e o orçamento. A sua semana fica reservada quando o pagamento entrar, e é a direção que confirma.</p>
       <div class="az-ingresso">
         <div class="ai-e">
           <em>FOYER · temporada de anúncios</em>
-          <b>Anunciante da casa</b>
+          <b>Pedido em análise</b>
           <span id="az-fim-formato"></span>
           <i id="az-fim-orca"></i>
         </div>
@@ -5179,7 +5179,8 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       <div class="az-linha-tempo">
         <div><b>Agora</b><span>o seu pedido, a arte e o orçamento já estão na mesa da direção</span></div>
         <div><b>Em até 1 dia útil</b><span>a direção te chama no WhatsApp, pelo nome, para confirmar tudo e combinar o pagamento</span></div>
-        <div><b>Antes de ir ao ar</b><span>você aprova a versão final; a estreia é sua decisão</span></div>
+        <div><b>Com o pagamento</b><span>aí sim a sua semana fica reservada no calendário da casa, e ninguém mais ocupa aquele período</span></div>
+        <div><b>Antes de ir ao ar</b><span>você aprova a versão final; o primeiro dia das veiculações é sua decisão</span></div>
       </div>
       <a class="az-zap" id="az-zap" target="_blank" rel="noopener" href="#">Quer adiantar? A direção já está no WhatsApp →</a>
       <p class="az-fim-casa">Enquanto isso, a casa é sua: <a href="revista.html">folheie a edição da semana</a> e veja a companhia que a sua marca vai ter.</p>
@@ -5551,6 +5552,17 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
       if(!lk){ erro('Diga para onde o clique leva: bilheteria, Sympla, site da peça, Instagram…'); return false; }
       if(!/^https?:\/\//i.test(lk)){ lk = 'https://' + lk; document.getElementById('az-link').value = lk; }
       if(!/^https?:\/\/[^\s]+\.[^\s]{2,}/i.test(lk)){ erro('Esse endereço não parece completo; confira o link.'); return false; }
+    }
+    // O passo 3 é onde o preço aparece, e era o único sem exigência nenhuma:
+    // dava para atravessá-lo sem escolher a duração e chegar até o fim, com
+    // CPF e endereço preenchidos, sem NUNCA ter visto um valor. O pedido caía
+    // na mesa da direção como "a combinar", e a conta toda voltava a ser
+    // feita no WhatsApp — o contrário do que o passo promete no título.
+    // "a combinar" continua valendo (é a saída para quem quer mais de 4): o
+    // que a trava exige é uma ESCOLHA, não uma duração fechada.
+    if(passo === 3 && !st.duracao){
+      erro('Escolha por quanto tempo, para ver o orçamento antes de seguir. Precisa de mais de 4? Escolha "a combinar".');
+      return false;
     }
     if(passo === 4){
       if(!st.tipoPessoa){ erro('Diga se a nota sai em pessoa física (CPF) ou empresa (CNPJ).'); return false; }
