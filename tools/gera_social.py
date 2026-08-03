@@ -21,7 +21,9 @@ FONTES = os.path.join(ROOT, 'tools/fonts')
 SAIDA = os.path.join(ROOT, 'assets/social')
 OURO = (233, 203, 133)          # o dourado claro dos posts da casa (--gold-hi)
 BRANCO = (255, 255, 255)
-MOLDURA = 16                    # a moldura preta em volta da foto
+# 03/08/2026: a foto do feed vai SANGRADA, encostando nas quatro bordas.
+# Havia uma moldura preta de 16px em volta dela, e no Instagram aquilo não
+# lia como escolha de design: lia como imagem mal exportada, com tarja.
 
 
 def _fonte(nome, tam):
@@ -167,12 +169,11 @@ def gerar(pg, formato='feed'):
     if formato == 'story':
         return _gerar_story(pg)
     w, h = 1080, 1350
-    base = Image.new('RGB', (w, h), (6, 4, 4))       # a moldura preta da casa
+    base = Image.new('RGB', (w, h), (6, 4, 4))       # fundo, só aparece sem foto
     caminho = os.path.join(ROOT, pg.get('img', ''))
     if pg.get('img') and os.path.exists(caminho):
         foto = Image.open(caminho).convert('RGB')
-        m = MOLDURA
-        base.paste(_cover(foto, w - 2 * m, h - 2 * m), (m, m))
+        base.paste(_cover(foto, w, h), (0, 0))       # sangra nas quatro bordas
     dr = ImageDraw.Draw(base, 'RGB')
     _gradiente(base, 0, 320, 130, 0)
     _gradiente(base, h - 560, h, 0, 235)
