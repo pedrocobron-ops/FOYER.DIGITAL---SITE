@@ -1920,6 +1920,22 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   }
   function casaLigada(){ return !!sessao() && CASA_TEM_CHAVE; }
 
+  // ---------- caminho de arquivo do site, visto de dentro da Coxia ----------
+  // Os caminhos gravados no repositório ("assets/uploads/foto.jpg") são
+  // relativos à RAIZ do site. A Coxia, porém, é servida de /coxia/, então o
+  // navegador pedia /coxia/assets/uploads/foto.jpg e recebia 404: foi assim
+  // que as fotos da equipe apareceram quebradas depois de subirem certinho.
+  // Aqui o caminho volta a apontar para a raiz, de onde quer que a Coxia
+  // esteja aberta (/coxia/, /coxia.html ou a partir do computador de alguém).
+  var RAIZ = location.pathname.replace(/coxia(\.html)?\/?$/, '')
+                              .replace(/coxia\/index\.html$/, '')
+                              .replace(/index\.html$/, '');
+  function doSite(p){
+    p = String(p || '');
+    if(!p || /^(https?:|data:|blob:)/.test(p)) return p;   // já é endereço completo
+    return RAIZ + p.replace(/^\//, '');
+  }
+
   // ESTA PERGUNTA É A QUE OS BOTÕES DEVEM FAZER: dá para gravar no site?
   // Tanto faz por onde — pela chave da casa (servidor) ou pela chave deste
   // navegador (a reserva). Quando a chave da casa entrou, a gravação passou a
@@ -4300,7 +4316,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                 : '<span class="mesa-cred">' + esc(d.imgCredito) + dirBadge + '</span>')
             : '';
           var capa = d.img
-            ? '<div class="mesa-capa"><img src="' + esc(d.img) + '" alt="" data-p="' + esc(d.img) + '" ' +
+            ? '<div class="mesa-capa"><img src="' + esc(doSite(d.img)) + '" alt="" data-p="' + esc(d.img) + '" ' +
               'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/\'+this.dataset.p}else{this.parentNode.outerHTML=\'<div class=mesa-semfoto>⚠ Foto no repositório ainda não carregou aqui, mas ela existe e sai na publicação</div>\'}">' +
               credLinha + '</div>'
             : '<div class="mesa-semfoto">⚠ Sem foto de capa — suba uma antes de aprovar</div>';
@@ -4710,7 +4726,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
              : (temBio ? 'Falta a foto no site' : 'Falta a bio no site'));
         return '<div class="eq-card' + (u.papel === 'chefe' ? ' eq-chefe' : '') + '">' +
           '<div class="cab"><span class="ava">' +
-            (temFoto ? '<img src="' + esc(u.foto) + '" alt="' + esc(u.nome) + '">' : esc(ini)) + '</span>' +
+            (temFoto ? '<img src="' + esc(doSite(u.foto)) + '" alt="' + esc(u.nome) + '">' : esc(ini)) + '</span>' +
           '<span><b>' + esc(u.nome) + '</b><span class="pap">' +
             esc((u.cargo || '').trim() || PAPEL_ROTULO[u.papel] || 'Autor(a)') + '</span></span></div>' +
           '<div class="per">' + per + '</div>' +
@@ -4726,7 +4742,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // ---- o perfil de quem assina: foto e bio, que o site mostra na página do autor ----
   function eqPintaFoto(cam){
     $('e-foto').value = cam || '';
-    $('e-foto-mini').innerHTML = cam ? '<img src="' + esc(cam) + '" alt="foto">' : '<span>sem foto</span>';
+    $('e-foto-mini').innerHTML = cam ? '<img src="' + esc(doSite(cam)) + '" alt="foto">' : '<span>sem foto</span>';
   }
   // A bio cabe à vontade: a página do autor quebra em parágrafos e uma bio
   // completa é o que dá autoridade a quem assina. O aviso só aparece quando
