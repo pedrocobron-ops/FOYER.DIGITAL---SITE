@@ -15,14 +15,18 @@
   "https://www.sesisp.org.br/cultura/noticia/musical-inedito-sobre-a-infancia-de-joao-guimaraes-rosa-estreia-no-teatro-do-sesi-sp",
   "https://www.sesisp.org.br/noticia/teatro-do-sesi-sp-completa-60-anos",
   "https://www.sesisp.org.br/noticia/espetaculos-ineditos-produzidos-pelo-sesi-sp-ganham-premio-bibi-ferreira",
+  "https://www.sesisp.org.br/cultura/noticia/oportunidade-para-artes-cenicas-edital-de-producoes-ineditas-esta-com-inscricoes-abertas",
+  "https://cronos-media.sesisenaisp.org.br/api/media/1-0/files?file=arq_66_240611_b14995d2-14d5-4928-b05d-e9667e67c98f.pdf&disposition=false",
   "https://abcdoabc.com.br/teatro-do-sesi-sp-anuncia-o-resultado-do-edital-2025-de-producoes-ineditas/",
   "https://www.cnnbrasil.com.br/entretenimento/premio-bibi-ferreira-2024-confira-os-vencedores-de-cada-categoria/",
-  "https://contribuicao2.sistemaindustria.org.br/SEGR8GRCCp001.ASP?NumSequencia=45",
+  "https://pt.wikipedia.org/wiki/Pr%C3%AAmio_Bibi_Ferreira_2022",
+  "https://www.planalto.gov.br/ccivil_03/decreto-lei/1937-1946/del9403.htm",
+  "https://www.planalto.gov.br/ccivil_03/leis/l5107.htm",
   "https://www.portaldaindustria.com.br/sesi/canais/transparencia/estrutura-competencias-e-legislacao/legislacao/"
  ],
  "instagram": {
   "titulo": "O *Sesi-SP* produz musical inédito e não cobra ingresso. Quem paga a conta é a *indústria*",
-  "legenda": "Em 29 de agosto estreia no Teatro do SESI-SP, na Avenida Paulista, o musical inédito João, Joãozinho, Joãozito, sobre a infância de Guimarães Rosa. Temporada até 13 de dezembro, com Libras e audiodescrição em todas as sessões de sábado e domingo, e ingresso gratuito. São 19 teatros e sete centros culturais numa rede que a entidade calcula ter alcançado quase 20 milhões de pessoas.\n\nO dinheiro vem de contribuição compulsória: 1,5% sobre a folha de pagamento das indústrias, instituída em 1946 e fiscalizada pelo TCU. É democratização de acesso e também concorrência para quem precisa vender cadeira. Uma correção de rota: os prêmios Bibi Ferreira do Sesi-SP até aqui vieram nas categorias de teatro de prosa, não nas de musical.\n\nPara conferir a matéria completa, acesse o site: www.foyer.digital\n📷: Alê Catan/Divulgação SESI-SP\nPor Pedro Amaral",
+  "legenda": "Em 29 de agosto estreia no Teatro do SESI-SP, na Avenida Paulista, o musical inédito João, Joãozinho, Joãozito, sobre a infância de Guimarães Rosa. Temporada até 13 de dezembro, com Libras e audiodescrição em todas as sessões de sábado e domingo, e ingresso gratuito. São 19 teatros e sete centros culturais numa rede que a entidade calcula ter alcançado quase 20 milhões de pessoas.\n\nO dinheiro vem de contribuição compulsória da indústria, criada em 1946 e hoje em 1,5% sobre a folha de pagamento, com prestação de contas ao TCU. É democratização de acesso e também concorrência para quem precisa vender cadeira. Uma correção de rota: os prêmios Bibi Ferreira do Sesi-SP até aqui vieram nas categorias de teatro de prosa, não nas de musical.\n\nPara conferir a matéria completa, acesse o site: www.foyer.digital\n📷: Alê Catan/Divulgação SESI-SP\nPor Pedro Amaral",
   "arrobas": [
    {
     "nome": "Centro Cultural Fiesp",
@@ -34,13 +38,13 @@
     "nome": "SESI-SP",
     "arroba": "@sesisp",
     "tipo": "entidade",
-    "confirmado": false
+    "confirmado": true
    },
    {
     "nome": "Prêmio Bibi Ferreira",
     "arroba": "@premiobibiferreira",
     "tipo": "prêmio",
-    "confirmado": false
+    "confirmado": true
    },
    {
     "nome": "Teatro Santander",
@@ -59,13 +63,19 @@
  "status": "aguardando_aprovacao",
  "checagem": {
   "verificada": true,
-  "por": "checagem interna da redação, fonte a fonte",
-  "conferido": "gratuidade dos ingressos confirmada em fonte oficial do SESI-SP, no bloco de serviço do próprio release de João, Joãozinho, Joãozito (estreia 29/08, temporada até 13/12/2026, reservas em sesisp.org.br/eventos); números da rede (19 teatros, sete centros culturais, oito espaços de exposição, três estações, 95 núcleos, quase 20 milhões de pessoas alcançadas) no boilerplate institucional do mesmo release; história do Teatro do SESI-SP, marca de mais de cinquenta peças gratuitas e 2 milhões de espectadores na última década e mais de duzentos prêmios, na matéria oficial dos 60 anos; aspa de Débora Viana localizada nessa mesma página; sete projetos do Edital 2025 de Produções Inéditas conferidos na cobertura do ABCdoABC; premiações do Bibi Ferreira reconferidas uma a uma: 9ª edição (21/06/2022) no material do próprio SESI-SP e 11ª edição (30/10/2024) na lista completa da CNN Brasil, que mostra O Vazio na Mala vencendo melhor peça de teatro, melhor dramaturgia original e melhor atriz, todas em categorias de prosa; alíquota de 1,5% sobre a folha e o Decreto-Lei 9.403/1946 conferidos no canal de contribuição do Sistema Indústria e na página de legislação do SESI",
+  "por": "checador independente (não participou da redação)",
+  "conferido": "Fontes reabertas uma a uma. CONFIRMADO: gratuidade em fonte oficial (bloco de serviço do release do SESI-SP diz 'Ingressos gratuitos', reservas em sesisp.org.br/eventos), e a gratuidade não é cortesia de estreia: o regulamento do Edital de Montagens Inéditas do Teatro do SESI-SP, item 3.28, determina que 'todas as ações propostas devem ser oferecidas de forma gratuita para o público', e a matéria dos 60 anos registra 'mais de cinquenta peças, todas elas gratuitas' na última década, com mais de 2 milhões de espectadores. Nenhuma sessão paga localizada. Serviço integralmente conferido no release (temporada 29/08 a 13/12/2026, quintas e sextas 11h, sábados e domingos 15h, Libras e audiodescrição aos sábados e domingos, classificação livre, Av. Paulista 1.313, em frente à estação Trianon-Masp). Boilerplate da rede (19 teatros, sete centros culturais, oito espaços de exposição, três estações, 95 núcleos, unidade móvel, mais três teatros e três centros culturais em 2026, quase 20 milhões de pessoas) conferido no mesmo release. História do teatro (1948 Teatro Operário, 1959 Experimental, 1963 Popular, sede fixa em 1977 com Noel Rosa e mais de 300 mil pessoas, mais de duzentos prêmios, Hirsch, Babenco, Jô Soares e Falabella com O Homem de La Mancha em 2014) e aspa literal de Débora Viana conferidas na página dos 60 anos. Edital 2025: sete projetos selecionados, critérios e prioridade a profissionais da região de São Paulo conferidos na cobertura do ABCdoABC e no regulamento; o texto não extrapola para um total anual de produções, que a entidade não publica. PRÊMIOS, um a um: 9ª edição no Teatro Santander, com Tectônicas (melhor dramaturgia em peça de teatro, Samir Yazbek) e Terremotos (17.512 espectadores, nove indicações, quatro troféus: direção, ator coadjuvante, cenografia e figurino, todas 'em peça de teatro'); 11ª edição em 30/10/2024, também no Teatro Santander, com O Vazio na Mala vencendo melhor peça de teatro, melhor dramaturgia original (Nanna de Castro) e melhor atriz (Noemi Marinho), todas de prosa. A correção que o redator fez PROCEDE: nenhum troféu do SESI-SP saiu de categoria de musical, e o texto não chama de musical nenhum espetáculo premiado. Financiamento reconferido na lei: Decreto-Lei 9.403/1946, art. 3º e §1º (contribuição mensal obrigatória, 2% sobre a remuneração paga aos empregados) e Lei 5.107/1966, art. 24 (redução para 1,5%), ambos no Planalto, com a página oficial de legislação do SESI confirmando a manutenção do patamar. Foto: baixada da página oficial do SESI-SP, crédito Alê Catan (fotógrafo listado na ficha técnica do espetáculo), divulgação da própria produção, sem agência; conferida contra a imagem publicada na página de origem, 1920x1080, elenco de nove visível. Os quatro @ do Instagram foram fechados: @sesisp e @centroculturalfiesp linkados no rodapé do site oficial do SESI-SP, @premiobibiferreira linkado no site premiobibiferreira.com.br, @teatrosantander no site teatrosantander.com.br. Cinco links internos, todos existentes no acervo.",
   "cortes": [
-   "afirmação de que o Sesi-SP ganhou o Prêmio Bibi Ferreira com musicais: os troféus da entidade estão nas categorias de teatro de prosa, e o texto corrige isso expressamente",
-   "número total de produções que o Sesi-SP monta por ano: a entidade não publica o dado consolidado, e o texto usa o que está documentado, os sete projetos do Edital 2025",
-   "valor do orçamento cultural do Sesi-SP: não localizado em fonte pública dentro do prazo",
-   "contraditório de produtores independentes sobre a gratuidade: nenhuma declaração pública sobre o tema foi localizada, e o texto registra a ausência em vez de sugerir tensão"
+   "DATA ERRADA CORRIGIDA: a 9ª edição do Prêmio Bibi Ferreira foi entregue em 21 de setembro de 2022, não em 21 de junho. A página do próprio SESI-SP, publicada em 29/09/2022, diz 'na quarta-feira (21)', e 21 de junho de 2022 caiu numa terça; a data de 21/09/2022 está registrada também na ficha da premiação na Wikipédia.",
+   "BASE CONSTITUCIONAL CORRIGIDA: o texto citava o artigo 149 da Constituição. A página oficial de legislação do SESI aponta o artigo 240 (que recepciona as contribuições compulsórias) e o parágrafo único do artigo 70 (dever de prestar contas ao TCU). Trocado pelo que a fonte oficial diz.",
+   "GENERALIZAÇÃO CORTADA: 'os prêmios de musical foram para Um Grande Encontro e Beetlejuice' virou 'os prêmios de melhor musical brasileiro e de melhor musical estrangeiro'. Em 2024 havia dezoito categorias de musical, e as demais ficaram com Funny Girl, Cabaret, Priscilla, Codinome Daniel e outros.",
+   "AFIRMAÇÃO SEM LASTRO CORTADA: 'quem passa pela seleção não precisa captar patrocínio'. O item 1.8 do regulamento diz que o SESI-SP pode destinar aporte financeiro TOTAL OU PARCIAL, e prevê expressamente projetos que já tenham patrocínio ou captação por lei de incentivo recebendo apoio como complementação. O texto agora descreve o que está escrito no edital: aporte total ou parcial, cessão não onerosa do teatro e obrigação de gratuidade.",
+   "EDITORIAL CORTADO: 'é dinheiro de origem pública em sua natureza, gerido por uma entidade patronal privada' foi trocado pela descrição factual (contribuição cobrada por lei, entidade de direito privado ligada à confederação patronal, prestação de contas ao TCU). A natureza pública ou não do recurso é disputa jurídica, não fato de reportagem.",
+   "FONTE MORTA REMOVIDA: o link contribuicao2.sistemaindustria.org.br não respondeu em nenhuma tentativa. Saiu da lista e foi substituído pelos textos legais no Planalto, que sustentam os mesmos números.",
+   "Total de produções por ano do SESI-SP continua fora do texto: a entidade não publica o dado.",
+   "Valor do orçamento cultural do SESI-SP continua fora do texto: não localizado em fonte pública.",
+   "Contraditório: refiz a busca de forma independente, em português, e também não localizei nenhuma declaração pública de produtor independente criticando a gratuidade do SESI-SP. Existe debate publicado sobre o Sesc disputar editais públicos, que é outro assunto e não foi usado. A ausência segue registrada no corpo, sem insinuar que a crítica exista.",
+   "ACRESCENTADO para não deixar a matéria soar como acusação: uma frase dizendo que nada no arranjo é irregular (lei de 1946, editais públicos, contas no TCU) e que a discussão é de mercado, não de legalidade."
   ]
  },
  "chefe": {
@@ -73,10 +83,11 @@
   "nota": 9,
   "parecer": "Matéria que faz o serviço mais difícil do jornalismo cultural: confirma o que a pauta pedia, corrige o que a pauta trazia errado sobre os prêmios e admite no texto que não achou contraditório publicado. Financiamento explicado com base legal.",
   "ressalvas": [
-   "A premissa original da pauta (prêmio Bibi Ferreira conquistado com musicais) foi corrigida no texto: os troféus do Sesi-SP estão nas categorias de teatro de prosa.",
-   "Não foi localizada nenhuma declaração pública de produtor independente criticando o modelo de gratuidade; a ausência está registrada no corpo da matéria, e o editor humano pode querer buscar uma fonte própria antes de publicar.",
-   "Os handles @sesisp e @premiobibiferreira entraram como não confirmados.",
-   "O número de produções por ano do Sesi-SP não é publicado pela entidade; o texto usa os sete projetos do Edital 2025."
+   "A premissa original da pauta (prêmio Bibi Ferreira conquistado com musicais) estava errada e o texto a corrige: os troféus do SESI-SP estão nas categorias de teatro de prosa. A correção foi reconferida pelo checador nas duas edições, uma a uma, e procede.",
+   "A data da 9ª edição do Prêmio Bibi Ferreira estava errada no texto entregue (21 de junho) e foi corrigida para 21 de setembro de 2022.",
+   "Não foi localizada nenhuma declaração pública de produtor independente criticando o modelo de gratuidade, nem pelo redator nem pelo checador. A ausência está registrada no corpo, e o editor humano pode querer buscar uma fonte própria antes de publicar.",
+   "O número de produções por ano do SESI-SP não é publicado pela entidade; o texto usa os sete projetos documentados do Edital 2025.",
+   "Os quatro @ do Instagram foram confirmados em site oficial e estão marcados como confirmados."
   ]
  },
  "geradoEm": "2026-08-03T12:00:00+00:00",
