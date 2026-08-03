@@ -143,6 +143,48 @@
     color:var(--ink-soft); display:block; margin-top:8px; line-height:1.8; }
   /* painel de métricas (chefe) */
   .mx-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0 34px; }
+  /* quadradinho que é só leitura não finge ser clicável: sem seta, sem mão */
+  .stat:not(button){ cursor:default; }
+  .stat:not(button)::after{ content:none; }
+  .stat:not(button):hover{ background:none; }
+  /* comparação com o período anterior, colada no número */
+  .mx-vs{ font-family:var(--sans); font-size:.74rem; letter-spacing:0; text-transform:none;
+    display:block; margin-top:6px; color:var(--ink-soft); }
+  .mx-vs.sobe{ color:#1f6b3a; } .mx-vs.cai{ color:#8d2f24; }
+  html[data-theme="dark"] .mx-vs.sobe, body.dark .mx-vs.sobe{ color:#7fce9e; }
+  html[data-theme="dark"] .mx-vs.cai,  body.dark .mx-vs.cai{ color:#e79c92; }
+  /* a régua da certeza: uma barra só, três fatias, legenda embaixo */
+  .mx-regua{ display:flex; height:26px; border:1px solid var(--line); overflow:hidden; margin:4px 0 12px; }
+  .mx-regua i{ display:block; height:100%; }
+  .mx-regua .f-cert{ background:var(--wine); }
+  .mx-regua .f-prov{ background:var(--gold); }
+  .mx-regua .f-maq{ background:repeating-linear-gradient(45deg, var(--line), var(--line) 4px, transparent 4px, transparent 8px); }
+  .mx-leg{ display:flex; flex-wrap:wrap; gap:6px 18px; margin-bottom:10px; }
+  .mx-leg div{ font-family:var(--sans); font-size:.8rem; line-height:1.45; }
+  .mx-leg b{ font-family:var(--didone); font-size:1.5rem; display:block; color:var(--wine); }
+  html[data-theme="dark"] .mx-leg b, body.dark .mx-leg b{ color:var(--gold-hi); }
+  .mx-leg small{ display:block; color:var(--ink-soft); font-size:.76rem; }
+  .mx-chave{ width:11px; height:11px; display:inline-block; margin-right:6px; vertical-align:baseline; }
+  /* explicação em voz de gente, no fim de cada bloco que precisa */
+  .mx-diz{ font-family:var(--sans); font-size:.82rem; line-height:1.6; color:var(--ink-soft);
+    border-left:2px solid var(--gold); padding:2px 0 2px 12px; margin:10px 0 4px; }
+  .mx-diz b{ color:var(--ink); }
+  /* "como leem": quatro medidas curtas, com a amostra dita em voz alta */
+  .mx-como{ display:grid; grid-template-columns:repeat(auto-fit, minmax(148px, 1fr)); gap:0;
+    border:1px solid var(--line); }
+  .mx-como div{ padding:16px 18px; border-right:1px solid var(--line); }
+  .mx-como div:last-child{ border-right:0; }
+  .mx-como b{ display:block; font-family:var(--didone); font-size:1.9rem; line-height:1; color:var(--wine); }
+  html[data-theme="dark"] .mx-como b, body.dark .mx-como b{ color:var(--gold-hi); }
+  .mx-como span{ display:block; font-family:var(--sans); font-size:.8rem; margin-top:6px; color:var(--ink-soft); line-height:1.45; }
+  /* barras do dia da semana e das horas, com o rótulo curto embaixo */
+  .mx-serie2{ display:flex; align-items:flex-end; gap:3px; height:120px; }
+  .mx-serie2 div{ flex:1; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; height:100%; }
+  .mx-serie2 i{ display:block; width:100%; background:var(--wine); min-height:2px; }
+  html[data-theme="dark"] .mx-serie2 i, body.dark .mx-serie2 i{ background:var(--gold); }
+  .mx-serie2 u{ font-family:var(--mono); font-size:.52rem; text-decoration:none; color:var(--ink-soft);
+    margin-top:5px; letter-spacing:.04em; }
+  .mx-serie2 em{ font-family:var(--sans); font-style:normal; font-size:.66rem; color:var(--ink-soft); margin-bottom:3px; }
   /* a passagem de buscador, fora da conta da audiência e com cara de nota de
      rodapé: quem bate o olho no painel não pode confundir isto com leitor */
   .mx-robo:not(:empty){ display:block; margin:12px 0 0; padding:12px 16px;
@@ -1587,27 +1629,46 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
 
       <section class="view" id="view-metricas">
         <h2 class="hi">Métricas do site</h2>
-        <p class="hi-sub">Audiência e comportamento dos leitores — visível somente para a direção. Os números abaixo são de gente: passagem de buscador fica separada, no quadro cinza.</p>
+        <p class="hi-sub">Quanta gente lê o FOYER, o quanto disso é certeza, e o que essa gente faz — só a direção vê</p>
+
+        <div class="sec-h"><h3>1. Quanta gente leu</h3><span>últimos 7 dias, comparados com os 7 dias anteriores</span></div>
         <div class="stats" id="mx-tiles"><div class="stat"><b>—</b><span>carregando…</span></div></div>
-        <div class="mx-robo" id="mx-robo"></div>
-        <div class="sec-h"><h3>Leitores cadastrados</h3><span>o censo do público da revista — só a direção vê</span></div>
-        <div id="mx-leitores"><div class="vazio">Carregando…</div></div>
-        <div class="sec-h"><h3>Leituras por dia</h3><span>últimos 30 dias, no horário de Brasília</span></div>
+
+        <div class="sec-h"><h3>2. O quanto disso é certeza</h3><span>a régua honesta: o que dá para afirmar a um anunciante e o que não dá</span></div>
+        <div id="mx-certeza"><div class="vazio">Carregando…</div></div>
+
+        <div class="sec-h"><h3>3. Como essa gente lê</h3><span>o que acontece depois que a página abre</span></div>
+        <div id="mx-como"><div class="vazio">Carregando…</div></div>
+
+        <div class="sec-h"><h3>4. Leituras por dia</h3><span>últimos 30 dias, no horário de Brasília — só gente</span></div>
         <div id="mx-serie"><div class="vazio">Carregando…</div></div>
+
+        <div class="sec-h"><h3>5. As mais lidas</h3><span>últimos 30 dias, com o que rendeu na última semana</span></div>
+        <div id="mx-top"><div class="vazio">Carregando…</div></div>
+
+        <div class="sec-h"><h3>6. Quem assina o que rende</h3><span>leituras de 30 dias somadas por assinatura</span></div>
+        <div id="mx-autores"><div class="vazio">Carregando…</div></div>
+
         <div class="mx-grid">
           <div>
-            <div class="sec-h"><h3>Mais lidas da semana</h3><span>leituras, tempo médio na página e rolagem</span></div>
-            <div id="mx-top"><div class="vazio">Carregando…</div></div>
+            <div class="sec-h"><h3>7. De onde chegam</h3><span>por visita, últimos 7 dias</span></div>
+            <div id="mx-orig"><div class="vazio">Carregando…</div></div>
+            <div class="sec-h"><h3>8. Em que aparelho</h3><span>por visita, últimos 7 dias</span></div>
+            <div id="mx-disp"><div class="vazio">Carregando…</div></div>
           </div>
           <div>
-            <div class="sec-h"><h3>De onde os leitores vêm</h3><span>origem das visitas nos últimos 7 dias</span></div>
-            <div id="mx-orig"><div class="vazio">Carregando…</div></div>
-            <div class="sec-h"><h3>Aparelhos</h3><span>como o site é aberto (7 dias)</span></div>
-            <div id="mx-disp"><div class="vazio">Carregando…</div></div>
-            <div class="sec-h"><h3>Horários de leitura</h3><span>distribuição pelas horas do dia (7 dias)</span></div>
+            <div class="sec-h"><h3>9. A que horas leem</h3><span>as horas mais movimentadas, últimos 7 dias</span></div>
             <div id="mx-horas"><div class="vazio">Carregando…</div></div>
+            <div class="sec-h"><h3>10. Em que dia da semana</h3><span>últimos 30 dias</span></div>
+            <div id="mx-semana"><div class="vazio">Carregando…</div></div>
           </div>
         </div>
+
+        <div class="sec-h"><h3>11. Passagem de máquina</h3><span>fora de tudo o que está acima</span></div>
+        <div class="mx-robo" id="mx-robo"></div>
+
+        <div class="sec-h"><h3>12. Leitores cadastrados</h3><span>gente com nome e e-mail: a prova mais forte que a casa tem</span></div>
+        <div id="mx-leitores"><div class="vazio">Carregando…</div></div>
         <p class="mx-nota" id="mx-nota"></p>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
           <button class="bt" id="mx-atualiza" type="button">↻ Atualizar os números</button>
@@ -6390,7 +6451,13 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     if(pg.indexOf('post-') === 0 && map[pg.slice(5)]) return map[pg.slice(5)].t;
     var fixos = { 'capa': 'Capa do site', 'pagina-agenda': 'Agenda', 'busca': 'Busca',
                   'revista': 'Revista', 'videos': 'Vídeos', 'principios': 'Princípios editoriais',
-                  'quem-somos': 'Quem somos', 'coxia/': 'Coxia' };
+                  'quem-somos': 'Quem somos', 'coxia/': 'Coxia',
+                  'anuncie': 'Anuncie no FOYER', 'midia-kit': 'Mídia kit', 'contato': 'Contato',
+                  'sobre': 'Quem somos', 'podcast': 'Podcast', 'noticias': 'Notícias',
+                  'criticas': 'Críticas', 'critica': 'Críticas', 'entrevistas': 'Entrevistas',
+                  'programas': 'Programas', 'enciclopedia': 'Enciclopédia', 'agenda': 'Agenda',
+                  'revista-ed-1': 'Revista, edição 1', 'revista-ed-2': 'Revista, edição 2',
+                  'cadastro': 'Cadastro de leitor', 'guia': 'Guia' };
     if(fixos[pg]) return fixos[pg];
     if(pg.indexOf('cat-') === 0) return 'Editoria: ' + pg.slice(4).replace(/-/g, ' ');
     if(pg.indexOf('pessoa-') === 0) return 'Verbete: ' + pg.slice(7).replace(/-/g, ' ');
@@ -6552,71 +6619,174 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     URL.revokeObjectURL(a.href);
   }
   var MX_DADOS = null, MX_MAP = null;
+  function mxNum(n){ return (n || 0).toLocaleString('pt-BR'); }
+  // "subiu de 3 para 123" dito do jeito que se diz em voz alta
+  function mxVs(agora, antes, oque){
+    agora = agora || 0; antes = antes || 0;
+    if(!antes && !agora) return '';
+    if(!antes) return '<span class="mx-vs sobe">novo: não havia ' + oque + ' na semana anterior</span>';
+    var d = agora - antes;
+    if(d === 0) return '<span class="mx-vs">igual à semana anterior</span>';
+    // porcentagem em cima de base minúscula vira número de circo ("4067% a
+    // mais" para 3 -> 125). Abaixo de 10 a casa fala em números redondos.
+    if(antes < 10){
+      return '<span class="mx-vs ' + (d > 0 ? 'sobe' : 'cai') + '">' + (d > 0 ? '▲' : '▼') + ' de ' +
+        mxNum(antes) + ' para ' + mxNum(agora) + ' desde a semana anterior</span>';
+    }
+    var pct = Math.round(Math.abs(d) / antes * 100);
+    return '<span class="mx-vs ' + (d > 0 ? 'sobe' : 'cai') + '">' + (d > 0 ? '▲' : '▼') + ' ' +
+      pct + '% ' + (d > 0 ? 'a mais' : 'a menos') + ' que a semana anterior (eram ' + mxNum(antes) + ')</span>';
+  }
+  function mxPct(a, b){ return b ? Math.round(a / b * 100) : 0; }
+
   function pintarMetricas(d, map){
     MX_DADOS = d; MX_MAP = map;
-    var R = d.resumo || {};
-    var rec = d.recorrentes7 || {};
-    var rb = d.robo || {};
-    // Os números abaixo já saem do banco com o robô descontado. Toda visita
-    // nascida num minuto de chegada em bloco (12 ou mais de uma vez) conta
-    // como varredura, e varredura vai para o quadro cinza do fim, nunca para
-    // a audiência. Este painel é a base do que a casa mostra a anunciante.
+    var G = d.gente || {}, A = d.antes || {}, rb = d.robo || {}, rec = d.recorrentes7 || {};
+
+    // ---------- 1. quanta gente leu ----------
     $('mx-tiles').innerHTML =
-      '<div class="stat"><b>' + (R.hoje || 0) + '</b><span>leituras hoje</span></div>' +
-      '<div class="stat"><b>' + (R.ontem || 0) + '</b><span>leituras ontem</span></div>' +
-      '<div class="stat"><b>' + (R.d7 || 0) + '</b><span>leituras em 7 dias</span></div>' +
-      '<div class="stat"><b>' + (R.d30 || 0) + '</b><span>leituras em 30 dias</span></div>' +
-      '<div class="stat"><b>' + (R.sessoes7 || 0) + '</b><span>visitas (sessões) em 7 dias</span></div>' +
-      '<div class="stat"><b>' + mxTempo(R.tempo_medio7) + '</b><span>tempo médio na página' +
-        (R.amostra7 ? ' <i style="font-style:normal;opacity:.65">(' + R.amostra7 + ' visita' + (R.amostra7 > 1 ? 's' : '') + ')</i>' : '') + '</span></div>' +
-      '<div class="stat"><b>' + (R.rolagem_media7 != null ? R.rolagem_media7 + '%' : 'sem dados') + '</b><span>rolagem média da página' +
-        (R.amostra7 ? ' <i style="font-style:normal;opacity:.65">(' + R.amostra7 + ' visita' + (R.amostra7 > 1 ? 's' : '') + ')</i>' : '') + '</span></div>' +
-      '<div class="stat"><b>' + (R.shares7 || 0) + '</b><span>compartilhamentos (7 dias)</span></div>' +
-      // sem consentimento de cookies o site não guarda quem volta. "0 / 0"
-      // parecia defeito; agora a Coxia diz o que realmente está havendo.
-      '<div class="stat"><b>' + (rec.medivel ? ((rec.novos || 0) + ' / ' + (rec.voltando || 0)) : 'sem dados') + '</b>' +
-        '<span>leitores novos / que voltaram' +
-        (rec.medivel ? '' : ' <i style="font-style:normal;opacity:.65">(ninguém aceitou todos os cookies ainda)</i>') + '</span></div>';
-    var elRobo = $('mx-robo');
-    if(elRobo){
-      elRobo.innerHTML = (rb.d7 || rb.d30)
-        ? '<b>🤖 Fora da conta: passagem de robô</b>' +
-          '<span>' + (rb.d7 || 0) + ' páginas abertas em ' + (rb.sessoes7 || 0) +
-          ' passagens nos últimos 7 dias' + (rb.ultima ? ', a última em ' + esc(rb.ultima) : '') + '. ' +
-          'São buscadores varrendo o acervo, e não leitores. Ficam de fora de tudo que está acima.</span>'
-        : '<b>🤖 Fora da conta: passagem de robô</b><span>nenhuma varredura nos últimos 7 dias.</span>';
-    }
-    // série de 30 dias (preenche os dias sem leitura)
+      '<div class="stat" role="group"><b>' + mxNum(G.visitas7) + '</b><span>visitas de gente em 7 dias' +
+        mxVs(G.visitas7, A.visitas7, 'visita') + '</span></div>' +
+      '<div class="stat" role="group"><b>' + mxNum(G.d7) + '</b><span>páginas abertas em 7 dias' +
+        mxVs(G.d7, A.d7, 'leitura') + '</span></div>' +
+      '<div class="stat" role="group"><b>' + mxNum(G.confirmadas7) + '</b><span>visitas confirmadas' +
+        '<span class="mx-vs">ficaram na página tempo suficiente para o site registrar. ' +
+        mxPct(G.confirmadas7, G.visitas7) + '% do total</span></span></div>' +
+      '<div class="stat" role="group"><b>' + mxNum(G.ontem) + '</b><span>páginas abertas ontem</span></div>' +
+      '<div class="stat" role="group"><b>' + mxNum(G.hoje) + '</b><span>páginas abertas hoje<span class="mx-vs">o dia ainda está correndo</span></span></div>' +
+      '<div class="stat" role="group"><b>' + mxNum(G.d30) + '</b><span>páginas abertas em 30 dias<span class="mx-vs">' +
+        mxNum(G.visitas30) + ' visitas</span></span></div>';
+
+    // ---------- 2. a régua da certeza ----------
+    var cert = G.confirmadas7 || 0;
+    var prov = Math.max(0, (G.visitas7 || 0) - cert);
+    var maq  = rb.visitas7 || 0;
+    var tot  = cert + prov + maq || 1;
+    $('mx-certeza').innerHTML =
+      '<div class="mx-regua" role="img" aria-label="' + cert + ' visitas confirmadas, ' + prov +
+        ' prováveis e ' + maq + ' de máquina">' +
+        // com 1.532 de máquina contra 125 de gente, as fatias de gente somem
+        // se forem só proporcionais. O piso de 4px mantém as três visíveis.
+        '<i class="f-cert" style="width:max(4px,' + (cert / tot * 100) + '%)"></i>' +
+        '<i class="f-prov" style="width:max(4px,' + (prov / tot * 100) + '%)"></i>' +
+        '<i class="f-maq"  style="width:max(4px,' + (maq  / tot * 100) + '%)"></i></div>' +
+      '<div class="mx-leg">' +
+        '<div><span class="mx-chave" style="background:var(--wine)"></span><b>' + mxNum(cert) + '</b>' +
+          'Certeza<small>Ficaram na página e o navegador confirmou. Isto você pode afirmar sem medo.</small></div>' +
+        '<div><span class="mx-chave" style="background:var(--gold)"></span><b>' + mxNum(prov) + '</b>' +
+          'Provável<small>Navegador em português, mas saiu rápido demais para confirmar. Quase certamente gente.</small></div>' +
+        '<div><span class="mx-chave" style="background:var(--line)"></span><b>' + mxNum(maq) + '</b>' +
+          'Máquina<small>Buscador varrendo o acervo. Não entra em nada acima.</small></div>' +
+      '</div>' +
+      '<p class="mx-diz">Para anunciante, fale em <b>' + mxNum(cert) + ' a ' + mxNum(G.visitas7) +
+        ' visitas por semana</b>. O número de baixo é o que está provado; o de cima é o teto honesto. ' +
+        'Prometer o total de ' + mxNum(tot) + ' seria vender passagem de robô como leitor.</p>';
+
+    // ---------- 3. como essa gente lê ----------
+    var am = G.confirmadas7 || 0;
+    $('mx-como').innerHTML = '<div class="mx-como">' +
+      '<div><b>' + mxTempo(G.tempo_medio7) + '</b><span>parados no texto, em média</span></div>' +
+      '<div><b>' + (G.rolagem_media7 != null ? G.rolagem_media7 + '%' : '—') + '</b><span>da página descem, em média</span></div>' +
+      '<div><b>' + (G.ate_o_fim7 != null ? G.ate_o_fim7 + '%' : '—') + '</b><span>chegam perto do fim da matéria</span></div>' +
+      '<div><b>' + mxNum(G.shares7) + '</b><span>usaram o botão de compartilhar</span></div>' +
+      '</div>' +
+      '<p class="mx-diz">Estas quatro medidas saem das <b>' + am + ' visita' + (am === 1 ? '' : 's') +
+        ' confirmada' + (am === 1 ? '' : 's') + '</b>, não do total. ' +
+        (am < 30 ? 'Com essa quantidade elas servem para sentir a direção, não para pôr num contrato.'
+                 : 'A quantidade já dá para levar a sério.') + '</p>';
+
+    // ---------- 4. leituras por dia ----------
     var por = {}; (d.serie30 || []).forEach(function(s){ por[s.dia] = s; });
     var dias = [], hoje = new Date();
     for(var i = 29; i >= 0; i--){
       var dt = new Date(hoje.getTime() - i * 86400000);
-      var k = dt.toISOString().slice(0, 10);
-      dias.push({ dia: k, views: (por[k] || {}).views || 0 });
+      var k = dt.getFullYear() + '-' + ('0' + (dt.getMonth() + 1)).slice(-2) + '-' + ('0' + dt.getDate()).slice(-2);
+      dias.push({ dia: k, n: (por[k] || {}).gente || 0, dow: dt.getDay() });
     }
-    var max = Math.max.apply(null, dias.map(function(x){ return x.views; })) || 1;
-    $('mx-serie').innerHTML = '<div class="mx-serie">' + dias.map(function(x){
+    var maxd = Math.max.apply(null, dias.map(function(x){ return x.n; })) || 1;
+    $('mx-serie').innerHTML = '<div class="mx-serie2">' + dias.map(function(x, ix){
       var dd = x.dia.slice(8, 10) + '/' + x.dia.slice(5, 7);
-      return '<div class="c" style="height:' + Math.max(2, Math.round(x.views / max * 100)) + '%" title="' + dd + ': ' + x.views + ' leitura(s)"></div>';
+      var rot = (ix % 5 === 0 || ix === 29) ? dd : '';
+      return '<div title="' + dd + ': ' + x.n + ' leitura(s) de gente">' +
+        (x.n && (x.n === maxd || ix === 29) ? '<em>' + x.n + '</em>' : '') +
+        '<i style="height:' + Math.max(2, Math.round(x.n / maxd * 100)) + '%"></i>' +
+        '<u>' + rot + '</u></div>';
     }).join('') + '</div>' +
-    '<div class="mx-eixo"><span>' + dias[0].dia.slice(8, 10) + '/' + dias[0].dia.slice(5, 7) + '</span>' +
-    '<span>' + dias[29].dia.slice(8, 10) + '/' + dias[29].dia.slice(5, 7) + '</span></div>';
-    mxBarras($('mx-top'), d.top7, function(i){
-      var t = mxNomePagina(i.pg, map);
+    '<p class="mx-diz">O pico do período foi <b>' + maxd + '</b> em um dia. Cada barra é um dia, ' +
+      'da esquerda (30 dias atrás) para a direita (hoje).</p>';
+
+    // ---------- 5. as mais lidas ----------
+    var mats = (d.materias30 || []);
+    mxBarras($('mx-top'), mats.slice(0, 12), function(i){
       var det = [];
+      if(i.v7) det.push(i.v7 + ' na última semana');
       if(i.tempo != null) det.push('lida por ' + mxTempo(i.tempo));
       if(i.rolagem != null) det.push('rola ' + i.rolagem + '%');
-      return '<span class="mx-t">' + esc(t) + '</span>' + (det.length ? '<small>' + det.join(' · ') + '</small>' : '');
-    }, function(i){ return i.views; });
-    mxBarras($('mx-orig'), d.origens7, function(i){ return esc(i.origem); }, function(i){ return i.n; });
-    var nomesDisp = { celular: '📱 Celular', computador: '💻 Computador', app: '📲 Pelo app instalado', desconhecido: 'Sem registro' };
+      return '<span class="mx-t">' + esc(mxNomePagina(i.pg, map)) + '</span>' +
+        (det.length ? '<small>' + det.join(' · ') + '</small>' : '');
+    }, function(i){ return i.v30; });
+
+    // ---------- 6. quem assina o que rende ----------
+    // Capa, revista, agenda e afins não têm assinatura e somavam mais que
+    // qualquer pessoa da casa, encabeçando o gráfico como se fossem alguém.
+    // Aqui elas saem da disputa e viram uma frase embaixo.
+    var porAutor = {}, semNome = { leituras: 0, paginas: 0 };
+    mats.forEach(function(i){
+      var info = map && map[i.pg];
+      if(!info || !info.a){ semNome.leituras += (i.v30 || 0); semNome.paginas++; return; }
+      if(!porAutor[info.a]) porAutor[info.a] = { autor: info.a, n: 0, mats: 0 };
+      porAutor[info.a].n += (i.v30 || 0); porAutor[info.a].mats++;
+    });
+    var listaAutor = Object.keys(porAutor).map(function(k){ return porAutor[k]; })
+      .sort(function(a, b){ return b.n - a.n; });
+    mxBarras($('mx-autores'), listaAutor, function(i){
+      var media = i.mats ? Math.round(i.n / i.mats) : 0;
+      return '<span class="mx-t">' + esc(i.autor) + '</span><small>' + i.mats + ' matéria' +
+        (i.mats === 1 ? '' : 's') + ' lida' + (i.mats === 1 ? '' : 's') + ' · ' + media + ' leitura' +
+        (media === 1 ? '' : 's') + ' por matéria</small>';
+    }, function(i){ return i.n; });
+    if(semNome.leituras){
+      $('mx-autores').insertAdjacentHTML('beforeend',
+        '<p class="mx-diz">Fora desta conta, <b>' + mxNum(semNome.leituras) + ' leituras</b> foram em ' +
+        semNome.paginas + ' páginas sem assinatura: capa, revista, agenda, editorias e afins.</p>');
+    }
+
+    // ---------- 7 a 10 ----------
+    mxBarras($('mx-orig'), d.origens7, function(i){
+      var nomes = { 'direto / app': 'Direto ou pelo app', 'google.com': 'Busca do Google',
+                    'google.pt': 'Google de Portugal', 'bing.com': 'Busca do Bing',
+                    'l.instagram.com': 'Link no Instagram', 'instagram.com': 'Instagram' };
+      return nomes[i.origem] || esc(i.origem);
+    }, function(i){ return i.n; });
+    var nomesDisp = { celular: '📱 Celular', computador: '💻 Computador',
+                      app: '📲 Pelo app instalado', desconhecido: 'Sem registro' };
     mxBarras($('mx-disp'), d.disp7, function(i){ return nomesDisp[i.disp] || esc(i.disp); }, function(i){ return i.n; });
     mxBarras($('mx-horas'), (d.horas7 || []).slice().sort(function(a, b){ return b.n - a.n; }).slice(0, 8),
       function(i){ return ('0' + i.h).slice(-2) + 'h às ' + ('0' + ((i.h + 1) % 24)).slice(-2) + 'h'; },
       function(i){ return i.n; });
-    $('mx-nota').textContent = 'Números colhidos pelo medidor próprio do FOYER, sem serviços de fora e sem dado pessoal. ' +
-      'Tempo, rolagem, aparelho e origem passam a ser medidos a partir de hoje (páginas abertas antes contam só a leitura). ' +
-      'Leitores novos / que voltaram considera apenas quem aceitou todos os cookies. Atualizado em ' + (d.gerado_em || '—') + ' (Brasília).';
+    var DOW = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+    var sem = (d.semana7 || []).slice().sort(function(a, b){ return a.dow - b.dow; });
+    mxBarras($('mx-semana'), sem, function(i){ return DOW[i.dow] || i.dow; }, function(i){ return i.n; });
+
+    // ---------- 11. máquina ----------
+    var elRobo = $('mx-robo');
+    if(elRobo){
+      elRobo.innerHTML = (rb.d7 || rb.visitas7)
+        ? '<b>🤖 ' + mxNum(rb.d7) + ' páginas abertas por máquina em 7 dias</b>' +
+          '<span>Foram ' + mxNum(rb.visitas7) + ' passagens' + (rb.ultima ? ', a última em ' + esc(rb.ultima) : '') +
+          '. São buscadores lendo o acervo para indexar, e não leitores. É bom para aparecer no Google e ' +
+          'não conta como audiência: fica fora de tudo o que está acima.</span>'
+        : '<b>🤖 Nenhuma passagem de máquina em 7 dias</b><span>Todo o movimento acima é de gente.</span>';
+    }
+
+    // ---------- rodapé ----------
+    $('mx-nota').innerHTML = '<b>Como estes números são apurados.</b> Medidor próprio do FOYER, sem serviço de fora e ' +
+      'sem dado pessoal. Cada visita é classificada como gente ou máquina por três sinais, nesta ordem: chegada em ' +
+      'bloco (doze ou mais visitas no mesmo minuto) é máquina; navegador em português é gente; quem ficou na página ' +
+      'é gente mesmo com o aparelho em outro idioma. ' +
+      (rec.medivel ? ('Leitores que voltaram nos 7 dias: ' + (rec.voltando || 0) + ', e ' + (rec.novos || 0) + ' novos. ')
+                   : 'Não dá para dizer quem voltou: isso depende de a pessoa aceitar todos os cookies, e ninguém aceitou ainda. ') +
+      'Atualizado em ' + esc(d.gerado_em || '—') + ', horário de Brasília.';
   }
   $('mx-atualiza').addEventListener('click', carregarMetricas);
 
@@ -6629,46 +6799,64 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   function relatorioMes(){
     if(!USER || USER.papel !== 'chefe'){ avisar('Relatório restrito à direção.'); return; }
     if(!MX_DADOS){ avisar('Espere os números carregarem (ou clique em Atualizar) antes de baixar o relatório.'); return; }
-    var d = MX_DADOS, map = MX_MAP || {}, R = d.resumo || {}, rec = d.recorrentes7 || {};
+    var d = MX_DADOS, map = MX_MAP || {}, G = d.gente || {}, A = d.antes || {},
+        rb = d.robo || {}, rec = d.recorrentes7 || {};
     var L = [];
     L.push(csvLinha(['FOYER — Relatório de audiência']));
     L.push(csvLinha(['Gerado em', d.gerado_em || '']));
+    L.push(csvLinha(['Contagem', 'só gente: passagem de máquina vai separada, no fim']));
     L.push('');
-    L.push(csvLinha(['RESUMO', 'valor']));
-    L.push(csvLinha(['Leituras hoje', R.hoje || 0]));
-    L.push(csvLinha(['Leituras ontem', R.ontem || 0]));
-    L.push(csvLinha(['Leituras em 7 dias', R.d7 || 0]));
-    L.push(csvLinha(['Leituras em 30 dias', R.d30 || 0]));
-    L.push(csvLinha(['Visitas (sessões) em 7 dias', R.sessoes7 || 0]));
-    L.push(csvLinha(['Tempo médio na página (s)', R.tempo_medio7 != null ? R.tempo_medio7 : '']));
-    L.push(csvLinha(['Rolagem média (%)', R.rolagem_media7 != null ? R.rolagem_media7 : '']));
-    L.push(csvLinha(['Compartilhamentos (7 dias)', R.shares7 || 0]));
-    L.push(csvLinha(['Leitores novos (7 dias)', rec.novos || 0]));
-    L.push(csvLinha(['Leitores que voltaram (7 dias)', rec.voltando || 0]));
+    L.push(csvLinha(['A RÉGUA DA CERTEZA (7 dias)', 'visitas', 'o que significa']));
+    L.push(csvLinha(['Confirmadas', G.confirmadas7 || 0, 'ficaram na página e o navegador confirmou']));
+    L.push(csvLinha(['Prováveis', Math.max(0, (G.visitas7 || 0) - (G.confirmadas7 || 0)),
+                     'navegador em português, saíram rápido demais para confirmar']));
+    L.push(csvLinha(['Total de gente', G.visitas7 || 0, 'o teto honesto para falar a anunciante']));
+    L.push(csvLinha(['Máquina (fora da conta)', rb.visitas7 || 0, 'buscador varrendo o acervo']));
     L.push('');
-    L.push(csvLinha(['LEITURAS POR DIA (30 dias)', '']));
-    L.push(csvLinha(['dia', 'leituras']));
+    L.push(csvLinha(['RESUMO DE GENTE', 'valor', 'semana anterior']));
+    L.push(csvLinha(['Visitas em 7 dias', G.visitas7 || 0, A.visitas7 || 0]));
+    L.push(csvLinha(['Páginas abertas em 7 dias', G.d7 || 0, A.d7 || 0]));
+    L.push(csvLinha(['Páginas abertas em 30 dias', G.d30 || 0, '']));
+    L.push(csvLinha(['Visitas em 30 dias', G.visitas30 || 0, '']));
+    L.push(csvLinha(['Páginas abertas ontem', G.ontem || 0, '']));
+    L.push(csvLinha(['Páginas abertas hoje (dia em curso)', G.hoje || 0, '']));
+    L.push('');
+    L.push(csvLinha(['COMO LEEM', 'valor', 'apurado em']));
+    var amostra = (G.confirmadas7 || 0) + ' visitas confirmadas';
+    L.push(csvLinha(['Tempo médio no texto (s)', G.tempo_medio7 != null ? G.tempo_medio7 : '', amostra]));
+    L.push(csvLinha(['Rolagem média (%)', G.rolagem_media7 != null ? G.rolagem_media7 : '', amostra]));
+    L.push(csvLinha(['Chegam perto do fim (%)', G.ate_o_fim7 != null ? G.ate_o_fim7 : '', amostra]));
+    L.push(csvLinha(['Compartilhamentos (7 dias)', G.shares7 || 0, '']));
+    L.push(csvLinha(['Leitores novos (7 dias)', rec.medivel ? (rec.novos || 0) : 'sem dados',
+                     rec.medivel ? '' : 'depende do consentimento de cookies']));
+    L.push(csvLinha(['Leitores que voltaram (7 dias)', rec.medivel ? (rec.voltando || 0) : 'sem dados', '']));
+    L.push('');
+    L.push(csvLinha(['LEITURAS POR DIA (30 dias)', 'gente', 'máquina']));
     var por = {}; (d.serie30 || []).forEach(function(s){ por[s.dia] = s; });
     var hoje = new Date();
     for(var i = 29; i >= 0; i--){
       var dt = new Date(hoje.getTime() - i * 86400000);
-      var k = dt.toISOString().slice(0, 10);
-      L.push(csvLinha([k, (por[k] || {}).views || 0]));
+      var k = dt.getFullYear() + '-' + ('0' + (dt.getMonth() + 1)).slice(-2) + '-' + ('0' + dt.getDate()).slice(-2);
+      L.push(csvLinha([k, (por[k] || {}).gente || 0, (por[k] || {}).robo || 0]));
     }
     L.push('');
-    L.push(csvLinha(['MAIS LIDAS (7 dias)', '', '', '']));
-    L.push(csvLinha(['matéria', 'leituras', 'tempo médio (s)', 'rolagem (%)']));
-    (d.top7 || []).forEach(function(i){
-      L.push(csvLinha([mxNomePagina(i.pg, map), i.views, i.tempo != null ? i.tempo : '', i.rolagem != null ? i.rolagem : '']));
+    L.push(csvLinha(['MAIS LIDAS (30 dias)', 'leituras 30d', 'leituras 7d', 'tempo médio (s)', 'rolagem (%)', 'assinatura']));
+    (d.materias30 || []).forEach(function(i){
+      var info = map[i.pg] || {};
+      L.push(csvLinha([mxNomePagina(i.pg, map), i.v30, i.v7,
+                       i.tempo != null ? i.tempo : '', i.rolagem != null ? i.rolagem : '', info.a || '']));
     });
     L.push('');
-    L.push(csvLinha(['DE ONDE VÊM (7 dias)', '']));
-    L.push(csvLinha(['origem', 'visitas']));
+    L.push(csvLinha(['DE ONDE CHEGAM (7 dias)', 'visitas']));
     (d.origens7 || []).forEach(function(i){ L.push(csvLinha([i.origem, i.n])); });
     L.push('');
-    L.push(csvLinha(['APARELHO (7 dias)', '']));
-    L.push(csvLinha(['aparelho', 'visitas']));
+    L.push(csvLinha(['APARELHO (7 dias)', 'visitas']));
     (d.disp7 || []).forEach(function(i){ L.push(csvLinha([i.disp, i.n])); });
+    L.push('');
+    L.push(csvLinha(['DIA DA SEMANA (30 dias)', 'leituras']));
+    var DOWc = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+    (d.semana7 || []).forEach(function(i){ L.push(csvLinha([DOWc[i.dow] || i.dow, i.n])); });
+
     // BOM para o Excel abrir os acentos certos
     var blob = new Blob(['﻿' + L.join('\r\n')], { type: 'text/csv;charset=utf-8' });
     var url = URL.createObjectURL(blob);
