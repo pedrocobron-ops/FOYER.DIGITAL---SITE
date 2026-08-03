@@ -2,7 +2,7 @@
 /* v3: a virada do tema (a casa abre com a luz da sala em todo aparelho). O
    nome novo joga fora as cópias guardadas do CSS antigo, para que nem o
    aplicativo aberto sem rede volte a abrir no Blackout. */
-var CACHE = 'foyer-v6';
+var CACHE = 'foyer-v7';
 
 self.addEventListener('install', function (e) {
   self.skipWaiting();
@@ -23,8 +23,16 @@ self.addEventListener('push', function (e) {
   try { d = e.data ? e.data.json() : {}; } catch (err) {}
   e.waitUntil(self.registration.showNotification(d.title || 'FOYER', {
     body: d.body || 'Novidades no saguão do teatro brasileiro.',
+    // icon é o desenho GRANDE, dentro da notificação aberta: aí a marca
+    // aparece com as cores da casa.
     icon: 'assets/logo/pwa-192.png',
-    badge: 'assets/logo/pwa-192.png',
+    // badge é o SELO pequeno da barra de status, e ele obedece a outra
+    // regra: o Android joga fora as cores e fica só com o canal alfa,
+    // pintando de branco o que for opaco. Apontar o pwa-192 aqui era
+    // entregar um quadrado cheio, sem transparência nenhuma — o sistema
+    // recusava e punha o sino padrão dele. O selo certo é a silhueta do F
+    // do FOYER, opaca sobre fundo transparente.
+    badge: 'assets/logo/badge-foyer-96.png',
     data: { url: d.url || './index.html' },
     tag: 'foyer-diaria'
   }));
