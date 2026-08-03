@@ -61,6 +61,39 @@ def url_download(mid, ext):
     return f'https://static.wixstatic.com/media/{mid}/v1/fit/w_1400,h_1400,q_82/{arq}'
 
 
+# A foto que vem do site antigo chega no tamanho de máquina fotográfica: a
+# importação trouxe imagens de 5.184 pixels e 7 MB para aparecer numa coluna de
+# 800. O leitor de celular pagava esses megabytes e o Google contava a demora
+# contra o site. A Coxia já encolhe o que a equipe sobe; aqui a mesma régua
+# vale para o que vem de fora.
+LARGURA_MAX = 1600
+QUALIDADE = 82
+
+
+def enxugar(caminho):
+    """Reduz a foto para caber na página, sem nunca deixá-la maior."""
+    try:
+        from PIL import Image
+    except ImportError:
+        return                                    # sem Pillow, segue como veio
+    try:
+        im = Image.open(caminho)
+        tem_alfa = im.mode in ('RGBA', 'LA') or (im.mode == 'P' and 'transparency' in im.info)
+        w, h = im.size
+        novo = im.resize((LARGURA_MAX, round(h * LARGURA_MAX / w)), Image.LANCZOS) if w > LARGURA_MAX else im
+        tmp = caminho + '.tmp'
+        if tem_alfa:
+            novo.save(tmp, 'PNG', optimize=True)
+        else:
+            novo.convert('RGB').save(tmp, 'JPEG', quality=QUALIDADE, optimize=True, progressive=True)
+        if os.path.getsize(tmp) < os.path.getsize(caminho) * 0.92:
+            os.replace(tmp, caminho)
+        else:
+            os.remove(tmp)
+    except Exception:
+        pass                                      # foto estranha fica como está
+
+
 def baixar(mid):
     rel = nome_local(mid)
     alvo = os.path.join(ROOT, rel)
@@ -76,7 +109,11 @@ def baixar(mid):
             if len(dados) < 1024:
                 continue
             open(alvo, 'wb').write(dados)
-            return mid, rel, f'ok ({len(dados)//1024}KB)'
+            antes = len(dados)
+            enxugar(alvo)
+            depois = os.path.getsize(alvo)
+            marca = f'ok ({antes//1024}KB)' if depois == antes else f'ok ({antes//1024}→{depois//1024}KB)'
+            return mid, rel, marca
         except Exception as e:
             erro = str(e)[:60]
     return mid, rel, f'FALHA: {erro}'
