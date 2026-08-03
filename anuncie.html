@@ -161,7 +161,11 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
     .az-palco .dentro em{ display:block; font-style:normal; font-family:var(--mono); font-size:.6rem;
       letter-spacing:.3em; text-transform:uppercase; color:var(--gold); }
     .az-palco .dentro h2{ font-family:var(--didone); font-weight:400; font-size:clamp(1.9rem,5vw,2.9rem);
-      line-height:1.05; margin:10px 0 8px; color:var(--paper); }
+      /* O fundo desta caixa é vinho FIXO (#380A06), não segue o tema. Usar
+         var(--paper) aqui fazia o título virar preto sobre vinho no
+         Blackout: 1,07 de contraste, invisível. Cor clara fixa, como o
+         fundo. */
+      line-height:1.05; margin:10px 0 8px; color:#EFE9DB; }
     .az-palco .dentro p{ margin:0; color:rgba(239,232,218,.85); font-size:.95rem; }
     .az-cort{ position:absolute; top:0; bottom:0; width:54%; z-index:4;
       background:repeating-linear-gradient(90deg, #4E0F09 0 26px, #3d0c07 26px 52px);
@@ -203,7 +207,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
     .az-rev > div:nth-child(5){ animation-delay:.27s; } .az-rev > div:nth-child(6){ animation-delay:.33s; }
     .az-rev > div:nth-child(n+7){ animation-delay:.39s; }
     .az-aceite.ok{ animation:azCarimbo .35s ease; border-color:var(--gold); }
-    .az-aceite.ok::after{ content:'º6'; color:var(--wine); margin-left:auto; align-self:center;
+    .az-aceite.ok::after{ content:'\2726'; color:var(--wine); margin-left:auto; align-self:center;
       animation:azPonto .5s ease; }
 
     .az-passo h4{ font-family:var(--didone); font-weight:400; font-size:1.3rem; margin:0 0 4px; }
@@ -446,6 +450,10 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
     .az-rito-p{ display:flex; gap:10px; border:2px solid var(--ink); background:var(--paper); padding:12px 14px; }
     .az-rito-p b{ font-family:var(--didone); font-weight:400; font-size:1.6rem; color:var(--wine); line-height:1; }
     .az-rito-p span{ font-size:.82rem; line-height:1.5; }
+    /* No Blackout o vinho fica quase da cor do fundo: os numerais 1, 2 e 3
+       mediam 1,23 de contraste, ou seja, sumiam. O dourado é a cor que a
+       casa usa para o vinho no escuro. */
+    :root[data-theme="dark"] .az-rito-p b{ color:var(--gold-hi, #E9CB85); }
     .az-pts i{ cursor:pointer; }
     .az-sacola{ display:flex; flex-wrap:wrap; gap:6px 14px; padding:9px 18px; border-bottom:2px solid var(--ink);
       background:rgba(206,178,106,.12); font-size:.78rem; }
@@ -1033,7 +1041,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
   }
   function validaCPF(c){
     c = c.replace(/\D/g, '');
-    if(c.length !== 11 || /^(\d)+$/.test(c)) return false;
+    if(c.length !== 11 || /^(\d)\1+$/.test(c)) return false;
     for(var t = 9; t < 11; t++){
       var d = 0;
       for(var i = 0; i < t; i++) d += Number(c[i]) * ((t + 1) - i);
@@ -1044,7 +1052,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
   }
   function validaCNPJ(c){
     c = c.replace(/\D/g, '');
-    if(c.length !== 14 || /^(\d)+$/.test(c)) return false;
+    if(c.length !== 14 || /^(\d)\1+$/.test(c)) return false;
     var p = [5,4,3,2,9,8,7,6,5,4,3,2];
     function dv(pes){
       var soma = 0;
@@ -1134,7 +1142,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
         canal: f.canal, formato: st.formato, cupom: st.cupom,
         inicio: v('az-inicio'), duracao: st.duracao,
         nome: v('az-nome'), empresa: v('az-empresa'), email: v('az-email'),
-        whatsapp: v('az-whats').replace(/\D/g, ''), instagram: v('az-insta'),
+        whatsapp: v('az-whats').replace(/\\D/g, ''), instagram: v('az-insta'),
         mensagem: msg, arte: st.arte || null, link: v('az-link'), protocolo: proto,
         tipo_pessoa: st.tipoPessoa,
         documento: (st.tipoPessoa === 'pf' ? v('az-cpf') : v('az-cnpj')).replace(/\D/g, ''),

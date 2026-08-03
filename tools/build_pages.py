@@ -1278,35 +1278,75 @@ ficha('Direção musical','Caio Bezerra') + '''
 
 # ---------------------------------------------------------------- BUSCA
 
-busca_body = band('Ferramenta', 'Buscar', 'Todo o acervo do Foyer — 1.514 matérias, artistas e espetáculos') + '''
+# O olho da busca era um número escrito na mão, congelado numa contagem
+# antiga: dizia 1.514 enquanto a enciclopédia dizia 1.578 e o rodapé da mesma
+# tela dizia 4.221. Três respostas para "de que tamanho é esta casa" fazem o
+# leitor duvidar de tudo o mais. Agora o número sai da contagem de verdade.
+# O número entra como marca (__ACERVO__) e só é trocado na hora de gravar a
+# página, porque aqui em cima o acervo ainda nem foi lido do disco.
+busca_body = band('Ferramenta', 'Buscar',
+                  'Todo o acervo do Foyer — __ACERVO__ matérias, mais artistas e espetáculos') + '''
 <main id="conteudo" class="wrap">
   <form class="ency-search" style="border-top:var(--b); margin-top:26px" onsubmit="return false;">
     <input type="search" id="q" placeholder="Digite: espetáculo, artista, teatro…" aria-label="Buscar no site" autofocus>
     <button type="submit">Buscar</button>
   </form>
   <div class="ency-table" id="res" aria-live="polite"></div>
+  <p class="meta-l" style="display:block; padding:12px 4px 0" id="busca-mais" aria-live="polite"></p>
   <p class="meta-l" style="display:block; padding:18px 4px" id="busca-info">Carregando o índice do acervo…</p>
 </main>
 <script>
 (function(){
   var IDX = [];
   var info = document.getElementById('busca-info');
+  var mais = document.getElementById('busca-mais');
   fetch('assets/busca-index.json').then(function(r){ return r.json(); }).then(function(d){
     IDX = d;
-    info.textContent = IDX.length.toLocaleString('pt-BR') + ' matérias no acervo — digite para buscar';
+    // O índice junta matéria, verbete de pessoa e episódio de programa.
+    // Chamar os 4.221 de "matérias" era contar 2.643 pessoas como matéria,
+    // e o leitor via isso brigando com o número do olho da própria página.
+    var mat = 0, pes = 0, out = 0;
+    for(var i=0; i<IDX.length; i++){
+      var u = IDX[i].u || '';
+      if(u.indexOf('post-') === 0) mat++;
+      else if(u.indexOf('pessoa-') === 0) pes++;
+      else out++;
+    }
+    var n = function(x){ return x.toLocaleString('pt-BR'); };
+    info.textContent = n(mat) + ' matérias e ' + n(pes) + ' pessoas'
+      + (out ? ' e ' + n(out) + ' episódios' : '') + ' — digite para buscar';
   }).catch(function(){ info.textContent = 'Não foi possível carregar o índice.'; });
   var q = document.getElementById('q'), res = document.getElementById('res');
   function norm(s){ return s.toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g,''); }
+  // O título de uma matéria é escrito por gente e pode ter < ou > um dia
+  // (uma peça chamada "Peça <Anônima>", um verbete com aspas). Como a lista
+  // é montada com innerHTML, texto sem tratamento viraria marcação de
+  // verdade. Escapar aqui é barato e fecha a porta antes de ela existir.
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+    });
+  }
+  var TETO = 40;
   function render(){
     var v = norm(q.value.trim());
-    if(v.length < 2){ res.innerHTML=''; return; }
-    var hits = [];
-    for(var i=0; i<IDX.length && hits.length<40; i++){
-      if(norm(IDX[i].t + ' ' + IDX[i].c).indexOf(v) !== -1) hits.push(IDX[i]);
+    if(v.length < 2){ res.innerHTML=''; mais.textContent=''; return; }
+    var hits = [], achados = 0;
+    for(var i=0; i<IDX.length; i++){
+      var it = IDX[i];
+      // o autor entra na busca: quem procura "Isabel Branquinha" quer as
+      // matérias dela, não o único verbete com esse nome.
+      if(norm(it.t + ' ' + it.c + ' ' + (it.a || '')).indexOf(v) === -1) continue;
+      achados++;
+      if(hits.length < TETO) hits.push(it);
     }
     res.innerHTML = hits.length
-      ? hits.map(function(i){ return '<a class="ency-row" href="'+i.u+'"><span class="nm">'+i.t+'</span><span class="of">'+i.c+'</span><span class="ct"></span><span class="ar">→</span></a>'; }).join('')
+      ? hits.map(function(i){ return '<a class="ency-row" href="'+esc(i.u)+'"><span class="nm">'+esc(i.t)+'</span><span class="of">'+esc(i.c)+'</span><span class="ct">'+esc(i.a||'')+'</span><span class="ar">→</span></a>'; }).join('')
       : '<div class="ency-row"><span class="of">Nada encontrado</span></div>';
+    // cortar em 40 sem avisar fazia toda busca grande parecer pequena
+    mais.textContent = achados > hits.length
+      ? 'Mostrando ' + hits.length + ' de ' + achados.toLocaleString('pt-BR') + ' resultados. Escreva mais para afinar a busca.'
+      : (achados ? achados.toLocaleString('pt-BR') + (achados === 1 ? ' resultado' : ' resultados') : '');
   }
   q.addEventListener('input', render);
   // busca.html?q=alguma-coisa já chega procurando. Serve para link de fora,
@@ -1573,7 +1613,7 @@ def real_cell(p, big=False):
         <h3><a href="{href}">{p['title']}</a></h3>{d}
         <div class="meta-row">
           <span class="meta-l">{short_date(p)} — {p['author']}</span>
-          <button class="share-min" data-share="native" data-title="{safe(p['title'])}">Compartilhar ↗</button>
+          <button class="share-min" data-share="native" data-title="{safe(p['title'])}" data-url="{BASE}/{href}">Compartilhar ↗</button>
         </div>
       </div>
     </article>'''
@@ -1891,8 +1931,14 @@ def post_page(i, p):
     _sps = globals().get('POR_MATERIA', {}).get(p['slug'], [])
     _pes = globals().get('PESSOAS', {})
     quem_bloco = ''
+    # Quem assina a matéria não é personagem dela. O detector de nomes pegava
+    # a assinatura no pé do texto e listava a repórter entre os retratados,
+    # misturando quem apurou com quem foi apurado — justo na casa que promete
+    # essa separação nos Princípios Editoriais.
+    _assina = {n.strip().lower() for n in str(p.get('author') or '').replace(' e ', '|').split('|')}
     _chips = ''.join(f'<a class="tag" href="pessoa-{s}.html">{_pes[s]["nome"]}</a>'
-                     for s in _sps[:14] if s in _pes)
+                     for s in _sps[:14]
+                     if s in _pes and _pes[s]['nome'].strip().lower() not in _assina)
     if _chips:
         quem_bloco = ('<div class="art-foot" style="border-top:1px solid var(--line);padding-top:16px">'
                       '<div class="tags" style="align-items:center">'
@@ -2134,6 +2180,10 @@ body.rv-sala #rv-sala-sair{ display:block; }
 .rv-sum li{ display:grid; grid-template-columns:60px 1fr; gap:12px; align-items:baseline;
   padding:6px 22px; border-bottom:1px solid var(--line); }
 .rv-sum.cheia li{ padding:4px 22px; }
+/* a linha do sumário é um atalho: precisa parecer clicável e mostrar o foco */
+.rv-sum li[data-ir]{ cursor:pointer; }
+.rv-sum li[data-ir]:hover{ background:rgba(206,178,106,.16); }
+.rv-sum li[data-ir]:focus-visible{ outline:3px solid var(--gold); outline-offset:-3px; }
 .rv-sum.cheia .pt{ font-size:.72rem; }
 .rv-sum.cheia .pnum{ font-size:1.2rem; }
 .rv-sum .pnum{ font-family:var(--didone); font-size:1.45rem; color:var(--wine); text-align:right; }
@@ -2500,7 +2550,12 @@ html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
   border:0; background:none; color:var(--ink-soft); cursor:pointer;
   font-size:.8rem; line-height:1; display:flex; align-items:center; justify-content:center;
   transition:color .15s, transform .12s; }
-.rv-quina:hover{ color:var(--wine); transform:translateY(-1px); }
+/* devolve às setas o tamanho que a escala da folha tirou delas: 44px de dedo
+   continuam 44px na tela, em qualquer celular */
+.rv-quina{ transform:scale(calc(1 / var(--rv-f, 1))); }
+.rv-quina.esq{ transform-origin:left bottom; }
+.rv-quina.dir{ transform-origin:right bottom; }
+.rv-quina:hover{ color:var(--wine); }
 .rv-quina:focus-visible{ outline:3px solid var(--gold); }
 .rv-quina.esq{ left:10px; }
 .rv-quina.dir{ right:10px; }
@@ -3321,8 +3376,33 @@ def edicao_page(ed):
       var pos = Array.prototype.indexOf.call(todas, alvo);
       var el = li.querySelector('.pnum');
       if(el && pos >= 0) el.textContent = pos + 1;
+      // O sumário dizia "página 18" e não levava a lugar nenhum: numa revista
+      // de 33 páginas isso são 16 viradas até a matéria que ele prometeu.
+      // Agora cada linha é um atalho, e também pelo teclado.
+      if(pos >= 0){{
+        li.setAttribute('data-ir', String(pos));
+        li.setAttribute('role', 'link');
+        li.setAttribute('tabindex', '0');
+        li.title = 'Ir para a página ' + (pos + 1);
+      }}
     }});
   }}
+  (function(){{
+    function irPara(li){{
+      var pos = parseInt(li.getAttribute('data-ir'), 10);
+      if(isNaN(pos)) return;
+      vaiDupla(duplaDe(pos), 1);
+    }}
+    document.addEventListener('click', function(e){{
+      var li = e.target.closest && e.target.closest('.rv-sum ol li[data-ir]');
+      if(li){{ e.preventDefault(); irPara(li); }}
+    }});
+    document.addEventListener('keydown', function(e){{
+      if(e.key !== 'Enter' && e.key !== ' ') return;
+      var li = e.target.closest && e.target.closest('.rv-sum ol li[data-ir]');
+      if(li){{ e.preventDefault(); irPara(li); }}
+    }});
+  }})();
   function montaDuplas(){{
     pgs = document.querySelectorAll('.rv-pg');
     duplas = [];
@@ -3349,7 +3429,16 @@ def edicao_page(ed):
     var alturaLivro = 978;
     var sala = document.body.classList.contains('rv-sala');
     var w = palco.clientWidth || document.documentElement.clientWidth - 28;
-    var h = window.innerHeight - (sala ? 96 : 200);
+    // O aviso de cookies entra na conta da ALTURA. Antes, só a barra de
+    // controles subia por cima dele, e a barra passava a cobrir o pé da
+    // folha: na primeira visita, que é justamente quando o aviso aparece, as
+    // três chamadas da capa ficavam escondidas.
+    var aviso = 0;
+    if(document.documentElement.classList.contains('tem-aviso')){{
+      aviso = parseInt(getComputedStyle(document.documentElement)
+                .getPropertyValue('--aviso-alt'), 10) || 0;
+    }}
+    var h = window.innerHeight - (sala ? 96 : 200) - aviso;
     var f = Math.min(1, w / larguraLivro, Math.max(0.3, h / alturaLivro));
     // zoom de leitura (toque duplo): amplia o corpo e deixa arrastar a página
     if(modoLargura) f = Math.min(1, (w / larguraLivro) * 1.75);
@@ -3357,6 +3446,11 @@ def edicao_page(ed):
     // sem sobrar metade fora da tela no celular
     var desloca = Math.max(0, (w - larguraLivro * f) / 2);
     livro.style.transform = 'translateX(' + desloca + 'px) scale(' + f + ')';
+    // As setas de virar página moram DENTRO da folha, então encolhem junto
+    // com ela: no celular, os 44px viravam 22 na tela e o dedo errava (e
+    // errar ali liga o zoom de leitura sem querer). Guardamos a escala para
+    // o CSS devolver o tamanho às setas, e só a elas.
+    document.documentElement.style.setProperty('--rv-f', String(f));
     palco.style.height = Math.ceil(alturaLivro * f) + 'px';
     palco.style.overflowX = modoLargura ? 'auto' : '';
   }}
@@ -4403,7 +4497,8 @@ page('agenda.html', 'Agenda — FOYER', 'Estreias, temporadas e eventos de teatr
 page('programas.html', 'Programas — FOYER', 'Os programas do canal Foyer no YouTube e Spotify.', 'programas.html', programas_body)
 page('enciclopedia.html', 'Enciclopédia — FOYER', 'Enciclopédia do Teatro Musical Brasileiro: artistas, espetáculos e fichas técnicas.', 'enciclopedia.html', enciclopedia_body)
 page('revista.html', 'A Revista — FOYER', 'A revista semanal do Foyer: edições fechadas para ler online ou baixar em PDF.', 'revista.html', revista_body)
-page('busca.html', 'Buscar — FOYER', 'Busque matérias, críticas, artistas e espetáculos no FOYER.', 'busca.html', busca_body)
+page('busca.html', 'Buscar — FOYER', 'Busque matérias, críticas, artistas e espetáculos no FOYER.', 'busca.html',
+     busca_body.replace('__ACERVO__', f'{len(MATERIAS):,}'.replace(',', '.')))
 page('sobre.html', 'Quem somos — FOYER', 'O FOYER: portal de jornalismo cultural e canal de programas sobre teatro, música e artes.', 'index.html', sobre_body)
 page('contato.html', 'Contato — FOYER', 'Fale com a redação do FOYER: pautas, imprensa, parcerias e publicidade.', 'index.html', contato_body)
 principios_body = band('Institucional', 'Princípios Editoriais', 'Como o FOYER apura, escreve e corrige') + '''
@@ -4499,7 +4594,12 @@ page('termos.html', 'Termos de Uso — FOYER',
 
 
 # ---- mídia kit: a página comercial da revista, com o retrato agregado do leitor
-anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na revista toda quinta. Veja como o seu anúncio fica antes de fechar — e feche direto no WhatsApp') + '''
+# ATENÇÃO AO r'''. Este bloco tem expressões regulares com retrovisor (\1),
+# que é como se confere CPF de dígito repetido. Sem o r, o Python lê \1
+# como escape octal e grava um byte de controle no lugar: a regra passa a
+# não casar nada e 111.111.111-11 vira CPF válido no formulário de
+# publicidade. Aconteceu, e só apareceu quando alguém tentou.
+anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na revista toda quinta. Veja como o seu anúncio fica antes de fechar — e feche direto no WhatsApp') + r'''
 <main id="conteudo" class="wrap">
   <style>
     .az-palco{ position:relative; overflow:hidden; border:3px solid var(--ink); background:#380A06;
@@ -4510,7 +4610,11 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     .az-palco .dentro em{ display:block; font-style:normal; font-family:var(--mono); font-size:.6rem;
       letter-spacing:.3em; text-transform:uppercase; color:var(--gold); }
     .az-palco .dentro h2{ font-family:var(--didone); font-weight:400; font-size:clamp(1.9rem,5vw,2.9rem);
-      line-height:1.05; margin:10px 0 8px; color:var(--paper); }
+      /* O fundo desta caixa é vinho FIXO (#380A06), não segue o tema. Usar
+         var(--paper) aqui fazia o título virar preto sobre vinho no
+         Blackout: 1,07 de contraste, invisível. Cor clara fixa, como o
+         fundo. */
+      line-height:1.05; margin:10px 0 8px; color:#EFE9DB; }
     .az-palco .dentro p{ margin:0; color:rgba(239,232,218,.85); font-size:.95rem; }
     .az-cort{ position:absolute; top:0; bottom:0; width:54%; z-index:4;
       background:repeating-linear-gradient(90deg, #4E0F09 0 26px, #3d0c07 26px 52px);
@@ -4795,6 +4899,10 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     .az-rito-p{ display:flex; gap:10px; border:2px solid var(--ink); background:var(--paper); padding:12px 14px; }
     .az-rito-p b{ font-family:var(--didone); font-weight:400; font-size:1.6rem; color:var(--wine); line-height:1; }
     .az-rito-p span{ font-size:.82rem; line-height:1.5; }
+    /* No Blackout o vinho fica quase da cor do fundo: os numerais 1, 2 e 3
+       mediam 1,23 de contraste, ou seja, sumiam. O dourado é a cor que a
+       casa usa para o vinho no escuro. */
+    :root[data-theme="dark"] .az-rito-p b{ color:var(--gold-hi, #E9CB85); }
     .az-pts i{ cursor:pointer; }
     .az-sacola{ display:flex; flex-wrap:wrap; gap:6px 14px; padding:9px 18px; border-bottom:2px solid var(--ink);
       background:rgba(206,178,106,.12); font-size:.78rem; }

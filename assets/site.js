@@ -38,7 +38,20 @@
     var d = new Date();
     var p = function(n){ return (n<10?'0':'')+n; };
     var el = document.getElementById('today');
-    if(el) el.textContent = dias[d.getDay()] + ' — ' + p(d.getDate()) + '.' + p(d.getMonth()+1) + '.' + d.getFullYear() + ' — São Paulo, BR';
+    // A cidade é a primeira coisa a sair quando a tarja não cabe. Numa tela
+    // de celular a linha inteira era cortada no meio da palavra e o leitor
+    // via "SÃO PAU" na primeira linha do site, em toda página. Dia e data
+    // são o que interessa ali; a cidade da casa está no rodapé e no "Quem
+    // somos". O corte é pela LARGURA da tela, não por aparelho: quem gira o
+    // telefone volta a ver a cidade.
+    if(el){
+      var data = dias[d.getDay()] + ' — ' + p(d.getDate()) + '.' + p(d.getMonth()+1) + '.' + d.getFullYear();
+      var escreve = function(){
+        el.textContent = window.innerWidth < 560 ? data : data + ' — São Paulo, BR';
+      };
+      escreve();
+      window.addEventListener('resize', escreve);
+    }
   }catch(e){}
 })();
 
@@ -95,14 +108,30 @@
 
 // compartilhamento — nativo no celular, redes no desktop
 (function(){
-  var SITE = 'https://www.foyer.digital/';
+  // O endereço a compartilhar sai do canonical da própria página, que o
+  // gerador escreve em toda página com o domínio certo.
+  //
+  // Antes daqui, quem não estivesse numa página "post-" recebia a CAPA no
+  // lugar do endereço da página. Quem compartilhava um verbete da
+  // enciclopédia mandava o nome da pessoa com o link da capa: 2.643 páginas
+  // mandando o amigo para o lugar errado. E a capa vinha com "www.", que não
+  // é o endereço da casa (o CNAME e todos os canonical são foyer.digital,
+  // sem www).
+  //
+  // O botão pode declarar o próprio endereço em data-url. É o caso dos
+  // cartões de "leia também": eles carregam o TÍTULO da matéria recomendada,
+  // e sem isso levavam o título de uma com o endereço de outra.
+  function enderecoDaPagina(){
+    var c = document.querySelector('link[rel="canonical"]');
+    return (c && c.href) || location.href;
+  }
   document.addEventListener('click', function(e){
     var b = e.target.closest('[data-share]');
     if(!b) return;
     e.preventDefault();
     var kind  = b.getAttribute('data-share');
     var title = b.getAttribute('data-title') || document.title;
-    var url   = location.pathname.indexOf('post-') > -1 ? location.href : SITE;
+    var url   = b.getAttribute('data-url') || enderecoDaPagina();
     if(kind === 'copy'){
       if(navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(url).then(function(){
@@ -552,6 +581,65 @@
   });
 })();
 
+/* ---------- "pular para o conteúdo": levar o foco junto com a tela ----------
+   O atalho existe e funciona para quem usa Tab, porque o navegador guarda o
+   ponto de partida. Para quem usa leitor de tela, não: a tela rolava e o
+   cursor de leitura ficava parado no topo, então a pessoa apertava o atalho
+   e não ouvia nada mudar. Falta ao alvo poder RECEBER foco, e é o que o
+   tabindex negativo faz (recebe por programa, nunca por Tab). */
+(function(){
+  var alvo = document.getElementById('conteudo');
+  if(alvo && !alvo.hasAttribute('tabindex')) alvo.setAttribute('tabindex', '-1');
+})();
+
+/* ---------- cortinas: a janela que cobre a tela precisa prender o foco ----------
+   Quem navega só de teclado abria um destes cartões e o foco NUNCA entrava
+   nele: dez toques de Tab passeavam pela página escurecida atrás da cortina,
+   sem nada visível, e o Esc não fechava. Na prática, uma parede.
+
+   O formulário de assinatura da revista já fazia isso certo; esta função é
+   aquele comportamento tirado de lá e posto onde faltava. Use assim:
+
+     var solta = prendeFoco(veu, sair);   // ao abrir
+     solta();                             // ao fechar, devolve o foco
+
+   `veu` é o elemento que cobre a tela; `sair` é a função que fecha. */
+function prendeFoco(veu, sair){
+  var voltarPara = document.activeElement;
+  var caixa = veu.querySelector('[role="dialog"]') || veu;
+  caixa.setAttribute('aria-modal', 'true');
+  if(!caixa.hasAttribute('tabindex')) caixa.setAttribute('tabindex', '-1');
+
+  function focaveis(){
+    return Array.prototype.filter.call(
+      veu.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])'),
+      function(el){ return el.offsetWidth || el.offsetHeight || el.getClientRects().length; });
+  }
+  // o foco entra na primeira coisa acionável; se não houver, na própria caixa
+  var primeiros = focaveis();
+  (primeiros[0] || caixa).focus();
+
+  function tecla(e){
+    if(e.key === 'Escape'){ e.preventDefault(); if(sair) sair(); return; }
+    if(e.key !== 'Tab') return;
+    var lista = focaveis();
+    if(!lista.length){ e.preventDefault(); caixa.focus(); return; }
+    var primeiro = lista[0], ultimo = lista[lista.length - 1];
+    if(!veu.contains(document.activeElement)){
+      e.preventDefault(); (e.shiftKey ? ultimo : primeiro).focus(); return;
+    }
+    if(e.shiftKey && document.activeElement === primeiro){ e.preventDefault(); ultimo.focus(); }
+    else if(!e.shiftKey && document.activeElement === ultimo){ e.preventDefault(); primeiro.focus(); }
+  }
+  document.addEventListener('keydown', tecla, true);
+
+  return function solta(){
+    document.removeEventListener('keydown', tecla, true);
+    // devolve o foco a quem abriu, senão a pessoa recomeça do topo da página
+    try{ if(voltarPara && voltarPara.focus) voltarPara.focus(); }catch(e){}
+  };
+}
+
 /* ---------- FOYER no celular: instalar como aplicativo (PWA) ---------- */
 (function(){
   if('serviceWorker' in navigator){
@@ -610,8 +698,10 @@
       '</div>';
     document.body.appendChild(v);
     requestAnimationFrame(function(){ v.classList.add('on'); });
+    var solta = prendeFoco(v, function(){ fechar(); });
     function fechar(){
       try{ localStorage.setItem(K, String(Date.now())); }catch(e){}
+      solta();
       v.classList.remove('on');
       setTimeout(function(){ v.remove(); }, 250);
     }
@@ -693,7 +783,8 @@
       '</div>';
     document.body.appendChild(v);
     requestAnimationFrame(function(){ v.classList.add('on'); });
-    function sair(){ v.classList.remove('on'); setTimeout(function(){ v.remove(); }, 300); }
+    var solta = prendeFoco(v, function(){ sair(); });
+    function sair(){ solta(); v.classList.remove('on'); setTimeout(function(){ v.remove(); }, 300); }
     v.addEventListener('click', function(e){
       if(e.target === v || e.target.hasAttribute('data-fechar')){
         try{ localStorage.setItem(K, String(Date.now())); }catch(err){}
@@ -752,13 +843,23 @@
     if(document.getElementById('lgpd')) return;
     var b = document.createElement('div');
     b.id = 'lgpd';
+    // A tarja é uma pergunta, e quem usa leitor de tela precisa saber que ela
+    // apareceu e do que se trata.
+    b.setAttribute('role', 'dialog');
+    b.setAttribute('aria-label', 'Cookies no FOYER');
     b.innerHTML =
       '<p><b>🍪 Cookies no FOYER.</b> Usamos armazenamento essencial (tema, sessão) e métricas anônimas de audiência. ' +
       'Com anúncios ativos, parceiros como o Google podem usar cookies de publicidade. ' +
       'Saiba mais na <a href="privacidade.html">Política de Privacidade</a>.</p>' +
-      '<div class="lgpd-acoes"><button class="lgpd-sim">Aceitar tudo</button>' +
-      '<button class="lgpd-min">Só o essencial</button></div>';
-    document.body.appendChild(b);
+      '<div class="lgpd-acoes"><button class="lgpd-sim" type="button">Aceitar tudo</button>' +
+      '<button class="lgpd-min" type="button">Só o essencial</button></div>';
+    // ENTRA NO COMEÇO DO CORPO, não no fim. A tarja é presa na tela por CSS,
+    // então a posição no código não muda nada do que se vê — mas muda tudo
+    // para quem anda de Tab: no fim da página, o botão "Aceitar tudo" era a
+    // 106ª parada na capa. Quem navega por teclado tinha de atravessar o site
+    // inteiro para responder a pergunta que estava na frente dele.
+    document.body.insertBefore(b, document.body.firstChild);
+    var voltarPara = document.activeElement;
     // O aviso é uma tarja presa no fim da tela. Sem abrir espaço para ela, o
     // que estiver encostado no rodapé fica DEBAIXO do aviso e não recebe
     // clique — foi assim que ele engoliu as setas de virar a página da
@@ -780,6 +881,10 @@
       b.classList.remove('on'); fechaEspaco();
       window.removeEventListener('resize', abreEspaco);
       setTimeout(function(){ b.remove(); }, 300);
+      // devolve o foco a onde a pessoa estava lendo: sem isso, responder o
+      // aviso jogava o foco no corpo da página e o próximo Tab recomeçava
+      // tudo do topo.
+      try{ if(voltarPara && voltarPara.focus && document.contains(voltarPara)) voltarPara.focus(); }catch(e){}
     }
     b.querySelector('.lgpd-sim').addEventListener('click', function(){ gravar('tudo'); sair(); });
     b.querySelector('.lgpd-min').addEventListener('click', function(){ gravar('essencial'); sair(); });

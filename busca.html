@@ -147,7 +147,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
   <div class="wrap">
     <span class="kicker">Ferramenta</span>
     <h1>Buscar</h1>
-    <p class="note">Todo o acervo do Foyer — 1.514 matérias, artistas e espetáculos</p>
+    <p class="note">Todo o acervo do Foyer — 1.578 matérias, mais artistas e espetáculos</p>
   </div>
 </header>
 
@@ -157,28 +157,61 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
     <button type="submit">Buscar</button>
   </form>
   <div class="ency-table" id="res" aria-live="polite"></div>
+  <p class="meta-l" style="display:block; padding:12px 4px 0" id="busca-mais" aria-live="polite"></p>
   <p class="meta-l" style="display:block; padding:18px 4px" id="busca-info">Carregando o índice do acervo…</p>
 </main>
 <script>
 (function(){
   var IDX = [];
   var info = document.getElementById('busca-info');
+  var mais = document.getElementById('busca-mais');
   fetch('assets/busca-index.json').then(function(r){ return r.json(); }).then(function(d){
     IDX = d;
-    info.textContent = IDX.length.toLocaleString('pt-BR') + ' matérias no acervo — digite para buscar';
+    // O índice junta matéria, verbete de pessoa e episódio de programa.
+    // Chamar os 4.221 de "matérias" era contar 2.643 pessoas como matéria,
+    // e o leitor via isso brigando com o número do olho da própria página.
+    var mat = 0, pes = 0, out = 0;
+    for(var i=0; i<IDX.length; i++){
+      var u = IDX[i].u || '';
+      if(u.indexOf('post-') === 0) mat++;
+      else if(u.indexOf('pessoa-') === 0) pes++;
+      else out++;
+    }
+    var n = function(x){ return x.toLocaleString('pt-BR'); };
+    info.textContent = n(mat) + ' matérias e ' + n(pes) + ' pessoas'
+      + (out ? ' e ' + n(out) + ' episódios' : '') + ' — digite para buscar';
   }).catch(function(){ info.textContent = 'Não foi possível carregar o índice.'; });
   var q = document.getElementById('q'), res = document.getElementById('res');
   function norm(s){ return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+  // O título de uma matéria é escrito por gente e pode ter < ou > um dia
+  // (uma peça chamada "Peça <Anônima>", um verbete com aspas). Como a lista
+  // é montada com innerHTML, texto sem tratamento viraria marcação de
+  // verdade. Escapar aqui é barato e fecha a porta antes de ela existir.
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+    });
+  }
+  var TETO = 40;
   function render(){
     var v = norm(q.value.trim());
-    if(v.length < 2){ res.innerHTML=''; return; }
-    var hits = [];
-    for(var i=0; i<IDX.length && hits.length<40; i++){
-      if(norm(IDX[i].t + ' ' + IDX[i].c).indexOf(v) !== -1) hits.push(IDX[i]);
+    if(v.length < 2){ res.innerHTML=''; mais.textContent=''; return; }
+    var hits = [], achados = 0;
+    for(var i=0; i<IDX.length; i++){
+      var it = IDX[i];
+      // o autor entra na busca: quem procura "Isabel Branquinha" quer as
+      // matérias dela, não o único verbete com esse nome.
+      if(norm(it.t + ' ' + it.c + ' ' + (it.a || '')).indexOf(v) === -1) continue;
+      achados++;
+      if(hits.length < TETO) hits.push(it);
     }
     res.innerHTML = hits.length
-      ? hits.map(function(i){ return '<a class="ency-row" href="'+i.u+'"><span class="nm">'+i.t+'</span><span class="of">'+i.c+'</span><span class="ct"></span><span class="ar">→</span></a>'; }).join('')
+      ? hits.map(function(i){ return '<a class="ency-row" href="'+esc(i.u)+'"><span class="nm">'+esc(i.t)+'</span><span class="of">'+esc(i.c)+'</span><span class="ct">'+esc(i.a||'')+'</span><span class="ar">→</span></a>'; }).join('')
       : '<div class="ency-row"><span class="of">Nada encontrado</span></div>';
+    // cortar em 40 sem avisar fazia toda busca grande parecer pequena
+    mais.textContent = achados > hits.length
+      ? 'Mostrando ' + hits.length + ' de ' + achados.toLocaleString('pt-BR') + ' resultados. Escreva mais para afinar a busca.'
+      : (achados ? achados.toLocaleString('pt-BR') + (achados === 1 ? ' resultado' : ' resultados') : '');
   }
   q.addEventListener('input', render);
   // busca.html?q=alguma-coisa já chega procurando. Serve para link de fora,

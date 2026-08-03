@@ -280,6 +280,10 @@ body.rv-sala #rv-sala-sair{ display:block; }
 .rv-sum li{ display:grid; grid-template-columns:60px 1fr; gap:12px; align-items:baseline;
   padding:6px 22px; border-bottom:1px solid var(--line); }
 .rv-sum.cheia li{ padding:4px 22px; }
+/* a linha do sumário é um atalho: precisa parecer clicável e mostrar o foco */
+.rv-sum li[data-ir]{ cursor:pointer; }
+.rv-sum li[data-ir]:hover{ background:rgba(206,178,106,.16); }
+.rv-sum li[data-ir]:focus-visible{ outline:3px solid var(--gold); outline-offset:-3px; }
 .rv-sum.cheia .pt{ font-size:.72rem; }
 .rv-sum.cheia .pnum{ font-size:1.2rem; }
 .rv-sum .pnum{ font-family:var(--didone); font-size:1.45rem; color:var(--wine); text-align:right; }
@@ -646,7 +650,12 @@ html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
   border:0; background:none; color:var(--ink-soft); cursor:pointer;
   font-size:.8rem; line-height:1; display:flex; align-items:center; justify-content:center;
   transition:color .15s, transform .12s; }
-.rv-quina:hover{ color:var(--wine); transform:translateY(-1px); }
+/* devolve às setas o tamanho que a escala da folha tirou delas: 44px de dedo
+   continuam 44px na tela, em qualquer celular */
+.rv-quina{ transform:scale(calc(1 / var(--rv-f, 1))); }
+.rv-quina.esq{ transform-origin:left bottom; }
+.rv-quina.dir{ transform-origin:right bottom; }
+.rv-quina:hover{ color:var(--wine); }
 .rv-quina:focus-visible{ outline:3px solid var(--gold); }
 .rv-quina.esq{ left:10px; }
 .rv-quina.dir{ right:10px; }
@@ -1036,8 +1045,33 @@ html[data-theme="dark"] .rv-quina{ color:var(--gold); }
       var pos = Array.prototype.indexOf.call(todas, alvo);
       var el = li.querySelector('.pnum');
       if(el && pos >= 0) el.textContent = pos + 1;
+      // O sumário dizia "página 18" e não levava a lugar nenhum: numa revista
+      // de 33 páginas isso são 16 viradas até a matéria que ele prometeu.
+      // Agora cada linha é um atalho, e também pelo teclado.
+      if(pos >= 0){
+        li.setAttribute('data-ir', String(pos));
+        li.setAttribute('role', 'link');
+        li.setAttribute('tabindex', '0');
+        li.title = 'Ir para a página ' + (pos + 1);
+      }
     });
   }
+  (function(){
+    function irPara(li){
+      var pos = parseInt(li.getAttribute('data-ir'), 10);
+      if(isNaN(pos)) return;
+      vaiDupla(duplaDe(pos), 1);
+    }
+    document.addEventListener('click', function(e){
+      var li = e.target.closest && e.target.closest('.rv-sum ol li[data-ir]');
+      if(li){ e.preventDefault(); irPara(li); }
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key !== 'Enter' && e.key !== ' ') return;
+      var li = e.target.closest && e.target.closest('.rv-sum ol li[data-ir]');
+      if(li){ e.preventDefault(); irPara(li); }
+    });
+  })();
   function montaDuplas(){
     pgs = document.querySelectorAll('.rv-pg');
     duplas = [];
@@ -1064,7 +1098,16 @@ html[data-theme="dark"] .rv-quina{ color:var(--gold); }
     var alturaLivro = 978;
     var sala = document.body.classList.contains('rv-sala');
     var w = palco.clientWidth || document.documentElement.clientWidth - 28;
-    var h = window.innerHeight - (sala ? 96 : 200);
+    // O aviso de cookies entra na conta da ALTURA. Antes, só a barra de
+    // controles subia por cima dele, e a barra passava a cobrir o pé da
+    // folha: na primeira visita, que é justamente quando o aviso aparece, as
+    // três chamadas da capa ficavam escondidas.
+    var aviso = 0;
+    if(document.documentElement.classList.contains('tem-aviso')){
+      aviso = parseInt(getComputedStyle(document.documentElement)
+                .getPropertyValue('--aviso-alt'), 10) || 0;
+    }
+    var h = window.innerHeight - (sala ? 96 : 200) - aviso;
     var f = Math.min(1, w / larguraLivro, Math.max(0.3, h / alturaLivro));
     // zoom de leitura (toque duplo): amplia o corpo e deixa arrastar a página
     if(modoLargura) f = Math.min(1, (w / larguraLivro) * 1.75);
@@ -1072,6 +1115,11 @@ html[data-theme="dark"] .rv-quina{ color:var(--gold); }
     // sem sobrar metade fora da tela no celular
     var desloca = Math.max(0, (w - larguraLivro * f) / 2);
     livro.style.transform = 'translateX(' + desloca + 'px) scale(' + f + ')';
+    // As setas de virar página moram DENTRO da folha, então encolhem junto
+    // com ela: no celular, os 44px viravam 22 na tela e o dedo errava (e
+    // errar ali liga o zoom de leitura sem querer). Guardamos a escala para
+    // o CSS devolver o tamanho às setas, e só a elas.
+    document.documentElement.style.setProperty('--rv-f', String(f));
     palco.style.height = Math.ceil(alturaLivro * f) + 'px';
     palco.style.overflowX = modoLargura ? 'auto' : '';
   }

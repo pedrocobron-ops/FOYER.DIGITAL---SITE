@@ -224,8 +224,24 @@ nav.main{
 nav.main .row{
   max-width:var(--wrap); margin:0 auto;
   display:flex; align-items:stretch; overflow-x:auto; scrollbar-width:none;
+  /* o item que recebe foco pelo teclado entra INTEIRO na tela, com o
+     contorno dourado completo, em vez de parar cortado na borda */
+  scroll-padding-inline:24px;
 }
 nav.main .row::-webkit-scrollbar{ display:none; }
+/* A fila de seções rola de lado no celular, mas nada dizia isso: a AGENDA
+   ficava no pixel 777 de uma tela de 390, e o menu parecia ter só CAPA,
+   NOTÍCIAS e CRÍTICA. A sombra na borda direita é o aviso de que a fila
+   continua; ela some quando a rolagem chega ao fim (animation-timeline faz
+   isso sozinho onde o navegador entende, e onde não entende ela fica, o que
+   também não é errado). */
+nav.main{ position:sticky; }
+nav.main::after{
+  content:''; position:absolute; top:0; bottom:2px; right:0; width:34px;
+  pointer-events:none; z-index:2;
+  background:linear-gradient(90deg, transparent, var(--paper) 78%);
+}
+@media (min-width:1080px){ nav.main::after{ display:none; } }
 nav.main a{
   flex:1 0 auto; text-align:center;
   font-family:var(--sans); font-weight:800; font-size:.72rem;
@@ -558,11 +574,15 @@ nav.main a.brand img.only-dark, .gate img.only-dark{ display:none; }
 }
 
 /* ================= ENCICLOPÉDIA ================= */
+/* Três colunas rígidas não cabem em 390px: o terceiro número ("132
+   episódios") saía pela direita e era a única página do site que rolava de
+   lado. Com auto-fit as colunas viram duas, ou uma, conforme couber. */
 .ency-stats{
-  display:grid; grid-template-columns:repeat(3,1fr);
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
   gap:1px; background:var(--line); border:var(--b); margin-top:26px;
 }
 .stat{ background:var(--paper); padding:26px 24px 20px; text-align:center; }
+@media (max-width:520px){ .stat{ padding:18px 12px 14px; } }
 .stat .n{
   font-family:var(--didone); font-size:clamp(2.4rem,5vw,3.8rem); line-height:1;
   color:var(--wine); display:block; font-variant-numeric:tabular-nums;
