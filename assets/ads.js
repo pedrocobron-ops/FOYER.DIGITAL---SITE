@@ -96,7 +96,14 @@ window.FOYER_ADS = {
     var u = el.getAttribute('data-ad-unidade') || lista[i % lista.length];
     if(u) ins.setAttribute('data-ad-slot', u);
     ins.setAttribute('data-ad-format', el.getAttribute('data-ad-format') || 'auto');
-    ins.setAttribute('data-full-width-responsive', 'true');
+    // "Largura total no celular" DESLIGADA, e não é preferência de gosto.
+    // Com ela ligada, o Google aplica margem negativa e estica o anúncio até a
+    // largura da tela, passando por cima da moldura da casa: no celular do
+    // Pedro (03/08/2026) o anúncio saía dos dois lados da caixa, cobria a
+    // palavra "Publicidade" e encostava no texto da matéria. Desligada, o
+    // anúncio respeita a largura de quem o abriga. É o próprio Google que
+    // oferece essa chave.
+    ins.setAttribute('data-full-width-responsive', 'false');
     el.appendChild(ins);
     vigiaVazio(el, ins);
     try{ (window.adsbygoogle = window.adsbygoogle || []).push({}); }catch(e){}

@@ -2,7 +2,7 @@
 /* v3: a virada do tema (a casa abre com a luz da sala em todo aparelho). O
    nome novo joga fora as cópias guardadas do CSS antigo, para que nem o
    aplicativo aberto sem rede volte a abrir no Blackout. */
-var CACHE = 'foyer-v4';
+var CACHE = 'foyer-v5';
 
 self.addEventListener('install', function (e) {
   self.skipWaiting();

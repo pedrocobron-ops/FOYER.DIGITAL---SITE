@@ -935,6 +935,16 @@ body.ads-on .ad-slot::before{
   font-size:.54rem; letter-spacing:.22em; text-transform:uppercase;
   color:var(--ink-soft); margin-bottom:10px;
 }
+/* Trava de largura: o anúncio nunca sai da moldura da casa.
+   O Google, quando resolve ocupar a tela inteira no celular, escreve
+   largura e margem negativa direto no elemento. Regra com !important vence
+   estilo escrito no elemento, então a moldura ganha a disputa. Aqui NÃO se
+   corta anúncio (cortar é proibido pelas regras do AdSense): a caixa só
+   devolve o bloco à largura de quem o abriga. */
+body.ads-on .ad-slot ins.adsbygoogle{
+  display:block !important; width:100% !important; max-width:100% !important;
+  margin-left:0 !important; margin-right:0 !important; left:auto !important;
+}
 body.ads-on.ads-demo .ad-slot::after{
   content:'Espaço reservado — Google AdSense'; display:grid; place-items:center;
   min-height:90px; font-family:var(--mono); font-size:.62rem; letter-spacing:.14em;
