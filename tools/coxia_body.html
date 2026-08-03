@@ -435,6 +435,19 @@
 
   /* mesa de aprovação */
   .mesa-card{ border:var(--b); margin-bottom:22px; background:var(--paper); }
+  /* filtro por assinatura: a mesa junta o que é de cada um, e cada editor só
+     pode carimbar o próprio nome. Sem isto, achar as suas no meio de 27 é
+     rolar a página inteira lendo assinatura por assinatura. */
+  .mesa-filtro{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+  .mesa-filtro button{ font-family:var(--mono); font-size:.6rem; letter-spacing:.1em;
+    text-transform:uppercase; padding:9px 14px; min-height:44px; cursor:pointer;
+    border:1px solid var(--line); background:var(--paper); color:var(--ink); }
+  .mesa-filtro button:hover{ border-color:var(--gold); }
+  .mesa-filtro button:focus-visible{ outline:3px solid var(--gold); outline-offset:2px; }
+  .mesa-filtro button[aria-pressed="true"]{ background:var(--wine); color:var(--paper); border-color:var(--wine); }
+  html[data-theme="dark"] .mesa-filtro button[aria-pressed="true"],
+  body.dark .mesa-filtro button[aria-pressed="true"]{ background:var(--gold); color:#1b0f0c; border-color:var(--gold); }
+  .mesa-filtro b{ font-weight:700; margin-left:6px; opacity:.75; }
   .mesa-lote{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:16px;
     padding:12px 16px; border:1.5px solid var(--gold); background:var(--paper-2);
     position:sticky; top:0; z-index:6; }
@@ -1180,6 +1193,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         <p class="hi-sub">Pauteiro → Repórter → Editor de Estilo → Chefe de Redação → você. Nada entra no ar sem a sua aprovação.</p>
 
         <div class="sec-h"><h3>Mesa de aprovação</h3><span>Redação IA e matérias da equipe — nada publica sem o seu carimbo</span></div>
+        <div class="mesa-filtro" id="mesa-filtro" role="group" aria-label="Filtrar a mesa por assinatura"></div>
         <div id="mesa-lote" class="mesa-lote" style="display:none">
           <label class="ml-todas"><input type="checkbox" id="ml-marcar-todas"> marcar todas</label>
           <span id="ml-conta">0 selecionadas</span>
@@ -4195,13 +4209,77 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       })).then(function(items){
         // não mostra na mesa do chefe o que já foi devolvido ao autor (está com ele, não esperando aprovação)
         items = items.filter(Boolean).filter(function(d){ return d.status !== 'devolvida'; });
-        if(!items.length){
-          var bl1 = $('mesa-lote'); if(bl1) bl1.style.display = 'none';
-          el.innerHTML = '<div class="vazio-box">Mesa vazia — nenhuma matéria aguardando aprovação.</div>';
-          var bdg0 = $('bdg-mesa'); if(bdg0){ bdg0.textContent = '0'; bdg0.style.display = 'none'; }
-          return;
-        }
         items.sort(function(a,b){ return (b.geradoEm || '').localeCompare(a.geradoEm || ''); });
+        MESA_ITENS = items;
+        desenharMesa();
+      });
+    }).catch(function(e){
+      var bl = $('mesa-lote'); if(bl) bl.style.display = 'none';
+      el.innerHTML = '<div class="vazio-box">Não deu para carregar a mesa agora. ' + esc(msgErro(e)) +
+        '<br><button class="bt" type="button" id="mesa-retry" style="margin-top:10px">↻ Tentar de novo</button></div>';
+      var rb = $('mesa-retry'); if(rb) rb.addEventListener('click', carregarMesa);
+    });
+  }
+
+  // ---------- a mesa filtrada por assinatura ----------
+  // Guardo a mesa inteira e redesenho só o pedaço escolhido: trocar de aba não
+  // volta ao GitHub, e o contador de cada botão continua mostrando o tamanho
+  // real da fila de cada um mesmo quando a tela está mostrando outra.
+  var MESA_ITENS = [], MESA_FILTRO = 'todas';
+  function assinaturaDe(d){
+    var a = (d && d.author) ? String(d.author).trim() : '';
+    if(!a) return 'outras';
+    if(/^reda[çc][aã]o foyer$/i.test(a)) return 'redacao';
+    var meu = (USER && USER.nome) ? String(USER.nome).trim().toLowerCase() : '';
+    var nomes = a.toLowerCase().split(' e ').map(function(n){ return n.trim(); });
+    if(meu && nomes.indexOf(meu) >= 0) return 'minhas';
+    return 'outras';
+  }
+  function desenharMesa(){
+    var el = $('mesa-list');
+    var bdg = $('bdg-mesa');
+    if(bdg){ bdg.textContent = MESA_ITENS.length; bdg.style.display = MESA_ITENS.length ? '' : 'none'; }
+    if(!MESA_ITENS.length){
+      var bl1 = $('mesa-lote'); if(bl1) bl1.style.display = 'none';
+      $('mesa-filtro').innerHTML = '';
+      el.innerHTML = '<div class="vazio-box">Mesa vazia — nenhuma matéria aguardando aprovação.</div>';
+      return;
+    }
+    // conta cada grupo ANTES de filtrar, para o botão dizer quantas esperam ali
+    var conta = { todas: MESA_ITENS.length, minhas: 0, redacao: 0, outras: 0 };
+    MESA_ITENS.forEach(function(d){ conta[assinaturaDe(d)]++; });
+    var meuPrimeiro = (USER && USER.nome) ? String(USER.nome).split(' ')[0] : 'Minhas';
+    // se do outro lado houver uma pessoa só, a aba leva o nome dela: "Isabel"
+    // diz muito mais a quem vai carimbar do que "Da equipe".
+    var outros = {};
+    MESA_ITENS.forEach(function(d){
+      if(assinaturaDe(d) !== 'outras') return;
+      String(d.author || '').split(' e ').forEach(function(n){
+        n = n.trim();
+        if(n && n.toLowerCase() !== String((USER && USER.nome) || '').trim().toLowerCase()) outros[n] = 1;
+      });
+    });
+    var nomesOutros = Object.keys(outros);
+    var abas = [
+      { id: 'minhas',  rotulo: '✍ ' + meuPrimeiro },
+      { id: 'redacao', rotulo: '🏛 Redação Foyer' },
+      { id: 'outras',  rotulo: '👥 ' + (nomesOutros.length === 1 ? nomesOutros[0].split(' ')[0] : 'Da equipe') },
+      { id: 'todas',   rotulo: 'Tudo' }
+    ].filter(function(a){ return a.id === 'todas' || conta[a.id] > 0; });
+    if(abas.length <= 2){ MESA_FILTRO = 'todas'; }          // nada a separar
+    if(conta[MESA_FILTRO] === 0) MESA_FILTRO = 'todas';     // esvaziou depois de aprovar
+    $('mesa-filtro').innerHTML = abas.length > 2 ? abas.map(function(a){
+      return '<button type="button" data-filtro="' + a.id + '" aria-pressed="' +
+        (MESA_FILTRO === a.id) + '">' + a.rotulo + '<b>' + conta[a.id] + '</b></button>';
+    }).join('') : '';
+    var lista = MESA_FILTRO === 'todas' ? MESA_ITENS
+      : MESA_ITENS.filter(function(d){ return assinaturaDe(d) === MESA_FILTRO; });
+    if(!lista.length){
+      var bl2 = $('mesa-lote'); if(bl2) bl2.style.display = 'none';
+      el.innerHTML = '<div class="vazio-box">Nada aqui neste filtro. Toque em <b>Tudo</b> para ver a mesa inteira.</div>';
+      return;
+    }
+    var items = lista;
         MESA = {};
         el.innerHTML = items.map(function(d){
           MESA[d.slug] = d;
@@ -4310,14 +4388,16 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
           el.insertAdjacentHTML('afterbegin', resumo);
         }
         atualizaLote();
-      });
-    }).catch(function(e){
-      var bl = $('mesa-lote'); if(bl) bl.style.display = 'none';
-      el.innerHTML = '<div class="vazio-box">Não deu para carregar a mesa agora. ' + esc(msgErro(e)) +
-        '<br><button class="bt" type="button" id="mesa-retry" style="margin-top:10px">↻ Tentar de novo</button></div>';
-      var rb = $('mesa-retry'); if(rb) rb.addEventListener('click', carregarMesa);
-    });
   }
+  // trocar de filtro é só redesenhar o que já está na memória
+  document.addEventListener('click', function(e){
+    var b = e.target.closest && e.target.closest('#mesa-filtro [data-filtro]');
+    if(!b) return;
+    MESA_FILTRO = b.getAttribute('data-filtro');
+    desenharMesa();
+    // sem pulo de rolagem: quem tocou no botão já está olhando para ele, e a
+    // lista trocar embaixo é a resposta que a pessoa espera ver.
+  });
 
   var capaMesaSlug = null;
   var capaMesaInput = document.createElement('input');
