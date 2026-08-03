@@ -823,6 +823,77 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
     .up{ min-height:120px; }
     .side nav button{ min-height:46px; }
   }
+
+  /* ===== A COXIA NO CELULAR (correção do Pedro, 03/08/2026) =====
+     A Coxia nasceu desenhada para tela de computador e o celular herdou os
+     mesmos tamanhos: número de painel com 48px de altura, saudação ocupando
+     um terço da tela, o nome de quem entrou quebrando em duas linhas e
+     empurrando o botão Sair para fora da borda. Numa tela de 360px cabiam
+     seis números e mais nada.
+
+     A régua daqui para baixo: o dedo continua com alvo de 44px (as regras
+     de toque acima valem), mas TIPOGRAFIA e RESPIRO encolhem. Quem abre a
+     Coxia no celular quer ver o panorama de uma vez, não rolar para contar
+     seis números. */
+  @media (max-width:640px){
+    /* cabeçalho: cabe tudo numa linha só, sem nada saindo pela borda */
+    .top{ height:54px; padding:0 12px; gap:9px; }
+    .top-logo{ height:20px; }
+    .top-wm{ font-size:1.1rem; }
+    .who{ gap:8px; min-width:0; }
+    .ava{ width:30px; height:30px; font-size:.92rem; border-width:1.5px; flex:0 0 auto; }
+    .who > span{ min-width:0; }
+    .who b{ font-size:.6rem; letter-spacing:.02em; white-space:nowrap;
+      overflow:hidden; text-overflow:ellipsis; max-width:14ch; }
+    .top .out{ padding:8px 10px; font-size:.5rem; flex:0 0 auto; }
+
+    /* abas: a fila rola de lado; letra menor faz caber mais aba na primeira
+       olhada. A sombra na borda direita avisa que tem mais coisa depois do
+       fim da tela: sem ela, a aba cortada parece defeito, não continuação. */
+    .side{ position:relative; }
+    .side nav{ scrollbar-width:none; }
+    .side nav::-webkit-scrollbar{ display:none; }
+    .side nav button{ font-size:.8rem; padding:11px 13px; }
+    .side::after{ content:''; position:absolute; top:0; bottom:0; right:0; width:26px;
+      pointer-events:none; background:linear-gradient(90deg, transparent, var(--paper-2)); }
+
+    /* título de seção e sua explicação: um embaixo do outro.
+       Lado a lado, cada um ficava com meia largura e quebrava em duas linhas. */
+    .sec-h{ flex-wrap:wrap; gap:2px 12px; }
+    .sec-h span{ flex:1 0 100%; }
+
+    /* atalhos do painel: dois por linha, do mesmo tamanho, em vez de um
+       sobrando sozinho na terceira linha */
+    .quick{ gap:8px; }
+    .quick button, .quick a{ flex:1 1 calc(50% - 4px); text-align:center;
+      font-size:.58rem; letter-spacing:.1em; padding:13px 10px; }
+
+    /* miolo: menos margem morta em volta */
+    .stage{ padding:20px 16px 72px; }
+    .hi{ font-size:clamp(1.75rem,6.6vw,2.4rem); }
+    .hi::after{ width:42px; height:2px; margin-top:10px; }
+    .hi-sub{ font-size:.86rem; margin-bottom:20px; }
+    .sec-h{ margin:26px 0 14px; padding-bottom:8px; }
+    .sec-h h3{ font-size:1.15rem; }
+
+    /* o painel de números: era o pior ponto da tela.
+       Com 1,9rem os seis números do panorama cabem juntos, e o rótulo para
+       de quebrar em duas linhas. */
+    .stat{ padding:14px 12px 12px; }
+    .stat b{ font-size:1.9rem; }
+    .stat span{ font-size:.7rem; line-height:1.35; margin-top:5px; }
+    .stat:not(:disabled)::after{ top:9px; right:9px; font-size:.62rem; opacity:.5; }
+  }
+  /* telas estreitas de verdade: o nome sai e ficam as iniciais no crachá.
+     O corte é em 360px porque nos aparelhos de hoje (390 a 430) sobra espaço
+     de sobra entre o "Coxia" e o crachá, e esconder o nome ali seria perder
+     informação à toa. */
+  @media (max-width:360px){
+    .who b{ display:none; }
+    .top{ gap:7px; }
+    .stat b{ font-size:1.7rem; }
+    .stat span{ font-size:.67rem; }
+  }
 </style>
 
 <!-- ==================== PORTÃO ==================== -->
@@ -1952,7 +2023,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // o mesmo pedido não vai duas vezes ao GitHub em menos de um minuto:
   // a Coxia lê as mesmas pastas em várias abas, e o limite por hora é curto
   // a Coxia muda toda semana: este carimbo diz qual versão está aberta
-  var COXIA_VERSAO = '20260802-234416';
+  var COXIA_VERSAO = '20260803-011853';
   var GH_CACHE = {};
   function ghCacheGet(chave){
     var c = GH_CACHE[chave];
