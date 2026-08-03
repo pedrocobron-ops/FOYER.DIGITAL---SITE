@@ -6638,6 +6638,18 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       pct + '% ' + (d > 0 ? 'a mais' : 'a menos') + ' que a semana anterior (eram ' + mxNum(antes) + ')</span>';
   }
   function mxPct(a, b){ return b ? Math.round(a / b * 100) : 0; }
+  // A casa conta em Brasília, e o banco manda os dias já em Brasília. Montar o
+  // calendário do gráfico com a data DO APARELHO desencaixa tudo quando ele
+  // está em outro fuso: em Tóquio a última barra virava um "amanhã" vazio e o
+  // dia mais antigo caía fora. Aqui o dia sai sempre de Brasília.
+  function mxDiaBR(atras){
+    var f = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo',
+              year: 'numeric', month: '2-digit', day: '2-digit' });
+    var hoje = f.format(new Date());              // 'AAAA-MM-DD' em Brasília
+    var d = new Date(hoje + 'T12:00:00Z');        // meio-dia: nenhuma virada de fuso derruba
+    d.setUTCDate(d.getUTCDate() - (atras || 0));
+    return { chave: d.toISOString().slice(0, 10), dow: d.getUTCDay() };
+  }
 
   function pintarMetricas(d, map){
     MX_DADOS = d; MX_MAP = map;
@@ -6697,11 +6709,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
 
     // ---------- 4. leituras por dia ----------
     var por = {}; (d.serie30 || []).forEach(function(s){ por[s.dia] = s; });
-    var dias = [], hoje = new Date();
+    var dias = [];
     for(var i = 29; i >= 0; i--){
-      var dt = new Date(hoje.getTime() - i * 86400000);
-      var k = dt.getFullYear() + '-' + ('0' + (dt.getMonth() + 1)).slice(-2) + '-' + ('0' + dt.getDate()).slice(-2);
-      dias.push({ dia: k, n: (por[k] || {}).gente || 0, dow: dt.getDay() });
+      var br = mxDiaBR(i);
+      dias.push({ dia: br.chave, n: (por[br.chave] || {}).gente || 0, dow: br.dow });
     }
     var maxd = Math.max.apply(null, dias.map(function(x){ return x.n; })) || 1;
     $('mx-serie').innerHTML = '<div class="mx-serie2">' + dias.map(function(x, ix){
@@ -6745,11 +6756,20 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         (i.mats === 1 ? '' : 's') + ' lida' + (i.mats === 1 ? '' : 's') + ' · ' + media + ' leitura' +
         (media === 1 ? '' : 's') + ' por matéria</small>';
     }, function(i){ return i.n; });
-    if(semNome.leituras){
-      $('mx-autores').insertAdjacentHTML('beforeend',
-        '<p class="mx-diz">Fora desta conta, <b>' + mxNum(semNome.leituras) + ' leituras</b> foram em ' +
-        semNome.paginas + ' páginas sem assinatura: capa, revista, agenda, editorias e afins.</p>');
-    }
+    var somaAssinada = listaAutor.reduce(function(a, b){ return a + b.n; }, 0);
+    var cobertas = mats.length, todas = d.materias_total || cobertas;
+    $('mx-autores').insertAdjacentHTML('beforeend', '<p class="mx-diz">' +
+      (semNome.leituras
+        ? 'Somam <b>' + mxNum(somaAssinada) + ' leituras</b> em matérias assinadas. Fora desta conta, ' +
+          mxNum(semNome.leituras) + ' leituras foram em ' + semNome.paginas +
+          ' páginas sem assinatura: capa, revista, agenda, editorias e afins. '
+        : 'Somam <b>' + mxNum(somaAssinada) + ' leituras</b> em matérias assinadas. ') +
+      // um teto silencioso na lista faria a soma por assinatura mentir sem avisar
+      (todas > cobertas
+        ? '<b>Atenção:</b> a conta cobre as ' + cobertas + ' páginas mais lidas de um total de ' + todas +
+          '; a cauda de menos lidas ficou de fora.'
+        : 'A conta cobre todas as ' + todas + ' páginas que tiveram leitura no período.') +
+      '</p>');
 
     // ---------- 7 a 10 ----------
     mxBarras($('mx-orig'), d.origens7, function(i){
@@ -6833,10 +6853,8 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     L.push('');
     L.push(csvLinha(['LEITURAS POR DIA (30 dias)', 'gente', 'máquina']));
     var por = {}; (d.serie30 || []).forEach(function(s){ por[s.dia] = s; });
-    var hoje = new Date();
     for(var i = 29; i >= 0; i--){
-      var dt = new Date(hoje.getTime() - i * 86400000);
-      var k = dt.getFullYear() + '-' + ('0' + (dt.getMonth() + 1)).slice(-2) + '-' + ('0' + dt.getDate()).slice(-2);
+      var k = mxDiaBR(i).chave;
       L.push(csvLinha([k, (por[k] || {}).gente || 0, (por[k] || {}).robo || 0]));
     }
     L.push('');
