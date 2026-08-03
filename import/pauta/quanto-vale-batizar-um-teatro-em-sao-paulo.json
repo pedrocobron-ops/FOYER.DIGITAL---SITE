@@ -115,12 +115,15 @@
  },
  "chefe": {
   "aprovado": true,
-  "nota": 9,
-  "parecer": "Reportagem de mercado bem amarrada, que resolve o risco da pauta de frente: diz ao leitor que os valores não são públicos em vez de inventar um número. O trecho sobre Lei Rouanet e naming right é preciso e citado com decreto e instrução normativa.",
+  "nota": 8,
+  "parecer": "Reemitido depois da checagem. A matéria faz o que prometeu sem inventar cifra: mapeia nove casas paulistanas com nome de marca, mostra o que cada uma se chamava antes e diz ao leitor, com todas as letras, que os contratos não são divulgados. O único valor público aparece com a ressalva colada nele. Ganhou também o outro lado, que faltava: o dinheiro que reabriu uma casa fechada, com dado e aspa de quem defende o modelo.",
   "ressalvas": [
-   "O único valor de contrato citado (Teatro Santander) vem de reportagem de 2014 que o próprio banco se recusou a confirmar; o texto informa isso na mesma frase.",
-   "As datas de fundação e os nomes anteriores de Renault, Bradesco, UOL e Frei Caneca foram conferidos em verbetes da Wikipédia lusófona cruzados com material oficial das casas e das operadoras; convém uma última olhada humana antes de publicar.",
-   "O handle @opusentretenimento entrou como não confirmado: não foi possível fechar a verificação da conta oficial da operadora."
+   "NORMA REVOGADA CORRIGIDA NA CHECAGEM. O texto citava a Instrução Normativa MinC 23/2025 como vigente. Ela foi revogada pelo artigo 101 da IN MinC 29/2026, publicada no Diário Oficial em 30/01/2026. O dispositivo migrou inteiro (o antigo art. 68, I e VII virou art. 66, I e VII) e a citação foi trocada. O parecer anterior elogiava justamente esse trecho.",
+   "O único valor de contrato que existe em fonte pública é o do Teatro Santander: cerca de R$ 7 milhões por ano, 12 anos com renovação automática por oito, noticiado pelo Meio & Mensagem em 12/05/2014, com o banco se recusando a comentar na época. A recusa está na frase seguinte ao número, e nenhum outro valor foi estimado.",
+   "A Lei municipal 18.040, de 12/12/2023, não regulamentou a cessão: ela ALTERA a Lei 16.703/2017 para autorizá-la, e traz uma trava que importa nesta matéria, a marca entra como sufixo e a denominação original fica. A regulamentação cabe ao Executivo.",
+   "Dois erros de ano corrigidos: a reabertura do BTG Pactual Hall é de 24/10/2025, não de 2024; e o Teatro Claro Mais SP abriu em 2014 como Theatro NET São Paulo, só virando Claro em janeiro de 2020.",
+   "Duas casas ficaram apoiadas em verbete de enciclopédia cruzado com portais, por impedimento de acesso: o site do Bradesco Centro Cultural está com certificado expirado, e a página da Secretaria da Cultura sobre o Sabesp Frei Caneca não abre fora do navegador.",
+   "Não foi possível verificar handle de Instagram neste ambiente: o site serve a mesma página a visitante deslogado, inclusive para um handle inventado usado como controle. @opusentretenimento segue marcado como não confirmado."
   ]
  },
  "geradoEm": "2026-08-03T12:00:00+00:00",
