@@ -1,6 +1,73 @@
 {
  "rodadas": [
   {
+   "quando": "2026-08-03T10:20:00+00:00",
+   "por": "Redator REDAÇÃO (Claude), rodada de 3 matérias na voz da Redação Foyer, primeira com os quatro portes",
+   "buscas": [
+    "Teatro Castro Alves Wikipédia história incêndio 1958 reconstrução",
+    "Iphan tombamento Teatro Castro Alves Salvador inscrição Livro do Tombo",
+    "\"Portaria\" 96 2014 tombamento Teatro Castro Alves Diário Oficial União Marta Suplicy homologação",
+    "Teatro Castro Alves reabertura julho 2026 R$ 260 milhões modernização Lula Jerônimo",
+    "\"Novo TCA\" Teatro Castro Alves reabertura Sala Principal lugares capacidade 2026 Secult Bahia",
+    "Teatro Castro Alves Instagram oficial perfil",
+    "camareira de teatro entrevista bastidores figurino \"troca rápida\" profissão",
+    "\"camareira\" teatro musical entrevista \"quick change\" bastidores depoimento profissão brasileira",
+    "camareira teatro \"40 anos\" OR \"30 anos\" Theatro Municipal entrevista perfil bastidores figurino ópera",
+    "\"camareira\" teatro reportagem 2024 OR 2025 OR 2026 bastidores perfil profissão invisível figurino",
+    "dresser theatre quick change \"30 seconds\" wardrobe interview Guardian backstage costume",
+    "Pleasance Edinburgh Fringe deficit £61,000 costs 2026 \"very difficult landscape\"",
+    "\"Keep it Fringe\" fund 2026 artists applications bursaries £2,500 number of applicants",
+    "Edinburgh Fringe 2026 accommodation costs artists shorter run cancel cost of living performers August rent",
+    "Edinburgh Fringe 2026 artists losing money average loss survey shows shorter runs The Stage",
+    "Fringe Society Queen Margaret University performer accommodation \"£294\" week 2026 empty rooms",
+    "Instagram oficial @edfringe Edinburgh Festival Fringe e @thepleasance Pleasance perfil",
+    "SATED-SP Instagram oficial sindicato artistas técnicos São Paulo perfil"
+   ],
+   "consideradas": [
+    {
+     "assunto": "Teatro Castro Alves, casa de espetáculo (porte contextualizada)",
+     "decisao": "escolhida",
+     "motivo": "história forte (incêndio cinco dias antes da inauguração, nove anos de reconstrução) e gancho de atualidade: a casa reabriu em 01/07/2026 depois de reforma de mais de R$ 260 milhões; foto CC verificada no Commons"
+    },
+    {
+     "assunto": "O que faz uma camareira no teatro (porte contextualizada)",
+     "decisao": "escolhida",
+     "motivo": "ofício ainda não coberto pela casa, com descrição oficial na CBO 5133-05, regras de registro no Sated-SP e duas falas reais de camareiras já publicadas (Estado de Minas e Agência Brasil)"
+    },
+    {
+     "assunto": "Custo real do Fringe de Edimburgo 2026 (porte quente)",
+     "decisao": "escolhida",
+     "motivo": "déficit do Pleasance nas contas da Companies House, queda do Keep it Fringe de 180 para 16 espetáculos e preços de hospedagem publicados pela Queen Margaret University; amarra com as oito produções paulistas já cobertas pelo FOYER"
+    },
+    {
+     "assunto": "Incêndio no TCA nos anos 1980 citado pela Wikipédia",
+     "decisao": "descartada",
+     "motivo": "sem fonte e com marcação de 'necessário esclarecer' na própria página; o levantamento do Jornal Correio lista só 1958 e 2023 como grandes incêndios"
+    },
+    {
+     "assunto": "Salários da camareira de teatro pelo CAGED",
+     "decisao": "descartada",
+     "motivo": "a base do Portal Salário aponta hotéis como setor que mais contrata sob a CBO 5133-05, o que indica classificação contaminada; número cortado do texto"
+    },
+    {
+     "assunto": "Salto de custos de licenciamento do Pleasance (£4 mil para £60 mil) e bilheteria de £6,5 milhões",
+     "decisao": "descartada",
+     "motivo": "dado atribuído ao The Scotsman, cuja página não abriu para conferência direta (bloqueio de acesso); 'na dúvida, corta'"
+    },
+    {
+     "assunto": "Artistas que encurtaram a temporada no Fringe 2025 e 2026 (Samia Rida, Grubby Little Mitts)",
+     "decisao": "descartada",
+     "motivo": "só apareceram em resumos de busca do The Scotsman, sem acesso à reportagem original; no lugar entraram as falas de Gail Porter e Jason Manford, conferidas na BBC e datadas de abril de 2024"
+    }
+   ],
+   "produzidas": [
+    "historia-do-teatro-castro-alves-salvador",
+    "o-que-faz-uma-camareira-no-teatro",
+    "fringe-edimburgo-2026-custo-artistas-pleasance"
+   ],
+   "obs": "Primeira rodada da Redação com a régua dos portes: 949 palavras e 3 intertítulos no TCA, 1.045 e 3 na camareira, 593 e 2 no Fringe. Os três textos fugiram de propósito do padrão de 4 ou 5 intertítulos e abriram de formas diferentes (data seca, pessoa, número). As três passaram no portão mecânico; falta a checagem independente da onda 2 em todas (campo checagem.verificada segue false). Ponto que o editor humano precisa saber: o ano do tombamento do TCA foi para 2014 (homologação no DOU) e não 2013 (decisão do Conselho do Iphan), acompanhando o histórico oficial da casa, e a sequência está explicada no texto."
+  },
+  {
    "quando": "2026-08-03T02:50:00+00:00",
    "por": "Redator PEDRO (Claude), edição de segunda 03/08, 2 matérias, assinatura Pedro Amaral",
    "buscas": [
