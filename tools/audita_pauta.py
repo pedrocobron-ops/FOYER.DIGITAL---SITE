@@ -285,6 +285,23 @@ def auditar(caminho):
     ch = pg.get('chefe') or {}
     if not ch.get('parecer'):
         problemas.append('SEM parecer do chefe de redação')
+
+    # NOTA MÍNIMA 8 (ordem do Pedro, 04/08/2026). Pauta escolhida para ser
+    # escrita já nasce com a obrigação de valer 8: se não chega lá depois das
+    # três ondas, o erro foi escolher a pauta, e o conserto é no pauteiro, não
+    # na mesa. O editor humano abre a Coxia para decidir o que publica, não
+    # para consertar matéria fraca.
+    nota = ch.get('nota')
+    if nota is None:
+        problemas.append('SEM nota do chefe de redação (mínimo 8 para ir à mesa)')
+    elif not isinstance(nota, (int, float)):
+        problemas.append(f'NOTA inválida: {nota!r} (precisa ser número de 0 a 10)')
+    elif nota < 8:
+        problemas.append(f'NOTA {nota}: abaixo do mínimo 8. A matéria NÃO vai à mesa: '
+                         f'volta para o redator até chegar a 8, ou a pauta é '
+                         f'descartada com o motivo no diário')
+    elif nota > 10:
+        problemas.append(f'NOTA {nota} fora da escala (0 a 10)')
     # assinaturas válidas: a coletiva ou uma pessoa real da equipe.
     # Matéria assinada por pessoa só pode ser aprovada por ela na Coxia.
     # a dupla assina os guias de fim de semana (ordem do Pedro, 30/07/2026):

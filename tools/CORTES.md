@@ -21,6 +21,32 @@ alguém. Uma vez por semana, leia a coluna do tipo e veja o que se repete.
 
 ---
 
+## 04/08/2026, à tarde: a nota estava medindo a coisa errada
+
+Não é corte de checagem, é conserto de régua, e entra aqui porque é
+memória que atravessa rodada.
+
+As duas matérias das 12h foram para a mesa com **nota 6**. O Pedro viu o
+selo na Coxia e reagiu: pauta escolhida para ser escrita tem de valer 8 para
+cima. Ele está certo, e o diagnóstico é pior do que "nota baixa demais".
+
+O chefe rebaixou as duas **pelos erros que a checagem tinha achado no
+rascunho e corrigido antes da entrega**. Ou seja: a esteira funcionou, o
+erro morreu antes de chegar ao leitor, e a nota puniu o texto por um defeito
+que ele não tem mais. O editor humano recebeu um número que descreve uma
+matéria que ele nunca vai ler.
+
+Erro achado e corrigido pela checagem pertence a `checagem.cortes` e a este
+arquivo. Não pertence à nota. **A nota mede o texto que chega à mesa.**
+
+Virou regra no manual (seção "A NOTA MÍNIMA É 8") e trava no
+`audita_pauta.py`: abaixo de 8 a matéria não vai à mesa, volta ao redator ou
+a pauta é descartada com o motivo no diário. As duas matérias foram
+reavaliadas pelo texto entregue e valem 8, com a justificativa escrita no
+parecer de cada uma.
+
+---
+
 ## 04/08/2026, edição das 12h (terça)
 
 2 matérias de cinema, assinatura Pedro Amaral. Primeira rodada escrita sob a

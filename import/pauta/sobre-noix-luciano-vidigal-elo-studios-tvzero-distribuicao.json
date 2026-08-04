@@ -48,14 +48,15 @@
  },
  "chefe": {
   "aprovado": true,
-  "nota": 6,
-  "parecer": "Notícia de mercado bem delimitada: o gancho é a ordem do negócio (distribuição fechada antes da filmagem), e não o anúncio em si. Nota rebaixada de 7 para 6 depois da checagem: o texto tinha uma afirmação inventada sobre onde o dinheiro público entra, uma lista de parceiros incompleta e um link interno que não sustentava o que o parágrafo dizia. Os três eram do redator, não da fonte.",
+  "nota": 8,
+  "parecer": "Pega um anúncio que os concorrentes publicam como nota de produção e escreve o negócio por trás dele: a ORDEM em que a distribuição foi fechada. 'Dez mil euros não rodam um filme. Rodam o roteiro' é a linha que justifica a pauta, e a Núcleos Criativos nove anos sem edital é a apuração que dá sentido ao número. Não chega a 9 por duas razões que estão no texto: a capa é retrato de 2011 em Creative Commons, e nenhuma fonte foi ouvida pela casa.",
   "ressalvas": [
    "A capa NÃO é foto de divulgação do filme, que ainda não filmou: é retrato do diretor de 2011, em Creative Commons do Wikimedia Commons (CC BY 3.0 br), com autor e licença reconferidos pelo checador na API do Commons. Está dito no crédito.",
    "A foto é pequena (491x276 depois do recorte 16:9). É o tamanho original do arquivo no Commons, não houve perda no recorte.",
    "As aspas vêm da nota de anúncio reproduzida pelo Tela Viva, e não de entrevista da casa. O veículo passou a ser nomeado dentro do texto: a ressalva anterior AFIRMAVA que já estava, e não estava. Corrigido pelo checador.",
    "Dos quatro @ do post, dois foram removidos por estarem errados (@nosdomorro e @riofilme). Os handles oficiais que o checador achou são @gruponosdomorrooficial e @_riofilme, com underline, e ficam registrados em checagem.cortes para o Pedro decidir se marca. Sobraram dois confirmados: @lucianovidigal e @projetoparadiso.",
-   "RESSALVA DO CHEFE SOBRE O PRÓPRIO CHEFE: a ressalva original dizia que a Spcine ficou fora da lista de parceiros do HBF+Brazil por não constar das fontes recentes. Era falso. Ela constava do release do IFFR, que já era fonte do pacote. O checador incluiu a Spcine no corpo e na legenda do Instagram."
+   "RESSALVA DO CHEFE SOBRE O PRÓPRIO CHEFE: a ressalva original dizia que a Spcine ficou fora da lista de parceiros do HBF+Brazil por não constar das fontes recentes. Era falso. Ela constava do release do IFFR, que já era fonte do pacote. O checador incluiu a Spcine no corpo e na legenda do Instagram.",
+   "CORREÇÃO DA NOTA (04/08/2026): esta matéria saiu com 6 porque o chefe a rebaixou pelos erros que a checagem achou NO RASCUNHO e corrigiu antes da entrega. Era medir o caminho em vez do resultado. A nota mede o texto que chega à mesa, e o texto entregue vale 8. Os erros do rascunho continuam registrados em checagem.cortes e no tools/CORTES.md, que são os lugares certos deles."
   ]
  },
  "instagram": {
