@@ -6,6 +6,44 @@ por rodada**. A esteira reproduz
 uma redação real: **Pauteiro → Repórter → Editor de Estilo → Checador
 independente → Chefe de Redação → Mesa de aprovação humana (Coxia)**.
 
+## O QUE É DESTA SALA E O QUE NÃO É
+
+Decidido pelo Pedro em 04/08/2026. O FOYER passou a ser tocado em **duas
+conversas separadas**, e esta é a da REDAÇÃO. A linha entre elas é
+**conteúdo x veículo**, do mesmo jeito que numa redação de verdade o manual
+é do editor-chefe e não do departamento de tecnologia.
+
+**É DESTA SALA (pode mexer):**
+
+| O quê | Onde mora |
+|---|---|
+| As matérias da rodada | `import/pauta/*.json` |
+| As fotos de capa | `assets/uploads/` |
+| As artes de divulgação | `assets/social/` |
+| **Este manual** — vozes, portes, fórmulas proibidas, grade | `tools/REDACAO.md` |
+| O portão mecânico que reprova matéria | `tools/audita_pauta.py` |
+| O gerador das artes | `tools/gera_social.py` |
+| O diário da redação e o registro dos cortes | `import/pauta/diario.json`, `tools/CORTES.md` |
+
+**NÃO É DESTA SALA (não mexer, pedir na outra conversa):** o site e suas
+páginas, o `tools/build_pages.py`, a Coxia (`tools/coxia_body.html`), o
+CSS e o JavaScript do site, as métricas, a revista, a publicidade, o
+Supabase, o domínio e as rotinas do GitHub.
+
+**Por que a divisão existe:** as duas frentes quase nunca tocam o mesmo
+arquivo, e é isso que impede que uma atropele a outra ao gravar no
+repositório. Se a redação precisar de algo no site ou na Coxia (foi assim
+que nasceram o filtro da mesa e a trava de assinatura), **descreva a dor no
+diário** e peça na outra conversa. Não conserte aqui.
+
+### A regra de tempo, que é a única delicada
+
+**Não mude este manual nem o portão NO MEIO DE UMA RODADA.** Se a régua muda
+enquanto seis matérias passam por ela, umas passam pela regra velha e outras
+pela nova, e ninguém sabe qual valeu. Mexa **entre rodadas**, e depois rode
+`python3 tools/audita_pauta.py` em tudo o que estiver em `import/pauta/`
+para conferir que nada na mesa quebrou com a régua nova.
+
 ## Regra de ouro (inegociável)
 
 **NUNCA publicar nada.** As matérias vão SOMENTE para `import/pauta/*.json`
@@ -678,6 +716,25 @@ lista `rodadas` (mais recente primeiro; manter no máximo 30):
  "obs": "observações honestas para o editor humano (ex.: falta foto)"
 }
 ```
+
+## Registro dos cortes (obrigatório, e é o que faz a escrita melhorar)
+
+Toda rodada TAMBÉM acrescenta em `tools/CORTES.md` o que os checadores e as
+leituras frias derrubaram. Vai no TOPO do arquivo, uma linha por corte que
+valeu a pena, com o tipo padronizado que já está lá.
+
+**Não registre vírgula fora do lugar.** Só o que teria enganado o leitor,
+envergonhado a casa ou custado dinheiro a alguém.
+
+**Por que isto é obrigatório.** O diário conta como a rodada trabalhou. Este
+registro conta onde ela quase errou, e é a única memória que atravessa as
+rodadas: sem ele, o checador pega o erro hoje, a matéria sai limpa, e amanhã
+outro redator comete o mesmo erro. Com ele, o padrão aparece e vira regra
+deste manual ou trava no `audita_pauta.py`.
+
+**Uma vez por semana**, leia a coluna do tipo e veja o que se repete. O que
+se repetir três vezes não é descuido de redator: é buraco do sistema, e o
+conserto é aqui, não no pedido de mais atenção.
 
 ## A Revista — o boneco da edição semanal
 
