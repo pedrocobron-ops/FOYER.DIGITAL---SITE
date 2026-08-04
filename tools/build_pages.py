@@ -6199,16 +6199,130 @@ with open(os.path.join(ROOT, 'coxia.html'), 'w') as f:
             '<body><p><a href="coxia/">Entrar na Coxia</a></p></body></html>\n')
 print('•', 'coxia/index.html', len(coxia_html)//1024, 'KB')
 
+# ------------------------------------------------------------------ SALVA-VIDAS
+# O ACERVO DO WIX ESTÁ NO GOOGLE E CONTINUA CHEGANDO GENTE POR ELE.
+# As pontes logo abaixo cobrem as 1.531 matérias importadas. Mas o índice do
+# Google guarda endereço que nós não temos: post apagado no Wix antes da
+# migração, endereço cortado, variação de acento, link colado torto em rede
+# social. Em 04/08/2026 o Pedro clicou num resultado antigo e caiu no 404 —
+# leitor perdido e autoridade jogada fora.
+#
+# Então a página de erro deixou de ser um beco: ela procura sozinha. Pega o
+# último pedaço do endereço, tira acento e pontuação e consulta o mapa
+# assets/pontes.json. Se bater, leva direto para a matéria. Se não bater,
+# mostra as matérias mais parecidas em vez de dar de ombros.
+#
+# O mapa é carregado SÓ aqui, quando alguém erra o caminho — não pesa em
+# nenhuma outra página do site.
+import unicodedata as _unicodedata
+_pontes_lista, _pontes_mapa, _pontes_idx = [], {}, {}
+
+def _chave_ponte(s):
+    """Mesmo amassado que o JavaScript faz: sem acento, sem pontuação, minúsculo."""
+    s = _uq.unquote(str(s or ''))
+    s = _unicodedata.normalize('NFD', s)
+    s = ''.join(c for c in s if _unicodedata.category(c) != 'Mn').lower()
+    s = _re.sub(r'[^a-z0-9]+', '-', s).strip('-')
+    return s
+
+for _m in MATERIAS:
+    _arq = f'post-{_m["slug"]}.html'
+    if _arq not in _pontes_idx:
+        _pontes_idx[_arq] = len(_pontes_lista)
+        _pontes_lista.append([_arq, _m.get('title') or ''])
+    _i = _pontes_idx[_arq]
+    _chaves = {_chave_ponte(_m['slug'])}
+    _u = _m.get('url') or ''
+    if '/post/' in _u:
+        _chaves.add(_chave_ponte(_u.split('/post/')[1].strip('/')))
+    for _c in _chaves:
+        if _c:
+            _pontes_mapa.setdefault(_c, _i)
+
+os.makedirs(os.path.join(ROOT, 'assets'), exist_ok=True)
+with open(os.path.join(ROOT, 'assets/pontes.json'), 'w') as _fp:
+    _json.dump({'p': _pontes_lista, 'm': _pontes_mapa}, _fp,
+               ensure_ascii=False, separators=(',', ':'))
+print(f'• salva-vidas do 404: {len(_pontes_mapa)} endereços conhecidos '
+      f'para {len(_pontes_lista)} matérias')
+
 nf_body = band('Erro 404', 'Esta página saiu de cartaz', 'O endereço não existe — mas o espetáculo continua') + '''
 <main id="conteudo" class="wrap" style="padding-bottom:40px">
+  <div id="nf-busca" class="nf-busca" hidden>
+    <p class="nf-status">Procurando esta matéria no acervo…</p>
+    <div id="nf-lista"></div>
+  </div>
   <div class="filters" style="padding-top:28px">
-    <a href="index.html" class="on">← Voltar à capa</a>
-    <a href="noticias.html">Notícias</a>
-    <a href="busca.html">Buscar no acervo</a>
+    <a href="/" class="on">← Voltar à capa</a>
+    <a href="/noticias.html">Notícias</a>
+    <a href="/busca.html">Buscar no acervo</a>
   </div>
 </main>
+<script>
+(function(){
+  var caixa = document.getElementById('nf-busca');
+  var lista = document.getElementById('nf-lista');
+  var status = caixa && caixa.querySelector('.nf-status');
+  if(!caixa) return;
+
+  function amassa(s){
+    try{ s = decodeURIComponent(s); }catch(e){}
+    return String(s || '').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'')
+      .toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+  }
+  var pedacos = location.pathname.split('/').filter(Boolean);
+  var alvo = amassa(pedacos[pedacos.length-1] || '').replace(/-?(html|htm|php|index)$/,'');
+  if(!alvo || alvo.length < 4) return;
+
+  caixa.hidden = false;
+  fetch('/assets/pontes.json').then(function(r){ return r.json(); }).then(function(d){
+    var i = d.m[alvo];
+    if(i === undefined){
+      // endereço cortado pela metade (acontece muito em link colado): tenta
+      // achar uma chave que comece igual, desde que seja a única candidata
+      var pref = Object.keys(d.m).filter(function(k){
+        return k.indexOf(alvo) === 0 || alvo.indexOf(k) === 0; });
+      if(pref.length === 1) i = d.m[pref[0]];
+    }
+    if(i !== undefined){
+      status.textContent = 'Achei. Levando você para a matéria…';
+      location.replace('/' + d.p[i][0]);
+      return;
+    }
+    // não achou o endereço: oferece as matérias mais parecidas
+    var termos = alvo.split('-').filter(function(t){ return t.length > 3; });
+    if(!termos.length){ caixa.hidden = true; return; }
+    var nota = {};
+    for(var k in d.m){
+      var n = 0;
+      for(var j=0;j<termos.length;j++) if(k.indexOf(termos[j]) >= 0) n++;
+      if(n){ var p = d.m[k]; if(!nota[p] || nota[p] < n) nota[p] = n; }
+    }
+    var top = Object.keys(nota).sort(function(a,b){ return nota[b]-nota[a]; }).slice(0,5);
+    if(!top.length || nota[top[0]] < 2){ caixa.hidden = true; return; }
+    status.textContent = 'Não achei esse endereço. Talvez seja uma destas:';
+    lista.innerHTML = top.map(function(p){
+      return '<a class="nf-item" href="/' + d.p[p][0] + '">' +
+             d.p[p][1].replace(/[<>&]/g, function(c){
+               return {'<':'&lt;','>':'&gt;','&':'&amp;'}[c]; }) + '</a>';
+    }).join('');
+  }).catch(function(){ caixa.hidden = true; });
+})();
+</script>
 '''
 page('404.html', 'Página não encontrada — FOYER', 'Página não encontrada no FOYER.', 'index.html', nf_body)
+
+# O 404 é servido em QUALQUER endereço errado, inclusive fundo de pasta
+# (/post/nome-da-materia/). Com caminho relativo, o navegador ia buscar o CSS
+# em /post/nome-da-materia/assets/site.css e não achava nada: a página abria
+# crua, sem estilo, com as imagens quebradas — foi exatamente o que o Pedro
+# viu. Aqui todo caminho de dentro de casa vira absoluto, começando na raiz.
+_nf_arq = os.path.join(ROOT, '404.html')
+_nf = open(_nf_arq).read()
+_nf = _re.sub(
+    r'(\s(?:href|src)=")(?!https?:|//|/|#|mailto:|tel:|data:|javascript:)([^"]+)"',
+    lambda m: m.group(1) + '/' + m.group(2) + '"', _nf)
+open(_nf_arq, 'w').write(_nf)
 
 import glob as _g
 urls = sorted(os.path.basename(f) for f in _g.glob(os.path.join(ROOT, '*.html'))

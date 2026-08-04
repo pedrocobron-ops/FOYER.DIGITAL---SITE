@@ -10,8 +10,8 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 <meta name="description" content="Página não encontrada no FOYER.">
 <meta name="theme-color" content="#4E0F09">
 <meta name="robots" content="max-image-preview:large">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="assets/logo/pwa-192.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/assets/logo/pwa-192.png">
 <meta property="og:site_name" content="FOYER">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Página não encontrada — FOYER">
@@ -23,10 +23,10 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 <title>Página não encontrada — FOYER</title>
 <link rel="canonical" href="https://foyer.digital/404.html">
 <link rel="alternate" type="application/rss+xml" title="FOYER — Últimas" href="https://foyer.digital/feed.xml">
-<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
-<link rel="preload" href="fonts/AbrilFatface-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/Archivo-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/site.css">
+<link rel="icon" type="image/png" href="/assets/logo/foyer-icon.png">
+<link rel="preload" href="/fonts/AbrilFatface-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/Archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação","url":"https://foyer.digital/","logo":"https://foyer.digital/assets/logo/foyer-stacked-gold.png","sameAs":["https://www.youtube.com/@Foyer.digital","https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm"]}</script>
 </head>
 <body>
@@ -118,8 +118,8 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
     <span class="right">
       <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
       <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
-      <a href="revista.html#assinar">Assine</a>
-      <a href="anuncie.html">Anuncie</a>
+      <a href="/revista.html#assinar">Assine</a>
+      <a href="/anuncie.html">Anuncie</a>
       <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
     </span>
   </div>
@@ -127,19 +127,19 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 
 <nav class="main" aria-label="Seções">
   <div class="row">
-    <a href="index.html" class="brand" aria-label="FOYER — capa">
-      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
-      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    <a href="/index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="/assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="/assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
     </a>
-    <a href="index.html" class="on" aria-current="page">Capa</a>
-    <a href="noticias.html">Notícias</a>
-    <a href="critica.html">Crítica</a>
-    <a href="revista.html">Revista</a>
-    <a href="programas.html">Programas</a>
-    <a href="enciclopedia.html">Enciclopédia</a>
-    <a href="agenda.html">Agenda</a>
-    <a href="entrevistas.html">Entrevistas</a>
-    <a href="busca.html" class="busca">⌕ Buscar</a>
+    <a href="/index.html" class="on" aria-current="page">Capa</a>
+    <a href="/noticias.html">Notícias</a>
+    <a href="/critica.html">Crítica</a>
+    <a href="/revista.html">Revista</a>
+    <a href="/programas.html">Programas</a>
+    <a href="/enciclopedia.html">Enciclopédia</a>
+    <a href="/agenda.html">Agenda</a>
+    <a href="/entrevistas.html">Entrevistas</a>
+    <a href="/busca.html" class="busca">⌕ Buscar</a>
   </div>
 </nav>
 
@@ -152,46 +152,101 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 </header>
 
 <main id="conteudo" class="wrap" style="padding-bottom:40px">
+  <div id="nf-busca" class="nf-busca" hidden>
+    <p class="nf-status">Procurando esta matéria no acervo…</p>
+    <div id="nf-lista"></div>
+  </div>
   <div class="filters" style="padding-top:28px">
-    <a href="index.html" class="on">← Voltar à capa</a>
-    <a href="noticias.html">Notícias</a>
-    <a href="busca.html">Buscar no acervo</a>
+    <a href="/" class="on">← Voltar à capa</a>
+    <a href="/noticias.html">Notícias</a>
+    <a href="/busca.html">Buscar no acervo</a>
   </div>
 </main>
+<script>
+(function(){
+  var caixa = document.getElementById('nf-busca');
+  var lista = document.getElementById('nf-lista');
+  var status = caixa && caixa.querySelector('.nf-status');
+  if(!caixa) return;
+
+  function amassa(s){
+    try{ s = decodeURIComponent(s); }catch(e){}
+    return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+      .toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+  }
+  var pedacos = location.pathname.split('/').filter(Boolean);
+  var alvo = amassa(pedacos[pedacos.length-1] || '').replace(/-?(html|htm|php|index)$/,'');
+  if(!alvo || alvo.length < 4) return;
+
+  caixa.hidden = false;
+  fetch('/assets/pontes.json').then(function(r){ return r.json(); }).then(function(d){
+    var i = d.m[alvo];
+    if(i === undefined){
+      // endereço cortado pela metade (acontece muito em link colado): tenta
+      // achar uma chave que comece igual, desde que seja a única candidata
+      var pref = Object.keys(d.m).filter(function(k){
+        return k.indexOf(alvo) === 0 || alvo.indexOf(k) === 0; });
+      if(pref.length === 1) i = d.m[pref[0]];
+    }
+    if(i !== undefined){
+      status.textContent = 'Achei. Levando você para a matéria…';
+      location.replace('/' + d.p[i][0]);
+      return;
+    }
+    // não achou o endereço: oferece as matérias mais parecidas
+    var termos = alvo.split('-').filter(function(t){ return t.length > 3; });
+    if(!termos.length){ caixa.hidden = true; return; }
+    var nota = {};
+    for(var k in d.m){
+      var n = 0;
+      for(var j=0;j<termos.length;j++) if(k.indexOf(termos[j]) >= 0) n++;
+      if(n){ var p = d.m[k]; if(!nota[p] || nota[p] < n) nota[p] = n; }
+    }
+    var top = Object.keys(nota).sort(function(a,b){ return nota[b]-nota[a]; }).slice(0,5);
+    if(!top.length || nota[top[0]] < 2){ caixa.hidden = true; return; }
+    status.textContent = 'Não achei esse endereço. Talvez seja uma destas:';
+    lista.innerHTML = top.map(function(p){
+      return '<a class="nf-item" href="/' + d.p[p][0] + '">' +
+             d.p[p][1].replace(/[<>&]/g, function(c){
+               return {'<':'&lt;','>':'&gt;','&':'&amp;'}[c]; }) + '</a>';
+    }).join('');
+  }).catch(function(){ caixa.hidden = true; });
+})();
+</script>
 
 <footer>
   <div class="wrap">
     <div class="foot-cols">
       <div class="foot-brand">
-        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <img class="mini-logo" src="/assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
         <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
       </div>
       <div class="foot-col">
         <h4>Editorias</h4>
-        <a href="noticias.html">Notícias</a>
-        <a href="critica.html">Crítica</a>
-        <a href="entrevistas.html">Entrevistas</a>
-        <a href="agenda.html">Agenda</a>
+        <a href="/noticias.html">Notícias</a>
+        <a href="/critica.html">Crítica</a>
+        <a href="/entrevistas.html">Entrevistas</a>
+        <a href="/agenda.html">Agenda</a>
       </div>
       <div class="foot-col">
         <h4>Programas</h4>
-        <a href="programas.html">Programa do Foyer</a>
-        <a href="programas.html">Críticas Teatrais · Por Bruno Cavalcanti</a>
-        <a href="programas.html">Trivia Musical · Astro em Cena</a>
-        <a href="programas.html">Session Musical · Coxixo de Coxia</a>
+        <a href="/programas.html">Programa do Foyer</a>
+        <a href="/programas.html">Críticas Teatrais · Por Bruno Cavalcanti</a>
+        <a href="/programas.html">Trivia Musical · Astro em Cena</a>
+        <a href="/programas.html">Session Musical · Coxixo de Coxia</a>
       </div>
       <div class="foot-col">
         <h4>Foyer</h4>
-        <a href="revista.html">A Revista</a>
-        <a href="enciclopedia.html">Enciclopédia</a>
-        <a href="sobre.html">Quem somos</a>
-        <a href="contato.html">Contato</a>
-        <a href="anuncie.html">Anuncie no FOYER</a>
+        <a href="/revista.html">A Revista</a>
+        <a href="/enciclopedia.html">Enciclopédia</a>
+        <a href="/sobre.html">Quem somos</a>
+        <a href="/contato.html">Contato</a>
+        <a href="/anuncie.html">Anuncie no FOYER</a>
         <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
         <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
-        <a href="principios.html">Princípios Editoriais</a>
-        <a href="privacidade.html">Política de Privacidade</a>
-        <a href="termos.html">Termos de Uso</a>
+        <a href="/principios.html">Princípios Editoriais</a>
+        <a href="/privacidade.html">Política de Privacidade</a>
+        <a href="/termos.html">Termos de Uso</a>
         <a href="#" data-lgpd>Preferências de cookies</a>
         <a href="#" data-sino>🔔 Notificações</a>
       </div>
@@ -202,10 +257,10 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
     </div>
   </div>
   <div class="foot-giant" aria-hidden="true">
-    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+    <img src="/assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
   </div>
 </footer>
-<script src="assets/site.js"></script>
-<script src="assets/ads.js"></script>
+<script src="/assets/site.js"></script>
+<script src="/assets/ads.js"></script>
 </body>
 </html>
