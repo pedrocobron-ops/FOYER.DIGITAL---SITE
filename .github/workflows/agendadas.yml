@@ -63,14 +63,23 @@ jobs:
               anun = json.load(open('import/anuncios/site.json'))
           except Exception:
               anun = {}
+          # Cada espaço virou uma LISTA de anunciantes quando entrou o rodízio
+          # (vários por formato). Este trecho ainda lia um anunciante só por
+          # espaço e quebrava com 'list' object has no attribute 'get' — e,
+          # como ele roda ANTES da publicação, o relógio inteiro morria junto:
+          # matéria agendada parava de sair. Aceita as duas formas, a antiga
+          # (um objeto) e a nova (lista), para nunca mais depender do formato.
           for slot, cfg in (anun or {}).items():
-              cfg = cfg or {}
-              if not (cfg.get('img') or cfg.get('texto')):
-                  continue
-              if (cfg.get('de') or '') == hoje:
-                  devido, motivo = True, f'estreia da temporada em {slot}'
-              if (cfg.get('ate') or '') == ontem:
-                  devido, motivo = True, f'fim da temporada em {slot}'
+              lista = cfg if isinstance(cfg, list) else ([cfg] if cfg else [])
+              for a in lista:
+                  if not isinstance(a, dict):
+                      continue
+                  if not (a.get('img') or a.get('texto')):
+                      continue
+                  if (a.get('de') or '') == hoje:
+                      devido, motivo = True, f'estreia da temporada em {slot}'
+                  if (a.get('ate') or '') == ontem:
+                      devido, motivo = True, f'fim da temporada em {slot}'
           if devido:
               print(f'::notice::Publicando: {motivo}', file=sys.stderr)
           print(f'publicar={"sim" if devido else "nao"}')
