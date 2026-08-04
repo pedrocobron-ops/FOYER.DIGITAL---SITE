@@ -6425,20 +6425,42 @@ print(f'sitemap: {len(urls)} URLs · news: {len(_news)} matéria(s) recentes')
 # autoridade que o site juntou desde 2023. O canonical sozinho já impede a
 # ponte de aparecer na busca, e o redirecionamento imediato faz o Google
 # tratá-la como mudança de endereço, que é o que ela é.
+# UMA PONTE PARA CADA GRAFIA, NÃO SÓ PARA A EXATA (Pedro, 04/08/2026).
+# A primeira versão só criava a ponte do endereço tal como estava no Wix, com
+# acento. Quem chegava por /post/...-sergio-cardoso (sem acento) batia num 404,
+# e o site respondia ao Google "esta página não existe" — jogando fora a
+# autoridade de um endereço que É nosso. Agora cada matéria ganha uma ponte
+# para cada grafia previsível:
+#   • o endereço do Wix como estava (com acento)
+#   • o mesmo sem acento nem pontuação
+#   • o endereço novo da matéria, caso alguém o cole depois de /post/
+# Todas são páginas de verdade, com redirecionamento e canonical — para o
+# Google isso é mudança de endereço, não erro. O salva-vidas em JavaScript
+# continua na página de erro, mas agora só para o que não dá para prever:
+# endereço cortado no meio, letra maiúscula, post que sumiu antes da migração.
 import urllib.parse as _up
-_n_pontes = 0
+_n_pontes, _n_extra, _feitas = 0, 0, set()
 for _m in MATERIAS:
-    _u = _m.get('url') or ''
-    if '/post/' not in _u:
-        continue
-    _ws = _up.unquote(_u.split('/post/')[1]).strip('/')
-    if not _ws or '/' in _ws:
-        continue
     _alvo = f'{BASE}/post-{_m["slug"]}.html'
-    _dirp = os.path.join(ROOT, 'post', _ws)
-    os.makedirs(_dirp, exist_ok=True)
-    with open(os.path.join(_dirp, 'index.html'), 'w') as _fp:
-        _fp.write(f'''<!DOCTYPE html>
+    _grafias = []
+    _u = _m.get('url') or ''
+    if '/post/' in _u:
+        _ws = _up.unquote(_u.split('/post/')[1]).strip('/')
+        if _ws and '/' not in _ws:
+            _grafias.append(_ws)
+    _grafias.append(_m['slug'])
+    for _g_ in list(_grafias):
+        _k = _chave_ponte(_g_)
+        if _k and _k not in _grafias:
+            _grafias.append(_k)
+    for _i_, _ws in enumerate(_grafias):
+        if not _ws or _ws in _feitas:
+            continue
+        _feitas.add(_ws)
+        _dirp = os.path.join(ROOT, 'post', _ws)
+        os.makedirs(_dirp, exist_ok=True)
+        with open(os.path.join(_dirp, 'index.html'), 'w') as _fp:
+            _fp.write(f'''<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -6452,6 +6474,10 @@ for _m in MATERIAS:
 </body>
 </html>
 ''')
-    _n_pontes += 1
-print(f'• {_n_pontes} pontes dos endereços antigos do Wix em /post/')
+        if _i_ == 0 and '/post/' in _u:
+            _n_pontes += 1
+        else:
+            _n_extra += 1
+print(f'• {_n_pontes} pontes dos endereços antigos do Wix em /post/ '
+      f'(+ {_n_extra} grafias alternativas: sem acento e endereço novo)')
 print('pronto')
