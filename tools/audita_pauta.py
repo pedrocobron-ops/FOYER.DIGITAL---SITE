@@ -57,17 +57,6 @@ def _texto_limpo(corpo):
     return t
 
 
-def _frases(corpo):
-    """Divide o corpo em frases para medir o ritmo.
-
-    A quebra exige espaço depois do ponto E maiúscula depois dele: sem isso,
-    "Lei 6.533" e "R$ 1.200" viravam duas frases e a conta de ritmo mentia.
-    """
-    t = _texto_limpo(corpo).replace('\n', ' ')
-    bruto = re.split(r'(?<=[.!?])\s+(?=[A-ZÀ-ÚÁÉÍÓÚÂÊÔÃÕÇ“"\*\[])', t)
-    return [f for f in (x.strip() for x in bruto) if len(f.split()) >= 3]
-
-
 def _paragrafos_de_texto(corpo):
     """Parágrafos de prosa, sem intertítulo, bloco de mídia, citação ou
     os blocos fixos do pé (Serviço e Perguntas rápidas)."""
@@ -76,6 +65,29 @@ def _paragrafos_de_texto(corpo):
             if p.strip() and not p.strip().startswith(
                 ('## ', '#', 'img:', 'video:', 'galeria:', 'botao:', 'spotify:',
                  '> ', '***'))]
+
+
+def _frases(corpo):
+    """Frases da PROSA, para medir o ritmo.
+
+    Mede só o que o redator escreve por ritmo, e por isso parte dos parágrafos
+    de prosa: o bloco de Serviço (endereço, horário, faixa de preço) é uma
+    ficha, não redação, e as citações "> " são palavra de outra pessoa, que a
+    casa não reescreve. Contar os dois afundava a conta justamente nos
+    releases, em que a ficha é grande parte do texto.
+
+    A quebra exige espaço depois do ponto E maiúscula depois dele: sem isso,
+    "Lei 6.533" e "R$ 1.200" viravam duas frases e a conta de ritmo mentia.
+    """
+    saida = []
+    for par in _paragrafos_de_texto(corpo):
+        # parágrafo a parágrafo: emendar todos num texto só colava o fim de um
+        # no começo do outro quando o primeiro terminava em dois-pontos, e a
+        # emenda aparecia como uma frase gigante que ninguém escreveu.
+        t = _texto_limpo(par).replace('\n', ' ')
+        bruto = re.split(r'(?<=[.!?])\s+(?=[A-ZÀ-ÚÁÉÍÓÚÂÊÔÃÕÇ“"\*\[])', t)
+        saida += [f for f in (x.strip() for x in bruto) if len(f.split()) >= 3]
+    return saida
 
 
 def auditar(caminho):
