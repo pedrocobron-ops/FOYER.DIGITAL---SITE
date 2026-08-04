@@ -1339,8 +1339,15 @@ html.tem-aviso body{ padding-bottom:var(--aviso-alt, 0px); }
 
    Agora a arte manda na altura: largura cheia, altura natural. Não corta a
    arte de ninguém (cortar arte de anunciante é inaceitável) e não sobra
-   moldura. O teto de altura existe só para arte fora do formato pedido, e
-   nesse caso ela encolhe inteira e centraliza, sem barra.
+   moldura.
+
+   SEGUNDA PASSADA (mesmo dia): tirar a borda não bastou. Sobravam TETOS DE
+   LARGURA (max-width de 300px no Giro, 500px no meio da matéria) e um teto de
+   altura no entreato. No celular ninguém via, porque a coluna é estreita; no
+   computador a coluna do Giro tem 439px e sobravam 50px de papel de cada
+   lado — o "quadro" que o Pedro continuava enxergando. Nenhum espaço de
+   publicidade tem teto de largura: a arte vai de borda a borda do espaço
+   vendido. Se mexer aqui, meça no computador, não só no celular.
 
    A ETIQUETA CONTINUA. Não é escolha de estilo: o art. 36 do Código de
    Defesa do Consumidor exige que a publicidade seja identificável fácil e
@@ -1352,30 +1359,34 @@ html.tem-aviso body{ padding-bottom:var(--aviso-alt, 0px); }
 
 /* ================= O ENTREATO (deitada, dentro da matéria) ================= */
 .pub-entreato{ margin:28px 0; border:0; background:none; padding:0; }
-.pub-entreato img{ display:block; width:100%; height:auto;
-  max-height:560px; width:auto; max-width:100%; margin-inline:auto; }
+.pub-entreato img{ display:block; width:100%; height:auto; }
 .pub-entreato figcaption{ font-size:.78rem; color:var(--ink-soft); margin-top:8px; }
 
 /* ================= PUBLICIDADE DA CASA: O CARTAZ (quadrado) =================
    O formato que o produtor já tem pronto: a arte do Instagram, a mesma do
    cartaz da peça. Entra no meio da matéria e na capa, dentro do Giro. */
-.pub-cartaz{ margin:30px auto; border:0; background:none; padding:0; max-width:500px; }
+.pub-cartaz{ margin:30px 0; border:0; background:none; padding:0; }
 .pub-cartaz img{ display:block; width:100%; height:auto; }
 .pub-cartaz figcaption{ font-size:.78rem; color:var(--ink-soft); margin-top:8px; }
-/* na capa, dentro do Giro: ocupa o lugar de uma linha, sem esticar a coluna */
-.giro-cartaz{ flex:0 0 auto; padding:12px 18px 14px; border-bottom:1px solid var(--line);
-  display:flex; flex-direction:column; align-items:center; }
-.giro-cartaz em{ align-self:flex-start; }
-.giro-cartaz a{ display:block; width:100%; max-width:300px; }
+/* na capa, dentro do Giro: a arte encosta nas duas bordas da coluna. O teto de
+   300px que havia aqui deixava 50px de papel de cada lado numa coluna de
+   439px — era exatamente a "moldura" que sobrava no computador. Só a etiqueta
+   e a legenda ficam recuadas, alinhadas com o resto do Giro. */
+.giro-cartaz{ flex:0 0 auto; padding:12px 0 14px; border-bottom:1px solid var(--line);
+  display:flex; flex-direction:column; }
+.giro-cartaz em{ padding:0 18px; }
+.giro-cartaz a{ display:block; width:100%; }
 .giro-cartaz img{ display:block; width:100%; height:auto; }
-.giro-cartaz span{ align-self:flex-start; font-size:.72rem; color:var(--ink-soft); margin-top:6px; }
+.giro-cartaz span{ padding:0 18px; font-size:.72rem; color:var(--ink-soft); margin-top:6px; }
 /* na grade de Notícias: o segundo cartaz mora numa célula, do tamanho de um
-   card, para o anúncio ler como parte da página e não como intruso */
+   card, para o anúncio ler como parte da página e não como intruso. A arte
+   sangra até a borda da célula; texto recuado. */
 .news-cell.cell-cartaz{ display:flex; flex-direction:column; border:0;
-  background:none; padding:10px 12px 12px; }
+  background:none; padding:10px 0 12px; }
+.cell-cartaz em{ padding:0 12px; }
 .cell-cartaz a{ display:block; }
 .cell-cartaz img{ display:block; width:100%; height:auto; }
-.cell-cartaz .leg{ font-size:.76rem; color:var(--ink-soft); margin-top:8px; }
+.cell-cartaz .leg{ padding:0 12px; font-size:.76rem; color:var(--ink-soft); margin-top:8px; }
 
 /* botão Anuncie (contato) */
 .bt-anuncie{ display:inline-block; border:2px solid var(--wine); background:var(--wine); color:var(--gold);
