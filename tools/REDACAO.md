@@ -1368,12 +1368,26 @@ re-exportação dos arquivos de `assets/artes/`.
    commit: corrigir ou descartar com registro no diário.
 4. Registrar a rodada em `import/pauta/diario.json` (formato acima).
 5. `git add import/pauta/ assets/uploads/ assets/social/` — e nada além disso.
-6. Commit na branch `claude/foyer-redacao-tal6hj` (a branch DESTA sala;
-   a antiga `claude/foyer-digital-redesign-14l2b6` é a do site, e a
-   redação saiu dela em 04/08/2026) com a mensagem
+6. Commit na branch **`claude/foyer-digital-redesign-14l2b6`**, com a mensagem
    `Redação IA: matérias na mesa de aprovação da Coxia [skip ci]`
    (o `[skip ci]` evita um deploy desnecessário — pauta não aparece no site).
-7. `git push -u origin claude/foyer-redacao-tal6hj`.
+7. `git push -u origin claude/foyer-digital-redesign-14l2b6`.
+
+   **POR QUE É ESTA BRANCH, E NÃO A DA SALA DA REDAÇÃO (erro cometido e
+   corrigido em 04/08/2026).** A separação em duas conversas é de ASSUNTO,
+   não de branch. Num impulso de coerência, a Entrega foi mudada para
+   apontar à branch da redação, e o resultado foi que **as duas matérias da
+   edição das 12h não apareceram na mesa do Pedro**: a Coxia lê a mesa de um
+   endereço só, gravado no código dela (`BRANCH = 'claude/foyer-digital-redesign-14l2b6'`,
+   em `tools/coxia_body.html`), e é lá que ela também grava as aprovações.
+   Matéria entregue em qualquer outra branch **não existe para o editor
+   humano**.
+
+   A regra que fica: **a redação decide o QUE escreve, não ONDE entrega.**
+   O endereço da entrega pertence à Coxia, e mudá-lo é assunto da outra
+   conversa. Se um dia a redação precisar de branch própria, quem muda o
+   `BRANCH` da Coxia é a conversa do site, e só depois disso o manual
+   acompanha. Nunca antes.
 8. Faxina da lixeira: apagar de `import/lixeira/` os arquivos com
    `removidoEm` há mais de 30 dias (e incluir no commit).
 9. Encerrar informando quantas matérias ficaram na mesa e seus títulos.
