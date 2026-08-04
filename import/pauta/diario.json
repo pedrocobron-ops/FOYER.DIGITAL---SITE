@@ -1,6 +1,29 @@
 {
  "rodadas": [
   {
+   "quando": "2026-08-04T09:00:00-03:00",
+   "por": "Rodada da manhã de 04/08 (terça). ENTRADA RECONSTITUÍDA em 04/08 à tarde: a rodada original não gravou o diário, e esta reconstituição foi montada a partir dos seis pacotes em import/pauta/ e do registro de cortes em tools/CORTES.md. Ela NÃO reproduz as buscas da varredura, que não ficaram registradas em lugar nenhum e não serão inventadas.",
+   "buscas": [
+    "(não registradas pela rodada original; irrecuperáveis)"
+   ],
+   "consideradas": [
+    {
+     "assunto": "15 pautas derrubadas antes de escrever",
+     "decisao": "descartada",
+     "motivo": "o número está em tools/CORTES.md; os assuntos não foram registrados um a um. Uma delas ficou anotada: notícia do FSA no gov.br que parecia de 2026 mas era de setembro de 2025, com a página apenas remexida"
+    }
+   ],
+   "produzidas": [
+    "acordos-coproducao-brasil-china-franca-cinema",
+    "capulanas-no-baile-de-osa-meji-teatro-de-arena-eugenio-kusnet",
+    "ccs-congresso-condecine-streaming-3-por-cento",
+    "death-note-o-musical-estreia-em-londres",
+    "o-que-e-o-drt-de-ator-e-como-se-tira",
+    "tan-dun-orquestra-sinfonica-municipal-theatro-municipal-sp"
+   ],
+   "obs": "Cota 2+2+2 cumprida, com o prato de terça (Entenda) em 'O que é o DRT de ator e como se tira'. As seis passaram no portão da época. FALHA DE PROCESSO DESTA RODADA: o diário, que o manual torna obrigatório, não foi gravado, e só foi notado horas depois. O registro de cortes (tools/CORTES.md) foi gravado normalmente e é o que sustenta esta reconstituição. IMPORTANTE PARA O EDITOR: as seis foram escritas sob a régua ANTERIOR à mudança de 04/08 (teste da ordem, ritmo medido, fecho que não é link). Passaram depois por uma faxina de estilo que corrigiu fecho e ritmo, sem tocar em fato, número, aspa ou serviço."
+  },
+  {
    "quando": "2026-08-03T10:45:00+00:00",
    "por": "Redator REDAÇÃO (Claude), rodada da manhã de 03/08/2026, cota de 2 matérias na assinatura Redação Foyer",
    "buscas": [
@@ -1647,43 +1670,6 @@
     "wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang (reescrita)"
    ],
    "obs": "Novo padrão em vigor: 750–1.100 palavras, 3+ intertítulos, citações reais e FOTO OBRIGATÓRIA com crédito. Sem foto, a pauta é descartada."
-  },
-  {
-   "quando": "2026-07-22T22:05:00+00:00",
-   "por": "Rodada manual (Claude, na sessão do chefe)",
-   "buscas": [
-    "estreia teatro São Paulo julho 2026 espetáculo temporada",
-    "notícias teatro musical Brasil julho 2026 elenco anunciado estreia",
-    "\"Festa no Arraial\" musical Teatro Sabesp Frei Caneca estreia elenco Claudia Ohana ingressos",
-    "Wicked musical Rio de Janeiro 2026 Cidade das Artes temporada elenco ingressos"
-   ],
-   "consideradas": [
-    {
-     "assunto": "Festa no Arraial, O Musical — Shakespeare em festa junina no Frei Caneca",
-     "decisao": "escolhida",
-     "motivo": "estreia dia 24/07, elenco e serviço confirmados em 4 fontes"
-    },
-    {
-     "assunto": "Wicked — temporada carioca na Cidade das Artes",
-     "decisao": "escolhida",
-     "motivo": "em cartaz desde 15/07, protagonistas e preços confirmados"
-    },
-    {
-     "assunto": "7 Mulheres e Um Mistério — estreia em SP",
-     "decisao": "descartada",
-     "motivo": "o FOYER já cobriu a entrada de Paula Capovilla no elenco"
-    },
-    {
-     "assunto": "Gala Concert — Moscow Ballet em turnê",
-     "decisao": "descartada",
-     "motivo": "fora do foco principal e com poucas fontes brasileiras"
-    }
-   ],
-   "produzidas": [
-    "festa-no-arraial-o-musical-shakespeare-festa-junina-frei-caneca",
-    "wicked-temporada-carioca-cidade-das-artes-myra-ruiz-fabi-bang"
-   ],
-   "obs": "Ambas com nota 8 do chefe de redação; falta foto de divulgação nas duas — anexar a capa na mesa antes de publicar."
   }
  ]
 }
