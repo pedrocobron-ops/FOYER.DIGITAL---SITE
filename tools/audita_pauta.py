@@ -9,6 +9,10 @@ Uso:
 
 Sai com código 1 se qualquer matéria tiver PROBLEMA (não pode ir à mesa).
 AVISO não bloqueia, mas deve ser lido pelo chefe de fechamento.
+
+Passe a rodada inteira de uma vez (todos os arquivos numa chamada só): os
+avisos de MOLDE só aparecem olhando as matérias juntas, porque o esqueleto
+repetido não se vê numa matéria isolada.
 """
 import json, os, re, sys
 
@@ -53,12 +57,45 @@ def _texto_limpo(corpo):
     return t
 
 
+def _paragrafos_de_texto(corpo):
+    """Parágrafos de prosa, sem intertítulo, bloco de mídia, citação ou
+    os blocos fixos do pé (Serviço e Perguntas rápidas)."""
+    corte = re.split(r'^## +(?:Serviço|Servico|Perguntas)', corpo, flags=re.M)[0]
+    return [p.strip() for p in corte.split('\n\n')
+            if p.strip() and not p.strip().startswith(
+                ('## ', '#', 'img:', 'video:', 'galeria:', 'botao:', 'spotify:',
+                 '> ', '***'))]
+
+
+def _frases(corpo):
+    """Frases da PROSA, para medir o ritmo.
+
+    Mede só o que o redator escreve por ritmo, e por isso parte dos parágrafos
+    de prosa: o bloco de Serviço (endereço, horário, faixa de preço) é uma
+    ficha, não redação, e as citações "> " são palavra de outra pessoa, que a
+    casa não reescreve. Contar os dois afundava a conta justamente nos
+    releases, em que a ficha é grande parte do texto.
+
+    A quebra exige espaço depois do ponto E maiúscula depois dele: sem isso,
+    "Lei 6.533" e "R$ 1.200" viravam duas frases e a conta de ritmo mentia.
+    """
+    saida = []
+    for par in _paragrafos_de_texto(corpo):
+        # parágrafo a parágrafo: emendar todos num texto só colava o fim de um
+        # no começo do outro quando o primeiro terminava em dois-pontos, e a
+        # emenda aparecia como uma frase gigante que ninguém escreveu.
+        t = _texto_limpo(par).replace('\n', ' ')
+        bruto = re.split(r'(?<=[.!?])\s+(?=[A-ZÀ-ÚÁÉÍÓÚÂÊÔÃÕÇ“"\*\[])', t)
+        saida += [f for f in (x.strip() for x in bruto) if len(f.split()) >= 3]
+    return saida
+
+
 def auditar(caminho):
     problemas, avisos = [], []
     try:
         pg = json.load(open(caminho))
     except Exception as e:
-        return [f'JSON INVÁLIDO: {e}'], []
+        return [f'JSON INVÁLIDO: {e}'], [], {'inter': -1, 'porte': '?', 'author': '?'}
     slug = pg.get('slug', '')
     corpo = pg.get('corpo', '')
     titulo = pg.get('title', '')
@@ -138,6 +175,39 @@ def auditar(caminho):
         problemas.append(f'LINKS INTERNOS: só {len(internos)} (mínimo 3)')
     if quebrados:
         problemas.append(f'LINKS QUEBRADOS: {quebrados}')
+
+    # 3b. O FECHO NÃO É UM LINK (ordem do Pedro, 04/08/2026).
+    #     Desde que a cota de 3 links entrou, o redator passou a cumpri-la no
+    #     lugar mais barato, que é o fim: 38% das matérias na mesa terminavam
+    #     apontando para outra matéria, contra 11% antes da regra. A matéria
+    #     deixava de terminar e passava a despachar o leitor para outra sala.
+    paragrafos = _paragrafos_de_texto(corpo)
+    if paragrafos and re.search(r'\]\([^)]+\)[\s.,;]*$', paragrafos[-1]):
+        problemas.append('FECHO É UM LINK: o último parágrafo termina apontando '
+                         'para outra matéria; feche o assunto com frase da casa '
+                         '(links internos entram no meio do texto)')
+
+    # 3c. RITMO, medido (ordem do Pedro, 04/08/2026). "Variar o ritmo" era
+    #     conselho e não mudou nada: o acervo deu média de 23,8 palavras por
+    #     frase, com textos passando de 30 e um deles sem UMA frase curta.
+    #     Com o travessão proibido, o aposto virou vírgula empilhada e o
+    #     período cresceu. Agora a régua é número.
+    fr = _frases(corpo)
+    if len(fr) >= 8:
+        # arredonda ANTES de comparar: senão o laudo diz "22% de frases curtas
+        # (alvo 20% ou mais)" e parece que o portão se contradiz.
+        curtas = round(100.0 * sum(1 for f in fr if len(f.split()) < 12) / len(fr))
+        media = sum(len(f.split()) for f in fr) / len(fr)
+        if curtas < 15:
+            problemas.append(f'TEXTO SEM RESPIRO: só {curtas}% das frases têm '
+                             f'menos de 12 palavras (mínimo 15%, alvo 20%)')
+        elif curtas < 22:
+            avisos.append(f'POUCO RESPIRO: {curtas}% de frases curtas '
+                          f'(alvo 20% ou mais)')
+        if media > 28:
+            problemas.append(f'PERÍODO LONGO DEMAIS: média de {media:.1f} palavras '
+                             f'por frase (teto 28). Onde pediria travessão, use '
+                             f'ponto final, não mais uma vírgula')
 
     # 4. Foto: existe, com crédito e fonte; sem agência proibida
     img = pg.get('img', '')
@@ -233,7 +303,31 @@ def auditar(caminho):
     if achados:
         avisos.append(f'CLICHÊS a rever: {achados}')
 
-    return problemas, avisos
+    return problemas, avisos, {'inter': inter, 'porte': porte,
+                               'author': pg.get('author', '?')}
+
+
+def _molde_da_rodada(medidas):
+    """Aviso de rodada: o molde não aparece numa matéria só, aparece na
+    repetição. A régua dos portes cortou o tamanho e não cortou a forma —
+    quase toda 'contextualizada' saía com exatamente 5 intertítulos. Só dá
+    para ver isso olhando a rodada inteira, então o aviso mora aqui.
+    """
+    avisos = []
+    por_porte = {}
+    for m in medidas:
+        por_porte.setdefault(m['porte'], []).append(m['inter'])
+    for porte, contas in por_porte.items():
+        if len(contas) >= 3 and len(set(contas)) == 1:
+            avisos.append(f'MOLDE: as {len(contas)} matérias de porte "{porte}" '
+                          f'desta rodada saíram todas com {contas[0]} '
+                          f'intertítulos. Dentro da faixa, varie.')
+    for autor in {m['author'] for m in medidas}:
+        c = [m['inter'] for m in medidas if m['author'] == autor]
+        if len(c) >= 2 and len(set(c)) == 1 and c[0] >= 3:
+            avisos.append(f'MOLDE: as {len(c)} matérias de {autor} nesta rodada '
+                          f'têm o mesmo número de intertítulos ({c[0]}).')
+    return avisos
 
 
 def main():
@@ -241,8 +335,14 @@ def main():
         print(__doc__)
         sys.exit(2)
     geral_ok = True
-    for arq in sys.argv[1:]:
-        problemas, avisos = auditar(arq)
+    medidas = []
+    # diario.json mora em import/pauta/ e não é matéria: sem isso, o jeito
+    # natural de rodar a rodada inteira (import/pauta/*.json) reprova sempre.
+    arquivos = [a for a in sys.argv[1:]
+                if os.path.basename(a) not in ('diario.json', 'sugestoes.json')]
+    for arq in arquivos:
+        problemas, avisos, medida = auditar(arq)
+        medidas.append(medida)
         nome = os.path.basename(arq)
         if problemas:
             geral_ok = False
@@ -253,6 +353,8 @@ def main():
             print(f'✓ {nome}: aprovada no portão mecânico')
         for a in avisos:
             print(f'   aviso: {a}')
+    for a in _molde_da_rodada(medidas):
+        print(f'aviso da rodada: {a}')
     print('GERAL:', 'aprovado' if geral_ok else 'REPROVADO')
     sys.exit(0 if geral_ok else 1)
 

@@ -149,6 +149,38 @@ que o piso de 750 criou.
 - Assinatura: conforme a editoria da matéria (ver "Quem assina o quê", abaixo).
   Nunca inventar persona: só os nomes reais da equipe ou "Redação Foyer".
 
+### A SEÇÃO PRECISA ANDAR — o teste da ordem (ordem do Pedro, 04/08/2026)
+
+A régua dos portes cortou o tamanho e não cortou o molde. A medição das 13
+matérias na mesa mostrou por quê: **quase toda `contextualizada` cai em
+exatamente 5 intertítulos**, e cada um deles é um assunto fechado em si.
+Numa matéria de estreia da rodada de hoje, as quatro seções eram a sinopse,
+o projeto de fomento, a história do teatro e a trajetória da companhia. Dava
+para trocar duas de lugar sem que o leitor percebesse.
+
+A causa não é o redator: é a apuração. O repórter enche gavetas de pesquisa
+(a peça, a companhia, a casa, o dinheiro, o contexto) e depois cada gaveta
+vira um intertítulo. Sai um arquivo bem organizado, não uma reportagem.
+
+**O TESTE DA ORDEM, que o Chefe de Redação aplica antes de mandar à mesa:
+se der para trocar duas seções de lugar sem prejuízo para o leitor, elas
+não são seções, são gavetas — e a matéria volta.** Uma seção existe porque
+a anterior deixou uma pergunta aberta. O que não responde pergunta nenhuma
+vira parágrafo dentro de outra seção, ou sai.
+
+Consequências práticas:
+
+- **Antes de escrever, o repórter decide a espinha**: uma frase dizendo o
+  que esta matéria descobre ou explica, e que o leitor repetiria para
+  outra pessoa. Tudo que não serve a essa frase é contexto, e contexto
+  não ganha seção própria.
+- **História da casa, trajetória da companhia e "outras montagens do
+  gênero" não são seções por direito.** Entram quando a história precisa
+  delas, no tamanho que ela precisar, dentro do texto.
+- **Dentro da faixa do porte, varie.** Três matérias seguidas da mesma
+  assinatura com o mesmo número de intertítulos é o molde voltando pela
+  janela. O portão avisa quando a rodada inteira sai com a mesma conta.
+
 ## Escrita humana (obrigatório — o Chefe de Redação REPROVA quem violar)
 
 O texto deve soar como jornalista de carne e osso. Padrões proibidos:
@@ -187,10 +219,27 @@ O texto deve soar como jornalista de carne e osso. Padrões proibidos:
    conquistando", "não poderia ser diferente".
 4. Evitar trios perfeitos ("emociona, diverte e transforma") e listas
    de três adjetivos. Um adjetivo forte vale mais que três fracos.
-5. Variar o ritmo: parágrafos de tamanhos diferentes, frases curtas
-   misturadas com longas, começos de parágrafo variados (nunca três
-   parágrafos seguidos começando com "O", "A" ou o nome da peça).
-6. Informação antes de opinião: o texto informa; adjetivo só quando
+5. **Ritmo, e agora medido (ordem do Pedro, 04/08/2026).** "Variar o
+   ritmo" era conselho, e conselho não mudou nada: a medição das 98
+   matérias do acervo deu **média de 23,8 palavras por frase**, com
+   textos inteiros passando de 30 e um deles sem UMA frase curta.
+   A régua agora é número, e o portão conta:
+   - **ao menos 20% das frases com menos de 12 palavras.** Abaixo de
+     15% o portão reprova, entre 15% e 22% ele avisa. Frase curta não
+     é frase pobre: é onde o leitor respira e onde a informação bate.
+     `Cachê ela não tabela. Fixa as condições em que o trabalho acontece.`
+   - **média de até 28 palavras por frase.** Acima disso reprova.
+   - parágrafos de tamanhos diferentes, e começos de parágrafo variados
+     (nunca três parágrafos seguidos começando com "O", "A" ou o nome
+     da peça). Quase metade dos parágrafos da casa abre com artigo
+     definido: é o vício mais comum e o mais fácil de corrigir.
+6. **Não troque o travessão por vírgula empilhada.** O travessão está
+   proibido, e a consequência apareceu na medição: o aposto que ele
+   resolveria virou vírgula sobre vírgula e ponto e vírgula, e o período
+   cresceu. Quando a frase pedir travessão, o certo quase sempre não é
+   a vírgula: **é o ponto final**. Duas frases, não uma frase com
+   remendo.
+7. Informação antes de opinião: o texto informa; adjetivo só quando
    sustentado por fato citado.
 
 ## Foto de capa — OBRIGATÓRIA, com crédito
@@ -270,7 +319,63 @@ leitor**, com apetite pelo assunto e sem distância professoral.
   o calor e a proximidade, JAMAIS o clichê de release. As regras de
   "Escrita humana" valem inteiras para ele também.
 
-**O lugar de onde ele fala (registrado por ele mesmo em 30/07/2026).**
+**O QUE LER ANTES DE ESCREVER NA VOZ DELE.** Adjetivo não ensina ninguém
+a escrever: "quente e perto do leitor" não diz o que fazer com a próxima
+frase. Estes trechos, publicados e assinados por ele, dizem. Leia os dois
+antes de começar.
+
+> A remuneração do ator de teatro no Brasil se conta por sessão, e o valor
+> muda conforme o teatro, o número de apresentações na semana, a função em
+> cena e quem paga a conta. Boa parte dessas contas nunca vira dado
+> público. Parte vira, e está em documento aberto: tabelas de sindicato,
+> uma lei de 1978 e o regulamento dos editais que bancam a montagem.
+
+O que fazer igual: a frase longa que arma o problema, seguida de duas
+curtas que o resolvem. E o parágrafo entrega ao leitor o caminho da
+apuração em vez de esconder que ela foi difícil.
+
+> A Lei 6.533, de 24 de maio de 1978, regulamenta as profissões de artista
+> e de técnico em espetáculos de diversões. Cachê ela não tabela. Fixa as
+> condições em que o trabalho acontece.
+
+Três frases, sete palavras nas duas últimas. É esse o respiro que a régua
+de ritmo cobra, e ele veio de uma matéria de dinheiro, o assunto que mais
+tenta virar parágrafo travado.
+
+> Dividir as mais de 2.500 salas do Homem-Aranha, número do Filme B, por
+> essas 3.554 da Ancine é conta desta redação, e ela dá 70%.
+
+O movimento mais dele que existe: quando a casa faz a própria conta, ela
+diz que fez, com as duas fontes na frase. Honestidade sobre o método vale
+mais que autoridade fingida.
+
+**A VARIAÇÃO DE TEMA (ordem do Pedro, 04/08/2026).** Das 27 matérias
+assinadas por ele no acervo recente, **praticamente todas são dinheiro**:
+bilheteria, edital, faturamento, quanto custa, quanto rende. Ele gosta do
+tema e o tema é dele, mas leitor que abre a assinatura três vezes na
+semana e encontra sempre uma planilha para de abrir.
+
+A cota dele na rodada da MANHÃ segue 2. A régua nova é de composição (a
+edição das 12h não entra nesta conta: ela é cinema e streaming por
+definição, e tem regra própria):
+
+- **No máximo 1 das 2 matérias do dia é pauta de dinheiro puro**
+  (bilheteria, faturamento, edital, quanto custa, quanto rende).
+- **A outra vem de um dos três eixos, e eles rodam na semana**:
+  **cinema** (o filme, quem faz, o que muda na produção brasileira, a
+  janela, o festival, a carreira de quem dirige), **streaming** (catálogo,
+  decisão de plataforma, o que entra e o que some, o que a assinatura
+  significa para quem produz) e **política pública** (regulação,
+  Condecine, Ancine, lei do streaming, fomento, direito autoral, condição
+  de trabalho no audiovisual).
+- **Duas matérias do mesmo eixo no mesmo dia, só com justificativa no
+  diário.** Duas de bilheteria no mesmo dia, nunca.
+- Dinheiro continua sendo o chão de todos eles: a diferença é que ele
+  entra pela porta do cinema, da plataforma ou da política, e não como
+  assunto em si.
+
+**O lugar de onde ele fala (registrado por ele mesmo em 30/07/2026,
+reafirmado em 04/08/2026).**
 Pedro Amaral é um homem de **esquerda política**. A notícia do FOYER
 continua sendo notícia: apuração, fato conferido, contraditório e nenhum
 editorial escondido dentro de matéria. Mas onde o ponto de vista
@@ -301,8 +406,22 @@ de neutralidade:
 - **quem discorda é ouvido.** Fonte do outro lado é procurada e citada
   com o que efetivamente disse.
 
+**O QUE ISSO SIGNIFICA PARA A CASA INTEIRA (Pedro, 04/08/2026).** Nas
+palavras dele: *"somos um jornal imparcial, mas com olhar mais à esquerda
+política, isso é importante de se ter de plano de fundo."* Plano de fundo
+é exatamente o lugar: não é tese a defender no texto, é o que a casa
+considera digno de pauta. A separação, em três níveis, vale para as três
+assinaturas:
+
+| Nível | Como o olhar entra |
+|---|---|
+| **Apuração e texto factual** | Não entra. Fato, número, data, aspa e serviço são os mesmos para qualquer lado, em qualquer assinatura. Dado que contraria a tese entra igual. |
+| **Escolha de pauta** (vale para a casa toda) | Entra, como plano de fundo. Diante de dois assuntos igualmente noticiáveis, a casa cobre o que afeta quem trabalha no palco, quem paga o ingresso e quem fica de fora, e cobra dinheiro público como investimento, não como favor. |
+| **Ponto de vista visível** (análise assinada, carta ao leitor) | Só **Pedro Amaral**. É a assinatura dele que responde por juízo diante do leitor. |
+
 A voz institucional (**Redação Foyer**) e a voz de **Isabel Branquinha**
-não herdam esse viés: seguem sóbrias e sem ponto de vista político.
+não herdam o ponto de vista visível: seguem sóbrias, sem juízo político no
+texto. O plano de fundo da escolha de pauta, esse sim, é da casa.
 
 ### A voz de Isabel Branquinha
 
@@ -319,6 +438,70 @@ precisa e informativa**, com elegância e zero adjetivação gratuita.
 - Serviço completo e exato: datas, horários, sala, shopping, endereço.
 - Frases médias e bem construídas, português culto e limpo.
 - Cita declarações da produção quando existem, com atribuição clara.
+
+**O QUE LER ANTES DE ESCREVER NA VOZ DELA.** Trechos publicados e
+assinados por ela no acervo.
+
+> A pergunta que atravessa o espetáculo é íntima e coletiva: o que faz
+> alguém ser visto como um corpo "desviante"? A resposta não aparece de
+> forma fechada. Ela surge em fragmentos da trajetória do próprio artista.
+
+O movimento central da voz dela: **ela diz o que a obra faz, não que a
+obra é boa.** Não há um adjetivo de elogio no trecho, e mesmo assim o
+leitor sabe se quer ver a peça.
+
+> Em cena, três mulheres velam o corpo de uma jovem durante a noite. À
+> medida que o tempo avança, o diálogo entre elas se afasta da lógica
+> cotidiana e passa a construir uma experiência poética sobre angústias,
+> desejos, medos e lembranças. A palavra deixa de apenas narrar e passa a
+> criar mundos possíveis.
+
+Sinopse que é análise: descreve o mecanismo da peça, não o enredo.
+Repare que a última frase é a mais curta e é a que fica.
+
+> A estrutura permite que "Idiota Convicto" avance por diferentes quadros.
+> Luís Alberto de Abreu parte da situação insólita de um homem que
+> encontra uma argola viva no meio da calçada. Michelle Ferreira apresenta
+> um professor de cinema que trata a própria vida como roteiro.
+
+Como ela resolve elenco e ficha técnica sem virar lista: cada nome vem
+com o que a pessoa **fez**, numa frase própria. Nome empilhado com vírgula
+é o atalho que ela não usa.
+
+**O que evitar na voz dela**: o lide de release engessado (título em
+negrito, companhia, direção, datas, preço, tudo numa frase só) apareceu
+nas quatro matérias dela na mesa de hoje. O fato vem primeiro, sim, mas o
+lide dela é uma frase de jornalista, não um campo preenchido.
+
+### A voz da Redação Foyer (novo, 04/08/2026)
+
+A assinatura coletiva escreve **2 das 6 matérias do dia** e até hoje não
+tinha guia de voz nenhum neste manual. Era o maior buraco da casa: um
+terço da produção diária sem referência, escrevendo por eliminação do que
+é proibido.
+
+A Redação Foyer é a voz que **explica**. Ela cobre bastidor, explicador,
+memória, curiosidade, lista, guia, patrimônio e internacional, e o que
+une tudo isso é a mesma tarefa: pegar algo que o leitor não conhece e
+entregar de pé.
+
+- **Abre pela estranheza, não pela definição.** O melhor lide da casa
+  nessa voz é o do explicador do DRT: *"O documento que um ator
+  brasileiro precisa ter para assinar contrato leva o nome de uma
+  repartição que não existe mais."* A definição vem na frase seguinte,
+  depois que o leitor já quer saber.
+- **Autoridade vem do documento, não do tom.** Lei com número e data,
+  norma com artigo, valor com a fonte oficial e o ano dela. Ela nunca
+  diz "é sabido que": ela diz onde está escrito.
+- **Sem juízo político no texto** (ver a tabela dos três níveis, acima).
+- **É a voz mais serena da casa.** Não tem o calor do Pedro nem a
+  elegância analítica da Isabel: tem clareza. Quando a frase ficar
+  bonita e difícil, escolha a difícil de escrever e fácil de ler.
+- **Fecha resolvendo.** *"Até que uma das duas prospere, vale o que está
+  escrito desde 1978: sem registro, não há contrato de artista."*
+- **O risco dela é o verbete.** Explicador que vira enciclopédia perde o
+  leitor no terceiro parágrafo. O teste da ordem (acima) é onde essa voz
+  mais reprova, porque o assunto sempre oferece uma gaveta a mais.
 
 ## A SEGUNDA EDIÇÃO DO DIA — 12h, cinema e streaming (ordem do Pedro, 31/07/2026)
 
@@ -379,7 +562,7 @@ dessa divisão, cada assinatura tem um par fixo de encargos:
 
 | Assinatura | Matéria 1 | Matéria 2 |
 |---|---|---|
-| **Pedro Amaral** | 1 notícia quente de mercado/dinheiro/cinema (bilheteria, edital, financiamento, negócio do audiovisual) | 1 pauta do mesmo eixo com mais fôlego: explicador de dinheiro, número do setor, análise de bilheteria, perfil de quem produz ou financia |
+| **Pedro Amaral** | 1 notícia quente de mercado/dinheiro (bilheteria, edital, financiamento, negócio do audiovisual) | 1 pauta de OUTRO eixo, pela regra de variação: cinema, streaming ou política pública. Nunca a segunda de dinheiro puro no mesmo dia |
 | **Isabel Branquinha** | 1 estreia ou temporada em São Paulo (a vaga de circuito da rodada, quando houver) | 1 segunda pauta da cena paulistana: outra estreia, perfil de artista em cartaz, montagem que prorroga, o que a cidade tem em cartaz |
 | **Redação Foyer** | **o PRATO DO DIA** (tabela abaixo) | 1 do cardápio: bastidor, curiosidade, memória, patrimônio ou notícia internacional fora da bolha |
 
@@ -458,6 +641,17 @@ dentro da editoria daquela assinatura.
   para matérias do acervo (`[texto](post-slug.html)`) e verbetes da
   enciclopédia (`[nome](pessoa-slug.html)`) — conferir se o arquivo
   existe no acervo antes de linkar.
+- **O FECHO NÃO É UM LINK (ordem do Pedro, 04/08/2026).** Desde que a
+  cota de 3 links entrou, o redator passou a resolvê-la no lugar mais
+  fácil, que é o fim: **38% das matérias na mesa terminavam apontando
+  para outra matéria**, contra 11% no acervo anterior à regra. A matéria
+  deixava de terminar e passava a despachar o leitor para outra sala.
+  O último parágrafo é **frase da casa**, e fecha o assunto que a
+  matéria abriu; os links internos entram no meio do texto, onde
+  servem à leitura. O portão reprova quem termina em link.
+  Exemplo do que fecha (do explicador do DRT): `Até que uma das duas
+  prospere, vale o que está escrito desde 1978: sem registro, não há
+  contrato de artista.`
 - Conteúdo perene não leva "ontem/hoje/amanhã" no corpo: usar datas.
 - Guia de quinta usa foto de divulgação de uma das peças indicadas
   (com crédito); histórias de teatro usam foto oficial da casa.
@@ -499,6 +693,25 @@ três ondas de agentes independentes, sem economizar agente:
   **PROIBIDO alterar fatos, números, nomes, datas, aspas e serviço**
   (qualquer necessidade factual volta para o checador). Ao final lista
   as frases que mudou, para conferência do orquestrador.
+
+  **A ONDA 3 TAMBÉM MELHORA, NÃO SÓ POLICIA (ordem do Pedro,
+  04/08/2026).** Até aqui ela só caçava o que era proibido, e o
+  resultado é previsível: o texto foge de tudo que a casa veta e
+  aterrissa na prosa neutra mais segura que existe, que é uma
+  assinatura de máquina como qualquer outra. Ninguém no processo
+  estava encarregado de deixar melhor, só de não errar. Agora o
+  revisor sai com **quatro tarefas obrigatórias**, e as lista no
+  relatório:
+  1. **Cortar 10% das palavras** sem perder um fato sequer. Quase
+     sempre é advérbio, redundância de contexto e frase de ligação
+     que não liga nada. Se o texto ficar abaixo do piso do porte
+     depois do corte, o problema é o porte declarado, não o corte.
+  2. **Reescrever o parágrafo mais fraco do texto**, apontando qual
+     era e por quê.
+  3. **Aplicar o teste da ordem** nas seções (acima) e dizer se
+     alguma é gaveta.
+  4. **Conferir o fecho**: não pode ser link, e tem que fechar o
+     assunto que o lide abriu.
 
 ### QUANTAS ONDAS CADA MATÉRIA LEVA (ordem do Pedro, 02/08/2026)
 
@@ -1146,18 +1359,35 @@ re-exportação dos arquivos de `assets/artes/`.
 
 1. Salvar cada pacote em `import/pauta/<slug>.json`.
 2. Salvar as fotos de capa em `assets/uploads/`.
-3. **Portão mecânico**: rodar
-   `python3 tools/audita_pauta.py import/pauta/<slug>.json`
+3. **Portão mecânico**: rodar a rodada INTEIRA numa chamada só,
+   `python3 tools/audita_pauta.py import/pauta/*.json`,
    e só seguir com laudo `✓` (ele confere travessão, tamanho, links,
-   foto+crédito+fonte, agências proibidas, fontes, instagram, artes,
-   editorias e status). Matéria reprovada NÃO entra no commit: corrigir
-   ou descartar com registro no diário.
+   **fecho**, **ritmo medido**, foto+crédito+fonte, agências proibidas,
+   fontes, instagram, artes, editorias e status, e avisa quando a rodada
+   inteira saiu com o mesmo esqueleto). Matéria reprovada NÃO entra no
+   commit: corrigir ou descartar com registro no diário.
 4. Registrar a rodada em `import/pauta/diario.json` (formato acima).
 5. `git add import/pauta/ assets/uploads/ assets/social/` — e nada além disso.
-6. Commit na branch `claude/foyer-digital-redesign-14l2b6` com mensagem
+6. Commit na branch **`claude/foyer-digital-redesign-14l2b6`**, com a mensagem
    `Redação IA: matérias na mesa de aprovação da Coxia [skip ci]`
    (o `[skip ci]` evita um deploy desnecessário — pauta não aparece no site).
 7. `git push -u origin claude/foyer-digital-redesign-14l2b6`.
+
+   **POR QUE É ESTA BRANCH, E NÃO A DA SALA DA REDAÇÃO (erro cometido e
+   corrigido em 04/08/2026).** A separação em duas conversas é de ASSUNTO,
+   não de branch. Num impulso de coerência, a Entrega foi mudada para
+   apontar à branch da redação, e o resultado foi que **as duas matérias da
+   edição das 12h não apareceram na mesa do Pedro**: a Coxia lê a mesa de um
+   endereço só, gravado no código dela (`BRANCH = 'claude/foyer-digital-redesign-14l2b6'`,
+   em `tools/coxia_body.html`), e é lá que ela também grava as aprovações.
+   Matéria entregue em qualquer outra branch **não existe para o editor
+   humano**.
+
+   A regra que fica: **a redação decide o QUE escreve, não ONDE entrega.**
+   O endereço da entrega pertence à Coxia, e mudá-lo é assunto da outra
+   conversa. Se um dia a redação precisar de branch própria, quem muda o
+   `BRANCH` da Coxia é a conversa do site, e só depois disso o manual
+   acompanha. Nunca antes.
 8. Faxina da lixeira: apagar de `import/lixeira/` os arquivos com
    `removidoEm` há mais de 30 dias (e incluir no commit).
 9. Encerrar informando quantas matérias ficaram na mesa e seus títulos.
