@@ -21,6 +21,63 @@ alguém. Uma vez por semana, leia a coluna do tipo e veja o que se repete.
 
 ---
 
+## 04/08/2026, edição das 12h (terça)
+
+2 matérias de cinema, assinatura Pedro Amaral. Primeira rodada escrita sob a
+régua nova. **Os dois checadores derrubaram erro do REDATOR, não da fonte**,
+que é exatamente para isso que existe a regra de que quem escreve não checa.
+
+| Tipo | O que era | O que a checagem achou | Matéria |
+|---|---|---|---|
+| `superlativo sem fonte` | O fim de semana chamado de **recorde**, em três pontos do texto | Não houve recorde: 5,22 milhões de ingressos é MENOS que os 5,39 milhões de julho de 2023. A fonte diz "melhor resultado em 36 meses" e nunca diz recorde. Pior, o intertítulo "O recorde anterior tinha dois donos" afirmava que a marca havia caído e contradizia o parágrafo seguinte, que dizia que ela ficou de pé. Numa matéria cuja tese é a comparação entre os dois fins de semana, errar qual foi o maior é errar o assunto | Melhor fim de semana |
+| `superlativo sem fonte` | O mesmo "recorde" vivendo na legenda do Instagram | A porta dos fundos de novo, exatamente como no Death Note de ontem | Melhor fim de semana |
+| `atribuição errada` | "A Elo Studios anunciou parceria com a TvZero e com a Dualto" | O Tela Viva escreve "a Elo Studios, a TvZero e a Dualto Produções anunciam parceria". Ninguém anunciou parceria com ninguém: as três anunciaram juntas | Sobre Noix |
+| `atribuição errada` | A MESMA formulação sobrevivendo na legenda do Instagram depois de corrigida no corpo | Não foi a checagem que pegou: foi a leitura fria, uma onda depois. Terceira ocorrência do padrão em dois dias | Sobre Noix |
+| `invenção` | "O dinheiro público do audiovisual chega quase todo na etapa de produção" | Nenhuma fonte do pacote, nem a nossa própria matéria do FSA, sustenta o "quase todo". Trocado pelo que a matéria de destino de fato diz: a linha de Núcleos Criativos passou nove anos sem edital e reabriu em junho | Sobre Noix |
+| `invenção` | "o mercado inteiro passou **o feriado** torcendo por ele" | Não há feriado nacional em julho nem agosto de 2026, e nenhuma fonte cita feriado. Era a janela do fim de semana, que a matéria decidira não afirmar, entrando pela porta dos fundos | Melhor fim de semana |
+| `invenção` | "parte dessa gente **volta em setembro**" | Mês escolhido pelo redator, sem fonte. Virou "volta depois" | Melhor fim de semana |
+| `atribuição errada` | Lista de parceiros do HBF+Brazil sem a Spcine | O release do IFFR, **que já era fonte do pacote**, lista "Spcine, RioFilme, Projeto Paradiso and Embratur". E a ressalva do chefe justificava a ausência dizendo que a Spcine não constava das fontes recentes: a ressalva era falsa | Sobre Noix |
+| `link quebrado` | "a fatia do distribuidor é maior nas **primeiras semanas**" | Inverte a matéria linkada, que diz que ele puxa a fatia maior NA ESTREIA e que já na segunda semana parte dos contratos leva o exibidor a 60% | Melhor fim de semana |
+| `link quebrado` | Maricá como exemplo de dinheiro para **desenvolvimento**, com os R$ 20 milhões do pacote | Dos R$ 20 milhões, R$ 17 milhões são produção e só R$ 3 milhões desenvolvimento. A âncora passou a dizer os R$ 3 milhões | Sobre Noix |
+| `@ não confirmado` | @filmeb, @portalexibidor, @nosdomorro, @riofilme | Os quatro errados. Os oficiais são @filmebportal, @portal.exibidor, @gruponosdomorrooficial e @_riofilme (com underline). Errar o @ do veículo de onde vieram todos os números seria constrangedor. Os dois primeiros foram corrigidos; os dois últimos ficaram registrados sem inserir, para o Pedro decidir | as duas |
+| `data errada` | "Num fim de semana recente" | Numa matéria de agosto, "recente" fica solto. Datado em 23 a 26 de julho | Sobre Noix |
+| `insinuação sem fonte` | "criado no Vidigal, **na zona sul do Rio**" | Zona sul não está em fonte nenhuma. O Festival do Rio diz "nascido e criado no Morro do Vidigal" | Sobre Noix |
+| `atribuição errada` | "negligência e **violência**" | A fonte diz "negligência e maus-tratos". "Violência" era palavra do redator | Sobre Noix |
+
+**Pautas derrubadas antes de escrever: 5.** Duas merecem registro. A
+Instrução Normativa 175 da Cota de Tela apareceu como pauta do dia numa
+busca e é de **6 de maio**: notícia velha disfarçada de nova, o mesmo tipo
+que derrubou a pauta do FSA ontem. E "Rio de Clarice" caiu por fato em
+disputa: parte das fontes dá estreia em 13 de agosto de 2026, outra registra
+estreia em Teresópolis em novembro de 2025, com as produtoras ainda
+negociando distribuidora.
+
+**O que esta rodada sugere mexer no sistema:**
+
+1. **A PORTA DOS FUNDOS JÁ É PADRÃO, NÃO DESCUIDO.** Três ocorrências em dois
+   dias: o superlativo do Death Note ontem, o "recorde" e a atribuição do
+   Sobre Noix hoje. Toda vez que a checagem corrige o CORPO, o mesmo erro
+   fica vivo no `instagram.legenda`, que ninguém relê. **Vira trava no
+   portão**: comparar afirmações do corpo com as da legenda, ou no mínimo
+   exigir que quem mexe no corpo declare se mexeu na legenda.
+2. **A CORREÇÃO EMPILHA EM VEZ DE SUBSTITUIR.** A leitura fria achou que o
+   parágrafo de 2023 dizia três vezes a mesma coisa, porque a correção do
+   superlativo foi escrita EM CIMA da frase antiga em vez de trocá-la. Quem
+   corrige fato tende a acrescentar. Vale uma linha no papel do Checador:
+   depois de corrigir, releia o parágrafo inteiro e apague o que a correção
+   tornou redundante.
+3. **QUEBRAR A FÓRMULA EM DUAS FRASES NÃO DESFAZ A FÓRMULA.** "O problema
+   ali não foi falta de público. Foi falta de tela" é o "não é X, é Y"
+   proibido, só com ponto final no meio, e passou pela onda 1 e pela onda 2.
+   Quem caça fórmula precisa procurar também a versão fatiada.
+4. **O EDITOR HUMANO É O ÚNICO DA ESTEIRA SEM PORTÃO.** A matéria dos acordos
+   de coprodução, editada pelo Pedro na Coxia, reprova com 4 travessões,
+   1.362 palavras, zero intertítulos `## ` e zero links internos. Os
+   intertítulos dele existem, mas saíram como `**negrito**`. **Isso não se
+   conserta nesta sala**: é pedido para a conversa do site e da Coxia.
+
+---
+
 ## 04/08/2026 (terça)
 
 6 matérias, cota 2+2+2. Os quatro primeiros são os que teriam doído.
