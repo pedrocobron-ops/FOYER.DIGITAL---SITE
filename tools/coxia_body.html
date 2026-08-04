@@ -2063,8 +2063,24 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // traduz qualquer falha de gravação/leitura para o português da casa
   function msgErro(e){
     var g = e && e.gh;
-    if(g === 401 || g === 403) return 'O GitHub não aceitou a chave DESTE computador. A causa mais comum não é o prazo: ' +
-      'é ter gerado uma chave nova em outra máquina, o que mata a antiga na hora. Cole a chave nova na aba Conexão e refaça esta ação.';
+    if(g === 401 || g === 403){
+      // Esta mensagem mandava, sempre, gerar uma chave nova. Quando a Coxia
+      // aberta é uma versão VELHA (antes da chave da casa), ela ainda usa a
+      // chave deste navegador, e a antiga já morreu: o conselho não só era
+      // inútil como perigoso, porque uma chave nova no GitHub MATA a chave da
+      // casa guardada no servidor, e com ela o relógio que publica as matérias
+      // no horário. Antes de mandar mexer em chave, a Coxia agora olha se a
+      // chave da casa está de pé.
+      if(document.getElementById('cx-nova'))
+        return 'Esta Coxia está numa versão antiga, e por isso tentou usar a chave deste navegador. ' +
+          'Toque em "Atualizar agora", na faixa embaixo, e refaça esta ação. ' +
+          'NÃO gere chave nova no GitHub: isso derrubaria a chave da casa e pararia a publicação automática.';
+      if(CASA_TEM_CHAVE)
+        return 'A chave da casa está de pé, mas o GitHub recusou esta gravação. ' +
+          'Recarregue a página e refaça a ação. Se repetir, é permissão da chave da casa, e quem troca é o chefe na aba Conexão.';
+      return 'O GitHub não aceitou a chave DESTE computador. A causa mais comum não é o prazo: ' +
+        'é ter gerado uma chave nova em outra máquina, o que mata a antiga na hora. Cole a chave nova na aba Conexão e refaça esta ação.';
+    }
     if(g === 'rate') return 'O GitHub limitou as consultas deste aparelho (sem chave, são 60 por hora). Conecte a chave na aba Conexão.';
     if(g === 409 || g === 422) return 'Alguém salvou antes de você. Recarregue a página (a Coxia vai pegar a versão nova) e refaça esta ação.';
     if(g === 404) return 'O arquivo não está mais lá. Recarregue a página.';
