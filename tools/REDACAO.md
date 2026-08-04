@@ -797,6 +797,38 @@ fato (diff das mudanças listadas) e commita.
    APENAS notas de transparência (ressalva grave segura a matéria, não
    vai anotada para a mesa).
 
+### A NOTA MÍNIMA É 8 (ordem do Pedro, 04/08/2026)
+
+**Matéria com nota abaixo de 8 NÃO VAI À MESA.** O portão reprova, e o
+caminho é um dos dois: volta para o redator até chegar a 8, ou a pauta é
+descartada e o motivo vai para o diário. Não existe mandar para a mesa
+"assim mesmo".
+
+O raciocínio do Pedro, e ele está certo: **pauta escolhida para ser escrita
+já nasce com a obrigação de valer 8.** Se o assunto não dá 8 depois de três
+ondas de trabalho, o erro foi escolher a pauta, e o lugar de resolver isso é
+no pauteiro, não na mesa. O editor humano abre a Coxia para decidir o que
+publicar, não para consertar matéria fraca.
+
+**O QUE A NOTA MEDE, que é onde a casa errou em 04/08/2026.** A nota mede o
+**TEXTO QUE CHEGA À MESA**, e nada mais. Naquele dia as duas matérias das
+12h saíram com 6 porque o chefe rebaixou cada uma pelos erros que a checagem
+tinha encontrado **no rascunho**. Só que a checagem existe justamente para
+isso, e os erros foram corrigidos antes da entrega. Descontar da nota o que
+o processo já consertou é medir o caminho em vez do resultado, e entrega ao
+editor um número que descreve uma matéria que ele nunca vai ler.
+
+Portanto:
+
+- **erro achado e corrigido pela checagem não derruba a nota.** Ele vai para
+  `checagem.cortes` e para o `tools/CORTES.md`, que são os lugares de
+  registrar o caminho;
+- **o que derruba a nota é o que sobra no texto entregue**: assunto fraco,
+  apuração rasa, fonte única, foto ruim, ângulo que não se sustenta,
+  ressalva que o editor terá de resolver na mão;
+- a nota não é média de esforço nem consolo. **9 e 10 são para matéria que a
+  casa teria orgulho de mostrar como exemplo**; 8 é o piso do que presta.
+
 ## Formato do corpo (formato da Coxia)
 
 Parágrafos separados por linha em branco; `## ` para intertítulo; `> ` para
