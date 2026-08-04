@@ -1328,43 +1328,53 @@ html.tem-aviso body{ padding-bottom:var(--aviso-alt, 0px); }
 /* ícone do cartão de notificações */
 .sino-ico{ font-size:2.6rem; line-height:1; margin-bottom:10px; }
 
-/* ================= PUBLICIDADE DA CASA: O ENTREATO ================= */
-.pub-entreato{ margin:28px 0; border:2px solid var(--ink); background:var(--paper); padding:12px 14px; }
-.pub-entreato em{ display:block; font-style:normal; font-family:var(--mono); font-size:.5rem;
-  font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px; }
-/* teto de altura: o entreato mora dentro da matéria e não pode virar cartaz.
-   Arte mais em pé que o teto entra inteira, com margem de papel dos lados. */
-.pub-entreato img{ display:block; width:100%; height:auto; max-height:560px; object-fit:contain; }
+/* ================= PUBLICIDADE DA CASA =================
+   REGRA DE DESENHO (Pedro, 04/08/2026): a arte do anunciante ocupa TODO o
+   espaço, sem moldura em volta e sem faixa de papel nas laterais.
+
+   O que estava errado: a caixa forçava proporção (quadrada) e a arte entrava
+   com `object-fit:contain`, ou seja, encolhia até caber e sobrava papel dos
+   dois lados. Somado à borda de 2px, o anúncio virava um quadro pendurado no
+   meio da página, menor do que o espaço vendido.
+
+   Agora a arte manda na altura: largura cheia, altura natural. Não corta a
+   arte de ninguém (cortar arte de anunciante é inaceitável) e não sobra
+   moldura. O teto de altura existe só para arte fora do formato pedido, e
+   nesse caso ela encolhe inteira e centraliza, sem barra.
+
+   A ETIQUETA CONTINUA. Não é escolha de estilo: o art. 36 do Código de
+   Defesa do Consumidor exige que a publicidade seja identificável fácil e
+   imediatamente. Ela ficou discreta ao máximo que a lei permite. */
+.pub-rotulo, .pub-entreato em, .pub-cartaz em, .giro-cartaz em, .cell-cartaz em{
+  display:block; font-style:normal; font-family:var(--mono); font-size:.46rem;
+  font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-soft); opacity:.55; margin:0 0 6px; }
+
+/* ================= O ENTREATO (deitada, dentro da matéria) ================= */
+.pub-entreato{ margin:28px 0; border:0; background:none; padding:0; }
+.pub-entreato img{ display:block; width:100%; height:auto;
+  max-height:560px; width:auto; max-width:100%; margin-inline:auto; }
 .pub-entreato figcaption{ font-size:.78rem; color:var(--ink-soft); margin-top:8px; }
 
 /* ================= PUBLICIDADE DA CASA: O CARTAZ (quadrado) =================
    O formato que o produtor já tem pronto: a arte do Instagram, a mesma do
    cartaz da peça. Entra no meio da matéria e na capa, dentro do Giro. */
-.pub-cartaz{ margin:30px auto; border:2px solid var(--ink); background:var(--paper);
-  padding:12px 14px 14px; max-width:500px; }
-.pub-cartaz em{ display:block; font-style:normal; font-family:var(--mono); font-size:.5rem;
-  font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px; }
-.pub-cartaz img{ display:block; width:100%; aspect-ratio:1/1; object-fit:contain;
-  background:var(--paper-2); }
+.pub-cartaz{ margin:30px auto; border:0; background:none; padding:0; max-width:500px; }
+.pub-cartaz img{ display:block; width:100%; height:auto; }
 .pub-cartaz figcaption{ font-size:.78rem; color:var(--ink-soft); margin-top:8px; }
 /* na capa, dentro do Giro: ocupa o lugar de uma linha, sem esticar a coluna */
 .giro-cartaz{ flex:0 0 auto; padding:12px 18px 14px; border-bottom:1px solid var(--line);
   display:flex; flex-direction:column; align-items:center; }
-.giro-cartaz em{ align-self:flex-start; font-style:normal; font-family:var(--mono); font-size:.5rem;
-  font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px; }
-.giro-cartaz a{ display:block; width:100%; max-width:230px; }
-.giro-cartaz img{ display:block; width:100%; aspect-ratio:1/1; object-fit:contain;
-  background:var(--paper-2); border:1px solid var(--line); }
+.giro-cartaz em{ align-self:flex-start; }
+.giro-cartaz a{ display:block; width:100%; max-width:300px; }
+.giro-cartaz img{ display:block; width:100%; height:auto; }
 .giro-cartaz span{ align-self:flex-start; font-size:.72rem; color:var(--ink-soft); margin-top:6px; }
 /* na grade de Notícias: o segundo cartaz mora numa célula, do tamanho de um
    card, para o anúncio ler como parte da página e não como intruso */
-.news-cell.cell-cartaz{ display:flex; flex-direction:column; border:2px solid var(--ink);
-  background:var(--paper); padding:10px 12px 12px; }
-.cell-cartaz em{ display:block; font-style:normal; font-family:var(--mono); font-size:.5rem;
-  font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px; }
+.news-cell.cell-cartaz{ display:flex; flex-direction:column; border:0;
+  background:none; padding:10px 12px 12px; }
 .cell-cartaz a{ display:block; }
-.cell-cartaz img{ display:block; width:100%; aspect-ratio:1/1; object-fit:contain;
-  background:var(--paper-2); }
+.cell-cartaz img{ display:block; width:100%; height:auto; }
 .cell-cartaz .leg{ font-size:.76rem; color:var(--ink-soft); margin-top:8px; }
 
 /* botão Anuncie (contato) */
