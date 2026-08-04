@@ -18,9 +18,14 @@ import json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# LISTA CANÔNICA DE EDITORIAS. Precisa ser IDÊNTICA à do manual (seção
+# "Formato do pacote"); divergência é erro de sistema, e o manual manda
+# corrigir entre rodadas. Entenda, Memória e Programa entraram com a versão
+# 4.0 do manual, em 04/08/2026.
 CATS_AGENTES = {'Teatro', 'Notícia', 'Cinema', 'Streaming', 'Música', 'Show',
                 'Dança', 'Exposições', 'Literatura', 'Televisão', 'Audições',
-                'Edital', 'Festa', 'Guia', 'Bastidores'}
+                'Edital', 'Festa', 'Programa', 'Guia', 'Bastidores',
+                'Entenda', 'Memória'}
 CATS_PROIBIDAS = {'Crítica', 'Artigo de Opinião', 'Astrologia', 'Crônicas e Histórias'}
 
 AGENCIAS_PROIBIDAS = ['getty', 'reuters', 'afp', 'folhapress', 'associated press',
@@ -249,6 +254,12 @@ def auditar(caminho):
             problemas.append(f'EDITORIA PROIBIDA para agentes: {c}')
         elif c not in CATS_AGENTES and c != 'Em Cartaz':
             avisos.append(f'EDITORIA FORA DA LISTA de agentes: {c}')
+    # "Em Cartaz" é SELO SECUNDÁRIO (manual 4.0): marca que a peça está em
+    # temporada agora, e a página Em Cartaz se abastece pela janela do campo
+    # evento. Como editoria principal ele roubaria a cat real da matéria.
+    if cat == 'Em Cartaz':
+        problemas.append('"Em Cartaz" como editoria PRINCIPAL: é selo secundário, '
+                         'só entra em cats. Use a editoria real do assunto em cat')
     if 'Em Cartaz' in cats and not pg.get('evento'):
         problemas.append('"Em Cartaz" sem campo evento (a janela automática precisa dele)')
     if len(cats) > 2:

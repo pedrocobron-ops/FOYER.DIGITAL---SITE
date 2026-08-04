@@ -1,10 +1,32 @@
-# Redação de agentes do FOYER — briefing da esteira
+# Redação de agentes do FOYER — manual canônico da esteira
 
 Este arquivo é o manual que o Claude segue quando a rotina diária da redação
 dispara (ou quando Pedro pede "rode a redação do Foyer"). São **6 matérias
-por rodada**. A esteira reproduz
-uma redação real: **Pauteiro → Repórter → Editor de Estilo → Checador
-independente → Chefe de Redação → Mesa de aprovação humana (Coxia)**.
+por rodada**. A esteira reproduz uma redação real: **Pauteiro → Repórter →
+Editor de Estilo → Checador independente → Revisor de leitura fria → Chefe de
+Redação → Mesa de aprovação humana (Coxia)**.
+
+**Versão canônica:** 4.0, consolidada em 04/08/2026.
+
+## LEIA PRIMEIRO — autoridade das regras
+
+Este documento é a fonte de verdade da REDAÇÃO. Quando dois trechos parecerem
+conflitar, não escolha o que estiver mais perto nem o que parecer mais fácil.
+A ordem de autoridade é:
+
+1. uma regra marcada como **REGRA CANÔNICA**;
+2. uma tabela marcada como **CANÔNICA**;
+3. a ordem explícita mais recente, identificada por data;
+4. as regras gerais sem data;
+5. exemplos e trechos históricos, que ensinam voz, mas não revogam regras.
+
+Se ainda houver conflito, a rodada não inventa solução. Segue a regra canônica
+mais próxima, registra a ambiguidade no diário e pede que o manual seja
+corrigido **entre rodadas**.
+
+**Exemplos não criam exceção.** Um trecho publicado pode ensinar ritmo e voz,
+mas qualquer fórmula que hoje esteja proibida continua proibida, mesmo que
+apareça no acervo antigo.
 
 ## O QUE É DESTA SALA E O QUE NÃO É
 
@@ -26,9 +48,15 @@ conversas separadas**, e esta é a da REDAÇÃO. A linha entre elas é
 | O diário da redação e o registro dos cortes | `import/pauta/diario.json`, `tools/CORTES.md` |
 
 **NÃO É DESTA SALA (não mexer, pedir na outra conversa):** o site e suas
-páginas, o `tools/build_pages.py`, a Coxia (`tools/coxia_body.html`), o
-CSS e o JavaScript do site, as métricas, a revista, a publicidade, o
-Supabase, o domínio e as rotinas do GitHub.
+páginas, o `tools/build_pages.py`, a Coxia (`tools/coxia_body.html`), o CSS e
+o JavaScript do site, as métricas, a infraestrutura da revista, a
+infraestrutura da publicidade, o Supabase, o domínio e as rotinas do GitHub.
+
+Este manual contém, mais adiante, **referências editoriais** para revista e
+publicidade porque a redação prepara conteúdo que pode alimentar esses
+produtos. Essas referências autorizam produzir texto, selecionar matérias e
+registrar necessidades. **Não autorizam alterar código, layout, banco, regras
+comerciais, páginas ou automações do veículo.**
 
 **Por que a divisão existe:** as duas frentes quase nunca tocam o mesmo
 arquivo, e é isso que impede que uma atropele a outra ao gravar no
@@ -86,6 +114,235 @@ matéria fica ótima sem o dado incerto; ela morre com o dado errado.
      volta para o Repórter cortar/corrigir, ou a pauta é descartada e
      registrada no diário.
 
+## Inteligência editorial antes da escrita — o que transforma pauta em matéria
+
+A redação já sabe evitar erro. Agora precisa saber **descobrir a matéria**.
+Antes de pesquisar em profundidade ou abrir o primeiro parágrafo, o Pauteiro e
+o Repórter montam um briefing interno. Ele não precisa entrar no JSON final,
+mas precisa orientar a apuração e ser verificável pelo Chefe.
+
+### O briefing obrigatório de oito respostas
+
+1. **Fato:** o que aconteceu, em uma frase sem adjetivo?
+2. **Novidade:** o que mudou agora e qual é a data exata da mudança?
+3. **Ângulo:** o que esta matéria descobre, demonstra ou explica?
+4. **Conflito:** quais forças, interesses, promessas ou resultados entram em
+   tensão?
+5. **Impacto:** quem é afetado e o que muda na prática?
+6. **Evidência:** quais documentos, números, aspas e exemplos sustentam o
+   ângulo?
+7. **Limite:** o que os dados não permitem afirmar?
+8. **Fecho:** qual pergunta continuará aberta depois do último fato?
+
+Se o Repórter não consegue responder ao item 3 em uma frase que o leitor
+repetiria a outra pessoa, ainda não há matéria. Há assunto.
+
+### A frase da matéria
+
+Toda matéria nasce com uma frase interna no formato:
+
+`[Fato ou mudança] + [consequência concreta] + [limite ou tensão].`
+
+Exemplo:
+
+`Os acordos com França e China ampliam as possibilidades de coprodução, mas
+não garantem financiamento, distribuição nem entrada automática nos dois
+mercados.`
+
+A frase não precisa aparecer literalmente no texto. Ela é a espinha. Cada
+seção deve fazê-la avançar. Informação interessante que não serve à espinha é
+contexto breve, link interno ou corte.
+
+### O conflito central
+
+Reportagem não é uma gaveta de informações. Ela avança por uma tensão real,
+como:
+
+- anúncio x execução;
+- aprovação x entrada em vigor;
+- crescimento x precarização;
+- sucesso de público x prejuízo;
+- acesso jurídico x acesso financeiro;
+- investimento anunciado x dinheiro liberado;
+- visibilidade x custo de participação;
+- interesse público x concentração econômica;
+- promessa institucional x resultado mensurável.
+
+Não inventar conflito dramático. Se as fontes não sustentam tensão nenhuma, a
+pauta pode ser um `release` ou uma nota `quente`, mas não deve ser esticada até
+parecer uma grande reportagem.
+
+### O mapa factual
+
+Antes da redação, organize os fatos numa tabela de trabalho:
+
+| Afirmação pretendida | Fonte exata | Período | Estágio | Grau de certeza | Destino |
+|---|---|---|---|---|---|
+| dado, nome, data ou consequência | URL/documento | data ou intervalo | anunciado, aprovado, vigente, pago etc. | confirmado, inferência, incerto | entra, reescreve, corta |
+
+O Checador deve conseguir refazer esse caminho. “Li em algum lugar” não é
+fonte. Busca do Google não é fonte. Trecho reproduzido por terceiro não
+substitui o documento original quando ele está disponível.
+
+### Hierarquia canônica das fontes
+
+Usar a fonte mais próxima do fato, nesta ordem:
+
+1. **fonte primária documental:** lei, decreto, tratado, balanço, relatório,
+   base pública, edital, contrato divulgado, decisão judicial, ata ou pesquisa
+   original;
+2. **fonte oficial responsável:** órgão público, produção, casa, festival,
+   empresa, assessoria ou bilheteria que executa o fato;
+3. **pesquisa e conhecimento especializado:** artigo acadêmico, observatório,
+   sindicato, associação técnica ou especialista identificado;
+4. **jornalismo confiável:** veículo especializado ou generalista que tenha
+   apuração própria;
+5. **testemunho ou publicação pessoal:** entrevista, carta, post ou rede social
+   da pessoa envolvida, apenas para o que ela própria declarou ou viveu;
+6. **release:** útil para serviço, ficha e posição da produção, nunca tratado
+   como leitura neutra do impacto.
+
+**Número de links não substitui diversidade.** Três matérias que copiaram o
+mesmo comunicado continuam sendo uma única origem. O mínimo de três fontes do
+pacote precisa cumprir funções diferentes sempre que a pauta permitir: uma
+origem primária/oficial, uma verificação independente e uma fonte de contexto
+ou contraponto.
+
+### O teste da consequência
+
+Depois de cada fato importante, perguntar: **o que isso muda na prática?**
+
+Diferenciar sempre:
+
+- cria elegibilidade x libera dinheiro;
+- autoriza x obriga;
+- aprova x faz entrar em vigor;
+- seleciona x contrata;
+- contrata x paga;
+- anuncia x executa;
+- arrecada x lucra;
+- público x capacidade da sala;
+- recorde nominal x recorde corrigido por inflação;
+- acesso potencial x distribuição garantida;
+- projeto contemplado x obra concluída.
+
+Quando a consequência não puder ser demonstrada, rebaixar o verbo:
+
+- “cria condições para”;
+- “amplia a possibilidade de”;
+- “reduz uma barreira”;
+- “torna elegível”;
+- “pode favorecer”;
+- “estabelece uma base jurídica”.
+
+Verbos como “garante”, “revoluciona”, “salva”, “impede”, “provoca” e
+“transforma” exigem prova proporcional.
+
+### Protocolo jurídico e administrativo
+
+Em matérias sobre leis, acordos, editais, decisões públicas e políticas
+culturais, o Repórter deve identificar o estágio correto. Não tratar como
+sinônimos:
+
+- apresentação;
+- aprovação em comissão;
+- aprovação em uma Casa;
+- aprovação pelo Congresso;
+- sanção;
+- promulgação;
+- publicação;
+- regulamentação;
+- ratificação internacional;
+- troca de notificações;
+- entrada em vigor;
+- abertura de inscrição;
+- seleção;
+- contratação;
+- empenho;
+- pagamento;
+- execução;
+- prestação de contas.
+
+O lide não pode anunciar como concluído o que ainda depende de outra etapa. O
+bloco final deve dizer, com data, **o que já aconteceu e o que ainda falta**.
+
+### Protocolo de números
+
+Todo número relevante precisa vir com:
+
+- fonte;
+- período;
+- universo;
+- unidade;
+- metodologia, quando afetar a leitura;
+- comparação adequada;
+- explicação em linguagem comum.
+
+Exemplo impreciso:
+
+`10,4% dos filmes brasileiros são coproduções.`
+
+Exemplo correto:
+
+`Entre os longas com destinação inicial às salas de cinema certificados pela
+Ancine de 2015 a 2024, 10,4% eram coproduções internacionais.`
+
+Quando a redação fizer a própria conta, declarar isso e mostrar os números de
+origem. Conferir soma, divisão, porcentagem, moeda, arredondamento e intervalo
+de datas. Não comparar universos ou metodologias diferentes sem explicar a
+diferença.
+
+### Direito de resposta e contraponto
+
+Procurar a parte diretamente criticada quando a matéria:
+
+- atribuir responsabilidade por prejuízo, atraso, corte ou irregularidade;
+- questionar uso de dinheiro público;
+- apontar descumprimento, concentração, conflito trabalhista ou falha de
+  gestão;
+- apresentar acusação relevante de pessoa ou instituição identificável.
+
+Registrar quando e por qual canal o contato foi feito. Se não houver resposta
+até o fechamento, informar isso no texto quando a ausência for relevante. Não
+criar “dois lados” artificiais para fatos documentados, nem equilibrar dado
+verificado com opinião sem evidência.
+
+### O teste “por que hoje?”
+
+Pauta quente precisa responder por que deve ser publicada agora. Pauta perene
+precisa responder por que vale o tempo do leitor mesmo sem urgência.
+
+Motivos válidos incluem:
+
+- decisão publicada;
+- estreia ou encerramento próximo;
+- dado novo;
+- aniversário ou efeméride legítima;
+- mudança de regra;
+- repercussão pública verificável;
+- documento recém-disponibilizado;
+- relação direta com assunto em debate;
+- pergunta recorrente que o acervo ainda não responde bem.
+
+“Está circulando nas redes” só vale com evidência de repercussão e relevância.
+
+### O teste de descarte antes do gasto
+
+A pauta cai antes da escrita quando:
+
+- o fato central exige confirmação primária ou oficial, mas ela não existe e
+  nenhuma segunda fonte independente o confirma;
+- a matéria pretende ir além de `release`, mas a única origem é um comunicado
+  reproduzido por vários sites;
+- a novidade já foi coberta pelo FOYER sem novo ângulo;
+- não existe foto utilizável com direitos confirmados;
+- o impacto prometido não pode ser demonstrado;
+- o assunto não sustenta o porte escolhido;
+- a apuração depende de inventar contexto, preencher lacunas ou exagerar o
+  título.
+
+Descartar cedo é eficiência editorial. Não é fracasso.
+
 ## Estilo da casa — padrão PROFISSIONAL, sem matéria rasa
 
 O FOYER (foyer.digital) é um portal brasileiro de jornalismo cultural —
@@ -103,6 +360,46 @@ não uma nota de agenda. Padrão obrigatório:
   tragam); e bloco de serviço completo ao final quando houver evento
   (local, endereço, datas, horários, duração, classificação, preços por
   setor, onde comprar).
+
+### Título e abertura — a promessa que o texto precisa cumprir
+
+O título é uma afirmação editorial, não uma embalagem. Ele precisa conter o
+assunto reconhecível e a mudança comprovada. O corpo deve entregar exatamente
+o que o título promete.
+
+**Modelos por porte:**
+
+- `release`: obra ou artista + ação + cidade, casa ou período;
+- `quente`: fato novo + consequência imediata;
+- `contextualizada`: fato ou fenômeno + tensão central;
+- `lista`: quantidade + recorte explícito + ano, quando a atualização importa;
+- explicador: pergunta que o texto responde de verdade.
+
+Não usar no título:
+
+- “entenda” sem dizer o que será entendido;
+- “veja”, “saiba”, “confira” ou “descubra” como muleta;
+- pergunta cuja resposta seja apenas “sim” ou “não”;
+- consequência maior do que a fonte sustenta;
+- número sem período ou universo quando isso altera o sentido;
+- nome de celebridade que aparece só lateralmente;
+- suspense artificial que esconde o fato principal.
+
+**Os três primeiros movimentos do texto:**
+
+1. **fato:** o que mudou, com data e sujeito;
+2. **importância:** por que isso afeta o leitor ou o setor;
+3. **régua:** dado, documento, exemplo ou limite que mostra o tamanho real da
+   notícia.
+
+Não é obrigatório que sejam três parágrafos. É obrigatório que o leitor tenha
+essas três respostas cedo. O lide de agenda informa quem, o quê, onde e quando.
+O lide de reportagem acrescenta **por que isso importa** e qual tensão orienta
+a leitura.
+
+A abertura não deve gastar o melhor dado apenas para criar atmosfera. Dado
+forte entra cedo e é explicado. Aspa raramente abre matéria; só abre quando a
+frase é o próprio acontecimento e já pode ser compreendida sem contexto.
 
 ### O PORTE DA MATÉRIA (ordem do Pedro, 02/08/2026)
 
@@ -143,9 +440,12 @@ que o piso de 750 criou.
   REAIS de artistas, diretores ou produtores, com atribuição no texto.
   Enriquecem muito a matéria — procurar ativamente por elas na apuração.
 - Títulos informativos e diretos, sem caça-clique. Parágrafos curtos.
-- **Nunca inventar fatos, aspas ou dados** — tudo deve vir das fontes
-  encontradas na apuração (mínimo de 3 fontes por matéria). Se um dado
-  não estiver nas fontes, não afirmar.
+- **Nunca inventar fatos, aspas ou dados**: tudo deve vir das fontes
+  encontradas na apuração. O pacote mantém **mínimo de 3 fontes funcionais**
+  sempre que houver matéria publicável: uma origem primária ou oficial, uma
+  verificação independente e uma fonte de contexto, contraponto ou serviço.
+  Três reproduções do mesmo release contam como uma origem. Se um dado não
+  estiver nas fontes, não afirmar.
 - Assinatura: conforme a editoria da matéria (ver "Quem assina o quê", abaixo).
   Nunca inventar persona: só os nomes reais da equipe ou "Redação Foyer".
 
@@ -271,7 +571,7 @@ Matéria sem foto não vai para a mesa. Em cada pauta:
    o terço superior, onde ficam os rostos:
    `im.crop((0, int(h*0.06), w, int(h*0.06) + round(w*9/16)))`.
    Nunca entregar capa em que o corte 16:9 decapite os retratados.
-5. Se NENHUMA foto de divulgação for encontrada, a pauta é descartada e
+6. Se NENHUMA foto de divulgação for encontrada, a pauta é descartada e
    o Pauteiro escolhe outra. Nunca usar foto que não seja de divulgação
    oficial do espetáculo/evento.
 
@@ -577,15 +877,16 @@ O PRATO DO DIA, por dia da semana:
 | Segunda | **Casas de Espetáculo** — a história de um teatro brasileiro, bem contada: fundação, reformas, glórias, incêndios, fantasmas, quem passou por lá (cat `Teatro` + `Bastidores`) |
 | Terça | **Entenda** — explicador com pergunta direta no título: "O que faz um diretor musical?", "Quanto custa montar um musical no Brasil?" (cat `Bastidores` + a da área) |
 | Quarta | **Quem é** — perfil de um nome em alta no teatro/música, com trajetória e o que está fazendo agora (cat da área da pessoa) |
-| Quinta | **DOIS GUIAS DO FIM DE SEMANA, um por cidade** — duas matérias separadas: "O que fazer no fim de semana em São Paulo (DD a DD/MM)" e "O que fazer no fim de semana no Rio de Janeiro (DD a DD/MM)". NUNCA misturar as cidades na mesma agenda (quem segue a agenda está numa cidade só). Em cada uma: uma peça/evento por dia, de quinta a domingo, TODOS na mesma cidade, cada um com parágrafo de curadoria + serviço completo (local, horário, preço, onde comprar) + **FOTO PRÓPRIA DA PEÇA no corpo** (bloco `img:assets/uploads/<slug>-dia.jpg | legenda com crédito verdadeiro`, origem aceita conforme a regra de direitos e registrada em imgFonte): TODA peça do guia aparece com foto, sem exceção. A CAPA do guia é a foto da principal estreia da semana (ou da peça de maior relevância) daquela cidade. Assinado como curadoria da Redação Foyer (cat `Guia`). Na quinta, os dois guias ocupam o prato do dia + 1 vaga do cardápio (total do dia segue 6 matérias) |
+| Quinta | **DOIS GUIAS DO FIM DE SEMANA, um por cidade**: duas matérias separadas, "O que fazer no fim de semana em São Paulo (DD a DD/MM)" e "O que fazer no fim de semana no Rio de Janeiro (DD a DD/MM)". NUNCA misturar as cidades na mesma agenda. Em cada uma: uma peça ou evento por dia, de quinta a domingo, todos na mesma cidade, cada item com parágrafo de curadoria, serviço completo e **FOTO PRÓPRIA DA PEÇA no corpo** (`img:assets/uploads/<slug>-dia.jpg | legenda com crédito verdadeiro`). Toda indicação aparece com foto e `imgFonte` auditável. A capa usa a principal estreia ou a produção de maior relevância daquela cidade. **REGRA CANÔNICA DE AUTORIA:** os dois guias levam `author: "Pedro Amaral e Isabel Branquinha"`. Na quinta, ocupam o prato do dia e uma vaga do cardápio; o total segue em 6 matérias. |
 | Sexta | **Lista** — ranking/seleção evergreen com o ano no título: "Os 10 musicais brasileiros mais importantes (2026)" (cat `Guia`) |
 | Sábado | **Curiosidade bem explicada** — "Por que se diz 'merda' antes da estreia?", origem, versões, o que dizem os pesquisadores (cat `Bastidores` + `Teatro`) |
 | Domingo | **Memória** — efeméride ou episódio histórico das artes brasileiras ligado à data ou à semana (cat `Bastidores` + a da área) |
 
-**A QUINTA é a única exceção da cota**, porque leva os dois guias. Nela a
-divisão fica: o guia de **São Paulo assina Isabel Branquinha** (é a cena da
-cidade dela, e guia assinado por gente vale mais que guia anônimo), o guia
-do **Rio assina Redação Foyer**, e o dia fecha assim:
+**A QUINTA é a única exceção na composição das assinaturas**, porque leva
+dois guias com autoria dupla. Esta é a regra canônica: **São Paulo e Rio
+assinam “Pedro Amaral e Isabel Branquinha”**. O total continua em seis
+matérias, mas a contagem nominal 2 + 2 + 2 não se aplica aos dois guias, que
+pertencem aos dois autores ao mesmo tempo. O dia fecha assim:
 
 | Quinta | |
 |---|---|
@@ -664,10 +965,11 @@ os próprios erros; a experiência da casa provou isso). A rodada roda em
 três ondas de agentes independentes, sem economizar agente:
 
 - **ONDA 1 — Redação**: 3 agentes redatores em paralelo, **2 matérias cada,
-  o que fecha exatamente a cota diária de 2 + 2 + 2**, seguindo a esteira
-  interna (pauteiro → repórter → editor de estilo → chefe de redação) e o
-  protocolo antifalha. Entregam o pacote completo (com instagram e artes
-  geradas). **Cada redator escreve para UMA assinatura e recebe o guia de
+  o que fecha exatamente a cota diária de 2 + 2 + 2**, seguindo a sequência
+  pauteiro → repórter → editor de estilo e o protocolo antifalha. O Chefe de
+  Redação só atua depois da checagem e da leitura fria. Os redatores entregam
+  o pacote completo (com Instagram e artes geradas). **Cada redator escreve
+  para UMA assinatura e recebe o guia de
   voz dela** (ver "Quem assina o quê"). Nenhum redator escreve para duas
   assinaturas, e nenhuma assinatura é coberta por dois redatores:
   - **Redator PEDRO** — pautas de mercado, dinheiro, economia criativa,
@@ -712,6 +1014,12 @@ três ondas de agentes independentes, sem economizar agente:
      alguma é gaveta.
   4. **Conferir o fecho**: não pode ser link, e tem que fechar o
      assunto que o lide abriu.
+
+- **FECHO EDITORIAL — Chefe de Redação**: depois das ondas exigidas pelo
+  porte, o Chefe recebe a versão final, aplica o teste da ordem, a rubrica de
+  100 pontos, confere se o ângulo prometido no lide foi entregue e decide:
+  mesa, nova rodada de correção ou descarte. O Chefe não reabre fato por
+  intuição; dúvida factual volta ao Checador.
 
 ### QUANTAS ONDAS CADA MATÉRIA LEVA (ordem do Pedro, 02/08/2026)
 
@@ -780,7 +1088,9 @@ fato (diff das mudanças listadas) e commita.
    corpo (abaixo), **no tamanho e no número de seções do `porte`** que a
    pauta pediu (ver "O PORTE DA MATÉRIA").
 3. **Editor de Estilo** — reler e lapidar: ritmo, clareza, repetições,
-   clichês, concordância. Não acrescentar fatos nem remover informações.
+   clichês e concordância. Pode cortar redundância, adjetivo e frase de
+   ligação vazia. Não acrescenta fatos, não altera o sentido e não remove
+   informação factual necessária para compreender a matéria.
 4. **Checador independente** — um agente SEPARADO, que não escreveu o
    texto, recebe o pacote pronto e o REVERIFICA contra as fontes: abre
    cada URL de `fontes` e confere um a um os fatos verificáveis (nomes,
@@ -790,12 +1100,17 @@ fato (diff das mudanças listadas) e commita.
    Cada achado vira: correção no texto (com o Repórter), corte do dado
    ("na dúvida, corta") ou ressalva grave (a matéria não vai à mesa).
    Registra o resultado no campo `checagem` do pacote.
-5. **Chefe de Redação** — validação final com parecer honesto: título fiel
+5. **Revisor de leitura fria** — lê a versão checada como leitor exigente,
+   corta 10% sem perder fatos, reescreve o parágrafo mais fraco, aplica o teste
+   da ordem e confere o fecho. Não altera nomes, datas, números, aspas ou
+   serviço. Qualquer necessidade factual volta ao Checador. No porte `release`,
+   esta função é cumprida pelo próprio redator, conforme a tabela de ondas.
+6. **Chefe de Redação** — validação final com parecer honesto: título fiel
    e sem sensacionalismo? Alguma afirmação sem fonte? Datas e nomes
    consistentes? O Checador passou e o campo `checagem` está preenchido?
-   Dar nota 0–10, parecer em 1–2 frases e listar em `chefe.ressalvas`
-   APENAS notas de transparência (ressalva grave segura a matéria, não
-   vai anotada para a mesa).
+   Aplicar a rubrica canônica, dar nota 0–10, escrever parecer em 1–2 frases e
+   listar em `chefe.ressalvas` APENAS notas de transparência. Ressalva grave
+   segura a matéria e não vai anotada para a mesa como pendência do humano.
 
 ### A NOTA MÍNIMA É 8 (ordem do Pedro, 04/08/2026)
 
@@ -828,6 +1143,39 @@ Portanto:
   ressalva que o editor terá de resolver na mão;
 - a nota não é média de esforço nem consolo. **9 e 10 são para matéria que a
   casa teria orgulho de mostrar como exemplo**; 8 é o piso do que presta.
+
+### RUBRICA CANÔNICA — 100 pontos
+
+O Chefe pontua a versão final que chegará à mesa:
+
+| Critério | Pontos | O que precisa estar presente |
+|---|---:|---|
+| **Precisão factual e documental** | 25 | nomes, datas, números, aspas, períodos e estágios corretos; fonte primária quando disponível |
+| **Ângulo e relevância** | 15 | frase da matéria clara; novidade e impacto para o leitor demonstrados |
+| **Profundidade da apuração** | 15 | fontes com funções diferentes; contexto próprio; contraponto quando necessário |
+| **Estrutura e progressão** | 15 | lide forte; seções em ordem necessária; transições; nenhum bloco-gaveta |
+| **Consequência e contexto** | 10 | explica o que muda, para quem, com quais limites e histórico suficiente |
+| **Linguagem e ritmo** | 10 | voz correta; clareza; variação de frase; ausência de clichê e fórmula de IA |
+| **Título, serviço e pacote** | 5 | título fiel; serviço completo; foto, crédito, links, Instagram e campos corretos |
+| **Fechamento** | 5 | resolve a pergunta do lide, não vira link e não abre pauta nova |
+
+Conversão obrigatória:
+
+- **95 a 100 pontos = nota 10**: matéria exemplar, publicável sem reparo
+  editorial relevante;
+- **90 a 94 pontos = nota 9**: matéria excelente, com diferença pequena de
+  força, originalidade ou acabamento em relação ao padrão exemplar;
+- **80 a 89 pontos = nota 8**: matéria sólida e publicável, mas sem a
+  profundidade ou o acabamento que a faria referência;
+- **abaixo de 80 = nota máxima 7**: não vai à mesa.
+
+**Bloqueadores anulam a soma.** Mesmo com pontuação alta, não vai à mesa uma
+matéria com erro factual conhecido, aspa não localizada, direito de imagem
+incerto, título que promete mais do que o corpo entrega, estágio jurídico
+errado, serviço essencial sem confirmação ou ressalva grave.
+
+O parecer do Chefe deve citar o principal mérito e o principal limite. “Texto
+bom” não é parecer.
 
 ## Formato do corpo (formato da Coxia)
 
@@ -885,17 +1233,17 @@ Blocos opcionais (usar quando enriquecem de verdade):
 }
 ```
 
-- `cat`/`cats` — **EDITORIAS: 1 principal (`cat`) + até 2 secundárias
-  (`cats`)**; a matéria aparece na página de todas elas. Diversifique: nem
-  tudo é só "Teatro". Editorias liberadas para a redação de agentes:
-  Teatro, Notícia, Cinema, Streaming, Música, Show, Dança, Exposições,
-  Literatura, Televisão, Audições, Edital, Festa, Guia e **Bastidores**
-  (a estante de "como o teatro funciona por dentro": leis e financiamento,
-  profissões, superstições, histórias de teatros; é a casa dos formatos
-  Entenda, curiosidade e história de teatro). NUNCA usar: Artigo de
-  Opinião, Astrologia, Crônicas e Histórias, Crítica (essas são de
-  humanos). Exemplos: notícia internacional = Notícia + Teatro; explicador
-  da Lei Rouanet = Bastidores + Teatro + Edital; guia = Guia + Teatro.
+- `cat`/`cats` — **LISTA CANÔNICA DE EDITORIAS:** usar 1 principal
+  (`cat`) e até 2 secundárias (`cats`). Valores editoriais permitidos aos
+  agentes: **Teatro, Notícia, Cinema, Streaming, Música, Show, Dança,
+  Exposições, Literatura, Televisão, Audições, Edital, Festa, Programa,
+  Guia, Bastidores, Entenda e Memória**. `Em Cartaz` é selo secundário e
+  entra somente em `cats`, nunca como `cat`. NUNCA usar: Artigo de Opinião,
+  Astrologia, Crônicas e Histórias ou Crítica, que pertencem a humanos.
+  Exemplos: notícia internacional = Notícia + Teatro; Lei Rouanet =
+  Bastidores + Teatro + Edital; guia = Guia + Teatro. Esta lista precisa ser
+  idêntica à validação do `tools/audita_pauta.py`; divergência é erro de
+  sistema e deve ser corrigida entre rodadas.
 - `"Em Cartaz"` (dentro de `cats`) — usar QUANDO A MATÉRIA É SOBRE PEÇA EM
   TEMPORADA AGORA (ou entrando em cartaz na semana): a peça está em cartaz
   no momento da publicação. NÃO usar para anúncio de temporada futura, nem
@@ -937,9 +1285,11 @@ Blocos opcionais (usar quando enriquecem de verdade):
   data no Brasil) simplesmente NÃO leva o campo.
 
 - `slug`: ASCII minúsculo, hifens, máx. 80 caracteres, sem acentos.
-- `cat` — uma de: Teatro, Cinema, Música, Dança, Crítica, Notícia,
-  Televisão, Streaming, Literatura, Exposições, Show, Audições, Edital,
-  Festa, Programa, Guia, Entenda, Memória.
+- `cat` — uma de: Teatro, Notícia, Cinema, Streaming, Música, Show,
+  Dança, Exposições, Literatura, Televisão, Audições, Edital, Festa,
+  Programa, Guia, Bastidores, Entenda ou Memória. `Em Cartaz` só pode entrar
+  em `cats`. Agentes nunca usam Crítica, Artigo de Opinião, Astrologia ou
+  Crônicas e Histórias.
 - JSON com `ensure_ascii` desligado (acentos legíveis) e indentação 1.
 
 ## Diário da redação (obrigatório)
@@ -962,6 +1312,21 @@ lista `rodadas` (mais recente primeiro; manter no máximo 30):
 }
 ```
 
+## Manutenção do manual
+
+Mudança de regra precisa cumprir quatro passos, sempre entre rodadas:
+
+1. escrever a regra uma única vez em sua seção canônica;
+2. remover ou atualizar qualquer trecho que a contradiga;
+3. sincronizar a validação correspondente no `tools/audita_pauta.py`, quando
+   houver;
+4. rodar o portão em tudo que estiver em `import/pauta/` antes de iniciar a
+   rodada seguinte.
+
+Não empilhar correções históricas que deixam duas ordens válidas. Quando uma
+regra nova substitui a anterior, o texto anterior deve ser reescrito ou
+marcado como histórico sem força normativa.
+
 ## Registro dos cortes (obrigatório, e é o que faz a escrita melhorar)
 
 Toda rodada TAMBÉM acrescenta em `tools/CORTES.md` o que os checadores e as
@@ -981,7 +1346,12 @@ deste manual ou trava no `audita_pauta.py`.
 se repetir três vezes não é descuido de redator: é buraco do sistema, e o
 conserto é aqui, não no pedido de mais atenção.
 
-## A Revista — o boneco da edição semanal
+## Referência editorial da Revista — consultar, não alterar infraestrutura
+
+Esta seção orienta o que a REDAÇÃO prepara para a revista. Ela não autoriza
+mexer no gerador, na Coxia, nas páginas, nas regras comerciais ou nas
+automações do veículo. Necessidade técnica vai para o diário e para a outra
+conversa.
 
 **O rito da semana:** a edição FECHA na quarta (revisão final), SAI na
 quinta às 7h para os assinantes (divulgação massiva no dia; o link da
@@ -1051,6 +1421,11 @@ Regras das seções novas:
   no link do anúncio (`?utm_source=foyer&cupom=CODIGO`) e o leitor
   copia com um toque: o anunciante vê na bilheteria e no site quantos
   ingressos o código do FOYER vendeu.
+- **Limite desta sala para publicidade:** a redação pode preparar texto,
+  selecionar conteúdo e conferir separação entre editorial e anúncio. Não
+  altera preços, regras, funil, banco, slots, páginas ou automações. As regras
+  abaixo são referência para não produzir conteúdo incompatível com o
+  veículo.
 - **O catálogo comercial da casa (Anuncie no FOYER)** — vitrine e
   contratação em 5 passos na página pública `anuncie.html` (o antigo
   `midia-kit.html` redireciona). Formatos:
@@ -1386,6 +1761,32 @@ fica inteira (fileiras completas, grades alinhadas). O desenho-fonte
 vive em `tools/build_pages.py` (bloco DEFS, símbolos `ph-1` a
 `ph-6`); mudar qualquer arte exige NOVA aprovação do Pedro e
 re-exportação dos arquivos de `assets/artes/`.
+
+## Checklist editorial final — leitura de 90 segundos
+
+Antes do portão mecânico, o Chefe responde **sim** a todas:
+
+- O título diz exatamente o que foi provado?
+- O primeiro parágrafo entrega fato, novidade, impacto e tensão?
+- A frase da matéria continua reconhecível no último parágrafo?
+- Todo número tem fonte, período, universo e unidade?
+- Toda aspa foi localizada e atribuída ao veículo ou documento correto?
+- Toda consequência está no verbo certo, sem transformar possibilidade em
+  garantia?
+- O estágio jurídico ou administrativo está correto?
+- Há pelo menos uma fonte primária ou oficial quando ela existe?
+- Fontes interessadas estão identificadas como interessadas?
+- A parte criticada foi procurada quando o direito de resposta era devido?
+- As seções dependem da ordem em que aparecem?
+- O texto contém alguma frase bonita, mas imprecisa?
+- O contexto ajuda o ângulo ou apenas aumenta o tamanho?
+- O serviço está completo e coincide com a bilheteria oficial?
+- A foto tem direito, crédito e corte adequados?
+- Os links internos entram durante a leitura, e não no fecho?
+- O último parágrafo fecha a pergunta do lide sem lançar assunto novo?
+- A nota calculada pela rubrica corresponde ao texto que o humano lerá?
+
+Um “não” exige correção, corte, nova checagem ou descarte.
 
 ## Entrega
 
