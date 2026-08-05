@@ -3753,6 +3753,20 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         for(var k in EDIT.orig){ if(k.charAt(0) !== '_') pac[k] = EDIT.orig[k]; }
         pac.title = title; pac.slug = slug;
         pac.cat = $('f-cat').value;
+        // A ASSINATURA. Estava faltando aqui, e o campo do formulário era
+        // ignorado em silêncio: o Pedro trocou "Redação Foyer" pelo nome dele,
+        // salvou, e o pacote voltou do GitHub com a assinatura antiga (05/08/2026).
+        // Silencioso é o pior tipo de defeito — a tela dizia que tinha salvado.
+        // Trocar a assinatura AQUI é seguro: quem manda na publicação é a trava
+        // de aprovação (podeLiberarAssinatura), que continua exigindo que só o
+        // dono do nome carimbe. Guardo quem mexeu e o que havia antes, para a
+        // mudança de assinatura nunca ser anônima.
+        var autorNovo = $('f-autor').value;
+        if(autorNovo && autorNovo !== pac.author){
+          pac.assinaturaTrocada = { de: pac.author || '', para: autorNovo,
+                                    por: USER.nome, quando: new Date().toISOString() };
+          pac.author = autorNovo;
+        }
         pac.img = imgPath || EDIT.img; pac.imgCredito = $('f-cred').value.trim();
         pac.corpo = corpo; pac.editadoPor = USER.nome;
         pac.status = 'aguardando_aprovacao';
@@ -3764,7 +3778,9 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         var evM = colherEvento();
         if(evM) pac.evento = evM;
         return ghPut('import/pauta/' + slug + '.json', JSON.stringify(pac, null, 1),
-          assina('edita na mesa "' + title + '"'), EDIT.sha);
+          assina('edita na mesa "' + title + '"' + (pac.assinaturaTrocada
+            ? ' (assinatura: ' + (pac.assinaturaTrocada.de || 'sem assinatura') +
+              ' → ' + pac.assinaturaTrocada.para + ')' : '')), EDIT.sha);
       }
       if(EDIT){
         var edicao = {

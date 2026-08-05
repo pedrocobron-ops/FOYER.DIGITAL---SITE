@@ -1022,7 +1022,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
         <h2 class="hi" id="saudacao">Boa noite</h2>
         <p class="hi-sub">O panorama do FOYER neste momento</p>
         <div class="stats">
-          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1583</b><span>matérias no acervo</span></button>
+          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1596</b><span>matérias no acervo</span></button>
           <button class="stat" type="button" data-go="fila" data-foco="#fila-list"><b id="st-pub">—</b><span>publicadas pela Coxia</span></button>
           <button class="stat" type="button" data-go="fila" data-foco=".fila-agenda" data-foco-alt="#fila-list"><b id="st-ag">—</b><span>agendadas esperando a hora</span></button>
           <button class="stat" type="button" id="card-mesa" data-go="ia" data-foco="#mesa-list"><b id="st-mesa">—</b><span>na mesa de aprovação</span></button>
@@ -1955,6 +1955,22 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   }
   function casaLigada(){ return !!sessao() && CASA_TEM_CHAVE; }
 
+  // ---------- caminho de arquivo do site, visto de dentro da Coxia ----------
+  // Os caminhos gravados no repositório ("assets/uploads/foto.jpg") são
+  // relativos à RAIZ do site. A Coxia, porém, é servida de /coxia/, então o
+  // navegador pedia /coxia/assets/uploads/foto.jpg e recebia 404: foi assim
+  // que as fotos da equipe apareceram quebradas depois de subirem certinho.
+  // Aqui o caminho volta a apontar para a raiz, de onde quer que a Coxia
+  // esteja aberta (/coxia/, /coxia.html ou a partir do computador de alguém).
+  var RAIZ = location.pathname.replace(/coxia(\.html)?\/?$/, '')
+                              .replace(/coxia\/index\.html$/, '')
+                              .replace(/index\.html$/, '');
+  function doSite(p){
+    p = String(p || '');
+    if(!p || /^(https?:|data:|blob:)/.test(p)) return p;   // já é endereço completo
+    return RAIZ + p.replace(/^\//, '');
+  }
+
   // ESTA PERGUNTA É A QUE OS BOTÕES DEVEM FAZER: dá para gravar no site?
   // Tanto faz por onde — pela chave da casa (servidor) ou pela chave deste
   // navegador (a reserva). Quando a chave da casa entrou, a gravação passou a
@@ -2082,8 +2098,24 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // traduz qualquer falha de gravação/leitura para o português da casa
   function msgErro(e){
     var g = e && e.gh;
-    if(g === 401 || g === 403) return 'O GitHub não aceitou a chave DESTE computador. A causa mais comum não é o prazo: ' +
-      'é ter gerado uma chave nova em outra máquina, o que mata a antiga na hora. Cole a chave nova na aba Conexão e refaça esta ação.';
+    if(g === 401 || g === 403){
+      // Esta mensagem mandava, sempre, gerar uma chave nova. Quando a Coxia
+      // aberta é uma versão VELHA (antes da chave da casa), ela ainda usa a
+      // chave deste navegador, e a antiga já morreu: o conselho não só era
+      // inútil como perigoso, porque uma chave nova no GitHub MATA a chave da
+      // casa guardada no servidor, e com ela o relógio que publica as matérias
+      // no horário. Antes de mandar mexer em chave, a Coxia agora olha se a
+      // chave da casa está de pé.
+      if(document.getElementById('cx-nova'))
+        return 'Esta Coxia está numa versão antiga, e por isso tentou usar a chave deste navegador. ' +
+          'Toque em "Atualizar agora", na faixa embaixo, e refaça esta ação. ' +
+          'NÃO gere chave nova no GitHub: isso derrubaria a chave da casa e pararia a publicação automática.';
+      if(CASA_TEM_CHAVE)
+        return 'A chave da casa está de pé, mas o GitHub recusou esta gravação. ' +
+          'Recarregue a página e refaça a ação. Se repetir, é permissão da chave da casa, e quem troca é o chefe na aba Conexão.';
+      return 'O GitHub não aceitou a chave DESTE computador. A causa mais comum não é o prazo: ' +
+        'é ter gerado uma chave nova em outra máquina, o que mata a antiga na hora. Cole a chave nova na aba Conexão e refaça esta ação.';
+    }
     if(g === 'rate') return 'O GitHub limitou as consultas deste aparelho (sem chave, são 60 por hora). Conecte a chave na aba Conexão.';
     if(g === 409 || g === 422) return 'Alguém salvou antes de você. Recarregue a página (a Coxia vai pegar a versão nova) e refaça esta ação.';
     if(g === 404) return 'O arquivo não está mais lá. Recarregue a página.';
@@ -2105,7 +2137,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // o mesmo pedido não vai duas vezes ao GitHub em menos de um minuto:
   // a Coxia lê as mesmas pastas em várias abas, e o limite por hora é curto
   // a Coxia muda toda semana: este carimbo diz qual versão está aberta
-  var COXIA_VERSAO = '20260803-162542';
+  var COXIA_VERSAO = '20260805-113853';
   var GH_CACHE = {};
   function ghCacheGet(chave){
     var c = GH_CACHE[chave];
@@ -3756,6 +3788,20 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         for(var k in EDIT.orig){ if(k.charAt(0) !== '_') pac[k] = EDIT.orig[k]; }
         pac.title = title; pac.slug = slug;
         pac.cat = $('f-cat').value;
+        // A ASSINATURA. Estava faltando aqui, e o campo do formulário era
+        // ignorado em silêncio: o Pedro trocou "Redação Foyer" pelo nome dele,
+        // salvou, e o pacote voltou do GitHub com a assinatura antiga (05/08/2026).
+        // Silencioso é o pior tipo de defeito — a tela dizia que tinha salvado.
+        // Trocar a assinatura AQUI é seguro: quem manda na publicação é a trava
+        // de aprovação (podeLiberarAssinatura), que continua exigindo que só o
+        // dono do nome carimbe. Guardo quem mexeu e o que havia antes, para a
+        // mudança de assinatura nunca ser anônima.
+        var autorNovo = $('f-autor').value;
+        if(autorNovo && autorNovo !== pac.author){
+          pac.assinaturaTrocada = { de: pac.author || '', para: autorNovo,
+                                    por: USER.nome, quando: new Date().toISOString() };
+          pac.author = autorNovo;
+        }
         pac.img = imgPath || EDIT.img; pac.imgCredito = $('f-cred').value.trim();
         pac.corpo = corpo; pac.editadoPor = USER.nome;
         pac.status = 'aguardando_aprovacao';
@@ -3767,7 +3813,9 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         var evM = colherEvento();
         if(evM) pac.evento = evM;
         return ghPut('import/pauta/' + slug + '.json', JSON.stringify(pac, null, 1),
-          assina('edita na mesa "' + title + '"'), EDIT.sha);
+          assina('edita na mesa "' + title + '"' + (pac.assinaturaTrocada
+            ? ' (assinatura: ' + (pac.assinaturaTrocada.de || 'sem assinatura') +
+              ' → ' + pac.assinaturaTrocada.para + ')' : '')), EDIT.sha);
       }
       if(EDIT){
         var edicao = {
@@ -4335,7 +4383,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                 : '<span class="mesa-cred">' + esc(d.imgCredito) + dirBadge + '</span>')
             : '';
           var capa = d.img
-            ? '<div class="mesa-capa"><img src="' + esc(d.img) + '" alt="" data-p="' + esc(d.img) + '" ' +
+            ? '<div class="mesa-capa"><img src="' + esc(doSite(d.img)) + '" alt="" data-p="' + esc(d.img) + '" ' +
               'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/\'+this.dataset.p}else{this.parentNode.outerHTML=\'<div class=mesa-semfoto>⚠ Foto no repositório ainda não carregou aqui, mas ela existe e sai na publicação</div>\'}">' +
               credLinha + '</div>'
             : '<div class="mesa-semfoto">⚠ Sem foto de capa — suba uma antes de aprovar</div>';
@@ -4745,7 +4793,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
              : (temBio ? 'Falta a foto no site' : 'Falta a bio no site'));
         return '<div class="eq-card' + (u.papel === 'chefe' ? ' eq-chefe' : '') + '">' +
           '<div class="cab"><span class="ava">' +
-            (temFoto ? '<img src="' + esc(u.foto) + '" alt="' + esc(u.nome) + '">' : esc(ini)) + '</span>' +
+            (temFoto ? '<img src="' + esc(doSite(u.foto)) + '" alt="' + esc(u.nome) + '">' : esc(ini)) + '</span>' +
           '<span><b>' + esc(u.nome) + '</b><span class="pap">' +
             esc((u.cargo || '').trim() || PAPEL_ROTULO[u.papel] || 'Autor(a)') + '</span></span></div>' +
           '<div class="per">' + per + '</div>' +
@@ -4761,7 +4809,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // ---- o perfil de quem assina: foto e bio, que o site mostra na página do autor ----
   function eqPintaFoto(cam){
     $('e-foto').value = cam || '';
-    $('e-foto-mini').innerHTML = cam ? '<img src="' + esc(cam) + '" alt="foto">' : '<span>sem foto</span>';
+    $('e-foto-mini').innerHTML = cam ? '<img src="' + esc(doSite(cam)) + '" alt="foto">' : '<span>sem foto</span>';
   }
   // A bio cabe à vontade: a página do autor quebra em parágrafos e uma bio
   // completa é o que dá autoridade a quem assina. O aviso só aparece quando
