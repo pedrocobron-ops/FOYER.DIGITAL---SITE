@@ -1,0 +1,228 @@
+{
+ "numero": 3,
+ "titulo": "O tamanho da sala",
+ "dataEdicao": "06 Ago 2026",
+ "status": "fechada",
+ "capa": {
+  "img": "assets/uploads/revista-ed-3-capa.jpg",
+  "manchete": "Capulanas põe o ventre em cena",
+  "chamadas": [
+   "Eureka O'Hara será Divine em Nova York",
+   "Homem-Aranha entra em 2.500 das 3.554 salas do país",
+   "Morre Luiz Carlos Barreto, o produtor que brigou por bilheteria"
+  ],
+  "credito": "Noelia Nájera/Divulgação"
+ },
+ "paginas": [
+  {
+   "tipo": "editorial",
+   "titulo": "O tamanho da sala",
+   "texto": "O Brasil fechou 2025 com 3.554 salas de cinema em operação, recorde histórico registrado pela Ancine. Na quarta-feira 29 de julho, mais de 2.500 dessas salas entraram na programação de um único título, Homem-Aranha: Um Novo Dia. No fim de semana seguinte, os cinemas do país venderam 5,22 milhões de ingressos, o melhor resultado em 36 meses, e 4,24 milhões deles foram para esse mesmo filme.\n\nLuiz Carlos Barreto passou seis décadas discutindo exatamente essa conta. O fotógrafo de Vidas Secas e produtor de Dona Flor e Seus Dois Maridos, morto em 22 de julho aos 98 anos, sustentava que filme brasileiro volta com bilheteria quando tem tela e campanha, e repetia até o fim o placar dos anos da Embrafilme: 42% da receita das bilheterias do país. Esta edição reconta a trajetória dele e destrincha o que a cota de tela obriga hoje, sessão por sessão.\n\nNo teatro, a semana correu por outra estrada. Em São Paulo, a Capulanas Cia de Arte Negra encerra no Teatro de Arena Eugênio Kusnet uma circulação inteira bancada pelo Fomento ao Teatro, sem cobrar ingresso, e Leona Cavalli se despede de Elogio da Loucura de graça na CAIXA Cultural. Em Ouro Preto, uma sala inaugurada em 1770 segue aberta à visitação por R$ 5. Em Nova York, Eureka O'Hara se prepara para ser Divine meio século depois de o ícone drag ter conquistado a cidade. Casa cheia, mostrou esta semana, se mede de mais de um jeito. Boa leitura.",
+   "assinatura": "A direção do FOYER"
+  },
+  {
+   "tipo": "materia",
+   "slug": "capulanas-no-baile-de-osa-meji-teatro-de-arena-eugenio-kusnet",
+   "cat": "Teatro",
+   "img": "assets/uploads/capulanas-no-baile-de-osa-meji-teatro-de-arena-eugenio-kusnet.jpg",
+   "titulo": "Cinco ventres de madeira no palco do Arena",
+   "chamada": "A Capulanas Cia de Arte Negra cumpre de 5 a 9 de agosto de 2026, no Teatro de Arena Eugênio Kusnet, a última etapa da circulação de No Baile de Osá Meji Faço das Tripas o Meu Coração, com entrada gratuita e ingressos pela Sympla.",
+   "texto": "Uma mulher negra gesta um espetáculo dentro do próprio ventre, e quem conduz o parto é Milagros, médica afro-cubana. Entre consultas, memórias de família e encontros com ancestrais, a montagem dirigida por Olaegbé recolhe fragmentos de uma história coletiva de mulheres, com ventres de madeira esculpidos a partir de um encontro com o artista beninense Barthélémy Hountchonou e figurino de saiotes empilhados de capulanas."
+  },
+  {
+   "tipo": "recortes",
+   "itens": [
+    {
+     "frase": "A luta toda do cinema brasileiro foi o de conquistar o seu próprio mercado. Isso foi conseguido na época da Embrafilme. Chegamos a alcançar 42% do mercado",
+     "quem": "Luiz Carlos Barreto",
+     "onde": "jornal Correio Braziliense",
+     "slug": "morre-luiz-carlos-barreto-produtor-cinema-brasileiro-bilheteria"
+    },
+    {
+     "frase": "Escolhemos bailar para o odu Osá Meji para lembrar às mulheres negras da importância do cuidado com a própria saúde, especialmente em relação às doenças ligadas ao ventre, ao útero, às pernas e às partes sanguíneas do corpo",
+     "quem": "Olaegbé",
+     "onde": "material de divulgação distribuído pela Canal Aberto Comunicação",
+     "slug": "capulanas-no-baile-de-osa-meji-teatro-de-arena-eugenio-kusnet"
+    },
+    {
+     "frase": "Trabalho aqui há 43 anos e, para ser bem sincero, não saberia te dizer se passei mais tempo da minha vida aqui ou na minha própria casa",
+     "quem": "Vicente Gomes",
+     "onde": "jornal O Tempo",
+     "slug": "casa-da-opera-ouro-preto-teatro-mais-antigo-das-americas"
+    }
+   ]
+  },
+  {
+   "tipo": "materia",
+   "slug": "eureka-o-hara-sera-divine-em-solo-que-leva-icone-drag-de-volta-ao-palco-de-nova-",
+   "cat": "Teatro",
+   "img": "assets/uploads/eureka-o-hara-sera-divine-em-solo-que-leva-icone-drag-de-volta-ao-palco-de-nova--1785955166482.jpg",
+   "titulo": "Divine volta a Nova York meio século depois",
+   "chamada": "Eureka O'Hara, de RuPaul's Drag Race e da série We're Here, foi anunciada em 5 de agosto de 2026 como protagonista de Divine: Beyond the Flamingos!, solo escrito e dirigido por Donnie que estreia em 3 de dezembro no Marjorie S. Deane Little Theater.",
+   "texto": "A peça se passa no início de março de 1988, no apartamento de Harris Glenn Milstead. O voo para Hollywood parte em duas horas, um papel masculino em Married... with Children espera do outro lado, e Divine acaba de convidar amigos para uma noite de conversa. São 90 minutos em que cabem John Waters, o cinema underground, os clubes e a música pop."
+  },
+  {
+   "tipo": "materia",
+   "slug": "morre-luiz-carlos-barreto-produtor-cinema-brasileiro-bilheteria",
+   "cat": "Cinema",
+   "img": "assets/uploads/morre-luiz-carlos-barreto-produtor-cinema-brasileiro-bilheteria.jpg",
+   "titulo": "Barretão media o cinema brasileiro pelo placar",
+   "chamada": "Luiz Carlos Barreto morreu em 22 de julho de 2026, aos 98 anos, no Rio de Janeiro. Fotógrafo de Vidas Secas, produtor de Dona Flor e Seus Dois Maridos e articulador da Lei do Audiovisual, defendeu por seis décadas que o filme brasileiro pode ocupar a própria tela.",
+   "texto": "Da revista O Cruzeiro ao Congresso Nacional, ele fez quase todos os ofícios do cinema brasileiro: fotografia, roteiro, produção, distribuição e articulação política. A linha que atravessa a obra inteira, porém, é o dinheiro. Dona Flor vendeu 10,735 milhões de ingressos e ficou 34 anos como a maior bilheteria nacional, feito que a produtora comprou anúncio na Rede Globo para conquistar."
+  },
+  {
+   "tipo": "programas"
+  },
+  {
+   "tipo": "materia",
+   "slug": "2500-salas-homem-aranha-quanto-sobra-cinema-brasileiro",
+   "cat": "Cinema",
+   "img": "assets/uploads/2500-salas-homem-aranha-quanto-sobra-cinema-brasileiro.jpg",
+   "titulo": "Dois terços das salas do país, um título só",
+   "chamada": "Homem-Aranha: Um Novo Dia entrou na programação de 770 cinemas e mais de 2.500 salas de um parque de 3.554, segundo Filme B e Ancine; o FOYER abre a conta e mostra o que a cota de tela obriga e o que sobra para o filme nacional.",
+   "texto": "Ocupar uma sala não é trancá-la: a mesma sala exibe várias sessões por dia, e elas podem ser de filmes diferentes. É por isso que a lei mede a obrigação em sessão, e não em sala, num intervalo que vai de 7,5% a 16% da grade anual conforme o tamanho do exibidor. Desde maio, a Ancine também pesa o horário em que a sessão brasileira cai na grade."
+  },
+  {
+   "tipo": "materia",
+   "slug": "sympla-multa-procon-mpmg-taxa-de-conveniencia",
+   "cat": "Notícia",
+   "img": "assets/uploads/sympla-multa-procon-mpmg-taxa-de-conveniencia.jpg",
+   "titulo": "A taxa de conveniência que não voltava",
+   "chamada": "O Procon do Ministério Público de Minas Gerais multou a Sympla em R$ 210.765,02 por reter a taxa de conveniência de quem desistia da compra dentro do prazo legal de sete dias; a empresa nega a irregularidade e apresentou recurso administrativo.",
+   "texto": "O artigo 49 do Código de Defesa do Consumidor dá sete dias para desistir de uma compra feita fora da loja física e manda devolver de imediato os valores pagos a qualquer título. A briga inteira cabe nessas três palavras, e o FOYER explica o que fazer quando o estorno volta pela metade."
+  },
+  {
+   "tipo": "materia",
+   "slug": "casa-da-opera-ouro-preto-teatro-mais-antigo-das-americas",
+   "cat": "Teatro",
+   "img": "assets/uploads/casa-da-opera-ouro-preto-teatro-mais-antigo-das-americas.jpg",
+   "titulo": "1770, o ano em que a sala abriu e nunca mais fechou",
+   "chamada": "A Casa da Ópera de Vila Rica foi inaugurada em 6 de junho de 1770, reabriu restaurada em dezembro de 2023 e sustenta, em duas palavras, o posto de teatro mais antigo em funcionamento das Américas.",
+   "texto": "Três pisos com plateia, camarotes, frisas e galerias somam 300 lugares em Ouro Preto. Escadas helicoidais de madeira sobem até a galeria mais alta, os camarins ficam no porão e, acima do palco, resiste a pintura original com as figuras do drama, da comédia e da música. No México, o Teatro Principal de Puebla é nove anos mais velho, mas passou quase quatro décadas fechado depois de um incêndio."
+  },
+  {
+   "tipo": "agenda",
+   "cidade": "São Paulo",
+   "itens": [
+    {
+     "dia": "2026-08-07",
+     "titulo": "PIAF, Eu Não Me Arrependo",
+     "texto": "Noite de estreia paulistana, às 20h, do musical em que Laila Garin, cinco vezes premiada como Elis Regina, assume o repertório de Édith Piaf acompanhada de orquestra.",
+     "local": "Teatro Bradesco",
+     "cidade": "São Paulo",
+     "link": "post-quem-e-laila-garin-atriz-cantora-piaf.html"
+    },
+    {
+     "dia": "2026-08-08",
+     "titulo": "No Baile de Osá Meji Faço das Tripas o Meu Coração",
+     "texto": "A Capulanas Cia de Arte Negra faz a penúltima sessão da circulação às 20h, na arena circular da Vila Buarque; entrada gratuita, com ingressos pela Sympla e interpretação em Libras.",
+     "local": "Teatro de Arena Eugênio Kusnet",
+     "cidade": "São Paulo",
+     "link": "post-capulanas-no-baile-de-osa-meji-teatro-de-arena-eugenio-kusnet.html"
+    },
+    {
+     "dia": "2026-08-09",
+     "titulo": "Elogio da Loucura",
+     "texto": "Última sessão da temporada em que Leona Cavalli leva ao palco o Erasmo de Roterdã inédito no teatro brasileiro, às 18h; ingressos gratuitos distribuídos uma hora antes, um por pessoa.",
+     "local": "CAIXA Cultural São Paulo",
+     "cidade": "São Paulo",
+     "link": "post-elogio-da-loucura-leona-cavalli-caixa-cultural-sp.html"
+    },
+    {
+     "dia": "2026-08-11",
+     "titulo": "Bigorna",
+     "texto": "Walmick de Holanda assina atuação, direção e dramaturgia do thriller autoficcional sobre diferença, memória e pertencimento; terça-feira, às 20h, com 70 minutos de duração.",
+     "local": "Sesc Vila Mariana",
+     "cidade": "São Paulo",
+     "link": "post-bigorna-estreia-no-sesc-vila-mariana-com-solo-sobre-diferenca-memoria-e-pertenci.html"
+    },
+    {
+     "dia": "2026-08-12",
+     "titulo": "Mazal Tov, Quando a Vida Sorri",
+     "texto": "Primeira adaptação teatral do livro de J. S. Margot, sobre a estudante belga que vai trabalhar com os filhos de uma família judaica ortodoxa na Antuérpia dos anos 1990; quarta, às 20h.",
+     "local": "Teatro Moise Safra",
+     "cidade": "São Paulo",
+     "link": "post-mazal-tov-quando-a-vida-sorri-estreia-em-sao-paulo-com-direcao-de-dan-rosseto.html"
+    },
+    {
+     "dia": "2026-08-13",
+     "titulo": "As Armas Milagrosas",
+     "texto": "Um grupo de funcionários negros interrompe o ensaio de uma comédia de Pirandello para narrar a própria história; quinta, às 20h, com ingressos gratuitos retirados uma hora antes.",
+     "local": "Itaú Cultural",
+     "cidade": "São Paulo",
+     "link": "post-as-armas-milagrosas-reestreia-no-itau-cultural-em-temporada-gratuita.html"
+    }
+   ]
+  },
+  {
+   "tipo": "agenda",
+   "cidade": "Rio de Janeiro",
+   "itens": [
+    {
+     "dia": "2026-08-07",
+     "titulo": "Mulher em Fuga",
+     "texto": "Malu Galli e Tiago Martelli fazem a sessão única de sexta no Festival de Teatro do Rio, às 20h, na sala do Centro.",
+     "local": "Teatro Riachuelo",
+     "cidade": "Rio de Janeiro",
+     "link": "https://www.ingresso.com/espetaculos/2-festival-de-teatro-do-rio-de-janeiro-mulher-em-fuga"
+    },
+    {
+     "dia": "2026-08-08",
+     "titulo": "Visitando o Sr. Green",
+     "texto": "Estreia carioca do texto de Jeff Baron com direção de Guilherme Piva, Elias Andreato e Caio Manhente em cena; sábado, às 18h, no Shopping da Gávea.",
+     "local": "Teatro Vannucci",
+     "cidade": "Rio de Janeiro",
+     "link": "post-elias-andreato-e-caio-manhente-estrelam-visitando-o-sr-green-no-rio-de-janeiro.html"
+    },
+    {
+     "dia": "2026-08-08",
+     "titulo": "Deserto",
+     "texto": "A Polifônica Cia e Renato Livera ocupam o TotalEnergies às 20h, na primeira das duas sessões do espetáculo no festival; a segunda é no domingo, às 18h.",
+     "local": "Teatro TotalEnergies",
+     "cidade": "Rio de Janeiro",
+     "link": "https://festivaldeteatrodorio.com.br/"
+    },
+    {
+     "dia": "2026-08-09",
+     "titulo": "A Pediatra",
+     "texto": "Debora Lamm e Luis Antonio Fortes fecham o domingo do festival às 18h, em apresentação única no Riachuelo.",
+     "local": "Teatro Riachuelo",
+     "cidade": "Rio de Janeiro",
+     "link": "https://www.ingresso.com/espetaculos/2-festival-de-teatro-do-rio-de-janeiro-a-pediatra"
+    },
+    {
+     "dia": "2026-08-11",
+     "titulo": "Maldita",
+     "texto": "A primeira das duas noites do espetáculo no festival, às 20h30; quem perder ainda encontra a sessão do dia seguinte, no mesmo horário.",
+     "local": "Teatro TotalEnergies",
+     "cidade": "Rio de Janeiro",
+     "link": "https://festivaldeteatrodorio.com.br/"
+    },
+    {
+     "dia": "2026-08-13",
+     "titulo": "Fim de Partida",
+     "texto": "Marco Nanini apresenta pela primeira vez no Rio, às 20h, o espetáculo que esgotou a temporada paulistana, ao lado de Guilherme Weber, Ary França e Helena Ignez.",
+     "local": "Teatro TotalEnergies",
+     "cidade": "Rio de Janeiro",
+     "link": "post-festival-de-teatro-do-rio-2026-segunda-edicao.html"
+    }
+   ]
+  },
+  {
+   "tipo": "frase-celebre"
+  },
+  {
+   "tipo": "expediente"
+  },
+  {
+   "tipo": "contracapa"
+  }
+ ],
+ "historico": [
+  {
+   "quando": "2026-08-05T21:40:00.000Z",
+   "quem": "Redação IA (Claude)",
+   "acao": "monta a edição 3 (14 páginas) e fecha para a saída de 06/08: capa nova recortada da foto de No Baile de Osá Meji (Noelia Nájera/Divulgação) em 1500x1000, editorial O tamanho da sala, 6 matérias da semana de 30/07 a 05/08 sem repetir a edição 2, recortes com 3 aspas conferidas na origem, agendas apuradas de 07/08 a 13/08 (6 itens em São Paulo, 5 no Rio), programas, frase-célebre, expediente e contracapa"
+  }
+ ]
+}
