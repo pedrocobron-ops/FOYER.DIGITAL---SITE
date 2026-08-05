@@ -582,7 +582,7 @@ pela EDITORIA do assunto. A assinatura vai no campo `author` do pacote.
 
 | Assinatura | Cobre | Por dia | `author` |
 |---|---|---|---|
-| **Pedro Amaral** | mercado e dinheiro do setor, economia criativa, bilheteria e financiamento, editais, cinema e streaming | **2** | `Pedro Amaral` |
+| **Pedro Amaral** | o quente do dia em cinema, streaming e TV: bilheteria, estreia de série e de filme, polêmica e disputa pública, decisão de plataforma, e o dinheiro por trás de tudo isso | **2** | `Pedro Amaral` |
 | **Isabel Branquinha** | estreias e temporadas de peças, o que está acontecendo em São Paulo nas artes, artistas e montagens | **2** | `Isabel Branquinha` |
 | **Redação Foyer** | todo o resto: bastidores, explicadores, memória, curiosidades, listas, guias, patrimônio e notícia internacional | **2** | `Redação Foyer` |
 
@@ -649,30 +649,66 @@ O movimento mais dele que existe: quando a casa faz a própria conta, ela
 diz que fez, com as duas fontes na frase. Honestidade sobre o método vale
 mais que autoridade fingida.
 
-**A VARIAÇÃO DE TEMA (ordem do Pedro, 04/08/2026).** Das 27 matérias
-assinadas por ele no acervo recente, **praticamente todas são dinheiro**:
-bilheteria, edital, faturamento, quanto custa, quanto rende. Ele gosta do
-tema e o tema é dele, mas leitor que abre a assinatura três vezes na
-semana e encontra sempre uma planilha para de abrir.
+**A PAUTA DELE É O QUENTE DO DIA (REGRA CANÔNICA, ordem do Pedro,
+05/08/2026. SUBSTITUI a regra de variação de 04/08/2026, que não vale
+mais).**
 
-A cota dele na rodada da MANHÃ segue 2. A régua nova é de composição (a
-edição das 12h não entra nesta conta: ela é cinema e streaming por
-definição, e tem regra própria):
+Nas palavras dele: *"eu não estou gostando das minhas matérias, são muito
+sérias e de temas que nem eu entendo. Quero trabalhar com temas mais
+quentes e do momento, polêmicas, bilheteria de cinema, estreia de séries,
+polêmicas nos streamings."*
 
-- **No máximo 1 das 2 matérias do dia é pauta de dinheiro puro**
-  (bilheteria, faturamento, edital, quanto custa, quanto rende).
-- **A outra vem de um dos três eixos, e eles rodam na semana**:
-  **cinema** (o filme, quem faz, o que muda na produção brasileira, a
-  janela, o festival, a carreira de quem dirige), **streaming** (catálogo,
-  decisão de plataforma, o que entra e o que some, o que a assinatura
-  significa para quem produz) e **política pública** (regulação,
-  Condecine, Ancine, lei do streaming, fomento, direito autoral, condição
-  de trabalho no audiovisual).
-- **Duas matérias do mesmo eixo no mesmo dia, só com justificativa no
-  diário.** Duas de bilheteria no mesmo dia, nunca.
-- Dinheiro continua sendo o chão de todos eles: a diferença é que ele
-  entra pela porta do cinema, da plataforma ou da política, e não como
-  assunto em si.
+**O que deu errado, e a culpa é da régua anterior, não do redator.** Em
+04/08 a casa mandou variar o tema dele e escreveu "política pública" como
+um dos eixos, sem dizer por qual porta ela entra. O agente foi pela porta
+mais fácil, que é a da norma, e o resultado foi uma semana de despacho
+oficial assinada por ele: as film commissions num site só, o teto de 3% da
+Condecine, os acordos de coprodução com China e França, a coprodução com
+Portugal filmada no Amapá. Tudo correto, tudo verificado, e nada que o
+leitor tenha aberto por vontade própria.
+
+**O TESTE DO SIGNATÁRIO, que passa a valer para toda matéria assinada por
+pessoa:** se quem assina não consegue explicar o assunto a um amigo em
+duas frases, sem ler o texto de novo, a matéria não é dele. Vai para
+**Redação Foyer**, que é a voz que explica, ou não sai. Assinatura é
+responsabilidade diante do leitor, e ninguém responde por um assunto que
+não domina.
+
+A cota dele na rodada da MANHÃ segue 2. A composição agora é por
+TEMPERATURA, e as duas saem desta lista:
+
+| Eixo | O que é | Exemplo de gancho |
+|---|---|---|
+| **Bilheteria** | o número do fim de semana, a estreia que estourou ou fracassou, o recorde, a corrida do ano | quanto fez, quem perdeu espaço, o que isso muda para a sala |
+| **Estreia** | filme ou **série** que estreia agora e que as pessoas estão esperando | quem fez, quanto custou, onde assistir, por que importa |
+| **Polêmica e disputa** | briga pública com nome e fonte: elenco, cancelamento, processo, boicote, decisão que irritou o público | quem disse o quê, quem responde, o que está em jogo |
+| **Decisão de plataforma** | o que entra e o que some do catálogo, preço, cancelamento de série, mudança de regra que o assinante sente | o que muda para quem paga a assinatura |
+
+Regras de composição:
+
+- **As duas do dia vêm de eixos DIFERENTES.** Duas de bilheteria no mesmo
+  dia, nunca.
+- **Pelo menos uma das duas tem que ser assunto que o leitor já viu
+  circular.** Se ninguém está falando do tema, ele não é quente, e o lugar
+  dele é outra assinatura.
+- **Dinheiro continua sendo o chão de tudo**, e é o que separa o FOYER do
+  Omelete: quanto fez, quem pagou, quanto sobra para quem trabalhou. A
+  diferença é que ele entra DEPOIS do gancho quente, explicando o número
+  que a notícia trouxe, e nunca como assunto em si.
+- **A edição das 12h não entra nesta conta**: ela já é cinema e streaming
+  por definição, e a régua do ângulo dela é a mesma temperatura.
+
+**PARA ONDE VAI A REGULAÇÃO, QUE NÃO SOME DA CASA.** Condecine, Ancine,
+lei do streaming, cota de tela, coprodução, edital e fomento continuam
+sendo cobertura obrigatória do FOYER, porque é onde o dinheiro público do
+setor se decide. O que muda é quem escreve e como entra:
+
+- **assina Redação Foyer**, no formato explicador, que é a voz treinada
+  para pegar o que o leitor não conhece e entregar de pé;
+- **entra na pauta do Pedro SÓ com porta quente**, quando existe
+  consequência concreta e imediata para o leitor: a plataforma vai
+  repassar o custo na assinatura, o filme perdeu o financiamento, a
+  decisão tirou tal série do ar. Norma pela norma não é matéria dele.
 
 **O lugar de onde ele fala (registrado por ele mesmo em 30/07/2026,
 reafirmado em 04/08/2026).**
@@ -692,6 +728,16 @@ de neutralidade:
   circulação fora do eixo Rio e São Paulo;
 - desconfiança de **concentração** (grandes grupos, plataformas,
   patrocínio único) e atenção a quem fica de fora dela.
+
+**ISTO É LENTE, NÃO É PAUTA (esclarecido em 05/08/2026).** Nada nesta
+lista designa assunto para ele. É o ângulo com que ele olha o que já
+cobre. Na prática: quando a bilheteria bate recorde, ele pergunta quanto
+sobrou para quem trabalhou na sala; quando a plataforma cancela a série,
+ele pergunta quem fica sem trabalho e quem pagou a produção; quando um
+filme estoura, ele pergunta com qual dinheiro ele foi feito. **A lente
+entra pelo gancho quente, e não substitui o gancho quente.** Matéria
+sobre a norma em si, sem consequência que o leitor sinta, é da Redação
+Foyer.
 
 **Os limites, que valem sempre:**
 
@@ -862,7 +908,7 @@ dessa divisão, cada assinatura tem um par fixo de encargos:
 
 | Assinatura | Matéria 1 | Matéria 2 |
 |---|---|---|
-| **Pedro Amaral** | 1 notícia quente de mercado/dinheiro (bilheteria, edital, financiamento, negócio do audiovisual) | 1 pauta de OUTRO eixo, pela regra de variação: cinema, streaming ou política pública. Nunca a segunda de dinheiro puro no mesmo dia |
+| **Pedro Amaral** | 1 pauta quente de cinema, streaming ou TV (bilheteria, estreia, polêmica ou decisão de plataforma) | 1 pauta de OUTRO eixo da mesma lista de temperatura. Nunca duas de bilheteria no mesmo dia, e pelo menos uma das duas tem de ser assunto que o leitor já viu circular |
 | **Isabel Branquinha** | 1 estreia ou temporada em São Paulo (a vaga de circuito da rodada, quando houver) | 1 segunda pauta da cena paulistana: outra estreia, perfil de artista em cartaz, montagem que prorroga, o que a cidade tem em cartaz |
 | **Redação Foyer** | **o PRATO DO DIA** (tabela abaixo) | 1 do cardápio: bastidor, curiosidade, memória, patrimônio ou notícia internacional fora da bolha |
 
@@ -972,8 +1018,12 @@ três ondas de agentes independentes, sem economizar agente:
   para UMA assinatura e recebe o guia de
   voz dela** (ver "Quem assina o quê"). Nenhum redator escreve para duas
   assinaturas, e nenhuma assinatura é coberta por dois redatores:
-  - **Redator PEDRO** — pautas de mercado, dinheiro, economia criativa,
-    bilheteria, financiamento, cinema e streaming. Grava `author: "Pedro Amaral"`.
+  - **Redator PEDRO** — o quente do dia em cinema, streaming e TV, pelos
+    quatro eixos de temperatura: bilheteria, estreia de filme ou série,
+    polêmica e disputa pública, decisão de plataforma. Dinheiro entra
+    explicando o número que a notícia trouxe, nunca como assunto em si;
+    regulação só com porta quente (ver "A pauta dele é o quente do dia").
+    Grava `author: "Pedro Amaral"`.
   - **Redatora ISABEL** — estreias, temporadas e o que acontece nas artes
     em São Paulo. Grava `author: "Isabel Branquinha"`.
   - **Redator REDAÇÃO** — bastidores, explicadores, memória, curiosidades,
