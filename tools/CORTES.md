@@ -42,6 +42,60 @@ justificativa que escreveu no campo `checagem`, o que é quase pior: a
 justificativa é o que o próximo checador lê.
 
 
+## 05/08/2026, rodada de teste da régua nova de pauta (quarta)
+
+2 matérias de cinema e streaming, assinatura Pedro Amaral, encomendadas por
+ele para ver o que a casa passa a pegar depois da mudança de pauta. **Os
+graves foram todos invenção do redator, não erro de fonte.**
+
+| Tipo | O que era | O que a checagem achou | Matéria |
+|---|---|---|---|
+| `invenção` | "Leandro Firmino, o **Buscapé** de Cidade de Deus" | Firmino interpretou **Zé Pequeno**. Buscapé foi Alexandre Rodrigues. Estava em três lugares: duas vezes no corpo e uma na legenda. É erro que qualquer leitor brasileiro pega na hora | Corrida dos Bichos |
+| `invenção` | "O longa não nasceu para o streaming", com o SXSW como prova de um caminho anterior à plataforma | Não é que não se sustente: **inverte-se**. O filme foi anunciado como produção do Prime Video antes de rodar, as filmagens de 2024 já eram Amazon Original, e foi a própria Amazon que anunciou o SXSW como estreia global do seu Original. Caiu a frase e o parágrafo construído sobre ela | Corrida dos Bichos |
+| `atribuição errada` | "Na plataforma, o produtor recebe antes, e uma vez só", com "o FOYER já destrinchou em [link]" | A matéria linkada trata de meia-entrada, ISS, Ecad e Condecine, e não diz uma palavra sobre pagamento de plataforma. O redator inventou uma frase e assinou com o nome da casa | Corrida dos Bichos |
+| `invenção` | "assédio nas categorias de base" como tema da série | A fonte diz o **contrário**: o tema foi EXCLUÍDO na retomada de 2025. O redator usou a lista de 2023, de quando a série se chamava Mata-mata. Afirmar que uma produção identificável mostra assédio a menores, sem que ela mostre, rende processo | Jogada de Risco |
+| `superlativo sem fonte` | O TÍTULO: "é o maior alcance da história do Globoplay" | A fonte impõe dois recortes: obras **originais de ficção** e **sete primeiros dias**. Como estava, a manchete afirmava o maior alcance de tudo o que já passou na plataforma, novela e futebol incluídos. **Ressalva grave: travou a matéria.** O checador não tinha mandato para mexer em título, então bloqueou em vez de deixar passar | Jogada de Risco |
+| `invenção` | O lide copiava um dos portais palavra por palavra | Reescrito | Jogada de Risco |
+| `superlativo sem fonte` | "Superou todas as séries dos últimos cinco anos" | Faltava o "no mesmo período", que está na fonte. Sem o recorte, vira vitória absoluta em vez de janela de sete dias | Jogada de Risco |
+| `link quebrado` | Âncora dizendo que um filme "OCUPOU 2.500 salas" | A matéria de destino gasta um parágrafo dizendo o contrário, que ocupar uma sala não é trancá-la | Corrida dos Bichos |
+| `data errada` | "No fim de semana passado", para o número de 2.500 salas | O número é da ESTREIA de quarta, 29 de julho, pelo Filme B | Corrida dos Bichos |
+| `@ não confirmado` | @marceloadnet | O perfil verificado é **@marceloadnet0** | Jogada de Risco |
+| `invenção` | Unidade "domicílios" na legenda do Instagram | Domicílio é unidade de medição de TV e não aparece em fonte nenhuma do pacote; corpo e fontes falam em usuários e contas. Achado pela leitura fria | Jogada de Risco |
+| `invenção` | "volta a uma **favela**", "sessão de terça à tarde", "filme brasileiro de autor", "a desigualdade virou espetáculo", "país arruinado" | Cinco juízos e detalhes que fonte nenhuma sustenta | Corrida dos Bichos |
+
+**DUAS RESSALVAS DO CHEFE ERAM FALSAS, e os checadores desmentiram as duas.**
+A suposta divergência sobre quem dirigiu a Corrida dos Bichos não existia: a
+Omelete, que já era fonte do pacote, nomeia os três diretores. E "maior
+público" x "maior alcance" não são métricas diferentes neste caso, porque os
+dois portais definem o indicador do mesmo jeito. Nenhum dos dois inventou
+corte para justificar o trabalho. **Ressalva de chefe também precisa ser
+checada**, e isso é novo neste registro.
+
+**Pautas derrubadas antes de escrever: 4**, três delas por reprovar no teste
+"por que hoje?" da 4.0 (cancelamentos da Netflix dos primeiros meses do ano,
+o Tela Brasil de maio, um anúncio sem data confiável).
+
+**O que esta rodada sugere mexer no sistema:**
+
+1. **A PORTA DOS FUNDOS CHEGOU A SEIS OCORRÊNCIAS EM DOIS DIAS.** Buscapé na
+   legenda, a lista de parceiros, a atribuição do anúncio, o superlativo do
+   Death Note, o "da história" no Globoplay e agora "domicílios". Já era
+   sugestão de trava ontem; hoje é dívida. **O portão precisa comparar
+   afirmação do corpo com afirmação da legenda.**
+2. **A META DE CORTAR 10% ESBARRA NO PISO DO PORTE PELA TERCEIRA VEZ** (7,8%,
+   8,2% e, nesta, 10,1% só porque havia folga). O manual manda cortar 10% e
+   manda respeitar o piso, e não diz o que fazer quando as duas se encontram.
+3. **O CAMPO `eixo` NÃO É EXIGIDO NEM CONFERIDO.** A rodada gravou o eixo de
+   temperatura em cada pacote por disciplina, não por obrigação. Se a casa
+   quer garantir que as duas do dia não repetem eixo, isso é trava, não
+   conselho. Foi a lição de ontem, e ela vale aqui.
+4. **RESSALVA DE CHEFE ENTRA NA CHECAGEM.** Duas das minhas eram falsas e
+   quase custaram cortes indevidos. O papel do Checador deveria dizer,
+   explicitamente, que `chefe.ressalvas` é material a conferir, não instrução
+   a obedecer.
+
+---
+
 ## 04/08/2026, à tarde: a nota estava medindo a coisa errada
 
 Não é corte de checagem, é conserto de régua, e entra aqui porque é
