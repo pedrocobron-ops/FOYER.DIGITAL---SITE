@@ -42,6 +42,34 @@ justificativa que escreveu no campo `checagem`, o que é quase pior: a
 justificativa é o que o próximo checador lê.
 
 
+## 05/08/2026, fim da tarde: a foto certa no git e a errada na tela
+
+O Pedro pediu a troca da capa da Corrida dos Bichos, a troca foi feita, eu
+conferi na branch e disse que estava resolvido. Ele voltou com a captura de
+tela mostrando o retrato do diretor ainda lá. **Ele estava certo e eu estava
+errado sobre o que significa "verificar".**
+
+| Tipo | O que era | O que se achou | Matéria |
+|---|---|---|---|
+| `direito de foto` | Still oficial gravado POR CIMA do arquivo antigo, com o mesmo nome | Navegador guarda imagem pelo NOME do arquivo. Conteúdo novo em nome velho continua servindo o cache, e a Coxia mostrava a foto antiga com o crédito novo. Arquivo renomeado; o nome antigo saiu do repositório | Corrida dos Bichos |
+
+**As duas regras que entraram no manual por causa disto:**
+
+1. **Trocar foto é RENOMEAR, nunca sobrescrever.** Nome novo, campo `img`
+   apontando para ele, arquivo antigo fora do repositório.
+2. **Conferir no git não é conferir na tela.** Eu rodei `git show` na branch,
+   vi os bytes certos e declarei resolvido. O que manda é o que aparece para
+   o editor humano, e entre o repositório e a tela dele existe cache.
+
+E uma terceira, da mesma rodada, sobre como a foto errada foi parar ali:
+**um 403 não é "não existe foto de divulgação"**. A página de imprensa da
+Amazon MGM recusou o primeiro acesso e eu caí direto para Creative Commons.
+A página da Amazon Brasil abre normalmente e tinha cinco stills com a
+fotógrafa creditada. Esgotar as portas oficiais vem antes de rebaixar a
+origem da imagem.
+
+---
+
 ## 05/08/2026, à tarde: a porta dos fundos virou trava
 
 Sétima ocorrência em dois dias, e desta vez o Pedro pegou antes de qualquer

@@ -575,6 +575,24 @@ Matéria sem foto não vai para a mesa. Em cada pauta:
    o Pauteiro escolhe outra. Nunca usar foto que não seja de divulgação
    oficial do espetáculo/evento.
 
+   **UM 403 NÃO É "NÃO EXISTE FOTO" (05/08/2026).** A página de imprensa
+   do estúdio pode recusar o primeiro acesso e a mesma produção estar
+   publicada, com fotógrafo creditado, no site institucional do país
+   (About Amazon Brasil, sala de imprensa da distribuidora, release da
+   assessoria). Antes de cair para Creative Commons, esgote as portas
+   oficiais: foi assim que a capa da Corrida dos Bichos saiu de um
+   retrato de arquivo do diretor para o still oficial do filme.
+
+7. **TROCAR FOTO É RENOMEAR O ARQUIVO, NUNCA SOBRESCREVER (ordem do
+   Pedro, 05/08/2026).** Ele mandou trocar uma capa, a troca foi feita e
+   conferida no repositório, e ele continuou vendo a foto antiga na
+   Coxia. A foto certa estava no git e a errada na tela dele: o arquivo
+   novo tinha sido gravado POR CIMA do antigo, com o mesmo nome, e o
+   navegador guarda imagem pelo nome. Ao substituir uma capa, dê **nome
+   novo** ao arquivo, aponte o campo `img` para ele e tire o antigo do
+   repositório. **Conferir no git não é conferir na tela**; quem manda é
+   o que aparece para o editor humano.
+
 ## Quem assina o quê — editorias e vozes
 
 O FOYER tem três assinaturas. Cada matéria nasce já destinada a uma delas,
