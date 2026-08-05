@@ -3775,8 +3775,13 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         var _pid = $('f-imgdir').value.trim(); if(_pid) pac.imgDireito = _pid; else delete pac.imgDireito;
         delete pac.devolucao;  // reenviada: volta limpa para a mesa
         pac.cats = colherCats();
+        // O EVENTO TAMBÉM PRECISA PODER SER APAGADO. Aqui o pacote é uma CÓPIA
+        // do que já estava gravado, então "não preencheu" não pode virar
+        // "mantém o antigo": quem apaga a data de início está dizendo que a
+        // temporada saiu, e o serviço velho ficaria no ar sozinho. Na matéria
+        // já publicada isso já funcionava, porque lá o pacote nasce do zero.
         var evM = colherEvento();
-        if(evM) pac.evento = evM;
+        if(evM) pac.evento = evM; else delete pac.evento;
         return ghPut('import/pauta/' + slug + '.json', JSON.stringify(pac, null, 1),
           assina('edita na mesa "' + title + '"' + (pac.assinaturaTrocada
             ? ' (assinatura: ' + (pac.assinaturaTrocada.de || 'sem assinatura') +
