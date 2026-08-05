@@ -21,6 +21,27 @@ alguém. Uma vez por semana, leia a coluna do tipo e veja o que se repete.
 
 ---
 
+## 05/08/2026, checagem independente: perfil de Gui Ventura (Gil – Andar com Fé)
+
+| Tipo | O que caiu | Onde estava |
+|---|---|---|
+| `data errada` | "A montagem foi anunciada em junho" — o anúncio da montagem é de fevereiro de 2026; o que saiu em junho foi o nome do protagonista. O link interno também apontava para a matéria errada | `quem-e-gui-ventura-gil-andar-com-fe` |
+| `data errada` | "Nove anos depois, foi ele o escolhido": a aspa é de 07/08/2017 e a escolha foi anunciada em 16/06/2026, oito anos e dez meses depois. Nove anos só fecha com a estreia, em 20/08/2026 | idem |
+| `invenção` | "Ventura interpreta Gil em fases diferentes da vida": nenhuma fonte diz isso. O release diz que quem aproxima as fases e faz o Gil jovem conversar com o Gil do futuro é o Tempo-Rei | idem |
+| `superlativo sem fonte` | Título afirmava "escolhido entre mais de 800 candidatos" como fato apurado. O número é da produção e nenhuma fonte com apuração própria o confirma: virou "que a produção escolheu entre mais de 800 candidatos", com atribuição também no corpo | idem |
+| `atribuição errada` | "conforme o perfil profissional que o ator mantém no Elenco Digital" para as três temporadas de Madame Satã: a informação está no release oficial, com os anos 2015 a 2018. A atribuição fraca escondia uma fonte melhor | idem |
+| `atribuição errada` | "Em entrevista ao Correio Braziliense": a entrevista está no blog Próximo Capítulo, do jornal, assinada por Patrick Selvatti | idem |
+| `número desatualizado` | "Classificação indicativa: 12 anos" sozinho: o release da produção diz 12 anos e a página oficial do Teatro Santander diz "livre, menores de 12 anos acompanhados". Duas fontes oficiais divergindo entre si, e o serviço passou a trazer as duas com a origem de cada uma | idem |
+| `@ não confirmado` | @guiventuraoficial estava marcado como não confirmado por falta de checagem: o handle está declarado pelo próprio ator no perfil dele no Elenco Digital. Confirmado e acrescentado @miguelfalabellareal, que faltava | idem |
+
+**O padrão desta checagem:** três releases da MESMA assessoria, sobre o MESMO
+espetáculo, com dados diferentes de duração e de número de artistas. Release
+não é documento estável: quando houver mais de um, é preciso datar cada um e
+usar o mais recente, dizendo qual foi. O redator acertou a escolha e errou a
+justificativa que escreveu no campo `checagem`, o que é quase pior: a
+justificativa é o que o próximo checador lê.
+
+
 ## 04/08/2026, à tarde: a nota estava medindo a coisa errada
 
 Não é corte de checagem, é conserto de régua, e entra aqui porque é
