@@ -1,6 +1,14 @@
 {
  "rodadas": [
   {
+   "quando": "2026-08-05T18:35:00-03:00",
+   "por": "PAUSA DA REDAÇÃO DE IA, ordem do Pedro em 05/08/2026. Não é rodada: é registro de interrupção, para quem retomar saber por que existe um vão no diário e em que estado as coisas ficaram.",
+   "buscas": [],
+   "consideradas": [],
+   "produzidas": [],
+   "obs": "ORDEM: 'vamos pausar a redação de IA. Quando for para voltar eu aviso, isso será em alguns dias.'\n\nO QUE FOI PAUSADO DAQUI: a rotina 'FOYER · segunda edição do dia (12h, cinema e streaming)' (trig_017qR9abpe5CXRGoVup8QkHg, cron 0 15 * * *). Desativada, não apagada: o histórico e o prompt ficam inteiros, e voltar é religar.\n\nO QUE NÃO FOI PAUSADO, E É O QUE IMPORTA: a rotina 'Redação Foyer — rodada diária' (trig_01LoA74LaJXaohVv7GsFDjgr, cron 0 10 * * *, 7h de Brasília) está PRESA A OUTRA SESSÃO (session_01G9mTVDb4cSMBiCqDnAuHta) e a organização não permite alterar rotina de outra sessão a partir daqui. ELA CONTINUA LIGADA e dispara normalmente. Quem pausa é o Pedro, naquela sessão ou pelo painel de Routines.\n\nNÃO FORAM TOCADAS, POR NÃO SEREM A REDAÇÃO DE MATÉRIAS: as três rotinas da revista (edição semanal de quinta, fechamento de quarta, perguntas de terça) e os dois lembretes marcados para 06/08 (liberação da Revista nº 3 às 6h45 e a mudança de DNS às 13h). A revista é outro produto e tem edição fechada esperando para sair.\n\nESTADO DA MESA NA HORA DA PAUSA: 16 matérias em import/pauta/ com status aguardando_aprovacao, todas com nota 8 ou mais e aprovadas no portão, mais o 'Pluft' com status 'segurada' e nota 5, fora da mesa até alguém confirmar a temporada no CCSP. Duas das 16 são quentes e perdem validade rápido: a estreia da Corrida dos Bichos (sexta, 07/08) e o recorde do Globoplay.\n\nPARA QUEM RETOMAR: a régua mudou muito nos dois últimos dias e está toda no manual 4.0 e no tools/CORTES.md. O que mais muda o trabalho: a pauta de Pedro Amaral passou a ser composta por quatro eixos de temperatura, a nota mínima para ir à mesa é 8, o fecho não pode ser link, o ritmo é medido e o portão compara o crédito da foto com a linha da legenda do Instagram."
+  },
+  {
    "quando": "2026-08-05T09:30:00-03:00",
    "por": "Rodada de teste da régua nova de pauta do Pedro Amaral (05/08), 2 matérias na assinatura dele, encomendada por ele para ver o que a casa passa a pegar. PRIMEIRA rodada sob os quatro eixos de temperatura e sob o manual 4.0.",
    "buscas": [
@@ -1690,33 +1698,6 @@
     "por-que-se-diz-merda-antes-da-estreia-no-teatro"
    ],
    "obs": "Capas de Wikimedia Commons com licença citada no crédito (CC BY 2.0 e domínio público). Capacidade da sala do Amazonas diverge entre fontes (684 oficial x 701 Wikipédia): texto usa o número oficial. Sem campo evento (matérias perenes). Sem commit/push nesta rodada, conforme instrução."
-  },
-  {
-   "quando": "2026-07-23T15:30:33+00:00",
-   "por": "Redação IA (Claude) — matéria avulsa formato Entenda",
-   "buscas": [
-    "Lei Rouanet como funciona incentivo fiscal teatro artes cênicas percentual dedução imposto de renda",
-    "Lei Rouanet 2025 limites captação por projeto portaria teto valores Ministério da Cultura",
-    "Instrução Normativa MinC 23/2025 Lei Rouanet regras cachê teto projeto",
-    "Lei Rouanet captação 2024 2025 recorde artes cênicas",
-    "Wikimedia Commons: interior de teatros brasileiros para foto de capa"
-   ],
-   "consideradas": [
-    {
-     "assunto": "Como funciona a Lei Rouanet no teatro",
-     "decisao": "escolhida",
-     "motivo": "Tema de alta busca no Google, sem cobertura no acervo, com fontes oficiais e de imprensa abundantes e números recentes (recorde de captação em 2025)."
-    },
-    {
-     "assunto": "O que faz um dramaturg / teatro imersivo / audições de musicais",
-     "decisao": "descartada",
-     "motivo": "Também inéditos no acervo, mas Rouanet rende mais busca e tinha apuração mais robusta disponível; ficam como sugestão para próximos explicadores."
-    }
-   ],
-   "produzidas": [
-    "como-funciona-a-lei-rouanet-no-teatro"
-   ],
-   "obs": "Foto de capa ilustrativa do interior do Teatro Amazonas (Wikimedia Commons, CC0, autor Ridiculopathy), 1920x1080 (16:9). gov.br bloqueou acesso direto; dados oficiais confirmados via CNN Brasil, Correio Braziliense e Nativa News. Sem campo evento (conteúdo perene)."
   }
  ]
 }
