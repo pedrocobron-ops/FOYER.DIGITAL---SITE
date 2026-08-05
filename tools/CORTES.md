@@ -42,6 +42,38 @@ justificativa que escreveu no campo `checagem`, o que é quase pior: a
 justificativa é o que o próximo checador lê.
 
 
+## 05/08/2026, à tarde: a porta dos fundos virou trava
+
+Sétima ocorrência em dois dias, e desta vez o Pedro pegou antes de qualquer
+agente. Ele viu que a matéria da **Corrida dos Bichos** estava ilustrada com
+retrato do diretor em vez de imagem do filme, e mandou trocar. Ele tinha
+razão e o manual concorda: divulgação oficial da própria produção é a
+PRIMEIRA origem aceita, e a capa só não era isso porque a página de imprensa
+da Amazon MGM devolvia 403 na primeira tentativa. A página da Amazon Brasil
+abre normalmente e tem os stills com a fotógrafa creditada.
+
+| Tipo | O que era | O que se achou | Matéria |
+|---|---|---|---|
+| `direito de foto` | Capa com retrato do diretor de 2012, em Creative Commons | Existe still oficial de divulgação, com Grazi Massafera e Rodrigo Santoro, fotografado por Laura Campanella, na página de imprensa da Amazon Brasil. Trocado; a nota subiu de 8 para 9 | Corrida dos Bichos |
+| `atribuição errada` | Trocada a capa, a linha 📷 da legenda do Instagram continuou creditando a foto ANTIGA | **A porta dos fundos pela sétima vez em dois dias.** Desta vez virou trava no portão no mesmo dia | Corrida dos Bichos |
+
+**A TRAVA, e o erro que eu cometi ao escrevê-la.** A primeira versão exigia
+que `imgCredito` e a linha 📷 fossem texto IDÊNTICO. Rodei na mesa e ela
+reprovou DUAS matérias boas, porque a casa usa `imgCredito` para crédito mais
+legenda descritiva, enquanto a linha 📷 leva só o crédito. Igualdade era a
+régua errada.
+
+A régua certa é **sobreposição**: o que denuncia a porta dos fundos é que,
+depois da troca de foto, os dois créditos não têm NENHUMA palavra em comum.
+A trava agora reprova só nesse caso, e foi testada nos dois sentidos: pega o
+erro real da Corrida dos Bichos e deixa passar as duas variações legítimas.
+
+Fica a lição, que vale para as próximas travas: **trava estrita demais é
+pior que trava nenhuma**, porque ensina a redação a contornar o portão em vez
+de escrever melhor. Toda trava nova roda na mesa inteira antes de valer.
+
+---
+
 ## 05/08/2026, rodada de teste da régua nova de pauta (quarta)
 
 2 matérias de cinema e streaming, assinatura Pedro Amaral, encomendadas por

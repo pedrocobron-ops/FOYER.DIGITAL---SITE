@@ -286,6 +286,36 @@ def auditar(caminho):
             problemas.append('INSTAGRAM legenda sem o fecho padrão da casa')
         if '📷' not in leg:
             problemas.append('INSTAGRAM legenda sem a linha 📷 de crédito')
+        else:
+            # A PORTA DOS FUNDOS (trava criada em 05/08/2026, na sétima ocorrência
+            # em dois dias). O padrão: alguém corrige o corpo ou o crédito da foto,
+            # a legenda do Instagram fica com a versão velha, e ninguém relê a
+            # legenda. O CORTES.md já chamava isso de "o pior tipo" de erro, porque
+            # parece resolvido na porta da frente e está vivo na dos fundos.
+            # Aqui dá para conferir por máquina o caso mais claro: o crédito da
+            # foto tem de ser o MESMO nos dois lugares.
+            linha = next((l for l in leg.split('\n') if '📷' in l), '')
+            cred_leg = linha.split('📷', 1)[-1].lstrip(': ').strip()
+            cred_img = re.sub(r'^Foto:\s*', '', cred).strip()
+
+            # Exigir texto IDÊNTICO nos dois seria estrito demais e reprovaria
+            # matéria boa: a casa usa imgCredito para crédito MAIS legenda
+            # descritiva, enquanto a linha 📷 leva só o crédito. O que denuncia a
+            # porta dos fundos é outra coisa: depois de trocar a foto, o crédito
+            # velho fica na legenda, e aí os dois textos não têm NADA em comum.
+            # Então a régua é sobreposição, não igualdade.
+            def _marcas(t):
+                t = re.sub(r'[^\wÀ-ÿ ]', ' ', t.lower())
+                return {w for w in t.split()
+                        if len(w) > 3 and w not in {'foto', 'fotos', 'divulgacao',
+                                                    'divulgação', 'imagem', 'como',
+                                                    'para', 'pela', 'pelo', 'commons'}}
+            a, b = _marcas(cred_img), _marcas(cred_leg)
+            if a and b and not (a & b):
+                problemas.append(
+                    f'CRÉDITO DIVERGENTE entre a foto e a legenda do Instagram, '
+                    f'sem uma palavra em comum: imgCredito diz "{cred_img[:70]}" e a '
+                    f'linha 📷 diz "{cred_leg[:70]}". Quem troca a foto troca os dois')
     for fmt in ('feed', 'story'):
         if not os.path.exists(os.path.join(ROOT, f'assets/social/{slug}-{fmt}.jpg')):
             problemas.append(f'ARTE FALTANDO: assets/social/{slug}-{fmt}.jpg')
