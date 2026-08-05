@@ -1031,6 +1031,8 @@ body.ads-on.ads-demo .ad-slot::after{
   font-family:var(--mono); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase;
   color:var(--ink-soft); padding:8px 2px 0;
 }
+/* o crédito da foto no meio do texto: linha própria, mais discreta que a legenda */
+.art-img .fig-cred{ display:block; opacity:.75; margin-top:3px; }
 .art-video{ margin:26px 0; aspect-ratio:16/9; border:var(--b); }
 .art-video iframe{ width:100%; height:100%; border:0; display:block; }
 .art-body ul, .art-body ol{ margin:0 0 20px; padding-left:24px; }

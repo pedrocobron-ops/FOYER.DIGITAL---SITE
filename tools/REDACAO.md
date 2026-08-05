@@ -1252,6 +1252,11 @@ citação real; `**negrito**` para nomes de obras; `[link](url)` se preciso.
 
 Blocos opcionais (usar quando enriquecem de verdade):
 
+- `img:caminho | legenda | crédito` foto no meio do texto. A legenda diz o
+  que o leitor está vendo; o crédito diz quem fez a foto (ex.:
+  `Foto: Nome Sobrenome/Divulgação`) e sai numa linha própria, mais
+  discreta. Os dois campos são opcionais, mas foto de jornal leva os dois.
+  Antes de 05/08/2026 o crédito ia espremido dentro da legenda — separar.
 - `video:URL_DO_YOUTUBE` incorpora o vídeo (trailer oficial do
   espetáculo, clipe ou episódio do canal do FOYER quando o assunto tiver
   cobertura nossa) — ótimo para tempo de permanência na página.

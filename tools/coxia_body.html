@@ -715,10 +715,10 @@
   .prev-body img.capa{ width:100%; max-height:340px; object-fit:cover; border:2px solid var(--ink); }
   .prev-body .cred{ font-family:var(--mono); font-size:.56rem; letter-spacing:.1em;
     text-transform:uppercase; color:var(--ink-soft); }
-  .prev-body .corpo p{ margin:0 0 14px; line-height:1.85; }
-  .prev-body .corpo h3{ font-size:1.05rem; text-transform:uppercase; margin:22px 0 8px;
+  .prev-body .corpo p, .esp-body p{ margin:0 0 14px; line-height:1.85; }
+  .prev-body .corpo h3, .esp-body h3{ font-size:1.05rem; text-transform:uppercase; margin:22px 0 8px;
     border-bottom:2px solid var(--gold); display:inline-block; padding-bottom:5px; }
-  .prev-body .corpo blockquote{ margin:16px 0; padding:10px 16px; border-left:3px solid var(--gold);
+  .prev-body .corpo blockquote, .esp-body blockquote{ margin:16px 0; padding:10px 16px; border-left:3px solid var(--gold);
     font-family:var(--didone); font-size:1.1rem; }
   .prev-avisos{ border-top:2px solid var(--ink); padding:12px 18px; font-family:var(--mono);
     font-size:.6rem; letter-spacing:.08em; line-height:2; }
@@ -734,6 +734,33 @@
   .f-conta .c1{ font-size:.72rem; font-weight:700; color:var(--ink); letter-spacing:.05em; }
   .f-conta .bom{ color:var(--ok); font-weight:700; }
   .f-conta .err{ color:var(--err); font-weight:700; }
+  /* ---- O ESPELHO: escrever vendo o resultado (pedido do Pedro, 05/08/2026).
+     O desenho é o dos editores de redação (Gutenberg do WordPress): a foto
+     aparece no fluxo do texto com a legenda embaixo, não como linha de código. */
+  .corpo-duplo{ display:grid; gap:14px; grid-template-columns:1fr; align-items:start; }
+  .espelho{ display:none; border:1.5px solid var(--line); background:var(--paper); min-width:0; }
+  .corpo-duplo.ver .espelho{ display:block; }
+  .esp-rotulo{ font-family:var(--mono); font-size:.54rem; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--ink-soft); padding:8px 12px; border-bottom:1px solid var(--line); background:var(--paper-2); }
+  .esp-body{ padding:14px 16px 6px; overflow:auto; max-height:600px; overscroll-behavior:contain; }
+  .esp-body:empty::after{ content:'O texto aparece aqui, do jeito que vai sair no site, enquanto você escreve.';
+    display:block; color:var(--ink-soft); font-size:.85rem; padding:6px 0 14px; }
+  .esp-b{ border-left:3px solid transparent; padding-left:8px; margin-left:-11px; cursor:pointer; }
+  .esp-b:hover{ border-left-color:var(--gold); background:var(--paper-2); }
+  .esp-b figure{ margin:8px 0 14px; }
+  .esp-b figure img{ max-width:100%; display:block; border:2px solid var(--ink); }
+  .esp-b figcaption{ font-family:var(--mono); font-size:.6rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ink-soft); padding:7px 2px 0; }
+  .esp-leg-falta{ font-family:var(--mono); font-size:.58rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--err); margin:-6px 0 12px; }
+  .fig-cred{ display:block; opacity:.75; margin-top:2px; }
+  .corpo-escreve textarea.arrasta{ outline:3px dashed var(--gold); outline-offset:-3px; }
+  .leg-rotulo{ font-family:var(--mono); font-size:.58rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); }
+  @media (min-width:1100px){
+    .corpo-duplo{ grid-template-columns:1fr 1fr; }
+    .espelho{ display:block; position:sticky; top:10px; }
+    #btn-espelho{ display:none; }
+  }
   .rasc-aviso{ display:none; border:2px solid var(--gold); background:var(--paper-2); padding:10px 14px;
     margin-bottom:14px; font-family:var(--mono); font-size:.6rem; letter-spacing:.1em;
     text-transform:uppercase; }
@@ -1115,9 +1142,16 @@ Entrevista com o diretor em 21/07"></textarea>
                 <button type="button" data-md="video:">▶ Vídeo</button>
                 <button type="button" data-md="botao:">🎟 Botão de link</button>
                 <button type="button" data-md="***">✦ Divisor</button>
+                <button type="button" id="btn-espelho">🪞 Ver como sai</button>
                 <button type="button" id="btn-estilo" style="margin-left:auto">📖 Padrão da casa</button>
               </div>
-              <textarea id="f-body" rows="14" placeholder="Escreva em parágrafos separados por linha em branco.
+              <!-- ESCREVER VENDO O RESULTADO. O texto cru fica de um lado e o
+                   espelho do outro, mostrando a matéria como sai no site — foto
+                   com legenda incluída — a cada tecla. Clicar na foto do espelho
+                   abre legenda e crédito; clicar num trecho leva o cursor a ele. -->
+              <div class="corpo-duplo" id="corpo-duplo">
+                <div class="corpo-escreve">
+                  <textarea id="f-body" rows="18" placeholder="Escreva em parágrafos separados por linha em branco.
 
 ## Um intertítulo fica assim
 
@@ -1125,13 +1159,21 @@ Entrevista com o diretor em 21/07"></textarea>
 
 > Uma citação destacada fica assim
 
-Blocos opcionais pelos botões acima: fotos no texto, galeria,
-vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea>
-              <!-- Contador colado no campo de texto (pedido do Pedro, 05/08/2026).
-                   Caracteres é o que ele pediu; palavras e intertítulos vão junto
-                   porque é POR ELES que o portão aprova ou reprova a matéria, e
-                   descobrir isso só na hora de salvar é tarde. -->
-              <div class="f-conta" id="st-conta"><span class="c1">0 caracteres</span></div>
+Fotos: use o botão 📷 acima, arraste o arquivo direto para cá
+ou cole com Ctrl+V. A foto aparece no espelho ao lado — clique
+nela para escrever a legenda e o crédito.
+
+Também entram pelos botões: vídeo do YouTube, botão de
+ingressos e divisor."></textarea>
+                  <!-- Contador colado no campo de texto (pedido do Pedro, 05/08/2026):
+                       caracteres em destaque, e a régua do porte que o portão cobra. -->
+                  <div class="f-conta" id="st-conta"><span class="c1">0 caracteres</span></div>
+                </div>
+                <div class="espelho" id="espelho">
+                  <div class="esp-rotulo">👁 Como sai no site — ao vivo · clique numa foto para legenda e crédito · clique num trecho para ir até ele</div>
+                  <div class="esp-body" id="espelho-body"></div>
+                </div>
+              </div>
             </div>
             <div>
               <label>Evento (opcional — alimenta a Agenda do site)</label>
@@ -1773,6 +1815,22 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       <button class="bt" type="button" id="prev-fechar">✕ Fechar</button></div>
     <div class="prev-body" id="prev-body"></div>
     <div class="prev-avisos" id="prev-avisos"></div>
+  </div>
+</div>
+
+<div class="cx-dlg" id="leg-overlay" role="dialog" aria-modal="true" aria-label="Legenda e crédito da foto">
+  <div class="cx-dlg-box">
+    <div class="cx-dlg-top">📷 Foto no meio do texto</div>
+    <img id="leg-foto" alt="" style="display:block;width:calc(100% - 48px);max-height:220px;object-fit:contain;background:var(--paper-2);border:1.5px solid var(--line);margin:0 24px;box-sizing:border-box">
+    <div class="cx-dlg-in" style="margin-top:12px"><label class="leg-rotulo" for="leg-texto">Legenda — o que o leitor está vendo</label>
+      <input type="text" id="leg-texto" placeholder="Ex.: Fulana de Tal em cena, no Teatro X" style="margin-top:5px"></div>
+    <div class="cx-dlg-in" style="margin-top:12px"><label class="leg-rotulo" for="leg-cred">Crédito — quem fez a foto</label>
+      <input type="text" id="leg-cred" placeholder="Ex.: Foto: Nome Sobrenome/Divulgação" style="margin-top:5px"></div>
+    <div class="cx-dlg-acoes">
+      <button class="bt" type="button" id="leg-remover" style="margin-right:auto">🗑 Tirar a foto do texto</button>
+      <button class="bt" type="button" id="leg-cancel">Cancelar</button>
+      <button class="bt ap" type="button" id="leg-ok">Salvar</button>
+    </div>
   </div>
 </div>
 
@@ -3106,6 +3164,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var achou = CLICHES.filter(function(c){ return t.toLowerCase().indexOf(c) > -1; });
     if(achou.length) avisos.push('⚠ clichê de release: ' + achou.join(', '));
     $('st-alerta').innerHTML = avisos.length ? '<span class="err">' + avisos.join(' · ') + '</span>' : '';
+    // o espelho acompanha: statusTexto roda a cada tecla E depois de toda
+    // gravação programática (abrir para editar, restaurar rascunho), então
+    // pendurar aqui garante que o espelho nunca fica para trás
+    espelhoAgenda();
   }
   $('f-body').addEventListener('input', statusTexto);
   $('f-title').addEventListener('input', statusTexto);
@@ -3709,28 +3771,136 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   document.body.appendChild(corpoImgInput);
   corpoImgInput.addEventListener('change', function(){
     var files = Array.prototype.slice.call(this.files); this.value = '';
+    subirFotosCorpo(files);
+  });
+  function subirFotosCorpo(files){
+    files = (files || []).filter(function(f){
+      return /^image\//.test(f.type || '') || /\.(jpe?g|png|webp|gif)$/i.test(f.name || ''); });
     if(!files.length) return;
     if(!podeGravar()){ avisar(recadoSemChave()); return; }
     var ta = $('f-body'), slugBase = slugify($('f-title').value || 'materia') || 'materia';
     var btnFoto = document.querySelector('[data-md="img:"]');
     if(btnFoto) btnFoto.textContent = '⏳ Subindo ' + files.length + ' foto(s)…';
+    // marca única no nome: subir foto duas vezes para a mesma matéria não
+    // pode sobrescrever a anterior
+    var marca = Date.now().toString(36);
     var caminhos = [];
     var fila = files.reduce(function(p, file, i){
       return p.then(function(){
         return redimensionar(file)
-          .then(function(d){ return subirImagem(d, slugBase + '-corpo' + i); })
+          .then(function(d){ return subirImagem(d, slugBase + '-corpo-' + marca + i); })
           .then(function(c){ caminhos.push(c); });
       });
     }, Promise.resolve());
     fila.then(function(){
       var ini = ta.selectionStart;
-      var trecho = caminhos.length > 1
-        ? '\n\ngaleria:' + caminhos.join(' | ') + '\n\n'
-        : '\n\nimg:' + caminhos[0] + ' | Escreva a legenda aqui\n\n';
-      ta.value = ta.value.slice(0, ini) + trecho + ta.value.slice(ini);
-      statusTexto(); salvarRasc(); ta.focus();
+      var bloco = caminhos.length > 1
+        ? 'galeria:' + caminhos.join(' | ')
+        : 'img:' + caminhos[0];
+      ta.value = ta.value.slice(0, ini) + '\n\n' + bloco + '\n\n' + ta.value.slice(ini);
+      statusTexto(); salvarRasc();
+      // uma foto só: já abre a janelinha de legenda e crédito, que é o que
+      // foto de jornal precisa ter. Galeria não tem legenda por foto.
+      if(caminhos.length === 1) abrirLegenda({ ini: ini + 2, fim: ini + 2 + bloco.length, txt: bloco });
+      else ta.focus();
     }).catch(function(err){ avisar('Falha ao subir: ' + err.message); })
       .finally(function(){ if(btnFoto) btnFoto.textContent = '📷 Fotos (várias)'; });
+  }
+  // a foto também entra arrastada da pasta ou colada com Ctrl+V
+  (function(){
+    var ta = $('f-body');
+    ta.addEventListener('dragover', function(e){
+      var its = (e.dataTransfer && e.dataTransfer.items) || [];
+      if([].some.call(its, function(it){ return it.kind === 'file'; })){ e.preventDefault(); ta.classList.add('arrasta'); }
+    });
+    ta.addEventListener('dragleave', function(){ ta.classList.remove('arrasta'); });
+    ta.addEventListener('drop', function(e){
+      ta.classList.remove('arrasta');
+      var fs = Array.prototype.slice.call((e.dataTransfer && e.dataTransfer.files) || []);
+      if(fs.length){ e.preventDefault(); subirFotosCorpo(fs); }
+    });
+    ta.addEventListener('paste', function(e){
+      var fs = Array.prototype.slice.call((e.clipboardData && e.clipboardData.files) || []);
+      if(fs.some(function(f){ return /^image\//.test(f.type); })){ e.preventDefault(); subirFotosCorpo(fs); }
+    });
+  })();
+
+  // ---------- o espelho: a matéria como sai no site, ao vivo ----------
+  // Cada bloco do texto vira um bloco clicável no espelho. Foto abre a
+  // janelinha de legenda; qualquer outro trecho leva o cursor até ele.
+  function blocosComPosicao(){
+    var txt = $('f-body').value, out = [], re = /\n\s*\n/g, ini = 0, m;
+    while((m = re.exec(txt)) !== null){ out.push({ ini: ini, fim: m.index }); ini = re.lastIndex; }
+    out.push({ ini: ini, fim: txt.length });
+    return out.map(function(p){ return { ini: p.ini, fim: p.fim, txt: txt.slice(p.ini, p.fim) }; })
+              .filter(function(p){ return p.txt.trim(); });
+  }
+  var espTimer = null;
+  function espelhoVivo(){
+    var el = $('espelho-body'); if(!el) return;
+    el.innerHTML = blocosComPosicao().map(function(p, i){
+      var h = mdRender(p.txt) ||
+        '<p style="color:var(--ink-soft);font-size:.85rem">(bloco vazio — confira o endereço colado)</p>';
+      if(p.txt.trim().indexOf('img:') === 0 && !(p.txt.trim().slice(4).split('|')[1] || '').trim()){
+        h += '<div class="esp-leg-falta">⚠ foto sem legenda — clique nela para escrever</div>';
+      }
+      return '<div class="esp-b" data-i="' + i + '" title="Clique para editar este trecho">' + h + '</div>';
+    }).join('');
+  }
+  function espelhoAgenda(){ clearTimeout(espTimer); espTimer = setTimeout(espelhoVivo, 180); }
+  $('espelho-body').addEventListener('click', function(e){
+    var box = e.target.closest('.esp-b'); if(!box) return;
+    if(e.target.tagName === 'A') e.preventDefault();
+    var p = blocosComPosicao()[+box.getAttribute('data-i')]; if(!p) return;
+    if(p.txt.trim().indexOf('img:') === 0){ abrirLegenda(p); return; }
+    var ta = $('f-body');
+    ta.focus(); ta.setSelectionRange(p.ini, p.fim);
+    ta.scrollTop = Math.max(0, (p.ini / Math.max(1, ta.value.length)) * ta.scrollHeight - ta.clientHeight / 2);
+  });
+  var btnEsp = $('btn-espelho');
+  if(btnEsp) btnEsp.addEventListener('click', function(){
+    var d = $('corpo-duplo'); d.classList.toggle('ver');
+    btnEsp.textContent = d.classList.contains('ver') ? '🪞 Esconder' : '🪞 Ver como sai';
+    if(d.classList.contains('ver')) espelhoVivo();
+  });
+
+  // ---------- legenda e crédito da foto, numa janelinha ----------
+  var LEG = null;
+  function abrirLegenda(p){
+    var partes = p.txt.trim().slice(4).split('|');
+    LEG = { ini: p.ini, fim: p.fim, url: (partes[0] || '').trim() };
+    $('leg-foto').src = LEG.url;
+    var lg = (partes[1] || '').trim();
+    if(/^escreva a legenda aqui$/i.test(lg)) lg = '';   // o texto-tampão antigo não é legenda
+    $('leg-texto').value = lg;
+    $('leg-cred').value = (partes[2] || '').trim();
+    $('leg-overlay').classList.add('on');
+    setTimeout(function(){ $('leg-texto').focus(); }, 30);
+  }
+  function legFecha(){ $('leg-overlay').classList.remove('on'); LEG = null; }
+  function trocarTrecho(ini, fim, novo){
+    var ta = $('f-body');
+    ta.value = ta.value.slice(0, ini) + novo + ta.value.slice(fim);
+    statusTexto(); salvarRasc();
+  }
+  $('leg-ok').addEventListener('click', function(){
+    if(!LEG) return legFecha();
+    var lg = $('leg-texto').value.trim().replace(/\|/g, '/');
+    var cr = $('leg-cred').value.trim().replace(/\|/g, '/');
+    var linha = 'img:' + LEG.url + (lg || cr ? ' | ' + lg : '') + (cr ? ' | ' + cr : '');
+    trocarTrecho(LEG.ini, LEG.fim, linha); legFecha();
+  });
+  $('leg-remover').addEventListener('click', function(){
+    if(!LEG) return legFecha();
+    trocarTrecho(LEG.ini, LEG.fim, ''); legFecha();
+  });
+  $('leg-cancel').addEventListener('click', legFecha);
+  $('leg-overlay').addEventListener('click', function(e){ if(e.target === this) legFecha(); });
+  ['leg-texto', 'leg-cred'].forEach(function(id){
+    $(id).addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); $('leg-ok').click(); } });
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && $('leg-overlay').classList.contains('on')) legFecha();
   });
 
   function colherEvento(){
@@ -4283,8 +4453,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       if(b.replace(/[* ]/g, '') === '' && b.indexOf('*') > -1) return '<div style="text-align:center;color:var(--gold);letter-spacing:1em">✦ ✦ ✦</div>';
       if(b.indexOf('img:') === 0){
         var resto = b.slice(4).split('|');
+        var _leg = (resto[1] || '').trim(), _crd = (resto[2] || '').trim();
         return '<figure><img src="' + esc(urlSegura(resto[0].trim())) + '" alt="" style="max-width:100%">' +
-               (resto[1] ? '<figcaption>' + esc(resto[1].trim()) + '</figcaption>' : '') + '</figure>';
+               (_leg || _crd ? '<figcaption>' + esc(_leg) +
+                 (_crd ? ' <span class="fig-cred">' + esc(_crd) + '</span>' : '') + '</figcaption>' : '') + '</figure>';
       }
       var e = esc(b)
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')

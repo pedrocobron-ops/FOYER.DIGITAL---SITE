@@ -1408,10 +1408,18 @@ def md_lite(txt):
         if not b:
             continue
         if b.startswith('img:'):
-            resto = b[4:].strip()
-            url, _, cap = resto.partition('|')
-            capt = f'<figcaption>{_h.escape(cap.strip())}</figcaption>' if cap.strip() else ''
-            out.append(f'<figure class="art-img"><img src="{_h.escape(url.strip())}" alt="" loading="lazy">{capt}</figure>')
+            # img:endereço | legenda | crédito — legenda e crédito opcionais.
+            # O crédito ganhou casa própria em 05/08/2026: foto de jornal leva
+            # os dois, e antes o crédito ia espremido dentro da legenda.
+            partes = [x.strip() for x in b[4:].strip().split('|')]
+            url = partes[0] if partes else ''
+            cap = partes[1] if len(partes) > 1 else ''
+            cred = partes[2] if len(partes) > 2 else ''
+            dentro = _h.escape(cap)
+            if cred:
+                dentro += f' <span class="fig-cred">{_h.escape(cred)}</span>'
+            capt = f'<figcaption>{dentro}</figcaption>' if (cap or cred) else ''
+            out.append(f'<figure class="art-img"><img src="{_h.escape(url)}" alt="{_h.escape(cap)}" loading="lazy">{capt}</figure>')
             continue
         if b.startswith('## '):
             out.append(f'<h2>{_h.escape(b[3:].strip())}</h2>')
