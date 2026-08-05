@@ -58,6 +58,9 @@ PORTES = {
 
 def _texto_limpo(corpo):
     t = re.sub(r'\[([^\]]+)\]\([^)]*\)', r'\1', corpo)
+    # a galeria nova é multilinha (uma foto por linha, com legenda e crédito):
+    # o bloco inteiro sai da conta de palavras, não só a primeira linha
+    t = re.sub(r'^galeria:[^\n]*(?:\n[ \t]*\S[^\n]*)*', '', t, flags=re.M)
     t = re.sub(r'^(img:|video:|galeria:|botao:|spotify:|#+ |\*\*\*).*$', '', t, flags=re.M)
     return t
 

@@ -1261,8 +1261,18 @@ Blocos opcionais (usar quando enriquecem de verdade):
   espetáculo, clipe ou episódio do canal do FOYER quando o assunto tiver
   cobertura nossa) — ótimo para tempo de permanência na página.
 - `spotify:URL` incorpora o player de episódio/faixa do Spotify.
-- `galeria:caminho1 | caminho2 | caminho3` para 2+ fotos lado a lado
-  (baixar cada uma para assets/uploads/ como a capa).
+- `galeria:` para 2+ fotos lado a lado, **uma foto por linha, cada uma com
+  legenda e crédito próprios** (novo em 05/08/2026; baixar cada foto para
+  assets/uploads/ como a capa):
+
+  ```
+  galeria:
+  assets/uploads/foto-a.jpg | legenda da primeira | Foto: Fulano/Divulgação
+  assets/uploads/foto-b.jpg | legenda da segunda | Foto: Sicrana/Divulgação
+  ```
+
+  A grafia antiga numa linha só (`galeria:a.jpg | b.jpg`) continua valendo,
+  mas sai sem legenda — usar só quando as fotos dispensarem.
 - `botao:Comprar ingressos | URL` botão de destaque; usar SEMPRE que a
   matéria tiver venda de ingressos ou inscrição com link oficial
   (inclusive um por indicação no Guia do Fim de Semana).

@@ -1437,9 +1437,43 @@ def md_lite(txt):
                 out.append(f'<div class="art-spotify"><iframe src="{_h.escape(_u)}" title="Spotify" loading="lazy" frameborder="0" allow="encrypted-media"></iframe></div>')
             continue
         if b.startswith('galeria:'):
-            _imgs = [x.strip() for x in b[8:].split('|') if x.strip()]
-            _cells = ''.join(f'<img src="{_h.escape(u)}" alt="" loading="lazy">' for u in _imgs)
-            out.append(f'<div class="art-galeria">{_cells}</div>')
+            # Duas grafias (05/08/2026, pedido do Pedro: legenda e crédito POR FOTO):
+            #   antiga, uma linha:  galeria:a.jpg | b.jpg | c.jpg   (sem legendas)
+            #   nova, uma foto por linha:
+            #     galeria:
+            #     a.jpg | legenda | crédito
+            #     b.jpg | legenda
+            _linhas = b.split('\n')
+            _r0 = _linhas[0][8:].strip()
+            _itens = []
+
+            def _g_item(s):
+                _ps = [x.strip() for x in s.split('|')]
+                return (_ps[0] if _ps else '',
+                        _ps[1] if len(_ps) > 1 else '',
+                        _ps[2] if len(_ps) > 2 else '')
+            if _r0:
+                _ps0 = [x.strip() for x in _r0.split('|') if x.strip()]
+                _so_caminhos = len(_ps0) > 1 and all(
+                    _re.search(r'\.(jpe?g|png|webp|gif)(\?.*)?$', p, _re.I)
+                    or p.startswith(('assets/', 'http'))
+                    for p in _ps0)
+                if _so_caminhos:
+                    _itens += [(p, '', '') for p in _ps0]
+                else:
+                    _itens.append(_g_item(_r0))
+            for _ln in _linhas[1:]:
+                _ln = _ln.strip()
+                if _ln:
+                    _itens.append(_g_item(_ln))
+            _cells = []
+            for _u, _cap, _cred in _itens:
+                _dentro = _h.escape(_cap)
+                if _cred:
+                    _dentro += f' <span class="fig-cred">{_h.escape(_cred)}</span>'
+                _capt = f'<figcaption>{_dentro}</figcaption>' if (_cap or _cred) else ''
+                _cells.append(f'<figure><img src="{_h.escape(_u)}" alt="{_h.escape(_cap)}" loading="lazy">{_capt}</figure>')
+            out.append(f'<div class="art-galeria">{"".join(_cells)}</div>')
             continue
         if b.startswith('botao:'):
             _rot, _, _url = b[6:].partition('|')
