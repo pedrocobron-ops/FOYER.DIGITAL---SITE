@@ -761,6 +761,14 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
   .f-status{ font-family:var(--mono); font-size:.58rem; letter-spacing:.1em; text-transform:uppercase;
     color:var(--ink-soft); display:flex; gap:14px; flex-wrap:wrap; margin-top:6px; }
   .f-status .err{ color:var(--err); font-weight:700; }
+  /* contador colado no campo de texto: caracteres em destaque (o que o Pedro
+     pediu), e ao lado a conta que o portão realmente cobra */
+  .f-conta{ font-family:var(--mono); font-size:.6rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ink-soft); display:flex; gap:12px; flex-wrap:wrap; align-items:baseline;
+    padding:7px 2px 0; border-top:1px solid var(--line); margin-top:-1px; }
+  .f-conta .c1{ font-size:.72rem; font-weight:700; color:var(--ink); letter-spacing:.05em; }
+  .f-conta .bom{ color:var(--ok); font-weight:700; }
+  .f-conta .err{ color:var(--err); font-weight:700; }
   .rasc-aviso{ display:none; border:2px solid var(--gold); background:var(--paper-2); padding:10px 14px;
     margin-bottom:14px; font-family:var(--mono); font-size:.6rem; letter-spacing:.1em;
     text-transform:uppercase; }
@@ -871,6 +879,8 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
   .mesa-semfoto{ font-family:var(--sans); font-size:.86rem; letter-spacing:0; text-transform:none; }
   .prev-avisos{ font-family:var(--sans); font-size:.82rem; letter-spacing:0; text-transform:none; }
   .f-status{ font-family:var(--sans); font-size:.82rem; letter-spacing:0; text-transform:none; }
+  .f-conta{ font-family:var(--sans); font-size:.82rem; letter-spacing:0; text-transform:none; }
+  .f-conta .c1{ font-size:.92rem; letter-spacing:0; }
   .quick button, .quick a{ font-family:var(--sans); font-weight:700; letter-spacing:.01em; text-transform:none; }
   .tk-dot{ font-family:var(--sans); font-size:.8rem; letter-spacing:0; text-transform:none; }
   #edit-banner{ font-family:var(--sans); letter-spacing:0; text-transform:none; }
@@ -1022,7 +1032,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
         <h2 class="hi" id="saudacao">Boa noite</h2>
         <p class="hi-sub">O panorama do FOYER neste momento</p>
         <div class="stats">
-          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1596</b><span>matérias no acervo</span></button>
+          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1598</b><span>matérias no acervo</span></button>
           <button class="stat" type="button" data-go="fila" data-foco="#fila-list"><b id="st-pub">—</b><span>publicadas pela Coxia</span></button>
           <button class="stat" type="button" data-go="fila" data-foco=".fila-agenda" data-foco-alt="#fila-list"><b id="st-ag">—</b><span>agendadas esperando a hora</span></button>
           <button class="stat" type="button" id="card-mesa" data-go="ia" data-foco="#mesa-list"><b id="st-mesa">—</b><span>na mesa de aprovação</span></button>
@@ -1152,6 +1162,11 @@ Entrevista com o diretor em 21/07"></textarea>
 
 Blocos opcionais pelos botões acima: fotos no texto, galeria,
 vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea>
+              <!-- Contador colado no campo de texto (pedido do Pedro, 05/08/2026).
+                   Caracteres é o que ele pediu; palavras e intertítulos vão junto
+                   porque é POR ELES que o portão aprova ou reprova a matéria, e
+                   descobrir isso só na hora de salvar é tarde. -->
+              <div class="f-conta" id="st-conta"><span class="c1">0 caracteres</span></div>
             </div>
             <div>
               <label>Evento (opcional — alimenta a Agenda do site)</label>
@@ -1178,7 +1193,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                 <input type="hidden" id="f-data">
               </div>
             </div>
-            <div class="f-status"><span id="st-palavras">0 palavras</span><span id="st-alerta"></span></div>
+            <div class="f-status"><span id="st-alerta"></span></div>
             <div style="display:flex; gap:10px; flex-wrap:wrap">
               <button class="bt" type="button" id="btn-prev" style="padding:14px 18px">👁 Pré-visualizar</button>
               <button class="bt" type="button" id="btn-guardar" style="padding:14px 18px" title="Guarda o rascunho na nuvem para continuar em qualquer aparelho">☁ Guardar rascunho</button>
@@ -2137,7 +2152,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // o mesmo pedido não vai duas vezes ao GitHub em menos de um minuto:
   // a Coxia lê as mesmas pastas em várias abas, e o limite por hora é curto
   // a Coxia muda toda semana: este carimbo diz qual versão está aberta
-  var COXIA_VERSAO = '20260805-114513';
+  var COXIA_VERSAO = '20260805-123913';
   var GH_CACHE = {};
   function ghCacheGet(chave){
     var c = GH_CACHE[chave];
@@ -3079,10 +3094,46 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     });
   });
 
+  // As mesmas faixas do portão mecânico (tools/audita_pauta.py). Se um dia
+  // mudarem lá, mudam aqui: piso, teto, mínimo e máximo de intertítulos.
+  var PORTES_COXIA = {
+    release:          [350,  500, 0,  0],
+    quente:           [400,  600, 0,  2],
+    contextualizada:  [700, 1100, 3,  5],
+    lista:            [900, 1500, 5, 14]
+  };
+  function mil(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+
   function statusTexto(){
     var t = $('f-body').value;
     var n = t.split(/\s+/).filter(Boolean).length;
-    $('st-palavras').textContent = n + ' palavra' + (n === 1 ? '' : 's') + (n && n < 300 ? ' (curta)' : '');
+    var chars = t.length;
+    var inter = (t.match(/^##\s+\S/gm) || []).length;
+
+    // 1) o que o Pedro pediu, em primeiro lugar e em letra maior
+    var partes = ['<span class="c1">' + mil(chars) + ' caractere' + (chars === 1 ? '' : 's') + '</span>'];
+    partes.push('<span>' + mil(n) + ' palavra' + (n === 1 ? '' : 's') + '</span>');
+    partes.push('<span>' + inter + ' intertítulo' + (inter === 1 ? '' : 's') + '</span>');
+
+    // 2) a régua do porte, quando a matéria tem um declarado: é ela que o
+    //    portão vai cobrar, então a conta aparece já comparada com a faixa.
+    var porte = (EDIT && EDIT.orig && EDIT.orig.porte) ? String(EDIT.orig.porte).toLowerCase() : '';
+    var fx = PORTES_COXIA[porte];
+    if(fx){
+      var okP = n >= fx[0] && n <= fx[1];
+      var okI = inter >= fx[2] && inter <= fx[3];
+      var falta = n < fx[0] ? ('faltam ' + mil(fx[0] - n)) : (n > fx[1] ? ('sobram ' + mil(n - fx[1])) : '');
+      partes.push('<span class="' + (okP && okI ? 'bom' : 'err') + '">porte ' + esc(porte) +
+        ': ' + mil(fx[0]) + '–' + mil(fx[1]) + ' palavras' + (okP ? ' ✓' : ' (' + falta + ')') +
+        ' · ' + fx[2] + '–' + fx[3] + ' intertítulos' + (okI ? ' ✓' : ' ✗') + '</span>');
+    } else if(n){
+      // sem porte declarado: diz em qual faixa o tamanho atual cabe
+      var cabe = Object.keys(PORTES_COXIA).filter(function(p){
+        return n >= PORTES_COXIA[p][0] && n <= PORTES_COXIA[p][1]; });
+      partes.push('<span>' + (cabe.length ? 'cabe em: ' + cabe.join(' ou ') : 'fora das faixas da casa') + '</span>');
+    }
+    $('st-conta').innerHTML = partes.join('');
+
     var avisos = [];
     if(/[—–]/.test(t + $('f-title').value)) avisos.push('⚠ TRAVESSÃO no texto (banido no padrão da casa)');
     var CLICHES = ['imperdível', 'vibrante', 'promete emocionar', 'experiência única', 'sucesso absoluto',
