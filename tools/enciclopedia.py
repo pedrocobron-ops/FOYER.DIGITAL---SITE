@@ -11,7 +11,8 @@ import/enciclopedia.json:
     "porVideo":  { "videoId": ["slug-pessoa", ...] } }
 
 Critério de verbete: a pessoa assina matéria, aparece em título de episódio,
-ou é citada em 2+ matérias diferentes (corta falso positivo de citação única).
+é TEMA de matéria (nome no título, quando o título é no padrão da casa) ou é
+citada em 2+ matérias diferentes (corta falso positivo de citação única).
 """
 import json, os, re, unicodedata
 from collections import defaultdict
@@ -36,6 +37,7 @@ Direção Direcao Produção Producao Realização Realizacao Apresentação Apr
 Patrocinio Apoio Entrada Gratuita Grátis Gratis Livre Anos Ano Edição Edicao Especial Noite
 Dia Tarde Manhã Manha Hora Vez Gente Show Shows Rio Grande Foyer Digital Oscar Grammy Tony
 Oz Bruxas Sonho Verão Verao Reveillon Réveillon Natal Páscoa Pascoa Carnaval
+Drag Race Longa Curta Filme Filmes Série Serie Séries Series Documentário Documentario Comédia Comedia Tragédia Tragedia Fringe Legalmente Old
 Serviço Servico Espetáculo Espetaculo Espetáculos Espetaculos Sinopse Em Até Ate Melhor Melhores
 Sympla Duração Duracao Entretenimento Produções Producoes Eventos Ficha Técnica Tecnica Local
 Onde Quando Quanto Vendas Bilheteria Plateia Balcão Balcao Meia Inteira Reais Confira Saiba
@@ -93,8 +95,13 @@ PREP_PONTA = {'na', 'no', 'nas', 'nos', 'em', 'a', 'à', 'ao', 'às', 'aos', 'pe
               'até', 'ate', 'desde', 'após', 'apos', 'durante', 'contra', 'segundo',
               'conforme', 'perante', 'já', 'ja', 'e', 'ou', 'mas', 'se', 'quando', 'como'}
 
-TOKEN = r"[A-ZÁÂÃÀÉÊÍÓÔÕÚÜÇ][a-záâãàéêíóôõúüçñ'\-]+"
-NOME_RE = re.compile(rf"\b({TOKEN}(?:\s+(?:(?:{'|'.join(CONECT)})\s+)?{TOKEN}){{1,3}})\b")
+# Uma palavra de nome: maiúscula + minúsculas, aceitando emenda por apóstrofo
+# (reto ou curvo) ou hífen que recomeça em maiúscula — O'Hara, D'Ávila,
+# Ana-Maria. Sem isso, "Eureka O'Hara" nunca virava verbete (05/08/2026).
+TOKEN = r"[A-ZÁÂÃÀÉÊÍÓÔÕÚÜÇ][a-záâãàéêíóôõúüçñ]+(?:['’\-][A-ZÁÂÃÀÉÊÍÓÔÕÚÜÇa-záâãàéêíóôõúüçñ][a-záâãàéêíóôõúüçñ]*)*|[A-ZÁÂÃÀÉÊÍÓÔÕÚÜÇ]['’][A-ZÁÂÃÀÉÊÍÓÔÕÚÜÇ][a-záâãàéêíóôõúüçñ]+"
+# o (?:...) em volta do TOKEN é obrigatório: ele tem alternativa interna (|),
+# e sem o grupo a alternativa quebraria a expressão inteira ao meio
+NOME_RE = re.compile(rf"\b((?:{TOKEN})(?:\s+(?:(?:{'|'.join(CONECT)})\s+)?(?:{TOKEN})){{1,3}})\b")
 
 
 def slugify(s):
@@ -114,6 +121,15 @@ def nome_valido(nome):
     if len(nome) > 40:
         return False
     return True
+
+
+def _titulo_caixa_alta(t):
+    """Título Com Toda Inicial Maiúscula (era Wix)? Aí maiúscula não é pista
+    de nome, e a promoção a tema fica desligada."""
+    ws = [w for w in re.findall(r"[A-Za-zÀ-ÿ'’\-]+", t)[1:] if len(w) > 3]
+    if len(ws) < 3:
+        return True   # curto demais para julgar: não promove
+    return sum(1 for w in ws if w[0].isupper()) / len(ws) > 0.5
 
 
 def extrair_nomes(texto):
@@ -164,10 +180,16 @@ def main():
             if pub and pub > agora_utc:
                 agendadas += 1
                 continue
+            # o corpo vem DIRETO do pacote. Antes a varredura dependia de
+            # import/corpo/<slug>.html, que para matéria recém-publicada ainda
+            # não existe na hora em que este script roda no deploy — resultado:
+            # só o título era lido, e ninguém citado no corpo entrava na
+            # enciclopédia (o Pedro notou em 05/08/2026, na matéria do Divine).
             materias.insert(0, {'slug': n['slug'], 'title': n['title'],
-                                'author': n.get('author', ''), 'desc': '',
+                                'author': n.get('author', ''), 'desc': n.get('desc', ''),
                                 'iso': (n.get('publishAt') or '')[:10],
-                                'cat': n.get('cat', '')})
+                                'cat': n.get('cat', ''),
+                                '_corpo': n.get('corpo', '')})
     try:
         yt = json.load(open(f'{ROOT}/import/youtube.json'))
     except Exception:
@@ -201,14 +223,26 @@ def main():
                     por_materia[m['slug']].append(sp)
         corpo_path = f"{ROOT}/import/corpo/{m['slug']}.html"
         texto = m['title'] + '. ' + m.get('desc', '')
-        if os.path.exists(corpo_path):
+        if m.get('_corpo'):
+            # formato da Coxia -> texto puro: fora blocos de mídia e marcação
+            t = re.sub(r'^(img:|video:|galeria:|botao:|spotify:).*$', ' ', m['_corpo'], flags=re.M)
+            t = re.sub(r'\[([^\]]+)\]\([^)]*\)', r'\1', t)
+            texto += ' ' + re.sub(r'[*#>|]', ' ', t)
+        elif os.path.exists(corpo_path):
             texto += ' ' + re.sub(r'<[^>]+>', ' ', open(corpo_path).read())
         _slugs_autores = {slugify(a) for a in assinantes if a}
+        # QUEM ESTÁ NO TÍTULO É TEMA da matéria, não citação de passagem:
+        # ganha verbete direto, sem esperar a segunda citação (Pedro, 05/08/2026).
+        # MAS só em título no padrão da casa (caixa de frase). Os títulos da era
+        # Wix eram Com Toda Inicial Maiúscula, e ali o extrator pesca fantasma
+        # ("Aborda Ausência Paterna" viraria gente); nesses, vale a regra das 2+.
+        _temas = set() if _titulo_caixa_alta(m['title']) else {slugify(nm) for nm in extrair_nomes(m['title'])}
         for nome in extrair_nomes(texto):
             sp = slugify(nome)
             if sp and sp in _slugs_autores:
                 continue
-            spp = registra(nome, 'materia', 'citado', m['title'], url, m.get('iso', ''))
+            papel = 'tema' if sp in _temas else 'citado'
+            spp = registra(nome, 'materia', papel, m['title'], url, m.get('iso', ''))
             if spp:
                 por_materia[m['slug']].append(spp)
                 citacoes[spp].add(m['slug'])
