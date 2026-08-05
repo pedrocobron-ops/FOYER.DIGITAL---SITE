@@ -3132,7 +3132,13 @@ ingressos e divisor."></textarea>
       var ta = $('f-body');
       var ini = ta.selectionStart, fim = ta.selectionEnd;
       var sel = ta.value.slice(ini, fim) || 'texto';
-      if(md === '**' || md === '*'){ inserirNoCorpo(ta, ini, fim, md + sel + md); return; }
+      if(md === '**' || md === '*'){
+        // a seleção pode vir com quebra de linha na ponta: o asterisco
+        // abraça só o texto, e a quebra fica do lado de fora
+        var mSel = sel.match(/^(\s*)([\s\S]*?)(\s*)$/);
+        inserirNoCorpo(ta, ini, fim, mSel[1] + md + (mSel[2] || 'texto') + md + mSel[3]);
+        return;
+      }
       if(md === 'img:'){ corpoImgInput.click(); return; }
       if(md === 'video:'){
         perguntar('Cole o link do vídeo (YouTube) ou do episódio (Spotify):', '', { titulo:'Vídeo', rotuloOk:'Inserir' }).then(function(vu){
@@ -4807,7 +4813,7 @@ ingressos e divisor."></textarea>
                  (_crd ? ' <span class="fig-cred">' + esc(_crd) + '</span>' : '') + '</figcaption>' : '') + '</figure>';
       }
       var e = esc(b)
-        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*\*\s*([\s\S]+?)\s*\*\*/g, '<strong>$1</strong>')
         .replace(/\*(.+?)\*/g, '<em>$1</em>')
         .replace(/\[(.+?)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
         .replace(/\[(.+?)\]\(((?:post-|pessoa-|cat-)[a-z0-9-]+\.html)\)/g, '<a href="$2" target="_blank">$1</a>');

@@ -1484,7 +1484,10 @@ def md_lite(txt):
             out.append('<div class="art-div" aria-hidden="true">✦ ✦ ✦</div>')
             continue
         e = _h.escape(b)
-        e = _re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', e)
+        # (?s) + \s*: o negrito pode atravessar a quebra de linha. O Pedro
+        # marcou "**frase" numa linha e fechou "**" na seguinte (05/08/2026) e
+        # os asteriscos saíram crus na página. A folga engole a quebra.
+        e = _re.sub(r'(?s)\*\*\s*(.+?)\s*\*\*', r'<strong>\1</strong>', e)
         e = _re.sub(r'\*(.+?)\*', r'<em>\1</em>', e)
         e = _re.sub(r'\[(.+?)\]\((https?://[^)]+)\)', r'<a href="\2" target="_blank" rel="noopener">\1</a>', e)
         e = _re.sub(r'\[(.+?)\]\(((?:post-|pessoa-|cat-)[a-z0-9-]+\.html)\)', r'<a href="\2">\1</a>', e)

@@ -1087,7 +1087,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
         <h2 class="hi" id="saudacao">Boa noite</h2>
         <p class="hi-sub">O panorama do FOYER neste momento</p>
         <div class="stats">
-          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1600</b><span>matérias no acervo</span></button>
+          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1603</b><span>matérias no acervo</span></button>
           <button class="stat" type="button" data-go="fila" data-foco="#fila-list"><b id="st-pub">—</b><span>publicadas pela Coxia</span></button>
           <button class="stat" type="button" data-go="fila" data-foco=".fila-agenda" data-foco-alt="#fila-list"><b id="st-ag">—</b><span>agendadas esperando a hora</span></button>
           <button class="stat" type="button" id="card-mesa" data-go="ia" data-foco="#mesa-list"><b id="st-mesa">—</b><span>na mesa de aprovação</span></button>
@@ -2254,7 +2254,7 @@ ingressos e divisor."></textarea>
   // o mesmo pedido não vai duas vezes ao GitHub em menos de um minuto:
   // a Coxia lê as mesmas pastas em várias abas, e o limite por hora é curto
   // a Coxia muda toda semana: este carimbo diz qual versão está aberta
-  var COXIA_VERSAO = '20260805-152433';
+  var COXIA_VERSAO = '20260805-184822';
   var GH_CACHE = {};
   function ghCacheGet(chave){
     var c = GH_CACHE[chave];
@@ -3167,7 +3167,13 @@ ingressos e divisor."></textarea>
       var ta = $('f-body');
       var ini = ta.selectionStart, fim = ta.selectionEnd;
       var sel = ta.value.slice(ini, fim) || 'texto';
-      if(md === '**' || md === '*'){ inserirNoCorpo(ta, ini, fim, md + sel + md); return; }
+      if(md === '**' || md === '*'){
+        // a seleção pode vir com quebra de linha na ponta: o asterisco
+        // abraça só o texto, e a quebra fica do lado de fora
+        var mSel = sel.match(/^(\s*)([\s\S]*?)(\s*)$/);
+        inserirNoCorpo(ta, ini, fim, mSel[1] + md + (mSel[2] || 'texto') + md + mSel[3]);
+        return;
+      }
       if(md === 'img:'){ corpoImgInput.click(); return; }
       if(md === 'video:'){
         perguntar('Cole o link do vídeo (YouTube) ou do episódio (Spotify):', '', { titulo:'Vídeo', rotuloOk:'Inserir' }).then(function(vu){
@@ -4842,7 +4848,7 @@ ingressos e divisor."></textarea>
                  (_crd ? ' <span class="fig-cred">' + esc(_crd) + '</span>' : '') + '</figcaption>' : '') + '</figure>';
       }
       var e = esc(b)
-        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*\*\s*([\s\S]+?)\s*\*\*/g, '<strong>$1</strong>')
         .replace(/\*(.+?)\*/g, '<em>$1</em>')
         .replace(/\[(.+?)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
         .replace(/\[(.+?)\]\(((?:post-|pessoa-|cat-)[a-z0-9-]+\.html)\)/g, '<a href="$2" target="_blank">$1</a>');
