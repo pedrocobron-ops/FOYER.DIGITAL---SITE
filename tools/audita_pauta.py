@@ -106,9 +106,10 @@ def auditar(caminho):
     titulo = pg.get('title', '')
     insta = pg.get('instagram') or {}
 
-    # 1. Travessão e meia-risca: proibidos como pontuação em TODO o pacote.
-    #    Passam só dentro de nome próprio que a matéria declare em "nomes_proprios"
-    #    (o nome oficial de uma montagem, filme ou disco), nunca como respiro de frase.
+    # 1. Travessão e meia-risca: proibidos como pontuação em tudo o que chega ao
+    #    leitor. Passam só dentro de nome próprio que a matéria declare em
+    #    "nomes_proprios" (o nome oficial de uma montagem, filme ou disco),
+    #    nunca como respiro de frase.
     campos = {'title': titulo, 'corpo': corpo,
               'instagram.titulo': insta.get('titulo', ''),
               'instagram.legenda': insta.get('legenda', '')}
@@ -138,6 +139,26 @@ def auditar(caminho):
         n = sobra.count('—') + sobra.count('–')
         if n:
             problemas.append(f'TRAVESSÃO em {nome} ({n} ocorrência(s))')
+
+    # 1b. O bloco do chefe também é lido por gente: é o que o editor humano tem
+    #     na frente na Coxia quando decide o que fazer com a matéria. Ele não
+    #     chega ao leitor, por isso é aviso e não trava. Mas ficou de fora da
+    #     varredura até 06/08/2026, e o resultado foi previsível: a única
+    #     ocorrência de travessão de uma leva inteira estava justamente na
+    #     ressalva que descrevia uma correção de estilo. Trava que só olha onde
+    #     a casa já se comporta bem não é trava.
+    ch_pg = pg.get('chefe') or {}
+    internos = {'chefe.parecer': str(ch_pg.get('parecer') or '')}
+    for i, r in enumerate(ch_pg.get('ressalvas') or []):
+        internos[f'chefe.ressalvas[{i}]'] = str(r)
+    for nome, valor in internos.items():
+        sobra = valor
+        for np in validos:
+            sobra = sobra.replace(np, '')
+        n = sobra.count('—') + sobra.count('–')
+        if n:
+            avisos.append(f'TRAVESSÃO em {nome} ({n} ocorrência(s)): '
+                          f'a régua da casa vale também para o que vai à mesa')
 
     # 2. Tamanho e forma da reportagem, pelo PORTE declarado no pacote.
     #    Uma faixa só para tudo (o antigo 750-1.100) fazia toda matéria sair

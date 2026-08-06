@@ -21,6 +21,107 @@ alguém. Uma vez por semana, leia a coluna do tipo e veja o que se repete.
 
 ---
 
+## 06/08/2026, banco de conteúdo perene: 10 matérias da Redação Foyer
+
+A maior leva já checada pela casa. Dez matérias sem data para sair, um checador
+independente exclusivo por matéria, um revisor de leitura fria por matéria, e
+duas listas que precisaram de três e cinco rodadas para fechar. **Mais de 150
+cortes.** Nenhum dos erros graves foi pego pelo portão mecânico: todos vieram de
+alguém abrindo a fonte outra vez.
+
+| Tipo | O que caiu | Por quê | Matéria |
+|---|---|---|---|
+| `invenção` | "Em 1935, em Moscou, assistiu a uma demonstração de Mei Lanfang" | Nem Moscou nem 1935 aparecem em fonte nenhuma do pacote | Quarta parede |
+| `atribuição errada` | A frase mais famosa de Brecht sobre a quarta parede | É formulação do tradutor Willett (1964), e a redação declarou não ter aberto a tradução | Quarta parede |
+| `atribuição errada` | O capítulo do tratado de Diderot | Lojkine localiza a passagem em "De l'intérêt", não em "De la décoration". O título da página puxou o redator para o capítulo errado | Quarta parede |
+| `aspa não literal` | O Prêmio Questão de Crítica "não existe mais" | O editorial diz "decidimos não mais fazê-lo, **pelo menos por um tempo**" e termina esperando "ainda proporcionar outros encontros". Suspensão virou encerramento | Prêmios de teatro |
+| `superlativo sem fonte` | O Shell como "o mais longevo em atividade" | A própria matéria dizia, dois parágrafos abaixo, que a APCA nasceu em 1956. O texto se contradizia dentro de si | Prêmios de teatro |
+| `atribuição errada` | A descrição da função do designer de luz atribuída ao sindicato | É o anexo do **Decreto 82.385/1978**, que um sindicato nomeia e outro reproduz sem crédito | Designer de luz |
+| `superlativo sem fonte` | O lide inteiro | Nenhuma das 12 fontes usa a expressão "designer de luz" | Designer de luz |
+| `atribuição errada` | Entrevista de 2013 creditada ao blog que a arquiva | Ela saiu em outro veículo; o blog é o arquivo | Cenógrafo |
+| `número desatualizado` | "362 e 361 lugares" | Os números excluíam assentos de PCD, cadeirante, cão-guia e obeso | Cenógrafo |
+| `data errada` | A programação de agosto escrita no passado | Matéria fechada em 6/8: dois dos eventos ainda não tinham acontecido | Teatro Guaíra |
+| `número desatualizado` | R$ 23 milhões e a data da ordem de início | As páginas oficiais devolvem 404 e não têm cópia no Internet Archive. Numa perene, número que o leitor não confere não fica | Theatro São Pedro |
+| `número desatualizado` | 650 lugares | A tabela de valores que a própria fundação publicou para 2026 dá 616 | Theatro São Pedro |
+| `atribuição errada` | O governo do Maranhão chamaria o Arthur Azevedo de segundo mais antigo do país | O site oficial da casa não faz essa conta: diz que foi o quarto construído em São Luís entre 1780 e 1816. A conta vive na imprensa local | Teatros mais antigos |
+| `invenção` | "Interditado em 2010 por risco de desabamento", 475 lugares e o telão | A interdição foi do Ministério Público após vistoria do telhado. Os outros dois não estão em fonte alguma | Teatros mais antigos |
+| `atribuição errada` | Prêmio Shell e Prêmio APCA no item da Elza | A APCA publica o histórico: os prêmios são de **outros espetáculos dos mesmos criadores**. Estavam colados na matéria errada | 10 musicais |
+| `invenção` | O coro de crianças dos Saltimbancos, com quatro nomes próprios | Nenhuma fonte. Inventado inteiro | 10 musicais |
+| `invenção` | Os invasores agrediram os artistas "em cena" | A fonte diz que a invasão foi depois da apresentação. Dramatização | 10 musicais |
+| `atribuição errada` | As entidades de teatro votam nos membros da comissão do Fomento | O art. 11 da Lei 13.279/2002 diz que elas **apresentam listas**; quem **vota** são os proponentes inscritos. Erro de leitura da lei | Pauta em teatro público |
+| `atribuição errada` | "e é analisada em rodadas periódicas", atribuído ao edital | O edital não fixa periodicidade nenhuma. Quem fala em análise periódica é a assessoria. E "rodadas" era palavra nossa: rodada é lote fechado, e documento nenhum estabelece isso | Pauta em teatro público |
+| `número desatualizado` | Um edital de 2022 escrito no presente | Numa matéria feita para ficar meses no ar | Pauta em teatro público |
+
+### Os padrões novos desta leva
+
+**1. A ressalva do chefe é palpite, e o palpite estava errado oito vezes.**
+Oito ressalvas minhas foram derrubadas por checadores que preferiram abrir a
+fonte a obedecer o chefe. Duas afirmavam que um dado só existia em fonte
+secundária quando havia inventário oficial; uma dizia que os sites de um
+governo estadual estavam fora do ar por período eleitoral (não estavam: as dez
+páginas abriram e sustentaram quase toda a checagem); uma citava uma
+enciclopédia que não diz o que eu disse que ela diz e nem é sobre o assunto;
+uma mandava conferir se saíra edição nova de um prêmio quando o desatualizado
+era o tempo verbal; uma dava por não localizado um prêmio que estava no texto e
+era justamente o que fazia o item cumprir o critério da matéria.
+**Virou regra de manual: `chefe.ressalvas` é material a conferir, não ordem a
+cumprir.**
+
+**2. O bloco `chefe` envelhece com a checagem, e ninguém reescrevia.**
+Descoberto pela leitura fria dos prêmios. O parecer chamava de achado o que o
+checador tinha derrubado, e três das cinco ressalvas descreviam um rascunho que
+o editor humano nunca veria. Ressalva é o que o humano resolve na mão, na
+Coxia: **ressalva sobre texto inexistente é trabalho falso mandado para a
+mesa.** Virou obrigação do chefe reler e reescrever o bloco depois da onda 2.
+
+**3. Busca não é fonte.** A lista dos teatros foi reprovada não pelos fatos, que
+eram verdadeiros, mas pela lista de fontes: link morto, link de ano errado que
+contradizia o texto para quem abrisse, e casas inteiras sem fonte. A causa foi
+instalar em `fontes` URL que apareceu na busca e ninguém abriu.
+
+**4. Acervo próprio não é fonte do pacote.** Três fatos de duas matérias
+diferentes estavam pendurados em matérias nossas. Uma delas nem endereço externo
+tem: quem abrisse o link para conferir encontrava só nosso YouTube e Spotify.
+
+**5. Um 403 tem quatro sabores, e só um deles é morte.** Bloqueio de bot (abre
+com User-Agent de navegador), WAF que recusa igual em qualquer cliente, 200
+falso que devolve a home no lugar do conteúdo, e 404 de verdade. Uma ordem minha
+foi recusada com razão por um repórter que descobriu que o domínio alternativo
+redirecionava para o mesmo WAF.
+
+**6. Nomear a mesma régua de dois jeitos.** Numa lista cujo argumento é que o
+campeão muda conforme a conta, escrevi "ordena por ano de fundação" onde o
+critério declarado era "o ano em que a casa abriu as portas pela primeira vez".
+O erro só aparece onde as duas leituras divergem — e divergiam quatro linhas
+acima, numa casa de 1819 que substituiu outra de 1770. Onde eu estava olhando,
+coincidiam.
+
+**7. O erro de vizinhança.** A reorganização da leitura fria pôs o Prêmio Sesc
+dentro do parágrafo de um programa estadual, a três parágrafos de onde o Sesc é
+apresentado. Não é erro de fato: é erro de posição, e o leitor corrido conclui
+errado. Quem remonta parágrafos tem de reler as fronteiras.
+
+**8. O editor humano continua sendo o único da esteira sem portão.** Registrado
+em 04/08 e confirmado agora, com uma variação: a única ocorrência de travessão
+da leva inteira estava numa `chefe.ressalvas`, campo que o portão não olhava.
+**Trava que só olha onde a casa já se comporta bem não é trava.** O portão passou
+a varrer `chefe.parecer` e `chefe.ressalvas` (como aviso, não trava).
+
+### O que a leitura fria mediu, nas dez
+
+Todas cortaram **exatamente 10%** pela régua do portão, e em todas o ritmo
+melhorou junto, sem que ninguém fosse atrás disso. **Gaveta em sete das dez**, e
+a maioria confessava no próprio intertítulo, com uma vírgula ou um "e"
+amarrando dois assuntos sem relação: "Indicado, vencedor, e o prêmio que
+parou", "Onde se aprende, e quem premia", "Luz, figurino e o nome do prêmio",
+"Chamada pública, cessão e aluguel", "O que o Fomento paga, e o que ele não
+reserva" — esta última um intertítulo inteiro para reenunciar o parágrafo de
+cima. **Nenhum dos dez fechos terminava em link:** essa trava funciona sozinha.
+Mas seis eram resumo do lide, um era tautologia e um tinha um "portanto" que não
+decorria de nada.
+
+---
+
 ## 05/08/2026, checagem independente: perfil de Gui Ventura (Gil – Andar com Fé)
 
 | Tipo | O que caiu | Onde estava |
