@@ -1,6 +1,33 @@
 {
  "rodadas": [
   {
+   "quando": "2026-08-06T22:40:00-03:00",
+   "por": "Banco de conteúdo perene (Claude) — 10 matérias assinadas Redação Foyer, ordem do Pedro em 06/08/2026",
+   "buscas": [],
+   "consideradas": [],
+   "produzidas": [
+    "o-que-faz-um-designer-de-luz-no-teatro",
+    "o-que-faz-um-cenografo-no-teatro",
+    "historia-do-teatro-guaira-curitiba",
+    "historia-do-theatro-sao-pedro-porto-alegre",
+    "de-onde-vem-a-palavra-coxia-lateral-do-palco",
+    "o-que-e-a-quarta-parede-no-teatro",
+    "como-um-grupo-consegue-pauta-num-teatro-publico",
+    "como-funcionam-os-premios-de-teatro-no-brasil",
+    "teatros-mais-antigos-do-brasil-em-funcionamento-2026",
+    "10-musicais-brasileiros-mais-importantes-2026"
+   ],
+   "obs": "ORDEM: 'quero que você faça 10 matérias da redação, que são matérias que não têm pressa em sair. Assim deixo um banco de conteúdos.'\n\nA REDAÇÃO DIÁRIA CONTINUA PAUSADA. Esta leva não é rodada: é encomenda avulsa de conteúdo perene, feita com a esteira parada. A rotina das 7h o Pedro pausou na mão em 05/08, e a das 12h segue desativada.\n\nO QUE SAIU: 10 matérias, todas assinadas Redação Foyer, oito de porte contextualizada e duas listas. Nenhuma tem data para sair, e é esse o ponto: ficam de reserva na mesa para o dia em que não houver pauta quente ou em que a redação estiver parada.\n\nA ESTEIRA RODOU INTEIRA, E FOI ELA QUE SEGUROU A LEVA. Um checador independente exclusivo por matéria (onda 2) e um revisor de leitura fria por matéria (onda 3). Mais de 150 cortes. Duas matérias precisaram de rodadas extras: a lista dos teatros mais antigos levou CINCO rodadas de checagem e a dos 10 musicais levou duas, com reposição de apuração no meio.\n\nO NÚMERO QUE IMPORTA: nenhum dos erros graves desta leva foi pego pelo portão mecânico. Todos vieram de alguém abrindo a fonte outra vez. O portão pega forma; quem pega fato é o checador independente. É por isso que a onda 2 é a peça que nunca se corta.\n\nA LISTA DOS TEATROS FOI REPROVADA UMA VEZ, e não pelos fatos, que eram verdadeiros: pela lista de fontes. Tinha link morto, um link de 2025 que descrevia uma abertura simbólica e contradizia o texto para quem abrisse, e casas inteiras sem fonte listada. A causa foi instalar em `fontes` URL que apareceu na busca e ninguém abriu. Virou regra: BUSCA NÃO É FONTE.\n\nOITO RESSALVAS DO CHEFE ERAM FALSAS e os checadores derrubaram todas em vez de fabricar corte para obedecer. Virou regra de manual em duas frentes: a ressalva é material a conferir, não ordem a cumprir; e o bloco `chefe` tem de ser reescrito depois da onda 2, porque ele é escrito olhando o rascunho e envelhece com a checagem. Ressalva sobre texto que não existe mais é trabalho falso mandado para a mesa do Pedro.\n\nTRÊS FATOS VERDADEIROS FICARAM DE FORA POR DECISÃO DE ÓRGÃO PÚBLICO. O tombamento do conjunto de Ouro Preto em 1938 e o tombamento individual do Teatro Municipal de Ouro Preto, aprovado em junho de 2026, não entraram porque o Iphan devolve 401 em quatro clientes diferentes e duas páginas do portal antigo servem a home no lugar do conteúdo. O fato mais novo sobre a casa que ABRE a lista ficou fora. A casa preferiu ficar sem ele a afirmá-lo sem documento aberto, e isso está escrito no pacote para quem abrir depois. Quando o Iphan voltar a servir a página, os dois entram sem apuração nova.\n\nMUDANÇAS DE MANUAL FEITAS DEPOIS QUE A LEVA FECHOU (regra de tempo cumprida): `chefe.ressalvas` é material a conferir; o bloco `chefe` se reescreve depois da onda 2; `esteira` registra o caminho que a matéria fez; busca não é fonte; acervo próprio não é fonte do pacote; URL que não sustenta afirmação sai da lista; 403 e 401 têm quatro sabores e só um é morte; a régua de uma lista se declara uma vez só; aplicar o próprio critério não é tomar partido; não afirme o método de quem você cita.\n\nMUDANÇA NO PORTÃO: passou a varrer travessão em `chefe.parecer` e `chefe.ressalvas`, como aviso. A única ocorrência da leva inteira estava lá, no campo que ninguém olhava.\n\nESTADO DA MESA: as 10 vão a aguardando_aprovacao, todas com nota 8 ou mais, todas aprovadas no portão. O 'Pluft' continua segurado em nota 5, fora da mesa até alguém confirmar a temporada no CCSP."
+  },
+  {
+   "quando": "2026-08-05T18:35:00-03:00",
+   "por": "PAUSA DA REDAÇÃO DE IA, ordem do Pedro em 05/08/2026. Não é rodada: é registro de interrupção, para quem retomar saber por que existe um vão no diário e em que estado as coisas ficaram.",
+   "buscas": [],
+   "consideradas": [],
+   "produzidas": [],
+   "obs": "ORDEM: 'vamos pausar a redação de IA. Quando for para voltar eu aviso, isso será em alguns dias.'\n\nO QUE FOI PAUSADO DAQUI: a rotina 'FOYER · segunda edição do dia (12h, cinema e streaming)' (trig_017qR9abpe5CXRGoVup8QkHg, cron 0 15 * * *). Desativada, não apagada: o histórico e o prompt ficam inteiros, e voltar é religar.\n\nO QUE NÃO FOI PAUSADO, E É O QUE IMPORTA: a rotina 'Redação Foyer — rodada diária' (trig_01LoA74LaJXaohVv7GsFDjgr, cron 0 10 * * *, 7h de Brasília) está PRESA A OUTRA SESSÃO (session_01G9mTVDb4cSMBiCqDnAuHta) e a organização não permite alterar rotina de outra sessão a partir daqui. ELA CONTINUA LIGADA e dispara normalmente. Quem pausa é o Pedro, naquela sessão ou pelo painel de Routines.\n\nNÃO FORAM TOCADAS, POR NÃO SEREM A REDAÇÃO DE MATÉRIAS: as três rotinas da revista (edição semanal de quinta, fechamento de quarta, perguntas de terça) e os dois lembretes marcados para 06/08 (liberação da Revista nº 3 às 6h45 e a mudança de DNS às 13h). A revista é outro produto e tem edição fechada esperando para sair.\n\nESTADO DA MESA NA HORA DA PAUSA: 16 matérias em import/pauta/ com status aguardando_aprovacao, todas com nota 8 ou mais e aprovadas no portão, mais o 'Pluft' com status 'segurada' e nota 5, fora da mesa até alguém confirmar a temporada no CCSP. Duas das 16 são quentes e perdem validade rápido: a estreia da Corrida dos Bichos (sexta, 07/08) e o recorde do Globoplay.\n\nPARA QUEM RETOMAR: a régua mudou muito nos dois últimos dias e está toda no manual 4.0 e no tools/CORTES.md. O que mais muda o trabalho: a pauta de Pedro Amaral passou a ser composta por quatro eixos de temperatura, a nota mínima para ir à mesa é 8, o fecho não pode ser link, o ritmo é medido e o portão compara o crédito da foto com a linha da legenda do Instagram."
+  },
+  {
    "quando": "2026-08-05T09:30:00-03:00",
    "por": "Rodada de teste da régua nova de pauta do Pedro Amaral (05/08), 2 matérias na assinatura dele, encomendada por ele para ver o que a casa passa a pegar. PRIMEIRA rodada sob os quatro eixos de temperatura e sob o manual 4.0.",
    "buscas": [
@@ -1690,33 +1717,6 @@
     "por-que-se-diz-merda-antes-da-estreia-no-teatro"
    ],
    "obs": "Capas de Wikimedia Commons com licença citada no crédito (CC BY 2.0 e domínio público). Capacidade da sala do Amazonas diverge entre fontes (684 oficial x 701 Wikipédia): texto usa o número oficial. Sem campo evento (matérias perenes). Sem commit/push nesta rodada, conforme instrução."
-  },
-  {
-   "quando": "2026-07-23T15:30:33+00:00",
-   "por": "Redação IA (Claude) — matéria avulsa formato Entenda",
-   "buscas": [
-    "Lei Rouanet como funciona incentivo fiscal teatro artes cênicas percentual dedução imposto de renda",
-    "Lei Rouanet 2025 limites captação por projeto portaria teto valores Ministério da Cultura",
-    "Instrução Normativa MinC 23/2025 Lei Rouanet regras cachê teto projeto",
-    "Lei Rouanet captação 2024 2025 recorde artes cênicas",
-    "Wikimedia Commons: interior de teatros brasileiros para foto de capa"
-   ],
-   "consideradas": [
-    {
-     "assunto": "Como funciona a Lei Rouanet no teatro",
-     "decisao": "escolhida",
-     "motivo": "Tema de alta busca no Google, sem cobertura no acervo, com fontes oficiais e de imprensa abundantes e números recentes (recorde de captação em 2025)."
-    },
-    {
-     "assunto": "O que faz um dramaturg / teatro imersivo / audições de musicais",
-     "decisao": "descartada",
-     "motivo": "Também inéditos no acervo, mas Rouanet rende mais busca e tinha apuração mais robusta disponível; ficam como sugestão para próximos explicadores."
-    }
-   ],
-   "produzidas": [
-    "como-funciona-a-lei-rouanet-no-teatro"
-   ],
-   "obs": "Foto de capa ilustrativa do interior do Teatro Amazonas (Wikimedia Commons, CC0, autor Ridiculopathy), 1920x1080 (16:9). gov.br bloqueou acesso direto; dados oficiais confirmados via CNN Brasil, Correio Braziliense e Nativa News. Sem campo evento (conteúdo perene)."
   }
  ]
 }

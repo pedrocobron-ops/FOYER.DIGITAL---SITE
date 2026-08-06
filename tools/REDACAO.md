@@ -208,6 +208,40 @@ pacote precisa cumprir funções diferentes sempre que a pauta permitir: uma
 origem primária/oficial, uma verificação independente e uma fonte de contexto
 ou contraponto.
 
+#### O que pode entrar em `fontes` (regras de 06/08/2026)
+
+**BUSCA NÃO É FONTE.** URL que apareceu no resultado de uma busca e que
+ninguém abriu **não entra** em `fontes`. A ementa do buscador sustenta o
+assunto; só a leitura sustenta o fato. Ao apurar, marque para si mesmo o
+que você ABRIU e LEU e o que só VIU passar — e instale apenas o primeiro.
+Foi por não fazer essa distinção que uma lista perene chegou à checagem
+com link morto, link de ano errado que contradizia o próprio texto, e
+casas inteiras sem fonte listada.
+
+**ACERVO PRÓPRIO NÃO É FONTE DO PACOTE.** O FOYER linka as próprias
+matérias no corpo, e deve: é a rede interna da casa e ela vive disso.
+Mas `fontes` é a lista do que sustenta o fato **fora** de casa. Matéria
+nossa em `fontes`, ou fato que só se apoia num link interno, é
+circularidade. Se o fato vale, ele tem origem: vá buscá-la.
+
+**URL QUE NÃO SUSTENTA AFIRMAÇÃO SAI DA LISTA.** Numa matéria perene isso
+é pior que enfeite: um edital vencido dentro de `fontes` convida o
+próximo editor a achar que aqueles valores ainda contam. Cada URL da
+lista precisa responder à pergunta "qual frase do texto morre se esta
+página cair?".
+
+**UM 403 OU 401 NÃO É PÁGINA MORTA.** Antes de dar uma fonte por perdida,
+tente com User-Agent de navegador — é a mesma regra 6 das fotos, e vale
+para texto. Distinga os casos: bloqueio de bot (abre com UA), WAF que
+recusa igual em todos os clientes (não abre para ninguém, não instale),
+200 falso que devolve a home no lugar do conteúdo (não sustenta nada), e
+404 de verdade. Escreva no `conferido` qual dos casos você encontrou.
+
+**A URL TEM QUE ABRIR PARA O LEITOR.** Teste como ele testaria: sem
+cookie, sem sessão, sem cabeçalho especial. Quando o endereço for
+instável por natureza (pasta de mês, sufixo de deduplicação), instale
+junto a página que o publica, que reaponta sozinha para a versão nova.
+
 ### O teste da consequência
 
 Depois de cada fato importante, perguntar: **o que isso muda na prática?**
@@ -1017,6 +1051,29 @@ dentro da editoria daquela assinatura.
   Exemplo do que fecha (do explicador do DRT): `Até que uma das duas
   prospere, vale o que está escrito desde 1978: sem registro, não há
   contrato de artista.`
+- **A RÉGUA DE UMA LISTA SE DECLARA UMA VEZ SÓ (06/08/2026).** Lista que
+  ordena, ranqueia ou elege precisa declarar o critério em algum ponto
+  do texto e depois **usar sempre as mesmas palavras** para se referir a
+  ele. Batizar a mesma régua de dois jeitos ("o ano em que a casa abriu
+  as portas pela primeira vez" no lide, "ano de fundação" no meio) é o
+  defeito mais caro que uma lista pode ter, porque o argumento dela é
+  justamente que a conta muda o resultado. E o erro é traiçoeiro: só
+  aparece nas entradas em que as duas leituras divergem. Na lista dos
+  teatros mais antigos, as duas coincidiam no caso que o redator estava
+  olhando e quebravam quatro linhas acima, numa casa de 1819 que
+  substituiu outra de 1770. **Ao revisar uma lista, varra o texto atrás
+  de todo lugar onde o critério é nomeado, e confira se todos dizem a
+  mesma coisa.**
+- **Aplicar o próprio critério não é tomar partido.** Quando a lista
+  monta uma conta, ela deve dizer o que essa conta produz, mesmo que o
+  resultado contrarie o que as fontes reivindicam. Convidar o leitor a
+  contar sozinho ("conte os teatros acima dele: a posição não fecha") é
+  covardia editorial: ou a casa faz a conta e a publica, ou não levanta
+  a lebre. O que a matéria não faz é dizer qual das réguas é a certa.
+- **Não afirme o método de quem você cita.** Se a fonte declara uma
+  posição sem dizer como chegou a ela, escreva o que é demonstrável — a
+  reivindicação não sobrevive à nossa conta — e nunca "eles usam outra
+  régua", que atribui um método que ninguém declarou.
 - Conteúdo perene não leva "ontem/hoje/amanhã" no corpo: usar datas.
 - Guia de quinta usa foto de divulgação de uma das peças indicadas
   (com crédito); histórias de teatro usam foto oficial da casa.
@@ -1168,6 +1225,27 @@ fato (diff das mudanças listadas) e commita.
    Cada achado vira: correção no texto (com o Repórter), corte do dado
    ("na dúvida, corta") ou ressalva grave (a matéria não vai à mesa).
    Registra o resultado no campo `checagem` do pacote.
+
+   **`chefe.ressalvas` é material a conferir, NÃO é ordem a cumprir.**
+   O Chefe escreve as ressalvas ANTES da checagem, olhando o rascunho.
+   Elas dizem onde ele desconfiou, e desconfiança não é fato. Leia como
+   pista do que abrir primeiro. Se a apuração contrariar a ressalva,
+   **derrube a ressalva** e escreva o porquê em `checagem.cortes`. Nunca
+   fabrique corte no texto para dar razão ao Chefe: isso destrói matéria
+   boa para proteger palpite ruim.
+
+   Isto não é hipótese. Na leva perene de 06/08/2026, **oito ressalvas do
+   Chefe eram falsas** e os checadores derrubaram todas: um inventário
+   oficial trazia os dois nomes e as medidas que a ressalva dizia serem
+   de fonte secundária; os sites de um governo estadual não estavam fora
+   do ar por período eleitoral, e as dez páginas oficiais sustentaram
+   quase toda a checagem; uma enciclopédia citada como fonte de um
+   superlativo não tem a palavra nem é sobre o assunto; uma ficha de
+   patrimônio não dizia o que a ressalva afirmava; uma ressalva mandava
+   conferir se saíra edição nova de um prêmio, e o desatualizado era o
+   tempo verbal, não a edição; uma dava por não localizado um prêmio que
+   estava no texto e era justamente o que fazia o item cumprir o
+   critério da matéria.
 5. **Revisor de leitura fria** — lê a versão checada como leitor exigente,
    corta 10% sem perder fatos, reescreve o parágrafo mais fraco, aplica o teste
    da ordem e confere o fecho. Não altera nomes, datas, números, aspas ou
@@ -1179,6 +1257,25 @@ fato (diff das mudanças listadas) e commita.
    Aplicar a rubrica canônica, dar nota 0–10, escrever parecer em 1–2 frases e
    listar em `chefe.ressalvas` APENAS notas de transparência. Ressalva grave
    segura a matéria e não vai anotada para a mesa como pendência do humano.
+
+   **O bloco `chefe` é reescrito DEPOIS que a onda 2 fecha, e antes de a
+   matéria ir à mesa.** Ele é escrito olhando o rascunho e envelhece com
+   a checagem: o parecer aponta como achado o que o checador derrubou, e
+   a ressalva manda o humano conferir o que já foi resolvido, ou defende
+   uma frase que já saiu do texto. Ressalva é o que o Pedro resolve na
+   mão, na Coxia — **ressalva que descreve texto inexistente é trabalho
+   falso mandado para a mesa.** Reler `parecer` e `ressalvas` contra o
+   texto entregue e contra `checagem.cortes` é obrigação do Chefe, não
+   zelo opcional. O bloco fala da matéria que o Pedro vai ler, nunca do
+   rascunho que o redator entregou.
+
+   Quando corrigir uma ressalva sua, diga que corrigiu e por quê, no
+   corpo da própria ressalva. O checador da rodada seguinte lê esse
+   campo, e o histórico do erro vale mais que o apagamento dele.
+
+   O `esteira` também é do Chefe. Ele precisa registrar o caminho que a
+   matéria FEZ, não o do modelo: quando a onda 3 roda, `leitura-fria`
+   entra na cadeia.
 
 ### A NOTA MÍNIMA É 8 (ordem do Pedro, 04/08/2026)
 
