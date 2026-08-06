@@ -10,9 +10,18 @@ permissions:
   pages: write
   id-token: write
 
+# A FILA DE PUBLICAÇÃO (corrigido em 06/08/2026).
+# Estava `cancel-in-progress: true`: quando dois pushes vinham juntos — o que
+# acontece toda vez que a Coxia sobe foto e matéria em segundos — o GitHub
+# cancelava a publicação anterior NO MEIO. Mas a publicação já registrada
+# continuava "em andamento" do outro lado, e a nova era recusada com
+# "deployment in progress". Resultado: as duas morriam e a mudança não subia.
+# Foi o que segurou a Agenda escondida por três tentativas seguidas.
+# Com `false`, o pedido novo ESPERA a vez em vez de atropelar. Publicar duas
+# vezes seguidas custa 40 segundos; perder a publicação custa o dia.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
