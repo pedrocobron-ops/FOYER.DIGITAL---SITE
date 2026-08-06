@@ -192,7 +192,13 @@ NAV_ITEMS = [
     ('revista.html', 'Revista'),
     ('programas.html', 'Programas'),
     ('enciclopedia.html', 'Enciclopédia'),
-    ('agenda.html', 'Agenda'),
+    # Agenda ESCONDIDA do menu por decisão do Pedro (06/08/2026), após a
+    # prestação de contas das duas semanas: 3 leituras em 14 dias, 17s de
+    # permanência, 40 páginas na frente. A página CONTINUA sendo gerada em
+    # agenda.html — pronta para voltar ao menu recolocando a linha abaixo —
+    # e a coleta do campo `evento` segue intacta, porque as agendas da
+    # revista e o relógio dependem dela.
+    # ('agenda.html', 'Agenda'),
     ('entrevistas.html', 'Entrevistas'),
 ]
 
@@ -236,7 +242,6 @@ FOOTER = '''<footer>
         <a href="noticias.html">Notícias</a>
         <a href="critica.html">Crítica</a>
         <a href="entrevistas.html">Entrevistas</a>
-        <a href="agenda.html">Agenda</a>
       </div>
       <div class="foot-col">
         <h4>Programas</h4>
