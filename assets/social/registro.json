@@ -625,7 +625,10 @@
  },
  "pluft-o-fantasminha-ccsp-temporada-gratuita": {
   "img": "assets/uploads/pluft-o-fantasminha-ccsp-temporada-gratuita.jpg",
-  "foco": null,
+  "foco": {
+   "x": 0.3465,
+   "y": 0.9574
+  },
   "titulo": "*“Pluft, o Fantasminha”*, de *Maria Clara Machado*, ganha temporada gratuita no *Centro Cultural São Paulo*",
   "cat": "Teatro"
  },
