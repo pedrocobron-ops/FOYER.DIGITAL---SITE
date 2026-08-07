@@ -656,13 +656,21 @@
  },
  "alice-ripoll-cia-rec-puff-lavagem-sesc-pompeia": {
   "img": "assets/uploads/alice-ripoll-cia-rec-puff-lavagem-sesc-pompeia.jpg",
-  "foco": null,
+  "foco": {
+   "x": 0.6863,
+   "y": 0.5113,
+   "z": 1
+  },
   "titulo": "*Alice Ripoll* leva *“Puff”* e *“Lavagem”* ao *Sesc Pompeia* em duas temporadas de quatro dias",
   "cat": "Dança"
  },
  "tan-dun-orquestra-sinfonica-municipal-theatro-municipal-sp": {
   "img": "assets/uploads/tan-dun-orquestra-sinfonica-municipal-theatro-municipal-sp.jpg",
-  "foco": null,
+  "foco": {
+   "x": 0.3419,
+   "y": 0.4831,
+   "z": 1
+  },
   "titulo": "*Tan Dun* rege a *Orquestra Sinfônica Municipal* no *Theatro Municipal de São Paulo* em 7 e 8 de agosto",
   "cat": "Música"
  }
