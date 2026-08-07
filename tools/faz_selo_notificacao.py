@@ -46,6 +46,10 @@ def desenha(letra='F', lado=LADO, ocupa=0.70):
 selo = desenha()
 selo.save(SAIDA)
 
+# a mesma silhueta em 512, para o manifesto do aplicativo ("monochrome"):
+# é dela que o Android tira o desenho da barra quando o app está instalado
+desenha(lado=512).save('assets/logo/badge-foyer-512.png')
+
 a = selo.getchannel('A')
 mn, mx = a.getextrema()
 opacos = sum(1 for p in a.getdata() if p > 200)

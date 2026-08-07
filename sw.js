@@ -21,6 +21,11 @@ self.addEventListener('activate', function (e) {
 self.addEventListener('push', function (e) {
   var d = {};
   try { d = e.data ? e.data.json() : {}; } catch (err) {}
+  // aproveita a chegada do aviso para conferir se há porteiro novo publicado.
+  // Sem isso, um celular que só recebe notificações e nunca abre o aplicativo
+  // fica preso à versão velha para sempre — foi o que manteve o selo quadrado
+  // branco na barra de status dias depois do conserto (07/08/2026).
+  e.waitUntil(self.registration.update().catch(function () {}));
   e.waitUntil(self.registration.showNotification(d.title || 'FOYER', {
     body: d.body || 'Novidades no saguão do teatro brasileiro.',
     // icon é o desenho GRANDE, dentro da notificação aberta: aí a marca
