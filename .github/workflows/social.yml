@@ -1,0 +1,48 @@
+name: Artes de Instagram
+
+# O ATELIÊ DAS ARTES (criado em 06/08/2026).
+# Toda matéria que entra pela Coxia — inclusive as que o Pedro escreve à mão,
+# que antes ficavam sem arte nenhuma — ganha post de feed e stories aqui,
+# sem ninguém pedir. E quando o Pedro ajusta o enquadramento da foto na
+# Coxia (import/social-foco.json), este robô refaz a arte com o corte novo.
+# O registro.json guarda os ingredientes de cada arte; só refaz o que mudou.
+
+on:
+  push:
+    branches: [claude/foyer-digital-redesign-14l2b6]
+    paths:
+      - 'import/novas/**'
+      - 'import/social-foco.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: social
+  cancel-in-progress: false
+
+jobs:
+  artes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: claude/foyer-digital-redesign-14l2b6
+      - name: Ferramentas de imagem
+        run: pip install --quiet pillow
+      - name: Gerar as artes que faltam ou mudaram
+        run: python3 tools/gera_social.py --pendentes
+      - name: Guardar as artes no repositório
+        run: |
+          git config user.name "Ateliê do FOYER"
+          git config user.email "foyer-social@users.noreply.github.com"
+          git add assets/social/
+          git diff --cached --quiet && { echo "Nada de novo."; exit 0; }
+          git commit -m "Artes de Instagram: geradas/refeitas pelo ateliê [skip ci]"
+          # outra publicação pode ter passado na frente; tenta de novo por cima dela
+          for i in 1 2 3 4; do
+            git push && exit 0
+            git pull --rebase && continue
+          done
+          git push

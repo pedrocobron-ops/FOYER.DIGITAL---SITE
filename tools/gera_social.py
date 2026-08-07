@@ -36,14 +36,36 @@ def _fonte_titulo(tam):
 
 
 def _cover(img, w, h, foco=0.38):
-    """Corta a foto para cobrir w x h, com viés para o terço superior."""
+    """Corta a foto para cobrir w x h.
+
+    - foco número (jeito antigo): viés vertical, 0.38 = terço superior.
+    - foco {'x':0..1,'y':0..1} (ajuste feito pelo Pedro na Coxia): ponto de
+      interesse da foto; o corte centraliza nele o quanto der sem sair da
+      borda. A prévia da Coxia usa exatamente esta conta — se mudar aqui,
+      mude lá também (função focoParaPosicao).
+    """
     iw, ih = img.size
     esc = max(w / iw, h / ih)
     img = img.resize((round(iw * esc), round(ih * esc)), Image.LANCZOS)
     iw, ih = img.size
-    x = (iw - w) // 2
-    y = max(0, min(ih - h, round((ih - h) * foco)))
+    if isinstance(foco, dict):
+        fx = min(max(float(foco.get('x', 0.5)), 0), 1)
+        fy = min(max(float(foco.get('y', 0.5)), 0), 1)
+        x = max(0, min(iw - w, round(fx * iw - w / 2)))
+        y = max(0, min(ih - h, round(fy * ih - h / 2)))
+    else:
+        x = (iw - w) // 2
+        y = max(0, min(ih - h, round((ih - h) * foco)))
     return img.crop((x, y, x + w, y + h))
+
+
+def _carrega_focos():
+    """Os ajustes de enquadramento feitos na Coxia: slug -> {'x','y'}."""
+    try:
+        with open(os.path.join(ROOT, 'import/social-foco.json')) as f:
+            return json.load(f).get('focos', {})
+    except (OSError, ValueError):
+        return {}
 
 
 def _gradiente(base, y0, y1, a0, a1):
@@ -173,7 +195,7 @@ def gerar(pg, formato='feed'):
     caminho = os.path.join(ROOT, pg.get('img', ''))
     if pg.get('img') and os.path.exists(caminho):
         foto = Image.open(caminho).convert('RGB')
-        base.paste(_cover(foto, w, h), (0, 0))       # sangra nas quatro bordas
+        base.paste(_cover(foto, w, h, pg.get('foco') or 0.38), (0, 0))  # sangra nas quatro bordas
     dr = ImageDraw.Draw(base, 'RGB')
     _gradiente(base, 0, 320, 130, 0)
     _gradiente(base, h - 560, h, 0, 235)
@@ -206,7 +228,7 @@ def _gerar_story(pg):
     if foto is not None:
         larg_card = 940
         alt_card = min(round(larg_card * foto.height / foto.width), 1000)
-        card = _cover(foto, larg_card, alt_card, foco=0.3) if \
+        card = _cover(foto, larg_card, alt_card, foco=pg.get('foco') or 0.3) if \
             round(larg_card * foto.height / foto.width) > alt_card else \
             foto.resize((larg_card, round(larg_card * foto.height / foto.width)), Image.LANCZOS)
         x0 = (w - larg_card) // 2
@@ -258,11 +280,87 @@ def legenda_de(pg):
             + f'\nPor {autor}')
 
 
-def main():
+def _assinatura(pg):
+    """O que, mudando, exige refazer a arte: foto, enquadramento, título, editoria."""
+    insta = pg.get('instagram') or {}
+    return {'img': pg.get('img', ''), 'foco': pg.get('foco') or None,
+            'titulo': insta.get('titulo') or pg.get('title', ''),
+            'cat': pg.get('cat', '')}
+
+
+def pendentes():
+    """Modo do robô: gera arte para toda matéria da Coxia que ainda não tem
+    (as escritas à mão entram aqui) e refaz as que mudaram de foto, título ou
+    enquadramento. O registro.json guarda com que ingredientes cada arte foi
+    feita, para só refazer o que de fato mudou."""
     os.makedirs(SAIDA, exist_ok=True)
+    reg_arq = os.path.join(SAIDA, 'registro.json')
+    try:
+        with open(reg_arq) as f:
+            registro = json.load(f)
+    except (OSError, ValueError):
+        registro = {}
+    focos = _carrega_focos()
+
+    novas_dir = os.path.join(ROOT, 'import/novas')
+    pgs = {}
+    if os.path.isdir(novas_dir):
+        for nome in sorted(os.listdir(novas_dir)):
+            if nome.endswith('.json'):
+                try:
+                    pg = json.load(open(os.path.join(novas_dir, nome)))
+                except ValueError:
+                    continue
+                if pg.get('slug'):
+                    pgs[pg['slug']] = pg
+    # ajuste feito numa matéria do acervo antigo: busca no materias.json
+    faltam = set(focos) - set(pgs)
+    if faltam:
+        try:
+            for m in json.load(open(os.path.join(ROOT, 'import/materias.json'))):
+                if m.get('slug') in faltam:
+                    pgs[m['slug']] = m
+        except (OSError, ValueError):
+            pass
+
+    feitas, feitas_reg = 0, False
+    for slug, pg in pgs.items():
+        if slug in focos:
+            pg['foco'] = focos[slug]
+        cam = os.path.join(ROOT, pg.get('img', ''))
+        if not pg.get('img') or not os.path.exists(cam):
+            continue
+        sig = _assinatura(pg)
+        tem_arte = all(os.path.exists(os.path.join(SAIDA, f'{slug}-{f}.jpg'))
+                       for f in ('feed', 'story'))
+        if tem_arte and slug not in registro:
+            # arte feita antes do registro existir: adota como está, sem refazer
+            registro[slug] = sig
+            feitas_reg = True
+            continue
+        if tem_arte and registro.get(slug) == sig:
+            continue
+        for formato in ('feed', 'story'):
+            gerar(pg, formato).save(os.path.join(SAIDA, f'{slug}-{formato}.jpg'), quality=88)
+        registro[slug] = sig
+        feitas += 1
+        print('• arte refeita:', slug)
+    if feitas or feitas_reg:
+        with open(reg_arq, 'w') as f:
+            json.dump(registro, f, ensure_ascii=False, indent=1)
+    print(f'{feitas} matéria(s) com arte nova.')
+
+
+def main():
+    if '--pendentes' in sys.argv[1:]:
+        return pendentes()
+    os.makedirs(SAIDA, exist_ok=True)
+    focos = _carrega_focos()
     for arq in sys.argv[1:]:
         pg = json.load(open(arq))
         slug = pg['slug']
+        if slug in focos and not pg.get('foco'):
+            pg['foco'] = focos[slug]
         for formato in ('feed', 'story'):
             img = gerar(pg, formato)
             destino = os.path.join(SAIDA, f'{slug}-{formato}.jpg')

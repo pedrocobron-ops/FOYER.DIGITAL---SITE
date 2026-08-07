@@ -3797,24 +3797,51 @@ ingressos e divisor."></textarea>
       else setTimeout(function(){ b.classList.remove('copiado'); }, 1200);
     });
   });
+  // legenda de reserva quando a matéria não veio com uma pronta (matérias
+  // escritas à mão): a MESMA receita do gerador em Python (legenda_de em
+  // tools/gera_social.py) — dois primeiros parágrafos + fecho da casa
+  function legendaDe(d){
+    if(d.instagram && d.instagram.legenda) return d.instagram.legenda;
+    var paras = String(d.corpo || '').split(/\n\s*\n/)
+      .map(function(p){ return p.trim(); })
+      .filter(function(p){ return p && !/^(#|>|img:|video:|galeria:|botao:|\*)/.test(p); })
+      .map(function(p){ return p.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/\*\*/g, '').replace(/\*/g, ''); });
+    if(!paras.length) return '';
+    var cred = (d.imgCredito || 'Divulgação').replace('Foto: ', '');
+    return paras.slice(0, 2).join('\n\n') +
+      '\n\nPara conferir a matéria completa, acesse o site: www.foyer.digital' +
+      '\n📷: ' + cred + '\nPor ' + (d.author || 'Redação Foyer');
+  }
+  var RB_ARTES = 'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/';
   // abre o post de Instagram de uma matéria já lançada (artes ficam guardadas pelo slug)
   function abrirInstaMateria(d){
     if(!d) return;
-    var RB = 'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/';
+    var RB = RB_ARTES;
     var feed = 'assets/social/' + d.slug + '-feed.jpg', story = 'assets/social/' + d.slug + '-story.jpg';
-    var leg = (d.instagram && d.instagram.legenda) || '';
+    var leg = legendaDe(d);
+    var legAuto = leg && !(d.instagram && d.instagram.legenda);
+    // depois de um ajuste de enquadramento, busca a arte fresca direto do
+    // repositório (a cópia publicada no site ainda é a antiga por uns minutos)
+    var v = '';
+    try{ var fv = sessionStorage.getItem('foco-v-' + d.slug); if(fv) v = '?v=' + fv; }catch(e){}
     $('insta-corpo').innerHTML =
       '<p style="font-family:var(--sans);font-size:.9rem;margin:0 0 14px"><b>' + esc(d.title) + '</b></p>' +
       '<div class="ig-artes-grid">' +
         ['feed', 'story'].map(function(fmt){
           var cam = fmt === 'feed' ? feed : story;
-          return '<div class="ig-arte"><img src="' + cam + '" data-p="' + cam + '" alt="" ' +
-            'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'' + RB + '\'+this.dataset.p}else{this.parentNode.innerHTML=\'<p class=cred>arte não encontrada</p>\'}">' +
+          var src = v ? RB + cam + v : cam;
+          return '<div class="ig-arte"><img src="' + src + '" data-p="' + cam + '" alt="" ' +
+            'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'' + RB + '\'+this.dataset.p}else{this.parentNode.innerHTML=\'<p class=cred>arte não encontrada — se a matéria acabou de sair, o ateliê prepara em ~1 min</p>\'}">' +
             '<a class="bt" href="' + RB + cam + '" target="_blank" rel="noopener" download>⬇ Baixar ' + (fmt === 'feed' ? 'post (feed)' : 'stories') + '</a></div>';
         }).join('') +
       '</div>' +
+      (d.img ? '<div style="text-align:center;margin-top:12px">' +
+        '<button class="bt" type="button" id="insta-enquadrar">🎯 Ajustar enquadramento da foto</button>' +
+        (v ? ' <button class="bt" type="button" id="insta-rever">🔄 Ver se a arte nova ficou pronta</button>' : '') +
+        '</div>' : '') +
       (leg
-        ? '<label style="font-family:var(--sans);font-weight:700;font-size:.82rem;display:block;margin:16px 0 6px">Legenda</label>' +
+        ? '<label style="font-family:var(--sans);font-weight:700;font-size:.82rem;display:block;margin:16px 0 6px">Legenda' +
+          (legAuto ? ' <span class="cred" style="font-weight:400">(montada automaticamente do começo da matéria)</span>' : '') + '</label>' +
           '<textarea class="ig-leg" readonly rows="7">' + esc(leg) + '</textarea>' +
           '<button class="bt" type="button" id="insta-copialeg" style="margin-top:8px">📋 Copiar legenda</button>'
         : '<p class="cred" style="margin-top:14px">Esta matéria não tem legenda pronta.</p>') +
@@ -3824,7 +3851,135 @@ ingressos e divisor."></textarea>
     if(cp) cp.addEventListener('click', function(){
       var ta = $('insta-corpo').querySelector('.ig-leg');
       if(ta && navigator.clipboard) navigator.clipboard.writeText(ta.value).then(function(){
-        var v = cp.textContent; cp.textContent = '✓ Copiada'; setTimeout(function(){ cp.textContent = v; }, 1600);
+        var t = cp.textContent; cp.textContent = '✓ Copiada'; setTimeout(function(){ cp.textContent = t; }, 1600);
+      });
+    });
+    var be = $('insta-enquadrar');
+    if(be) be.addEventListener('click', function(){ abrirEnquadrar(d); });
+    var br = $('insta-rever');
+    if(br) br.addEventListener('click', function(){
+      try{ sessionStorage.setItem('foco-v-' + d.slug, String(Date.now())); }catch(e){}
+      abrirInstaMateria(d);
+    });
+  }
+
+  /* ---- ajuste de enquadramento da arte: o Pedro arrasta a foto até o que
+     importa ficar dentro do quadro. A prévia usa EXATAMENTE a mesma conta do
+     corte do gerador (_cover em tools/gera_social.py): o ponto escolhido vai
+     para o centro do corte, sem nunca sair das bordas da foto. O ajuste fica
+     em import/social-foco.json e o robô "Artes de Instagram" refaz as artes
+     sozinho quando esse arquivo muda. ---- */
+  var ENQ = null;
+  function enqPosicao(){
+    var e = ENQ, esc2 = Math.max(e.bw / e.iw, e.bh / e.ih);
+    var sw = e.iw * esc2, sh = e.ih * esc2;
+    var ox = Math.max(0, Math.min(sw - e.bw, e.fx * sw - e.bw / 2));
+    var oy = Math.max(0, Math.min(sh - e.bh, e.fy * sh - e.bh / 2));
+    return { sw: sw, sh: sh,
+      x: sw > e.bw + 0.5 ? ox / (sw - e.bw) * 100 : 50,
+      y: sh > e.bh + 0.5 ? oy / (sh - e.bh) * 100 : 50 };
+  }
+  function enqAplica(){
+    var img = $('enq-img'); if(!img || !ENQ) return;
+    var p = enqPosicao();
+    img.style.objectPosition = p.x.toFixed(2) + '% ' + p.y.toFixed(2) + '%';
+  }
+  function enqMexe(dfx, dfy){
+    if(!ENQ) return;
+    ENQ.fx = Math.max(0, Math.min(1, ENQ.fx + dfx));
+    ENQ.fy = Math.max(0, Math.min(1, ENQ.fy + dfy));
+    enqAplica();
+  }
+  function abrirEnquadrar(d){
+    var corpo = $('insta-corpo');
+    corpo.innerHTML =
+      '<p style="font-family:var(--sans);font-size:.9rem;margin:0 0 8px"><b>' + esc(d.title) + '</b></p>' +
+      '<p class="cred" style="margin:0 0 12px">Arraste a foto (ou use as setas) até o que importa ficar dentro do quadro. ' +
+        'O mesmo ajuste vale para o post do feed e para o stories.</p>' +
+      '<div id="enq-box" style="position:relative;width:min(340px,100%);aspect-ratio:1080/1350;margin:0 auto;overflow:hidden;border-radius:10px;background:#160b08;cursor:grab;touch-action:none;user-select:none">' +
+        '<img id="enq-img" alt="" draggable="false" style="width:100%;height:100%;object-fit:cover;pointer-events:none">' +
+        '<div style="position:absolute;left:0;right:0;bottom:0;height:40%;background:linear-gradient(transparent,rgba(5,3,2,.88));pointer-events:none"></div>' +
+        '<div style="position:absolute;left:8%;right:8%;bottom:6%;color:#fff;font-family:var(--sans);font-weight:700;font-size:.74rem;line-height:1.25;pointer-events:none">' +
+          esc(String((d.instagram && d.instagram.titulo) || d.title).replace(/\*/g, '')) + '</div>' +
+      '</div>' +
+      '<div style="display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap">' +
+        '<button class="bt" type="button" data-enq="e" aria-label="foto para a direita">◀</button>' +
+        '<button class="bt" type="button" data-enq="d" aria-label="foto para a esquerda">▶</button>' +
+        '<button class="bt" type="button" data-enq="c" aria-label="foto para baixo">▲</button>' +
+        '<button class="bt" type="button" data-enq="b" aria-label="foto para cima">▼</button>' +
+        '<button class="bt" type="button" data-enq="o">centralizar</button>' +
+      '</div>' +
+      '<div style="display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap">' +
+        '<button class="bt" type="button" id="enq-salvar">💾 Salvar enquadramento</button>' +
+        '<button class="bt" type="button" id="enq-voltar">← Voltar às artes</button>' +
+      '</div>' +
+      '<p class="cred" id="enq-msg" style="text-align:center;margin-top:10px"></p>';
+    var img = $('enq-img'), box = $('enq-box');
+    docJson('import/social-foco.json').then(function(r){
+      var salvo = r.data && r.data.focos && r.data.focos[d.slug];
+      img.onload = function(){
+        // sem ajuste salvo, começa reproduzindo o corte automático de hoje
+        // (foto centrada, viés para o terço de cima) para a prévia ser honesta
+        var iw = img.naturalWidth, ih = img.naturalHeight;
+        var esc2 = Math.max(1080 / iw, 1350 / ih), sh = ih * esc2;
+        var fyPadrao = sh > 1350 ? ((sh - 1350) * 0.38 + 675) / sh : 0.5;
+        ENQ = { d: d, iw: iw, ih: ih, bw: 1080, bh: 1350,
+                fx: salvo ? salvo.x : 0.5, fy: salvo ? salvo.y : fyPadrao };
+        enqAplica();
+      };
+      img.onerror = function(){
+        if(!img.dataset.f){ img.dataset.f = 1; img.src = RB_ARTES + d.img; }
+        else $('enq-msg').textContent = 'Não achei a foto da matéria.';
+      };
+      img.src = d.img;
+    });
+    // arrastar com o dedo ou com o mouse
+    var pega = null;
+    box.addEventListener('pointerdown', function(ev){
+      if(!ENQ) return;
+      pega = { x: ev.clientX, y: ev.clientY };
+      box.setPointerCapture(ev.pointerId);
+      box.style.cursor = 'grabbing';
+    });
+    box.addEventListener('pointermove', function(ev){
+      if(!pega || !ENQ) return;
+      var p = enqPosicao();
+      var fator = 1080 / box.clientWidth;  // px da tela -> px da arte
+      // arrastar a foto para a direita = interesse anda para a esquerda
+      ENQ.fx = Math.max(0, Math.min(1, ENQ.fx - (ev.clientX - pega.x) * fator / p.sw));
+      ENQ.fy = Math.max(0, Math.min(1, ENQ.fy - (ev.clientY - pega.y) * fator / p.sh));
+      pega = { x: ev.clientX, y: ev.clientY };
+      enqAplica();
+    });
+    ['pointerup', 'pointercancel'].forEach(function(tp){
+      box.addEventListener(tp, function(){ pega = null; box.style.cursor = 'grab'; });
+    });
+    corpo.querySelectorAll('[data-enq]').forEach(function(b){
+      b.addEventListener('click', function(){
+        var qual = b.dataset.enq, passo = 0.03;
+        if(qual === 'o'){ if(ENQ){ ENQ.fx = 0.5; ENQ.fy = 0.5; enqAplica(); } return; }
+        enqMexe(qual === 'e' ? -passo : qual === 'd' ? passo : 0,
+                qual === 'c' ? -passo : qual === 'b' ? passo : 0);
+      });
+    });
+    $('enq-voltar').addEventListener('click', function(){ abrirInstaMateria(d); });
+    $('enq-salvar').addEventListener('click', function(){
+      if(!ENQ) return;
+      var st = $('enq-msg');
+      st.textContent = 'Salvando…';
+      docJson('import/social-foco.json').then(function(r){
+        var doc = r.data || {};
+        doc._leiame = 'Ajustes de enquadramento das artes de Instagram, feitos na Coxia. ' +
+          'O robô "Artes de Instagram" refaz as artes quando este arquivo muda.';
+        doc.focos = doc.focos || {};
+        doc.focos[d.slug] = { x: +ENQ.fx.toFixed(4), y: +ENQ.fy.toFixed(4) };
+        return ghPut('import/social-foco.json', JSON.stringify(doc, null, 1),
+          assina('ajusta o enquadramento da arte de "' + d.title + '"'), r.sha || undefined);
+      }).then(function(){
+        try{ sessionStorage.setItem('foco-v-' + d.slug, String(Date.now())); }catch(e){}
+        st.textContent = '✓ Salvo — o ateliê já está refazendo a arte; em ~1 minuto ela aparece pronta na tela anterior.';
+      }).catch(function(err){
+        st.textContent = 'Não deu para salvar: ' + ((err && err.message) || err);
       });
     });
   }
@@ -4508,8 +4663,10 @@ ingressos e divisor."></textarea>
           var jaSaiu = !d._mesa && !devolvida;  // publicada ou agendada (tem post de Instagram para pegar)
           var jaPub = jaSaiu && (!d.publishAt || d.publishAt <= agora);
           var acoes = '';
-          // pegar as artes de Instagram DEPOIS de lançar (as artes ficam guardadas pelo slug)
-          if(jaSaiu && d.instagram){
+          // pegar as artes de Instagram DEPOIS de lançar (as artes ficam guardadas
+          // pelo slug). As matérias escritas à mão não trazem o pacote de Instagram
+          // da redação, mas o ateliê gera a arte do mesmo jeito: basta ter foto.
+          if(jaSaiu && (d.instagram || d.img)){
             acoes += '<button class="bt" data-igmat="' + esc(d.slug) + '" type="button">📱 Instagram</button>';
           }
           // editar: chefe/editor em publicadas; autor na própria matéria ainda não publicada (mesa ou devolvida)
