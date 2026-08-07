@@ -3870,19 +3870,23 @@ ingressos e divisor."></textarea>
      em import/social-foco.json e o robô "Artes de Instagram" refaz as artes
      sozinho quando esse arquivo muda. ---- */
   var ENQ = null;
-  function enqPosicao(){
-    var e = ENQ, esc2 = Math.max(e.bw / e.iw, e.bh / e.ih);
-    var sw = e.iw * esc2, sh = e.ih * esc2;
-    var ox = Math.max(0, Math.min(sw - e.bw, e.fx * sw - e.bw / 2));
-    var oy = Math.max(0, Math.min(sh - e.bh, e.fy * sh - e.bh / 2));
-    return { sw: sw, sh: sh,
-      x: sw > e.bw + 0.5 ? ox / (sw - e.bw) * 100 : 50,
-      y: sh > e.bh + 0.5 ? oy / (sh - e.bh) * 100 : 50 };
-  }
   function enqAplica(){
-    var img = $('enq-img'); if(!img || !ENQ) return;
-    var p = enqPosicao();
-    img.style.objectPosition = p.x.toFixed(2) + '% ' + p.y.toFixed(2) + '%';
+    // posiciona a foto dentro do quadro com a MESMA conta do _cover em
+    // Python: escala mínima para cobrir × zoom, e o ponto de interesse no
+    // centro do corte, preso às bordas. Devolve as medidas (em px da arte)
+    // para o arrasto saber o quanto anda.
+    var img = $('enq-img'), box = $('enq-box');
+    if(!img || !ENQ || !box || !box.clientWidth) return null;
+    var esc2 = Math.max(ENQ.bw / ENQ.iw, ENQ.bh / ENQ.ih) * ENQ.z;
+    var sw = ENQ.iw * esc2, sh = ENQ.ih * esc2;
+    var ox = Math.max(0, Math.min(sw - ENQ.bw, ENQ.fx * sw - ENQ.bw / 2));
+    var oy = Math.max(0, Math.min(sh - ENQ.bh, ENQ.fy * sh - ENQ.bh / 2));
+    var k = box.clientWidth / ENQ.bw;  // px da arte -> px da tela
+    img.style.width = (sw * k) + 'px';
+    img.style.height = (sh * k) + 'px';
+    img.style.left = (-ox * k) + 'px';
+    img.style.top = (-oy * k) + 'px';
+    return { sw: sw, sh: sh };
   }
   function enqMexe(dfx, dfy){
     if(!ENQ) return;
@@ -3890,14 +3894,19 @@ ingressos e divisor."></textarea>
     ENQ.fy = Math.max(0, Math.min(1, ENQ.fy + dfy));
     enqAplica();
   }
+  function enqZum(vezes){
+    if(!ENQ) return;
+    ENQ.z = Math.max(1, Math.min(3, ENQ.z * vezes));
+    enqAplica();
+  }
   function abrirEnquadrar(d){
     var corpo = $('insta-corpo');
     corpo.innerHTML =
       '<p style="font-family:var(--sans);font-size:.9rem;margin:0 0 8px"><b>' + esc(d.title) + '</b></p>' +
-      '<p class="cred" style="margin:0 0 12px">Arraste a foto (ou use as setas) até o que importa ficar dentro do quadro. ' +
-        'O mesmo ajuste vale para o post do feed e para o stories.</p>' +
+      '<p class="cred" style="margin:0 0 12px">Arraste a foto (ou use as setas) até o que importa ficar dentro do quadro; ' +
+        'a lupa e a rodinha do mouse aproximam e afastam. O mesmo ajuste vale para o post do feed e para o stories.</p>' +
       '<div id="enq-box" style="position:relative;width:min(340px,100%);aspect-ratio:1080/1350;margin:0 auto;overflow:hidden;border-radius:10px;background:#160b08;cursor:grab;touch-action:none;user-select:none">' +
-        '<img id="enq-img" alt="" draggable="false" style="width:100%;height:100%;object-fit:cover;pointer-events:none">' +
+        '<img id="enq-img" alt="" draggable="false" style="position:absolute;left:0;top:0;max-width:none;pointer-events:none">' +
         '<div style="position:absolute;left:0;right:0;bottom:0;height:40%;background:linear-gradient(transparent,rgba(5,3,2,.88));pointer-events:none"></div>' +
         '<div style="position:absolute;left:8%;right:8%;bottom:6%;color:#fff;font-family:var(--sans);font-weight:700;font-size:.74rem;line-height:1.25;pointer-events:none">' +
           esc(String((d.instagram && d.instagram.titulo) || d.title).replace(/\*/g, '')) + '</div>' +
@@ -3907,7 +3916,9 @@ ingressos e divisor."></textarea>
         '<button class="bt" type="button" data-enq="d" aria-label="foto para a esquerda">▶</button>' +
         '<button class="bt" type="button" data-enq="c" aria-label="foto para baixo">▲</button>' +
         '<button class="bt" type="button" data-enq="b" aria-label="foto para cima">▼</button>' +
-        '<button class="bt" type="button" data-enq="o">centralizar</button>' +
+        '<button class="bt" type="button" data-enq="mais" aria-label="aproximar">🔍＋</button>' +
+        '<button class="bt" type="button" data-enq="menos" aria-label="afastar">🔍－</button>' +
+        '<button class="bt" type="button" data-enq="o">voltar ao automático</button>' +
       '</div>' +
       '<div style="display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap">' +
         '<button class="bt" type="button" id="enq-salvar">💾 Salvar enquadramento</button>' +
@@ -3924,7 +3935,8 @@ ingressos e divisor."></textarea>
         var esc2 = Math.max(1080 / iw, 1350 / ih), sh = ih * esc2;
         var fyPadrao = sh > 1350 ? ((sh - 1350) * 0.38 + 675) / sh : 0.5;
         ENQ = { d: d, iw: iw, ih: ih, bw: 1080, bh: 1350,
-                fx: salvo ? salvo.x : 0.5, fy: salvo ? salvo.y : fyPadrao };
+                fx: salvo ? salvo.x : 0.5, fy: salvo ? salvo.y : fyPadrao,
+                z: (salvo && salvo.z) || 1 };
         enqAplica();
       };
       img.onerror = function(){
@@ -3943,21 +3955,29 @@ ingressos e divisor."></textarea>
     });
     box.addEventListener('pointermove', function(ev){
       if(!pega || !ENQ) return;
-      var p = enqPosicao();
-      var fator = 1080 / box.clientWidth;  // px da tela -> px da arte
+      var p = enqAplica(); if(!p) return;
+      var fator = ENQ.bw / box.clientWidth;  // px da tela -> px da arte
       // arrastar a foto para a direita = interesse anda para a esquerda
       ENQ.fx = Math.max(0, Math.min(1, ENQ.fx - (ev.clientX - pega.x) * fator / p.sw));
       ENQ.fy = Math.max(0, Math.min(1, ENQ.fy - (ev.clientY - pega.y) * fator / p.sh));
       pega = { x: ev.clientX, y: ev.clientY };
       enqAplica();
     });
+    // rodinha do mouse (ou dois dedos no trackpad) aproxima e afasta
+    box.addEventListener('wheel', function(ev){
+      if(!ENQ) return;
+      ev.preventDefault();
+      enqZum(ev.deltaY < 0 ? 1.08 : 1 / 1.08);
+    }, { passive: false });
     ['pointerup', 'pointercancel'].forEach(function(tp){
       box.addEventListener(tp, function(){ pega = null; box.style.cursor = 'grab'; });
     });
     corpo.querySelectorAll('[data-enq]').forEach(function(b){
       b.addEventListener('click', function(){
         var qual = b.dataset.enq, passo = 0.03;
-        if(qual === 'o'){ if(ENQ){ ENQ.fx = 0.5; ENQ.fy = 0.5; enqAplica(); } return; }
+        if(qual === 'o'){ if(ENQ){ ENQ.fx = 0.5; ENQ.fy = 0.5; ENQ.z = 1; enqAplica(); } return; }
+        if(qual === 'mais'){ enqZum(1.15); return; }
+        if(qual === 'menos'){ enqZum(1 / 1.15); return; }
         enqMexe(qual === 'e' ? -passo : qual === 'd' ? passo : 0,
                 qual === 'c' ? -passo : qual === 'b' ? passo : 0);
       });
@@ -3972,7 +3992,7 @@ ingressos e divisor."></textarea>
         doc._leiame = 'Ajustes de enquadramento das artes de Instagram, feitos na Coxia. ' +
           'O robô "Artes de Instagram" refaz as artes quando este arquivo muda.';
         doc.focos = doc.focos || {};
-        doc.focos[d.slug] = { x: +ENQ.fx.toFixed(4), y: +ENQ.fy.toFixed(4) };
+        doc.focos[d.slug] = { x: +ENQ.fx.toFixed(4), y: +ENQ.fy.toFixed(4), z: +ENQ.z.toFixed(3) };
         return ghPut('import/social-foco.json', JSON.stringify(doc, null, 1),
           assina('ajusta o enquadramento da arte de "' + d.title + '"'), r.sha || undefined);
       }).then(function(){

@@ -39,13 +39,15 @@ def _cover(img, w, h, foco=0.38):
     """Corta a foto para cobrir w x h.
 
     - foco número (jeito antigo): viés vertical, 0.38 = terço superior.
-    - foco {'x':0..1,'y':0..1} (ajuste feito pelo Pedro na Coxia): ponto de
-      interesse da foto; o corte centraliza nele o quanto der sem sair da
-      borda. A prévia da Coxia usa exatamente esta conta — se mudar aqui,
-      mude lá também (função focoParaPosicao).
+    - foco {'x':0..1,'y':0..1,'z':1..3} (ajuste feito pelo Pedro na Coxia):
+      ponto de interesse da foto e zoom; o corte centraliza nele o quanto der
+      sem sair da borda. A prévia da Coxia usa exatamente esta conta — se
+      mudar aqui, mude lá também (função enqAplica em tools/coxia_body.html).
     """
     iw, ih = img.size
     esc = max(w / iw, h / ih)
+    if isinstance(foco, dict):
+        esc *= min(max(float(foco.get('z', 1)), 1), 3)
     img = img.resize((round(iw * esc), round(ih * esc)), Image.LANCZOS)
     iw, ih = img.size
     if isinstance(foco, dict):
