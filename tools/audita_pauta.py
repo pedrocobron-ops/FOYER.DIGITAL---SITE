@@ -21,8 +21,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # LISTA CANÔNICA DE EDITORIAS. Precisa ser IDÊNTICA à do manual (seção
 # "Formato do pacote"); divergência é erro de sistema, e o manual manda
 # corrigir entre rodadas. Entenda, Memória e Programa entraram com a versão
-# 4.0 do manual, em 04/08/2026.
-CATS_AGENTES = {'Teatro', 'Notícia', 'Cinema', 'Streaming', 'Música', 'Show',
+# 4.0 do manual, em 04/08/2026. Teatro Musical entrou em 08/08/2026 como
+# editoria própria (pedido do Pedro): é a força da casa e merecia vitrine.
+CATS_AGENTES = {'Teatro', 'Teatro Musical', 'Notícia', 'Cinema', 'Streaming', 'Música', 'Show',
                 'Dança', 'Exposições', 'Literatura', 'Televisão', 'Audições',
                 'Edital', 'Festa', 'Programa', 'Guia', 'Bastidores',
                 'Entenda', 'Memória'}

@@ -1415,9 +1415,14 @@ Blocos opcionais (usar quando enriquecem de verdade):
 
 - `cat`/`cats` — **LISTA CANÔNICA DE EDITORIAS:** usar 1 principal
   (`cat`) e até 2 secundárias (`cats`). Valores editoriais permitidos aos
-  agentes: **Teatro, Notícia, Cinema, Streaming, Música, Show, Dança,
-  Exposições, Literatura, Televisão, Audições, Edital, Festa, Programa,
-  Guia, Bastidores, Entenda e Memória**. `Em Cartaz` é selo secundário e
+  agentes: **Teatro, Teatro Musical, Notícia, Cinema, Streaming, Música,
+  Show, Dança, Exposições, Literatura, Televisão, Audições, Edital, Festa,
+  Programa, Guia, Bastidores, Entenda e Memória**. **Teatro Musical é a
+  editoria da força da casa**: matéria cujo assunto central é um musical
+  (montagem, elenco, temporada, bastidor de musical) usa `cat` Teatro
+  Musical, com Teatro em `cats` para seguir aparecendo na página de Teatro.
+  Palavra "musical" de passagem (programação musical de um festival, trilha)
+  NÃO muda a editoria. `Em Cartaz` é selo secundário e
   entra somente em `cats`, nunca como `cat`. NUNCA usar: Artigo de Opinião,
   Astrologia, Crônicas e Histórias ou Crítica, que pertencem a humanos.
   Exemplos: notícia internacional = Notícia + Teatro; Lei Rouanet =
@@ -1465,9 +1470,9 @@ Blocos opcionais (usar quando enriquecem de verdade):
   data no Brasil) simplesmente NÃO leva o campo.
 
 - `slug`: ASCII minúsculo, hifens, máx. 80 caracteres, sem acentos.
-- `cat` — uma de: Teatro, Notícia, Cinema, Streaming, Música, Show,
-  Dança, Exposições, Literatura, Televisão, Audições, Edital, Festa,
-  Programa, Guia, Bastidores, Entenda ou Memória. `Em Cartaz` só pode entrar
+- `cat` — uma de: Teatro, Teatro Musical, Notícia, Cinema, Streaming,
+  Música, Show, Dança, Exposições, Literatura, Televisão, Audições, Edital,
+  Festa, Programa, Guia, Bastidores, Entenda ou Memória. `Em Cartaz` só pode entrar
   em `cats`. Agentes nunca usam Crítica, Artigo de Opinião, Astrologia ou
   Crônicas e Histórias.
 - JSON com `ensure_ascii` desligado (acentos legíveis) e indentação 1.
