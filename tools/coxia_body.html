@@ -3058,14 +3058,20 @@ ingressos e divisor."></textarea>
   }
 
   /* ---------------- upload de imagem ---------------- */
-  function redimensionar(file){
+  function redimensionar(file, modo){
+    // modo 'capa' (padrão): foto em pé vira 16:9, porque a capa da matéria é
+    // uma janela horizontal do desenho do site.
+    // modo 'livre': NENHUM corte — a foto do CORPO da matéria entra no
+    // formato em que veio (vertical fica vertical); só encolhe se for
+    // gigante. Pedido do Pedro, 10/08/2026: a espada do Mad King saiu
+    // espremida numa janela deitada.
     return new Promise(function(res, rej){
       var img = new Image();
       var url = URL.createObjectURL(file);
       img.onload = function(){
         var sw = img.width, sh = img.height, sy = 0;
         // foto em pé (cartaz)? recorta para 16:9 preservando o topo, onde ficam os rostos
-        if(sh > sw * 0.85){
+        if(modo !== 'livre' && sh > sw * 0.85){
           var alvo = Math.round(sw * 9 / 16);
           sy = Math.round(sh * 0.06);
           if(sy + alvo > sh) sy = sh - alvo;
@@ -3073,6 +3079,7 @@ ingressos e divisor."></textarea>
         }
         var W = Math.min(sw, 1600);
         var H = Math.round(W * sh / sw);
+        if(H > 2200){ H = 2200; W = Math.round(H * sw / sh); }  // torre sem fim também não
         var c = document.createElement('canvas');
         c.width = W; c.height = H;
         c.getContext('2d').drawImage(img, 0, sy, sw, sh, 0, 0, W, H);
@@ -4039,7 +4046,7 @@ ingressos e divisor."></textarea>
     var caminhos = [];
     var fila = files.reduce(function(p, file, i){
       return p.then(function(){
-        return redimensionar(file)
+        return redimensionar(file, 'livre')
           .then(function(d){ return subirImagem(d, slugBase + '-corpo-' + marca + i); })
           .then(function(c){ caminhos.push(c); });
       });
