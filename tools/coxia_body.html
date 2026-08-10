@@ -2310,16 +2310,22 @@ ingressos e divisor."></textarea>
   /* ---------------- equipe / login ---------------- */
   function carregarEquipe(force){
     if(EQUIPE && !force) return Promise.resolve(EQUIPE);
-    return ghGet('import/equipe.json').then(function(f){
-      if(!f || !f.content) { EQUIPE = { lista: [], sha: null }; return EQUIPE; }
-      EQUIPE = { lista: (JSON.parse(unb64(f.content)).usuarios || []), sha: f.sha };
-      return EQUIPE;
-    }).catch(function(){
-      // sem rede na API: tenta a cópia publicada com o site
+    // a cópia publicada com o site: o socorro quando a API do GitHub falha OU
+    // responde vazio. Antes, um 404 passageiro (ou o limite de leituras sem
+    // chave) virava "equipe vazia", ficava 60s guardado no cache e o portão
+    // dizia "Sem conexão" para quem tinha internet perfeita — foi o que
+    // barrou a Isabel em 10/08/2026. Agora só desiste se o site também falhar.
+    var doSitio = function(){
       return fetch('import/equipe.json', {cache:'no-store'}).then(function(r){ return r.json(); })
         .then(function(j){ EQUIPE = { lista: j.usuarios || [], sha: null }; return EQUIPE; })
         .catch(function(){ EQUIPE = { lista: [], sha: null }; return EQUIPE; });
-    });
+    };
+    // force = login: lê fresco, sem aproveitar resposta guardada
+    return ghGet('import/equipe.json', force).then(function(f){
+      if(!f || !f.content) return doSitio();
+      EQUIPE = { lista: (JSON.parse(unb64(f.content)).usuarios || []), sha: f.sha };
+      return EQUIPE;
+    }).catch(doSitio);
   }
   function conferirSenha(senha){
     return carregarEquipe(true).then(function(eq){
