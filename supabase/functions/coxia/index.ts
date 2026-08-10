@@ -85,7 +85,15 @@ async function quemE(sessao: string) {
     await db.from('coxia_sessao').delete().eq('token', sessao);
     return null;
   }
-  await db.from('coxia_sessao').update({ ultimo_uso: new Date().toISOString() }).eq('token', sessao);
+  // Sessão em uso se RENOVA sozinha: cada ação empurra a validade para 7 dias
+  // à frente. Quem trabalha todo dia nunca mais vê o pedido de senha; quem
+  // ficar uma semana inteira sem aparecer confirma de novo (10/08/2026 — o
+  // Pedro foi barrado no meio do expediente porque a sessão venceu por idade,
+  // mesmo com ele usando a Coxia todos os dias).
+  await db.from('coxia_sessao').update({
+    ultimo_uso: new Date().toISOString(),
+    expira_em: new Date(Date.now() + DIAS_DE_SESSAO * 864e5).toISOString(),
+  }).eq('token', sessao);
   return data;
 }
 
