@@ -218,8 +218,6 @@ def auditar(caminho):
             avisos.append(f'TÍTULO LONGO: {n_tit} caracteres (teto 90; o '
                           f'buscador corta perto de 60). Os primeiros 60 '
                           f'precisam funcionar sozinhos: "{titulo[:60]}"')
-        if re.match(r'^\s*(Quem foi|O que é|Por que)\b', titulo, re.I):
-            pass  # formas legítimas de explicador e perfil, aqui só não se conta como defeito
 
     # 3b. O FECHO NÃO É UM LINK (ordem do Pedro, 04/08/2026).
     #     Desde que a cota de 3 links entrou, o redator passou a cumpri-la no

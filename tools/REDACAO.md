@@ -456,6 +456,18 @@ para quem já leu é título invisível para quem ainda não leu.**
 7. **O `title` e o `instagram.titulo` são bichos diferentes.** O primeiro é
    busca; o segundo é arte e vai desenhado na imagem. Não confunda um com o
    outro nem copie de um para o outro.
+8. **A palavra que qualifica tem de caber nos 60 primeiros caracteres.** Regra
+   nascida de um título que a checagem derrubou em 11/08/2026. O corpo dizia
+   "o adjetivo **costuma** ficar de fora"; o título, apertado para caber no
+   teto, dizia "o 19 de setembro **é** comemorado sem o adjetivo". O corpo
+   estava protegido, o título não, e o contraexemplo que o derruba estava na
+   própria lista de fontes da matéria. **Título mais curto que o corpo tende a
+   virar título mais categórico que o corpo**, porque quem titula corta palavra
+   e a palavra que qualifica é sempre a mais fácil de cortar: parece enfeite e
+   é justamente o que sustenta a frase. E não basta que o "costuma" exista no
+   título: ele tem de estar **antes do corte de 60**. Uma hedge que só aparece
+   no caractere 70 não é hedge, é hedge para quem já clicou — no trecho
+   truncado, que é o que mais gente lê, a afirmação absoluta volta inteira.
 
 **Como o Titulador trabalha:** lê o texto entregue, não a pauta. Escreve **três
 candidatos** com estruturas diferentes, mede cada um em caracteres, escolhe um e
@@ -1082,8 +1094,21 @@ dentro da editoria daquela assinatura.
   (mira as caixas de resposta do Google).
 - **Links internos obrigatórios: no mínimo 3 por matéria**, apontando
   para matérias do acervo (`[texto](post-slug.html)`) e verbetes da
-  enciclopédia (`[nome](pessoa-slug.html)`) — conferir se o arquivo
-  existe no acervo antes de linkar.
+  enciclopédia (`[nome](pessoa-slug.html)`) — conferir se o destino
+  existe antes de linkar.
+- **O QUE CONTA COMO DESTINO QUE EXISTE (correção de 11/08/2026).** A
+  régua **não** é a presença de um `post-<slug>.html` na raiz do
+  repositório, e eu errei feio ao dizer que era: cheguei a anunciar "29
+  matérias aprovadas sem página no site" olhando só para isso. A página
+  de um pacote aprovado **é gerada no build**, pelo `tools/build_pages.py`,
+  a partir de `import/novas/`, e não fica commitada em lugar nenhum. A
+  ausência do arquivo na raiz não prova nada. O destino existe quando:
+  (a) há um `post-<slug>.html` commitado, **ou** (b) o pacote está em
+  `import/novas/` com `publishAt` **já passado** na data em que esta
+  matéria publica. Pacote ainda em `import/pauta/` não se linka, porque
+  aguarda aprovação humana e pode nunca sair. Quando o destino for
+  aprovado mas com `publishAt` posterior ao desta matéria, o link não
+  entra e a ressalva registra que ele cabe depois.
 - **O FECHO NÃO É UM LINK (ordem do Pedro, 04/08/2026).** Desde que a
   cota de 3 links entrou, o redator passou a resolvê-la no lugar mais
   fácil, que é o fim: **38% das matérias na mesa terminavam apontando
@@ -1128,6 +1153,16 @@ A regra estrutural: **quem escreve não checa, quem checa não escreve.** A
 checagem interna do próprio redator não vale como checagem (ele é cego para
 os próprios erros; a experiência da casa provou isso). A rodada roda em
 três ondas de agentes independentes, sem economizar agente:
+
+**REGRA DE ARQUIVO TEMPORÁRIO, para toda onda que roda em paralelo.** Cada
+agente recebe uma letra e **todo arquivo de trabalho dele leva essa letra no
+nome** (`checador-B-<slug>.txt`, `titulador-E-<slug>.txt`). Não é burocracia:
+em 08/08/2026 dois redatores paralelos escolheram o mesmo nome de arquivo de
+rascunho e **o `corpo` de uma matéria foi sobrescrito pelo texto de outra**,
+duas vezes na mesma rodada. Os próprios agentes detectaram e repararam, mas o
+acidente é silencioso por natureza — o pacote continua válido, o portão aprova,
+e o que está lá dentro é o texto errado. A letra do agente é a única coisa que
+impede duas mãos de escreverem no mesmo lugar.
 
 - **ONDA 1 — Redação**: 3 agentes redatores em paralelo, **2 matérias cada,
   o que fecha exatamente a cota diária de 2 + 2 + 2**, seguindo a sequência
