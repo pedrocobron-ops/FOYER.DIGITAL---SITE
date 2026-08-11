@@ -232,10 +232,31 @@ página cair?".
 
 **UM 403 OU 401 NÃO É PÁGINA MORTA.** Antes de dar uma fonte por perdida,
 tente com User-Agent de navegador — é a mesma regra 6 das fotos, e vale
-para texto. Distinga os casos: bloqueio de bot (abre com UA), WAF que
-recusa igual em todos os clientes (não abre para ninguém, não instale),
-200 falso que devolve a home no lugar do conteúdo (não sustenta nada), e
-404 de verdade. Escreva no `conferido` qual dos casos você encontrou.
+para texto. **São sete casos, e cada um se resolve de um jeito diferente.
+Escreva no `conferido` qual deles você encontrou:**
+
+1. **Bloqueio de bot.** 403 sem cabeçalho, 200 com User-Agent de navegador.
+   A página é boa e abre para o leitor. É o caso do Itaú Cultural e do
+   Planalto. Instale a URL normalmente.
+2. **Desafio de JavaScript.** 403 com página de Cloudflare a qualquer cliente
+   automatizado, inclusive com UA. Num navegador comum o desafio passa
+   sozinho, então **abre para o leitor**. Muitas vezes há uma porta lateral:
+   a Library of Congress devolve 200 na mesma URL com `&fo=json`, e o texto
+   integral sai do endereço em `resource.fulltext_file`.
+3. **WAF que recusa igual em todos os clientes.** Não abre para ninguém. Não
+   instale.
+4. **200 falso.** Devolve 200 com o corpo da home no lugar do conteúdo. É o
+   mais perigoso dos sete, porque quem só olha o código de status acha que
+   confirmou. **Leia o conteúdo, não o status.**
+5. **503 real do servidor de origem.** Não abre para cliente nenhum, nem com
+   navegador, nem no espelho institucional. Diferente do 503 de instabilidade,
+   que abre na segunda ou terceira tentativa — tente três vezes antes de
+   concluir. Quando é real, a fonte sai, **e saem com ela todas as frases que
+   só ela sustentava**, inclusive aspas.
+6. **Redirect cross-host que 404 no destino.** A URL responde, mas o que
+   chega é outra página. Confira o endereço final, não só o código.
+7. **404 e NXDOMAIN.** 404 é 404. NXDOMAIN é o domínio não existir, e é
+   diferente: não adianta trocar caminho nem esperar. Registre qual dos dois.
 
 **A URL TEM QUE ABRIR PARA O LEITOR.** Teste como ele testaria: sem
 cookie, sem sessão, sem cabeçalho especial. Quando o endereço for
