@@ -21,6 +21,65 @@ alguém. Uma vez por semana, leia a coluna do tipo e veja o que se repete.
 
 ---
 
+## 11/08/2026, títulos de alto alcance e a onda 2 das quinze
+
+Rodada de duas metades. Primeiro seis Tituladores reescreveram 26 títulos que
+passavam de 90 caracteres; depois três checadores independentes rodaram a onda 2
+nas quinze matérias de 08/08, que estavam na mesa sem nenhuma checagem. **De novo
+o portão mecânico não pegou nada do que segue.** Um dos cortes é de um título que
+os próprios Tituladores tinham acabado de escrever.
+
+| Tipo | O que caiu | Por quê | Matéria |
+|---|---|---|---|
+| `insinuação sem fonte` | O título "o 19 de setembro **é** comemorado sem o adjetivo da lei" | Afirma prática geral. O contraexemplo estava na própria lista de fontes: comemoração de 18/09/2018 da Secretaria Municipal da Pessoa com Deficiência de SP, com o nome legal inteiro. O corpo dizia "costuma"; o título perdeu a palavra ao caber no teto | Dia Nacional do Teatro Acessível |
+| `link quebrado` | O artigo do CELACC/ECA-USP, e tudo que só ele sustentava | 503 em todos os clientes, host inteiro fora do ar, inclusive no espelho paineira.usp.br. Não é 403 de robô nem 200 falso | Willi Ninja |
+| `aspa não literal` | Uma aspa do próprio Willi Ninja no documentário | Vinha só da fonte que caiu. Aspa que não se relocaliza não fica de pé, mesmo quando ninguém duvida dela | Willi Ninja |
+| `invenção` | "a casa fundada no Harlem" | Nenhuma fonte diz isso. O Harlem é a origem do voguing, meio século antes; Willi Ninja é do Queens, e Livingston só diz "founded in the mid-1980s" | Willi Ninja |
+| `número desatualizado` | "o passivo total **passava de** R$ 20 milhões" | O Metrópoles escreve, duas vezes, "as dívidas estão acumuladas em R$ 20 milhões". Num pacote sobre dívida, esse "mais" não se inventa | Dulcina de Moraes |
+| `direito de foto` | A identificação da atriz na legenda da capa | O índice iconográfico da dissertação, p. 106 do PDF, chama a foto de "Júlio Gouveia ensaiando com **Emília**": nomeia a personagem. Quem nomeia a atriz é a descrição do Commons, e o Teledramaturgia registra outra intérprete no período | Lúcia Lambertini |
+| `atribuição errada` | As sessões de Chico Simões com Libras **e** audiodescrição | Os recursos se revezam: Libras em 20 e 27, AD em 21 e 28. Erro de acessibilidade numa matéria sobre patrimônio | Mamulengo |
+| `número desatualizado` | 3.589 e 3.554 registros na função ator/atriz | A base do MTE foi atualizada depois da apuração. A contagem de hoje é 3.605 e 3.572, e bate com o relatório oficial | Dia do Artista de Teatro |
+| `atribuição errada` | "Brooks nunca tinha dirigido nada" | O AFI sustenta estreia na direção de **longa**. E faltava que Wilder já aparecera em Bonnie e Clyde, do mesmo 1967 | Gene Wilder |
+| `atribuição errada` | "uma terceira campanha foi montada em 2023" | A fonte é de 14/08/2022 e diz "está prevista una nueva campaña", com licenças protocoladas. Pedido não é obra feita | García Lorca |
+| `atribuição errada` | "o Bustanoby's" | O Evening Star nomeia o homem e o endereço, não uma casa com esse nome | Rudolph Valentino |
+| `superlativo sem fonte` | "o prédio que ela levantou" / "o prédio que ela pagou" | Nenhuma fonte diz que Dulcina bancou o edifício. O que a Agência Câmara sustenta é que ela fundou a faculdade e o teatro | Dulcina de Moraes |
+| `insinuação sem fonte` | "a faculdade continuava fechada" | Nenhuma das quinze fontes afirma isso | Dulcina de Moraes |
+| `atribuição errada` | O lide dizia sem atribuir que o verde de teatro "não era tingido, era pintado" | Tem uma origem só, a RTS, e nenhuma das outras seis fontes. Passou a vir atribuído | Verde dá azar |
+| `atribuição errada` | "tratou do assunto com o historiador Pastoureau" | A RTS não o entrevistou: cita France Inter e o livro dele | Verde dá azar |
+| `número desatualizado` | "três entradas, de 1135, 1572 e 1575" no CNRTL | São três itens numerados e **quatro datas**: o item 3 se abre em a) 1575 e b) 1680. Numa matéria de etimologia a lista datada é a prova | Foyer |
+| `link quebrado` | A chamada de temporada de 2022 do Sesc, em `fontes` | Abre, mas não sustenta frase nenhuma. Numa matéria perene isso convida o próximo editor a tomar 2022 por programação corrente | Jofre Soares |
+| `atribuição errada` | O aposto "Noronha, **o pai**" | A ficha diz só "Jofre Soares / Noronha" | Jofre Soares |
+| `norma revogada` | Meia cota do regulamento: "20 espaços mais 1% do excedente" | São 20 espaços **e** 20 assentos. E a aspa estava no art. 49, § 3º, **f**, sem o parágrafo citado | Libras e audiodescrição |
+| `invenção` | "a MITsp teve três espetáculos internacionais" com o recurso | Tem mais. História da Violência e Vigiada e Punida seguem o mesmo padrão | Libras e audiodescrição |
+
+**Padrões novos desta leva**, todos de família nova:
+
+- **título mais curto que o corpo vira título mais categórico que o corpo.** Quem
+  titula corta palavra, e a palavra que qualifica é a mais fácil de cortar: parece
+  enfeite e é o que sustenta a frase. Virou regra 8 do Titulador, com um detalhe que
+  veio do próprio agente: a qualificação tem de caber **nos 60 primeiros
+  caracteres**, senão o snippet truncado devolve a afirmação absoluta.
+- **a contagem sem régua.** "Quatro montagens no Brasil" é falso; "quatro montagens
+  profissionais no Brasil, de 1965 a 2014" é verdadeiro. E "quatro montagens
+  profissionais", sem país, é falso na direção contrária. Régua incompleta erra dos
+  dois lados.
+- **o Instagram é porta dos fundos do fato.** Três legendas e um `instagram.titulo`
+  carregavam fatos que o checador tinha acabado de corrigir no corpo. Quem corrige
+  o corpo tem de varrer o bloco `instagram` no mesmo movimento.
+- **a fonte que sai leva as frases dela junto.** Quando o artigo da USP caiu, não
+  bastou tirar a URL: saíram a tese sobre Paris Is Burning, a leitura do Vogue de
+  Madonna, o parágrafo de remuneração e uma aspa. Fonte que sai sem levar o que
+  sustentava deixa o texto órfão e ninguém percebe.
+- **a URL órfã dentro de `fontes` é bomba, não enfeite.** No 19 de setembro, a URL
+  que ninguém tinha aberto era justamente o contraexemplo que derrubava o título.
+- **o 503 real do servidor de origem**, sexto sabor de bloqueio: não abre para
+  cliente nenhum, nem com navegador, nem no espelho institucional. Diferente do 403
+  de robô e do 200 falso.
+- **a ressalva do chefe derrubada de novo.** Três nesta rodada: o 200 falso do Sesc
+  (não reproduz), a diferença de sete linhas na planilha do MTE (o ministério
+  corrigiu) e a suspeita sobre "calunga" no mamulengo (a matéria já estava certa e
+  não havia o que cortar). Continua valendo: ressalva é pista, não ordem.
+
 ## 06/08/2026, banco de conteúdo perene: 10 matérias da Redação Foyer
 
 A maior leva já checada pela casa. Dez matérias sem data para sair, um checador
