@@ -1031,6 +1031,8 @@ body.ads-on.ads-demo .ad-slot::after{
   font-family:var(--mono); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase;
   color:var(--ink-soft); padding:8px 2px 0;
 }
+/* o crédito da foto no meio do texto: linha própria, mais discreta que a legenda */
+.art-img .fig-cred{ display:block; opacity:.75; margin-top:3px; }
 .art-video{ margin:26px 0; aspect-ratio:16/9; border:var(--b); }
 .art-video iframe{ width:100%; height:100%; border:0; display:block; }
 .art-body ul, .art-body ol{ margin:0 0 20px; padding-left:24px; }
@@ -1252,7 +1254,11 @@ a:hover .tag, .tag:hover{ transform:translateY(-1px); }
 .art-spotify iframe{ width:100%; height:152px; border:2px solid var(--ink); display:block; }
 .art-galeria{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
   gap:10px; margin:22px 0; }
+.art-galeria figure{ margin:0; }
 .art-galeria img{ width:100%; aspect-ratio:4/3; object-fit:cover; border:2px solid var(--ink); }
+.art-galeria figcaption{ font-family:var(--mono); font-size:.56rem; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--ink-soft); padding:6px 2px 0; }
+.art-galeria .fig-cred{ display:block; opacity:.75; margin-top:2px; }
 .art-cta{ margin:24px 0; }
 .art-cta a{ display:inline-block; background:var(--wine); color:var(--gold);
   border:2px solid var(--wine); text-decoration:none; font-family:var(--mono);

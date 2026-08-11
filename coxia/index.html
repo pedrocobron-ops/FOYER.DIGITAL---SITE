@@ -750,10 +750,10 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
   .prev-body img.capa{ width:100%; max-height:340px; object-fit:cover; border:2px solid var(--ink); }
   .prev-body .cred{ font-family:var(--mono); font-size:.56rem; letter-spacing:.1em;
     text-transform:uppercase; color:var(--ink-soft); }
-  .prev-body .corpo p{ margin:0 0 14px; line-height:1.85; }
-  .prev-body .corpo h3{ font-size:1.05rem; text-transform:uppercase; margin:22px 0 8px;
+  .prev-body .corpo p, .esp-body p{ margin:0 0 14px; line-height:1.85; }
+  .prev-body .corpo h3, .esp-body h3{ font-size:1.05rem; text-transform:uppercase; margin:22px 0 8px;
     border-bottom:2px solid var(--gold); display:inline-block; padding-bottom:5px; }
-  .prev-body .corpo blockquote{ margin:16px 0; padding:10px 16px; border-left:3px solid var(--gold);
+  .prev-body .corpo blockquote, .esp-body blockquote{ margin:16px 0; padding:10px 16px; border-left:3px solid var(--gold);
     font-family:var(--didone); font-size:1.1rem; }
   .prev-avisos{ border-top:2px solid var(--ink); padding:12px 18px; font-family:var(--mono);
     font-size:.6rem; letter-spacing:.08em; line-height:2; }
@@ -761,6 +761,69 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
   .f-status{ font-family:var(--mono); font-size:.58rem; letter-spacing:.1em; text-transform:uppercase;
     color:var(--ink-soft); display:flex; gap:14px; flex-wrap:wrap; margin-top:6px; }
   .f-status .err{ color:var(--err); font-weight:700; }
+  /* contador colado no campo de texto: caracteres em destaque (o que o Pedro
+     pediu), e ao lado a conta que o portão realmente cobra */
+  .f-conta{ font-family:var(--mono); font-size:.6rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ink-soft); display:flex; gap:12px; flex-wrap:wrap; align-items:baseline;
+    padding:7px 2px 0; border-top:1px solid var(--line); margin-top:-1px; }
+  .f-conta .c1{ font-size:.72rem; font-weight:700; color:var(--ink); letter-spacing:.05em; }
+  .f-conta .bom{ color:var(--ok); font-weight:700; }
+  .f-conta .err{ color:var(--err); font-weight:700; }
+  /* ---- O ESPELHO: escrever vendo o resultado (pedido do Pedro, 05/08/2026).
+     O desenho é o dos editores de redação (Gutenberg do WordPress): a foto
+     aparece no fluxo do texto com a legenda embaixo, não como linha de código. */
+  .corpo-duplo{ display:grid; gap:14px; grid-template-columns:1fr; align-items:start; }
+  .espelho{ display:none; border:1.5px solid var(--line); background:var(--paper); min-width:0; }
+  .corpo-duplo.ver .espelho{ display:block; }
+  .esp-rotulo{ font-family:var(--mono); font-size:.54rem; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--ink-soft); padding:8px 12px; border-bottom:1px solid var(--line); background:var(--paper-2); }
+  .esp-body{ padding:14px 16px 6px; overflow:auto; max-height:600px; overscroll-behavior:contain; }
+  .esp-body:empty::after{ content:'O texto aparece aqui, do jeito que vai sair no site, enquanto você escreve.';
+    display:block; color:var(--ink-soft); font-size:.85rem; padding:6px 0 14px; }
+  .esp-b{ border-left:3px solid transparent; padding-left:8px; margin-left:-11px; cursor:pointer; }
+  .esp-b:hover{ border-left-color:var(--gold); background:var(--paper-2); }
+  .esp-b figure{ margin:8px 0 14px; }
+  .esp-b figure img{ max-width:100%; display:block; border:2px solid var(--ink); }
+  .esp-b figcaption{ font-family:var(--mono); font-size:.6rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ink-soft); padding:7px 2px 0; }
+  .esp-leg-falta{ font-family:var(--mono); font-size:.58rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--err); margin:-6px 0 12px; }
+  .fig-cred{ display:block; opacity:.75; margin-top:2px; }
+  .corpo-escreve textarea.arrasta{ outline:3px dashed var(--gold); outline-offset:-3px; }
+  .leg-rotulo{ font-family:var(--mono); font-size:.58rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); }
+  /* setinhas de reordenar bloco, no canto de cada bloco do espelho */
+  .esp-b{ position:relative; }
+  .esp-mov{ position:absolute; right:2px; top:2px; display:none; gap:3px; z-index:2; }
+  .esp-b:hover .esp-mov{ display:flex; }
+  @media (hover:none){ .esp-mov{ display:flex; opacity:.55; } }
+  .esp-mov button{ border:1px solid var(--line); background:var(--paper); color:var(--ink-soft);
+    font-size:.72rem; line-height:1; padding:5px 8px; cursor:pointer; }
+  .esp-mov button:hover{ background:var(--ink); color:var(--gold); }
+  .esp-dica{ font-family:var(--mono); font-size:.56rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ink-soft); margin:-4px 0 12px; }
+  /* aviso de rascunho guardado, embaixo do contador */
+  .rasc-st{ font-family:var(--sans); font-size:.78rem; color:var(--ink-soft); margin-top:5px; min-height:1.1em; }
+  /* lista de resultados do "Ligar ao acervo" */
+  .lk-lista{ margin:10px 24px 0; max-height:300px; overflow:auto; border:1.5px solid var(--line); }
+  .lk-lista:empty{ display:none; }
+  .lk-item{ display:block; width:100%; text-align:left; background:none; border:0;
+    border-bottom:1px solid var(--line); padding:10px 12px; cursor:pointer;
+    font-family:var(--sans); font-size:.85rem; color:var(--ink); }
+  .lk-item:last-child{ border-bottom:0; }
+  .lk-item:hover{ background:var(--ink); color:var(--gold); }
+  .lk-item .mt{ display:block; font-family:var(--mono); font-size:.54rem; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--ink-soft); margin-top:3px; }
+  .lk-item:hover .mt{ color:var(--gold); opacity:.8; }
+  .lk-vazio{ padding:12px; font-family:var(--sans); font-size:.85rem; color:var(--ink-soft); }
+  /* o espelho liga e desliga pelo botão em QUALQUER tamanho de tela
+     (pedido do Pedro, 05/08): a classe .ver manda, e o botão lembra a escolha */
+  @media (min-width:1100px){
+    .corpo-duplo.ver{ grid-template-columns:1fr 1fr; }
+    .espelho{ position:sticky; top:10px; }
+  }
+  .esp-atual{ border-left-color:var(--wine); background:var(--paper-2); }
+  .mbar button:disabled{ opacity:.35; cursor:default; }
+  .mbar button:disabled:hover{ background:var(--paper-2); color:var(--ink-soft); }
   .rasc-aviso{ display:none; border:2px solid var(--gold); background:var(--paper-2); padding:10px 14px;
     margin-bottom:14px; font-family:var(--mono); font-size:.6rem; letter-spacing:.1em;
     text-transform:uppercase; }
@@ -871,6 +934,8 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
   .mesa-semfoto{ font-family:var(--sans); font-size:.86rem; letter-spacing:0; text-transform:none; }
   .prev-avisos{ font-family:var(--sans); font-size:.82rem; letter-spacing:0; text-transform:none; }
   .f-status{ font-family:var(--sans); font-size:.82rem; letter-spacing:0; text-transform:none; }
+  .f-conta{ font-family:var(--sans); font-size:.82rem; letter-spacing:0; text-transform:none; }
+  .f-conta .c1{ font-size:.92rem; letter-spacing:0; }
   .quick button, .quick a{ font-family:var(--sans); font-weight:700; letter-spacing:.01em; text-transform:none; }
   .tk-dot{ font-family:var(--sans); font-size:.8rem; letter-spacing:0; text-transform:none; }
   #edit-banner{ font-family:var(--sans); letter-spacing:0; text-transform:none; }
@@ -1022,7 +1087,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
         <h2 class="hi" id="saudacao">Boa noite</h2>
         <p class="hi-sub">O panorama do FOYER neste momento</p>
         <div class="stats">
-          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1583</b><span>matérias no acervo</span></button>
+          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1603</b><span>matérias no acervo</span></button>
           <button class="stat" type="button" data-go="fila" data-foco="#fila-list"><b id="st-pub">—</b><span>publicadas pela Coxia</span></button>
           <button class="stat" type="button" data-go="fila" data-foco=".fila-agenda" data-foco-alt="#fila-list"><b id="st-ag">—</b><span>agendadas esperando a hora</span></button>
           <button class="stat" type="button" id="card-mesa" data-go="ia" data-foco="#mesa-list"><b id="st-mesa">—</b><span>na mesa de aprovação</span></button>
@@ -1063,7 +1128,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
           <form class="f-form" id="form">
             <div>
               <label for="f-title">Título</label>
-              <input type="text" id="f-title" placeholder="O título da matéria" required>
+              <input type="text" id="f-title" placeholder="O título da matéria" spellcheck="true" lang="pt-BR" required>
             </div>
             <div class="r2">
               <div>
@@ -1132,17 +1197,27 @@ Entrevista com o diretor em 21/07"></textarea>
             <div>
               <label for="f-body">Texto</label>
               <div class="mbar">
+                <button type="button" id="btn-voltar" title="Desfazer a última mudança (Ctrl+Z)" disabled>↶ Voltar</button>
+                <button type="button" id="btn-avancar" title="Refazer o que desfez (Ctrl+Y)" disabled>↷ Avançar</button>
                 <button type="button" data-md="**">B — negrito</button>
                 <button type="button" data-md="*">I — itálico</button>
                 <button type="button" data-md="## ">Intertítulo</button>
                 <button type="button" data-md="> ">Citação</button>
+                <button type="button" id="btn-acervo">🔗 Ligar ao acervo</button>
                 <button type="button" data-md="img:">📷 Fotos (várias)</button>
                 <button type="button" data-md="video:">▶ Vídeo</button>
                 <button type="button" data-md="botao:">🎟 Botão de link</button>
                 <button type="button" data-md="***">✦ Divisor</button>
+                <button type="button" id="btn-espelho">🪞 Ver como sai</button>
                 <button type="button" id="btn-estilo" style="margin-left:auto">📖 Padrão da casa</button>
               </div>
-              <textarea id="f-body" rows="14" placeholder="Escreva em parágrafos separados por linha em branco.
+              <!-- ESCREVER VENDO O RESULTADO. O texto cru fica de um lado e o
+                   espelho do outro, mostrando a matéria como sai no site — foto
+                   com legenda incluída — a cada tecla. Clicar na foto do espelho
+                   abre legenda e crédito; clicar num trecho leva o cursor a ele. -->
+              <div class="corpo-duplo" id="corpo-duplo">
+                <div class="corpo-escreve">
+                  <textarea id="f-body" rows="18" spellcheck="true" lang="pt-BR" placeholder="Escreva em parágrafos separados por linha em branco.
 
 ## Um intertítulo fica assim
 
@@ -1150,8 +1225,22 @@ Entrevista com o diretor em 21/07"></textarea>
 
 > Uma citação destacada fica assim
 
-Blocos opcionais pelos botões acima: fotos no texto, galeria,
-vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea>
+Fotos: use o botão 📷 acima, arraste o arquivo direto para cá
+ou cole com Ctrl+V. A foto aparece no espelho ao lado — clique
+nela para escrever a legenda e o crédito.
+
+Também entram pelos botões: vídeo do YouTube, botão de
+ingressos e divisor."></textarea>
+                  <!-- Contador colado no campo de texto (pedido do Pedro, 05/08/2026):
+                       caracteres em destaque, e a régua do porte que o portão cobra. -->
+                  <div class="f-conta" id="st-conta"><span class="c1">0 caracteres</span></div>
+                  <div class="rasc-st" id="st-rasc"></div>
+                </div>
+                <div class="espelho" id="espelho">
+                  <div class="esp-rotulo">👁 Como sai no site — ao vivo · clique numa foto para legenda e crédito · clique num trecho para ir até ele</div>
+                  <div class="esp-body" id="espelho-body"></div>
+                </div>
+              </div>
             </div>
             <div>
               <label>Evento (opcional — alimenta a Agenda do site)</label>
@@ -1178,7 +1267,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                 <input type="hidden" id="f-data">
               </div>
             </div>
-            <div class="f-status"><span id="st-palavras">0 palavras</span><span id="st-alerta"></span></div>
+            <div class="f-status"><span id="st-alerta"></span></div>
             <div style="display:flex; gap:10px; flex-wrap:wrap">
               <button class="bt" type="button" id="btn-prev" style="padding:14px 18px">👁 Pré-visualizar</button>
               <button class="bt" type="button" id="btn-guardar" style="padding:14px 18px" title="Guarda o rascunho na nuvem para continuar em qualquer aparelho">☁ Guardar rascunho</button>
@@ -1796,6 +1885,34 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   </div>
 </div>
 
+<div class="cx-dlg" id="lk-overlay" role="dialog" aria-modal="true" aria-label="Ligar ao acervo">
+  <div class="cx-dlg-box">
+    <div class="cx-dlg-top">🔗 Ligar ao acervo</div>
+    <p class="cx-dlg-msg" style="margin-bottom:4px">Busque a matéria ou o verbete. O link entra no texto, no lugar do trecho que você selecionou.</p>
+    <div class="cx-dlg-in"><input type="text" id="lk-busca" placeholder="Nome da peça, do artista, do teatro…"></div>
+    <div id="lk-lista" class="lk-lista"></div>
+    <div class="cx-dlg-acoes">
+      <button class="bt" type="button" id="lk-cancel">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="cx-dlg" id="leg-overlay" role="dialog" aria-modal="true" aria-label="Legenda e crédito da foto">
+  <div class="cx-dlg-box">
+    <div class="cx-dlg-top">📷 Foto no meio do texto</div>
+    <img id="leg-foto" alt="" style="display:block;width:calc(100% - 48px);max-height:220px;object-fit:contain;background:var(--paper-2);border:1.5px solid var(--line);margin:0 24px;box-sizing:border-box">
+    <div class="cx-dlg-in" style="margin-top:12px"><label class="leg-rotulo" for="leg-texto">Legenda — o que o leitor está vendo</label>
+      <input type="text" id="leg-texto" placeholder="Ex.: Fulana de Tal em cena, no Teatro X" style="margin-top:5px"></div>
+    <div class="cx-dlg-in" style="margin-top:12px"><label class="leg-rotulo" for="leg-cred">Crédito — quem fez a foto</label>
+      <input type="text" id="leg-cred" placeholder="Ex.: Foto: Nome Sobrenome/Divulgação" style="margin-top:5px"></div>
+    <div class="cx-dlg-acoes">
+      <button class="bt" type="button" id="leg-remover" style="margin-right:auto">🗑 Tirar a foto do texto</button>
+      <button class="bt" type="button" id="leg-cancel">Cancelar</button>
+      <button class="bt ap" type="button" id="leg-ok">Salvar</button>
+    </div>
+  </div>
+</div>
+
 <div class="cx-dlg" id="atrib-overlay" role="dialog" aria-modal="true" aria-label="Atribuir pauta">
   <div class="cx-dlg-box">
     <div class="cx-dlg-top">Atribuir pauta a alguém</div>
@@ -1955,6 +2072,22 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   }
   function casaLigada(){ return !!sessao() && CASA_TEM_CHAVE; }
 
+  // ---------- caminho de arquivo do site, visto de dentro da Coxia ----------
+  // Os caminhos gravados no repositório ("assets/uploads/foto.jpg") são
+  // relativos à RAIZ do site. A Coxia, porém, é servida de /coxia/, então o
+  // navegador pedia /coxia/assets/uploads/foto.jpg e recebia 404: foi assim
+  // que as fotos da equipe apareceram quebradas depois de subirem certinho.
+  // Aqui o caminho volta a apontar para a raiz, de onde quer que a Coxia
+  // esteja aberta (/coxia/, /coxia.html ou a partir do computador de alguém).
+  var RAIZ = location.pathname.replace(/coxia(\.html)?\/?$/, '')
+                              .replace(/coxia\/index\.html$/, '')
+                              .replace(/index\.html$/, '');
+  function doSite(p){
+    p = String(p || '');
+    if(!p || /^(https?:|data:|blob:)/.test(p)) return p;   // já é endereço completo
+    return RAIZ + p.replace(/^\//, '');
+  }
+
   // ESTA PERGUNTA É A QUE OS BOTÕES DEVEM FAZER: dá para gravar no site?
   // Tanto faz por onde — pela chave da casa (servidor) ou pela chave deste
   // navegador (a reserva). Quando a chave da casa entrou, a gravação passou a
@@ -2082,8 +2215,24 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // traduz qualquer falha de gravação/leitura para o português da casa
   function msgErro(e){
     var g = e && e.gh;
-    if(g === 401 || g === 403) return 'O GitHub não aceitou a chave DESTE computador. A causa mais comum não é o prazo: ' +
-      'é ter gerado uma chave nova em outra máquina, o que mata a antiga na hora. Cole a chave nova na aba Conexão e refaça esta ação.';
+    if(g === 401 || g === 403){
+      // Esta mensagem mandava, sempre, gerar uma chave nova. Quando a Coxia
+      // aberta é uma versão VELHA (antes da chave da casa), ela ainda usa a
+      // chave deste navegador, e a antiga já morreu: o conselho não só era
+      // inútil como perigoso, porque uma chave nova no GitHub MATA a chave da
+      // casa guardada no servidor, e com ela o relógio que publica as matérias
+      // no horário. Antes de mandar mexer em chave, a Coxia agora olha se a
+      // chave da casa está de pé.
+      if(document.getElementById('cx-nova'))
+        return 'Esta Coxia está numa versão antiga, e por isso tentou usar a chave deste navegador. ' +
+          'Toque em "Atualizar agora", na faixa embaixo, e refaça esta ação. ' +
+          'NÃO gere chave nova no GitHub: isso derrubaria a chave da casa e pararia a publicação automática.';
+      if(CASA_TEM_CHAVE)
+        return 'A chave da casa está de pé, mas o GitHub recusou esta gravação. ' +
+          'Recarregue a página e refaça a ação. Se repetir, é permissão da chave da casa, e quem troca é o chefe na aba Conexão.';
+      return 'O GitHub não aceitou a chave DESTE computador. A causa mais comum não é o prazo: ' +
+        'é ter gerado uma chave nova em outra máquina, o que mata a antiga na hora. Cole a chave nova na aba Conexão e refaça esta ação.';
+    }
     if(g === 'rate') return 'O GitHub limitou as consultas deste aparelho (sem chave, são 60 por hora). Conecte a chave na aba Conexão.';
     if(g === 409 || g === 422) return 'Alguém salvou antes de você. Recarregue a página (a Coxia vai pegar a versão nova) e refaça esta ação.';
     if(g === 404) return 'O arquivo não está mais lá. Recarregue a página.';
@@ -2105,7 +2254,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // o mesmo pedido não vai duas vezes ao GitHub em menos de um minuto:
   // a Coxia lê as mesmas pastas em várias abas, e o limite por hora é curto
   // a Coxia muda toda semana: este carimbo diz qual versão está aberta
-  var COXIA_VERSAO = '20260803-162542';
+  var COXIA_VERSAO = '20260805-184822';
   var GH_CACHE = {};
   function ghCacheGet(chave){
     var c = GH_CACHE[chave];
@@ -2999,15 +3148,32 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
 
   /* ---------------- nova matéria ---------------- */
   function inserirNoCorpo(ta, ini, fim, novo){
+    histFoto();
+    var rolo = ta.scrollTop;
     ta.value = ta.value.slice(0, ini) + novo + ta.value.slice(fim);
     ta.focus();
+    var pos = ini + novo.length;
+    ta.setSelectionRange(pos, pos);
+    ta.scrollTop = rolo;
+    statusTexto(); salvarRasc(); histFoto();
   }
   document.querySelectorAll('.mbar button').forEach(function(b){
     b.addEventListener('click', function(){
+      var md = b.dataset.md;
+      // botão sem código de inserção (Padrão da casa, Ligar ao acervo, Espelho)
+      // tem handler próprio: este aqui não pode mexer no texto. Sem esta guarda,
+      // ele inseria "undefined" e derrubava a seleção do usuário.
+      if(md == null) return;
       var ta = $('f-body');
-      var md = b.dataset.md, ini = ta.selectionStart, fim = ta.selectionEnd;
+      var ini = ta.selectionStart, fim = ta.selectionEnd;
       var sel = ta.value.slice(ini, fim) || 'texto';
-      if(md === '**' || md === '*'){ inserirNoCorpo(ta, ini, fim, md + sel + md); return; }
+      if(md === '**' || md === '*'){
+        // a seleção pode vir com quebra de linha na ponta: o asterisco
+        // abraça só o texto, e a quebra fica do lado de fora
+        var mSel = sel.match(/^(\s*)([\s\S]*?)(\s*)$/);
+        inserirNoCorpo(ta, ini, fim, mSel[1] + md + (mSel[2] || 'texto') + md + mSel[3]);
+        return;
+      }
       if(md === 'img:'){ corpoImgInput.click(); return; }
       if(md === 'video:'){
         perguntar('Cole o link do vídeo (YouTube) ou do episódio (Spotify):', '', { titulo:'Vídeo', rotuloOk:'Inserir' }).then(function(vu){
@@ -3047,10 +3213,46 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     });
   });
 
+  // As mesmas faixas do portão mecânico (tools/audita_pauta.py). Se um dia
+  // mudarem lá, mudam aqui: piso, teto, mínimo e máximo de intertítulos.
+  var PORTES_COXIA = {
+    release:          [350,  500, 0,  0],
+    quente:           [400,  600, 0,  2],
+    contextualizada:  [700, 1100, 3,  5],
+    lista:            [900, 1500, 5, 14]
+  };
+  function mil(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+
   function statusTexto(){
     var t = $('f-body').value;
     var n = t.split(/\s+/).filter(Boolean).length;
-    $('st-palavras').textContent = n + ' palavra' + (n === 1 ? '' : 's') + (n && n < 300 ? ' (curta)' : '');
+    var chars = t.length;
+    var inter = (t.match(/^##\s+\S/gm) || []).length;
+
+    // 1) o que o Pedro pediu, em primeiro lugar e em letra maior
+    var partes = ['<span class="c1">' + mil(chars) + ' caractere' + (chars === 1 ? '' : 's') + '</span>'];
+    partes.push('<span>' + mil(n) + ' palavra' + (n === 1 ? '' : 's') + '</span>');
+    partes.push('<span>' + inter + ' intertítulo' + (inter === 1 ? '' : 's') + '</span>');
+
+    // 2) a régua do porte, quando a matéria tem um declarado: é ela que o
+    //    portão vai cobrar, então a conta aparece já comparada com a faixa.
+    var porte = (EDIT && EDIT.orig && EDIT.orig.porte) ? String(EDIT.orig.porte).toLowerCase() : '';
+    var fx = PORTES_COXIA[porte];
+    if(fx){
+      var okP = n >= fx[0] && n <= fx[1];
+      var okI = inter >= fx[2] && inter <= fx[3];
+      var falta = n < fx[0] ? ('faltam ' + mil(fx[0] - n)) : (n > fx[1] ? ('sobram ' + mil(n - fx[1])) : '');
+      partes.push('<span class="' + (okP && okI ? 'bom' : 'err') + '">porte ' + esc(porte) +
+        ': ' + mil(fx[0]) + '–' + mil(fx[1]) + ' palavras' + (okP ? ' ✓' : ' (' + falta + ')') +
+        ' · ' + fx[2] + '–' + fx[3] + ' intertítulos' + (okI ? ' ✓' : ' ✗') + '</span>');
+    } else if(n){
+      // sem porte declarado: diz em qual faixa o tamanho atual cabe
+      var cabe = Object.keys(PORTES_COXIA).filter(function(p){
+        return n >= PORTES_COXIA[p][0] && n <= PORTES_COXIA[p][1]; });
+      partes.push('<span>' + (cabe.length ? 'cabe em: ' + cabe.join(' ou ') : 'fora das faixas da casa') + '</span>');
+    }
+    $('st-conta').innerHTML = partes.join('');
+
     var avisos = [];
     if(/[—–]/.test(t + $('f-title').value)) avisos.push('⚠ TRAVESSÃO no texto (banido no padrão da casa)');
     var CLICHES = ['imperdível', 'vibrante', 'promete emocionar', 'experiência única', 'sucesso absoluto',
@@ -3058,6 +3260,10 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var achou = CLICHES.filter(function(c){ return t.toLowerCase().indexOf(c) > -1; });
     if(achou.length) avisos.push('⚠ clichê de release: ' + achou.join(', '));
     $('st-alerta').innerHTML = avisos.length ? '<span class="err">' + avisos.join(' · ') + '</span>' : '';
+    // o espelho acompanha: statusTexto roda a cada tecla E depois de toda
+    // gravação programática (abrir para editar, restaurar rascunho), então
+    // pendurar aqui garante que o espelho nunca fica para trás
+    espelhoAgenda();
   }
   $('f-body').addEventListener('input', statusTexto);
   $('f-title').addEventListener('input', statusTexto);
@@ -3069,8 +3275,16 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
 
   // ---------- rascunho automático ----------
   var RASC_K = 'coxia-rascunho', rascTimer = null;
+  function horaAgora(){
+    return new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+  }
+  function rascStatus(msg){ var el = $('st-rasc'); if(el) el.textContent = msg; }
   function salvarRasc(){
-    if(EDIT) return;
+    if(EDIT){
+      // edição de matéria existente não vira rascunho: a mudança só entra ao enviar
+      rascStatus('✎ Editando matéria existente — as mudanças só entram quando você enviar.');
+      return;
+    }
     clearTimeout(rascTimer);
     rascTimer = setTimeout(function(){
       var d = { title: $('f-title').value, cat: $('f-cat').value, cats: colherCats(), corpo: $('f-body').value,
@@ -3079,7 +3293,15 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                 ev: { ini: $('f-ev-ini').value, fim: $('f-ev-fim').value,
                       local: $('f-ev-local').value, cidade: $('f-ev-cidade').value },
                 quando: new Date().toISOString() };
-      if(d.title || d.corpo){ try{ localStorage.setItem(RASC_K, JSON.stringify(d)); }catch(e){} }
+      if(d.title || d.corpo){
+        try{
+          localStorage.setItem(RASC_K, JSON.stringify(d));
+          rascStatus('💾 Rascunho guardado neste navegador às ' + horaAgora() +
+                     ' — para abrir noutro aparelho, use ☁ Guardar rascunho.');
+        }catch(e){
+          rascStatus('⚠ Não consegui guardar o rascunho neste navegador — use ☁ Guardar rascunho.');
+        }
+      }
     }, 800);
   }
   ['f-title', 'f-body', 'f-cred', 'f-imgfonte', 'f-imgdir', 'f-fontes', 'f-cat', 'f-cat2', 'f-cat3', 'f-ev-ini', 'f-ev-fim', 'f-ev-local', 'f-ev-cidade']
@@ -3101,7 +3323,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     $('f-fontes').value = d.fontes || '';
     if(d.ev){ $('f-ev-ini').value = d.ev.ini || ''; $('f-ev-fim').value = d.ev.fim || '';
       $('f-ev-local').value = d.ev.local || ''; $('f-ev-cidade').value = d.ev.cidade || ''; }
-    statusTexto(); $('rasc-aviso').classList.remove('on'); $('bdg-rasc').style.display = 'none'; irPara('nova');
+    statusTexto(); $('rasc-aviso').classList.remove('on'); $('bdg-rasc').style.display = 'none'; irPara('nova'); histReset();
     if(d.temFoto) setTimeout(function(){ avisar('Recuperei o texto do rascunho. A foto de capa não fica guardada, então reanexe a imagem antes de enviar.'); }, 200);
   }
   // rascunho na nuvem (por pessoa), para continuar em qualquer aparelho
@@ -3117,7 +3339,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     ghGet(caminhoRascServidor()).catch(function(){ return null; }).then(function(ex){
       return ghPut(caminhoRascServidor(), JSON.stringify(d, null, 1),
         assina('guarda rascunho na nuvem'), ex && ex.sha);
-    }).then(function(){ toast('Rascunho guardado na nuvem ✓'); })
+    }).then(function(){ toast('Rascunho guardado na nuvem ✓'); rascStatus('☁ Rascunho guardado na nuvem às ' + horaAgora() + ' — pode continuar de qualquer aparelho.'); })
       .catch(function(err){ avisar(msgErro(err)); })
       .then(function(){ b.disabled = false; b.textContent = velho; });
   });
@@ -3661,29 +3883,410 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   document.body.appendChild(corpoImgInput);
   corpoImgInput.addEventListener('change', function(){
     var files = Array.prototype.slice.call(this.files); this.value = '';
+    subirFotosCorpo(files);
+  });
+  function subirFotosCorpo(files){
+    files = (files || []).filter(function(f){
+      return /^image\//.test(f.type || '') || /\.(jpe?g|png|webp|gif)$/i.test(f.name || ''); });
     if(!files.length) return;
     if(!podeGravar()){ avisar(recadoSemChave()); return; }
     var ta = $('f-body'), slugBase = slugify($('f-title').value || 'materia') || 'materia';
     var btnFoto = document.querySelector('[data-md="img:"]');
     if(btnFoto) btnFoto.textContent = '⏳ Subindo ' + files.length + ' foto(s)…';
+    // marca única no nome: subir foto duas vezes para a mesma matéria não
+    // pode sobrescrever a anterior
+    var marca = Date.now().toString(36);
     var caminhos = [];
     var fila = files.reduce(function(p, file, i){
       return p.then(function(){
         return redimensionar(file)
-          .then(function(d){ return subirImagem(d, slugBase + '-corpo' + i); })
+          .then(function(d){ return subirImagem(d, slugBase + '-corpo-' + marca + i); })
           .then(function(c){ caminhos.push(c); });
       });
     }, Promise.resolve());
     fila.then(function(){
-      var ini = ta.selectionStart;
-      var trecho = caminhos.length > 1
-        ? '\n\ngaleria:' + caminhos.join(' | ') + '\n\n'
-        : '\n\nimg:' + caminhos[0] + ' | Escreva a legenda aqui\n\n';
-      ta.value = ta.value.slice(0, ini) + trecho + ta.value.slice(ini);
-      statusTexto(); salvarRasc(); ta.focus();
+      var ini = ta.selectionStart, rolo = ta.scrollTop;
+      var bloco = caminhos.length > 1
+        ? 'galeria:\n' + caminhos.join('\n')
+        : 'img:' + caminhos[0];
+      histFoto();
+      ta.value = ta.value.slice(0, ini) + '\n\n' + bloco + '\n\n' + ta.value.slice(ini);
+      var pos = ini + bloco.length + 4;
+      ta.setSelectionRange(pos, pos);
+      ta.scrollTop = rolo;
+      statusTexto(); salvarRasc(); histFoto();
+      // uma foto só: já abre a janelinha de legenda e crédito, que é o que
+      // foto de jornal precisa ter. Galeria não tem legenda por foto.
+      if(caminhos.length === 1) abrirLegenda({ ini: ini + 2, fim: ini + 2 + bloco.length, txt: bloco });
+      else ta.focus();
     }).catch(function(err){ avisar('Falha ao subir: ' + err.message); })
       .finally(function(){ if(btnFoto) btnFoto.textContent = '📷 Fotos (várias)'; });
+  }
+  // a foto também entra arrastada da pasta ou colada com Ctrl+V
+  (function(){
+    var ta = $('f-body');
+    ta.addEventListener('dragover', function(e){
+      var its = (e.dataTransfer && e.dataTransfer.items) || [];
+      if([].some.call(its, function(it){ return it.kind === 'file'; })){ e.preventDefault(); ta.classList.add('arrasta'); }
+    });
+    ta.addEventListener('dragleave', function(){ ta.classList.remove('arrasta'); });
+    ta.addEventListener('drop', function(e){
+      ta.classList.remove('arrasta');
+      var fs = Array.prototype.slice.call((e.dataTransfer && e.dataTransfer.files) || []);
+      if(fs.length){ e.preventDefault(); subirFotosCorpo(fs); }
+    });
+    ta.addEventListener('paste', function(e){
+      var fs = Array.prototype.slice.call((e.clipboardData && e.clipboardData.files) || []);
+      if(fs.some(function(f){ return /^image\//.test(f.type); })){ e.preventDefault(); subirFotosCorpo(fs); }
+    });
+  })();
+
+  // ---------- o espelho: a matéria como sai no site, ao vivo ----------
+  // Cada bloco do texto vira um bloco clicável no espelho. Foto abre a
+  // janelinha de legenda; qualquer outro trecho leva o cursor até ele.
+  function blocosComPosicao(){
+    var txt = $('f-body').value, out = [], re = /\n\s*\n/g, ini = 0, m;
+    while((m = re.exec(txt)) !== null){ out.push({ ini: ini, fim: m.index }); ini = re.lastIndex; }
+    out.push({ ini: ini, fim: txt.length });
+    return out.map(function(p){ return { ini: p.ini, fim: p.fim, txt: txt.slice(p.ini, p.fim) }; })
+              .filter(function(p){ return p.txt.trim(); });
+  }
+  var espTimer = null;
+  function espelhoVivo(){
+    var el = $('espelho-body'); if(!el) return;
+    // desligado: não gasta trabalho (o botão religa e redesenha)
+    if(!$('corpo-duplo').classList.contains('ver')) return;
+    // o rolo do espelho não pode voltar ao topo a cada tecla
+    var rolo = el.scrollTop;
+    el.innerHTML = blocosComPosicao().map(function(p, i, arr){
+      var t0 = p.txt.trim();
+      var h = mdRender(p.txt) ||
+        '<p style="color:var(--ink-soft);font-size:.85rem">(bloco vazio — confira o endereço colado)</p>';
+      if(t0.indexOf('img:') === 0 && !(t0.slice(4).split('|')[1] || '').trim()){
+        h += '<div class="esp-leg-falta">⚠ foto sem legenda — clique nela para escrever</div>';
+      }
+      if(t0.indexOf('galeria:') === 0 && parseGaleria(t0).some(function(it){ return !it.leg; })){
+        h += '<div class="esp-dica">💬 clique numa foto da galeria para legenda e crédito</div>';
+      }
+      // as setinhas movem o bloco inteiro (parágrafo, foto, citação) de lugar
+      var mov = '<span class="esp-mov">' +
+        (i > 0 ? '<button type="button" data-mov="-1" title="Mover este bloco para cima">▲</button>' : '') +
+        (i < arr.length - 1 ? '<button type="button" data-mov="1" title="Mover este bloco para baixo">▼</button>' : '') +
+        '</span>';
+      return '<div class="esp-b" data-i="' + i + '" title="Clique para editar este trecho">' + mov + h + '</div>';
+    }).join('');
+    el.scrollTop = rolo;
+    espelhoSegue();
+  }
+  function espelhoAgenda(){ clearTimeout(espTimer); espTimer = setTimeout(espelhoVivo, 180); }
+  // O ESPELHO SEGUE O CURSOR (pedido do Pedro, 05/08): o bloco onde ele está
+  // digitando acende e, se saiu da vista, o espelho rola até ele — ao vivo de
+  // verdade, sem o Pedro precisar caçar onde a mudança apareceu.
+  function espelhoSegue(){
+    var el = $('espelho-body');
+    if(!el || !$('corpo-duplo').classList.contains('ver')) return;
+    var pos = $('f-body').selectionStart;
+    var bs = blocosComPosicao(), atual = -1;
+    for(var i = 0; i < bs.length; i++){ if(pos >= bs[i].ini && pos <= bs[i].fim + 2){ atual = i; } }
+    el.querySelectorAll('.esp-b').forEach(function(d){
+      d.classList.toggle('esp-atual', +d.getAttribute('data-i') === atual);
+    });
+    var alvo = el.querySelector('.esp-b[data-i="' + atual + '"]');
+    if(alvo){
+      var fora = alvo.offsetTop < el.scrollTop || (alvo.offsetTop + alvo.offsetHeight) > (el.scrollTop + el.clientHeight);
+      if(fora) el.scrollTop = Math.max(0, alvo.offsetTop - 40);
+    }
+  }
+  var segueTimer = null;
+  ['keyup', 'click'].forEach(function(ev){
+    $('f-body').addEventListener(ev, function(){
+      clearTimeout(segueTimer); segueTimer = setTimeout(espelhoSegue, 160);
+    });
   });
+  function moverBloco(i, dir){
+    var bs = blocosComPosicao().map(function(p){ return p.txt.trim(); });
+    var j = i + dir; if(j < 0 || j >= bs.length) return;
+    histFoto();
+    var t = bs[i]; bs[i] = bs[j]; bs[j] = t;
+    var ta = $('f-body'), rolo = ta.scrollTop;
+    ta.value = bs.join('\n\n') + '\n';
+    // o cursor vai junto com o bloco movido, e a janela de escrever não pula
+    var ini = 0; for(var k = 0; k < j; k++) ini += bs[k].length + 2;
+    ta.setSelectionRange(ini, ini);
+    ta.scrollTop = rolo;
+    statusTexto(); salvarRasc(); histFoto();
+  }
+  $('espelho-body').addEventListener('click', function(e){
+    var mv = e.target.closest('button[data-mov]');
+    if(mv){
+      e.stopPropagation();
+      moverBloco(+mv.closest('.esp-b').getAttribute('data-i'), +mv.getAttribute('data-mov'));
+      return;
+    }
+    var box = e.target.closest('.esp-b'); if(!box) return;
+    if(e.target.tagName === 'A') e.preventDefault();
+    var p = blocosComPosicao()[+box.getAttribute('data-i')]; if(!p) return;
+    var t0 = p.txt.trim();
+    if(t0.indexOf('img:') === 0){ abrirLegenda(p); return; }
+    if(t0.indexOf('galeria:') === 0){
+      var fig = e.target.closest('figure[data-g]');
+      if(fig){ abrirLegenda(p, +fig.getAttribute('data-g')); return; }
+    }
+    var ta = $('f-body');
+    ta.focus(); ta.setSelectionRange(p.ini, p.fim);
+    ta.scrollTop = Math.max(0, (p.ini / Math.max(1, ta.value.length)) * ta.scrollHeight - ta.clientHeight / 2);
+  });
+  // O botão do espelho funciona em QUALQUER tela e lembra a escolha.
+  // Sem escolha guardada, tela larga abre com ele ligado; estreita, desligado.
+  var btnEsp = $('btn-espelho');
+  function espelhoAplica(ligado, gravar){
+    $('corpo-duplo').classList.toggle('ver', ligado);
+    if(btnEsp) btnEsp.textContent = ligado ? '🪞 Esconder espelho' : '🪞 Ver como sai';
+    if(gravar){ try{ localStorage.setItem('coxia-espelho', ligado ? '1' : '0'); }catch(e){} }
+    if(ligado) espelhoVivo();
+  }
+  (function(){
+    var guardado = null;
+    try{ guardado = localStorage.getItem('coxia-espelho'); }catch(e){}
+    var ligado = guardado === null ? window.innerWidth >= 1100 : guardado === '1';
+    espelhoAplica(ligado, false);
+  })();
+  if(btnEsp) btnEsp.addEventListener('click', function(){
+    espelhoAplica(!$('corpo-duplo').classList.contains('ver'), true);
+  });
+
+  // ---------- voltar e avançar: a história do texto ----------
+  // O desfazer nativo do navegador morre toda vez que a Coxia regrava o campo
+  // (setinha, legenda, link do acervo). Esta história própria cobre tudo:
+  // digitação (uma foto a cada pausa) e cada mudança feita por botão.
+  var HIST = { pilha: [], pos: -1, max: 120, aplicando: false, timer: null };
+  function histBotoes(){
+    var v = $('btn-voltar'), a = $('btn-avancar');
+    if(v) v.disabled = HIST.pos <= 0;
+    if(a) a.disabled = HIST.pos >= HIST.pilha.length - 1;
+  }
+  function histFoto(){
+    if(HIST.aplicando) return;
+    var ta = $('f-body');
+    var agora = { v: ta.value, s: ta.selectionStart, r: ta.scrollTop };
+    if(HIST.pos >= 0 && HIST.pilha[HIST.pos].v === agora.v){
+      HIST.pilha[HIST.pos] = agora;   // mesmo texto: só atualiza cursor/rolo
+      return;
+    }
+    HIST.pilha = HIST.pilha.slice(0, HIST.pos + 1);
+    HIST.pilha.push(agora);
+    if(HIST.pilha.length > HIST.max) HIST.pilha.shift();
+    HIST.pos = HIST.pilha.length - 1;
+    histBotoes();
+  }
+  function histIr(passo){
+    var alvo = HIST.pos + passo;
+    if(alvo < 0 || alvo >= HIST.pilha.length) return;
+    HIST.pos = alvo;
+    var f = HIST.pilha[alvo], ta = $('f-body');
+    HIST.aplicando = true;
+    ta.value = f.v;
+    ta.setSelectionRange(f.s, f.s);
+    ta.scrollTop = f.r;
+    statusTexto(); salvarRasc();
+    HIST.aplicando = false;
+    histBotoes(); ta.focus();
+  }
+  function histReset(){
+    HIST.pilha = []; HIST.pos = -1;
+    histFoto();
+  }
+  $('f-body').addEventListener('input', function(){
+    if(HIST.aplicando) return;
+    clearTimeout(HIST.timer);
+    HIST.timer = setTimeout(histFoto, 500);
+  });
+  $('btn-voltar').addEventListener('click', function(){ clearTimeout(HIST.timer); histFoto(); histIr(-1); });
+  $('btn-avancar').addEventListener('click', function(){ histIr(1); });
+  $('f-body').addEventListener('keydown', function(e){
+    if(!(e.ctrlKey || e.metaKey)) return;
+    var k = e.key.toLowerCase();
+    if(k === 'z' && !e.shiftKey){ e.preventDefault(); clearTimeout(HIST.timer); histFoto(); histIr(-1); }
+    else if(k === 'y' || (k === 'z' && e.shiftKey)){ e.preventDefault(); histIr(1); }
+  });
+  histReset();
+
+  // ---------- legenda e crédito da foto, numa janelinha ----------
+  // Vale para a foto solta (img:) e para cada foto da galeria. A galeria
+  // nova é uma foto por linha: "galeria:" e embaixo "caminho | legenda | crédito".
+  function parseGaleria(b){
+    var linhas = String(b).trim().split('\n');
+    var resto0 = linhas[0].slice(8).trim();
+    var itens = [];
+    function item(s){
+      var ps = s.split('|').map(function(x){ return x.trim(); });
+      return { url: ps[0] || '', leg: ps[1] || '', cred: ps[2] || '' };
+    }
+    if(resto0){
+      // grafia antiga numa linha só: vários caminhos separados por | (sem legenda)
+      var ps = resto0.split('|').map(function(x){ return x.trim(); }).filter(Boolean);
+      var soCaminhos = ps.length > 1 && ps.every(function(p){
+        return /\.(jpe?g|png|webp|gif)(\?.*)?$/i.test(p) || /^(assets\/|https?:)/.test(p); });
+      if(soCaminhos) ps.forEach(function(p){ itens.push({ url: p, leg: '', cred: '' }); });
+      else itens.push(item(resto0));
+    }
+    for(var i = 1; i < linhas.length; i++){
+      var ln = linhas[i].trim(); if(ln) itens.push(item(ln));
+    }
+    return itens;
+  }
+  function montarGaleria(itens){
+    if(!itens.length) return '';
+    function linha(it){
+      return it.url + (it.leg || it.cred ? ' | ' + it.leg : '') + (it.cred ? ' | ' + it.cred : '');
+    }
+    if(itens.length === 1) return 'img:' + linha(itens[0]);   // sobrou uma: vira foto solta
+    return 'galeria:\n' + itens.map(linha).join('\n');
+  }
+  var LEG = null;
+  function abrirLegenda(p, gIdx){
+    var t = p.txt.trim();
+    if(t.indexOf('galeria:') === 0){
+      var itens = parseGaleria(t);
+      if(!itens.length) return;
+      var gi = Math.max(0, Math.min(gIdx || 0, itens.length - 1));
+      LEG = { ini: p.ini, fim: p.fim, tipo: 'gal', itens: itens, g: gi };
+      $('leg-foto').src = itens[gi].url;
+      $('leg-texto').value = itens[gi].leg;
+      $('leg-cred').value = itens[gi].cred;
+      $('leg-remover').textContent = '🗑 Tirar esta foto da galeria';
+    } else {
+      var partes = t.slice(4).split('|');
+      LEG = { ini: p.ini, fim: p.fim, tipo: 'img', url: (partes[0] || '').trim() };
+      $('leg-foto').src = LEG.url;
+      var lg = (partes[1] || '').trim();
+      if(/^escreva a legenda aqui$/i.test(lg)) lg = '';   // o texto-tampão antigo não é legenda
+      $('leg-texto').value = lg;
+      $('leg-cred').value = (partes[2] || '').trim();
+      $('leg-remover').textContent = '🗑 Tirar a foto do texto';
+    }
+    $('leg-overlay').classList.add('on');
+    setTimeout(function(){ $('leg-texto').focus(); }, 30);
+  }
+  function legFecha(){ $('leg-overlay').classList.remove('on'); LEG = null; }
+  function trocarTrecho(ini, fim, novo){
+    // regravar o campo NÃO pode jogar o Pedro para o fim do texto: o cursor
+    // fica no trecho mexido e o rolo da janela não se move (pedido de 05/08)
+    histFoto();
+    var ta = $('f-body'), rolo = ta.scrollTop;
+    ta.value = ta.value.slice(0, ini) + novo + ta.value.slice(fim);
+    var pos = ini + novo.length;
+    ta.setSelectionRange(pos, pos);
+    ta.scrollTop = rolo;
+    statusTexto(); salvarRasc(); histFoto();
+  }
+  $('leg-ok').addEventListener('click', function(){
+    if(!LEG) return legFecha();
+    var lg = $('leg-texto').value.trim().replace(/\|/g, '/');
+    var cr = $('leg-cred').value.trim().replace(/\|/g, '/');
+    if(LEG.tipo === 'gal'){
+      LEG.itens[LEG.g].leg = lg; LEG.itens[LEG.g].cred = cr;
+      trocarTrecho(LEG.ini, LEG.fim, montarGaleria(LEG.itens));
+    } else {
+      var linha = 'img:' + LEG.url + (lg || cr ? ' | ' + lg : '') + (cr ? ' | ' + cr : '');
+      trocarTrecho(LEG.ini, LEG.fim, linha);
+    }
+    legFecha();
+  });
+  $('leg-remover').addEventListener('click', function(){
+    if(!LEG) return legFecha();
+    if(LEG.tipo === 'gal'){
+      LEG.itens.splice(LEG.g, 1);
+      trocarTrecho(LEG.ini, LEG.fim, montarGaleria(LEG.itens));
+    } else {
+      trocarTrecho(LEG.ini, LEG.fim, '');
+    }
+    legFecha();
+  });
+  $('leg-cancel').addEventListener('click', legFecha);
+  $('leg-overlay').addEventListener('click', function(e){ if(e.target === this) legFecha(); });
+  ['leg-texto', 'leg-cred'].forEach(function(id){
+    $(id).addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); $('leg-ok').click(); } });
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key !== 'Escape') return;
+    if($('leg-overlay').classList.contains('on')) legFecha();
+    if($('lk-overlay').classList.contains('on')) lkFecha();
+  });
+
+  // ---------- ligar ao acervo: os 3 links internos sem decorar 1.592 títulos ----------
+  // Seleciona um nome no texto, aperta o botão, e a casa procura no próprio
+  // acervo (matérias + verbetes da enciclopédia). Um clique e o link entra.
+  var LK = { idx: null, sel: null };
+  function amassaBusca(s){
+    return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  }
+  function carregarAcervo(){
+    if(LK.idx) return Promise.resolve(LK.idx);
+    return Promise.all([
+      fetch('assets/busca-index.json').then(function(r){ return r.json(); }).catch(function(){ return []; }),
+      fetch('assets/pessoas-index.json').then(function(r){ return r.json(); }).catch(function(){ return []; })
+    ]).then(function(rs){
+      LK.idx = rs[0].map(function(i){
+        return { t: i.t, u: i.u, mt: (i.c || 'Matéria') + (i.a ? ' — ' + i.a : ''), k: amassaBusca(i.t) };
+      }).concat(rs[1].map(function(i){
+        return { t: i.n, u: i.u, mt: 'Verbete da enciclopédia', k: amassaBusca(i.n) };
+      }));
+      return LK.idx;
+    });
+  }
+  function lkBuscar(q){
+    var termos = amassaBusca(q).trim().split(/\s+/).filter(function(t){ return t.length > 1; });
+    if(!termos.length) return [];
+    var r = [];
+    for(var i = 0; i < LK.idx.length && r.length < 12; i++){
+      var it = LK.idx[i], todos = true;
+      for(var j = 0; j < termos.length; j++) if(it.k.indexOf(termos[j]) < 0){ todos = false; break; }
+      if(todos) r.push(it);
+    }
+    return r;
+  }
+  function lkDesenha(rs, q){
+    $('lk-lista').innerHTML = rs.length
+      ? rs.map(function(it){
+          return '<button type="button" class="lk-item" data-u="' + esc(it.u) + '" data-t="' + esc(it.t) + '">' +
+                 esc(it.t) + '<span class="mt">' + esc(it.mt) + '</span></button>';
+        }).join('')
+      : (q && q.trim().length > 1
+          ? '<div class="lk-vazio">Nada no acervo com esse nome. Tente só o sobrenome, ou o nome da peça sem aspas.</div>'
+          : '');
+  }
+  function lkFecha(){ $('lk-overlay').classList.remove('on'); LK.sel = null; }
+  var btnAcervo = $('btn-acervo');
+  if(btnAcervo) btnAcervo.addEventListener('click', function(){
+    var ta = $('f-body');
+    LK.sel = { ini: ta.selectionStart, fim: ta.selectionEnd,
+               txt: ta.value.slice(ta.selectionStart, ta.selectionEnd) };
+    $('lk-busca').value = LK.sel.txt.trim().slice(0, 60);
+    $('lk-lista').innerHTML = '';
+    $('lk-overlay').classList.add('on');
+    carregarAcervo().then(function(){ lkDesenha(lkBuscar($('lk-busca').value), $('lk-busca').value); });
+    setTimeout(function(){ $('lk-busca').focus(); }, 30);
+  });
+  $('lk-busca').addEventListener('input', function(){
+    var v = this.value;
+    carregarAcervo().then(function(){ lkDesenha(lkBuscar(v), v); });
+  });
+  $('lk-lista').addEventListener('click', function(e){
+    var b = e.target.closest('.lk-item'); if(!b || !LK.sel) return;
+    var ta = $('f-body'), rolo = ta.scrollTop;
+    // com trecho selecionado, ele vira o texto do link; sem seleção, entra o título
+    var ancora = (LK.sel.txt.trim() || b.getAttribute('data-t')).replace(/[\[\]]/g, '');
+    var link = '[' + ancora + '](' + b.getAttribute('data-u') + ')';
+    histFoto();
+    ta.value = ta.value.slice(0, LK.sel.ini) + link + ta.value.slice(LK.sel.fim);
+    var pos = LK.sel.ini + link.length;
+    lkFecha(); statusTexto(); salvarRasc(); histFoto();
+    ta.focus(); ta.setSelectionRange(pos, pos);
+    ta.scrollTop = rolo;
+  });
+  $('lk-cancel').addEventListener('click', lkFecha);
+  $('lk-overlay').addEventListener('click', function(e){ if(e.target === this) lkFecha(); });
 
   function colherEvento(){
     var ini = $('f-ev-ini').value;
@@ -3756,6 +4359,20 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         for(var k in EDIT.orig){ if(k.charAt(0) !== '_') pac[k] = EDIT.orig[k]; }
         pac.title = title; pac.slug = slug;
         pac.cat = $('f-cat').value;
+        // A ASSINATURA. Estava faltando aqui, e o campo do formulário era
+        // ignorado em silêncio: o Pedro trocou "Redação Foyer" pelo nome dele,
+        // salvou, e o pacote voltou do GitHub com a assinatura antiga (05/08/2026).
+        // Silencioso é o pior tipo de defeito — a tela dizia que tinha salvado.
+        // Trocar a assinatura AQUI é seguro: quem manda na publicação é a trava
+        // de aprovação (podeLiberarAssinatura), que continua exigindo que só o
+        // dono do nome carimbe. Guardo quem mexeu e o que havia antes, para a
+        // mudança de assinatura nunca ser anônima.
+        var autorNovo = $('f-autor').value;
+        if(autorNovo && autorNovo !== pac.author){
+          pac.assinaturaTrocada = { de: pac.author || '', para: autorNovo,
+                                    por: USER.nome, quando: new Date().toISOString() };
+          pac.author = autorNovo;
+        }
         pac.img = imgPath || EDIT.img; pac.imgCredito = $('f-cred').value.trim();
         pac.corpo = corpo; pac.editadoPor = USER.nome;
         pac.status = 'aguardando_aprovacao';
@@ -3764,10 +4381,17 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
         var _pid = $('f-imgdir').value.trim(); if(_pid) pac.imgDireito = _pid; else delete pac.imgDireito;
         delete pac.devolucao;  // reenviada: volta limpa para a mesa
         pac.cats = colherCats();
+        // O EVENTO TAMBÉM PRECISA PODER SER APAGADO. Aqui o pacote é uma CÓPIA
+        // do que já estava gravado, então "não preencheu" não pode virar
+        // "mantém o antigo": quem apaga a data de início está dizendo que a
+        // temporada saiu, e o serviço velho ficaria no ar sozinho. Na matéria
+        // já publicada isso já funcionava, porque lá o pacote nasce do zero.
         var evM = colherEvento();
-        if(evM) pac.evento = evM;
+        if(evM) pac.evento = evM; else delete pac.evento;
         return ghPut('import/pauta/' + slug + '.json', JSON.stringify(pac, null, 1),
-          assina('edita na mesa "' + title + '"'), EDIT.sha);
+          assina('edita na mesa "' + title + '"' + (pac.assinaturaTrocada
+            ? ' (assinatura: ' + (pac.assinaturaTrocada.de || 'sem assinatura') +
+              ' → ' + pac.assinaturaTrocada.para + ')' : '')), EDIT.sha);
       }
       if(EDIT){
         var edicao = {
@@ -3849,7 +4473,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       e.target.reset();
       $('f-quando-dt').style.display = 'none';
       CAPA = null; $('up-prev').src = ''; up.classList.remove('tem');
-      limparRasc(); statusTexto();
+      limparRasc(); statusTexto(); histReset();
       // limpa também o rascunho na nuvem (a matéria já foi enviada)
       if(!EDIT && podeGravar()) ghGet(caminhoRascServidor()).then(function(ff){ if(ff) ghDel(caminhoRascServidor(), ff.sha, assina('limpa rascunho da nuvem (matéria enviada)')).catch(function(){}); }).catch(function(){});
       aplicarUsuario();
@@ -4205,7 +4829,11 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       }
       if(b.indexOf('galeria:') === 0){
         return '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px">' +
-          b.slice(8).split('|').map(function(u){ return '<img src="' + esc(urlSegura(u.trim())) + '" style="width:100%;aspect-ratio:4/3;object-fit:cover;border:2px solid var(--ink)">'; }).join('') + '</div>';
+          parseGaleria(b).map(function(it, gi){
+            return '<figure data-g="' + gi + '" style="margin:0"><img src="' + esc(urlSegura(it.url)) + '" style="width:100%;aspect-ratio:4/3;object-fit:cover;border:2px solid var(--ink)">' +
+              (it.leg || it.cred ? '<figcaption>' + esc(it.leg) +
+                (it.cred ? ' <span class="fig-cred">' + esc(it.cred) + '</span>' : '') + '</figcaption>' : '') + '</figure>';
+          }).join('') + '</div>';
       }
       if(b.indexOf('botao:') === 0){
         var bp = b.slice(6).split('|');
@@ -4214,11 +4842,13 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
       if(b.replace(/[* ]/g, '') === '' && b.indexOf('*') > -1) return '<div style="text-align:center;color:var(--gold);letter-spacing:1em">✦ ✦ ✦</div>';
       if(b.indexOf('img:') === 0){
         var resto = b.slice(4).split('|');
+        var _leg = (resto[1] || '').trim(), _crd = (resto[2] || '').trim();
         return '<figure><img src="' + esc(urlSegura(resto[0].trim())) + '" alt="" style="max-width:100%">' +
-               (resto[1] ? '<figcaption>' + esc(resto[1].trim()) + '</figcaption>' : '') + '</figure>';
+               (_leg || _crd ? '<figcaption>' + esc(_leg) +
+                 (_crd ? ' <span class="fig-cred">' + esc(_crd) + '</span>' : '') + '</figcaption>' : '') + '</figure>';
       }
       var e = esc(b)
-        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*\*\s*([\s\S]+?)\s*\*\*/g, '<strong>$1</strong>')
         .replace(/\*(.+?)\*/g, '<em>$1</em>')
         .replace(/\[(.+?)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
         .replace(/\[(.+?)\]\(((?:post-|pessoa-|cat-)[a-z0-9-]+\.html)\)/g, '<a href="$2" target="_blank">$1</a>');
@@ -4335,7 +4965,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
                 : '<span class="mesa-cred">' + esc(d.imgCredito) + dirBadge + '</span>')
             : '';
           var capa = d.img
-            ? '<div class="mesa-capa"><img src="' + esc(d.img) + '" alt="" data-p="' + esc(d.img) + '" ' +
+            ? '<div class="mesa-capa"><img src="' + esc(doSite(d.img)) + '" alt="" data-p="' + esc(d.img) + '" ' +
               'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/\'+this.dataset.p}else{this.parentNode.outerHTML=\'<div class=mesa-semfoto>⚠ Foto no repositório ainda não carregou aqui, mas ela existe e sai na publicação</div>\'}">' +
               credLinha + '</div>'
             : '<div class="mesa-semfoto">⚠ Sem foto de capa — suba uma antes de aprovar</div>';
@@ -4745,7 +5375,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
              : (temBio ? 'Falta a foto no site' : 'Falta a bio no site'));
         return '<div class="eq-card' + (u.papel === 'chefe' ? ' eq-chefe' : '') + '">' +
           '<div class="cab"><span class="ava">' +
-            (temFoto ? '<img src="' + esc(u.foto) + '" alt="' + esc(u.nome) + '">' : esc(ini)) + '</span>' +
+            (temFoto ? '<img src="' + esc(doSite(u.foto)) + '" alt="' + esc(u.nome) + '">' : esc(ini)) + '</span>' +
           '<span><b>' + esc(u.nome) + '</b><span class="pap">' +
             esc((u.cargo || '').trim() || PAPEL_ROTULO[u.papel] || 'Autor(a)') + '</span></span></div>' +
           '<div class="per">' + per + '</div>' +
@@ -4761,7 +5391,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
   // ---- o perfil de quem assina: foto e bio, que o site mostra na página do autor ----
   function eqPintaFoto(cam){
     $('e-foto').value = cam || '';
-    $('e-foto-mini').innerHTML = cam ? '<img src="' + esc(cam) + '" alt="foto">' : '<span>sem foto</span>';
+    $('e-foto-mini').innerHTML = cam ? '<img src="' + esc(doSite(cam)) + '" alt="foto">' : '<span>sem foto</span>';
   }
   // A bio cabe à vontade: a página do autor quebra em parágrafos e uma bio
   // completa é o que dá autoridade a quem assina. O aviso só aparece quando
@@ -4958,7 +5588,7 @@ vídeo do YouTube, player do Spotify, botão de ingressos e divisor."></textarea
     var jaPublicada = fonte === 'novas' || fonte === 'acervo';
     $('correcao-box').style.display = jaPublicada ? 'block' : 'none';
     $('f-correcao').value = (dados.correcao && dados.correcao.texto) || '';
-    statusTexto();
+    statusTexto(); histReset();
     $('nova-titulo').textContent = 'Editar matéria';
     $('f-quando').parentElement.parentElement.style.display = 'none';
     $('btn-pub').textContent = 'Salvar edição';

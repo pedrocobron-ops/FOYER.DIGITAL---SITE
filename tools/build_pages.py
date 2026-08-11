@@ -192,7 +192,13 @@ NAV_ITEMS = [
     ('revista.html', 'Revista'),
     ('programas.html', 'Programas'),
     ('enciclopedia.html', 'Enciclopédia'),
-    ('agenda.html', 'Agenda'),
+    # Agenda ESCONDIDA do menu por decisão do Pedro (06/08/2026), após a
+    # prestação de contas das duas semanas: 3 leituras em 14 dias, 17s de
+    # permanência, 40 páginas na frente. A página CONTINUA sendo gerada em
+    # agenda.html — pronta para voltar ao menu recolocando a linha abaixo —
+    # e a coleta do campo `evento` segue intacta, porque as agendas da
+    # revista e o relógio dependem dela.
+    # ('agenda.html', 'Agenda'),
     ('entrevistas.html', 'Entrevistas'),
 ]
 
@@ -236,7 +242,6 @@ FOOTER = '''<footer>
         <a href="noticias.html">Notícias</a>
         <a href="critica.html">Crítica</a>
         <a href="entrevistas.html">Entrevistas</a>
-        <a href="agenda.html">Agenda</a>
       </div>
       <div class="foot-col">
         <h4>Programas</h4>
@@ -1408,10 +1413,18 @@ def md_lite(txt):
         if not b:
             continue
         if b.startswith('img:'):
-            resto = b[4:].strip()
-            url, _, cap = resto.partition('|')
-            capt = f'<figcaption>{_h.escape(cap.strip())}</figcaption>' if cap.strip() else ''
-            out.append(f'<figure class="art-img"><img src="{_h.escape(url.strip())}" alt="" loading="lazy">{capt}</figure>')
+            # img:endereço | legenda | crédito — legenda e crédito opcionais.
+            # O crédito ganhou casa própria em 05/08/2026: foto de jornal leva
+            # os dois, e antes o crédito ia espremido dentro da legenda.
+            partes = [x.strip() for x in b[4:].strip().split('|')]
+            url = partes[0] if partes else ''
+            cap = partes[1] if len(partes) > 1 else ''
+            cred = partes[2] if len(partes) > 2 else ''
+            dentro = _h.escape(cap)
+            if cred:
+                dentro += f' <span class="fig-cred">{_h.escape(cred)}</span>'
+            capt = f'<figcaption>{dentro}</figcaption>' if (cap or cred) else ''
+            out.append(f'<figure class="art-img"><img src="{_h.escape(url)}" alt="{_h.escape(cap)}" loading="lazy">{capt}</figure>')
             continue
         if b.startswith('## '):
             out.append(f'<h2>{_h.escape(b[3:].strip())}</h2>')
@@ -1429,9 +1442,43 @@ def md_lite(txt):
                 out.append(f'<div class="art-spotify"><iframe src="{_h.escape(_u)}" title="Spotify" loading="lazy" frameborder="0" allow="encrypted-media"></iframe></div>')
             continue
         if b.startswith('galeria:'):
-            _imgs = [x.strip() for x in b[8:].split('|') if x.strip()]
-            _cells = ''.join(f'<img src="{_h.escape(u)}" alt="" loading="lazy">' for u in _imgs)
-            out.append(f'<div class="art-galeria">{_cells}</div>')
+            # Duas grafias (05/08/2026, pedido do Pedro: legenda e crédito POR FOTO):
+            #   antiga, uma linha:  galeria:a.jpg | b.jpg | c.jpg   (sem legendas)
+            #   nova, uma foto por linha:
+            #     galeria:
+            #     a.jpg | legenda | crédito
+            #     b.jpg | legenda
+            _linhas = b.split('\n')
+            _r0 = _linhas[0][8:].strip()
+            _itens = []
+
+            def _g_item(s):
+                _ps = [x.strip() for x in s.split('|')]
+                return (_ps[0] if _ps else '',
+                        _ps[1] if len(_ps) > 1 else '',
+                        _ps[2] if len(_ps) > 2 else '')
+            if _r0:
+                _ps0 = [x.strip() for x in _r0.split('|') if x.strip()]
+                _so_caminhos = len(_ps0) > 1 and all(
+                    _re.search(r'\.(jpe?g|png|webp|gif)(\?.*)?$', p, _re.I)
+                    or p.startswith(('assets/', 'http'))
+                    for p in _ps0)
+                if _so_caminhos:
+                    _itens += [(p, '', '') for p in _ps0]
+                else:
+                    _itens.append(_g_item(_r0))
+            for _ln in _linhas[1:]:
+                _ln = _ln.strip()
+                if _ln:
+                    _itens.append(_g_item(_ln))
+            _cells = []
+            for _u, _cap, _cred in _itens:
+                _dentro = _h.escape(_cap)
+                if _cred:
+                    _dentro += f' <span class="fig-cred">{_h.escape(_cred)}</span>'
+                _capt = f'<figcaption>{_dentro}</figcaption>' if (_cap or _cred) else ''
+                _cells.append(f'<figure><img src="{_h.escape(_u)}" alt="{_h.escape(_cap)}" loading="lazy">{_capt}</figure>')
+            out.append(f'<div class="art-galeria">{"".join(_cells)}</div>')
             continue
         if b.startswith('botao:'):
             _rot, _, _url = b[6:].partition('|')
@@ -1442,7 +1489,10 @@ def md_lite(txt):
             out.append('<div class="art-div" aria-hidden="true">✦ ✦ ✦</div>')
             continue
         e = _h.escape(b)
-        e = _re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', e)
+        # (?s) + \s*: o negrito pode atravessar a quebra de linha. O Pedro
+        # marcou "**frase" numa linha e fechou "**" na seguinte (05/08/2026) e
+        # os asteriscos saíram crus na página. A folga engole a quebra.
+        e = _re.sub(r'(?s)\*\*\s*(.+?)\s*\*\*', r'<strong>\1</strong>', e)
         e = _re.sub(r'\*(.+?)\*', r'<em>\1</em>', e)
         e = _re.sub(r'\[(.+?)\]\((https?://[^)]+)\)', r'<a href="\2" target="_blank" rel="noopener">\1</a>', e)
         e = _re.sub(r'\[(.+?)\]\(((?:post-|pessoa-|cat-)[a-z0-9-]+\.html)\)', r'<a href="\2">\1</a>', e)

@@ -1403,12 +1403,27 @@ citação real; `**negrito**` para nomes de obras; `[link](url)` se preciso.
 
 Blocos opcionais (usar quando enriquecem de verdade):
 
+- `img:caminho | legenda | crédito` foto no meio do texto. A legenda diz o
+  que o leitor está vendo; o crédito diz quem fez a foto (ex.:
+  `Foto: Nome Sobrenome/Divulgação`) e sai numa linha própria, mais
+  discreta. Os dois campos são opcionais, mas foto de jornal leva os dois.
+  Antes de 05/08/2026 o crédito ia espremido dentro da legenda — separar.
 - `video:URL_DO_YOUTUBE` incorpora o vídeo (trailer oficial do
   espetáculo, clipe ou episódio do canal do FOYER quando o assunto tiver
   cobertura nossa) — ótimo para tempo de permanência na página.
 - `spotify:URL` incorpora o player de episódio/faixa do Spotify.
-- `galeria:caminho1 | caminho2 | caminho3` para 2+ fotos lado a lado
-  (baixar cada uma para assets/uploads/ como a capa).
+- `galeria:` para 2+ fotos lado a lado, **uma foto por linha, cada uma com
+  legenda e crédito próprios** (novo em 05/08/2026; baixar cada foto para
+  assets/uploads/ como a capa):
+
+  ```
+  galeria:
+  assets/uploads/foto-a.jpg | legenda da primeira | Foto: Fulano/Divulgação
+  assets/uploads/foto-b.jpg | legenda da segunda | Foto: Sicrana/Divulgação
+  ```
+
+  A grafia antiga numa linha só (`galeria:a.jpg | b.jpg`) continua valendo,
+  mas sai sem legenda — usar só quando as fotos dispensarem.
 - `botao:Comprar ingressos | URL` botão de destaque; usar SEMPRE que a
   matéria tiver venda de ingressos ou inscrição com link oficial
   (inclusive um por indicação no Guia do Fim de Semana).
@@ -1454,9 +1469,14 @@ Blocos opcionais (usar quando enriquecem de verdade):
 
 - `cat`/`cats` — **LISTA CANÔNICA DE EDITORIAS:** usar 1 principal
   (`cat`) e até 2 secundárias (`cats`). Valores editoriais permitidos aos
-  agentes: **Teatro, Notícia, Cinema, Streaming, Música, Show, Dança,
-  Exposições, Literatura, Televisão, Audições, Edital, Festa, Programa,
-  Guia, Bastidores, Entenda e Memória**. `Em Cartaz` é selo secundário e
+  agentes: **Teatro, Teatro Musical, Notícia, Cinema, Streaming, Música,
+  Show, Dança, Exposições, Literatura, Televisão, Audições, Edital, Festa,
+  Programa, Guia, Bastidores, Entenda e Memória**. **Teatro Musical é a
+  editoria da força da casa**: matéria cujo assunto central é um musical
+  (montagem, elenco, temporada, bastidor de musical) usa `cat` Teatro
+  Musical, com Teatro em `cats` para seguir aparecendo na página de Teatro.
+  Palavra "musical" de passagem (programação musical de um festival, trilha)
+  NÃO muda a editoria. `Em Cartaz` é selo secundário e
   entra somente em `cats`, nunca como `cat`. NUNCA usar: Artigo de Opinião,
   Astrologia, Crônicas e Histórias ou Crítica, que pertencem a humanos.
   Exemplos: notícia internacional = Notícia + Teatro; Lei Rouanet =
@@ -1504,9 +1524,9 @@ Blocos opcionais (usar quando enriquecem de verdade):
   data no Brasil) simplesmente NÃO leva o campo.
 
 - `slug`: ASCII minúsculo, hifens, máx. 80 caracteres, sem acentos.
-- `cat` — uma de: Teatro, Notícia, Cinema, Streaming, Música, Show,
-  Dança, Exposições, Literatura, Televisão, Audições, Edital, Festa,
-  Programa, Guia, Bastidores, Entenda ou Memória. `Em Cartaz` só pode entrar
+- `cat` — uma de: Teatro, Teatro Musical, Notícia, Cinema, Streaming,
+  Música, Show, Dança, Exposições, Literatura, Televisão, Audições, Edital,
+  Festa, Programa, Guia, Bastidores, Entenda ou Memória. `Em Cartaz` só pode entrar
   em `cats`. Agentes nunca usam Crítica, Artigo de Opinião, Astrologia ou
   Crônicas e Histórias.
 - JSON com `ensure_ascii` desligado (acentos legíveis) e indentação 1.

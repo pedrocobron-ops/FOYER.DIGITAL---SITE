@@ -1,0 +1,204 @@
+{
+ "numero": 4,
+ "titulo": "A conta sem bilheteria",
+ "dataEdicao": "13 Ago 2026",
+ "status": "rascunho",
+ "capa": {
+  "img": "assets/uploads/revista-ed-4-capa.jpg",
+  "manchete": "Meirelles filma um Rio sem mar e estreia sem sala",
+  "chamadas": [
+   "O Sesi produz musical inédito de graça. A indústria paga a conta",
+   "Pelotas reabre o Sete de Abril depois de 16 anos fechado",
+   "Vestido de Noiva, 1943: a noite em que o palco ganhou três andares"
+  ],
+  "credito": "Laura Campanella/Divulgação Prime Video"
+ },
+ "paginas": [
+  {
+   "tipo": "editorial",
+   "titulo": "A conta sem bilheteria",
+   "texto": "O novo filme de Fernando Meirelles estreou na sexta-feira 7 de agosto direto no Prime Video. Corrida dos Bichos tem 124 minutos, um elenco que vai de Rodrigo Santoro a Anitta e um Rio de Janeiro de onde o mar sumiu. Estreia em sala de cinema, ninguém anunciou. Sem sala não há bilheteria de primeiro fim de semana, e o lançamento brasileiro grande perde justamente a conta que costuma medi-lo.\n\nNa Avenida Paulista, outra conta. O Teatro do SESI-SP estreia em 29 de agosto um musical inédito sobre a infância de Guimarães Rosa e fica com ele até 13 de dezembro sem cobrar ingresso. O dinheiro vem de uma contribuição que o Decreto-Lei nº 9.403, de 1946, tornou obrigatória para a indústria. Em Pelotas, o Theatro Sete de Abril voltou a abrir em 7 de julho, depois de 16 anos interditado, com R$ 11 milhões gastos na retomada e a instalação elétrica ainda pela metade.\n\nA semana também tem Nova York, onde uma franquia de sete filmes de terror vira temporada de 20 semanas na Broadway, e o Sesc Avenida Paulista, onde dois criadores colombianos radicados no Brasil montam quinze cenas sobre a morte. E tem 1943, quando um grupo amador estreou Vestido de Noiva no Municipal do Rio e deslocou o centro do palco brasileiro do ator principal para o encenador. Cada uma dessas contas fecha de um jeito diferente. Boa leitura.",
+   "assinatura": "A direção do FOYER"
+  },
+  {
+   "tipo": "materia",
+   "slug": "corrida-dos-bichos-meirelles-prime-video-estreia",
+   "cat": "Cinema",
+   "img": "assets/uploads/corrida-dos-bichos-still-oficial-laura-campanella.jpg",
+   "titulo": "Um Rio sem mar e nenhuma sessão marcada",
+   "chamada": "Corrida dos Bichos, de Fernando Meirelles, estreou em 7 de agosto de 2026 direto no Prime Video, com 124 minutos, produção da O2 Filmes e distribuição da Amazon MGM Studios; a estreia mundial foi no SXSW, em 17 de março, e sala de cinema ninguém anunciou.",
+   "texto": "Filme brasileiro grande costuma ser medido pelo primeiro fim de semana de bilheteria. Este chega ao público pelo catálogo, sem estreia em sala anunciada, e a régua some junto com a sessão."
+  },
+  {
+   "tipo": "recortes",
+   "itens": [
+    {
+     "frase": "Precisamos completar a instalação elétrica, que foi feita pela metade, para termos a capacidade total de som e luz, e completar a climatização, só os dutos foram colocados. Ainda faltam detalhes do acabamento, como o corrimão dos camarotes",
+     "quem": "Carmem Vera Roig, secretária municipal de Cultura de Pelotas",
+     "onde": "jornal A Hora do Sul",
+     "slug": "theatro-sete-de-abril-pelotas-reabre-apos-16-anos"
+    },
+    {
+     "frase": "Desde sua fundação, o público do espaço tem acesso, de forma gratuita, ao que existe de mais relevante na produção teatral nacional",
+     "quem": "Débora Viana, gerente executiva de Cultura do SESI-SP",
+     "onde": "site do SESI-SP",
+     "slug": "sesi-sp-teatro-musical-gratuito-mercado"
+    },
+    {
+     "frase": "Toda a obra é atravessada por um mesmo sentimento: a alegria de estarmos vivos diante da angústia da finitude. Assim, buscamos estabelecer uma relação afetiva com os espectadores",
+     "quem": "Gustavo Miranda",
+     "onde": "material de divulgação da temporada",
+     "slug": "temporalmente-vivos-estreia-sesc-avenida-paulista"
+    }
+   ]
+  },
+  {
+   "tipo": "materia",
+   "slug": "sesi-sp-teatro-musical-gratuito-mercado",
+   "cat": "Teatro",
+   "img": "assets/uploads/sesi-sp-teatro-musical-gratuito-mercado.jpg",
+   "titulo": "O musical de graça e a conta de 1946",
+   "chamada": "O Teatro do SESI-SP estreia em 29 de agosto o musical inédito João, Joãozinho, Joãozito, sobre a infância de Guimarães Rosa, com temporada até 13 de dezembro e ingresso gratuito; o dinheiro sai da contribuição que o Decreto-Lei nº 9.403, de 1946, tornou obrigatória para a indústria.",
+   "texto": "São 19 teatros, sete centros culturais e 95 núcleos de iniciação em música, teatro, dança e circo numa rede mantida por contribuição compulsória. O palco da Avenida Paulista, 1.313, nasceu em 1948 como Teatro Operário do SESI, com peças protagonizadas pelos próprios trabalhadores. Quem quer estrear ali entra por edital."
+  },
+  {
+   "tipo": "materia",
+   "slug": "temporalmente-vivos-estreia-sesc-avenida-paulista",
+   "cat": "Teatro",
+   "img": "assets/uploads/temporalmente-vivos-estreia-sesc-avenida-paulista.jpg",
+   "titulo": "A Morte ronda os cantos do teatro",
+   "chamada": "Temporalmente Vivos, dos colombianos Gustavo Miranda e Mauricio Flórez, radicados no Brasil desde 2012, estreou em 7 de agosto de 2026 no Sesc Avenida Paulista e fica até 30 de agosto, com ingressos de R$ 15 a R$ 50.",
+   "texto": "Guerra, extinção, festa, fanatismo religioso e memórias do conflito armado na Colômbia cabem em quinze cenas independentes. A trilha de Talita del Collado recorre à cumbia e ao bolero."
+  },
+  {
+   "tipo": "programas"
+  },
+  {
+   "tipo": "materia",
+   "slug": "theatro-sete-de-abril-pelotas-reabre-apos-16-anos",
+   "cat": "Teatro",
+   "img": "assets/uploads/theatro-sete-de-abril-pelotas-reabre-apos-16-anos.jpg",
+   "titulo": "Dezesseis anos de porta fechada em Pelotas",
+   "chamada": "O Theatro Sete de Abril voltou a receber público em 7 de julho de 2026, aniversário de 214 anos de Pelotas, depois de ser interditado pelo Ministério Público em janeiro de 2010; a Prefeitura informa R$ 11 milhões gastos ao longo da retomada.",
+   "texto": "O prédio parou por risco de colapso na estrutura que sustentava o telhado. O restauro recuperou fachadas, camarotes, camarins, plateia, foyer e o palco em estilo italiano, e o lustre foi refeito dentro da Universidade Federal de Pelotas, por um estudante de Conservação e Restauro. A casa reabriu inacabada, e a Secretaria Municipal de Cultura registrou publicamente o que ainda falta."
+  },
+  {
+   "tipo": "materia",
+   "slug": "paranormal-activity-broadway-estreia-agosto-2026",
+   "cat": "Notícia",
+   "img": "assets/uploads/paranormal-activity-broadway-estreia-agosto-2026.jpg",
+   "titulo": "Hollywood assombra a Broadway",
+   "chamada": "Paranormal Activity começa as prévias em 14 de agosto de 2026 no August Wilson Theatre, em Nova York, estreia oficialmente em 25 de agosto e tem temporada limitada a 20 semanas, com direção de Felix Barrett, fundador da companhia inglesa Punchdrunk.",
+   "texto": "A montagem nasceu no Leeds Playhouse, na Inglaterra, em 2024, passou pelo West End e circulou pelos Estados Unidos antes de uma temporada em Boston, encerrada em 30 de julho de 2026."
+  },
+  {
+   "tipo": "materia",
+   "slug": "estreia-vestido-de-noiva-1943-nelson-rodrigues",
+   "cat": "Memória",
+   "img": "assets/uploads/estreia-vestido-de-noiva-1943-nelson-rodrigues.jpg",
+   "titulo": "A noite em que o palco ganhou três andares",
+   "chamada": "Vestido de Noiva estreou em 28 de dezembro de 1943 no Theatro Municipal do Rio de Janeiro, pelo grupo amador Os Comediantes, com direção do polonês Ziembinski, e costuma ser apontada como o marco inicial do teatro moderno brasileiro.",
+   "texto": "Nelson Rodrigues tinha 31 anos e vinha da reportagem policial. Coube a Ziembinski, chegado ao Rio em 1942 fugindo da guerra na Europa, separar com luz os três planos da peça."
+  },
+  {
+   "tipo": "agenda",
+   "cidade": "São Paulo",
+   "itens": [
+    {
+     "dia": "2026-08-14",
+     "titulo": "Temporalmente Vivos",
+     "texto": "Quinze cenas sobre a morte, sem ligação explícita entre elas, montadas pelos colombianos Gustavo Miranda e Mauricio Flórez no espaço Arte I, no quinto andar da unidade. Sexta, às 20h30, com inteira a R$ 50 e credencial plena a R$ 15.",
+     "local": "Sesc Avenida Paulista",
+     "cidade": "São Paulo",
+     "link": "https://www.sescsp.org.br/programacao/temporalmente-vivos/"
+    },
+    {
+     "dia": "2026-08-15",
+     "titulo": "PIAF, Eu Não Me Arrependo",
+     "texto": "Sábado de sessão dupla, às 16h e às 20h, com Laila Garin no repertório de Édith Piaf e orquestra em cena. A casa abre uma hora antes, e a duração é de 150 minutos mais intervalo.",
+     "local": "Teatro Bradesco",
+     "cidade": "São Paulo",
+     "link": "https://uhuu.com/evento/sp/sao-paulo/piaf-eu-nao-me-arrependo-15900"
+    },
+    {
+     "dia": "2026-08-15",
+     "titulo": "Inter Alia",
+     "texto": "Drica Moraes é a juíza empenhada no combate à violência de gênero até a suspeita entrar pela porta de casa, no texto de Suzie Miller, a mesma autora de Prima Facie. Sábado, às 20h, com 90 minutos e cota popular a R$ 50.",
+     "local": "Teatro Vivo",
+     "cidade": "São Paulo",
+     "link": "post-inter-alia-drica-moraes-teatro-vivo-suzie-miller.html"
+    },
+    {
+     "dia": "2026-08-16",
+     "titulo": "Dois Papas",
+     "texto": "Celso Frateschi faz o cardeal Bergoglio e Zécarlos Machado, o papa Bento XVI, na sessão de domingo, às 18h, com direção de Munir Kanaan. São 110 minutos numa sala de 672 lugares, e estudante da PUC-SP paga R$ 20 na bilheteria.",
+     "local": "TUCA, Teatro da PUC-SP",
+     "cidade": "São Paulo",
+     "link": "post-dois-papas-tuca-celso-frateschi-zecarlos-machado.html"
+    },
+    {
+     "dia": "2026-08-20",
+     "titulo": "Meu Filho é um Musical",
+     "texto": "Noite de estreia paulistana, às 20h, do musical sobre Paulo Gustavo idealizado por Renata Borges e por Déa Lúcia, mãe do humorista, com direção de Ju Amaral e João Fonseca. São 180 minutos com intervalo, no palco que abrigou Shrek até julho.",
+     "local": "Teatro Renault",
+     "cidade": "São Paulo",
+     "link": "post-meu-filho-e-um-musical-temporada-sao-paulo.html"
+    }
+   ]
+  },
+  {
+   "tipo": "agenda",
+   "cidade": "Rio de Janeiro",
+   "itens": [
+    {
+     "dia": "2026-08-14",
+     "titulo": "O Buraco",
+     "texto": "A Penúltima Cia leva nove atores à sala Adolpho Bloch para a comédia absurda sobre um buraco que aparece no edifício LaPlace, em Botafogo, e desarruma o condomínio inteiro. Dramaturgia de Bernardo Coimbra e João Miller, direção de Stella Rabello, 80 minutos. Sexta, às 20h30, na segunda e última sessão da mostra Nova Cena, com retirada de ingressos na bilheteria a partir das 18h.",
+     "local": "Teatro TotalEnergies",
+     "cidade": "Rio de Janeiro",
+     "link": "https://www.ingresso.com/espetaculos/ftr-nova-cena-o-buraco"
+    },
+    {
+     "dia": "2026-08-15",
+     "titulo": "1 Peça Cansada",
+     "texto": "Natasha Corbelino voltou de uma turnê na França sem projeto à vista e fez disso o espetáculo, criado e apresentado na sala do próprio apartamento, por onde passaram mais de mil pessoas. O festival lhe dá um palco de verdade no sábado, em duas sessões, às 18h30 e às 20h30, com 70 minutos cada.",
+     "local": "Teatro TotalEnergies",
+     "cidade": "Rio de Janeiro",
+     "link": "https://www.ingresso.com/espetaculos/ftr-nova-cena-1-peca-cansada"
+    },
+    {
+     "dia": "2026-08-16",
+     "titulo": "Fim de Partida",
+     "texto": "Marco Nanini é Hamm e Guilherme Weber é Clov no Beckett dirigido por Rodrigo Portella, ao lado de Helena Ignez e Ary França. São 90 minutos num espaço claustrofóbico, com classificação de 16 anos. Domingo, às 18h, na sessão que encerra o 2º Festival de Teatro do Rio.",
+     "local": "Teatro TotalEnergies",
+     "cidade": "Rio de Janeiro",
+     "link": "post-festival-de-teatro-do-rio-2026-segunda-edicao.html"
+    },
+    {
+     "dia": "2026-08-20",
+     "titulo": "Mamma Mia!",
+     "texto": "Claudia Netto, Totia Meireles e Gottsha abrem a temporada carioca do musical construído sobre o repertório do ABBA, com direção de Charles Möeller e Claudio Botelho. Quinta, às 20h, na noite de estreia. A temporada segue até 13 de setembro, de quinta a domingo.",
+     "local": "Teatro Riachuelo Rio",
+     "cidade": "Rio de Janeiro",
+     "link": "https://www.ingresso.com/espetaculos/mamma-mia"
+    }
+   ]
+  },
+  {
+   "tipo": "frase-celebre"
+  },
+  {
+   "tipo": "expediente"
+  },
+  {
+   "tipo": "contracapa"
+  }
+ ],
+ "historico": [
+  {
+   "quando": "2026-08-06T15:30:00.000Z",
+   "quem": "Redação IA (Claude)",
+   "acao": "monta o rascunho da edição 4 (14 páginas) para a saída de 13/08: capa recortada em 1500x1000 do still oficial de Corrida dos Bichos (Laura Campanella/Divulgação Prime Video), editorial A conta sem bilheteria, 6 matérias da janela de 06/08 a 13/08 sem repetir a edição 3 nem a edição 2, recortes com 3 aspas reconferidas na origem, agenda de São Paulo com 5 itens e do Rio com 4, todos de 14 a 20/08, programas, frase-célebre, expediente e contracapa"
+  }
+ ]
+}
