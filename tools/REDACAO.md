@@ -419,6 +419,50 @@ Não usar no título:
 - nome de celebridade que aparece só lateralmente;
 - suspense artificial que esconde o fato principal.
 
+#### O TÍTULO É A ÚLTIMA COISA QUE SE ESCREVE (ordem do Pedro, 08/08/2026)
+
+**Quem escreve o título não é o redator: é o Titulador, e ele entra depois de
+tudo.** O papel está descrito em "A esteira, papel por papel". A ordem do Pedro
+foi literal: *"sempre ao fim da notícia um agente deve dar o título, deve ser um
+agente especialista em título de alto alcance."*
+
+**O defeito que gerou a regra**, medido nas 15 matérias entregues em 08/08/2026:
+oito passavam de 100 caracteres, e as quinze tinham a mesma forma — o achado
+editorial na frente, o termo de busca atrás. *"Dez anos sem Gene Wilder: o ator
+de Willy Wonka…"* está escrito para quem já sabe quem ele é. Quem procura digita
+"Gene Wilder Willy Wonka". A matéria da primeira Emília da TV não trazia "Sítio
+do Picapau Amarelo"; a do voguing não trazia "Paris is Burning". **Título bonito
+para quem já leu é título invisível para quem ainda não leu.**
+
+**As regras do título:**
+
+1. **Os primeiros 60 caracteres têm de funcionar sozinhos.** O buscador corta ali.
+   O que vem depois é bônus para quem já clicou, nunca a informação que decide o
+   clique. Teto duro: **90 caracteres**. Acima disso, o portão avisa.
+2. **O termo que a pessoa digita vem na frente.** Nome próprio reconhecível,
+   obra, personagem, palavra do vocabulário. A efeméride ("30 anos da morte")
+   é contexto, não é a busca: ninguém digita "30 anos sem fulano".
+3. **Cada matéria tem mais de um termo de busca. Escolha o de maior alcance,**
+   e ponha o segundo no corpo do título quando couber. Uma matéria sobre uma
+   atriz que fez a Emília na TV disputa "Emília Sítio do Picapau Amarelo", que é
+   busca de milhões, e não só o nome dela.
+4. **Explicador leva a pergunta exata**, na forma em que se digita. "O que é",
+   "por que", "como", "quanto custa", "quem decide".
+5. **O título não pode prometer o que o texto não entrega.** Isso não muda: a
+   regra de alcance nunca revoga a régua da promessa cumprida.
+6. **Não repetir a forma na mesma leva.** Se as cinco matérias do dia abrem com
+   "Quem foi", a quinta já não é encontrada — e o Titulador vê o conjunto, o
+   redator não.
+7. **O `title` e o `instagram.titulo` são bichos diferentes.** O primeiro é
+   busca; o segundo é arte e vai desenhado na imagem. Não confunda um com o
+   outro nem copie de um para o outro.
+
+**Como o Titulador trabalha:** lê o texto entregue, não a pauta. Escreve **três
+candidatos** com estruturas diferentes, mede cada um em caracteres, escolhe um e
+**escreve por que escolheu**, dizendo qual termo de busca cada candidato ataca. A
+escolha e os descartados ficam registrados em `chefe.ressalvas`, porque o
+editor humano na Coxia pode preferir outro, e precisa ver as opções.
+
 **Os três primeiros movimentos do texto:**
 
 1. **fato:** o que mudou, com data e sujeito;
@@ -1251,7 +1295,17 @@ fato (diff das mudanças listadas) e commita.
    da ordem e confere o fecho. Não altera nomes, datas, números, aspas ou
    serviço. Qualquer necessidade factual volta ao Checador. No porte `release`,
    esta função é cumprida pelo próprio redator, conforme a tabela de ondas.
-6. **Chefe de Redação** — validação final com parecer honesto: título fiel
+6. **Titulador** — especialista em título de alto alcance, e é o ÚLTIMO a
+   escrever antes do Chefe. Entra depois da checagem e da leitura fria, e lê
+   **o texto entregue**, nunca a pauta. Reescreve o `title` seguindo as regras
+   de "O TÍTULO É A ÚLTIMA COISA QUE SE ESCREVE": termo de busca na frente,
+   primeiros 60 caracteres funcionando sozinhos, teto de 90, forma variada
+   dentro da leva. Entrega três candidatos medidos, escolhe um, e registra os
+   descartados e o motivo em `chefe.ressalvas`, para o editor humano poder
+   preferir outro. **Não toca em mais nada do pacote** — nem no corpo, nem no
+   `instagram.titulo`, nem em fato nenhum. Se o título honesto não couber no
+   teto, ele avisa em vez de encolher a verdade.
+7. **Chefe de Redação** — validação final com parecer honesto: título fiel
    e sem sensacionalismo? Alguma afirmação sem fonte? Datas e nomes
    consistentes? O Checador passou e o campo `checagem` está preenchido?
    Aplicar a rubrica canônica, dar nota 0–10, escrever parecer em 1–2 frases e

@@ -202,6 +202,21 @@ def auditar(caminho):
     if quebrados:
         problemas.append(f'LINKS QUEBRADOS: {quebrados}')
 
+    # 3a-bis. TÍTULO DE ALTO ALCANCE (ordem do Pedro, 08/08/2026).
+    #     O buscador corta o título por volta de 60 caracteres. Nas 15 matérias
+    #     de 08/08, oito passavam de 100: metade do título nunca era vista, e a
+    #     informação que decide o clique morava justamente na metade cortada.
+    #     Aviso, não trava: às vezes o título honesto é longo, e encolher a
+    #     verdade para caber é pior. Quem decide é o Titulador.
+    if titulo:
+        n_tit = len(titulo)
+        if n_tit > 90:
+            avisos.append(f'TÍTULO LONGO: {n_tit} caracteres (teto 90; o '
+                          f'buscador corta perto de 60). Os primeiros 60 '
+                          f'precisam funcionar sozinhos: "{titulo[:60]}"')
+        if re.match(r'^\s*(Quem foi|O que é|Por que)\b', titulo, re.I):
+            pass  # formas legítimas de explicador e perfil, aqui só não se conta como defeito
+
     # 3b. O FECHO NÃO É UM LINK (ordem do Pedro, 04/08/2026).
     #     Desde que a cota de 3 links entrou, o redator passou a cumpri-la no
     #     lugar mais barato, que é o fim: 38% das matérias na mesa terminavam
