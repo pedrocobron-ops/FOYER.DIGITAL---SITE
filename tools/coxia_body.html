@@ -4661,10 +4661,15 @@ ingressos e divisor."></textarea>
           .concat(fPauta.map(function(f){ return baixa(f, true); }))
       ).then(function(items){
         items = items.filter(Boolean);
+        var mesaBusca = [];
         if(!podeEditar()){
           items = items.filter(function(d){ return d.author === USER.nome || d.criadoPor === USER.nome; });
         } else {
-          items = items.filter(function(d){ return !d._mesa; }); // a mesa fica na aba Redação IA
+          // a mesa fica na aba Redação IA, mas ENTRA na busca de temas: a
+          // pergunta do Pedro é "alguém já programou isso?", e a resposta
+          // pode estar numa matéria ainda esperando aprovação
+          mesaBusca = items.filter(function(d){ return d._mesa; });
+          items = items.filter(function(d){ return !d._mesa; });
         }
         if(!items.length){ el.innerHTML = '<div class="vazio-box">Nenhuma matéria por aqui ainda</div>'; return; }
         var agora = new Date().toISOString();
@@ -4680,14 +4685,33 @@ ingressos e divisor."></textarea>
         if(agendadas.length){
           blocoAg = '<div class="fila-agenda"><b>🕐 Vão sair (' + agendadas.length + ')</b>' +
             agendadas.map(function(d){
-              return '<div class="fa-row"><span class="fa-q">' + esc(qdRelativo(d.publishAt)) + '</span>' +
+              return '<div class="fa-row" data-bq="' + esc(amassaBusca(d.title + ' ' + d.cat)) + '">' +
+                '<span class="fa-q">' + esc(qdRelativo(d.publishAt)) + '</span>' +
                 '<span class="fa-t">' + esc(d.title) + '</span>' +
                 '<span class="mt">' + esc(d.cat) + '</span></div>';
             }).join('') + '</div>';
         }
 
+        // --- busca de temas: "já tem matéria sobre isso?" ---
+        // procura no título, editoria, assinatura E no texto das matérias da
+        // fila (publicadas e agendadas) e da mesa de aprovação, sem acento
+        var blocoBusca =
+          '<div style="margin:0 0 16px">' +
+            '<input type="search" id="fila-q" aria-label="Buscar tema na fila e nas agendadas" ' +
+              'placeholder="🔎 Já tem matéria sobre esse tema? Busque por assunto, título, artista ou autor(a)" ' +
+              'style="width:100%;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:var(--sans);font-size:.92rem;padding:12px 14px">' +
+            '<p class="f-note" id="fila-q-n" style="margin:6px 0 0;display:none"></p>' +
+            '<div id="fila-q-mesa"></div>' +
+          '</div>';
+
         items.sort(function(a,b){ return (b.publishAt || b.geradoEm || '').localeCompare(a.publishAt || a.geradoEm || ''); });
-        el.innerHTML = blocoGrade + blocoAg + items.map(function(d){
+        // o texto de cada matéria, amassado, para a busca de temas (fica em
+        // memória, fora do HTML — corpo inteiro entra na comparação)
+        var chavesBusca = items.map(function(d){
+          return amassaBusca([d.title, d.cat, (d.cats || []).join(' '), d.author || '',
+                              d.corpo || ''].join(' '));
+        });
+        el.innerHTML = blocoBusca + '<div id="fila-grade-w">' + blocoGrade + '</div>' + blocoAg + items.map(function(d, _bi){
           var pill, cls;
           var devolvida = d.status === 'devolvida';
           if(devolvida){ pill = 'Devolvida'; cls = 'rc'; }
@@ -4725,7 +4749,7 @@ ingressos e divisor."></textarea>
             ? '<div class="fa-devol">↩ Devolvida por ' + esc(d.devolucao.por || 'chefe') + ': ' + esc(d.devolucao.motivo || 'sem comentário') + '</div>'
             : '';
           var views = (jaPub ? '<span class="fr-views" data-vslug="' + esc(d.slug) + '"></span>' : '');
-          return '<div class="frow' + (devolvida ? ' rec' : '') + '">' + th +
+          return '<div class="frow' + (devolvida ? ' rec' : '') + '" data-bi="' + _bi + '">' + th +
             '<span><span class="ti">' + esc(d.title) + '</span>' +
             '<span class="mt">' + esc(d.cat) + ' — ' + esc(d.author) + ' — ' + quando +
             (d.atualizadoEm ? ' — ✎ atualizada' : '') + views + '</span>' + recado + '</span>' +
@@ -4735,6 +4759,56 @@ ingressos e divisor."></textarea>
         }).join('');
         preencherViews();
         if(podeEditar()) enriquecerGrade();
+
+        // a busca em ação: filtra a lista e as agendadas, e mostra o que está
+        // na mesa de aprovação sobre o mesmo tema
+        var chavesMesa = mesaBusca.map(function(d){
+          return amassaBusca([d.title, d.cat, (d.cats || []).join(' '), d.author || '',
+                              d.corpo || ''].join(' '));
+        });
+        var qEl = $('fila-q'), qN = $('fila-q-n'), qMesa = $('fila-q-mesa'), qT;
+        function filaFiltra(){
+          var q = amassaBusca(qEl.value.trim());
+          var termos = q.split(/\s+/).filter(function(t){ return t.length >= 2; });
+          var ativa = termos.length > 0;
+          var bate = function(chave){
+            for(var i = 0; i < termos.length; i++)
+              if(chave.indexOf(termos[i]) < 0) return false;
+            return true;
+          };
+          var nFila = 0;
+          el.querySelectorAll('.frow[data-bi]').forEach(function(row){
+            var ok = !ativa || bate(chavesBusca[+row.dataset.bi] || '');
+            row.style.display = ok ? '' : 'none';
+            if(ativa && ok) nFila++;
+          });
+          el.querySelectorAll('.fa-row[data-bq]').forEach(function(row){
+            row.style.display = (!ativa || bate(row.dataset.bq)) ? '' : 'none';
+          });
+          var gw = $('fila-grade-w');
+          if(gw) gw.style.display = ativa ? 'none' : '';  // o calendário não é filtrável
+          var achouMesa = ativa ? mesaBusca.filter(function(d, i){ return bate(chavesMesa[i]); }) : [];
+          qMesa.innerHTML = achouMesa.length
+            ? '<div class="fila-agenda" style="margin-top:10px"><b>🖋 Na mesa de aprovação (' + achouMesa.length + ')</b>' +
+              achouMesa.map(function(d){
+                return '<div class="fa-row"><span class="fa-q">esperando aprovação</span>' +
+                  '<span class="fa-t">' + esc(d.title) + '</span>' +
+                  '<span class="mt">' + esc(d.cat) + ' — ' + esc(d.author || '') + '</span></div>';
+              }).join('') + '</div>'
+            : '';
+          if(ativa){
+            qN.style.display = '';
+            qN.textContent = nFila
+              ? nFila + ' matéria(s) na fila e agendadas' + (achouMesa.length ? ' + ' + achouMesa.length + ' na mesa' : '')
+              : (achouMesa.length ? 'Nada na fila — mas tem ' + achouMesa.length + ' na mesa de aprovação'
+                                  : 'Nenhuma matéria sobre isso: tema livre para você lançar ✓');
+          } else {
+            qN.style.display = 'none';
+          }
+        }
+        qEl.addEventListener('input', function(){
+          clearTimeout(qT); qT = setTimeout(filaFiltra, 150);
+        });
       });
     }).catch(function(e){
       el.innerHTML = '<div class="vazio-box">Não deu para carregar a fila. ' + esc(msgErro(e)) +
