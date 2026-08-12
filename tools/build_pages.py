@@ -6530,4 +6530,59 @@ for _m in MATERIAS:
             _n_extra += 1
 print(f'• {_n_pontes} pontes dos endereços antigos do Wix em /post/ '
       f'(+ {_n_extra} grafias alternativas: sem acento e endereço novo)')
+
+# ---- PONTES DAS SEÇÕES DO SITE ANTIGO (11/08/2026) -------------------------
+# As pontes acima cobrem as matérias, mas o Google também guardou as PÁGINAS
+# do site do Wix — /equipe, /quem-somos, /teatro… — e elas apareciam nos
+# resultados levando direto ao 404 (foi o print do Pedro, com os atalhos da
+# busca "foyer digital" todos quebrados). Cada endereço antigo ganha uma
+# ponte para a página nova equivalente. Ponte a mais não faz mal; a menos, faz.
+_SECOES_WIX = {
+    # confirmadas no índice do Google
+    'equipe': 'sobre.html',
+    # prováveis páginas e apelidos do site antigo
+    'quem-somos': 'sobre.html', 'quemsomos': 'sobre.html', 'sobre-1': 'sobre.html',
+    'teatro': 'cat-teatro.html', 'teatro-musical': 'cat-teatro-musical.html',
+    'musicais': 'cat-teatro-musical.html', 'cinema': 'cat-cinema.html',
+    'musica': 'cat-musica.html', 'danca': 'cat-danca.html',
+    'criticas': 'critica.html', 'resenhas': 'critica.html',
+    'eventos': 'agenda.html', 'agenda-cultural': 'agenda.html',
+    'blog': 'noticias.html', 'materias': 'noticias.html',
+    'programa': 'programas.html', 'entrevista': 'entrevistas.html',
+}
+# o post institucional de boas-vindas do Wix não virou matéria do acervo,
+# então não tem ponte automática; os jeitos prováveis de escrever entram à mão
+for _bv in ('bem-vindo-a-ao-foyer', 'bem-vindoa-ao-foyer', 'bem-vindo-ao-foyer'):
+    if _bv not in _feitas:
+        _SECOES_WIX['post/' + _bv] = 'sobre.html'
+# as categorias do blog do Wix (/blog/categories/<nome>) apontam para as
+# páginas de editoria novas
+for _cw, _dw in (('teatro', 'cat-teatro.html'), ('teatro-musical', 'cat-teatro-musical.html'),
+                 ('cinema', 'cat-cinema.html'), ('musica', 'cat-musica.html'),
+                 ('noticias', 'noticias.html'), ('critica', 'critica.html')):
+    _SECOES_WIX['blog/categories/' + _cw] = _dw
+_n_sec = 0
+for _cam, _dest in _SECOES_WIX.items():
+    if not os.path.exists(os.path.join(ROOT, _dest)):
+        continue  # destino ainda não existe neste build: melhor sem ponte que ponte cega
+    _alvo = f'{BASE}/{_dest}'
+    _dirp = os.path.join(ROOT, _cam)
+    os.makedirs(_dirp, exist_ok=True)
+    with open(os.path.join(_dirp, 'index.html'), 'w') as _fp:
+        _fp.write(f'''<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>FOYER</title>
+<link rel="canonical" href="{_alvo}">
+<meta http-equiv="refresh" content="0; url={_alvo}">
+<script>location.replace({_json.dumps(_alvo)});</script>
+</head>
+<body>
+<p>Esta página mudou de endereço: <a href="{_alvo}">foyer.digital</a></p>
+</body>
+</html>
+''')
+    _n_sec += 1
+print(f'• {_n_sec} pontes das seções do site antigo (/equipe, /teatro, /blog/categories/…)')
 print('pronto')
