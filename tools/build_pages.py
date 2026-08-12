@@ -1896,7 +1896,10 @@ def _em_cartaz(x):
 
 def _filters(active='*'):
     out = f'<a href="noticias.html"{" class=on" if active=="*" else ""}>Todas</a>'
-    out += f'<a href="cat-em-cartaz.html"{" class=on" if active=="Em Cartaz" else ""}>✦ Em Cartaz</a>'
+    # ESCONDIDO em 12/08/2026 (pedido do Pedro): o filtro Em Cartaz servia à
+    # Agenda, que saiu do site. A página cat-em-cartaz.html continua sendo
+    # gerada — para reativar, descomente a linha abaixo (e o selo na Coxia).
+    # out += f'<a href="cat-em-cartaz.html"{" class=on" if active=="Em Cartaz" else ""}>✦ Em Cartaz</a>'
     for c in sorted(_cats):
         cls = ' class="on"' if active == c else ''
         out += f'<a href="cat-{_cat_slug(c)}.html"{cls}>{c}</a>'
@@ -2018,7 +2021,7 @@ def post_page(i, p):
   <div class="art-head">
     <div class="tags">
       <a class="tag wine" href="cat-{_cat_slug(p['cat'])}.html">{p['cat']}</a>
-      {''.join(f'<a class="tag" href="cat-{_cat_slug(c)}.html">{"✦ " if c == "Em Cartaz" else ""}{c}</a>' for c in p.get('cats', [])) or '<span class="tag">Foyer</span>'}
+      {''.join(f'<a class="tag" href="cat-{_cat_slug(c)}.html">{c}</a>' for c in p.get('cats', []) if c != 'Em Cartaz') or '<span class="tag">Foyer</span>'}
     </div>
     <h1>{p['title']}</h1>
     <div class="art-byline">

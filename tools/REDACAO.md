@@ -1539,6 +1539,10 @@ Blocos opcionais (usar quando enriquecem de verdade):
   Bastidores + Teatro + Edital; guia = Guia + Teatro. Esta lista precisa ser
   idêntica à validação do `tools/audita_pauta.py`; divergência é erro de
   sistema e deve ser corrigida entre rodadas.
+- **NOTA DE 12/08/2026:** a Agenda e a página Em Cartaz estão ESCONDIDAS do
+  site por decisão do Pedro. O selo e o campo `evento` continuam sendo
+  preenchidos normalmente pela redação: não aparecem ao leitor, mas mantêm o
+  acervo pronto para reativação sem retrabalho. Nada muda no fluxo de escrita.
 - `"Em Cartaz"` (dentro de `cats`) — usar QUANDO A MATÉRIA É SOBRE PEÇA EM
   TEMPORADA AGORA (ou entrando em cartaz na semana): a peça está em cartaz
   no momento da publicação. NÃO usar para anúncio de temporada futura, nem

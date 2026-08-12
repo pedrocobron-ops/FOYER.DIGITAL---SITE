@@ -1120,7 +1120,10 @@
                   <select id="f-cat3" style="flex:1"><option value="">— nenhuma —</option></select>
                 </div>
               </div>
-              <div>
+              <!-- ESCONDIDO em 12/08/2026 (pedido do Pedro): o selo Em Cartaz servia à
+                   Agenda, que saiu do site. Nada foi apagado — para reativar, troque o
+                   display:none por nada, aqui e no bloco de Evento logo abaixo. -->
+              <div style="display:none">
                 <label for="f-emcartaz" style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-top:24px">
                   <input type="checkbox" id="f-emcartaz" style="width:auto">
                   ✦ Em Cartaz — a matéria é sobre peça em temporada agora
@@ -1207,7 +1210,11 @@ ingressos e divisor."></textarea>
                 </div>
               </div>
             </div>
-            <div>
+            <!-- ESCONDIDO em 12/08/2026: o campo de evento alimentava a Agenda, que
+                 saiu do site. Os campos continuam no formulário (invisíveis) para o
+                 código e as matérias antigas não quebrarem; para reativar junto com
+                 a Agenda, é só tirar o display:none. -->
+            <div style="display:none">
               <label>Evento (opcional — alimenta a Agenda do site)</label>
               <div class="r2">
                 <div><label for="f-ev-ini" style="font-size:.52rem">Começa em</label><input type="date" id="f-ev-ini" style="width:100%;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:var(--mono);padding:10px 12px"></div>
