@@ -1140,7 +1140,9 @@
                 <button class="tira" id="up-tira" type="button">✕ Tirar foto</button>
                 <input type="file" id="up-file" accept="image/*">
               </div>
+              <button class="bt" id="up-ajustar" type="button" style="display:none;margin-top:8px">🎯 Ajustar enquadramento da capa</button>
               <input type="text" id="f-cred" placeholder="Crédito da foto — ex.: Foto: João Silva/Divulgação" style="margin-top:8px">
+              <input type="text" id="f-imgleg" placeholder="Descrição da foto (legenda) — ex.: O elenco em cena no Teatro Renault" style="margin-top:8px">
               <div class="r2" style="margin-top:8px">
                 <div><input type="text" id="f-imgfonte" placeholder="Origem da foto (link) — de onde ela saiu"></div>
                 <div>
@@ -1954,6 +1956,32 @@ ingressos e divisor."></textarea>
       <button class="bt" type="button" id="mail-fechar">✕ Fechar</button></div>
     <div class="prev-avisos" id="mail-assunto" style="border:0"></div>
     <div class="prev-body" id="mail-body" style="padding:0;background:#EFE8DA"></div>
+  </div>
+</div>
+
+<div class="prev-overlay" id="capa-overlay" role="dialog" aria-modal="true" aria-label="Enquadramento da foto de capa">
+  <div class="prev-box">
+    <div class="prev-head"><span>🎯 Enquadramento da capa</span>
+      <button class="bt" type="button" id="capa-fechar">✕ Cancelar</button></div>
+    <div class="prev-body">
+      <p class="cred" style="margin:0 0 12px">Arraste a foto até o que importa ficar dentro da janela da capa;
+        a lupa e a rodinha do mouse aproximam e afastam.</p>
+      <div id="capa-box" style="position:relative;width:min(560px,100%);aspect-ratio:16/9;margin:0 auto;overflow:hidden;border-radius:10px;background:#160b08;cursor:grab;touch-action:none;user-select:none">
+        <img id="capa-img" alt="" draggable="false" style="position:absolute;left:0;top:0;max-width:none;pointer-events:none">
+      </div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap">
+        <button class="bt" type="button" data-cnq="e" aria-label="foto para a direita">◀</button>
+        <button class="bt" type="button" data-cnq="d" aria-label="foto para a esquerda">▶</button>
+        <button class="bt" type="button" data-cnq="c" aria-label="foto para baixo">▲</button>
+        <button class="bt" type="button" data-cnq="b" aria-label="foto para cima">▼</button>
+        <button class="bt" type="button" data-cnq="mais" aria-label="aproximar">🔍＋</button>
+        <button class="bt" type="button" data-cnq="menos" aria-label="afastar">🔍－</button>
+        <button class="bt" type="button" data-cnq="o">voltar ao automático</button>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:12px">
+        <button class="bt" type="button" id="capa-aplicar">✓ Usar este enquadramento</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -3110,6 +3138,112 @@ ingressos e divisor."></textarea>
       .then(function(){ return caminho; });
   }
 
+  /* ---- enquadramento da CAPA: a foto original fica guardada inteira e o
+     corte 16:9 é assado com o ponto que o Pedro escolher (arrastar + zoom,
+     igual ao das artes de Instagram). Sem ajuste, o corte automático é o
+     mesmo de sempre: viés para o topo, onde ficam os rostos. ---- */
+  var CAPA_SRC = null;  // { orig (dataURL inteiro), iw, ih, fx, fy, z }
+  function capaAssa(){
+    // produz a CAPA final (16:9) a partir do original + enquadramento
+    return new Promise(function(res, rej){
+      if(!CAPA_SRC) return rej(new Error('sem foto'));
+      var img = new Image();
+      img.onload = function(){
+        var iw = img.width, ih = img.height;
+        CAPA_SRC.iw = iw; CAPA_SRC.ih = ih;
+        var W = Math.min(1600, iw), H = Math.round(W * 9 / 16);
+        var esc2 = Math.max(W / iw, H / ih) * (CAPA_SRC.z || 1);
+        var sw = iw * esc2, sh = ih * esc2;
+        var fx = CAPA_SRC.fx, fy = CAPA_SRC.fy;
+        if(fy == null){
+          // o automático de sempre: começa a 6% do topo (rostos ficam em cima)
+          var yAuto = Math.min(Math.round(sh * 0.06), Math.max(0, sh - H));
+          fy = sh > H ? (yAuto + H / 2) / sh : 0.5;
+          CAPA_SRC.fy = fy;
+        }
+        var ox = Math.max(0, Math.min(sw - W, fx * sw - W / 2));
+        var oy = Math.max(0, Math.min(sh - H, fy * sh - H / 2));
+        var c = document.createElement('canvas');
+        c.width = W; c.height = H;
+        c.getContext('2d').drawImage(img, ox / esc2, oy / esc2, W / esc2, H / esc2, 0, 0, W, H);
+        CAPA = c.toDataURL('image/jpeg', .85);
+        $('up-prev').src = CAPA;
+        res(CAPA);
+      };
+      img.onerror = function(){ rej(new Error('imagem inválida')); };
+      img.src = CAPA_SRC.orig;
+    });
+  }
+  var CNQ = null;
+  function cnqAplica(){
+    var img = $('capa-img'), box = $('capa-box');
+    if(!img || !CNQ || !box.clientWidth) return null;
+    var esc2 = Math.max(CNQ.bw / CNQ.iw, CNQ.bh / CNQ.ih) * CNQ.z;
+    var sw = CNQ.iw * esc2, sh = CNQ.ih * esc2;
+    var ox = Math.max(0, Math.min(sw - CNQ.bw, CNQ.fx * sw - CNQ.bw / 2));
+    var oy = Math.max(0, Math.min(sh - CNQ.bh, CNQ.fy * sh - CNQ.bh / 2));
+    var k = box.clientWidth / CNQ.bw;
+    img.style.width = (sw * k) + 'px'; img.style.height = (sh * k) + 'px';
+    img.style.left = (-ox * k) + 'px'; img.style.top = (-oy * k) + 'px';
+    return { sw: sw, sh: sh };
+  }
+  function abrirCapaEnq(){
+    if(!CAPA_SRC) return;
+    CNQ = { iw: CAPA_SRC.iw, ih: CAPA_SRC.ih, bw: 1600, bh: 900,
+            fx: CAPA_SRC.fx, fy: CAPA_SRC.fy == null ? 0.5 : CAPA_SRC.fy, z: CAPA_SRC.z || 1 };
+    var img = $('capa-img');
+    img.onload = function(){ cnqAplica(); };
+    img.src = CAPA_SRC.orig;
+    abreOverlay('capa-overlay');
+    if(img.complete) cnqAplica();
+  }
+  (function(){
+    var box = $('capa-box'), pega = null;
+    box.addEventListener('pointerdown', function(ev){
+      if(!CNQ) return;
+      pega = { x: ev.clientX, y: ev.clientY };
+      box.setPointerCapture(ev.pointerId); box.style.cursor = 'grabbing';
+    });
+    box.addEventListener('pointermove', function(ev){
+      if(!pega || !CNQ) return;
+      var p = cnqAplica(); if(!p) return;
+      var fator = CNQ.bw / box.clientWidth;
+      CNQ.fx = Math.max(0, Math.min(1, CNQ.fx - (ev.clientX - pega.x) * fator / p.sw));
+      CNQ.fy = Math.max(0, Math.min(1, CNQ.fy - (ev.clientY - pega.y) * fator / p.sh));
+      pega = { x: ev.clientX, y: ev.clientY };
+      cnqAplica();
+    });
+    ['pointerup', 'pointercancel'].forEach(function(tp){
+      box.addEventListener(tp, function(){ pega = null; box.style.cursor = 'grab'; });
+    });
+    box.addEventListener('wheel', function(ev){
+      if(!CNQ) return;
+      ev.preventDefault();
+      CNQ.z = Math.max(1, Math.min(3, CNQ.z * (ev.deltaY < 0 ? 1.08 : 1 / 1.08)));
+      cnqAplica();
+    }, { passive: false });
+    document.querySelectorAll('[data-cnq]').forEach(function(b){
+      b.addEventListener('click', function(){
+        if(!CNQ) return;
+        var qual = b.dataset.cnq, passo = 0.03;
+        if(qual === 'o'){ CNQ.fx = 0.5; CNQ.fy = 0.5; CNQ.z = 1; cnqAplica(); return; }
+        if(qual === 'mais'){ CNQ.z = Math.min(3, CNQ.z * 1.15); cnqAplica(); return; }
+        if(qual === 'menos'){ CNQ.z = Math.max(1, CNQ.z / 1.15); cnqAplica(); return; }
+        CNQ.fx = Math.max(0, Math.min(1, CNQ.fx + (qual === 'e' ? -passo : qual === 'd' ? passo : 0)));
+        CNQ.fy = Math.max(0, Math.min(1, CNQ.fy + (qual === 'c' ? -passo : qual === 'b' ? passo : 0)));
+        cnqAplica();
+      });
+    });
+    $('capa-fechar').addEventListener('click', function(){ fechaOverlays(); });
+    $('capa-aplicar').addEventListener('click', function(){
+      if(!CNQ || !CAPA_SRC) return;
+      CAPA_SRC.fx = CNQ.fx; CAPA_SRC.fy = CNQ.fy; CAPA_SRC.z = CNQ.z;
+      capaAssa().then(function(){ fechaOverlays(); salvarRasc(); })
+        .catch(function(){ avisar('Não consegui aplicar o enquadramento.'); });
+    });
+    $('up-ajustar').addEventListener('click', abrirCapaEnq);
+  })();
+
   var up = $('up');
   up.addEventListener('click', function(e){ if(e.target.id !== 'up-tira' && !CAPA) $('up-file').click(); });
   up.addEventListener('keydown', function(e){ if((e.key === 'Enter' || e.key === ' ') && !CAPA){ e.preventDefault(); $('up-file').click(); } });
@@ -3122,13 +3256,20 @@ ingressos e divisor."></textarea>
   });
   $('up-file').addEventListener('change', function(){ if(this.files[0]) pegarCapa(this.files[0]); });
   function pegarCapa(file){
-    redimensionar(file).then(function(d){
-      CAPA = d; $('up-prev').src = d; up.classList.add('tem');
+    // guarda o ORIGINAL inteiro (sem corte) e assa o 16:9 com o enquadramento
+    // automático; o botão de ajustar deixa o Pedro mudar o corte quando quiser
+    redimensionar(file, 'livre').then(function(orig){
+      CAPA_SRC = { orig: orig, fx: 0.5, fy: null, z: 1 };
+      return capaAssa();
+    }).then(function(){
+      up.classList.add('tem');
+      $('up-ajustar').style.display = '';
     }).catch(function(){ avisar('Não consegui ler essa imagem — tente JPG ou PNG.'); });
   }
   $('up-tira').addEventListener('click', function(e){
     e.stopPropagation();
-    CAPA = null; $('up-prev').src = ''; $('up-file').value = ''; up.classList.remove('tem');
+    CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none';
+    $('up-prev').src = ''; $('up-file').value = ''; up.classList.remove('tem');
   });
 
   /* ---------------- nova matéria ---------------- */
@@ -3273,7 +3414,7 @@ ingressos e divisor."></textarea>
     clearTimeout(rascTimer);
     rascTimer = setTimeout(function(){
       var d = { title: $('f-title').value, cat: $('f-cat').value, cats: colherCats(), corpo: $('f-body').value,
-                cred: $('f-cred').value, imgfonte: $('f-imgfonte').value, imgdir: $('f-imgdir').value,
+                cred: $('f-cred').value, imgleg: $('f-imgleg').value, imgfonte: $('f-imgfonte').value, imgdir: $('f-imgdir').value,
                 fontes: $('f-fontes').value, temFoto: !!CAPA,
                 ev: { ini: $('f-ev-ini').value, fim: $('f-ev-fim').value,
                       local: $('f-ev-local').value, cidade: $('f-ev-cidade').value },
@@ -3289,12 +3430,12 @@ ingressos e divisor."></textarea>
       }
     }, 800);
   }
-  ['f-title', 'f-body', 'f-cred', 'f-imgfonte', 'f-imgdir', 'f-fontes', 'f-cat', 'f-cat2', 'f-cat3', 'f-ev-ini', 'f-ev-fim', 'f-ev-local', 'f-ev-cidade']
+  ['f-title', 'f-body', 'f-cred', 'f-imgleg', 'f-imgfonte', 'f-imgdir', 'f-fontes', 'f-cat', 'f-cat2', 'f-cat3', 'f-ev-ini', 'f-ev-fim', 'f-ev-local', 'f-ev-cidade']
     .forEach(function(id){ var el = $(id); if(el) el.addEventListener('input', salvarRasc); el && el.addEventListener('change', salvarRasc); });
   function limparRasc(){ try{ localStorage.removeItem(RASC_K); }catch(e){} $('rasc-aviso').classList.remove('on'); $('bdg-rasc').style.display = 'none'; }
   function coletarRasc(){
     return { title: $('f-title').value, cat: $('f-cat').value, cats: colherCats(), corpo: $('f-body').value,
-             cred: $('f-cred').value, imgfonte: $('f-imgfonte').value, imgdir: $('f-imgdir').value,
+             cred: $('f-cred').value, imgleg: $('f-imgleg').value, imgfonte: $('f-imgfonte').value, imgdir: $('f-imgdir').value,
              fontes: $('f-fontes').value, temFoto: !!CAPA,
              ev: { ini: $('f-ev-ini').value, fim: $('f-ev-fim').value,
                    local: $('f-ev-local').value, cidade: $('f-ev-cidade').value },
@@ -3303,7 +3444,7 @@ ingressos e divisor."></textarea>
   function aplicarRascunho(d){
     $('f-title').value = d.title || ''; $('f-cat').value = d.cat || 'Teatro';
     aplicarCats(d.cats);
-    $('f-body').value = d.corpo || ''; $('f-cred').value = d.cred || '';
+    $('f-body').value = d.corpo || ''; $('f-cred').value = d.cred || ''; $('f-imgleg').value = d.imgleg || '';
     $('f-imgfonte').value = d.imgfonte || ''; $('f-imgdir').value = d.imgdir || '';
     $('f-fontes').value = d.fontes || '';
     if(d.ev){ $('f-ev-ini').value = d.ev.ini || ''; $('f-ev-fim').value = d.ev.fim || '';
@@ -3373,11 +3514,12 @@ ingressos e divisor."></textarea>
     var corpo = $('f-body').value;
     var img = CAPA || (EDIT && EDIT.img) || '';
     var cred = $('f-cred').value.trim();
+    var legCapa = $('f-imgleg').value.trim();
     $('prev-body').innerHTML =
       '<span class="tag wine">' + esc($('f-cat').value) + '</span>' +
       '<h1>' + esc(title) + '</h1>' +
       '<p class="cred">Por ' + esc($('f-autor').value) + '</p>' +
-      (img ? '<img class="capa" src="' + esc(img) + '">' + (cred ? '<p class="cred">' + esc(cred) + '</p>' : '') : '') +
+      (img ? '<img class="capa" src="' + esc(img) + '">' + ((legCapa || cred) ? '<p class="cred">' + esc(legCapa ? legCapa + ' \u2014 ' + cred : cred) + '</p>' : '') : '') +
       '<div class="corpo">' + mdRender(corpo) + '</div>';
     var n = corpo.split(/\s+/).filter(Boolean).length;
     var avisos = [];
@@ -4534,6 +4676,7 @@ ingressos e divisor."></textarea>
           pac.author = autorNovo;
         }
         pac.img = imgPath || EDIT.img; pac.imgCredito = $('f-cred').value.trim();
+        var pLeg = $('f-imgleg').value.trim(); if(pLeg) pac.imgLegenda = pLeg; else delete pac.imgLegenda;
         pac.corpo = corpo; pac.editadoPor = USER.nome;
         pac.status = 'aguardando_aprovacao';
         pac.fontes = colherFontes();
@@ -4558,6 +4701,7 @@ ingressos e divisor."></textarea>
           title: title, slug: slug,
           cat: $('f-cat').value, author: $('f-autor').value,
           img: imgPath || EDIT.img, imgCredito: $('f-cred').value.trim(),
+          imgLegenda: $('f-imgleg').value.trim(),
           corpo: corpo, publishAt: EDIT.publishAt,
           criadoEm: EDIT.criadoEm || EDIT.publishAt,
           atualizadoEm: new Date().toISOString(),
@@ -4586,6 +4730,8 @@ ingressos e divisor."></textarea>
           cat: $('f-cat').value,
           author: $('f-autor').value,
           img: imgPath, imgCredito: $('f-cred').value.trim(),
+        imgLegenda: $('f-imgleg').value.trim(),
+          imgLegenda: $('f-imgleg').value.trim(),
           corpo: corpo, publishAt: publishAt,
           criadoEm: new Date().toISOString(), criadoPor: USER.nome
         };
@@ -4632,7 +4778,7 @@ ingressos e divisor."></textarea>
         : 'Enviada para a mesa do chefe ✓ — ele aprova e programa a publicação';
       e.target.reset();
       $('f-quando-dt').style.display = 'none';
-      CAPA = null; $('up-prev').src = ''; up.classList.remove('tem');
+      CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-prev').src = ''; up.classList.remove('tem');
       limparRasc(); statusTexto(); histReset();
       // limpa também o rascunho na nuvem (a matéria já foi enviada)
       if(!EDIT && podeGravar()) ghGet(caminhoRascServidor()).then(function(ff){ if(ff) ghDel(caminhoRascServidor(), ff.sha, assina('limpa rascunho da nuvem (matéria enviada)')).catch(function(){}); }).catch(function(){});
@@ -5803,6 +5949,7 @@ ingressos e divisor."></textarea>
     }
     sel.value = dados.author || 'Redação Foyer';
     $('f-cred').value = dados.imgCredito || '';
+    $('f-imgleg').value = dados.imgLegenda || '';
     $('f-imgfonte').value = dados.imgFonte || '';
     $('f-imgdir').value = dados.imgDireito || '';
     $('f-fontes').value = (dados.fontes && dados.fontes.length) ? dados.fontes.join('\n') : '';
@@ -5812,7 +5959,7 @@ ingressos e divisor."></textarea>
     $('f-ev-fim').value = ev.fim || '';
     $('f-ev-local').value = ev.local || '';
     $('f-ev-cidade').value = ev.cidade || '';
-    CAPA = null;
+    CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none';
     if(EDIT.img){ $('up-prev').src = EDIT.img; up.classList.add('tem'); }
     else { $('up-prev').src = ''; up.classList.remove('tem'); }
     $('edit-titulo').textContent = dados.title || dados.slug;
@@ -5839,7 +5986,7 @@ ingressos e divisor."></textarea>
     $('nova-titulo').textContent = 'Nova matéria';
     $('f-quando').parentElement.parentElement.style.display = '';
     $('form').reset();
-    CAPA = null; $('up-prev').src = ''; up.classList.remove('tem');
+    CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-prev').src = ''; up.classList.remove('tem');
     aplicarUsuario();
   }
   $('edit-cancelar').addEventListener('click', sairEdicao);

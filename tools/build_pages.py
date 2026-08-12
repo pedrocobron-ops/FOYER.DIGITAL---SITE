@@ -1545,6 +1545,7 @@ if os.path.isdir(_novas_dir):
             'hora': _hora, 'isoFull': _iso_full,
             'short': f'{_dd}.{_mo}', 'iso': _iso,
             'img': _n.get('img', ''), 'credito': _n.get('imgCredito', ''),
+            'legenda': _n.get('imgLegenda', ''),
             'atualizado': _n.get('atualizadoEm', ''),
             'correcao': _n.get('correcao') or None,
             'evento': _n.get('evento') or None,
@@ -2037,8 +2038,8 @@ def post_page(i, p):
   </div>
 
   <figure class="art-cover">
-    <span class="ph"><img src="{wiximg(p['img'])}" alt="{safe(p['title'])}" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'"></span>
-    <figcaption>{safe(cred_capa)}</figcaption>
+    <span class="ph"><img src="{wiximg(p['img'])}" alt="{safe(p.get('legenda') or p['title'])}" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'"></span>
+    <figcaption>{(safe(p['legenda']) + ' — ') if p.get('legenda') else ''}{safe(cred_capa)}</figcaption>
   </figure>
 
   <div class="ad-slot" data-ad-slot="2001"></div>

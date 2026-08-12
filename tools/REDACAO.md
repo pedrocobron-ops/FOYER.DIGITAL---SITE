@@ -1497,6 +1497,7 @@ Blocos opcionais (usar quando enriquecem de verdade):
  "porte": "contextualizada",         // release | quente | contextualizada | lista
  "img": "assets/uploads/<slug>.jpg",
  "imgCredito": "Foto: Divulgação",
+ "imgLegenda": "O elenco em cena no Teatro Renault",
  "corpo": "texto no formato da Coxia…",
  "fontes": ["https://…", "https://…"],
  "status": "aguardando_aprovacao",
@@ -1576,6 +1577,11 @@ Blocos opcionais (usar quando enriquecem de verdade):
     `python3 tools/gera_social.py import/pauta/<slug>.json`
     (cria assets/social/<slug>-feed.jpg e <slug>-story.jpg no formato
     clássico do FOYER; incluir assets/social/ no commit).
+- `imgLegenda` — a LEGENDA da foto de capa (12/08/2026): uma frase curta
+  dizendo O QUE a foto mostra ("Fulana e Beltrano em cena no Teatro X"),
+  sem repetir o título nem o crédito. Aparece sob a foto na matéria e vira
+  o texto alternativo (leitores de tela e Google Imagens). Preencher sempre
+  que se sabe o que a foto mostra; na dúvida, omitir o campo.
 - `evento` — OBRIGATÓRIO em toda matéria sobre evento com data (estreia,
   temporada, show, exposição, festival, inscrição de edital): alimenta a
   Agenda automática do site. `inicio` e `fim` no formato AAAA-MM-DD
