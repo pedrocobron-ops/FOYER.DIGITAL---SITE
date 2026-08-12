@@ -1245,6 +1245,7 @@ ingressos e divisor."></textarea>
             <div style="display:flex; gap:10px; flex-wrap:wrap">
               <button class="bt" type="button" id="btn-prev" style="padding:14px 18px">👁 Pré-visualizar</button>
               <button class="bt" type="button" id="btn-guardar" style="padding:14px 18px" title="Guarda o rascunho na nuvem para continuar em qualquer aparelho">☁ Guardar rascunho</button>
+              <button class="bt" type="button" id="btn-novo-rasc" style="padding:14px 18px" title="Guarda o que está na tela como rascunho e abre uma matéria em branco">🗒 Novo rascunho</button>
               <button class="f-pub" type="submit" id="btn-pub" style="flex:1">Enviar para o site</button>
             </div>
             <span class="msg" id="msg"></span>
@@ -2627,6 +2628,7 @@ ingressos e divisor."></textarea>
     document.querySelectorAll('.view').forEach(function(x){ x.classList.remove('on'); });
     $('view-' + v).classList.add('on');
     if(v === 'fila'){ carregarFila(); carregarLixeira(); }
+    if(v === 'nova' && !EDIT) checarRasc();  // a prateleira de rascunhos aparece ao entrar
     if(v === 'ia'){ carregarMesa(); carregarDiario(); }
     if(v === 'equipe'){ pintarEquipe(); carregarAtividade('ativ-eq', 30); carregarVerbExc(); }
     if(v === 'palco') carregarPalco();
@@ -3399,12 +3401,33 @@ ingressos e divisor."></textarea>
     if((e.ctrlKey || e.metaKey) && e.key === 'Enter') $('btn-pub').click();
   });
 
-  // ---------- rascunho automático ----------
+  // ---------- rascunhos automáticos (PRATELEIRA: mais de um por pessoa) ----------
+  // Até 12/08/2026 só cabia UM rascunho; começar outra matéria engolia o
+  // anterior. Agora cada matéria em andamento é um rascunho com identidade
+  // própria, e a entrada da Nova matéria mostra a prateleira para continuar
+  // qualquer um. O formato antigo (objeto único) é migrado na leitura.
   var RASC_K = 'coxia-rascunho', rascTimer = null;
+  var RASC_ID = null;         // o rascunho em edição AGORA neste formulário
+  var RASC_MAX = 10;          // prateleira cheia: o mais velho cai
   function horaAgora(){
     return new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
   }
   function rascStatus(msg){ var el = $('st-rasc'); if(el) el.textContent = msg; }
+  function rascLista(){
+    var v = null;
+    try{ v = JSON.parse(localStorage.getItem(RASC_K) || 'null'); }catch(e){}
+    if(!v) return [];
+    if(Array.isArray(v.lista)) return v.lista;
+    // formato antigo: um rascunho solto vira o primeiro da prateleira
+    if(v.title || v.corpo){ v.id = v.id || 'r' + Date.now().toString(36); return [v]; }
+    return [];
+  }
+  function rascGrava(lista){
+    lista.sort(function(a, b){ return (b.quando || '').localeCompare(a.quando || ''); });
+    if(lista.length > RASC_MAX) lista = lista.slice(0, RASC_MAX);
+    try{ localStorage.setItem(RASC_K, JSON.stringify({ lista: lista })); return true; }
+    catch(e){ return false; }
+  }
   function salvarRasc(){
     if(EDIT){
       // edição de matéria existente não vira rascunho: a mudança só entra ao enviar
@@ -3413,26 +3436,32 @@ ingressos e divisor."></textarea>
     }
     clearTimeout(rascTimer);
     rascTimer = setTimeout(function(){
-      var d = { title: $('f-title').value, cat: $('f-cat').value, cats: colherCats(), corpo: $('f-body').value,
-                cred: $('f-cred').value, imgleg: $('f-imgleg').value, imgfonte: $('f-imgfonte').value, imgdir: $('f-imgdir').value,
-                fontes: $('f-fontes').value, temFoto: !!CAPA,
-                ev: { ini: $('f-ev-ini').value, fim: $('f-ev-fim').value,
-                      local: $('f-ev-local').value, cidade: $('f-ev-cidade').value },
-                quando: new Date().toISOString() };
-      if(d.title || d.corpo){
-        try{
-          localStorage.setItem(RASC_K, JSON.stringify(d));
-          rascStatus('💾 Rascunho guardado neste navegador às ' + horaAgora() +
-                     ' — para abrir noutro aparelho, use ☁ Guardar rascunho.');
-        }catch(e){
-          rascStatus('⚠ Não consegui guardar o rascunho neste navegador — use ☁ Guardar rascunho.');
-        }
+      var d = coletarRasc();
+      if(!d.title && !d.corpo) return;
+      if(!RASC_ID) RASC_ID = 'r' + Date.now().toString(36);
+      d.id = RASC_ID;
+      var lista = rascLista().filter(function(x){ return x.id !== RASC_ID; });
+      lista.push(d);
+      if(rascGrava(lista)){
+        rascStatus('💾 Rascunho guardado neste navegador às ' + horaAgora() +
+                   (lista.length > 1 ? ' (' + lista.length + ' na prateleira)' : '') +
+                   ' — para abrir noutro aparelho, use ☁ Guardar rascunho.');
+      } else {
+        rascStatus('⚠ Não consegui guardar o rascunho neste navegador — use ☁ Guardar rascunho.');
       }
     }, 800);
   }
   ['f-title', 'f-body', 'f-cred', 'f-imgleg', 'f-imgfonte', 'f-imgdir', 'f-fontes', 'f-cat', 'f-cat2', 'f-cat3', 'f-ev-ini', 'f-ev-fim', 'f-ev-local', 'f-ev-cidade']
     .forEach(function(id){ var el = $(id); if(el) el.addEventListener('input', salvarRasc); el && el.addEventListener('change', salvarRasc); });
-  function limparRasc(){ try{ localStorage.removeItem(RASC_K); }catch(e){} $('rasc-aviso').classList.remove('on'); $('bdg-rasc').style.display = 'none'; }
+  function limparRasc(){
+    // tira SÓ o rascunho que acabou de ser enviado; os outros ficam na prateleira
+    if(RASC_ID) rascGrava(rascLista().filter(function(x){ return x.id !== RASC_ID; }));
+    RASC_ID = null;
+    $('rasc-aviso').classList.remove('on');
+    var n = rascLista().length;
+    $('bdg-rasc').style.display = n ? 'inline-block' : 'none';
+    if(n) $('bdg-rasc').textContent = n === 1 ? 'rascunho' : n + ' rascunhos';
+  }
   function coletarRasc(){
     return { title: $('f-title').value, cat: $('f-cat').value, cats: colherCats(), corpo: $('f-body').value,
              cred: $('f-cred').value, imgleg: $('f-imgleg').value, imgfonte: $('f-imgfonte').value, imgdir: $('f-imgdir').value,
@@ -3442,6 +3471,7 @@ ingressos e divisor."></textarea>
              quando: new Date().toISOString() };
   }
   function aplicarRascunho(d){
+    RASC_ID = d.id || null;
     $('f-title').value = d.title || ''; $('f-cat').value = d.cat || 'Teatro';
     aplicarCats(d.cats);
     $('f-body').value = d.corpo || ''; $('f-cred').value = d.cred || ''; $('f-imgleg').value = d.imgleg || '';
@@ -3449,51 +3479,114 @@ ingressos e divisor."></textarea>
     $('f-fontes').value = d.fontes || '';
     if(d.ev){ $('f-ev-ini').value = d.ev.ini || ''; $('f-ev-fim').value = d.ev.fim || '';
       $('f-ev-local').value = d.ev.local || ''; $('f-ev-cidade').value = d.ev.cidade || ''; }
-    statusTexto(); $('rasc-aviso').classList.remove('on'); $('bdg-rasc').style.display = 'none'; irPara('nova'); histReset();
+    statusTexto(); $('rasc-aviso').classList.remove('on'); irPara('nova'); histReset();
+    rascStatus('📄 Continuando o rascunho "' + (d.title || 'sem título') + '".');
     if(d.temFoto) setTimeout(function(){ avisar('Recuperei o texto do rascunho. A foto de capa não fica guardada, então reanexe a imagem antes de enviar.'); }, 200);
   }
-  // rascunho na nuvem (por pessoa), para continuar em qualquer aparelho
+  function limparFormNova(){
+    ['f-title', 'f-body', 'f-cred', 'f-imgleg', 'f-imgfonte', 'f-imgdir', 'f-fontes',
+     'f-ev-ini', 'f-ev-fim', 'f-ev-local', 'f-ev-cidade'].forEach(function(id){ $(id).value = ''; });
+    aplicarCats([]);
+    CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none';
+    $('up-prev').src = ''; $('up-file').value = ''; up.classList.remove('tem');
+    statusTexto(); histReset();
+  }
+  // rascunhos na nuvem (um arquivo por pessoa, com a LISTA), para qualquer aparelho.
+  // Formato antigo (um rascunho solto no arquivo) é entendido na leitura.
   function caminhoRascServidor(){ return 'import/coxia/rascunhos/' + (USER && USER.id ? USER.id : 'anon') + '.json'; }
+  function nuvemLista(f){
+    if(!f || !f.content) return [];
+    var v = null;
+    try{ v = JSON.parse(unb64(f.content)); }catch(e){ return []; }
+    if(v && Array.isArray(v.rascunhos)) return v.rascunhos;
+    if(v && (v.title || v.corpo)){ v.id = v.id || 'nuvem-antigo'; return [v]; }
+    return [];
+  }
   var btnGuardar = $('btn-guardar');
   if(btnGuardar) btnGuardar.addEventListener('click', function(){
     if(EDIT){ avisar('Você está editando uma matéria que já existe — as mudanças vão direto nela ao salvar/enviar. O rascunho na nuvem é só para matérias novas.'); return; }
     if(!podeGravar()){ avisar(recadoSemChave()); return; }
     var d = coletarRasc();
     if(!d.title && !d.corpo){ avisar('Escreva algo antes de guardar o rascunho.'); return; }
-    d.por = USER.nome;
+    if(!RASC_ID) RASC_ID = 'r' + Date.now().toString(36);
+    d.id = RASC_ID; d.por = USER.nome;
     var b = btnGuardar; var velho = b.textContent; b.disabled = true; b.textContent = 'Guardando…';
-    ghGet(caminhoRascServidor()).catch(function(){ return null; }).then(function(ex){
-      return ghPut(caminhoRascServidor(), JSON.stringify(d, null, 1),
+    ghGet(caminhoRascServidor(), true).catch(function(){ return null; }).then(function(ex){
+      var lista = nuvemLista(ex).filter(function(x){ return x.id !== d.id; });
+      lista.push(d);
+      lista.sort(function(a, b2){ return (b2.quando || '').localeCompare(a.quando || ''); });
+      if(lista.length > RASC_MAX) lista = lista.slice(0, RASC_MAX);
+      return ghPut(caminhoRascServidor(), JSON.stringify({ rascunhos: lista }, null, 1),
         assina('guarda rascunho na nuvem'), ex && ex.sha);
     }).then(function(){ toast('Rascunho guardado na nuvem ✓'); rascStatus('☁ Rascunho guardado na nuvem às ' + horaAgora() + ' — pode continuar de qualquer aparelho.'); })
       .catch(function(err){ avisar(msgErro(err)); })
       .then(function(){ b.disabled = false; b.textContent = velho; });
   });
+  var btnNovoRasc = $('btn-novo-rasc');
+  if(btnNovoRasc) btnNovoRasc.addEventListener('click', function(){
+    if(EDIT){ avisar('Você está editando uma matéria que já existe. Termine (ou cancele) esta edição antes de começar um rascunho novo.'); return; }
+    var d = coletarRasc();
+    if(d.title || d.corpo){
+      // o que está na tela já se salvou sozinho na prateleira; só confirma
+      salvarRasc();
+      toast('O rascunho atual ficou guardado na prateleira ✓');
+    }
+    RASC_ID = null;
+    limparFormNova();
+    checarRasc();
+    rascStatus('🗒 Matéria nova em branco — o rascunho anterior está na prateleira.');
+  });
   function checarRasc(){
-    // rascunho local (deste navegador)
-    var local = null;
-    try{ local = JSON.parse(localStorage.getItem(RASC_K) || 'null'); }catch(e){}
-    // rascunho na nuvem (deste usuário)
+    // junta a prateleira local com a da nuvem (a mais nova de cada id vence)
+    var mapa = {};
+    rascLista().forEach(function(d){ d._origem = 'neste navegador'; mapa[d.id] = d; });
     ghGet(caminhoRascServidor()).catch(function(){ return null; }).then(function(f){
-      var nuvem = null;
-      if(f && f.content){ try{ nuvem = JSON.parse(unb64(f.content)); }catch(e){} }
-      // escolhe o mais recente entre local e nuvem
-      var cand = null, origem = '';
-      if(local && (local.title || local.corpo)){ cand = local; origem = 'deste navegador'; }
-      if(nuvem && (nuvem.title || nuvem.corpo)){
-        if(!cand || (nuvem.quando || '') > (cand.quando || '')){ cand = nuvem; origem = 'guardado na nuvem'; }
-      }
-      if(cand && !$('f-title').value && !$('f-body').value){
-        $('rasc-aviso').classList.add('on');
-        $('bdg-rasc').style.display = 'inline-block';
-        var quandoTxt = cand.quando ? new Date(cand.quando).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) : '';
-        $('rasc-aviso').firstChild.nodeValue = '📄 Recuperei um rascunho não enviado (' + origem + (quandoTxt ? ', ' + quandoTxt : '') + '). ';
-        $('rasc-usar').onclick = function(){ aplicarRascunho(cand); };
-        $('rasc-descartar').onclick = function(){
-          limparRasc();
-          if(nuvem && podeGravar()){ ghGet(caminhoRascServidor()).then(function(ff){ if(ff) ghDel(caminhoRascServidor(), ff.sha, assina('descarta rascunho da nuvem')).catch(function(){}); }); }
-        };
-      }
+      nuvemLista(f).forEach(function(d){
+        if(!mapa[d.id] || (d.quando || '') > (mapa[d.id].quando || '')){
+          d._origem = 'na nuvem'; d._nuvem = true; mapa[d.id] = d;
+        } else if(mapa[d.id]){ mapa[d.id]._nuvem = true; }
+      });
+      var lista = Object.keys(mapa).map(function(k){ return mapa[k]; })
+        .filter(function(d){ return d.title || d.corpo; })
+        .sort(function(a, b){ return (b.quando || '').localeCompare(a.quando || ''); });
+      var n = lista.length;
+      $('bdg-rasc').style.display = n ? 'inline-block' : 'none';
+      if(n) $('bdg-rasc').textContent = n === 1 ? 'rascunho' : n + ' rascunhos';
+      var av = $('rasc-aviso');
+      if(!n || $('f-title').value || $('f-body').value){ av.classList.remove('on'); return; }
+      av.innerHTML = '<b style="width:100%">📄 Rascunhos guardados (' + n + ') — quer continuar algum?</b>' +
+        lista.map(function(d, i){
+          var quandoTxt = d.quando ? new Date(d.quando).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) : '';
+          return '<span style="display:flex;gap:8px;align-items:center;width:100%;flex-wrap:wrap">' +
+            '<button class="bt" type="button" data-rasc-abre="' + i + '">✎ ' +
+              esc((d.title || '(sem título)').slice(0, 64)) + '</button>' +
+            '<span class="mt">' + esc(quandoTxt) + ' · ' + esc(d._origem) + '</span>' +
+            '<button class="bt danger" type="button" data-rasc-joga="' + i + '" aria-label="apagar este rascunho">🗑</button>' +
+            '</span>';
+        }).join('');
+      av.classList.add('on');
+      av.querySelectorAll('[data-rasc-abre]').forEach(function(b){
+        b.addEventListener('click', function(){ aplicarRascunho(lista[+b.dataset.rascAbre]); });
+      });
+      av.querySelectorAll('[data-rasc-joga]').forEach(function(b){
+        b.addEventListener('click', function(){
+          var d = lista[+b.dataset.rascJoga];
+          confirmar('Apagar o rascunho "' + (d.title || 'sem título') + '"? Isso não tem volta.').then(function(sim){
+            if(!sim) return;
+            rascGrava(rascLista().filter(function(x){ return x.id !== d.id; }));
+            if(d._nuvem && podeGravar()){
+              ghGet(caminhoRascServidor(), true).catch(function(){ return null; }).then(function(ff){
+                if(!ff) return;
+                var resto = nuvemLista(ff).filter(function(x){ return x.id !== d.id; });
+                return resto.length
+                  ? ghPut(caminhoRascServidor(), JSON.stringify({ rascunhos: resto }, null, 1), assina('apaga rascunho da nuvem'), ff.sha)
+                  : ghDel(caminhoRascServidor(), ff.sha, assina('apaga o último rascunho da nuvem'));
+              }).catch(function(){});
+            }
+            checarRasc();
+          });
+        });
+      });
     });
   }
 
@@ -4779,9 +4872,18 @@ ingressos e divisor."></textarea>
       e.target.reset();
       $('f-quando-dt').style.display = 'none';
       CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-prev').src = ''; up.classList.remove('tem');
+      var rascEnviado = RASC_ID;  // guarda o id ANTES de limpar
       limparRasc(); statusTexto(); histReset();
-      // limpa também o rascunho na nuvem (a matéria já foi enviada)
-      if(!EDIT && podeGravar()) ghGet(caminhoRascServidor()).then(function(ff){ if(ff) ghDel(caminhoRascServidor(), ff.sha, assina('limpa rascunho da nuvem (matéria enviada)')).catch(function(){}); }).catch(function(){});
+      // tira da nuvem SÓ o rascunho desta matéria; os outros ficam esperando
+      if(!EDIT && rascEnviado && podeGravar()){
+        ghGet(caminhoRascServidor(), true).catch(function(){ return null; }).then(function(ff){
+          if(!ff) return;
+          var resto = nuvemLista(ff).filter(function(x){ return x.id !== rascEnviado; });
+          return resto.length
+            ? ghPut(caminhoRascServidor(), JSON.stringify({ rascunhos: resto }, null, 1), assina('limpa rascunho enviado da nuvem'), ff.sha)
+            : ghDel(caminhoRascServidor(), ff.sha, assina('limpa rascunho da nuvem (matéria enviada)'));
+        }).catch(function(){});
+      }
       aplicarUsuario();
     }).catch(function(err){ if(err === 'cancelado') return; msg.className = 'msg err'; msg.textContent = msgErro(err); })
       .finally(function(){ btn.disabled = false; btn.textContent = EDIT ? 'Salvar edição' : (ehChefe ? 'Enviar para o site' : 'Enviar para aprovação'); });
