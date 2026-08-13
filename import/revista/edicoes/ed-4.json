@@ -1,104 +1,105 @@
 {
  "numero": 4,
- "titulo": "A conta sem bilheteria",
+ "titulo": "Biografia pede palco",
  "dataEdicao": "13 Ago 2026",
  "status": "rascunho",
  "capa": {
-  "img": "assets/uploads/revista-ed-4-capa.jpg",
-  "manchete": "Meirelles filma um Rio sem mar e estreia sem sala",
+  "img": "assets/uploads/gil-andar-com-fe-estreia-teatro-santander.jpg",
+  "manchete": "Gil vira musical e o tempo do palco não anda em linha reta",
   "chamadas": [
-   "O Sesi produz musical inédito de graça. A indústria paga a conta",
-   "Pelotas reabre o Sete de Abril depois de 16 anos fechado",
-   "Vestido de Noiva, 1943: a noite em que o palco ganhou três andares"
+   "Laila Garin canta o pequeno pardal em Piaf, no Teatro Bradesco",
+   "O Cirque du Soleil arma a tenda no Villa-Lobos para a volta de Alegría",
+   "Game of Thrones estreia no palco da Royal Shakespeare Company",
+   "O Drácula de Bela Lugosi nasceu na Broadway, três anos antes do cinema"
   ],
-  "credito": "Laura Campanella/Divulgação Prime Video"
+  "credito": "Divulgação"
  },
  "paginas": [
   {
    "tipo": "editorial",
-   "titulo": "A conta sem bilheteria",
-   "texto": "O novo filme de Fernando Meirelles estreou na sexta-feira 7 de agosto direto no Prime Video. Corrida dos Bichos tem 124 minutos, um elenco que vai de Rodrigo Santoro a Anitta e um Rio de Janeiro de onde o mar sumiu. Estreia em sala de cinema, ninguém anunciou. Sem sala não há bilheteria de primeiro fim de semana, e o lançamento brasileiro grande perde justamente a conta que costuma medi-lo.\n\nNa Avenida Paulista, outra conta. O Teatro do SESI-SP estreia em 29 de agosto um musical inédito sobre a infância de Guimarães Rosa e fica com ele até 13 de dezembro sem cobrar ingresso. O dinheiro vem de uma contribuição que o Decreto-Lei nº 9.403, de 1946, tornou obrigatória para a indústria. Em Pelotas, o Theatro Sete de Abril voltou a abrir em 7 de julho, depois de 16 anos interditado, com R$ 11 milhões gastos na retomada e a instalação elétrica ainda pela metade.\n\nA semana também tem Nova York, onde uma franquia de sete filmes de terror vira temporada de 20 semanas na Broadway, e o Sesc Avenida Paulista, onde dois criadores colombianos radicados no Brasil montam quinze cenas sobre a morte. E tem 1943, quando um grupo amador estreou Vestido de Noiva no Municipal do Rio e deslocou o centro do palco brasileiro do ator principal para o encenador. Cada uma dessas contas fecha de um jeito diferente. Boa leitura.",
+   "titulo": "Biografia pede palco",
+   "texto": "O palco passou a semana ocupado com vidas reais. Em 20 de agosto o Teatro Santander estreia Gil, Andar com Fé, primeira biografia musical de Gilberto Gil, com direção de Miguel Falabella e 34 artistas em cena, Gui Ventura à frente. A dramaturgia de Newton Moreno recusa a linha do tempo: passado, presente e futuro se atravessam, conduzidos por uma figura chamada Tempo-Rei. Moreno, aliás, também assina a Piaf que já está em cartaz no Teatro Bradesco, onde Laila Garin canta o repertório do pequeno pardal até 30 de agosto. E setembro tem endereço marcado: Feliz Ano Velho, o livro que Marcelo Rubens Paiva publicou em 1982, vira musical no Teatro Sabesp Frei Caneca, com Heloísa Périssé no papel de Eunice Paiva.\n\nLá fora, a Royal Shakespeare Company abriu em 8 de agosto, em Stratford-upon-Avon, a primeira peça do universo de Game of Thrones: três horas e 45 minutos, 36 intérpretes e cavalos em tamanho real movidos por artistas, sem nenhum efeito digital. Por aqui, o Cirque du Soleil arma a Grande Tenda no Parque Villa-Lobos para a volta de Alegría, também a partir do dia 20.\n\nAté a memória da vez nasceu num palco. Bela Lugosi morreu em 16 de agosto de 1956, e a data redonda de 70 anos cai no domingo seguinte a esta edição. O Drácula dele estreou na Broadway em 1927, três anos antes do filme que fixou seu rosto: o cinema espalhou o conde, mas quem o inventou foi o teatro. Boa leitura.",
    "assinatura": "A direção do FOYER"
   },
   {
    "tipo": "materia",
-   "slug": "corrida-dos-bichos-meirelles-prime-video-estreia",
-   "cat": "Cinema",
-   "img": "assets/uploads/corrida-dos-bichos-still-oficial-laura-campanella.jpg",
-   "titulo": "Um Rio sem mar e nenhuma sessão marcada",
-   "chamada": "Corrida dos Bichos, de Fernando Meirelles, estreou em 7 de agosto de 2026 direto no Prime Video, com 124 minutos, produção da O2 Filmes e distribuição da Amazon MGM Studios; a estreia mundial foi no SXSW, em 17 de março, e sala de cinema ninguém anunciou.",
-   "texto": "Filme brasileiro grande costuma ser medido pelo primeiro fim de semana de bilheteria. Este chega ao público pelo catálogo, sem estreia em sala anunciada, e a régua some junto com a sessão."
+   "slug": "gil-andar-com-fe-estreia-teatro-santander",
+   "cat": "Teatro",
+   "img": "assets/uploads/gil-andar-com-fe-estreia-teatro-santander.jpg",
+   "titulo": "O tempo de Gil não anda em linha reta",
+   "chamada": "Gil, Andar com Fé, primeira biografia musical dedicada a Gilberto Gil, estreia em 20 de agosto no Teatro Santander, em São Paulo, com direção de Miguel Falabella, texto de Newton Moreno e temporada até 29 de novembro; Gui Ventura, escolhido em audições que reuniram centenas de candidatos, faz o papel de Gil.",
+   "texto": "A história começa no exílio em Londres e recusa a cronologia: no palco, a figura de Tempo-Rei aproxima o menino de Ituaçu, o preso da ditadura e o imortal da Academia Brasileira de Letras, num elenco de 34 artistas que também dá corpo a Gal Costa, Elis Regina, Rita Lee e Caetano Veloso."
   },
   {
    "tipo": "recortes",
    "itens": [
     {
-     "frase": "Precisamos completar a instalação elétrica, que foi feita pela metade, para termos a capacidade total de som e luz, e completar a climatização, só os dutos foram colocados. Ainda faltam detalhes do acabamento, como o corrimão dos camarotes",
-     "quem": "Carmem Vera Roig, secretária municipal de Cultura de Pelotas",
-     "onde": "jornal A Hora do Sul",
-     "slug": "theatro-sete-de-abril-pelotas-reabre-apos-16-anos"
+     "frase": "Uma artista e uma mulher que escolheu fazer o que quis sem se dobrar às convenções. Não se casou, não teve filhos e comandou a própria carreira. Também era livre sexualmente",
+     "quem": "Laila Garin, sobre Édith Piaf",
+     "onde": "jornal O Globo",
+     "slug": "piaf-eu-nao-me-arrependo-laila-garin-teatro-bradesco"
     },
     {
-     "frase": "Desde sua fundação, o público do espaço tem acesso, de forma gratuita, ao que existe de mais relevante na produção teatral nacional",
-     "quem": "Débora Viana, gerente executiva de Cultura do SESI-SP",
-     "onde": "site do SESI-SP",
-     "slug": "sesi-sp-teatro-musical-gratuito-mercado"
+     "frase": "O conde da montagem britânica original era suave e charmoso, uma concepção de Drácula que não está no romance original",
+     "quem": "John Oliver, curador do British Film Institute",
+     "onde": "site do BFI, em tradução da redação",
+     "slug": "dracula-nasceu-no-teatro-bela-lugosi-70-anos"
     },
     {
-     "frase": "Toda a obra é atravessada por um mesmo sentimento: a alegria de estarmos vivos diante da angústia da finitude. Assim, buscamos estabelecer uma relação afetiva com os espectadores",
-     "quem": "Gustavo Miranda",
-     "onde": "material de divulgação da temporada",
-     "slug": "temporalmente-vivos-estreia-sesc-avenida-paulista"
+     "frase": "A música funciona como testemunho. Ela dá voz às ausências, às perdas e aos sonhos interrompidos, mas também à capacidade de reconstrução das mulheres diante da violência do Estado",
+     "quem": "Fernanda Maia, diretora musical de As Troianas, do Núcleo Experimental",
+     "onde": "material de apresentação da montagem",
+     "slug": "nucleo-experimental-revisita-as-troianas-e-transporta-tragedia-de-euripides-para"
     }
    ]
   },
   {
    "tipo": "materia",
-   "slug": "sesi-sp-teatro-musical-gratuito-mercado",
+   "slug": "piaf-eu-nao-me-arrependo-laila-garin-teatro-bradesco",
    "cat": "Teatro",
-   "img": "assets/uploads/sesi-sp-teatro-musical-gratuito-mercado.jpg",
-   "titulo": "O musical de graça e a conta de 1946",
-   "chamada": "O Teatro do SESI-SP estreia em 29 de agosto o musical inédito João, Joãozinho, Joãozito, sobre a infância de Guimarães Rosa, com temporada até 13 de dezembro e ingresso gratuito; o dinheiro sai da contribuição que o Decreto-Lei nº 9.403, de 1946, tornou obrigatória para a indústria.",
-   "texto": "São 19 teatros, sete centros culturais e 95 núcleos de iniciação em música, teatro, dança e circo numa rede mantida por contribuição compulsória. O palco da Avenida Paulista, 1.313, nasceu em 1948 como Teatro Operário do SESI, com peças protagonizadas pelos próprios trabalhadores. Quem quer estrear ali entra por edital."
+   "img": "assets/uploads/piaf-eu-nao-me-arrependo-laila-garin-teatro-bradesco.jpg",
+   "titulo": "O pequeno pardal não se arrepende",
+   "chamada": "Piaf, Eu Não Me Arrependo está em cartaz no Teatro Bradesco, em São Paulo, com Laila Garin no papel de Édith Piaf, dramaturgia de Newton Moreno e Alessandro Toller, direção de Sergio Módena e temporada até 30 de agosto, de quinta a domingo.",
+   "texto": "A produção é da Aventura, a mesma casa que pôs Garin na pele de Elis Regina em 2013. No repertório, La Vie en Rose, Milord e Non, Je Ne Regrette Rien, com orquestra de nove músicos sob direção musical de Cláudia Elizeu; Luísa Vianna alterna com Garin no papel-título."
   },
   {
    "tipo": "materia",
-   "slug": "temporalmente-vivos-estreia-sesc-avenida-paulista",
-   "cat": "Teatro",
-   "img": "assets/uploads/temporalmente-vivos-estreia-sesc-avenida-paulista.jpg",
-   "titulo": "A Morte ronda os cantos do teatro",
-   "chamada": "Temporalmente Vivos, dos colombianos Gustavo Miranda e Mauricio Flórez, radicados no Brasil desde 2012, estreou em 7 de agosto de 2026 no Sesc Avenida Paulista e fica até 30 de agosto, com ingressos de R$ 15 a R$ 50.",
-   "texto": "Guerra, extinção, festa, fanatismo religioso e memórias do conflito armado na Colômbia cabem em quinze cenas independentes. A trilha de Talita del Collado recorre à cumbia e ao bolero."
+   "slug": "cirque-du-soleil-volta-ao-brasil-com-nova-versao-de-alegria",
+   "cat": "Show",
+   "img": "assets/uploads/cirque-du-soleil-volta-ao-brasil-com-nova-versao-de-alegria-1786488953687.jpg",
+   "titulo": "A tenda de Alegría acende outra luz",
+   "chamada": "O Cirque du Soleil volta ao Brasil com Alegría, In A New Light, sob a Grande Tenda do Parque Villa-Lobos, em São Paulo, de 20 de agosto a 8 de novembro; depois a montagem segue para o Expotrade, em Curitiba, de 19 de novembro a 13 de dezembro.",
+   "texto": "Criado em 1994, Alegría foi visto por mais de 14 milhões de espectadores em 255 cidades e passou pelo Brasil entre 2007 e 2008. A releitura, em circulação desde 2019, reúne 54 artistas de diferentes países numa operação com mais de cem profissionais entre elenco e equipe técnica."
   },
   {
    "tipo": "programas"
   },
   {
    "tipo": "materia",
-   "slug": "theatro-sete-de-abril-pelotas-reabre-apos-16-anos",
+   "slug": "game-of-thrones-encara-o-palco-em-espetaculo-de-quase-quatro-horas-e-critica-ava",
    "cat": "Teatro",
-   "img": "assets/uploads/theatro-sete-de-abril-pelotas-reabre-apos-16-anos.jpg",
-   "titulo": "Dezesseis anos de porta fechada em Pelotas",
-   "chamada": "O Theatro Sete de Abril voltou a receber público em 7 de julho de 2026, aniversário de 214 anos de Pelotas, depois de ser interditado pelo Ministério Público em janeiro de 2010; a Prefeitura informa R$ 11 milhões gastos ao longo da retomada.",
-   "texto": "O prédio parou por risco de colapso na estrutura que sustentava o telhado. O restauro recuperou fachadas, camarotes, camarins, plateia, foyer e o palco em estilo italiano, e o lustre foi refeito dentro da Universidade Federal de Pelotas, por um estudante de Conservação e Restauro. A casa reabriu inacabada, e a Secretaria Municipal de Cultura registrou publicamente o que ainda falta."
+   "img": "assets/uploads/game-of-thrones-encara-o-palco-em-espetaculo-de-quase-quatro-horas-e-critica-ava-1786390432971.jpg",
+   "titulo": "Westeros cabe num palco sem efeitos digitais",
+   "chamada": "Game of Thrones: The Mad King, primeira peça ambientada no universo de George R. R. Martin, teve abertura oficial em 8 de agosto no Royal Shakespeare Theatre, em Stratford-upon-Avon, com texto de Duncan Macmillan, direção de Dominic Cooke e cerca de três horas e 45 minutos de duração, incluindo intervalo.",
+   "texto": "Cavalos em tamanho real movidos por artistas, dragões de marionete, fogo e uma estrutura em forma de cruz que avança pela plateia sustentam a encenação de 36 intérpretes. A crítica britânica foi de cinco estrelas no WhatsOnStage a três no Times e no Financial Times."
   },
   {
    "tipo": "materia",
-   "slug": "paranormal-activity-broadway-estreia-agosto-2026",
-   "cat": "Notícia",
-   "img": "assets/uploads/paranormal-activity-broadway-estreia-agosto-2026.jpg",
-   "titulo": "Hollywood assombra a Broadway",
-   "chamada": "Paranormal Activity começa as prévias em 14 de agosto de 2026 no August Wilson Theatre, em Nova York, estreia oficialmente em 25 de agosto e tem temporada limitada a 20 semanas, com direção de Felix Barrett, fundador da companhia inglesa Punchdrunk.",
-   "texto": "A montagem nasceu no Leeds Playhouse, na Inglaterra, em 2024, passou pelo West End e circulou pelos Estados Unidos antes de uma temporada em Boston, encerrada em 30 de julho de 2026."
+   "slug": "feliz-ano-velho-de-marcelo-rubens-paiva-ganha-primeira-versao-musical-em-sao-pau",
+   "cat": "Teatro Musical",
+   "img": "assets/uploads/feliz-ano-velho-de-marcelo-rubens-paiva-ganha-primeira-versao-musical-em-sao-pau-1786479295140.jpg",
+   "titulo": "Feliz Ano Velho aprende a cantar",
+   "chamada": "O livro que Marcelo Rubens Paiva publicou em 1982 ganha a primeira versão musical em 19 de setembro, no Teatro Sabesp Frei Caneca, em São Paulo, com temporada até 22 de novembro, direção artística de Gustavo Barchilon e dramaturgia de Marilia Toledo a partir do texto teatral de Alcides Nogueira.",
+   "texto": "Hugo Bonèmer vive Marcelo, Bruno Garcia acumula Marcelo e Rubens Paiva e Heloísa Périssé faz Eunice Paiva, com sucessos de Legião Urbana, Titãs, Lulu Santos e Barão Vermelho costurando os anos 1980 da história."
   },
   {
    "tipo": "materia",
-   "slug": "estreia-vestido-de-noiva-1943-nelson-rodrigues",
+   "slug": "dracula-nasceu-no-teatro-bela-lugosi-70-anos",
    "cat": "Memória",
-   "img": "assets/uploads/estreia-vestido-de-noiva-1943-nelson-rodrigues.jpg",
-   "titulo": "A noite em que o palco ganhou três andares",
-   "chamada": "Vestido de Noiva estreou em 28 de dezembro de 1943 no Theatro Municipal do Rio de Janeiro, pelo grupo amador Os Comediantes, com direção do polonês Ziembinski, e costuma ser apontada como o marco inicial do teatro moderno brasileiro.",
-   "texto": "Nelson Rodrigues tinha 31 anos e vinha da reportagem policial. Coube a Ziembinski, chegado ao Rio em 1942 fugindo da guerra na Europa, separar com luz os três planos da peça."
+   "img": "assets/uploads/dracula-nasceu-no-teatro-bela-lugosi-70-anos.jpg",
+   "titulo": "O conde nasceu no palco, não no cinema",
+   "chamada": "Bela Lugosi morreu em 16 de agosto de 1956, há 70 anos; seu Drácula estreou na Broadway em 5 de outubro de 1927, no Fulton Theatre, e somou 261 apresentações, mais de três anos antes de o filme da Universal chegar aos cinemas, em fevereiro de 1931.",
+   "texto": "O húngaro de Lugos decorou foneticamente seu primeiro papel em inglês, em 1922, sem falar a língua. Foi no texto de Hamilton Deane e John L. Balderston que nasceu o conde suave e charmoso que o romance de Bram Stoker não tinha."
   },
   {
    "tipo": "agenda",
@@ -199,6 +200,11 @@
    "quando": "2026-08-06T15:30:00.000Z",
    "quem": "Redação IA (Claude)",
    "acao": "monta o rascunho da edição 4 (14 páginas) para a saída de 13/08: capa recortada em 1500x1000 do still oficial de Corrida dos Bichos (Laura Campanella/Divulgação Prime Video), editorial A conta sem bilheteria, 6 matérias da janela de 06/08 a 13/08 sem repetir a edição 3 nem a edição 2, recortes com 3 aspas reconferidas na origem, agenda de São Paulo com 5 itens e do Rio com 4, todos de 14 a 20/08, programas, frase-célebre, expediente e contracapa"
+  },
+  {
+   "quando": "2026-08-12T23:30:00.000Z",
+   "quem": "Redação IA (Claude)",
+   "acao": "remonta a edição em 12/08/2026 com as matérias da semana de 07 a 12/08, a pedido do Pedro: capa nova com Gil, Andar com Fé (foto de divulgação da matéria), editorial Biografia pede palco, 6 matérias trocadas (Gil no Teatro Santander, Piaf com Laila Garin, Cirque du Soleil com Alegría, Game of Thrones na Royal Shakespeare Company, Feliz Ano Velho em versão musical e os 70 anos da morte de Bela Lugosi), recortes refeitos com 3 aspas da semana reconferidas na origem; programas, as duas agendas de 14 a 20/08, frase-célebre, expediente e contracapa mantidos; status permanece rascunho"
   }
  ]
 }
