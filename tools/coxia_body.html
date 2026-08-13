@@ -1135,12 +1135,13 @@
               <label>Foto de capa — suba o arquivo da imagem</label>
               <div class="up" id="up" tabindex="0" role="button" aria-label="Subir foto de capa">
                 <p><b>Clique para escolher a foto</b> ou arraste o arquivo até aqui<br>
-                   JPG ou PNG · a Coxia ajusta o tamanho sozinha</p>
+                   JPG ou PNG · a Coxia ajusta o tamanho sozinha<br>
+                   <span style="opacity:.75">escolha DUAS fotos de uma vez para a capa dividida ao meio (uma de cada lado)</span></p>
                 <img id="up-prev" alt="">
                 <button class="tira" id="up-tira" type="button">✕ Tirar foto</button>
-                <input type="file" id="up-file" accept="image/*">
+                <input type="file" id="up-file" accept="image/*" multiple>
               </div>
-              <button class="bt" id="up-ajustar" type="button" style="display:none;margin-top:8px">🎯 Ajustar enquadramento da capa</button>
+              <div id="up-ajustar" style="display:none;margin-top:8px"></div>
               <input type="text" id="f-cred" placeholder="Crédito da foto — ex.: Foto: João Silva/Divulgação" style="margin-top:8px">
               <input type="text" id="f-imgleg" placeholder="Descrição da foto (legenda) — ex.: O elenco em cena no Teatro Renault" style="margin-top:8px">
               <div class="r2" style="margin-top:8px">
@@ -3144,36 +3145,80 @@ ingressos e divisor."></textarea>
      corte 16:9 é assado com o ponto que o Pedro escolher (arrastar + zoom,
      igual ao das artes de Instagram). Sem ajuste, o corte automático é o
      mesmo de sempre: viés para o topo, onde ficam os rostos. ---- */
-  var CAPA_SRC = null;  // { orig (dataURL inteiro), iw, ih, fx, fy, z }
+  // CAPA_SRC simples: { orig, iw, ih, fx, fy, z }
+  // CAPA_SRC dupla (matéria de duas pessoas, uma foto de cada lado):
+  //   { dupla: true, a: {orig, fx, fy, z}, b: {orig, fx, fy, z} }
+  var CAPA_SRC = null;
+  function carregaImg(src){
+    return new Promise(function(res, rej){
+      var i = new Image();
+      i.onload = function(){ res(i); };
+      i.onerror = function(){ rej(new Error('imagem inválida')); };
+      i.src = src;
+    });
+  }
+  // desenha UM lado (ou a capa inteira) no quadro, com a conta de sempre:
+  // cobre a janela, ponto de interesse no centro, viés de topo no automático
+  function assaLado(g, img, lado, x0, W, H){
+    var iw = img.width, ih = img.height;
+    lado.iw = iw; lado.ih = ih;
+    var esc2 = Math.max(W / iw, H / ih) * (lado.z || 1);
+    var sw = iw * esc2, sh = ih * esc2;
+    var fx = lado.fx, fy = lado.fy;
+    if(fy == null){
+      var yAuto = Math.min(Math.round(sh * 0.06), Math.max(0, sh - H));
+      fy = sh > H ? (yAuto + H / 2) / sh : 0.5;
+      lado.fy = fy;
+    }
+    var ox = Math.max(0, Math.min(sw - W, fx * sw - W / 2));
+    var oy = Math.max(0, Math.min(sh - H, fy * sh - H / 2));
+    g.drawImage(img, ox / esc2, oy / esc2, W / esc2, H / esc2, x0, 0, W, H);
+  }
   function capaAssa(){
     // produz a CAPA final (16:9) a partir do original + enquadramento
-    return new Promise(function(res, rej){
-      if(!CAPA_SRC) return rej(new Error('sem foto'));
-      var img = new Image();
-      img.onload = function(){
-        var iw = img.width, ih = img.height;
-        CAPA_SRC.iw = iw; CAPA_SRC.ih = ih;
-        var W = Math.min(1600, iw), H = Math.round(W * 9 / 16);
-        var esc2 = Math.max(W / iw, H / ih) * (CAPA_SRC.z || 1);
-        var sw = iw * esc2, sh = ih * esc2;
-        var fx = CAPA_SRC.fx, fy = CAPA_SRC.fy;
-        if(fy == null){
-          // o automático de sempre: começa a 6% do topo (rostos ficam em cima)
-          var yAuto = Math.min(Math.round(sh * 0.06), Math.max(0, sh - H));
-          fy = sh > H ? (yAuto + H / 2) / sh : 0.5;
-          CAPA_SRC.fy = fy;
-        }
-        var ox = Math.max(0, Math.min(sw - W, fx * sw - W / 2));
-        var oy = Math.max(0, Math.min(sh - H, fy * sh - H / 2));
+    if(!CAPA_SRC) return Promise.reject(new Error('sem foto'));
+    if(CAPA_SRC.dupla){
+      return Promise.all([carregaImg(CAPA_SRC.a.orig), carregaImg(CAPA_SRC.b.orig)]).then(function(imgs){
+        var W = 1600, H = 900, meia = 797;  // 6px de respiro no meio, cor de papel
         var c = document.createElement('canvas');
         c.width = W; c.height = H;
-        c.getContext('2d').drawImage(img, ox / esc2, oy / esc2, W / esc2, H / esc2, 0, 0, W, H);
+        var g = c.getContext('2d');
+        g.fillStyle = '#EFE8DA';
+        g.fillRect(0, 0, W, H);
+        assaLado(g, imgs[0], CAPA_SRC.a, 0, meia, H);
+        assaLado(g, imgs[1], CAPA_SRC.b, W - meia, meia, H);
         CAPA = c.toDataURL('image/jpeg', .85);
         $('up-prev').src = CAPA;
-        res(CAPA);
-      };
-      img.onerror = function(){ rej(new Error('imagem inválida')); };
-      img.src = CAPA_SRC.orig;
+        return CAPA;
+      });
+    }
+    return carregaImg(CAPA_SRC.orig).then(function(img){
+      var W = Math.min(1600, img.width), H = Math.round(W * 9 / 16);
+      var c = document.createElement('canvas');
+      c.width = W; c.height = H;
+      assaLado(c.getContext('2d'), img, CAPA_SRC, 0, W, H);
+      CAPA = c.toDataURL('image/jpeg', .85);
+      $('up-prev').src = CAPA;
+      return CAPA;
+    });
+  }
+  // os botões de ajuste embaixo da prévia mudam conforme a capa (uma ou duas fotos)
+  function capaBotoes(){
+    var box = $('up-ajustar');
+    if(!CAPA_SRC){ box.style.display = 'none'; box.innerHTML = ''; return; }
+    box.style.display = '';
+    box.innerHTML = CAPA_SRC.dupla
+      ? '<button class="bt" type="button" data-capa-enq="a">🎯 Foto da esquerda</button> ' +
+        '<button class="bt" type="button" data-capa-enq="b">🎯 Foto da direita</button> ' +
+        '<button class="bt" type="button" id="capa-troca">⇄ Trocar os lados</button>'
+      : '<button class="bt" type="button" data-capa-enq="">🎯 Ajustar enquadramento da capa</button>';
+    box.querySelectorAll('[data-capa-enq]').forEach(function(b){
+      b.addEventListener('click', function(){ abrirCapaEnq(b.dataset.capaEnq || null); });
+    });
+    var tr = $('capa-troca');
+    if(tr) tr.addEventListener('click', function(){
+      var t = CAPA_SRC.a; CAPA_SRC.a = CAPA_SRC.b; CAPA_SRC.b = t;
+      capaAssa().then(function(){ salvarRasc(); }).catch(function(){});
     });
   }
   var CNQ = null;
@@ -3189,13 +3234,19 @@ ingressos e divisor."></textarea>
     img.style.left = (-ox * k) + 'px'; img.style.top = (-oy * k) + 'px';
     return { sw: sw, sh: sh };
   }
-  function abrirCapaEnq(){
-    if(!CAPA_SRC) return;
-    CNQ = { iw: CAPA_SRC.iw, ih: CAPA_SRC.ih, bw: 1600, bh: 900,
-            fx: CAPA_SRC.fx, fy: CAPA_SRC.fy == null ? 0.5 : CAPA_SRC.fy, z: CAPA_SRC.z || 1 };
+  var CNQ_LADO = null;  // null = capa inteira; 'a'/'b' = metade da capa dupla
+  function abrirCapaEnq(lado){
+    var src = lado ? (CAPA_SRC && CAPA_SRC[lado]) : CAPA_SRC;
+    if(!src || !src.orig) return;
+    CNQ_LADO = lado;
+    var bw = lado ? 797 : 1600, bh = 900;
+    $('capa-box').style.aspectRatio = bw + ' / ' + bh;
+    $('capa-box').style.width = lado ? 'min(340px,100%)' : 'min(560px,100%)';
+    CNQ = { iw: src.iw, ih: src.ih, bw: bw, bh: bh,
+            fx: src.fx, fy: src.fy == null ? 0.5 : src.fy, z: src.z || 1 };
     var img = $('capa-img');
     img.onload = function(){ cnqAplica(); };
-    img.src = CAPA_SRC.orig;
+    img.src = src.orig;
     abreOverlay('capa-overlay');
     if(img.complete) cnqAplica();
   }
@@ -3239,11 +3290,11 @@ ingressos e divisor."></textarea>
     $('capa-fechar').addEventListener('click', function(){ fechaOverlays(); });
     $('capa-aplicar').addEventListener('click', function(){
       if(!CNQ || !CAPA_SRC) return;
-      CAPA_SRC.fx = CNQ.fx; CAPA_SRC.fy = CNQ.fy; CAPA_SRC.z = CNQ.z;
+      var alvo = CNQ_LADO ? CAPA_SRC[CNQ_LADO] : CAPA_SRC;
+      alvo.fx = CNQ.fx; alvo.fy = CNQ.fy; alvo.z = CNQ.z;
       capaAssa().then(function(){ fechaOverlays(); salvarRasc(); })
         .catch(function(){ avisar('Não consegui aplicar o enquadramento.'); });
     });
-    $('up-ajustar').addEventListener('click', abrirCapaEnq);
   })();
 
   var up = $('up');
@@ -3253,24 +3304,31 @@ ingressos e divisor."></textarea>
     up.addEventListener(ev, function(e){
       e.preventDefault();
       up.classList.toggle('drag', ev === 'dragover');
-      if(ev === 'drop' && e.dataTransfer.files[0]) pegarCapa(e.dataTransfer.files[0]);
+      if(ev === 'drop' && e.dataTransfer.files[0]) pegarCapa(e.dataTransfer.files);
     });
   });
-  $('up-file').addEventListener('change', function(){ if(this.files[0]) pegarCapa(this.files[0]); });
-  function pegarCapa(file){
+  $('up-file').addEventListener('change', function(){ if(this.files[0]) pegarCapa(this.files); });
+  function pegarCapa(files){
     // guarda o ORIGINAL inteiro (sem corte) e assa o 16:9 com o enquadramento
-    // automático; o botão de ajustar deixa o Pedro mudar o corte quando quiser
-    redimensionar(file, 'livre').then(function(orig){
-      CAPA_SRC = { orig: orig, fx: 0.5, fy: null, z: 1 };
+    // automático. UMA foto = capa cheia; DUAS fotos = capa dividida ao meio
+    // (matéria de duas pessoas), cada lado com seu próprio enquadramento.
+    var lista = [].slice.call(files && files.length !== undefined ? files : [files]).slice(0, 2);
+    if(!lista.length || !lista[0]) return;
+    Promise.all(lista.map(function(f){ return redimensionar(f, 'livre'); })).then(function(origs){
+      CAPA_SRC = origs.length >= 2
+        ? { dupla: true, a: { orig: origs[0], fx: 0.5, fy: null, z: 1 },
+                         b: { orig: origs[1], fx: 0.5, fy: null, z: 1 } }
+        : { orig: origs[0], fx: 0.5, fy: null, z: 1 };
       return capaAssa();
     }).then(function(){
       up.classList.add('tem');
-      $('up-ajustar').style.display = '';
+      capaBotoes();
+      salvarRasc();
     }).catch(function(){ avisar('Não consegui ler essa imagem — tente JPG ou PNG.'); });
   }
   $('up-tira').addEventListener('click', function(e){
     e.stopPropagation();
-    CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none';
+    CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-ajustar').innerHTML = '';
     $('up-prev').src = ''; $('up-file').value = ''; up.classList.remove('tem');
   });
 
@@ -3487,7 +3545,7 @@ ingressos e divisor."></textarea>
     ['f-title', 'f-body', 'f-cred', 'f-imgleg', 'f-imgfonte', 'f-imgdir', 'f-fontes',
      'f-ev-ini', 'f-ev-fim', 'f-ev-local', 'f-ev-cidade'].forEach(function(id){ $(id).value = ''; });
     aplicarCats([]);
-    CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none';
+    CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-ajustar').innerHTML = '';
     $('up-prev').src = ''; $('up-file').value = ''; up.classList.remove('tem');
     statusTexto(); histReset();
   }
@@ -4871,7 +4929,7 @@ ingressos e divisor."></textarea>
         : 'Enviada para a mesa do chefe ✓ — ele aprova e programa a publicação';
       e.target.reset();
       $('f-quando-dt').style.display = 'none';
-      CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-prev').src = ''; up.classList.remove('tem');
+      CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-ajustar').innerHTML = ''; $('up-prev').src = ''; up.classList.remove('tem');
       var rascEnviado = RASC_ID;  // guarda o id ANTES de limpar
       limparRasc(); statusTexto(); histReset();
       // tira da nuvem SÓ o rascunho desta matéria; os outros ficam esperando
@@ -6061,7 +6119,7 @@ ingressos e divisor."></textarea>
     $('f-ev-fim').value = ev.fim || '';
     $('f-ev-local').value = ev.local || '';
     $('f-ev-cidade').value = ev.cidade || '';
-    CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none';
+    CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-ajustar').innerHTML = '';
     if(EDIT.img){ $('up-prev').src = EDIT.img; up.classList.add('tem'); }
     else { $('up-prev').src = ''; up.classList.remove('tem'); }
     $('edit-titulo').textContent = dados.title || dados.slug;
@@ -6088,7 +6146,7 @@ ingressos e divisor."></textarea>
     $('nova-titulo').textContent = 'Nova matéria';
     $('f-quando').parentElement.parentElement.style.display = '';
     $('form').reset();
-    CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-prev').src = ''; up.classList.remove('tem');
+    CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-ajustar').innerHTML = ''; $('up-prev').src = ''; up.classList.remove('tem');
     aplicarUsuario();
   }
   $('edit-cancelar').addEventListener('click', sairEdicao);
