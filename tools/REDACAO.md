@@ -232,7 +232,7 @@ página cair?".
 
 **UM 403 OU 401 NÃO É PÁGINA MORTA.** Antes de dar uma fonte por perdida,
 tente com User-Agent de navegador — é a mesma regra 6 das fotos, e vale
-para texto. **São sete casos, e cada um se resolve de um jeito diferente.
+para texto. **São oito casos, e cada um se resolve de um jeito diferente.
 Escreva no `conferido` qual deles você encontrou:**
 
 1. **Bloqueio de bot.** 403 sem cabeçalho, 200 com User-Agent de navegador.
@@ -257,6 +257,13 @@ Escreva no `conferido` qual deles você encontrou:**
    chega é outra página. Confira o endereço final, não só o código.
 7. **404 e NXDOMAIN.** 404 é 404. NXDOMAIN é o domínio não existir, e é
    diferente: não adianta trocar caminho nem esperar. Registre qual dos dois.
+8. **Bloqueio de bot com porta declarada.** Achado em 14/08/2026 na SEC:
+   `www.sec.gov` devolve 403 **até com User-Agent de navegador**, com a
+   mensagem "Your Request Originates from an Undeclared Automated Tool", e
+   abre com um User-Agent que declare quem é e um contato. É a política
+   publicada deles, não uma falha, e várias bases públicas usam a mesma
+   regra. No navegador do leitor abre normalmente. Não confunda com o caso 3:
+   aqui existe porta, e ela está documentada na própria mensagem de recusa.
 
 **A URL TEM QUE ABRIR PARA O LEITOR.** Teste como ele testaria: sem
 cookie, sem sessão, sem cabeçalho especial. Quando o endereço for
@@ -489,6 +496,27 @@ para quem já leu é título invisível para quem ainda não leu.**
    título: ele tem de estar **antes do corte de 60**. Uma hedge que só aparece
    no caractere 70 não é hedge, é hedge para quem já clicou — no trecho
    truncado, que é o que mais gente lê, a afirmação absoluta volta inteira.
+
+   **A régua para decidir o que fica dentro dos 60:** *fragmento incompleto
+   custa um clique, fragmento falso custa uma correção.* Entre um trecho
+   truncado que fica pela metade e um trecho truncado que forma frase inteira
+   e errada, o primeiro é sempre melhor.
+
+   **A unidade qualifica tanto quanto a data.** Um candidato recusado em
+   14/08/2026 punha o número dentro da janela e deixava "por dia" fora: o
+   fragmento virava "a espera passa a custar US$ 6,97 mi", que subestima a
+   conta em mil vezes. Moeda, unidade de tempo e universo de contagem são
+   qualificadores, não enfeite.
+
+   **Antes de escolher entre cortar o número e cortar a data, conjugue o
+   verbo.** Foi assim que o mesmo título se resolveu: "a espera **custa**
+   US$ 6,97 mi por dia a partir de outubro" tem a qualificação numa locução
+   que não cabe na janela, e o fragmento afirma como custo de hoje um custo
+   que hoje não corre. "A espera **custará**" carrega a mesma qualificação
+   **no tempo do verbo**, sem gastar um caractere: número, unidade e futuro
+   entram todos nos 60, e a data vira bônus para quem já clicou. **O tempo
+   verbal é a hedge mais barata que existe**, e é a primeira coisa a tentar
+   quando três informações disputam a janela e só duas cabem.
 
 **Como o Titulador trabalha:** lê o texto entregue, não a pauta. Escreve **três
 candidatos** com estruturas diferentes, mede cada um em caracteres, escolhe um e
