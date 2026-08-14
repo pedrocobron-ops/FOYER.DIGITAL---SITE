@@ -1,6 +1,14 @@
 {
  "rodadas": [
   {
+   "quando": "2026-08-14T15:30:00-03:00",
+   "por": "Troca de títulos em pacotes aprovados (Claude) — ordem do Pedro: 'troque os titulos velhos'",
+   "buscas": [],
+   "consideradas": [],
+   "produzidas": [],
+   "obs": "NOVE TÍTULOS TROCADOS EM import/novas, área de matéria aprovada, que esta sala não escrevia até esta ordem. O Pedro mandou, e mandar é dele. Seis ainda agendadas (Brecht 108->90, Orestes Barbosa 96->81, Jouvet 100->85, Oscarito 92->78, Guaíra 94->84, Theatro São Pedro 104->86) e três já publicadas (Jogada de Risco 112->81, Corrida dos Bichos 95->81, Tan Dun 100->83). São as matérias que o Pedro aprovou e agendou ANTES de o Titulador rodar, e por isso saíram com o título antigo. O diff é de UMA LINHA por arquivo: só o campo title. QUASE DESESTRUTUREI NOVE PACOTES APROVADOS. Acrescentei uma ressalva de registro no bloco chefe de cada um, por reflexo, e só depois conferi contra o HEAD da branch da Coxia: pacote aprovado NÃO TEM a chave chefe, porque a Coxia a remove na aprovação. Eu estava criando um bloco parcial, sem parecer e sem nota, dentro de matéria já publicada. Desfiz e reconferi campo a campo que só o title difere. REGRA QUE FICA: antes de escrever em import/novas, diffar contra a branch da Coxia e conferir que o conjunto de chaves não mudou. Área de matéria aprovada não é área de acrescentar campo. O PIOR DOS NOVE era o Corrida dos Bichos: o título antigo não trazia o nome do filme em lugar nenhum, e quem procurasse pelo nome não chegava à matéria. FICA EM ABERTO, decisão do Pedro: o Oscarito publica em 16/08, dia dos 120 anos, e o título novo não carrega a efeméride. O candidato que a mantém está na ressalva do pacote em import/pauta. E O TAMANHO REAL DO PROBLEMA: 56 dos 186 pacotes aprovados passam de 90 caracteres. Os nove trocados eram os que o Titulador já tinha reescrito; os outros 47 nunca passaram por ele, e vários estão agendados para os próximos dias. Oferecido ao Pedro, não iniciado."
+  },
+  {
    "quando": "2026-08-14T12:10:00-03:00",
    "por": "Quente do dia (Claude) — ordem do Pedro em 14/08/2026, quatro matérias assinadas Pedro Amaral",
    "buscas": [],
