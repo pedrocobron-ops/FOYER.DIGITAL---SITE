@@ -21,6 +21,60 @@ alguém. Uma vez por semana, leia a coluna do tipo e veja o que se repete.
 
 ---
 
+## 14/08/2026, o quente do dia: quatro matérias assinadas Pedro Amaral
+
+Primeira rodada da semana com a esteira completa: pauteiro, redatores, titulador,
+dois checadores independentes, dois revisores de leitura fria, chefe. Onze agentes
+em quatro matérias. **De novo o portão mecânico não pegou nada do que segue** — e
+desta vez a leitura fria pegou um defeito que a checagem, por definição, não podia
+pegar.
+
+| Tipo | O que caiu | Por quê | Matéria |
+|---|---|---|---|
+| `invenção` | "Barnabé Salomé", nome da intérprete | Existe num único parágrafo de um único documento, o release da SMC. A atriz é **Bárbara Salomé**, nome que está na ficha da dona da obra, no Infoteatro, no Sesc e no segundo texto da própria Prefeitura | Cacilda Becker |
+| `atribuição errada` | "Não Aprendi **a** Dizer Adeus" | A companhia batizou sem o segundo "a". A grafia com "a" é a que o release erra no quinto parágrafo | Cacilda Becker |
+| `data errada` | "O Cade liberou a operação em 1º de agosto" | 1º de agosto é a data da NOSSA matéria. A decisão é o Despacho SG nº 899, de 8 de julho, publicado no DOU em 9 | Paramount-Warner |
+| `número desatualizado` | "US$ 7 milhões por dia" | É caracterização do Deadline, não número de contrato. O contrato fixa US$ 0,00277778 **por ação** por dia; com as ações do 10-Q dá US$ 6,97 milhões | Paramount-Warner |
+| `data errada` | Datas do julgamento sem o ano | São de **2027**. Só o início da produção de provas, 17/08, é de 2026 | Paramount-Warner |
+| `número desatualizado` | "A ocupação caiu 10,94%" | A coluna da Broadway League é em **pontos percentuais** (81,79% → 70,85%). Em termos relativos seria 13,4% | SIX |
+| `invenção` | O cenário de 170 dias e US$ 1,19 bilhão | Aritmeticamente certo e materialmente impossível: o balanço da própria Warner registra o compromisso de não fechar antes de 1º/06/2027. Piso documentado: 244 dias | Paramount-Warner |
+| `invenção` | "Sessenta horas de tribunal" | Ignorava as duas pausas de quinze minutos que a frase anterior do mesmo texto cita. São 54 | Paramount-Warner |
+| `insinuação sem fonte` | "Bruxelas cobrou contrapartidas" | Zero ocorrência de Comissão Europeia nas nove fontes | Paramount-Warner |
+| `atribuição errada` | Renée Fleming entre quem cancelou por causa de Trump | O comunicado do próprio Kennedy Center atribui a saída dela a "a scheduling conflict", e ela não respondeu ao pedido de comentário | Kennedy Center |
+| `superlativo sem fonte` | "Dinheiro público para restaurar prédio de arte nos EUA é rotina" | **A premissa vinha de matéria nossa, e o link a desmentia**: os US$ 1,75 mi de Pittsburgh são doação da Mellon Foundation, fundação privada | Kennedy Center |
+| `atribuição errada` | O placar de 20 a 3 atribuído só à inscrição | A NBC, única fonte com o número, diz que valeu para a inscrição **e** para o batismo da praça. O fechamento foi votado antes, sem placar em nenhuma das sete | Kennedy Center |
+| `insinuação sem fonte` | "Todo indicado por Donald Trump", só na legenda do Instagram | A NBC derruba no mesmo parágrafo do placar: os três votos contrários são de membros natos do Congresso | Kennedy Center |
+| `atribuição errada` | Aspa traduzida creditada à NPR | A NPR não a tem. Está em Playbill e Deadline | Kennedy Center |
+| `link quebrado` | "A ficha está publicada no site da Cia. Mungunzá" | O link ia para uma matéria nossa. Mandava o leitor para o lugar errado | Cacilda Becker |
+| `invenção` | "o Canadá" na estreia do filme | Nenhuma fonte lida o nomeia. Playbill escreve "cinemas around the U.S."; "domestic" é jargão, não fato | SIX |
+| `atribuição errada` | Sessões com Libras **e** audiodescrição na mesma noite | Não era esta leva, mas o mesmo padrão: recursos que se revezam descritos como coexistentes | (padrão) |
+
+**Padrões novos desta leva:**
+
+- **O defeito que só a leitura fria pega: o pronome que aponta para o contrário.** Sob
+  o intertítulo "O nome oficial da casa fica como está" vinha "em dezembro de 2025 o
+  conselho tinha feito exatamente isso". O fato estava certo, a fonte estava certa, e
+  o checador não tinha por que parar ali. É defeito de leitura, não de apuração, e
+  nenhuma outra onda o alcança.
+- **A informação do título enterrada no fim do texto.** "Não há data no Brasil" está no
+  `title` do SIX e só aparecia no 19º parágrafo. O leitor daqui atravessava a matéria
+  sem saber que não pode assistir. Título e corpo têm de concordar na **ordem**, não
+  só no fato.
+- **Número que a própria matéria precisa desmontar no parágrafo seguinte** é número que
+  a apuração encontrou, não que o leitor precisa. Foi assim que caíram as "14,7 semanas
+  de Lena Horne".
+- **A matéria que cresce na leitura fria.** O Paramount foi de 879 para 926 palavras
+  porque sete traduções de jargão custaram mais do que os cortes de cifra renderam.
+  Nem toda onda 3 encurta: quando o defeito é vocabulário, cortar prosa deixa o texto
+  mais curto e mais difícil.
+- **Segurar um número que o título já entregou não cria suspense, cria atrito.** O
+  Paramount adiava a cifra até a palavra 190 com um "cada data dessa agenda tem preço".
+- **A conta certa com a premissa impossível.** Os 170 dias fechavam na aritmética e não
+  podiam existir no mundo. Refazer a conta não teria pego; foi preciso abrir o balanço.
+- **A premissa que vem do próprio acervo e se desmente ao ser aberta.** O pior tipo,
+  porque o redator confia no link como confiaria numa fonte externa, e ninguém reabre
+  matéria da casa para checar matéria da casa.
+
 ## 11/08/2026, títulos de alto alcance e a onda 2 das quinze
 
 Rodada de duas metades. Primeiro seis Tituladores reescreveram 26 títulos que
