@@ -119,3 +119,25 @@ título+apoio+itens+rodapé antes de desenhar, reduzir corpo ou avisar "cabem N"
 - Rascunhos sem perder nada, com aviso honesto de que a foto não fica no rascunho.
 - Trava de assinatura em tudo, inclusive no lote; lixeira de 30 dias com
   confirmações certas.
+
+## CONSERTADO (17/08/2026, a pedido do Pedro: "arrume todos os erros")
+- Os 3 GRAVES: cerca da Publicidade (botão escondido + trava com o nome certo
+  da aba); mesa/Fila honestas sob falha parcial de rede (aviso + Tentar de
+  novo no lugar de "vazia"); Divulgação apara itens e reduz o corpo até caber
+  (aviso "couberam N de M"), título com reticências.
+- Os 11 MÉDIOS: ressalvas do checador no card resumido; Métricas falhou-falhou-
+  tudo; chip "Na mesa (N)" com contas certas; Folhear após o 1º salvamento;
+  prova em remontagem explica os ~2 min; barra do editor visível; miniaturas
+  IG de 230px + parecer sem sobreposição; piso de letra ~12px; setinha "›" no
+  menu do celular (some no fim); busca com peso título/corpo.
+- Os LEVES: travessão pergunta antes de enviar; publicar direto confirma com o
+  título + toast; "cabe em" confere intertítulos; QUENTE late ao agendar para
+  depois de hoje; Ver completo abre o corpo; Palco com traço explicado (e o
+  fetch do painel ganhou if(!r.ok)); pauta sugerida confirma; status de
+  rascunho coerente (navegador + nuvem) e contador em dia; busca do acervo
+  aberta a todos (Editar segue de editor); "Devolver ao autor" com nome de
+  devolver; contador "N de 3 chamadas"; página nova antes da contracapa;
+  cartucho da capa dourado no BLACKOUT; painel do folheador quase some na
+  capa; régua de enviar sticky no celular; lede da Piaf sem eco na ed. 4.
+- NÃO reproduzido: a legenda de IG repetida de "As Troianas" (o card que o
+  Rafa viu já saiu da mesa; nenhum arquivo atual tem a legenda).

@@ -2195,6 +2195,7 @@ body.rv-sala #rv-sala-sair{ display:block; }
   border-bottom:2px solid var(--ink);
   font-family:var(--mono); font-size:.55rem; font-weight:600;
   letter-spacing:.24em; text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-capa2 .linha-ed{ color:var(--gold); border-color:var(--gold); }
 .rv-capa2 .moldura{ flex:1; min-height:440px; margin:14px 24px 0; position:relative;
   border:3px solid var(--ink); background:#14100d; }
 .rv-capa2 .moldura img{ position:absolute; inset:0; width:100%; height:100%;
@@ -2665,7 +2666,12 @@ html[data-theme="dark"] .rv-quina{ color:var(--gold); }
 .ct-voltar:hover{ color:var(--wine); }
 
 /* ---------- NAVEGAÇÃO ---------- */
+/* na capa (primeira dobra) o painel quase some, para não cobrir as chamadas;
+   volta inteiro ao passar o mouse ou ao virar a página */
+html.rv-na-capa .rv-nav{ opacity:.25; }
+html.rv-na-capa .rv-nav:hover, html.rv-na-capa .rv-nav:focus-within{ opacity:1; }
 .rv-nav{ position:sticky; bottom:14px; display:flex; justify-content:center; gap:8px;
+  transition:opacity .25s;
   width:max-content; max-width:100%; margin:18px auto 0; padding:8px;
   background:var(--paper); border:2px solid var(--ink); box-shadow:0 6px 22px rgba(0,0,0,.22); }
 .rv-nav button{ border:2px solid var(--ink); background:var(--paper); color:var(--ink); cursor:pointer;
@@ -3389,6 +3395,7 @@ def edicao_page(ed):
     pgs = document.querySelectorAll('.rv-pg');
     pgs.forEach(function(pg2, k2){{ var bb = pg2.querySelector('.rv-folio b'); if(bb) bb.textContent = k2 + 1; }});
     document.getElementById('rv-ct').textContent = (i + 1) + ' / ' + pgs.length;
+    document.documentElement.classList.toggle('rv-na-capa', i === 0);
   }}
   try{{ diagrama(); }}catch(e){{}}
 
@@ -3522,6 +3529,7 @@ def edicao_page(ed):
     var ini = par[0] + 1, fim = par[par.length - 1] + 1;
     document.getElementById('rv-ct').textContent =
       (ini === fim ? ini : ini + '–' + fim) + ' / ' + pgs.length;
+    document.documentElement.classList.toggle('rv-na-capa', par[0] === 0);
     // a espessura da revista dos dois lados
     var lidas = par[0], faltam = pgs.length - (par[par.length - 1] + 1);
     var le = document.getElementById('rv-lombo-esq'), ld = document.getElementById('rv-lombo-dir');

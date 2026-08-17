@@ -652,6 +652,12 @@
   .mesa-acoes input[type=datetime-local].on{ display:inline-block; }
   /* aviso flutuante */
   #rv-editor{ scroll-margin-top:84px; }
+  /* no celular a régua de enviar/guardar gruda no pé da tela: com o teclado
+     aberto ninguém rola três telas para achar o botão (Dona Marta) */
+  @media (max-width:700px){
+    .f-acoes{ position:sticky; bottom:0; z-index:5; background:var(--paper);
+      padding:10px 0; border-top:1px solid var(--line); }
+  }
   .pill.ms{ background:var(--gold); color:var(--wine); }
   .frow.fraca{ opacity:.55; }
   .cx-toast{ position:fixed; left:50%; bottom:28px; transform:translate(-50%, 20px);
@@ -1296,7 +1302,7 @@ ingressos e divisor."></textarea>
               </div>
             </div>
             <div class="f-status"><span id="st-alerta"></span></div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <div class="f-acoes" style="display:flex; gap:10px; flex-wrap:wrap">
               <button class="bt" type="button" id="btn-prev" style="padding:14px 18px">👁 Pré-visualizar</button>
               <button class="bt" type="button" id="btn-guardar" style="padding:14px 18px" title="Guarda o rascunho na nuvem para continuar em qualquer aparelho">☁ Guardar rascunho</button>
               <button class="bt" type="button" id="btn-novo-rasc" style="padding:14px 18px" title="Guarda o que está na tela como rascunho e abre uma matéria em branco">🗒 Novo rascunho</button>
@@ -1527,7 +1533,8 @@ ingressos e divisor."></textarea>
             </div>
             <div><label>Crédito da foto de capa (fotógrafo/Divulgação)</label><input type="text" id="rv-capa-cred" placeholder="Divulgação"></div>
             <div><label>Manchete de capa</label><input type="text" id="rv-manchete" placeholder="A manchete grande da capa"></div>
-            <div><label>Chamadas de capa (uma por linha, até 3 — a capa não imprime mais que isso)</label><textarea id="rv-chamadas" rows="3" placeholder="Crítica: a estreia da semana&#10;Exclusivo: entrevista com…&#10;Agenda: 12 estreias"></textarea></div>
+            <div><label>Chamadas de capa (uma por linha, até 3 — a capa não imprime mais que isso)</label><textarea id="rv-chamadas" rows="3" placeholder="Crítica: a estreia da semana&#10;Exclusivo: entrevista com…&#10;Agenda: 12 estreias"></textarea>
+              <span id="rv-chamadas-conta" style="display:block;margin-top:4px;font-family:var(--sans);font-size:.8rem;color:var(--ink-soft)"></span></div>
           </div>
 
           <div class="sec-h"><h3>Páginas da edição</h3><span>ordem com ↑ ↓ — a capa é a página 1 e o Sumário é montado sozinho como página 2</span></div>
@@ -2481,7 +2488,7 @@ ingressos e divisor."></textarea>
       ? 'Tudo o que a Coxia publicou ou agendou'
       : 'Suas matérias — as publicadas e as que esperam o carimbo do chefe';
     $('btn-pub').textContent = podeEditar() ? 'Enviar para o site' : 'Enviar para aprovação';
-    $('acervo-box').style.display = podeEditar() ? '' : 'none';
+    $('acervo-box').style.display = '';   // pesquisar o acervo é de todos; editar é que é de editor
     $('nova-nota').innerHTML = podeEditar()
       ? '<b>Publicar agora:</b> no ar em ~2 minutos.<br><b>Agendada:</b> o relógio do site confere a cada 30 min e publica sozinho na hora marcada.<br><br>Capa, listagens, busca e compartilhamento se atualizam automaticamente.'
       : '<b>Como funciona:</b> sua matéria vai para a mesa do chefe, que aprova e programa a publicação.<br><br>Se você marcar uma data, ela segue como <b>sugestão</b> de agendamento.<br><br>Capriche na foto de capa e no crédito — matéria completa sobe mais rápido.';
@@ -3063,11 +3070,16 @@ ingressos e divisor."></textarea>
     }
     fetch(RKC.url + '/rest/v1/foyer_painel?select=*', {
       headers: { 'apikey': RKC.key, 'Authorization': 'Bearer ' + RKC.key }
-    }).then(function(r){ return r.json(); }).then(function(d){
+    }).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
       d = (d || [])[0] || {};
-      $('st-leituras').textContent = d.leituras_semana != null ? d.leituras_semana : '?';
-      $('st-assin').textContent = d.assinantes != null ? d.assinantes : '?';
-    }).catch(function(){ $('st-leituras').textContent = '?'; $('st-assin').textContent = '?'; });
+      $('st-leituras').textContent = d.leituras_semana != null ? d.leituras_semana : '—';
+      $('st-assin').textContent = d.assinantes != null ? d.assinantes : '—';
+    }).catch(function(){
+      // traço com explicação, não "?" mudo (ensaio dos jornalistas)
+      ['card-leituras', 'card-assin'].forEach(function(id){ var c = $(id);
+        if(c) c.title = 'O medidor não respondeu agora — os números do site não foram afetados. Recarregue daqui a pouco.'; });
+      $('st-leituras').textContent = '—'; $('st-assin').textContent = '—';
+    });
     carregarAtividade('ativ', 12);
     if(podeMesa()){ carregarInstaPalco(); lembreteRevista(); }
     pintarNovidades();
@@ -3552,7 +3564,8 @@ ingressos e divisor."></textarea>
       // sem porte declarado: diz em qual faixa o tamanho atual cabe, e quanto
       // falta para a primeira quando ainda não chegou lá
       var cabe = Object.keys(PORTES_COXIA).filter(function(p){
-        return n >= PORTES_COXIA[p][0] && n <= PORTES_COXIA[p][1]; });
+        return n >= PORTES_COXIA[p][0] && n <= PORTES_COXIA[p][1] &&
+               inter >= PORTES_COXIA[p][2] && inter <= PORTES_COXIA[p][3]; });
       var menor = PORTES_COXIA.release[0];
       partes.push('<span>' + (cabe.length ? 'cabe em: ' + cabe.join(' ou ')
         : (n < menor ? 'faltam ' + mil(menor - n) + (menor - n === 1 ? ' palavra' : ' palavras') +
@@ -3593,6 +3606,9 @@ ingressos e divisor."></textarea>
     return new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
   }
   function rascStatus(msg){ var el = $('st-rasc'); if(el) el.textContent = msg; }
+  // a hora do último "guardar na nuvem" de cada rascunho, para o status do
+  // autosave não desmentir o toast (pego pelo estagiário do ensaio)
+  var RASC_NUVEM = {};
   function rascLista(){
     var v = null;
     try{ v = JSON.parse(localStorage.getItem(RASC_K) || 'null'); }catch(e){}
@@ -3625,7 +3641,8 @@ ingressos e divisor."></textarea>
       if(rascGrava(lista)){
         rascStatus('💾 Rascunho guardado neste navegador às ' + horaAgora() +
                    (lista.length > 1 ? ' (' + lista.length + ' na prateleira)' : '') +
-                   ' — para abrir noutro aparelho, use ☁ Guardar rascunho.');
+                   (RASC_NUVEM[RASC_ID] ? ' · ☁ na nuvem às ' + RASC_NUVEM[RASC_ID]
+                                        : ' — para abrir noutro aparelho, use ☁ Guardar rascunho.'));
       } else {
         rascStatus('⚠ Não consegui guardar o rascunho neste navegador — use ☁ Guardar rascunho.');
       }
@@ -3698,7 +3715,12 @@ ingressos e divisor."></textarea>
       if(lista.length > RASC_MAX) lista = lista.slice(0, RASC_MAX);
       return ghPut(caminhoRascServidor(), JSON.stringify({ rascunhos: lista }, null, 1),
         assina('guarda rascunho na nuvem'), ex && ex.sha);
-    }).then(function(){ toast('Rascunho guardado na nuvem ✓'); rascStatus('☁ Rascunho guardado na nuvem às ' + horaAgora() + ' — pode continuar de qualquer aparelho.'); })
+    }).then(function(){
+      RASC_NUVEM[RASC_ID] = horaAgora();
+      toast('Rascunho guardado na nuvem ✓');
+      rascStatus('☁ Rascunho guardado na nuvem às ' + RASC_NUVEM[RASC_ID] + ' — pode continuar de qualquer aparelho.');
+      checarRasc();   // o botão "Rascunhos (N)" fica em dia na hora
+    })
       .catch(function(err){ avisar(msgErro(err)); })
       .then(function(){ b.disabled = false; b.textContent = velho; });
   });
@@ -4930,19 +4952,36 @@ ingressos e divisor."></textarea>
     var btn = $('btn-pub');
     var ehChefe = podeEditar();
     btn.disabled = true; btn.textContent = 'Enviando…';
+    // o travessão é banido no padrão da casa: o alerta da régua passava batido
+    // e a matéria ia com ele (pego pelo estagiário do ensaio) — agora pergunta
+    var checaTravessao = /[—–]/.test(title + corpo)
+      ? confirmar('O texto tem TRAVESSÃO (—), que é banido no padrão da casa.\nTroque por vírgula, dois-pontos ou parênteses.\n\nEnviar assim mesmo?', { perigo:true, rotuloOk:'Enviar assim mesmo', rotuloCancel:'Voltar e corrigir' })
+      : Promise.resolve(true);
+    // publicar direto no site merece um "vai mesmo?" com o título (Dona Marta,
+    // no escuro do saguão, agradece) — só para quem publica sem mesa
+    var checaEnvio = checaTravessao.then(function(okT){
+      if(!okT) return false;
+      if(EDIT || !ehChefe) return true;
+      return confirmar((quando === 'agendar' ? 'Agendar “' : 'Publicar “') + corta(title, 64) +
+        (quando === 'agendar' ? '” para a data marcada?' : '” no site agora?'),
+        { rotuloOk: quando === 'agendar' ? 'Agendar' : 'Publicar' });
+    });
     // matéria nova: confere se já existe uma com esse endereço (evita sobrescrever a de outra pessoa)
-    var checaSlug = EDIT ? Promise.resolve(true) : Promise.all([
+    var checaSlug = checaEnvio.then(function(okE){
+      if(!okE) return false;
+      return EDIT ? true : Promise.all([
       ghGet('import/novas/' + slug + '.json').catch(function(){ return null; }),
       ghGet('import/pauta/' + slug + '.json').catch(function(){ return null; })
     ]).then(function(ex){
-      if(ex[0] || ex[1]){
-        return confirmar('Já existe uma matéria com este título (endereço "' + slug + '").\n' +
-          'Se continuar, você vai SOBRESCREVER a que já está lá.\n\nMude um pouco o título para publicar as duas. Continuar assim mesmo?', { perigo:true });
-      }
-      return true;
+        if(ex[0] || ex[1]){
+          return confirmar('Já existe uma matéria com este título (endereço "' + slug + '").\n' +
+            'Se continuar, você vai SOBRESCREVER a que já está lá.\n\nMude um pouco o título para publicar as duas. Continuar assim mesmo?', { perigo:true });
+        }
+        return true;
+      });
     });
     checaSlug.then(function(segue){
-      if(!segue){ btn.disabled = false; btn.textContent = ehChefe ? 'Enviar para o site' : 'Enviar para aprovação'; msg.textContent = 'Envio cancelado — mude o título.'; msg.className = 'msg'; return Promise.reject('cancelado'); }
+      if(!segue){ btn.disabled = false; btn.textContent = ehChefe ? 'Enviar para o site' : 'Enviar para aprovação'; msg.textContent = 'Envio cancelado.'; msg.className = 'msg'; return Promise.reject('cancelado'); }
       return CAPA ? subirImagem(CAPA, slug) : Promise.resolve('');
     }).then(function(imgPath){
       if(imgPath === undefined) return;
@@ -5020,7 +5059,6 @@ ingressos e divisor."></textarea>
           cat: $('f-cat').value,
           author: $('f-autor').value,
           img: imgPath, imgCredito: $('f-cred').value.trim(),
-        imgLegenda: $('f-imgleg').value.trim(),
           imgLegenda: $('f-imgleg').value.trim(),
           corpo: corpo, publishAt: publishAt,
           criadoEm: new Date().toISOString(), criadoPor: USER.nome
@@ -5066,6 +5104,7 @@ ingressos e divisor."></textarea>
       msg.textContent = ehChefe
         ? (quando === 'agendar' ? 'Agendada ✓ — sai no site na hora marcada' : 'Enviada ✓ — no ar em ~2 minutos')
         : 'Enviada para a mesa do chefe ✓ — ele aprova e programa a publicação';
+      if(ehChefe) toast(quando === 'agendar' ? 'Agendada ✓ — sai na hora marcada' : 'Enviada ✓ — no ar em ~2 minutos');
       // o autor vai para a Fila ver a matéria com o selo "Na mesa do chefe":
       // prova concreta de que o envio chegou (item 15 do ensaio)
       if(!ehChefe){
@@ -5322,7 +5361,7 @@ ingressos e divisor."></textarea>
         // ensaio: o campo do topo e o "Buscar no acervo" viraram uma coisa só)
         function acervoEco(){
           var eco = $('fila-q-acervo');
-          if(!eco || !podeEditar()) return;
+          if(!eco) return;
           var q = qEl.value.trim();
           if(q.length < 2){ eco.innerHTML = ''; return; }
           acervoTodos().then(function(mats){
@@ -5331,7 +5370,7 @@ ingressos e divisor."></textarea>
             var n = mats.filter(function(m){ return normTxt(m.title + ' ' + (m.desc || '')).indexOf(v) >= 0; }).length;
             eco.innerHTML = n
               ? '<button class="bt" type="button" id="fila-q-veracervo" style="margin-top:8px">📚 ' +
-                n + (n === 1 ? ' matéria' : ' matérias') + ' no acervo completo do site — ver e editar</button>'
+                n + (n === 1 ? ' matéria' : ' matérias') + ' no acervo completo do site — ver' + (podeEditar() ? ' e editar' : '') + '</button>'
               : '';
             var vb = $('fila-q-veracervo');
             if(vb) vb.addEventListener('click', function(){
@@ -5874,7 +5913,8 @@ ingressos e divisor."></textarea>
                     '<button class="bt" type="button" data-agendar="' + esc(d.slug) + '">🕐 Aprovar e agendar</button>' +
                   '</div>'
                 : '<span class="mesa-trava">🔒 aprovação de ' + esc(nomesDaAssinatura(donoDaAssinatura(d))) + '</span>') +
-              '<button class="bt danger" type="button" data-recusar="' + esc(d.slug) + '">✕ Recusar</button>' +
+              '<button class="bt danger" type="button" data-recusar="' + esc(d.slug) + '">' +
+                (ehAutor ? '↩ Devolver ao autor' : '✕ Recusar') + '</button>' +
             '</div>' +
           '</article>';
         }).join('');
@@ -6167,6 +6207,9 @@ ingressos e divisor."></textarea>
       if(MESA_ABERTOS[sv]) delete MESA_ABERTOS[sv]; else MESA_ABERTOS[sv] = 1;
       if(cardV){
         cardV.classList.toggle('fechado', !MESA_ABERTOS[sv]);
+        // quem pediu o dossiê completo quer ler: o corpo abre junto
+        var corpoDet = cardV.querySelector('#corpo-' + CSS.escape(sv));
+        if(corpoDet && corpoDet.closest('details')) corpoDet.closest('details').open = !!MESA_ABERTOS[sv];
         b.textContent = MESA_ABERTOS[sv] ? '▴ Resumir' : '▾ Ver completo';
         // ao resumir, o card encolhe e a tela ficaria olhando o vazio: volta ao topo dele
         if(!MESA_ABERTOS[sv]) cardV.scrollIntoView({ block: 'nearest' });
@@ -6205,8 +6248,17 @@ ingressos e divisor."></textarea>
                nome: dAg && dAg.title, autor: dAg && dAg.author,
                inicial: dAg && dAg.sugestaoPublishAt }).then(function(quando){
         if(!quando) return;
-        agOcupa(quando, (dAg && dAg.title) || 'matéria', dAg && dAg.author);   // fecha o horário na hora
-        aprovar(slugAg, quando.toISOString(), qdRelativo(quando.toISOString()));
+        // matéria quente perece: agendar para depois de hoje merece um latido
+        var fimDeHoje = new Date(); fimDeHoje.setHours(23, 59, 59, 999);
+        var conf = (dAg && dAg.quente && quando > fimDeHoje)
+          ? confirmar('Esta matéria está marcada 🔥 QUENTE (publicar hoje, não agendar).\nAgendar para ' +
+              qdRelativo(quando.toISOString()) + ' mesmo assim?', { perigo:true, rotuloOk:'Agendar mesmo assim' })
+          : Promise.resolve(true);
+        conf.then(function(okQ){
+          if(!okQ) return;
+          agOcupa(quando, (dAg && dAg.title) || 'matéria', dAg && dAg.author);   // fecha o horário na hora
+          aprovar(slugAg, quando.toISOString(), qdRelativo(quando.toISOString()));
+        });
       });
       return;
     }
@@ -6549,7 +6601,7 @@ ingressos e divisor."></textarea>
         return '<div class="frow" style="grid-template-columns:1fr auto">' +
           '<span><span class="ti">' + esc(m.title) + '</span>' +
           '<span class="mt">' + esc(m.cat) + ' — ' + esc(m.author) + ' — ' + esc(m.date || '') + '</span></span>' +
-          '<button class="bt" data-edta="' + esc(m.slug) + '" type="button">✎ Editar</button></div>';
+          (podeEditar() ? '<button class="bt" data-edta="' + esc(m.slug) + '" type="button">✎ Editar</button>' : '<span></span>') + '</div>';
       }).join('') : '<div class="vazio-box">Nenhuma matéria com esses filtros</div>';
     });
   }
@@ -8020,7 +8072,7 @@ ingressos e divisor."></textarea>
     SUG.lista = SUG.lista.slice(0, 60);
     ghPut('import/coxia/sugestoes.json', JSON.stringify({ sugestoes: SUG.lista }, null, 1),
       assina('sugere pauta'), SUG.sha)
-      .then(function(){ $('pauta-txt').value = ''; carregarSug(); })
+      .then(function(){ $('pauta-txt').value = ''; toast('Pauta sugerida ✓'); carregarSug(); })
       .catch(function(err){ avisar(msgErro(err)); carregarSug(); });
   });
   document.addEventListener('click', function(e){
@@ -8836,12 +8888,20 @@ ingressos e divisor."></textarea>
     $('rv-manchete').value = (ed.capa && ed.capa.manchete) || '';
     $('rv-capa-cred').value = (ed.capa && ed.capa.credito) || '';
     $('rv-chamadas').value = ((ed.capa && ed.capa.chamadas) || []).join('\n');
+    rvContaChamadas();
     var upEl = $('rv-capa-up');
     if(ed.capa && ed.capa.img){ $('rv-capa-prev').src = ed.capa.img; upEl.classList.add('tem'); }
     else { $('rv-capa-prev').src = ''; upEl.classList.remove('tem'); }
     renderPgs(); renderHist();
     $('rv-pgform').style.display = 'none';
     $('rv-editor').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+  // a contracapa fecha a revista: página nova entra antes dela, não depois
+  function rvInserePagina(pg){
+    var ps = RV.ed.paginas;
+    var ult = ps[ps.length - 1];
+    if(ult && ult.tipo === 'contracapa' && pg.tipo !== 'contracapa') ps.splice(ps.length - 1, 0, pg);
+    else ps.push(pg);
   }
   function renderPgs(){
     var el = $('rv-pgs');
@@ -9002,7 +9062,7 @@ ingressos e divisor."></textarea>
         avisar('Esta página se monta sozinha na hora de publicar — não há o que editar nela.');
         return;
       }
-      RV.ed.paginas.push({ tipo: tipo });
+      rvInserePagina({ tipo: tipo });
       renderPgs();
       return;
     }
@@ -9132,7 +9192,7 @@ ingressos e divisor."></textarea>
         if((pg.tipo === 'cartaz' || pg.tipo === 'patrocinio') && !pg.img){
           avisar('Suba a imagem do ' + (pg.tipo === 'cartaz' ? 'cartaz' : 'patrocínio')); return;
         }
-        if(RV.idx == null) RV.ed.paginas.push(pg);
+        if(RV.idx == null) rvInserePagina(pg);
         $('rv-pgform').style.display = 'none';
         RV.idx = null;
         renderPgs();
@@ -9202,6 +9262,17 @@ ingressos e divisor."></textarea>
       })
       .catch(function(err){ msg.className = 'msg err'; msg.textContent = msgErro(err); throw err; });
   }
+  // contador vivo das chamadas: a 4ª em diante não sai na capa
+  function rvContaChamadas(){
+    var ta = $('rv-chamadas'), ct = $('rv-chamadas-conta');
+    if(!ta || !ct) return;
+    var n = ta.value.split('\n').map(function(x){ return x.trim(); }).filter(Boolean).length;
+    ct.textContent = n + ' de 3 chamadas' +
+      (n > 3 ? ' — ' + (n === 4 ? 'a 4ª NÃO sai' : 'as ' + (n - 3) + ' além das 3 primeiras NÃO saem') + ' na capa' : '');
+    ct.style.color = n > 3 ? 'var(--wine)' : 'var(--ink-soft)';
+    ct.style.fontWeight = n > 3 ? '700' : '400';
+  }
+  (function(){ var ta = $('rv-chamadas'); if(ta) ta.addEventListener('input', rvContaChamadas); })();
   $('rv-salvar').addEventListener('click', function(){ if(RV.ed) salvarEd('salva rascunho'); });
   $('rv-publicar').addEventListener('click', function(){
     if(!RV.ed) return;
