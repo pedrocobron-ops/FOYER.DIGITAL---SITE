@@ -30,7 +30,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação","url":"https://foyer.digital/","logo":"https://foyer.digital/assets/logo/foyer-stacked-gold.png","sameAs":["https://www.youtube.com/@Foyer.digital","https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm"]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Última chance para reviver a infância: 'Chaves: A Exposição' com ingressos promocionais", "description": "A exposição que celebra 40 anos de 'Chaves' no Brasil oferece descontos especiais na reta final; visite a Vila do Chaves e reviva momentos inesquecíveis da infância até 4 de agosto no MIS Experience.", "image": ["https://foyer.digital/assets/acervo/76443e682cca2855.jpg"], "datePublished": "2024-07-23", "dateModified": "2024-07-23", "author": [{"@type": "Person", "name": "Pedro Cantelli"}], "publisher": {"@type": "NewsMediaOrganization", "name": "FOYER", "logo": {"@type": "ImageObject", "url": "https://foyer.digital/assets/logo/foyer-stacked-gold.png"}}, "mainEntityOfPage": "https://foyer.digital/post-ultima-chance-para-reviver-a-infancia-chaves-a-exposicao-com-ingressos-promocion.html", "inLanguage": "pt-BR", "articleSection": "Exposições"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FOYER", "item": "https://foyer.digital/"}, {"@type": "ListItem", "position": 2, "name": "Exposições", "item": "https://foyer.digital/cat-exposicoes.html"}, {"@type": "ListItem", "position": 3, "name": "Última chance para reviver a infância: 'Chaves: A Exposição' com ingressos promocionais"}]}</script>
 </head>
 <body>
-<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<a class="skip-link" href="#conteudo" onclick="var m=document.getElementById('conteudo');if(m)m.setAttribute('tabindex','-1');if(m)m.focus();location.hash='conteudo';return false;">Pular para o conteúdo</a>
 
 <!-- artes de palco (placeholders de foto e capas da revista) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -137,7 +137,6 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
     <a href="revista.html">Revista</a>
     <a href="programas.html">Programas</a>
     <a href="enciclopedia.html">Enciclopédia</a>
-    <a href="agenda.html">Agenda</a>
     <a href="entrevistas.html">Entrevistas</a>
     <a href="busca.html" class="busca">⌕ Buscar</a>
   </div>
@@ -178,6 +177,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 <p>Os ingressos podem ser adquiridos na bilheteria física do <strong>MIS Experience</strong> ou no site <a href="http://www.expochaves.com.br" target="_blank" rel="noopener">www.expochaves.com.br</a>. Às terças-feiras, a entrada é gratuita, com ingressos retirados exclusivamente na bilheteria no dia da visita, sujeito à lotação.</p>
 <p>A exposição <strong>"Chaves: A Exposição"</strong> estará em cartaz até 4 de agosto de 2024, no <strong>MIS Experience</strong>, localizado na Rua Cenno Sbrighi, 250, Água Branca, São Paulo. Os ingressos custam R$30,00 (inteira) e R$15,00 (meia) de quartas a sextas e R$40,00 (inteira) e R$20,00 (meia) aos sábados, domingos e feriados, com entrada gratuita às terças-feiras e na terceira quarta-feira do mês graças a uma parceria com a B3. Os ingressos estão disponíveis no site <a href="http://www.expochaves.com.br" target="_blank" rel="noopener">www.expochaves.com.br</a> e na bilheteria do <strong>MIS Experience</strong>. O horário de visitação é de terças a sextas, domingos e feriados, das 10h às 19h, com permanência até 20h30, e aos sábados das 10h às 20h, com permanência até 21h30. A classificação indicativa é livre.</p>
 <p><strong>"Chaves: A Exposição"</strong> é uma realização do Ministério da Cultura, Governo do Estado de São Paulo, por meio da Secretaria da Cultura, Economia e Indústria Criativas, MIS Experience, Chespirito, Boldly e Deeplab Project, por meio da Lei Federal de Incentivo à Cultura. A mostra conta com o patrocínio de várias empresas e apoios culturais, tornando-se um evento imperdível para todas as idades.</p>
+<aside class="pub-cartaz" data-pub-slot="cartaz" data-pub-chave="pub:cartaz"><em>Publicidade</em><a href="https://www.sympla.com.br/produtor/foyerestudioecomunicacao" target="_blank" rel="noopener sponsored" data-pub="pub:cartaz"><img src="assets/uploads/pub-cartaz-0-msewrsdo.jpg" alt="" loading="lazy"></a></aside>
   </div>
   
   <div class="art-foot" style="border-top:1px solid var(--line);padding-top:16px"><div class="tags" style="align-items:center"><span class="tag wine">Quem aparece nesta matéria</span><a class="tag" href="pessoa-federal-de-incentivo.html">Federal de Incentivo</a><a class="tag" href="pessoa-industria-criativas.html">Indústria Criativas</a><a class="tag" href="pessoa-roberto-gomez-bolanos.html">Roberto Gómez Bolaños</a></div></div>
@@ -242,6 +242,46 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 </main>
 
 
+<style>
+.pub-cortina[hidden]{ display:none !important; }
+.pub-cortina{ position:fixed; inset:0; z-index:120; display:flex; align-items:center;
+  justify-content:center; background:rgba(20,6,3,.78); padding:20px; }
+.pub-cortina .caixa{ position:relative; background:var(--paper); border:3px solid var(--ink);
+  max-width:520px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+.pub-cortina .rotulo{ display:block; font-family:var(--mono); font-size:.52rem; font-weight:700;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); padding:10px 14px 0; }
+/* teto de altura: arte muito em pé não pode empurrar o botão de fechar para
+   fora da tela. O que passar do teto vira margem de papel, nunca corte. */
+.pub-cortina img{ display:block; width:100%; height:auto; object-fit:contain;
+  max-height:calc(100vh - 170px); padding:10px 14px; box-sizing:border-box; }
+.pub-cortina .leg{ padding:0 14px 14px; font-size:.85rem; }
+.pub-cortina .fechar{ position:absolute; top:-14px; right:-14px; width:34px; height:34px;
+  border:2px solid var(--ink); background:var(--gold); color:var(--wine); font-weight:700;
+  cursor:pointer; font-size:1rem; line-height:1; }
+</style>
+<div class="pub-cortina" id="pub-cortina" data-pub-chave="pub:cortina" hidden><div class="caixa"><button class="fechar" type="button" id="pub-cortina-x" aria-label="Fechar">✕</button><span class="rotulo">Publicidade</span><a href="https://www.sympla.com.br/produtor/foyerestudioecomunicacao" target="_blank" rel="noopener sponsored" data-pub="pub:cortina"><img src="assets/uploads/pub-cortina-0-msf37psm.jpg" alt=""></a></div></div>
+<script>
+(function(){
+  var k = 'foyer-pub-cortina-' + new Date().toISOString().slice(0, 10);
+  try{ if(localStorage.getItem(k)) return; }catch(e){}
+  function livre(){ try{ return !!localStorage.getItem('foyer-consent'); }catch(e){ return true; } }
+  var c = document.getElementById('pub-cortina');
+  function entra(){
+    setTimeout(function(){
+      c.hidden = false;
+      if(window.foyerPubVista) window.foyerPubVista(c.getAttribute('data-pub-chave'));
+      // 1x por dia de verdade: vista ao abrir, e não só ao fechar
+      try{ localStorage.setItem(k, '1'); }catch(e){}
+    }, 900);
+  }
+  function fecha(){ c.hidden = true; try{ localStorage.setItem(k, '1'); }catch(e){} }
+  document.getElementById('pub-cortina-x').addEventListener('click', fecha);
+  c.addEventListener('click', function(e){ if(e.target === c) fecha(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !c.hidden) fecha(); });
+  if(livre()) entra();
+  else var iv = setInterval(function(){ if(livre()){ clearInterval(iv); entra(); } }, 600);
+})();
+</script>
 <footer>
   <div class="wrap">
     <div class="foot-cols">
@@ -254,7 +294,6 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
         <a href="noticias.html">Notícias</a>
         <a href="critica.html">Crítica</a>
         <a href="entrevistas.html">Entrevistas</a>
-        <a href="agenda.html">Agenda</a>
       </div>
       <div class="foot-col">
         <h4>Programas</h4>

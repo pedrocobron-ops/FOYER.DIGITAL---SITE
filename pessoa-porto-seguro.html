@@ -30,7 +30,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação","url":"https://foyer.digital/","logo":"https://foyer.digital/assets/logo/foyer-stacked-gold.png","sameAs":["https://www.youtube.com/@Foyer.digital","https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm"]}</script>
 </head>
 <body>
-<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<a class="skip-link" href="#conteudo" onclick="var m=document.getElementById('conteudo');if(m)m.setAttribute('tabindex','-1');if(m)m.focus();location.hash='conteudo';return false;">Pular para o conteúdo</a>
 
 <!-- artes de palco (placeholders de foto e capas da revista) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -137,7 +137,6 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
     <a href="revista.html">Revista</a>
     <a href="programas.html">Programas</a>
     <a href="enciclopedia.html" class="on" aria-current="page">Enciclopédia</a>
-    <a href="agenda.html">Agenda</a>
     <a href="entrevistas.html">Entrevistas</a>
     <a href="busca.html" class="busca">⌕ Buscar</a>
   </div>
@@ -149,7 +148,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
       <div class="tags"><span class="tag wine">Enciclopédia do FOYER</span><span class="tag">nas matérias</span></div>
       <h1>Porto Seguro</h1>
       <div class="art-byline">
-        <span><b>2</b> matéria(s) · <b>0</b> aparição(ões) nos programas</span>
+        <span><b>3</b> matéria(s) · <b>0</b> aparição(ões) nos programas</span>
         <span>No FOYER desde 2026</span>
       </div>
       <div class="share-row" aria-label="Compartilhar este verbete">
@@ -158,6 +157,11 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
       </div>
     </div>
     <div class="agd" style="margin-top:26px">
+    <a class="agd-row" href="post-quanto-vale-batizar-um-teatro-em-sao-paulo.html">
+      <span class="agd-date"><b style="font-size:.9rem">05.08.26</b><small>Citado(a)</small></span>
+      <span class="agd-what"><h3 style="font-size:.95rem">Quanto vale batizar um teatro em São Paulo</h3></span>
+      <span class="tag agd-tag">Matéria</span>
+    </a>
     <a class="agd-row" href="post-quanto-ganha-um-ator-de-teatro-no-brasil.html">
       <span class="agd-date"><b style="font-size:.9rem">04.08.26</b><small>Citado(a)</small></span>
       <span class="agd-what"><h3 style="font-size:.95rem">Quanto ganha um ator de teatro no Brasil</h3></span>
@@ -228,7 +232,6 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
         <a href="noticias.html">Notícias</a>
         <a href="critica.html">Crítica</a>
         <a href="entrevistas.html">Entrevistas</a>
-        <a href="agenda.html">Agenda</a>
       </div>
       <div class="foot-col">
         <h4>Programas</h4>

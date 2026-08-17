@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>/* o tema antes da primeira pintura: a casa abre com a luz da sala em
+todo aparelho, e só fica no Blackout se o leitor tiver apertado o botão. Fica
+aqui, no alto do cabeçalho, para não haver piscada de claro antes do escuro. */
+try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<meta name="description" content="Capulanas põe o ventre em cena">
+<meta name="theme-color" content="#4E0F09">
+<meta name="robots" content="max-image-preview:large">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/logo/pwa-192.png">
+<meta property="og:site_name" content="FOYER">
+<meta property="og:type" content="website">
+<meta property="og:title" content="A Revista do FOYER — Nº 3">
+<meta property="og:description" content="Capulanas põe o ventre em cena">
+<meta property="og:image" content="https://foyer.digital/assets/uploads/revista-ed-3-capa.jpg">
+<meta property="og:url" content="https://foyer.digital/revista-ed-3.html">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<title>A Revista do FOYER — Nº 3</title>
+<link rel="canonical" href="https://foyer.digital/revista-ed-3.html">
+<link rel="alternate" type="application/rss+xml" title="FOYER — Últimas" href="https://foyer.digital/feed.xml">
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="preload" href="fonts/AbrilFatface-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação","url":"https://foyer.digital/","logo":"https://foyer.digital/assets/logo/foyer-stacked-gold.png","sameAs":["https://www.youtube.com/@Foyer.digital","https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm"]}</script>
+</head>
+<body>
+<a class="skip-link" href="#conteudo" onclick="var m=document.getElementById('conteudo');if(m)m.setAttribute('tabindex','-1');if(m)m.focus();location.hash='conteudo';return false;">Pular para o conteúdo</a>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <!-- a cortina termina na ribalta; abaixo dela, o piso do palco -->
+      <rect y="348" width="600" height="52" fill="#2B0805"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <!-- a pessoa que se destaca na plateia: sentada NUMA cadeira da malha (62x44, centro 31+62k / 28+44m) -->
+      <circle cx="341" cy="248" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <!-- teatro de arena: plateia completa e alinhada dos dois lados, um ator só no centro -->
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <g fill="#1F0805">
+        <circle cx="30" cy="34" r="12"/><circle cx="84" cy="34" r="12"/><circle cx="138" cy="34" r="12"/><circle cx="192" cy="34" r="12"/><circle cx="246" cy="34" r="12"/><circle cx="300" cy="34" r="12"/><circle cx="354" cy="34" r="12"/><circle cx="408" cy="34" r="12"/><circle cx="462" cy="34" r="12"/><circle cx="516" cy="34" r="12"/><circle cx="570" cy="34" r="12"/>
+        <circle cx="30" cy="78" r="12"/><circle cx="84" cy="78" r="12"/><circle cx="138" cy="78" r="12"/><circle cx="192" cy="78" r="12"/><circle cx="246" cy="78" r="12"/><circle cx="300" cy="78" r="12"/><circle cx="354" cy="78" r="12"/><circle cx="408" cy="78" r="12"/><circle cx="462" cy="78" r="12"/><circle cx="516" cy="78" r="12"/><circle cx="570" cy="78" r="12"/>
+        <circle cx="30" cy="322" r="12"/><circle cx="84" cy="322" r="12"/><circle cx="138" cy="322" r="12"/><circle cx="192" cy="322" r="12"/><circle cx="246" cy="322" r="12"/><circle cx="300" cy="322" r="12"/><circle cx="354" cy="322" r="12"/><circle cx="408" cy="322" r="12"/><circle cx="462" cy="322" r="12"/><circle cx="516" cy="322" r="12"/><circle cx="570" cy="322" r="12"/>
+        <circle cx="30" cy="366" r="12"/><circle cx="84" cy="366" r="12"/><circle cx="138" cy="366" r="12"/><circle cx="192" cy="366" r="12"/><circle cx="246" cy="366" r="12"/><circle cx="300" cy="366" r="12"/><circle cx="354" cy="366" r="12"/><circle cx="408" cy="366" r="12"/><circle cx="462" cy="366" r="12"/><circle cx="516" cy="366" r="12"/><circle cx="570" cy="366" r="12"/>
+      </g>
+      <rect x="120" y="136" width="360" height="128" fill="#380A06" stroke="#CEB26A" stroke-width="3"/>
+      <ellipse cx="300" cy="200" rx="72" ry="34" fill="#E9CB85" opacity=".16"/>
+      <circle cx="300" cy="200" r="13" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <a href="anuncie.html">Anuncie</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html" class="on" aria-current="page">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<style>
+/* ============ A REVISTA — leitor em formato de página impressa ============ */
+.rv-stage{ margin:26px auto 90px; padding:0 14px; --rv-papel:#F6F1E6; }
+html[data-theme="dark"] .rv-stage{ --rv-papel:var(--paper); }
+/* no desktop largo, a revista abre em página dupla */
+.rv-palco{ position:relative; overflow:hidden; }
+.rv-book{ position:relative; display:flex; justify-content:center; align-items:stretch;
+  perspective:2600px; margin:0; width:max-content; transform-origin:top left; }
+.rv-pg{ display:none; border:3px solid var(--ink); background:var(--rv-papel);
+  width:720px; height:972px; position:relative; overflow:hidden; animation:rvin .3s ease;
+  flex-shrink:0; backface-visibility:hidden; }
+.rv-pg.on{ display:flex; flex-direction:column; }
+@keyframes rvin{ from{ opacity:0; transform:translateX(16px);} to{ opacity:1; transform:none;} }
+/* lado esquerdo e direito da página dupla */
+body.rv-duplo .rv-pg.on.pg-l{ border-right-width:1.5px; }
+body.rv-duplo .rv-pg.on.pg-r{ border-left-width:1.5px; }
+/* sombra da dobra central */
+body.rv-duplo .rv-pg.on.pg-l::after{ content:''; position:absolute; top:0; bottom:0; right:0; width:56px;
+  background:linear-gradient(270deg, rgba(35,8,5,.16), transparent); pointer-events:none; z-index:8; }
+body.rv-duplo .rv-pg.on.pg-r::after{ content:''; position:absolute; top:0; bottom:0; left:0; width:56px;
+  background:linear-gradient(90deg, rgba(35,8,5,.13), transparent); pointer-events:none; z-index:8; }
+/* grão de papel de revista (sutil; some na impressão) */
+.rv-pg::before{ content:''; position:absolute; inset:0; z-index:9; pointer-events:none;
+  opacity:.5; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.38 0 0 0 0 0.32 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23g)'/%3E%3C/svg%3E"); }
+html[data-theme="dark"] .rv-pg::before{ opacity:.25; }
+/* a virada de página */
+.rv-pg.vira-sai-dir{ transform-origin:left center; animation:viraSaiDir .24s ease-in forwards; }
+.rv-pg.vira-entra-dir{ transform-origin:left center; animation:viraEntraDir .26s ease-out; }
+.rv-pg.vira-sai-esq{ transform-origin:right center; animation:viraSaiEsq .24s ease-in forwards; }
+.rv-pg.vira-entra-esq{ transform-origin:right center; animation:viraEntraEsq .26s ease-out; }
+@keyframes viraSaiDir{ from{ transform:rotateY(0); filter:brightness(1);} to{ transform:rotateY(-88deg); filter:brightness(.72);} }
+@keyframes viraEntraDir{ from{ transform:rotateY(88deg); filter:brightness(.72);} to{ transform:rotateY(0); filter:brightness(1);} }
+@keyframes viraSaiEsq{ from{ transform:rotateY(0); filter:brightness(1);} to{ transform:rotateY(88deg); filter:brightness(.72);} }
+@keyframes viraEntraEsq{ from{ transform:rotateY(-88deg); filter:brightness(.72);} to{ transform:rotateY(0); filter:brightness(1);} }
+@media (prefers-reduced-motion:reduce){
+  .rv-pg.vira-sai-dir,.rv-pg.vira-entra-dir,.rv-pg.vira-sai-esq,.rv-pg.vira-entra-esq{ animation:none; }
+  .rv-pg{ animation:none; } }
+/* convite no canto: a pontinha da página dobra ao passar o mouse */
+.rv-canto{ position:absolute; right:0; bottom:0; width:64px; height:64px; z-index:11; cursor:pointer;
+  background:linear-gradient(315deg, var(--paper-2) 0%, var(--paper-2) 48%, transparent 50%);
+  clip-path:polygon(100% 0, 100% 100%, 0 100%); opacity:0; transition:opacity .2s, transform .2s;
+  transform:translate(8px,8px); border:0; padding:0; }
+.rv-pg:hover .rv-canto{ opacity:.85; transform:none; }
+.rv-canto:focus-visible{ opacity:1; transform:none; outline:2px solid var(--gold); }
+/* sem mouse (celular), a pontinha fica sempre à vista */
+@media (hover:none){ .rv-canto{ opacity:.55; transform:none; } }
+/* a espessura: as folhas que faltam (direita) e as já lidas (esquerda) */
+.rv-lombo{ position:absolute; top:8px; bottom:8px; width:0; z-index:0; pointer-events:none;
+  background:repeating-linear-gradient(90deg, #d5cbb2 0 1px, #f6f1e6 1px 3px);
+  border:1px solid var(--ink); border-left:0; transition:width .3s ease; }
+.rv-lombo.esq{ right:100%; border:1px solid var(--ink); border-right:0;
+  background:repeating-linear-gradient(270deg, #d5cbb2 0 1px, #f6f1e6 1px 3px); }
+.rv-lombo.dir{ left:100%; }
+html[data-theme="dark"] .rv-lombo{ background:repeating-linear-gradient(90deg, #1c1712 0 1px, #2e2820 1px 3px); }
+html[data-theme="dark"] .rv-lombo.esq{ background:repeating-linear-gradient(270deg, #1c1712 0 1px, #2e2820 1px 3px); }
+/* a fita marcadora */
+.rv-fita{ position:absolute; top:-3px; right:8px; width:16px; height:52px; z-index:12; pointer-events:none;
+  background:linear-gradient(180deg, var(--gold) 0%, #b89a55 100%);
+  clip-path:polygon(0 0, 100% 0, 100% 100%, 50% 84%, 0 100%);
+  box-shadow:0 3px 8px rgba(0,0,0,.3); }
+/* o aviso da fita (volta de leitura) */
+.rv-toast{ position:fixed; left:50%; bottom:86px; transform:translateX(-50%); z-index:60;
+  background:var(--wine); color:var(--gold); border:2px solid var(--gold); padding:12px 20px;
+  font-family:var(--mono); font-size:.62rem; letter-spacing:.14em; text-transform:uppercase;
+  box-shadow:0 8px 30px rgba(0,0,0,.4); animation:rvToast 4.2s ease forwards; }
+@keyframes rvToast{ 0%{ opacity:0; transform:translate(-50%,12px);} 8%{ opacity:1; transform:translate(-50%,0);}
+  86%{ opacity:1; } 100%{ opacity:0; } }
+/* sala de leitura: só a revista, luz apagada */
+body.rv-sala{ background:#17100c; }
+body.rv-sala .warn, body.rv-sala nav.main, body.rv-sala .ticker, body.rv-sala footer,
+body.rv-sala .band, body.rv-sala .ad-slot, body.rv-sala #ck-bar, body.rv-sala .cookie-bar{ display:none !important; }
+body.rv-sala .rv-stage{ margin-top:20px; }
+body.rv-sala .rv-lombo{ border-color:#000; }
+#rv-sala-sair{ display:none; position:fixed; top:14px; right:14px; z-index:70; border:2px solid var(--gold);
+  background:rgba(23,16,12,.85); color:var(--gold); font-family:var(--mono); font-size:.6rem;
+  letter-spacing:.14em; text-transform:uppercase; padding:10px 14px; cursor:pointer; }
+body.rv-sala #rv-sala-sair{ display:block; }
+#rv-sala-sair:hover{ background:var(--gold); color:var(--wine); }
+.rv-folio{ position:absolute; left:0; right:0; bottom:0; display:flex; justify-content:space-between;
+  align-items:center; padding:10px 62px; border-top:1.5px solid var(--line);
+  font-family:var(--mono); font-size:.52rem; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--ink-soft); background:var(--rv-papel); z-index:9; }
+.rv-folio b{ font-family:var(--didone); font-weight:400; font-size:1.05rem; color:var(--ink); }
+.rv-kicker{ display:flex; justify-content:space-between; align-items:center;
+  border-bottom:2px solid var(--ink); padding:12px 22px; font-family:var(--mono);
+  font-size:.54rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; }
+.rv-kicker .tagz{ background:var(--wine); color:var(--gold); padding:4px 10px; }
+
+/* ---------- CAPA: três zonas numa grade de 24 (cabeçalho, foto, texto) ---------- */
+.rv-capa2{ background:var(--rv-papel); }
+.rv-capa2 .nameplate{ padding:20px 24px 0; }
+.rv-capa2 .nameplate img{ width:100%; display:block; }
+.rv-capa2 .linha-ed{ display:flex; justify-content:space-between; align-items:center;
+  margin:12px 24px 0; padding:7px 2px; border-top:2px solid var(--ink);
+  border-bottom:2px solid var(--ink);
+  font-family:var(--mono); font-size:.55rem; font-weight:600;
+  letter-spacing:.24em; text-transform:uppercase; color:var(--wine); }
+.rv-capa2 .moldura{ flex:1; min-height:440px; margin:14px 24px 0; position:relative;
+  border:3px solid var(--ink); background:#14100d; }
+.rv-capa2 .moldura img{ position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:center 25%; }
+.rv-capa2 .cred{ position:absolute; right:0; bottom:0; font-family:var(--mono); font-size:.5rem;
+  letter-spacing:.14em; text-transform:uppercase; color:#efe8da;
+  background:rgba(20,6,3,.72); padding:5px 9px; }
+.rv-capa2 .manchete{ padding:16px 24px 0; flex:none; }
+.rv-capa2 .manchete h2{ font-family:var(--didone); font-weight:400; color:var(--ink);
+  font-size:2.2rem; line-height:1.03; margin:0; display:-webkit-box;
+  -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.rv-capa2 .faixa{ display:flex; flex-direction:column; justify-content:center; gap:6px;
+  margin:14px 24px 0; height:82px; overflow:hidden; padding:8px 2px 6px;
+  border-top:1.5px solid var(--line);
+  color:var(--ink); font-family:var(--mono); font-size:.56rem; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; }
+.rv-capa2 .faixa .ch{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.rv-capa2 .faixa i{ font-style:normal; color:var(--wine); margin-right:8px; }
+.rv-capa2 .rodape-capa{ display:flex; justify-content:space-between; align-items:center;
+  margin:0 24px; padding:10px 2px 18px; border-top:2px solid var(--ink);
+  color:var(--wine); font-family:var(--mono); font-size:.52rem; letter-spacing:.2em;
+  text-transform:uppercase; }
+.rv-barcode{ width:74px; height:26px; background:repeating-linear-gradient(90deg,
+  var(--wine) 0 2px, transparent 2px 4px, var(--wine) 4px 5px, transparent 5px 8px,
+  var(--wine) 8px 11px, transparent 11px 13px); }
+
+
+/* ---------- SUMÁRIO ---------- */
+.rv-sum{ background:var(--rv-papel); }
+.rv-sum .cab{ padding:26px 22px 14px; border-bottom:3px solid var(--ink); position:relative; }
+.rv-sum .cab h3{ font-family:var(--didone); font-weight:400; font-size:2.6rem; margin:0; line-height:1; }
+.rv-sum .cab span{ font-family:var(--mono); font-size:.54rem; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--ink-soft); }
+.rv-sum .arte{ position:absolute; right:16px; top:14px; width:84px; height:60px;
+  border:2px solid var(--ink); opacity:.9; }
+.rv-sum ol{ list-style:none; margin:0; padding:8px 0 60px; flex:1; overflow:hidden; }
+.rv-sum li{ display:grid; grid-template-columns:60px 1fr; gap:12px; align-items:baseline;
+  padding:6px 22px; border-bottom:1px solid var(--line); }
+.rv-sum.cheia li{ padding:4px 22px; }
+/* a linha do sumário é um atalho: precisa parecer clicável e mostrar o foco */
+.rv-sum li[data-ir]{ cursor:pointer; }
+.rv-sum li[data-ir]:hover{ background:rgba(206,178,106,.16); }
+.rv-sum li[data-ir]:focus-visible{ outline:3px solid var(--gold); outline-offset:-3px; }
+.rv-sum.cheia .pt{ font-size:.72rem; }
+.rv-sum.cheia .pnum{ font-size:1.2rem; }
+.rv-sum .pnum{ font-family:var(--didone); font-size:1.45rem; color:var(--wine); text-align:right; }
+html[data-theme="dark"] .rv-sum .pnum{ color:var(--gold); }
+.rv-sum .pt{ font-weight:800; text-transform:uppercase; font-size:.8rem; line-height:1.22; }
+.rv-sum .ps{ display:block; font-family:var(--mono); font-size:.54rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-soft); margin-top:3px; }
+
+/* ---------- EDITORIAL ---------- */
+.rv-edi{ }
+.rv-edi .miolo{ padding:26px 30px 64px; flex:1; overflow:hidden; }
+.rv-edi h3{ font-family:var(--didone); font-weight:400; font-size:2rem; line-height:1.05;
+  margin:0 0 18px; }
+.rv-edi .txt{ column-count:2; column-gap:26px; column-rule:1px solid var(--line);
+  font-size:.8rem; line-height:1.75; text-align:justify; hyphens:auto; }
+.rv-edi .txt p{ margin:0 0 12px; }
+.rv-edi .txt p:first-child::first-letter{ font-family:var(--didone); font-size:3.1em;
+  float:left; line-height:.8; padding:4px 8px 0 0; color:var(--wine); }
+.rv-edi .miolo{ display:flex; flex-direction:column; }
+.rv-edi .arte-edi{ margin-top:18px; width:100%; flex:1; min-height:120px;
+  border:2px solid var(--ink); opacity:.9; }
+.rv-edi .ass{ font-family:var(--mono); font-size:.6rem; letter-spacing:.18em;
+  text-transform:uppercase; margin-top:16px; }
+
+/* ---------- MATÉRIA (a íntegra, quebrada em páginas de tamanho padrão) ---------- */
+.rv-mat .foto{ position:relative; aspect-ratio:16/9; flex-shrink:0; border-bottom:3px solid var(--ink); }
+.rv-mat .foto img{ width:100%; height:100%; object-fit:cover; object-position:center 22%; }
+.rv-mat .foto .cred{ position:absolute; right:0; bottom:0; font-family:var(--mono); font-size:.5rem;
+  letter-spacing:.14em; text-transform:uppercase; color:#efe8da;
+  background:rgba(20,6,3,.72); padding:5px 9px; z-index:2; }
+.rv-mat .foto .cat{ position:absolute; left:0; top:0; background:var(--gold); color:var(--wine);
+  font-family:var(--mono); font-size:.56rem; font-weight:700; letter-spacing:.22em;
+  text-transform:uppercase; padding:7px 14px; border-right:2px solid var(--ink);
+  border-bottom:2px solid var(--ink); }
+.rv-mat .miolo{ padding:20px 26px 64px; flex:1; display:flex; flex-direction:column; overflow:hidden; }
+.rv-mat .cont-tit{ font-family:var(--mono); font-size:.6rem; font-weight:700; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--wine); border-bottom:2px solid var(--gold);
+  padding-bottom:8px; margin:0 0 14px; }
+html[data-theme="dark"] .rv-mat .cont-tit{ color:var(--gold); }
+.rv-mat.aperta .txt{ font-size:.82rem; line-height:1.7; }
+.rv-mat.aperta2 .txt{ font-size:.8rem; line-height:1.64; }
+.rv-mat .arte-fim{ display:none; }
+.rv-mat.compl .arte-fim{ display:block; flex:1; min-height:110px; width:100%;
+  border:2px solid var(--ink); opacity:.9; margin:16px 0 4px; }
+.rv-mat .segue{ margin-top:auto; padding-top:12px; font-family:var(--mono); font-size:.56rem;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); }
+.rv-mat h3{ font-family:var(--didone); font-weight:400; font-size:1.85rem;
+  line-height:1.02; margin:0 0 10px; }
+.rv-mat .linhafina{ font-size:.92rem; line-height:1.5; color:var(--ink);
+  border-left:4px solid var(--gold); padding-left:12px; margin:0 0 14px; }
+.rv-mat .olho{ font-style:italic; font-size:.88rem; line-height:1.65; color:var(--ink-soft);
+  margin:0 0 14px; }
+.rv-mat .txt{ font-size:.84rem; line-height:1.78; text-align:justify; hyphens:auto; }
+.rv-mat .txt p{ margin:0 0 12px; }
+.rv-mat:not(.cont) .txt > p:first-child::first-letter{ font-family:var(--didone); font-size:3em;
+  float:left; line-height:.8; padding:3px 7px 0 0; color:var(--wine); }
+.rv-mat .txt h2{ font-family:var(--didone); font-weight:400; font-size:1.4rem;
+  margin:20px 0 8px; line-height:1.1; text-align:left; }
+/* a Abril Fatface não tem negrito: strong dentro de título viraria falso-bold */
+.rv-mat .txt h2 strong, .rv-mat .txt h2 b, .rv-mat h3 strong, .rv-mat h3 b{ font-weight:400; }
+.rv-mat .txt figure{ margin:16px 0; }
+.rv-mat .txt img{ max-width:100%; height:auto; display:block; border:2px solid var(--ink); }
+.rv-mat .txt figcaption{ font-family:var(--mono); font-size:.54rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-soft); margin-top:6px; }
+.rv-mat .txt blockquote{ border-left:4px solid var(--gold); margin:14px 0;
+  padding:4px 0 4px 14px; font-style:italic; font-size:.9rem; }
+/* a meia página vendida: o pé da última página da matéria, sempre rotulada.
+   Ela sangra até a borda do papel (os -26px anulam a margem da coluna de
+   texto), então tem a MESMA LARGURA da página inteira e METADE da altura:
+   714×448 contra 714×896. É o que o nome promete ao anunciante. */
+.rv-mat .rv-meia{ margin:auto -26px 0; border-top:2px solid var(--ink);
+  border-bottom:2px solid var(--ink); padding:10px 0 12px; }
+.rv-mat .rv-meia em{ display:block; font-style:normal; font-family:var(--mono); font-size:.5rem;
+  font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft);
+  margin-bottom:8px; padding:0 26px; }
+.rv-mat .rv-meia img{ display:block; width:100%; height:448px; object-fit:contain; }
+.rv-mat .rv-meia span{ display:block; font-size:.74rem; color:var(--ink-soft); margin-top:6px; padding:0 26px; }
+.rv-mat .leia{ margin-top:auto; padding-top:12px; }
+/* com publicidade no pé, o botão anda junto com ela: nada de vão no meio da página */
+.rv-mat .rv-meia + .leia{ margin-top:0; }
+.rv-mat .leia a{ display:inline-block; border:2px solid var(--wine); background:var(--wine);
+  color:var(--gold); text-decoration:none; font-family:var(--mono); font-weight:600;
+  font-size:.56rem; letter-spacing:.18em; text-transform:uppercase; padding:10px 16px; }
+.rv-mat .leia a:hover{ background:var(--gold); color:var(--wine); }
+
+/* ---------- NA TELA (programas da semana) ---------- */
+.rv-tela{ background:var(--wine); color:var(--paper); }
+.rv-tela .cab{ padding:24px 22px 12px; border-bottom:2px solid var(--gold); }
+.rv-tela .cab em{ display:block; font-style:normal; font-family:var(--mono); font-size:.54rem;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--gold); }
+.rv-tela .cab h3{ font-family:var(--didone); font-weight:400; color:var(--gold);
+  font-size:2.4rem; margin:4px 0 0; line-height:1; }
+.rv-tela .grade{ flex:1; overflow:hidden; display:grid; grid-template-columns:1fr 1fr;
+  gap:12px; padding:16px 22px 60px; align-content:start; }
+.rv-tela .ep{ border:2px solid var(--gold); text-decoration:none; color:var(--paper);
+  background:rgba(0,0,0,.25); display:block; }
+.rv-tela .ep img{ width:100%; aspect-ratio:16/9; object-fit:cover; display:block;
+  border-bottom:2px solid var(--gold); }
+.rv-tela .ep .pr{ font-family:var(--mono); font-size:.5rem; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--gold); padding:8px 10px 2px; display:block; }
+.rv-tela .ep .tt{ font-size:.68rem; font-weight:700; line-height:1.3; padding:0 10px 10px; display:block; }
+.rv-tela .ep:hover{ background:rgba(206,178,106,.15); }
+.rv-tela .canal-cta{ padding:0 22px 54px; }
+.rv-tela .canal-cta a{ display:inline-block; border:2px solid var(--gold); color:var(--gold);
+  text-decoration:none; font-family:var(--mono); font-size:.58rem; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase; padding:11px 18px; }
+.rv-tela .canal-cta a:hover{ background:var(--gold); color:var(--wine); }
+.rv-tela .rv-folio{ background:var(--wine); color:var(--gold); border-top-color:var(--gold); }
+.rv-tela .rv-folio b{ color:var(--gold); }
+/* semana curta: até 3 episódios ganham cartão horizontal com a capa INTEIRA */
+.rv-tela .ep .mt{ display:contents; }
+.rv-tela .grade.poucos{ grid-template-columns:1fr; align-content:center; gap:16px; }
+.rv-tela .grade.poucos .ep{ display:flex; align-items:stretch; }
+.rv-tela .grade.poucos .ep img{ width:300px; height:auto; aspect-ratio:16/9; object-fit:cover;
+  flex-shrink:0; border-right:2px solid var(--gold); }
+.rv-tela .grade.poucos .ep .mt{ display:flex; flex-direction:column; justify-content:center;
+  gap:7px; padding:12px 18px; }
+.rv-tela .grade.poucos .ep .pr{ font-size:.56rem; padding:0; }
+.rv-tela .grade.poucos .ep .tt{ font-size:.92rem; line-height:1.35; padding:0; }
+/* thumb que não carrega mostra o pano da casa, não um ícone quebrado */
+.rv-tela .ep img{ background:linear-gradient(135deg, #3a0b07 0 40%, #5a1610 40% 60%, #3a0b07 60%);
+  color:transparent; }
+
+/* ---------- PROGRAMA DE SALA (o playbill da estreia) ---------- */
+.rv-prog{ background:var(--rv-papel); }
+.rv-prog .borda{ flex:1; margin:18px; border:3px double var(--gold); outline:1px solid var(--gold);
+  outline-offset:-9px; padding:26px 28px 60px; display:flex; flex-direction:column; overflow:hidden; }
+.rv-prog em.rot{ font-style:normal; font-family:var(--mono); font-size:.54rem; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--wine); text-align:center; }
+html[data-theme="dark"] .rv-prog em.rot{ color:var(--gold); }
+.rv-prog h3{ font-family:var(--didone); font-weight:400; font-size:2rem; line-height:1.05;
+  text-align:center; margin:10px 0 4px; }
+.rv-prog .sub{ text-align:center; font-size:.85rem; color:var(--ink-soft); margin:0 0 6px; }
+.rv-prog .sinopse{ text-align:center; font-style:italic; font-size:.86rem; line-height:1.6;
+  color:var(--ink-soft); max-width:440px; margin:10px auto 4px; }
+.rv-prog .colunas{ margin-bottom:auto; }
+.rv-prog .colunas{ display:grid; grid-template-columns:1fr 1fr; gap:0 26px; margin-top:14px; }
+.rv-prog h4{ font-family:var(--mono); font-size:.56rem; font-weight:700; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--wine); border-bottom:2px solid var(--gold);
+  padding-bottom:5px; margin:10px 0 8px; }
+html[data-theme="dark"] .rv-prog h4{ color:var(--gold); }
+.rv-prog ul{ list-style:none; margin:0; padding:0; }
+.rv-prog .elenco li{ padding:4px 0; font-size:.8rem; border-bottom:1px dotted rgba(78,15,9,.25); }
+.rv-prog .elenco li i{ font-style:normal; color:var(--ink-soft); display:block; font-size:.68rem; }
+.rv-prog .fichat li{ display:flex; justify-content:space-between; gap:10px; padding:4px 0;
+  font-size:.74rem; border-bottom:1px dotted rgba(78,15,9,.25); }
+.rv-prog .fichat em{ font-style:normal; color:var(--ink-soft); flex-shrink:0; }
+.rv-prog .fichat span{ text-align:right; font-weight:600; }
+.rv-prog .serv{ margin-top:auto; padding-top:14px; text-align:center; font-family:var(--mono);
+  font-size:.6rem; letter-spacing:.08em; color:var(--ink-soft); }
+
+/* ---------- CARTAS DA PLATEIA ---------- */
+.rv-cartas .cab{ padding:24px 22px 12px; border-bottom:3px solid var(--ink); }
+.rv-cartas .cab em{ display:block; font-style:normal; font-family:var(--mono); font-size:.54rem;
+  letter-spacing:.26em; text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-cartas .cab em{ color:var(--gold); }
+.rv-cartas .cab h3{ font-family:var(--didone); font-weight:400; font-size:2.3rem; margin:4px 0 0; line-height:1; }
+.rv-cartas .lista{ flex:1; padding:16px 22px; display:flex; flex-direction:column; gap:14px; overflow:hidden; }
+.rv-cartas .carta{ border-left:4px solid var(--gold); padding:8px 0 8px 16px; }
+.rv-cartas .carta .tx{ font-size:.85rem; line-height:1.7; margin:0; }
+.rv-cartas .carta .ass{ font-family:var(--mono); font-size:.56rem; font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--wine); margin:8px 0 0; }
+html[data-theme="dark"] .rv-cartas .carta .ass{ color:var(--gold); }
+.rv-cartas .carta .resp{ margin:8px 0 0; padding:8px 12px; background:rgba(206,178,106,.14);
+  font-size:.78rem; line-height:1.6; }
+.rv-cartas .carta .resp span{ display:block; font-family:var(--mono); font-size:.52rem;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); margin-top:4px; }
+.rv-cartas .convite{ margin:0 22px 54px; padding-top:10px; border-top:2px solid var(--ink);
+  font-family:var(--mono); font-size:.58rem; letter-spacing:.06em; color:var(--ink-soft); }
+
+/* ---------- TRÊS PERGUNTAS (exclusiva da revista) ---------- */
+.rv-3p .miolo{ flex:1; padding:20px 28px 60px; display:flex; flex-direction:column; overflow:hidden; }
+.rv-3p em.rot{ font-style:normal; font-family:var(--mono); font-size:.56rem; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-3p em.rot{ color:var(--gold); }
+.rv-3p h3{ font-family:var(--didone); font-weight:400; font-size:2.4rem; line-height:1; margin:6px 0 4px; }
+.rv-3p .quem{ font-size:.85rem; color:var(--ink-soft); margin:0 0 14px; }
+.rv-3p .par{ margin-bottom:14px; }
+.rv-3p .pp{ font-family:var(--didone); font-size:1.15rem; line-height:1.25; margin:0 0 6px; color:var(--wine); }
+html[data-theme="dark"] .rv-3p .pp{ color:var(--gold); }
+.rv-3p .pp b{ font-weight:400; color:var(--gold); margin-right:4px; }
+.rv-3p .rr{ font-size:.88rem; line-height:1.7; margin:0; border-left:3px solid var(--gold); padding-left:14px; }
+.rv-3p .nota{ margin-top:auto; padding-top:12px; font-family:var(--mono); font-size:.54rem;
+  letter-spacing:.1em; color:var(--ink-soft); }
+
+/* ---------- O BILHETE DA SEMANA (abre a agenda) ---------- */
+.rv-bsem{ display:flex; align-items:stretch; margin:14px 22px 4px; position:relative;
+  border:2px dashed var(--wine); background:rgba(206,178,106,.1); }
+.rv-bsem .bs-esq{ flex:1; padding:12px 16px; display:flex; flex-direction:column; gap:3px; }
+.rv-bsem .bs-esq em{ font-style:normal; font-family:var(--mono); font-size:.5rem; letter-spacing:.26em;
+  text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-bsem .bs-esq em{ color:var(--gold); }
+.rv-bsem .bs-esq b{ font-family:var(--didone); font-weight:400; font-size:1.2rem; line-height:1.1; }
+.rv-bsem .bs-esq span{ font-family:var(--mono); font-size:.58rem; color:var(--ink-soft); }
+.rv-bsem .bs-esq i{ font-style:italic; font-size:.74rem; line-height:1.45; color:var(--ink-soft); margin-top:2px; }
+.rv-bsem .bs-dir{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
+  padding:10px 14px; border-left:2px dashed var(--wine); min-width:96px; text-align:center; }
+.rv-bsem .bs-dir em{ font-style:normal; font-family:var(--mono); font-size:.48rem; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--ink-soft); }
+.rv-bsem .bs-dir strong{ font-family:var(--mono); font-size:.6rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-bsem .bs-dir strong{ color:var(--gold); }
+
+/* ---------- ANUNCIE (expediente) ---------- */
+.rv-exp .anuncie{ margin-top:18px; border:2px solid var(--wine); padding:12px 14px; }
+.rv-exp .anuncie em{ display:block; font-style:normal; font-family:var(--mono); font-size:.56rem;
+  font-weight:700; letter-spacing:.24em; text-transform:uppercase; color:var(--wine); margin-bottom:5px; }
+html[data-theme="dark"] .rv-exp .anuncie{ border-color:var(--gold); }
+html[data-theme="dark"] .rv-exp .anuncie em{ color:var(--gold); }
+.rv-exp .anuncie p{ margin:0; font-size:.72rem; line-height:1.55; }
+.rv-exp .anuncie a{ color:var(--wine); font-weight:700; }
+html[data-theme="dark"] .rv-exp .anuncie a{ color:var(--gold); }
+
+/* ---------- AGENDA DA SEMANA ---------- */
+.rv-agd .cab{ padding:24px 22px 12px; border-bottom:3px solid var(--ink); }
+.rv-agd .cab em{ display:block; font-style:normal; font-family:var(--mono); font-size:.54rem;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-agd .cab em{ color:var(--gold); }
+.rv-agd .cab h3{ font-family:var(--didone); font-weight:400; font-size:2.3rem; margin:4px 0 0; line-height:1; }
+.rv-agd .cab h3 .cid{ display:block; color:var(--wine); font-size:1.5rem; margin-top:2px; }
+html[data-theme="dark"] .rv-agd .cab h3 .cid{ color:var(--gold); }
+.rv-agd .lista{ flex:1; overflow:hidden; padding:6px 0 60px; }
+.rv-agd .ag-item{ display:grid; grid-template-columns:74px 1fr; gap:14px; align-items:center;
+  padding:12px 22px; border-bottom:1px solid var(--line); text-decoration:none; color:var(--ink); }
+.rv-agd .ag-item:hover{ background:var(--paper-2); }
+.rv-agd .ag-dia{ font-family:var(--didone); font-size:1.35rem; color:var(--wine); text-align:right;
+  border-right:3px solid var(--gold); padding-right:12px; }
+html[data-theme="dark"] .rv-agd .ag-dia{ color:var(--gold); }
+.rv-agd .ag-oq b{ display:block; font-size:.85rem; line-height:1.3; font-weight:800; }
+.rv-agd .ag-item.cur{ align-items:start; }
+.rv-agd .ag-item.cur .ag-dia{ font-size:.98rem; line-height:1.25; padding-top:2px; }
+.rv-agd .ag-oq i{ display:block; font-style:normal; font-size:.76rem; line-height:1.5;
+  color:var(--ink-soft); margin-top:3px; }
+.rv-agd .ag-oq small{ display:block; font-family:var(--mono); font-size:.56rem; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--ink-soft); margin-top:3px; }
+.rv-agd .ag-vazio{ padding:22px; font-size:.9rem; color:var(--ink-soft); }
+.rv-agd .ag-cta{ padding:10px 22px 54px; }
+.rv-agd .ag-cta a{ display:inline-block; border:2px solid var(--wine); color:var(--wine);
+  text-decoration:none; font-family:var(--mono); font-size:.58rem; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase; padding:11px 16px; }
+.rv-agd .ag-cta a:hover{ background:var(--wine); color:var(--gold); }
+
+/* ---------- ENTRE MESTRES (frase célebre) ---------- */
+/* o ator sob o refletor cobre a página como marca d'água; a frase, legível, por cima */
+.rv-mestre .fundo{ position:absolute; inset:0; width:100%; height:100%; opacity:.2;
+  z-index:0; pointer-events:none; }
+.rv-mestre .rv-kicker, .rv-mestre .miolo, .rv-mestre .rv-folio{ position:relative; z-index:1; }
+.rv-mestre .miolo{ flex:1; display:flex; flex-direction:column; align-items:center;
+  justify-content:center; text-align:center; padding:6% 9% 64px; }
+.rv-mestre .aspa{ font-family:var(--didone); font-size:6.5rem; line-height:.55; color:var(--gold); }
+.rv-mestre .fr{ font-family:var(--didone); font-weight:400; font-size:clamp(1.5rem,4.6vw,2.4rem);
+  line-height:1.16; margin-top:8px; }
+.rv-mestre .au{ font-family:var(--mono); font-size:.64rem; font-weight:700; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--wine); margin-top:26px; }
+html[data-theme="dark"] .rv-mestre .au{ color:var(--gold); }
+.rv-mestre .bio{ font-size:.8rem; color:var(--ink-soft); margin-top:6px; }
+
+/* ---------- CITAÇÃO ---------- */
+.rv-cit{ background:var(--wine); color:var(--gold); align-items:center; justify-content:center;
+  text-align:center; padding:8% 9%; }
+.rv-cit .aspa{ font-family:var(--didone); font-size:7rem; line-height:.6; opacity:.5; }
+.rv-cit .fr{ font-family:var(--didone); font-size:2.2rem; line-height:1.14; }
+.rv-cit .au{ font-family:var(--mono); font-size:.58rem; letter-spacing:.22em;
+  text-transform:uppercase; margin-top:26px; color:var(--paper); }
+.rv-cit .arte{ width:120px; height:80px; border:2px solid var(--gold); margin-top:30px; opacity:.85; }
+
+/* ---------- CARTAZ / PATROCÍNIO ---------- */
+.rv-cartaz{ }
+.rv-cartaz img{ flex:1; width:100%; object-fit:contain; background:var(--paper-2); min-height:0; }
+.rv-cartaz .rv-leg{ padding:12px 22px 42px; border-top:2px solid var(--ink);
+  font-family:var(--mono); font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; }
+.rv-pat{ outline:8px double var(--gold); outline-offset:-16px; }
+/* o bilhete do leitor: cupom destacável dentro do anúncio */
+.rv-bilhete{ display:flex; align-items:stretch; margin:0 18px 12px; position:relative;
+  border:2px dashed var(--wine); background:var(--paper); }
+.rv-bilhete::before{ content:'✂'; position:absolute; top:-13px; left:16px; color:var(--wine);
+  background:var(--paper); padding:0 5px; font-size:.85rem; }
+.rv-bilhete .rb-esq{ flex:1; padding:14px 16px; display:flex; flex-direction:column; gap:3px; }
+.rv-bilhete .rb-esq b{ font-family:var(--didone); font-weight:400; font-size:1.15rem; line-height:1.1; }
+.rv-bilhete .rb-esq span{ font-size:.72rem; color:var(--ink-soft); line-height:1.45; }
+.rv-bilhete .rb-esq i{ font-style:normal; font-family:var(--mono); font-size:.54rem;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); margin-top:3px; }
+.rv-bilhete .rb-dir{ display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:2px; padding:12px 18px; border:0; border-left:2px dashed var(--wine); background:rgba(206,178,106,.16);
+  min-width:132px; text-align:center; color:inherit; cursor:pointer; }
+.rv-bilhete .rb-dir:hover{ background:rgba(206,178,106,.3); }
+.rv-bilhete .rb-dir em{ font-style:normal; font-family:var(--mono); font-size:.5rem;
+  letter-spacing:.26em; text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-bilhete .rb-dir em{ color:var(--gold); }
+.rv-bilhete .rb-dir strong{ font-family:var(--mono); font-weight:700; font-size:1.05rem;
+  letter-spacing:.08em; }
+
+/* ---------- EXPEDIENTE ---------- */
+.rv-exp .miolo{ padding:26px 30px 64px; flex:1; overflow:hidden; }
+.rv-exp img{ width:120px; margin-bottom:18px; }
+.rv-exp img.only-dark{ display:none; }
+:root[data-theme="dark"] .rv-exp img.only-light{ display:none; }
+:root[data-theme="dark"] .rv-exp img.only-dark{ display:inline-block; }
+.rv-exp h4{ font-family:var(--mono); font-size:.56rem; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--ink-soft); margin:18px 0 6px; border-bottom:1px solid var(--line);
+  padding-bottom:4px; }
+.rv-exp ul{ list-style:none; margin:0; padding:0; line-height:2; font-size:.82rem; }
+.rv-exp p{ font-size:.72rem; line-height:1.8; color:var(--ink-soft); }
+
+/* ---------- PÁGINA LIVRE / EXCLUSIVA ---------- */
+.rv-livre .miolo{ padding:24px 28px 64px; flex:1; overflow:hidden; }
+.rv-livre h3{ font-family:var(--didone); font-weight:400; font-size:1.9rem; line-height:1.05; margin:0 0 12px; }
+.rv-livre .txt{ column-count:2; column-gap:24px; column-rule:1px solid var(--line);
+  font-size:.78rem; line-height:1.72; text-align:justify; hyphens:auto; }
+.rv-livre .txt p{ margin:0 0 11px; }
+
+/* ---------- RECORTES DA SEMANA ---------- */
+.rv-rec .cab{ padding:24px 22px 12px; border-bottom:3px solid var(--ink); }
+.rv-rec .cab em{ display:block; font-style:normal; font-family:var(--mono); font-size:.54rem;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-rec .cab em{ color:var(--gold); }
+.rv-rec .cab h3{ font-family:var(--didone); font-weight:400; font-size:2.3rem; margin:4px 0 0; line-height:1; }
+.rv-rec .mural{ flex:1; overflow:hidden; padding:22px 26px 64px; display:flex; flex-direction:column;
+  gap:18px; justify-content:center; }
+.rv-rec .rec{ position:relative; background:#f6f0e2; border:1px solid #d8cdb4; padding:18px 20px 14px;
+  box-shadow:2px 3px 10px rgba(35,8,5,.14); max-width:92%; }
+html[data-theme="dark"] .rv-rec .rec{ background:#241e16; border-color:#3a3226; }
+.rv-rec .rec:nth-child(odd){ transform:rotate(-1.2deg); align-self:flex-start; }
+.rv-rec .rec:nth-child(even){ transform:rotate(1deg); align-self:flex-end; }
+.rv-rec .rec::before{ content:''; position:absolute; top:-9px; left:50%; transform:translateX(-50%) rotate(-2deg);
+  width:74px; height:18px; background:rgba(206,178,106,.4); border:1px solid rgba(158,132,72,.35); }
+.rv-rec .rec .fr{ font-family:var(--didone); font-size:1.02rem; line-height:1.34; }
+.rv-rec .rec .fr::before{ content:'“'; color:var(--wine); }
+.rv-rec .rec .fr::after{ content:'”'; color:var(--wine); }
+html[data-theme="dark"] .rv-rec .rec .fr::before, html[data-theme="dark"] .rv-rec .rec .fr::after{ color:var(--gold); }
+.rv-rec .rec .qm{ margin-top:8px; font-family:var(--mono); font-size:.55rem; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--wine); }
+html[data-theme="dark"] .rv-rec .rec .qm{ color:var(--gold); }
+.rv-rec .rec .qm i{ font-style:normal; font-weight:400; color:var(--ink-soft); display:block; margin-top:2px; }
+.rv-rec .rec a{ color:inherit; text-decoration:none; }
+
+/* ---------- CONTRACAPA ---------- */
+.rv-back{ background:var(--wine); color:var(--paper); }
+.rv-back .miolo{ flex:1; display:flex; flex-direction:column; padding:30px 30px 20px; }
+.rv-back em.rot{ font-style:normal; font-family:var(--mono); font-size:.56rem; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--gold); }
+.rv-back h3{ font-family:var(--didone); font-weight:400; color:var(--gold); font-size:2.2rem;
+  line-height:1.02; margin:6px 0 18px; }
+.rv-back ul.prox{ list-style:none; margin:0; padding:0; }
+.rv-back ul.prox li{ padding:10px 0; border-bottom:1px solid rgba(206,178,106,.35);
+  font-size:.9rem; line-height:1.4; }
+.rv-back ul.prox li::before{ content:'✦ '; color:var(--gold); }
+/* a citação é o centro da contracapa: didone grande entre filetes dourados */
+.rv-back .desp{ margin-top:auto; margin-bottom:auto; text-align:center; padding:28px 10px; }
+.rv-back .desp::before, .rv-back .desp::after{ content:''; display:block; width:120px; height:2px;
+  background:var(--gold); margin:0 auto; }
+.rv-back .desp::before{ margin-bottom:22px; }
+.rv-back .desp::after{ margin-top:22px; }
+.rv-back .desp .fr{ font-family:var(--didone); font-size:2.5rem; line-height:1.14; color:var(--paper); }
+.rv-back .desp .au{ font-family:var(--mono); font-size:.56rem; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--gold); margin-top:16px; }
+.rv-back .rodape{ display:flex; justify-content:space-between; align-items:center; margin-top:22px;
+  padding-top:14px; border-top:2px solid var(--gold); font-family:var(--mono); font-size:.52rem;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
+.rv-back .rodape img{ height:34px; }
+
+/* as quinas de virar página: voltar na ponta esquerda, avançar na direita */
+.rv-quina{ position:absolute; bottom:6px; z-index:12; width:44px; height:44px;
+  border:0; background:none; color:var(--ink-soft); cursor:pointer;
+  font-size:.8rem; line-height:1; display:flex; align-items:center; justify-content:center;
+  transition:color .15s, transform .12s; }
+/* devolve às setas o tamanho que a escala da folha tirou delas: 44px de dedo
+   continuam 44px na tela, em qualquer celular */
+.rv-quina{ transform:scale(calc(1 / var(--rv-f, 1))); }
+.rv-quina.esq{ transform-origin:left bottom; }
+.rv-quina.dir{ transform-origin:right bottom; }
+.rv-quina:hover{ color:var(--wine); }
+.rv-quina:focus-visible{ outline:3px solid var(--gold); }
+.rv-quina.esq{ left:10px; }
+.rv-quina.dir{ right:10px; }
+.rv-quina[hidden]{ display:none; }
+/* A tarja de cookies é presa no fim da tela e passa por cima de tudo. Ela
+   cobria exatamente estas duas setas: o leitor de primeira viagem abria a
+   revista e não conseguia virar a página. Enquanto a tarja está no ar, as
+   setas (e a barra de navegação da revista) sobem a altura dela. */
+html.tem-aviso .rv-quina{ bottom:calc(6px + var(--aviso-alt, 0px)); }
+html.tem-aviso .rv-nav{ bottom:calc(14px + var(--aviso-alt, 0px)); }
+html[data-theme="dark"] .rv-quina{ color:var(--gold); }
+@media print{ .rv-quina{ display:none !important; } }
+
+/* ---------- A CORTINA (janela do assinante) ---------- */
+.rv-cortina{ position:fixed; inset:0; z-index:210; display:flex; align-items:center;
+  justify-content:center; padding:18px;
+  background:
+    radial-gradient(140% 90% at 50% -20%, rgba(0,0,0,.35), transparent 60%),
+    repeating-linear-gradient(90deg, #4E0F09 0 46px, #3a0b06 46px 92px);
+  animation:ctFundo .3s ease; }
+@keyframes ctFundo{ from{ opacity:0; } }
+.rv-cortina[hidden]{ display:none; }
+.ct-caixa{ width:min(540px, 100%); background:var(--paper); border:3px solid var(--ink);
+  box-shadow:0 26px 80px rgba(0,0,0,.55); padding:34px 36px 26px; display:flex;
+  flex-direction:column; gap:12px; animation:ctSobe .34s ease; }
+@keyframes ctSobe{ from{ opacity:0; transform:translateY(16px); } }
+@media (prefers-reduced-motion:reduce){ .rv-cortina, .ct-caixa{ animation:none; } }
+.ct-rot{ font-family:var(--mono); font-size:.6rem; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--wine); }
+.ct-caixa h3{ font-family:var(--didone); font-weight:400; font-size:clamp(1.4rem,4vw,1.9rem);
+  line-height:1.08; margin:0; }
+.ct-caixa p{ margin:0; font-size:.9rem; line-height:1.55; color:var(--ink-soft); }
+.ct-ja label{ display:block; font-family:var(--mono); font-size:.58rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-soft); margin-bottom:6px; }
+.ct-linha{ display:flex; gap:8px; }
+.ct-linha input{ flex:1; border:2px solid var(--ink); background:var(--paper); color:var(--ink);
+  font-family:var(--sans); font-size:.9rem; padding:11px 12px; min-width:0; }
+.ct-linha input:focus{ outline:2px solid var(--gold); outline-offset:-2px; }
+.ct-linha button{ border:2px solid var(--ink); background:var(--ink); color:var(--gold);
+  font-family:var(--mono); font-weight:700; font-size:.64rem; letter-spacing:.14em;
+  text-transform:uppercase; padding:11px 18px; cursor:pointer; }
+.ct-linha button:hover{ background:var(--wine); border-color:var(--wine); }
+.ct-erro{ font-family:var(--mono); font-size:.6rem; color:var(--wine); min-height:1em; }
+.ct-ou{ display:flex; align-items:center; gap:10px; color:var(--ink-soft);
+  font-family:var(--mono); font-size:.56rem; letter-spacing:.2em; text-transform:uppercase; }
+.ct-ou::before, .ct-ou::after{ content:''; flex:1; border-top:1px solid var(--line); }
+.ct-assinar{ border:2px solid var(--wine); background:var(--wine); color:var(--gold); cursor:pointer;
+  font-family:var(--mono); font-weight:700; font-size:.7rem; letter-spacing:.16em;
+  text-transform:uppercase; padding:15px; transition:transform .15s; }
+.ct-assinar:hover{ transform:translateY(-2px); background:var(--ink); border-color:var(--ink); }
+.ct-voltar{ border:0; background:none; color:var(--ink-soft); cursor:pointer; align-self:center;
+  font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; padding:4px; }
+.ct-voltar:hover{ color:var(--wine); }
+
+/* ---------- NAVEGAÇÃO ---------- */
+.rv-nav{ position:sticky; bottom:14px; display:flex; justify-content:center; gap:8px;
+  width:max-content; max-width:100%; margin:18px auto 0; padding:8px;
+  background:var(--paper); border:2px solid var(--ink); box-shadow:0 6px 22px rgba(0,0,0,.22); }
+.rv-nav button{ border:2px solid var(--ink); background:var(--paper); color:var(--ink); cursor:pointer;
+  font-family:var(--mono); font-weight:600; font-size:.64rem; letter-spacing:.12em;
+  text-transform:uppercase; padding:12px 16px; }
+.rv-nav button:hover{ background:var(--ink); color:var(--gold); }
+.rv-nav .ct{ border:2px solid var(--ink); background:var(--gold); color:var(--wine);
+  font-family:var(--mono); font-weight:600; font-size:.64rem; letter-spacing:.12em; padding:12px 14px; }
+@media (max-width:560px){
+  .rv-edi .txt, .rv-livre .txt{ column-count:1; }
+}
+@media print{
+  /* no papel, as mesmas páginas da tela: 720x972, uma por folha */
+  .rv-book{ display:block !important; perspective:none !important; transform:none !important; }
+  .rv-palco{ height:auto !important; }
+  .rv-stage{ max-width:100% !important; margin:0 !important; padding:0 !important; }
+  .rv-pg{ display:flex !important; flex-direction:column !important; page-break-after:always;
+    break-inside:avoid; width:720px !important; height:972px !important; margin:0 auto;
+    transform:none !important; animation:none !important; position:relative; }
+  body.rv-em-janela .rv-pg{ display:none !important; }
+  body.rv-em-janela .rv-pg.rv-amostra{ display:flex !important; }
+  .rv-pg::before{ display:none; }
+  .rv-nav, nav.main, .ticker, footer, .warn, .rv-lombo, .rv-fita, .rv-canto,
+  #rv-sala-sair, .rv-toast, .rv-cortina, .cv-overlay, .cv-band, #lgpd{ display:none !important; }
+}
+</style>
+<main id="conteudo" class="rv-stage" data-libera="2026-08-07">
+  <div class="rv-palco" id="rv-palco">
+  <div class="rv-book" id="rv-book">
+    <div class="rv-lombo esq" id="rv-lombo-esq" aria-hidden="true"></div>
+<section class="rv-pg rv-capa2 on"><div class="nameplate"><img src="assets/logo/foyer-horizontal-wine.png" alt="FOYER"></div><div class="linha-ed"><span>A revista da semana</span><span>Nº 3 · 06 Ago 2026</span></div><div class="moldura"><img src="assets/uploads/revista-ed-3-capa.jpg" alt=""><span class="cred">Foto: Noelia Nájera/Divulgação</span></div><div class="manchete"><h2>Capulanas põe o ventre em cena</h2></div><div class="faixa"><span class="ch"><i>✦</i>Eureka O&#x27;Hara será Divine em Nova York</span><span class="ch"><i>✦</i>Homem-Aranha entra em 2.500 das 3.554 salas do país</span><span class="ch"><i>✦</i>Morre Luiz Carlos Barreto, o produtor que brigou por bilheteria</span></div><div class="rodape-capa"><span>foyer.digital · edição gratuita</span><span class="rv-barcode"></span></div></section>
+<section class="rv-pg rv-sum cheia"><div class="cab"><span>O que vem por aí</span><h3>Nesta edição</h3><svg class="arte" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#ph-4"/></svg></div><ol><li><span class="pnum">3</span><span><span class="pt">O tamanho da sala</span><span class="ps">Editorial</span></span></li><li><span class="pnum">4</span><span><span class="pt">Cinco ventres de madeira no palco do Arena</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">9</span><span><span class="pt">Recortes: o que disseram na semana</span><span class="ps">Entre aspas</span></span></li><li><span class="pnum">10</span><span><span class="pt">Divine volta a Nova York meio século depois</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">13</span><span><span class="pt">Barretão media o cinema brasileiro pelo placar</span><span class="ps">A semana · Cinema</span></span></li><li><span class="pnum">19</span><span><span class="pt">Na tela: os programas da semana</span><span class="ps">YouTube do FOYER</span></span></li><li><span class="pnum">20</span><span><span class="pt">Dois terços das salas do país, um título só</span><span class="ps">A semana · Cinema</span></span></li><li><span class="pnum">25</span><span><span class="pt">A taxa de conveniência que não voltava</span><span class="ps">A semana · Notícia</span></span></li><li><span class="pnum">28</span><span><span class="pt">1770, o ano em que a sala abriu e nunca mais fechou</span><span class="ps">A semana · Teatro</span></span></li><li><span class="pnum">34</span><span><span class="pt">A semana em cartaz: São Paulo</span><span class="ps">Agenda</span></span></li><li><span class="pnum">35</span><span><span class="pt">A semana em cartaz: Rio de Janeiro</span><span class="ps">Agenda</span></span></li><li><span class="pnum">36</span><span><span class="pt">Entre mestres: a arte pela palavra</span><span class="ps">Exclusivo</span></span></li><li><span class="pnum">37</span><span><span class="pt">Página patrocinada</span><span class="ps">Publicidade</span></span></li><li><span class="pnum">38</span><span><span class="pt">Expediente</span><span class="ps">Quem faz o FOYER</span></span></li><li><span class="pnum">39</span><span><span class="pt">A cortina desce</span><span class="ps">Contracapa</span></span></li></ol><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>2</b><span>06 Ago 2026</span></div></section>
+<section data-sum="0" class="rv-pg rv-edi"><div class="rv-kicker"><span class="tagz">Editorial</span><span>Carta ao leitor</span></div><div class="miolo"><h3>O tamanho da sala</h3><div class="txt"><p>O Brasil fechou 2025 com 3.554 salas de cinema em operação, recorde histórico registrado pela Ancine. Na quarta-feira 29 de julho, mais de 2.500 dessas salas entraram na programação de um único título, Homem-Aranha: Um Novo Dia. No fim de semana seguinte, os cinemas do país venderam 5,22 milhões de ingressos, o melhor resultado em 36 meses, e 4,24 milhões deles foram para esse mesmo filme.</p>
+<p>Luiz Carlos Barreto passou seis décadas discutindo exatamente essa conta. O fotógrafo de Vidas Secas e produtor de Dona Flor e Seus Dois Maridos, morto em 22 de julho aos 98 anos, sustentava que filme brasileiro volta com bilheteria quando tem tela e campanha, e repetia até o fim o placar dos anos da Embrafilme: 42% da receita das bilheterias do país. Esta edição reconta a trajetória dele e destrincha o que a cota de tela obriga hoje, sessão por sessão.</p>
+<p>No teatro, a semana correu por outra estrada. Em São Paulo, a Capulanas Cia de Arte Negra encerra no Teatro de Arena Eugênio Kusnet uma circulação inteira bancada pelo Fomento ao Teatro, sem cobrar ingresso, e Leona Cavalli se despede de Elogio da Loucura de graça na CAIXA Cultural. Em Ouro Preto, uma sala inaugurada em 1770 segue aberta à visitação por R$ 5. Em Nova York, Eureka O&#x27;Hara se prepara para ser Divine meio século depois de o ícone drag ter conquistado a cidade. Casa cheia, mostrou esta semana, se mede de mais de um jeito. Boa leitura.</p></div><p class="ass">A direção do FOYER</p><svg class="arte-edi" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#ph-6"/></svg></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>3</b><span>06 Ago 2026</span></div></section>
+<section data-sum="1" class="rv-pg rv-mat"><div class="foto"><img src="assets/uploads/capulanas-no-baile-de-osa-meji-teatro-de-arena-eugenio-kusnet.jpg" alt="" onerror="this.style.display='none'"><span class="cat">Teatro</span><span class="cred">Foto — Noelia Nájera</span></div><div class="miolo"><h3>Cinco ventres de madeira no palco do Arena</h3><p class="linhafina">A Capulanas Cia de Arte Negra cumpre de 5 a 9 de agosto de 2026, no Teatro de Arena Eugênio Kusnet, a última etapa da circulação de No Baile de Osá Meji Faço das Tripas o Meu Coração, com entrada gratuita e ingressos pela Sympla.</p><div class="olho"><p>Uma mulher negra gesta um espetáculo dentro do próprio ventre, e quem conduz o parto é Milagros, médica afro-cubana. Entre consultas, memórias de família e encontros com ancestrais, a montagem dirigida por Olaegbé recolhe fragmentos de uma história coletiva de mulheres, com ventres de madeira esculpidos a partir de um encontro com o artista beninense Barthélémy Hountchonou e figurino de saiotes empilhados de capulanas.</p></div><div class="txt"><p><strong>No Baile de Osá Meji Faço das Tripas o Meu Coração</strong>, montagem da Capulanas Cia de Arte Negra dirigida por Olaegbé, cumpre de 5 a 9 de agosto a última etapa de sua circulação no Teatro de Arena Eugênio Kusnet, na Vila Buarque. A entrada é gratuita, com ingressos pela plataforma Sympla. São cinco apresentações, de quarta a sábado às 20h e no domingo às 19h. A peça tem 80 minutos e classificação indicativa de 12 anos.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>4</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Cinco ventres de madeira no palco do Arena</p><div class="txt">
+<p>A peça acompanha Capulanas, mulher negra que gesta um espetáculo dentro do próprio ventre. Quem a orienta é Milagros, médica afro-cubana. A travessia entre consultas, memórias de família e encontros com ancestrais vai reunindo fragmentos de uma história coletiva de mulheres. Maternidade, violência obstétrica, apagamento histórico e resistência cultural são os assuntos da dramaturgia, assinada por Olaegbé ao lado das demais integrantes do grupo. Em cena, Adriana Paixão, Débora Marçal, Flávia Rosa, Sol Tereza e Beatriz Oliveira dividem o palco com figuras como Tia Ma Monserrat, Maria Júlia Figueiredo, Eleiê, Exu, Oshum, Oyá e Osá.</p>
+<h2>O ventre no centro da cena</h2>
+<p>O título remete ao odu Osá Meji. A direção explicou a escolha no material de divulgação da montagem, distribuído pela assessoria Canal Aberto Comunicação.</p>
+<blockquote class="pull">&quot;Escolhemos bailar para o odu Osá Meji para lembrar às mulheres negras da importância do cuidado com a própria saúde, especialmente em relação às doenças ligadas ao ventre, ao útero, às pernas e às partes sanguíneas do corpo. Durante a pesquisa, percebemos a necessidade de incentivar essa comunidade a realizar exames e, ao mesmo tempo, fortalecer sua conexão com a ancestralidade&quot;, afirma Olaegbé, diretora do espetáculo.</blockquote>
+<p>A personagem que conduz o parto condensa esses dois planos. &quot;Ela é uma doutora do SUS e, ao mesmo tempo, um grande pássaro destinado a cuidar daquela barriga&quot;, diz Olaegbé sobre Milagros, no mesmo material. &quot;Ao realizar esse parto, Capulanas entra em contato com mulheres que enfrentaram situações como a violência obstétrica ou o diagnóstico precoce da retirada do útero.&quot;</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>5</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Cinco ventres de madeira no palco do Arena</p><div class="txt">
+<p>Os ventres de madeira que as atrizes vestem em cena vieram de um encontro da companhia com o artista beninense Barthélémy Hountchonou, reconhecido pelo trabalho na escultura de máscaras. O figurino, concebido por Débora Marçal, empilha saiotes feitos com capulanas, o tecido estampado de uso corrente em países africanos. A montagem dialoga com o Gẹ̀lẹ̀dẹ̀, dança ritual do povo iorubá presente na Nigéria, no Benin e no Togo, dedicada às mães ancestrais. Na trilha, referências do Candomblé e da Santeria convivem com guitarras e samplers. A direção musical é de Mauricio Badé. Ele a executa ao vivo com Renato Ihu, Rubi Assunção e Maicou Yuri.</p>
+<h2>Uma casa, um terreiro e um teatro</h2>
+<p>A temporada integra o projeto A Casa, o Terreiro e o Teatro, contemplado pela 44ª edição do Programa Municipal de Fomento ao Teatro para a Cidade de São Paulo. Os três espaços do título são literais. A circulação começou em 3 de julho na Goma Capulanas, sede da companhia no Jardim São Luís, criada em 2012 como polo de criação e formação na zona sul. Entre 17 e 26 de julho, passou pelo Terreiro Ilê Axê Dará Omo Ofá Bebê, no Balneário Dom Carlos. Termina agora no Kusnet, onde a arquitetura circular aproxima atrizes e espectadores.</p>
+<p>Circulação gratuita bancada por fomento público tem sido o caminho de grupos paulistanos com pesquisa longa e pouco acesso ao circuito comercial. Foi assim que a <a href="post-cia-os-crespos-celebra-20-anos-com-circulacao-gratuita-de-sonhos-e-os-coloridos-.html">Cia. Os Crespos levou dois espetáculos a seis cidades de São Paulo</a> e que <a href="post-o-territorio-do-samba-celebra-memoria-resistencia-e-identidade-em-temporada-grat.html">O Território do Samba fez temporada no Espaço Cia. da Revista</a>.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>6</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Cinco ventres de madeira no palco do Arena</p><div class="txt">
+<h2>A casa que recebe a última etapa</h2>
+<p>Na história registrada pela Funarte, que mantém a casa entre seus espaços culturais, o teatro foi fundado em 1955 por José Renato. A partir de 1958, o elenco se especializou em montar dramaturgos brasileiros, entre eles Augusto Boal, Gianfrancesco Guarnieri e Vianinha. Ali estrearam <strong>Eles Não Usam Black-Tie</strong>, de Guarnieri, e <strong>Arena Conta Zumbi</strong>, de Guarnieri e Boal com música de Edu Lobo. Em 1977, o prédio foi comprado pelo Serviço Nacional de Teatro, órgão então vinculado ao Ministério da Educação e Cultura e depois incorporado à Funarte. A sala de espetáculos leva o nome de Augusto Boal, e o andar superior abriga um espaço expositivo, a Sala Umberto Magnani. O mesmo palco recebeu a estreia de <a href="post-peca-killer-queen-da-cia-bromio-atos-culturais-estreia-no-teatro-de-arena-eugeni.html">Killer Queen, da Cia Bromio Atos Culturais</a>.</p>
+<h2>De Solano Trindade ao Osá Meji</h2>
+<p>A Capulanas Cia de Arte Negra é um coletivo de teatro negro feminino fundado em 2007 na zona sul de São Paulo por Adriana Paixão, Débora Marçal, Flávia Rosa e Priscila Obaci. Começou com <strong>Solano Trindade e suas Negras Poesias</strong>, em cartaz de 2007 a 2009. Depois foi ampliando a pesquisa. Veio <strong>Pé no Quintal</strong>, de 2010, voltado aos territórios periféricos; o intercâmbio Pé no Quintal de Moçambique, em 2012, feito com artistas africanos; e <strong>Sangoma, saúde às mulheres negras</strong>, que pôs o tema em diálogo com saberes ancestrais e contemporâneos. Vieram depois <strong>Sã da Cura ao Gozo</strong>, de 2014, e <strong>Ialodês, Trilogia da Mulher Negra: uma ficção afrofuturista</strong>, de 2016.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>7</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Cinco ventres de madeira no palco do Arena</p><div class="txt">
+<p>Outro endereço da cena negra paulistana fica aberto no mesmo período. Entre 6 e 16 de agosto, <a href="post-as-armas-milagrosas-reestreia-no-itau-cultural-em-temporada-gratuita.html">As Armas Milagrosas reestreia no Itaú Cultural</a>, também em temporada gratuita, com um grupo de funcionários negros que interrompe o ensaio de uma comédia de Pirandello para narrar a própria história.</p>
+<h2 data-junto="1">Serviço</h2>
+<p data-junto="1"><strong>No Baile de Osá Meji Faço das Tripas o Meu Coração</strong><br>Teatro de Arena Eugênio Kusnet, Rua Dr. Teodoro Baima, 94, Vila Buarque, São Paulo<br>Dias 5, 6, 7, 8 e 9 de agosto de 2026<br>De quarta a sábado, às 20h; domingo, às 19h<br>80 minutos. Classificação indicativa: 12 anos<br>Gratuito, com ingressos pela plataforma Sympla<br>Com tradução e interpretação em Libras (Mirian Caxilé, Assessoria em Acessibilidade)</p></div><svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#ph-5"/></svg><div class="leia"><a href="post-capulanas-no-baile-de-osa-meji-teatro-de-arena-eugenio-kusnet.html">Abrir esta matéria no site →</a></div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>8</b><span>06 Ago 2026</span></div></section>
+<section data-sum="2" class="rv-pg rv-rec"><div class="cab"><em>Entre aspas, com a origem</em><h3>Recortes da semana</h3></div><div class="mural"><div class="rec"><a href="post-morre-luiz-carlos-barreto-produtor-cinema-brasileiro-bilheteria.html"><div class="fr">A luta toda do cinema brasileiro foi o de conquistar o seu próprio mercado. Isso foi conseguido na época da Embrafilme. Chegamos a alcançar 42% do mercado</div><div class="qm">Luiz Carlos Barreto<i>jornal Correio Braziliense</i></div></a></div><div class="rec"><a href="post-capulanas-no-baile-de-osa-meji-teatro-de-arena-eugenio-kusnet.html"><div class="fr">Escolhemos bailar para o odu Osá Meji para lembrar às mulheres negras da importância do cuidado com a própria saúde, especialmente em relação às doenças ligadas ao ventre, ao útero, às pernas e às partes sanguíneas do corpo</div><div class="qm">Olaegbé<i>material de divulgação distribuído pela Canal Aberto Comunicação</i></div></a></div><div class="rec"><a href="post-casa-da-opera-ouro-preto-teatro-mais-antigo-das-americas.html"><div class="fr">Trabalho aqui há 43 anos e, para ser bem sincero, não saberia te dizer se passei mais tempo da minha vida aqui ou na minha própria casa</div><div class="qm">Vicente Gomes<i>jornal O Tempo</i></div></a></div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>9</b><span>06 Ago 2026</span></div></section>
+<section data-sum="3" class="rv-pg rv-mat"><div class="foto"><img src="assets/uploads/eureka-o-hara-sera-divine-em-solo-que-leva-icone-drag-de-volta-ao-palco-de-nova--1785955166482.jpg" alt="" onerror="this.style.display='none'"><span class="cat">Teatro</span><span class="cred">Foto — Eureka O’Hara durante a RuPaul’s…</span></div><div class="miolo"><h3>Divine volta a Nova York meio século depois</h3><p class="linhafina">Eureka O&#x27;Hara, de RuPaul&#x27;s Drag Race e da série We&#x27;re Here, foi anunciada em 5 de agosto de 2026 como protagonista de Divine: Beyond the Flamingos!, solo escrito e dirigido por Donnie que estreia em 3 de dezembro no Marjorie S. Deane Little Theater.</p><div class="olho"><p>A peça se passa no início de março de 1988, no apartamento de Harris Glenn Milstead. O voo para Hollywood parte em duas horas, um papel masculino em Married... with Children espera do outro lado, e Divine acaba de convidar amigos para uma noite de conversa. São 90 minutos em que cabem John Waters, o cinema underground, os clubes e a música pop.</p></div><div class="txt"><p><strong>Estrela de RuPaul’s Drag Race estreia no teatro nova-iorquino em Divine: Beyond the Flamingos!, peça que encontra Harris Glenn Milstead às vésperas de uma virada na carreira</strong></p>
+<p>Divine vai voltar ao palco de Nova York 50 anos depois de ter conquistado a cidade em Women Behind Bars. Desta vez, quem veste as perucas, os saltos e a insolência do ícone drag é Eureka O’Hara, conhecida por RuPaul’s Drag Race e pela série We’re Here, da HBO.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>10</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Divine volta a Nova York meio século depois</p><div class="txt">
+<p>Eureka foi anunciada nesta quarta-feira, 5 de agosto, como protagonista de Divine: Beyond the Flamingos!, solo escrito e dirigido por Donnie. A estreia mundial terá temporada limitada de seis semanas no Marjorie S. Deane Little Theater, no West Side YMCA, de 3 de dezembro a 17 de janeiro. A abertura oficial está marcada para 8 de dezembro.</p>
+<p>A montagem também marca a estreia da artista nos palcos de Nova York.</p>
+<p><strong>Antes de Hollywood</strong><br>A peça se passa no início de março de 1988, no apartamento de Harris Glenn Milstead, nome por trás de Divine. Prestes a viajar para Hollywood, ele arruma as malas para assumir um papel masculino em Married… with Children — a oportunidade que esperava para ser reconhecido também fora da persona que havia atravessado o cinema underground, os clubes e a música pop.</p>
+<p>Só há um problema: o voo parte em duas horas, e Divine convidou amigos para uma noite de conversa e festa.</p>
+<p>O espetáculo transforma esse intervalo numa passagem de 90 minutos pela vida do artista. Entram em cena a parceria com John Waters, os filmes que escandalizaram plateias, a carreira musical e o caminho que levou um jovem perseguido em Baltimore a se tornar uma das figuras mais radicais da cultura queer.</p>
+<p>Divine morreu em 7 de março de 1988, aos 42 anos, pouco depois de ser escalado para a série.</p>
+<p><strong>Uma escalação com história</strong><br>Para Eureka, o papel não chega por acaso. Em 2020, ela integrou uma remontagem de Women Behind Bars, interpretando a carcereira que Divine havia vivido no teatro em 1976. Também encarnou a estrela em RuPaul’s Drag Race All Stars.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>11</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Divine volta a Nova York meio século depois</p><div class="txt">
+<p>“Divine mudou o curso da história drag”, afirmou Eureka no anúncio. A artista disse que a trajetória de Harris Glenn Milstead abriu caminho para que outras gerações imaginassem a drag para além dos clubes — na televisão, no cinema e nos palcos.</p>
+<p>Donnie, fundador da triangle productions!, chama atenção para a coincidência histórica: a estreia acontece exatamente meio século depois da passagem de Divine por Women Behind Bars em Nova York. A nova peça, porém, não quer apenas reproduzir uma imagem conhecida. Procura o homem de voz baixa por trás da criatura que fez do excesso uma forma de liberdade.</p></div><svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#ph-5"/></svg><div class="leia"><a href="post-eureka-o-hara-sera-divine-em-solo-que-leva-icone-drag-de-volta-ao-palco-de-nova-.html">Abrir esta matéria no site →</a></div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>12</b><span>06 Ago 2026</span></div></section>
+<section data-sum="4" class="rv-pg rv-mat"><div class="foto"><img src="assets/uploads/morre-luiz-carlos-barreto-produtor-cinema-brasileiro-bilheteria.jpg" alt="" onerror="this.style.display='none'"><span class="cat">Cinema</span><span class="cred">Foto — Produção Cultural no Brasil</span></div><div class="miolo"><h3>Barretão media o cinema brasileiro pelo placar</h3><p class="linhafina">Luiz Carlos Barreto morreu em 22 de julho de 2026, aos 98 anos, no Rio de Janeiro. Fotógrafo de Vidas Secas, produtor de Dona Flor e Seus Dois Maridos e articulador da Lei do Audiovisual, defendeu por seis décadas que o filme brasileiro pode ocupar a própria tela.</p><div class="olho"><p>Da revista O Cruzeiro ao Congresso Nacional, ele fez quase todos os ofícios do cinema brasileiro: fotografia, roteiro, produção, distribuição e articulação política. A linha que atravessa a obra inteira, porém, é o dinheiro. Dona Flor vendeu 10,735 milhões de ingressos e ficou 34 anos como a maior bilheteria nacional, feito que a produtora comprou anúncio na Rede Globo para conquistar.</p></div><div class="txt"><p>Luiz Carlos Barreto morreu na madrugada de quarta-feira, 22 de julho, aos 98 anos, no Hospital Copa Star, no Rio de Janeiro, em decorrência de uma infecção pulmonar agravada por pneumonia. O velório foi na manhã seguinte, no Palácio da Cidade, em Botafogo, e a cremação, restrita à família, no Memorial do Carmo, no Caju.</p>
+<p>Barretão, como o meio o chamava, fez quase todos os ofícios do cinema brasileiro: fotografia, roteiro, produção, distribuição e articulação política. Mas a linha que atravessa as seis décadas de trabalho dele é o dinheiro. Barreto passou a vida defendendo uma tese teimosa: filme brasileiro pode ocupar a própria tela e voltar com bilheteria.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>13</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Cinema</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Barretão media o cinema brasileiro pelo placar</p><div class="txt">
+<h2>Do fotojornalismo para o set</h2>
+<p>Nascido em Sobral, no interior do Ceará, em 20 de maio de 1928, chegou ao cinema pela porta do jornalismo. Foi repórter fotográfico da revista <strong>O Cruzeiro</strong>, onde se tornou um dos nomes fortes do fotojornalismo brasileiro. Em 1961, cobrindo para a revista as filmagens de <strong>Barravento</strong>, primeiro longa de <a href="pessoa-glauber-rocha.html">Glauber Rocha</a>, no litoral baiano, decidiu trocar de lado da câmera.</p>
+<p>A entrada efetiva veio como roteirista, ao lado de Roberto Farias, em <strong>O Assalto ao Trem Pagador</strong> (1962). No ano seguinte assinou a fotografia de <strong>Vidas Secas</strong>, de Nelson Pereira dos Santos, que levou o prêmio da crítica no Festival de Cannes de 1964. Segundo o Tela Viva, Barreto eliminou os filtros que a produção brasileira herdara dos estúdios Vera Cruz e registrou a luz dura do sertão, num método que resumia na frase &quot;sombra é sombra, luz é luz&quot;. O filme rodou com orçamento de 18 milhões de cruzeiros.</p>
+<p>Em 15 de julho de 1963 nascia a L.C. Barreto Produções Cinematográficas, aberta com a mulher e sócia Lucy Barreto, conforme registra o site da própria produtora. Barreto também fundou a Difilm, distribuidora que juntou diretores do Cinema Novo sob a mesma estrutura. Quem controla a distribuição decide em quantas salas o filme entra.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>14</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Cinema</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Barretão media o cinema brasileiro pelo placar</p><div class="txt">
+<h2>Dona Flor e 34 anos de recorde</h2>
+<p>O salto de escala veio em 1976, com <strong>Dona Flor e Seus Dois Maridos</strong>, dirigido pelo filho Bruno Barreto a partir do romance de <a href="pessoa-jorge-amado.html">Jorge Amado</a>. O filme vendeu 10,735 milhões de ingressos e foi, durante 34 anos, a maior bilheteria do cinema brasileiro, segundo a L.C. Barreto. Para chegar lá, a produtora comprou anúncios na Rede Globo, decisão de marketing incomum para um título nacional naquela altura.</p>
+<p>Barreto gostava de contar o resultado pelo placar.</p>
+<blockquote class="pull">&quot;Dona Flor e seus dois maridos (1976) foi um filme revolucionário no mercado. Batemos Tubarão, do Spielberg&quot;, afirmou em entrevista ao Correio Braziliense, em 2023.</blockquote>
+<p>Para ele, aquilo era argumento de negociação: mostrava a exibidores e distribuidores que o filme brasileiro ganhava do estrangeiro dentro de casa, desde que tivesse tela e campanha.</p>
+<h2>De onde vinha o dinheiro</h2>
+<p>Nos anos 1970 e 1980, quem bancava o setor era a Embrafilme, a estatal que centralizava o financiamento do cinema no país. Barreto influenciou diretamente as decisões da empresa, negociando recursos públicos enquanto se posicionava como opositor do regime militar, conta o Tela Viva. Dali saíram coproduções como <strong>Bye Bye Brasil</strong>, de <a href="pessoa-caca-diegues.html">Cacá Diegues</a>, e <strong>Memórias do Cárcere</strong>, de Nelson Pereira dos Santos. Naquele período, o cinema brasileiro chegou a 42% da receita total de bilheterias do país.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>15</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Cinema</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Barretão media o cinema brasileiro pelo placar</p><div class="txt">
+<p>Em 1990, a Embrafilme foi extinta. As linhas de fomento pararam, os estúdios pararam junto e a L.C. Barreto passou a distribuir títulos estrangeiros para se manter de pé. Barreto mudou de endereço: virou presença fixa no Congresso Nacional, negociando com parlamentares de partidos diferentes.</p>
+<p>Dessa articulação saiu a Lei do Audiovisual, de 1993, que permitiu abater imposto de renda de quem investisse em produção de cinema. É prima da <a href="post-como-funciona-a-lei-rouanet-no-teatro.html">Lei Rouanet</a> na engrenagem da renúncia fiscal, e foi o mecanismo que destravou a Retomada. Os dois primeiros certificados de captação emitidos pela nova lei foram da produtora dele.</p>
+<h2>A conta que nem sempre fechou</h2>
+<p>Com dinheiro privado incentivado, os orçamentos subiram. Vieram as duas indicações ao Oscar de melhor filme estrangeiro, com dois dos filhos na direção: <strong>O Quatrilho</strong>, de Fábio Barreto, e <strong>O Que é Isso, Companheiro?</strong>, de Bruno Barreto. Vieram também <strong>Bossa Nova</strong> e <strong>Flores Raras</strong>.</p>
+<p>O retorno de bilheteria, porém, oscilou feio. Entre 1995 e 2008, a empresa captou R$ 52 milhões em verbas de renúncia fiscal para rodar doze filmes, segundo o Tela Viva. Os doze somaram cerca de 4 milhões de espectadores no total, e o produtor teve de recorrer a empréstimos bancários para segurar a estrutura. É uma média de pouco mais de 330 mil espectadores por filme, com custo fixo de produtora grande em cima.</p>
+<p>Em <strong>Lula, o Filho do Brasil</strong> (2009), Barreto colocou R$ 4 milhões do próprio bolso num orçamento planejado de R$ 13 milhões e impôs a estreia em mais de 500 salas simultâneas, negociando pacotes de mídia com exibidores e distribuidores. O lançamento coincidiu com o acidente de carro que deixou o diretor, Fábio Barreto, em coma até a morte, em 2019.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>16</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Cinema</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Barretão media o cinema brasileiro pelo placar</p><div class="txt">
+<h2>O número que ele repetia</h2>
+<p>Nos últimos anos, Barreto participou dos debates de consolidação do Fundo Setorial do Audiovisual e fundou a Amazônika, voltada a animação em 3D. Seu acervo fotográfico foi destinado ao Instituto Moreira Salles. E ele continuou martelando a mesma conta.</p>
+<blockquote class="pull">&quot;A luta toda do cinema brasileiro foi o de conquistar o seu próprio mercado. Isso foi conseguido na época da Embrafilme. Chegamos a alcançar 42% do mercado&quot;, disse ao Correio Braziliense em 2023, antes de completar: &quot;Hoje, não temos nem 1%. Isto é um escândalo.&quot;</blockquote>
+<p>O &quot;nem 1%&quot; era força de expressão. Naquele mesmo 2023, o Observatório Brasileiro do Cinema e do Audiovisual, ligado à Ancine, registrou 3,3% do público para filmes brasileiros. Os números não medem a mesma coisa: os 42% da era Embrafilme se referem à receita das bilheterias, e o índice de hoje mede fatia de público. O diagnóstico de fundo, esse, continua de pé. Em 2026, já com a Cota de Tela em vigor, a participação nacional no público é de 6,5%, contra 10,1% em 2024 e 9,9% em 2025, segundo a Ancine.</p>
+<p>Na nota que divulgou sobre a morte, publicada na íntegra pela CNN Brasil, a família definiu o que o setor perdeu.</p>
+<blockquote class="pull">&quot;O país perdeu Barretão. É o mesmo que dizer: o cinema brasileiro perdeu um de seus arquitetos, o mais apaixonado de todos&quot;, diz o texto.</blockquote></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>17</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Cinema</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Barretão media o cinema brasileiro pelo placar</p><div class="txt">
+<p>Arquiteto é a palavra certa. Barreto entendeu cedo que estética sem distribuição não vira mercado e que mercado sem política pública não se sustenta. Ele morreu com essa conta aberta: mesmo com cota de tela e fundo setorial, o filme brasileiro não chega a um décimo do público que compra ingresso no país.</p></div><svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#ph-5"/></svg><div class="leia"><a href="post-morre-luiz-carlos-barreto-produtor-cinema-brasileiro-bilheteria.html">Abrir esta matéria no site →</a></div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>18</b><span>06 Ago 2026</span></div></section>
+<section data-sum="5" class="rv-pg rv-tela"><div class="cab"><em>O canal, esta semana</em><h3>Na tela</h3></div><div class="grade"><a class="ep" href="https://www.youtube.com/watch?v=1T8apMn-c18&amp;list=PLFPAp2PKrLk2xo9BULjM0wmganFcGd88C" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/1T8apMn-c18/hq720.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/1T8apMn-c18/mqdefault.jpg'"><span class="mt"><span class="pr">Programa do Foyer</span><span class="tt">Com Tiago Barbosa   Ópera do Malandro   Programa do Foyer</span></span></a><a class="ep" href="https://www.youtube.com/watch?v=Vfnzr80itV4&amp;list=PLFPAp2PKrLk2xo9BULjM0wmganFcGd88C" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/Vfnzr80itV4/hq720.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/Vfnzr80itV4/mqdefault.jpg'"><span class="mt"><span class="pr">Programa do Foyer</span><span class="tt">Com Guilherme Uzeda e Henrique Benjamin   Forever Young   Programa do Foyer</span></span></a><a class="ep" href="https://www.youtube.com/watch?v=QA_Gu0K0HQw&amp;list=PLFPAp2PKrLk2xo9BULjM0wmganFcGd88C" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/QA_Gu0K0HQw/hq720.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/QA_Gu0K0HQw/mqdefault.jpg'"><span class="mt"><span class="pr">Programa do Foyer</span><span class="tt">Com Larissa da Matta, Marcelo Leão e Pedro Amaral - A Última Valsa de Zelda Fitzgerald - F</span></span></a><a class="ep" href="https://www.youtube.com/watch?v=CJh3tGI9Tac&amp;list=PLFPAp2PKrLk3dDXvpjoZgBh0obVCPYCmV" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/CJh3tGI9Tac/hq720.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/CJh3tGI9Tac/mqdefault.jpg'"><span class="mt"><span class="pr">Coxixo de Coxia</span><span class="tt">Nós Ursos</span></span></a><a class="ep" href="https://www.youtube.com/watch?v=v9uanKAaY-Q&amp;list=PLFPAp2PKrLk3dDXvpjoZgBh0obVCPYCmV" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/v9uanKAaY-Q/hq720.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/v9uanKAaY-Q/mqdefault.jpg'"><span class="mt"><span class="pr">Coxixo de Coxia</span><span class="tt">Mazal Tov</span></span></a><a class="ep" href="https://www.youtube.com/watch?v=V1h-EPeUQL0&amp;list=PLFPAp2PKrLk15leURL9x9-HQjDGTeXP2R" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/V1h-EPeUQL0/hq720.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/V1h-EPeUQL0/mqdefault.jpg'"><span class="mt"><span class="pr">Críticas Teatrais</span><span class="tt">As Bondosas - Crítica Teatral por Kyra Piscitelli</span></span></a></div><div class="canal-cta"><a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">Assista a tudo no canal do FOYER →</a></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>19</b><span>06 Ago 2026</span></div></section>
+<section data-sum="6" class="rv-pg rv-mat"><div class="foto"><img src="assets/uploads/2500-salas-homem-aranha-quanto-sobra-cinema-brasileiro.jpg" alt="" onerror="this.style.display='none'"><span class="cat">Cinema</span><span class="cred">Foto — Ajmcbarreto</span></div><div class="miolo"><h3>Dois terços das salas do país, um título só</h3><p class="linhafina">Homem-Aranha: Um Novo Dia entrou na programação de 770 cinemas e mais de 2.500 salas de um parque de 3.554, segundo Filme B e Ancine; o FOYER abre a conta e mostra o que a cota de tela obriga e o que sobra para o filme nacional.</p><div class="olho"><p>Ocupar uma sala não é trancá-la: a mesma sala exibe várias sessões por dia, e elas podem ser de filmes diferentes. É por isso que a lei mede a obrigação em sessão, e não em sala, num intervalo que vai de 7,5% a 16% da grade anual conforme o tamanho do exibidor. Desde maio, a Ancine também pesa o horário em que a sessão brasileira cai na grade.</p></div><div class="txt"><p>O fim de semana de 31 de julho a 2 de agosto bateu recorde de bilheteria nos Estados Unidos e no Canadá, empurrado por <strong>Homem-Aranha: Um Novo Dia</strong>: cerca de US$ 430 milhões somando tudo o que estava em cartaz, o maior da história daquele mercado. No Brasil, o mesmo filme tinha estreado antes, na quarta-feira, 29 de julho, entrando na programação de 770 cinemas e mais de 2.500 salas, segundo o Filme B. O FOYER já contou <a href="post-homem-aranha-recorde-bilheteria-mundial-fim-de-semana.html">o recorde americano</a> e <a href="post-homem-aranha-um-novo-dia-recorde-estreia-brasil-2500-salas.html">a estreia brasileira</a>. Falta a outra ponta: com um lançamento desse tamanho, o que resta para o filme nacional.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>20</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Cinema</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Dois terços das salas do país, um título só</p><div class="txt">
+<h2>O parque tem 3.554 salas, e uma estreia entrou em mais de dois terços</h2>
+<p>O Brasil fechou 2025 com 3.554 salas de cinema em operação, recorde histórico registrado pela Ancine, com expansão do parque para 14 novos municípios. É o número oficial mais recente: não há contagem fechada de 2026. Dividir as mais de 2.500 salas do Homem-Aranha, número do Filme B, por essas 3.554 da Ancine é conta desta redação, e ela dá 70%: mais de dois terços das salas do país com o mesmo título na grade.</p>
+<p>Só que a divisão engana. Ocupar uma sala não é trancá-la: a mesma sala exibe várias sessões por dia, e elas podem ser de filmes diferentes. O filme entrou na programação de 2.500 salas sem ficar com todas as sessões delas. Tanto que não pegou as salas IMAX, que seguiram dedicadas a <strong>A Odisseia</strong>, informou o Filme B. É por isso que a lei mede a obrigação em sessão, e não em sala.</p>
+<p>A concentração também é geográfica. Pelos dados do Filme B, o Brasil terminou 2025 com cinema em 472 dos 5.571 municípios, ou 8,47% do país. Nove em cada dez cidades brasileiras não têm uma única sala.</p>
+<h2>O que a cota de tela obriga</h2>
+<p>A cota de tela é a obrigação legal de exibir filme brasileiro. Nasceu em 2001, foi retomada pela Lei nº 14.814/2024 e vale até 2033. O Decreto nº 12.323, de dezembro de 2025, fixou as regras de 2026: a exigência vai de 7,5% das sessões anuais, no exibidor de uma sala só, a 16%, em quem tem 201 salas ou mais. Há ainda um mínimo de títulos brasileiros distintos por ano, de quatro num cinema de sala única a 32 nos complexos com 16 salas ou mais.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>21</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Cinema</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Dois terços das salas do país, um título só</p><div class="txt">
+<p>Mesmo os maiores grupos exibidores do país cumprem a lei destinando 16 sessões em cada 100 ao cinema nacional. As outras 84 são livres. Quais filmes brasileiros entram é escolha dos cinemas, sem envolvimento direto do governo.</p>
+<p>Em 2026 a Ancine foi atrás do horário em que a sessão brasileira cai na grade. Em 6 de maio, a agência publicou a Instrução Normativa nº 175. Sessão de filme brasileiro a partir das 17h passou a valer 0,10 a mais na aferição da cota, e soma outros 0,025 se estiver entre a segunda e a quinta semana em cartaz. Obra premiada em festival reconhecido, agora também nas categorias de ator, atriz, direção e roteiro, ganha 0,15 a mais no mesmo horário. Os acréscimos são cumulativos: uma sessão bem posicionada vale mais de uma na conta, e o percentual é atingido com menos sessões de verdade.</p>
+<p>O motivo está escrito na própria norma. Em 2023, antes da vigência da cota, filmes brasileiros ficavam com 7,5% das sessões e 3,3% do público. Com a regra em vigor, 2024 e 2025 chegaram a 15,7% das sessões, com 10,1% e 9,9% de público. Em 2026, até a publicação da norma, em maio, a participação do cinema brasileiro no público estava em 6,5%. A sessão existia e o público não aparecia.</p>
+<h2>Um dia de bilheteria contra um ano inteiro de cinema nacional</h2>
+<p>A distância aparece melhor em renda. Em 2025, 367 filmes brasileiros levaram 11,12 milhões de espectadores às salas e somaram R$ 214,99 milhões de bilheteria, pelos números da Ancine.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>22</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Cinema</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Dois terços das salas do país, um título só</p><div class="txt">
+<p>O Homem-Aranha fez R$ 23,6 milhões no primeiro dia no Brasil, com mais de 1 milhão de ingressos vendidos. No ritmo do primeiro dia, que nenhum filme sustenta, bastariam nove ou dez dias para um filme sozinho passar o que a produção nacional inteira arrecadou em doze meses. A conta é da reportagem, com os dois números acima.</p>
+<p>Nenhuma entidade do setor pediu que o Homem-Aranha saísse de cartaz. Quem opera as salas lê esses números de outro jeito. Tiago Mafra, diretor executivo da Abraplex, que reúne as redes de multiplex, disse ao Portal Exibidor que &quot;o problema do cinema brasileiro não é apenas espaço de tela&quot;: mesmo com 15% a 16% das sessões, o público nacional segue &quot;próximo de 6,5% em 2026, e extremamente concentrado em poucos títulos&quot;.</p>
+<p>Pela conta dele, os dois maiores filmes brasileiros do ano responderam por cerca de 77% de todo o público do cinema nacional; sem eles, o restante da produção fica perto de 1,5% do mercado total. A cota, conclui Mafra, é importante e insuficiente sozinha. Por isso ela anda junto com dinheiro público na produção, na distribuição e na sala, como no <a href="post-o-que-e-o-fundo-setorial-do-audiovisual.html">Fundo Setorial do Audiovisual</a>.</p>
+<h2>Quem fica fora da conta</h2>
+<p>Em julho, o filme brasileiro passou <a href="post-cinemas-2-14-milhoes-ingressos-filme-brasileiro-fora-do-top-10.html">dois fins de semana seguidos fora do Top 10</a>. Na mesma semana em que o Homem-Aranha entrou em 2.500 salas, as estreias nacionais couberam num parágrafo: <strong>A Fabulosa Máquina do Tempo</strong>, de Eliza Capai, em 17 cinemas e 18 salas; o documentário <strong>Não Sei Viver Sem Palavras</strong>, de André Brandão, em seis cinemas; <strong>Margeado</strong>, de Diego Zon, em seis cidades. Havia ainda <strong>Lista de Desejos para Superagüi</strong> e <strong>Aquele que Viu o Abismo</strong>, no mesmo circuito de arte.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>23</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Cinema</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">Dois terços das salas do país, um título só</p><div class="txt">
+<p>Dezoito salas contra mais de 2.500. Aqui a comparação é entre iguais: os dois números contam em quantas salas o filme entrou. A cota de tela existe para garantir que o filme brasileiro chegue à sala. E os 6,5% de 2026 sugerem que ela sozinha não dá conta.</p>
+<p>Vale ficar de olho no balanço da Ancine quando o ano cinematográfico fechar. O diagnóstico da agência está escrito no comunicado da IN 175: sessão em horário de menor procura e por período curto demais cumpre a obrigação e não constrói audiência.</p></div><svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#ph-5"/></svg><div class="leia"><a href="post-2500-salas-homem-aranha-quanto-sobra-cinema-brasileiro.html">Abrir esta matéria no site →</a></div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>24</b><span>06 Ago 2026</span></div></section>
+<section data-sum="7" class="rv-pg rv-mat"><div class="foto"><img src="assets/uploads/sympla-multa-procon-mpmg-taxa-de-conveniencia.jpg" alt="" onerror="this.style.display='none'"><span class="cat">Notícia</span><span class="cred">Foto — Imagem ilustrativa do mercado de…</span></div><div class="miolo"><h3>A taxa de conveniência que não voltava</h3><p class="linhafina">O Procon do Ministério Público de Minas Gerais multou a Sympla em R$ 210.765,02 por reter a taxa de conveniência de quem desistia da compra dentro do prazo legal de sete dias; a empresa nega a irregularidade e apresentou recurso administrativo.</p><div class="olho"><p>O artigo 49 do Código de Defesa do Consumidor dá sete dias para desistir de uma compra feita fora da loja física e manda devolver de imediato os valores pagos a qualquer título. A briga inteira cabe nessas três palavras, e o FOYER explica o que fazer quando o estorno volta pela metade.</p></div><div class="txt"><p>A Sympla foi multada em R$ 210.765,02 pelo Procon do Ministério Público de Minas Gerais por reter a taxa de conveniência de quem desistia do ingresso dentro do prazo legal de arrependimento. A decisão foi divulgada em 10 de fevereiro de 2026 e enquadra a plataforma em prática abusiva nas relações de consumo. O dinheiro vai para o Fundo Estadual de Proteção e Defesa do Consumidor. A empresa nega a irregularidade e apresentou recurso administrativo, ainda sem desfecho conhecido.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>25</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Notícia</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">A taxa de conveniência que não voltava</p><div class="txt">
+<p>Começou com reclamações de quem comprou ingresso pela internet, cancelou e recebeu de volta menos do que pagou. Antes de multar, o Procon-MPMG propôs um Termo de Ajustamento de Conduta e uma Transação Administrativa. A Sympla Internet Soluções S.A. não aderiu a nenhum dos dois. Veio a multa, fundamentada nos artigos 39, 49 e 51 do Código de Defesa do Consumidor e no Decreto federal 2.181/1997.</p>
+<h2>O que diz o artigo 49</h2>
+<p>O direito está no artigo 49 do Código de Defesa do Consumidor, a Lei 8.078, de 1990. Quem compra longe da loja física, pela internet ou pelo telefone, tem sete dias para desistir, contados da assinatura do contrato ou do recebimento do produto ou serviço. O parágrafo único do mesmo artigo decidiu o caso: os valores pagos &quot;a qualquer título&quot; durante o prazo de reflexão são devolvidos de imediato, com correção monetária.</p>
+<p>&quot;A qualquer título&quot; cobre a taxa de conveniência. É o que o Procon-MPMG afirmou ao anunciar a multa: cancelou dentro dos sete dias, tudo o que foi pago volta, taxa de intermediação ou de conveniência incluída. O texto é de 1990 e vale para uma cobrança que virou rotina no carrinho de show e de cinema.</p>
+<p>A Sympla contesta o enquadramento. Em nota ao Diário do Comércio, a empresa afirmou que reembolsa integralmente quem cancela no prazo legal.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>26</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Notícia</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">A taxa de conveniência que não voltava</p><div class="txt">
+<blockquote class="pull">&quot;A empresa esclarece que, quando o consumidor solicita, pelos canais oficiais da Sympla, o cancelamento da compra dentro do prazo legal de 7 dias (direito de arrependimento), é realizado o reembolso integral dos valores pagos, incluindo a taxa de serviço&quot;, diz a nota da empresa, que informou ter apresentado recurso administrativo por entender que a penalidade não se aplica ao caso.</blockquote>
+<h2>O que fazer se acontecer com você</h2>
+<p>Peça o cancelamento pelos canais oficiais da plataforma dentro dos sete dias e guarde tudo: protocolo, print da tela, e-mail de confirmação. No pedido, escreva que é direito de arrependimento pelo artigo 49 do CDC e que o estorno tem de ser do valor total, taxa incluída. Se voltar só uma parte, registre reclamação no consumidor.gov.br, serviço público e gratuito monitorado pela Secretaria Nacional do Consumidor, e no Procon do seu estado, com os comprovantes.</p>
+<p>Não é a primeira plataforma de ingressos autuada pelo mesmo órgão neste ano. Em 15 de janeiro, o Procon-MPMG anunciou multa de R$ 479,5 mil à Eventim Brasil por descumprir a legislação de meia-entrada e a Lei Brasileira de Inclusão da Pessoa com Deficiência: em eventos selecionados, o site não oferecia meia para o público com deficiência e seu acompanhante. A Eventim alegou atuar apenas como intermediária, e o órgão rejeitou o argumento.</p>
+<p>Quem compra ingresso já convive com uma conta cheia de linhas que não são o espetáculo. O FOYER já mostrou <a href="post-como-funciona-a-meia-entrada-no-teatro.html">como funciona a meia-entrada no teatro</a>, <a href="post-quanto-custa-montar-um-musical-no-brasil.html">quanto custa montar um musical no Brasil</a> e a <a href="post-comeca-hoje-a-semana-do-cinema-que-tera-ingressos-por-r-12-em-todo-o-brasil.html">Semana do Cinema, com ingressos a R$ 12</a>. A taxa de conveniência é mais uma dessas linhas, e ela tem regra. Na próxima vez que cancelar um ingresso, confira quanto voltou.</p></div><svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#ph-5"/></svg><div class="leia"><a href="post-sympla-multa-procon-mpmg-taxa-de-conveniencia.html">Abrir esta matéria no site →</a></div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>27</b><span>06 Ago 2026</span></div></section>
+<section data-sum="8" class="rv-pg rv-mat"><div class="foto"><img src="assets/uploads/casa-da-opera-ouro-preto-teatro-mais-antigo-das-americas.jpg" alt="" onerror="this.style.display='none'"><span class="cat">Teatro</span><span class="cred">Foto — Cecioka</span></div><div class="miolo"><h3>1770, o ano em que a sala abriu e nunca mais fechou</h3><p class="linhafina">A Casa da Ópera de Vila Rica foi inaugurada em 6 de junho de 1770, reabriu restaurada em dezembro de 2023 e sustenta, em duas palavras, o posto de teatro mais antigo em funcionamento das Américas.</p><div class="olho"><p>Três pisos com plateia, camarotes, frisas e galerias somam 300 lugares em Ouro Preto. Escadas helicoidais de madeira sobem até a galeria mais alta, os camarins ficam no porão e, acima do palco, resiste a pintura original com as figuras do drama, da comédia e da música. No México, o Teatro Principal de Puebla é nove anos mais velho, mas passou quase quatro décadas fechado depois de um incêndio.</p></div><div class="txt"><p>A poucos passos da Praça Tiradentes, em Ouro Preto, um prédio de paredes grossas de pedra guarda o teatro que a Prefeitura da cidade descreve como o mais antigo em funcionamento das Américas. A Casa da Ópera de Vila Rica, hoje Teatro Municipal de Ouro Preto, foi construída em 1769 por João de Souza Lisboa e inaugurada em 6 de junho de 1770, aniversário do rei dom José I. São 256 anos de uma sala que atravessou o fim do ciclo do ouro, a Inconfidência Mineira, o Império e a República sem perder a função para a qual nasceu.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>28</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">1770, o ano em que a sala abriu e nunca mais fechou</p><div class="txt">
+<p>A casa reabriu em 15 de dezembro de 2023, depois de uma restauração iniciada em outubro de 2022 e conduzida pela Prefeitura de Ouro Preto. A noite começou com a cerimônia de entrega das obras, às 20h, e seguiu com o espetáculo <strong>Auto da Compadecida</strong>, às 21h, com o grupo Maria Cutia e direção de <a href="pessoa-gabriel-villela.html">Gabriel Villela</a>. No fim da programação, uma projeção mapeada com o título &quot;Teatro Mais Antigo das Américas&quot; cobriu a fachada.</p>
+<h2>Quem mandou construir a Casa da Ópera de Vila Rica</h2>
+<p>O artista visual Roberto Sussuca, diretor da casa, contou ao jornal O Tempo, em dezembro de 2023, que a encomenda partiu do conde de Valadares, governador da capitania de Minas Gerais, que chegou a Vila Rica em 1768. Na festa de aniversário dele, no morro de Santa Quitéria, onde hoje fica a Praça Tiradentes, Cláudio Manuel da Costa apresentou um poema musicado, &quot;O Parnaso Obsequioso&quot;. Foi ali, segundo Sussuca, que o governador convocou João de Souza Lisboa, contratador de impostos da Coroa portuguesa, para erguer o teatro.</p>
+<p>A Prefeitura de Ouro Preto registra que casas de ópera existiram em quase todas as cidades da Minas barroca. A de Vila Rica se distinguiu pelo elenco que Souza Lisboa montou, com artistas trazidos de várias cidades. No ano da inauguração ele levou duas atrizes ao palco, contra o costume que reservava os papéis femininos a homens. Nos oito anos em que administrou a casa, o repertório reuniu óperas e oratórios: a correspondência do contratador cita o drama <strong>São Bernardo</strong> e as traduções de <strong>José Reconhecido</strong> e <strong>Alex na Índia</strong>, de Metastásio, assinadas pelo próprio Cláudio Manuel da Costa.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>29</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">1770, o ano em que a sala abriu e nunca mais fechou</p><div class="txt">
+<h2>O que o século 19 mudou na sala</h2>
+<p>A partir da segunda década do século 19, a programação passou a reunir artistas brasileiros e estrangeiros, com títulos como <strong>Escola de Maridos</strong>, de Molière. Nesse período, informa a Prefeitura, a companhia da casa tinha 20 atores, homens e mulheres, que dividiam o palco com uma orquestra de 16 músicos. Só em 1811 foram apresentadas 45 peças.</p>
+<p>Por volta de 1860, a cidade discutiu se valia mais a pena restaurar o teatro ou levantar outro no lugar. Venceu o restauro, e dele saiu boa parte do que o visitante vê hoje.</p>
+<blockquote class="pull">&quot;Nessa obra, a arquitetura interna, em forma de lira, foi mantida, mas os balaústres de madeira foram removidos. Como já tínhamos fundição, foram instalados gradis, os quais são estes mesmos que vemos hoje&quot;, contou Sussuca ao O Tempo.</blockquote>
+<p>A planta permaneceu: três pisos com plateia, camarotes, frisas e galerias, somando 300 lugares. Escadas helicoidais de madeira sobem até a galeria mais alta e, no porão, ficam os camarins e uma sala de recepção para artistas e técnicos. Acima do palco resiste a pintura original, com as figuras do drama, da comédia e da música.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>30</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">1770, o ano em que a sala abriu e nunca mais fechou</p><div class="txt">
+<h2>Quem passou pelo palco</h2>
+<p>Uma placa instalada na entrada, cujo texto o jornal O Tempo reproduziu, resume a folha corrida da casa. Além dos espetáculos, ela serviu a atos políticos, como o de Rui Barbosa na Campanha Civilista, no início dos anos 1900, e encenou peças do inconfidente Cláudio Manuel da Costa. Passaram por ali ainda dom Pedro II e o poeta Alvarenga Peixoto, e <a href="pessoa-presidente-juscelino-kubitschek.html">Juscelino Kubitschek</a> organizou no teatro um festival de arte em 1955.</p>
+<p>Ninguém, porém, conhece o teatro como o músico e técnico de iluminação Vicente Gomes, funcionário mais antigo da casa. Aos 70 anos, em 2023, ele lembrava que, nos festivais de inverno dos anos 1970, chegava a dormir por lá.</p>
+<blockquote class="pull">&quot;Trabalho aqui há 43 anos e, para ser bem sincero, não saberia te dizer se passei mais tempo da minha vida aqui ou na minha própria casa&quot;, disse Gomes ao O Tempo.</blockquote>
+<h2>O que a restauração de 2023 refez</h2>
+<p>As obras trocaram o telhado inteiro. Duas vigas de madeira de dez metros precisaram ser encomendadas ao Pará, porque a substituição por estrutura metálica descaracterizaria a construção, e o material levou mais de cem dias para chegar a Ouro Preto. A lista seguiu com a descupinização, a revisão da rede elétrica e da iluminação, um novo sistema de combate a incêndio e o restauro da boca de cena, das cortinas e do sistema de bambolinas. A pintura da boca de cena, feita no século 18 pelo pintor Marcelino José de Mesquita, foi restaurada pelo historiador Aldo Araújo.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>31</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">1770, o ano em que a sala abriu e nunca mais fechou</p><div class="txt">
+<blockquote class="pull">&quot;É sempre com muito entusiasmo que as pessoas esperam a reabertura da Casa da Ópera. Especialmente porque o teatro, em Ouro Preto, é algo levado a sério e de grande importância, uma vez que temos aqui uma universidade federal que tem um curso de artes cênicas&quot;, afirmou o secretário municipal de Cultura e Turismo, Flávio Malta, ao O Tempo.</blockquote>
+<h2>Quem mais reivindica o posto nas Américas</h2>
+<p>O título não é consenso no continente. No México, o Teatro Principal de Puebla foi inaugurado em 1761, nove anos antes da Casa da Ópera, e parte da imprensa mexicana o trata como o mais antigo da América. A ficha oficial do Instituto Nacional de Bellas Artes y Literatura é mais contida: registra o Principal como o espaço teatral mais antigo do México e conta que o prédio foi danificado por um incêndio em 1902, ficou fechado e só voltou a ser inaugurado em 1940. A formulação de Ouro Preto se apoia nessa interrupção, e o peso dela está em duas palavras: &quot;em funcionamento&quot;.</p></div><span class="segue">continua na próxima página →</span></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>32</b><span>06 Ago 2026</span></div></section>
+<section class="rv-pg rv-mat cont"><div class="rv-kicker"><span class="tagz">Teatro</span><span>continuação</span></div><div class="miolo"><p class="cont-tit">1770, o ano em que a sala abriu e nunca mais fechou</p><div class="txt">
+<h2>Um teatro dentro do patrimônio mundial da Unesco</h2>
+<p>Ouro Preto foi o primeiro bem brasileiro inscrito na Lista do Patrimônio Mundial da Unesco, em 1980, segundo o Ministério do Turismo. O reconhecimento alcança o conjunto urbano, e a Casa da Ópera está dentro dele. Em julho de 2026, a Unesco inscreveu na mesma lista os dois teatros de ópera da Amazônia brasileira, o <a href="post-historia-do-teatro-amazonas-manaus.html">Teatro Amazonas</a>, em Manaus, e o <a href="post-historia-do-theatro-da-paz-belem-patrimonio-mundial.html">Theatro da Paz</a>, em Belém. O FOYER já contou aqui a história do <a href="post-historia-do-theatro-municipal-do-rio-de-janeiro.html">Theatro Municipal do Rio de Janeiro</a>, outra casa centenária que passou por reformas e mudanças de uso. Quem estranhar a grafia dessas casas irmãs encontra a explicação em <a href="post-por-que-teatros-brasileiros-se-escrevem-theatro-com-th.html">por que tantos teatros brasileiros se escrevem com TH</a>.</p>
+<h2>Como visitar</h2>
+<p>A Casa da Ópera fica na Rua Brigadeiro Musqueira, 104, no centro histórico de Ouro Preto, e abre à visitação todos os dias, das 10h às 17h. A Prefeitura cobra R$ 5 pela entrada inteira e R$ 2,50 pela meia, para estudantes, professores e pessoas acima de 60 anos. Desde setembro de 2024 a casa mantém o projeto Encontros na Casa da Ópera, com apresentações musicais e teatrais e ações educativas gratuitas. Os 255 anos foram marcados com apresentações em 6 e 7 de junho de 2025.</p></div><svg class="arte-fim" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#ph-5"/></svg><div class="leia"><a href="post-casa-da-opera-ouro-preto-teatro-mais-antigo-das-americas.html">Abrir esta matéria no site →</a></div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>33</b><span>06 Ago 2026</span></div></section>
+<section data-sum="9" class="rv-pg rv-agd"><div class="cab"><em>Sete dias pela frente</em><h3>A semana em cartaz<span class="cid">São Paulo</span></h3></div><div class="lista"><a class="ag-item cur" href="post-quem-e-laila-garin-atriz-cantora-piaf.html"><span class="ag-dia">Sexta 07/08</span><span class="ag-oq"><b>PIAF, Eu Não Me Arrependo</b><i>Noite de estreia paulistana, às 20h, do musical em que Laila Garin, cinco vezes premiada como Elis Regina, assume o repertório de Édith Piaf acompanhada de orquestra.</i><small>Teatro Bradesco · São Paulo</small></span></a><a class="ag-item cur" href="post-capulanas-no-baile-de-osa-meji-teatro-de-arena-eugenio-kusnet.html"><span class="ag-dia">Sábado 08/08</span><span class="ag-oq"><b>No Baile de Osá Meji Faço das Tripas o Meu Coração</b><i>A Capulanas Cia de Arte Negra faz a penúltima sessão da circulação às 20h, na arena circular da Vila Buarque; entrada gratuita, com ingressos pela Sympla e interpretação em Libras.</i><small>Teatro de Arena Eugênio Kusnet · São Paulo</small></span></a><a class="ag-item cur" href="post-elogio-da-loucura-leona-cavalli-caixa-cultural-sp.html"><span class="ag-dia">Domingo 09/08</span><span class="ag-oq"><b>Elogio da Loucura</b><i>Última sessão da temporada em que Leona Cavalli leva ao palco o Erasmo de Roterdã inédito no teatro brasileiro, às 18h; ingressos gratuitos distribuídos uma hora antes, um por pessoa.</i><small>CAIXA Cultural São Paulo · São Paulo</small></span></a><a class="ag-item cur" href="post-bigorna-estreia-no-sesc-vila-mariana-com-solo-sobre-diferenca-memoria-e-pertenci.html"><span class="ag-dia">Terça 11/08</span><span class="ag-oq"><b>Bigorna</b><i>Walmick de Holanda assina atuação, direção e dramaturgia do thriller autoficcional sobre diferença, memória e pertencimento; terça-feira, às 20h, com 70 minutos de duração.</i><small>Sesc Vila Mariana · São Paulo</small></span></a><a class="ag-item cur" href="post-mazal-tov-quando-a-vida-sorri-estreia-em-sao-paulo-com-direcao-de-dan-rosseto.html"><span class="ag-dia">Quarta 12/08</span><span class="ag-oq"><b>Mazal Tov, Quando a Vida Sorri</b><i>Primeira adaptação teatral do livro de J. S. Margot, sobre a estudante belga que vai trabalhar com os filhos de uma família judaica ortodoxa na Antuérpia dos anos 1990; quarta, às 20h.</i><small>Teatro Moise Safra · São Paulo</small></span></a><a class="ag-item cur" href="post-as-armas-milagrosas-reestreia-no-itau-cultural-em-temporada-gratuita.html"><span class="ag-dia">Quinta 13/08</span><span class="ag-oq"><b>As Armas Milagrosas</b><i>Um grupo de funcionários negros interrompe o ensaio de uma comédia de Pirandello para narrar a própria história; quinta, às 20h, com ingressos gratuitos retirados uma hora antes.</i><small>Itaú Cultural · São Paulo</small></span></a></div><div class="ag-cta"><a href="cat-em-cartaz.html">Tudo que está em cartaz agora →</a></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>34</b><span>06 Ago 2026</span></div></section>
+<section data-sum="10" class="rv-pg rv-agd"><div class="cab"><em>Sete dias pela frente</em><h3>A semana em cartaz<span class="cid">Rio de Janeiro</span></h3></div><div class="lista"><a class="ag-item cur" href="https://www.ingresso.com/espetaculos/2-festival-de-teatro-do-rio-de-janeiro-mulher-em-fuga" target="_blank" rel="noopener"><span class="ag-dia">Sexta 07/08</span><span class="ag-oq"><b>Mulher em Fuga</b><i>Malu Galli e Tiago Martelli fazem a sessão única de sexta no Festival de Teatro do Rio, às 20h, na sala do Centro.</i><small>Teatro Riachuelo · Rio de Janeiro</small></span></a><a class="ag-item cur" href="post-elias-andreato-e-caio-manhente-estrelam-visitando-o-sr-green-no-rio-de-janeiro.html"><span class="ag-dia">Sábado 08/08</span><span class="ag-oq"><b>Visitando o Sr. Green</b><i>Estreia carioca do texto de Jeff Baron com direção de Guilherme Piva, Elias Andreato e Caio Manhente em cena; sábado, às 18h, no Shopping da Gávea.</i><small>Teatro Vannucci · Rio de Janeiro</small></span></a><a class="ag-item cur" href="https://festivaldeteatrodorio.com.br/" target="_blank" rel="noopener"><span class="ag-dia">Sábado 08/08</span><span class="ag-oq"><b>Deserto</b><i>A Polifônica Cia e Renato Livera ocupam o TotalEnergies às 20h, na primeira das duas sessões do espetáculo no festival; a segunda é no domingo, às 18h.</i><small>Teatro TotalEnergies · Rio de Janeiro</small></span></a><a class="ag-item cur" href="https://www.ingresso.com/espetaculos/2-festival-de-teatro-do-rio-de-janeiro-a-pediatra" target="_blank" rel="noopener"><span class="ag-dia">Domingo 09/08</span><span class="ag-oq"><b>A Pediatra</b><i>Debora Lamm e Luis Antonio Fortes fecham o domingo do festival às 18h, em apresentação única no Riachuelo.</i><small>Teatro Riachuelo · Rio de Janeiro</small></span></a><a class="ag-item cur" href="https://festivaldeteatrodorio.com.br/" target="_blank" rel="noopener"><span class="ag-dia">Terça 11/08</span><span class="ag-oq"><b>Maldita</b><i>A primeira das duas noites do espetáculo no festival, às 20h30; quem perder ainda encontra a sessão do dia seguinte, no mesmo horário.</i><small>Teatro TotalEnergies · Rio de Janeiro</small></span></a><a class="ag-item cur" href="post-festival-de-teatro-do-rio-2026-segunda-edicao.html"><span class="ag-dia">Quinta 13/08</span><span class="ag-oq"><b>Fim de Partida</b><i>Marco Nanini apresenta pela primeira vez no Rio, às 20h, o espetáculo que esgotou a temporada paulistana, ao lado de Guilherme Weber, Ary França e Helena Ignez.</i><small>Teatro TotalEnergies · Rio de Janeiro</small></span></a></div><div class="ag-cta"><a href="cat-em-cartaz.html">Tudo que está em cartaz agora →</a></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>35</b><span>06 Ago 2026</span></div></section>
+<section data-sum="11" class="rv-pg rv-mestre"><svg class="fundo" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#ph-1"/></svg><div class="rv-kicker"><span class="tagz">Entre mestres</span><span>A arte pela palavra</span></div><div class="miolo"><div class="aspa">“</div><div class="fr">Temos a arte para não morrer da verdade.</div><div class="au">Friedrich Nietzsche</div><div class="bio">Filósofo alemão, em fragmento de 1888</div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>36</b><span>06 Ago 2026</span></div></section>
+<section data-sum="12" class="rv-pg rv-cartaz rv-pat" data-pub-chave="pub:pagina-inteira"><a style="display:contents" href="https://www.sympla.com.br/produtor/foyerestudioecomunicacao" target="_blank" rel="noopener sponsored" data-pub="pub:pagina-inteira"><img src="assets/uploads/pub-rev-msgh4c6d.jpg" alt=""></a><div class="rv-leg">Publicidade</div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>37</b><span>06 Ago 2026</span></div></section>
+<section data-sum="13" class="rv-pg rv-exp"><div class="rv-kicker"><span class="tagz">Expediente</span><span>Nº 3</span></div><div class="miolo"><img src="assets/logo/foyer-stacked-wine-sm.png" alt="FOYER" class="only-light"><img src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" class="only-dark"><h4>Quem faz</h4><ul><li><b>Pedro Amaral</b> · Direção e edição</li><li><b>Isabel Branquinha</b> · Direção e edição</li></ul><h4>Fotografias</h4><p>Imagens de divulgação das produções, sempre com crédito.</p><h4>Cartas da plateia</h4><p>Escreva para programafoyer@gmail.com. As melhores cartas saem na revista, com nome e cidade.</p><h4>Fale conosco</h4><p>foyer.digital · programafoyer@gmail.com · YouTube @Foyer.digital</p><div class="anuncie"><em>Anuncie no FOYER</em><p>No site todos os dias ou na revista: página inteira, meia página, cortina de entrada, entreato e cartaz. Contrate em 5 passos: <a href="anuncie.html">foyer.digital/anuncie</a> · programafoyer@gmail.com</p></div></div><div class="rv-folio"><span>FOYER · A REVISTA · Nº 3</span><b>38</b><span>06 Ago 2026</span></div></section>
+<section data-sum="14" class="rv-pg rv-back"><div class="miolo"><em class="rot">Fechamos esta edição. A cortina desce.</em><div class="desp"><div class="fr">“O sonho é que leva a gente para frente.”</div><div class="au">Ariano Suassuna</div></div><div class="rodape"><img src="assets/logo/foyer-horizontal-gold.png" alt="FOYER"><span>foyer.digital · assinante lê na quinta</span><span class="rv-barcode"></span></div></div></section>
+    <div class="rv-lombo dir" id="rv-lombo-dir" aria-hidden="true"></div>
+    <button type="button" class="rv-quina esq" id="rv-ant" aria-label="Página anterior">◀</button>
+    <button type="button" class="rv-quina dir" id="rv-prox" aria-label="Próxima página">▶</button>
+  </div>
+  </div>
+  <div class="rv-cortina" id="rv-cortina" role="dialog" aria-modal="true" aria-label="Edição para assinantes" hidden>
+    <div class="ct-caixa">
+      <span class="ct-rot">🎪 Cortina fechada até sexta</span>
+      <h3>Esta edição é dos assinantes até amanhã.</h3>
+      <p>Capa, sumário e carta são de casa aberta. O resto abre para todo mundo na sexta.
+         Assinante lê tudo <b>hoje</b>, de graça.</p>
+      <div class="ct-ja">
+        <label for="ct-email">Já estou na lista:</label>
+        <div class="ct-linha"><input type="email" id="ct-email" placeholder="seu@email.com">
+        <button type="button" id="ct-entrar">Entrar</button></div>
+        <span class="ct-erro" id="ct-erro" aria-live="polite"></span>
+      </div>
+      <div class="ct-ou"><span>ou</span></div>
+      <button type="button" class="ct-assinar" data-conversa>🎟 Assinar em um minuto e ler agora</button>
+      <button type="button" class="ct-voltar" id="ct-voltar">← voltar para a amostra</button>
+    </div>
+  </div>
+  <div class="rv-nav">
+    <span class="ct" id="rv-ct">1 / 39</span>
+    <button type="button" id="rv-sala" title="Só a revista, com a luz apagada">◐ Sala de leitura</button>
+    <button type="button" onclick="window.print()" title="Imprimir ou salvar em PDF">⤓ PDF</button>
+  </div>
+  <button type="button" id="rv-sala-sair">✕ Acender a luz</button>
+</main>
+<script>
+(function(){
+  var pgs = document.querySelectorAll('.rv-pg'), i = 0;
+  // diagramação fina: equilibra as páginas de matéria no tamanho real da tela
+  function diagrama(){
+    function equilibrar(){
+      var mats = document.querySelectorAll('.rv-pg.rv-mat');
+      for(var k = 0; k < mats.length - 1; k++){
+        var a = mats[k], b = mats[k + 1];
+        if(!b.classList.contains('cont')) continue;
+        var ta = a.querySelector('.txt'), tb = b.querySelector('.txt');
+        if(!ta || !tb) continue;
+        var ma = a.querySelector('.miolo');
+        var eraA = a.classList.contains('on'), eraB = b.classList.contains('on');
+        a.classList.add('on'); b.classList.add('on');
+        var guarda = 0;
+        while(tb.firstElementChild && guarda++ < 40){
+          var bloco = tb.firstElementChild;
+          if(bloco.hasAttribute('data-junto')){
+            // a ficha de Serviço só muda de página inteira
+            var ficha = [];
+            while(tb.firstElementChild && tb.firstElementChild.hasAttribute('data-junto')){
+              ficha.push(tb.firstElementChild); ta.appendChild(tb.firstElementChild);
+            }
+            if(ma.scrollHeight > ma.clientHeight + 2){
+              for(var fj = ficha.length - 1; fj >= 0; fj--) tb.insertBefore(ficha[fj], tb.firstChild);
+            }
+            break;
+          }
+          ta.appendChild(bloco);
+          if(ma.scrollHeight > ma.clientHeight + 2){ tb.insertBefore(bloco, tb.firstChild); break; }
+        }
+        guarda = 0;
+        while(ma.scrollHeight > ma.clientHeight + 2 && ta.lastElementChild && guarda++ < 40){
+          var volta = ta.lastElementChild;
+          tb.insertBefore(volta, tb.firstChild);
+          // se o bloco devolvido pertence à ficha, ela volta inteira
+          if(volta.hasAttribute('data-junto')){
+            while(ta.lastElementChild && ta.lastElementChild.hasAttribute('data-junto')){
+              tb.insertBefore(ta.lastElementChild, tb.firstChild);
+            }
+          }
+        }
+        // intertítulo nunca fecha a página: desce com o texto que anuncia
+        if(ta.lastElementChild && /^H[23]$/.test(ta.lastElementChild.tagName)){
+          tb.insertBefore(ta.lastElementChild, tb.firstChild);
+        }
+        if(!eraA) a.classList.remove('on');
+        if(!eraB) b.classList.remove('on');
+      }
+    }
+    equilibrar();
+    // remove continuações esvaziadas, herdando botão e ornamento para a página anterior
+    document.querySelectorAll('.rv-pg.rv-mat').forEach(function(pg){
+      var t = pg.querySelector('.txt');
+      if(pg.classList.contains('cont') && t && !t.firstElementChild){
+        var ant = pg.previousElementSibling;
+        if(ant && ant.classList.contains('rv-mat')){
+          var ma2 = ant.querySelector('.miolo');
+          var sg = ant.querySelector('.segue');
+          if(sg) sg.remove();
+          var lv = pg.querySelector('.leia');
+          var af = pg.querySelector('.arte-fim');
+          // a publicidade vendida nunca morre com a página vazia: ela desce junto
+          var mp = pg.querySelector('.rv-meia');
+          if(ma2 && mp && !ant.querySelector('.rv-meia')) ma2.appendChild(mp);
+          if(ma2 && af && !ant.querySelector('.arte-fim')) ma2.appendChild(af);
+          if(ma2 && lv) ma2.appendChild(lv);
+        }
+        pg.remove();
+      }
+    });
+    equilibrar();
+    // liga o ornamento de fim de matéria quando sobra espaço na última página
+    // (o vão real é a distância entre o fim do texto e o botão, que gruda no pé)
+    document.querySelectorAll('.rv-pg.rv-mat').forEach(function(pg){
+      var lv = pg.querySelector('.leia'), tx = pg.querySelector('.txt');
+      if(!lv || !tx) return;
+      var era2 = pg.classList.contains('on');
+      pg.classList.add('on');
+      var vao = lv.offsetTop - (tx.offsetTop + tx.offsetHeight);
+      if(vao > 150) pg.classList.add('compl');
+      if(!era2) pg.classList.remove('on');
+    });
+    // última instância: entrelinha mais justa na página que ainda estoura
+    document.querySelectorAll('.rv-pg.rv-mat').forEach(function(pg){
+      var era3 = pg.classList.contains('on');
+      pg.classList.add('on');
+      var m3 = pg.querySelector('.miolo');
+      if(m3 && m3.scrollHeight > m3.clientHeight + 2){
+        pg.classList.add('aperta');
+        if(m3.scrollHeight > m3.clientHeight + 2) pg.classList.add('aperta2');
+      }
+      if(!era3) pg.classList.remove('on');
+    });
+    pgs = document.querySelectorAll('.rv-pg');
+    pgs.forEach(function(pg2, k2){ var bb = pg2.querySelector('.rv-folio b'); if(bb) bb.textContent = k2 + 1; });
+    document.getElementById('rv-ct').textContent = (i + 1) + ' / ' + pgs.length;
+  }
+  try{ diagrama(); }catch(e){}
+
+  /* ============ o livro: dupla, virada, pilha, fita, sala ============ */
+  var NUM_ED = "3";
+  var mqDuplo = window.matchMedia('(min-width:860px)');
+  var mexeMenos = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var duplas = [];      // cada item: [idx] ou [idxEsq, idxDir]
+  var d = 0;            // dupla atual
+  var virando = false;
+  var modoLargura = false;   // toque duplo: ler na largura da tela
+  var fita = document.createElement('div'); fita.className = 'rv-fita';
+
+  function ehSolo(p){ return p.classList.contains('rv-capa2') || p.classList.contains('rv-back'); }
+  // o encaixador: em revista, todo conteúdo cabe na página. Mede cada miolo
+  // e aperta o corpo (zoom tipográfico) até a página fechar sem sobra.
+  function encaixa(){
+    document.querySelectorAll('.rv-pg').forEach(function(pg2){
+      var alvo = pg2.querySelector(':scope > .miolo, :scope > ol, :scope > .lista, :scope > .grade, :scope > .mural');
+      if(!alvo) return;
+      var era = pg2.classList.contains('on');
+      pg2.classList.add('on');
+      alvo.style.zoom = '';
+      var z = 1, guarda = 0;
+      while(alvo.scrollHeight > alvo.clientHeight + 2 && z > 0.66 && guarda++ < 14){
+        z -= 0.03;
+        alvo.style.zoom = z;
+      }
+      if(!era) pg2.classList.remove('on');
+    });
+  }
+
+  // o sumário aponta a página certa mesmo depois da repaginação fina no navegador
+  function renumeraSumario(){
+    var todas = document.querySelectorAll('.rv-pg');
+    document.querySelectorAll('.rv-sum ol li').forEach(function(li, k){
+      var alvo = document.querySelector('[data-sum="' + k + '"]');
+      if(!alvo) return;
+      var pos = Array.prototype.indexOf.call(todas, alvo);
+      var el = li.querySelector('.pnum');
+      if(el && pos >= 0) el.textContent = pos + 1;
+      // O sumário dizia "página 18" e não levava a lugar nenhum: numa revista
+      // de 33 páginas isso são 16 viradas até a matéria que ele prometeu.
+      // Agora cada linha é um atalho, e também pelo teclado.
+      if(pos >= 0){
+        li.setAttribute('data-ir', String(pos));
+        li.setAttribute('role', 'link');
+        li.setAttribute('tabindex', '0');
+        li.title = 'Ir para a página ' + (pos + 1);
+      }
+    });
+  }
+  (function(){
+    function irPara(li){
+      var pos = parseInt(li.getAttribute('data-ir'), 10);
+      if(isNaN(pos)) return;
+      vaiDupla(duplaDe(pos), 1);
+    }
+    document.addEventListener('click', function(e){
+      var li = e.target.closest && e.target.closest('.rv-sum ol li[data-ir]');
+      if(li){ e.preventDefault(); irPara(li); }
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key !== 'Enter' && e.key !== ' ') return;
+      var li = e.target.closest && e.target.closest('.rv-sum ol li[data-ir]');
+      if(li){ e.preventDefault(); irPara(li); }
+    });
+  })();
+  function montaDuplas(){
+    pgs = document.querySelectorAll('.rv-pg');
+    duplas = [];
+    if(!mqDuplo.matches || !document.body.classList.contains('rv-duplo-ok')){
+      pgs.forEach(function(_, k){ duplas.push([k]); });
+      return;
+    }
+    var k = 0;
+    while(k < pgs.length){
+      if(ehSolo(pgs[k])){ duplas.push([k]); k += 1; continue; }
+      if(k + 1 < pgs.length && !ehSolo(pgs[k + 1])){ duplas.push([k, k + 1]); k += 2; }
+      else { duplas.push([k]); k += 1; }
+    }
+  }
+  function duplaDe(idxPg){
+    for(var s = 0; s < duplas.length; s++) if(duplas[s].indexOf(idxPg) >= 0) return s;
+    return 0;
+  }
+  function escala(){
+    var livro = document.getElementById('rv-book');
+    var palco = document.getElementById('rv-palco');
+    var par = duplas[d] || [0];
+    var larguraLivro = 726 * par.length;           // 720 + bordas
+    var alturaLivro = 978;
+    var sala = document.body.classList.contains('rv-sala');
+    var w = palco.clientWidth || document.documentElement.clientWidth - 28;
+    // O aviso de cookies entra na conta da ALTURA. Antes, só a barra de
+    // controles subia por cima dele, e a barra passava a cobrir o pé da
+    // folha: na primeira visita, que é justamente quando o aviso aparece, as
+    // três chamadas da capa ficavam escondidas.
+    var aviso = 0;
+    if(document.documentElement.classList.contains('tem-aviso')){
+      aviso = parseInt(getComputedStyle(document.documentElement)
+                .getPropertyValue('--aviso-alt'), 10) || 0;
+    }
+    var h = window.innerHeight - (sala ? 96 : 200) - aviso;
+    var f = Math.min(1, w / larguraLivro, Math.max(0.3, h / alturaLivro));
+    // zoom de leitura (toque duplo): amplia o corpo e deixa arrastar a página
+    if(modoLargura) f = Math.min(1, (w / larguraLivro) * 1.75);
+    // origem no canto: o deslocamento centraliza a revista já na escala final,
+    // sem sobrar metade fora da tela no celular
+    var desloca = Math.max(0, (w - larguraLivro * f) / 2);
+    livro.style.transform = 'translateX(' + desloca + 'px) scale(' + f + ')';
+    // As setas de virar página moram DENTRO da folha, então encolhem junto
+    // com ela: no celular, os 44px viravam 22 na tela e o dedo errava (e
+    // errar ali liga o zoom de leitura sem querer). Guardamos a escala para
+    // o CSS devolver o tamanho às setas, e só a elas.
+    document.documentElement.style.setProperty('--rv-f', String(f));
+    palco.style.height = Math.ceil(alturaLivro * f) + 'px';
+    palco.style.overflowX = modoLargura ? 'auto' : '';
+  }
+  function pinta(){
+    var par = duplas[d] || [0];
+    pgs.forEach(function(p, k){
+      p.classList.remove('on', 'pg-l', 'pg-r');
+      var pos = par.indexOf(k);
+      if(pos >= 0){
+        p.classList.add('on');
+        if(par.length === 2) p.classList.add(pos === 0 ? 'pg-l' : 'pg-r');
+      }
+    });
+    // contador: páginas humanas
+    var ini = par[0] + 1, fim = par[par.length - 1] + 1;
+    document.getElementById('rv-ct').textContent =
+      (ini === fim ? ini : ini + '–' + fim) + ' / ' + pgs.length;
+    // a espessura da revista dos dois lados
+    var lidas = par[0], faltam = pgs.length - (par[par.length - 1] + 1);
+    var le = document.getElementById('rv-lombo-esq'), ld = document.getElementById('rv-lombo-dir');
+    var prim = pgs[par[0]], ult = pgs[par[par.length - 1]];
+    var wEsq = Math.min(2 + lidas * 1.4, 16), wDir = Math.min(2 + faltam * 1.4, 16);
+    le.style.width = wEsq + 'px';
+    ld.style.width = wDir + 'px';
+    le.style.left = (prim.offsetLeft - wEsq) + 'px';
+    ld.style.left = (ult.offsetLeft + ult.offsetWidth) + 'px';
+    le.style.display = lidas > 0 ? 'block' : 'none';
+    ld.style.display = faltam > 0 ? 'block' : 'none';
+    // a fita marca a página em que o leitor está
+    if(d > 0 && !ult.classList.contains('rv-back')){ ult.appendChild(fita); }
+    else if(fita.parentNode){ fita.parentNode.removeChild(fita); }
+    try{ localStorage.setItem('rv-fita-' + NUM_ED, String(par[0])); }catch(e){}
+    var qe = document.getElementById('rv-ant'), qd = document.getElementById('rv-prox');
+    if(qe) qe.hidden = (d === 0);
+    if(qd) qd.hidden = (d === duplas.length - 1);
+    escala();
+  }
+  /* ---- a janela do assinante: hoje é dia de assinante ler primeiro? ---- */
+  var SB = { url: 'https://jcaqjlrzmrtzjyfbljxh.supabase.co',
+             key: 'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB' };
+  function temCadeira(){ try{ return localStorage.getItem('foyer-cadeira') === '1'; }catch(e){ return false; } }
+  function daCadeira(){ try{ localStorage.setItem('foyer-cadeira', '1'); }catch(e){}
+    document.body.classList.remove('rv-em-janela'); }
+  try{ if(new URLSearchParams(location.search).get('cadeira') === '1') daCadeira(); }catch(e){}
+  function hojeISO(){
+    var d2 = new Date();
+    var p2 = function(n){ return (n < 10 ? '0' : '') + n; };
+    return d2.getFullYear() + '-' + p2(d2.getMonth() + 1) + '-' + p2(d2.getDate());
+  }
+  function emJanela(){
+    var lib = document.querySelector('.rv-stage').dataset.libera || '';
+    return !!lib && hojeISO() < lib && !temCadeira();
+  }
+  function limiteAmostra(){
+    // a amostra vai até a carta ao leitor (capa e sumário inclusos)
+    var todas = document.querySelectorAll('.rv-pg');
+    var lim = Math.min(2, todas.length - 1);
+    todas.forEach(function(p2, k2){ if(p2.classList.contains('rv-edi')) lim = Math.max(lim, k2); });
+    return lim;
+  }
+  function cortina(){ return document.getElementById('rv-cortina'); }
+  function abreCortina(){
+    var c2 = cortina();
+    if(!c2) return;
+    c2.hidden = false;
+    var em = document.getElementById('ct-email');
+    if(em) setTimeout(function(){ em.focus(); }, 80);
+  }
+  function fechaCortina(){ var c2 = cortina(); if(c2) c2.hidden = true; }
+  (function ligaCortina(){
+    var c2 = cortina();
+    if(!c2) return;
+    if(emJanela()){
+      document.body.classList.add('rv-em-janela');
+      var lim0 = limiteAmostra();
+      document.querySelectorAll('.rv-pg').forEach(function(p3, k3){
+        if(k3 <= lim0) p3.classList.add('rv-amostra');
+      });
+      window.addEventListener('foyer-assinou', function(){ document.body.classList.remove('rv-em-janela'); });
+    }
+    document.getElementById('ct-voltar').addEventListener('click', fechaCortina);
+    var entrar = document.getElementById('ct-entrar'), em = document.getElementById('ct-email');
+    var erro = document.getElementById('ct-erro');
+    function verifica(){
+      var v = (em.value || '').trim();
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){ erro.textContent = 'Confere esse e-mail?'; return; }
+      entrar.disabled = true; entrar.textContent = '…';
+      fetch(SB.url + '/rest/v1/rpc/foyer_ja_assina', {
+        method: 'POST',
+        headers: { 'apikey': SB.key, 'Authorization': 'Bearer ' + SB.key, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ p_email: v })
+      }).then(function(r){ return r.json(); }).then(function(sim){
+        entrar.disabled = false; entrar.textContent = 'Entrar';
+        if(sim === true){ daCadeira(); fechaCortina(); proxima(); }
+        else { erro.textContent = 'Não achei esse e-mail na lista. Assina em um minuto aqui embaixo?'; }
+      }).catch(function(){
+        entrar.disabled = false; entrar.textContent = 'Entrar';
+        erro.textContent = 'Não deu para conferir agora. Tenta de novo?';
+      });
+    }
+    entrar.addEventListener('click', verifica);
+    em.addEventListener('keydown', function(e){ if(e.key === 'Enter') verifica(); });
+    // assinou pela conversa: a cadeira é dada na hora e a cortina sobe
+    window.addEventListener('foyer-assinou', function(){ daCadeira(); fechaCortina(); });
+  })();
+
+  function vaiDupla(s, sentido){
+    if(virando) return;
+    s = Math.max(0, Math.min(duplas.length - 1, s));
+    if(emJanela()){
+      var lim = limiteAmostra();
+      var par2 = duplas[s] || [0];
+      if(par2[0] > lim){ abreCortina(); return; }
+    }
+    if(s === d){ pinta(); return; }
+    var anima = sentido && !mexeMenos.matches;
+    if(!anima){ d = s; pinta(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    virando = true;
+    // rede de segurança: nada pode deixar o leitor travado
+    setTimeout(function(){ virando = false; }, 620);
+    var parVelha = duplas[d];
+    var sai = pgs[parVelha[sentido > 0 ? parVelha.length - 1 : 0]];
+    sai.classList.add(sentido > 0 ? 'vira-sai-dir' : 'vira-sai-esq');
+    setTimeout(function(){
+      sai.classList.remove('vira-sai-dir', 'vira-sai-esq');
+      try{
+        // as duplas podem ter sido remontadas no meio da virada (resize)
+        d = Math.max(0, Math.min(duplas.length - 1, s));
+        pinta();
+        var parNova = duplas[d] || [0];
+        var entra = pgs[parNova[sentido > 0 ? 0 : parNova.length - 1]];
+        if(entra){
+          entra.classList.add(sentido > 0 ? 'vira-entra-esq' : 'vira-entra-dir');
+          setTimeout(function(){
+            entra.classList.remove('vira-entra-esq', 'vira-entra-dir');
+          }, 270);
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }catch(e){}
+      setTimeout(function(){ virando = false; }, 270);
+    }, 230);
+  }
+  function proxima(){ vaiDupla(d + 1, 1); }
+  function anterior(){ vaiDupla(d - 1, -1); }
+
+  // o convite no canto da página
+  pgs.forEach(function(p){
+    if(p.classList.contains('rv-back')) return;
+    var c = document.createElement('button');
+    c.className = 'rv-canto'; c.type = 'button';
+    c.setAttribute('aria-label', 'Virar a página');
+    c.addEventListener('click', proxima);
+    p.appendChild(c);
+  });
+
+  document.getElementById('rv-ant').addEventListener('click', anterior);
+  document.getElementById('rv-prox').addEventListener('click', proxima);
+  // o código do cupom copia com um toque
+  document.querySelectorAll('[data-copia-cupom]').forEach(function(bt){
+    bt.addEventListener('click', function(){
+      var cod = bt.getAttribute('data-copia-cupom');
+      var em = bt.querySelector('em'), antes = em ? em.textContent : '';
+      function avisa(){ if(em){ em.textContent = 'copiado!'; setTimeout(function(){ em.textContent = antes; }, 1600); } }
+      if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(cod).then(avisa, avisa);
+      else avisa();
+    });
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.target.closest && e.target.closest('input, [contenteditable]')) return;
+    if(e.key === 'ArrowRight') proxima();
+    if(e.key === 'ArrowLeft') anterior();
+    if(e.key === 'Escape' && document.body.classList.contains('rv-sala')) salaSai();
+  });
+  // toque duplo na página: alterna o modo "largura da tela" (corpo maior, rolagem vertical)
+  var tqTrava = 0;
+  function alternaLargura(){
+    // no toque, o navegador ainda sintetiza um dblclick: um gesto, uma alternância
+    var agoraT = Date.now();
+    if(agoraT - tqTrava < 500) return;
+    tqTrava = agoraT;
+    var palco = document.getElementById('rv-palco');
+    var par = duplas[d] || [0];
+    var w = palco.clientWidth || document.documentElement.clientWidth - 28;
+    var cheia = Math.min(1, w / (726 * par.length));
+    var h = window.innerHeight - (document.body.classList.contains('rv-sala') ? 96 : 200);
+    var justa = Math.min(cheia, Math.max(0.3, h / 978));
+    var ampliada = Math.min(1, cheia * 1.75);
+    if(!modoLargura && ampliada - justa < 0.05) return;   // não faria diferença nesta tela
+    modoLargura = !modoLargura;
+    escala();
+    var t = document.createElement('div');
+    t.className = 'rv-toast';
+    t.textContent = modoLargura ? 'Zoom de leitura: arraste a página · toque duas vezes para voltar'
+                                : 'Página inteira de volta';
+    document.body.appendChild(t);
+    setTimeout(function(){ t.remove(); }, 2600);
+  }
+  var x0 = null, y0 = null, tqUlt = 0;
+  document.addEventListener('touchstart', function(e){
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+  }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if(x0 == null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    var dy = e.changedTouches[0].clientY - y0;
+    if(Math.abs(dx) > 60){ if(!modoLargura) (dx < 0 ? proxima : anterior)(); tqUlt = 0; }
+    else if(Math.abs(dx) < 24 && Math.abs(dy) < 24 && e.target.closest && e.target.closest('.rv-pg')){
+      var agora = Date.now();
+      if(agora - tqUlt < 340){ alternaLargura(); tqUlt = 0; }
+      else tqUlt = agora;
+    }
+    x0 = null; y0 = null;
+  }, {passive:true});
+  document.addEventListener('dblclick', function(e){
+    if(e.target.closest && e.target.closest('.rv-pg') && !e.target.closest('a, button')) alternaLargura();
+  });
+
+  // sala de leitura
+  function salaEntra(){ document.body.classList.add('rv-sala'); window.scrollTo({ top: 0 }); pinta(); }
+  function salaSai(){ document.body.classList.remove('rv-sala'); pinta(); }
+  document.getElementById('rv-sala').addEventListener('click', function(){
+    document.body.classList.contains('rv-sala') ? salaSai() : salaEntra();
+  });
+  document.getElementById('rv-sala-sair').addEventListener('click', salaSai);
+
+  // arranque: mede, monta as duplas e volta para onde a fita ficou
+  function arranca(){
+    document.body.classList.add('rv-duplo-ok');
+    document.body.classList.toggle('rv-duplo', mqDuplo.matches);
+    montaDuplas();
+    encaixa();
+    renumeraSumario();
+    var guardada = 0;
+    try{ guardada = parseInt(localStorage.getItem('rv-fita-' + NUM_ED) || '0', 10) || 0; }catch(e){}
+    if(emJanela() && guardada > limiteAmostra()) guardada = 0;   // a fita respeita a cortina
+    if(guardada > 0 && guardada < pgs.length){
+      d = duplaDe(guardada);
+      var t = document.createElement('div');
+      t.className = 'rv-toast';
+      t.textContent = 'A fita marcou onde você parou: página ' + (guardada + 1);
+      document.body.appendChild(t);
+      setTimeout(function(){ t.remove(); }, 4400);
+    }
+    pinta();
+  }
+  function reflui(){
+    // cancela virada pendente: as duplas vão mudar debaixo dela
+    virando = false;
+    pgs.forEach(function(p){ p.classList.remove('vira-sai-dir', 'vira-sai-esq', 'vira-entra-dir', 'vira-entra-esq'); });
+    document.body.classList.toggle('rv-duplo', mqDuplo.matches);
+    var ancora = (duplas[d] || [0])[0];
+    montaDuplas();
+    encaixa();
+    renumeraSumario();
+    d = duplaDe(ancora);
+    pinta();
+  }
+  if(mqDuplo.addEventListener) mqDuplo.addEventListener('change', reflui);
+  window.addEventListener('resize', function(){ requestAnimationFrame(pinta); });
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ try{ diagrama(); reflui(); }catch(e){} });
+  window.addEventListener('load', function(){ try{ diagrama(); reflui(); }catch(e){} });
+  arranca();
+})();
+</script>
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Críticas Teatrais · Por Bruno Cavalcanti</a>
+        <a href="programas.html">Trivia Musical · Astro em Cena</a>
+        <a href="programas.html">Session Musical · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="sobre.html">Quem somos</a>
+        <a href="contato.html">Contato</a>
+        <a href="anuncie.html">Anuncie no FOYER</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="principios.html">Princípios Editoriais</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+        <a href="termos.html">Termos de Uso</a>
+        <a href="#" data-lgpd>Preferências de cookies</a>
+        <a href="#" data-sino>🔔 Notificações</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer Estúdio e Comunicação — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

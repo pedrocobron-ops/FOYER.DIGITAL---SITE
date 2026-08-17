@@ -30,7 +30,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação","url":"https://foyer.digital/","logo":"https://foyer.digital/assets/logo/foyer-stacked-gold.png","sameAs":["https://www.youtube.com/@Foyer.digital","https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm"]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Exposição de artista Argentina, Marta Minujin, chega à Pinacoteca", "description": "Marta ficou conhecida por suas obras de Pop art críticas à ditadura de seu país, e se tornou uma das artistas latino-americanas mais relevantes e influentes de sua geração atualmente.", "image": ["https://foyer.digital/assets/acervo/b39aff4db8d3e3c8.jpg"], "datePublished": "2023-08-05", "dateModified": "2023-08-05", "author": [{"@type": "Person", "name": "Isabel Branquinha", "url": "https://foyer.digital/autor-isabel-branquinha.html"}], "publisher": {"@type": "NewsMediaOrganization", "name": "FOYER", "logo": {"@type": "ImageObject", "url": "https://foyer.digital/assets/logo/foyer-stacked-gold.png"}}, "mainEntityOfPage": "https://foyer.digital/post-exposicao-de-artista-argentina-marta-minujin-chega-a-pinacoteca.html", "inLanguage": "pt-BR", "articleSection": "Exposições"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FOYER", "item": "https://foyer.digital/"}, {"@type": "ListItem", "position": 2, "name": "Exposições", "item": "https://foyer.digital/cat-exposicoes.html"}, {"@type": "ListItem", "position": 3, "name": "Exposição de artista Argentina, Marta Minujin, chega à Pinacoteca"}]}</script>
 </head>
 <body>
-<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<a class="skip-link" href="#conteudo" onclick="var m=document.getElementById('conteudo');if(m)m.setAttribute('tabindex','-1');if(m)m.focus();location.hash='conteudo';return false;">Pular para o conteúdo</a>
 
 <!-- artes de palco (placeholders de foto e capas da revista) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -137,7 +137,6 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
     <a href="revista.html">Revista</a>
     <a href="programas.html">Programas</a>
     <a href="enciclopedia.html">Enciclopédia</a>
-    <a href="agenda.html">Agenda</a>
     <a href="entrevistas.html">Entrevistas</a>
     <a href="busca.html" class="busca">⌕ Buscar</a>
   </div>
@@ -176,6 +175,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 <p>Logo na entrada, os visitantes serão recebidos por uma escultura inflável de 17 metros que ficará no estacionamento pelo menos durante os primeiros dias da exposição. A obra chama-se “Escultura de los deseos”. </p>
 <p>As obras expostas procuram retratar momentos cruciais da carreira da artista e de suas pesquisas sobre fenômenos sociais da comunicação e seu potencial disseminador. A mostra conta com diversas salas interativas que vão de galeria de tramas e colchões multicoloridos a recriações feitas especialmente para a Pinacoteca, como o caso da obra “El Batacazo” de 1965, em que ícones da mídia, como jogadores de Futebol do Brasil e da Argentina, conduzem o público, que sobe escadas encontrando playboys e cosmonautas e depois desce um escorregador para cair em uma boneca inflável com o rosto da atriz italiana Virna Lisi. </p>
 <p>A exposição fica na Pina Luz até o dia 28 de janeiro e as quintas feiras o espaço tem programação estendida até as 20h, com entrada gratuita a partir das 18h.</p>
+<aside class="pub-cartaz" data-pub-slot="cartaz" data-pub-chave="pub:cartaz"><em>Publicidade</em><a href="https://www.sympla.com.br/produtor/foyerestudioecomunicacao" target="_blank" rel="noopener sponsored" data-pub="pub:cartaz"><img src="assets/uploads/pub-cartaz-0-msewrsdo.jpg" alt="" loading="lazy"></a></aside>
   </div>
   
   
@@ -240,6 +240,46 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 </main>
 
 
+<style>
+.pub-cortina[hidden]{ display:none !important; }
+.pub-cortina{ position:fixed; inset:0; z-index:120; display:flex; align-items:center;
+  justify-content:center; background:rgba(20,6,3,.78); padding:20px; }
+.pub-cortina .caixa{ position:relative; background:var(--paper); border:3px solid var(--ink);
+  max-width:520px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+.pub-cortina .rotulo{ display:block; font-family:var(--mono); font-size:.52rem; font-weight:700;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); padding:10px 14px 0; }
+/* teto de altura: arte muito em pé não pode empurrar o botão de fechar para
+   fora da tela. O que passar do teto vira margem de papel, nunca corte. */
+.pub-cortina img{ display:block; width:100%; height:auto; object-fit:contain;
+  max-height:calc(100vh - 170px); padding:10px 14px; box-sizing:border-box; }
+.pub-cortina .leg{ padding:0 14px 14px; font-size:.85rem; }
+.pub-cortina .fechar{ position:absolute; top:-14px; right:-14px; width:34px; height:34px;
+  border:2px solid var(--ink); background:var(--gold); color:var(--wine); font-weight:700;
+  cursor:pointer; font-size:1rem; line-height:1; }
+</style>
+<div class="pub-cortina" id="pub-cortina" data-pub-chave="pub:cortina" hidden><div class="caixa"><button class="fechar" type="button" id="pub-cortina-x" aria-label="Fechar">✕</button><span class="rotulo">Publicidade</span><a href="https://www.sympla.com.br/produtor/foyerestudioecomunicacao" target="_blank" rel="noopener sponsored" data-pub="pub:cortina"><img src="assets/uploads/pub-cortina-0-msf37psm.jpg" alt=""></a></div></div>
+<script>
+(function(){
+  var k = 'foyer-pub-cortina-' + new Date().toISOString().slice(0, 10);
+  try{ if(localStorage.getItem(k)) return; }catch(e){}
+  function livre(){ try{ return !!localStorage.getItem('foyer-consent'); }catch(e){ return true; } }
+  var c = document.getElementById('pub-cortina');
+  function entra(){
+    setTimeout(function(){
+      c.hidden = false;
+      if(window.foyerPubVista) window.foyerPubVista(c.getAttribute('data-pub-chave'));
+      // 1x por dia de verdade: vista ao abrir, e não só ao fechar
+      try{ localStorage.setItem(k, '1'); }catch(e){}
+    }, 900);
+  }
+  function fecha(){ c.hidden = true; try{ localStorage.setItem(k, '1'); }catch(e){} }
+  document.getElementById('pub-cortina-x').addEventListener('click', fecha);
+  c.addEventListener('click', function(e){ if(e.target === c) fecha(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !c.hidden) fecha(); });
+  if(livre()) entra();
+  else var iv = setInterval(function(){ if(livre()){ clearInterval(iv); entra(); } }, 600);
+})();
+</script>
 <footer>
   <div class="wrap">
     <div class="foot-cols">
@@ -252,7 +292,6 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
         <a href="noticias.html">Notícias</a>
         <a href="critica.html">Crítica</a>
         <a href="entrevistas.html">Entrevistas</a>
-        <a href="agenda.html">Agenda</a>
       </div>
       <div class="foot-col">
         <h4>Programas</h4>

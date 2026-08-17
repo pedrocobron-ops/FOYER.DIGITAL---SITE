@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>/* o tema antes da primeira pintura: a casa abre com a luz da sala em
+todo aparelho, e só fica no Blackout se o leitor tiver apertado o botão. Fica
+aqui, no alto do cabeçalho, para não haver piscada de claro antes do escuro. */
+try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<meta name="description" content="Matérias de Teatro Musical no FOYER.">
+<meta name="theme-color" content="#4E0F09">
+<meta name="robots" content="max-image-preview:large">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/logo/pwa-192.png">
+<meta property="og:site_name" content="FOYER">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Teatro Musical — FOYER">
+<meta property="og:description" content="Matérias de Teatro Musical no FOYER.">
+<meta property="og:image" content="https://foyer.digital/assets/logo/src/foyer-banner.png">
+<meta property="og:url" content="https://foyer.digital/cat-teatro-musical-p12.html">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<title>Teatro Musical — FOYER</title>
+<link rel="canonical" href="https://foyer.digital/cat-teatro-musical-p12.html">
+<link rel="alternate" type="application/rss+xml" title="FOYER — Últimas" href="https://foyer.digital/feed.xml">
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="preload" href="fonts/AbrilFatface-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação","url":"https://foyer.digital/","logo":"https://foyer.digital/assets/logo/foyer-stacked-gold.png","sameAs":["https://www.youtube.com/@Foyer.digital","https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm"]}</script>
+</head>
+<body>
+<a class="skip-link" href="#conteudo" onclick="var m=document.getElementById('conteudo');if(m)m.setAttribute('tabindex','-1');if(m)m.focus();location.hash='conteudo';return false;">Pular para o conteúdo</a>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <!-- a cortina termina na ribalta; abaixo dela, o piso do palco -->
+      <rect y="348" width="600" height="52" fill="#2B0805"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <!-- a pessoa que se destaca na plateia: sentada NUMA cadeira da malha (62x44, centro 31+62k / 28+44m) -->
+      <circle cx="341" cy="248" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <!-- teatro de arena: plateia completa e alinhada dos dois lados, um ator só no centro -->
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <g fill="#1F0805">
+        <circle cx="30" cy="34" r="12"/><circle cx="84" cy="34" r="12"/><circle cx="138" cy="34" r="12"/><circle cx="192" cy="34" r="12"/><circle cx="246" cy="34" r="12"/><circle cx="300" cy="34" r="12"/><circle cx="354" cy="34" r="12"/><circle cx="408" cy="34" r="12"/><circle cx="462" cy="34" r="12"/><circle cx="516" cy="34" r="12"/><circle cx="570" cy="34" r="12"/>
+        <circle cx="30" cy="78" r="12"/><circle cx="84" cy="78" r="12"/><circle cx="138" cy="78" r="12"/><circle cx="192" cy="78" r="12"/><circle cx="246" cy="78" r="12"/><circle cx="300" cy="78" r="12"/><circle cx="354" cy="78" r="12"/><circle cx="408" cy="78" r="12"/><circle cx="462" cy="78" r="12"/><circle cx="516" cy="78" r="12"/><circle cx="570" cy="78" r="12"/>
+        <circle cx="30" cy="322" r="12"/><circle cx="84" cy="322" r="12"/><circle cx="138" cy="322" r="12"/><circle cx="192" cy="322" r="12"/><circle cx="246" cy="322" r="12"/><circle cx="300" cy="322" r="12"/><circle cx="354" cy="322" r="12"/><circle cx="408" cy="322" r="12"/><circle cx="462" cy="322" r="12"/><circle cx="516" cy="322" r="12"/><circle cx="570" cy="322" r="12"/>
+        <circle cx="30" cy="366" r="12"/><circle cx="84" cy="366" r="12"/><circle cx="138" cy="366" r="12"/><circle cx="192" cy="366" r="12"/><circle cx="246" cy="366" r="12"/><circle cx="300" cy="366" r="12"/><circle cx="354" cy="366" r="12"/><circle cx="408" cy="366" r="12"/><circle cx="462" cy="366" r="12"/><circle cx="516" cy="366" r="12"/><circle cx="570" cy="366" r="12"/>
+      </g>
+      <rect x="120" y="136" width="360" height="128" fill="#380A06" stroke="#CEB26A" stroke-width="3"/>
+      <ellipse cx="300" cy="200" rx="72" ry="34" fill="#E9CB85" opacity=".16"/>
+      <circle cx="300" cy="200" r="13" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <a href="anuncie.html">Anuncie</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Teatro Musical</h1>
+    <p class="note">320 matérias — página 12 de 14</p>
+  </div>
+</header>
+
+<main id="conteudo" class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html">Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-bastidores.html">Bastidores</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-entenda.html">Entenda</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-guia.html">Guia</a><a href="cat-literatura.html">Literatura</a><a href="cat-memoria.html">Memória</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-teatro-musical.html" class="on">Teatro Musical</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro Musical">
+      <a class="ph" href="post-myra-ruiz-e-fabi-bang-lancam-show-especial-de-natal-e-ja-possui-setores-com-ingr.html" aria-label="Foto da matéria"><img src="assets/acervo/97d27bb16aa5c453.jpg" alt="Myra Ruiz e Fabi Bang lançam show especial de Natal, e já possui setores com ingressos esgotados" loading="lazy" onerror="this.style.display='none'"><span class="ph-cap">Foto — Jairo GoldFlus</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-myra-ruiz-e-fabi-bang-lancam-show-especial-de-natal-e-ja-possui-setores-com-ingr.html">Myra Ruiz e Fabi Bang lançam show especial de Natal, e já possui setores com ingressos esgotados</a></h3>
+        <p>“Receitas para um Natal Feliz” esse é o nome do show natalino de Myra Ruiz e Fabi Bang. As estrelas do teatro musical, que estão atualmente em cartaz com o espe…</p>
+        <div class="meta-row">
+          <span class="meta-l">28.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Myra Ruiz e Fabi Bang lançam show especial de Natal, e já possui setores com ingressos esgotados" data-url="https://foyer.digital/post-myra-ruiz-e-fabi-bang-lancam-show-especial-de-natal-e-ja-possui-setores-com-ingr.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Audições">
+      <a class="ph" href="post-musical-dirigido-por-miguel-falabella-sobre-o-rei-do-rock-n-roll-abre-audicoes-p.html" aria-label="Foto da matéria"><img src="assets/acervo/268677ff16b940c1.jpg" alt="Musical dirigido por Miguel Falabella sobre o Rei do Rock n’ Roll abre audições para Elvis Presley" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Audições</span>
+        <h3><a href="post-musical-dirigido-por-miguel-falabella-sobre-o-rei-do-rock-n-roll-abre-audicoes-p.html">Musical dirigido por Miguel Falabella sobre o Rei do Rock n’ Roll abre audições para Elvis Presley</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical dirigido por Miguel Falabella sobre o Rei do Rock n’ Roll abre audições para Elvis Presley" data-url="https://foyer.digital/post-musical-dirigido-por-miguel-falabella-sobre-o-rei-do-rock-n-roll-abre-audicoes-p.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-ultimos-dias-para-assistir-a-opera-o-navio-fantasma-no-theatro-municipal-de-sao-.html" aria-label="Foto da matéria"><img src="assets/acervo/42268a95432fc4b3.jpg" alt="Últimos dias para assistir a ópera “O Navio Fantasma” no Theatro Municipal de São Paulo" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-ultimos-dias-para-assistir-a-opera-o-navio-fantasma-no-theatro-municipal-de-sao-.html">Últimos dias para assistir a ópera “O Navio Fantasma” no Theatro Municipal de São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Últimos dias para assistir a ópera “O Navio Fantasma” no Theatro Municipal de São Paulo" data-url="https://foyer.digital/post-ultimos-dias-para-assistir-a-opera-o-navio-fantasma-no-theatro-municipal-de-sao-.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-icaro-silva-e-o-primeiro-nome-divulgado-do-elenco-de-nova-montagem-do-musical-ca.html" aria-label="Foto da matéria"><img src="assets/acervo/3edae26e23e0eaa0.jpg" alt="Ícaro Silva é o primeiro nome divulgado do elenco de nova montagem do musical Cabaret" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-icaro-silva-e-o-primeiro-nome-divulgado-do-elenco-de-nova-montagem-do-musical-ca.html">Ícaro Silva é o primeiro nome divulgado do elenco de nova montagem do musical Cabaret</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Ícaro Silva é o primeiro nome divulgado do elenco de nova montagem do musical Cabaret" data-url="https://foyer.digital/post-icaro-silva-e-o-primeiro-nome-divulgado-do-elenco-de-nova-montagem-do-musical-ca.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-depois-de-sucesso-do-musical-mundareu-de-mim-ibt-lanca-oficina-de-tecnica-vocal-.html" aria-label="Foto da matéria"><img src="assets/acervo/8d631bc8c5fc3f7a.jpg" alt="Depois de sucesso do musical “Mundaréu de Mim”, IBT lança Oficina de Técnica Vocal com Polly Gutman" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-depois-de-sucesso-do-musical-mundareu-de-mim-ibt-lanca-oficina-de-tecnica-vocal-.html">Depois de sucesso do musical “Mundaréu de Mim”, IBT lança Oficina de Técnica Vocal com Polly Gutman</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Depois de sucesso do musical “Mundaréu de Mim”, IBT lança Oficina de Técnica Vocal com Polly Gutman" data-url="https://foyer.digital/post-depois-de-sucesso-do-musical-mundareu-de-mim-ibt-lanca-oficina-de-tecnica-vocal-.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Audições">
+      <a class="ph" href="post-musical-de-victor-rocha-com-direcao-e-coreografias-de-fernanda-chamma-abre-audic.html" aria-label="Foto da matéria"><img src="assets/acervo/8e784e5266833f41.jpg" alt="Musical de Victor Rocha com direção e coreografias de Fernanda Chamma abre audições" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Audições</span>
+        <h3><a href="post-musical-de-victor-rocha-com-direcao-e-coreografias-de-fernanda-chamma-abre-audic.html">Musical de Victor Rocha com direção e coreografias de Fernanda Chamma abre audições</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical de Victor Rocha com direção e coreografias de Fernanda Chamma abre audições" data-url="https://foyer.digital/post-musical-de-victor-rocha-com-direcao-e-coreografias-de-fernanda-chamma-abre-audic.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-premio-did-chega-a-sua-6a-edicao-com-novidades.html" aria-label="Foto da matéria"><img src="assets/acervo/0fbd87603517ff9d.jpg" alt="Prêmio DID chega a sua 6ª edição com novidades" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-premio-did-chega-a-sua-6a-edicao-com-novidades.html">Prêmio DID chega a sua 6ª edição com novidades</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Prêmio DID chega a sua 6ª edição com novidades" data-url="https://foyer.digital/post-premio-did-chega-a-sua-6a-edicao-com-novidades.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-matheus-nachtergaele-estrela-a-comedia-musical-moliere-que-esta-em-cartaz-no-tea.html" aria-label="Foto da matéria"><img src="assets/acervo/063e16de35726b4a.jpg" alt="Matheus Nachtergaele estrela a comédia musical “Molière” que está em cartaz no Teatro Liberdade" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-matheus-nachtergaele-estrela-a-comedia-musical-moliere-que-esta-em-cartaz-no-tea.html">Matheus Nachtergaele estrela a comédia musical “Molière” que está em cartaz no Teatro Liberdade</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Matheus Nachtergaele estrela a comédia musical “Molière” que está em cartaz no Teatro Liberdade" data-url="https://foyer.digital/post-matheus-nachtergaele-estrela-a-comedia-musical-moliere-que-esta-em-cartaz-no-tea.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-nucleo-experimental-estreia-aula-show-que-contara-a-historia-do-musical-brasilei.html" aria-label="Foto da matéria"><img src="assets/acervo/ac4deb53add22d2a.jpg" alt="Núcleo Experimental estreia “Aula Show” que contará a história do Musical Brasileiro" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-nucleo-experimental-estreia-aula-show-que-contara-a-historia-do-musical-brasilei.html">Núcleo Experimental estreia “Aula Show” que contará a história do Musical Brasileiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Núcleo Experimental estreia “Aula Show” que contará a história do Musical Brasileiro" data-url="https://foyer.digital/post-nucleo-experimental-estreia-aula-show-que-contara-a-historia-do-musical-brasilei.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-estreia-de-musical-sobre-tarsila-do-amaral-com-claudia-raia-e-jarbas-homem-de-me.html" aria-label="Foto da matéria"><img src="assets/acervo/3c45972b60fbe054.jpg" alt="Estreia de musical sobre Tarsila do Amaral, com Claudia Raia e Jarbas Homem de Mello é anunciada" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-estreia-de-musical-sobre-tarsila-do-amaral-com-claudia-raia-e-jarbas-homem-de-me.html">Estreia de musical sobre Tarsila do Amaral, com Claudia Raia e Jarbas Homem de Mello é anunciada</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">17.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Estreia de musical sobre Tarsila do Amaral, com Claudia Raia e Jarbas Homem de Mello é anunciada" data-url="https://foyer.digital/post-estreia-de-musical-sobre-tarsila-do-amaral-com-claudia-raia-e-jarbas-homem-de-me.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-r-marketing-lanca-programa-de-aceleramento-para-projetos-culturais-com-foco-em-m.html" aria-label="Foto da matéria"><img src="assets/acervo/f3e1289576215ae4.jpg" alt="R+ Marketing lança Programa de
+Aceleramento para Projetos Culturais com foco em Musicais Brasileiros" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-r-marketing-lanca-programa-de-aceleramento-para-projetos-culturais-com-foco-em-m.html">R+ Marketing lança Programa de
+Aceleramento para Projetos Culturais com foco em Musicais Brasileiros</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="R+ Marketing lança Programa de
+Aceleramento para Projetos Culturais com foco em Musicais Brasileiros" data-url="https://foyer.digital/post-r-marketing-lanca-programa-de-aceleramento-para-projetos-culturais-com-foco-em-m.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-musical-wicked-completa-hoje-20-anos-em-cartaz-na-broadway.html" aria-label="Foto da matéria"><img src="assets/acervo/d90cb7e38a3916c8.jpg" alt="Musical “Wicked” completa hoje 20 anos em cartaz na Broadway" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-musical-wicked-completa-hoje-20-anos-em-cartaz-na-broadway.html">Musical “Wicked” completa hoje 20 anos em cartaz na Broadway</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical “Wicked” completa hoje 20 anos em cartaz na Broadway" data-url="https://foyer.digital/post-musical-wicked-completa-hoje-20-anos-em-cartaz-na-broadway.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-musical-dear-evan-hansen-tem-estreia-agendada-para-junho-de-2024-no-brasil.html" aria-label="Foto da matéria"><img src="assets/acervo/7d910b30528f5183.jpg" alt="Musical “Dear Evan Hansen” tem estreia agendada para junho de 2024 no Brasil" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-musical-dear-evan-hansen-tem-estreia-agendada-para-junho-de-2024-no-brasil.html">Musical “Dear Evan Hansen” tem estreia agendada para junho de 2024 no Brasil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical “Dear Evan Hansen” tem estreia agendada para junho de 2024 no Brasil" data-url="https://foyer.digital/post-musical-dear-evan-hansen-tem-estreia-agendada-para-junho-de-2024-no-brasil.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-musical-ate-as-princesas-soltam-pum-inspirado-na-obra-de-ilan-brenman-chega-a-sa.html" aria-label="Foto da matéria"><img src="assets/acervo/4fccf42957411e35.jpg" alt="Musical “Até as Princesas Soltam Pum” inspirado na obra de Ilan Brenman, chega à São Paulo" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-musical-ate-as-princesas-soltam-pum-inspirado-na-obra-de-ilan-brenman-chega-a-sa.html">Musical “Até as Princesas Soltam Pum” inspirado na obra de Ilan Brenman, chega à São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical “Até as Princesas Soltam Pum” inspirado na obra de Ilan Brenman, chega à São Paulo" data-url="https://foyer.digital/post-musical-ate-as-princesas-soltam-pum-inspirado-na-obra-de-ilan-brenman-chega-a-sa.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-nova-montagem-de-priscilla-rainha-do-deserto-chegara-aos-palcos-com-a-direcao-de.html" aria-label="Foto da matéria"><img src="assets/acervo/988544fcd13e0792.jpg" alt="Nova montagem de “Priscilla, Rainha do Deserto” chegará aos palcos com a direção de Mariano Detry" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-nova-montagem-de-priscilla-rainha-do-deserto-chegara-aos-palcos-com-a-direcao-de.html">Nova montagem de “Priscilla, Rainha do Deserto” chegará aos palcos com a direção de Mariano Detry</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Nova montagem de “Priscilla, Rainha do Deserto” chegará aos palcos com a direção de Mariano Detry" data-url="https://foyer.digital/post-nova-montagem-de-priscilla-rainha-do-deserto-chegara-aos-palcos-com-a-direcao-de.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Audições">
+      <a class="ph" href="post-ultimo-dia-para-enviar-material-para-nova-montagem-do-musical-cabaret.html" aria-label="Foto da matéria"><img src="assets/acervo/49af7ce6b19e37ba.jpg" alt="Último dia para enviar material para nova montagem do musical “Cabaret”" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Audições</span>
+        <h3><a href="post-ultimo-dia-para-enviar-material-para-nova-montagem-do-musical-cabaret.html">Último dia para enviar material para nova montagem do musical “Cabaret”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Último dia para enviar material para nova montagem do musical “Cabaret”" data-url="https://foyer.digital/post-ultimo-dia-para-enviar-material-para-nova-montagem-do-musical-cabaret.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-comedia-voce-nao-e-todo-mundo-faz-unica-apresentacao-no-teatro-bangu-no-rio.html" aria-label="Foto da matéria"><img src="assets/acervo/48d08f72651c8d76.jpg" alt="Comédia “Você não é todo mundo” faz única apresentação no Teatro Bangu no Rio" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-comedia-voce-nao-e-todo-mundo-faz-unica-apresentacao-no-teatro-bangu-no-rio.html">Comédia “Você não é todo mundo” faz única apresentação no Teatro Bangu no Rio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Comédia “Você não é todo mundo” faz única apresentação no Teatro Bangu no Rio" data-url="https://foyer.digital/post-comedia-voce-nao-e-todo-mundo-faz-unica-apresentacao-no-teatro-bangu-no-rio.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-nova-versao-de-show-de-comedia-aquela-dupla-sera-apresentada-no-bona-casa-de-mus.html" aria-label="Foto da matéria"><img src="assets/acervo/a15dc490163f0559.jpg" alt="Nova versão de Show de Comédia “Aquela Dupla” será apresentada no “Bona Casa de Música”" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-nova-versao-de-show-de-comedia-aquela-dupla-sera-apresentada-no-bona-casa-de-mus.html">Nova versão de Show de Comédia “Aquela Dupla” será apresentada no “Bona Casa de Música”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Nova versão de Show de Comédia “Aquela Dupla” será apresentada no “Bona Casa de Música”" data-url="https://foyer.digital/post-nova-versao-de-show-de-comedia-aquela-dupla-sera-apresentada-no-bona-casa-de-mus.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-musical-do-belchior-retorna-aos-palcos-de-sao-paulo-em-comemoracao-ao-mes-de-ani.html" aria-label="Foto da matéria"><img src="assets/acervo/ff49ebb009c64896.jpg" alt="Musical do Belchior retorna aos palcos de São Paulo em comemoração ao mês de aniversário do artista" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-musical-do-belchior-retorna-aos-palcos-de-sao-paulo-em-comemoracao-ao-mes-de-ani.html">Musical do Belchior retorna aos palcos de São Paulo em comemoração ao mês de aniversário do artista</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical do Belchior retorna aos palcos de São Paulo em comemoração ao mês de aniversário do artista" data-url="https://foyer.digital/post-musical-do-belchior-retorna-aos-palcos-de-sao-paulo-em-comemoracao-ao-mes-de-ani.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-musical-criado-por-carlinhos-brown-faz-unica-apresentacao-no-dia-das-criancas.html" aria-label="Foto da matéria"><img src="assets/acervo/9f7c1621c698990c.jpg" alt="Musical criado por Carlinhos Brown faz única apresentação no dia das crianças" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-musical-criado-por-carlinhos-brown-faz-unica-apresentacao-no-dia-das-criancas.html">Musical criado por Carlinhos Brown faz única apresentação no dia das crianças</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical criado por Carlinhos Brown faz única apresentação no dia das crianças" data-url="https://foyer.digital/post-musical-criado-por-carlinhos-brown-faz-unica-apresentacao-no-dia-das-criancas.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-coletivo-de-teatro-despertar-estreia-musical-uma-noite-para-brilhar.html" aria-label="Foto da matéria"><img src="assets/acervo/fba25cd123128be2.jpg" alt="Coletivo de Teatro Despertar estreia musical “Uma noite para brilhar”" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-coletivo-de-teatro-despertar-estreia-musical-uma-noite-para-brilhar.html">Coletivo de Teatro Despertar estreia musical “Uma noite para brilhar”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Coletivo de Teatro Despertar estreia musical “Uma noite para brilhar”" data-url="https://foyer.digital/post-coletivo-de-teatro-despertar-estreia-musical-uma-noite-para-brilhar.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-elis-a-musical-volta-hoje-aos-palcos-de-sp-em-edicao-comemorativa-de-10-anos.html" aria-label="Foto da matéria"><img src="assets/acervo/af12b35127d74c6c.jpg" alt="“Elis, a Musical“ volta hoje aos palcos de SP em edição comemorativa de 10 anos" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-elis-a-musical-volta-hoje-aos-palcos-de-sp-em-edicao-comemorativa-de-10-anos.html">“Elis, a Musical“ volta hoje aos palcos de SP em edição comemorativa de 10 anos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.10 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="“Elis, a Musical“ volta hoje aos palcos de SP em edição comemorativa de 10 anos" data-url="https://foyer.digital/post-elis-a-musical-volta-hoje-aos-palcos-de-sp-em-edicao-comemorativa-de-10-anos.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-ultima-semana-de-iron-o-homem-da-mascara-de-ferro-com-thiago-barbosa-e-saulo-vas.html" aria-label="Foto da matéria"><img src="assets/acervo/00ad1b47b50ef3c8.jpg" alt="Última semana de “ IRON - O HOMEM DA MÁSCARA DE FERRO“ com Thiago Barbosa e  Saulo Vasconcelos" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-ultima-semana-de-iron-o-homem-da-mascara-de-ferro-com-thiago-barbosa-e-saulo-vas.html">Última semana de “ IRON - O HOMEM DA MÁSCARA DE FERRO“ com Thiago Barbosa e  Saulo Vasconcelos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.10 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Última semana de “ IRON - O HOMEM DA MÁSCARA DE FERRO“ com Thiago Barbosa e  Saulo Vasconcelos" data-url="https://foyer.digital/post-ultima-semana-de-iron-o-homem-da-mascara-de-ferro-com-thiago-barbosa-e-saulo-vas.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-musical-idealizado-por-eline-porto-faz-apresentacoes-no-rio-de-janeiro-e-em-mina.html" aria-label="Foto da matéria"><img src="assets/acervo/605c486df0dacc47.jpg" alt="Musical idealizado por Eline Porto faz apresentações no Rio de Janeiro e em Minas Gerais" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-musical-idealizado-por-eline-porto-faz-apresentacoes-no-rio-de-janeiro-e-em-mina.html">Musical idealizado por Eline Porto faz apresentações no Rio de Janeiro e em Minas Gerais</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical idealizado por Eline Porto faz apresentações no Rio de Janeiro e em Minas Gerais" data-url="https://foyer.digital/post-musical-idealizado-por-eline-porto-faz-apresentacoes-no-rio-de-janeiro-e-em-mina.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="cat-teatro-musical-p11.html">← Anterior</a><a href="cat-teatro-musical.html">1</a><a href="cat-teatro-musical-p2.html">2</a><span>…</span><a href="cat-teatro-musical-p11.html">11</a><a href="cat-teatro-musical-p12.html" class="on">12</a><a href="cat-teatro-musical-p13.html">13</a><a href="cat-teatro-musical-p14.html">14</a><a href="cat-teatro-musical-p13.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<style>
+.pub-cortina[hidden]{ display:none !important; }
+.pub-cortina{ position:fixed; inset:0; z-index:120; display:flex; align-items:center;
+  justify-content:center; background:rgba(20,6,3,.78); padding:20px; }
+.pub-cortina .caixa{ position:relative; background:var(--paper); border:3px solid var(--ink);
+  max-width:520px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+.pub-cortina .rotulo{ display:block; font-family:var(--mono); font-size:.52rem; font-weight:700;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); padding:10px 14px 0; }
+/* teto de altura: arte muito em pé não pode empurrar o botão de fechar para
+   fora da tela. O que passar do teto vira margem de papel, nunca corte. */
+.pub-cortina img{ display:block; width:100%; height:auto; object-fit:contain;
+  max-height:calc(100vh - 170px); padding:10px 14px; box-sizing:border-box; }
+.pub-cortina .leg{ padding:0 14px 14px; font-size:.85rem; }
+.pub-cortina .fechar{ position:absolute; top:-14px; right:-14px; width:34px; height:34px;
+  border:2px solid var(--ink); background:var(--gold); color:var(--wine); font-weight:700;
+  cursor:pointer; font-size:1rem; line-height:1; }
+</style>
+<div class="pub-cortina" id="pub-cortina" data-pub-chave="pub:cortina" hidden><div class="caixa"><button class="fechar" type="button" id="pub-cortina-x" aria-label="Fechar">✕</button><span class="rotulo">Publicidade</span><a href="https://www.sympla.com.br/produtor/foyerestudioecomunicacao" target="_blank" rel="noopener sponsored" data-pub="pub:cortina"><img src="assets/uploads/pub-cortina-0-msf37psm.jpg" alt=""></a></div></div>
+<script>
+(function(){
+  var k = 'foyer-pub-cortina-' + new Date().toISOString().slice(0, 10);
+  try{ if(localStorage.getItem(k)) return; }catch(e){}
+  function livre(){ try{ return !!localStorage.getItem('foyer-consent'); }catch(e){ return true; } }
+  var c = document.getElementById('pub-cortina');
+  function entra(){
+    setTimeout(function(){
+      c.hidden = false;
+      if(window.foyerPubVista) window.foyerPubVista(c.getAttribute('data-pub-chave'));
+      // 1x por dia de verdade: vista ao abrir, e não só ao fechar
+      try{ localStorage.setItem(k, '1'); }catch(e){}
+    }, 900);
+  }
+  function fecha(){ c.hidden = true; try{ localStorage.setItem(k, '1'); }catch(e){} }
+  document.getElementById('pub-cortina-x').addEventListener('click', fecha);
+  c.addEventListener('click', function(e){ if(e.target === c) fecha(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !c.hidden) fecha(); });
+  if(livre()) entra();
+  else var iv = setInterval(function(){ if(livre()){ clearInterval(iv); entra(); } }, 600);
+})();
+</script>
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Críticas Teatrais · Por Bruno Cavalcanti</a>
+        <a href="programas.html">Trivia Musical · Astro em Cena</a>
+        <a href="programas.html">Session Musical · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="sobre.html">Quem somos</a>
+        <a href="contato.html">Contato</a>
+        <a href="anuncie.html">Anuncie no FOYER</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="principios.html">Princípios Editoriais</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+        <a href="termos.html">Termos de Uso</a>
+        <a href="#" data-lgpd>Preferências de cookies</a>
+        <a href="#" data-sino>🔔 Notificações</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer Estúdio e Comunicação — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

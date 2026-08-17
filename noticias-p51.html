@@ -30,7 +30,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação","url":"https://foyer.digital/","logo":"https://foyer.digital/assets/logo/foyer-stacked-gold.png","sameAs":["https://www.youtube.com/@Foyer.digital","https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm"]}</script>
 </head>
 <body>
-<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<a class="skip-link" href="#conteudo" onclick="var m=document.getElementById('conteudo');if(m)m.setAttribute('tabindex','-1');if(m)m.focus();location.hash='conteudo';return false;">Pular para o conteúdo</a>
 
 <!-- artes de palco (placeholders de foto e capas da revista) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -137,7 +137,6 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
     <a href="revista.html">Revista</a>
     <a href="programas.html">Programas</a>
     <a href="enciclopedia.html">Enciclopédia</a>
-    <a href="agenda.html">Agenda</a>
     <a href="entrevistas.html">Entrevistas</a>
     <a href="busca.html" class="busca">⌕ Buscar</a>
   </div>
@@ -147,288 +146,325 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
   <div class="wrap">
     <span class="kicker">Editoria</span>
     <h1>Notícias</h1>
-    <p class="note">1583 matérias no acervo — página 51 de 66</p>
+    <p class="note">1684 matérias no acervo — página 51 de 71</p>
   </div>
 </header>
 
 <main id="conteudo" class="wrap">
   <div class="filters" aria-label="Filtrar por editoria">
-    <a href="noticias.html" class=on>Todas</a><a href="cat-em-cartaz.html">✦ Em Cartaz</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-bastidores.html">Bastidores</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-guia.html">Guia</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-bastidores.html">Bastidores</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-entenda.html">Entenda</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-guia.html">Guia</a><a href="cat-literatura.html">Literatura</a><a href="cat-memoria.html">Memória</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-teatro-musical.html">Teatro Musical</a><a href="cat-televisao.html">Televisão</a>
   </div>
   <div class="news-grid">
-    <article class="news-cell big" data-cat="Teatro">
-      <a class="ph" href="post-nao-te-pareco-vivo-do-coletivo-mali-teatro-faz-paralelo-entre-o-mito-de-electra-.html" aria-label="Foto da matéria"><img src="assets/acervo/40d9260aff77e97e.jpg" alt="Não te Pareço Vivo?, do coletivo Màli Teatro faz paralelo entre o mito de Electra e dilemas" loading="lazy" onerror="this.style.display='none'"><span class="ph-cap">Foto — Caio Oviedo</span></a>
+    <article class="news-cell big" data-cat="Cinema">
+      <a class="ph" href="post-novo-longa-de-luccas-neto-principe-lu-e-a-lenda-do-dragao-chega-hoje-aos-cinemas.html" aria-label="Foto da matéria"><img src="assets/acervo/d3650f09114b53ff.jpg" alt="Novo longa de Luccas Neto “Príncipe Lu e a Lenda do Dragão” chega hoje aos cinemas" loading="lazy" onerror="this.style.display='none'"><span class="ph-cap">Foto — Chiacos</span></a>
       <div class="cbody">
-        <span class="tag">Teatro</span>
-        <h3><a href="post-nao-te-pareco-vivo-do-coletivo-mali-teatro-faz-paralelo-entre-o-mito-de-electra-.html">Não te Pareço Vivo?, do coletivo Màli Teatro faz paralelo entre o mito de Electra e dilemas</a></h3>
-        <p>Com direção de Marcos de Andrade, novo trabalho do coletivo Màli Teatro quer estabelecer relações entre as tragédias gregas e o tempo presente. O espetáculo par…</p>
+        <span class="tag">Cinema</span>
+        <h3><a href="post-novo-longa-de-luccas-neto-principe-lu-e-a-lenda-do-dragao-chega-hoje-aos-cinemas.html">Novo longa de Luccas Neto “Príncipe Lu e a Lenda do Dragão” chega hoje aos cinemas</a></h3>
+        <p>Com participação de Renato Aragão e Zezé Motta, o longa infantil “Príncipe Lu e a Lenda do Dragão” chega aos cinemas depois de algumas pré estreias em São Paulo…</p>
         <div class="meta-row">
-          <span class="meta-l">19.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Não te Pareço Vivo?, do coletivo Màli Teatro faz paralelo entre o mito de Electra e dilemas" data-url="https://foyer.digital/post-nao-te-pareco-vivo-do-coletivo-mali-teatro-faz-paralelo-entre-o-mito-de-electra-.html">Compartilhar ↗</button>
+          <span class="meta-l">25.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Novo longa de Luccas Neto “Príncipe Lu e a Lenda do Dragão” chega hoje aos cinemas" data-url="https://foyer.digital/post-novo-longa-de-luccas-neto-principe-lu-e-a-lenda-do-dragao-chega-hoje-aos-cinemas.html">Compartilhar ↗</button>
         </div>
       </div>
     </article>
     <article class="news-cell" data-cat="Teatro">
-      <a class="ph" href="post-premio-did-chega-a-sua-6a-edicao-com-novidades.html" aria-label="Foto da matéria"><img src="assets/acervo/0fbd87603517ff9d.jpg" alt="Prêmio DID chega a sua 6ª edição com novidades" loading="lazy" onerror="this.style.display='none'"></a>
+      <a class="ph" href="post-nanny-people-apresenta-entao-deu-no-que-deu-em-unica-performance-no-rio-de-janei.html" aria-label="Foto da matéria"><img src="assets/acervo/bf272f53b6d89ef8.jpg" alt="Nany People Apresenta ”Então... Deu No que Deu” em Única Performance no Rio de Janeiro" loading="lazy" onerror="this.style.display='none'"></a>
       <div class="cbody">
         <span class="tag">Teatro</span>
-        <h3><a href="post-premio-did-chega-a-sua-6a-edicao-com-novidades.html">Prêmio DID chega a sua 6ª edição com novidades</a></h3>
+        <h3><a href="post-nanny-people-apresenta-entao-deu-no-que-deu-em-unica-performance-no-rio-de-janei.html">Nany People Apresenta "Então... Deu No que Deu" em Única Performance no Rio de Janeiro</a></h3>
         <div class="meta-row">
-          <span class="meta-l">19.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Prêmio DID chega a sua 6ª edição com novidades" data-url="https://foyer.digital/post-premio-did-chega-a-sua-6a-edicao-com-novidades.html">Compartilhar ↗</button>
+          <span class="meta-l">25.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Nany People Apresenta ”Então... Deu No que Deu” em Única Performance no Rio de Janeiro" data-url="https://foyer.digital/post-nanny-people-apresenta-entao-deu-no-que-deu-em-unica-performance-no-rio-de-janei.html">Compartilhar ↗</button>
         </div>
       </div>
     </article>
     <article class="news-cell" data-cat="Teatro">
-      <a class="ph" href="post-matheus-nachtergaele-estrela-a-comedia-musical-moliere-que-esta-em-cartaz-no-tea.html" aria-label="Foto da matéria"><img src="assets/acervo/063e16de35726b4a.jpg" alt="Matheus Nachtergaele estrela a comédia musical “Molière” que está em cartaz no Teatro Liberdade" loading="lazy" onerror="this.style.display='none'"></a>
+      <a class="ph" href="post-o-deus-de-spinoza-espetaculo-filosofico-desembarca-em-santo-andre-com-duas-apres.html" aria-label="Foto da matéria"><img src="assets/acervo/875a9c00538e720c.jpg" alt="”O Deus de Spinoza”: Espetáculo Filosófico Desembarca em Santo André com Duas Apresentações Gratuitas" loading="lazy" onerror="this.style.display='none'"></a>
       <div class="cbody">
         <span class="tag">Teatro</span>
-        <h3><a href="post-matheus-nachtergaele-estrela-a-comedia-musical-moliere-que-esta-em-cartaz-no-tea.html">Matheus Nachtergaele estrela a comédia musical “Molière” que está em cartaz no Teatro Liberdade</a></h3>
+        <h3><a href="post-o-deus-de-spinoza-espetaculo-filosofico-desembarca-em-santo-andre-com-duas-apres.html">"O Deus de Spinoza": Espetáculo Filosófico Desembarca em Santo André com Duas Apresentações Gratuitas</a></h3>
         <div class="meta-row">
-          <span class="meta-l">18.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Matheus Nachtergaele estrela a comédia musical “Molière” que está em cartaz no Teatro Liberdade" data-url="https://foyer.digital/post-matheus-nachtergaele-estrela-a-comedia-musical-moliere-que-esta-em-cartaz-no-tea.html">Compartilhar ↗</button>
-        </div>
-      </div>
-    </article>
-    <article class="news-cell" data-cat="Música">
-      <a class="ph" href="post-cher-nos-embalos-natalinos-lanca-o-primeiro-album-dedicado-ao-feriado-da-carreir.html" aria-label="Foto da matéria"><img src="assets/acervo/c00187da22b3d872.jpg" alt="Cher, nos embalos natalinos, lança o primeiro álbum dedicado ao feriado da carreira" loading="lazy" onerror="this.style.display='none'"></a>
-      <div class="cbody">
-        <span class="tag">Música</span>
-        <h3><a href="post-cher-nos-embalos-natalinos-lanca-o-primeiro-album-dedicado-ao-feriado-da-carreir.html">Cher, nos embalos natalinos, lança o primeiro álbum dedicado ao feriado da carreira</a></h3>
-        <div class="meta-row">
-          <span class="meta-l">18.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Cher, nos embalos natalinos, lança o primeiro álbum dedicado ao feriado da carreira" data-url="https://foyer.digital/post-cher-nos-embalos-natalinos-lanca-o-primeiro-album-dedicado-ao-feriado-da-carreir.html">Compartilhar ↗</button>
+          <span class="meta-l">24.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”O Deus de Spinoza”: Espetáculo Filosófico Desembarca em Santo André com Duas Apresentações Gratuitas" data-url="https://foyer.digital/post-o-deus-de-spinoza-espetaculo-filosofico-desembarca-em-santo-andre-com-duas-apres.html">Compartilhar ↗</button>
         </div>
       </div>
     </article>
     <article class="news-cell" data-cat="Teatro">
-      <a class="ph" href="post-ultimas-semanas-para-assistir-o-circo-da-meia-noite-no-galpao-do-folias.html" aria-label="Foto da matéria"><img src="assets/acervo/8c806537ea6587ed.jpg" alt="Últimas semanas para assistir o “Circo da Meia Noite” no Galpão do Folias" loading="lazy" onerror="this.style.display='none'"></a>
+      <a class="ph" href="post-ultima-oportunidade-ubu-rei-com-esther-goes-e-augusto-marin-no-palco-do-teatro-m.html" aria-label="Foto da matéria"><img src="assets/acervo/e6730552928ab22e.jpg" alt="Última Oportunidade: ”Ubu Rei” com Esther Góes e Augusto Marin no Palco do Teatro Mooca Plaza" loading="lazy" onerror="this.style.display='none'"></a>
       <div class="cbody">
         <span class="tag">Teatro</span>
-        <h3><a href="post-ultimas-semanas-para-assistir-o-circo-da-meia-noite-no-galpao-do-folias.html">Últimas semanas para assistir o “Circo da Meia Noite” no Galpão do Folias</a></h3>
+        <h3><a href="post-ultima-oportunidade-ubu-rei-com-esther-goes-e-augusto-marin-no-palco-do-teatro-m.html">Última Oportunidade: "Ubu Rei" com Esther Góes e Augusto Marin no Palco do Teatro Mooca Plaza</a></h3>
         <div class="meta-row">
-          <span class="meta-l">18.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Últimas semanas para assistir o “Circo da Meia Noite” no Galpão do Folias" data-url="https://foyer.digital/post-ultimas-semanas-para-assistir-o-circo-da-meia-noite-no-galpao-do-folias.html">Compartilhar ↗</button>
+          <span class="meta-l">24.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Última Oportunidade: ”Ubu Rei” com Esther Góes e Augusto Marin no Palco do Teatro Mooca Plaza" data-url="https://foyer.digital/post-ultima-oportunidade-ubu-rei-com-esther-goes-e-augusto-marin-no-palco-do-teatro-m.html">Compartilhar ↗</button>
         </div>
       </div>
     </article>
     <article class="news-cell" data-cat="Teatro">
-      <a class="ph" href="post-nucleo-experimental-estreia-aula-show-que-contara-a-historia-do-musical-brasilei.html" aria-label="Foto da matéria"><img src="assets/acervo/ac4deb53add22d2a.jpg" alt="Núcleo Experimental estreia “Aula Show” que contará a história do Musical Brasileiro" loading="lazy" onerror="this.style.display='none'"></a>
+      <a class="ph" href="post-enquanto-voce-voava-eu-criava-raizes-espetaculo-visual-faz-nova-temporada-no-tea.html" aria-label="Foto da matéria"><img src="assets/acervo/9ecc3857609b59be.jpg" alt="”Enquanto Você Voava, Eu Criava Raízes”: Espetáculo Visual faz nova Temporada no Teatro Vivo" loading="lazy" onerror="this.style.display='none'"></a>
       <div class="cbody">
         <span class="tag">Teatro</span>
-        <h3><a href="post-nucleo-experimental-estreia-aula-show-que-contara-a-historia-do-musical-brasilei.html">Núcleo Experimental estreia “Aula Show” que contará a história do Musical Brasileiro</a></h3>
+        <h3><a href="post-enquanto-voce-voava-eu-criava-raizes-espetaculo-visual-faz-nova-temporada-no-tea.html">"Enquanto Você Voava, Eu Criava Raízes": Espetáculo Visual faz nova Temporada no Teatro Vivo</a></h3>
         <div class="meta-row">
-          <span class="meta-l">17.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Núcleo Experimental estreia “Aula Show” que contará a história do Musical Brasileiro" data-url="https://foyer.digital/post-nucleo-experimental-estreia-aula-show-que-contara-a-historia-do-musical-brasilei.html">Compartilhar ↗</button>
-        </div>
-      </div>
-    </article>
-    <article class="news-cell" data-cat="Streaming">
-      <a class="ph" href="post-terceira-temporada-de-lol-se-rir-ja-era-com-apresentacao-de-fabiana-karla-estrei.html" aria-label="Foto da matéria"><img src="assets/acervo/e4635a0dfc9d746c.jpg" alt="Terceira temporada de “LOL: Se rir, já era!” com apresentação de Fabiana Karla estreia esse mês" loading="lazy" onerror="this.style.display='none'"></a>
-      <div class="cbody">
-        <span class="tag">Streaming</span>
-        <h3><a href="post-terceira-temporada-de-lol-se-rir-ja-era-com-apresentacao-de-fabiana-karla-estrei.html">Terceira temporada de “LOL: Se rir, já era!” com apresentação de Fabiana Karla estreia esse mês</a></h3>
-        <div class="meta-row">
-          <span class="meta-l">17.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Terceira temporada de “LOL: Se rir, já era!” com apresentação de Fabiana Karla estreia esse mês" data-url="https://foyer.digital/post-terceira-temporada-de-lol-se-rir-ja-era-com-apresentacao-de-fabiana-karla-estrei.html">Compartilhar ↗</button>
+          <span class="meta-l">23.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Enquanto Você Voava, Eu Criava Raízes”: Espetáculo Visual faz nova Temporada no Teatro Vivo" data-url="https://foyer.digital/post-enquanto-voce-voava-eu-criava-raizes-espetaculo-visual-faz-nova-temporada-no-tea.html">Compartilhar ↗</button>
         </div>
       </div>
     </article>
     <article class="news-cell" data-cat="Teatro">
-      <a class="ph" href="post-estreia-de-musical-sobre-tarsila-do-amaral-com-claudia-raia-e-jarbas-homem-de-me.html" aria-label="Foto da matéria"><img src="assets/acervo/3c45972b60fbe054.jpg" alt="Estreia de musical sobre Tarsila do Amaral, com Claudia Raia e Jarbas Homem de Mello é anunciada" loading="lazy" onerror="this.style.display='none'"></a>
+      <a class="ph" href="post-fulvio-stefanini-o-pai.html" aria-label="Foto da matéria"><img src="assets/acervo/e9bda26826abc7c5.jpg" alt="Fúlvio Stefanini brilha no Teatro Mooca em ”O Pai”, espetáculo dirigido por seu filho Léo Stefanini" loading="lazy" onerror="this.style.display='none'"></a>
       <div class="cbody">
         <span class="tag">Teatro</span>
-        <h3><a href="post-estreia-de-musical-sobre-tarsila-do-amaral-com-claudia-raia-e-jarbas-homem-de-me.html">Estreia de musical sobre Tarsila do Amaral, com Claudia Raia e Jarbas Homem de Mello é anunciada</a></h3>
+        <h3><a href="post-fulvio-stefanini-o-pai.html">Fúlvio Stefanini brilha no Teatro Mooca em "O Pai", espetáculo dirigido por seu filho Léo Stefanini</a></h3>
         <div class="meta-row">
-          <span class="meta-l">17.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Estreia de musical sobre Tarsila do Amaral, com Claudia Raia e Jarbas Homem de Mello é anunciada" data-url="https://foyer.digital/post-estreia-de-musical-sobre-tarsila-do-amaral-com-claudia-raia-e-jarbas-homem-de-me.html">Compartilhar ↗</button>
+          <span class="meta-l">23.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Fúlvio Stefanini brilha no Teatro Mooca em ”O Pai”, espetáculo dirigido por seu filho Léo Stefanini" data-url="https://foyer.digital/post-fulvio-stefanini-o-pai.html">Compartilhar ↗</button>
         </div>
       </div>
     </article>
-    <article class="news-cell" data-cat="Programa">
-      <a class="ph" href="post-pedro-leao-e-daniel-marano-programa-do-foyer.html" aria-label="Foto da matéria"><img src="assets/acervo/2ebf712409f0c202.jpg" alt="Pedro Leão e Daniel Marano - Programa do Foyer" loading="lazy" onerror="this.style.display='none'"></a>
+    <article class="news-cell" data-cat="Exposições">
+      <a class="ph" href="post-exposicao-sempre-fui-forte-na-casa-das-rosas-celebra-os-60-anos-da-monica.html" aria-label="Foto da matéria"><img src="assets/acervo/beb317165f04be39.jpg" alt="Exposição ”Sempre Fui Forte” na Casa das Rosas Celebra os 60 Anos da Mônica" loading="lazy" onerror="this.style.display='none'"></a>
       <div class="cbody">
-        <span class="tag">Programa</span>
-        <h3><a href="post-pedro-leao-e-daniel-marano-programa-do-foyer.html">Pedro Leão e Daniel Marano - Programa do Foyer</a></h3>
+        <span class="tag">Exposições</span>
+        <h3><a href="post-exposicao-sempre-fui-forte-na-casa-das-rosas-celebra-os-60-anos-da-monica.html">Exposição "Sempre Fui Forte" na Casa das Rosas Celebra os 60 Anos da Mônica</a></h3>
         <div class="meta-row">
-          <span class="meta-l">16.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Pedro Leão e Daniel Marano - Programa do Foyer" data-url="https://foyer.digital/post-pedro-leao-e-daniel-marano-programa-do-foyer.html">Compartilhar ↗</button>
+          <span class="meta-l">22.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Exposição ”Sempre Fui Forte” na Casa das Rosas Celebra os 60 Anos da Mônica" data-url="https://foyer.digital/post-exposicao-sempre-fui-forte-na-casa-das-rosas-celebra-os-60-anos-da-monica.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-mafe-vieira-marca-historia-como-a-primeira-atriz-trans-contratada-pela-record.html" aria-label="Foto da matéria"><img src="assets/acervo/d02a668f481b5e3a.jpg" alt="Mafe Vieira Marca História como a Primeira Atriz Trans Contratada pela Record" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-mafe-vieira-marca-historia-como-a-primeira-atriz-trans-contratada-pela-record.html">Mafe Vieira Marca História como a Primeira Atriz Trans Contratada pela Record</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Mafe Vieira Marca História como a Primeira Atriz Trans Contratada pela Record" data-url="https://foyer.digital/post-mafe-vieira-marca-historia-como-a-primeira-atriz-trans-contratada-pela-record.html">Compartilhar ↗</button>
         </div>
       </div>
     </article>
     <article class="news-cell" data-cat="Teatro">
-      <a class="ph" href="post-monologo-que-dialoga-com-as-cartas-do-tarot-esta-em-cartaz-no-teatro-uniao-cultu.html" aria-label="Foto da matéria"><img src="assets/acervo/532bedb2fbd57d69.jpg" alt="Monólogo que dialoga com as cartas do Tarot está em cartaz no Teatro União Cultural" loading="lazy" onerror="this.style.display='none'"></a>
+      <a class="ph" href="post-espetaculo-ca-entre-nos.html" aria-label="Foto da matéria"><img src="assets/acervo/dbf9bfc2cdfc3876.jpg" alt="”Cá Entre Nós” com Suzy Rêgo, Cristiana Oliveira e Eduardo Martini: Uma Celebração de 30 Anos de Amizade em Cartaz no Teatro União Cultural" loading="lazy" onerror="this.style.display='none'"></a>
       <div class="cbody">
         <span class="tag">Teatro</span>
-        <h3><a href="post-monologo-que-dialoga-com-as-cartas-do-tarot-esta-em-cartaz-no-teatro-uniao-cultu.html">Monólogo que dialoga com as cartas do Tarot está em cartaz no Teatro União Cultural</a></h3>
+        <h3><a href="post-espetaculo-ca-entre-nos.html">"Cá Entre Nós" com Suzy Rêgo, Cristiana Oliveira e Eduardo Martini: Uma Celebração de 30 Anos de Amizade em Cartaz no Teatro União Cultural</a></h3>
         <div class="meta-row">
-          <span class="meta-l">15.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Monólogo que dialoga com as cartas do Tarot está em cartaz no Teatro União Cultural" data-url="https://foyer.digital/post-monologo-que-dialoga-com-as-cartas-do-tarot-esta-em-cartaz-no-teatro-uniao-cultu.html">Compartilhar ↗</button>
+          <span class="meta-l">22.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="”Cá Entre Nós” com Suzy Rêgo, Cristiana Oliveira e Eduardo Martini: Uma Celebração de 30 Anos de Amizade em Cartaz no Teatro União Cultural" data-url="https://foyer.digital/post-espetaculo-ca-entre-nos.html">Compartilhar ↗</button>
         </div>
       </div>
     </article>
     <article class="news-cell" data-cat="Teatro">
-      <a class="ph" href="post-tatuape-recebe-espetaculo-o-vison-voador-no-teatro-fernando-torres.html" aria-label="Foto da matéria"><img src="assets/acervo/571b6a134e3aa71e.jpg" alt="Tatuapé recebe espetáculo “O Vison Voador” no Teatro Fernando Torres" loading="lazy" onerror="this.style.display='none'"></a>
+      <a class="ph" href="post-giulia-nadruz-brilha-em-in-concert-uma-noite-na-broadway-no-teatro-gamaro.html" aria-label="Foto da matéria"><img src="assets/acervo/5f36ff639d95e3ae.jpg" alt="Giulia Nadruz Brilha em ”In Concert - Uma Noite na Broadway” no Teatro Gamaro" loading="lazy" onerror="this.style.display='none'"></a>
       <div class="cbody">
         <span class="tag">Teatro</span>
-        <h3><a href="post-tatuape-recebe-espetaculo-o-vison-voador-no-teatro-fernando-torres.html">Tatuapé recebe espetáculo “O Vison Voador” no Teatro Fernando Torres</a></h3>
+        <h3><a href="post-giulia-nadruz-brilha-em-in-concert-uma-noite-na-broadway-no-teatro-gamaro.html">Giulia Nadruz Brilha em "In Concert - Uma Noite na Broadway" no Teatro Gamaro</a></h3>
         <div class="meta-row">
-          <span class="meta-l">15.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Tatuapé recebe espetáculo “O Vison Voador” no Teatro Fernando Torres" data-url="https://foyer.digital/post-tatuape-recebe-espetaculo-o-vison-voador-no-teatro-fernando-torres.html">Compartilhar ↗</button>
+          <span class="meta-l">21.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Giulia Nadruz Brilha em ”In Concert - Uma Noite na Broadway” no Teatro Gamaro" data-url="https://foyer.digital/post-giulia-nadruz-brilha-em-in-concert-uma-noite-na-broadway-no-teatro-gamaro.html">Compartilhar ↗</button>
         </div>
       </div>
     </article>
     <article class="news-cell" data-cat="Teatro">
-      <a class="ph" href="post-teatr-on-mostra-festival-acontece-nos-dias-14-e-15-no-cine-satyrus-bijou.html" aria-label="Foto da matéria"><img src="assets/acervo/e4c415830a0c19e7.jpg" alt="TEATR.ON, MOSTRA & FESTIVAL acontece nos dias 14 e 15 no Cine Satyrus Bijou" loading="lazy" onerror="this.style.display='none'"></a>
+      <a class="ph" href="post-angela-dippe-volta-com-o-espetaculo-da-puberdade-a-menopausa-agora-no-teatro-das.html" aria-label="Foto da matéria"><img src="assets/acervo/36f606ca9eeb5dd5.jpg" alt="Angela Dippe volta com o espetáculo “Da Puberdade à menopausa”, agora no Teatro das Artes" loading="lazy" onerror="this.style.display='none'"></a>
       <div class="cbody">
         <span class="tag">Teatro</span>
-        <h3><a href="post-teatr-on-mostra-festival-acontece-nos-dias-14-e-15-no-cine-satyrus-bijou.html">TEATR.ON, MOSTRA & FESTIVAL acontece nos dias 14 e 15 no Cine Satyrus Bijou</a></h3>
+        <h3><a href="post-angela-dippe-volta-com-o-espetaculo-da-puberdade-a-menopausa-agora-no-teatro-das.html">Angela Dippe volta com o espetáculo “Da Puberdade à menopausa”, agora no Teatro das Artes</a></h3>
         <div class="meta-row">
-          <span class="meta-l">14.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="TEATR.ON, MOSTRA & FESTIVAL acontece nos dias 14 e 15 no Cine Satyrus Bijou" data-url="https://foyer.digital/post-teatr-on-mostra-festival-acontece-nos-dias-14-e-15-no-cine-satyrus-bijou.html">Compartilhar ↗</button>
+          <span class="meta-l">16.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Angela Dippe volta com o espetáculo “Da Puberdade à menopausa”, agora no Teatro das Artes" data-url="https://foyer.digital/post-angela-dippe-volta-com-o-espetaculo-da-puberdade-a-menopausa-agora-no-teatro-das.html">Compartilhar ↗</button>
         </div>
       </div>
     </article>
     <article class="news-cell" data-cat="Teatro">
-      <a class="ph" href="post-espetaculo-o-tartufo-entra-em-cartaz-no-centro-cultural-da-justica-federal.html" aria-label="Foto da matéria"><img src="assets/acervo/4479e285b2c1c959.jpg" alt="Espetáculo “O Tartufo” entra em cartaz no Centro Cultural da Justiça Federal" loading="lazy" onerror="this.style.display='none'"></a>
+      <a class="ph" href="post-espetaculo-a-milionaria-com-chris-couto-volta-para-nova-temporada-no-teatro-ruth.html" aria-label="Foto da matéria"><img src="assets/acervo/d5380f2e43348820.jpg" alt="Espetáculo “A Milionária” com Chris Couto volta para nova temporada no Teatro Ruth Escobar" loading="lazy" onerror="this.style.display='none'"></a>
       <div class="cbody">
         <span class="tag">Teatro</span>
-        <h3><a href="post-espetaculo-o-tartufo-entra-em-cartaz-no-centro-cultural-da-justica-federal.html">Espetáculo “O Tartufo” entra em cartaz no Centro Cultural da Justiça Federal</a></h3>
+        <h3><a href="post-espetaculo-a-milionaria-com-chris-couto-volta-para-nova-temporada-no-teatro-ruth.html">Espetáculo “A Milionária” com Chris Couto volta para nova temporada no Teatro Ruth Escobar</a></h3>
         <div class="meta-row">
-          <span class="meta-l">14.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Espetáculo “O Tartufo” entra em cartaz no Centro Cultural da Justiça Federal" data-url="https://foyer.digital/post-espetaculo-o-tartufo-entra-em-cartaz-no-centro-cultural-da-justica-federal.html">Compartilhar ↗</button>
+          <span class="meta-l">15.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo “A Milionária” com Chris Couto volta para nova temporada no Teatro Ruth Escobar" data-url="https://foyer.digital/post-espetaculo-a-milionaria-com-chris-couto-volta-para-nova-temporada-no-teatro-ruth.html">Compartilhar ↗</button>
         </div>
       </div>
     </article>
     <article class="news-cell" data-cat="Teatro">
-      <a class="ph" href="post-espetaculo-que-aborda-o-bullying-e-a-violencia-nas-escolas-estreia-na-biblioteca.html" aria-label="Foto da matéria"><img src="assets/acervo/e0ea4638e1f589e7.jpg" alt="Espetáculo que aborda o bullying e a violência nas escolas estreia na biblioteca Mário de Andrade" loading="lazy" onerror="this.style.display='none'"></a>
+      <a class="ph" href="post-vanessa-gerbelli-se-une-a-rodrigo-lombardi-no-elenco-de-dear-evan-hansen-que-est.html" aria-label="Foto da matéria"><img src="assets/acervo/80d7d55c7fa19120.jpg" alt="Vanessa Gerbelli se une a Rodrigo Lombardi no elenco de “Dear Evan Hansen” que estreia em Junho" loading="lazy" onerror="this.style.display='none'"></a>
       <div class="cbody">
         <span class="tag">Teatro</span>
-        <h3><a href="post-espetaculo-que-aborda-o-bullying-e-a-violencia-nas-escolas-estreia-na-biblioteca.html">Espetáculo que aborda o bullying e a violência nas escolas estreia na biblioteca Mário de Andrade</a></h3>
+        <h3><a href="post-vanessa-gerbelli-se-une-a-rodrigo-lombardi-no-elenco-de-dear-evan-hansen-que-est.html">Vanessa Gerbelli se une a Rodrigo Lombardi no elenco de “Dear Evan Hansen” que estreia em Junho</a></h3>
         <div class="meta-row">
-          <span class="meta-l">11.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Espetáculo que aborda o bullying e a violência nas escolas estreia na biblioteca Mário de Andrade" data-url="https://foyer.digital/post-espetaculo-que-aborda-o-bullying-e-a-violencia-nas-escolas-estreia-na-biblioteca.html">Compartilhar ↗</button>
-        </div>
-      </div>
-    </article>
-    <article class="news-cell" data-cat="Programa">
-      <a class="ph" href="post-alessandra-maestrini-programa-do-foyer.html" aria-label="Foto da matéria"><img src="assets/acervo/c08494a0c01436ee.jpg" alt="Alessandra Maestrini - Programa do Foyer" loading="lazy" onerror="this.style.display='none'"></a>
-      <div class="cbody">
-        <span class="tag">Programa</span>
-        <h3><a href="post-alessandra-maestrini-programa-do-foyer.html">Alessandra Maestrini - Programa do Foyer</a></h3>
-        <div class="meta-row">
-          <span class="meta-l">09.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Alessandra Maestrini - Programa do Foyer" data-url="https://foyer.digital/post-alessandra-maestrini-programa-do-foyer.html">Compartilhar ↗</button>
+          <span class="meta-l">15.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Vanessa Gerbelli se une a Rodrigo Lombardi no elenco de “Dear Evan Hansen” que estreia em Junho" data-url="https://foyer.digital/post-vanessa-gerbelli-se-une-a-rodrigo-lombardi-no-elenco-de-dear-evan-hansen-que-est.html">Compartilhar ↗</button>
         </div>
       </div>
     </article>
     <article class="news-cell" data-cat="Teatro">
-      <a class="ph" href="post-r-marketing-lanca-programa-de-aceleramento-para-projetos-culturais-com-foco-em-m.html" aria-label="Foto da matéria"><img src="assets/acervo/f3e1289576215ae4.jpg" alt="R+ Marketing lança Programa de
-Aceleramento para Projetos Culturais com foco em Musicais Brasileiros" loading="lazy" onerror="this.style.display='none'"></a>
+      <a class="ph" href="post-comedia-com-direcao-de-jarbas-homem-de-mello-reestreia-no-teatro-bibi-ferreira.html" aria-label="Foto da matéria"><img src="assets/acervo/f979b03aa2346273.jpg" alt="Comédia com direção de Jarbas Homem de Mello reestreia no Teatro Bibi Ferreira" loading="lazy" onerror="this.style.display='none'"></a>
       <div class="cbody">
         <span class="tag">Teatro</span>
-        <h3><a href="post-r-marketing-lanca-programa-de-aceleramento-para-projetos-culturais-com-foco-em-m.html">R+ Marketing lança Programa de
-Aceleramento para Projetos Culturais com foco em Musicais Brasileiros</a></h3>
+        <h3><a href="post-comedia-com-direcao-de-jarbas-homem-de-mello-reestreia-no-teatro-bibi-ferreira.html">Comédia com direção de Jarbas Homem de Mello reestreia no Teatro Bibi Ferreira</a></h3>
         <div class="meta-row">
-          <span class="meta-l">08.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="R+ Marketing lança Programa de
-Aceleramento para Projetos Culturais com foco em Musicais Brasileiros" data-url="https://foyer.digital/post-r-marketing-lanca-programa-de-aceleramento-para-projetos-culturais-com-foco-em-m.html">Compartilhar ↗</button>
-        </div>
-      </div>
-    </article>
-    <article class="news-cell" data-cat="Teatro">
-      <a class="ph" href="post-the-boys-in-the-band-estreia-no-teatro-procopio-ferreira-53-anos-apos-a-ultima-m.html" aria-label="Foto da matéria"><img src="assets/acervo/f69d3f18c466f5f9.jpg" alt="The Boys in the Band estreia no Teatro Procópio Ferreira 53 anos após a última montagem" loading="lazy" onerror="this.style.display='none'"></a>
-      <div class="cbody">
-        <span class="tag">Teatro</span>
-        <h3><a href="post-the-boys-in-the-band-estreia-no-teatro-procopio-ferreira-53-anos-apos-a-ultima-m.html">The Boys in the Band estreia no Teatro Procópio Ferreira 53 anos após a última montagem</a></h3>
-        <div class="meta-row">
-          <span class="meta-l">05.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="The Boys in the Band estreia no Teatro Procópio Ferreira 53 anos após a última montagem" data-url="https://foyer.digital/post-the-boys-in-the-band-estreia-no-teatro-procopio-ferreira-53-anos-apos-a-ultima-m.html">Compartilhar ↗</button>
-        </div>
-      </div>
-    </article>
-    <article class="news-cell" data-cat="Teatro">
-      <a class="ph" href="post-escola-de-mulheres-uma-satira-ao-patriarcado-volta-para-nova-temporada-no-espaco.html" aria-label="Foto da matéria"><img src="assets/acervo/28d8c5cebda6499d.jpg" alt="“Escola de Mulheres - Uma Sátira ao Patriarcado” volta para nova temporada no Espaço Parlapatões" loading="lazy" onerror="this.style.display='none'"></a>
-      <div class="cbody">
-        <span class="tag">Teatro</span>
-        <h3><a href="post-escola-de-mulheres-uma-satira-ao-patriarcado-volta-para-nova-temporada-no-espaco.html">“Escola de Mulheres - Uma Sátira ao Patriarcado” volta para nova temporada no Espaço Parlapatões</a></h3>
-        <div class="meta-row">
-          <span class="meta-l">04.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="“Escola de Mulheres - Uma Sátira ao Patriarcado” volta para nova temporada no Espaço Parlapatões" data-url="https://foyer.digital/post-escola-de-mulheres-uma-satira-ao-patriarcado-volta-para-nova-temporada-no-espaco.html">Compartilhar ↗</button>
-        </div>
-      </div>
-    </article>
-    <article class="news-cell" data-cat="Teatro">
-      <a class="ph" href="post-irma-yerma-de-federico-garcia-lorca-ganha-releitura-artistico-performatica.html" aria-label="Foto da matéria"><img src="assets/acervo/893925ffee047f97.jpg" alt="“Irmã Yerma” de Federico Garcia Lorca ganha releitura artístico-performática" loading="lazy" onerror="this.style.display='none'"></a>
-      <div class="cbody">
-        <span class="tag">Teatro</span>
-        <h3><a href="post-irma-yerma-de-federico-garcia-lorca-ganha-releitura-artistico-performatica.html">“Irmã Yerma” de Federico Garcia Lorca ganha releitura artístico-performática</a></h3>
-        <div class="meta-row">
-          <span class="meta-l">03.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="“Irmã Yerma” de Federico Garcia Lorca ganha releitura artístico-performática" data-url="https://foyer.digital/post-irma-yerma-de-federico-garcia-lorca-ganha-releitura-artistico-performatica.html">Compartilhar ↗</button>
-        </div>
-      </div>
-    </article>
-    <article class="news-cell" data-cat="Teatro">
-      <a class="ph" href="post-espetaculo-que-conta-a-historia-de-prostitutas-da-belle-epoque-do-brasil-chega-a.html" aria-label="Foto da matéria"><img src="assets/acervo/83b3658ef30b1366.jpg" alt="Espetáculo que conta a história de prostitutas da Belle Époque do Brasil chega ao Teatro B32" loading="lazy" onerror="this.style.display='none'"></a>
-      <div class="cbody">
-        <span class="tag">Teatro</span>
-        <h3><a href="post-espetaculo-que-conta-a-historia-de-prostitutas-da-belle-epoque-do-brasil-chega-a.html">Espetáculo que conta a história de prostitutas da Belle Époque do Brasil chega ao Teatro B32</a></h3>
-        <div class="meta-row">
-          <span class="meta-l">03.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Espetáculo que conta a história de prostitutas da Belle Époque do Brasil chega ao Teatro B32" data-url="https://foyer.digital/post-espetaculo-que-conta-a-historia-de-prostitutas-da-belle-epoque-do-brasil-chega-a.html">Compartilhar ↗</button>
-        </div>
-      </div>
-    </article>
-    <article class="news-cell" data-cat="Teatro">
-      <a class="ph" href="post-consentimento-e-uma-tragicomedia-que-propoe-uma-discussao-sobre-o-sistema-judici.html" aria-label="Foto da matéria"><img src="assets/acervo/ba9741e64c28f57b.jpg" alt="“Consentimento” é uma tragicomédia que propõe uma discussão sobre o sistema Judiciário" loading="lazy" onerror="this.style.display='none'"></a>
-      <div class="cbody">
-        <span class="tag">Teatro</span>
-        <h3><a href="post-consentimento-e-uma-tragicomedia-que-propoe-uma-discussao-sobre-o-sistema-judici.html">“Consentimento” é uma tragicomédia que propõe uma discussão sobre o sistema Judiciário</a></h3>
-        <div class="meta-row">
-          <span class="meta-l">02.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="“Consentimento” é uma tragicomédia que propõe uma discussão sobre o sistema Judiciário" data-url="https://foyer.digital/post-consentimento-e-uma-tragicomedia-que-propoe-uma-discussao-sobre-o-sistema-judici.html">Compartilhar ↗</button>
+          <span class="meta-l">12.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Comédia com direção de Jarbas Homem de Mello reestreia no Teatro Bibi Ferreira" data-url="https://foyer.digital/post-comedia-com-direcao-de-jarbas-homem-de-mello-reestreia-no-teatro-bibi-ferreira.html">Compartilhar ↗</button>
         </div>
       </div>
     </article>
     <article class="news-cell" data-cat="Cinema">
-      <a class="ph" href="post-com-estreia-marcada-para-o-dia-28-de-dezembro-mamonas-assassinas-o-filme-ganha-t.html" aria-label="Foto da matéria"><img src="assets/acervo/f7f9146325311df0.jpg" alt="Com estreia marcada para o dia 28 de dezembro, “Mamonas Assassinas: O Filme” ganha trailer" loading="lazy" onerror="this.style.display='none'"></a>
+      <a class="ph" href="post-estreia-hoje-o-longa-mean-girls-que-consagra-a-versao-musical-do-classico-dos-an.html" aria-label="Foto da matéria"><img src="assets/acervo/e1ca7d1b74237823.jpg" alt="Estreia hoje o longa “Mean Girls” que consagra a versão musical do clássico dos anos 2000" loading="lazy" onerror="this.style.display='none'"></a>
       <div class="cbody">
         <span class="tag">Cinema</span>
-        <h3><a href="post-com-estreia-marcada-para-o-dia-28-de-dezembro-mamonas-assassinas-o-filme-ganha-t.html">Com estreia marcada para o dia 28 de dezembro, “Mamonas Assassinas: O Filme” ganha trailer</a></h3>
+        <h3><a href="post-estreia-hoje-o-longa-mean-girls-que-consagra-a-versao-musical-do-classico-dos-an.html">Estreia hoje o longa “Mean Girls” que consagra a versão musical do clássico dos anos 2000</a></h3>
         <div class="meta-row">
-          <span class="meta-l">02.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Com estreia marcada para o dia 28 de dezembro, “Mamonas Assassinas: O Filme” ganha trailer" data-url="https://foyer.digital/post-com-estreia-marcada-para-o-dia-28-de-dezembro-mamonas-assassinas-o-filme-ganha-t.html">Compartilhar ↗</button>
+          <span class="meta-l">11.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Estreia hoje o longa “Mean Girls” que consagra a versão musical do clássico dos anos 2000" data-url="https://foyer.digital/post-estreia-hoje-o-longa-mean-girls-que-consagra-a-versao-musical-do-classico-dos-an.html">Compartilhar ↗</button>
         </div>
       </div>
     </article>
     <article class="news-cell" data-cat="Teatro">
-      <a class="ph" href="post-espetaculo-natalino-dirigido-por-fernanda-chamma-e-estrelado-por-miguel-falabell.html" aria-label="Foto da matéria"><img src="assets/acervo/9ea0251ef6dbc7b5.jpg" alt="Espetáculo natalino dirigido por Fernanda Chamma e estrelado por Miguel Falabella chega em Dezembro" loading="lazy" onerror="this.style.display='none'"></a>
+      <a class="ph" href="post-espetaculo-o-profeta-esta-de-volta-para-nova-temporada-no-teatro-bravos.html" aria-label="Foto da matéria"><img src="assets/acervo/605e4dadf3e8d2bf.jpg" alt="Espetáculo “O Profeta” está de volta para nova temporada no Teatro Bravos" loading="lazy" onerror="this.style.display='none'"></a>
       <div class="cbody">
         <span class="tag">Teatro</span>
-        <h3><a href="post-espetaculo-natalino-dirigido-por-fernanda-chamma-e-estrelado-por-miguel-falabell.html">Espetáculo natalino dirigido por Fernanda Chamma e estrelado por Miguel Falabella chega em Dezembro</a></h3>
+        <h3><a href="post-espetaculo-o-profeta-esta-de-volta-para-nova-temporada-no-teatro-bravos.html">Espetáculo “O Profeta” está de volta para nova temporada no Teatro Bravos</a></h3>
         <div class="meta-row">
-          <span class="meta-l">01.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Espetáculo natalino dirigido por Fernanda Chamma e estrelado por Miguel Falabella chega em Dezembro" data-url="https://foyer.digital/post-espetaculo-natalino-dirigido-por-fernanda-chamma-e-estrelado-por-miguel-falabell.html">Compartilhar ↗</button>
+          <span class="meta-l">11.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo “O Profeta” está de volta para nova temporada no Teatro Bravos" data-url="https://foyer.digital/post-espetaculo-o-profeta-esta-de-volta-para-nova-temporada-no-teatro-bravos.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-republica-lee-que-tera-direcao-geral-de-taua-delmiro-e-o-projeto-vencedor-do-pro.html" aria-label="Foto da matéria"><img src="assets/acervo/a6e9fba9ea5f990a.jpg" alt="República Lee que terá direção geral de Tauã Delmiro é o projeto vencedor do programa de aceleramento cultural da R+Marketing" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-republica-lee-que-tera-direcao-geral-de-taua-delmiro-e-o-projeto-vencedor-do-pro.html">República Lee que terá direção geral de Tauã Delmiro é o projeto vencedor do programa de aceleramento cultural da R+Marketing</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="República Lee que terá direção geral de Tauã Delmiro é o projeto vencedor do programa de aceleramento cultural da R+Marketing" data-url="https://foyer.digital/post-republica-lee-que-tera-direcao-geral-de-taua-delmiro-e-o-projeto-vencedor-do-pro.html">Compartilhar ↗</button>
         </div>
       </div>
     </article>
     <article class="news-cell" data-cat="Teatro">
-      <a class="ph" href="post-ingressos-para-a-montagem-brasileira-de-king-boots-ja-estao-a-venda.html" aria-label="Foto da matéria"><img src="assets/acervo/14feeb799973e7e6.jpg" alt="Ingressos para a montagem brasileira de Kinky Boots já estão à venda" loading="lazy" onerror="this.style.display='none'"></a>
+      <a class="ph" href="post-espetaculo-the-boys-in-the-band-estreia-segunda-temporada-em-sao-paulo.html" aria-label="Foto da matéria"><img src="assets/acervo/e86001867d385697.jpg" alt="Espetáculo “The Boys in the band” estreia segunda temporada em São Paulo" loading="lazy" onerror="this.style.display='none'"></a>
       <div class="cbody">
         <span class="tag">Teatro</span>
-        <h3><a href="post-ingressos-para-a-montagem-brasileira-de-king-boots-ja-estao-a-venda.html">Ingressos para a montagem brasileira de Kinky Boots já estão à venda</a></h3>
+        <h3><a href="post-espetaculo-the-boys-in-the-band-estreia-segunda-temporada-em-sao-paulo.html">Espetáculo “The Boys in the band” estreia segunda temporada em São Paulo</a></h3>
         <div class="meta-row">
-          <span class="meta-l">01.11 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Ingressos para a montagem brasileira de Kinky Boots já estão à venda" data-url="https://foyer.digital/post-ingressos-para-a-montagem-brasileira-de-king-boots-ja-estao-a-venda.html">Compartilhar ↗</button>
+          <span class="meta-l">10.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo “The Boys in the band” estreia segunda temporada em São Paulo" data-url="https://foyer.digital/post-espetaculo-the-boys-in-the-band-estreia-segunda-temporada-em-sao-paulo.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-warner-bros-anuncia-data-de-estreia-de-beetlejuice-2-no-brasil-alem-de-outros-fi.html" aria-label="Foto da matéria"><img src="assets/acervo/f44009d2e3c3bf15.jpg" alt="Warner Bros anuncia data de estreia de “BeetleJuice 2” no Brasil, além de outros filmes" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-warner-bros-anuncia-data-de-estreia-de-beetlejuice-2-no-brasil-alem-de-outros-fi.html">Warner Bros anuncia data de estreia de “BeetleJuice 2” no Brasil, além de outros filmes</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Warner Bros anuncia data de estreia de “BeetleJuice 2” no Brasil, além de outros filmes" data-url="https://foyer.digital/post-warner-bros-anuncia-data-de-estreia-de-beetlejuice-2-no-brasil-alem-de-outros-fi.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-infantil-a-fabrica-de-ventos-chega-ao-teatro-do-sesc-pompeia.html" aria-label="Foto da matéria"><img src="assets/acervo/2b4cb2ccbd9af0ca.jpg" alt="Espetáculo infantil “A Fábrica de Ventos” chega ao teatro do Sesc Pompeia" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-infantil-a-fabrica-de-ventos-chega-ao-teatro-do-sesc-pompeia.html">Espetáculo infantil “A Fábrica de Ventos” chega ao teatro do Sesc Pompeia</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo infantil “A Fábrica de Ventos” chega ao teatro do Sesc Pompeia" data-url="https://foyer.digital/post-espetaculo-infantil-a-fabrica-de-ventos-chega-ao-teatro-do-sesc-pompeia.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-espetaculo-de-comedia-convidado-para-se-apresentar-em-portugal-chega-ao-palco-do.html" aria-label="Foto da matéria"><img src="assets/acervo/ef25d220c4c4e417.jpg" alt="Espetáculo de comédia convidado para se apresentar em portugal chega ao palco do Teatro Bibi Ferreira" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-espetaculo-de-comedia-convidado-para-se-apresentar-em-portugal-chega-ao-palco-do.html">Espetáculo de comédia convidado para se apresentar em portugal chega ao palco do Teatro Bibi Ferreira</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo de comédia convidado para se apresentar em portugal chega ao palco do Teatro Bibi Ferreira" data-url="https://foyer.digital/post-espetaculo-de-comedia-convidado-para-se-apresentar-em-portugal-chega-ao-palco-do.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Música">
+      <a class="ph" href="post-o-klb-esta-de-volta-e-agora-em-um-especial-em-versao-acustica.html" aria-label="Foto da matéria"><img src="assets/acervo/db34f480bee349c7.jpg" alt="O KLB está de volta, e agora em um especial em versão acústica" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Música</span>
+        <h3><a href="post-o-klb-esta-de-volta-e-agora-em-um-especial-em-versao-acustica.html">O KLB está de volta, e agora em um especial em versão acústica</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="O KLB está de volta, e agora em um especial em versão acústica" data-url="https://foyer.digital/post-o-klb-esta-de-volta-e-agora-em-um-especial-em-versao-acustica.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Streaming">
+      <a class="ph" href="post-hbo-anuncia-o-elenco-da-terceira-temporada-de-the-white-lotus-que-conta-com-mich.html" aria-label="Foto da matéria"><img src="assets/acervo/e9bdeaed33242b58.jpg" alt="HBO anuncia o elenco da terceira temporada de “The White Lotus” que conta com Michelle Monaghan a estrela de Echoes" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-hbo-anuncia-o-elenco-da-terceira-temporada-de-the-white-lotus-que-conta-com-mich.html">HBO anuncia o elenco da terceira temporada de “The White Lotus” que conta com Michelle Monaghan a estrela de Echoes</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="HBO anuncia o elenco da terceira temporada de “The White Lotus” que conta com Michelle Monaghan a estrela de Echoes" data-url="https://foyer.digital/post-hbo-anuncia-o-elenco-da-terceira-temporada-de-the-white-lotus-que-conta-com-mich.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-momo-e-o-senhor-do-tempo-de-carla-candiotto-chega-para-nova-temporada-agora-no-s.html" aria-label="Foto da matéria"><img src="assets/acervo/6ea20353e7933867.jpg" alt="“Momo e o senhor do tempo” de Carla Candiotto chega para nova temporada agora no Sesc Consolação" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-momo-e-o-senhor-do-tempo-de-carla-candiotto-chega-para-nova-temporada-agora-no-s.html">“Momo e o senhor do tempo” de Carla Candiotto chega para nova temporada agora no Sesc Consolação</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">09.01 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Momo e o senhor do tempo” de Carla Candiotto chega para nova temporada agora no Sesc Consolação" data-url="https://foyer.digital/post-momo-e-o-senhor-do-tempo-de-carla-candiotto-chega-para-nova-temporada-agora-no-s.html">Compartilhar ↗</button>
         </div>
       </div>
     </article>
   </div>
-  <nav class="pager" aria-label="Páginas"><a href="noticias-p50.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p50.html">50</a><a href="noticias-p51.html" class="on">51</a><a href="noticias-p52.html">52</a><span>…</span><a href="noticias-p65.html">65</a><a href="noticias-p66.html">66</a><a href="noticias-p52.html">Próxima →</a></nav>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p50.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p50.html">50</a><a href="noticias-p51.html" class="on">51</a><a href="noticias-p52.html">52</a><span>…</span><a href="noticias-p70.html">70</a><a href="noticias-p71.html">71</a><a href="noticias-p52.html">Próxima →</a></nav>
   <div class="ad-slot" data-ad-slot="1003"></div>
 </main>
 
+<style>
+.pub-cortina[hidden]{ display:none !important; }
+.pub-cortina{ position:fixed; inset:0; z-index:120; display:flex; align-items:center;
+  justify-content:center; background:rgba(20,6,3,.78); padding:20px; }
+.pub-cortina .caixa{ position:relative; background:var(--paper); border:3px solid var(--ink);
+  max-width:520px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+.pub-cortina .rotulo{ display:block; font-family:var(--mono); font-size:.52rem; font-weight:700;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); padding:10px 14px 0; }
+/* teto de altura: arte muito em pé não pode empurrar o botão de fechar para
+   fora da tela. O que passar do teto vira margem de papel, nunca corte. */
+.pub-cortina img{ display:block; width:100%; height:auto; object-fit:contain;
+  max-height:calc(100vh - 170px); padding:10px 14px; box-sizing:border-box; }
+.pub-cortina .leg{ padding:0 14px 14px; font-size:.85rem; }
+.pub-cortina .fechar{ position:absolute; top:-14px; right:-14px; width:34px; height:34px;
+  border:2px solid var(--ink); background:var(--gold); color:var(--wine); font-weight:700;
+  cursor:pointer; font-size:1rem; line-height:1; }
+</style>
+<div class="pub-cortina" id="pub-cortina" data-pub-chave="pub:cortina" hidden><div class="caixa"><button class="fechar" type="button" id="pub-cortina-x" aria-label="Fechar">✕</button><span class="rotulo">Publicidade</span><a href="https://www.sympla.com.br/produtor/foyerestudioecomunicacao" target="_blank" rel="noopener sponsored" data-pub="pub:cortina"><img src="assets/uploads/pub-cortina-0-msf37psm.jpg" alt=""></a></div></div>
+<script>
+(function(){
+  var k = 'foyer-pub-cortina-' + new Date().toISOString().slice(0, 10);
+  try{ if(localStorage.getItem(k)) return; }catch(e){}
+  function livre(){ try{ return !!localStorage.getItem('foyer-consent'); }catch(e){ return true; } }
+  var c = document.getElementById('pub-cortina');
+  function entra(){
+    setTimeout(function(){
+      c.hidden = false;
+      if(window.foyerPubVista) window.foyerPubVista(c.getAttribute('data-pub-chave'));
+      // 1x por dia de verdade: vista ao abrir, e não só ao fechar
+      try{ localStorage.setItem(k, '1'); }catch(e){}
+    }, 900);
+  }
+  function fecha(){ c.hidden = true; try{ localStorage.setItem(k, '1'); }catch(e){} }
+  document.getElementById('pub-cortina-x').addEventListener('click', fecha);
+  c.addEventListener('click', function(e){ if(e.target === c) fecha(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !c.hidden) fecha(); });
+  if(livre()) entra();
+  else var iv = setInterval(function(){ if(livre()){ clearInterval(iv); entra(); } }, 600);
+})();
+</script>
 <footer>
   <div class="wrap">
     <div class="foot-cols">
@@ -441,7 +477,6 @@ Aceleramento para Projetos Culturais com foco em Musicais Brasileiros" data-url=
         <a href="noticias.html">Notícias</a>
         <a href="critica.html">Crítica</a>
         <a href="entrevistas.html">Entrevistas</a>
-        <a href="agenda.html">Agenda</a>
       </div>
       <div class="foot-col">
         <h4>Programas</h4>

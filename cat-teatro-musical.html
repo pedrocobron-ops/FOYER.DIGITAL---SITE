@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>/* o tema antes da primeira pintura: a casa abre com a luz da sala em
+todo aparelho, e só fica no Blackout se o leitor tiver apertado o botão. Fica
+aqui, no alto do cabeçalho, para não haver piscada de claro antes do escuro. */
+try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<meta name="description" content="Matérias de Teatro Musical no FOYER.">
+<meta name="theme-color" content="#4E0F09">
+<meta name="robots" content="max-image-preview:large">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/logo/pwa-192.png">
+<meta property="og:site_name" content="FOYER">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Teatro Musical — FOYER">
+<meta property="og:description" content="Matérias de Teatro Musical no FOYER.">
+<meta property="og:image" content="https://foyer.digital/assets/logo/src/foyer-banner.png">
+<meta property="og:url" content="https://foyer.digital/cat-teatro-musical.html">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<title>Teatro Musical — FOYER</title>
+<link rel="canonical" href="https://foyer.digital/cat-teatro-musical.html">
+<link rel="alternate" type="application/rss+xml" title="FOYER — Últimas" href="https://foyer.digital/feed.xml">
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="preload" href="fonts/AbrilFatface-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação","url":"https://foyer.digital/","logo":"https://foyer.digital/assets/logo/foyer-stacked-gold.png","sameAs":["https://www.youtube.com/@Foyer.digital","https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm"]}</script>
+</head>
+<body>
+<a class="skip-link" href="#conteudo" onclick="var m=document.getElementById('conteudo');if(m)m.setAttribute('tabindex','-1');if(m)m.focus();location.hash='conteudo';return false;">Pular para o conteúdo</a>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <!-- a cortina termina na ribalta; abaixo dela, o piso do palco -->
+      <rect y="348" width="600" height="52" fill="#2B0805"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <!-- a pessoa que se destaca na plateia: sentada NUMA cadeira da malha (62x44, centro 31+62k / 28+44m) -->
+      <circle cx="341" cy="248" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <!-- teatro de arena: plateia completa e alinhada dos dois lados, um ator só no centro -->
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <g fill="#1F0805">
+        <circle cx="30" cy="34" r="12"/><circle cx="84" cy="34" r="12"/><circle cx="138" cy="34" r="12"/><circle cx="192" cy="34" r="12"/><circle cx="246" cy="34" r="12"/><circle cx="300" cy="34" r="12"/><circle cx="354" cy="34" r="12"/><circle cx="408" cy="34" r="12"/><circle cx="462" cy="34" r="12"/><circle cx="516" cy="34" r="12"/><circle cx="570" cy="34" r="12"/>
+        <circle cx="30" cy="78" r="12"/><circle cx="84" cy="78" r="12"/><circle cx="138" cy="78" r="12"/><circle cx="192" cy="78" r="12"/><circle cx="246" cy="78" r="12"/><circle cx="300" cy="78" r="12"/><circle cx="354" cy="78" r="12"/><circle cx="408" cy="78" r="12"/><circle cx="462" cy="78" r="12"/><circle cx="516" cy="78" r="12"/><circle cx="570" cy="78" r="12"/>
+        <circle cx="30" cy="322" r="12"/><circle cx="84" cy="322" r="12"/><circle cx="138" cy="322" r="12"/><circle cx="192" cy="322" r="12"/><circle cx="246" cy="322" r="12"/><circle cx="300" cy="322" r="12"/><circle cx="354" cy="322" r="12"/><circle cx="408" cy="322" r="12"/><circle cx="462" cy="322" r="12"/><circle cx="516" cy="322" r="12"/><circle cx="570" cy="322" r="12"/>
+        <circle cx="30" cy="366" r="12"/><circle cx="84" cy="366" r="12"/><circle cx="138" cy="366" r="12"/><circle cx="192" cy="366" r="12"/><circle cx="246" cy="366" r="12"/><circle cx="300" cy="366" r="12"/><circle cx="354" cy="366" r="12"/><circle cx="408" cy="366" r="12"/><circle cx="462" cy="366" r="12"/><circle cx="516" cy="366" r="12"/><circle cx="570" cy="366" r="12"/>
+      </g>
+      <rect x="120" y="136" width="360" height="128" fill="#380A06" stroke="#CEB26A" stroke-width="3"/>
+      <ellipse cx="300" cy="200" rx="72" ry="34" fill="#E9CB85" opacity=".16"/>
+      <circle cx="300" cy="200" r="13" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <a href="anuncie.html">Anuncie</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Teatro Musical</h1>
+    <p class="note">320 matérias — página 1 de 14</p>
+  </div>
+</header>
+
+<main id="conteudo" class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html">Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-bastidores.html">Bastidores</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-entenda.html">Entenda</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-guia.html">Guia</a><a href="cat-literatura.html">Literatura</a><a href="cat-memoria.html">Memória</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-teatro-musical.html" class="on">Teatro Musical</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro Musical">
+      <a class="ph" href="post-nucleo-experimental-leva-as-troianas-a-torre-das-donzelas-em-remontagem-de-20-an.html" aria-label="Foto da matéria"><img src="assets/uploads/nucleo-experimental-leva-as-troianas-a-torre-das-donzelas-em-remontagem-de-20-an-1786488788511.jpg" alt="Núcleo Experimental leva “As Troianas” à Torre das Donzelas em remontagem de 20 anos" loading="lazy" onerror="this.style.display='none'"><span class="ph-cap">Foto — Anne Beatriz</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-nucleo-experimental-leva-as-troianas-a-torre-das-donzelas-em-remontagem-de-20-an.html">Núcleo Experimental leva “As Troianas” à Torre das Donzelas em remontagem de 20 anos</a></h3>
+        <p>Com direção de Zé Henrique de Paula e direção musical de Fernanda Maia, espetáculo estreia em 18 de agosto na sede do grupo, na Barra Funda Para comemorar duas …</p>
+        <div class="meta-row">
+          <span class="meta-l">16.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Núcleo Experimental leva “As Troianas” à Torre das Donzelas em remontagem de 20 anos" data-url="https://foyer.digital/post-nucleo-experimental-leva-as-troianas-a-torre-das-donzelas-em-remontagem-de-20-an.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-vinte-anos-depois-high-school-musical-ganha-nova-montagem-britanica-e-desta-vez-.html" aria-label="Foto da matéria"><img src="assets/uploads/vinte-anos-depois-high-school-musical-ganha-nova-montagem-britanica-e-desta-vez--1786484235629.jpg" alt="Vinte anos depois, “High School Musical” ganha nova montagem britânica, e desta vez sem copiar o original" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-vinte-anos-depois-high-school-musical-ganha-nova-montagem-britanica-e-desta-vez-.html">Vinte anos depois, “High School Musical” ganha nova montagem britânica, e desta vez sem copiar o original</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Vinte anos depois, “High School Musical” ganha nova montagem britânica, e desta vez sem copiar o original" data-url="https://foyer.digital/post-vinte-anos-depois-high-school-musical-ganha-nova-montagem-britanica-e-desta-vez-.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-por-que-into-the-woods-continua-voltando-musical-de-sondheim-retorna-ao-west-end.html" aria-label="Foto da matéria"><img src="assets/uploads/por-que-into-the-woods-continua-voltando-musical-de-sondheim-retorna-ao-west-end-1786723801620.jpg" alt="Por que “Into the Woods” continua voltando? Musical de Sondheim retorna ao West End após 35 anos" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-por-que-into-the-woods-continua-voltando-musical-de-sondheim-retorna-ao-west-end.html">Por que “Into the Woods” continua voltando? Musical de Sondheim retorna ao West End após 35 anos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Por que “Into the Woods” continua voltando? Musical de Sondheim retorna ao West End após 35 anos" data-url="https://foyer.digital/post-por-que-into-the-woods-continua-voltando-musical-de-sondheim-retorna-ao-west-end.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-trainspotting-the-musical-cancela-turne-britanica-apos-vendas-abaixo-do-esperado.html" aria-label="Foto da matéria"><img src="assets/uploads/trainspotting-the-musical-cancela-turne-britanica-apos-vendas-abaixo-do-esperado-1786485271715.jpg" alt="“Trainspotting: The Musical” cancela turnê britânica após vendas abaixo do esperado" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-trainspotting-the-musical-cancela-turne-britanica-apos-vendas-abaixo-do-esperado.html">“Trainspotting: The Musical” cancela turnê britânica após vendas abaixo do esperado</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Trainspotting: The Musical” cancela turnê britânica após vendas abaixo do esperado" data-url="https://foyer.digital/post-trainspotting-the-musical-cancela-turne-britanica-apos-vendas-abaixo-do-esperado.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-ariana-grande-deixa-nova-montagem-de-sondheim-no-west-end-producao-segue-previst.html" aria-label="Foto da matéria"><img src="assets/uploads/ariana-grande-deixa-nova-montagem-de-sondheim-no-west-end-producao-segue-previst-1786481720740.jpg" alt="Ariana Grande deixa nova montagem de Sondheim no West End; produção segue prevista para 2027" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-ariana-grande-deixa-nova-montagem-de-sondheim-no-west-end-producao-segue-previst.html">Ariana Grande deixa nova montagem de Sondheim no West End; produção segue prevista para 2027</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Ariana Grande deixa nova montagem de Sondheim no West End; produção segue prevista para 2027" data-url="https://foyer.digital/post-ariana-grande-deixa-nova-montagem-de-sondheim-no-west-end-producao-segue-previst.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-slash-do-guns-n-roses-estreia-na-broadway-tocando-em-musical-de-the-lost-boys.html" aria-label="Foto da matéria"><img src="assets/uploads/slash-do-guns-n-roses-estreia-na-broadway-tocando-em-musical-de-the-lost-boys-1786740265955.jpg" alt="Slash, do Guns N’ Roses, estreia na Broadway tocando em musical de “The Lost Boys”" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-slash-do-guns-n-roses-estreia-na-broadway-tocando-em-musical-de-the-lost-boys.html">Slash, do Guns N’ Roses, estreia na Broadway tocando em musical de “The Lost Boys”</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Slash, do Guns N’ Roses, estreia na Broadway tocando em musical de “The Lost Boys”" data-url="https://foyer.digital/post-slash-do-guns-n-roses-estreia-na-broadway-tocando-em-musical-de-the-lost-boys.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-sarah-hyland-e-skylar-astin-assumem-cabaret-e-fazem-estreia-no-west-end.html" aria-label="Foto da matéria"><img src="assets/uploads/sarah-hyland-e-skylar-astin-assumem-cabaret-e-fazem-estreia-no-west-end-1786637694622.jpg" alt="Sarah Hyland e Skylar Astin assumem “Cabaret” e fazem estreia no West End" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-sarah-hyland-e-skylar-astin-assumem-cabaret-e-fazem-estreia-no-west-end.html">Sarah Hyland e Skylar Astin assumem “Cabaret” e fazem estreia no West End</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">13.08 — Redação Foyer</span>
+          <button class="share-min" data-share="native" data-title="Sarah Hyland e Skylar Astin assumem “Cabaret” e fazem estreia no West End" data-url="https://foyer.digital/post-sarah-hyland-e-skylar-astin-assumem-cabaret-e-fazem-estreia-no-west-end.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-nucleo-experimental-revisita-as-troianas-e-transporta-tragedia-de-euripides-para.html" aria-label="Foto da matéria"><img src="assets/uploads/nucleo-experimental-revisita-as-troianas-e-transporta-tragedia-de-euripides-para-1786533334452.jpg" alt="Núcleo Experimental revisita “As Troianas” e transporta tragédia de Eurípides para a Torre das Donzelas" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-nucleo-experimental-revisita-as-troianas-e-transporta-tragedia-de-euripides-para.html">Núcleo Experimental revisita “As Troianas” e transporta tragédia de Eurípides para a Torre das Donzelas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Núcleo Experimental revisita “As Troianas” e transporta tragédia de Eurípides para a Torre das Donzelas" data-url="https://foyer.digital/post-nucleo-experimental-revisita-as-troianas-e-transporta-tragedia-de-euripides-para.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-feliz-ano-velho-de-marcelo-rubens-paiva-ganha-primeira-versao-musical-em-sao-pau.html" aria-label="Foto da matéria"><img src="assets/uploads/feliz-ano-velho-de-marcelo-rubens-paiva-ganha-primeira-versao-musical-em-sao-pau-1786479295140.jpg" alt="“Feliz Ano Velho”, de Marcelo Rubens Paiva, ganha primeira versão musical em São Paulo" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-feliz-ano-velho-de-marcelo-rubens-paiva-ganha-primeira-versao-musical-em-sao-pau.html">“Feliz Ano Velho”, de Marcelo Rubens Paiva, ganha primeira versão musical em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="“Feliz Ano Velho”, de Marcelo Rubens Paiva, ganha primeira versão musical em São Paulo" data-url="https://foyer.digital/post-feliz-ano-velho-de-marcelo-rubens-paiva-ganha-primeira-versao-musical-em-sao-pau.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Guia">
+      <a class="ph" href="post-10-musicais-brasileiros-mais-importantes-2026.html" aria-label="Foto da matéria"><img src="assets/uploads/musicais-brasileiros-mais-importantes-2026.jpg" alt="Antes do Bibi: dez musicais brasileiros que deixaram rastro na história do gênero" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Guia</span>
+        <h3><a href="post-10-musicais-brasileiros-mais-importantes-2026.html">Antes do Bibi: dez musicais brasileiros que deixaram rastro na história do gênero</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.08 — Redação Foyer</span>
+          <button class="share-min" data-share="native" data-title="Antes do Bibi: dez musicais brasileiros que deixaram rastro na história do gênero" data-url="https://foyer.digital/post-10-musicais-brasileiros-mais-importantes-2026.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-a-igreja-do-diabo-retorna-a-sao-paulo-com-temporada-no-teatro-estudio.html" aria-label="Foto da matéria"><img src="assets/uploads/a-igreja-do-diabo-retorna-a-sao-paulo-com-temporada-no-teatro-estudio-1786398162380.jpg" alt="“A Igreja do Diabo” retorna a São Paulo com temporada no Teatro Estúdio" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-a-igreja-do-diabo-retorna-a-sao-paulo-com-temporada-no-teatro-estudio.html">“A Igreja do Diabo” retorna a São Paulo com temporada no Teatro Estúdio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.08 — Redação Foyer</span>
+          <button class="share-min" data-share="native" data-title="“A Igreja do Diabo” retorna a São Paulo com temporada no Teatro Estúdio" data-url="https://foyer.digital/post-a-igreja-do-diabo-retorna-a-sao-paulo-com-temporada-no-teatro-estudio.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-julianne-moore-vai-protagonizar-nova-versao-de-fedra-no-teatro-de-nova-york.html" aria-label="Foto da matéria"><img src="assets/uploads/julianne-moore-vai-protagonizar-nova-versao-de-fedra-no-teatro-de-nova-york-1786393632231.jpg" alt="Julianne Moore volta aos palcos de Nova York após 20 anos em nova versão de ‘Fedra’" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-julianne-moore-vai-protagonizar-nova-versao-de-fedra-no-teatro-de-nova-york.html">Julianne Moore volta aos palcos de Nova York após 20 anos em nova versão de ‘Fedra’</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Julianne Moore volta aos palcos de Nova York após 20 anos em nova versão de ‘Fedra’" data-url="https://foyer.digital/post-julianne-moore-vai-protagonizar-nova-versao-de-fedra-no-teatro-de-nova-york.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-musical-o-ceu-de-bibi-ferreira-chega-a-sao-paulo-com-entrada-gratuita.html" aria-label="Foto da matéria"><img src="assets/uploads/musical-o-ceu-de-bibi-ferreira-chega-a-sao-paulo-com-entrada-gratuita-1786387867946.jpg" alt="Musical “O Céu de Bibi Ferreira” chega a São Paulo com entrada gratuita" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-musical-o-ceu-de-bibi-ferreira-chega-a-sao-paulo-com-entrada-gratuita.html">Musical “O Céu de Bibi Ferreira” chega a São Paulo com entrada gratuita</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.08 — Redação Foyer</span>
+          <button class="share-min" data-share="native" data-title="Musical “O Céu de Bibi Ferreira” chega a São Paulo com entrada gratuita" data-url="https://foyer.digital/post-musical-o-ceu-de-bibi-ferreira-chega-a-sao-paulo-com-entrada-gratuita.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-musical-parodia-de-heated-rivalry-vai-ganhar-album-com-elenco-original.html" aria-label="Foto da matéria"><img src="assets/uploads/musical-parodia-de-heated-rivalry-vai-ganhar-album-com-elenco-original-1786385286904.jpg" alt="Musical-paródia de “Heated Rivalry” vai ganhar álbum com elenco original" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-musical-parodia-de-heated-rivalry-vai-ganhar-album-com-elenco-original.html">Musical-paródia de “Heated Rivalry” vai ganhar álbum com elenco original</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Musical-paródia de “Heated Rivalry” vai ganhar álbum com elenco original" data-url="https://foyer.digital/post-musical-parodia-de-heated-rivalry-vai-ganhar-album-com-elenco-original.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-thelma-louise-vira-musical-e-divulga-primeira-musica-antes-da-estreia-mundial.html" aria-label="Foto da matéria"><img src="assets/uploads/thelma-louise-vira-musical-e-divulga-primeira-musica-antes-da-estreia-mundial-1786392348673.jpg" alt="“Thelma & Louise” vira musical e divulga primeira música antes da estreia mundial" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-thelma-louise-vira-musical-e-divulga-primeira-musica-antes-da-estreia-mundial.html">“Thelma & Louise” vira musical e divulga primeira música antes da estreia mundial</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="“Thelma & Louise” vira musical e divulga primeira música antes da estreia mundial" data-url="https://foyer.digital/post-thelma-louise-vira-musical-e-divulga-primeira-musica-antes-da-estreia-mundial.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-estrela-de-the-bear-sera-snoopy-em-novo-musical-de-charlie-brown-em-nova-york.html" aria-label="Foto da matéria"><img src="assets/uploads/estrela-de-the-bear-sera-snoopy-em-novo-musical-de-charlie-brown-em-nova-york-1786105295923.jpg" alt="Estrela de The Bear será Snoopy em novo musical de Charlie Brown em Nova York" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-estrela-de-the-bear-sera-snoopy-em-novo-musical-de-charlie-brown-em-nova-york.html">Estrela de The Bear será Snoopy em novo musical de Charlie Brown em Nova York</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Estrela de The Bear será Snoopy em novo musical de Charlie Brown em Nova York" data-url="https://foyer.digital/post-estrela-de-the-bear-sera-snoopy-em-novo-musical-de-charlie-brown-em-nova-york.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Guia">
+      <a class="ph" href="post-musicais-que-nasceram-de-livros-nos-palcos-brasileiros-2026.html" aria-label="Foto da matéria"><img src="assets/uploads/musicais-que-nasceram-de-livros-nos-palcos-brasileiros-2026.jpg" alt="Os 10 musicais que nasceram de livros e ganharam palco no Brasil (2026)" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Guia</span>
+        <h3><a href="post-musicais-que-nasceram-de-livros-nos-palcos-brasileiros-2026.html">Os 10 musicais que nasceram de livros e ganharam palco no Brasil (2026)</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.08 — Redação Foyer</span>
+          <button class="share-min" data-share="native" data-title="Os 10 musicais que nasceram de livros e ganharam palco no Brasil (2026)" data-url="https://foyer.digital/post-musicais-que-nasceram-de-livros-nos-palcos-brasileiros-2026.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-sesi-sp-teatro-musical-gratuito-mercado.html" aria-label="Foto da matéria"><img src="assets/uploads/sesi-sp-teatro-musical-gratuito-mercado.jpg" alt="O Sesi-SP produz musical inédito e não cobra ingresso. Quem paga a conta é a indústria" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-sesi-sp-teatro-musical-gratuito-mercado.html">O Sesi-SP produz musical inédito e não cobra ingresso. Quem paga a conta é a indústria</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="O Sesi-SP produz musical inédito e não cobra ingresso. Quem paga a conta é a indústria" data-url="https://foyer.digital/post-sesi-sp-teatro-musical-gratuito-mercado.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-death-note-o-musical-estreia-em-londres.html" aria-label="Foto da matéria"><img src="assets/uploads/death-note-o-musical-estreia-em-londres.jpg" alt="Death Note: musical do mangá estreia no Barbican, em Londres, quatro anos depois de passar pelo Rio" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-death-note-o-musical-estreia-em-londres.html">Death Note: musical do mangá estreia no Barbican, em Londres, quatro anos depois de passar pelo Rio</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">05.08 — Redação Foyer</span>
+          <button class="share-min" data-share="native" data-title="Death Note: musical do mangá estreia no Barbican, em Londres, quatro anos depois de passar pelo Rio" data-url="https://foyer.digital/post-death-note-o-musical-estreia-em-londres.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-djavan-o-musical-vidas-pra-contar-teatro-claro-mais-sp.html" aria-label="Foto da matéria"><img src="assets/uploads/djavan-o-musical-vidas-pra-contar-teatro-claro-mais-sp.jpg" alt="“Djavan, O Musical: Vidas pra Contar” reestreia em São Paulo no Teatro Claro Mais SP" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-djavan-o-musical-vidas-pra-contar-teatro-claro-mais-sp.html">“Djavan, O Musical: Vidas pra Contar” reestreia em São Paulo no Teatro Claro Mais SP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Djavan, O Musical: Vidas pra Contar” reestreia em São Paulo no Teatro Claro Mais SP" data-url="https://foyer.digital/post-djavan-o-musical-vidas-pra-contar-teatro-claro-mais-sp.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Bastidores">
+      <a class="ph" href="post-o-que-faz-um-diretor-musical-no-teatro.html" aria-label="Foto da matéria"><img src="assets/uploads/o-que-faz-um-diretor-musical-no-teatro.jpg" alt="O que faz um diretor musical no teatro? Entenda quem comanda a música do espetáculo" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Bastidores</span>
+        <h3><a href="post-o-que-faz-um-diretor-musical-no-teatro.html">O que faz um diretor musical no teatro? Entenda quem comanda a música do espetáculo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.08 — Redação Foyer</span>
+          <button class="share-min" data-share="native" data-title="O que faz um diretor musical no teatro? Entenda quem comanda a música do espetáculo" data-url="https://foyer.digital/post-o-que-faz-um-diretor-musical-no-teatro.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-musical-tributo-a-vinicius-de-moraes-chega-ao-sesc-santo-amaro-em-agosto.html" aria-label="Foto da matéria"><img src="assets/acervo/e4b7e83d9abe33ea.jpg" alt="Musical-tributo a Vinicius de Moraes chega ao Sesc Santo Amaro em agosto" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-musical-tributo-a-vinicius-de-moraes-chega-ao-sesc-santo-amaro-em-agosto.html">Musical-tributo a Vinicius de Moraes chega ao Sesc Santo Amaro em agosto</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">31.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical-tributo a Vinicius de Moraes chega ao Sesc Santo Amaro em agosto" data-url="https://foyer.digital/post-musical-tributo-a-vinicius-de-moraes-chega-ao-sesc-santo-amaro-em-agosto.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-quem-e-laila-garin-atriz-cantora-piaf.html" aria-label="Foto da matéria"><img src="assets/uploads/quem-e-laila-garin-atriz-cantora-piaf.jpg" alt="Quem é Laila Garin, a atriz que vive Édith Piaf em musical no Teatro Bradesco" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-quem-e-laila-garin-atriz-cantora-piaf.html">Quem é Laila Garin, a atriz que vive Édith Piaf em musical no Teatro Bradesco</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">29.07 — Redação Foyer</span>
+          <button class="share-min" data-share="native" data-title="Quem é Laila Garin, a atriz que vive Édith Piaf em musical no Teatro Bradesco" data-url="https://foyer.digital/post-quem-e-laila-garin-atriz-cantora-piaf.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-martin-guerre-nova-versao-old-vic-londres.html" aria-label="Foto da matéria"><img src="assets/uploads/martin-guerre-nova-versao-old-vic-londres.jpg" alt="Martin Guerre, o terceiro musical dos autores de Les Misérables, ganha nova versão no Old Vic de Londres" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-martin-guerre-nova-versao-old-vic-londres.html">Martin Guerre, o terceiro musical dos autores de Les Misérables, ganha nova versão no Old Vic de Londres</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">27.07 — Redação Foyer</span>
+          <button class="share-min" data-share="native" data-title="Martin Guerre, o terceiro musical dos autores de Les Misérables, ganha nova versão no Old Vic de Londres" data-url="https://foyer.digital/post-martin-guerre-nova-versao-old-vic-londres.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="cat-teatro-musical.html" class="on">1</a><a href="cat-teatro-musical-p2.html">2</a><span>…</span><a href="cat-teatro-musical-p13.html">13</a><a href="cat-teatro-musical-p14.html">14</a><a href="cat-teatro-musical-p2.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<style>
+.pub-cortina[hidden]{ display:none !important; }
+.pub-cortina{ position:fixed; inset:0; z-index:120; display:flex; align-items:center;
+  justify-content:center; background:rgba(20,6,3,.78); padding:20px; }
+.pub-cortina .caixa{ position:relative; background:var(--paper); border:3px solid var(--ink);
+  max-width:520px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+.pub-cortina .rotulo{ display:block; font-family:var(--mono); font-size:.52rem; font-weight:700;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); padding:10px 14px 0; }
+/* teto de altura: arte muito em pé não pode empurrar o botão de fechar para
+   fora da tela. O que passar do teto vira margem de papel, nunca corte. */
+.pub-cortina img{ display:block; width:100%; height:auto; object-fit:contain;
+  max-height:calc(100vh - 170px); padding:10px 14px; box-sizing:border-box; }
+.pub-cortina .leg{ padding:0 14px 14px; font-size:.85rem; }
+.pub-cortina .fechar{ position:absolute; top:-14px; right:-14px; width:34px; height:34px;
+  border:2px solid var(--ink); background:var(--gold); color:var(--wine); font-weight:700;
+  cursor:pointer; font-size:1rem; line-height:1; }
+</style>
+<div class="pub-cortina" id="pub-cortina" data-pub-chave="pub:cortina" hidden><div class="caixa"><button class="fechar" type="button" id="pub-cortina-x" aria-label="Fechar">✕</button><span class="rotulo">Publicidade</span><a href="https://www.sympla.com.br/produtor/foyerestudioecomunicacao" target="_blank" rel="noopener sponsored" data-pub="pub:cortina"><img src="assets/uploads/pub-cortina-0-msf37psm.jpg" alt=""></a></div></div>
+<script>
+(function(){
+  var k = 'foyer-pub-cortina-' + new Date().toISOString().slice(0, 10);
+  try{ if(localStorage.getItem(k)) return; }catch(e){}
+  function livre(){ try{ return !!localStorage.getItem('foyer-consent'); }catch(e){ return true; } }
+  var c = document.getElementById('pub-cortina');
+  function entra(){
+    setTimeout(function(){
+      c.hidden = false;
+      if(window.foyerPubVista) window.foyerPubVista(c.getAttribute('data-pub-chave'));
+      // 1x por dia de verdade: vista ao abrir, e não só ao fechar
+      try{ localStorage.setItem(k, '1'); }catch(e){}
+    }, 900);
+  }
+  function fecha(){ c.hidden = true; try{ localStorage.setItem(k, '1'); }catch(e){} }
+  document.getElementById('pub-cortina-x').addEventListener('click', fecha);
+  c.addEventListener('click', function(e){ if(e.target === c) fecha(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !c.hidden) fecha(); });
+  if(livre()) entra();
+  else var iv = setInterval(function(){ if(livre()){ clearInterval(iv); entra(); } }, 600);
+})();
+</script>
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Críticas Teatrais · Por Bruno Cavalcanti</a>
+        <a href="programas.html">Trivia Musical · Astro em Cena</a>
+        <a href="programas.html">Session Musical · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="sobre.html">Quem somos</a>
+        <a href="contato.html">Contato</a>
+        <a href="anuncie.html">Anuncie no FOYER</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="principios.html">Princípios Editoriais</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+        <a href="termos.html">Termos de Uso</a>
+        <a href="#" data-lgpd>Preferências de cookies</a>
+        <a href="#" data-sino>🔔 Notificações</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer Estúdio e Comunicação — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

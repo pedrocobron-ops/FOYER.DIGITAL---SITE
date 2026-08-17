@@ -30,7 +30,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação","url":"https://foyer.digital/","logo":"https://foyer.digital/assets/logo/foyer-stacked-gold.png","sameAs":["https://www.youtube.com/@Foyer.digital","https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm"]}</script>
 </head>
 <body>
-<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<a class="skip-link" href="#conteudo" onclick="var m=document.getElementById('conteudo');if(m)m.setAttribute('tabindex','-1');if(m)m.focus();location.hash='conteudo';return false;">Pular para o conteúdo</a>
 
 <!-- artes de palco (placeholders de foto e capas da revista) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -137,7 +137,6 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
     <a href="revista.html">Revista</a>
     <a href="programas.html">Programas</a>
     <a href="enciclopedia.html">Enciclopédia</a>
-    <a href="agenda.html" class="on" aria-current="page">Agenda</a>
     <a href="entrevistas.html">Entrevistas</a>
     <a href="busca.html" class="busca">⌕ Buscar</a>
   </div>
@@ -154,24 +153,47 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 <main id="conteudo" class="wrap">
   <div class="sec-head"><h2>Estreia esta semana</h2><span class="note">garanta o ingresso</span></div>
   <div class="agd">
-    <a class="agd-row" href="post-forever-young-10-anos-teatro-das-artes-sessao-comemorativa.html">
-      <span class="agd-date"><b>6</b><small>Ago</small></span>
-      <span class="agd-what"><h3>Forever Young completa dez anos no Brasil e marca sessão única no Teatro das Artes</h3><span class="agd-meta">estreia 6 de Ago · Teatro das Artes, São Paulo</span></span>
+    <a class="agd-row" href="post-nucleo-experimental-leva-as-troianas-a-torre-das-donzelas-em-remontagem-de-20-an.html">
+      <span class="agd-date"><b>18</b><small>Ago</small></span>
+      <span class="agd-what"><h3>Núcleo Experimental leva “As Troianas” à Torre das Donzelas em remontagem de 20 anos</h3><span class="agd-meta">estreia 18 de Ago · Nucleo Experimental, São Paulo</span></span>
+      <span class="tag agd-tag">Teatro Musical</span>
+    </a>
+    <a class="agd-row" href="post-gil-andar-com-fe-estreia-teatro-santander.html">
+      <span class="agd-date"><b>20</b><small>Ago</small></span>
+      <span class="agd-what"><h3>“Gil – Andar com Fé” estreia no Teatro Santander com direção de Miguel Falabella</h3><span class="agd-meta">estreia 20 de Ago · Teatro Santander, São Paulo</span></span>
       <span class="tag agd-tag">Teatro</span>
     </a>
-    <a class="agd-row" href="post-quem-e-laila-garin-atriz-cantora-piaf.html">
-      <span class="agd-date"><b>7</b><small>Ago</small></span>
-      <span class="agd-what"><h3>Quem é Laila Garin, a atriz que vive Édith Piaf em musical no Teatro Bradesco</h3><span class="agd-meta">estreia 7 de Ago · Teatro Bradesco, São Paulo</span></span>
-      <span class="tag agd-tag">Teatro</span>
+    <a class="agd-row" href="post-cirque-du-soleil-volta-ao-brasil-com-nova-versao-de-alegria.html">
+      <span class="agd-date"><b>20</b><small>Ago</small></span>
+      <span class="agd-what"><h3>Cirque du Soleil volta ao Brasil com nova versão de “Alegría”</h3><span class="agd-meta">estreia 20 de Ago · Parque Villa Lobos, São Paulo</span></span>
+      <span class="tag agd-tag">Show</span>
+    </a>
+    <a class="agd-row" href="post-meu-filho-e-um-musical-temporada-sao-paulo.html">
+      <span class="agd-date"><b>20</b><small>Ago</small></span>
+      <span class="agd-what"><h3>Musical sobre Paulo Gustavo estreia em agosto no Teatro Renault, em São Paulo</h3><span class="agd-meta">estreia 20 de Ago · Teatro Renault, São Paulo</span></span>
+      <span class="tag agd-tag">Teatro Musical</span>
+    </a>
+    <a class="agd-row" href="post-exausta-em-cena-tera-sessoes-especiais-para-lancamento-de-livro-de-carolina-roma.html">
+      <span class="agd-date"><b>24</b><small>Ago</small></span>
+      <span class="agd-what"><h3>“Exausta, em Cena” terá sessões especiais para lançamento de livro de Carolina Romano</h3><span class="agd-meta">estreia 24 de Ago · Estúdio Mistto, São Paulo</span></span>
+      <span class="tag agd-tag">Literatura</span>
+    </a>
+  </div>
+<div class="sec-head"><h2>Últimas sessões</h2><span class="note">agora ou nunca</span></div>
+  <div class="agd">
+    <a class="agd-row" href="post-alice-ripoll-cia-rec-puff-lavagem-sesc-pompeia.html">
+      <span class="agd-date"><b>13</b><small>Ago</small></span>
+      <span class="agd-what"><h3>Alice Ripoll leva “Puff” e “Lavagem” ao Sesc Pompeia em duas temporadas de quatro dias</h3><span class="agd-meta">até 23 de Ago · Sesc Pompeia, São Paulo</span></span>
+      <span class="tag agd-tag">Dança</span>
+    </a>
+    <a class="agd-row" href="post-requiem-sp-bale-da-cidade-theatro-municipal.html">
+      <span class="agd-date"><b>15</b><small>Ago</small></span>
+      <span class="agd-what"><h3>“Réquiem SP” volta ao Theatro Municipal com Balé da Cidade, orquestra e coral em cena</h3><span class="agd-meta">até 22 de Ago · Theatro Municipal de São Paulo, São Paulo</span></span>
+      <span class="tag agd-tag">Dança</span>
     </a>
   </div>
 <div class="sec-head"><h2>Em cartaz agora</h2><span class="note">rolando neste momento</span></div>
   <div class="agd">
-    <a class="agd-row" href="post-ragtime-fim-de-temporada-broadway-recorde.html">
-      <span class="agd-date"><b>16</b><small>Out</small></span>
-      <span class="agd-what"><h3>Ragtime bate o recorde do Lincoln Center Theater e fecha a temporada limitada em 16 de agosto</h3><span class="agd-meta">em cartaz · Vivian Beaumont Theater, Nova York · até 16 de Ago</span></span>
-      <span class="tag agd-tag">Notícia</span>
-    </a>
     <a class="agd-row" href="post-o-que-e-o-fundo-setorial-do-audiovisual.html">
       <span class="agd-date"><b>6</b><small>Jul</small></span>
       <span class="agd-what"><h3>O que é o Fundo Setorial do Audiovisual, o dinheiro público por trás de “O Agente Secreto”?</h3><span class="agd-meta">em cartaz · Sistema FSA do BRDE (inscrição online), Todo o Brasil · até 4 de Set</span></span>
@@ -182,10 +204,15 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
       <span class="agd-what"><h3>Com Myra Ruiz e Fabi Bang, &quot;Wicked&quot; faz temporada carioca na Cidade das Artes</h3><span class="agd-meta">em cartaz · Cidade das Artes, sala Bibi Ferreira, Rio de Janeiro</span></span>
       <span class="tag agd-tag">Teatro</span>
     </a>
-    <a class="agd-row" href="post-festa-no-arraial-o-musical-shakespeare-festa-junina-frei-caneca.html">
+    <a class="agd-row" href="post-meu-deus-bianca-bin-sergio-guize-teatro-das-artes.html">
       <span class="agd-date"><b>24</b><small>Jul</small></span>
-      <span class="agd-what"><h3>“Festa no Arraial, O Musical” transforma Shakespeare em festa junina no Teatro Sabesp Frei Caneca</h3><span class="agd-meta">em cartaz · Teatro Sabesp Frei Caneca, São Paulo · até 16 de Ago</span></span>
+      <span class="agd-what"><h3>Bianca Bin e Sérgio Guizé estrelam “Meu Deus!”, de Anat Gov, no Teatro das Artes</h3><span class="agd-meta">em cartaz · Teatro das Artes, São Paulo · até 1 de Nov</span></span>
       <span class="tag agd-tag">Teatro</span>
+    </a>
+    <a class="agd-row" href="post-djavan-o-musical-vidas-pra-contar-teatro-claro-mais-sp.html">
+      <span class="agd-date"><b>24</b><small>Jul</small></span>
+      <span class="agd-what"><h3>“Djavan, O Musical: Vidas pra Contar” reestreia em São Paulo no Teatro Claro Mais SP</h3><span class="agd-meta">em cartaz · Teatro Claro Mais SP, São Paulo · até 30 de Ago</span></span>
+      <span class="tag agd-tag">Teatro Musical</span>
     </a>
     <a class="agd-row" href="post-nova-cats-regents-park-open-air-theatre-londres.html">
       <span class="agd-date"><b>25</b><small>Jul</small></span>
@@ -202,72 +229,122 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
       <span class="agd-what"><h3>Game of Thrones no teatro: RSC cancela pré-estreias em Stratford e mantém a estreia em 8 de agosto</h3><span class="agd-meta">em cartaz · Royal Shakespeare Theatre, Stratford-upon-Avon · até 5 de Set</span></span>
       <span class="tag agd-tag">Notícia</span>
     </a>
-    <a class="agd-row" href="post-festival-de-teatro-do-rio-2026-segunda-edicao.html">
-      <span class="agd-date"><b>29</b><small>Jul</small></span>
-      <span class="agd-what"><h3>Festival de Teatro do Rio começa dia 29 com Grupo Galpão, Marco Nanini, Lilia Cabral e mostra da nova geração</h3><span class="agd-meta">em cartaz · Teatros Riachuelo e TotalEnergies, Rio de Janeiro · até 16 de Ago</span></span>
+    <a class="agd-row" href="post-death-note-o-musical-estreia-em-londres.html">
+      <span class="agd-date"><b>30</b><small>Jul</small></span>
+      <span class="agd-what"><h3>Death Note: musical do mangá estreia no Barbican, em Londres, quatro anos depois de passar pelo Rio</h3><span class="agd-meta">em cartaz · Barbican Theatre, Londres · até 12 de Set</span></span>
+      <span class="tag agd-tag">Notícia</span>
+    </a>
+    <a class="agd-row" href="post-dois-papas-tuca-celso-frateschi-zecarlos-machado.html">
+      <span class="agd-date"><b>31</b><small>Jul</small></span>
+      <span class="agd-what"><h3>“Dois Papas”, com Celso Frateschi e Zécarlos Machado, inicia temporada no TUCA</h3><span class="agd-meta">em cartaz · TUCA, Teatro da PUC-SP, São Paulo · até 27 de Set</span></span>
+      <span class="tag agd-tag">Teatro</span>
+    </a>
+    <a class="agd-row" href="post-inter-alia-drica-moraes-teatro-vivo-suzie-miller.html">
+      <span class="agd-date"><b>31</b><small>Jul</small></span>
+      <span class="agd-what"><h3>Inter Alia, de mesma autora de Prima Facie, estreia com Drica Moraes no Teatro Vivo</h3><span class="agd-meta">em cartaz · Teatro Vivo, São Paulo · até 20 de Set</span></span>
+      <span class="tag agd-tag">Teatro</span>
+    </a>
+    <a class="agd-row" href="post-piaf-eu-nao-me-arrependo-laila-garin-teatro-bradesco.html">
+      <span class="agd-date"><b>7</b><small>Ago</small></span>
+      <span class="agd-what"><h3>Piaf – Eu Não Me Arrependo estreia no Teatro Bradesco com Laila Garin</h3><span class="agd-meta">em cartaz · Teatro Bradesco, São Paulo · até 30 de Ago</span></span>
+      <span class="tag agd-tag">Teatro</span>
+    </a>
+    <a class="agd-row" href="post-temporalmente-vivos-estreia-sesc-avenida-paulista.html">
+      <span class="agd-date"><b>7</b><small>Ago</small></span>
+      <span class="agd-what"><h3>Colombianos Gustavo Miranda e Mauricio Flórez estreiam “Temporalmente Vivos” no Sesc Avenida Paulista</h3><span class="agd-meta">em cartaz · Sesc Avenida Paulista, São Paulo · até 30 de Ago</span></span>
+      <span class="tag agd-tag">Teatro</span>
+    </a>
+    <a class="agd-row" href="post-corrida-dos-bichos-meirelles-prime-video-estreia.html">
+      <span class="agd-date"><b>7</b><small>Ago</small></span>
+      <span class="agd-what"><h3>Corrida dos Bichos estreia no Prime Video com o Rio sem mar de Fernando Meirelles</h3><span class="agd-meta">em cartaz · Prime Video</span></span>
+      <span class="tag agd-tag">Cinema</span>
+    </a>
+    <a class="agd-row" href="post-quem-e-laila-garin-atriz-cantora-piaf.html">
+      <span class="agd-date"><b>7</b><small>Ago</small></span>
+      <span class="agd-what"><h3>Quem é Laila Garin, a atriz que vive Édith Piaf em musical no Teatro Bradesco</h3><span class="agd-meta">em cartaz · Teatro Bradesco, São Paulo · até 30 de Ago</span></span>
+      <span class="tag agd-tag">Teatro Musical</span>
+    </a>
+    <a class="agd-row" href="post-circulo-das-baleias-pia-fraus-btg-pactual-hall.html">
+      <span class="agd-date"><b>8</b><small>Ago</small></span>
+      <span class="agd-what"><h3>“Círculo das Baleias” estreia no BTG Pactual Hall com teatro de bonecos e consciência ambiental</h3><span class="agd-meta">em cartaz · BTG Pactual Hall, São Paulo · até 30 de Ago</span></span>
+      <span class="tag agd-tag">Teatro</span>
+    </a>
+    <a class="agd-row" href="post-o-dilema-de-sidgwick-teatro-sergio-cardoso.html">
+      <span class="agd-date"><b>8</b><small>Ago</small></span>
+      <span class="agd-what"><h3>“O Dilema de Sidgwick” estreia no Teatro Sérgio Cardoso com entrada gratuita</h3><span class="agd-meta">em cartaz · Teatro Sérgio Cardoso, São Paulo · até 30 de Ago</span></span>
+      <span class="tag agd-tag">Teatro</span>
+    </a>
+    <a class="agd-row" href="post-pluft-o-fantasminha-ccsp-temporada-gratuita.html">
+      <span class="agd-date"><b>14</b><small>Ago</small></span>
+      <span class="agd-what"><h3>“Pluft, o Fantasminha” chega ao Centro Cultural São Paulo em temporada gratuita</h3><span class="agd-meta">em cartaz · Centro Cultural São Paulo, São Paulo · até 9 de Out</span></span>
       <span class="tag agd-tag">Teatro</span>
     </a>
   </div>
 <div class="sec-head"><h2>Vem aí</h2><span class="note">já anunciado</span></div>
   <div class="agd">
-    <a class="agd-row" href="post-meu-filho-e-um-musical-temporada-sao-paulo.html">
-      <span class="agd-date"><b>20</b><small>Ago</small></span>
-      <span class="agd-what"><h3>Musical sobre Paulo Gustavo estreia em agosto no Teatro Renault, em São Paulo</h3><span class="agd-meta">a partir de 20 de Ago · Teatro Renault, São Paulo</span></span>
+    <a class="agd-row" href="post-regina-duarte-e-gabriela-duarte-estreiam-juntas-no-palco-em-a-filha-da.html">
+      <span class="agd-date"><b>28</b><small>Ago</small></span>
+      <span class="agd-what"><h3>Regina Duarte e Gabriela Duarte estreiam juntas no palco em “A Filha da...”</h3><span class="agd-meta">a partir de 28 de Ago · Teatro BDO Jaraguá, São Paulo</span></span>
       <span class="tag agd-tag">Teatro</span>
+    </a>
+    <a class="agd-row" href="post-sesi-sp-teatro-musical-gratuito-mercado.html">
+      <span class="agd-date"><b>29</b><small>Ago</small></span>
+      <span class="agd-what"><h3>O Sesi-SP produz musical inédito e não cobra ingresso. Quem paga a conta é a indústria</h3><span class="agd-meta">a partir de 29 de Ago · Teatro do SESI-SP, São Paulo</span></span>
+      <span class="tag agd-tag">Teatro Musical</span>
     </a>
   </div>
 
   <div class="ad-slot" data-ad-slot="1701"></div>
   <div class="sec-head"><h2>Últimas coberturas de eventos</h2><span class="note">do noticiário do FOYER</span></div>
   <div class="agd">
-    <a class="agd-row" href="post-live-nation-7-7-bilhoes-provisao-450-milhoes-antitruste.html">
-      <span class="agd-date"><b>3</b><small>Ago</small></span>
-      <span class="agd-what"><h3>Live Nation fatura US$ 7,7 bilhões no trimestre e provisiona US$ 450 milhões pela condenação antitruste</h3><span class="agd-meta">A Live Nation vendeu 90 milhões de ingressos pela Ticketmaster entre abril e junho e faturou US$…</span></span>
+    <a class="agd-row" href="post-regina-duarte-e-gabriela-duarte-estreiam-juntas-no-palco-em-a-filha-da.html">
+      <span class="agd-date"><b>28</b><small>Ago</small></span>
+      <span class="agd-what"><h3>Regina Duarte e Gabriela Duarte estreiam juntas no palco em “A Filha da...”</h3><span class="agd-meta">Teatro BDO Jaraguá, São Paulo</span></span>
+      <span class="tag agd-tag">Teatro</span>
+    </a>
+    <a class="agd-row" href="post-circulo-das-baleias-pia-fraus-btg-pactual-hall.html">
+      <span class="agd-date"><b>8</b><small>Ago</small></span>
+      <span class="agd-what"><h3>“Círculo das Baleias” estreia no BTG Pactual Hall com teatro de bonecos e consciência ambiental</h3><span class="agd-meta">BTG Pactual Hall, São Paulo</span></span>
+      <span class="tag agd-tag">Teatro</span>
+    </a>
+    <a class="agd-row" href="post-slash-do-guns-n-roses-estreia-na-broadway-tocando-em-musical-de-the-lost-boys.html">
+      <span class="agd-date"><b>14</b><small>Ago</small></span>
+      <span class="agd-what"><h3>Slash, do Guns N’ Roses, estreia na Broadway tocando em musical de “The Lost Boys”</h3><span class="agd-meta">Guitarrista subiu ao palco do Palace Theatre por uma noite e participou de “Have to Have You”,…</span></span>
+      <span class="tag agd-tag">Teatro Musical</span>
+    </a>
+    <a class="agd-row" href="post-noah-schnapp-de-stranger-things-fara-estreia-nos-palcos-em-londres-com-peca-sobr.html">
+      <span class="agd-date"><b>13</b><small>Ago</small></span>
+      <span class="agd-what"><h3>Noah Schnapp, de “Stranger Things”, fará estreia nos palcos em Londres com peça sobre privilégio</h3><span class="agd-meta">Ator que vive Will Byers na série da Netflix protagonizará “Affluenza”, nova dramaturgia de Andy…</span></span>
+      <span class="tag agd-tag">Teatro</span>
+    </a>
+    <a class="agd-row" href="post-sarah-hyland-e-skylar-astin-assumem-cabaret-e-fazem-estreia-no-west-end.html">
+      <span class="agd-date"><b>13</b><small>Ago</small></span>
+      <span class="agd-what"><h3>Sarah Hyland e Skylar Astin assumem “Cabaret” e fazem estreia no West End</h3><span class="agd-meta">Conhecidos por “Modern Family” e “Pitch Perfect”, atores serão Sally Bowles e Emcee na premiada…</span></span>
+      <span class="tag agd-tag">Teatro Musical</span>
+    </a>
+    <a class="agd-row" href="post-gil-andar-com-fe-estreia-teatro-santander.html">
+      <span class="agd-date"><b>20</b><small>Ago</small></span>
+      <span class="agd-what"><h3>“Gil – Andar com Fé” estreia no Teatro Santander com direção de Miguel Falabella</h3><span class="agd-meta">Teatro Santander, São Paulo</span></span>
+      <span class="tag agd-tag">Teatro</span>
+    </a>
+    <a class="agd-row" href="post-cirque-du-soleil-volta-ao-brasil-com-nova-versao-de-alegria.html">
+      <span class="agd-date"><b>20</b><small>Ago</small></span>
+      <span class="agd-what"><h3>Cirque du Soleil volta ao Brasil com nova versão de “Alegría”</h3><span class="agd-meta">Parque Villa Lobos, São Paulo</span></span>
       <span class="tag agd-tag">Show</span>
     </a>
-    <a class="agd-row" href="post-as-armas-milagrosas-reestreia-no-itau-cultural-em-temporada-gratuita.html">
-      <span class="agd-date"><b>2</b><small>Ago</small></span>
-      <span class="agd-what"><h3>“As Armas Milagrosas” reestreia no Itaú Cultural em temporada gratuita</h3><span class="agd-meta">O palco se transforma em campo de disputa em “As Armas Milagrosas: seis personagens à procura da…</span></span>
+    <a class="agd-row" href="post-o-dilema-de-sidgwick-teatro-sergio-cardoso.html">
+      <span class="agd-date"><b>8</b><small>Ago</small></span>
+      <span class="agd-what"><h3>“O Dilema de Sidgwick” estreia no Teatro Sérgio Cardoso com entrada gratuita</h3><span class="agd-meta">Teatro Sérgio Cardoso, São Paulo</span></span>
       <span class="tag agd-tag">Teatro</span>
     </a>
-    <a class="agd-row" href="post-bigorna-estreia-no-sesc-vila-mariana-com-solo-sobre-diferenca-memoria-e-pertenci.html">
-      <span class="agd-date"><b>1</b><small>Ago</small></span>
-      <span class="agd-what"><h3>“Bigorna” estreia no Sesc Vila Mariana com solo sobre diferença, memória e pertencimento</h3><span class="agd-meta">Uma história familiar atravessada por silêncio, medo e exclusão serve de ponto de partida para…</span></span>
-      <span class="tag agd-tag">Teatro</span>
+    <a class="agd-row" href="post-thelma-louise-vira-musical-e-divulga-primeira-musica-antes-da-estreia-mundial.html">
+      <span class="agd-date"><b>10</b><small>Ago</small></span>
+      <span class="agd-what"><h3>“Thelma &amp; Louise” vira musical e divulga primeira música antes da estreia mundial</h3><span class="agd-meta">Rachel Tucker e Amy Lennox interpretam Louise e Thelma em nova adaptação do filme de 1991, que…</span></span>
+      <span class="tag agd-tag">Teatro Musical</span>
     </a>
-    <a class="agd-row" href="post-filmar-marica-2026-editais-audiovisual-20-milhoes.html">
-      <span class="agd-date"><b>28</b><small>Jul</small></span>
-      <span class="agd-what"><h3>Maricá abre R$ 20 milhões em editais de cinema e exige filmagem na cidade</h3><span class="agd-meta">Inscrições on-line, portal da MARÉ, Maricá</span></span>
-      <span class="tag agd-tag">Edital</span>
-    </a>
-    <a class="agd-row" href="post-filme-hadestown-supera-hamilton-recorde-captacao-teatro-cinema.html">
-      <span class="agd-date"><b>31</b><small>Jul</small></span>
-      <span class="agd-what"><h3>Filme de “Hadestown” tira de “Hamilton” o recorde de maior estreia de uma captação de teatro nos cinemas</h3><span class="agd-meta">A gravação em vídeo da montagem de Hadestown feita no West End londrino arrecadou US$ 10,2 milhões…</span></span>
-      <span class="tag agd-tag">Notícia</span>
-    </a>
-    <a class="agd-row" href="post-homem-aranha-um-novo-dia-recorde-estreia-brasil-2500-salas.html">
-      <span class="agd-date"><b>31</b><small>Jul</small></span>
-      <span class="agd-what"><h3>Homem-Aranha faz a segunda maior estreia da história do Brasil e ocupa mais de 2.500 salas</h3><span class="agd-meta">Homem-Aranha: Um Novo Dia estreou nos cinemas brasileiros na quarta-feira, 29 de julho, vendeu mais…</span></span>
-      <span class="tag agd-tag">Cinema</span>
-    </a>
-    <a class="agd-row" href="post-game-of-thrones-mad-king-rsc-previews-cancelados-stratford.html">
-      <span class="agd-date"><b>28</b><small>Jul</small></span>
-      <span class="agd-what"><h3>Game of Thrones no teatro: RSC cancela pré-estreias em Stratford e mantém a estreia em 8 de agosto</h3><span class="agd-meta">Royal Shakespeare Theatre, Stratford-upon-Avon</span></span>
-      <span class="tag agd-tag">Notícia</span>
-    </a>
-    <a class="agd-row" href="post-mazal-tov-quando-a-vida-sorri-estreia-em-sao-paulo-com-direcao-de-dan-rosseto.html">
-      <span class="agd-date"><b>28</b><small>Jul</small></span>
-      <span class="agd-what"><h3>“Mazal Tov – Quando a Vida Sorri” estreia em São Paulo com direção de Dan Rosseto</h3><span class="agd-meta">O encontro entre uma jovem estudante belga, um refugiado iraniano e uma família judaica ortodoxa…</span></span>
-      <span class="tag agd-tag">Teatro</span>
-    </a>
-    <a class="agd-row" href="post-por-que-se-diz-merda-antes-da-estreia-no-teatro.html">
-      <span class="agd-date"><b>25</b><small>Jul</small></span>
-      <span class="agd-what"><h3>Por que se diz “merda” antes da estreia no teatro? A origem da expressão</h3><span class="agd-meta">Minutos antes de a cortina subir, ninguém no camarim de um teatro brasileiro deseja boa sorte. O…</span></span>
-      <span class="tag agd-tag">Bastidores</span>
-    </a>
-    <a class="agd-row" href="post-arlete-salles-estreia-seu-primeiro-monologo-em-mande-noticias-do-mundo-de-la.html">
-      <span class="agd-date"><b>25</b><small>Jul</small></span>
-      <span class="agd-what"><h3>Arlete Salles estreia seu primeiro monólogo em “Mande Notícias do Mundo de Lá”</h3><span class="agd-meta">Há um cemitério, um caixão e uma amiga que partiu. Em “Mande Notícias do Mundo de Lá”, novo…</span></span>
+    <a class="agd-row" href="post-piaf-eu-nao-me-arrependo-laila-garin-teatro-bradesco.html">
+      <span class="agd-date"><b>7</b><small>Ago</small></span>
+      <span class="agd-what"><h3>Piaf – Eu Não Me Arrependo estreia no Teatro Bradesco com Laila Garin</h3><span class="agd-meta">Teatro Bradesco, São Paulo</span></span>
       <span class="tag agd-tag">Teatro</span>
     </a>
   </div>
@@ -280,6 +357,46 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
   </div>
 </main>
 
+<style>
+.pub-cortina[hidden]{ display:none !important; }
+.pub-cortina{ position:fixed; inset:0; z-index:120; display:flex; align-items:center;
+  justify-content:center; background:rgba(20,6,3,.78); padding:20px; }
+.pub-cortina .caixa{ position:relative; background:var(--paper); border:3px solid var(--ink);
+  max-width:520px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+.pub-cortina .rotulo{ display:block; font-family:var(--mono); font-size:.52rem; font-weight:700;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); padding:10px 14px 0; }
+/* teto de altura: arte muito em pé não pode empurrar o botão de fechar para
+   fora da tela. O que passar do teto vira margem de papel, nunca corte. */
+.pub-cortina img{ display:block; width:100%; height:auto; object-fit:contain;
+  max-height:calc(100vh - 170px); padding:10px 14px; box-sizing:border-box; }
+.pub-cortina .leg{ padding:0 14px 14px; font-size:.85rem; }
+.pub-cortina .fechar{ position:absolute; top:-14px; right:-14px; width:34px; height:34px;
+  border:2px solid var(--ink); background:var(--gold); color:var(--wine); font-weight:700;
+  cursor:pointer; font-size:1rem; line-height:1; }
+</style>
+<div class="pub-cortina" id="pub-cortina" data-pub-chave="pub:cortina" hidden><div class="caixa"><button class="fechar" type="button" id="pub-cortina-x" aria-label="Fechar">✕</button><span class="rotulo">Publicidade</span><a href="https://www.sympla.com.br/produtor/foyerestudioecomunicacao" target="_blank" rel="noopener sponsored" data-pub="pub:cortina"><img src="assets/uploads/pub-cortina-0-msf37psm.jpg" alt=""></a></div></div>
+<script>
+(function(){
+  var k = 'foyer-pub-cortina-' + new Date().toISOString().slice(0, 10);
+  try{ if(localStorage.getItem(k)) return; }catch(e){}
+  function livre(){ try{ return !!localStorage.getItem('foyer-consent'); }catch(e){ return true; } }
+  var c = document.getElementById('pub-cortina');
+  function entra(){
+    setTimeout(function(){
+      c.hidden = false;
+      if(window.foyerPubVista) window.foyerPubVista(c.getAttribute('data-pub-chave'));
+      // 1x por dia de verdade: vista ao abrir, e não só ao fechar
+      try{ localStorage.setItem(k, '1'); }catch(e){}
+    }, 900);
+  }
+  function fecha(){ c.hidden = true; try{ localStorage.setItem(k, '1'); }catch(e){} }
+  document.getElementById('pub-cortina-x').addEventListener('click', fecha);
+  c.addEventListener('click', function(e){ if(e.target === c) fecha(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !c.hidden) fecha(); });
+  if(livre()) entra();
+  else var iv = setInterval(function(){ if(livre()){ clearInterval(iv); entra(); } }, 600);
+})();
+</script>
 <footer>
   <div class="wrap">
     <div class="foot-cols">
@@ -292,7 +409,6 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
         <a href="noticias.html">Notícias</a>
         <a href="critica.html">Crítica</a>
         <a href="entrevistas.html">Entrevistas</a>
-        <a href="agenda.html">Agenda</a>
       </div>
       <div class="foot-col">
         <h4>Programas</h4>

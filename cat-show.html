@@ -30,7 +30,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação","url":"https://foyer.digital/","logo":"https://foyer.digital/assets/logo/foyer-stacked-gold.png","sameAs":["https://www.youtube.com/@Foyer.digital","https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm"]}</script>
 </head>
 <body>
-<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<a class="skip-link" href="#conteudo" onclick="var m=document.getElementById('conteudo');if(m)m.setAttribute('tabindex','-1');if(m)m.focus();location.hash='conteudo';return false;">Pular para o conteúdo</a>
 
 <!-- artes de palco (placeholders de foto e capas da revista) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -137,7 +137,6 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
     <a href="revista.html">Revista</a>
     <a href="programas.html">Programas</a>
     <a href="enciclopedia.html">Enciclopédia</a>
-    <a href="agenda.html">Agenda</a>
     <a href="entrevistas.html">Entrevistas</a>
     <a href="busca.html" class="busca">⌕ Buscar</a>
   </div>
@@ -147,21 +146,43 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
   <div class="wrap">
     <span class="kicker">Editoria</span>
     <h1>Show</h1>
-    <p class="note">30 matérias — página 1 de 2</p>
+    <p class="note">32 matérias — página 1 de 2</p>
   </div>
 </header>
 
 <main id="conteudo" class="wrap">
   <div class="filters" aria-label="Filtrar por editoria">
-    <a href="noticias.html">Todas</a><a href="cat-em-cartaz.html">✦ Em Cartaz</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-bastidores.html">Bastidores</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-guia.html">Guia</a><a href="cat-literatura.html">Literatura</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html" class="on">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-televisao.html">Televisão</a>
+    <a href="noticias.html">Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-bastidores.html">Bastidores</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-entenda.html">Entenda</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-guia.html">Guia</a><a href="cat-literatura.html">Literatura</a><a href="cat-memoria.html">Memória</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html" class="on">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-teatro-musical.html">Teatro Musical</a><a href="cat-televisao.html">Televisão</a>
   </div>
   <div class="news-grid">
     <article class="news-cell big" data-cat="Show">
-      <a class="ph" href="post-live-nation-7-7-bilhoes-provisao-450-milhoes-antitruste.html" aria-label="Foto da matéria"><img src="assets/uploads/live-nation-7-7-bilhoes-provisao-450-milhoes-antitruste.jpg" alt="Live Nation fatura US$ 7,7 bilhões no trimestre e provisiona US$ 450 milhões pela condenação antitruste" loading="lazy" onerror="this.style.display='none'"><span class="ph-cap">Foto — Cesvieira</span></a>
+      <a class="ph" href="post-cirque-du-soleil-volta-ao-brasil-com-nova-versao-de-alegria.html" aria-label="Foto da matéria"><img src="assets/uploads/cirque-du-soleil-volta-ao-brasil-com-nova-versao-de-alegria-1786488953687.jpg" alt="Cirque du Soleil volta ao Brasil com nova versão de “Alegría”" loading="lazy" onerror="this.style.display='none'"><span class="ph-cap">Foto — Anne-Marie Forker</span></a>
+      <div class="cbody">
+        <span class="tag">Show</span>
+        <h3><a href="post-cirque-du-soleil-volta-ao-brasil-com-nova-versao-de-alegria.html">Cirque du Soleil volta ao Brasil com nova versão de “Alegría”</a></h3>
+        <p>Espetáculo chega a São Paulo em agosto, sob a Grande Tenda no Parque Villa-Lobos, e segue depois para Curitiba O Cirque du Soleil volta ao Brasil com “Alegría —…</p>
+        <div class="meta-row">
+          <span class="meta-l">11.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Cirque du Soleil volta ao Brasil com nova versão de “Alegría”" data-url="https://foyer.digital/post-cirque-du-soleil-volta-ao-brasil-com-nova-versao-de-alegria.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-sympla-multa-procon-mpmg-taxa-de-conveniencia.html" aria-label="Foto da matéria"><img src="assets/uploads/sympla-multa-procon-mpmg-taxa-de-conveniencia.jpg" alt="Sympla é multada em R$ 210 mil por reter taxa de conveniência em compra cancelada" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-sympla-multa-procon-mpmg-taxa-de-conveniencia.html">Sympla é multada em R$ 210 mil por reter taxa de conveniência em compra cancelada</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Sympla é multada em R$ 210 mil por reter taxa de conveniência em compra cancelada" data-url="https://foyer.digital/post-sympla-multa-procon-mpmg-taxa-de-conveniencia.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Show">
+      <a class="ph" href="post-live-nation-7-7-bilhoes-provisao-450-milhoes-antitruste.html" aria-label="Foto da matéria"><img src="assets/uploads/live-nation-7-7-bilhoes-provisao-450-milhoes-antitruste.jpg" alt="Live Nation fatura US$ 7,7 bilhões no trimestre e provisiona US$ 450 milhões pela condenação antitruste" loading="lazy" onerror="this.style.display='none'"></a>
       <div class="cbody">
         <span class="tag">Show</span>
         <h3><a href="post-live-nation-7-7-bilhoes-provisao-450-milhoes-antitruste.html">Live Nation fatura US$ 7,7 bilhões no trimestre e provisiona US$ 450 milhões pela condenação antitruste</a></h3>
-        <p>A Live Nation vendeu 90 milhões de ingressos pela Ticketmaster entre abril e junho e faturou US$ 7,67 bilhões, 9% mais que um ano antes. Nunca a maior empresa d…</p>
         <div class="meta-row">
           <span class="meta-l">03.08 — Pedro Amaral</span>
           <button class="share-min" data-share="native" data-title="Live Nation fatura US$ 7,7 bilhões no trimestre e provisiona US$ 450 milhões pela condenação antitruste" data-url="https://foyer.digital/post-live-nation-7-7-bilhoes-provisao-450-milhoes-antitruste.html">Compartilhar ↗</button>
@@ -399,33 +420,51 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
         </div>
       </div>
     </article>
-    <article class="news-cell" data-cat="Show">
-      <a class="ph" href="post-julia-sanchez-faz-show-dedicado-a-sucessos-de-divas-da-mpb.html" aria-label="Foto da matéria"><img src="assets/acervo/2e2f06a7d5decf7e.jpg" alt="Júlia Sanchez faz show dedicado a sucessos de Divas da MPB" loading="lazy" onerror="this.style.display='none'"></a>
-      <div class="cbody">
-        <span class="tag">Show</span>
-        <h3><a href="post-julia-sanchez-faz-show-dedicado-a-sucessos-de-divas-da-mpb.html">Júlia Sanchez faz show dedicado a sucessos de Divas da MPB</a></h3>
-        <div class="meta-row">
-          <span class="meta-l">22.09 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Júlia Sanchez faz show dedicado a sucessos de Divas da MPB" data-url="https://foyer.digital/post-julia-sanchez-faz-show-dedicado-a-sucessos-de-divas-da-mpb.html">Compartilhar ↗</button>
-        </div>
-      </div>
-    </article>
-    <article class="news-cell" data-cat="Show">
-      <a class="ph" href="post-orlando-morais-fara-show-ao-lado-das-filhas-e-enteada.html" aria-label="Foto da matéria"><img src="assets/acervo/d4ca7d88450ef065.jpg" alt="Orlando Morais fará show ao lado das filhas e enteada" loading="lazy" onerror="this.style.display='none'"></a>
-      <div class="cbody">
-        <span class="tag">Show</span>
-        <h3><a href="post-orlando-morais-fara-show-ao-lado-das-filhas-e-enteada.html">Orlando Morais fará show ao lado das filhas e enteada</a></h3>
-        <div class="meta-row">
-          <span class="meta-l">28.08 — Isabel Branquinha</span>
-          <button class="share-min" data-share="native" data-title="Orlando Morais fará show ao lado das filhas e enteada" data-url="https://foyer.digital/post-orlando-morais-fara-show-ao-lado-das-filhas-e-enteada.html">Compartilhar ↗</button>
-        </div>
-      </div>
-    </article>
   </div>
   <nav class="pager" aria-label="Páginas"><a href="cat-show.html" class="on">1</a><a href="cat-show-p2.html">2</a><a href="cat-show-p2.html">Próxima →</a></nav>
   <div class="ad-slot" data-ad-slot="1003"></div>
 </main>
 
+<style>
+.pub-cortina[hidden]{ display:none !important; }
+.pub-cortina{ position:fixed; inset:0; z-index:120; display:flex; align-items:center;
+  justify-content:center; background:rgba(20,6,3,.78); padding:20px; }
+.pub-cortina .caixa{ position:relative; background:var(--paper); border:3px solid var(--ink);
+  max-width:520px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+.pub-cortina .rotulo{ display:block; font-family:var(--mono); font-size:.52rem; font-weight:700;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); padding:10px 14px 0; }
+/* teto de altura: arte muito em pé não pode empurrar o botão de fechar para
+   fora da tela. O que passar do teto vira margem de papel, nunca corte. */
+.pub-cortina img{ display:block; width:100%; height:auto; object-fit:contain;
+  max-height:calc(100vh - 170px); padding:10px 14px; box-sizing:border-box; }
+.pub-cortina .leg{ padding:0 14px 14px; font-size:.85rem; }
+.pub-cortina .fechar{ position:absolute; top:-14px; right:-14px; width:34px; height:34px;
+  border:2px solid var(--ink); background:var(--gold); color:var(--wine); font-weight:700;
+  cursor:pointer; font-size:1rem; line-height:1; }
+</style>
+<div class="pub-cortina" id="pub-cortina" data-pub-chave="pub:cortina" hidden><div class="caixa"><button class="fechar" type="button" id="pub-cortina-x" aria-label="Fechar">✕</button><span class="rotulo">Publicidade</span><a href="https://www.sympla.com.br/produtor/foyerestudioecomunicacao" target="_blank" rel="noopener sponsored" data-pub="pub:cortina"><img src="assets/uploads/pub-cortina-0-msf37psm.jpg" alt=""></a></div></div>
+<script>
+(function(){
+  var k = 'foyer-pub-cortina-' + new Date().toISOString().slice(0, 10);
+  try{ if(localStorage.getItem(k)) return; }catch(e){}
+  function livre(){ try{ return !!localStorage.getItem('foyer-consent'); }catch(e){ return true; } }
+  var c = document.getElementById('pub-cortina');
+  function entra(){
+    setTimeout(function(){
+      c.hidden = false;
+      if(window.foyerPubVista) window.foyerPubVista(c.getAttribute('data-pub-chave'));
+      // 1x por dia de verdade: vista ao abrir, e não só ao fechar
+      try{ localStorage.setItem(k, '1'); }catch(e){}
+    }, 900);
+  }
+  function fecha(){ c.hidden = true; try{ localStorage.setItem(k, '1'); }catch(e){} }
+  document.getElementById('pub-cortina-x').addEventListener('click', fecha);
+  c.addEventListener('click', function(e){ if(e.target === c) fecha(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !c.hidden) fecha(); });
+  if(livre()) entra();
+  else var iv = setInterval(function(){ if(livre()){ clearInterval(iv); entra(); } }, 600);
+})();
+</script>
 <footer>
   <div class="wrap">
     <div class="foot-cols">
@@ -438,7 +477,6 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
         <a href="noticias.html">Notícias</a>
         <a href="critica.html">Crítica</a>
         <a href="entrevistas.html">Entrevistas</a>
-        <a href="agenda.html">Agenda</a>
       </div>
       <div class="foot-col">
         <h4>Programas</h4>

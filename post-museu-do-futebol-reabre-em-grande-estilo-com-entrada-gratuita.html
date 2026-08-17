@@ -30,7 +30,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação","url":"https://foyer.digital/","logo":"https://foyer.digital/assets/logo/foyer-stacked-gold.png","sameAs":["https://www.youtube.com/@Foyer.digital","https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm"]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Museu do Futebol reabre em grande estilo com entrada gratuita", "description": "Após uma reforma significativa, o Museu do Futebol reabre suas portas no dia 12 de julho, oferecendo uma experiência ainda mais interativa e moderna para os visitantes.", "image": ["https://foyer.digital/assets/acervo/eb2998b765ca3e60.jpg"], "datePublished": "2024-07-12", "dateModified": "2024-07-12", "author": [{"@type": "Person", "name": "Pedro Cantelli"}], "publisher": {"@type": "NewsMediaOrganization", "name": "FOYER", "logo": {"@type": "ImageObject", "url": "https://foyer.digital/assets/logo/foyer-stacked-gold.png"}}, "mainEntityOfPage": "https://foyer.digital/post-museu-do-futebol-reabre-em-grande-estilo-com-entrada-gratuita.html", "inLanguage": "pt-BR", "articleSection": "Exposições"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FOYER", "item": "https://foyer.digital/"}, {"@type": "ListItem", "position": 2, "name": "Exposições", "item": "https://foyer.digital/cat-exposicoes.html"}, {"@type": "ListItem", "position": 3, "name": "Museu do Futebol reabre em grande estilo com entrada gratuita"}]}</script>
 </head>
 <body>
-<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<a class="skip-link" href="#conteudo" onclick="var m=document.getElementById('conteudo');if(m)m.setAttribute('tabindex','-1');if(m)m.focus();location.hash='conteudo';return false;">Pular para o conteúdo</a>
 
 <!-- artes de palco (placeholders de foto e capas da revista) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -137,7 +137,6 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
     <a href="revista.html">Revista</a>
     <a href="programas.html">Programas</a>
     <a href="enciclopedia.html">Enciclopédia</a>
-    <a href="agenda.html">Agenda</a>
     <a href="entrevistas.html">Entrevistas</a>
     <a href="busca.html" class="busca">⌕ Buscar</a>
   </div>
@@ -178,6 +177,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 <p>Entre as novidades, destacam-se a inclusão do futebol feminino e uma nova sala em homenagem ao <strong>Pelé</strong>. A curadoria foi realizada por Leonel Kaz, Marcelo Duarte e Marília Bonas, com direção artística e projeto expográfico de Daniela Thomas e Felipe Tassara, e comunicação visual de Jair de Souza. A renovação contou com o apoio da <strong>Lei Federal de Incentivo à Cultura – Lei Rouanet</strong>, e com patrocínios do Banco Bmg, Grupo Globo, Goodyear, Sabesp, Adidas, Rede, Mercado Livre, Farmacêutica EMS, Cabot e Arkema.</p>
 <p>Com uma área de 6.900 m², o <strong>Museu do Futebol </strong>já realizou 22 exposições temporárias e 17 virtuais, além de mais de 440 eventos de programação cultural. O <strong>Núcleo Educativo</strong> do museu já atendeu 635 mil estudantes, consolidando a instituição como uma referência em acessibilidade.</p>
 <p>O <strong>Museu do Futebol</strong> funcionará de terça a domingo, das 9h às 18h, com entrada permitida até às 17h. Nos dias 12, 13 e 14 de julho, a entrada será gratuita para todos os visitantes, e os ingressos podem ser retirados na bilheteria do museu. Não perca a oportunidade de explorar este espaço renovado e cheio de história e interatividade.</p>
+<aside class="pub-cartaz" data-pub-slot="cartaz" data-pub-chave="pub:cartaz"><em>Publicidade</em><a href="https://www.sympla.com.br/produtor/foyerestudioecomunicacao" target="_blank" rel="noopener sponsored" data-pub="pub:cartaz"><img src="assets/uploads/pub-cartaz-0-msewrsdo.jpg" alt="" loading="lazy"></a></aside>
   </div>
   
   <div class="art-foot" style="border-top:1px solid var(--line);padding-top:16px"><div class="tags" style="align-items:center"><span class="tag wine">Quem aparece nesta matéria</span><a class="tag" href="pessoa-daniela-thomas.html">Daniela Thomas</a><a class="tag" href="pessoa-federal-de-incentivo.html">Federal de Incentivo</a><a class="tag" href="pessoa-felipe-tassara.html">Felipe Tassara</a><a class="tag" href="pessoa-leonel-kaz.html">Leonel Kaz</a><a class="tag" href="pessoa-marcelo-duarte.html">Marcelo Duarte</a><a class="tag" href="pessoa-marilia-bonas.html">Marília Bonas</a></div></div>
@@ -242,6 +242,46 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 </main>
 
 
+<style>
+.pub-cortina[hidden]{ display:none !important; }
+.pub-cortina{ position:fixed; inset:0; z-index:120; display:flex; align-items:center;
+  justify-content:center; background:rgba(20,6,3,.78); padding:20px; }
+.pub-cortina .caixa{ position:relative; background:var(--paper); border:3px solid var(--ink);
+  max-width:520px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+.pub-cortina .rotulo{ display:block; font-family:var(--mono); font-size:.52rem; font-weight:700;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); padding:10px 14px 0; }
+/* teto de altura: arte muito em pé não pode empurrar o botão de fechar para
+   fora da tela. O que passar do teto vira margem de papel, nunca corte. */
+.pub-cortina img{ display:block; width:100%; height:auto; object-fit:contain;
+  max-height:calc(100vh - 170px); padding:10px 14px; box-sizing:border-box; }
+.pub-cortina .leg{ padding:0 14px 14px; font-size:.85rem; }
+.pub-cortina .fechar{ position:absolute; top:-14px; right:-14px; width:34px; height:34px;
+  border:2px solid var(--ink); background:var(--gold); color:var(--wine); font-weight:700;
+  cursor:pointer; font-size:1rem; line-height:1; }
+</style>
+<div class="pub-cortina" id="pub-cortina" data-pub-chave="pub:cortina" hidden><div class="caixa"><button class="fechar" type="button" id="pub-cortina-x" aria-label="Fechar">✕</button><span class="rotulo">Publicidade</span><a href="https://www.sympla.com.br/produtor/foyerestudioecomunicacao" target="_blank" rel="noopener sponsored" data-pub="pub:cortina"><img src="assets/uploads/pub-cortina-0-msf37psm.jpg" alt=""></a></div></div>
+<script>
+(function(){
+  var k = 'foyer-pub-cortina-' + new Date().toISOString().slice(0, 10);
+  try{ if(localStorage.getItem(k)) return; }catch(e){}
+  function livre(){ try{ return !!localStorage.getItem('foyer-consent'); }catch(e){ return true; } }
+  var c = document.getElementById('pub-cortina');
+  function entra(){
+    setTimeout(function(){
+      c.hidden = false;
+      if(window.foyerPubVista) window.foyerPubVista(c.getAttribute('data-pub-chave'));
+      // 1x por dia de verdade: vista ao abrir, e não só ao fechar
+      try{ localStorage.setItem(k, '1'); }catch(e){}
+    }, 900);
+  }
+  function fecha(){ c.hidden = true; try{ localStorage.setItem(k, '1'); }catch(e){} }
+  document.getElementById('pub-cortina-x').addEventListener('click', fecha);
+  c.addEventListener('click', function(e){ if(e.target === c) fecha(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !c.hidden) fecha(); });
+  if(livre()) entra();
+  else var iv = setInterval(function(){ if(livre()){ clearInterval(iv); entra(); } }, 600);
+})();
+</script>
 <footer>
   <div class="wrap">
     <div class="foot-cols">
@@ -254,7 +294,6 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
         <a href="noticias.html">Notícias</a>
         <a href="critica.html">Crítica</a>
         <a href="entrevistas.html">Entrevistas</a>
-        <a href="agenda.html">Agenda</a>
       </div>
       <div class="foot-col">
         <h4>Programas</h4>

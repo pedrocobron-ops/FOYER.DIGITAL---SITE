@@ -31,7 +31,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação","url":"https://foyer.digital/","logo":"https://foyer.digital/assets/logo/foyer-stacked-gold.png","sameAs":["https://www.youtube.com/@Foyer.digital","https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm"]}</script>
 <meta name="robots" content="noindex,nofollow"></head>
 <body>
-<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<a class="skip-link" href="#conteudo" onclick="var m=document.getElementById('conteudo');if(m)m.setAttribute('tabindex','-1');if(m)m.focus();location.hash='conteudo';return false;">Pular para o conteúdo</a>
 
 <style>
   /* ============ COXIA v3 — central de controle ============ */
@@ -387,8 +387,12 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
   /* fila */
   .fila{ border:var(--b); }
   .frow{ display:grid; grid-template-columns:92px 1fr auto auto; gap:14px; align-items:center;
-    border-bottom:1px solid var(--line); padding:12px 16px; }
+    border-bottom:1px solid var(--line); padding:12px 16px;
+    /* com 170+ matérias, o navegador só desenha as linhas que estão na tela */
+    content-visibility:auto; contain-intrinsic-size:auto 1px auto 92px; }
   .frow:last-child{ border-bottom:0; }
+  .frow .bt{ white-space:nowrap; }
+  .frow .fr-acts{ display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; }
   .frow .th{ width:92px; height:56px; border:1px solid var(--line); object-fit:cover; background:var(--paper-2); }
   .frow .th.no{ display:flex; align-items:center; justify-content:center; font-family:var(--mono);
     font-size:.5rem; letter-spacing:.1em; color:var(--ink-soft); text-transform:uppercase; }
@@ -430,6 +434,12 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
     .gs-dia{ min-height:auto; } }
   /* bloco de agendadas no topo da fila */
   .fila-agenda{ border:var(--b); padding:14px 18px; margin-bottom:18px; background:var(--paper); }
+  .fila-filtros .bt.on{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
+  /* lixeira no celular: os títulos ficavam numa coluna de 79px (ensaio geral) */
+  @media (max-width:640px){
+    .frow.lx{ display:flex !important; flex-wrap:wrap; }
+    .frow.lx > span{ width:100%; }
+  }
   .fila-agenda > b{ display:block; font-family:var(--sans); font-size:.86rem; margin-bottom:10px;
     text-transform:uppercase; letter-spacing:.05em; }
   .fa-row{ display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:baseline;
@@ -447,6 +457,8 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
   .bt.danger:hover{ background:#8E1B10; border-color:var(--err); color:#fff; }
   .vazio-box{ border:var(--b); padding:18px; font-family:var(--mono); font-size:.6rem; letter-spacing:.1em;
     text-transform:uppercase; color:var(--ink-soft); line-height:2; }
+  /* erro é visualmente diferente de vazio: filete vinho e botão de repetir */
+  .vazio-box.erro, .vazio.erro{ box-shadow:inset 4px 0 0 var(--wine); color:var(--ink); }
   @media (max-width:700px){ .frow{ grid-template-columns:1fr auto; } .frow .th{ display:none; } }
 
   /* diário da redação IA */
@@ -537,7 +549,8 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
   .mesa-capa{ border-bottom:1px solid var(--line); position:relative; }
   .mesa-capa img{ width:100%; max-height:300px; object-fit:cover; vertical-align:top; }
   .mesa-cred{ position:absolute; right:0; bottom:0; background:var(--ink); color:var(--gold);
-    font-family:var(--mono); font-size:.54rem; letter-spacing:.1em; text-transform:uppercase; padding:5px 10px; }
+    font-family:var(--sans); font-size:.72rem; letter-spacing:.01em; text-transform:none;
+    padding:5px 10px; max-width:85%; }
   .mesa-semfoto{ border-bottom:1px solid var(--line); background:repeating-linear-gradient(45deg,
     var(--paper-2) 0 14px, var(--paper) 14px 28px); padding:16px 18px; font-family:var(--mono);
     font-size:.62rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--err); }
@@ -583,6 +596,18 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
   .mesa-acoes{ padding:14px 18px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
   .mesa-acoes .bt.ap{ background:var(--wine); color:var(--gold); border:1.5px solid var(--wine); padding:10px 15px; }
   .mesa-acoes .bt.ap:hover{ background:var(--gold); color:var(--wine); border-color:var(--gold); }
+  /* modo triagem: o card nasce resumido (capa baixa + parecer em 3 linhas) e o
+     "Ver completo" abre o dossiê inteiro; os avisos de risco (sem checador,
+     sem fontes, sem foto) continuam aparecendo mesmo no resumo. */
+  .mesa-card.fechado .mesa-checa:not(.semcheca), .mesa-card.fechado .mesa-insta,
+  .mesa-card.fechado .mesa-dobra, .mesa-card.fechado .mesa-cred{ display:none; }
+  .mesa-card.fechado .mesa-parecer{ display:-webkit-box; -webkit-line-clamp:3;
+    -webkit-box-orient:vertical; overflow:hidden; }
+  .mesa-card.fechado .mesa-capa img{ max-height:110px; }
+  /* com o dossiê aberto o card volta a ser alto: a régua de decisão gruda no
+     pé da tela enquanto o card estiver à vista, para decidir sem rolar de volta */
+  .mesa-card:not(.fechado) .mesa-acoes{ position:sticky; bottom:0; z-index:3;
+    background:var(--paper); border-top:1px solid var(--line); }
   .mesa-agenda{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
   /* ---------- marcador de hora (agendador) ---------- */
   .ag-box{ max-width:660px; width:100%; text-align:left; max-height:88vh; overflow:auto; }
@@ -664,6 +689,15 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
     padding:13px 22px; border-radius:3px; box-shadow:0 8px 30px rgba(0,0,0,.3); z-index:80;
     opacity:0; transition:opacity .3s, transform .3s; max-width:90vw; text-align:center; }
   .cx-toast.on{ opacity:1; transform:translate(-50%, 0); }
+  /* botão flutuante de voltar ao topo: aparece depois de uma tela de rolagem */
+  #volta-topo{ position:fixed; right:18px; bottom:22px; z-index:70; border:2px solid var(--ink);
+    background:var(--paper); color:var(--ink); font-family:var(--mono); font-size:.62rem;
+    letter-spacing:.12em; text-transform:uppercase; padding:12px 14px; cursor:pointer;
+    box-shadow:0 6px 20px rgba(0,0,0,.18); opacity:0; pointer-events:none; transition:opacity .25s; }
+  #volta-topo.on{ opacity:1; pointer-events:auto; }
+  #volta-topo:hover{ background:var(--gold); }
+  /* placeholder longo termina em reticências, nunca cortado no meio da palavra */
+  input::placeholder, textarea::placeholder{ text-overflow:ellipsis; }
 
   /* equipe */
   .eq-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; }
@@ -706,9 +740,10 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
     flex-wrap:wrap; align-items:center; }
   .cx-token input{ flex:1; min-width:240px; border:1.5px solid var(--line); background:var(--paper);
     color:var(--ink); font-family:var(--mono); font-size:.78rem; padding:12px; }
-  .cx-token button{ border:1.5px solid var(--line); background:var(--ink); color:var(--gold);
-    font-family:var(--mono); font-weight:600; font-size:.64rem; letter-spacing:.14em;
-    text-transform:uppercase; padding:13px 17px; cursor:pointer; }
+  .cx-token button{ border:1.5px solid var(--ink); background:var(--ink); color:var(--gold);
+    font-family:var(--sans); font-weight:700; font-size:.85rem; letter-spacing:.01em;
+    text-transform:none; padding:12px 18px; cursor:pointer; }
+  .cx-token button:hover{ background:var(--wine); border-color:var(--wine); }
   .cx-token .st{ font-family:var(--mono); font-size:.62rem; letter-spacing:.1em;
     text-transform:uppercase; color:var(--ink-soft); width:100%; }
   .cx-token .st.ok{ color:var(--ok); } .cx-token .st.err{ color:var(--err); }
@@ -782,6 +817,9 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
     display:block; color:var(--ink-soft); font-size:.85rem; padding:6px 0 14px; }
   .esp-b{ border-left:3px solid transparent; padding-left:8px; margin-left:-11px; cursor:pointer; }
   .esp-b:hover{ border-left-color:var(--gold); background:var(--paper-2); }
+  .esp-b button[data-mov]{ border:1.5px solid var(--ink); background:var(--paper); color:var(--ink);
+    font:inherit; font-size:.8rem; width:30px; height:30px; cursor:pointer; margin-right:4px; }
+  .esp-b button[data-mov]:hover{ background:var(--gold); }
   .esp-b figure{ margin:8px 0 14px; }
   .esp-b figure img{ max-width:100%; display:block; border:2px solid var(--ink); }
   .esp-b figcaption{ font-family:var(--mono); font-size:.6rem; letter-spacing:.08em; text-transform:uppercase;
@@ -1087,7 +1125,7 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
         <h2 class="hi" id="saudacao">Boa noite</h2>
         <p class="hi-sub">O panorama do FOYER neste momento</p>
         <div class="stats">
-          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1603</b><span>matérias no acervo</span></button>
+          <button class="stat" type="button" id="card-acervo" data-go="fila" data-foco="#acervo-box"><b>1684</b><span>matérias no acervo</span></button>
           <button class="stat" type="button" data-go="fila" data-foco="#fila-list"><b id="st-pub">—</b><span>publicadas pela Coxia</span></button>
           <button class="stat" type="button" data-go="fila" data-foco=".fila-agenda" data-foco-alt="#fila-list"><b id="st-ag">—</b><span>agendadas esperando a hora</span></button>
           <button class="stat" type="button" id="card-mesa" data-go="ia" data-foco="#mesa-list"><b id="st-mesa">—</b><span>na mesa de aprovação</span></button>
@@ -1119,6 +1157,11 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
           <p style="font-family:var(--sans);font-size:.8rem;color:var(--ink-soft);margin:0 0 8px;line-height:1.5">Corrigiu um erro de fato? Escreva a nota que o leitor verá no rodapé da matéria. Ex.: “Uma versão anterior informava a data errada da estreia.” Deixe em branco para uma edição sem correção.</p>
           <textarea id="f-correcao" rows="2" placeholder="Correção: ..." style="width:100%;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:var(--sans);font-size:.9rem;padding:10px;resize:vertical"></textarea>
         </div>
+        <div id="f-semchave" style="display:none;border:2px solid var(--wine);background:var(--paper-2);padding:12px 16px;margin-bottom:18px;font-family:var(--sans);font-size:.88rem;line-height:1.6">
+          ⚠ <b>Este aparelho está sem chave de publicação.</b> Dá para escrever e guardar rascunho,
+          mas o envio para o site vai falhar no final. Melhor resolver antes de começar.
+          <button class="bt" type="button" data-go="conexao" style="margin-left:8px">⚡ Ir para Conexão</button>
+        </div>
         <div class="rasc-aviso" id="rasc-aviso">
           📄 Recuperei um rascunho não enviado deste navegador.
           <button class="bt" type="button" id="rasc-usar">Continuar de onde parei</button>
@@ -1134,11 +1177,11 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
               <div>
                 <label for="f-cat">Editoria principal</label>
                 <select id="f-cat">
-                  <option>Teatro</option><option>Cinema</option><option>Música</option><option>Dança</option>
+                  <option>Teatro</option><option>Teatro Musical</option><option>Cinema</option><option>Música</option><option>Dança</option>
                   <option>Crítica</option><option>Notícia</option><option>Televisão</option><option>Streaming</option>
                   <option>Literatura</option><option>Exposições</option><option>Show</option><option>Audições</option>
                   <option>Edital</option><option>Festa</option><option>Programa</option><option>Guia</option>
-                  <option>Bastidores</option><option>Astrologia</option>
+                  <option>Bastidores</option><option>Entenda</option><option>Memória</option><option>Astrologia</option>
                   <option>Artigo de Opinião</option><option>Crônicas e Histórias</option>
                 </select>
               </div>
@@ -1155,7 +1198,10 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
                   <select id="f-cat3" style="flex:1"><option value="">— nenhuma —</option></select>
                 </div>
               </div>
-              <div>
+              <!-- ESCONDIDO em 12/08/2026 (pedido do Pedro): o selo Em Cartaz servia à
+                   Agenda, que saiu do site. Nada foi apagado — para reativar, troque o
+                   display:none por nada, aqui e no bloco de Evento logo abaixo. -->
+              <div style="display:none">
                 <label for="f-emcartaz" style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-top:24px">
                   <input type="checkbox" id="f-emcartaz" style="width:auto">
                   ✦ Em Cartaz — a matéria é sobre peça em temporada agora
@@ -1167,12 +1213,15 @@ try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document
               <label>Foto de capa — suba o arquivo da imagem</label>
               <div class="up" id="up" tabindex="0" role="button" aria-label="Subir foto de capa">
                 <p><b>Clique para escolher a foto</b> ou arraste o arquivo até aqui<br>
-                   JPG ou PNG · a Coxia ajusta o tamanho sozinha</p>
+                   JPG ou PNG · a Coxia ajusta o tamanho sozinha<br>
+                   <span style="opacity:.75">escolha DUAS fotos de uma vez para a capa dividida ao meio (uma de cada lado)</span></p>
                 <img id="up-prev" alt="">
                 <button class="tira" id="up-tira" type="button">✕ Tirar foto</button>
-                <input type="file" id="up-file" accept="image/*">
+                <input type="file" id="up-file" accept="image/*" multiple>
               </div>
+              <div id="up-ajustar" style="display:none;margin-top:8px"></div>
               <input type="text" id="f-cred" placeholder="Crédito da foto — ex.: Foto: João Silva/Divulgação" style="margin-top:8px">
+              <input type="text" id="f-imgleg" placeholder="Descrição da foto (legenda) — ex.: O elenco em cena no Teatro Renault" style="margin-top:8px">
               <div class="r2" style="margin-top:8px">
                 <div><input type="text" id="f-imgfonte" placeholder="Origem da foto (link) — de onde ela saiu"></div>
                 <div>
@@ -1242,7 +1291,11 @@ ingressos e divisor."></textarea>
                 </div>
               </div>
             </div>
-            <div>
+            <!-- ESCONDIDO em 12/08/2026: o campo de evento alimentava a Agenda, que
+                 saiu do site. Os campos continuam no formulário (invisíveis) para o
+                 código e as matérias antigas não quebrarem; para reativar junto com
+                 a Agenda, é só tirar o display:none. -->
+            <div style="display:none">
               <label>Evento (opcional — alimenta a Agenda do site)</label>
               <div class="r2">
                 <div><label for="f-ev-ini" style="font-size:.52rem">Começa em</label><input type="date" id="f-ev-ini" style="width:100%;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:var(--mono);padding:10px 12px"></div>
@@ -1271,6 +1324,8 @@ ingressos e divisor."></textarea>
             <div style="display:flex; gap:10px; flex-wrap:wrap">
               <button class="bt" type="button" id="btn-prev" style="padding:14px 18px">👁 Pré-visualizar</button>
               <button class="bt" type="button" id="btn-guardar" style="padding:14px 18px" title="Guarda o rascunho na nuvem para continuar em qualquer aparelho">☁ Guardar rascunho</button>
+              <button class="bt" type="button" id="btn-novo-rasc" style="padding:14px 18px" title="Guarda o que está na tela como rascunho e abre uma matéria em branco">🗒 Novo rascunho</button>
+              <button class="bt" type="button" id="btn-rascunhos" style="padding:14px 18px;display:none" title="Abre a prateleira de rascunhos guardados">📄 Rascunhos</button>
               <button class="f-pub" type="submit" id="btn-pub" style="flex:1">Enviar para o site</button>
             </div>
             <span class="msg" id="msg"></span>
@@ -1304,7 +1359,7 @@ ingressos e divisor."></textarea>
             <select id="acervo-cat" aria-label="Filtrar por editoria"><option value="">Todas as editorias</option></select>
             <label class="af-de">de <input type="date" id="acervo-de" aria-label="Data inicial"></label>
             <label class="af-ate">até <input type="date" id="acervo-ate" aria-label="Data final"></label>
-            <button class="bt" type="button" id="acervo-limpar">limpar</button>
+            <button class="bt" type="button" id="acervo-limpar">Limpar</button>
           </form>
           <div id="acervo-cont" class="af-conta"></div>
           <div class="fila" id="acervo-res" style="margin-top:10px;display:none"></div>
@@ -1473,6 +1528,7 @@ ingressos e divisor."></textarea>
           <div class="rv-bar">
             <span class="rv-ed-t">Edição Nº <b id="rv-num">—</b> <span class="pill" id="rv-status">rascunho</span></span>
             <span style="flex:1"></span>
+            <a class="bt" id="rv-folhear" target="_blank" rel="noopener" style="text-decoration:none;display:none">📖 Folhear a edição</a>
             <button class="bt" type="button" id="rv-salvar">💾 Salvar rascunho</button>
             <button class="bt ap" type="button" id="rv-publicar" style="background:var(--wine);color:var(--gold);border-color:var(--wine)">🚀 Publicar edição</button>
             <button class="bt" type="button" id="rv-prever">👁 Prever o e-mail</button>
@@ -1624,12 +1680,14 @@ ingressos e divisor."></textarea>
           .pub-r3{ display:grid; grid-template-columns:2fr 2fr 1fr; gap:10px; }
           @media (max-width:760px){ .pub-r3{ grid-template-columns:1fr; } }
         </style>
+        <h2 class="hi">Publicidade</h2>
+        <p class="hi-sub">Pedidos de anúncio, mapa de ocupação e o que está no ar — sempre com o rótulo Publicidade</p>
         <div id="pub-painel" class="pub-painel"></div>
         <div class="sec-h"><h3>Pedidos de anúncio</h3><span>chegam prontos do passo a passo do site (anuncie.html); feche valores no WhatsApp</span></div>
         <div id="pub-pedidos"><div class="vazio-box">Carregando pedidos…</div></div>
         <div class="sec-h"><h3>No ar agora, e como está indo</h3><span>vistas e cliques de cada anúncio, medidos no site e na revista</span></div>
         <div id="pub-desempenho"><div class="vazio-box">Carregando os números…</div></div>
-        <div class="sec-h"><h3>Anúncios do site no ar</h3><span>a Faixa, a Cortina e o Entreato; salvar publica no próximo deploy, sempre com o rótulo Publicidade</span></div>
+        <div class="sec-h"><h3>Anúncios do site no ar</h3><span>o Cartaz, a Cortina e o Entreato; salvar publica no próximo deploy, sempre com o rótulo Publicidade</span></div>
         <div class="pub-form" id="pub-site"></div>
       </section>
 
@@ -1667,6 +1725,8 @@ ingressos e divisor."></textarea>
         </style>
         <div class="sec-h"><h3>Divulgação</h3>
           <span>o banco de artes do portal: escolha a peça, ajuste o texto e baixe pronta para o Instagram</span></div>
+        <h2 class="hi">Divulgação</h2>
+        <p class="hi-sub">Artes prontas para divulgar o FOYER no Instagram — stories e feed, sempre com a tipografia da casa</p>
         <div class="dv-grid">
           <div>
             <div class="dv-lista" id="dv-lista"></div>
@@ -1704,7 +1764,7 @@ ingressos e divisor."></textarea>
               <button class="bt" type="button" id="dv-reverter">↺ Voltar ao texto original</button>
               <button class="bt" type="button" id="dv-apagar" style="display:none">🗑 Apagar do banco</button>
             </div>
-            <div class="f-note" style="margin-top:10px">As artes saem em PNG, no tamanho certo do Instagram. O texto que você
+            <div class="f-note" style="margin-top:10px">As artes saem em JPG, no tamanho certo do Instagram. O texto que você
               guarda no banco fica salvo para todo mundo da casa, e a peça continua sendo redesenhada na hora, sempre com a
               tipografia do FOYER.</div>
           </div>
@@ -1748,7 +1808,7 @@ ingressos e divisor."></textarea>
             letter-spacing:.22em; text-transform:uppercase; opacity:.7; }
           .cal-hoje span{ font-size:.86rem; line-height:1.45; }
           .cal-hoje.urgente span{ font-weight:600; }
-          .cal-barra{ height:10px; border:2px solid var(--ink,#231007); margin:4px 0 16px; position:relative; }
+          .cal-barra{ height:10px; border:2px solid var(--ink,#231007); margin:26px 0 16px; position:relative; }
           .cal-barra i{ position:absolute; inset:0; width:0; background:var(--gold,#CEB26A); transition:width .4s ease; }
           .cal-barra span{ position:absolute; right:6px; top:-22px; font-family:var(--mono, monospace); font-size:.6rem; font-weight:700; }
           .cal-grade{ width:100%; border-collapse:collapse; font-size:.8rem; margin-bottom:20px; }
@@ -1759,7 +1819,8 @@ ingressos e divisor."></textarea>
             font-family:var(--mono, monospace); font-weight:700; font-size:.58rem; letter-spacing:.12em;
             text-transform:uppercase; padding:8px 12px; cursor:pointer; }
         </style>
-        <div class="sec-h"><h3>Calendário editorial</h3><span>a semana inteira da casa: o site todo dia, a revista pronta na quinta</span></div>
+        <h2 class="hi">Calendário</h2>
+        <p class="hi-sub">A semana inteira da casa: o site todo dia, a revista pronta na quinta</p>
         <div id="cal-rev"><div class="vazio-box">Carregando o calendário…</div></div>
         <div class="sec-h"><h3>A grade do site, dia a dia</h3><span>cota fixa: 2 Pedro Amaral + 2 Isabel Branquinha + 2 Redação Foyer, todo dia às 7h; o prato do dia muda com a semana</span></div>
         <div id="cal-grade"></div>
@@ -1928,6 +1989,8 @@ ingressos e divisor."></textarea>
   </div>
 </div>
 
+<button id="volta-topo" type="button" aria-label="Voltar ao topo da página">↑ topo</button>
+
 <div class="cx-dlg" id="dlg-overlay" role="dialog" aria-modal="true" aria-labelledby="dlg-msg">
   <div class="cx-dlg-box">
     <div class="cx-dlg-top" id="dlg-top">Coxia</div>
@@ -1982,6 +2045,32 @@ ingressos e divisor."></textarea>
       <button class="bt" type="button" id="mail-fechar">✕ Fechar</button></div>
     <div class="prev-avisos" id="mail-assunto" style="border:0"></div>
     <div class="prev-body" id="mail-body" style="padding:0;background:#EFE8DA"></div>
+  </div>
+</div>
+
+<div class="prev-overlay" id="capa-overlay" role="dialog" aria-modal="true" aria-label="Enquadramento da foto de capa">
+  <div class="prev-box">
+    <div class="prev-head"><span>🎯 Enquadramento da capa</span>
+      <button class="bt" type="button" id="capa-fechar">✕ Cancelar</button></div>
+    <div class="prev-body">
+      <p class="cred" style="margin:0 0 12px">Arraste a foto até o que importa ficar dentro da janela da capa;
+        a lupa e a rodinha do mouse aproximam e afastam.</p>
+      <div id="capa-box" style="position:relative;width:min(560px,100%);aspect-ratio:16/9;margin:0 auto;overflow:hidden;border-radius:10px;background:#160b08;cursor:grab;touch-action:none;user-select:none">
+        <img id="capa-img" alt="" draggable="false" style="position:absolute;left:0;top:0;max-width:none;pointer-events:none">
+      </div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap">
+        <button class="bt" type="button" data-cnq="e" aria-label="foto para a direita">◀</button>
+        <button class="bt" type="button" data-cnq="d" aria-label="foto para a esquerda">▶</button>
+        <button class="bt" type="button" data-cnq="c" aria-label="foto para baixo">▲</button>
+        <button class="bt" type="button" data-cnq="b" aria-label="foto para cima">▼</button>
+        <button class="bt" type="button" data-cnq="mais" aria-label="aproximar">🔍＋</button>
+        <button class="bt" type="button" data-cnq="menos" aria-label="afastar">🔍－</button>
+        <button class="bt" type="button" data-cnq="o">voltar ao automático</button>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:12px">
+        <button class="bt" type="button" id="capa-aplicar">✓ Usar este enquadramento</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -2104,6 +2193,12 @@ ingressos e divisor."></textarea>
       return 'A chave da casa não está ligada no servidor. Só o Pedro pode guardá-la, na aba Conexão. Enquanto isso, dá para ler tudo, mas não dá para publicar.';
     return 'Sem chave de publicação neste aparelho (aba Conexão).';
   }
+  // o aviso de chave deixou de ser beco sem saída: agora leva direto à Conexão
+  function avisarChave(){
+    confirmar(recadoSemChave(), { rotuloOk:'Ir para Conexão', rotuloCancel:'Agora não' }).then(function(ok){
+      if(ok) irPara('conexao');
+    });
+  }
   function casaPede(corpo){
     return fetch(CASA, { method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify(corpo) });
@@ -2145,6 +2240,8 @@ ingressos e divisor."></textarea>
 
   /* ---------------- utilidades ---------------- */
   function $(id){ return document.getElementById(id); }
+  // plural de verdade: plural(2,'matéria') -> "2 matérias"; aceita plural irregular
+  function plural(n, um, muitos){ return n + ' ' + (n === 1 ? um : (muitos || um + 's')); }
   function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
     .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
   // URL segura para href/src: só http(s) e caminhos internos; barra javascript:, data:, aspas etc.
@@ -2201,7 +2298,7 @@ ingressos e divisor."></textarea>
     if(s < 90) return 'agora há pouco';
     if(s < 3600) return 'há ' + Math.round(s/60) + ' min';
     if(s < 86400) return 'há ' + Math.round(s/3600) + ' h';
-    return 'há ' + Math.round(s/86400) + ' dia(s)';
+    return 'há ' + plural(Math.round(s/86400), 'dia');
   }
   // erro com o código HTTP anexado, para as mensagens amigáveis
   function ghErro(status){ var e = new Error('HTTP ' + status); e.gh = status; return e; }
@@ -2254,7 +2351,7 @@ ingressos e divisor."></textarea>
   // o mesmo pedido não vai duas vezes ao GitHub em menos de um minuto:
   // a Coxia lê as mesmas pastas em várias abas, e o limite por hora é curto
   // a Coxia muda toda semana: este carimbo diz qual versão está aberta
-  var COXIA_VERSAO = '20260805-184822';
+  var COXIA_VERSAO = '20260817-033347';
   var GH_CACHE = {};
   function ghCacheGet(chave){
     var c = GH_CACHE[chave];
@@ -2345,16 +2442,22 @@ ingressos e divisor."></textarea>
   /* ---------------- equipe / login ---------------- */
   function carregarEquipe(force){
     if(EQUIPE && !force) return Promise.resolve(EQUIPE);
-    return ghGet('import/equipe.json').then(function(f){
-      if(!f || !f.content) { EQUIPE = { lista: [], sha: null }; return EQUIPE; }
-      EQUIPE = { lista: (JSON.parse(unb64(f.content)).usuarios || []), sha: f.sha };
-      return EQUIPE;
-    }).catch(function(){
-      // sem rede na API: tenta a cópia publicada com o site
+    // a cópia publicada com o site: o socorro quando a API do GitHub falha OU
+    // responde vazio. Antes, um 404 passageiro (ou o limite de leituras sem
+    // chave) virava "equipe vazia", ficava 60s guardado no cache e o portão
+    // dizia "Sem conexão" para quem tinha internet perfeita — foi o que
+    // barrou a Isabel em 10/08/2026. Agora só desiste se o site também falhar.
+    var doSitio = function(){
       return fetch('import/equipe.json', {cache:'no-store'}).then(function(r){ return r.json(); })
         .then(function(j){ EQUIPE = { lista: j.usuarios || [], sha: null }; return EQUIPE; })
         .catch(function(){ EQUIPE = { lista: [], sha: null }; return EQUIPE; });
-    });
+    };
+    // force = login: lê fresco, sem aproveitar resposta guardada
+    return ghGet('import/equipe.json', force).then(function(f){
+      if(!f || !f.content) return doSitio();
+      EQUIPE = { lista: (JSON.parse(unb64(f.content)).usuarios || []), sha: f.sha };
+      return EQUIPE;
+    }).catch(doSitio);
   }
   function conferirSenha(senha){
     return carregarEquipe(true).then(function(eq){
@@ -2617,10 +2720,21 @@ ingressos e divisor."></textarea>
   }
 
   function irPara(v, foco, focoAlt){
+    // A CERCA DE VERDADE (B1 do ensaio geral): esconder o item do menu não
+    // basta — atalhos internos levavam um autor comum à Revista, à mesa da
+    // Redação IA e à Publicidade. Toda tela restrita confere o papel AQUI.
+    var SO_CHEFE = { revista: 1, equipe: 1, metricas: 1, publicidade: 1 };
+    if(USER && ((SO_CHEFE[v] && USER.papel !== 'chefe') || (v === 'ia' && !podeMesa()))){
+      avisar('Esta área é da chefia da casa. Se você precisa de algo dela, fale com o Pedro ou a Isabel.');
+      v = 'saguao';
+    }
     document.querySelectorAll('#menu button').forEach(function(x){ x.classList.toggle('on', x.dataset.view === v); });
     document.querySelectorAll('.view').forEach(function(x){ x.classList.remove('on'); });
     $('view-' + v).classList.add('on');
     if(v === 'fila'){ carregarFila(); carregarLixeira(); }
+    if(v === 'nova' && !EDIT) checarRasc();  // a prateleira de rascunhos aparece ao entrar
+    // aviso de chave ANTES de a pessoa escrever 800 palavras (item 9 do ensaio)
+    if(v === 'nova'){ var _sc = $('f-semchave'); if(_sc) _sc.style.display = podeGravar() ? 'none' : ''; }
     if(v === 'ia'){ carregarMesa(); carregarDiario(); }
     if(v === 'equipe'){ pintarEquipe(); carregarAtividade('ativ-eq', 30); carregarVerbExc(); }
     if(v === 'palco') carregarPalco();
@@ -2630,7 +2744,10 @@ ingressos e divisor."></textarea>
     if(v === 'pub'){ carregarPedidosPub(); carregarSitePub(); pubDesempenho(); }
     if(v === 'metricas') carregarMetricas();
     if(v === 'divulgacao') carregarDivulgacao();
+    // trocar de aba começa do topo: o título não nasce escondido atrás do
+    // cabeçalho fixo (ensaio geral)
     if(foco) focarBloco(foco, focoAlt);
+    else window.scrollTo(0, 0);
   }
   document.querySelectorAll('#menu button').forEach(function(b){
     b.addEventListener('click', function(){ irPara(b.dataset.view); });
@@ -2776,7 +2893,8 @@ ingressos e divisor."></textarea>
       st.innerHTML = /senha|conferem/i.test(m)
         ? '<b>Senha não confere.</b> É a mesma senha com que você entra na Coxia.'
         : /Failed to fetch|NetworkError|Load failed/i.test(m)
-          ? '<b>Não deu para falar com o servidor da casa.</b> Confira a internet e tente de novo.'
+          ? '<b>O servidor da casa não respondeu</b> — pode ser a internet ou o próprio servidor. ' +
+            'A senha não foi conferida; tente de novo em instantes.'
           : '<b>Não deu para ligar este aparelho:</b> ' + esc(m || 'erro desconhecido');
     });
   });
@@ -2805,7 +2923,8 @@ ingressos e divisor."></textarea>
       })
       .catch(function(){
         btCasa.disabled = false; btCasa.textContent = 'Guardar para toda a casa';
-        st.innerHTML = '<b>Não deu para falar com o servidor da casa.</b> Confira a internet e tente de novo.';
+        st.innerHTML = '<b>O servidor da casa não respondeu e a chave NÃO foi guardada.</b> ' +
+          'Tente de novo em instantes; se continuar, confira a internet.';
       });
   });
 
@@ -2853,12 +2972,13 @@ ingressos e divisor."></textarea>
       st.className = 'st err';
       if(g === 401) st.textContent = 'O GitHub não reconheceu esta chave. Confira se ela veio inteira na cópia ' +
         '(começa em github_pat_) e se não foi revogada ou regenerada em outro computador.';
-      else if(g === 404) st.textContent = 'A chave é válida, mas não enxerga este repositório. No GitHub, edite o token: ' +
+      else if(g === 404) st.textContent = 'O GitHub aceitou a chave, mas ela não enxerga o site do FOYER. Edite o token lá: ' +
         'em Repository access marque ' + OWNER + '/' + REPO + ', e em Permissions deixe Contents como Read and write.';
-      else if(g === 403) st.textContent = 'A chave foi aceita, mas está sem permissão de escrita. No GitHub, deixe Contents ' +
-        'como Read and write neste token.';
+      else if(g === 403) st.textContent = 'O GitHub aceitou a chave, mas ela está sem permissão de escrita. Edite o token lá: ' +
+        'deixe Contents como Read and write.';
       else if(g) st.textContent = 'O GitHub respondeu com erro ' + g + '. Tente de novo em instantes.';
-      else st.textContent = 'Não deu para falar com o GitHub. Confira a internet e tente de novo.';
+      else st.textContent = 'O GitHub não respondeu agora — a chave não foi conferida nem gravada. ' +
+        'Tente de novo em instantes; se continuar, confira a internet.';
     });
   });
   $('tk-testar').addEventListener('click', function(){
@@ -2887,9 +3007,22 @@ ingressos e divisor."></textarea>
     });
   });
   $('tk-clear').addEventListener('click', function(){
-    try{ localStorage.removeItem('coxia-token'); }catch(e){}
-    $('tk-st').textContent = 'Chave removida deste navegador'; $('tk-st').className = 'st';
-    initToken();
+    if(!token()){
+      $('tk-st').textContent = 'Não há chave guardada neste navegador para desconectar.'; $('tk-st').className = 'st';
+      return;
+    }
+    confirmar('Desconectar a chave ' + tkFim() + ' deste navegador?\n' +
+      (CASA_TEM_CHAVE ? '(a chave da casa continua valendo: você segue publicando normalmente)'
+                      : '(sem ela, este aparelho não publica até conectar de novo)'),
+      { perigo: !CASA_TEM_CHAVE, rotuloOk:'Desconectar' }).then(function(ok){
+      if(!ok) return;
+      try{ localStorage.removeItem('coxia-token'); }catch(e){}
+      tkGuarda('coxia-token-vence', ''); tkGuarda('coxia-token-quando', '');
+      $('tk').value = '';
+      var dg = $('tk-diag'); if(dg){ dg.style.display = 'none'; dg.innerHTML = ''; }
+      $('tk-st').textContent = 'Chave removida deste navegador'; $('tk-st').className = 'st';
+      initToken();
+    });
   });
 
   /* ---------------- palco ---------------- */
@@ -3057,7 +3190,7 @@ ingressos e divisor."></textarea>
       if(podeMesa() && naMesa > antes){
         var novas = naMesa - antes;
         nov.insertAdjacentHTML('afterbegin', '<div class="aviso-nov">🔔 ' +
-          (antes === 0 ? naMesa + ' matéria(s) esperando na sua mesa.' : novas + ' matéria(s) nova(s) chegaram na mesa desde a sua última visita.') +
+          (antes === 0 ? plural(naMesa, 'matéria esperando', 'matérias esperando') + ' na sua mesa.' : plural(novas, 'matéria nova chegou', 'matérias novas chegaram') + ' na mesa desde a sua última visita.') +
           ' <button class="bt" type="button" data-go="ia">Ir para a mesa</button></div>');
       }
       try{ localStorage.setItem(K, String(naMesa)); }catch(e){}
@@ -3089,18 +3222,24 @@ ingressos e divisor."></textarea>
                  '<span class="quem">' + esc(quem) + '</span><span>' + esc(m) + '</span></div>';
         }).join('');
       })
-      .catch(function(){ el.innerHTML = '<div class="vazio">Não deu para carregar os movimentos</div>'; });
+      .catch(function(){ el.innerHTML = '<div class="vazio erro">Não deu para carregar os movimentos</div>'; });
   }
 
   /* ---------------- upload de imagem ---------------- */
-  function redimensionar(file){
+  function redimensionar(file, modo){
+    // modo 'capa' (padrão): foto em pé vira 16:9, porque a capa da matéria é
+    // uma janela horizontal do desenho do site.
+    // modo 'livre': NENHUM corte — a foto do CORPO da matéria entra no
+    // formato em que veio (vertical fica vertical); só encolhe se for
+    // gigante. Pedido do Pedro, 10/08/2026: a espada do Mad King saiu
+    // espremida numa janela deitada.
     return new Promise(function(res, rej){
       var img = new Image();
       var url = URL.createObjectURL(file);
       img.onload = function(){
         var sw = img.width, sh = img.height, sy = 0;
         // foto em pé (cartaz)? recorta para 16:9 preservando o topo, onde ficam os rostos
-        if(sh > sw * 0.85){
+        if(modo !== 'livre' && sh > sw * 0.85){
           var alvo = Math.round(sw * 9 / 16);
           sy = Math.round(sh * 0.06);
           if(sy + alvo > sh) sy = sh - alvo;
@@ -3108,6 +3247,7 @@ ingressos e divisor."></textarea>
         }
         var W = Math.min(sw, 1600);
         var H = Math.round(W * sh / sw);
+        if(H > 2200){ H = 2200; W = Math.round(H * sw / sh); }  // torre sem fim também não
         var c = document.createElement('canvas');
         c.width = W; c.height = H;
         c.getContext('2d').drawImage(img, 0, sy, sw, sh, 0, 0, W, H);
@@ -3125,6 +3265,162 @@ ingressos e divisor."></textarea>
       .then(function(){ return caminho; });
   }
 
+  /* ---- enquadramento da CAPA: a foto original fica guardada inteira e o
+     corte 16:9 é assado com o ponto que o Pedro escolher (arrastar + zoom,
+     igual ao das artes de Instagram). Sem ajuste, o corte automático é o
+     mesmo de sempre: viés para o topo, onde ficam os rostos. ---- */
+  // CAPA_SRC simples: { orig, iw, ih, fx, fy, z }
+  // CAPA_SRC dupla (matéria de duas pessoas, uma foto de cada lado):
+  //   { dupla: true, a: {orig, fx, fy, z}, b: {orig, fx, fy, z} }
+  var CAPA_SRC = null;
+  function carregaImg(src){
+    return new Promise(function(res, rej){
+      var i = new Image();
+      i.onload = function(){ res(i); };
+      i.onerror = function(){ rej(new Error('imagem inválida')); };
+      i.src = src;
+    });
+  }
+  // desenha UM lado (ou a capa inteira) no quadro, com a conta de sempre:
+  // cobre a janela, ponto de interesse no centro, viés de topo no automático
+  function assaLado(g, img, lado, x0, W, H){
+    var iw = img.width, ih = img.height;
+    lado.iw = iw; lado.ih = ih;
+    var esc2 = Math.max(W / iw, H / ih) * (lado.z || 1);
+    var sw = iw * esc2, sh = ih * esc2;
+    var fx = lado.fx, fy = lado.fy;
+    if(fy == null){
+      var yAuto = Math.min(Math.round(sh * 0.06), Math.max(0, sh - H));
+      fy = sh > H ? (yAuto + H / 2) / sh : 0.5;
+      lado.fy = fy;
+    }
+    var ox = Math.max(0, Math.min(sw - W, fx * sw - W / 2));
+    var oy = Math.max(0, Math.min(sh - H, fy * sh - H / 2));
+    g.drawImage(img, ox / esc2, oy / esc2, W / esc2, H / esc2, x0, 0, W, H);
+  }
+  function capaAssa(){
+    // produz a CAPA final (16:9) a partir do original + enquadramento
+    if(!CAPA_SRC) return Promise.reject(new Error('sem foto'));
+    if(CAPA_SRC.dupla){
+      return Promise.all([carregaImg(CAPA_SRC.a.orig), carregaImg(CAPA_SRC.b.orig)]).then(function(imgs){
+        var W = 1600, H = 900, meia = 797;  // 6px de respiro no meio, cor de papel
+        var c = document.createElement('canvas');
+        c.width = W; c.height = H;
+        var g = c.getContext('2d');
+        g.fillStyle = '#EFE8DA';
+        g.fillRect(0, 0, W, H);
+        assaLado(g, imgs[0], CAPA_SRC.a, 0, meia, H);
+        assaLado(g, imgs[1], CAPA_SRC.b, W - meia, meia, H);
+        CAPA = c.toDataURL('image/jpeg', .85);
+        $('up-prev').src = CAPA;
+        return CAPA;
+      });
+    }
+    return carregaImg(CAPA_SRC.orig).then(function(img){
+      var W = Math.min(1600, img.width), H = Math.round(W * 9 / 16);
+      var c = document.createElement('canvas');
+      c.width = W; c.height = H;
+      assaLado(c.getContext('2d'), img, CAPA_SRC, 0, W, H);
+      CAPA = c.toDataURL('image/jpeg', .85);
+      $('up-prev').src = CAPA;
+      return CAPA;
+    });
+  }
+  // os botões de ajuste embaixo da prévia mudam conforme a capa (uma ou duas fotos)
+  function capaBotoes(){
+    var box = $('up-ajustar');
+    if(!CAPA_SRC){ box.style.display = 'none'; box.innerHTML = ''; return; }
+    box.style.display = '';
+    box.innerHTML = CAPA_SRC.dupla
+      ? '<button class="bt" type="button" data-capa-enq="a">🎯 Foto da esquerda</button> ' +
+        '<button class="bt" type="button" data-capa-enq="b">🎯 Foto da direita</button> ' +
+        '<button class="bt" type="button" id="capa-troca">⇄ Trocar os lados</button>'
+      : '<button class="bt" type="button" data-capa-enq="">🎯 Ajustar enquadramento da capa</button>';
+    box.querySelectorAll('[data-capa-enq]').forEach(function(b){
+      b.addEventListener('click', function(){ abrirCapaEnq(b.dataset.capaEnq || null); });
+    });
+    var tr = $('capa-troca');
+    if(tr) tr.addEventListener('click', function(){
+      var t = CAPA_SRC.a; CAPA_SRC.a = CAPA_SRC.b; CAPA_SRC.b = t;
+      capaAssa().then(function(){ salvarRasc(); }).catch(function(){});
+    });
+  }
+  var CNQ = null;
+  function cnqAplica(){
+    var img = $('capa-img'), box = $('capa-box');
+    if(!img || !CNQ || !box.clientWidth) return null;
+    var esc2 = Math.max(CNQ.bw / CNQ.iw, CNQ.bh / CNQ.ih) * CNQ.z;
+    var sw = CNQ.iw * esc2, sh = CNQ.ih * esc2;
+    var ox = Math.max(0, Math.min(sw - CNQ.bw, CNQ.fx * sw - CNQ.bw / 2));
+    var oy = Math.max(0, Math.min(sh - CNQ.bh, CNQ.fy * sh - CNQ.bh / 2));
+    var k = box.clientWidth / CNQ.bw;
+    img.style.width = (sw * k) + 'px'; img.style.height = (sh * k) + 'px';
+    img.style.left = (-ox * k) + 'px'; img.style.top = (-oy * k) + 'px';
+    return { sw: sw, sh: sh };
+  }
+  var CNQ_LADO = null;  // null = capa inteira; 'a'/'b' = metade da capa dupla
+  function abrirCapaEnq(lado){
+    var src = lado ? (CAPA_SRC && CAPA_SRC[lado]) : CAPA_SRC;
+    if(!src || !src.orig) return;
+    CNQ_LADO = lado;
+    var bw = lado ? 797 : 1600, bh = 900;
+    $('capa-box').style.aspectRatio = bw + ' / ' + bh;
+    $('capa-box').style.width = lado ? 'min(340px,100%)' : 'min(560px,100%)';
+    CNQ = { iw: src.iw, ih: src.ih, bw: bw, bh: bh,
+            fx: src.fx, fy: src.fy == null ? 0.5 : src.fy, z: src.z || 1 };
+    var img = $('capa-img');
+    img.onload = function(){ cnqAplica(); };
+    img.src = src.orig;
+    abreOverlay('capa-overlay');
+    if(img.complete) cnqAplica();
+  }
+  (function(){
+    var box = $('capa-box'), pega = null;
+    box.addEventListener('pointerdown', function(ev){
+      if(!CNQ) return;
+      pega = { x: ev.clientX, y: ev.clientY };
+      box.setPointerCapture(ev.pointerId); box.style.cursor = 'grabbing';
+    });
+    box.addEventListener('pointermove', function(ev){
+      if(!pega || !CNQ) return;
+      var p = cnqAplica(); if(!p) return;
+      var fator = CNQ.bw / box.clientWidth;
+      CNQ.fx = Math.max(0, Math.min(1, CNQ.fx - (ev.clientX - pega.x) * fator / p.sw));
+      CNQ.fy = Math.max(0, Math.min(1, CNQ.fy - (ev.clientY - pega.y) * fator / p.sh));
+      pega = { x: ev.clientX, y: ev.clientY };
+      cnqAplica();
+    });
+    ['pointerup', 'pointercancel'].forEach(function(tp){
+      box.addEventListener(tp, function(){ pega = null; box.style.cursor = 'grab'; });
+    });
+    box.addEventListener('wheel', function(ev){
+      if(!CNQ) return;
+      ev.preventDefault();
+      CNQ.z = Math.max(1, Math.min(3, CNQ.z * (ev.deltaY < 0 ? 1.08 : 1 / 1.08)));
+      cnqAplica();
+    }, { passive: false });
+    document.querySelectorAll('[data-cnq]').forEach(function(b){
+      b.addEventListener('click', function(){
+        if(!CNQ) return;
+        var qual = b.dataset.cnq, passo = 0.03;
+        if(qual === 'o'){ CNQ.fx = 0.5; CNQ.fy = 0.5; CNQ.z = 1; cnqAplica(); return; }
+        if(qual === 'mais'){ CNQ.z = Math.min(3, CNQ.z * 1.15); cnqAplica(); return; }
+        if(qual === 'menos'){ CNQ.z = Math.max(1, CNQ.z / 1.15); cnqAplica(); return; }
+        CNQ.fx = Math.max(0, Math.min(1, CNQ.fx + (qual === 'e' ? -passo : qual === 'd' ? passo : 0)));
+        CNQ.fy = Math.max(0, Math.min(1, CNQ.fy + (qual === 'c' ? -passo : qual === 'b' ? passo : 0)));
+        cnqAplica();
+      });
+    });
+    $('capa-fechar').addEventListener('click', function(){ fechaOverlays(); });
+    $('capa-aplicar').addEventListener('click', function(){
+      if(!CNQ || !CAPA_SRC) return;
+      var alvo = CNQ_LADO ? CAPA_SRC[CNQ_LADO] : CAPA_SRC;
+      alvo.fx = CNQ.fx; alvo.fy = CNQ.fy; alvo.z = CNQ.z;
+      capaAssa().then(function(){ fechaOverlays(); salvarRasc(); })
+        .catch(function(){ avisar('Não consegui aplicar o enquadramento.'); });
+    });
+  })();
+
   var up = $('up');
   up.addEventListener('click', function(e){ if(e.target.id !== 'up-tira' && !CAPA) $('up-file').click(); });
   up.addEventListener('keydown', function(e){ if((e.key === 'Enter' || e.key === ' ') && !CAPA){ e.preventDefault(); $('up-file').click(); } });
@@ -3132,18 +3428,32 @@ ingressos e divisor."></textarea>
     up.addEventListener(ev, function(e){
       e.preventDefault();
       up.classList.toggle('drag', ev === 'dragover');
-      if(ev === 'drop' && e.dataTransfer.files[0]) pegarCapa(e.dataTransfer.files[0]);
+      if(ev === 'drop' && e.dataTransfer.files[0]) pegarCapa(e.dataTransfer.files);
     });
   });
-  $('up-file').addEventListener('change', function(){ if(this.files[0]) pegarCapa(this.files[0]); });
-  function pegarCapa(file){
-    redimensionar(file).then(function(d){
-      CAPA = d; $('up-prev').src = d; up.classList.add('tem');
+  $('up-file').addEventListener('change', function(){ if(this.files[0]) pegarCapa(this.files); });
+  function pegarCapa(files){
+    // guarda o ORIGINAL inteiro (sem corte) e assa o 16:9 com o enquadramento
+    // automático. UMA foto = capa cheia; DUAS fotos = capa dividida ao meio
+    // (matéria de duas pessoas), cada lado com seu próprio enquadramento.
+    var lista = [].slice.call(files && files.length !== undefined ? files : [files]).slice(0, 2);
+    if(!lista.length || !lista[0]) return;
+    Promise.all(lista.map(function(f){ return redimensionar(f, 'livre'); })).then(function(origs){
+      CAPA_SRC = origs.length >= 2
+        ? { dupla: true, a: { orig: origs[0], fx: 0.5, fy: null, z: 1 },
+                         b: { orig: origs[1], fx: 0.5, fy: null, z: 1 } }
+        : { orig: origs[0], fx: 0.5, fy: null, z: 1 };
+      return capaAssa();
+    }).then(function(){
+      up.classList.add('tem');
+      capaBotoes();
+      salvarRasc();
     }).catch(function(){ avisar('Não consegui ler essa imagem — tente JPG ou PNG.'); });
   }
   $('up-tira').addEventListener('click', function(e){
     e.stopPropagation();
-    CAPA = null; $('up-prev').src = ''; $('up-file').value = ''; up.classList.remove('tem');
+    CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-ajustar').innerHTML = '';
+    $('up-prev').src = ''; $('up-file').value = ''; up.classList.remove('tem');
   });
 
   /* ---------------- nova matéria ---------------- */
@@ -3241,15 +3551,31 @@ ingressos e divisor."></textarea>
     if(fx){
       var okP = n >= fx[0] && n <= fx[1];
       var okI = inter >= fx[2] && inter <= fx[3];
-      var falta = n < fx[0] ? ('faltam ' + mil(fx[0] - n)) : (n > fx[1] ? ('sobram ' + mil(n - fx[1])) : '');
+      // a régua com alvo: em vez de "✗", ela diz quantas palavras faltam (ou
+      // sobram) para a faixa que o portão vai cobrar (item 14 do ensaio)
+      var dP = n < fx[0] ? fx[0] - n : n - fx[1];
+      var fraseP = okP
+        ? mil(n) + ' na faixa ' + mil(fx[0]) + '–' + mil(fx[1]) + ' ✓'
+        : (n < fx[0] ? 'faltam ' : 'sobram ') + mil(dP) + (dP === 1 ? ' palavra' : ' palavras') +
+          ' para a faixa ' + mil(fx[0]) + '–' + mil(fx[1]);
+      var dI = inter < fx[2] ? fx[2] - inter : inter - fx[3];
+      var fraseI = okI
+        ? fx[2] + '–' + fx[3] + ' intertítulos ✓'
+        : inter < fx[2]
+          ? 'faltam ' + dI + (dI === 1 ? ' intertítulo' : ' intertítulos') + ' (mínimo ' + fx[2] + ')'
+          : 'sobram ' + dI + (dI === 1 ? ' intertítulo' : ' intertítulos') + ' (teto ' + fx[3] + ')';
       partes.push('<span class="' + (okP && okI ? 'bom' : 'err') + '">porte ' + esc(porte) +
-        ': ' + mil(fx[0]) + '–' + mil(fx[1]) + ' palavras' + (okP ? ' ✓' : ' (' + falta + ')') +
-        ' · ' + fx[2] + '–' + fx[3] + ' intertítulos' + (okI ? ' ✓' : ' ✗') + '</span>');
+        ': ' + fraseP + ' · ' + fraseI + '</span>');
     } else if(n){
-      // sem porte declarado: diz em qual faixa o tamanho atual cabe
+      // sem porte declarado: diz em qual faixa o tamanho atual cabe, e quanto
+      // falta para a primeira quando ainda não chegou lá
       var cabe = Object.keys(PORTES_COXIA).filter(function(p){
         return n >= PORTES_COXIA[p][0] && n <= PORTES_COXIA[p][1]; });
-      partes.push('<span>' + (cabe.length ? 'cabe em: ' + cabe.join(' ou ') : 'fora das faixas da casa') + '</span>');
+      var menor = PORTES_COXIA.release[0];
+      partes.push('<span>' + (cabe.length ? 'cabe em: ' + cabe.join(' ou ')
+        : (n < menor ? 'faltam ' + mil(menor - n) + (menor - n === 1 ? ' palavra' : ' palavras') +
+                       ' para o menor porte (release: ' + mil(menor) + '–' + mil(PORTES_COXIA.release[1]) + ')'
+                     : 'fora das faixas da casa')) + '</span>');
     }
     $('st-conta').innerHTML = partes.join('');
 
@@ -3273,12 +3599,33 @@ ingressos e divisor."></textarea>
     if((e.ctrlKey || e.metaKey) && e.key === 'Enter') $('btn-pub').click();
   });
 
-  // ---------- rascunho automático ----------
+  // ---------- rascunhos automáticos (PRATELEIRA: mais de um por pessoa) ----------
+  // Até 12/08/2026 só cabia UM rascunho; começar outra matéria engolia o
+  // anterior. Agora cada matéria em andamento é um rascunho com identidade
+  // própria, e a entrada da Nova matéria mostra a prateleira para continuar
+  // qualquer um. O formato antigo (objeto único) é migrado na leitura.
   var RASC_K = 'coxia-rascunho', rascTimer = null;
+  var RASC_ID = null;         // o rascunho em edição AGORA neste formulário
+  var RASC_MAX = 10;          // prateleira cheia: o mais velho cai
   function horaAgora(){
     return new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
   }
   function rascStatus(msg){ var el = $('st-rasc'); if(el) el.textContent = msg; }
+  function rascLista(){
+    var v = null;
+    try{ v = JSON.parse(localStorage.getItem(RASC_K) || 'null'); }catch(e){}
+    if(!v) return [];
+    if(Array.isArray(v.lista)) return v.lista;
+    // formato antigo: um rascunho solto vira o primeiro da prateleira
+    if(v.title || v.corpo){ v.id = v.id || 'r' + Date.now().toString(36); return [v]; }
+    return [];
+  }
+  function rascGrava(lista){
+    lista.sort(function(a, b){ return (b.quando || '').localeCompare(a.quando || ''); });
+    if(lista.length > RASC_MAX) lista = lista.slice(0, RASC_MAX);
+    try{ localStorage.setItem(RASC_K, JSON.stringify({ lista: lista })); return true; }
+    catch(e){ return false; }
+  }
   function salvarRasc(){
     if(EDIT){
       // edição de matéria existente não vira rascunho: a mudança só entra ao enviar
@@ -3287,87 +3634,168 @@ ingressos e divisor."></textarea>
     }
     clearTimeout(rascTimer);
     rascTimer = setTimeout(function(){
-      var d = { title: $('f-title').value, cat: $('f-cat').value, cats: colherCats(), corpo: $('f-body').value,
-                cred: $('f-cred').value, imgfonte: $('f-imgfonte').value, imgdir: $('f-imgdir').value,
-                fontes: $('f-fontes').value, temFoto: !!CAPA,
-                ev: { ini: $('f-ev-ini').value, fim: $('f-ev-fim').value,
-                      local: $('f-ev-local').value, cidade: $('f-ev-cidade').value },
-                quando: new Date().toISOString() };
-      if(d.title || d.corpo){
-        try{
-          localStorage.setItem(RASC_K, JSON.stringify(d));
-          rascStatus('💾 Rascunho guardado neste navegador às ' + horaAgora() +
-                     ' — para abrir noutro aparelho, use ☁ Guardar rascunho.');
-        }catch(e){
-          rascStatus('⚠ Não consegui guardar o rascunho neste navegador — use ☁ Guardar rascunho.');
-        }
+      var d = coletarRasc();
+      if(!d.title && !d.corpo) return;
+      if(!RASC_ID) RASC_ID = 'r' + Date.now().toString(36);
+      d.id = RASC_ID;
+      var lista = rascLista().filter(function(x){ return x.id !== RASC_ID; });
+      lista.push(d);
+      if(rascGrava(lista)){
+        rascStatus('💾 Rascunho guardado neste navegador às ' + horaAgora() +
+                   (lista.length > 1 ? ' (' + lista.length + ' na prateleira)' : '') +
+                   ' — para abrir noutro aparelho, use ☁ Guardar rascunho.');
+      } else {
+        rascStatus('⚠ Não consegui guardar o rascunho neste navegador — use ☁ Guardar rascunho.');
       }
     }, 800);
   }
-  ['f-title', 'f-body', 'f-cred', 'f-imgfonte', 'f-imgdir', 'f-fontes', 'f-cat', 'f-cat2', 'f-cat3', 'f-ev-ini', 'f-ev-fim', 'f-ev-local', 'f-ev-cidade']
+  ['f-title', 'f-body', 'f-cred', 'f-imgleg', 'f-imgfonte', 'f-imgdir', 'f-fontes', 'f-cat', 'f-cat2', 'f-cat3', 'f-ev-ini', 'f-ev-fim', 'f-ev-local', 'f-ev-cidade']
     .forEach(function(id){ var el = $(id); if(el) el.addEventListener('input', salvarRasc); el && el.addEventListener('change', salvarRasc); });
-  function limparRasc(){ try{ localStorage.removeItem(RASC_K); }catch(e){} $('rasc-aviso').classList.remove('on'); $('bdg-rasc').style.display = 'none'; }
+  function limparRasc(){
+    // tira SÓ o rascunho que acabou de ser enviado; os outros ficam na prateleira
+    if(RASC_ID) rascGrava(rascLista().filter(function(x){ return x.id !== RASC_ID; }));
+    RASC_ID = null;
+    $('rasc-aviso').classList.remove('on');
+    var n = rascLista().length;
+    $('bdg-rasc').style.display = n ? 'inline-block' : 'none';
+    if(n) $('bdg-rasc').textContent = n === 1 ? 'rascunho' : n + ' rascunhos';
+  }
   function coletarRasc(){
     return { title: $('f-title').value, cat: $('f-cat').value, cats: colherCats(), corpo: $('f-body').value,
-             cred: $('f-cred').value, imgfonte: $('f-imgfonte').value, imgdir: $('f-imgdir').value,
+             cred: $('f-cred').value, imgleg: $('f-imgleg').value, imgfonte: $('f-imgfonte').value, imgdir: $('f-imgdir').value,
              fontes: $('f-fontes').value, temFoto: !!CAPA,
              ev: { ini: $('f-ev-ini').value, fim: $('f-ev-fim').value,
                    local: $('f-ev-local').value, cidade: $('f-ev-cidade').value },
              quando: new Date().toISOString() };
   }
   function aplicarRascunho(d){
+    RASC_ID = d.id || null;
     $('f-title').value = d.title || ''; $('f-cat').value = d.cat || 'Teatro';
     aplicarCats(d.cats);
-    $('f-body').value = d.corpo || ''; $('f-cred').value = d.cred || '';
+    $('f-body').value = d.corpo || ''; $('f-cred').value = d.cred || ''; $('f-imgleg').value = d.imgleg || '';
     $('f-imgfonte').value = d.imgfonte || ''; $('f-imgdir').value = d.imgdir || '';
     $('f-fontes').value = d.fontes || '';
     if(d.ev){ $('f-ev-ini').value = d.ev.ini || ''; $('f-ev-fim').value = d.ev.fim || '';
       $('f-ev-local').value = d.ev.local || ''; $('f-ev-cidade').value = d.ev.cidade || ''; }
-    statusTexto(); $('rasc-aviso').classList.remove('on'); $('bdg-rasc').style.display = 'none'; irPara('nova'); histReset();
+    statusTexto(); $('rasc-aviso').classList.remove('on'); irPara('nova'); histReset();
+    rascStatus('📄 Continuando o rascunho "' + (d.title || 'sem título') + '".');
     if(d.temFoto) setTimeout(function(){ avisar('Recuperei o texto do rascunho. A foto de capa não fica guardada, então reanexe a imagem antes de enviar.'); }, 200);
   }
-  // rascunho na nuvem (por pessoa), para continuar em qualquer aparelho
+  function limparFormNova(){
+    ['f-title', 'f-body', 'f-cred', 'f-imgleg', 'f-imgfonte', 'f-imgdir', 'f-fontes',
+     'f-ev-ini', 'f-ev-fim', 'f-ev-local', 'f-ev-cidade'].forEach(function(id){ $(id).value = ''; });
+    aplicarCats([]);
+    CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-ajustar').innerHTML = '';
+    $('up-prev').src = ''; $('up-file').value = ''; up.classList.remove('tem');
+    statusTexto(); histReset();
+  }
+  // rascunhos na nuvem (um arquivo por pessoa, com a LISTA), para qualquer aparelho.
+  // Formato antigo (um rascunho solto no arquivo) é entendido na leitura.
   function caminhoRascServidor(){ return 'import/coxia/rascunhos/' + (USER && USER.id ? USER.id : 'anon') + '.json'; }
+  function nuvemLista(f){
+    if(!f || !f.content) return [];
+    var v = null;
+    try{ v = JSON.parse(unb64(f.content)); }catch(e){ return []; }
+    if(v && Array.isArray(v.rascunhos)) return v.rascunhos;
+    if(v && (v.title || v.corpo)){ v.id = v.id || 'nuvem-antigo'; return [v]; }
+    return [];
+  }
   var btnGuardar = $('btn-guardar');
   if(btnGuardar) btnGuardar.addEventListener('click', function(){
     if(EDIT){ avisar('Você está editando uma matéria que já existe — as mudanças vão direto nela ao salvar/enviar. O rascunho na nuvem é só para matérias novas.'); return; }
-    if(!podeGravar()){ avisar(recadoSemChave()); return; }
+    if(!podeGravar()){ avisarChave(); return; }
     var d = coletarRasc();
     if(!d.title && !d.corpo){ avisar('Escreva algo antes de guardar o rascunho.'); return; }
-    d.por = USER.nome;
+    if(!RASC_ID) RASC_ID = 'r' + Date.now().toString(36);
+    d.id = RASC_ID; d.por = USER.nome;
     var b = btnGuardar; var velho = b.textContent; b.disabled = true; b.textContent = 'Guardando…';
-    ghGet(caminhoRascServidor()).catch(function(){ return null; }).then(function(ex){
-      return ghPut(caminhoRascServidor(), JSON.stringify(d, null, 1),
+    ghGet(caminhoRascServidor(), true).catch(function(){ return null; }).then(function(ex){
+      var lista = nuvemLista(ex).filter(function(x){ return x.id !== d.id; });
+      lista.push(d);
+      lista.sort(function(a, b2){ return (b2.quando || '').localeCompare(a.quando || ''); });
+      if(lista.length > RASC_MAX) lista = lista.slice(0, RASC_MAX);
+      return ghPut(caminhoRascServidor(), JSON.stringify({ rascunhos: lista }, null, 1),
         assina('guarda rascunho na nuvem'), ex && ex.sha);
     }).then(function(){ toast('Rascunho guardado na nuvem ✓'); rascStatus('☁ Rascunho guardado na nuvem às ' + horaAgora() + ' — pode continuar de qualquer aparelho.'); })
       .catch(function(err){ avisar(msgErro(err)); })
       .then(function(){ b.disabled = false; b.textContent = velho; });
   });
-  function checarRasc(){
-    // rascunho local (deste navegador)
-    var local = null;
-    try{ local = JSON.parse(localStorage.getItem(RASC_K) || 'null'); }catch(e){}
-    // rascunho na nuvem (deste usuário)
+  var btnNovoRasc = $('btn-novo-rasc');
+  if(btnNovoRasc) btnNovoRasc.addEventListener('click', function(){
+    if(EDIT){ avisar('Você está editando uma matéria que já existe. Termine (ou cancele) esta edição antes de começar um rascunho novo.'); return; }
+    var d = coletarRasc();
+    if(d.title || d.corpo){
+      // o que está na tela já se salvou sozinho na prateleira; só confirma
+      salvarRasc();
+      toast('O rascunho atual ficou guardado na prateleira ✓');
+    }
+    RASC_ID = null;
+    limparFormNova();
+    checarRasc();
+    rascStatus('🗒 Matéria nova em branco — o rascunho anterior está na prateleira.');
+  });
+  var btnRascunhos = $('btn-rascunhos');
+  if(btnRascunhos) btnRascunhos.addEventListener('click', function(){
+    // o que está na tela vai para a prateleira antes de ela abrir: nada se perde
+    if(!EDIT && ($('f-title').value || $('f-body').value)) salvarRasc();
+    checarRasc(true);
+    $('rasc-aviso').scrollIntoView({ behavior:'smooth', block:'center' });
+  });
+  function checarRasc(forcar){
+    // junta a prateleira local com a da nuvem (a mais nova de cada id vence)
+    var mapa = {};
+    rascLista().forEach(function(d){ d._origem = 'neste navegador'; mapa[d.id] = d; });
     ghGet(caminhoRascServidor()).catch(function(){ return null; }).then(function(f){
-      var nuvem = null;
-      if(f && f.content){ try{ nuvem = JSON.parse(unb64(f.content)); }catch(e){} }
-      // escolhe o mais recente entre local e nuvem
-      var cand = null, origem = '';
-      if(local && (local.title || local.corpo)){ cand = local; origem = 'deste navegador'; }
-      if(nuvem && (nuvem.title || nuvem.corpo)){
-        if(!cand || (nuvem.quando || '') > (cand.quando || '')){ cand = nuvem; origem = 'guardado na nuvem'; }
-      }
-      if(cand && !$('f-title').value && !$('f-body').value){
-        $('rasc-aviso').classList.add('on');
-        $('bdg-rasc').style.display = 'inline-block';
-        var quandoTxt = cand.quando ? new Date(cand.quando).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) : '';
-        $('rasc-aviso').firstChild.nodeValue = '📄 Recuperei um rascunho não enviado (' + origem + (quandoTxt ? ', ' + quandoTxt : '') + '). ';
-        $('rasc-usar').onclick = function(){ aplicarRascunho(cand); };
-        $('rasc-descartar').onclick = function(){
-          limparRasc();
-          if(nuvem && podeGravar()){ ghGet(caminhoRascServidor()).then(function(ff){ if(ff) ghDel(caminhoRascServidor(), ff.sha, assina('descarta rascunho da nuvem')).catch(function(){}); }); }
-        };
-      }
+      nuvemLista(f).forEach(function(d){
+        if(!mapa[d.id] || (d.quando || '') > (mapa[d.id].quando || '')){
+          d._origem = 'na nuvem'; d._nuvem = true; mapa[d.id] = d;
+        } else if(mapa[d.id]){ mapa[d.id]._nuvem = true; }
+      });
+      var lista = Object.keys(mapa).map(function(k){ return mapa[k]; })
+        .filter(function(d){ return d.title || d.corpo; })
+        .sort(function(a, b){ return (b.quando || '').localeCompare(a.quando || ''); });
+      var n = lista.length;
+      $('bdg-rasc').style.display = n ? 'inline-block' : 'none';
+      if(n) $('bdg-rasc').textContent = n === 1 ? 'rascunho' : n + ' rascunhos';
+      // o botão permanente: a prateleira nunca fica inalcançável, nem com o
+      // formulário no meio de uma matéria (item 13 do ensaio)
+      var bR = $('btn-rascunhos');
+      if(bR){ bR.style.display = n ? '' : 'none'; bR.textContent = '📄 Rascunhos (' + n + ')'; }
+      var av = $('rasc-aviso');
+      if(!n || (!forcar && ($('f-title').value || $('f-body').value))){ av.classList.remove('on'); return; }
+      av.innerHTML = '<b style="width:100%">📄 Rascunhos guardados (' + n + ') — quer continuar algum?</b>' +
+        lista.map(function(d, i){
+          var quandoTxt = d.quando ? new Date(d.quando).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) : '';
+          return '<span style="display:flex;gap:8px;align-items:center;width:100%;flex-wrap:wrap">' +
+            '<button class="bt" type="button" data-rasc-abre="' + i + '">✎ ' +
+              esc(corta(d.title || '(sem título)', 64)) + '</button>' +
+            '<span class="mt">' + esc(quandoTxt) + ' · ' + esc(d._origem) + '</span>' +
+            '<button class="bt danger" type="button" data-rasc-joga="' + i + '" aria-label="apagar este rascunho">🗑</button>' +
+            '</span>';
+        }).join('');
+      av.classList.add('on');
+      av.querySelectorAll('[data-rasc-abre]').forEach(function(b){
+        b.addEventListener('click', function(){ aplicarRascunho(lista[+b.dataset.rascAbre]); });
+      });
+      av.querySelectorAll('[data-rasc-joga]').forEach(function(b){
+        b.addEventListener('click', function(){
+          var d = lista[+b.dataset.rascJoga];
+          confirmar('Apagar o rascunho "' + (d.title || 'sem título') + '"? Isso não tem volta.').then(function(sim){
+            if(!sim) return;
+            rascGrava(rascLista().filter(function(x){ return x.id !== d.id; }));
+            if(d._nuvem && podeGravar()){
+              ghGet(caminhoRascServidor(), true).catch(function(){ return null; }).then(function(ff){
+                if(!ff) return;
+                var resto = nuvemLista(ff).filter(function(x){ return x.id !== d.id; });
+                return resto.length
+                  ? ghPut(caminhoRascServidor(), JSON.stringify({ rascunhos: resto }, null, 1), assina('apaga rascunho da nuvem'), ff.sha)
+                  : ghDel(caminhoRascServidor(), ff.sha, assina('apaga o último rascunho da nuvem'));
+              }).catch(function(){});
+            }
+            checarRasc();
+          });
+        });
+      });
     });
   }
 
@@ -3388,11 +3816,12 @@ ingressos e divisor."></textarea>
     var corpo = $('f-body').value;
     var img = CAPA || (EDIT && EDIT.img) || '';
     var cred = $('f-cred').value.trim();
+    var legCapa = $('f-imgleg').value.trim();
     $('prev-body').innerHTML =
       '<span class="tag wine">' + esc($('f-cat').value) + '</span>' +
       '<h1>' + esc(title) + '</h1>' +
       '<p class="cred">Por ' + esc($('f-autor').value) + '</p>' +
-      (img ? '<img class="capa" src="' + esc(img) + '">' + (cred ? '<p class="cred">' + esc(cred) + '</p>' : '') : '') +
+      (img ? '<img class="capa" src="' + esc(img) + '">' + ((legCapa || cred) ? '<p class="cred">' + esc(legCapa ? legCapa + ' \u2014 ' + cred : cred) + '</p>' : '') : '') +
       '<div class="corpo">' + mdRender(corpo) + '</div>';
     var n = corpo.split(/\s+/).filter(Boolean).length;
     var avisos = [];
@@ -3403,15 +3832,15 @@ ingressos e divisor."></textarea>
     avisos.push(img ? '<span class="ok">✓ foto de capa</span>' : '<span class="err">✗ sem foto de capa</span>');
     var links = [];
     corpo.replace(/\]\(((?:post-|pessoa-|cat-)[a-z0-9-]+\.html)\)/g, function(_, u){ links.push(u); return _; });
-    $('prev-avisos').innerHTML = avisos.join(' · ') + (links.length ? ' · conferindo ' + links.length + ' link(s)…' : ' · <span class="err">sem links internos</span>');
+    $('prev-avisos').innerHTML = avisos.join(' · ') + (links.length ? ' · conferindo ' + plural(links.length, 'link') + '…' : ' · <span class="err">sem links internos</span>');
     $('prev-titulo').textContent = 'Pré-visualização — como sai no site';
     abreOverlay('prev-overlay');
     if(links.length){
       indicesLinks().then(function(ok){
         var ruins = links.filter(function(u){ return !ok[u]; });
         $('prev-avisos').innerHTML = avisos.join(' · ') + ' · ' +
-          (ruins.length ? '<span class="err">✗ link(s) quebrado(s): ' + ruins.join(', ') + '</span>'
-                        : '<span class="ok">✓ ' + links.length + ' link(s) internos válidos</span>');
+          (ruins.length ? '<span class="err">✗ ' + (ruins.length === 1 ? 'link quebrado' : 'links quebrados') + ': ' + ruins.join(', ') + '</span>'
+                        : '<span class="ok">✓ ' + plural(links.length, 'link interno válido', 'links internos válidos') + '</span>');
       });
     }
   });
@@ -3483,7 +3912,7 @@ ingressos e divisor."></textarea>
       var o = AG.ocupados[i];
       if(Math.abs(o.quando - d) < AG_INTERVALO * 60000){
         return { tipo:'vizinha', trava:true,
-          texto:'“' + o.title.slice(0, 34) + '” já sai às ' +
+          texto:'“' + corta(o.title, 34) + '” já sai às ' +
             o.quando.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }) +
             ', e a casa deixa ao menos ' + AG_INTERVALO + ' minutos entre uma matéria e outra' };
       }
@@ -3610,6 +4039,8 @@ ingressos e divisor."></textarea>
     }).join('');
     // calendário do mês
     $('ag-mes-nome').textContent = AG.mes.toLocaleDateString('pt-BR', { month:'long', year:'numeric' });
+    var _hj = new Date();
+    $('ag-mes-ant').disabled = AG.mes <= new Date(_hj.getFullYear(), _hj.getMonth(), 1);
     var pri = new Date(AG.mes.getFullYear(), AG.mes.getMonth(), 1);
     var dias = new Date(AG.mes.getFullYear(), AG.mes.getMonth() + 1, 0).getDate();
     var hoje = new Date(); hoje.setHours(0, 0, 0, 0);
@@ -3729,7 +4160,11 @@ ingressos e divisor."></textarea>
     }
   });
   $('ag-mes-ant').addEventListener('click', function(){
-    AG.mes = new Date(AG.mes.getFullYear(), AG.mes.getMonth() - 1, 1); agPinta();
+    // não agendamos para trás: o calendário para no mês atual
+    var alvo = new Date(AG.mes.getFullYear(), AG.mes.getMonth() - 1, 1);
+    var piso = new Date(); piso = new Date(piso.getFullYear(), piso.getMonth(), 1);
+    if(alvo < piso) return;
+    AG.mes = alvo; agPinta();
   });
   $('ag-mes-prox').addEventListener('click', function(){
     AG.mes = new Date(AG.mes.getFullYear(), AG.mes.getMonth() + 1, 1); agPinta();
@@ -3832,24 +4267,51 @@ ingressos e divisor."></textarea>
       else setTimeout(function(){ b.classList.remove('copiado'); }, 1200);
     });
   });
+  // legenda de reserva quando a matéria não veio com uma pronta (matérias
+  // escritas à mão): a MESMA receita do gerador em Python (legenda_de em
+  // tools/gera_social.py) — dois primeiros parágrafos + fecho da casa
+  function legendaDe(d){
+    if(d.instagram && d.instagram.legenda) return d.instagram.legenda;
+    var paras = String(d.corpo || '').split(/\n\s*\n/)
+      .map(function(p){ return p.trim(); })
+      .filter(function(p){ return p && !/^(#|>|img:|video:|galeria:|botao:|\*)/.test(p); })
+      .map(function(p){ return p.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/\*\*/g, '').replace(/\*/g, ''); });
+    if(!paras.length) return '';
+    var cred = (d.imgCredito || 'Divulgação').replace('Foto: ', '');
+    return paras.slice(0, 2).join('\n\n') +
+      '\n\nPara conferir a matéria completa, acesse o site: www.foyer.digital' +
+      '\n📷: ' + cred + '\nPor ' + (d.author || 'Redação Foyer');
+  }
+  var RB_ARTES = 'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/';
   // abre o post de Instagram de uma matéria já lançada (artes ficam guardadas pelo slug)
   function abrirInstaMateria(d){
     if(!d) return;
-    var RB = 'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/';
+    var RB = RB_ARTES;
     var feed = 'assets/social/' + d.slug + '-feed.jpg', story = 'assets/social/' + d.slug + '-story.jpg';
-    var leg = (d.instagram && d.instagram.legenda) || '';
+    var leg = legendaDe(d);
+    var legAuto = leg && !(d.instagram && d.instagram.legenda);
+    // depois de um ajuste de enquadramento, busca a arte fresca direto do
+    // repositório (a cópia publicada no site ainda é a antiga por uns minutos)
+    var v = '';
+    try{ var fv = sessionStorage.getItem('foco-v-' + d.slug); if(fv) v = '?v=' + fv; }catch(e){}
     $('insta-corpo').innerHTML =
       '<p style="font-family:var(--sans);font-size:.9rem;margin:0 0 14px"><b>' + esc(d.title) + '</b></p>' +
       '<div class="ig-artes-grid">' +
         ['feed', 'story'].map(function(fmt){
           var cam = fmt === 'feed' ? feed : story;
-          return '<div class="ig-arte"><img src="' + cam + '" data-p="' + cam + '" alt="" ' +
-            'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'' + RB + '\'+this.dataset.p}else{this.parentNode.innerHTML=\'<p class=cred>arte não encontrada</p>\'}">' +
+          var src = v ? RB + cam + v : cam;
+          return '<div class="ig-arte"><img src="' + src + '" data-p="' + cam + '" alt="" ' +
+            'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'' + RB + '\'+this.dataset.p}else{this.parentNode.innerHTML=\'<p class=cred>arte não encontrada — se a matéria acabou de sair, o ateliê prepara em ~1 min</p>\'}">' +
             '<a class="bt" href="' + RB + cam + '" target="_blank" rel="noopener" download>⬇ Baixar ' + (fmt === 'feed' ? 'post (feed)' : 'stories') + '</a></div>';
         }).join('') +
       '</div>' +
+      (d.img ? '<div style="text-align:center;margin-top:12px">' +
+        '<button class="bt" type="button" id="insta-enquadrar">🎯 Ajustar enquadramento da foto</button>' +
+        (v ? ' <button class="bt" type="button" id="insta-rever">🔄 Ver se a arte nova ficou pronta</button>' : '') +
+        '</div>' : '') +
       (leg
-        ? '<label style="font-family:var(--sans);font-weight:700;font-size:.82rem;display:block;margin:16px 0 6px">Legenda</label>' +
+        ? '<label style="font-family:var(--sans);font-weight:700;font-size:.82rem;display:block;margin:16px 0 6px">Legenda' +
+          (legAuto ? ' <span class="cred" style="font-weight:400">(montada automaticamente do começo da matéria)</span>' : '') + '</label>' +
           '<textarea class="ig-leg" readonly rows="7">' + esc(leg) + '</textarea>' +
           '<button class="bt" type="button" id="insta-copialeg" style="margin-top:8px">📋 Copiar legenda</button>'
         : '<p class="cred" style="margin-top:14px">Esta matéria não tem legenda pronta.</p>') +
@@ -3859,7 +4321,155 @@ ingressos e divisor."></textarea>
     if(cp) cp.addEventListener('click', function(){
       var ta = $('insta-corpo').querySelector('.ig-leg');
       if(ta && navigator.clipboard) navigator.clipboard.writeText(ta.value).then(function(){
-        var v = cp.textContent; cp.textContent = '✓ Copiada'; setTimeout(function(){ cp.textContent = v; }, 1600);
+        var t = cp.textContent; cp.textContent = '✓ Copiada'; setTimeout(function(){ cp.textContent = t; }, 1600);
+      });
+    });
+    var be = $('insta-enquadrar');
+    if(be) be.addEventListener('click', function(){ abrirEnquadrar(d); });
+    var br = $('insta-rever');
+    if(br) br.addEventListener('click', function(){
+      try{ sessionStorage.setItem('foco-v-' + d.slug, String(Date.now())); }catch(e){}
+      abrirInstaMateria(d);
+    });
+  }
+
+  /* ---- ajuste de enquadramento da arte: o Pedro arrasta a foto até o que
+     importa ficar dentro do quadro. A prévia usa EXATAMENTE a mesma conta do
+     corte do gerador (_cover em tools/gera_social.py): o ponto escolhido vai
+     para o centro do corte, sem nunca sair das bordas da foto. O ajuste fica
+     em import/social-foco.json e o robô "Artes de Instagram" refaz as artes
+     sozinho quando esse arquivo muda. ---- */
+  var ENQ = null;
+  function enqAplica(){
+    // posiciona a foto dentro do quadro com a MESMA conta do _cover em
+    // Python: escala mínima para cobrir × zoom, e o ponto de interesse no
+    // centro do corte, preso às bordas. Devolve as medidas (em px da arte)
+    // para o arrasto saber o quanto anda.
+    var img = $('enq-img'), box = $('enq-box');
+    if(!img || !ENQ || !box || !box.clientWidth) return null;
+    var esc2 = Math.max(ENQ.bw / ENQ.iw, ENQ.bh / ENQ.ih) * ENQ.z;
+    var sw = ENQ.iw * esc2, sh = ENQ.ih * esc2;
+    var ox = Math.max(0, Math.min(sw - ENQ.bw, ENQ.fx * sw - ENQ.bw / 2));
+    var oy = Math.max(0, Math.min(sh - ENQ.bh, ENQ.fy * sh - ENQ.bh / 2));
+    var k = box.clientWidth / ENQ.bw;  // px da arte -> px da tela
+    img.style.width = (sw * k) + 'px';
+    img.style.height = (sh * k) + 'px';
+    img.style.left = (-ox * k) + 'px';
+    img.style.top = (-oy * k) + 'px';
+    return { sw: sw, sh: sh };
+  }
+  function enqMexe(dfx, dfy){
+    if(!ENQ) return;
+    ENQ.fx = Math.max(0, Math.min(1, ENQ.fx + dfx));
+    ENQ.fy = Math.max(0, Math.min(1, ENQ.fy + dfy));
+    enqAplica();
+  }
+  function enqZum(vezes){
+    if(!ENQ) return;
+    ENQ.z = Math.max(1, Math.min(3, ENQ.z * vezes));
+    enqAplica();
+  }
+  function abrirEnquadrar(d){
+    var corpo = $('insta-corpo');
+    corpo.innerHTML =
+      '<p style="font-family:var(--sans);font-size:.9rem;margin:0 0 8px"><b>' + esc(d.title) + '</b></p>' +
+      '<p class="cred" style="margin:0 0 12px">Arraste a foto (ou use as setas) até o que importa ficar dentro do quadro; ' +
+        'a lupa e a rodinha do mouse aproximam e afastam. O mesmo ajuste vale para o post do feed e para o stories.</p>' +
+      '<div id="enq-box" style="position:relative;width:min(340px,100%);aspect-ratio:1080/1350;margin:0 auto;overflow:hidden;border-radius:10px;background:#160b08;cursor:grab;touch-action:none;user-select:none">' +
+        '<img id="enq-img" alt="" draggable="false" style="position:absolute;left:0;top:0;max-width:none;pointer-events:none">' +
+        '<div style="position:absolute;left:0;right:0;bottom:0;height:40%;background:linear-gradient(transparent,rgba(5,3,2,.88));pointer-events:none"></div>' +
+        '<div style="position:absolute;left:8%;right:8%;bottom:6%;color:#fff;font-family:var(--sans);font-weight:700;font-size:.74rem;line-height:1.25;pointer-events:none">' +
+          esc(String((d.instagram && d.instagram.titulo) || d.title).replace(/\*/g, '')) + '</div>' +
+      '</div>' +
+      '<div style="display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap">' +
+        '<button class="bt" type="button" data-enq="e" aria-label="foto para a direita">◀</button>' +
+        '<button class="bt" type="button" data-enq="d" aria-label="foto para a esquerda">▶</button>' +
+        '<button class="bt" type="button" data-enq="c" aria-label="foto para baixo">▲</button>' +
+        '<button class="bt" type="button" data-enq="b" aria-label="foto para cima">▼</button>' +
+        '<button class="bt" type="button" data-enq="mais" aria-label="aproximar">🔍＋</button>' +
+        '<button class="bt" type="button" data-enq="menos" aria-label="afastar">🔍－</button>' +
+        '<button class="bt" type="button" data-enq="o">voltar ao automático</button>' +
+      '</div>' +
+      '<div style="display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap">' +
+        '<button class="bt" type="button" id="enq-salvar">💾 Salvar enquadramento</button>' +
+        '<button class="bt" type="button" id="enq-voltar">← Voltar às artes</button>' +
+      '</div>' +
+      '<p class="cred" id="enq-msg" style="text-align:center;margin-top:10px"></p>';
+    var img = $('enq-img'), box = $('enq-box');
+    docJson('import/social-foco.json').then(function(r){
+      var salvo = r.data && r.data.focos && r.data.focos[d.slug];
+      img.onload = function(){
+        // sem ajuste salvo, começa reproduzindo o corte automático de hoje
+        // (foto centrada, viés para o terço de cima) para a prévia ser honesta
+        var iw = img.naturalWidth, ih = img.naturalHeight;
+        var esc2 = Math.max(1080 / iw, 1350 / ih), sh = ih * esc2;
+        var fyPadrao = sh > 1350 ? ((sh - 1350) * 0.38 + 675) / sh : 0.5;
+        ENQ = { d: d, iw: iw, ih: ih, bw: 1080, bh: 1350,
+                fx: salvo ? salvo.x : 0.5, fy: salvo ? salvo.y : fyPadrao,
+                z: (salvo && salvo.z) || 1 };
+        enqAplica();
+      };
+      img.onerror = function(){
+        if(!img.dataset.f){ img.dataset.f = 1; img.src = RB_ARTES + d.img; }
+        else $('enq-msg').textContent = 'Não achei a foto da matéria.';
+      };
+      img.src = d.img;
+    });
+    // arrastar com o dedo ou com o mouse
+    var pega = null;
+    box.addEventListener('pointerdown', function(ev){
+      if(!ENQ) return;
+      pega = { x: ev.clientX, y: ev.clientY };
+      box.setPointerCapture(ev.pointerId);
+      box.style.cursor = 'grabbing';
+    });
+    box.addEventListener('pointermove', function(ev){
+      if(!pega || !ENQ) return;
+      var p = enqAplica(); if(!p) return;
+      var fator = ENQ.bw / box.clientWidth;  // px da tela -> px da arte
+      // arrastar a foto para a direita = interesse anda para a esquerda
+      ENQ.fx = Math.max(0, Math.min(1, ENQ.fx - (ev.clientX - pega.x) * fator / p.sw));
+      ENQ.fy = Math.max(0, Math.min(1, ENQ.fy - (ev.clientY - pega.y) * fator / p.sh));
+      pega = { x: ev.clientX, y: ev.clientY };
+      enqAplica();
+    });
+    // rodinha do mouse (ou dois dedos no trackpad) aproxima e afasta
+    box.addEventListener('wheel', function(ev){
+      if(!ENQ) return;
+      ev.preventDefault();
+      enqZum(ev.deltaY < 0 ? 1.08 : 1 / 1.08);
+    }, { passive: false });
+    ['pointerup', 'pointercancel'].forEach(function(tp){
+      box.addEventListener(tp, function(){ pega = null; box.style.cursor = 'grab'; });
+    });
+    corpo.querySelectorAll('[data-enq]').forEach(function(b){
+      b.addEventListener('click', function(){
+        var qual = b.dataset.enq, passo = 0.03;
+        if(qual === 'o'){ if(ENQ){ ENQ.fx = 0.5; ENQ.fy = 0.5; ENQ.z = 1; enqAplica(); } return; }
+        if(qual === 'mais'){ enqZum(1.15); return; }
+        if(qual === 'menos'){ enqZum(1 / 1.15); return; }
+        enqMexe(qual === 'e' ? -passo : qual === 'd' ? passo : 0,
+                qual === 'c' ? -passo : qual === 'b' ? passo : 0);
+      });
+    });
+    $('enq-voltar').addEventListener('click', function(){ abrirInstaMateria(d); });
+    $('enq-salvar').addEventListener('click', function(){
+      if(!ENQ) return;
+      var st = $('enq-msg');
+      st.textContent = 'Salvando…';
+      docJson('import/social-foco.json').then(function(r){
+        var doc = r.data || {};
+        doc._leiame = 'Ajustes de enquadramento das artes de Instagram, feitos na Coxia. ' +
+          'O robô "Artes de Instagram" refaz as artes quando este arquivo muda.';
+        doc.focos = doc.focos || {};
+        doc.focos[d.slug] = { x: +ENQ.fx.toFixed(4), y: +ENQ.fy.toFixed(4), z: +ENQ.z.toFixed(3) };
+        return ghPut('import/social-foco.json', JSON.stringify(doc, null, 1),
+          assina('ajusta o enquadramento da arte de "' + d.title + '"'), r.sha || undefined);
+      }).then(function(){
+        try{ sessionStorage.setItem('foco-v-' + d.slug, String(Date.now())); }catch(e){}
+        st.textContent = '✓ Salvo — o ateliê já está refazendo a arte; em ~1 minuto ela aparece pronta na tela anterior.';
+      }).catch(function(err){
+        st.textContent = 'Não deu para salvar: ' + ((err && err.message) || err);
       });
     });
   }
@@ -3889,17 +4499,17 @@ ingressos e divisor."></textarea>
     files = (files || []).filter(function(f){
       return /^image\//.test(f.type || '') || /\.(jpe?g|png|webp|gif)$/i.test(f.name || ''); });
     if(!files.length) return;
-    if(!podeGravar()){ avisar(recadoSemChave()); return; }
+    if(!podeGravar()){ avisarChave(); return; }
     var ta = $('f-body'), slugBase = slugify($('f-title').value || 'materia') || 'materia';
     var btnFoto = document.querySelector('[data-md="img:"]');
-    if(btnFoto) btnFoto.textContent = '⏳ Subindo ' + files.length + ' foto(s)…';
+    if(btnFoto) btnFoto.textContent = '⏳ Subindo ' + plural(files.length, 'foto') + '…';
     // marca única no nome: subir foto duas vezes para a mesma matéria não
     // pode sobrescrever a anterior
     var marca = Date.now().toString(36);
     var caminhos = [];
     var fila = files.reduce(function(p, file, i){
       return p.then(function(){
-        return redimensionar(file)
+        return redimensionar(file, 'livre')
           .then(function(d){ return subirImagem(d, slugBase + '-corpo-' + marca + i); })
           .then(function(c){ caminhos.push(c); });
       });
@@ -4374,6 +4984,7 @@ ingressos e divisor."></textarea>
           pac.author = autorNovo;
         }
         pac.img = imgPath || EDIT.img; pac.imgCredito = $('f-cred').value.trim();
+        var pLeg = $('f-imgleg').value.trim(); if(pLeg) pac.imgLegenda = pLeg; else delete pac.imgLegenda;
         pac.corpo = corpo; pac.editadoPor = USER.nome;
         pac.status = 'aguardando_aprovacao';
         pac.fontes = colherFontes();
@@ -4398,6 +5009,7 @@ ingressos e divisor."></textarea>
           title: title, slug: slug,
           cat: $('f-cat').value, author: $('f-autor').value,
           img: imgPath || EDIT.img, imgCredito: $('f-cred').value.trim(),
+          imgLegenda: $('f-imgleg').value.trim(),
           corpo: corpo, publishAt: EDIT.publishAt,
           criadoEm: EDIT.criadoEm || EDIT.publishAt,
           atualizadoEm: new Date().toISOString(),
@@ -4426,6 +5038,8 @@ ingressos e divisor."></textarea>
           cat: $('f-cat').value,
           author: $('f-autor').value,
           img: imgPath, imgCredito: $('f-cred').value.trim(),
+        imgLegenda: $('f-imgleg').value.trim(),
+          imgLegenda: $('f-imgleg').value.trim(),
           corpo: corpo, publishAt: publishAt,
           criadoEm: new Date().toISOString(), criadoPor: USER.nome
         };
@@ -4470,12 +5084,27 @@ ingressos e divisor."></textarea>
       msg.textContent = ehChefe
         ? (quando === 'agendar' ? 'Agendada ✓ — sai no site na hora marcada' : 'Enviada ✓ — no ar em ~2 minutos')
         : 'Enviada para a mesa do chefe ✓ — ele aprova e programa a publicação';
+      // o autor vai para a Fila ver a matéria com o selo "Na mesa do chefe":
+      // prova concreta de que o envio chegou (item 15 do ensaio)
+      if(!ehChefe){
+        toast('Enviada para a mesa do chefe ✓');
+        setTimeout(function(){ irPara('fila'); }, 900);
+      }
       e.target.reset();
       $('f-quando-dt').style.display = 'none';
-      CAPA = null; $('up-prev').src = ''; up.classList.remove('tem');
+      CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-ajustar').innerHTML = ''; $('up-prev').src = ''; up.classList.remove('tem');
+      var rascEnviado = RASC_ID;  // guarda o id ANTES de limpar
       limparRasc(); statusTexto(); histReset();
-      // limpa também o rascunho na nuvem (a matéria já foi enviada)
-      if(!EDIT && podeGravar()) ghGet(caminhoRascServidor()).then(function(ff){ if(ff) ghDel(caminhoRascServidor(), ff.sha, assina('limpa rascunho da nuvem (matéria enviada)')).catch(function(){}); }).catch(function(){});
+      // tira da nuvem SÓ o rascunho desta matéria; os outros ficam esperando
+      if(!EDIT && rascEnviado && podeGravar()){
+        ghGet(caminhoRascServidor(), true).catch(function(){ return null; }).then(function(ff){
+          if(!ff) return;
+          var resto = nuvemLista(ff).filter(function(x){ return x.id !== rascEnviado; });
+          return resto.length
+            ? ghPut(caminhoRascServidor(), JSON.stringify({ rascunhos: resto }, null, 1), assina('limpa rascunho enviado da nuvem'), ff.sha)
+            : ghDel(caminhoRascServidor(), ff.sha, assina('limpa rascunho da nuvem (matéria enviada)'));
+        }).catch(function(){});
+      }
       aplicarUsuario();
     }).catch(function(err){ if(err === 'cancelado') return; msg.className = 'msg err'; msg.textContent = msgErro(err); })
       .finally(function(){ btn.disabled = false; btn.textContent = EDIT ? 'Salvar edição' : (ehChefe ? 'Enviar para o site' : 'Enviar para aprovação'); });
@@ -4486,7 +5115,10 @@ ingressos e divisor."></textarea>
     var el = $('fila-list');
     el.innerHTML = '<div class="vazio-box">Carregando…</div>';
     Promise.all([
-      ghGet('import/novas').catch(function(){ return null; }),
+      // a pasta principal SEM rede precisa virar o aviso de erro com "tentar
+      // de novo" — engolir a falha mostrava "Nenhuma matéria por aqui ainda"
+      // com 174 matérias existindo (pego no ensaio geral de 17/08)
+      ghGet('import/novas'),
       ghGet('import/pauta').catch(function(){ return null; })
     ]).then(function(res){
       var fNovas = (res[0] || []).filter(function(f){ return f.name.endsWith('.json'); });
@@ -4501,10 +5133,15 @@ ingressos e divisor."></textarea>
           .concat(fPauta.map(function(f){ return baixa(f, true); }))
       ).then(function(items){
         items = items.filter(Boolean);
+        var mesaBusca = [];
         if(!podeEditar()){
           items = items.filter(function(d){ return d.author === USER.nome || d.criadoPor === USER.nome; });
         } else {
-          items = items.filter(function(d){ return !d._mesa; }); // a mesa fica na aba Redação IA
+          // a mesa fica na aba Redação IA, mas ENTRA na busca de temas: a
+          // pergunta do Pedro é "alguém já programou isso?", e a resposta
+          // pode estar numa matéria ainda esperando aprovação
+          mesaBusca = items.filter(function(d){ return d._mesa; });
+          items = items.filter(function(d){ return !d._mesa; });
         }
         if(!items.length){ el.innerHTML = '<div class="vazio-box">Nenhuma matéria por aqui ainda</div>'; return; }
         var agora = new Date().toISOString();
@@ -4516,25 +5153,73 @@ ingressos e divisor."></textarea>
         // --- bloco AGENDADAS: o que ainda vai sair, em ordem cronológica ---
         var agendadas = items.filter(function(d){ return !d._mesa && d.publishAt && d.publishAt > agora; })
           .sort(function(a,b){ return (a.publishAt).localeCompare(b.publishAt); });
+        // REFORMA DE 17/08/2026 (ensaio geral): a aba escondia as matérias
+        // atrás de 2,3 telas de rolagem. Agora a LISTA vem logo depois da
+        // busca; a grade da semana e o "Vão sair" viram gavetas fechadas,
+        // e as linhas do "Vão sair" levam ao card da matéria com um clique.
         var blocoAg = '';
         if(agendadas.length){
-          blocoAg = '<div class="fila-agenda"><b>🕐 Vão sair (' + agendadas.length + ')</b>' +
+          var prox = agendadas[0];
+          blocoAg = '<details class="fila-agenda" style="margin:0 0 10px">' +
+            '<summary style="cursor:pointer;list-style-position:inside"><b>🕐 Vão sair (' + agendadas.length + ')</b>' +
+            ' <span class="mt">a próxima: ' + esc(qdRelativo(prox.publishAt)) + ' · ' +
+            esc(prox.title.length > 48 ? prox.title.slice(0, 48) + '…' : prox.title) + '</span></summary>' +
             agendadas.map(function(d){
-              return '<div class="fa-row"><span class="fa-q">' + esc(qdRelativo(d.publishAt)) + '</span>' +
+              return '<div class="fa-row" role="button" tabindex="0" data-vai-slug="' + esc(d.slug) + '" data-bq="' + esc(amassaBusca(d.title + ' ' + d.cat)) + '" style="cursor:pointer">' +
+                '<span class="fa-q">' + esc(qdRelativo(d.publishAt)) + '</span>' +
                 '<span class="fa-t">' + esc(d.title) + '</span>' +
                 '<span class="mt">' + esc(d.cat) + '</span></div>';
-            }).join('') + '</div>';
+            }).join('') + '</details>';
         }
 
-        items.sort(function(a,b){ return (b.publishAt || b.geradoEm || '').localeCompare(a.publishAt || a.geradoEm || ''); });
-        el.innerHTML = blocoGrade + blocoAg + items.map(function(d){
+        // --- busca de temas: "já tem matéria sobre isso?" ---
+        // procura no título, editoria, assinatura E no texto das matérias da
+        // fila (publicadas e agendadas) e da mesa de aprovação, sem acento
+        var blocoBusca =
+          '<div style="margin:0 0 16px">' +
+            '<input type="search" id="fila-q" aria-label="Buscar tema na fila e nas agendadas" ' +
+              'placeholder="🔎 Já tem matéria sobre esse tema? Busque por assunto, título, artista ou autor(a)" ' +
+              'style="width:100%;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:var(--sans);font-size:.92rem;padding:12px 14px">' +
+            '<p class="f-note" id="fila-q-n" style="margin:6px 0 0;display:none"></p>' +
+            '<div id="fila-q-mesa"></div>' +
+            '<div id="fila-q-acervo"></div>' +
+          '</div>';
+
+        // agendadas primeiro, da MAIS PRÓXIMA para a mais distante (o ensaio
+        // pegou a de daqui a três semanas aparecendo antes da de amanhã);
+        // depois as publicadas, da mais recente para trás
+        items.sort(function(a, b){
+          var aF = !!(a.publishAt && a.publishAt > agora), bF = !!(b.publishAt && b.publishAt > agora);
+          if(aF !== bF) return aF ? -1 : 1;
+          var ka = a.publishAt || a.geradoEm || '', kb = b.publishAt || b.geradoEm || '';
+          return aF ? ka.localeCompare(kb) : kb.localeCompare(ka);
+        });
+        // o texto de cada matéria, amassado, para a busca de temas (fica em
+        // memória, fora do HTML — corpo inteiro entra na comparação)
+        var chavesBusca = items.map(function(d){
+          return amassaBusca([d.title, d.cat, (d.cats || []).join(' '), d.author || '',
+                              d.corpo || ''].join(' '));
+        });
+        var nAg = items.filter(function(d){ return d.publishAt && d.publishAt > agora; }).length;
+        var nDev = items.filter(function(d){ return d.status === 'devolvida'; }).length;
+        var nAr = items.length - nAg - nDev;
+        var chips = '<div class="fila-filtros" style="display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px">' +
+          '<button class="bt on" type="button" data-ff="todas">Todas (' + items.length + ')</button>' +
+          '<button class="bt" type="button" data-ff="pb">No ar (' + nAr + ')</button>' +
+          '<button class="bt" type="button" data-ff="ag">Agendadas (' + nAg + ')</button>' +
+          (nDev ? '<button class="bt" type="button" data-ff="rc">Devolvidas (' + nDev + ')</button>' : '') +
+          '</div>';
+        var blocoGradeD = blocoGrade
+          ? '<details id="fila-grade-w" style="margin:0 0 10px"><summary style="cursor:pointer;list-style-position:inside"><b>📅 A semana da casa</b> <span class="mt">grade de segunda a domingo</span></summary>' + blocoGrade + '</details>'
+          : '<span id="fila-grade-w" style="display:none"></span>';
+        el.innerHTML = blocoBusca + blocoGradeD + blocoAg + chips + items.map(function(d, _bi){
           var pill, cls;
           var devolvida = d.status === 'devolvida';
           if(devolvida){ pill = 'Devolvida'; cls = 'rc'; }
           else if(d._mesa){ pill = 'Na mesa do chefe'; cls = 'ag'; }
           else if(d.publishAt && d.publishAt > agora){ pill = 'Agendada'; cls = 'ag'; }
           else { pill = 'Publicada'; cls = 'pb'; }
-          var quando = new Date(d.publishAt || d.geradoEm || d.criadoEm || Date.now()).toLocaleString('pt-BR');
+          var quando = new Date(d.publishAt || d.geradoEm || d.criadoEm || Date.now()).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' });
           var th = d.img
             ? '<img class="th" src="' + esc(d.img) + '" alt="" data-p="' + esc(d.img) + '" ' +
               'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/\'+this.dataset.p}else{this.className=\'th no\';this.removeAttribute(\'src\')}">'
@@ -4543,8 +5228,10 @@ ingressos e divisor."></textarea>
           var jaSaiu = !d._mesa && !devolvida;  // publicada ou agendada (tem post de Instagram para pegar)
           var jaPub = jaSaiu && (!d.publishAt || d.publishAt <= agora);
           var acoes = '';
-          // pegar as artes de Instagram DEPOIS de lançar (as artes ficam guardadas pelo slug)
-          if(jaSaiu && d.instagram){
+          // pegar as artes de Instagram DEPOIS de lançar (as artes ficam guardadas
+          // pelo slug). As matérias escritas à mão não trazem o pacote de Instagram
+          // da redação, mas o ateliê gera a arte do mesmo jeito: basta ter foto.
+          if(jaSaiu && (d.instagram || d.img)){
             acoes += '<button class="bt" data-igmat="' + esc(d.slug) + '" type="button">📱 Instagram</button>';
           }
           // editar: chefe/editor em publicadas; autor na própria matéria ainda não publicada (mesa ou devolvida)
@@ -4563,19 +5250,117 @@ ingressos e divisor."></textarea>
             ? '<div class="fa-devol">↩ Devolvida por ' + esc(d.devolucao.por || 'chefe') + ': ' + esc(d.devolucao.motivo || 'sem comentário') + '</div>'
             : '';
           var views = (jaPub ? '<span class="fr-views" data-vslug="' + esc(d.slug) + '"></span>' : '');
-          return '<div class="frow' + (devolvida ? ' rec' : '') + '">' + th +
+          return '<div class="frow' + (devolvida ? ' rec' : '') + '" data-bi="' + _bi + '" data-st="' + cls + '" data-slug="' + esc(d.slug) + '">' + th +
             '<span><span class="ti">' + esc(d.title) + '</span>' +
             '<span class="mt">' + esc(d.cat) + ' — ' + esc(d.author) + ' — ' + quando +
             (d.atualizadoEm ? ' — ✎ atualizada' : '') + views + '</span>' + recado + '</span>' +
             '<span class="pill ' + cls + '">' + pill + '</span>' +
-            '<span style="display:flex;gap:6px;flex-wrap:wrap">' + acoes + '</span>' +
+            '<span class="fr-acts">' + acoes + '</span>' +
             '</div>';
         }).join('');
         preencherViews();
         if(podeEditar()) enriquecerGrade();
+
+        // a busca em ação: filtra a lista e as agendadas, e mostra o que está
+        // na mesa de aprovação sobre o mesmo tema
+        var chavesMesa = mesaBusca.map(function(d){
+          return amassaBusca([d.title, d.cat, (d.cats || []).join(' '), d.author || '',
+                              d.corpo || ''].join(' '));
+        });
+        var qEl = $('fila-q'), qN = $('fila-q-n'), qMesa = $('fila-q-mesa'), qT;
+        var FF = { v: 'todas' };  // o filtro dos chips (Todas / No ar / Agendadas / Devolvidas)
+        function filaFiltra(){
+          var q = amassaBusca(qEl.value.trim());
+          var termos = q.split(/\s+/).filter(function(t){ return t.length >= 2; });
+          var ativa = termos.length > 0;
+          var bate = function(chave){
+            for(var i = 0; i < termos.length; i++)
+              if(chave.indexOf(termos[i]) < 0) return false;
+            return true;
+          };
+          var nFila = 0;
+          el.querySelectorAll('.frow[data-bi]').forEach(function(row){
+            var ok = (!ativa || bate(chavesBusca[+row.dataset.bi] || '')) &&
+                     (FF.v === 'todas' || row.dataset.st === FF.v);
+            row.style.display = ok ? '' : 'none';
+            if(ativa && ok) nFila++;
+          });
+          el.querySelectorAll('.fa-row[data-bq]').forEach(function(row){
+            row.style.display = (!ativa || bate(row.dataset.bq)) ? '' : 'none';
+          });
+          var gw = $('fila-grade-w');
+          if(gw) gw.style.display = ativa ? 'none' : '';  // o calendário não é filtrável
+          var achouMesa = ativa ? mesaBusca.filter(function(d, i){ return bate(chavesMesa[i]); }) : [];
+          qMesa.innerHTML = achouMesa.length
+            ? '<div class="fila-agenda" style="margin-top:10px"><b>🖋 Na mesa de aprovação (' + achouMesa.length + ')</b>' +
+              achouMesa.map(function(d){
+                return '<div class="fa-row"><span class="fa-q">esperando aprovação</span>' +
+                  '<span class="fa-t">' + esc(d.title) + '</span>' +
+                  '<span class="mt">' + esc(d.cat) + ' — ' + esc(d.author || '') + '</span></div>';
+              }).join('') + '</div>'
+            : '';
+          if(ativa){
+            qN.style.display = '';
+            qN.textContent = nFila
+              ? plural(nFila, 'matéria') + ' na fila e agendadas' + (achouMesa.length ? ' + ' + achouMesa.length + ' na mesa' : '')
+              : (achouMesa.length ? 'Nada na fila — mas tem ' + achouMesa.length + ' na mesa de aprovação'
+                                  : 'Nenhuma matéria sobre isso: tema livre para você lançar ✓');
+          } else {
+            qN.style.display = 'none';
+          }
+        }
+        // a mesma busca também espia o acervo completo do site (item 4 do
+        // ensaio: o campo do topo e o "Buscar no acervo" viraram uma coisa só)
+        function acervoEco(){
+          var eco = $('fila-q-acervo');
+          if(!eco || !podeEditar()) return;
+          var q = qEl.value.trim();
+          if(q.length < 2){ eco.innerHTML = ''; return; }
+          acervoTodos().then(function(mats){
+            if(qEl.value.trim() !== q) return;   // a pessoa já digitou outra coisa
+            var v = normTxt(q);
+            var n = mats.filter(function(m){ return normTxt(m.title + ' ' + (m.desc || '')).indexOf(v) >= 0; }).length;
+            eco.innerHTML = n
+              ? '<button class="bt" type="button" id="fila-q-veracervo" style="margin-top:8px">📚 ' +
+                n + (n === 1 ? ' matéria' : ' matérias') + ' no acervo completo do site — ver e editar</button>'
+              : '';
+            var vb = $('fila-q-veracervo');
+            if(vb) vb.addEventListener('click', function(){
+              $('acervo-q').value = q; buscaAcervo();
+              $('acervo-box').scrollIntoView({ behavior:'smooth', block:'start' });
+            });
+          });
+        }
+        qEl.addEventListener('input', function(){
+          clearTimeout(qT); qT = setTimeout(function(){ filaFiltra(); acervoEco(); }, 150);
+        });
+        // chips de filtro: Todas / No ar / Agendadas / Devolvidas
+        el.querySelectorAll('.fila-filtros [data-ff]').forEach(function(b){
+          b.addEventListener('click', function(){
+            FF.v = b.dataset.ff;
+            el.querySelectorAll('.fila-filtros [data-ff]').forEach(function(x){
+              x.classList.toggle('on', x === b);
+            });
+            filaFiltra();
+          });
+        });
+        // as linhas do "Vão sair" levam ao card da matéria (antes eram texto morto)
+        el.querySelectorAll('[data-vai-slug]').forEach(function(r){
+          function vai(){
+            var alvo = el.querySelector('.frow[data-slug="' + r.dataset.vaiSlug + '"]');
+            if(!alvo) return;
+            if(alvo.style.display === 'none'){ FF.v = 'todas'; qEl.value = ''; filaFiltra();
+              el.querySelectorAll('.fila-filtros [data-ff]').forEach(function(x){ x.classList.toggle('on', x.dataset.ff === 'todas'); }); }
+            alvo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            alvo.style.outline = '3px solid var(--gold)';
+            setTimeout(function(){ alvo.style.outline = ''; }, 1800);
+          }
+          r.addEventListener('click', vai);
+          r.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); vai(); } });
+        });
       });
     }).catch(function(e){
-      el.innerHTML = '<div class="vazio-box">Não deu para carregar a fila. ' + esc(msgErro(e)) +
+      el.innerHTML = '<div class="vazio-box erro">Não deu para carregar a fila. ' + esc(msgErro(e)) +
         '<br><button class="bt" type="button" id="fila-retry" style="margin-top:10px">↻ Tentar de novo</button></div>';
       var rb = $('fila-retry'); if(rb) rb.addEventListener('click', carregarFila);
     });
@@ -4606,7 +5391,7 @@ ingressos e divisor."></textarea>
       var ehQuinta = x.data.getDay() === 4;
       var passou = x.chave < hojeChave;
       var corpo = x.itens.length
-        ? x.itens.map(function(m){ return '<span class="gs-mat">' + esc(m.title.slice(0, 46)) + '</span>'; }).join('')
+        ? x.itens.map(function(m){ return '<span class="gs-mat">' + esc(corta(m.title, 46)) + '</span>'; }).join('')
         : (passou ? '<span class="gs-vazio">—</span>' : '<span class="gs-furo">furo</span>');
       return '<div class="gs-dia' + (ehHoje ? ' hoje' : '') + '" data-gd="' + x.chave + '">' +
         '<div class="gs-cab">' + nomes[x.data.getDay() === 0 ? 6 : x.data.getDay() - 1] + ' ' +
@@ -4648,7 +5433,7 @@ ingressos e divisor."></textarea>
           var cel = document.querySelector('.gs-plan[data-gp="' + s.atribuida.prazo + '"]');
           if(cel) cel.insertAdjacentHTML('beforeend',
             '<span class="gs-pauta" title="pauta atribuída a ' + esc(s.atribuida.para) + '">📌 ' +
-            esc(s.texto.slice(0, 40)) + ' <small>' + esc((s.atribuida.para || '').split(' ')[0]) + '</small></span>');
+            esc(corta(s.texto, 40)) + ' <small>' + esc((s.atribuida.para || '').split(' ')[0]) + '</small></span>');
         }
       });
       // faixa de aceitas sem data marcada
@@ -4657,7 +5442,7 @@ ingressos e divisor."></textarea>
       if(box && aceitas.length){
         box.innerHTML = '<div class="gs-aceitas-cab">Pautas aceitas para encaixar (' + aceitas.length + ')</div>' +
           aceitas.map(function(s){
-            return '<span class="gs-chip">' + esc(s.texto.slice(0, 48)) +
+            return '<span class="gs-chip">' + esc(corta(s.texto, 48)) +
               (s.atribuida && s.atribuida.para ? ' <small>· ' + esc(s.atribuida.para.split(' ')[0]) + '</small>' : '') + '</span>';
           }).join('');
       }
@@ -4713,7 +5498,7 @@ ingressos e divisor."></textarea>
   document.addEventListener('click', function(e){
     var b = e.target.closest('[data-del]');
     if(!b) return;
-    if(!podeGravar()){ avisar(recadoSemChave()); return; }
+    if(!podeGravar()){ avisarChave(); return; }
     confirmar('Remover esta matéria do site? (ela fica 30 dias na lixeira)', { perigo:true, rotuloOk:'Remover' }).then(function(ok){
       if(!ok) return;
       var dados = null;
@@ -4743,16 +5528,21 @@ ingressos e divisor."></textarea>
       })).then(function(items){
         items = items.filter(Boolean).sort(function(a, b){ return (b.removidoEm || '').localeCompare(a.removidoEm || ''); });
         el.innerHTML = items.map(function(d, i){
-          return '<div class="frow" style="grid-template-columns:1fr auto auto">' +
+          return '<div class="frow lx" style="grid-template-columns:1fr auto auto">' +
             '<span><span class="ti">' + esc(d.title || d.slug || '?') + '</span>' +
-            '<span class="mt">removida por ' + esc(d.removidoPor || '?') + ' — ' + rel(d.removidoEm || '') + '</span></span>' +
+            '<span class="mt">removida por ' + esc(d.removidoPor || '?') + ' — ' + rel(d.removidoEm || '') +
+              (d.recusa && d.recusa.motivo ? ' — motivo: ' + esc(d.recusa.motivo) : '') + '</span></span>' +
             '<button class="bt" data-lixr="' + i + '" type="button">↩ Restaurar</button>' +
             '<button class="bt danger" data-lixx="' + i + '" type="button">Excluir de vez</button>' +
             '</div>';
         }).join('');
         el._itens = items;
       });
-    }).catch(function(){ el.innerHTML = '<div class="vazio-box">Erro ao carregar a lixeira</div>'; });
+    }).catch(function(){
+      el.innerHTML = '<div class="vazio-box erro">Não deu para carregar a lixeira. ' +
+        '<button class="bt" type="button" id="lix-denovo">↻ Tentar de novo</button></div>';
+      var rb = $('lix-denovo'); if(rb) rb.addEventListener('click', carregarLixeira);
+    });
   }
   document.addEventListener('click', function(e){
     var b, itens = ($('lix-list') || {})._itens || [];
@@ -4760,7 +5550,7 @@ ingressos e divisor."></textarea>
       var d = itens[Number(b.dataset.lixr)];
       if(!d || !d._origem) return;
       var pac = {};
-      for(var k in d){ if(k.charAt(0) !== '_' && k !== 'removidoPor' && k !== 'removidoEm') pac[k] = d[k]; }
+      for(var k in d){ if(k.charAt(0) !== '_' && k !== 'removidoPor' && k !== 'removidoEm' && k !== 'recusa') pac[k] = d[k]; }
       delete pac._origem;
       var destino = d._origem;
       ghPut(destino, JSON.stringify(pac, null, 1), assina('restaura da lixeira "' + (d.title || '') + '"'))
@@ -4796,9 +5586,13 @@ ingressos e divisor."></textarea>
                  (c.motivo ? ' <span style="color:var(--ink-soft)">(' + esc(c.motivo) + ')</span>' : '') + '</li>';
         }).join('');
         var prod = (r.produzidas || []).map(function(p){ return '<li>' + esc(p) + '</li>'; }).join('');
+        // rodada antiga sem data legível não vira "Invalid Date" na tela
+        var qd = new Date(r.quando);
+        var qdTxt = isNaN(qd.getTime()) ? (r.quando || 'data não registrada') : qd.toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' });
+        var nProd = (r.produzidas || []).length;
         return '<div class="rod">' +
-          '<span class="rq">' + new Date(r.quando).toLocaleString('pt-BR') + ' — ' + esc(r.por || 'redação') + '</span>' +
-          '<div class="rt" data-rod="' + i + '">Rodada: ' + (r.produzidas || []).length + ' matéria(s) para a mesa ▾</div>' +
+          '<span class="rq">' + esc(qdTxt) + ' — ' + esc(r.por || 'redação') + '</span>' +
+          '<div class="rt" data-rod="' + i + '">Rodada: ' + nProd + (nProd === 1 ? ' matéria' : ' matérias') + ' para a mesa ▾</div>' +
           '<div class="rdet" id="rod-' + i + '">' +
             (buscas ? '<h5>Varredura do Pauteiro — buscas feitas</h5><ul>' + buscas + '</ul>' : '') +
             (cons ? '<h5>Pautas consideradas</h5><ul>' + cons + '</ul>' : '') +
@@ -4806,7 +5600,11 @@ ingressos e divisor."></textarea>
             (r.obs ? '<h5>Observações da redação</h5>' + esc(r.obs) : '') +
           '</div></div>';
       }).join('');
-    }).catch(function(){ el.innerHTML = '<div class="vazio-box" style="border:0;padding-left:0">Não deu para carregar o diário</div>'; });
+    }).catch(function(){
+      el.innerHTML = '<div class="vazio-box erro" style="border:0">Não deu para carregar o diário. ' +
+        '<button class="bt" type="button" id="dia-denovo">↻ Tentar de novo</button></div>';
+      var rb = $('dia-denovo'); if(rb) rb.addEventListener('click', carregarDiario);
+    });
   }
   document.addEventListener('click', function(e){
     var r = e.target.closest('[data-rod]');
@@ -4880,7 +5678,7 @@ ingressos e divisor."></textarea>
       });
     }).catch(function(e){
       var bl = $('mesa-lote'); if(bl) bl.style.display = 'none';
-      el.innerHTML = '<div class="vazio-box">Não deu para carregar a mesa agora. ' + esc(msgErro(e)) +
+      el.innerHTML = '<div class="vazio-box erro">Não deu para carregar a mesa agora. ' + esc(msgErro(e)) +
         '<br><button class="bt" type="button" id="mesa-retry" style="margin-top:10px">↻ Tentar de novo</button></div>';
       var rb = $('mesa-retry'); if(rb) rb.addEventListener('click', carregarMesa);
     });
@@ -4891,6 +5689,9 @@ ingressos e divisor."></textarea>
   // volta ao GitHub, e o contador de cada botão continua mostrando o tamanho
   // real da fila de cada um mesmo quando a tela está mostrando outra.
   var MESA_ITENS = [], MESA_FILTRO = 'todas';
+  // modo triagem: quais cards a pessoa abriu por inteiro (sobrevive à troca de filtro)
+  var MESA_ABERTOS = {};
+  function corta(t, n){ t = String(t || ''); return t.length > n ? t.slice(0, n - 1).replace(/\s+$/, '') + '…' : t; }
   function assinaturaDe(d){
     var a = (d && d.author) ? String(d.author).trim() : '';
     if(!a) return 'outras';
@@ -4980,18 +5781,18 @@ ingressos e divisor."></textarea>
           var checagem = ehAutor ? apuracaoAutor
             : (chk && chk.verificada
               ? '<div class="mesa-checa"><b>✓ Conferido pelo checador independente</b>' +
-                (chk.por ? ' <span class="ck-por">' + esc(chk.por) + '</span>' : '') +
+                (chk.por && !/checador independente/i.test(chk.por) ? ' <span class="ck-por">' + esc(chk.por) + '</span>' : '') +
                 (chk.conferido ? '<br>' + esc(chk.conferido) : '') +
                 (chk.cortes && chk.cortes.length
                   ? '<ul>' + chk.cortes.map(function(c){ return '<li>' + esc(c) + '</li>'; }).join('') + '</ul>' : '') +
                 '</div>'
               : '<div class="mesa-checa semcheca">⚠ Esta matéria ainda não traz o registro do checador independente. Confira os fatos antes de aprovar.</div>');
-          var quando = d.geradoEm ? new Date(d.geradoEm).toLocaleString('pt-BR') : '';
+          var quando = d.geradoEm ? new Date(d.geradoEm).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) : '';
           var origem = ehAutor
             ? 'Enviada por ' + esc(d.criadoPor || d.author)
             : 'Redação IA — esteira: ' + esc(d.esteira || 'agentes');
           var sugestao = d.sugestaoPublishAt
-            ? ' — sugestão de publicação: ' + new Date(d.sugestaoPublishAt).toLocaleString('pt-BR') : '';
+            ? ' — sugestão de publicação: ' + new Date(d.sugestaoPublishAt).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) : '';
           var parecer = ehAutor
             ? '<div class="mesa-parecer"><b>Matéria da equipe:</b> ' + esc(d.author) + ' assina; você aprova, programa ou recusa.' + esc(sugestao) + '</div>'
             : '<div class="mesa-parecer"><b>Parecer do chefe de redação (agente):</b> ' + esc(ch.parecer || 'sem parecer') + '<br>' + ressalvas + '</div>';
@@ -5015,7 +5816,7 @@ ingressos e divisor."></textarea>
             '</details>';
           var fontesBloco = fontes ? '<details class="mesa-dobra"><summary>Fontes apuradas</summary>' + fontes + '</details>' : '';
           var meuNome = podeLiberarAssinatura(d);
-          return '<article class="mesa-card' + (meuNome ? '' : ' de-outro') + '" id="card-' + esc(d.slug) + '" data-slug="' + esc(d.slug) + '">' +
+          return '<article class="mesa-card' + (meuNome ? '' : ' de-outro') + (MESA_ABERTOS[d.slug] ? '' : ' fechado') + '" id="card-' + esc(d.slug) + '" data-slug="' + esc(d.slug) + '">' +
             '<div class="mesa-head">' +
               '<label class="mesa-pick" title="' + (meuNome ? 'Selecionar para aprovar/agendar em lote' : 'Assinada por outra pessoa: só ela aprova') + '"><input type="checkbox" class="mesa-check" data-pick="' + esc(d.slug) + '"' + ((d.img && meuNome) ? '' : ' disabled') + '></label>' +
               '<span><span class="ti">' + esc(d.title) + '</span>' +
@@ -5031,6 +5832,8 @@ ingressos e divisor."></textarea>
             '<details class="mesa-dobra"><summary>Ler a matéria inteira</summary>' +
             '<div class="mesa-corpo" id="corpo-' + esc(d.slug) + '">' + mdRender(d.corpo) + '</div></details>' +
             '<div class="mesa-acoes">' +
+              '<button class="bt" type="button" data-verall="' + esc(d.slug) + '">' +
+                (MESA_ABERTOS[d.slug] ? '▴ Resumir' : '▾ Ver completo') + '</button>' +
               '<button class="bt" type="button" data-mesaedit="' + esc(d.slug) + '">✎ Editar texto</button>' +
               '<button class="bt" type="button" data-capa="' + esc(d.slug) + '">📷 ' + (d.img ? 'Trocar a capa' : 'Subir a capa') + '</button>' +
               (meuNome
@@ -5081,6 +5884,21 @@ ingressos e divisor."></textarea>
     }).then(function(){ carregarMesa(); })
       .catch(function(err){ avisar(msgErro(err)); });
   });
+
+  // o botão flutuante de voltar ao topo (a Fila e a mesa são listas longas)
+  (function(){
+    var vt = $('volta-topo');
+    if(!vt) return;
+    var vtT;
+    window.addEventListener('scroll', function(){
+      if(vtT) return;
+      vtT = setTimeout(function(){
+        vtT = null;
+        vt.classList.toggle('on', window.scrollY > 900);
+      }, 120);
+    }, { passive: true });
+    vt.addEventListener('click', function(){ window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  })();
 
   function toast(txt){
     var t = document.createElement('div');
@@ -5168,7 +5986,7 @@ ingressos e divisor."></textarea>
     travarCard(card, true);
     publicarDaMesa(d, publishAt)
       .then(function(){
-        toast('✓ ' + (quando || 'No ar em ~2 min') + ' — ' + d.title.slice(0, 40));
+        toast('✓ ' + (quando || 'No ar em ~2 min') + ' — ' + corta(d.title, 40));
         tiraCardEatualiza(slug);
         if(d.instagram) registrarInsta(d);  // entra na fila do que falta postar (não trava a aprovação se falhar)
       })
@@ -5192,20 +6010,20 @@ ingressos e divisor."></textarea>
     if(todas) todas.checked = total > 0 && n === total;
   }
   function aprovarLote(slugs, publishAt, rotulo){
-    if(!podeGravar()){ avisar(recadoSemChave()); return; }
+    if(!podeGravar()){ avisarChave(); return; }
     var ds = slugs.map(function(s){ return MESA[s]; }).filter(Boolean);
     // assinadas por outra pessoa não entram no lote: só quem assina libera o próprio nome
     var deOutro = ds.filter(function(d){ return !podeLiberarAssinatura(d); });
     if(deOutro.length){
       avisar('Estas estão assinadas por outra pessoa e só ela pode aprovar: ' +
-        deOutro.map(function(d){ return '“' + d.title.slice(0,28) + '” (' + donoDaAssinatura(d) + ')'; }).join(', ') +
+        deOutro.map(function(d){ return '“' + corta(d.title, 28) + '” (' + donoDaAssinatura(d) + ')'; }).join(', ') +
         '.\n\nDesmarque essas para seguir com o lote.');
       return;
     }
     var semFoto = ds.filter(function(d){ return !d.img; });
-    if(semFoto.length){ avisar('Estas ainda estão sem foto de capa: ' + semFoto.map(function(d){ return '“' + d.title.slice(0,30) + '”'; }).join(', ') + '. Suba a capa antes.'); return; }
+    if(semFoto.length){ avisar('Estas ainda estão sem foto de capa: ' + semFoto.map(function(d){ return '“' + corta(d.title, 30) + '”'; }).join(', ') + '. Suba a capa antes.'); return; }
     if(!ds.length) return;
-    confirmar((rotulo ? 'Agendar' : 'Aprovar e publicar') + ' ' + ds.length + ' matéria(s) ' + (rotulo || 'agora') + '?').then(function(okc){
+    confirmar((rotulo ? 'Agendar' : 'Aprovar e publicar') + ' ' + plural(ds.length, 'matéria') + ' ' + (rotulo || 'agora') + '?').then(function(okc){
       if(!okc) return;
       $('ml-aprovar').disabled = true; $('ml-agendar').disabled = true;
       var ok = 0, falhas = [];
@@ -5223,11 +6041,11 @@ ingressos e divisor."></textarea>
           if(d.instagram) registrarInsta(d);
         }).catch(function(err){
           travarCard(card, false);
-          falhas.push(d.title.slice(0, 30) + ' (' + msgErro(err) + ')');
+          falhas.push(corta(d.title, 30) + ' (' + msgErro(err) + ')');
         });
       });
       }, Promise.resolve()).then(function(){
-        toast('✓ ' + ok + (rotulo ? ' agendada(s)' : ' publicada(s)') + (falhas.length ? ' · ' + falhas.length + ' com erro' : ''));
+        toast('✓ ' + ok + (rotulo ? (ok === 1 ? ' agendada' : ' agendadas') : (ok === 1 ? ' publicada' : ' publicadas')) + (falhas.length ? ' · ' + falhas.length + ' com erro' : ''));
         if(falhas.length) avisar('Não deu para publicar:\n• ' + falhas.join('\n• ') + '\n\nElas continuam na mesa.');
         atualizaLote();
       });
@@ -5289,22 +6107,34 @@ ingressos e divisor."></textarea>
       }
       return;
     }
+    if((b = e.target.closest('[data-verall]'))){
+      var sv = b.dataset.verall, cardV = document.getElementById('card-' + sv);
+      if(MESA_ABERTOS[sv]) delete MESA_ABERTOS[sv]; else MESA_ABERTOS[sv] = 1;
+      if(cardV){
+        cardV.classList.toggle('fechado', !MESA_ABERTOS[sv]);
+        b.textContent = MESA_ABERTOS[sv] ? '▴ Resumir' : '▾ Ver completo';
+        // ao resumir, o card encolhe e a tela ficaria olhando o vazio: volta ao topo dele
+        if(!MESA_ABERTOS[sv]) cardV.scrollIntoView({ block: 'nearest' });
+      }
+      return;
+    }
     if((b = e.target.closest('[data-mesaedit]'))){
       var dm = MESA[b.dataset.mesaedit];
       if(dm) entrarEdicao(dm, 'pauta');
       return;
     }
     if((b = e.target.closest('[data-capa]'))){
-      if(!podeGravar()){ avisar(recadoSemChave()); return; }
+      if(!podeGravar()){ avisarChave(); return; }
       capaMesaSlug = b.dataset.capa; capaMesaInput.click(); return;
     }
     if((b = e.target.closest('[data-aprovar]'))){
-      if(!podeGravar()){ avisar(recadoSemChave()); return; }
+      if(!podeGravar()){ avisarChave(); return; }
       if(MESA[b.dataset.aprovar] && !MESA[b.dataset.aprovar].img){
         avisar('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de aprovar.'); return;
       }
       var slugAp = b.dataset.aprovar;
-      confirmar('Aprovar e publicar esta matéria agora?', { rotuloOk:'Publicar' }).then(function(ok){
+      var dAp = MESA[slugAp];
+      confirmar('Aprovar e publicar “' + corta((dAp && dAp.title) || 'esta matéria', 72) + '” agora?', { rotuloOk:'Publicar' }).then(function(ok){
         if(ok) aprovar(slugAp, new Date().toISOString(), 'No ar em ~2 min');
       });
       return;
@@ -5312,11 +6142,11 @@ ingressos e divisor."></textarea>
     if((b = e.target.closest('[data-agendar]'))){
       var slugAg = b.dataset.agendar;
       var dAg = MESA[slugAg];
-      if(!podeGravar()){ avisar(recadoSemChave()); return; }
+      if(!podeGravar()){ avisarChave(); return; }
       if(dAg && !dAg.img){
         avisar('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de agendar.'); return;
       }
-      agAbre({ titulo: 'Quando “' + ((dAg && dAg.title) || 'esta matéria').slice(0, 46) + '” vai ao ar?',
+      agAbre({ titulo: 'Quando “' + corta((dAg && dAg.title) || 'esta matéria', 46) + '” vai ao ar?',
                nome: dAg && dAg.title, autor: dAg && dAg.author,
                inicial: dAg && dAg.sugestaoPublishAt }).then(function(quando){
         if(!quando) return;
@@ -5328,7 +6158,7 @@ ingressos e divisor."></textarea>
     if((b = e.target.closest('[data-recusar]'))){
       var d = MESA[b.dataset.recusar];
       if(!d) return;
-      if(!podeGravar()){ avisar(recadoSemChave()); return; }
+      if(!podeGravar()){ avisarChave(); return; }
       var ehAutorR = d.origem === 'autor';
       if(ehAutorR){
         perguntar('Por que está devolvendo "' + d.title + '"?\n(o autor vai ver este recado e pode corrigir e reenviar)', '', { titulo:'Devolver ao autor', rotuloOk:'Devolver' }).then(function(motivo){
@@ -5337,11 +6167,16 @@ ingressos e divisor."></textarea>
         });
         return;
       }
-      confirmar('Recusar esta matéria? (ela fica 30 dias na lixeira)', { perigo:true, rotuloOk:'Recusar' }).then(function(ok){
-        if(!ok) return;
+      // recusa com motivo: a decisão não evapora — fica registrada no item da
+      // lixeira e aparece na listagem, para a redação saber o porquê
+      perguntar('Por que está recusando “' + corta(d.title, 64) + '”?\n(o motivo fica registrado na lixeira, junto da matéria)', '',
+        { titulo:'Recusar matéria', rotuloOk:'Recusar' }).then(function(motivo){
+        if(motivo === null) return;
         var cardR = document.getElementById('card-' + d.slug); travarCard(cardR, true);
+        d.recusa = { por: USER.nome, quando: new Date().toISOString(),
+                     motivo: String(motivo || '').trim() || 'sem motivo declarado' };
         moverLixeira(d, d._path, d._sha, 'recusa matéria da mesa (lixeira)')
-          .then(function(){ toast('Recusada — foi para a lixeira'); tiraCardEatualiza(d.slug); })
+          .then(function(){ toast('Recusada — foi para a lixeira com o seu motivo'); tiraCardEatualiza(d.slug); })
           .catch(function(err){ travarCard(cardR, false); avisar(msgErro(err)); });
       });
     }
@@ -5411,7 +6246,7 @@ ingressos e divisor."></textarea>
   $('e-file').addEventListener('change', function(){
     var arq = this.files && this.files[0];
     if(!arq) return;
-    if(!podeGravar()){ avisar(recadoSemChave()); this.value = ''; return; }
+    if(!podeGravar()){ avisarChave(); this.value = ''; return; }
     var nome = $('e-nome').value.trim();
     if(!nome){ avisar('Diga o nome da pessoa antes de subir a foto.'); this.value = ''; return; }
     var id = $('e-id').value || slugify(nome);
@@ -5456,7 +6291,7 @@ ingressos e divisor."></textarea>
       return;
     }
     if((b = e.target.closest('[data-exc]'))){
-      if(!podeGravar()){ avisar(recadoSemChave()); return; }
+      if(!podeGravar()){ avisarChave(); return; }
       var alvo = (EQUIPE.lista || []).filter(function(x){ return x.id === b.dataset.exc; })[0];
       if(!alvo) return;
       confirmar('Excluir ' + alvo.nome + ' da equipe? A senha deixa de funcionar.', { perigo:true, rotuloOk:'Excluir' }).then(function(ok){
@@ -5567,6 +6402,7 @@ ingressos e divisor."></textarea>
     }
     sel.value = dados.author || 'Redação Foyer';
     $('f-cred').value = dados.imgCredito || '';
+    $('f-imgleg').value = dados.imgLegenda || '';
     $('f-imgfonte').value = dados.imgFonte || '';
     $('f-imgdir').value = dados.imgDireito || '';
     $('f-fontes').value = (dados.fontes && dados.fontes.length) ? dados.fontes.join('\n') : '';
@@ -5576,7 +6412,7 @@ ingressos e divisor."></textarea>
     $('f-ev-fim').value = ev.fim || '';
     $('f-ev-local').value = ev.local || '';
     $('f-ev-cidade').value = ev.cidade || '';
-    CAPA = null;
+    CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-ajustar').innerHTML = '';
     if(EDIT.img){ $('up-prev').src = EDIT.img; up.classList.add('tem'); }
     else { $('up-prev').src = ''; up.classList.remove('tem'); }
     $('edit-titulo').textContent = dados.title || dados.slug;
@@ -5603,10 +6439,15 @@ ingressos e divisor."></textarea>
     $('nova-titulo').textContent = 'Nova matéria';
     $('f-quando').parentElement.parentElement.style.display = '';
     $('form').reset();
-    CAPA = null; $('up-prev').src = ''; up.classList.remove('tem');
+    CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-ajustar').innerHTML = ''; $('up-prev').src = ''; up.classList.remove('tem');
     aplicarUsuario();
   }
-  $('edit-cancelar').addEventListener('click', sairEdicao);
+  $('edit-cancelar').addEventListener('click', function(){
+    // cancelar volta para a FILA, de onde a edição partiu — cair no Palco
+    // perdia a posição na lista (B11 do ensaio geral)
+    sairEdicao();
+    irPara('fila');
+  });
 
   var MATS_ACERVO = null;
   function acervoTodos(){
@@ -5757,7 +6598,7 @@ ingressos e divisor."></textarea>
               '<h1 style="font-size:1.3rem">' + esc(d.title) + '</h1>' +
               '<p class="cred"><del style="background:#f6d3cf">vermelho = saiu</del> · ' +
               '<ins style="background:#dcefd8;text-decoration:none">verde = entrou</ins> · ' +
-              'versão de ' + new Date(commits[1].commit.author.date).toLocaleString('pt-BR') +
+              'versão de ' + new Date(commits[1].commit.author.date).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) +
               ' → atual</p>' +
               (velho.title !== d.title ? '<p><b>Título:</b> ' + diffPalavras(velho.title, d.title) + '</p>' : '') +
               '<div class="corpo" style="white-space:pre-wrap;font-size:.85rem;line-height:1.9">' +
@@ -5817,7 +6658,7 @@ ingressos e divisor."></textarea>
       pubPainel(lista);
       if(!lista.length){ el.innerHTML = '<div class="vazio-box">Nenhum pedido ainda. O passo a passo público fica em anuncie.html.</div>'; return; }
       el.innerHTML = lista.map(function(p){
-        var quando = new Date(p.criado_em).toLocaleString('pt-BR');
+        var quando = new Date(p.criado_em).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' });
         var zap = (p.whatsapp || '').replace(/\D/g, '');
         if(zap && zap.length <= 11) zap = '55' + zap;
         // A CONVERSA FINAL É DE GENTE (ordem do Pedro, 31/07/2026). O site faz
@@ -5845,7 +6686,7 @@ ingressos e divisor."></textarea>
                   (p.bairro || '') + ' · ' + (p.cidade || '') + '/' + (p.uf || '') + ' · CEP ' + (p.cep || '')) +
               (p.aceite_regras ? '<br><small style="opacity:.7">aceitou as Regras de Publicidade' +
                  (p.aceite_versao ? ' (versão ' + esc(p.aceite_versao) + ')' : '') +
-                 ' em ' + esc(new Date(p.aceite_em).toLocaleString('pt-BR')) + '</small>' : '') +
+                 ' em ' + esc(new Date(p.aceite_em).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' })) + '</small>' : '') +
               '</span></div>'
             : '') +
           (p.link ? '<div class="pub-linha"><em>O clique leva para</em><span><a href="' + esc(p.link) + '" target="_blank" rel="noopener">' + esc(p.link) + '</a></span></div>' : '') +
@@ -5893,9 +6734,9 @@ ingressos e divisor."></textarea>
     function reais(v){ return 'R$ ' + Number(v || 0).toLocaleString('pt-BR'); }
     el.innerHTML =
       '<div class="pub-n dinheiro"><b>' + reais(soma(fechados)) + '</b><span>fechado no mês</span>' +
-        '<small>' + fechados.length + ' anúncio(s) confirmado(s)</small></div>' +
+        '<small>' + plural(fechados.length, 'anúncio confirmado', 'anúncios confirmados') + '</small></div>' +
       '<div class="pub-n"><b>' + reais(soma(conversa)) + '</b><span>em negociação</span>' +
-        '<small>' + conversa.length + ' pedido(s) em aberto</small></div>' +
+        '<small>' + plural(conversa.length, 'pedido') + ' em aberto</small></div>' +
       '<div class="pub-n"><b>' + novos.length + '</b><span>esperando resposta</span>' +
         '<small>' + (novos.length ? 'chame no WhatsApp' : 'nenhum na fila') + '</small></div>' +
       '<div class="pub-n"><b>' + noAr.length + '</b><span>no ar agora</span>' +
@@ -5947,7 +6788,7 @@ ingressos e divisor."></textarea>
         } else if(l.ate){
           var faltam = Math.round((new Date(l.ate + 'T23:59') - new Date()) / 86400000);
           prazo = '<span class="pub-prazo' + (faltam <= 3 ? ' perto' : '') + '">' +
-            (faltam < 0 ? 'fora do ar' : (faltam === 0 ? 'último dia' : 'mais ' + faltam + ' dia(s)')) + '</span>';
+            (faltam < 0 ? 'fora do ar' : (faltam === 0 ? 'último dia' : 'mais ' + plural(faltam, 'dia'))) + '</span>';
         } else if(l.passado){ prazo = '<span class="pub-prazo">fora do ar</span>'; }
         var encerrado = !!(l.passado || (l.ate && l.ate < hojeI));
         PUB.linhasDes = PUB.linhasDes || {};
@@ -6140,8 +6981,7 @@ ingressos e divisor."></textarea>
         aviso = pubMeiasReservadas(nums[0]).then(function(jaTem){
           var cabem = pubMeiasQueCabem(eds, nums[0]);
           if(cabem !== null && jaTem >= cabem){
-            return 'A edição Nº ' + nums[0] + ' tem ' + cabem + ' matéria(s) e já tem ' + jaTem +
-                   ' meia(s) página(s) reservada(s). O pé de matéria acabou: esta arte seria reservada, ' +
+            return 'A edição Nº ' + nums[0] + ' tem ' + plural(cabem, 'matéria') + ' e já tem ' + plural(jaTem, 'meia página reservada', 'meias páginas reservadas') + '. O pé de matéria acabou: esta arte seria reservada, ' +
                    'mas NÃO apareceria na edição.\n\nO caminho limpo é combinar a partir da edição seguinte, ' +
                    'ou vender uma página inteira, que não depende de matéria.';
           }
@@ -6161,7 +7001,7 @@ ingressos e divisor."></textarea>
   }
 
   function pubNoAr(p){
-    if(!podeGravar()){ avisar(recadoSemChave()); return; }
+    if(!podeGravar()){ avisarChave(); return; }
     var naRevista = p.canal === 'revista';
     var quem = p.empresa || p.nome || 'o anunciante';
     if(naRevista){
@@ -6785,7 +7625,7 @@ ingressos e divisor."></textarea>
     });
   });
   if($('dv-salvar')) $('dv-salvar').addEventListener('click', function(){
-    if(!podeGravar()){ avisar(recadoSemChave()); return; }
+    if(!podeGravar()){ avisarChave(); return; }
     var atual = dvDoFormulario();
     DV.banco = DV.banco.filter(function(b){ return b.id !== atual.id; }).concat([atual]);
     ghGet(DV_ARQ).then(function(f){
@@ -6911,7 +7751,7 @@ ingressos e divisor."></textarea>
     if(depoisDeTerca && pendentes)
       hojeLista.push(pendentes + ' pergunta' + (pendentes > 1 ? 's' : '') + ' de terça sem resposta (sim ou não decide a edição)');
     if(depoisDeQuarta && abertos)
-      hojeLista.push(abertos + ' item(ns) do fechamento em aberto — a edição congela às 18h de hoje' + (hojeISO > calISO(qua) ? ' (PRAZO PASSADO)' : ''));
+      hojeLista.push(plural(abertos, 'item', 'itens') + ' do fechamento em aberto — a edição congela às 18h de hoje' + (hojeISO > calISO(qua) ? ' (PRAZO PASSADO)' : ''));
     if(hojeISO === calISO(quinta)) hojeLista.push('Dia de edição: sai às 7h para os assinantes');
     if(!hojeLista.length) hojeLista.push('Nada vencendo hoje. O próximo marco está aceso no trilho abaixo.');
     var caixaHoje = '<div class="cal-hoje' + ((depoisDeTerca && pendentes) || (depoisDeQuarta && abertos) ? ' urgente' : '') + '">' +
@@ -7042,7 +7882,11 @@ ingressos e divisor."></textarea>
           (podeDel ? '<button class="bt danger del" data-mdel="' + esc(m.id) + '" type="button" aria-label="Apagar recado">✕</button>' : '') +
           '</div>';
       }).join('');
-    }).catch(function(){ el.innerHTML = '<div class="vazio-box">Não deu para carregar o mural</div>'; });
+    }).catch(function(){
+      el.innerHTML = '<div class="vazio-box erro">Não deu para carregar o mural. ' +
+        '<button class="bt" type="button" id="mural-denovo">↻ Tentar de novo</button></div>';
+      var rb = $('mural-denovo'); if(rb) rb.addEventListener('click', carregarMural);
+    });
   }
   $('mural-form').addEventListener('submit', function(e){
     e.preventDefault();
@@ -7056,7 +7900,9 @@ ingressos e divisor."></textarea>
     ghPut('import/coxia/mural.json', JSON.stringify({ recados: MURAL.lista }, null, 1),
       assina('recado no mural'), MURAL.sha)
       .then(function(){ $('mural-txt').value = ''; $('mural-fixar').checked = false;
-        msg.className = 'msg'; carregarMural(); })
+        msg.className = 'msg ok'; msg.textContent = 'Recado publicado ✓';
+        setTimeout(function(){ msg.textContent = ''; msg.className = 'msg'; }, 3000);
+        carregarMural(); })
       .catch(function(err){ msg.textContent = msgErro(err); msg.className = 'msg err'; carregarMural(); });
   });
 
@@ -7092,13 +7938,17 @@ ingressos e divisor."></textarea>
           (podeDel ? '<button class="bt danger" data-sdel="' + esc(s.id) + '" type="button" aria-label="Apagar sugestão">✕</button>' : '') +
           '</div>';
       }).join('');
-    }).catch(function(){ el.innerHTML = '<div class="vazio-box">Não deu para carregar as sugestões</div>'; });
+    }).catch(function(){
+      el.innerHTML = '<div class="vazio-box erro">Não deu para carregar as sugestões. ' +
+        '<button class="bt" type="button" id="sug-denovo">↻ Tentar de novo</button></div>';
+      var rb = $('sug-denovo'); if(rb) rb.addEventListener('click', carregarSug);
+    });
   }
   $('pauta-form').addEventListener('submit', function(e){
     e.preventDefault();
     var tx = $('pauta-txt').value.trim();
     if(!tx) return;
-    if(!podeGravar()){ avisar(recadoSemChave()); return; }
+    if(!podeGravar()){ avisarChave(); return; }
     SUG.lista.unshift({ id: String(new Date().getTime()), quem: USER.nome,
       texto: tx, quando: new Date().toISOString() });
     SUG.lista = SUG.lista.slice(0, 60);
@@ -7167,7 +8017,7 @@ ingressos e divisor."></textarea>
   $('atrib-overlay').addEventListener('click', function(e){ if(e.target === this) fechaAtribuir(); });
   $('atrib-ok').addEventListener('click', function(){
     if(!atribSid) return;
-    if(!podeGravar()){ avisar(recadoSemChave()); return; }
+    if(!podeGravar()){ avisarChave(); return; }
     var para = $('atrib-autor').value, prazo = $('atrib-prazo').value;
     var sid = atribSid;
     SUG.lista.forEach(function(s){
@@ -7223,13 +8073,24 @@ ingressos e divisor."></textarea>
       method: 'POST',
       headers: { 'apikey': RKC.key, 'Authorization': 'Bearer ' + RKC.key, 'Content-Type': 'application/json' },
       body: JSON.stringify({ chave: MX_CHAVE })
-    }).then(function(r){ return r.json(); }).then(function(d){
+    }).then(function(r){
+      // resposta ruim NÃO pode virar zero confiante: era o problema mais
+      // repetido do ensaio geral (6 de 13 testadores) — o painel mostrava
+      // "0 visitas" e até baixava CSV zerado quando o medidor caía
+      if(!r.ok) throw 0;
+      return r.json();
+    }).then(function(d){
+      MX_TEM_DADOS = true;
       return titulos().then(function(map){ pintarMetricas(d, map); });
     }).catch(function(){
-      $('mx-tiles').innerHTML = '<div class="stat"><b>✕</b><span>não deu para buscar os números agora</span></div>';
+      MX_TEM_DADOS = false;
+      $('mx-tiles').innerHTML = '<div class="stat"><b>—</b><span>o medidor não respondeu — os números do site não foram afetados</span>' +
+        '<button class="bt" type="button" id="mx-denovo" style="margin-top:8px">↻ Tentar de novo</button></div>';
+      var td = $('mx-denovo'); if(td) td.addEventListener('click', carregarMetricas);
     });
     carregarLeitores();
   }
+  var MX_TEM_DADOS = false;
   // os leitores cadastrados: o retrato agregado que sustenta o mídia kit
   function carregarLeitores(){
     var el = $('mx-leitores');
@@ -7646,7 +8507,7 @@ ingressos e divisor."></textarea>
     el.innerHTML = '<div class="vazio-box">Carregando o ranking…</div>';
     fetch(RKC.url + '/rest/v1/foyer_ranking?select=*', {
       headers: { 'apikey': RKC.key, 'Authorization': 'Bearer ' + RKC.key }
-    }).then(function(r){ return r.json(); }).then(function(rows){
+    }).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(rows){
       return titulos().then(function(map){
         (rows || []).forEach(function(r){
           r.v = RK_MODO === 'semana' ? (r.views_semana || 0) : (r.views || 0);
@@ -7687,7 +8548,17 @@ ingressos e divisor."></textarea>
             '</div>';
         }).join('');
       });
-    }).catch(function(){ el.innerHTML = '<div class="vazio-box">Ranking indisponível agora</div>'; });
+    }).catch(function(){
+      // o Placar ficava em "Carregando…" PARA SEMPRE quando o medidor caía
+      // (ensaio geral, 3 testadores) — agora os dois quadros contam a verdade
+      var honesto = '<div class="vazio-box">O medidor não respondeu — os números do site não foram afetados. ' +
+        '<button class="bt" type="button" onclick="this.closest(\'div\').textContent=\'Buscando…\'" data-rk-denovo>↻ Tentar de novo</button></div>';
+      el.innerHTML = honesto;
+      var ra = $('rank-autores'); if(ra) ra.innerHTML = honesto;
+      document.querySelectorAll('[data-rk-denovo]').forEach(function(b){
+        b.addEventListener('click', function(){ setTimeout(carregarRanking, 300); });
+      });
+    });
   }
   document.querySelectorAll('.rk-tg button').forEach(function(b){
     b.addEventListener('click', function(){
@@ -7734,7 +8605,7 @@ ingressos e divisor."></textarea>
   document.addEventListener('click', function(e){
     var b;
     if((b = e.target.closest('[data-verbx]'))){
-      if(!podeGravar()){ avisar(recadoSemChave()); return; }
+      if(!podeGravar()){ avisarChave(); return; }
       if(VERB.lista.indexOf(b.dataset.verbx) < 0) VERB.lista.push(b.dataset.verbx);
       salvarVerbExc('exclui verbete ' + b.dataset.verbx);
       $('verb-q').value = ''; $('verb-res').style.display = 'none';
@@ -7822,9 +8693,9 @@ ingressos e divisor."></textarea>
         RV.todas = eds;
         el.innerHTML = eds.map(function(ed){
           var pub = ed.status === 'publicada';
-          return '<div class="frow" style="grid-template-columns:1fr auto auto">' +
+          return '<div class="frow lx" style="grid-template-columns:1fr auto auto">' +
             '<span><span class="ti">Nº ' + ed.numero + ' — ' + esc((ed.capa && ed.capa.manchete) || ed.titulo || 'sem título') + '</span>' +
-            '<span class="mt">' + (ed.paginas ? ed.paginas.length + 1 : 1) + ' página(s) — ' + esc(ed.dataEdicao || '') +
+            '<span class="mt">' + plural(ed.paginas ? ed.paginas.length + 1 : 1, 'página') + ' — ' + esc(ed.dataEdicao || '') +
             (ed.historico && ed.historico[0] ? ' — última mexida: ' + esc(ed.historico[0].quem) : '') + '</span></span>' +
             '<span class="pill ' + (pub ? 'pb' : 'ag') + '">' + (pub ? 'Publicada' : 'Rascunho') + '</span>' +
             '<button class="bt" data-rvabrir="' + ed.numero + '" type="button">Abrir</button>' +
@@ -7876,6 +8747,17 @@ ingressos e divisor."></textarea>
     $('rv-status').className = 'pill ' + (ed.status === 'publicada' ? 'pb' : 'ag');
     $('rv-publicar').textContent = ed.status === 'publicada' ? '📥 Despublicar' : '🚀 Publicar edição';
     $('rv-enviar').style.display = ed.status === 'publicada' ? 'inline-flex' : 'none';
+    // folhear a edição como o leitor vai ver: a publicada abre a página real;
+    // o rascunho abre a prova de gráfica (o site a monta ~2 min após salvar)
+    var fol = $('rv-folhear');
+    if(fol){
+      var jaSalva = !!RV.sha;   // edição recém-criada ainda não existe no site
+      fol.style.display = jaSalva ? 'inline-flex' : 'none';
+      fol.href = (ed.status === 'publicada' ? 'revista-ed-' : 'revista-prova-') + ed.numero + '.html';
+      fol.title = ed.status === 'publicada'
+        ? 'Abre a página da edição no site'
+        : 'Abre a prova de gráfica com a última versão SALVA (o site remonta a prova ~2 min depois de salvar)';
+    }
     $('rv-titulo').value = ed.titulo || '';
     $('rv-data').value = ed.dataEdicao || '';
     $('rv-manchete').value = (ed.capa && ed.capa.manchete) || '';
@@ -7924,7 +8806,7 @@ ingressos e divisor."></textarea>
   $('rv-capa-file').addEventListener('change', function(){
     var f = this.files[0]; this.value = '';
     if(!f || !RV.ed) return;
-    if(!podeGravar()){ avisar(recadoSemChave()); return; }
+    if(!podeGravar()){ avisarChave(); return; }
     redimensionar(f).then(function(d){ return subirImagem(d, 'revista-ed-' + RV.ed.numero + '-capa'); })
       .then(function(caminho){
         RV.ed.capa.img = caminho;
@@ -8041,6 +8923,12 @@ ingressos e divisor."></textarea>
         '<div class="r2"><div><label>Frase de despedida (opcional; só frase real e verificada)</label><input type="text" id="pgf-frase" value="' + esc(d.frase || '') + '"></div>' +
         '<div><label>Autor da frase</label><input type="text" id="pgf-autor" value="' + esc(d.autor || '') + '"></div></div>';
     } else if(tipo === 'expediente' || tipo === 'programas' || tipo === 'agenda' || tipo === 'frase-celebre'){
+      // o lápis nestas páginas DUPLICAVA a página em vez de editar (B4 do
+      // ensaio geral): elas se montam sozinhas, então editar não existe
+      if(RV.idx != null){
+        avisar('Esta página se monta sozinha na hora de publicar — não há o que editar nela.');
+        return;
+      }
       RV.ed.paginas.push({ tipo: tipo });
       renderPgs();
       return;
@@ -8162,7 +9050,7 @@ ingressos e divisor."></textarea>
       }
       var fi = $('pgf-img');
       if(fi && fi.files && fi.files[0]){
-        if(!podeGravar()){ avisar(recadoSemChave()); return; }
+        if(!podeGravar()){ avisarChave(); return; }
         pronto = redimensionar(fi.files[0]).then(function(dURL){
           return subirImagem(dURL, 'revista-ed-' + RV.ed.numero + '-p' + new Date().getTime());
         }).then(function(caminho){ pg.img = caminho; });
@@ -8209,9 +9097,12 @@ ingressos e divisor."></textarea>
     RV.ed.capa.manchete = $('rv-manchete').value.trim();
     RV.ed.capa.credito = $('rv-capa-cred').value.trim();
     var chs = $('rv-chamadas').value.split('\n').map(function(x){ return x.trim(); }).filter(Boolean);
-    if(chs.length > 3){
-      avisar('A capa imprime só 3 chamadas — as demais foram descartadas: "' + chs.slice(3).join('" · "') + '"');
-      chs = chs.slice(0, 3);
+    // NADA se descarta (B9 do ensaio geral: só de abrir a prévia do e-mail a
+    // 4ª chamada sumia do arquivo). Todas ficam guardadas; a capa imprime as
+    // 3 primeiras, e quem digitou a mais fica sabendo, sem perder texto.
+    if(chs.length > 3 && !colherCampos._avisou){
+      colherCampos._avisou = true;
+      avisar('A capa imprime só as 3 PRIMEIRAS chamadas. As demais ficam guardadas no rascunho, mas não aparecem na capa.');
     }
     RV.ed.capa.chamadas = chs;
   }
@@ -8231,6 +9122,8 @@ ingressos e divisor."></textarea>
         renderHist();
         msg.className = 'msg ok';
         msg.textContent = 'Salvo ✓' + (RV.ed.status === 'publicada' ? ' — o site remonta a edição em ~2 min' : '');
+        // o rv-msg fica no pé do editor, longe do botão: o toast confirma na hora
+        toast('Salvo ✓');
         carregarEdicoes();
       })
       .catch(function(err){ msg.className = 'msg err'; msg.textContent = msgErro(err); throw err; });
@@ -8242,7 +9135,10 @@ ingressos e divisor."></textarea>
       confirmar('Despublicar a edição Nº ' + RV.ed.numero + '? Ela sai da página da revista.', { perigo:true, rotuloOk:'Despublicar' }).then(function(ok){
         if(!ok) return;
         RV.ed.status = 'rascunho';
-        salvarEd('despublica a edição').then(renderEd).catch(function(){});
+        // se a gravação falhar, o status VOLTA — sem isto, um "Salvar rascunho"
+        // depois despublicava a edição em silêncio (B2 do ensaio geral)
+        salvarEd('despublica a edição').then(renderEd)
+          .catch(function(){ RV.ed.status = 'publicada'; renderEd(); });
       });
       return;
     }
@@ -8252,7 +9148,8 @@ ingressos e divisor."></textarea>
     confirmar('Publicar a edição Nº ' + RV.ed.numero + '? Ela entra na página da revista do site.', { rotuloOk:'Publicar' }).then(function(ok){
       if(!ok) return;
       RV.ed.status = 'publicada';
-      salvarEd('publica a edição').then(renderEd).catch(function(){});
+      salvarEd('publica a edição').then(renderEd)
+        .catch(function(){ RV.ed.status = 'rascunho'; renderEd(); });
     });
   });
   $('rv-fechar').addEventListener('click', function(){
@@ -8361,13 +9258,13 @@ ingressos e divisor."></textarea>
       // falha com motivo: sem isto, "3 falhas" não diz o que consertar
       if(res.falhas && res.motivo){
         msg.className='msg err';
-        msg.textContent = (res.enviados ? res.enviados + ' entregue(s) e ' : '') + res.falhas + ' falha(s). ' +
+        msg.textContent = (res.enviados ? plural(res.enviados, 'entregue') + ' e ' : '') + plural(res.falhas, 'falha') + '. ' +
           res.motivo + (res.remetente ? ' (remetente usado: ' + res.remetente + ')' : '');
         return;
       }
       msg.className='msg ok';
       msg.textContent = teste ? ('Teste enviado ✓ (' + res.enviados + ') — confira sua caixa, inclusive o spam')
-        : ('Enviada aos assinantes ✓ — ' + res.enviados + ' entregue(s)' + (res.falhas ? ', ' + res.falhas + ' falha(s)' : ''));
+        : ('Enviada aos assinantes ✓ — ' + plural(res.enviados, 'entregue') + (res.falhas ? ', ' + plural(res.falhas, 'falha') : ''));
     }).catch(function(){ msg.className='msg err'; msg.textContent='Não deu para enviar agora. Tente de novo.'; });
   }
   $('rv-enviar').addEventListener('click', function(){
@@ -8375,7 +9272,7 @@ ingressos e divisor."></textarea>
     contarAssinantes().then(function(n){
       var qtd = (n == null) ? '?' : n;
       if(n === 0){ avisar('Ainda não há assinantes ativos. Quando alguém assinar a revista no site, a lista aparece aqui.'); return; }
-      perguntar('Enviar a Edição Nº ' + RV.ed.numero + ' para ' + qtd + ' assinante(s)?\n\n' +
+      perguntar('Enviar a Edição Nº ' + RV.ed.numero + ' para ' + plural(qtd, 'assinante') + '?\n\n' +
         'Digite ENVIAR para disparar para todos,\n' +
         'ou um e-mail para mandar só um TESTE para você antes.', 'ENVIAR',
         { titulo:'Enviar a revista', rotuloOk:'Continuar' }).then(function(op){

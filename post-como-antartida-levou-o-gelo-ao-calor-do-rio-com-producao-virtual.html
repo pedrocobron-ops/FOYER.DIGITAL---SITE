@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>/* o tema antes da primeira pintura: a casa abre com a luz da sala em
+todo aparelho, e só fica no Blackout se o leitor tiver apertado o botão. Fica
+aqui, no alto do cabeçalho, para não haver piscada de claro antes do escuro. */
+try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<meta name="description" content="Filme de Bruno Safadi abriu o Festival de Gramado e mostra como painéis de LED, Unreal Engine e cenários digitais começam a mudar as possibilidades do audiovisual brasileiro Nenhum integrante do elenc">
+<meta name="theme-color" content="#4E0F09">
+<meta name="robots" content="max-image-preview:large">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/logo/pwa-192.png">
+<meta property="og:site_name" content="FOYER">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Como “Antártida” levou o gelo ao calor do Rio com produção virtual — FOYER">
+<meta property="og:description" content="Filme de Bruno Safadi abriu o Festival de Gramado e mostra como painéis de LED, Unreal Engine e cenários digitais começam a mudar as possibilidades do audiovisual brasileiro Nenhum integrante do elenc">
+<meta property="og:image" content="https://foyer.digital/assets/uploads/como-antartida-levou-o-gelo-ao-calor-do-rio-com-producao-virtual-1786717935376.jpg">
+<meta property="og:url" content="https://foyer.digital/post-como-antartida-levou-o-gelo-ao-calor-do-rio-com-producao-virtual.html">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<title>Como “Antártida” levou o gelo ao calor do Rio com produção virtual — FOYER</title>
+<link rel="canonical" href="https://foyer.digital/post-como-antartida-levou-o-gelo-ao-calor-do-rio-com-producao-virtual.html">
+<link rel="alternate" type="application/rss+xml" title="FOYER — Últimas" href="https://foyer.digital/feed.xml">
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="preload" href="fonts/AbrilFatface-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação","url":"https://foyer.digital/","logo":"https://foyer.digital/assets/logo/foyer-stacked-gold.png","sameAs":["https://www.youtube.com/@Foyer.digital","https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm"]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Como “Antártida” levou o gelo ao calor do Rio com produção virtual", "description": "Filme de Bruno Safadi abriu o Festival de Gramado e mostra como painéis de LED, Unreal Engine e cenários digitais começam a mudar as possibilidades do audiovisual brasileiro Nenhum integrante do elenc", "image": ["https://foyer.digital/assets/uploads/como-antartida-levou-o-gelo-ao-calor-do-rio-com-producao-virtual-1786717935376.jpg"], "datePublished": "2026-08-15T18:00:00-03:00", "dateModified": "2026-08-15T18:00:00-03:00", "author": [{"@type": "Person", "name": "Isabel Branquinha", "url": "https://foyer.digital/autor-isabel-branquinha.html"}], "publisher": {"@type": "NewsMediaOrganization", "name": "FOYER", "logo": {"@type": "ImageObject", "url": "https://foyer.digital/assets/logo/foyer-stacked-gold.png"}}, "mainEntityOfPage": "https://foyer.digital/post-como-antartida-levou-o-gelo-ao-calor-do-rio-com-producao-virtual.html", "inLanguage": "pt-BR", "articleSection": "Cinema"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FOYER", "item": "https://foyer.digital/"}, {"@type": "ListItem", "position": 2, "name": "Cinema", "item": "https://foyer.digital/cat-cinema.html"}, {"@type": "ListItem", "position": 3, "name": "Como “Antártida” levou o gelo ao calor do Rio com produção virtual"}]}</script>
+</head>
+<body>
+<a class="skip-link" href="#conteudo" onclick="var m=document.getElementById('conteudo');if(m)m.setAttribute('tabindex','-1');if(m)m.focus();location.hash='conteudo';return false;">Pular para o conteúdo</a>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <!-- a cortina termina na ribalta; abaixo dela, o piso do palco -->
+      <rect y="348" width="600" height="52" fill="#2B0805"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <!-- a pessoa que se destaca na plateia: sentada NUMA cadeira da malha (62x44, centro 31+62k / 28+44m) -->
+      <circle cx="341" cy="248" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <!-- teatro de arena: plateia completa e alinhada dos dois lados, um ator só no centro -->
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <g fill="#1F0805">
+        <circle cx="30" cy="34" r="12"/><circle cx="84" cy="34" r="12"/><circle cx="138" cy="34" r="12"/><circle cx="192" cy="34" r="12"/><circle cx="246" cy="34" r="12"/><circle cx="300" cy="34" r="12"/><circle cx="354" cy="34" r="12"/><circle cx="408" cy="34" r="12"/><circle cx="462" cy="34" r="12"/><circle cx="516" cy="34" r="12"/><circle cx="570" cy="34" r="12"/>
+        <circle cx="30" cy="78" r="12"/><circle cx="84" cy="78" r="12"/><circle cx="138" cy="78" r="12"/><circle cx="192" cy="78" r="12"/><circle cx="246" cy="78" r="12"/><circle cx="300" cy="78" r="12"/><circle cx="354" cy="78" r="12"/><circle cx="408" cy="78" r="12"/><circle cx="462" cy="78" r="12"/><circle cx="516" cy="78" r="12"/><circle cx="570" cy="78" r="12"/>
+        <circle cx="30" cy="322" r="12"/><circle cx="84" cy="322" r="12"/><circle cx="138" cy="322" r="12"/><circle cx="192" cy="322" r="12"/><circle cx="246" cy="322" r="12"/><circle cx="300" cy="322" r="12"/><circle cx="354" cy="322" r="12"/><circle cx="408" cy="322" r="12"/><circle cx="462" cy="322" r="12"/><circle cx="516" cy="322" r="12"/><circle cx="570" cy="322" r="12"/>
+        <circle cx="30" cy="366" r="12"/><circle cx="84" cy="366" r="12"/><circle cx="138" cy="366" r="12"/><circle cx="192" cy="366" r="12"/><circle cx="246" cy="366" r="12"/><circle cx="300" cy="366" r="12"/><circle cx="354" cy="366" r="12"/><circle cx="408" cy="366" r="12"/><circle cx="462" cy="366" r="12"/><circle cx="516" cy="366" r="12"/><circle cx="570" cy="366" r="12"/>
+      </g>
+      <rect x="120" y="136" width="360" height="128" fill="#380A06" stroke="#CEB26A" stroke-width="3"/>
+      <ellipse cx="300" cy="200" rx="72" ry="34" fill="#E9CB85" opacity=".16"/>
+      <circle cx="300" cy="200" r="13" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <a href="anuncie.html">Anuncie</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<main id="conteudo" class="wrap">
+<article class="art">
+  <div class="art-head">
+    <div class="tags">
+      <a class="tag wine" href="cat-cinema.html">Cinema</a>
+      <span class="tag">Foyer</span>
+    </div>
+    <h1>Como “Antártida” levou o gelo ao calor do Rio com produção virtual</h1>
+    <div class="art-byline">
+      <span>Por <a href="autor-isabel-branquinha.html" rel="author"><b>Isabel Branquinha</b></a></span>
+      <span>15 de agosto de 2026, às 18h00 · 8 min de leitura</span>
+    </div>
+    <div class="share-row" aria-label="Compartilhar esta matéria">
+      <button class="sbtn" data-share="whats" data-title="Como “Antártida” levou o gelo ao calor do Rio com produção virtual">WhatsApp</button>
+      <button class="sbtn" data-share="x" data-title="Como “Antártida” levou o gelo ao calor do Rio com produção virtual">X / Twitter</button>
+      <button class="sbtn" data-share="face" data-title="Como “Antártida” levou o gelo ao calor do Rio com produção virtual">Facebook</button>
+      <button class="sbtn" data-share="copy" data-title="Como “Antártida” levou o gelo ao calor do Rio com produção virtual">Copiar link</button>
+    </div>
+  </div>
+
+  <figure class="art-cover">
+    <span class="ph"><img src="assets/uploads/como-antartida-levou-o-gelo-ao-calor-do-rio-com-producao-virtual-1786717935376.jpg" alt="Como “Antártida” levou o gelo ao calor do Rio com produção virtual" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'"></span>
+    <figcaption>Foto: Fábio Rocha/Globo/Divulgação</figcaption>
+  </figure>
+
+  <div class="ad-slot" data-ad-slot="2001"></div>
+
+  <div class="art-body">
+<p><strong>Filme de Bruno Safadi abriu o Festival de Gramado e mostra como painéis de LED, Unreal Engine e cenários digitais começam a mudar as possibilidades do audiovisual brasileiro</strong></p>
+<p>Nenhum integrante do elenco precisou enfrentar temperaturas abaixo de zero para que <strong>Andrea Beltrão, Leandra Leal, Marina Ruy Barbosa e Lázaro Ramos</strong> aparecessem isolados em uma estação de pesquisas na Antártida. Grande parte do continente gelado visto em “Antártida”, novo filme de <strong>Bruno Safadi</strong>, estava na verdade a milhares de quilômetros dali, dentro dos <strong>Estúdios Globo, no Rio de Janeiro</strong>.</p>
+<p>Escolhido para abrir oficialmente o 54º Festival de Cinema de Gramado, o thriller também funciona como vitrine para uma transformação técnica que começa a ganhar espaço no audiovisual brasileiro: a produção virtual com grandes painéis de LED e cenários gerados em tempo real.</p>
+<p>O filme foi realizado no Estúdio de Produção Virtual da Globo, estrutura de mais de 1.500 m², equipada com mais de 300 m² de telas de LED, câmeras com sistema de rastreamento de alta precisão, recursos de inteligência artificial, realidade aumentada e integração com tecnologias como Unreal Engine. O objetivo era criar, dentro do estúdio, ambientes capazes de simular o isolamento, a escala e a hostilidade visual da Antártida.</p>
+<p><strong>A diferença em relação ao tradicional fundo verde não é apenas estética.</strong></p>
+<p>Na produção virtual com LED, os ambientes digitais podem estar visíveis no próprio set enquanto a cena é gravada. Isso altera a relação entre ator, câmera, luz e espaço. Em vez de interpretar diante de um vazio que será preenchido meses depois, o elenco pode reagir a parte do universo visual da cena. A fotografia também ganha outra base de trabalho, porque a luz emitida pelos painéis interfere de maneira concreta sobre os corpos, figurinos e objetos.</p>
+<p>Em “Antártida”, esse recurso tornou filmável uma história que seria extremamente complexa de realizar em locação. A trama acompanha cientistas e militares que se preparam para atravessar o inverno em uma estação brasileira no continente gelado. Na primeira noite, a glacióloga Inês, personagem de Marina Ruy Barbosa, sofre uma violência. A partir daí, todos os homens da base se tornam suspeitos, enquanto a subcomandante Elisabeth, vivida por Andrea Beltrão, lidera a investigação com o apoio das mulheres da estação.</p>
+<p>O isolamento é parte central da tensão. A Antártida não funciona apenas como paisagem, mas como prisão natural, ambiente de risco e elemento psicológico. Produzir essa sensação sem deslocar uma equipe inteira para um dos lugares mais difíceis do planeta é justamente o tipo de desafio que a produção virtual tenta responder.</p>
+<p>Quando o estúdio foi apresentado, Bruno Safadi destacou que filmar integralmente na Antártida seria inviável, tanto pelo custo quanto pelas condições climáticas e logísticas. A tecnologia, nesse caso, não aparece como adereço de marketing, mas como solução de produção: ela permite que um projeto de grande ambição visual saia do campo da impossibilidade.</p>
+<p><strong>Quando a pós-produção começa antes da filmagem</strong></p>
+<aside class="pub-cartaz" data-pub-slot="cartaz" data-pub-chave="pub:cartaz"><em>Publicidade</em><a href="https://www.sympla.com.br/produtor/foyerestudioecomunicacao" target="_blank" rel="noopener sponsored" data-pub="pub:cartaz"><img src="assets/uploads/pub-cartaz-0-msewrsdo.jpg" alt="" loading="lazy"></a></aside>
+<p>A produção virtual também muda a ordem tradicional de realização de um filme. Em muitas produções com efeitos visuais, parte considerável do universo de uma cena é resolvida depois da filmagem. No modelo com LED e cenários em tempo real, esse trabalho precisa começar antes.</p>
+<p>Direção, fotografia, cenografia, efeitos visuais, tecnologia, arte e pós-produção passam a conversar ainda na preparação. Os ambientes digitais precisam estar prontos ou muito avançados no momento da filmagem. A câmera deve estar sincronizada aos cenários. A iluminação precisa dialogar com o que será projetado. O set deixa de ser apenas local de captação e vira também um espaço de integração entre áreas que, durante muito tempo, trabalharam de forma mais separada.</p>
+<p>Isso não significa que tudo fica mais simples. Significa que o problema muda de lugar. O que antes poderia ser deixado para a pós-produção passa a exigir decisão antecipada. A liberdade de criar mundos digitais vem acompanhada de uma necessidade maior de planejamento.</p>
+<p>A Globo já havia testado a estrutura em outros contextos, como na novela “Volta por Cima”, em uma sequência envolvendo um ônibus em um viaduto. O diretor André Câmara afirmou, na época, que a tecnologia permitiu maior controle das variáveis de gravação, reduzindo dependência de externas, clima, risco e deslocamento.</p>
+<p>No caso de “Antártida”, a escala é outra. Não se trata de resolver uma cena específica, mas de sustentar grande parte de um longa-metragem a partir de uma lógica de produção virtual. Por isso, o filme interessa para além de seu lançamento comercial. Ele serve como estudo de caso sobre o que o audiovisual brasileiro pode passar a considerar viável.</p>
+<p><strong>Tecnologia não substitui o trabalho artesanal</strong></p>
+<p>Há um risco comum quando se fala de produção virtual: tratar a tecnologia como se ela criasse o filme sozinha. “Antártida” mostra justamente o contrário. Painéis de LED, Unreal Engine, realidade aumentada e inteligência artificial só funcionam porque estão integrados a áreas tradicionais da criação audiovisual.</p>
+<p>Cenografia física, figurino, fotografia, desenho de produção, iluminação, efeitos visuais, direção de arte, atuação e som continuam decisivos. O ambiente digital não elimina o objeto concreto. Ele dialoga com ele. Uma parede, uma porta, um equipamento de laboratório, o vapor de uma respiração, o reflexo em um casaco, a textura de uma superfície: tudo isso precisa conversar com o mundo projetado ao fundo.</p>
+<p>É nesse ponto que o filme talvez seja mais interessante do que uma simples demonstração técnica. A produção virtual não importa apenas porque permite “fingir” que o Rio é a Antártida. Importa porque pode ampliar o repertório de histórias economicamente possíveis de serem realizadas no país.</p>
+<p>Quantos projetos brasileiros deixam de sair do papel porque dependem de locações caras, deslocamentos internacionais, ambientes extremos ou reconstruções de época? Quantas narrativas poderiam ganhar escala se parte desses limites físicos pudesse ser reorganizada dentro de um estúdio?</p>
+<p>A pergunta não é pequena. O audiovisual brasileiro sempre trabalhou com muita invenção diante de restrições materiais. A chegada de estruturas permanentes de produção virtual abre outro tipo de disputa: quem terá acesso a essas ferramentas, que histórias serão priorizadas e de que maneira a tecnologia será colocada a serviço da dramaturgia, e não apenas do espetáculo visual.</p>
+<p><strong>Um thriller também sobre ambiente</strong></p>
+<p>“Antártida” foi criado e escrito por Claudia Jouvin e dirigido por Bruno Safadi. O elenco reúne Andrea Beltrão, Marina Ruy Barbosa, Leandra Leal, Lázaro Ramos, Antonio Calloni, João Vitor Silva e Mariana Sena.</p>
+<p>A premissa combina investigação, violência, confinamento e protagonismo feminino em um espaço marcado por hierarquia militar e risco climático. A tecnologia que constrói o cenário, portanto, também participa da tensão dramática. Se o filme depende da sensação de isolamento, frio e impossibilidade de fuga, a produção virtual precisa convencer não apenas os olhos, mas o corpo do espectador.</p>
+<p>Esse é o teste real. Não basta que a Antártida pareça visualmente correta. Ela precisa operar como força narrativa. Precisa pressionar os personagens, contaminar o clima da cena, justificar o medo e sustentar a desconfiança.</p>
+<p>Por isso, “Antártida” chega a Gramado carregando duas conversas ao mesmo tempo. A primeira é sobre o filme em si: um thriller psicológico com elenco de grande visibilidade e uma história de tensão em ambiente extremo. A segunda é sobre método: um longa brasileiro que usa tecnologia de ponta para reorganizar a relação entre locação, estúdio e imaginação.</p>
+<p>Depois da abertura no Festival de Gramado, o filme tem estreia prevista nos cinemas brasileiros em 17 de setembro. Até lá, é provável que a discussão sobre sua tecnologia continue. Mas a questão mais importante talvez venha depois da primeira impressão: não apenas se o recurso impressiona, mas se ele ajuda a contar melhor a história.</p>
+<p>No fim, a produção virtual não é o filme. É a condição que permitiu que ele existisse desse jeito. E esse pode ser o verdadeiro ponto de virada: quando uma tecnologia deixa de ser novidade de bastidor e passa a mudar, de fato, o tipo de cinema que o Brasil consegue imaginar.</p>
+<p><strong>Ficha do filme</strong></p>
+<p>Antártida<br>Direção: Bruno Safadi<br>Criação e roteiro: Claudia Jouvin<br>Elenco: Andrea Beltrão, Marina Ruy Barbosa, Leandra Leal, Lázaro Ramos, Antonio Calloni, João Vitor Silva e Mariana Sena<br>Gênero: thriller psicológico<br>Produção: Núcleo de Filmes dos Estúdios Globo, em coprodução com a TV Globo<br>Tecnologia: produção virtual com Unreal Engine no Estúdio de Produção Virtual dos Estúdios Globo<br>Festival: filme de abertura do 54º Festival de Cinema de Gramado, fora de competição<br>Estreia nos cinemas: 17 de setembro de 2026</p>
+  </div>
+  
+  <div class="art-foot" style="border-top:1px solid var(--line);padding-top:16px"><div class="tags" style="align-items:center"><span class="tag wine">Quem aparece nesta matéria</span><a class="tag" href="pessoa-andrea-beltrao.html">Andrea Beltrão</a><a class="tag" href="pessoa-antonio-calloni.html">Antonio Calloni</a><a class="tag" href="pessoa-bruno-safadi.html">Bruno Safadi</a><a class="tag" href="pessoa-joao-vitor-silva.html">João Vitor Silva</a><a class="tag" href="pessoa-lazaro-ramos.html">Lázaro Ramos</a><a class="tag" href="pessoa-leandra-leal.html">Leandra Leal</a><a class="tag" href="pessoa-mariana-sena.html">Mariana Sena</a><a class="tag" href="pessoa-marina-ruy-barbosa.html">Marina Ruy Barbosa</a></div></div>
+  <div class="art-foot">
+    <div class="tags"><span class="tag">Cinema</span><span class="tag">Isabel Branquinha</span></div>
+    <div class="share-row" aria-label="Compartilhar">
+      <button class="sbtn" data-share="whats" data-title="Como “Antártida” levou o gelo ao calor do Rio com produção virtual">WhatsApp</button>
+      <button class="sbtn" data-share="copy" data-title="Como “Antártida” levou o gelo ao calor do Rio com produção virtual">Copiar link</button>
+    </div>
+  </div>
+  <aside class="cv-band">
+    <div class="cv-band-txt">
+      <b>Gostou desta leitura?</b>
+      <span>A revista do FOYER sai toda quinta, às 7h, para assinantes. Aberta a todos só na sexta. De graça.</span>
+    </div>
+    <button type="button" data-conversa>🎟 Quero a minha</button>
+  </aside>
+</article>
+
+<section>
+  <div class="sec-head">
+    <h2>Leia também</h2>
+    <span class="note">Mais de Cinema</span>
+  </div>
+  <div class="news-grid three">
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-festival-de-gramado-abre-noites-do-palacio-com-antartida-e-nova-safra-do-cinema-.html" aria-label="Foto da matéria"><img src="assets/uploads/festival-de-gramado-abre-noites-do-palacio-com-antartida-e-nova-safra-do-cinema--1786717441339.jpg" alt="Festival de Gramado abre noites do Palácio com “Antártida” e nova safra do cinema brasileiro" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-festival-de-gramado-abre-noites-do-palacio-com-antartida-e-nova-safra-do-cinema-.html">Festival de Gramado abre noites do Palácio com “Antártida” e nova safra do cinema brasileiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Festival de Gramado abre noites do Palácio com “Antártida” e nova safra do cinema brasileiro" data-url="https://foyer.digital/post-festival-de-gramado-abre-noites-do-palacio-com-antartida-e-nova-safra-do-cinema-.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-apos-us-1-bilhao-nas-bilheterias-sequencia-de-michael-ganha-previsao-para-comeca.html" aria-label="Foto da matéria"><img src="assets/uploads/apos-us-1-bilhao-nas-bilheterias-sequencia-de-michael-ganha-previsao-para-comeca-1786141580360.jpg" alt="Após US$ 1 bilhão nas bilheterias, sequência de “Michael” ganha previsão para começar a ser filmada" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-apos-us-1-bilhao-nas-bilheterias-sequencia-de-michael-ganha-previsao-para-comeca.html">Após US$ 1 bilhão nas bilheterias, sequência de “Michael” ganha previsão para começar a ser filmada</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Após US$ 1 bilhão nas bilheterias, sequência de “Michael” ganha previsão para começar a ser filmada" data-url="https://foyer.digital/post-apos-us-1-bilhao-nas-bilheterias-sequencia-de-michael-ganha-previsao-para-comeca.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-ancine-autua-produtora-de-dark-horse-filme-sobre-bolsonaro-e-multa-pode-chegar-a.html" aria-label="Foto da matéria"><img src="assets/uploads/ancine-autua-produtora-de-dark-horse-filme-sobre-bolsonaro-e-multa-pode-chegar-a-1786139135928.jpg" alt="Ancine autua produtora de “Dark Horse”, filme sobre Bolsonaro, e multa pode chegar a R$ 100 mil" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-ancine-autua-produtora-de-dark-horse-filme-sobre-bolsonaro-e-multa-pode-chegar-a.html">Ancine autua produtora de “Dark Horse”, filme sobre Bolsonaro, e multa pode chegar a R$ 100 mil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.08 — Redação Foyer</span>
+          <button class="share-min" data-share="native" data-title="Ancine autua produtora de “Dark Horse”, filme sobre Bolsonaro, e multa pode chegar a R$ 100 mil" data-url="https://foyer.digital/post-ancine-autua-produtora-de-dark-horse-filme-sobre-bolsonaro-e-multa-pode-chegar-a.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <div class="ad-slot" data-ad-slot="2003"></div>
+</section>
+</main>
+
+
+<style>
+.pub-cortina[hidden]{ display:none !important; }
+.pub-cortina{ position:fixed; inset:0; z-index:120; display:flex; align-items:center;
+  justify-content:center; background:rgba(20,6,3,.78); padding:20px; }
+.pub-cortina .caixa{ position:relative; background:var(--paper); border:3px solid var(--ink);
+  max-width:520px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+.pub-cortina .rotulo{ display:block; font-family:var(--mono); font-size:.52rem; font-weight:700;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); padding:10px 14px 0; }
+/* teto de altura: arte muito em pé não pode empurrar o botão de fechar para
+   fora da tela. O que passar do teto vira margem de papel, nunca corte. */
+.pub-cortina img{ display:block; width:100%; height:auto; object-fit:contain;
+  max-height:calc(100vh - 170px); padding:10px 14px; box-sizing:border-box; }
+.pub-cortina .leg{ padding:0 14px 14px; font-size:.85rem; }
+.pub-cortina .fechar{ position:absolute; top:-14px; right:-14px; width:34px; height:34px;
+  border:2px solid var(--ink); background:var(--gold); color:var(--wine); font-weight:700;
+  cursor:pointer; font-size:1rem; line-height:1; }
+</style>
+<div class="pub-cortina" id="pub-cortina" data-pub-chave="pub:cortina" hidden><div class="caixa"><button class="fechar" type="button" id="pub-cortina-x" aria-label="Fechar">✕</button><span class="rotulo">Publicidade</span><a href="https://www.sympla.com.br/produtor/foyerestudioecomunicacao" target="_blank" rel="noopener sponsored" data-pub="pub:cortina"><img src="assets/uploads/pub-cortina-0-msf37psm.jpg" alt=""></a></div></div>
+<script>
+(function(){
+  var k = 'foyer-pub-cortina-' + new Date().toISOString().slice(0, 10);
+  try{ if(localStorage.getItem(k)) return; }catch(e){}
+  function livre(){ try{ return !!localStorage.getItem('foyer-consent'); }catch(e){ return true; } }
+  var c = document.getElementById('pub-cortina');
+  function entra(){
+    setTimeout(function(){
+      c.hidden = false;
+      if(window.foyerPubVista) window.foyerPubVista(c.getAttribute('data-pub-chave'));
+      // 1x por dia de verdade: vista ao abrir, e não só ao fechar
+      try{ localStorage.setItem(k, '1'); }catch(e){}
+    }, 900);
+  }
+  function fecha(){ c.hidden = true; try{ localStorage.setItem(k, '1'); }catch(e){} }
+  document.getElementById('pub-cortina-x').addEventListener('click', fecha);
+  c.addEventListener('click', function(e){ if(e.target === c) fecha(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !c.hidden) fecha(); });
+  if(livre()) entra();
+  else var iv = setInterval(function(){ if(livre()){ clearInterval(iv); entra(); } }, 600);
+})();
+</script>
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Críticas Teatrais · Por Bruno Cavalcanti</a>
+        <a href="programas.html">Trivia Musical · Astro em Cena</a>
+        <a href="programas.html">Session Musical · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="sobre.html">Quem somos</a>
+        <a href="contato.html">Contato</a>
+        <a href="anuncie.html">Anuncie no FOYER</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="principios.html">Princípios Editoriais</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+        <a href="termos.html">Termos de Uso</a>
+        <a href="#" data-lgpd>Preferências de cookies</a>
+        <a href="#" data-sino>🔔 Notificações</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer Estúdio e Comunicação — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

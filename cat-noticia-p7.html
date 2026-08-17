@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>/* o tema antes da primeira pintura: a casa abre com a luz da sala em
+todo aparelho, e só fica no Blackout se o leitor tiver apertado o botão. Fica
+aqui, no alto do cabeçalho, para não haver piscada de claro antes do escuro. */
+try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<meta name="description" content="Matérias de Notícia no FOYER.">
+<meta name="theme-color" content="#4E0F09">
+<meta name="robots" content="max-image-preview:large">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/logo/pwa-192.png">
+<meta property="og:site_name" content="FOYER">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Notícia — FOYER">
+<meta property="og:description" content="Matérias de Notícia no FOYER.">
+<meta property="og:image" content="https://foyer.digital/assets/logo/src/foyer-banner.png">
+<meta property="og:url" content="https://foyer.digital/cat-noticia-p7.html">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<title>Notícia — FOYER</title>
+<link rel="canonical" href="https://foyer.digital/cat-noticia-p7.html">
+<link rel="alternate" type="application/rss+xml" title="FOYER — Últimas" href="https://foyer.digital/feed.xml">
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="preload" href="fonts/AbrilFatface-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação","url":"https://foyer.digital/","logo":"https://foyer.digital/assets/logo/foyer-stacked-gold.png","sameAs":["https://www.youtube.com/@Foyer.digital","https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm"]}</script>
+</head>
+<body>
+<a class="skip-link" href="#conteudo" onclick="var m=document.getElementById('conteudo');if(m)m.setAttribute('tabindex','-1');if(m)m.focus();location.hash='conteudo';return false;">Pular para o conteúdo</a>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <!-- a cortina termina na ribalta; abaixo dela, o piso do palco -->
+      <rect y="348" width="600" height="52" fill="#2B0805"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <!-- a pessoa que se destaca na plateia: sentada NUMA cadeira da malha (62x44, centro 31+62k / 28+44m) -->
+      <circle cx="341" cy="248" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <!-- teatro de arena: plateia completa e alinhada dos dois lados, um ator só no centro -->
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <g fill="#1F0805">
+        <circle cx="30" cy="34" r="12"/><circle cx="84" cy="34" r="12"/><circle cx="138" cy="34" r="12"/><circle cx="192" cy="34" r="12"/><circle cx="246" cy="34" r="12"/><circle cx="300" cy="34" r="12"/><circle cx="354" cy="34" r="12"/><circle cx="408" cy="34" r="12"/><circle cx="462" cy="34" r="12"/><circle cx="516" cy="34" r="12"/><circle cx="570" cy="34" r="12"/>
+        <circle cx="30" cy="78" r="12"/><circle cx="84" cy="78" r="12"/><circle cx="138" cy="78" r="12"/><circle cx="192" cy="78" r="12"/><circle cx="246" cy="78" r="12"/><circle cx="300" cy="78" r="12"/><circle cx="354" cy="78" r="12"/><circle cx="408" cy="78" r="12"/><circle cx="462" cy="78" r="12"/><circle cx="516" cy="78" r="12"/><circle cx="570" cy="78" r="12"/>
+        <circle cx="30" cy="322" r="12"/><circle cx="84" cy="322" r="12"/><circle cx="138" cy="322" r="12"/><circle cx="192" cy="322" r="12"/><circle cx="246" cy="322" r="12"/><circle cx="300" cy="322" r="12"/><circle cx="354" cy="322" r="12"/><circle cx="408" cy="322" r="12"/><circle cx="462" cy="322" r="12"/><circle cx="516" cy="322" r="12"/><circle cx="570" cy="322" r="12"/>
+        <circle cx="30" cy="366" r="12"/><circle cx="84" cy="366" r="12"/><circle cx="138" cy="366" r="12"/><circle cx="192" cy="366" r="12"/><circle cx="246" cy="366" r="12"/><circle cx="300" cy="366" r="12"/><circle cx="354" cy="366" r="12"/><circle cx="408" cy="366" r="12"/><circle cx="462" cy="366" r="12"/><circle cx="516" cy="366" r="12"/><circle cx="570" cy="366" r="12"/>
+      </g>
+      <rect x="120" y="136" width="360" height="128" fill="#380A06" stroke="#CEB26A" stroke-width="3"/>
+      <ellipse cx="300" cy="200" rx="72" ry="34" fill="#E9CB85" opacity=".16"/>
+      <circle cx="300" cy="200" r="13" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <a href="anuncie.html">Anuncie</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícia</h1>
+    <p class="note">173 matérias — página 7 de 8</p>
+  </div>
+</header>
+
+<main id="conteudo" class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html">Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-bastidores.html">Bastidores</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-entenda.html">Entenda</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-guia.html">Guia</a><a href="cat-literatura.html">Literatura</a><a href="cat-memoria.html">Memória</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html" class="on">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-teatro-musical.html">Teatro Musical</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Notícia">
+      <a class="ph" href="post-6a-edicao-do-premio-did-e-marcada-por-emocao-e-homenagem-a-carreira-de-claudia-r.html" aria-label="Foto da matéria"><img src="assets/acervo/d02363a4b83d6a67.jpg" alt="6ª edição do prêmio Did é marcada por emoção e homenagem à carreira de Claudia Raia" loading="lazy" onerror="this.style.display='none'"><span class="ph-cap">Foto — Divulgação</span></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-6a-edicao-do-premio-did-e-marcada-por-emocao-e-homenagem-a-carreira-de-claudia-r.html">6ª edição do prêmio Did é marcada por emoção e homenagem à carreira de Claudia Raia</a></h3>
+        <p>A noite de entrega do Prêmio Destaque Imprensa Digital, o Did, foi marcada por muita emoção, tanto por parte dos indicados e premiados quanto da organização. Al…</p>
+        <div class="meta-row">
+          <span class="meta-l">07.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="6ª edição do prêmio Did é marcada por emoção e homenagem à carreira de Claudia Raia" data-url="https://foyer.digital/post-6a-edicao-do-premio-did-e-marcada-por-emocao-e-homenagem-a-carreira-de-claudia-r.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-turne-nacional-do-musical-the-cher-show-passara-por-50-teatros-dos-estados-unido.html" aria-label="Foto da matéria"><img src="assets/acervo/b1a27a75a318e0b7.jpg" alt="Turnê nacional do musical “The Cher Show” passará por 50 teatros dos Estados Unidos" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-turne-nacional-do-musical-the-cher-show-passara-por-50-teatros-dos-estados-unido.html">Turnê nacional do musical “The Cher Show” passará por 50 teatros dos Estados Unidos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">06.12 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Turnê nacional do musical “The Cher Show” passará por 50 teatros dos Estados Unidos" data-url="https://foyer.digital/post-turne-nacional-do-musical-the-cher-show-passara-por-50-teatros-dos-estados-unido.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-teatro-alianca-francesa-que-ja-abrigou-pecas-de-marilia-pera-fechara-as-portas-e.html" aria-label="Foto da matéria"><img src="assets/acervo/5734d94d2b7ac12a.jpg" alt="Teatro Aliança Francesa, que já abrigou peças de Marília Pêra, fechará as portas em dezembro" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-teatro-alianca-francesa-que-ja-abrigou-pecas-de-marilia-pera-fechara-as-portas-e.html">Teatro Aliança Francesa, que já abrigou peças de Marília Pêra, fechará as portas em dezembro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Teatro Aliança Francesa, que já abrigou peças de Marília Pêra, fechará as portas em dezembro" data-url="https://foyer.digital/post-teatro-alianca-francesa-que-ja-abrigou-pecas-de-marilia-pera-fechara-as-portas-e.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-astrid-fontenelle-se-despede-do-programa-saia-justa-apos-11-apresentando-a-atrac.html" aria-label="Foto da matéria"><img src="assets/acervo/df460354dc3dfa89.jpg" alt="Astrid Fontenelle se despede do programa “Saia Justa” após 11 anos apresentando a atração" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-astrid-fontenelle-se-despede-do-programa-saia-justa-apos-11-apresentando-a-atrac.html">Astrid Fontenelle se despede do programa “Saia Justa” após 11 anos apresentando a atração</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Astrid Fontenelle se despede do programa “Saia Justa” após 11 anos apresentando a atração" data-url="https://foyer.digital/post-astrid-fontenelle-se-despede-do-programa-saia-justa-apos-11-apresentando-a-atrac.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-icaro-silva-e-o-primeiro-nome-divulgado-do-elenco-de-nova-montagem-do-musical-ca.html" aria-label="Foto da matéria"><img src="assets/acervo/3edae26e23e0eaa0.jpg" alt="Ícaro Silva é o primeiro nome divulgado do elenco de nova montagem do musical Cabaret" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-icaro-silva-e-o-primeiro-nome-divulgado-do-elenco-de-nova-montagem-do-musical-ca.html">Ícaro Silva é o primeiro nome divulgado do elenco de nova montagem do musical Cabaret</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Ícaro Silva é o primeiro nome divulgado do elenco de nova montagem do musical Cabaret" data-url="https://foyer.digital/post-icaro-silva-e-o-primeiro-nome-divulgado-do-elenco-de-nova-montagem-do-musical-ca.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-depois-de-sucesso-do-musical-mundareu-de-mim-ibt-lanca-oficina-de-tecnica-vocal-.html" aria-label="Foto da matéria"><img src="assets/acervo/8d631bc8c5fc3f7a.jpg" alt="Depois de sucesso do musical “Mundaréu de Mim”, IBT lança Oficina de Técnica Vocal com Polly Gutman" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-depois-de-sucesso-do-musical-mundareu-de-mim-ibt-lanca-oficina-de-tecnica-vocal-.html">Depois de sucesso do musical “Mundaréu de Mim”, IBT lança Oficina de Técnica Vocal com Polly Gutman</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.11 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Depois de sucesso do musical “Mundaréu de Mim”, IBT lança Oficina de Técnica Vocal com Polly Gutman" data-url="https://foyer.digital/post-depois-de-sucesso-do-musical-mundareu-de-mim-ibt-lanca-oficina-de-tecnica-vocal-.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-musical-wicked-completa-hoje-20-anos-em-cartaz-na-broadway.html" aria-label="Foto da matéria"><img src="assets/acervo/d90cb7e38a3916c8.jpg" alt="Musical “Wicked” completa hoje 20 anos em cartaz na Broadway" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-musical-wicked-completa-hoje-20-anos-em-cartaz-na-broadway.html">Musical “Wicked” completa hoje 20 anos em cartaz na Broadway</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">30.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical “Wicked” completa hoje 20 anos em cartaz na Broadway" data-url="https://foyer.digital/post-musical-wicked-completa-hoje-20-anos-em-cartaz-na-broadway.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-museu-casa-das-rosas-volta-a-funcionar-na-avenida-paulista.html" aria-label="Foto da matéria"><img src="assets/acervo/830a08aaaf549084.jpg" alt="Museu Casa das Rosas volta a funcionar na Avenida Paulista" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-museu-casa-das-rosas-volta-a-funcionar-na-avenida-paulista.html">Museu Casa das Rosas volta a funcionar na Avenida Paulista</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Museu Casa das Rosas volta a funcionar na Avenida Paulista" data-url="https://foyer.digital/post-museu-casa-das-rosas-volta-a-funcionar-na-avenida-paulista.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-arlete-salles-deixara-a-globo-depois-de-55-anos-na-emissora.html" aria-label="Foto da matéria"><img src="assets/acervo/6a9d5086538a14e0.jpg" alt="Arlete Salles deixará a Globo depois de 55 anos na emissora" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-arlete-salles-deixara-a-globo-depois-de-55-anos-na-emissora.html">Arlete Salles deixará a Globo depois de 55 anos na emissora</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Arlete Salles deixará a Globo depois de 55 anos na emissora" data-url="https://foyer.digital/post-arlete-salles-deixara-a-globo-depois-de-55-anos-na-emissora.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-museu-do-futebol-entrara-em-obras-em-novembro-buscando-mais-interatividade-e-esp.html" aria-label="Foto da matéria"><img src="assets/acervo/a7e8bb18070e39a0.jpg" alt="Museu do Futebol entrará em obras em novembro buscando mais interatividade e espaços" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-museu-do-futebol-entrara-em-obras-em-novembro-buscando-mais-interatividade-e-esp.html">Museu do Futebol entrará em obras em novembro buscando mais interatividade e espaços</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">07.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Museu do Futebol entrará em obras em novembro buscando mais interatividade e espaços" data-url="https://foyer.digital/post-museu-do-futebol-entrara-em-obras-em-novembro-buscando-mais-interatividade-e-esp.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-fgv-lanca-novo-espaco-cultural-no-rio-de-janeiro.html" aria-label="Foto da matéria"><img src="assets/acervo/97a76744d6a68e65.jpg" alt="FGV lança novo espaço cultural no Rio de Janeiro" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-fgv-lanca-novo-espaco-cultural-no-rio-de-janeiro.html">FGV lança novo espaço cultural no Rio de Janeiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">03.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="FGV lança novo espaço cultural no Rio de Janeiro" data-url="https://foyer.digital/post-fgv-lanca-novo-espaco-cultural-no-rio-de-janeiro.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-shopping-no-tatuape-inaugura-teatro-em-homenagem-a-lea-garcia.html" aria-label="Foto da matéria"><img src="assets/acervo/229e4ac935b5db32.jpg" alt="Shopping no Tatuapé inaugura teatro em homenagem a Léa Garcia" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-shopping-no-tatuape-inaugura-teatro-em-homenagem-a-lea-garcia.html">Shopping no Tatuapé inaugura teatro em homenagem a Léa Garcia</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Shopping no Tatuapé inaugura teatro em homenagem a Léa Garcia" data-url="https://foyer.digital/post-shopping-no-tatuape-inaugura-teatro-em-homenagem-a-lea-garcia.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-galvao-bueno-esta-de-volta-a-globo-mas-agora-como-apresentador-de-reality.html" aria-label="Foto da matéria"><img src="assets/acervo/82c4d1490243b621.jpg" alt="Galvão Bueno está de volta à Globo, mas agora como apresentador de Reality" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-galvao-bueno-esta-de-volta-a-globo-mas-agora-como-apresentador-de-reality.html">Galvão Bueno está de volta à Globo, mas agora como apresentador de Reality</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Galvão Bueno está de volta à Globo, mas agora como apresentador de Reality" data-url="https://foyer.digital/post-galvao-bueno-esta-de-volta-a-globo-mas-agora-como-apresentador-de-reality.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-cine-belas-artes-ficara-sem-patrocinio-para-2024.html" aria-label="Foto da matéria"><img src="assets/acervo/bae64c1780191884.jpg" alt="Cine Belas Artes ficará sem patrocínio para 2024" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-cine-belas-artes-ficara-sem-patrocinio-para-2024.html">Cine Belas Artes ficará sem patrocínio para 2024</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Cine Belas Artes ficará sem patrocínio para 2024" data-url="https://foyer.digital/post-cine-belas-artes-ficara-sem-patrocinio-para-2024.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-programa-do-foyer-tem-estreia-marcada-para-31-de-agosto-com-novidades-no-formato.html" aria-label="Foto da matéria"><img src="assets/acervo/f674adecbef581d5.jpg" alt="“Programa do Foyer” tem estreia marcada para 31 de agosto, com novidades no formato" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-programa-do-foyer-tem-estreia-marcada-para-31-de-agosto-com-novidades-no-formato.html">“Programa do Foyer” tem estreia marcada para 31 de agosto, com novidades no formato</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.08 — Redação</span>
+          <button class="share-min" data-share="native" data-title="“Programa do Foyer” tem estreia marcada para 31 de agosto, com novidades no formato" data-url="https://foyer.digital/post-programa-do-foyer-tem-estreia-marcada-para-31-de-agosto-com-novidades-no-formato.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-2a-temporada-de-manhas-de-setembro-e-premiada-mas-liniker-protagonista-nao-e-con.html" aria-label="Foto da matéria"><img src="assets/acervo/e40b7343f7ac4332.jpg" alt="2ª temporada de “Manhãs de Setembro” é premiada mas Liniker, protagonista, não é convidada" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-2a-temporada-de-manhas-de-setembro-e-premiada-mas-liniker-protagonista-nao-e-con.html">2ª temporada de “Manhãs de Setembro” é premiada mas Liniker, protagonista, não é convidada</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="2ª temporada de “Manhãs de Setembro” é premiada mas Liniker, protagonista, não é convidada" data-url="https://foyer.digital/post-2a-temporada-de-manhas-de-setembro-e-premiada-mas-liniker-protagonista-nao-e-con.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-musical-inspirado-em-classico-do-cinema-e-produzido-por-angelina-jolie-ganha-dat.html" aria-label="Foto da matéria"><img src="assets/acervo/9c5313cc25ea1362.jpg" alt="Musical inspirado em clássico do cinema, e produzido por Angelina Jolie, ganha data de estreia" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-musical-inspirado-em-classico-do-cinema-e-produzido-por-angelina-jolie-ganha-dat.html">Musical inspirado em clássico do cinema, e produzido por Angelina Jolie, ganha data de estreia</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical inspirado em clássico do cinema, e produzido por Angelina Jolie, ganha data de estreia" data-url="https://foyer.digital/post-musical-inspirado-em-classico-do-cinema-e-produzido-por-angelina-jolie-ganha-dat.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-falece-renomada-atriz-brasileira-lea-garcia-aos-90-anos.html" aria-label="Foto da matéria"><img src="assets/acervo/117386a3308279e1.jpg" alt="Falece renomada atriz brasileira, Léa Garcia, aos 90 anos" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-falece-renomada-atriz-brasileira-lea-garcia-aos-90-anos.html">Falece renomada atriz brasileira, Léa Garcia, aos 90 anos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">15.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Falece renomada atriz brasileira, Léa Garcia, aos 90 anos" data-url="https://foyer.digital/post-falece-renomada-atriz-brasileira-lea-garcia-aos-90-anos.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-greve-em-hollywood-se-estende-e-emmy-e-adiado.html" aria-label="Foto da matéria"><img src="assets/acervo/d217951d39a2a072.jpg" alt="Greve em Hollywood se estende, e Emmy é adiado" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-greve-em-hollywood-se-estende-e-emmy-e-adiado.html">Greve em Hollywood se estende, e Emmy é adiado</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Greve em Hollywood se estende, e Emmy é adiado" data-url="https://foyer.digital/post-greve-em-hollywood-se-estende-e-emmy-e-adiado.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-selton-mello-estrela-audiosserie-franca-e-o-labirinto-no-spotify-data-de-estreia.html" aria-label="Foto da matéria"><img src="assets/acervo/0a62d881b3c979b9.jpg" alt="Selton Mello estrela audiossérie 'França e o Labirinto' no Spotify: Data de estreia confirmada" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-selton-mello-estrela-audiosserie-franca-e-o-labirinto-no-spotify-data-de-estreia.html">Selton Mello estrela audiossérie 'França e o Labirinto' no Spotify: Data de estreia confirmada</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Selton Mello estrela audiossérie 'França e o Labirinto' no Spotify: Data de estreia confirmada" data-url="https://foyer.digital/post-selton-mello-estrela-audiosserie-franca-e-o-labirinto-no-spotify-data-de-estreia.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-com-netflix-a-academia-portuguesa-de-cinema-apresenta-programa-de-desenvolviment.html" aria-label="Foto da matéria"><img src="assets/acervo/00766d777379481e.jpg" alt="Com Netflix, a Academia Portuguesa de Cinema apresenta programa de desenvolvimento de argumentos" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-com-netflix-a-academia-portuguesa-de-cinema-apresenta-programa-de-desenvolviment.html">Com Netflix, a Academia Portuguesa de Cinema apresenta programa de desenvolvimento de argumentos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">04.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com Netflix, a Academia Portuguesa de Cinema apresenta programa de desenvolvimento de argumentos" data-url="https://foyer.digital/post-com-netflix-a-academia-portuguesa-de-cinema-apresenta-programa-de-desenvolviment.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-as-inscricoes-para-o-festival-satyrianas-2023-seguem-abertas.html" aria-label="Foto da matéria"><img src="assets/acervo/a851731e161a3f8f.jpg" alt="As inscrições para o Festival Satyrianas 2023 seguem abertas" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-as-inscricoes-para-o-festival-satyrianas-2023-seguem-abertas.html">As inscrições para o Festival Satyrianas 2023 seguem abertas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="As inscrições para o Festival Satyrianas 2023 seguem abertas" data-url="https://foyer.digital/post-as-inscricoes-para-o-festival-satyrianas-2023-seguem-abertas.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-ana-carbatti-leva-o-solo-ninguem-sabe-meu-nome-para-sao-paulo.html" aria-label="Foto da matéria"><img src="assets/acervo/cea469f28dd97ede.jpg" alt="Ana Carbatti leva o solo 'Ninguém Sabe Meu Nome' para São Paulo" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-ana-carbatti-leva-o-solo-ninguem-sabe-meu-nome-para-sao-paulo.html">Ana Carbatti leva o solo 'Ninguém Sabe Meu Nome' para São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Ana Carbatti leva o solo 'Ninguém Sabe Meu Nome' para São Paulo" data-url="https://foyer.digital/post-ana-carbatti-leva-o-solo-ninguem-sabe-meu-nome-para-sao-paulo.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-estranha-forma-de-vida-de-pedro-almodovar-ganha-data-de-estreia-nos-cinemas-bras.html" aria-label="Foto da matéria"><img src="assets/acervo/60aad2c7c8fc2ce0.jpg" alt="'Estranha Forma de Vida'de Pedro Almodóvar ganha data de estreia nos cinemas brasileiros" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-estranha-forma-de-vida-de-pedro-almodovar-ganha-data-de-estreia-nos-cinemas-bras.html">'Estranha Forma de Vida'de Pedro Almodóvar ganha data de estreia nos cinemas brasileiros</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">01.08 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Estranha Forma de Vida'de Pedro Almodóvar ganha data de estreia nos cinemas brasileiros" data-url="https://foyer.digital/post-estranha-forma-de-vida-de-pedro-almodovar-ganha-data-de-estreia-nos-cinemas-bras.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="cat-noticia-p6.html">← Anterior</a><a href="cat-noticia.html">1</a><a href="cat-noticia-p2.html">2</a><span>…</span><a href="cat-noticia-p6.html">6</a><a href="cat-noticia-p7.html" class="on">7</a><a href="cat-noticia-p8.html">8</a><a href="cat-noticia-p8.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<style>
+.pub-cortina[hidden]{ display:none !important; }
+.pub-cortina{ position:fixed; inset:0; z-index:120; display:flex; align-items:center;
+  justify-content:center; background:rgba(20,6,3,.78); padding:20px; }
+.pub-cortina .caixa{ position:relative; background:var(--paper); border:3px solid var(--ink);
+  max-width:520px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+.pub-cortina .rotulo{ display:block; font-family:var(--mono); font-size:.52rem; font-weight:700;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); padding:10px 14px 0; }
+/* teto de altura: arte muito em pé não pode empurrar o botão de fechar para
+   fora da tela. O que passar do teto vira margem de papel, nunca corte. */
+.pub-cortina img{ display:block; width:100%; height:auto; object-fit:contain;
+  max-height:calc(100vh - 170px); padding:10px 14px; box-sizing:border-box; }
+.pub-cortina .leg{ padding:0 14px 14px; font-size:.85rem; }
+.pub-cortina .fechar{ position:absolute; top:-14px; right:-14px; width:34px; height:34px;
+  border:2px solid var(--ink); background:var(--gold); color:var(--wine); font-weight:700;
+  cursor:pointer; font-size:1rem; line-height:1; }
+</style>
+<div class="pub-cortina" id="pub-cortina" data-pub-chave="pub:cortina" hidden><div class="caixa"><button class="fechar" type="button" id="pub-cortina-x" aria-label="Fechar">✕</button><span class="rotulo">Publicidade</span><a href="https://www.sympla.com.br/produtor/foyerestudioecomunicacao" target="_blank" rel="noopener sponsored" data-pub="pub:cortina"><img src="assets/uploads/pub-cortina-0-msf37psm.jpg" alt=""></a></div></div>
+<script>
+(function(){
+  var k = 'foyer-pub-cortina-' + new Date().toISOString().slice(0, 10);
+  try{ if(localStorage.getItem(k)) return; }catch(e){}
+  function livre(){ try{ return !!localStorage.getItem('foyer-consent'); }catch(e){ return true; } }
+  var c = document.getElementById('pub-cortina');
+  function entra(){
+    setTimeout(function(){
+      c.hidden = false;
+      if(window.foyerPubVista) window.foyerPubVista(c.getAttribute('data-pub-chave'));
+      // 1x por dia de verdade: vista ao abrir, e não só ao fechar
+      try{ localStorage.setItem(k, '1'); }catch(e){}
+    }, 900);
+  }
+  function fecha(){ c.hidden = true; try{ localStorage.setItem(k, '1'); }catch(e){} }
+  document.getElementById('pub-cortina-x').addEventListener('click', fecha);
+  c.addEventListener('click', function(e){ if(e.target === c) fecha(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !c.hidden) fecha(); });
+  if(livre()) entra();
+  else var iv = setInterval(function(){ if(livre()){ clearInterval(iv); entra(); } }, 600);
+})();
+</script>
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Críticas Teatrais · Por Bruno Cavalcanti</a>
+        <a href="programas.html">Trivia Musical · Astro em Cena</a>
+        <a href="programas.html">Session Musical · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="sobre.html">Quem somos</a>
+        <a href="contato.html">Contato</a>
+        <a href="anuncie.html">Anuncie no FOYER</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="principios.html">Princípios Editoriais</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+        <a href="termos.html">Termos de Uso</a>
+        <a href="#" data-lgpd>Preferências de cookies</a>
+        <a href="#" data-sino>🔔 Notificações</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer Estúdio e Comunicação — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

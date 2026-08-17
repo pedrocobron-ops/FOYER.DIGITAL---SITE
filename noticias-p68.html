@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>/* o tema antes da primeira pintura: a casa abre com a luz da sala em
+todo aparelho, e só fica no Blackout se o leitor tiver apertado o botão. Fica
+aqui, no alto do cabeçalho, para não haver piscada de claro antes do escuro. */
+try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<meta name="description" content="Todas as matérias do FOYER.">
+<meta name="theme-color" content="#4E0F09">
+<meta name="robots" content="max-image-preview:large">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/logo/pwa-192.png">
+<meta property="og:site_name" content="FOYER">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Notícias — página 68 — FOYER">
+<meta property="og:description" content="Todas as matérias do FOYER.">
+<meta property="og:image" content="https://foyer.digital/assets/logo/src/foyer-banner.png">
+<meta property="og:url" content="https://foyer.digital/noticias-p68.html">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<title>Notícias — página 68 — FOYER</title>
+<link rel="canonical" href="https://foyer.digital/noticias-p68.html">
+<link rel="alternate" type="application/rss+xml" title="FOYER — Últimas" href="https://foyer.digital/feed.xml">
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="preload" href="fonts/AbrilFatface-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação","url":"https://foyer.digital/","logo":"https://foyer.digital/assets/logo/foyer-stacked-gold.png","sameAs":["https://www.youtube.com/@Foyer.digital","https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm"]}</script>
+</head>
+<body>
+<a class="skip-link" href="#conteudo" onclick="var m=document.getElementById('conteudo');if(m)m.setAttribute('tabindex','-1');if(m)m.focus();location.hash='conteudo';return false;">Pular para o conteúdo</a>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <!-- a cortina termina na ribalta; abaixo dela, o piso do palco -->
+      <rect y="348" width="600" height="52" fill="#2B0805"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <!-- a pessoa que se destaca na plateia: sentada NUMA cadeira da malha (62x44, centro 31+62k / 28+44m) -->
+      <circle cx="341" cy="248" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <!-- teatro de arena: plateia completa e alinhada dos dois lados, um ator só no centro -->
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <g fill="#1F0805">
+        <circle cx="30" cy="34" r="12"/><circle cx="84" cy="34" r="12"/><circle cx="138" cy="34" r="12"/><circle cx="192" cy="34" r="12"/><circle cx="246" cy="34" r="12"/><circle cx="300" cy="34" r="12"/><circle cx="354" cy="34" r="12"/><circle cx="408" cy="34" r="12"/><circle cx="462" cy="34" r="12"/><circle cx="516" cy="34" r="12"/><circle cx="570" cy="34" r="12"/>
+        <circle cx="30" cy="78" r="12"/><circle cx="84" cy="78" r="12"/><circle cx="138" cy="78" r="12"/><circle cx="192" cy="78" r="12"/><circle cx="246" cy="78" r="12"/><circle cx="300" cy="78" r="12"/><circle cx="354" cy="78" r="12"/><circle cx="408" cy="78" r="12"/><circle cx="462" cy="78" r="12"/><circle cx="516" cy="78" r="12"/><circle cx="570" cy="78" r="12"/>
+        <circle cx="30" cy="322" r="12"/><circle cx="84" cy="322" r="12"/><circle cx="138" cy="322" r="12"/><circle cx="192" cy="322" r="12"/><circle cx="246" cy="322" r="12"/><circle cx="300" cy="322" r="12"/><circle cx="354" cy="322" r="12"/><circle cx="408" cy="322" r="12"/><circle cx="462" cy="322" r="12"/><circle cx="516" cy="322" r="12"/><circle cx="570" cy="322" r="12"/>
+        <circle cx="30" cy="366" r="12"/><circle cx="84" cy="366" r="12"/><circle cx="138" cy="366" r="12"/><circle cx="192" cy="366" r="12"/><circle cx="246" cy="366" r="12"/><circle cx="300" cy="366" r="12"/><circle cx="354" cy="366" r="12"/><circle cx="408" cy="366" r="12"/><circle cx="462" cy="366" r="12"/><circle cx="516" cy="366" r="12"/><circle cx="570" cy="366" r="12"/>
+      </g>
+      <rect x="120" y="136" width="360" height="128" fill="#380A06" stroke="#CEB26A" stroke-width="3"/>
+      <ellipse cx="300" cy="200" rx="72" ry="34" fill="#E9CB85" opacity=".16"/>
+      <circle cx="300" cy="200" r="13" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <a href="anuncie.html">Anuncie</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Notícias</h1>
+    <p class="note">1684 matérias no acervo — página 68 de 71</p>
+  </div>
+</header>
+
+<main id="conteudo" class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html" class=on>Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-bastidores.html">Bastidores</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-entenda.html">Entenda</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-guia.html">Guia</a><a href="cat-literatura.html">Literatura</a><a href="cat-memoria.html">Memória</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-teatro-musical.html">Teatro Musical</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Cinema">
+      <a class="ph" href="post-duble-de-hollywood-ateia-fogo-em-suas-roupas-durante-protesto.html" aria-label="Foto da matéria"><img src="assets/acervo/08e85ff5934395c1.jpg" alt="Dublê de Hollywood ateia fogo em suas roupas durante protesto" loading="lazy" onerror="this.style.display='none'"><span class="ph-cap">Foto — Dublê de Hollywood ateia fogo em suas…</span></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-duble-de-hollywood-ateia-fogo-em-suas-roupas-durante-protesto.html">Dublê de Hollywood ateia fogo em suas roupas durante protesto</a></h3>
+        <p>No contexto da greve dos atores de Hollywood, um dublê chamou a atenção de todos ao tomar uma atitude extrema para destacar as condições perigosas enfrentadas p…</p>
+        <div class="meta-row">
+          <span class="meta-l">26.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Dublê de Hollywood ateia fogo em suas roupas durante protesto" data-url="https://foyer.digital/post-duble-de-hollywood-ateia-fogo-em-suas-roupas-durante-protesto.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-da-a24-vidas-passadas-tem-nova-data-de-estreia-no-brasil.html" aria-label="Foto da matéria"><img src="assets/acervo/9c4cfcac576d667c.jpg" alt="Da A24, 'Vidas Passadas' Tem nova data de estreia no Brasil" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-da-a24-vidas-passadas-tem-nova-data-de-estreia-no-brasil.html">Da A24, 'Vidas Passadas' Tem nova data de estreia no Brasil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Da A24, 'Vidas Passadas' Tem nova data de estreia no Brasil" data-url="https://foyer.digital/post-da-a24-vidas-passadas-tem-nova-data-de-estreia-no-brasil.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-o-dragao-dourado-uma-reflexao-sobre-comunicacao-e-relacoes-humanas.html" aria-label="Foto da matéria"><img src="assets/acervo/822d019b17676241.jpg" alt="'O Dragão Dourado' uma reflexão sobre comunicação e relações humanas" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-o-dragao-dourado-uma-reflexao-sobre-comunicacao-e-relacoes-humanas.html">'O Dragão Dourado' uma reflexão sobre comunicação e relações humanas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'O Dragão Dourado' uma reflexão sobre comunicação e relações humanas" data-url="https://foyer.digital/post-o-dragao-dourado-uma-reflexao-sobre-comunicacao-e-relacoes-humanas.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-a-vida-passou-por-aqui-estende-temporada-ate-agosto-no-teatro-j-safra.html" aria-label="Foto da matéria"><img src="assets/acervo/d2c534af56c6e6c0.jpg" alt="'A Vida Passou Por Aqui' estende temporada até agosto no Teatro J. Safra" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-a-vida-passou-por-aqui-estende-temporada-ate-agosto-no-teatro-j-safra.html">'A Vida Passou Por Aqui' estende temporada até agosto no Teatro J. Safra</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'A Vida Passou Por Aqui' estende temporada até agosto no Teatro J. Safra" data-url="https://foyer.digital/post-a-vida-passou-por-aqui-estende-temporada-ate-agosto-no-teatro-j-safra.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-mariana-ximenes-e-capitu-em-nova-leitura-cinematografica-com-pre-estreia-gratuit.html" aria-label="Foto da matéria"><img src="assets/acervo/a8febcf59e8bfa7c.jpg" alt="Mariana Ximenes é Capitu em nova leitura cinematográfica com pré-estreia gratuita" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-mariana-ximenes-e-capitu-em-nova-leitura-cinematografica-com-pre-estreia-gratuit.html">Mariana Ximenes é Capitu em nova leitura cinematográfica com pré-estreia gratuita</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Mariana Ximenes é Capitu em nova leitura cinematográfica com pré-estreia gratuita" data-url="https://foyer.digital/post-mariana-ximenes-e-capitu-em-nova-leitura-cinematografica-com-pre-estreia-gratuit.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-alguma-coisa-podre-chega-as-ultimas-semanas-no-teatro-porto-ja-assistiu.html" aria-label="Foto da matéria"><img src="assets/acervo/e40368db9b23e158.jpg" alt="'Alguma Coisa Podre' Chega às últimas semanas no Teatro Porto, já assistiu?" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-alguma-coisa-podre-chega-as-ultimas-semanas-no-teatro-porto-ja-assistiu.html">'Alguma Coisa Podre' Chega às últimas semanas no Teatro Porto, já assistiu?</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Alguma Coisa Podre' Chega às últimas semanas no Teatro Porto, já assistiu?" data-url="https://foyer.digital/post-alguma-coisa-podre-chega-as-ultimas-semanas-no-teatro-porto-ja-assistiu.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Literatura">
+      <a class="ph" href="post-kobra-e-katya-manira-fazem-a-arte-de-rua-ganhar-vida-em-livro-infantil.html" aria-label="Foto da matéria"><img src="assets/acervo/3a90ea32f2d465f2.jpg" alt="Kobra e Katya Manira fazem a arte de rua ganhar vida em livro infantil" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Literatura</span>
+        <h3><a href="post-kobra-e-katya-manira-fazem-a-arte-de-rua-ganhar-vida-em-livro-infantil.html">Kobra e Katya Manira fazem a arte de rua ganhar vida em livro infantil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Kobra e Katya Manira fazem a arte de rua ganhar vida em livro infantil" data-url="https://foyer.digital/post-kobra-e-katya-manira-fazem-a-arte-de-rua-ganhar-vida-em-livro-infantil.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-matilda-o-musical-atrizes-sao-reveladas.html" aria-label="Foto da matéria"><img src="assets/acervo/7c75e3c21a63adad.jpg" alt="'Matilda - O Musical' Atrizes são reveladas" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-matilda-o-musical-atrizes-sao-reveladas.html">'Matilda - O Musical' Atrizes são reveladas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Matilda - O Musical' Atrizes são reveladas" data-url="https://foyer.digital/post-matilda-o-musical-atrizes-sao-reveladas.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-tarantino-adere-a-barbenheimer-e-assiste-os-dois-filmes-no-mesmo-dia.html" aria-label="Foto da matéria"><img src="assets/acervo/9fb910226f05234f.jpg" alt="Tarantino adere a 'Barbenheimer' e assiste os dois filmes no mesmo dia" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-tarantino-adere-a-barbenheimer-e-assiste-os-dois-filmes-no-mesmo-dia.html">Tarantino adere a 'Barbenheimer' e assiste os dois filmes no mesmo dia</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Tarantino adere a 'Barbenheimer' e assiste os dois filmes no mesmo dia" data-url="https://foyer.digital/post-tarantino-adere-a-barbenheimer-e-assiste-os-dois-filmes-no-mesmo-dia.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Exposições">
+      <a class="ph" href="post-b-b-king-um-mundo-melhor-em-algum-lugar-exposicao-estreara-no-mis.html" aria-label="Foto da matéria"><img src="assets/acervo/65892bad71bd0ea1.jpg" alt="'B.B King: um Mundo Melhor em Algum Lugar' Exposição estreará no MIS" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Exposições</span>
+        <h3><a href="post-b-b-king-um-mundo-melhor-em-algum-lugar-exposicao-estreara-no-mis.html">'B.B King: um Mundo Melhor em Algum Lugar' Exposição estreará no MIS</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'B.B King: um Mundo Melhor em Algum Lugar' Exposição estreará no MIS" data-url="https://foyer.digital/post-b-b-king-um-mundo-melhor-em-algum-lugar-exposicao-estreara-no-mis.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-os-ultimos-5-anos-retorna-a-sao-paulo-com-temporada-no-teatro-nair-bello.html" aria-label="Foto da matéria"><img src="assets/acervo/5e1234f93432fa12.jpg" alt="'Os Últimos 5 Anos' Retorna a São Paulo com temporada no Teatro Nair Bello" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-os-ultimos-5-anos-retorna-a-sao-paulo-com-temporada-no-teatro-nair-bello.html">'Os Últimos 5 Anos' Retorna a São Paulo com temporada no Teatro Nair Bello</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">23.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Os Últimos 5 Anos' Retorna a São Paulo com temporada no Teatro Nair Bello" data-url="https://foyer.digital/post-os-ultimos-5-anos-retorna-a-sao-paulo-com-temporada-no-teatro-nair-bello.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Streaming">
+      <a class="ph" href="post-depp-v-heard-na-netflix-a-verdade-por-tras-do-caso-judicial.html" aria-label="Foto da matéria"><img src="assets/acervo/ff713b19c2316060.jpg" alt="'Depp V Heard' na Netflix: A verdade por trás do caso judicial" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-depp-v-heard-na-netflix-a-verdade-por-tras-do-caso-judicial.html">'Depp V Heard' na Netflix: A verdade por trás do caso judicial</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Depp V Heard' na Netflix: A verdade por trás do caso judicial" data-url="https://foyer.digital/post-depp-v-heard-na-netflix-a-verdade-por-tras-do-caso-judicial.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-adeus-as-bruxas-de-oz-wicked-chega-ao-ultimo-final-de-semana.html" aria-label="Foto da matéria"><img src="assets/acervo/f7423bacfee13f7b.jpg" alt="Adeus às bruxas de Oz: Wicked chega ao último final de semana" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-adeus-as-bruxas-de-oz-wicked-chega-ao-ultimo-final-de-semana.html">Adeus às bruxas de Oz: Wicked chega ao último final de semana</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">21.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Adeus às bruxas de Oz: Wicked chega ao último final de semana" data-url="https://foyer.digital/post-adeus-as-bruxas-de-oz-wicked-chega-ao-ultimo-final-de-semana.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-ingrid-guimaraes-sera-homenageada-em-festival-de-gramado.html" aria-label="Foto da matéria"><img src="assets/acervo/130dc5e6775dfb7a.jpg" alt="Ingrid Guimarães será homenageada em festival de Gramado" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-ingrid-guimaraes-sera-homenageada-em-festival-de-gramado.html">Ingrid Guimarães será homenageada em festival de Gramado</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Ingrid Guimarães será homenageada em festival de Gramado" data-url="https://foyer.digital/post-ingrid-guimaraes-sera-homenageada-em-festival-de-gramado.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Notícia">
+      <a class="ph" href="post-acontece-hoje-no-teatro-sergio-cardoso-a-67a-edicao-do-premio-apca.html" aria-label="Foto da matéria"><img src="assets/acervo/12296ae9e934a1bb.jpg" alt="Acontece hoje, no Teatro Sérgio Cardoso a 67ª edição do Prêmio APCA" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Notícia</span>
+        <h3><a href="post-acontece-hoje-no-teatro-sergio-cardoso-a-67a-edicao-do-premio-apca.html">Acontece hoje, no Teatro Sérgio Cardoso a 67ª edição do Prêmio APCA</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Acontece hoje, no Teatro Sérgio Cardoso a 67ª edição do Prêmio APCA" data-url="https://foyer.digital/post-acontece-hoje-no-teatro-sergio-cardoso-a-67a-edicao-do-premio-apca.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Música">
+      <a class="ph" href="post-9a-edicao-do-bossa-nova-in-concert-comeca-hoje-com-show-de-natascha-falcao.html" aria-label="Foto da matéria"><img src="assets/acervo/60c14700b5203b36.jpg" alt="9ª edição do Bossa Nova In Concert começa hoje com show de Natascha Falcão" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Música</span>
+        <h3><a href="post-9a-edicao-do-bossa-nova-in-concert-comeca-hoje-com-show-de-natascha-falcao.html">9ª edição do Bossa Nova In Concert começa hoje com show de Natascha Falcão</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="9ª edição do Bossa Nova In Concert começa hoje com show de Natascha Falcão" data-url="https://foyer.digital/post-9a-edicao-do-bossa-nova-in-concert-comeca-hoje-com-show-de-natascha-falcao.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Artigo de Opinião">
+      <a class="ph" href="post-a-origem-dos-projetos.html" aria-label="Foto da matéria"><img src="assets/acervo/5373af58700479c5.jpg" alt="A Origem dos Projetos" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Artigo de Opinião</span>
+        <h3><a href="post-a-origem-dos-projetos.html">A Origem dos Projetos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.07 — Nicole Cordery</span>
+          <button class="share-min" data-share="native" data-title="A Origem dos Projetos" data-url="https://foyer.digital/post-a-origem-dos-projetos.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro">
+      <a class="ph" href="post-bufao-oke-o-espetaculo-que-usa-parodias-para-zombar-de-opressores-em-um-karaoke.html" aria-label="Foto da matéria"><img src="assets/acervo/083cc1407d71d241.jpg" alt="'Bufão-Okê' o espetáculo que usa paródias para zombar de opressores em um karaokê" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro</span>
+        <h3><a href="post-bufao-oke-o-espetaculo-que-usa-parodias-para-zombar-de-opressores-em-um-karaoke.html">'Bufão-Okê' o espetáculo que usa paródias para zombar de opressores em um karaokê</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Bufão-Okê' o espetáculo que usa paródias para zombar de opressores em um karaokê" data-url="https://foyer.digital/post-bufao-oke-o-espetaculo-que-usa-parodias-para-zombar-de-opressores-em-um-karaoke.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-dentro-de-um-olhar-e-os-mundos-de-chico-xavier-foyer-15.html" aria-label="Foto da matéria"><img src="assets/acervo/da28dc7df1e62cc8.jpg" alt="“Dentro de um olhar” e “Os mundos de Chico Xavier” - Foyer#15" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-dentro-de-um-olhar-e-os-mundos-de-chico-xavier-foyer-15.html">“Dentro de um olhar” e “Os mundos de Chico Xavier” - Foyer#15</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.07 — Redação</span>
+          <button class="share-min" data-share="native" data-title="“Dentro de um olhar” e “Os mundos de Chico Xavier” - Foyer#15" data-url="https://foyer.digital/post-dentro-de-um-olhar-e-os-mundos-de-chico-xavier-foyer-15.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-wicked-seguira-cronograma-de-lancamento-apesar-da-greve-em-hollywood.html" aria-label="Foto da matéria"><img src="assets/acervo/45e74d2856469a89.jpg" alt="Wicked seguirá cronograma de lançamento apesar da greve em Hollywood" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-wicked-seguira-cronograma-de-lancamento-apesar-da-greve-em-hollywood.html">Wicked seguirá cronograma de lançamento apesar da greve em Hollywood</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Wicked seguirá cronograma de lançamento apesar da greve em Hollywood" data-url="https://foyer.digital/post-wicked-seguira-cronograma-de-lancamento-apesar-da-greve-em-hollywood.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-filme-sobre-a-trajetoria-de-ze-celso-e-teatro-oficina-estreia-hoje-nos-cinemas.html" aria-label="Foto da matéria"><img src="assets/acervo/0b8ac085b6605b1b.jpg" alt="Filme sobre a trajetória de Zé Celso e Teatro Oficina estreia hoje nos cinemas" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-filme-sobre-a-trajetoria-de-ze-celso-e-teatro-oficina-estreia-hoje-nos-cinemas.html">Filme sobre a trajetória de Zé Celso e Teatro Oficina estreia hoje nos cinemas</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Filme sobre a trajetória de Zé Celso e Teatro Oficina estreia hoje nos cinemas" data-url="https://foyer.digital/post-filme-sobre-a-trajetoria-de-ze-celso-e-teatro-oficina-estreia-hoje-nos-cinemas.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-oppenheimer-recebe-alta-aprovacao-de-96-no-rotten-tomatoes.html" aria-label="Foto da matéria"><img src="assets/acervo/287f1890d73ba5ff.jpg" alt="'Oppenheimer' recebe alta aprovação de 96% no Rotten Tomatoes" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-oppenheimer-recebe-alta-aprovacao-de-96-no-rotten-tomatoes.html">'Oppenheimer' recebe alta aprovação de 96% no Rotten Tomatoes</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Oppenheimer' recebe alta aprovação de 96% no Rotten Tomatoes" data-url="https://foyer.digital/post-oppenheimer-recebe-alta-aprovacao-de-96-no-rotten-tomatoes.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Streaming">
+      <a class="ph" href="post-jurados-e-data-de-estreia-de-drag-race-brasil-sao-anunciados.html" aria-label="Foto da matéria"><img src="assets/acervo/4d9f21e85b064552.jpg" alt="Jurados e data de estreia de 'Drag Race Brasil' são anunciados" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Streaming</span>
+        <h3><a href="post-jurados-e-data-de-estreia-de-drag-race-brasil-sao-anunciados.html">Jurados e data de estreia de 'Drag Race Brasil' são anunciados</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="Jurados e data de estreia de 'Drag Race Brasil' são anunciados" data-url="https://foyer.digital/post-jurados-e-data-de-estreia-de-drag-race-brasil-sao-anunciados.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Cinema">
+      <a class="ph" href="post-barbie-bate-recorde-de-pre-venda-de-ingressos-nos-cinemas-brasileiros.html" aria-label="Foto da matéria"><img src="assets/acervo/430e07eca17c068e.jpg" alt="'Barbie' bate recorde de pré-venda de ingressos nos cinemas brasileiros" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Cinema</span>
+        <h3><a href="post-barbie-bate-recorde-de-pre-venda-de-ingressos-nos-cinemas-brasileiros.html">'Barbie' bate recorde de pré-venda de ingressos nos cinemas brasileiros</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.07 — Pedro Amaral</span>
+          <button class="share-min" data-share="native" data-title="'Barbie' bate recorde de pré-venda de ingressos nos cinemas brasileiros" data-url="https://foyer.digital/post-barbie-bate-recorde-de-pre-venda-de-ingressos-nos-cinemas-brasileiros.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="noticias-p67.html">← Anterior</a><a href="noticias.html">1</a><a href="noticias-p2.html">2</a><span>…</span><a href="noticias-p67.html">67</a><a href="noticias-p68.html" class="on">68</a><a href="noticias-p69.html">69</a><a href="noticias-p70.html">70</a><a href="noticias-p71.html">71</a><a href="noticias-p69.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<style>
+.pub-cortina[hidden]{ display:none !important; }
+.pub-cortina{ position:fixed; inset:0; z-index:120; display:flex; align-items:center;
+  justify-content:center; background:rgba(20,6,3,.78); padding:20px; }
+.pub-cortina .caixa{ position:relative; background:var(--paper); border:3px solid var(--ink);
+  max-width:520px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+.pub-cortina .rotulo{ display:block; font-family:var(--mono); font-size:.52rem; font-weight:700;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); padding:10px 14px 0; }
+/* teto de altura: arte muito em pé não pode empurrar o botão de fechar para
+   fora da tela. O que passar do teto vira margem de papel, nunca corte. */
+.pub-cortina img{ display:block; width:100%; height:auto; object-fit:contain;
+  max-height:calc(100vh - 170px); padding:10px 14px; box-sizing:border-box; }
+.pub-cortina .leg{ padding:0 14px 14px; font-size:.85rem; }
+.pub-cortina .fechar{ position:absolute; top:-14px; right:-14px; width:34px; height:34px;
+  border:2px solid var(--ink); background:var(--gold); color:var(--wine); font-weight:700;
+  cursor:pointer; font-size:1rem; line-height:1; }
+</style>
+<div class="pub-cortina" id="pub-cortina" data-pub-chave="pub:cortina" hidden><div class="caixa"><button class="fechar" type="button" id="pub-cortina-x" aria-label="Fechar">✕</button><span class="rotulo">Publicidade</span><a href="https://www.sympla.com.br/produtor/foyerestudioecomunicacao" target="_blank" rel="noopener sponsored" data-pub="pub:cortina"><img src="assets/uploads/pub-cortina-0-msf37psm.jpg" alt=""></a></div></div>
+<script>
+(function(){
+  var k = 'foyer-pub-cortina-' + new Date().toISOString().slice(0, 10);
+  try{ if(localStorage.getItem(k)) return; }catch(e){}
+  function livre(){ try{ return !!localStorage.getItem('foyer-consent'); }catch(e){ return true; } }
+  var c = document.getElementById('pub-cortina');
+  function entra(){
+    setTimeout(function(){
+      c.hidden = false;
+      if(window.foyerPubVista) window.foyerPubVista(c.getAttribute('data-pub-chave'));
+      // 1x por dia de verdade: vista ao abrir, e não só ao fechar
+      try{ localStorage.setItem(k, '1'); }catch(e){}
+    }, 900);
+  }
+  function fecha(){ c.hidden = true; try{ localStorage.setItem(k, '1'); }catch(e){} }
+  document.getElementById('pub-cortina-x').addEventListener('click', fecha);
+  c.addEventListener('click', function(e){ if(e.target === c) fecha(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !c.hidden) fecha(); });
+  if(livre()) entra();
+  else var iv = setInterval(function(){ if(livre()){ clearInterval(iv); entra(); } }, 600);
+})();
+</script>
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Críticas Teatrais · Por Bruno Cavalcanti</a>
+        <a href="programas.html">Trivia Musical · Astro em Cena</a>
+        <a href="programas.html">Session Musical · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="sobre.html">Quem somos</a>
+        <a href="contato.html">Contato</a>
+        <a href="anuncie.html">Anuncie no FOYER</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="principios.html">Princípios Editoriais</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+        <a href="termos.html">Termos de Uso</a>
+        <a href="#" data-lgpd>Preferências de cookies</a>
+        <a href="#" data-sino>🔔 Notificações</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer Estúdio e Comunicação — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>

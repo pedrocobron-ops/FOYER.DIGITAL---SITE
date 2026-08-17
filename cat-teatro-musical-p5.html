@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>/* o tema antes da primeira pintura: a casa abre com a luz da sala em
+todo aparelho, e só fica no Blackout se o leitor tiver apertado o botão. Fica
+aqui, no alto do cabeçalho, para não haver piscada de claro antes do escuro. */
+try{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<meta name="description" content="Matérias de Teatro Musical no FOYER.">
+<meta name="theme-color" content="#4E0F09">
+<meta name="robots" content="max-image-preview:large">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/logo/pwa-192.png">
+<meta property="og:site_name" content="FOYER">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Teatro Musical — FOYER">
+<meta property="og:description" content="Matérias de Teatro Musical no FOYER.">
+<meta property="og:image" content="https://foyer.digital/assets/logo/src/foyer-banner.png">
+<meta property="og:url" content="https://foyer.digital/cat-teatro-musical-p5.html">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<title>Teatro Musical — FOYER</title>
+<link rel="canonical" href="https://foyer.digital/cat-teatro-musical-p5.html">
+<link rel="alternate" type="application/rss+xml" title="FOYER — Últimas" href="https://foyer.digital/feed.xml">
+<link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
+<link rel="preload" href="fonts/AbrilFatface-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação","url":"https://foyer.digital/","logo":"https://foyer.digital/assets/logo/foyer-stacked-gold.png","sameAs":["https://www.youtube.com/@Foyer.digital","https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm"]}</script>
+</head>
+<body>
+<a class="skip-link" href="#conteudo" onclick="var m=document.getElementById('conteudo');if(m)m.setAttribute('tabindex','-1');if(m)m.focus();location.hash='conteudo';return false;">Pular para o conteúdo</a>
+
+<!-- artes de palco (placeholders de foto e capas da revista) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <pattern id="heads" width="62" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="31" cy="28" r="16" fill="#170606"/>
+    </pattern>
+    <pattern id="bulbs" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="23" cy="23" r="6" fill="#CEB26A"/>
+    </pattern>
+    <symbol id="ph-1" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <polygon points="300,-30 130,400 470,400" fill="#E9CB85" opacity=".2"/>
+      <ellipse cx="300" cy="378" rx="160" ry="26" fill="#E9CB85" opacity=".3"/>
+      <circle cx="300" cy="278" r="27" fill="#120505"/>
+      <rect x="268" y="308" width="64" height="92" rx="10" fill="#120505"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-2" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="18"  width="26" height="400" fill="#380A06"/><rect x="82"  width="30" height="400" fill="#380A06"/>
+      <rect x="150" width="24" height="400" fill="#380A06"/><rect x="212" width="32" height="400" fill="#380A06"/>
+      <rect x="286" width="26" height="400" fill="#380A06"/><rect x="348" width="30" height="400" fill="#380A06"/>
+      <rect x="416" width="24" height="400" fill="#380A06"/><rect x="478" width="32" height="400" fill="#380A06"/>
+      <rect x="548" width="26" height="400" fill="#380A06"/>
+      <rect y="0" width="600" height="70" fill="#E9CB85" opacity=".14"/>
+      <!-- a cortina termina na ribalta; abaixo dela, o piso do palco -->
+      <rect y="348" width="600" height="52" fill="#2B0805"/>
+      <rect y="336" width="600" height="12" fill="#CEB26A" opacity=".85"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-3" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <ellipse cx="300" cy="80" rx="330" ry="130" fill="#E9CB85" opacity=".14"/>
+      <rect y="230" width="600" height="170" fill="url(#heads)"/>
+      <!-- a pessoa que se destaca na plateia: sentada NUMA cadeira da malha (62x44, centro 31+62k / 28+44m) -->
+      <circle cx="341" cy="248" r="16" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-4" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <!-- teatro de arena: plateia completa e alinhada dos dois lados, um ator só no centro -->
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <g fill="#1F0805">
+        <circle cx="30" cy="34" r="12"/><circle cx="84" cy="34" r="12"/><circle cx="138" cy="34" r="12"/><circle cx="192" cy="34" r="12"/><circle cx="246" cy="34" r="12"/><circle cx="300" cy="34" r="12"/><circle cx="354" cy="34" r="12"/><circle cx="408" cy="34" r="12"/><circle cx="462" cy="34" r="12"/><circle cx="516" cy="34" r="12"/><circle cx="570" cy="34" r="12"/>
+        <circle cx="30" cy="78" r="12"/><circle cx="84" cy="78" r="12"/><circle cx="138" cy="78" r="12"/><circle cx="192" cy="78" r="12"/><circle cx="246" cy="78" r="12"/><circle cx="300" cy="78" r="12"/><circle cx="354" cy="78" r="12"/><circle cx="408" cy="78" r="12"/><circle cx="462" cy="78" r="12"/><circle cx="516" cy="78" r="12"/><circle cx="570" cy="78" r="12"/>
+        <circle cx="30" cy="322" r="12"/><circle cx="84" cy="322" r="12"/><circle cx="138" cy="322" r="12"/><circle cx="192" cy="322" r="12"/><circle cx="246" cy="322" r="12"/><circle cx="300" cy="322" r="12"/><circle cx="354" cy="322" r="12"/><circle cx="408" cy="322" r="12"/><circle cx="462" cy="322" r="12"/><circle cx="516" cy="322" r="12"/><circle cx="570" cy="322" r="12"/>
+        <circle cx="30" cy="366" r="12"/><circle cx="84" cy="366" r="12"/><circle cx="138" cy="366" r="12"/><circle cx="192" cy="366" r="12"/><circle cx="246" cy="366" r="12"/><circle cx="300" cy="366" r="12"/><circle cx="354" cy="366" r="12"/><circle cx="408" cy="366" r="12"/><circle cx="462" cy="366" r="12"/><circle cx="516" cy="366" r="12"/><circle cx="570" cy="366" r="12"/>
+      </g>
+      <rect x="120" y="136" width="360" height="128" fill="#380A06" stroke="#CEB26A" stroke-width="3"/>
+      <ellipse cx="300" cy="200" rx="72" ry="34" fill="#E9CB85" opacity=".16"/>
+      <circle cx="300" cy="200" r="13" fill="#CEB26A"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-5" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#380A06"/>
+      <rect x="96"  width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="206" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="316" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="426" width="5" height="400" fill="#CEB26A" opacity=".4"/>
+      <rect x="516" width="5" height="400" fill="#CEB26A" opacity=".55"/>
+      <rect x="78"  y="210" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="298" y="120" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect x="498" y="270" width="42" height="78" fill="#CEB26A" opacity=".32"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+    <symbol id="ph-6" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+      <rect width="600" height="400" fill="#4E0F09"/>
+      <rect x="0"   y="330" width="140" height="70" fill="#CEB26A" opacity=".8"/>
+      <rect x="140" y="260" width="140" height="140" fill="#380A06"/>
+      <rect x="280" y="190" width="140" height="210" fill="#CEB26A" opacity=".55"/>
+      <rect x="420" y="120" width="180" height="280" fill="#380A06"/>
+      <circle cx="510" cy="80" r="34" fill="#E9CB85" opacity=".7"/>
+      <rect width="600" height="400" filter="url(#grain)" opacity=".12"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <span class="cell" id="today">São Paulo, BR</span>
+    <span class="right">
+      <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+      <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="revista.html#assinar">Assine</a>
+      <a href="anuncie.html">Anuncie</a>
+      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+    </span>
+  </div>
+</div>
+
+<nav class="main" aria-label="Seções">
+  <div class="row">
+    <a href="index.html" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    </a>
+    <a href="index.html">Capa</a>
+    <a href="noticias.html" class="on" aria-current="page">Notícias</a>
+    <a href="critica.html">Crítica</a>
+    <a href="revista.html">Revista</a>
+    <a href="programas.html">Programas</a>
+    <a href="enciclopedia.html">Enciclopédia</a>
+    <a href="entrevistas.html">Entrevistas</a>
+    <a href="busca.html" class="busca">⌕ Buscar</a>
+  </div>
+</nav>
+
+<header class="page-band">
+  <div class="wrap">
+    <span class="kicker">Editoria</span>
+    <h1>Teatro Musical</h1>
+    <p class="note">320 matérias — página 5 de 14</p>
+  </div>
+</header>
+
+<main id="conteudo" class="wrap">
+  <div class="filters" aria-label="Filtrar por editoria">
+    <a href="noticias.html">Todas</a><a href="cat-artigo-de-opiniao.html">Artigo de Opinião</a><a href="cat-astrologia.html">Astrologia</a><a href="cat-audicoes.html">Audições</a><a href="cat-bastidores.html">Bastidores</a><a href="cat-cinema.html">Cinema</a><a href="cat-critica.html">Crítica</a><a href="cat-cronicas-e-historias.html">Crônicas e Histórias</a><a href="cat-danca.html">Dança</a><a href="cat-edital.html">Edital</a><a href="cat-entenda.html">Entenda</a><a href="cat-exposicoes.html">Exposições</a><a href="cat-festa.html">Festa</a><a href="cat-guia.html">Guia</a><a href="cat-literatura.html">Literatura</a><a href="cat-memoria.html">Memória</a><a href="cat-musica.html">Música</a><a href="cat-noticia.html">Notícia</a><a href="cat-programa.html">Programa</a><a href="cat-show.html">Show</a><a href="cat-streaming.html">Streaming</a><a href="cat-teatro.html">Teatro</a><a href="cat-teatro-musical.html" class="on">Teatro Musical</a><a href="cat-televisao.html">Televisão</a>
+  </div>
+  <div class="news-grid">
+    <article class="news-cell big" data-cat="Teatro Musical">
+      <a class="ph" href="post-o-julgamento-de-um-homem-bom-musical-feminista-satiriza-a-masculinidade-no-teatr.html" aria-label="Foto da matéria"><img src="assets/acervo/6cc0910124d255a1.jpg" alt="O Julgamento de um Homem Bom — musical feminista satiriza a masculinidade no Teatro de Arena" loading="lazy" onerror="this.style.display='none'"><span class="ph-cap">Foto — Gabriella Carli</span></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-o-julgamento-de-um-homem-bom-musical-feminista-satiriza-a-masculinidade-no-teatr.html">O Julgamento de um Homem Bom — musical feminista satiriza a masculinidade no Teatro de Arena</a></h3>
+        <p>De 23 de outubro a 2 de novembro de 2025, o Teatro de Arena, em São Paulo, recebe o espetáculo O Julgamento de um Homem Bom, nova comédia musical da companhia M…</p>
+        <div class="meta-row">
+          <span class="meta-l">12.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="O Julgamento de um Homem Bom — musical feminista satiriza a masculinidade no Teatro de Arena" data-url="https://foyer.digital/post-o-julgamento-de-um-homem-bom-musical-feminista-satiriza-a-masculinidade-no-teatr.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-jeca-um-povo-ainda-ha-de-vingar-estreia-no-sesc-consolacao-em-homenagem-aos-50-a.html" aria-label="Foto da matéria"><img src="assets/acervo/54389384c2350549.jpg" alt="Jeca – Um Povo Ainda Há de Vingar estreia no Sesc Consolação em homenagem aos 50 anos de Refazenda, de Gilberto Gil" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-jeca-um-povo-ainda-ha-de-vingar-estreia-no-sesc-consolacao-em-homenagem-aos-50-a.html">Jeca – Um Povo Ainda Há de Vingar estreia no Sesc Consolação em homenagem aos 50 anos de Refazenda, de Gilberto Gil</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Jeca – Um Povo Ainda Há de Vingar estreia no Sesc Consolação em homenagem aos 50 anos de Refazenda, de Gilberto Gil" data-url="https://foyer.digital/post-jeca-um-povo-ainda-ha-de-vingar-estreia-no-sesc-consolacao-em-homenagem-aos-50-a.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Programa">
+      <a class="ph" href="post-com-maria-bia-e-giovana-zotti-maes-o-musical-programa-do-foyer.html" aria-label="Foto da matéria"><img src="assets/acervo/e3a04c93d224e398.jpg" alt="Com Maria Bia e Giovana Zotti - Mães O Musical - Programa do Foyer" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Programa</span>
+        <h3><a href="post-com-maria-bia-e-giovana-zotti-maes-o-musical-programa-do-foyer.html">Com Maria Bia e Giovana Zotti - Mães O Musical - Programa do Foyer</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">02.10 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Com Maria Bia e Giovana Zotti - Mães O Musical - Programa do Foyer" data-url="https://foyer.digital/post-com-maria-bia-e-giovana-zotti-maes-o-musical-programa-do-foyer.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-titanique-o-musical-estreia-no-brasil-em-outubro-no-teatro-sabesp-frei-caneca.html" aria-label="Foto da matéria"><img src="assets/acervo/5056d59324905617.jpg" alt="“Titanique – O Musical” estreia no Brasil em outubro no Teatro Sabesp Frei Caneca" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-titanique-o-musical-estreia-no-brasil-em-outubro-no-teatro-sabesp-frei-caneca.html">“Titanique – O Musical” estreia no Brasil em outubro no Teatro Sabesp Frei Caneca</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Titanique – O Musical” estreia no Brasil em outubro no Teatro Sabesp Frei Caneca" data-url="https://foyer.digital/post-titanique-o-musical-estreia-no-brasil-em-outubro-no-teatro-sabesp-frei-caneca.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-musical-clara-nunes-a-tal-guerreira-estreia-curta-temporada-no-teatro-sergio-car.html" aria-label="Foto da matéria"><img src="assets/acervo/42dc66bf758f182c.jpg" alt="Musical “Clara Nunes – A Tal Guerreira” estreia curta temporada no Teatro Sérgio Cardoso com Emanuelle Araújo" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-musical-clara-nunes-a-tal-guerreira-estreia-curta-temporada-no-teatro-sergio-car.html">Musical “Clara Nunes – A Tal Guerreira” estreia curta temporada no Teatro Sérgio Cardoso com Emanuelle Araújo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">25.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical “Clara Nunes – A Tal Guerreira” estreia curta temporada no Teatro Sérgio Cardoso com Emanuelle Araújo" data-url="https://foyer.digital/post-musical-clara-nunes-a-tal-guerreira-estreia-curta-temporada-no-teatro-sergio-car.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-musical-ney-matogrosso-homem-com-h-retorna-a-sao-paulo-no-teatro-porto.html" aria-label="Foto da matéria"><img src="assets/acervo/dda41f3f05698fc9.jpg" alt="Musical “Ney Matogrosso – Homem com H” retorna a São Paulo no Teatro Porto" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-musical-ney-matogrosso-homem-com-h-retorna-a-sao-paulo-no-teatro-porto.html">Musical “Ney Matogrosso – Homem com H” retorna a São Paulo no Teatro Porto</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical “Ney Matogrosso – Homem com H” retorna a São Paulo no Teatro Porto" data-url="https://foyer.digital/post-musical-ney-matogrosso-homem-com-h-retorna-a-sao-paulo-no-teatro-porto.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-musical-mudanca-de-habito-estreia-em-sao-paulo-em-marco-de-2026-no-teatro-liberd.html" aria-label="Foto da matéria"><img src="assets/acervo/387eeccc06379407.jpg" alt="Musical “Mudança de Hábito” estreia em São Paulo em março de 2026 no Teatro Liberdade" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-musical-mudanca-de-habito-estreia-em-sao-paulo-em-marco-de-2026-no-teatro-liberd.html">Musical “Mudança de Hábito” estreia em São Paulo em março de 2026 no Teatro Liberdade</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">08.09 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical “Mudança de Hábito” estreia em São Paulo em março de 2026 no Teatro Liberdade" data-url="https://foyer.digital/post-musical-mudanca-de-habito-estreia-em-sao-paulo-em-marco-de-2026-no-teatro-liberd.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-musical-imagine-com-javier-parisi-chega-ao-teatro-b32-em-sao-paulo-nos-dias-30-e.html" aria-label="Foto da matéria"><img src="assets/acervo/c646d45d8973a41f.jpg" alt="Musical Imagine, com Javier Parisi, chega ao Teatro B32 em São Paulo nos dias 30 e 31 de agosto" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-musical-imagine-com-javier-parisi-chega-ao-teatro-b32-em-sao-paulo-nos-dias-30-e.html">Musical Imagine, com Javier Parisi, chega ao Teatro B32 em São Paulo nos dias 30 e 31 de agosto</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">26.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical Imagine, com Javier Parisi, chega ao Teatro B32 em São Paulo nos dias 30 e 31 de agosto" data-url="https://foyer.digital/post-musical-imagine-com-javier-parisi-chega-ao-teatro-b32-em-sao-paulo-nos-dias-30-e.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-maes-o-musical-estreia-em-sao-paulo-em-setembro-com-claudia-raia-na-producao-e-d.html" aria-label="Foto da matéria"><img src="assets/acervo/c238d5afed06c934.jpg" alt="“Mães, o Musical” estreia em São Paulo em setembro com Claudia Raia na produção e direção de Jarbas Homem de Mello" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-maes-o-musical-estreia-em-sao-paulo-em-setembro-com-claudia-raia-na-producao-e-d.html">“Mães, o Musical” estreia em São Paulo em setembro com Claudia Raia na produção e direção de Jarbas Homem de Mello</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Mães, o Musical” estreia em São Paulo em setembro com Claudia Raia na produção e direção de Jarbas Homem de Mello" data-url="https://foyer.digital/post-maes-o-musical-estreia-em-sao-paulo-em-setembro-com-claudia-raia-na-producao-e-d.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-musical-infantil-de-onde-vem-o-dinheiro-estreia-em-sao-paulo-com-proposta-educat.html" aria-label="Foto da matéria"><img src="assets/acervo/8e6209e3b04d1930.jpg" alt="Musical infantil “De Onde Vem o Dinheiro?” estreia em São Paulo com proposta educativa e divertida sobre finanças e empreendedorismo" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-musical-infantil-de-onde-vem-o-dinheiro-estreia-em-sao-paulo-com-proposta-educat.html">Musical infantil “De Onde Vem o Dinheiro?” estreia em São Paulo com proposta educativa e divertida sobre finanças e empreendedorismo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">20.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical infantil “De Onde Vem o Dinheiro?” estreia em São Paulo com proposta educativa e divertida sobre finanças e empreendedorismo" data-url="https://foyer.digital/post-musical-infantil-de-onde-vem-o-dinheiro-estreia-em-sao-paulo-com-proposta-educat.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-claudia-raia-e-jarbas-homem-de-mello-prorrogam-temporada-de-sucesso-com-cenas-da.html" aria-label="Foto da matéria"><img src="assets/acervo/b6dcaa04b111db9e.jpg" alt="Claudia Raia e Jarbas Homem de Mello prorrogam temporada de sucesso com “Cenas da Menopausa” no Teatro Claro MAIS SP" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-claudia-raia-e-jarbas-homem-de-mello-prorrogam-temporada-de-sucesso-com-cenas-da.html">Claudia Raia e Jarbas Homem de Mello prorrogam temporada de sucesso com “Cenas da Menopausa” no Teatro Claro MAIS SP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Claudia Raia e Jarbas Homem de Mello prorrogam temporada de sucesso com “Cenas da Menopausa” no Teatro Claro MAIS SP" data-url="https://foyer.digital/post-claudia-raia-e-jarbas-homem-de-mello-prorrogam-temporada-de-sucesso-com-cenas-da.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-tim-maia-vale-tudo-retorna-aos-palcos-em-montagem-renovada-no-teatro-claro-mais-.html" aria-label="Foto da matéria"><img src="assets/acervo/a6d4b1fca66cbda0.jpg" alt="“Tim Maia – Vale Tudo” retorna aos palcos em montagem renovada no Teatro Claro MAIS SP" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-tim-maia-vale-tudo-retorna-aos-palcos-em-montagem-renovada-no-teatro-claro-mais-.html">“Tim Maia – Vale Tudo” retorna aos palcos em montagem renovada no Teatro Claro MAIS SP</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Tim Maia – Vale Tudo” retorna aos palcos em montagem renovada no Teatro Claro MAIS SP" data-url="https://foyer.digital/post-tim-maia-vale-tudo-retorna-aos-palcos-em-montagem-renovada-no-teatro-claro-mais-.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-gloria-groove-faz-historia-em-wicked-no-teatro-renault.html" aria-label="Foto da matéria"><img src="assets/acervo/955fac1c38226cb9.jpg" alt="Gloria Groove faz história em Wicked no Teatro Renault" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-gloria-groove-faz-historia-em-wicked-no-teatro-renault.html">Gloria Groove faz história em Wicked no Teatro Renault</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Gloria Groove faz história em Wicked no Teatro Renault" data-url="https://foyer.digital/post-gloria-groove-faz-historia-em-wicked-no-teatro-renault.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-a-chorus-line-ganha-nova-montagem-brasileira-com-raul-gazolla-no-elenco.html" aria-label="Foto da matéria"><img src="assets/acervo/8f81a2d017af6273.jpg" alt="“A Chorus Line” ganha nova montagem brasileira com Raul Gazolla no elenco" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-a-chorus-line-ganha-nova-montagem-brasileira-com-raul-gazolla-no-elenco.html">“A Chorus Line” ganha nova montagem brasileira com Raul Gazolla no elenco</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">12.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“A Chorus Line” ganha nova montagem brasileira com Raul Gazolla no elenco" data-url="https://foyer.digital/post-a-chorus-line-ganha-nova-montagem-brasileira-com-raul-gazolla-no-elenco.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-musical-clara-nunes-a-tal-guerreira-chega-ao-rio-com-emanuelle-araujo-no-papel-d.html" aria-label="Foto da matéria"><img src="assets/acervo/028a23b740d7710e.jpg" alt="Musical ”Clara Nunes – A Tal Guerreira” chega ao Rio com Emanuelle Araújo no papel da eterna Sabiá" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-musical-clara-nunes-a-tal-guerreira-chega-ao-rio-com-emanuelle-araujo-no-papel-d.html">Musical "Clara Nunes – A Tal Guerreira" chega ao Rio com Emanuelle Araújo no papel da eterna Sabiá</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">11.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical ”Clara Nunes – A Tal Guerreira” chega ao Rio com Emanuelle Araújo no papel da eterna Sabiá" data-url="https://foyer.digital/post-musical-clara-nunes-a-tal-guerreira-chega-ao-rio-com-emanuelle-araujo-no-papel-d.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-espetaculo-musical-infantojuvenil-os-oculos-magicos-de-charlotte-estreia-no-teat.html" aria-label="Foto da matéria"><img src="assets/acervo/20710ca03046f9ed.jpg" alt="Espetáculo musical infantojuvenil ”Os Óculos Mágicos de Charlotte” estreia no Teatro Sérgio Cardoso" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-espetaculo-musical-infantojuvenil-os-oculos-magicos-de-charlotte-estreia-no-teat.html">Espetáculo musical infantojuvenil "Os Óculos Mágicos de Charlotte" estreia no Teatro Sérgio Cardoso</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo musical infantojuvenil ”Os Óculos Mágicos de Charlotte” estreia no Teatro Sérgio Cardoso" data-url="https://foyer.digital/post-espetaculo-musical-infantojuvenil-os-oculos-magicos-de-charlotte-estreia-no-teat.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-espetaculo-infancia-reestreia-no-agora-teatro-apos-jornada-pelos-sertoes-de-grac.html" aria-label="Foto da matéria"><img src="assets/acervo/dd5761027f6e05e4.jpg" alt="Espetáculo “Infância” reestreia no Ágora Teatro após jornada pelos sertões de Graciliano Ramos" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-espetaculo-infancia-reestreia-no-agora-teatro-apos-jornada-pelos-sertoes-de-grac.html">Espetáculo “Infância” reestreia no Ágora Teatro após jornada pelos sertões de Graciliano Ramos</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">10.08 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Espetáculo “Infância” reestreia no Ágora Teatro após jornada pelos sertões de Graciliano Ramos" data-url="https://foyer.digital/post-espetaculo-infancia-reestreia-no-agora-teatro-apos-jornada-pelos-sertoes-de-grac.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-musical-rapsodia-estreia-em-sao-paulo-com-montagem-imersiva-e-cenario-sustentave.html" aria-label="Foto da matéria"><img src="assets/acervo/a7c9e2fedaa216ac.jpg" alt="Musical “Rapsódia” estreia em São Paulo com montagem imersiva e cenário sustentável" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-musical-rapsodia-estreia-em-sao-paulo-com-montagem-imersiva-e-cenario-sustentave.html">Musical “Rapsódia” estreia em São Paulo com montagem imersiva e cenário sustentável</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">28.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical “Rapsódia” estreia em São Paulo com montagem imersiva e cenário sustentável" data-url="https://foyer.digital/post-musical-rapsodia-estreia-em-sao-paulo-com-montagem-imersiva-e-cenario-sustentave.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-musical-brenda-lee-e-o-palacio-das-princesas-retorna-a-sao-paulo-para-nova-tempo.html" aria-label="Foto da matéria"><img src="assets/acervo/22b56311215fb966.jpg" alt="Musical “Brenda Lee e o Palácio das Princesas” retorna a São Paulo para nova temporada no Teatro Vivo" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-musical-brenda-lee-e-o-palacio-das-princesas-retorna-a-sao-paulo-para-nova-tempo.html">Musical “Brenda Lee e o Palácio das Princesas” retorna a São Paulo para nova temporada no Teatro Vivo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">24.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Musical “Brenda Lee e o Palácio das Princesas” retorna a São Paulo para nova temporada no Teatro Vivo" data-url="https://foyer.digital/post-musical-brenda-lee-e-o-palacio-das-princesas-retorna-a-sao-paulo-para-nova-tempo.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-tick-tick-boom-ganha-versao-brasileira-inedita-no-rio-de-janeiro.html" aria-label="Foto da matéria"><img src="assets/acervo/df9399f2e064ed9e.jpg" alt="“tick, tick… BOOM!” ganha versão brasileira inédita no Rio de Janeiro" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-tick-tick-boom-ganha-versao-brasileira-inedita-no-rio-de-janeiro.html">“tick, tick… BOOM!” ganha versão brasileira inédita no Rio de Janeiro</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">22.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“tick, tick… BOOM!” ganha versão brasileira inédita no Rio de Janeiro" data-url="https://foyer.digital/post-tick-tick-boom-ganha-versao-brasileira-inedita-no-rio-de-janeiro.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-fenomeno-internacional-titanique-o-musical-estreia-em-sao-paulo-com-direcao-de-g.html" aria-label="Foto da matéria"><img src="assets/acervo/ef45f0b60c626767.jpg" alt="Fenômeno internacional, Titanique – O Musical estreia em São Paulo com direção de Gustavo Barchilon" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-fenomeno-internacional-titanique-o-musical-estreia-em-sao-paulo-com-direcao-de-g.html">Fenômeno internacional, Titanique – O Musical estreia em São Paulo com direção de Gustavo Barchilon</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">19.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Fenômeno internacional, Titanique – O Musical estreia em São Paulo com direção de Gustavo Barchilon" data-url="https://foyer.digital/post-fenomeno-internacional-titanique-o-musical-estreia-em-sao-paulo-com-direcao-de-g.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-eduardo-sterblitch-volta-a-encarnar-o-espirito-de-beetlejuice-o-musical-sucesso-.html" aria-label="Foto da matéria"><img src="assets/acervo/d2bc2e24778c9b95.jpg" alt="Eduardo Sterblitch volta a encarnar o espírito de “Beetlejuice – O Musical”, sucesso de público e crítica que retorna aos palcos no Rio e em São Paulo" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-eduardo-sterblitch-volta-a-encarnar-o-espirito-de-beetlejuice-o-musical-sucesso-.html">Eduardo Sterblitch volta a encarnar o espírito de “Beetlejuice – O Musical”, sucesso de público e crítica que retorna aos palcos no Rio e em São Paulo</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">18.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Eduardo Sterblitch volta a encarnar o espírito de “Beetlejuice – O Musical”, sucesso de público e crítica que retorna aos palcos no Rio e em São Paulo" data-url="https://foyer.digital/post-eduardo-sterblitch-volta-a-encarnar-o-espirito-de-beetlejuice-o-musical-sucesso-.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-sonho-encantado-de-cordel-o-musical-retorna-a-sao-paulo-com-aline-wirley-e-igor-.html" aria-label="Foto da matéria"><img src="assets/acervo/e468b0b112900ef5.jpg" alt="“Sonho Encantado de Cordel – O Musical” retorna a São Paulo com Aline Wirley e Igor Rickli em uma fábula nordestina cheia de magia, música e brasilidade" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-sonho-encantado-de-cordel-o-musical-retorna-a-sao-paulo-com-aline-wirley-e-igor-.html">“Sonho Encantado de Cordel – O Musical” retorna a São Paulo com Aline Wirley e Igor Rickli em uma fábula nordestina cheia de magia, música e brasilidade</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">16.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="“Sonho Encantado de Cordel – O Musical” retorna a São Paulo com Aline Wirley e Igor Rickli em uma fábula nordestina cheia de magia, música e brasilidade" data-url="https://foyer.digital/post-sonho-encantado-de-cordel-o-musical-retorna-a-sao-paulo-com-aline-wirley-e-igor-.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+    <article class="news-cell" data-cat="Teatro Musical">
+      <a class="ph" href="post-erico-bras-estreia-bet-balanco-no-teatro-italia-em-comedia-musical-sobre-dinheir.html" aria-label="Foto da matéria"><img src="assets/acervo/29cb7ea0eba9902e.jpg" alt="Érico Brás estreia “Bet Balanço” no Teatro itália, em comédia musical sobre Dinheiro, influência e honestidade" loading="lazy" onerror="this.style.display='none'"></a>
+      <div class="cbody">
+        <span class="tag">Teatro Musical</span>
+        <h3><a href="post-erico-bras-estreia-bet-balanco-no-teatro-italia-em-comedia-musical-sobre-dinheir.html">Érico Brás estreia “Bet Balanço” no Teatro itália, em comédia musical sobre Dinheiro, influência e honestidade</a></h3>
+        <div class="meta-row">
+          <span class="meta-l">14.07 — Isabel Branquinha</span>
+          <button class="share-min" data-share="native" data-title="Érico Brás estreia “Bet Balanço” no Teatro itália, em comédia musical sobre Dinheiro, influência e honestidade" data-url="https://foyer.digital/post-erico-bras-estreia-bet-balanco-no-teatro-italia-em-comedia-musical-sobre-dinheir.html">Compartilhar ↗</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <nav class="pager" aria-label="Páginas"><a href="cat-teatro-musical-p4.html">← Anterior</a><a href="cat-teatro-musical.html">1</a><a href="cat-teatro-musical-p2.html">2</a><span>…</span><a href="cat-teatro-musical-p4.html">4</a><a href="cat-teatro-musical-p5.html" class="on">5</a><a href="cat-teatro-musical-p6.html">6</a><span>…</span><a href="cat-teatro-musical-p13.html">13</a><a href="cat-teatro-musical-p14.html">14</a><a href="cat-teatro-musical-p6.html">Próxima →</a></nav>
+  <div class="ad-slot" data-ad-slot="1003"></div>
+</main>
+
+<style>
+.pub-cortina[hidden]{ display:none !important; }
+.pub-cortina{ position:fixed; inset:0; z-index:120; display:flex; align-items:center;
+  justify-content:center; background:rgba(20,6,3,.78); padding:20px; }
+.pub-cortina .caixa{ position:relative; background:var(--paper); border:3px solid var(--ink);
+  max-width:520px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+.pub-cortina .rotulo{ display:block; font-family:var(--mono); font-size:.52rem; font-weight:700;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); padding:10px 14px 0; }
+/* teto de altura: arte muito em pé não pode empurrar o botão de fechar para
+   fora da tela. O que passar do teto vira margem de papel, nunca corte. */
+.pub-cortina img{ display:block; width:100%; height:auto; object-fit:contain;
+  max-height:calc(100vh - 170px); padding:10px 14px; box-sizing:border-box; }
+.pub-cortina .leg{ padding:0 14px 14px; font-size:.85rem; }
+.pub-cortina .fechar{ position:absolute; top:-14px; right:-14px; width:34px; height:34px;
+  border:2px solid var(--ink); background:var(--gold); color:var(--wine); font-weight:700;
+  cursor:pointer; font-size:1rem; line-height:1; }
+</style>
+<div class="pub-cortina" id="pub-cortina" data-pub-chave="pub:cortina" hidden><div class="caixa"><button class="fechar" type="button" id="pub-cortina-x" aria-label="Fechar">✕</button><span class="rotulo">Publicidade</span><a href="https://www.sympla.com.br/produtor/foyerestudioecomunicacao" target="_blank" rel="noopener sponsored" data-pub="pub:cortina"><img src="assets/uploads/pub-cortina-0-msf37psm.jpg" alt=""></a></div></div>
+<script>
+(function(){
+  var k = 'foyer-pub-cortina-' + new Date().toISOString().slice(0, 10);
+  try{ if(localStorage.getItem(k)) return; }catch(e){}
+  function livre(){ try{ return !!localStorage.getItem('foyer-consent'); }catch(e){ return true; } }
+  var c = document.getElementById('pub-cortina');
+  function entra(){
+    setTimeout(function(){
+      c.hidden = false;
+      if(window.foyerPubVista) window.foyerPubVista(c.getAttribute('data-pub-chave'));
+      // 1x por dia de verdade: vista ao abrir, e não só ao fechar
+      try{ localStorage.setItem(k, '1'); }catch(e){}
+    }, 900);
+  }
+  function fecha(){ c.hidden = true; try{ localStorage.setItem(k, '1'); }catch(e){} }
+  document.getElementById('pub-cortina-x').addEventListener('click', fecha);
+  c.addEventListener('click', function(e){ if(e.target === c) fecha(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !c.hidden) fecha(); });
+  if(livre()) entra();
+  else var iv = setInterval(function(){ if(livre()){ clearInterval(iv); entra(); } }, 600);
+})();
+</script>
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Editorias</h4>
+        <a href="noticias.html">Notícias</a>
+        <a href="critica.html">Crítica</a>
+        <a href="entrevistas.html">Entrevistas</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programas</h4>
+        <a href="programas.html">Programa do Foyer</a>
+        <a href="programas.html">Críticas Teatrais · Por Bruno Cavalcanti</a>
+        <a href="programas.html">Trivia Musical · Astro em Cena</a>
+        <a href="programas.html">Session Musical · Coxixo de Coxia</a>
+      </div>
+      <div class="foot-col">
+        <h4>Foyer</h4>
+        <a href="revista.html">A Revista</a>
+        <a href="enciclopedia.html">Enciclopédia</a>
+        <a href="sobre.html">Quem somos</a>
+        <a href="contato.html">Contato</a>
+        <a href="anuncie.html">Anuncie no FOYER</a>
+        <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="principios.html">Princípios Editoriais</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+        <a href="termos.html">Termos de Uso</a>
+        <a href="#" data-lgpd>Preferências de cookies</a>
+        <a href="#" data-sino>🔔 Notificações</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Foyer Estúdio e Comunicação — Todos os direitos reservados</span>
+      <span>São Paulo — Brasil</span>
+    </div>
+  </div>
+  <div class="foot-giant" aria-hidden="true">
+    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+<script src="assets/ads.js"></script>
+</body>
+</html>
