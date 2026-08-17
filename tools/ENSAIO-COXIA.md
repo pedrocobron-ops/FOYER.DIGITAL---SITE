@@ -464,3 +464,29 @@ Consolidado a partir de 13 testadores (desktop, celular, teclado, papéis de che
 - B3: editorias Entenda e Memória adicionadas ao seletor (não grava mais matéria sem editoria).
 - B6: Fila sem rede agora mostra o erro com "Tentar de novo" em vez de "Nenhuma matéria por aqui".
 - B12 conferido: a exclusão de pessoa da Equipe JÁ pede confirmação (falso positivo do ensaio).
+
+## JÁ FEITO (17/08/2026, lote aprovado pelo Pedro: itens 4-11, 13-16 + design 17-22)
+- Itens 6-8: mesa da Redação IA em modo triagem — cards resumidos (capa baixa,
+  parecer em 3 linhas, ~430px em vez de ~4.900px) com "Ver completo"; régua de
+  decisão fixa no pé da tela com o dossiê aberto; recusa pede motivo e ele fica
+  registrado na lixeira; confirmação de aprovar diz o título.
+- Item 4: a busca do topo da Fila também conta o acervo completo, com botão que
+  leva à busca do acervo já preenchida.
+- Item 5: linhas da Fila com content-visibility:auto + botão flutuante "↑ topo".
+- Item 9: todo aviso de chave virou diálogo com "Ir para Conexão"; a Nova matéria
+  avisa da falta de chave antes de a pessoa escrever.
+- Item 10: diagnósticos da Conexão reescritos (sem "chave válida" contraditório,
+  sem "confira a internet" falso); Desconectar confirma e limpa tudo.
+- Item 11: "Salvo ✓" em toast na revista, perto do botão.
+- Item 13: botão permanente "Rascunhos (N)" abre a prateleira mesmo com texto na tela.
+- Item 14: régua de porte com alvo ("faltam 250 palavras para 350–500").
+- Item 15: autor que envia matéria cai na Fila e vê o selo "Na mesa do chefe".
+- Item 16: "Folhear a edição" no editor da revista — rascunho ganha prova de
+  gráfica (revista-prova-N.html, noindex, fora do sitemap/estante, some ao publicar).
+- Design 17-22: títulos padronizados (Calendário/Publicidade/Divulgação); troca de
+  aba volta ao topo; botões no padrão (Conexão sem caps, setas do espelho, Limpar);
+  reticências em todo corte (helper corta); erro distinto de vazio com "Tentar de
+  novo" (lixeira/diário/mural/sugestões); plural de verdade (helper plural);
+  crédito de foto em fonte de leitura; datas sem segundos; barra do calendário sem
+  clipe; agendador não navega ao passado; coluna de ações da Fila alinhada.
+- Fora do lote (decisão do Pedro): item 12 (limitar o Palco Instagram a 5).
