@@ -1705,8 +1705,6 @@ ingressos e divisor."></textarea>
           .dv-op.on{ background:var(--ink,#231007); color:var(--gold,#CEB26A); }
           .dv-acoes{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
         </style>
-        <div class="sec-h"><h3>Divulgação</h3>
-          <span>o banco de artes do portal: escolha a peça, ajuste o texto e baixe pronta para o Instagram</span></div>
         <h2 class="hi">Divulgação</h2>
         <p class="hi-sub">Artes prontas para divulgar o FOYER no Instagram — stories e feed, sempre com a tipografia da casa</p>
         <div class="dv-grid">
@@ -3631,7 +3629,8 @@ ingressos e divisor."></textarea>
       return;
     }
     clearTimeout(rascTimer);
-    rascTimer = setTimeout(function(){
+    var agora = arguments[0] === true;   // salvarRasc(true) grava na hora, sem esperar o debounce
+    var faz = function(){
       var d = coletarRasc();
       if(!d.title && !d.corpo) return;
       if(!RASC_ID) RASC_ID = 'r' + Date.now().toString(36);
@@ -3646,7 +3645,8 @@ ingressos e divisor."></textarea>
       } else {
         rascStatus('⚠ Não consegui guardar o rascunho neste navegador — use ☁ Guardar rascunho.');
       }
-    }, 800);
+    };
+    if(agora) faz(); else rascTimer = setTimeout(faz, 800);
   }
   ['f-title', 'f-body', 'f-cred', 'f-imgleg', 'f-imgfonte', 'f-imgdir', 'f-fontes', 'f-cat', 'f-cat2', 'f-cat3', 'f-ev-ini', 'f-ev-fim', 'f-ev-local', 'f-ev-cidade']
     .forEach(function(id){ var el = $(id); if(el) el.addEventListener('input', salvarRasc); el && el.addEventListener('change', salvarRasc); });
@@ -3740,10 +3740,10 @@ ingressos e divisor."></textarea>
   });
   var btnRascunhos = $('btn-rascunhos');
   if(btnRascunhos) btnRascunhos.addEventListener('click', function(){
-    // o que está na tela vai para a prateleira antes de ela abrir: nada se perde
-    if(!EDIT && ($('f-title').value || $('f-body').value)) salvarRasc();
+    // o que está na tela vai para a prateleira ANTES de ela abrir (grava na
+    // hora, sem esperar o debounce): nada se perde
+    if(!EDIT && ($('f-title').value || $('f-body').value)) salvarRasc(true);
     checarRasc(true);
-    $('rasc-aviso').scrollIntoView({ behavior:'smooth', block:'center' });
   });
   function checarRasc(forcar){
     // junta a prateleira local com a da nuvem (a mais nova de cada id vence)
@@ -3778,6 +3778,9 @@ ingressos e divisor."></textarea>
             '</span>';
         }).join('');
       av.classList.add('on');
+      // aberta a pedido (botão Rascunhos), a prateleira vem até o olho — a
+      // rolagem só funciona DEPOIS de ela ganhar corpo, por isso mora aqui
+      if(forcar) av.scrollIntoView({ behavior:'smooth', block:'center' });
       av.querySelectorAll('[data-rasc-abre]').forEach(function(b){
         b.addEventListener('click', function(){ aplicarRascunho(lista[+b.dataset.rascAbre]); });
       });
@@ -5242,7 +5245,7 @@ ingressos e divisor."></textarea>
         });
         var nAg = items.filter(function(d){ return !d._mesa && d.publishAt && d.publishAt > agora; }).length;
         var nDev = items.filter(function(d){ return d.status === 'devolvida'; }).length;
-        var nMesa = items.filter(function(d){ return d._mesa; }).length;
+        var nMesa = items.filter(function(d){ return d._mesa && d.status !== 'devolvida'; }).length;
         var nAr = items.length - nAg - nDev - nMesa;
         var chips = '<div class="fila-filtros" style="display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px">' +
           '<button class="bt on" type="button" data-ff="todas">Todas (' + items.length + ')</button>' +
@@ -9302,10 +9305,15 @@ ingressos e divisor."></textarea>
     if(!RV.ed || RV.ed.status === 'publicada') return;   // página real: segue direto
     e.preventDefault();
     var alvo = rvFol.href;
+    // a aba abre JÁ no clique (senão o bloqueador de pop-up engole a prova
+    // quando a conferência demora); se a prova não existir, a aba se fecha
+    var aba = window.open('', '_blank');
     fetch(alvo, { cache: 'no-store' }).then(function(r){
-      if(r.ok){ window.open(alvo, '_blank', 'noopener'); return; }
+      if(r.ok){ if(aba) aba.location = alvo; else window.location = alvo; return; }
+      if(aba) aba.close();
       avisar('A prova de gráfica ainda está sendo montada pelo site — leva ~2 minutos depois de salvar. Tente de novo daqui a pouco.');
     }).catch(function(){
+      if(aba) aba.close();
       avisar('Não deu para conferir a prova agora. Tente de novo em instantes.');
     });
   });

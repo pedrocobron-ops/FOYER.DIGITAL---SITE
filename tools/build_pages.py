@@ -560,7 +560,8 @@ def news_cell(sym, tag, title, meta, desc=None, big=False):
 def page(fname, title, desc, current, body, quiet=False, og_img=None, og_type='website', ld=''):
     # a publicidade da casa entra em todo o site, MENOS na Coxia e dentro da
     # revista (a edição fechada não carrega anúncio de site)
-    _pub = '' if (fname.startswith('coxia') or fname.startswith('revista-ed-') or fname.startswith('anuncie')) else ADS_CASA
+    _pub = '' if (fname.startswith('coxia') or fname.startswith('revista-ed-')
+                  or fname.startswith('revista-prova-') or fname.startswith('anuncie')) else ADS_CASA
     html = head(title, desc, og_img=og_img, og_type=og_type, og_url=fname, ld=ld) + '\n' + DEFS + '\n' + UTIL + '\n' + nav(current) + '\n' + body + '\n' + _pub + FOOTER + '</body>\n</html>\n'
     with open(os.path.join(ROOT, fname), 'w') as f:
         f.write(html)
@@ -6260,10 +6261,12 @@ for _e in EDICOES:
         print(f'• prova de gráfica: revista-prova-{_e.get("numero")}.html (rascunho)')
     except Exception as _exc:
         print(f'  AVISO: prova da edição {_e.get("numero")} não gerada: {_exc}')
-for _e in ED_PUB:
-    _pf = os.path.join(ROOT, f'revista-prova-{_e.get("numero")}.html')
-    if os.path.exists(_pf):
-        os.remove(_pf)
+# some toda prova cuja edição não é mais rascunho: publicada OU apagada
+_provas_validas = {f'revista-prova-{_e.get("numero")}.html'
+                   for _e in EDICOES if _e.get('status') != 'publicada' and _e.get('numero')}
+for _fn in os.listdir(ROOT):
+    if _fn.startswith('revista-prova-') and _fn.endswith('.html') and _fn not in _provas_validas:
+        os.remove(os.path.join(ROOT, _fn))
 
 # coxia: página sem nav de seções (área restrita) — cabeçalho mínimo
 coxia_html = (head('Coxia — FOYER', 'Área restrita da redação do Foyer.')
