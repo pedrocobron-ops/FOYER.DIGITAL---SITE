@@ -395,6 +395,7 @@
     .gs-dia{ min-height:auto; } }
   /* bloco de agendadas no topo da fila */
   .fila-agenda{ border:var(--b); padding:14px 18px; margin-bottom:18px; background:var(--paper); }
+  .fila-filtros .bt.on{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
   .fila-agenda > b{ display:block; font-family:var(--sans); font-size:.86rem; margin-bottom:10px;
     text-transform:uppercase; letter-spacing:.05em; }
   .fa-row{ display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:baseline;
@@ -1103,7 +1104,7 @@
                   <option>Crítica</option><option>Notícia</option><option>Televisão</option><option>Streaming</option>
                   <option>Literatura</option><option>Exposições</option><option>Show</option><option>Audições</option>
                   <option>Edital</option><option>Festa</option><option>Programa</option><option>Guia</option>
-                  <option>Bastidores</option><option>Astrologia</option>
+                  <option>Bastidores</option><option>Entenda</option><option>Memória</option><option>Astrologia</option>
                   <option>Artigo de Opinião</option><option>Crônicas e Histórias</option>
                 </select>
               </div>
@@ -4952,7 +4953,10 @@ ingressos e divisor."></textarea>
     var el = $('fila-list');
     el.innerHTML = '<div class="vazio-box">Carregando…</div>';
     Promise.all([
-      ghGet('import/novas').catch(function(){ return null; }),
+      // a pasta principal SEM rede precisa virar o aviso de erro com "tentar
+      // de novo" — engolir a falha mostrava "Nenhuma matéria por aqui ainda"
+      // com 174 matérias existindo (pego no ensaio geral de 17/08)
+      ghGet('import/novas'),
       ghGet('import/pauta').catch(function(){ return null; })
     ]).then(function(res){
       var fNovas = (res[0] || []).filter(function(f){ return f.name.endsWith('.json'); });
@@ -4987,15 +4991,23 @@ ingressos e divisor."></textarea>
         // --- bloco AGENDADAS: o que ainda vai sair, em ordem cronológica ---
         var agendadas = items.filter(function(d){ return !d._mesa && d.publishAt && d.publishAt > agora; })
           .sort(function(a,b){ return (a.publishAt).localeCompare(b.publishAt); });
+        // REFORMA DE 17/08/2026 (ensaio geral): a aba escondia as matérias
+        // atrás de 2,3 telas de rolagem. Agora a LISTA vem logo depois da
+        // busca; a grade da semana e o "Vão sair" viram gavetas fechadas,
+        // e as linhas do "Vão sair" levam ao card da matéria com um clique.
         var blocoAg = '';
         if(agendadas.length){
-          blocoAg = '<div class="fila-agenda"><b>🕐 Vão sair (' + agendadas.length + ')</b>' +
+          var prox = agendadas[0];
+          blocoAg = '<details class="fila-agenda" style="margin:0 0 10px">' +
+            '<summary style="cursor:pointer;list-style-position:inside"><b>🕐 Vão sair (' + agendadas.length + ')</b>' +
+            ' <span class="mt">a próxima: ' + esc(qdRelativo(prox.publishAt)) + ' · ' +
+            esc(prox.title.length > 48 ? prox.title.slice(0, 48) + '…' : prox.title) + '</span></summary>' +
             agendadas.map(function(d){
-              return '<div class="fa-row" data-bq="' + esc(amassaBusca(d.title + ' ' + d.cat)) + '">' +
+              return '<div class="fa-row" role="button" tabindex="0" data-vai-slug="' + esc(d.slug) + '" data-bq="' + esc(amassaBusca(d.title + ' ' + d.cat)) + '" style="cursor:pointer">' +
                 '<span class="fa-q">' + esc(qdRelativo(d.publishAt)) + '</span>' +
                 '<span class="fa-t">' + esc(d.title) + '</span>' +
                 '<span class="mt">' + esc(d.cat) + '</span></div>';
-            }).join('') + '</div>';
+            }).join('') + '</details>';
         }
 
         // --- busca de temas: "já tem matéria sobre isso?" ---
@@ -5010,14 +5022,34 @@ ingressos e divisor."></textarea>
             '<div id="fila-q-mesa"></div>' +
           '</div>';
 
-        items.sort(function(a,b){ return (b.publishAt || b.geradoEm || '').localeCompare(a.publishAt || a.geradoEm || ''); });
+        // agendadas primeiro, da MAIS PRÓXIMA para a mais distante (o ensaio
+        // pegou a de daqui a três semanas aparecendo antes da de amanhã);
+        // depois as publicadas, da mais recente para trás
+        items.sort(function(a, b){
+          var aF = !!(a.publishAt && a.publishAt > agora), bF = !!(b.publishAt && b.publishAt > agora);
+          if(aF !== bF) return aF ? -1 : 1;
+          var ka = a.publishAt || a.geradoEm || '', kb = b.publishAt || b.geradoEm || '';
+          return aF ? ka.localeCompare(kb) : kb.localeCompare(ka);
+        });
         // o texto de cada matéria, amassado, para a busca de temas (fica em
         // memória, fora do HTML — corpo inteiro entra na comparação)
         var chavesBusca = items.map(function(d){
           return amassaBusca([d.title, d.cat, (d.cats || []).join(' '), d.author || '',
                               d.corpo || ''].join(' '));
         });
-        el.innerHTML = blocoBusca + '<div id="fila-grade-w">' + blocoGrade + '</div>' + blocoAg + items.map(function(d, _bi){
+        var nAg = items.filter(function(d){ return d.publishAt && d.publishAt > agora; }).length;
+        var nDev = items.filter(function(d){ return d.status === 'devolvida'; }).length;
+        var nAr = items.length - nAg - nDev;
+        var chips = '<div class="fila-filtros" style="display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px">' +
+          '<button class="bt on" type="button" data-ff="todas">Todas (' + items.length + ')</button>' +
+          '<button class="bt" type="button" data-ff="pb">No ar (' + nAr + ')</button>' +
+          '<button class="bt" type="button" data-ff="ag">Agendadas (' + nAg + ')</button>' +
+          (nDev ? '<button class="bt" type="button" data-ff="rc">Devolvidas (' + nDev + ')</button>' : '') +
+          '</div>';
+        var blocoGradeD = blocoGrade
+          ? '<details id="fila-grade-w" style="margin:0 0 10px"><summary style="cursor:pointer;list-style-position:inside"><b>📅 A semana da casa</b> <span class="mt">grade de segunda a domingo</span></summary>' + blocoGrade + '</details>'
+          : '<span id="fila-grade-w" style="display:none"></span>';
+        el.innerHTML = blocoBusca + blocoGradeD + blocoAg + chips + items.map(function(d, _bi){
           var pill, cls;
           var devolvida = d.status === 'devolvida';
           if(devolvida){ pill = 'Devolvida'; cls = 'rc'; }
@@ -5055,7 +5087,7 @@ ingressos e divisor."></textarea>
             ? '<div class="fa-devol">↩ Devolvida por ' + esc(d.devolucao.por || 'chefe') + ': ' + esc(d.devolucao.motivo || 'sem comentário') + '</div>'
             : '';
           var views = (jaPub ? '<span class="fr-views" data-vslug="' + esc(d.slug) + '"></span>' : '');
-          return '<div class="frow' + (devolvida ? ' rec' : '') + '" data-bi="' + _bi + '">' + th +
+          return '<div class="frow' + (devolvida ? ' rec' : '') + '" data-bi="' + _bi + '" data-st="' + cls + '" data-slug="' + esc(d.slug) + '">' + th +
             '<span><span class="ti">' + esc(d.title) + '</span>' +
             '<span class="mt">' + esc(d.cat) + ' — ' + esc(d.author) + ' — ' + quando +
             (d.atualizadoEm ? ' — ✎ atualizada' : '') + views + '</span>' + recado + '</span>' +
@@ -5073,6 +5105,7 @@ ingressos e divisor."></textarea>
                               d.corpo || ''].join(' '));
         });
         var qEl = $('fila-q'), qN = $('fila-q-n'), qMesa = $('fila-q-mesa'), qT;
+        var FF = { v: 'todas' };  // o filtro dos chips (Todas / No ar / Agendadas / Devolvidas)
         function filaFiltra(){
           var q = amassaBusca(qEl.value.trim());
           var termos = q.split(/\s+/).filter(function(t){ return t.length >= 2; });
@@ -5084,7 +5117,8 @@ ingressos e divisor."></textarea>
           };
           var nFila = 0;
           el.querySelectorAll('.frow[data-bi]').forEach(function(row){
-            var ok = !ativa || bate(chavesBusca[+row.dataset.bi] || '');
+            var ok = (!ativa || bate(chavesBusca[+row.dataset.bi] || '')) &&
+                     (FF.v === 'todas' || row.dataset.st === FF.v);
             row.style.display = ok ? '' : 'none';
             if(ativa && ok) nFila++;
           });
@@ -5114,6 +5148,30 @@ ingressos e divisor."></textarea>
         }
         qEl.addEventListener('input', function(){
           clearTimeout(qT); qT = setTimeout(filaFiltra, 150);
+        });
+        // chips de filtro: Todas / No ar / Agendadas / Devolvidas
+        el.querySelectorAll('.fila-filtros [data-ff]').forEach(function(b){
+          b.addEventListener('click', function(){
+            FF.v = b.dataset.ff;
+            el.querySelectorAll('.fila-filtros [data-ff]').forEach(function(x){
+              x.classList.toggle('on', x === b);
+            });
+            filaFiltra();
+          });
+        });
+        // as linhas do "Vão sair" levam ao card da matéria (antes eram texto morto)
+        el.querySelectorAll('[data-vai-slug]').forEach(function(r){
+          function vai(){
+            var alvo = el.querySelector('.frow[data-slug="' + r.dataset.vaiSlug + '"]');
+            if(!alvo) return;
+            if(alvo.style.display === 'none'){ FF.v = 'todas'; qEl.value = ''; filaFiltra();
+              el.querySelectorAll('.fila-filtros [data-ff]').forEach(function(x){ x.classList.toggle('on', x.dataset.ff === 'todas'); }); }
+            alvo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            alvo.style.outline = '3px solid var(--gold)';
+            setTimeout(function(){ alvo.style.outline = ''; }, 1800);
+          }
+          r.addEventListener('click', vai);
+          r.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); vai(); } });
         });
       });
     }).catch(function(e){
