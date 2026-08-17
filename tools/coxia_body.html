@@ -1703,6 +1703,7 @@ ingressos e divisor."></textarea>
           <div>
             <div class="dv-palco">
               <div class="dv-tela"><canvas id="dv-canvas" width="1080" height="1920"></canvas></div>
+              <p id="dv-nota-corte" style="display:none;margin:8px 0 0;font-family:var(--sans);font-size:.85rem;color:var(--wine);font-weight:600"></p>
               <div class="dv-campos">
                 <div class="dv-ops" id="dv-formato">
                   <button class="dv-op on" type="button" data-fmt="stories">Stories 1080×1920</button>
@@ -2444,6 +2445,9 @@ ingressos e divisor."></textarea>
     $('mi-equipe').classList.toggle('hid', USER.papel !== 'chefe');
     $('mi-revista').classList.toggle('hid', USER.papel !== 'chefe');
     $('mi-metricas').classList.toggle('hid', USER.papel !== 'chefe');
+    // a Publicidade é dinheiro da casa: só a chefia vê (pego no ensaio dos
+    // jornalistas — o estagiário conseguia operar anúncios no primeiro dia)
+    $('mi-pub').classList.toggle('hid', USER.papel !== 'chefe');
     $('mi-ia').classList.toggle('hid', !podeMesa());
     $('mural-fixar-l').style.display = USER.papel === 'chefe' ? 'inline-flex' : 'none';
     $('card-mesa').style.display = podeMesa() ? '' : 'none';
@@ -2688,7 +2692,10 @@ ingressos e divisor."></textarea>
     // A CERCA DE VERDADE (B1 do ensaio geral): esconder o item do menu não
     // basta — atalhos internos levavam um autor comum à Revista, à mesa da
     // Redação IA e à Publicidade. Toda tela restrita confere o papel AQUI.
-    var SO_CHEFE = { revista: 1, equipe: 1, metricas: 1, publicidade: 1 };
+    // ATENÇÃO: as chaves aqui são os nomes REAIS das abas (data-view). A cerca
+    // da Publicidade nunca funcionou porque estava escrita "publicidade" e a
+    // aba se chama "pub" (pego no ensaio dos jornalistas).
+    var SO_CHEFE = { revista: 1, equipe: 1, metricas: 1, pub: 1 };
     if(USER && ((SO_CHEFE[v] && USER.papel !== 'chefe') || (v === 'ia' && !podeMesa()))){
       avisar('Esta área é da chefia da casa. Se você precisa de algo dela, fale com o Pedro ou a Isabel.');
       v = 'saguao';
@@ -5098,6 +5105,16 @@ ingressos e divisor."></textarea>
           .concat(fPauta.map(function(f){ return baixa(f, true); }))
       ).then(function(items){
         items = items.filter(Boolean);
+        // arquivos que a lista prometia e não vieram (rede caindo no meio):
+        // tratar isso como "vazio" era mentira — o ensaio dos jornalistas
+        // pegou a fila dizendo "nenhuma matéria" com o site cheio delas
+        var perdidos = (fNovas.length + fPauta.length) - items.length;
+        var avisoPerda = perdidos > 0
+          ? '<div class="vazio-box erro" style="margin:0 0 12px">⚠ ' +
+            plural(perdidos, 'matéria não carregou', 'matérias não carregaram') +
+            ' — a conexão falhou no meio do caminho e a lista está incompleta. ' +
+            '<button class="bt" type="button" data-fila-denovo>↻ Tentar de novo</button></div>'
+          : '';
         var mesaBusca = [];
         if(!podeEditar()){
           items = items.filter(function(d){ return d.author === USER.nome || d.criadoPor === USER.nome; });
@@ -5108,7 +5125,10 @@ ingressos e divisor."></textarea>
           mesaBusca = items.filter(function(d){ return d._mesa; });
           items = items.filter(function(d){ return !d._mesa; });
         }
-        if(!items.length){ el.innerHTML = '<div class="vazio-box">Nenhuma matéria por aqui ainda</div>'; return; }
+        if(!items.length){
+          el.innerHTML = avisoPerda || '<div class="vazio-box">Nenhuma matéria por aqui ainda</div>';
+          return;
+        }
         var agora = new Date().toISOString();
         items.forEach(function(d){ FILA_CACHE[d.slug] = d; });
 
@@ -5177,7 +5197,7 @@ ingressos e divisor."></textarea>
         var blocoGradeD = blocoGrade
           ? '<details id="fila-grade-w" style="margin:0 0 10px"><summary style="cursor:pointer;list-style-position:inside"><b>📅 A semana da casa</b> <span class="mt">grade de segunda a domingo</span></summary>' + blocoGrade + '</details>'
           : '<span id="fila-grade-w" style="display:none"></span>';
-        el.innerHTML = blocoBusca + blocoGradeD + blocoAg + chips + items.map(function(d, _bi){
+        el.innerHTML = avisoPerda + blocoBusca + blocoGradeD + blocoAg + chips + items.map(function(d, _bi){
           var pill, cls;
           var devolvida = d.status === 'devolvida';
           if(devolvida){ pill = 'Devolvida'; cls = 'rc'; }
@@ -5635,8 +5655,12 @@ ingressos e divisor."></textarea>
         return fetch(f.download_url).then(function(r){ return r.json(); })
           .then(function(d){ d._path = f.path; d._sha = f.sha; return d; }).catch(function(){ return null; });
       })).then(function(items){
+        items = items.filter(Boolean);
+        // se a rede caiu no meio, dizer "mesa vazia" é mentira perigosa (o
+        // ensaio dos jornalistas pegou a mesa "vazia" com 19 esperando carimbo)
+        MESA_PERDIDOS = files.length - items.length;
         // não mostra na mesa do chefe o que já foi devolvido ao autor (está com ele, não esperando aprovação)
-        items = items.filter(Boolean).filter(function(d){ return d.status !== 'devolvida'; });
+        items = items.filter(function(d){ return d.status !== 'devolvida'; });
         items.sort(function(a,b){ return (b.geradoEm || '').localeCompare(a.geradoEm || ''); });
         MESA_ITENS = items;
         desenharMesa();
@@ -5649,11 +5673,19 @@ ingressos e divisor."></textarea>
     });
   }
 
+  // o "tentar de novo" da carga parcial (o botão aparece em lugares diferentes)
+  document.addEventListener('click', function(e){
+    if(e.target.closest && e.target.closest('[data-fila-denovo]')) carregarFila();
+    if(e.target.closest && e.target.closest('[data-mesa-denovo]')) carregarMesa();
+  });
+
   // ---------- a mesa filtrada por assinatura ----------
   // Guardo a mesa inteira e redesenho só o pedaço escolhido: trocar de aba não
   // volta ao GitHub, e o contador de cada botão continua mostrando o tamanho
   // real da fila de cada um mesmo quando a tela está mostrando outra.
   var MESA_ITENS = [], MESA_FILTRO = 'todas';
+  // quantos arquivos da mesa a rede prometeu e não entregou na última carga
+  var MESA_PERDIDOS = 0;
   // modo triagem: quais cards a pessoa abriu por inteiro (sobrevive à troca de filtro)
   var MESA_ABERTOS = {};
   function corta(t, n){ t = String(t || ''); return t.length > n ? t.slice(0, n - 1).replace(/\s+$/, '') + '…' : t; }
@@ -5673,7 +5705,11 @@ ingressos e divisor."></textarea>
     if(!MESA_ITENS.length){
       var bl1 = $('mesa-lote'); if(bl1) bl1.style.display = 'none';
       $('mesa-filtro').innerHTML = '';
-      el.innerHTML = '<div class="vazio-box">Mesa vazia — nenhuma matéria aguardando aprovação.</div>';
+      el.innerHTML = MESA_PERDIDOS > 0
+        ? '<div class="vazio-box erro">⚠ ' + plural(MESA_PERDIDOS, 'matéria da mesa não carregou', 'matérias da mesa não carregaram') +
+          ' — a conexão falhou no meio do caminho. Não dá para dizer se a mesa está vazia. ' +
+          '<button class="bt" type="button" data-mesa-denovo>↻ Tentar de novo</button></div>'
+        : '<div class="vazio-box">Mesa vazia — nenhuma matéria aguardando aprovação.</div>';
       return;
     }
     // conta cada grupo ANTES de filtrar, para o botão dizer quantas esperam ali
@@ -5819,6 +5855,14 @@ ingressos e divisor."></textarea>
               return '<a href="#card-' + esc(d.slug) + '">' + esc(d.title.slice(0, 42)) + (d.title.length > 42 ? '…' : '') + ' <small>' + n + '</small></a>';
             }).join('') + '</div>';
           el.insertAdjacentHTML('afterbegin', resumo);
+        }
+        // carga parcial: a mesa apareceu, mas incompleta — avisa em vez de calar
+        if(MESA_PERDIDOS > 0){
+          el.insertAdjacentHTML('afterbegin',
+            '<div class="vazio-box erro" style="margin:0 0 12px">⚠ ' +
+            plural(MESA_PERDIDOS, 'matéria não carregou', 'matérias não carregaram') +
+            ' — a mesa abaixo está incompleta. ' +
+            '<button class="bt" type="button" data-mesa-denovo>↻ Tentar de novo</button></div>');
         }
         atualizaLote();
   }
@@ -7489,8 +7533,19 @@ ingressos e divisor."></textarea>
     var m = FoyerArtes.MEDIDAS[formato];
     cv.width = m.w; cv.height = m.h;
     var ctx = cv.getContext('2d');
-    FoyerArtes.pinta(ctx, peca, { formato: formato, recado: peca.recado, arte: arte || null,
-      logo: peca.estilo === 'papel' ? DV.logoV : DV.logoG });
+    var op = { formato: formato, recado: peca.recado, arte: arte || null,
+      logo: peca.estilo === 'papel' ? DV.logoV : DV.logoG };
+    FoyerArtes.pinta(ctx, peca, op);
+    // a arte apara itens sozinha para nunca sair texto sobre texto;
+    // quando apara, avisa aqui embaixo quantos couberam
+    var nota = $('dv-nota-corte');
+    if(nota){
+      var f = op._fit || {};
+      nota.style.display = (f.itensTotal > f.itens) ? '' : 'none';
+      if(f.itensTotal > f.itens)
+        nota.textContent = '⚠ Neste formato couberam ' + f.itens + ' de ' + f.itensTotal +
+          ' itens — encurte a lista ou o texto para caber tudo.';
+    }
     return cv;
   }
   function dvPrevia(){

@@ -196,36 +196,59 @@
     ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
 
     // ---- 1ª passada: monta a partitura, sem pintar nada ----
-    var bloco = [], alturaTitulo = stories ? 660 : 400;
-    var logoH = 0, logoW = 0;
+    var alturaTitulo = stories ? 660 : 400;
+    var logoH = 0, logoW = 0, temLogo = false;
     if (opts.logo && opts.logo.complete && opts.logo.naturalWidth) {
+      temLogo = true;
       logoW = stories ? 250 : 190;
       logoH = logoW * (opts.logo.naturalHeight / opts.logo.naturalWidth);
-      bloco.push({ tipo:'logo', h: logoH + (stories ? 54 : 40) });
     }
-    ctx.font = '600 ' + (stories ? 30 : 26) + 'px "IBM Plex Mono", monospace';
-    bloco.push({ tipo:'etiqueta', h: stories ? 96 : 80 });
-
-    var tam = stories ? 112 : 82, linhasT;
-    while (true) {
-      ctx.font = '400 ' + tam + 'px "Abril Fatface", Georgia, serif';
-      linhasT = quebra(ctx, peca.titulo, larg);
-      if (linhasT.length * tam * 1.04 <= alturaTitulo || tam <= 46) break;
-      tam -= 5;
-    }
-    bloco.push({ tipo:'titulo', tam: tam, linhas: linhasT, h: linhasT.length * tam * 1.04 + (stories ? 46 : 30) });
-
-    var tamL = stories ? 37 : 30;
-    ctx.font = '400 ' + tamL + 'px Archivo, Helvetica, Arial, sans-serif';
-    var linhasL = quebra(ctx, peca.linha, larg - (stories ? 40 : 20));
-    bloco.push({ tipo:'linha', linhas: linhasL, tam: tamL, h: linhasL.length * (tamL * 1.42) });
-
     var itens = (peca.itens || []).filter(Boolean);
-    if (itens.length) bloco.push({ tipo:'itens', h: (stories ? 40 : 26) + itens.length * (stories ? 56 : 44) });
+    var itensTotal = itens.length;
+    var tam = stories ? 112 : 82, tamL = stories ? 37 : 30;
+    var faixaIni = m.topo, faixaFim = m.base - (stories ? 150 : 110);
+    var bloco, linhasT, linhasL, alturaTotal;
+
+    function monta() {
+      bloco = [];
+      if (temLogo) bloco.push({ tipo:'logo', h: logoH + (stories ? 54 : 40) });
+      bloco.push({ tipo:'etiqueta', h: stories ? 96 : 80 });
+      while (true) {
+        ctx.font = '400 ' + tam + 'px "Abril Fatface", Georgia, serif';
+        linhasT = quebra(ctx, peca.titulo, larg);
+        if (linhasT.length * tam * 1.04 <= alturaTitulo || tam <= 46) break;
+        tam -= 5;
+      }
+      // título maior que o espaço mesmo no menor corpo: apara em fim de
+      // palavra, com reticências — nunca palavra pela metade
+      var maxLin = Math.max(2, Math.floor(alturaTitulo / (tam * 1.04)));
+      if (linhasT.length > maxLin) {
+        linhasT = linhasT.slice(0, maxLin);
+        linhasT[maxLin - 1] = linhasT[maxLin - 1].replace(/\s+\S*$/, '') + '…';
+      }
+      bloco.push({ tipo:'titulo', tam: tam, linhas: linhasT, h: linhasT.length * tam * 1.04 + (stories ? 46 : 30) });
+      ctx.font = '400 ' + tamL + 'px Archivo, Helvetica, Arial, sans-serif';
+      linhasL = quebra(ctx, peca.linha, larg - (stories ? 40 : 20));
+      bloco.push({ tipo:'linha', linhas: linhasL, tam: tamL, h: linhasL.length * (tamL * 1.42) });
+      if (itens.length) bloco.push({ tipo:'itens', h: (stories ? 40 : 26) + itens.length * (stories ? 56 : 44) });
+      alturaTotal = bloco.reduce(function (a, b) { return a + b.h; }, 0);
+    }
+
+    // aparar até caber na faixa segura: primeiro os itens excedentes, depois o
+    // corpo do texto — a arte NUNCA sai com texto por cima de texto ou do rodapé
+    monta();
+    while (alturaTotal > (faixaFim - faixaIni)) {
+      if (itens.length > 3) itens.pop();
+      else if (tamL > 24) tamL -= 2;
+      else if (tam > 46) tam -= 5;
+      else if (itens.length > 1) itens.pop();
+      else break;
+      monta();
+    }
+    // quem chamou pode avisar "couberam N de M itens" perto do desenho
+    opts._fit = { itens: itens.length, itensTotal: itensTotal };
 
     // ---- 2ª passada: desenha, tudo centrado na faixa segura ----
-    var alturaTotal = bloco.reduce(function (a, b) { return a + b.h; }, 0);
-    var faixaIni = m.topo, faixaFim = m.base - (stories ? 150 : 110);
     var y = faixaIni + Math.max(0, ((faixaFim - faixaIni) - alturaTotal) / 2);
 
     bloco.forEach(function (b) {
