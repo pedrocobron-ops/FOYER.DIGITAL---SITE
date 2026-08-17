@@ -87,7 +87,7 @@ try{{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')documen
 {ORG_LD}{ld}
 </head>
 <body>
-<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<a class="skip-link" href="#conteudo" onclick="var m=document.getElementById('conteudo');if(m)m.setAttribute('tabindex','-1');if(m)m.focus();location.hash='conteudo';return false;">Pular para o conteúdo</a>
 '''
 
 DEFS = '''<!-- artes de palco (placeholders de foto e capas da revista) -->

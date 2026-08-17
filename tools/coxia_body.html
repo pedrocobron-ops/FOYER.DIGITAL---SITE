@@ -396,6 +396,11 @@
   /* bloco de agendadas no topo da fila */
   .fila-agenda{ border:var(--b); padding:14px 18px; margin-bottom:18px; background:var(--paper); }
   .fila-filtros .bt.on{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
+  /* lixeira no celular: os títulos ficavam numa coluna de 79px (ensaio geral) */
+  @media (max-width:640px){
+    .frow.lx{ display:flex !important; flex-wrap:wrap; }
+    .frow.lx > span{ width:100%; }
+  }
   .fila-agenda > b{ display:block; font-family:var(--sans); font-size:.86rem; margin-bottom:10px;
     text-transform:uppercase; letter-spacing:.05em; }
   .fa-row{ display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:baseline;
@@ -1606,7 +1611,7 @@ ingressos e divisor."></textarea>
         <div id="pub-pedidos"><div class="vazio-box">Carregando pedidos…</div></div>
         <div class="sec-h"><h3>No ar agora, e como está indo</h3><span>vistas e cliques de cada anúncio, medidos no site e na revista</span></div>
         <div id="pub-desempenho"><div class="vazio-box">Carregando os números…</div></div>
-        <div class="sec-h"><h3>Anúncios do site no ar</h3><span>a Faixa, a Cortina e o Entreato; salvar publica no próximo deploy, sempre com o rótulo Publicidade</span></div>
+        <div class="sec-h"><h3>Anúncios do site no ar</h3><span>o Cartaz, a Cortina e o Entreato; salvar publica no próximo deploy, sempre com o rótulo Publicidade</span></div>
         <div class="pub-form" id="pub-site"></div>
       </section>
 
@@ -1681,7 +1686,7 @@ ingressos e divisor."></textarea>
               <button class="bt" type="button" id="dv-reverter">↺ Voltar ao texto original</button>
               <button class="bt" type="button" id="dv-apagar" style="display:none">🗑 Apagar do banco</button>
             </div>
-            <div class="f-note" style="margin-top:10px">As artes saem em PNG, no tamanho certo do Instagram. O texto que você
+            <div class="f-note" style="margin-top:10px">As artes saem em JPG, no tamanho certo do Instagram. O texto que você
               guarda no banco fica salvo para todo mundo da casa, e a peça continua sendo redesenhada na hora, sempre com a
               tipografia do FOYER.</div>
           </div>
@@ -2626,6 +2631,14 @@ ingressos e divisor."></textarea>
   }
 
   function irPara(v, foco, focoAlt){
+    // A CERCA DE VERDADE (B1 do ensaio geral): esconder o item do menu não
+    // basta — atalhos internos levavam um autor comum à Revista, à mesa da
+    // Redação IA e à Publicidade. Toda tela restrita confere o papel AQUI.
+    var SO_CHEFE = { revista: 1, equipe: 1, metricas: 1, publicidade: 1 };
+    if(USER && ((SO_CHEFE[v] && USER.papel !== 'chefe') || (v === 'ia' && !podeMesa()))){
+      avisar('Esta área é da chefia da casa. Se você precisa de algo dela, fale com o Pedro ou a Isabel.');
+      v = 'saguao';
+    }
     document.querySelectorAll('#menu button').forEach(function(x){ x.classList.toggle('on', x.dataset.view === v); });
     document.querySelectorAll('.view').forEach(function(x){ x.classList.remove('on'); });
     $('view-' + v).classList.add('on');
@@ -5343,7 +5356,7 @@ ingressos e divisor."></textarea>
       })).then(function(items){
         items = items.filter(Boolean).sort(function(a, b){ return (b.removidoEm || '').localeCompare(a.removidoEm || ''); });
         el.innerHTML = items.map(function(d, i){
-          return '<div class="frow" style="grid-template-columns:1fr auto auto">' +
+          return '<div class="frow lx" style="grid-template-columns:1fr auto auto">' +
             '<span><span class="ti">' + esc(d.title || d.slug || '?') + '</span>' +
             '<span class="mt">removida por ' + esc(d.removidoPor || '?') + ' — ' + rel(d.removidoEm || '') + '</span></span>' +
             '<button class="bt" data-lixr="' + i + '" type="button">↩ Restaurar</button>' +
@@ -5396,9 +5409,13 @@ ingressos e divisor."></textarea>
                  (c.motivo ? ' <span style="color:var(--ink-soft)">(' + esc(c.motivo) + ')</span>' : '') + '</li>';
         }).join('');
         var prod = (r.produzidas || []).map(function(p){ return '<li>' + esc(p) + '</li>'; }).join('');
+        // rodada antiga sem data legível não vira "Invalid Date" na tela
+        var qd = new Date(r.quando);
+        var qdTxt = isNaN(qd.getTime()) ? (r.quando || 'data não registrada') : qd.toLocaleString('pt-BR');
+        var nProd = (r.produzidas || []).length;
         return '<div class="rod">' +
-          '<span class="rq">' + new Date(r.quando).toLocaleString('pt-BR') + ' — ' + esc(r.por || 'redação') + '</span>' +
-          '<div class="rt" data-rod="' + i + '">Rodada: ' + (r.produzidas || []).length + ' matéria(s) para a mesa ▾</div>' +
+          '<span class="rq">' + esc(qdTxt) + ' — ' + esc(r.por || 'redação') + '</span>' +
+          '<div class="rt" data-rod="' + i + '">Rodada: ' + nProd + (nProd === 1 ? ' matéria' : ' matérias') + ' para a mesa ▾</div>' +
           '<div class="rdet" id="rod-' + i + '">' +
             (buscas ? '<h5>Varredura do Pauteiro — buscas feitas</h5><ul>' + buscas + '</ul>' : '') +
             (cons ? '<h5>Pautas consideradas</h5><ul>' + cons + '</ul>' : '') +
@@ -5580,7 +5597,7 @@ ingressos e divisor."></textarea>
           var checagem = ehAutor ? apuracaoAutor
             : (chk && chk.verificada
               ? '<div class="mesa-checa"><b>✓ Conferido pelo checador independente</b>' +
-                (chk.por ? ' <span class="ck-por">' + esc(chk.por) + '</span>' : '') +
+                (chk.por && !/checador independente/i.test(chk.por) ? ' <span class="ck-por">' + esc(chk.por) + '</span>' : '') +
                 (chk.conferido ? '<br>' + esc(chk.conferido) : '') +
                 (chk.cortes && chk.cortes.length
                   ? '<ul>' + chk.cortes.map(function(c){ return '<li>' + esc(c) + '</li>'; }).join('') + '</ul>' : '') +
@@ -6207,7 +6224,12 @@ ingressos e divisor."></textarea>
     CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-ajustar').innerHTML = ''; $('up-prev').src = ''; up.classList.remove('tem');
     aplicarUsuario();
   }
-  $('edit-cancelar').addEventListener('click', sairEdicao);
+  $('edit-cancelar').addEventListener('click', function(){
+    // cancelar volta para a FILA, de onde a edição partiu — cair no Palco
+    // perdia a posição na lista (B11 do ensaio geral)
+    sairEdicao();
+    irPara('fila');
+  });
 
   var MATS_ACERVO = null;
   function acervoTodos(){
@@ -7657,7 +7679,9 @@ ingressos e divisor."></textarea>
     ghPut('import/coxia/mural.json', JSON.stringify({ recados: MURAL.lista }, null, 1),
       assina('recado no mural'), MURAL.sha)
       .then(function(){ $('mural-txt').value = ''; $('mural-fixar').checked = false;
-        msg.className = 'msg'; carregarMural(); })
+        msg.className = 'msg ok'; msg.textContent = 'Recado publicado ✓';
+        setTimeout(function(){ msg.textContent = ''; msg.className = 'msg'; }, 3000);
+        carregarMural(); })
       .catch(function(err){ msg.textContent = msgErro(err); msg.className = 'msg err'; carregarMural(); });
   });
 
@@ -7824,13 +7848,24 @@ ingressos e divisor."></textarea>
       method: 'POST',
       headers: { 'apikey': RKC.key, 'Authorization': 'Bearer ' + RKC.key, 'Content-Type': 'application/json' },
       body: JSON.stringify({ chave: MX_CHAVE })
-    }).then(function(r){ return r.json(); }).then(function(d){
+    }).then(function(r){
+      // resposta ruim NÃO pode virar zero confiante: era o problema mais
+      // repetido do ensaio geral (6 de 13 testadores) — o painel mostrava
+      // "0 visitas" e até baixava CSV zerado quando o medidor caía
+      if(!r.ok) throw 0;
+      return r.json();
+    }).then(function(d){
+      MX_TEM_DADOS = true;
       return titulos().then(function(map){ pintarMetricas(d, map); });
     }).catch(function(){
-      $('mx-tiles').innerHTML = '<div class="stat"><b>✕</b><span>não deu para buscar os números agora</span></div>';
+      MX_TEM_DADOS = false;
+      $('mx-tiles').innerHTML = '<div class="stat"><b>—</b><span>o medidor não respondeu — os números do site não foram afetados</span>' +
+        '<button class="bt" type="button" id="mx-denovo" style="margin-top:8px">↻ Tentar de novo</button></div>';
+      var td = $('mx-denovo'); if(td) td.addEventListener('click', carregarMetricas);
     });
     carregarLeitores();
   }
+  var MX_TEM_DADOS = false;
   // os leitores cadastrados: o retrato agregado que sustenta o mídia kit
   function carregarLeitores(){
     var el = $('mx-leitores');
@@ -8247,7 +8282,7 @@ ingressos e divisor."></textarea>
     el.innerHTML = '<div class="vazio-box">Carregando o ranking…</div>';
     fetch(RKC.url + '/rest/v1/foyer_ranking?select=*', {
       headers: { 'apikey': RKC.key, 'Authorization': 'Bearer ' + RKC.key }
-    }).then(function(r){ return r.json(); }).then(function(rows){
+    }).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(rows){
       return titulos().then(function(map){
         (rows || []).forEach(function(r){
           r.v = RK_MODO === 'semana' ? (r.views_semana || 0) : (r.views || 0);
@@ -8288,7 +8323,17 @@ ingressos e divisor."></textarea>
             '</div>';
         }).join('');
       });
-    }).catch(function(){ el.innerHTML = '<div class="vazio-box">Ranking indisponível agora</div>'; });
+    }).catch(function(){
+      // o Placar ficava em "Carregando…" PARA SEMPRE quando o medidor caía
+      // (ensaio geral, 3 testadores) — agora os dois quadros contam a verdade
+      var honesto = '<div class="vazio-box">O medidor não respondeu — os números do site não foram afetados. ' +
+        '<button class="bt" type="button" onclick="this.closest(\'div\').textContent=\'Buscando…\'" data-rk-denovo>↻ Tentar de novo</button></div>';
+      el.innerHTML = honesto;
+      var ra = $('rank-autores'); if(ra) ra.innerHTML = honesto;
+      document.querySelectorAll('[data-rk-denovo]').forEach(function(b){
+        b.addEventListener('click', function(){ setTimeout(carregarRanking, 300); });
+      });
+    });
   }
   document.querySelectorAll('.rk-tg button').forEach(function(b){
     b.addEventListener('click', function(){
@@ -8423,7 +8468,7 @@ ingressos e divisor."></textarea>
         RV.todas = eds;
         el.innerHTML = eds.map(function(ed){
           var pub = ed.status === 'publicada';
-          return '<div class="frow" style="grid-template-columns:1fr auto auto">' +
+          return '<div class="frow lx" style="grid-template-columns:1fr auto auto">' +
             '<span><span class="ti">Nº ' + ed.numero + ' — ' + esc((ed.capa && ed.capa.manchete) || ed.titulo || 'sem título') + '</span>' +
             '<span class="mt">' + (ed.paginas ? ed.paginas.length + 1 : 1) + ' página(s) — ' + esc(ed.dataEdicao || '') +
             (ed.historico && ed.historico[0] ? ' — última mexida: ' + esc(ed.historico[0].quem) : '') + '</span></span>' +
@@ -8642,6 +8687,12 @@ ingressos e divisor."></textarea>
         '<div class="r2"><div><label>Frase de despedida (opcional; só frase real e verificada)</label><input type="text" id="pgf-frase" value="' + esc(d.frase || '') + '"></div>' +
         '<div><label>Autor da frase</label><input type="text" id="pgf-autor" value="' + esc(d.autor || '') + '"></div></div>';
     } else if(tipo === 'expediente' || tipo === 'programas' || tipo === 'agenda' || tipo === 'frase-celebre'){
+      // o lápis nestas páginas DUPLICAVA a página em vez de editar (B4 do
+      // ensaio geral): elas se montam sozinhas, então editar não existe
+      if(RV.idx != null){
+        avisar('Esta página se monta sozinha na hora de publicar — não há o que editar nela.');
+        return;
+      }
       RV.ed.paginas.push({ tipo: tipo });
       renderPgs();
       return;
@@ -8810,9 +8861,12 @@ ingressos e divisor."></textarea>
     RV.ed.capa.manchete = $('rv-manchete').value.trim();
     RV.ed.capa.credito = $('rv-capa-cred').value.trim();
     var chs = $('rv-chamadas').value.split('\n').map(function(x){ return x.trim(); }).filter(Boolean);
-    if(chs.length > 3){
-      avisar('A capa imprime só 3 chamadas — as demais foram descartadas: "' + chs.slice(3).join('" · "') + '"');
-      chs = chs.slice(0, 3);
+    // NADA se descarta (B9 do ensaio geral: só de abrir a prévia do e-mail a
+    // 4ª chamada sumia do arquivo). Todas ficam guardadas; a capa imprime as
+    // 3 primeiras, e quem digitou a mais fica sabendo, sem perder texto.
+    if(chs.length > 3 && !colherCampos._avisou){
+      colherCampos._avisou = true;
+      avisar('A capa imprime só as 3 PRIMEIRAS chamadas. As demais ficam guardadas no rascunho, mas não aparecem na capa.');
     }
     RV.ed.capa.chamadas = chs;
   }
@@ -8843,7 +8897,10 @@ ingressos e divisor."></textarea>
       confirmar('Despublicar a edição Nº ' + RV.ed.numero + '? Ela sai da página da revista.', { perigo:true, rotuloOk:'Despublicar' }).then(function(ok){
         if(!ok) return;
         RV.ed.status = 'rascunho';
-        salvarEd('despublica a edição').then(renderEd).catch(function(){});
+        // se a gravação falhar, o status VOLTA — sem isto, um "Salvar rascunho"
+        // depois despublicava a edição em silêncio (B2 do ensaio geral)
+        salvarEd('despublica a edição').then(renderEd)
+          .catch(function(){ RV.ed.status = 'publicada'; renderEd(); });
       });
       return;
     }
@@ -8853,7 +8910,8 @@ ingressos e divisor."></textarea>
     confirmar('Publicar a edição Nº ' + RV.ed.numero + '? Ela entra na página da revista do site.', { rotuloOk:'Publicar' }).then(function(ok){
       if(!ok) return;
       RV.ed.status = 'publicada';
-      salvarEd('publica a edição').then(renderEd).catch(function(){});
+      salvarEd('publica a edição').then(renderEd)
+        .catch(function(){ RV.ed.status = 'rascunho'; renderEd(); });
     });
   });
   $('rv-fechar').addEventListener('click', function(){
