@@ -356,6 +356,8 @@
     /* com 170+ matérias, o navegador só desenha as linhas que estão na tela */
     content-visibility:auto; contain-intrinsic-size:auto 1px auto 92px; }
   .frow:last-child{ border-bottom:0; }
+  .frow .bt{ white-space:nowrap; }
+  .frow .fr-acts{ display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; }
   .frow .th{ width:92px; height:56px; border:1px solid var(--line); object-fit:cover; background:var(--paper-2); }
   .frow .th.no{ display:flex; align-items:center; justify-content:center; font-family:var(--mono);
     font-size:.5rem; letter-spacing:.1em; color:var(--ink-soft); text-transform:uppercase; }
@@ -420,6 +422,8 @@
   .bt.danger:hover{ background:#8E1B10; border-color:var(--err); color:#fff; }
   .vazio-box{ border:var(--b); padding:18px; font-family:var(--mono); font-size:.6rem; letter-spacing:.1em;
     text-transform:uppercase; color:var(--ink-soft); line-height:2; }
+  /* erro é visualmente diferente de vazio: filete vinho e botão de repetir */
+  .vazio-box.erro, .vazio.erro{ box-shadow:inset 4px 0 0 var(--wine); color:var(--ink); }
   @media (max-width:700px){ .frow{ grid-template-columns:1fr auto; } .frow .th{ display:none; } }
 
   /* diário da redação IA */
@@ -510,7 +514,8 @@
   .mesa-capa{ border-bottom:1px solid var(--line); position:relative; }
   .mesa-capa img{ width:100%; max-height:300px; object-fit:cover; vertical-align:top; }
   .mesa-cred{ position:absolute; right:0; bottom:0; background:var(--ink); color:var(--gold);
-    font-family:var(--mono); font-size:.54rem; letter-spacing:.1em; text-transform:uppercase; padding:5px 10px; }
+    font-family:var(--sans); font-size:.72rem; letter-spacing:.01em; text-transform:none;
+    padding:5px 10px; max-width:85%; }
   .mesa-semfoto{ border-bottom:1px solid var(--line); background:repeating-linear-gradient(45deg,
     var(--paper-2) 0 14px, var(--paper) 14px 28px); padding:16px 18px; font-family:var(--mono);
     font-size:.62rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--err); }
@@ -656,6 +661,8 @@
     box-shadow:0 6px 20px rgba(0,0,0,.18); opacity:0; pointer-events:none; transition:opacity .25s; }
   #volta-topo.on{ opacity:1; pointer-events:auto; }
   #volta-topo:hover{ background:var(--gold); }
+  /* placeholder longo termina em reticências, nunca cortado no meio da palavra */
+  input::placeholder, textarea::placeholder{ text-overflow:ellipsis; }
 
   /* equipe */
   .eq-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; }
@@ -698,9 +705,10 @@
     flex-wrap:wrap; align-items:center; }
   .cx-token input{ flex:1; min-width:240px; border:1.5px solid var(--line); background:var(--paper);
     color:var(--ink); font-family:var(--mono); font-size:.78rem; padding:12px; }
-  .cx-token button{ border:1.5px solid var(--line); background:var(--ink); color:var(--gold);
-    font-family:var(--mono); font-weight:600; font-size:.64rem; letter-spacing:.14em;
-    text-transform:uppercase; padding:13px 17px; cursor:pointer; }
+  .cx-token button{ border:1.5px solid var(--ink); background:var(--ink); color:var(--gold);
+    font-family:var(--sans); font-weight:700; font-size:.85rem; letter-spacing:.01em;
+    text-transform:none; padding:12px 18px; cursor:pointer; }
+  .cx-token button:hover{ background:var(--wine); border-color:var(--wine); }
   .cx-token .st{ font-family:var(--mono); font-size:.62rem; letter-spacing:.1em;
     text-transform:uppercase; color:var(--ink-soft); width:100%; }
   .cx-token .st.ok{ color:var(--ok); } .cx-token .st.err{ color:var(--err); }
@@ -774,6 +782,9 @@
     display:block; color:var(--ink-soft); font-size:.85rem; padding:6px 0 14px; }
   .esp-b{ border-left:3px solid transparent; padding-left:8px; margin-left:-11px; cursor:pointer; }
   .esp-b:hover{ border-left-color:var(--gold); background:var(--paper-2); }
+  .esp-b button[data-mov]{ border:1.5px solid var(--ink); background:var(--paper); color:var(--ink);
+    font:inherit; font-size:.8rem; width:30px; height:30px; cursor:pointer; margin-right:4px; }
+  .esp-b button[data-mov]:hover{ background:var(--gold); }
   .esp-b figure{ margin:8px 0 14px; }
   .esp-b figure img{ max-width:100%; display:block; border:2px solid var(--ink); }
   .esp-b figcaption{ font-family:var(--mono); font-size:.6rem; letter-spacing:.08em; text-transform:uppercase;
@@ -1313,7 +1324,7 @@ ingressos e divisor."></textarea>
             <select id="acervo-cat" aria-label="Filtrar por editoria"><option value="">Todas as editorias</option></select>
             <label class="af-de">de <input type="date" id="acervo-de" aria-label="Data inicial"></label>
             <label class="af-ate">até <input type="date" id="acervo-ate" aria-label="Data final"></label>
-            <button class="bt" type="button" id="acervo-limpar">limpar</button>
+            <button class="bt" type="button" id="acervo-limpar">Limpar</button>
           </form>
           <div id="acervo-cont" class="af-conta"></div>
           <div class="fila" id="acervo-res" style="margin-top:10px;display:none"></div>
@@ -1634,6 +1645,8 @@ ingressos e divisor."></textarea>
           .pub-r3{ display:grid; grid-template-columns:2fr 2fr 1fr; gap:10px; }
           @media (max-width:760px){ .pub-r3{ grid-template-columns:1fr; } }
         </style>
+        <h2 class="hi">Publicidade</h2>
+        <p class="hi-sub">Pedidos de anúncio, mapa de ocupação e o que está no ar — sempre com o rótulo Publicidade</p>
         <div id="pub-painel" class="pub-painel"></div>
         <div class="sec-h"><h3>Pedidos de anúncio</h3><span>chegam prontos do passo a passo do site (anuncie.html); feche valores no WhatsApp</span></div>
         <div id="pub-pedidos"><div class="vazio-box">Carregando pedidos…</div></div>
@@ -1677,6 +1690,8 @@ ingressos e divisor."></textarea>
         </style>
         <div class="sec-h"><h3>Divulgação</h3>
           <span>o banco de artes do portal: escolha a peça, ajuste o texto e baixe pronta para o Instagram</span></div>
+        <h2 class="hi">Divulgação</h2>
+        <p class="hi-sub">Artes prontas para divulgar o FOYER no Instagram — stories e feed, sempre com a tipografia da casa</p>
         <div class="dv-grid">
           <div>
             <div class="dv-lista" id="dv-lista"></div>
@@ -1758,7 +1773,7 @@ ingressos e divisor."></textarea>
             letter-spacing:.22em; text-transform:uppercase; opacity:.7; }
           .cal-hoje span{ font-size:.86rem; line-height:1.45; }
           .cal-hoje.urgente span{ font-weight:600; }
-          .cal-barra{ height:10px; border:2px solid var(--ink,#231007); margin:4px 0 16px; position:relative; }
+          .cal-barra{ height:10px; border:2px solid var(--ink,#231007); margin:26px 0 16px; position:relative; }
           .cal-barra i{ position:absolute; inset:0; width:0; background:var(--gold,#CEB26A); transition:width .4s ease; }
           .cal-barra span{ position:absolute; right:6px; top:-22px; font-family:var(--mono, monospace); font-size:.6rem; font-weight:700; }
           .cal-grade{ width:100%; border-collapse:collapse; font-size:.8rem; margin-bottom:20px; }
@@ -1769,7 +1784,8 @@ ingressos e divisor."></textarea>
             font-family:var(--mono, monospace); font-weight:700; font-size:.58rem; letter-spacing:.12em;
             text-transform:uppercase; padding:8px 12px; cursor:pointer; }
         </style>
-        <div class="sec-h"><h3>Calendário editorial</h3><span>a semana inteira da casa: o site todo dia, a revista pronta na quinta</span></div>
+        <h2 class="hi">Calendário</h2>
+        <p class="hi-sub">A semana inteira da casa: o site todo dia, a revista pronta na quinta</p>
         <div id="cal-rev"><div class="vazio-box">Carregando o calendário…</div></div>
         <div class="sec-h"><h3>A grade do site, dia a dia</h3><span>cota fixa: 2 Pedro Amaral + 2 Isabel Branquinha + 2 Redação Foyer, todo dia às 7h; o prato do dia muda com a semana</span></div>
         <div id="cal-grade"></div>
@@ -2189,6 +2205,8 @@ ingressos e divisor."></textarea>
 
   /* ---------------- utilidades ---------------- */
   function $(id){ return document.getElementById(id); }
+  // plural de verdade: plural(2,'matéria') -> "2 matérias"; aceita plural irregular
+  function plural(n, um, muitos){ return n + ' ' + (n === 1 ? um : (muitos || um + 's')); }
   function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
     .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
   // URL segura para href/src: só http(s) e caminhos internos; barra javascript:, data:, aspas etc.
@@ -2245,7 +2263,7 @@ ingressos e divisor."></textarea>
     if(s < 90) return 'agora há pouco';
     if(s < 3600) return 'há ' + Math.round(s/60) + ' min';
     if(s < 86400) return 'há ' + Math.round(s/3600) + ' h';
-    return 'há ' + Math.round(s/86400) + ' dia(s)';
+    return 'há ' + plural(Math.round(s/86400), 'dia');
   }
   // erro com o código HTTP anexado, para as mensagens amigáveis
   function ghErro(status){ var e = new Error('HTTP ' + status); e.gh = status; return e; }
@@ -2691,7 +2709,10 @@ ingressos e divisor."></textarea>
     if(v === 'pub'){ carregarPedidosPub(); carregarSitePub(); pubDesempenho(); }
     if(v === 'metricas') carregarMetricas();
     if(v === 'divulgacao') carregarDivulgacao();
+    // trocar de aba começa do topo: o título não nasce escondido atrás do
+    // cabeçalho fixo (ensaio geral)
     if(foco) focarBloco(foco, focoAlt);
+    else window.scrollTo(0, 0);
   }
   document.querySelectorAll('#menu button').forEach(function(b){
     b.addEventListener('click', function(){ irPara(b.dataset.view); });
@@ -3134,7 +3155,7 @@ ingressos e divisor."></textarea>
       if(podeMesa() && naMesa > antes){
         var novas = naMesa - antes;
         nov.insertAdjacentHTML('afterbegin', '<div class="aviso-nov">🔔 ' +
-          (antes === 0 ? naMesa + ' matéria(s) esperando na sua mesa.' : novas + ' matéria(s) nova(s) chegaram na mesa desde a sua última visita.') +
+          (antes === 0 ? plural(naMesa, 'matéria esperando', 'matérias esperando') + ' na sua mesa.' : plural(novas, 'matéria nova chegou', 'matérias novas chegaram') + ' na mesa desde a sua última visita.') +
           ' <button class="bt" type="button" data-go="ia">Ir para a mesa</button></div>');
       }
       try{ localStorage.setItem(K, String(naMesa)); }catch(e){}
@@ -3166,7 +3187,7 @@ ingressos e divisor."></textarea>
                  '<span class="quem">' + esc(quem) + '</span><span>' + esc(m) + '</span></div>';
         }).join('');
       })
-      .catch(function(){ el.innerHTML = '<div class="vazio">Não deu para carregar os movimentos</div>'; });
+      .catch(function(){ el.innerHTML = '<div class="vazio erro">Não deu para carregar os movimentos</div>'; });
   }
 
   /* ---------------- upload de imagem ---------------- */
@@ -3712,7 +3733,7 @@ ingressos e divisor."></textarea>
           var quandoTxt = d.quando ? new Date(d.quando).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) : '';
           return '<span style="display:flex;gap:8px;align-items:center;width:100%;flex-wrap:wrap">' +
             '<button class="bt" type="button" data-rasc-abre="' + i + '">✎ ' +
-              esc((d.title || '(sem título)').slice(0, 64)) + '</button>' +
+              esc(corta(d.title || '(sem título)', 64)) + '</button>' +
             '<span class="mt">' + esc(quandoTxt) + ' · ' + esc(d._origem) + '</span>' +
             '<button class="bt danger" type="button" data-rasc-joga="' + i + '" aria-label="apagar este rascunho">🗑</button>' +
             '</span>';
@@ -3776,15 +3797,15 @@ ingressos e divisor."></textarea>
     avisos.push(img ? '<span class="ok">✓ foto de capa</span>' : '<span class="err">✗ sem foto de capa</span>');
     var links = [];
     corpo.replace(/\]\(((?:post-|pessoa-|cat-)[a-z0-9-]+\.html)\)/g, function(_, u){ links.push(u); return _; });
-    $('prev-avisos').innerHTML = avisos.join(' · ') + (links.length ? ' · conferindo ' + links.length + ' link(s)…' : ' · <span class="err">sem links internos</span>');
+    $('prev-avisos').innerHTML = avisos.join(' · ') + (links.length ? ' · conferindo ' + plural(links.length, 'link') + '…' : ' · <span class="err">sem links internos</span>');
     $('prev-titulo').textContent = 'Pré-visualização — como sai no site';
     abreOverlay('prev-overlay');
     if(links.length){
       indicesLinks().then(function(ok){
         var ruins = links.filter(function(u){ return !ok[u]; });
         $('prev-avisos').innerHTML = avisos.join(' · ') + ' · ' +
-          (ruins.length ? '<span class="err">✗ link(s) quebrado(s): ' + ruins.join(', ') + '</span>'
-                        : '<span class="ok">✓ ' + links.length + ' link(s) internos válidos</span>');
+          (ruins.length ? '<span class="err">✗ ' + (ruins.length === 1 ? 'link quebrado' : 'links quebrados') + ': ' + ruins.join(', ') + '</span>'
+                        : '<span class="ok">✓ ' + plural(links.length, 'link interno válido', 'links internos válidos') + '</span>');
       });
     }
   });
@@ -3856,7 +3877,7 @@ ingressos e divisor."></textarea>
       var o = AG.ocupados[i];
       if(Math.abs(o.quando - d) < AG_INTERVALO * 60000){
         return { tipo:'vizinha', trava:true,
-          texto:'“' + o.title.slice(0, 34) + '” já sai às ' +
+          texto:'“' + corta(o.title, 34) + '” já sai às ' +
             o.quando.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }) +
             ', e a casa deixa ao menos ' + AG_INTERVALO + ' minutos entre uma matéria e outra' };
       }
@@ -3983,6 +4004,8 @@ ingressos e divisor."></textarea>
     }).join('');
     // calendário do mês
     $('ag-mes-nome').textContent = AG.mes.toLocaleDateString('pt-BR', { month:'long', year:'numeric' });
+    var _hj = new Date();
+    $('ag-mes-ant').disabled = AG.mes <= new Date(_hj.getFullYear(), _hj.getMonth(), 1);
     var pri = new Date(AG.mes.getFullYear(), AG.mes.getMonth(), 1);
     var dias = new Date(AG.mes.getFullYear(), AG.mes.getMonth() + 1, 0).getDate();
     var hoje = new Date(); hoje.setHours(0, 0, 0, 0);
@@ -4102,7 +4125,11 @@ ingressos e divisor."></textarea>
     }
   });
   $('ag-mes-ant').addEventListener('click', function(){
-    AG.mes = new Date(AG.mes.getFullYear(), AG.mes.getMonth() - 1, 1); agPinta();
+    // não agendamos para trás: o calendário para no mês atual
+    var alvo = new Date(AG.mes.getFullYear(), AG.mes.getMonth() - 1, 1);
+    var piso = new Date(); piso = new Date(piso.getFullYear(), piso.getMonth(), 1);
+    if(alvo < piso) return;
+    AG.mes = alvo; agPinta();
   });
   $('ag-mes-prox').addEventListener('click', function(){
     AG.mes = new Date(AG.mes.getFullYear(), AG.mes.getMonth() + 1, 1); agPinta();
@@ -4440,7 +4467,7 @@ ingressos e divisor."></textarea>
     if(!podeGravar()){ avisarChave(); return; }
     var ta = $('f-body'), slugBase = slugify($('f-title').value || 'materia') || 'materia';
     var btnFoto = document.querySelector('[data-md="img:"]');
-    if(btnFoto) btnFoto.textContent = '⏳ Subindo ' + files.length + ' foto(s)…';
+    if(btnFoto) btnFoto.textContent = '⏳ Subindo ' + plural(files.length, 'foto') + '…';
     // marca única no nome: subir foto duas vezes para a mesma matéria não
     // pode sobrescrever a anterior
     var marca = Date.now().toString(36);
@@ -5157,7 +5184,7 @@ ingressos e divisor."></textarea>
           else if(d._mesa){ pill = 'Na mesa do chefe'; cls = 'ag'; }
           else if(d.publishAt && d.publishAt > agora){ pill = 'Agendada'; cls = 'ag'; }
           else { pill = 'Publicada'; cls = 'pb'; }
-          var quando = new Date(d.publishAt || d.geradoEm || d.criadoEm || Date.now()).toLocaleString('pt-BR');
+          var quando = new Date(d.publishAt || d.geradoEm || d.criadoEm || Date.now()).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' });
           var th = d.img
             ? '<img class="th" src="' + esc(d.img) + '" alt="" data-p="' + esc(d.img) + '" ' +
               'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/\'+this.dataset.p}else{this.className=\'th no\';this.removeAttribute(\'src\')}">'
@@ -5193,7 +5220,7 @@ ingressos e divisor."></textarea>
             '<span class="mt">' + esc(d.cat) + ' — ' + esc(d.author) + ' — ' + quando +
             (d.atualizadoEm ? ' — ✎ atualizada' : '') + views + '</span>' + recado + '</span>' +
             '<span class="pill ' + cls + '">' + pill + '</span>' +
-            '<span style="display:flex;gap:6px;flex-wrap:wrap">' + acoes + '</span>' +
+            '<span class="fr-acts">' + acoes + '</span>' +
             '</div>';
         }).join('');
         preencherViews();
@@ -5240,7 +5267,7 @@ ingressos e divisor."></textarea>
           if(ativa){
             qN.style.display = '';
             qN.textContent = nFila
-              ? nFila + ' matéria(s) na fila e agendadas' + (achouMesa.length ? ' + ' + achouMesa.length + ' na mesa' : '')
+              ? plural(nFila, 'matéria') + ' na fila e agendadas' + (achouMesa.length ? ' + ' + achouMesa.length + ' na mesa' : '')
               : (achouMesa.length ? 'Nada na fila — mas tem ' + achouMesa.length + ' na mesa de aprovação'
                                   : 'Nenhuma matéria sobre isso: tema livre para você lançar ✓');
           } else {
@@ -5298,7 +5325,7 @@ ingressos e divisor."></textarea>
         });
       });
     }).catch(function(e){
-      el.innerHTML = '<div class="vazio-box">Não deu para carregar a fila. ' + esc(msgErro(e)) +
+      el.innerHTML = '<div class="vazio-box erro">Não deu para carregar a fila. ' + esc(msgErro(e)) +
         '<br><button class="bt" type="button" id="fila-retry" style="margin-top:10px">↻ Tentar de novo</button></div>';
       var rb = $('fila-retry'); if(rb) rb.addEventListener('click', carregarFila);
     });
@@ -5329,7 +5356,7 @@ ingressos e divisor."></textarea>
       var ehQuinta = x.data.getDay() === 4;
       var passou = x.chave < hojeChave;
       var corpo = x.itens.length
-        ? x.itens.map(function(m){ return '<span class="gs-mat">' + esc(m.title.slice(0, 46)) + '</span>'; }).join('')
+        ? x.itens.map(function(m){ return '<span class="gs-mat">' + esc(corta(m.title, 46)) + '</span>'; }).join('')
         : (passou ? '<span class="gs-vazio">—</span>' : '<span class="gs-furo">furo</span>');
       return '<div class="gs-dia' + (ehHoje ? ' hoje' : '') + '" data-gd="' + x.chave + '">' +
         '<div class="gs-cab">' + nomes[x.data.getDay() === 0 ? 6 : x.data.getDay() - 1] + ' ' +
@@ -5371,7 +5398,7 @@ ingressos e divisor."></textarea>
           var cel = document.querySelector('.gs-plan[data-gp="' + s.atribuida.prazo + '"]');
           if(cel) cel.insertAdjacentHTML('beforeend',
             '<span class="gs-pauta" title="pauta atribuída a ' + esc(s.atribuida.para) + '">📌 ' +
-            esc(s.texto.slice(0, 40)) + ' <small>' + esc((s.atribuida.para || '').split(' ')[0]) + '</small></span>');
+            esc(corta(s.texto, 40)) + ' <small>' + esc((s.atribuida.para || '').split(' ')[0]) + '</small></span>');
         }
       });
       // faixa de aceitas sem data marcada
@@ -5380,7 +5407,7 @@ ingressos e divisor."></textarea>
       if(box && aceitas.length){
         box.innerHTML = '<div class="gs-aceitas-cab">Pautas aceitas para encaixar (' + aceitas.length + ')</div>' +
           aceitas.map(function(s){
-            return '<span class="gs-chip">' + esc(s.texto.slice(0, 48)) +
+            return '<span class="gs-chip">' + esc(corta(s.texto, 48)) +
               (s.atribuida && s.atribuida.para ? ' <small>· ' + esc(s.atribuida.para.split(' ')[0]) + '</small>' : '') + '</span>';
           }).join('');
       }
@@ -5476,7 +5503,11 @@ ingressos e divisor."></textarea>
         }).join('');
         el._itens = items;
       });
-    }).catch(function(){ el.innerHTML = '<div class="vazio-box">Erro ao carregar a lixeira</div>'; });
+    }).catch(function(){
+      el.innerHTML = '<div class="vazio-box erro">Não deu para carregar a lixeira. ' +
+        '<button class="bt" type="button" id="lix-denovo">↻ Tentar de novo</button></div>';
+      var rb = $('lix-denovo'); if(rb) rb.addEventListener('click', carregarLixeira);
+    });
   }
   document.addEventListener('click', function(e){
     var b, itens = ($('lix-list') || {})._itens || [];
@@ -5522,7 +5553,7 @@ ingressos e divisor."></textarea>
         var prod = (r.produzidas || []).map(function(p){ return '<li>' + esc(p) + '</li>'; }).join('');
         // rodada antiga sem data legível não vira "Invalid Date" na tela
         var qd = new Date(r.quando);
-        var qdTxt = isNaN(qd.getTime()) ? (r.quando || 'data não registrada') : qd.toLocaleString('pt-BR');
+        var qdTxt = isNaN(qd.getTime()) ? (r.quando || 'data não registrada') : qd.toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' });
         var nProd = (r.produzidas || []).length;
         return '<div class="rod">' +
           '<span class="rq">' + esc(qdTxt) + ' — ' + esc(r.por || 'redação') + '</span>' +
@@ -5534,7 +5565,11 @@ ingressos e divisor."></textarea>
             (r.obs ? '<h5>Observações da redação</h5>' + esc(r.obs) : '') +
           '</div></div>';
       }).join('');
-    }).catch(function(){ el.innerHTML = '<div class="vazio-box" style="border:0;padding-left:0">Não deu para carregar o diário</div>'; });
+    }).catch(function(){
+      el.innerHTML = '<div class="vazio-box erro" style="border:0">Não deu para carregar o diário. ' +
+        '<button class="bt" type="button" id="dia-denovo">↻ Tentar de novo</button></div>';
+      var rb = $('dia-denovo'); if(rb) rb.addEventListener('click', carregarDiario);
+    });
   }
   document.addEventListener('click', function(e){
     var r = e.target.closest('[data-rod]');
@@ -5608,7 +5643,7 @@ ingressos e divisor."></textarea>
       });
     }).catch(function(e){
       var bl = $('mesa-lote'); if(bl) bl.style.display = 'none';
-      el.innerHTML = '<div class="vazio-box">Não deu para carregar a mesa agora. ' + esc(msgErro(e)) +
+      el.innerHTML = '<div class="vazio-box erro">Não deu para carregar a mesa agora. ' + esc(msgErro(e)) +
         '<br><button class="bt" type="button" id="mesa-retry" style="margin-top:10px">↻ Tentar de novo</button></div>';
       var rb = $('mesa-retry'); if(rb) rb.addEventListener('click', carregarMesa);
     });
@@ -5717,12 +5752,12 @@ ingressos e divisor."></textarea>
                   ? '<ul>' + chk.cortes.map(function(c){ return '<li>' + esc(c) + '</li>'; }).join('') + '</ul>' : '') +
                 '</div>'
               : '<div class="mesa-checa semcheca">⚠ Esta matéria ainda não traz o registro do checador independente. Confira os fatos antes de aprovar.</div>');
-          var quando = d.geradoEm ? new Date(d.geradoEm).toLocaleString('pt-BR') : '';
+          var quando = d.geradoEm ? new Date(d.geradoEm).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) : '';
           var origem = ehAutor
             ? 'Enviada por ' + esc(d.criadoPor || d.author)
             : 'Redação IA — esteira: ' + esc(d.esteira || 'agentes');
           var sugestao = d.sugestaoPublishAt
-            ? ' — sugestão de publicação: ' + new Date(d.sugestaoPublishAt).toLocaleString('pt-BR') : '';
+            ? ' — sugestão de publicação: ' + new Date(d.sugestaoPublishAt).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) : '';
           var parecer = ehAutor
             ? '<div class="mesa-parecer"><b>Matéria da equipe:</b> ' + esc(d.author) + ' assina; você aprova, programa ou recusa.' + esc(sugestao) + '</div>'
             : '<div class="mesa-parecer"><b>Parecer do chefe de redação (agente):</b> ' + esc(ch.parecer || 'sem parecer') + '<br>' + ressalvas + '</div>';
@@ -5916,7 +5951,7 @@ ingressos e divisor."></textarea>
     travarCard(card, true);
     publicarDaMesa(d, publishAt)
       .then(function(){
-        toast('✓ ' + (quando || 'No ar em ~2 min') + ' — ' + d.title.slice(0, 40));
+        toast('✓ ' + (quando || 'No ar em ~2 min') + ' — ' + corta(d.title, 40));
         tiraCardEatualiza(slug);
         if(d.instagram) registrarInsta(d);  // entra na fila do que falta postar (não trava a aprovação se falhar)
       })
@@ -5946,14 +5981,14 @@ ingressos e divisor."></textarea>
     var deOutro = ds.filter(function(d){ return !podeLiberarAssinatura(d); });
     if(deOutro.length){
       avisar('Estas estão assinadas por outra pessoa e só ela pode aprovar: ' +
-        deOutro.map(function(d){ return '“' + d.title.slice(0,28) + '” (' + donoDaAssinatura(d) + ')'; }).join(', ') +
+        deOutro.map(function(d){ return '“' + corta(d.title, 28) + '” (' + donoDaAssinatura(d) + ')'; }).join(', ') +
         '.\n\nDesmarque essas para seguir com o lote.');
       return;
     }
     var semFoto = ds.filter(function(d){ return !d.img; });
-    if(semFoto.length){ avisar('Estas ainda estão sem foto de capa: ' + semFoto.map(function(d){ return '“' + d.title.slice(0,30) + '”'; }).join(', ') + '. Suba a capa antes.'); return; }
+    if(semFoto.length){ avisar('Estas ainda estão sem foto de capa: ' + semFoto.map(function(d){ return '“' + corta(d.title, 30) + '”'; }).join(', ') + '. Suba a capa antes.'); return; }
     if(!ds.length) return;
-    confirmar((rotulo ? 'Agendar' : 'Aprovar e publicar') + ' ' + ds.length + ' matéria(s) ' + (rotulo || 'agora') + '?').then(function(okc){
+    confirmar((rotulo ? 'Agendar' : 'Aprovar e publicar') + ' ' + plural(ds.length, 'matéria') + ' ' + (rotulo || 'agora') + '?').then(function(okc){
       if(!okc) return;
       $('ml-aprovar').disabled = true; $('ml-agendar').disabled = true;
       var ok = 0, falhas = [];
@@ -5971,11 +6006,11 @@ ingressos e divisor."></textarea>
           if(d.instagram) registrarInsta(d);
         }).catch(function(err){
           travarCard(card, false);
-          falhas.push(d.title.slice(0, 30) + ' (' + msgErro(err) + ')');
+          falhas.push(corta(d.title, 30) + ' (' + msgErro(err) + ')');
         });
       });
       }, Promise.resolve()).then(function(){
-        toast('✓ ' + ok + (rotulo ? ' agendada(s)' : ' publicada(s)') + (falhas.length ? ' · ' + falhas.length + ' com erro' : ''));
+        toast('✓ ' + ok + (rotulo ? (ok === 1 ? ' agendada' : ' agendadas') : (ok === 1 ? ' publicada' : ' publicadas')) + (falhas.length ? ' · ' + falhas.length + ' com erro' : ''));
         if(falhas.length) avisar('Não deu para publicar:\n• ' + falhas.join('\n• ') + '\n\nElas continuam na mesa.');
         atualizaLote();
       });
@@ -6076,7 +6111,7 @@ ingressos e divisor."></textarea>
       if(dAg && !dAg.img){
         avisar('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de agendar.'); return;
       }
-      agAbre({ titulo: 'Quando “' + ((dAg && dAg.title) || 'esta matéria').slice(0, 46) + '” vai ao ar?',
+      agAbre({ titulo: 'Quando “' + corta((dAg && dAg.title) || 'esta matéria', 46) + '” vai ao ar?',
                nome: dAg && dAg.title, autor: dAg && dAg.author,
                inicial: dAg && dAg.sugestaoPublishAt }).then(function(quando){
         if(!quando) return;
@@ -6528,7 +6563,7 @@ ingressos e divisor."></textarea>
               '<h1 style="font-size:1.3rem">' + esc(d.title) + '</h1>' +
               '<p class="cred"><del style="background:#f6d3cf">vermelho = saiu</del> · ' +
               '<ins style="background:#dcefd8;text-decoration:none">verde = entrou</ins> · ' +
-              'versão de ' + new Date(commits[1].commit.author.date).toLocaleString('pt-BR') +
+              'versão de ' + new Date(commits[1].commit.author.date).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) +
               ' → atual</p>' +
               (velho.title !== d.title ? '<p><b>Título:</b> ' + diffPalavras(velho.title, d.title) + '</p>' : '') +
               '<div class="corpo" style="white-space:pre-wrap;font-size:.85rem;line-height:1.9">' +
@@ -6588,7 +6623,7 @@ ingressos e divisor."></textarea>
       pubPainel(lista);
       if(!lista.length){ el.innerHTML = '<div class="vazio-box">Nenhum pedido ainda. O passo a passo público fica em anuncie.html.</div>'; return; }
       el.innerHTML = lista.map(function(p){
-        var quando = new Date(p.criado_em).toLocaleString('pt-BR');
+        var quando = new Date(p.criado_em).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' });
         var zap = (p.whatsapp || '').replace(/\D/g, '');
         if(zap && zap.length <= 11) zap = '55' + zap;
         // A CONVERSA FINAL É DE GENTE (ordem do Pedro, 31/07/2026). O site faz
@@ -6616,7 +6651,7 @@ ingressos e divisor."></textarea>
                   (p.bairro || '') + ' · ' + (p.cidade || '') + '/' + (p.uf || '') + ' · CEP ' + (p.cep || '')) +
               (p.aceite_regras ? '<br><small style="opacity:.7">aceitou as Regras de Publicidade' +
                  (p.aceite_versao ? ' (versão ' + esc(p.aceite_versao) + ')' : '') +
-                 ' em ' + esc(new Date(p.aceite_em).toLocaleString('pt-BR')) + '</small>' : '') +
+                 ' em ' + esc(new Date(p.aceite_em).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' })) + '</small>' : '') +
               '</span></div>'
             : '') +
           (p.link ? '<div class="pub-linha"><em>O clique leva para</em><span><a href="' + esc(p.link) + '" target="_blank" rel="noopener">' + esc(p.link) + '</a></span></div>' : '') +
@@ -6664,9 +6699,9 @@ ingressos e divisor."></textarea>
     function reais(v){ return 'R$ ' + Number(v || 0).toLocaleString('pt-BR'); }
     el.innerHTML =
       '<div class="pub-n dinheiro"><b>' + reais(soma(fechados)) + '</b><span>fechado no mês</span>' +
-        '<small>' + fechados.length + ' anúncio(s) confirmado(s)</small></div>' +
+        '<small>' + plural(fechados.length, 'anúncio confirmado', 'anúncios confirmados') + '</small></div>' +
       '<div class="pub-n"><b>' + reais(soma(conversa)) + '</b><span>em negociação</span>' +
-        '<small>' + conversa.length + ' pedido(s) em aberto</small></div>' +
+        '<small>' + plural(conversa.length, 'pedido') + ' em aberto</small></div>' +
       '<div class="pub-n"><b>' + novos.length + '</b><span>esperando resposta</span>' +
         '<small>' + (novos.length ? 'chame no WhatsApp' : 'nenhum na fila') + '</small></div>' +
       '<div class="pub-n"><b>' + noAr.length + '</b><span>no ar agora</span>' +
@@ -6718,7 +6753,7 @@ ingressos e divisor."></textarea>
         } else if(l.ate){
           var faltam = Math.round((new Date(l.ate + 'T23:59') - new Date()) / 86400000);
           prazo = '<span class="pub-prazo' + (faltam <= 3 ? ' perto' : '') + '">' +
-            (faltam < 0 ? 'fora do ar' : (faltam === 0 ? 'último dia' : 'mais ' + faltam + ' dia(s)')) + '</span>';
+            (faltam < 0 ? 'fora do ar' : (faltam === 0 ? 'último dia' : 'mais ' + plural(faltam, 'dia'))) + '</span>';
         } else if(l.passado){ prazo = '<span class="pub-prazo">fora do ar</span>'; }
         var encerrado = !!(l.passado || (l.ate && l.ate < hojeI));
         PUB.linhasDes = PUB.linhasDes || {};
@@ -6911,8 +6946,7 @@ ingressos e divisor."></textarea>
         aviso = pubMeiasReservadas(nums[0]).then(function(jaTem){
           var cabem = pubMeiasQueCabem(eds, nums[0]);
           if(cabem !== null && jaTem >= cabem){
-            return 'A edição Nº ' + nums[0] + ' tem ' + cabem + ' matéria(s) e já tem ' + jaTem +
-                   ' meia(s) página(s) reservada(s). O pé de matéria acabou: esta arte seria reservada, ' +
+            return 'A edição Nº ' + nums[0] + ' tem ' + plural(cabem, 'matéria') + ' e já tem ' + plural(jaTem, 'meia página reservada', 'meias páginas reservadas') + '. O pé de matéria acabou: esta arte seria reservada, ' +
                    'mas NÃO apareceria na edição.\n\nO caminho limpo é combinar a partir da edição seguinte, ' +
                    'ou vender uma página inteira, que não depende de matéria.';
           }
@@ -7682,7 +7716,7 @@ ingressos e divisor."></textarea>
     if(depoisDeTerca && pendentes)
       hojeLista.push(pendentes + ' pergunta' + (pendentes > 1 ? 's' : '') + ' de terça sem resposta (sim ou não decide a edição)');
     if(depoisDeQuarta && abertos)
-      hojeLista.push(abertos + ' item(ns) do fechamento em aberto — a edição congela às 18h de hoje' + (hojeISO > calISO(qua) ? ' (PRAZO PASSADO)' : ''));
+      hojeLista.push(plural(abertos, 'item', 'itens') + ' do fechamento em aberto — a edição congela às 18h de hoje' + (hojeISO > calISO(qua) ? ' (PRAZO PASSADO)' : ''));
     if(hojeISO === calISO(quinta)) hojeLista.push('Dia de edição: sai às 7h para os assinantes');
     if(!hojeLista.length) hojeLista.push('Nada vencendo hoje. O próximo marco está aceso no trilho abaixo.');
     var caixaHoje = '<div class="cal-hoje' + ((depoisDeTerca && pendentes) || (depoisDeQuarta && abertos) ? ' urgente' : '') + '">' +
@@ -7813,7 +7847,11 @@ ingressos e divisor."></textarea>
           (podeDel ? '<button class="bt danger del" data-mdel="' + esc(m.id) + '" type="button" aria-label="Apagar recado">✕</button>' : '') +
           '</div>';
       }).join('');
-    }).catch(function(){ el.innerHTML = '<div class="vazio-box">Não deu para carregar o mural</div>'; });
+    }).catch(function(){
+      el.innerHTML = '<div class="vazio-box erro">Não deu para carregar o mural. ' +
+        '<button class="bt" type="button" id="mural-denovo">↻ Tentar de novo</button></div>';
+      var rb = $('mural-denovo'); if(rb) rb.addEventListener('click', carregarMural);
+    });
   }
   $('mural-form').addEventListener('submit', function(e){
     e.preventDefault();
@@ -7865,7 +7903,11 @@ ingressos e divisor."></textarea>
           (podeDel ? '<button class="bt danger" data-sdel="' + esc(s.id) + '" type="button" aria-label="Apagar sugestão">✕</button>' : '') +
           '</div>';
       }).join('');
-    }).catch(function(){ el.innerHTML = '<div class="vazio-box">Não deu para carregar as sugestões</div>'; });
+    }).catch(function(){
+      el.innerHTML = '<div class="vazio-box erro">Não deu para carregar as sugestões. ' +
+        '<button class="bt" type="button" id="sug-denovo">↻ Tentar de novo</button></div>';
+      var rb = $('sug-denovo'); if(rb) rb.addEventListener('click', carregarSug);
+    });
   }
   $('pauta-form').addEventListener('submit', function(e){
     e.preventDefault();
@@ -8618,7 +8660,7 @@ ingressos e divisor."></textarea>
           var pub = ed.status === 'publicada';
           return '<div class="frow lx" style="grid-template-columns:1fr auto auto">' +
             '<span><span class="ti">Nº ' + ed.numero + ' — ' + esc((ed.capa && ed.capa.manchete) || ed.titulo || 'sem título') + '</span>' +
-            '<span class="mt">' + (ed.paginas ? ed.paginas.length + 1 : 1) + ' página(s) — ' + esc(ed.dataEdicao || '') +
+            '<span class="mt">' + plural(ed.paginas ? ed.paginas.length + 1 : 1, 'página') + ' — ' + esc(ed.dataEdicao || '') +
             (ed.historico && ed.historico[0] ? ' — última mexida: ' + esc(ed.historico[0].quem) : '') + '</span></span>' +
             '<span class="pill ' + (pub ? 'pb' : 'ag') + '">' + (pub ? 'Publicada' : 'Rascunho') + '</span>' +
             '<button class="bt" data-rvabrir="' + ed.numero + '" type="button">Abrir</button>' +
@@ -9181,13 +9223,13 @@ ingressos e divisor."></textarea>
       // falha com motivo: sem isto, "3 falhas" não diz o que consertar
       if(res.falhas && res.motivo){
         msg.className='msg err';
-        msg.textContent = (res.enviados ? res.enviados + ' entregue(s) e ' : '') + res.falhas + ' falha(s). ' +
+        msg.textContent = (res.enviados ? plural(res.enviados, 'entregue') + ' e ' : '') + plural(res.falhas, 'falha') + '. ' +
           res.motivo + (res.remetente ? ' (remetente usado: ' + res.remetente + ')' : '');
         return;
       }
       msg.className='msg ok';
       msg.textContent = teste ? ('Teste enviado ✓ (' + res.enviados + ') — confira sua caixa, inclusive o spam')
-        : ('Enviada aos assinantes ✓ — ' + res.enviados + ' entregue(s)' + (res.falhas ? ', ' + res.falhas + ' falha(s)' : ''));
+        : ('Enviada aos assinantes ✓ — ' + plural(res.enviados, 'entregue') + (res.falhas ? ', ' + plural(res.falhas, 'falha') : ''));
     }).catch(function(){ msg.className='msg err'; msg.textContent='Não deu para enviar agora. Tente de novo.'; });
   }
   $('rv-enviar').addEventListener('click', function(){
@@ -9195,7 +9237,7 @@ ingressos e divisor."></textarea>
     contarAssinantes().then(function(n){
       var qtd = (n == null) ? '?' : n;
       if(n === 0){ avisar('Ainda não há assinantes ativos. Quando alguém assinar a revista no site, a lista aparece aqui.'); return; }
-      perguntar('Enviar a Edição Nº ' + RV.ed.numero + ' para ' + qtd + ' assinante(s)?\n\n' +
+      perguntar('Enviar a Edição Nº ' + RV.ed.numero + ' para ' + plural(qtd, 'assinante') + '?\n\n' +
         'Digite ENVIAR para disparar para todos,\n' +
         'ou um e-mail para mandar só um TESTE para você antes.', 'ENVIAR',
         { titulo:'Enviar a revista', rotuloOk:'Continuar' }).then(function(op){
