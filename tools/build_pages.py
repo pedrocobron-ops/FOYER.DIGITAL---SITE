@@ -6227,6 +6227,36 @@ for _e in ED_PUB:
 if ED_PUB:
     print(f'• {len(ED_PUB)} edição(ões) da revista no ar')
 
+# prova de gráfica: edição ainda em rascunho ganha uma página escondida
+# (noindex, fora do sitemap e da estante) para o chefe folhear ANTES de
+# publicar, pelo botão "Folhear a edição" da Coxia. A prova mostra a última
+# versão salva e some sozinha quando a edição é publicada.
+_PROVA_SELO = ('<div style="position:fixed;left:14px;bottom:14px;z-index:9999;pointer-events:none;'
+               'background:#8E1B10;color:#E9C46A;font:700 11px/1.4 ui-monospace,monospace;'
+               'letter-spacing:.18em;text-transform:uppercase;padding:9px 14px;'
+               'box-shadow:0 6px 18px rgba(0,0,0,.35)">Prova de gr&aacute;fica &middot; edi&ccedil;&atilde;o n&atilde;o publicada</div>')
+for _e in EDICOES:
+    if _e.get('status') == 'publicada' or not _e.get('numero'):
+        continue
+    _pf = f'revista-prova-{_e.get("numero")}.html'
+    try:
+        page(_pf, f'PROVA — Revista do FOYER Nº {_e.get("numero")}',
+             'Prova de gráfica: edição ainda não publicada.', 'revista.html',
+             edicao_page(_e), quiet=True)
+        with open(os.path.join(ROOT, _pf)) as _f:
+            _ph = _f.read()
+        _ph = _ph.replace('</head>', '<meta name="robots" content="noindex,nofollow"></head>', 1)
+        _ph = _ph.replace('</body>', _PROVA_SELO + '</body>', 1)
+        with open(os.path.join(ROOT, _pf), 'w') as _f:
+            _f.write(_ph)
+        print(f'• prova de gráfica: revista-prova-{_e.get("numero")}.html (rascunho)')
+    except Exception as _exc:
+        print(f'  AVISO: prova da edição {_e.get("numero")} não gerada: {_exc}')
+for _e in ED_PUB:
+    _pf = os.path.join(ROOT, f'revista-prova-{_e.get("numero")}.html')
+    if os.path.exists(_pf):
+        os.remove(_pf)
+
 # coxia: página sem nav de seções (área restrita) — cabeçalho mínimo
 coxia_html = (head('Coxia — FOYER', 'Área restrita da redação do Foyer.')
               .replace('</head>', '<meta name="robots" content="noindex,nofollow"></head>')
@@ -6380,7 +6410,8 @@ open(_nf_arq, 'w').write(_nf)
 
 import glob as _g
 urls = sorted(os.path.basename(f) for f in _g.glob(os.path.join(ROOT, '*.html'))
-              if os.path.basename(f) not in ('coxia.html', '404.html'))
+              if os.path.basename(f) not in ('coxia.html', '404.html')
+              and not os.path.basename(f).startswith('revista-prova-'))
 with open(os.path.join(ROOT, 'assets/busca-index.json'), 'w') as f:
     _json.dump([{'t': _p['title'], 'c': _p.get('cat', ''), 'a': _p.get('author', ''),
                  'u': 'post-' + _p['slug'] + '.html'}

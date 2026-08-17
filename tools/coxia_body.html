@@ -352,7 +352,9 @@
   /* fila */
   .fila{ border:var(--b); }
   .frow{ display:grid; grid-template-columns:92px 1fr auto auto; gap:14px; align-items:center;
-    border-bottom:1px solid var(--line); padding:12px 16px; }
+    border-bottom:1px solid var(--line); padding:12px 16px;
+    /* com 170+ matérias, o navegador só desenha as linhas que estão na tela */
+    content-visibility:auto; contain-intrinsic-size:auto 1px auto 92px; }
   .frow:last-child{ border-bottom:0; }
   .frow .th{ width:92px; height:56px; border:1px solid var(--line); object-fit:cover; background:var(--paper-2); }
   .frow .th.no{ display:flex; align-items:center; justify-content:center; font-family:var(--mono);
@@ -647,6 +649,13 @@
     padding:13px 22px; border-radius:3px; box-shadow:0 8px 30px rgba(0,0,0,.3); z-index:80;
     opacity:0; transition:opacity .3s, transform .3s; max-width:90vw; text-align:center; }
   .cx-toast.on{ opacity:1; transform:translate(-50%, 0); }
+  /* botão flutuante de voltar ao topo: aparece depois de uma tela de rolagem */
+  #volta-topo{ position:fixed; right:18px; bottom:22px; z-index:70; border:2px solid var(--ink);
+    background:var(--paper); color:var(--ink); font-family:var(--mono); font-size:.62rem;
+    letter-spacing:.12em; text-transform:uppercase; padding:12px 14px; cursor:pointer;
+    box-shadow:0 6px 20px rgba(0,0,0,.18); opacity:0; pointer-events:none; transition:opacity .25s; }
+  #volta-topo.on{ opacity:1; pointer-events:auto; }
+  #volta-topo:hover{ background:var(--gold); }
 
   /* equipe */
   .eq-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; }
@@ -1102,6 +1111,11 @@
           <p style="font-family:var(--sans);font-size:.8rem;color:var(--ink-soft);margin:0 0 8px;line-height:1.5">Corrigiu um erro de fato? Escreva a nota que o leitor verá no rodapé da matéria. Ex.: “Uma versão anterior informava a data errada da estreia.” Deixe em branco para uma edição sem correção.</p>
           <textarea id="f-correcao" rows="2" placeholder="Correção: ..." style="width:100%;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:var(--sans);font-size:.9rem;padding:10px;resize:vertical"></textarea>
         </div>
+        <div id="f-semchave" style="display:none;border:2px solid var(--wine);background:var(--paper-2);padding:12px 16px;margin-bottom:18px;font-family:var(--sans);font-size:.88rem;line-height:1.6">
+          ⚠ <b>Este aparelho está sem chave de publicação.</b> Dá para escrever e guardar rascunho,
+          mas o envio para o site vai falhar no final. Melhor resolver antes de começar.
+          <button class="bt" type="button" data-go="conexao" style="margin-left:8px">⚡ Ir para Conexão</button>
+        </div>
         <div class="rasc-aviso" id="rasc-aviso">
           📄 Recuperei um rascunho não enviado deste navegador.
           <button class="bt" type="button" id="rasc-usar">Continuar de onde parei</button>
@@ -1265,6 +1279,7 @@ ingressos e divisor."></textarea>
               <button class="bt" type="button" id="btn-prev" style="padding:14px 18px">👁 Pré-visualizar</button>
               <button class="bt" type="button" id="btn-guardar" style="padding:14px 18px" title="Guarda o rascunho na nuvem para continuar em qualquer aparelho">☁ Guardar rascunho</button>
               <button class="bt" type="button" id="btn-novo-rasc" style="padding:14px 18px" title="Guarda o que está na tela como rascunho e abre uma matéria em branco">🗒 Novo rascunho</button>
+              <button class="bt" type="button" id="btn-rascunhos" style="padding:14px 18px;display:none" title="Abre a prateleira de rascunhos guardados">📄 Rascunhos</button>
               <button class="f-pub" type="submit" id="btn-pub" style="flex:1">Enviar para o site</button>
             </div>
             <span class="msg" id="msg"></span>
@@ -1467,6 +1482,7 @@ ingressos e divisor."></textarea>
           <div class="rv-bar">
             <span class="rv-ed-t">Edição Nº <b id="rv-num">—</b> <span class="pill" id="rv-status">rascunho</span></span>
             <span style="flex:1"></span>
+            <a class="bt" id="rv-folhear" target="_blank" rel="noopener" style="text-decoration:none;display:none">📖 Folhear a edição</a>
             <button class="bt" type="button" id="rv-salvar">💾 Salvar rascunho</button>
             <button class="bt ap" type="button" id="rv-publicar" style="background:var(--wine);color:var(--gold);border-color:var(--wine)">🚀 Publicar edição</button>
             <button class="bt" type="button" id="rv-prever">👁 Prever o e-mail</button>
@@ -1922,6 +1938,8 @@ ingressos e divisor."></textarea>
   </div>
 </div>
 
+<button id="volta-topo" type="button" aria-label="Voltar ao topo da página">↑ topo</button>
+
 <div class="cx-dlg" id="dlg-overlay" role="dialog" aria-modal="true" aria-labelledby="dlg-msg">
   <div class="cx-dlg-box">
     <div class="cx-dlg-top" id="dlg-top">Coxia</div>
@@ -2123,6 +2141,12 @@ ingressos e divisor."></textarea>
     if(!CASA_TEM_CHAVE)
       return 'A chave da casa não está ligada no servidor. Só o Pedro pode guardá-la, na aba Conexão. Enquanto isso, dá para ler tudo, mas não dá para publicar.';
     return 'Sem chave de publicação neste aparelho (aba Conexão).';
+  }
+  // o aviso de chave deixou de ser beco sem saída: agora leva direto à Conexão
+  function avisarChave(){
+    confirmar(recadoSemChave(), { rotuloOk:'Ir para Conexão', rotuloCancel:'Agora não' }).then(function(ok){
+      if(ok) irPara('conexao');
+    });
   }
   function casaPede(corpo){
     return fetch(CASA, { method:'POST', headers:{'Content-Type':'application/json'},
@@ -2656,6 +2680,8 @@ ingressos e divisor."></textarea>
     $('view-' + v).classList.add('on');
     if(v === 'fila'){ carregarFila(); carregarLixeira(); }
     if(v === 'nova' && !EDIT) checarRasc();  // a prateleira de rascunhos aparece ao entrar
+    // aviso de chave ANTES de a pessoa escrever 800 palavras (item 9 do ensaio)
+    if(v === 'nova'){ var _sc = $('f-semchave'); if(_sc) _sc.style.display = podeGravar() ? 'none' : ''; }
     if(v === 'ia'){ carregarMesa(); carregarDiario(); }
     if(v === 'equipe'){ pintarEquipe(); carregarAtividade('ativ-eq', 30); carregarVerbExc(); }
     if(v === 'palco') carregarPalco();
@@ -2811,7 +2837,8 @@ ingressos e divisor."></textarea>
       st.innerHTML = /senha|conferem/i.test(m)
         ? '<b>Senha não confere.</b> É a mesma senha com que você entra na Coxia.'
         : /Failed to fetch|NetworkError|Load failed/i.test(m)
-          ? '<b>Não deu para falar com o servidor da casa.</b> Confira a internet e tente de novo.'
+          ? '<b>O servidor da casa não respondeu</b> — pode ser a internet ou o próprio servidor. ' +
+            'A senha não foi conferida; tente de novo em instantes.'
           : '<b>Não deu para ligar este aparelho:</b> ' + esc(m || 'erro desconhecido');
     });
   });
@@ -2840,7 +2867,8 @@ ingressos e divisor."></textarea>
       })
       .catch(function(){
         btCasa.disabled = false; btCasa.textContent = 'Guardar para toda a casa';
-        st.innerHTML = '<b>Não deu para falar com o servidor da casa.</b> Confira a internet e tente de novo.';
+        st.innerHTML = '<b>O servidor da casa não respondeu e a chave NÃO foi guardada.</b> ' +
+          'Tente de novo em instantes; se continuar, confira a internet.';
       });
   });
 
@@ -2888,12 +2916,13 @@ ingressos e divisor."></textarea>
       st.className = 'st err';
       if(g === 401) st.textContent = 'O GitHub não reconheceu esta chave. Confira se ela veio inteira na cópia ' +
         '(começa em github_pat_) e se não foi revogada ou regenerada em outro computador.';
-      else if(g === 404) st.textContent = 'A chave é válida, mas não enxerga este repositório. No GitHub, edite o token: ' +
+      else if(g === 404) st.textContent = 'O GitHub aceitou a chave, mas ela não enxerga o site do FOYER. Edite o token lá: ' +
         'em Repository access marque ' + OWNER + '/' + REPO + ', e em Permissions deixe Contents como Read and write.';
-      else if(g === 403) st.textContent = 'A chave foi aceita, mas está sem permissão de escrita. No GitHub, deixe Contents ' +
-        'como Read and write neste token.';
+      else if(g === 403) st.textContent = 'O GitHub aceitou a chave, mas ela está sem permissão de escrita. Edite o token lá: ' +
+        'deixe Contents como Read and write.';
       else if(g) st.textContent = 'O GitHub respondeu com erro ' + g + '. Tente de novo em instantes.';
-      else st.textContent = 'Não deu para falar com o GitHub. Confira a internet e tente de novo.';
+      else st.textContent = 'O GitHub não respondeu agora — a chave não foi conferida nem gravada. ' +
+        'Tente de novo em instantes; se continuar, confira a internet.';
     });
   });
   $('tk-testar').addEventListener('click', function(){
@@ -2922,9 +2951,22 @@ ingressos e divisor."></textarea>
     });
   });
   $('tk-clear').addEventListener('click', function(){
-    try{ localStorage.removeItem('coxia-token'); }catch(e){}
-    $('tk-st').textContent = 'Chave removida deste navegador'; $('tk-st').className = 'st';
-    initToken();
+    if(!token()){
+      $('tk-st').textContent = 'Não há chave guardada neste navegador para desconectar.'; $('tk-st').className = 'st';
+      return;
+    }
+    confirmar('Desconectar a chave ' + tkFim() + ' deste navegador?\n' +
+      (CASA_TEM_CHAVE ? '(a chave da casa continua valendo: você segue publicando normalmente)'
+                      : '(sem ela, este aparelho não publica até conectar de novo)'),
+      { perigo: !CASA_TEM_CHAVE, rotuloOk:'Desconectar' }).then(function(ok){
+      if(!ok) return;
+      try{ localStorage.removeItem('coxia-token'); }catch(e){}
+      tkGuarda('coxia-token-vence', ''); tkGuarda('coxia-token-quando', '');
+      $('tk').value = '';
+      var dg = $('tk-diag'); if(dg){ dg.style.display = 'none'; dg.innerHTML = ''; }
+      $('tk-st').textContent = 'Chave removida deste navegador'; $('tk-st').className = 'st';
+      initToken();
+    });
   });
 
   /* ---------------- palco ---------------- */
@@ -3453,15 +3495,31 @@ ingressos e divisor."></textarea>
     if(fx){
       var okP = n >= fx[0] && n <= fx[1];
       var okI = inter >= fx[2] && inter <= fx[3];
-      var falta = n < fx[0] ? ('faltam ' + mil(fx[0] - n)) : (n > fx[1] ? ('sobram ' + mil(n - fx[1])) : '');
+      // a régua com alvo: em vez de "✗", ela diz quantas palavras faltam (ou
+      // sobram) para a faixa que o portão vai cobrar (item 14 do ensaio)
+      var dP = n < fx[0] ? fx[0] - n : n - fx[1];
+      var fraseP = okP
+        ? mil(n) + ' na faixa ' + mil(fx[0]) + '–' + mil(fx[1]) + ' ✓'
+        : (n < fx[0] ? 'faltam ' : 'sobram ') + mil(dP) + (dP === 1 ? ' palavra' : ' palavras') +
+          ' para a faixa ' + mil(fx[0]) + '–' + mil(fx[1]);
+      var dI = inter < fx[2] ? fx[2] - inter : inter - fx[3];
+      var fraseI = okI
+        ? fx[2] + '–' + fx[3] + ' intertítulos ✓'
+        : inter < fx[2]
+          ? 'faltam ' + dI + (dI === 1 ? ' intertítulo' : ' intertítulos') + ' (mínimo ' + fx[2] + ')'
+          : 'sobram ' + dI + (dI === 1 ? ' intertítulo' : ' intertítulos') + ' (teto ' + fx[3] + ')';
       partes.push('<span class="' + (okP && okI ? 'bom' : 'err') + '">porte ' + esc(porte) +
-        ': ' + mil(fx[0]) + '–' + mil(fx[1]) + ' palavras' + (okP ? ' ✓' : ' (' + falta + ')') +
-        ' · ' + fx[2] + '–' + fx[3] + ' intertítulos' + (okI ? ' ✓' : ' ✗') + '</span>');
+        ': ' + fraseP + ' · ' + fraseI + '</span>');
     } else if(n){
-      // sem porte declarado: diz em qual faixa o tamanho atual cabe
+      // sem porte declarado: diz em qual faixa o tamanho atual cabe, e quanto
+      // falta para a primeira quando ainda não chegou lá
       var cabe = Object.keys(PORTES_COXIA).filter(function(p){
         return n >= PORTES_COXIA[p][0] && n <= PORTES_COXIA[p][1]; });
-      partes.push('<span>' + (cabe.length ? 'cabe em: ' + cabe.join(' ou ') : 'fora das faixas da casa') + '</span>');
+      var menor = PORTES_COXIA.release[0];
+      partes.push('<span>' + (cabe.length ? 'cabe em: ' + cabe.join(' ou ')
+        : (n < menor ? 'faltam ' + mil(menor - n) + (menor - n === 1 ? ' palavra' : ' palavras') +
+                       ' para o menor porte (release: ' + mil(menor) + '–' + mil(PORTES_COXIA.release[1]) + ')'
+                     : 'fora das faixas da casa')) + '</span>');
     }
     $('st-conta').innerHTML = partes.join('');
 
@@ -3589,7 +3647,7 @@ ingressos e divisor."></textarea>
   var btnGuardar = $('btn-guardar');
   if(btnGuardar) btnGuardar.addEventListener('click', function(){
     if(EDIT){ avisar('Você está editando uma matéria que já existe — as mudanças vão direto nela ao salvar/enviar. O rascunho na nuvem é só para matérias novas.'); return; }
-    if(!podeGravar()){ avisar(recadoSemChave()); return; }
+    if(!podeGravar()){ avisarChave(); return; }
     var d = coletarRasc();
     if(!d.title && !d.corpo){ avisar('Escreva algo antes de guardar o rascunho.'); return; }
     if(!RASC_ID) RASC_ID = 'r' + Date.now().toString(36);
@@ -3620,7 +3678,14 @@ ingressos e divisor."></textarea>
     checarRasc();
     rascStatus('🗒 Matéria nova em branco — o rascunho anterior está na prateleira.');
   });
-  function checarRasc(){
+  var btnRascunhos = $('btn-rascunhos');
+  if(btnRascunhos) btnRascunhos.addEventListener('click', function(){
+    // o que está na tela vai para a prateleira antes de ela abrir: nada se perde
+    if(!EDIT && ($('f-title').value || $('f-body').value)) salvarRasc();
+    checarRasc(true);
+    $('rasc-aviso').scrollIntoView({ behavior:'smooth', block:'center' });
+  });
+  function checarRasc(forcar){
     // junta a prateleira local com a da nuvem (a mais nova de cada id vence)
     var mapa = {};
     rascLista().forEach(function(d){ d._origem = 'neste navegador'; mapa[d.id] = d; });
@@ -3636,8 +3701,12 @@ ingressos e divisor."></textarea>
       var n = lista.length;
       $('bdg-rasc').style.display = n ? 'inline-block' : 'none';
       if(n) $('bdg-rasc').textContent = n === 1 ? 'rascunho' : n + ' rascunhos';
+      // o botão permanente: a prateleira nunca fica inalcançável, nem com o
+      // formulário no meio de uma matéria (item 13 do ensaio)
+      var bR = $('btn-rascunhos');
+      if(bR){ bR.style.display = n ? '' : 'none'; bR.textContent = '📄 Rascunhos (' + n + ')'; }
       var av = $('rasc-aviso');
-      if(!n || $('f-title').value || $('f-body').value){ av.classList.remove('on'); return; }
+      if(!n || (!forcar && ($('f-title').value || $('f-body').value))){ av.classList.remove('on'); return; }
       av.innerHTML = '<b style="width:100%">📄 Rascunhos guardados (' + n + ') — quer continuar algum?</b>' +
         lista.map(function(d, i){
           var quandoTxt = d.quando ? new Date(d.quando).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) : '';
@@ -4368,7 +4437,7 @@ ingressos e divisor."></textarea>
     files = (files || []).filter(function(f){
       return /^image\//.test(f.type || '') || /\.(jpe?g|png|webp|gif)$/i.test(f.name || ''); });
     if(!files.length) return;
-    if(!podeGravar()){ avisar(recadoSemChave()); return; }
+    if(!podeGravar()){ avisarChave(); return; }
     var ta = $('f-body'), slugBase = slugify($('f-title').value || 'materia') || 'materia';
     var btnFoto = document.querySelector('[data-md="img:"]');
     if(btnFoto) btnFoto.textContent = '⏳ Subindo ' + files.length + ' foto(s)…';
@@ -4953,6 +5022,12 @@ ingressos e divisor."></textarea>
       msg.textContent = ehChefe
         ? (quando === 'agendar' ? 'Agendada ✓ — sai no site na hora marcada' : 'Enviada ✓ — no ar em ~2 minutos')
         : 'Enviada para a mesa do chefe ✓ — ele aprova e programa a publicação';
+      // o autor vai para a Fila ver a matéria com o selo "Na mesa do chefe":
+      // prova concreta de que o envio chegou (item 15 do ensaio)
+      if(!ehChefe){
+        toast('Enviada para a mesa do chefe ✓');
+        setTimeout(function(){ irPara('fila'); }, 900);
+      }
       e.target.reset();
       $('f-quando-dt').style.display = 'none';
       CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-ajustar').innerHTML = ''; $('up-prev').src = ''; up.classList.remove('tem');
@@ -5045,6 +5120,7 @@ ingressos e divisor."></textarea>
               'style="width:100%;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:var(--sans);font-size:.92rem;padding:12px 14px">' +
             '<p class="f-note" id="fila-q-n" style="margin:6px 0 0;display:none"></p>' +
             '<div id="fila-q-mesa"></div>' +
+            '<div id="fila-q-acervo"></div>' +
           '</div>';
 
         // agendadas primeiro, da MAIS PRÓXIMA para a mais distante (o ensaio
@@ -5171,8 +5247,30 @@ ingressos e divisor."></textarea>
             qN.style.display = 'none';
           }
         }
+        // a mesma busca também espia o acervo completo do site (item 4 do
+        // ensaio: o campo do topo e o "Buscar no acervo" viraram uma coisa só)
+        function acervoEco(){
+          var eco = $('fila-q-acervo');
+          if(!eco || !podeEditar()) return;
+          var q = qEl.value.trim();
+          if(q.length < 2){ eco.innerHTML = ''; return; }
+          acervoTodos().then(function(mats){
+            if(qEl.value.trim() !== q) return;   // a pessoa já digitou outra coisa
+            var v = normTxt(q);
+            var n = mats.filter(function(m){ return normTxt(m.title + ' ' + (m.desc || '')).indexOf(v) >= 0; }).length;
+            eco.innerHTML = n
+              ? '<button class="bt" type="button" id="fila-q-veracervo" style="margin-top:8px">📚 ' +
+                n + (n === 1 ? ' matéria' : ' matérias') + ' no acervo completo do site — ver e editar</button>'
+              : '';
+            var vb = $('fila-q-veracervo');
+            if(vb) vb.addEventListener('click', function(){
+              $('acervo-q').value = q; buscaAcervo();
+              $('acervo-box').scrollIntoView({ behavior:'smooth', block:'start' });
+            });
+          });
+        }
         qEl.addEventListener('input', function(){
-          clearTimeout(qT); qT = setTimeout(filaFiltra, 150);
+          clearTimeout(qT); qT = setTimeout(function(){ filaFiltra(); acervoEco(); }, 150);
         });
         // chips de filtro: Todas / No ar / Agendadas / Devolvidas
         el.querySelectorAll('.fila-filtros [data-ff]').forEach(function(b){
@@ -5338,7 +5436,7 @@ ingressos e divisor."></textarea>
   document.addEventListener('click', function(e){
     var b = e.target.closest('[data-del]');
     if(!b) return;
-    if(!podeGravar()){ avisar(recadoSemChave()); return; }
+    if(!podeGravar()){ avisarChave(); return; }
     confirmar('Remover esta matéria do site? (ela fica 30 dias na lixeira)', { perigo:true, rotuloOk:'Remover' }).then(function(ok){
       if(!ok) return;
       var dados = null;
@@ -5717,6 +5815,21 @@ ingressos e divisor."></textarea>
       .catch(function(err){ avisar(msgErro(err)); });
   });
 
+  // o botão flutuante de voltar ao topo (a Fila e a mesa são listas longas)
+  (function(){
+    var vt = $('volta-topo');
+    if(!vt) return;
+    var vtT;
+    window.addEventListener('scroll', function(){
+      if(vtT) return;
+      vtT = setTimeout(function(){
+        vtT = null;
+        vt.classList.toggle('on', window.scrollY > 900);
+      }, 120);
+    }, { passive: true });
+    vt.addEventListener('click', function(){ window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  })();
+
   function toast(txt){
     var t = document.createElement('div');
     t.className = 'cx-toast'; t.textContent = txt;
@@ -5827,7 +5940,7 @@ ingressos e divisor."></textarea>
     if(todas) todas.checked = total > 0 && n === total;
   }
   function aprovarLote(slugs, publishAt, rotulo){
-    if(!podeGravar()){ avisar(recadoSemChave()); return; }
+    if(!podeGravar()){ avisarChave(); return; }
     var ds = slugs.map(function(s){ return MESA[s]; }).filter(Boolean);
     // assinadas por outra pessoa não entram no lote: só quem assina libera o próprio nome
     var deOutro = ds.filter(function(d){ return !podeLiberarAssinatura(d); });
@@ -5941,11 +6054,11 @@ ingressos e divisor."></textarea>
       return;
     }
     if((b = e.target.closest('[data-capa]'))){
-      if(!podeGravar()){ avisar(recadoSemChave()); return; }
+      if(!podeGravar()){ avisarChave(); return; }
       capaMesaSlug = b.dataset.capa; capaMesaInput.click(); return;
     }
     if((b = e.target.closest('[data-aprovar]'))){
-      if(!podeGravar()){ avisar(recadoSemChave()); return; }
+      if(!podeGravar()){ avisarChave(); return; }
       if(MESA[b.dataset.aprovar] && !MESA[b.dataset.aprovar].img){
         avisar('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de aprovar.'); return;
       }
@@ -5959,7 +6072,7 @@ ingressos e divisor."></textarea>
     if((b = e.target.closest('[data-agendar]'))){
       var slugAg = b.dataset.agendar;
       var dAg = MESA[slugAg];
-      if(!podeGravar()){ avisar(recadoSemChave()); return; }
+      if(!podeGravar()){ avisarChave(); return; }
       if(dAg && !dAg.img){
         avisar('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de agendar.'); return;
       }
@@ -5975,7 +6088,7 @@ ingressos e divisor."></textarea>
     if((b = e.target.closest('[data-recusar]'))){
       var d = MESA[b.dataset.recusar];
       if(!d) return;
-      if(!podeGravar()){ avisar(recadoSemChave()); return; }
+      if(!podeGravar()){ avisarChave(); return; }
       var ehAutorR = d.origem === 'autor';
       if(ehAutorR){
         perguntar('Por que está devolvendo "' + d.title + '"?\n(o autor vai ver este recado e pode corrigir e reenviar)', '', { titulo:'Devolver ao autor', rotuloOk:'Devolver' }).then(function(motivo){
@@ -6063,7 +6176,7 @@ ingressos e divisor."></textarea>
   $('e-file').addEventListener('change', function(){
     var arq = this.files && this.files[0];
     if(!arq) return;
-    if(!podeGravar()){ avisar(recadoSemChave()); this.value = ''; return; }
+    if(!podeGravar()){ avisarChave(); this.value = ''; return; }
     var nome = $('e-nome').value.trim();
     if(!nome){ avisar('Diga o nome da pessoa antes de subir a foto.'); this.value = ''; return; }
     var id = $('e-id').value || slugify(nome);
@@ -6108,7 +6221,7 @@ ingressos e divisor."></textarea>
       return;
     }
     if((b = e.target.closest('[data-exc]'))){
-      if(!podeGravar()){ avisar(recadoSemChave()); return; }
+      if(!podeGravar()){ avisarChave(); return; }
       var alvo = (EQUIPE.lista || []).filter(function(x){ return x.id === b.dataset.exc; })[0];
       if(!alvo) return;
       confirmar('Excluir ' + alvo.nome + ' da equipe? A senha deixa de funcionar.', { perigo:true, rotuloOk:'Excluir' }).then(function(ok){
@@ -6819,7 +6932,7 @@ ingressos e divisor."></textarea>
   }
 
   function pubNoAr(p){
-    if(!podeGravar()){ avisar(recadoSemChave()); return; }
+    if(!podeGravar()){ avisarChave(); return; }
     var naRevista = p.canal === 'revista';
     var quem = p.empresa || p.nome || 'o anunciante';
     if(naRevista){
@@ -7443,7 +7556,7 @@ ingressos e divisor."></textarea>
     });
   });
   if($('dv-salvar')) $('dv-salvar').addEventListener('click', function(){
-    if(!podeGravar()){ avisar(recadoSemChave()); return; }
+    if(!podeGravar()){ avisarChave(); return; }
     var atual = dvDoFormulario();
     DV.banco = DV.banco.filter(function(b){ return b.id !== atual.id; }).concat([atual]);
     ghGet(DV_ARQ).then(function(f){
@@ -7758,7 +7871,7 @@ ingressos e divisor."></textarea>
     e.preventDefault();
     var tx = $('pauta-txt').value.trim();
     if(!tx) return;
-    if(!podeGravar()){ avisar(recadoSemChave()); return; }
+    if(!podeGravar()){ avisarChave(); return; }
     SUG.lista.unshift({ id: String(new Date().getTime()), quem: USER.nome,
       texto: tx, quando: new Date().toISOString() });
     SUG.lista = SUG.lista.slice(0, 60);
@@ -7827,7 +7940,7 @@ ingressos e divisor."></textarea>
   $('atrib-overlay').addEventListener('click', function(e){ if(e.target === this) fechaAtribuir(); });
   $('atrib-ok').addEventListener('click', function(){
     if(!atribSid) return;
-    if(!podeGravar()){ avisar(recadoSemChave()); return; }
+    if(!podeGravar()){ avisarChave(); return; }
     var para = $('atrib-autor').value, prazo = $('atrib-prazo').value;
     var sid = atribSid;
     SUG.lista.forEach(function(s){
@@ -8415,7 +8528,7 @@ ingressos e divisor."></textarea>
   document.addEventListener('click', function(e){
     var b;
     if((b = e.target.closest('[data-verbx]'))){
-      if(!podeGravar()){ avisar(recadoSemChave()); return; }
+      if(!podeGravar()){ avisarChave(); return; }
       if(VERB.lista.indexOf(b.dataset.verbx) < 0) VERB.lista.push(b.dataset.verbx);
       salvarVerbExc('exclui verbete ' + b.dataset.verbx);
       $('verb-q').value = ''; $('verb-res').style.display = 'none';
@@ -8557,6 +8670,17 @@ ingressos e divisor."></textarea>
     $('rv-status').className = 'pill ' + (ed.status === 'publicada' ? 'pb' : 'ag');
     $('rv-publicar').textContent = ed.status === 'publicada' ? '📥 Despublicar' : '🚀 Publicar edição';
     $('rv-enviar').style.display = ed.status === 'publicada' ? 'inline-flex' : 'none';
+    // folhear a edição como o leitor vai ver: a publicada abre a página real;
+    // o rascunho abre a prova de gráfica (o site a monta ~2 min após salvar)
+    var fol = $('rv-folhear');
+    if(fol){
+      var jaSalva = !!RV.sha;   // edição recém-criada ainda não existe no site
+      fol.style.display = jaSalva ? 'inline-flex' : 'none';
+      fol.href = (ed.status === 'publicada' ? 'revista-ed-' : 'revista-prova-') + ed.numero + '.html';
+      fol.title = ed.status === 'publicada'
+        ? 'Abre a página da edição no site'
+        : 'Abre a prova de gráfica com a última versão SALVA (o site remonta a prova ~2 min depois de salvar)';
+    }
     $('rv-titulo').value = ed.titulo || '';
     $('rv-data').value = ed.dataEdicao || '';
     $('rv-manchete').value = (ed.capa && ed.capa.manchete) || '';
@@ -8605,7 +8729,7 @@ ingressos e divisor."></textarea>
   $('rv-capa-file').addEventListener('change', function(){
     var f = this.files[0]; this.value = '';
     if(!f || !RV.ed) return;
-    if(!podeGravar()){ avisar(recadoSemChave()); return; }
+    if(!podeGravar()){ avisarChave(); return; }
     redimensionar(f).then(function(d){ return subirImagem(d, 'revista-ed-' + RV.ed.numero + '-capa'); })
       .then(function(caminho){
         RV.ed.capa.img = caminho;
@@ -8849,7 +8973,7 @@ ingressos e divisor."></textarea>
       }
       var fi = $('pgf-img');
       if(fi && fi.files && fi.files[0]){
-        if(!podeGravar()){ avisar(recadoSemChave()); return; }
+        if(!podeGravar()){ avisarChave(); return; }
         pronto = redimensionar(fi.files[0]).then(function(dURL){
           return subirImagem(dURL, 'revista-ed-' + RV.ed.numero + '-p' + new Date().getTime());
         }).then(function(caminho){ pg.img = caminho; });
@@ -8921,6 +9045,8 @@ ingressos e divisor."></textarea>
         renderHist();
         msg.className = 'msg ok';
         msg.textContent = 'Salvo ✓' + (RV.ed.status === 'publicada' ? ' — o site remonta a edição em ~2 min' : '');
+        // o rv-msg fica no pé do editor, longe do botão: o toast confirma na hora
+        toast('Salvo ✓');
         carregarEdicoes();
       })
       .catch(function(err){ msg.className = 'msg err'; msg.textContent = msgErro(err); throw err; });
