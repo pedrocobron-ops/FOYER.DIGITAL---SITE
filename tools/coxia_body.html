@@ -554,6 +554,18 @@
   .mesa-acoes{ padding:14px 18px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
   .mesa-acoes .bt.ap{ background:var(--wine); color:var(--gold); border:1.5px solid var(--wine); padding:10px 15px; }
   .mesa-acoes .bt.ap:hover{ background:var(--gold); color:var(--wine); border-color:var(--gold); }
+  /* modo triagem: o card nasce resumido (capa baixa + parecer em 3 linhas) e o
+     "Ver completo" abre o dossiê inteiro; os avisos de risco (sem checador,
+     sem fontes, sem foto) continuam aparecendo mesmo no resumo. */
+  .mesa-card.fechado .mesa-checa:not(.semcheca), .mesa-card.fechado .mesa-insta,
+  .mesa-card.fechado .mesa-dobra, .mesa-card.fechado .mesa-cred{ display:none; }
+  .mesa-card.fechado .mesa-parecer{ display:-webkit-box; -webkit-line-clamp:3;
+    -webkit-box-orient:vertical; overflow:hidden; }
+  .mesa-card.fechado .mesa-capa img{ max-height:110px; }
+  /* com o dossiê aberto o card volta a ser alto: a régua de decisão gruda no
+     pé da tela enquanto o card estiver à vista, para decidir sem rolar de volta */
+  .mesa-card:not(.fechado) .mesa-acoes{ position:sticky; bottom:0; z-index:3;
+    background:var(--paper); border-top:1px solid var(--line); }
   .mesa-agenda{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
   /* ---------- marcador de hora (agendador) ---------- */
   .ag-box{ max-width:660px; width:100%; text-align:left; max-height:88vh; overflow:auto; }
@@ -5358,7 +5370,8 @@ ingressos e divisor."></textarea>
         el.innerHTML = items.map(function(d, i){
           return '<div class="frow lx" style="grid-template-columns:1fr auto auto">' +
             '<span><span class="ti">' + esc(d.title || d.slug || '?') + '</span>' +
-            '<span class="mt">removida por ' + esc(d.removidoPor || '?') + ' — ' + rel(d.removidoEm || '') + '</span></span>' +
+            '<span class="mt">removida por ' + esc(d.removidoPor || '?') + ' — ' + rel(d.removidoEm || '') +
+              (d.recusa && d.recusa.motivo ? ' — motivo: ' + esc(d.recusa.motivo) : '') + '</span></span>' +
             '<button class="bt" data-lixr="' + i + '" type="button">↩ Restaurar</button>' +
             '<button class="bt danger" data-lixx="' + i + '" type="button">Excluir de vez</button>' +
             '</div>';
@@ -5373,7 +5386,7 @@ ingressos e divisor."></textarea>
       var d = itens[Number(b.dataset.lixr)];
       if(!d || !d._origem) return;
       var pac = {};
-      for(var k in d){ if(k.charAt(0) !== '_' && k !== 'removidoPor' && k !== 'removidoEm') pac[k] = d[k]; }
+      for(var k in d){ if(k.charAt(0) !== '_' && k !== 'removidoPor' && k !== 'removidoEm' && k !== 'recusa') pac[k] = d[k]; }
       delete pac._origem;
       var destino = d._origem;
       ghPut(destino, JSON.stringify(pac, null, 1), assina('restaura da lixeira "' + (d.title || '') + '"'))
@@ -5508,6 +5521,9 @@ ingressos e divisor."></textarea>
   // volta ao GitHub, e o contador de cada botão continua mostrando o tamanho
   // real da fila de cada um mesmo quando a tela está mostrando outra.
   var MESA_ITENS = [], MESA_FILTRO = 'todas';
+  // modo triagem: quais cards a pessoa abriu por inteiro (sobrevive à troca de filtro)
+  var MESA_ABERTOS = {};
+  function corta(t, n){ t = String(t || ''); return t.length > n ? t.slice(0, n - 1).replace(/\s+$/, '') + '…' : t; }
   function assinaturaDe(d){
     var a = (d && d.author) ? String(d.author).trim() : '';
     if(!a) return 'outras';
@@ -5632,7 +5648,7 @@ ingressos e divisor."></textarea>
             '</details>';
           var fontesBloco = fontes ? '<details class="mesa-dobra"><summary>Fontes apuradas</summary>' + fontes + '</details>' : '';
           var meuNome = podeLiberarAssinatura(d);
-          return '<article class="mesa-card' + (meuNome ? '' : ' de-outro') + '" id="card-' + esc(d.slug) + '" data-slug="' + esc(d.slug) + '">' +
+          return '<article class="mesa-card' + (meuNome ? '' : ' de-outro') + (MESA_ABERTOS[d.slug] ? '' : ' fechado') + '" id="card-' + esc(d.slug) + '" data-slug="' + esc(d.slug) + '">' +
             '<div class="mesa-head">' +
               '<label class="mesa-pick" title="' + (meuNome ? 'Selecionar para aprovar/agendar em lote' : 'Assinada por outra pessoa: só ela aprova') + '"><input type="checkbox" class="mesa-check" data-pick="' + esc(d.slug) + '"' + ((d.img && meuNome) ? '' : ' disabled') + '></label>' +
               '<span><span class="ti">' + esc(d.title) + '</span>' +
@@ -5648,6 +5664,8 @@ ingressos e divisor."></textarea>
             '<details class="mesa-dobra"><summary>Ler a matéria inteira</summary>' +
             '<div class="mesa-corpo" id="corpo-' + esc(d.slug) + '">' + mdRender(d.corpo) + '</div></details>' +
             '<div class="mesa-acoes">' +
+              '<button class="bt" type="button" data-verall="' + esc(d.slug) + '">' +
+                (MESA_ABERTOS[d.slug] ? '▴ Resumir' : '▾ Ver completo') + '</button>' +
               '<button class="bt" type="button" data-mesaedit="' + esc(d.slug) + '">✎ Editar texto</button>' +
               '<button class="bt" type="button" data-capa="' + esc(d.slug) + '">📷 ' + (d.img ? 'Trocar a capa' : 'Subir a capa') + '</button>' +
               (meuNome
@@ -5906,6 +5924,17 @@ ingressos e divisor."></textarea>
       }
       return;
     }
+    if((b = e.target.closest('[data-verall]'))){
+      var sv = b.dataset.verall, cardV = document.getElementById('card-' + sv);
+      if(MESA_ABERTOS[sv]) delete MESA_ABERTOS[sv]; else MESA_ABERTOS[sv] = 1;
+      if(cardV){
+        cardV.classList.toggle('fechado', !MESA_ABERTOS[sv]);
+        b.textContent = MESA_ABERTOS[sv] ? '▴ Resumir' : '▾ Ver completo';
+        // ao resumir, o card encolhe e a tela ficaria olhando o vazio: volta ao topo dele
+        if(!MESA_ABERTOS[sv]) cardV.scrollIntoView({ block: 'nearest' });
+      }
+      return;
+    }
     if((b = e.target.closest('[data-mesaedit]'))){
       var dm = MESA[b.dataset.mesaedit];
       if(dm) entrarEdicao(dm, 'pauta');
@@ -5921,7 +5950,8 @@ ingressos e divisor."></textarea>
         avisar('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de aprovar.'); return;
       }
       var slugAp = b.dataset.aprovar;
-      confirmar('Aprovar e publicar esta matéria agora?', { rotuloOk:'Publicar' }).then(function(ok){
+      var dAp = MESA[slugAp];
+      confirmar('Aprovar e publicar “' + corta((dAp && dAp.title) || 'esta matéria', 72) + '” agora?', { rotuloOk:'Publicar' }).then(function(ok){
         if(ok) aprovar(slugAp, new Date().toISOString(), 'No ar em ~2 min');
       });
       return;
@@ -5954,11 +5984,16 @@ ingressos e divisor."></textarea>
         });
         return;
       }
-      confirmar('Recusar esta matéria? (ela fica 30 dias na lixeira)', { perigo:true, rotuloOk:'Recusar' }).then(function(ok){
-        if(!ok) return;
+      // recusa com motivo: a decisão não evapora — fica registrada no item da
+      // lixeira e aparece na listagem, para a redação saber o porquê
+      perguntar('Por que está recusando “' + corta(d.title, 64) + '”?\n(o motivo fica registrado na lixeira, junto da matéria)', '',
+        { titulo:'Recusar matéria', rotuloOk:'Recusar' }).then(function(motivo){
+        if(motivo === null) return;
         var cardR = document.getElementById('card-' + d.slug); travarCard(cardR, true);
+        d.recusa = { por: USER.nome, quando: new Date().toISOString(),
+                     motivo: String(motivo || '').trim() || 'sem motivo declarado' };
         moverLixeira(d, d._path, d._sha, 'recusa matéria da mesa (lixeira)')
-          .then(function(){ toast('Recusada — foi para a lixeira'); tiraCardEatualiza(d.slug); })
+          .then(function(){ toast('Recusada — foi para a lixeira com o seu motivo'); tiraCardEatualiza(d.slug); })
           .catch(function(err){ travarCard(cardR, false); avisar(msgErro(err)); });
       });
     }
