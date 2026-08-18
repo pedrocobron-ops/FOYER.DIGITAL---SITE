@@ -270,6 +270,20 @@ cookie, sem sessão, sem cabeçalho especial. Quando o endereço for
 instável por natureza (pasta de mês, sufixo de deduplicação), instale
 junto a página que o publica, que reaponta sozinha para a versão nova.
 
+**SERVIÇO QUE AINDA VAI ACONTECER SE ESCREVE EM "ESTÁ MARCADO PARA", NUNCA
+NO PRETÉRITO (regra de 18/08/2026).** É o terceiro caso de matéria escrita na
+véspera ou de manhã e publicada horas depois: o redator sabe quando escreveu,
+e **não sabe quando o editor publica**. Na matéria da morte de Laura Cardoso
+o lide dizia "o velório **foi** nesta terça"; o velório era das 8h às 14h
+daquele mesmo dia, e no pretérito a frase seria falsa a manhã inteira. Vale
+para velório, estreia, sessão, abertura de bilheteria, prazo de inscrição e
+audiência: escreva a forma que é verdadeira **antes, durante e depois** do
+horário marcado, e ponha o horário junto. "Foi marcado para esta terça, das
+8h às 14h" serve a qualquer hora do dia; "foi" só serve depois das 14h.
+
+O corolário vale para o Titulador: **"hoje", "ontem" e "nesta sexta" morrem
+em 24 horas** e depois mentem para quem chega pela busca. Use data, ou nada.
+
 ### O teste da consequência
 
 Depois de cada fato importante, perguntar: **o que isso muda na prática?**
