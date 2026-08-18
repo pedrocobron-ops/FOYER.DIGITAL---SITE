@@ -21,6 +21,69 @@ alguém. Uma vez por semana, leia a coluna do tipo e veja o que se repete.
 
 ---
 
+## 18/08/2026, leitura fria: Laura Cardoso, a retrospectiva de carreira
+
+Onda 3 sobre a matéria já checada, entregue 25 palavras acima do teto do porte
+`contextualizada`. Saiu em 1.085, quarenta a menos, sem perder um fato. **O
+portão mecânico só avisava do tamanho: nenhum dos três cortes abaixo é coisa
+que máquina pegue, e nenhum é coisa que a checagem pudesse pegar, porque os
+três estão factualmente certos e mentem só na leitura.**
+
+| Tipo | O que caiu | Por quê | Matéria |
+|---|---|---|---|
+| `superlativo sem fonte` | "Daí em diante o palco foi o lugar dos **grandes** diretores" | Promessa que o parágrafo seguinte não cumpre: Abujamra, D'Aversa e Flávio Rangel entram sem uma palavra que sustente "grandes", e a matéria não tem fonte para o adjetivo. A frase caiu inteira, e o parágrafo passou a abrir pela ficha que o fechava ("A Enciclopédia cataloga 13 espetáculos dela"), que é o que ele de fato entrega | Laura Cardoso (obra) |
+| `atribuição errada` | "**Voltou** a dirigi-la em 'Volpone'" | O nome mais próximo era Alberto D'Aversa, no fim da frase anterior; quem voltou foi Abujamra. Sujeito elíptico depois de frase que termina em outro nome próprio | Laura Cardoso (obra) |
+| `atribuição errada` | "**O papel** rendeu o Prêmio Lente de Cristal" | A frase anterior tem "o roteiro" como sujeito e o texto não nomeia personagem nenhuma em "Através da Janela": "o papel" apontava para o vazio, e o prêmio ficava sem dono | Laura Cardoso (obra) |
+
+**Padrões desta leitura:**
+
+- **Segunda ocorrência em cinco dias do sujeito que aponta para o vizinho
+  errado.** Em 14/08 foi o pronome ("o conselho tinha feito exatamente isso"),
+  aqui é o sujeito elíptico ("Voltou a dirigi-la"). Mesma família, mesma onda,
+  e nenhuma outra alcança: o fato está certo e a fonte está certa, então o
+  checador não tem por que parar ali. **Se aparecer uma terceira, vira regra:
+  em ficha de teatro e de TV, sujeito elíptico depois de frase que termina em
+  nome próprio se escreve por extenso.**
+- **O intertítulo da matéria de ficha tende a repetir o lide em vez de
+  descrever a seção.** "Rádio Cosmos, 1942, e um emprego que não era para
+  'moça direita'" abria uma seção que não conta a Cosmos e não diz 1942 — as
+  duas coisas estão no segundo parágrafo do alto — e que começa justamente
+  pelo que veio ANTES da Cosmos. O teste é ler os cinco intertítulos em
+  sequência, sem o texto, e ver se sobra ficha repetida.
+- **Ficha que volta é a repetição barata; tese que volta é a cara.** Nesta
+  matéria a tese ("os dois Shell vieram do palco") aparecia quatro vezes em
+  três parágrafos, uma delas duas frases seguidas dizendo a mesma coisa na
+  negativa e na afirmativa ("Nenhum dos dois veio da televisão. O palco lhe
+  deu esses dois"). E o fecho, que é frase da casa, tinha o efeito gasto 300
+  palavras antes por um "e nenhum vem de registro único" no meio do texto.
+  **A régua: a tese entra no lide, num intertítulo e no fecho. O que estiver
+  entre esses três é insistência.**
+
+---
+
+## 18/08/2026, checagem independente: Laura Cardoso, a retrospectiva de carreira
+
+Obituário de ficha, publicado no dia do velório. O portão mecânico não pegou
+nada do que segue, e três dos cinco cortes são do tipo que só aparece quando
+se relê o texto contra o relógio e contra o próprio texto.
+
+| Tipo | O que caiu | Por quê | Matéria |
+|---|---|---|---|
+| `data errada` | "O velório **foi** nesta terça" | O velório é HOJE, das 8h às 14h, e ninguém sabe a que hora o editor publica. No pretérito a frase seria falsa a manhã inteira. Virou "foi marcado para esta terça, das 8h às 14h" — forma verdadeira a qualquer hora do dia | Laura Cardoso (obra) |
+| `atribuição errada` | "o **curta** Dona Rosinha", em três lugares do corpo e um na legenda do Instagram | A programação do Sesc publicada pelo ABC Repórter registra 50 minutos, e a CNN chama de longa. Cinquenta minutos não é curta em régua nenhuma. Virou "filme" | Laura Cardoso (obra) |
+| `data errada` | Estreia na TV em 1952, sem declarar o 1954 | A MESMA instituição publica os dois anos: Enciclopédia, Welington Andrade, Gramadotur e Fórum dão 1952; a página "65 anos de TV" da Ocupação dá 1954, no relato da atriz. O texto declarava a divergência gêmea do primeiro filme quatro parágrafos abaixo e calava nesta. Duas réguas na mesma matéria | Laura Cardoso (obra) |
+| `superlativo sem fonte` | "O palco lhe deu **os prêmios**" | Contradizia dois parágrafos abaixo do próprio texto, que credita ao cinema a Lente de Cristal e o Troféu Oscarito. Virou "esses dois" | Laura Cardoso (obra) |
+| `invenção` | "Já era conhecida havia uma **década**" e "ficha técnica tirada dos **programas impressos**" | A década era conta do redator; a fonte diz "muito depois de se estabelecer no rádio e na televisão". E o método das 13 fichas não é esse: uma sai de planilha de pesquisa, outra da Veja SP e do currículo de um ator. Não se afirma o método de quem se cita | Laura Cardoso (obra) |
+| `link quebrado` | Band fora de `fontes` | Caso 2 confirmado no cabeçalho (`cf-mitigated: challenge`), recusa igual em /amp, no RSS e na API: o checador não conseguiu LER a página. As duas informações tiradas dela já tinham caído, então nenhuma frase morria com a saída. Entraram Revista Fórum e Euronews, lidas, que sustentam a conta da imprensa | Laura Cardoso (obra) |
+
+**O que esta rodada sugere mexer no sistema:** o corte do tempo verbal é o
+terceiro caso de matéria escrita na véspera e publicada no dia. Vale uma
+linha no manual: **serviço que ainda vai acontecer na hora da publicação se
+escreve em "está marcado para", nunca no pretérito** — o redator sabe quando
+escreveu, e não sabe quando o editor publica.
+
+---
+
 ## 14/08/2026, o quente do dia: quatro matérias assinadas Pedro Amaral
 
 Primeira rodada da semana com a esteira completa: pauteiro, redatores, titulador,
