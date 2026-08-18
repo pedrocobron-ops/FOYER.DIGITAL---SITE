@@ -21,6 +21,29 @@ alguém. Uma vez por semana, leia a coluna do tipo e veja o que se repete.
 
 ---
 
+## 18/08/2026, checagem independente: Laura Cardoso, a retrospectiva de carreira
+
+Obituário de ficha, publicado no dia do velório. O portão mecânico não pegou
+nada do que segue, e três dos cinco cortes são do tipo que só aparece quando
+se relê o texto contra o relógio e contra o próprio texto.
+
+| Tipo | O que caiu | Por quê | Matéria |
+|---|---|---|---|
+| `data errada` | "O velório **foi** nesta terça" | O velório é HOJE, das 8h às 14h, e ninguém sabe a que hora o editor publica. No pretérito a frase seria falsa a manhã inteira. Virou "foi marcado para esta terça, das 8h às 14h" — forma verdadeira a qualquer hora do dia | Laura Cardoso (obra) |
+| `atribuição errada` | "o **curta** Dona Rosinha", em três lugares do corpo e um na legenda do Instagram | A programação do Sesc publicada pelo ABC Repórter registra 50 minutos, e a CNN chama de longa. Cinquenta minutos não é curta em régua nenhuma. Virou "filme" | Laura Cardoso (obra) |
+| `data errada` | Estreia na TV em 1952, sem declarar o 1954 | A MESMA instituição publica os dois anos: Enciclopédia, Welington Andrade, Gramadotur e Fórum dão 1952; a página "65 anos de TV" da Ocupação dá 1954, no relato da atriz. O texto declarava a divergência gêmea do primeiro filme quatro parágrafos abaixo e calava nesta. Duas réguas na mesma matéria | Laura Cardoso (obra) |
+| `superlativo sem fonte` | "O palco lhe deu **os prêmios**" | Contradizia dois parágrafos abaixo do próprio texto, que credita ao cinema a Lente de Cristal e o Troféu Oscarito. Virou "esses dois" | Laura Cardoso (obra) |
+| `invenção` | "Já era conhecida havia uma **década**" e "ficha técnica tirada dos **programas impressos**" | A década era conta do redator; a fonte diz "muito depois de se estabelecer no rádio e na televisão". E o método das 13 fichas não é esse: uma sai de planilha de pesquisa, outra da Veja SP e do currículo de um ator. Não se afirma o método de quem se cita | Laura Cardoso (obra) |
+| `link quebrado` | Band fora de `fontes` | Caso 2 confirmado no cabeçalho (`cf-mitigated: challenge`), recusa igual em /amp, no RSS e na API: o checador não conseguiu LER a página. As duas informações tiradas dela já tinham caído, então nenhuma frase morria com a saída. Entraram Revista Fórum e Euronews, lidas, que sustentam a conta da imprensa | Laura Cardoso (obra) |
+
+**O que esta rodada sugere mexer no sistema:** o corte do tempo verbal é o
+terceiro caso de matéria escrita na véspera e publicada no dia. Vale uma
+linha no manual: **serviço que ainda vai acontecer na hora da publicação se
+escreve em "está marcado para", nunca no pretérito** — o redator sabe quando
+escreveu, e não sabe quando o editor publica.
+
+---
+
 ## 14/08/2026, o quente do dia: quatro matérias assinadas Pedro Amaral
 
 Primeira rodada da semana com a esteira completa: pauteiro, redatores, titulador,
