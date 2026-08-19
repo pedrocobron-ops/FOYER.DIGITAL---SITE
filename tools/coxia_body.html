@@ -571,6 +571,12 @@
   .mesa-card.fechado .mesa-capa img{ max-height:110px; }
   .mesa-riscos{ padding:10px 18px; border-bottom:1px solid var(--line); font-family:var(--sans);
     font-size:.85rem; line-height:1.5; background:rgba(142,27,16,.07); color:var(--ink); }
+  .mesa-sug-selo{ font-family:var(--mono); font-size:.62rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:.08em; background:var(--gold); color:var(--wine); padding:4px 9px;
+    margin-left:8px; white-space:nowrap; }
+  .mesa-sug-selo.venc{ background:var(--paper-2); color:var(--ink-soft); border:1.5px dashed var(--line); }
+  .mesa-acoes .bt.sug{ border:1.5px solid var(--gold); background:var(--gold); color:var(--wine); font-weight:700; }
+  .mesa-acoes .bt.sug:hover{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
   /* com o dossiê aberto o card volta a ser alto: a régua de decisão gruda no
      pé da tela enquanto o card estiver à vista, para decidir sem rolar de volta */
   .mesa-card:not(.fechado) .mesa-acoes{ position:sticky; bottom:0; z-index:3;
@@ -4026,6 +4032,11 @@ ingressos e divisor."></textarea>
     var base = opts.inicial ? new Date(opts.inicial) : null;
     AG.sel = base && !isNaN(base) ? base : null;
     AG.mes = new Date((AG.sel || new Date()).getFullYear(), (AG.sel || new Date()).getMonth(), 1);
+    // sugestão fora do relógio da casa: a hora livre já vem preenchida,
+    // para a data sugerida chegar inteira, não pela metade
+    var hlIni = $('ag-hora-livre');
+    if(hlIni) hlIni.value = (AG.sel && AG_HORAS.indexOf(AG.sel.getHours()) < 0)
+      ? ('0' + AG.sel.getHours()).slice(-2) + ':' + ('0' + AG.sel.getMinutes()).slice(-2) : '';
     $('ag-overlay').classList.add('on');
     agPinta();
     agCarregaOcupados().then(agPinta);
@@ -5858,11 +5869,19 @@ ingressos e divisor."></textarea>
           var origem = ehAutor
             ? 'Enviada por ' + esc(d.criadoPor || d.author)
             : 'Redação IA — esteira: ' + esc(d.esteira || 'agentes');
-          var sugestao = d.sugestaoPublishAt
-            ? ' — sugestão de publicação: ' + new Date(d.sugestaoPublishAt).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) : '';
           var parecer = ehAutor
-            ? '<div class="mesa-parecer"><b>Matéria da equipe:</b> ' + esc(d.author) + ' assina; você aprova, programa ou recusa.' + esc(sugestao) + '</div>'
+            ? '<div class="mesa-parecer"><b>Matéria da equipe:</b> ' + esc(d.author) + ' assina; você aprova, programa ou recusa.</div>'
             : '<div class="mesa-parecer"><b>Parecer do chefe de redação (agente):</b> ' + esc(ch.parecer || 'sem parecer') + '<br>' + ressalvas + '</div>';
+          // a matéria já chega com a data de lançamento: um SELO no topo do
+          // card, no estilo do QUENTE, e o botão aprova nela com um clique
+          var sugFutura = d.sugestaoPublishAt && new Date(d.sugestaoPublishAt) > new Date();
+          var sugTxt = d.sugestaoPublishAt ? qdRelativo(d.sugestaoPublishAt) : '';
+          var sugSelo = d.sugestaoPublishAt
+            ? '<span class="mesa-sug-selo' + (sugFutura ? '' : ' venc') + '" title="' +
+              (sugFutura ? 'Data de lançamento sugerida pela redação — o Aprovar e agendar já abre nela'
+                         : 'A data sugerida passou — escolha outra no Aprovar e agendar') + '">🗓 ' +
+              (sugFutura ? 'SAI ' : 'PASSOU · ERA ') + esc(sugTxt) + '</span>'
+            : '';
           // as ressalvas do checador aparecem MESMO no card resumido: sem
           // isso dava para aprovar em 2 cliques sem ver "contato não tentado"
           // (pego pela editora-chefe do ensaio dos jornalistas)
@@ -5900,6 +5919,7 @@ ingressos e divisor."></textarea>
               // ver isso antes de agendar para semana que vem (31/07/2026)
               (d.quente ? '<span class="mesa-quente" title="Cinema e streaming: publique hoje, não agende">' +
                           '🔥 QUENTE — publicar hoje</span>' : '') +
+              sugSelo +
               selo +
             '</div>' + avisoAssinatura(d) + capa + parecer + riscos + checagem + insta +
             fontesBloco +
@@ -5912,6 +5932,8 @@ ingressos e divisor."></textarea>
               '<button class="bt" type="button" data-capa="' + esc(d.slug) + '">📷 ' + (d.img ? 'Trocar a capa' : 'Subir a capa') + '</button>' +
               (meuNome
                 ? '<button class="bt ap" type="button" data-aprovar="' + esc(d.slug) + '">✓ Aprovar e publicar</button>' +
+                  (sugFutura ? '<button class="bt sug" type="button" data-aprovar-sug="' + esc(d.slug) +
+                    '" data-sug="' + esc(d.sugestaoPublishAt) + '">🗓 Aprovar p/ ' + esc(sugTxt) + '</button>' : '') +
                   '<div class="mesa-agenda">' +
                     '<button class="bt" type="button" data-agendar="' + esc(d.slug) + '">🕐 Aprovar e agendar</button>' +
                   '</div>'
@@ -6237,6 +6259,24 @@ ingressos e divisor."></textarea>
       var dAp = MESA[slugAp];
       confirmar('Aprovar e publicar “' + corta((dAp && dAp.title) || 'esta matéria', 72) + '” agora?', { rotuloOk:'Publicar' }).then(function(ok){
         if(ok) aprovar(slugAp, new Date().toISOString(), 'No ar em ~2 min');
+      });
+      return;
+    }
+    if((b = e.target.closest('[data-aprovar-sug]'))){
+      if(!podeGravar()){ avisarChave(); return; }
+      var dSug = MESA[b.dataset.aprovarSug];
+      if(!dSug) return;
+      if(!dSug.img){ avisar('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de aprovar.'); return; }
+      var qSug = b.dataset.sug;
+      if(new Date(qSug) <= new Date()){
+        avisar('A hora sugerida já passou. Use 🕐 Aprovar e agendar para escolher outra.'); return;
+      }
+      var slugSug = b.dataset.aprovarSug;
+      confirmar('Aprovar “' + corta(dSug.title, 60) + '” e agendar para ' + qdRelativo(qSug) +
+        ', como a redação sugeriu?', { rotuloOk:'Aprovar e agendar' }).then(function(ok){
+        if(!ok) return;
+        agOcupa(new Date(qSug), dSug.title, dSug.author);
+        aprovar(slugSug, qSug, qdRelativo(qSug));
       });
       return;
     }
