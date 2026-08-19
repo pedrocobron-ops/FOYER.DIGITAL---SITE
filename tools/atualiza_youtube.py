@@ -53,6 +53,16 @@ def feed(playlist_id):
 
 
 def main():
+    # O retrato anterior é a rede de segurança: nas rodadas das 6h o YouTube
+    # vinha devolvendo TUDO vazio, o robô salvava o vazio por cima do retrato
+    # bom, e a seção de críticas da capa sumia até a rodada seguinte
+    # (pego em 19/08/2026). Playlist que voltar vazia mantém o que já tinha.
+    arq = os.path.join(ROOT, 'import/youtube.json')
+    try:
+        antigo = {p.get('id'): p.get('videos') or []
+                  for p in json.load(open(arq)).get('programas', [])}
+    except Exception:
+        antigo = {}
     saida = {'atualizadoEm': datetime.now(timezone.utc).isoformat(),
              'canal': CANAL, 'programas': []}
     for pid, nome, papel in PROGRAMAS:
@@ -61,6 +71,9 @@ def main():
         except Exception as e:
             print(f'! {nome}: {e}')
             vids = []
+        if not vids and antigo.get(pid):
+            vids = antigo[pid]
+            print(f'  {nome}: YouTube vazio agora — mantém os {len(vids)} vídeo(s) do retrato anterior')
         saida['programas'].append({
             'id': pid, 'nome': nome, 'papel': papel,
             'urlPlaylist': f'https://www.youtube.com/playlist?list={pid}',
