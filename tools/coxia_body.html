@@ -571,8 +571,10 @@
   .mesa-card.fechado .mesa-capa img{ max-height:110px; }
   .mesa-riscos{ padding:10px 18px; border-bottom:1px solid var(--line); font-family:var(--sans);
     font-size:.85rem; line-height:1.5; background:rgba(142,27,16,.07); color:var(--ink); }
-  .mesa-sug{ padding:10px 18px; border-bottom:1px solid var(--line); font-family:var(--sans);
-    font-size:.85rem; line-height:1.5; background:rgba(206,178,106,.16); color:var(--ink); }
+  .mesa-sug-selo{ font-family:var(--mono); font-size:.62rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:.08em; background:var(--gold); color:var(--wine); padding:4px 9px;
+    margin-left:8px; white-space:nowrap; }
+  .mesa-sug-selo.venc{ background:var(--paper-2); color:var(--ink-soft); border:1.5px dashed var(--line); }
   .mesa-acoes .bt.sug{ border:1.5px solid var(--gold); background:var(--gold); color:var(--wine); font-weight:700; }
   .mesa-acoes .bt.sug:hover{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
   /* com o dossiê aberto o card volta a ser alto: a régua de decisão gruda no
@@ -4030,6 +4032,11 @@ ingressos e divisor."></textarea>
     var base = opts.inicial ? new Date(opts.inicial) : null;
     AG.sel = base && !isNaN(base) ? base : null;
     AG.mes = new Date((AG.sel || new Date()).getFullYear(), (AG.sel || new Date()).getMonth(), 1);
+    // sugestão fora do relógio da casa: a hora livre já vem preenchida,
+    // para a data sugerida chegar inteira, não pela metade
+    var hlIni = $('ag-hora-livre');
+    if(hlIni) hlIni.value = (AG.sel && AG_HORAS.indexOf(AG.sel.getHours()) < 0)
+      ? ('0' + AG.sel.getHours()).slice(-2) + ':' + ('0' + AG.sel.getMinutes()).slice(-2) : '';
     $('ag-overlay').classList.add('on');
     agPinta();
     agCarregaOcupados().then(agPinta);
@@ -5865,13 +5872,15 @@ ingressos e divisor."></textarea>
           var parecer = ehAutor
             ? '<div class="mesa-parecer"><b>Matéria da equipe:</b> ' + esc(d.author) + ' assina; você aprova, programa ou recusa.</div>'
             : '<div class="mesa-parecer"><b>Parecer do chefe de redação (agente):</b> ' + esc(ch.parecer || 'sem parecer') + '<br>' + ressalvas + '</div>';
-          // a matéria já chega com a data sugerida pela redação: o chip fica
-          // visível até no card resumido, e o botão aprova nela com um clique
+          // a matéria já chega com a data de lançamento: um SELO no topo do
+          // card, no estilo do QUENTE, e o botão aprova nela com um clique
           var sugFutura = d.sugestaoPublishAt && new Date(d.sugestaoPublishAt) > new Date();
           var sugTxt = d.sugestaoPublishAt ? qdRelativo(d.sugestaoPublishAt) : '';
-          var sugChip = d.sugestaoPublishAt
-            ? '<div class="mesa-sug">🗓 A redação sugere publicar <b>' + esc(sugTxt) + '</b>' +
-              (sugFutura ? '' : ' — <b>já passou</b>: escolha outra hora no Aprovar e agendar') + '</div>'
+          var sugSelo = d.sugestaoPublishAt
+            ? '<span class="mesa-sug-selo' + (sugFutura ? '' : ' venc') + '" title="' +
+              (sugFutura ? 'Data de lançamento sugerida pela redação — o Aprovar e agendar já abre nela'
+                         : 'A data sugerida passou — escolha outra no Aprovar e agendar') + '">🗓 ' +
+              (sugFutura ? 'SAI ' : 'PASSOU · ERA ') + esc(sugTxt) + '</span>'
             : '';
           // as ressalvas do checador aparecem MESMO no card resumido: sem
           // isso dava para aprovar em 2 cliques sem ver "contato não tentado"
@@ -5910,8 +5919,9 @@ ingressos e divisor."></textarea>
               // ver isso antes de agendar para semana que vem (31/07/2026)
               (d.quente ? '<span class="mesa-quente" title="Cinema e streaming: publique hoje, não agende">' +
                           '🔥 QUENTE — publicar hoje</span>' : '') +
+              sugSelo +
               selo +
-            '</div>' + avisoAssinatura(d) + capa + parecer + sugChip + riscos + checagem + insta +
+            '</div>' + avisoAssinatura(d) + capa + parecer + riscos + checagem + insta +
             fontesBloco +
             '<details class="mesa-dobra"><summary>Ler a matéria inteira</summary>' +
             '<div class="mesa-corpo" id="corpo-' + esc(d.slug) + '">' + mdRender(d.corpo) + '</div></details>' +

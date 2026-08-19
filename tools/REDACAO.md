@@ -1575,10 +1575,10 @@ Blocos opcionais (usar quando enriquecem de verdade):
   1. Matéria **quente** (`porte: quente` ou selo `quente`): HOJE, no próximo
      horário cheio livre (mínimo 1h no futuro). Nunca sugerir quente para
      outro dia.
-  2. Demais: espalhar entre **8h e 20h de Brasília (11h–23h UTC)** nos
-     próximos 1–2 dias, em horários cheios (:00), evitando colisão com o que
-     já está agendado (`publishAt` futuros em `import/novas/`) e com as
-     outras matérias da própria rodada — no mínimo 1h entre uma e outra.
+  2. Demais: usar os horários do RELÓGIO DA CASA — 7h, 9h, 12h, 15h, 18h e
+     20h de Brasília (10, 12, 15, 18, 21 e 23 UTC) — nos próximos 1–2 dias,
+     evitando colisão com o que já está agendado (`publishAt` futuros em
+     `import/novas/`) e com as outras matérias da própria rodada.
   3. Efeméride/data comemorativa: sugerir a manhã do dia da efeméride.
 - `cat`/`cats` — **LISTA CANÔNICA DE EDITORIAS:** usar 1 principal
   (`cat`) e até 2 secundárias (`cats`). Valores editoriais permitidos aos
