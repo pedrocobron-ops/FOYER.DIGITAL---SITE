@@ -1556,6 +1556,7 @@ Blocos opcionais (usar quando enriquecem de verdade):
   "ressalvas": ["pontos que o humano deve conferir antes de publicar"]
  },
  "geradoEm": "2026-07-22T12:00:00+00:00",
+ "sugestaoPublishAt": "2026-07-23T17:00:00+00:00",
  "esteira": "pauteiro > reporter > editor-estilo > checador > chefe-redacao",
  "evento": {
   "inicio": "2026-07-24",
@@ -1566,6 +1567,19 @@ Blocos opcionais (usar quando enriquecem de verdade):
 }
 ```
 
+- `sugestaoPublishAt` — **OBRIGATÓRIO desde 19/08/2026** (pedido do Pedro):
+  toda matéria entregue à mesa já chega com a data/hora sugerida de
+  publicação, em ISO UTC. A mesa mostra a sugestão no card e o chefe aprova
+  na hora sugerida com um clique — mas a decisão continua sendo dele: nada
+  se agenda sozinho. Como escolher a hora:
+  1. Matéria **quente** (`porte: quente` ou selo `quente`): HOJE, no próximo
+     horário cheio livre (mínimo 1h no futuro). Nunca sugerir quente para
+     outro dia.
+  2. Demais: espalhar entre **8h e 20h de Brasília (11h–23h UTC)** nos
+     próximos 1–2 dias, em horários cheios (:00), evitando colisão com o que
+     já está agendado (`publishAt` futuros em `import/novas/`) e com as
+     outras matérias da própria rodada — no mínimo 1h entre uma e outra.
+  3. Efeméride/data comemorativa: sugerir a manhã do dia da efeméride.
 - `cat`/`cats` — **LISTA CANÔNICA DE EDITORIAS:** usar 1 principal
   (`cat`) e até 2 secundárias (`cats`). Valores editoriais permitidos aos
   agentes: **Teatro, Teatro Musical, Notícia, Cinema, Streaming, Música,

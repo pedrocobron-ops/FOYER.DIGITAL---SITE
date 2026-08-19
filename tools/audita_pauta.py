@@ -110,6 +110,26 @@ def auditar(caminho):
     titulo = pg.get('title', '')
     insta = pg.get('instagram') or {}
 
+    # 0. Sugestão de data (pedido do Pedro, 19/08/2026): toda matéria chega à
+    #    mesa com a hora de publicação já sugerida. O chefe aprova nela com um
+    #    clique — mas quem decide segue sendo ele.
+    sug = pg.get('sugestaoPublishAt', '')
+    if not sug:
+        problemas.append('SEM sugestaoPublishAt: toda matéria deve chegar com a '
+                         'data/hora sugerida de publicação (ISO UTC, ver REDACAO.md)')
+    else:
+        try:
+            from datetime import datetime as _dt, timezone as _tz
+            _q = _dt.fromisoformat(str(sug).replace('Z', '+00:00'))
+            if _q.tzinfo is None:
+                problemas.append(f'sugestaoPublishAt sem fuso ("{sug}"): usar ISO UTC, '
+                                 f'ex. 2026-08-20T17:00:00+00:00')
+            elif _q <= _dt.now(_tz.utc):
+                problemas.append(f'sugestaoPublishAt no passado ("{sug}"): sugerir uma '
+                                 f'hora futura')
+        except Exception:
+            problemas.append(f'sugestaoPublishAt ilegível ("{sug}"): usar ISO UTC')
+
     # 1. Travessão e meia-risca: proibidos como pontuação em tudo o que chega ao
     #    leitor. Passam só dentro de nome próprio que a matéria declare em
     #    "nomes_proprios" (o nome oficial de uma montagem, filme ou disco),
