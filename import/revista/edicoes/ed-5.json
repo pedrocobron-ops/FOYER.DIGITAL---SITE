@@ -1,0 +1,231 @@
+{
+ "numero": 5,
+ "titulo": "Para sempre, Laura",
+ "dataEdicao": "20 Ago 2026",
+ "status": "rascunho",
+ "capa": {
+  "img": "assets/uploads/revista-ed-5-capa.jpg",
+  "credito": "Foto: Fabio Pozzebom/Agência Brasil, via Wikimedia Commons, CC BY 3.0 BR",
+  "manchete": "Para sempre, Laura Cardoso (1927-2026)",
+  "chamadas": [
+   "Caio Paduan é Poseidon em Percy Jackson",
+   "Feliz Ano Velho agora é musical",
+   "Teatros britânicos barram os óculos da Meta"
+  ]
+ },
+ "paginas": [
+  {
+   "tipo": "editorial",
+   "titulo": "Uma edição para Laura",
+   "texto": "Esta edição abre em silêncio. Laura Cardoso morreu na segunda-feira, 17 de agosto, aos 98 anos, em casa, em São Paulo. A televisão a tornou familiar, e o país inteiro guarda uma personagem dela na memória. Nós, gente de teatro, guardamos outro dado: os dois Prêmios Shell de Melhor Atriz que ela conquistou no palco, em 1990 e 1993, quando todo mundo já conhecia seu rosto. A capa é dela. A reportagem de capa também, com a trajetória que começou diante de um microfone de rádio em 1942.\n\nA vida, teimosa, seguiu em cartaz. O teatro musical teve uma semana cheia: Caio Paduan foi anunciado como Poseidon em Percy Jackson, que estreia em outubro no Teatro Liberdade; Feliz Ano Velho vira musical em setembro, embalado pelo rock de Legião Urbana e Titãs; e O Fantasma de Friedrich, pop ópera punk da curitibana Bife Seco, chega a São Paulo no dia 3 de setembro.\n\nA Broadway também se mexeu. Purple Rain marcou estreia no Majestic Theatre para 2027, Slash subiu ao palco de The Lost Boys por uma noite e 10 Coisas que Eu Odeio em Você confirmou data, com músicas de Carly Rae Jepsen.\n\nLaura dizia que ficava no teatro até o fim porque sempre dá para ficar melhor. A frase serve de bússola para esta edição. Boa leitura.",
+   "assinatura": "A direção do FOYER"
+  },
+  {
+   "slug": "morre-laura-cardoso-98-anos-velorio-sao-paulo",
+   "cat": "Televisão",
+   "img": "assets/uploads/morre-laura-cardoso-98-anos-velorio-sao-paulo-1787053858840.jpg",
+   "titulo": "A despedida de Laura Cardoso",
+   "chamada": "Atriz morreu em casa aos 98 anos, e o velório reuniu a família na Bela Vista, em São Paulo.",
+   "texto": "Laurinda de Jesus Cardoso Balleroni nasceu na Bela Vista, em São Paulo, em 1927. Noventa e oito anos depois, foi no mesmo bairro que a cidade se despediu dela.",
+   "tipo": "materia"
+  },
+  {
+   "slug": "laura-cardoso-morre-98-anos-obra-radio-teatro-novelas",
+   "cat": "Memória",
+   "img": "assets/uploads/laura-cardoso-morre-98-anos-obra-radio-teatro-novelas-1787054678489.jpg",
+   "titulo": "A Laura que o palco conhecia",
+   "chamada": "Antes das novelas houve o rádio, o teleteatro ao vivo e uma estreia teatral aos 32 anos; décadas depois, o palco lhe deu dois Prêmios Shell.",
+   "texto": "\"A minha formação foi baseada num estudo muitas vezes solitário, em erros e acertos. Nunca tive um mentor\", disse Laura Cardoso no depoimento recuperado pela Ocupação Laura Cardoso, do Itaú Cultural. Esta página conta a história dessa formação.",
+   "tipo": "materia"
+  },
+  {
+   "tipo": "programas"
+  },
+  {
+   "slug": "caio-paduan-sera-poseidon-em-percy-jackson-musical-que-estreia-em-sao-paulo",
+   "cat": "Teatro Musical",
+   "img": "assets/uploads/caio-paduan-sera-poseidon-em-percy-jackson-musical-que-estreia-em-sao-paulo-1787062628924.jpg",
+   "titulo": "Poseidon já tem rosto",
+   "chamada": "Caio Paduan entra no elenco da primeira montagem autorizada de Percy Jackson na América Latina, que estreia em outubro no Teatro Liberdade.",
+   "tipo": "materia"
+  },
+  {
+   "slug": "feliz-ano-velho-chega-ao-musical-com-rock-video-ao-vivo-e-uma-nova-investigacao-",
+   "cat": "Teatro Musical",
+   "img": "assets/uploads/feliz-ano-velho-chega-ao-musical-com-rock-video-ao-vivo-e-uma-nova-investigacao--1786483281921.jpg",
+   "titulo": "A escada mudou de significado",
+   "chamada": "O livro de Marcelo Rubens Paiva vira musical com vídeo ao vivo, rock dos anos 1980 e pesquisa de movimento junto à dança em cadeira de rodas.",
+   "tipo": "materia"
+  },
+  {
+   "slug": "requiem-sp-bale-da-cidade-theatro-municipal",
+   "cat": "Dança",
+   "img": "assets/uploads/requiem-sp-bale-da-cidade-theatro-municipal.jpg",
+   "titulo": "O luto dança no Municipal",
+   "chamada": "Criação de Alejandro Ahmed volta à Sala de Espetáculos com Balé da Cidade, Orquestra Sinfônica Municipal e Coral Paulistano em cena.",
+   "texto": "No meio do espetáculo, músicos e cantores deixam o palco. A música passa então a nascer de outro lugar: gotas de água captadas por microfones e tratadas digitalmente, antes de o breakcore de Venetian Snares tomar a sala.",
+   "tipo": "materia"
+  },
+  {
+   "slug": "teatros-comecam-a-barrar-oculos-inteligentes-da-meta-por-medo-de-gravacoes-cland",
+   "cat": "Teatro",
+   "img": "assets/uploads/teatros-comecam-a-barrar-oculos-inteligentes-da-meta-por-medo-de-gravacoes-cland-1786633851316.jpg",
+   "titulo": "A câmera na altura do olhar",
+   "chamada": "Grandes operadores britânicos restringem os óculos inteligentes da Meta durante os espetáculos por temor de gravações clandestinas.",
+   "tipo": "materia"
+  },
+  {
+   "tipo": "agenda",
+   "cidade": "São Paulo",
+   "itens": [
+    {
+     "dia": "2026-08-21",
+     "titulo": "Réquiem SP (Balé da Cidade de São Paulo)",
+     "texto": "Alejandro Ahmed faz o Balé da Cidade atravessar do Réquiem de Ligeti ao breakcore de Venetian Snares, com Orquestra Sinfônica Municipal e Coral Paulistano no fosso, e o resultado é daqueles que dividem a plateia no saguão. Sexta às 20h, ingressos de R$ 13 a R$ 100 pela INTI; a temporada termina sábado.",
+     "local": "Theatro Municipal de São Paulo",
+     "cidade": "São Paulo",
+     "link": "https://theatromunicipal.org.br/eventos/danca-requiem-sp-2026/"
+    },
+    {
+     "dia": "2026-08-22",
+     "titulo": "Piaf, Eu Não Me Arrependo",
+     "texto": "Laila Garin, que já foi Elis, encara o repertório de Édith Piaf com orquestra de nove músicos ao vivo e escapa da imitação caricata que costuma rondar o personagem. Sábado com sessões às 16h e às 20h no Teatro Bradesco; a temporada paulistana vai só até 30/08, ingressos pela Uhuu.",
+     "local": "Teatro Bradesco",
+     "cidade": "São Paulo",
+     "link": "https://uhuu.com/evento/sp/sao-paulo/piaf-eu-nao-me-arrependo-15900"
+    },
+    {
+     "dia": "2026-08-23",
+     "titulo": "Gil, Andar com Fé (O Musical)",
+     "texto": "Primeiro fim de semana da biografia musical de Gilberto Gil dirigida por Miguel Falabella, com Gui Ventura no papel título e a plateia segurando o impulso de cantar Aquele Abraço junto. Domingo às 15h e às 19h no Teatro Santander, ingressos pelo Sympla; todas as sessões têm Libras e audiodescrição.",
+     "local": "Teatro Santander",
+     "cidade": "São Paulo",
+     "link": "https://bileto.sympla.com.br/event/115256"
+    },
+    {
+     "dia": "2026-08-24",
+     "titulo": "Rasga Coração (Teatro Oficina Devora Villa-Lobos)",
+     "texto": "O Oficina celebra o centenário do Choros nº 10 devorando Villa-Lobos no terreiro eletrônico da Rua Jaceguai, e esta segunda é a penúltima sessão da temporada. Às 20h, R$ 80 (inteira), R$ 40 (meia) e R$ 30 para moradores do Bixiga, venda pelo Sympla.",
+     "local": "Teatro Oficina Uzyna Uzona",
+     "cidade": "São Paulo",
+     "link": "https://bileto.sympla.com.br/event/85289"
+    },
+    {
+     "dia": "2026-08-25",
+     "titulo": "As Troianas",
+     "texto": "Zé Henrique de Paula e Fernanda Maia transplantam Eurípides para a Torre das Donzelas do Presídio Tiradentes em 1972, no musical que reabre a pesquisa do Núcleo Experimental nos 20 anos de sua sala na Barra Funda. Terça às 20h, R$ 40 (inteira) e R$ 20 (meia), com bate-papo com o elenco após a sessão.",
+     "local": "Teatro Núcleo Experimental",
+     "cidade": "São Paulo",
+     "link": "http://nucleoexperimental.com.br/"
+    },
+    {
+     "dia": "2026-08-26",
+     "titulo": "Vindos de Longe (Come From Away)",
+     "texto": "A primeira versão brasileira de Come From Away segue enchendo a sala Dina Sfat, com Saulo Vasconcelos e Andrezza Massei revezando dezenas de papéis na história real de Gander no 11 de Setembro. Quarta às 20h30 no Teatro Ruth Escobar, ingressos de R$ 40 (meia) a R$ 350 pela Ticketmaster.",
+     "local": "Teatro Ruth Escobar",
+     "cidade": "São Paulo",
+     "link": "https://www.ticketmaster.com.br/event/vindos-de-longe-teatro-ruth-escobar"
+    },
+    {
+     "dia": "2026-08-27",
+     "titulo": "O Céu de Bibi Ferreira",
+     "texto": "Quatro atrizes-cantoras, entre elas Kiara Sasso e Giulia Nadruz, dividem a figura de Bibi Ferreira em temporada gratuita na Paulista, chegada a São Paulo depois das passagens pelo Rio e por Porto Alegre. Quinta às 20h no Teatro do Sesi-SP (Centro Cultural Fiesp), entrada franca com reserva pelo site do Sesi-SP.",
+     "local": "Teatro do Sesi-SP (Centro Cultural Fiesp)",
+     "cidade": "São Paulo",
+     "link": "https://www.sesisp.org.br/evento/a8fc6e9f-6693-49be-9d19-a2fe091fcb38/o-ceu-de-bibi-ferreira"
+    }
+   ]
+  },
+  {
+   "tipo": "agenda",
+   "cidade": "Rio de Janeiro",
+   "itens": [
+    {
+     "dia": "2026-08-21",
+     "titulo": "Restinga de Canudos",
+     "texto": "A Cia do Tijolo mergulha na Canudos submersa do açude de Cocorobó e devolve ao presente uma comunidade viva, longe do olhar de Euclides da Cunha, em um dos teatros de grupo mais consistentes do país. Sexta às 20h, sábado e domingo às 18h, quinta 27 às 20h. Ingressos R$ 40 (inteira) e R$ 20 (meia).",
+     "local": "Sesc Copacabana",
+     "cidade": "Rio de Janeiro",
+     "link": "https://cultura.sescrio.org.br/programacao/restinga-de-canudos"
+    },
+    {
+     "dia": "2026-08-21",
+     "titulo": "Wicked, a História Não Contada das Bruxas de Oz",
+     "texto": "Myra Ruiz e Fabi Bang repetem a dupla que virou referência nacional de Elphaba e Glinda, agora com voos e projeções em escala inédita no palco carioca; vale ir antes que a temporada acabe. Sessões de quarta a sexta às 20h, sábado às 15h e 19h30, domingo às 14h e 18h30, na Cidade das Artes (Barra da Tijuca). Vendas pela Sympla.",
+     "local": "Cidade das Artes",
+     "cidade": "Rio de Janeiro",
+     "link": "https://www.wickedbrasil.com/"
+    },
+    {
+     "dia": "2026-08-22",
+     "titulo": "MAMMA MIA!",
+     "texto": "O jukebox do ABBA volta ao centro do Rio com elenco de mais de 20 artistas e o trunfo raro de acessibilidade em todas as sessões (Libras, audiodescrição e legendagem). Temporada de 20/08 a 13/09: quinta e sexta às 20h, sábado às 16h e 20h, domingo às 15h. Ingressos a partir de R$ 50 na Ingresso.com.",
+     "local": "Teatro Riachuelo Rio",
+     "cidade": "Rio de Janeiro",
+     "link": "https://teatroriachuelorio.com.br/"
+    },
+    {
+     "dia": "2026-08-23",
+     "titulo": "Fim de Partida",
+     "texto": "Marco Nanini, Guilherme Weber, Helena Ignez e Ary França sob direção de Rodrigo Portella fazem do apocalipse doméstico de Beckett o encontro de elenco mais forte da semana. Curta temporada de 20 a 30/08: quinta e sexta às 20h, sábado às 19h, domingo às 17h, no Edifício Manchete (Glória). Vendas na Ingresso.com.",
+     "local": "Teatro TotalEnergies (Sala Adolpho Bloch)",
+     "cidade": "Rio de Janeiro",
+     "link": "https://teatro.totalenergies.com.br/"
+    },
+    {
+     "dia": "2026-08-23",
+     "titulo": "ESPAÇO LISO",
+     "texto": "Sobre um tablado metálico e escorregadio de 6m x 6m, o coletivo NAMATILHA (em residência artística com Alice Ripoll) transforma o simples ato de ficar de pé em ensaio sobre controle e resistência, entre dança e circo. Última semana: sexta às 20h30, sábado e domingo às 19h. Ingressos R$ 40 (inteira) e R$ 20 (meia).",
+     "local": "Sesc Copacabana",
+     "cidade": "Rio de Janeiro",
+     "link": "https://cultura.sescrio.org.br/programacao/espaco-liso"
+    },
+    {
+     "dia": "2026-08-26",
+     "titulo": "Clube da Esquina Tributo, com Neto Bellotto e Orquestra Paganini",
+     "texto": "Releituras do repertório mineiro dos anos 1970 com orquestra de cordas e banda em apresentação única, boa porta de entrada para quem quer ouvir Clube da Esquina fora do disco. Quarta às 20h, 90 minutos, classificação livre. Ingressos de R$ 50 a R$ 160 na Ingresso.com.",
+     "local": "Teatro Riachuelo Rio",
+     "cidade": "Rio de Janeiro",
+     "link": "https://teatroriachuelorio.com.br/"
+    },
+    {
+     "dia": "2026-08-27",
+     "titulo": "Tudo Preto: uma re_vista",
+     "texto": "No centenário da Companhia Negra de Revistas, que estreou no Rio em 1926, a montagem revisita o marco do teatro negro brasileiro em plena rua Primeiro de Março, a poucos quarteirões de onde a história começou. Em cartaz até 13/09: quarta a sábado às 19h, domingo às 18h, Teatro I. Ingressos R$ 30 (inteira) e R$ 15 (meia).",
+     "local": "CCBB Rio de Janeiro",
+     "cidade": "Rio de Janeiro",
+     "link": "https://ccbb.com.br/rio-de-janeiro/programacao/tudo-preto-uma-re_vista/"
+    }
+   ]
+  },
+  {
+   "tipo": "citacao",
+   "frase": "A minha formação foi baseada num estudo muitas vezes solitário, em erros e acertos. Nunca tive um mentor",
+   "autor": "Laura Cardoso"
+  },
+  {
+   "tipo": "frase-celebre",
+   "frase": "O dever da comédia é corrigir os homens divertindo-os.",
+   "autor": "Molière",
+   "sobre": "Dramaturgo, ator e diretor francês do século XVII, patrono do teatro e mestre maior da comédia."
+  },
+  {
+   "tipo": "expediente"
+  },
+  {
+   "tipo": "contracapa"
+  }
+ ],
+ "historico": [
+  {
+   "quando": "2026-08-19T17:50:08.603244+00:00",
+   "quem": "Redação IA (Claude)",
+   "acao": "fechamento: revisor e checador aprovaram (14 de 14 itens de agenda confirmados na fonte, 1 horário corrigido); portão de design passou com laudo limpo (33 páginas, zero problemas)"
+  },
+  {
+   "quando": "2026-08-19T17:33:37.968536+00:00",
+   "quem": "Redação IA (Claude)",
+   "acao": "monta o rascunho da edição 5: capa e editorial para Laura Cardoso; 6 matérias da semana (13 a 19/08); agendas exclusivas de SP e Rio (21 a 27/08) com sessões confirmadas na fonte; Entre mestres com Molière (Premier Placet do Tartufo, 1664, fonte primária) e citação da semana de Laura Cardoso"
+  }
+ ]
+}
