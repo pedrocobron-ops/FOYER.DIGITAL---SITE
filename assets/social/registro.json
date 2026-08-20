@@ -1290,7 +1290,11 @@
  },
  "romeu-e-romeu-faz-apresentacao-especial-no-teatro-sabesp-frei-caneca": {
   "img": "assets/uploads/romeu-e-romeu-faz-apresentacao-especial-no-teatro-sabesp-frei-caneca-1787244872265.jpg",
-  "foco": null,
+  "foco": {
+   "x": 0.5384,
+   "y": 0.5047,
+   "z": 1
+  },
   "titulo": "“Romeu e Romeu” faz apresentação especial no Teatro Sabesp Frei Caneca",
   "cat": "Teatro"
  },
