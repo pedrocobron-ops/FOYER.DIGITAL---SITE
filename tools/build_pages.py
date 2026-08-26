@@ -3089,7 +3089,10 @@ def _rv_pagina(pg, ed, num):
         _mkp = f' data-pub-chave="{_rvesc(_kp)}"' if _kp else ''
         return f'<section class="{klass}"{_mkp}>{img}{cupom}<div class="rv-leg">{rot}{" — " + leg if leg else ""}</div>{fol}</section>'
     if t == 'citacao':
-        arte = _RV_ARTES[num % len(_RV_ARTES)]
+        # num pode chegar como o marcador '__NUMPG__' (o número real só entra
+        # depois): a arte roda pela frase, que é estável, nunca pelo marcador
+        _semente = num if isinstance(num, int) else len(str(pg.get('frase', '')))
+        arte = _RV_ARTES[_semente % len(_RV_ARTES)]
         return (f'<section class="rv-pg rv-cit"><div class="aspa">“</div>'
                 f'<div class="fr">{_rvesc(pg.get("frase"))}</div>'
                 f'<div class="au">{_rvesc(pg.get("autor", ""))}</div>'
