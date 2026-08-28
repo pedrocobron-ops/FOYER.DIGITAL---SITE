@@ -61,6 +61,20 @@ def _cover(img, w, h, foco=0.38):
     return img.crop((x, y, x + w, y + h))
 
 
+def _foto(pg):
+    """O caminho da foto de onde a arte nasce: a ORIGINAL inteira quando
+    existir (a Coxia guarda desde 28/08/2026, campo imgOriginal), senão a
+    capa 16:9 da matéria. O recorte deitado da capa espremia o feed e o
+    stories; a original tem a altura de verdade. Capa dupla (duas pessoas)
+    não tem imgOriginal único: segue com o par montado, que é o retrato
+    certo da matéria."""
+    for campo in ('imgOriginal', 'img'):
+        cam = pg.get(campo)
+        if cam and os.path.exists(os.path.join(ROOT, cam)):
+            return os.path.join(ROOT, cam)
+    return None
+
+
 def _carrega_focos():
     """Os ajustes de enquadramento feitos na Coxia: slug -> {'x','y'}."""
     try:
@@ -194,8 +208,8 @@ def gerar(pg, formato='feed'):
         return _gerar_story(pg)
     w, h = 1080, 1350
     base = Image.new('RGB', (w, h), (6, 4, 4))       # fundo, só aparece sem foto
-    caminho = os.path.join(ROOT, pg.get('img', ''))
-    if pg.get('img') and os.path.exists(caminho):
+    caminho = _foto(pg)
+    if caminho:
         foto = Image.open(caminho).convert('RGB')
         base.paste(_cover(foto, w, h, pg.get('foco') or 0.38), (0, 0))  # sangra nas quatro bordas
     dr = ImageDraw.Draw(base, 'RGB')
@@ -218,9 +232,9 @@ def _gerar_story(pg):
     feito dela mesma desfocada (nada de esticar a imagem)."""
     w, h = 1080, 1920
     base = Image.new('RGB', (w, h), (14, 8, 6))
-    caminho = os.path.join(ROOT, pg.get('img', ''))
+    caminho = _foto(pg)
     foto = None
-    if pg.get('img') and os.path.exists(caminho):
+    if caminho:
         foto = Image.open(caminho).convert('RGB')
         fundo = _cover(foto, w, h, foco=0.5).filter(ImageFilter.GaussianBlur(46))
         escuro = Image.new('RGB', (w, h), (10, 5, 4))
@@ -285,9 +299,14 @@ def legenda_de(pg):
 def _assinatura(pg):
     """O que, mudando, exige refazer a arte: foto, enquadramento, título, editoria."""
     insta = pg.get('instagram') or {}
-    return {'img': pg.get('img', ''), 'foco': pg.get('foco') or None,
-            'titulo': insta.get('titulo') or pg.get('title', ''),
-            'cat': pg.get('cat', '')}
+    sig = {'img': pg.get('img', ''), 'foco': pg.get('foco') or None,
+           'titulo': insta.get('titulo') or pg.get('title', ''),
+           'cat': pg.get('cat', '')}
+    if pg.get('imgOriginal'):
+        # só entra quando existe: pôr a chave sempre mudaria a assinatura de
+        # TODAS as matérias antigas e o robô refaria todas as artes à toa
+        sig['orig'] = pg['imgOriginal']
+    return sig
 
 
 def pendentes():

@@ -3262,6 +3262,31 @@ ingressos e divisor."></textarea>
     return ghPutRaw(caminho, puro, assina('sobe foto de capa'))
       .then(function(){ return caminho; });
   }
+  function subirOriginais(slug){
+    // A foto ORIGINAL inteira (sem o corte 16:9 da capa) também fica guardada
+    // no sistema. Pedido do Pedro, 28/08/2026: o post do feed e o stories do
+    // Instagram precisam da foto em pé de verdade — o recorte deitado da capa
+    // não serve para aqueles formatos. Capa dupla guarda os dois lados em
+    // campos próprios (imgOriginalA/B) e as artes seguem usando o par montado.
+    if(!CAPA_SRC) return Promise.resolve(null);
+    if(CAPA_SRC.dupla){
+      return subirImagem(CAPA_SRC.a.orig, slug + '-original-a').then(function(a){
+        return subirImagem(CAPA_SRC.b.orig, slug + '-original-b').then(function(b){
+          return { imgOriginalA: a, imgOriginalB: b };
+        });
+      });
+    }
+    return subirImagem(CAPA_SRC.orig, slug + '-original').then(function(cam){
+      return { imgOriginal: cam };
+    });
+  }
+  var CAMPOS_ORIG = ['imgOriginal', 'imgOriginalA', 'imgOriginalB'];
+  function aplicaOriginais(alvo, orig){
+    // troca de foto = os originais antigos saem e entram os novos (se houver)
+    if(!orig) return;
+    CAMPOS_ORIG.forEach(function(k){ delete alvo[k]; });
+    CAMPOS_ORIG.forEach(function(k){ if(orig[k]) alvo[k] = orig[k]; });
+  }
 
   /* ---- enquadramento da CAPA: a foto original fica guardada inteira e o
      corte 16:9 é assado com o ponto que o Pedro escolher (arrastar + zoom,
@@ -4388,6 +4413,10 @@ ingressos e divisor."></textarea>
     enqAplica();
   }
   function abrirEnquadrar(d){
+    // a prévia usa a foto ORIGINAL inteira quando ela existe (guardada pela
+    // Coxia desde 28/08/2026) — a mesma que o robô das artes usa; matéria
+    // antiga sem original segue com a foto da capa, como sempre
+    var fotoEnq = d.imgOriginal || d.img;
     var corpo = $('insta-corpo');
     corpo.innerHTML =
       '<p style="font-family:var(--sans);font-size:.9rem;margin:0 0 8px"><b>' + esc(d.title) + '</b></p>' +
@@ -4428,10 +4457,10 @@ ingressos e divisor."></textarea>
         enqAplica();
       };
       img.onerror = function(){
-        if(!img.dataset.f){ img.dataset.f = 1; img.src = RB_ARTES + d.img; }
+        if(!img.dataset.f){ img.dataset.f = 1; img.src = RB_ARTES + fotoEnq; }
         else $('enq-msg').textContent = 'Não achei a foto da matéria.';
       };
-      img.src = d.img;
+      img.src = fotoEnq;
     });
     // arrastar com o dedo ou com o mouse
     var pega = null;
@@ -4981,6 +5010,7 @@ ingressos e divisor."></textarea>
         { rotuloOk: quando === 'agendar' ? 'Agendar' : 'Publicar' });
     });
     // matéria nova: confere se já existe uma com esse endereço (evita sobrescrever a de outra pessoa)
+    var NOVO_ORIG = null;  // originais da foto subidos neste envio (se a foto for nova)
     var checaSlug = checaEnvio.then(function(okE){
       if(!okE) return false;
       return EDIT ? true : Promise.all([
@@ -4996,7 +5026,11 @@ ingressos e divisor."></textarea>
     });
     checaSlug.then(function(segue){
       if(!segue){ btn.disabled = false; btn.textContent = ehChefe ? 'Enviar para o site' : 'Enviar para aprovação'; msg.textContent = 'Envio cancelado.'; msg.className = 'msg'; return Promise.reject('cancelado'); }
-      return CAPA ? subirImagem(CAPA, slug) : Promise.resolve('');
+      if(!CAPA) return '';
+      return subirImagem(CAPA, slug).then(function(cam){
+        // foto nova: sobe também a original inteira, para as artes de Instagram
+        return subirOriginais(slug).then(function(orig){ NOVO_ORIG = orig; return cam; });
+      });
     }).then(function(imgPath){
       if(imgPath === undefined) return;
       if(EDIT && EDIT.fonte === 'pauta'){
@@ -5019,6 +5053,7 @@ ingressos e divisor."></textarea>
           pac.author = autorNovo;
         }
         pac.img = imgPath || EDIT.img; pac.imgCredito = $('f-cred').value.trim();
+        aplicaOriginais(pac, NOVO_ORIG);  // foto trocada: os originais novos entram no lugar
         var pLeg = $('f-imgleg').value.trim(); if(pLeg) pac.imgLegenda = pLeg; else delete pac.imgLegenda;
         pac.corpo = corpo; pac.editadoPor = USER.nome;
         pac.status = 'aguardando_aprovacao';
@@ -5050,10 +5085,12 @@ ingressos e divisor."></textarea>
           atualizadoEm: new Date().toISOString(),
           origem: EDIT.origem, editadoPor: USER.nome
         };
-        // preserva o que a edição não mexe (post de Instagram, checagem)
+        // preserva o que a edição não mexe (post de Instagram, checagem, foto original)
         var o = EDIT.orig || {};
         if(o.instagram) edicao.instagram = o.instagram;
         if(o.checagem) edicao.checagem = o.checagem;
+        CAMPOS_ORIG.forEach(function(k){ if(o[k]) edicao[k] = o[k]; });
+        aplicaOriginais(edicao, NOVO_ORIG);  // foto trocada: os originais novos entram no lugar
         // origem da foto, direito e fontes: agora ficam no formulário, então recolhe de lá
         var eif = $('f-imgfonte').value.trim(); if(eif) edicao.imgFonte = eif;
         var eid = $('f-imgdir').value.trim(); if(eid) edicao.imgDireito = eid;
@@ -5078,6 +5115,7 @@ ingressos e divisor."></textarea>
           criadoEm: new Date().toISOString(), criadoPor: USER.nome
         };
         dados.cats = colherCats();
+        aplicaOriginais(dados, NOVO_ORIG);
         var cif = $('f-imgfonte').value.trim(); if(cif) dados.imgFonte = cif;
         var cid = $('f-imgdir').value.trim(); if(cid) dados.imgDireito = cid;
         var cfo = colherFontes(); if(cfo.length) dados.fontes = cfo;
@@ -5097,6 +5135,7 @@ ingressos e divisor."></textarea>
         sugestaoPublishAt: quando === 'agendar' ? publishAt : '',
         geradoEm: new Date().toISOString(), criadoPor: USER.nome
       };
+      aplicaOriginais(pacote, NOVO_ORIG);
       var _if = $('f-imgfonte').value.trim(); if(_if) pacote.imgFonte = _if;
       var _id = $('f-imgdir').value.trim(); if(_id) pacote.imgDireito = _id;
       pacote.cats = colherCats();
@@ -5980,10 +6019,17 @@ ingressos e divisor."></textarea>
     var file = this.files[0]; this.value = '';
     if(!file || !capaMesaSlug) return;
     var d = MESA[capaMesaSlug];
-    redimensionar(file).then(function(dURL){
-      return subirImagem(dURL, d.slug);
-    }).then(function(caminho){
-      d.img = caminho;
+    // sobe o corte 16:9 da capa E a foto original inteira (é dela que saem
+    // as artes de Instagram; o recorte deitado não serve para os formatos em pé)
+    Promise.all([redimensionar(file), redimensionar(file, 'livre')]).then(function(fotos){
+      return subirImagem(fotos[0], d.slug).then(function(caminho){
+        d.img = caminho;
+        if(fotos[1] === fotos[0]) return caminho;  // foto já era deitada: nada foi cortado
+        return subirImagem(fotos[1], d.slug + '-original');
+      });
+    }).then(function(camOrig){
+      CAMPOS_ORIG.forEach(function(k){ delete d[k]; });
+      d.imgOriginal = camOrig;
       return ghPut(d._path, JSON.stringify(d, function(k,v){ return k.charAt(0) === '_' ? undefined : v; }, 1),
         assina('anexa capa na mesa "' + d.title + '"'), d._sha);
     }).then(function(){ carregarMesa(); })
@@ -6085,6 +6131,7 @@ ingressos e divisor."></textarea>
     };
     if(d.cats && d.cats.length) dados.cats = d.cats;
     if(d.instagram) dados.instagram = d.instagram;
+    CAMPOS_ORIG.forEach(function(k){ if(d[k]) dados[k] = d[k]; });
     if(d.imgFonte) dados.imgFonte = d.imgFonte;
     if(d.imgDireito) dados.imgDireito = d.imgDireito;
     if(d.fontes && d.fontes.length) dados.fontes = d.fontes;
