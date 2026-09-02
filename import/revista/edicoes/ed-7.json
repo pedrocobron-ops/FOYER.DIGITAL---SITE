@@ -1,0 +1,213 @@
+{
+ "numero": 7,
+ "titulo": "Ninguém se despede",
+ "dataEdicao": "3 Set 2026",
+ "status": "rascunho",
+ "capa": {
+  "img": "assets/uploads/revista-ed-7-capa.jpg",
+  "credito": "Foto: Fernando Young",
+  "manchete": "Fernanda, aos 96, filmada pelo neto",
+  "chamadas": [
+   "Ney Matogrosso, 85 anos, marca show no Maracanã",
+   "Mariana Muniz transforma 50 anos de palco no solo “Brecha”",
+   "Willi Ninja: 20 anos sem o padrinho do voguing"
+  ]
+ },
+ "paginas": [
+  {
+   "tipo": "editorial",
+   "titulo": "Ninguém se despede",
+   "texto": "Esta semana, o FOYER passou o tempo inteiro diante de gente que poderia ter parado e não parou. Fernanda Montenegro, aos 96 anos e ainda em atividade, vira personagem de \"Fernanda\", documentário dirigido pelo neto, Pedro Waddington, com première no Festival do Rio. O filme não organiza um arquivo: acompanha uma atriz que segue trabalhando, no palco e nas telas.\n\nNey Matogrosso completou 85 e respondeu anunciando dez shows para 2027, o último deles no Maracanã. Na coletiva, avisou: \"Não estou me despedindo\".\n\nMariana Muniz chega aos 50 anos de trajetória com \"Brecha\", solo de teatro e dança que estreia nesta quinta no Galpão do Folias e trata a memória como sistema instável, que se reorganiza cada vez que o corpo a convoca.\n\nAté as ausências se comportaram como presença. Willi Ninja morreu há exatos 20 anos, em 2 de setembro de 2006, e a House of Ninja que ele fundou continua batizando dançarinos, inclusive em São Paulo. Em Londres, a aliança de 1984 entre ativistas gays, lésbicas e mineiros em greve virou o musical \"Pride\", que esgotou o National Theatre.\n\nPara fechar, um guia explica como funcionam os prêmios de teatro no Brasil e por que as listas quase nunca coincidem.\n\nSe existe um fio costurando estas páginas, é este: aqui, ninguém se despede. Boa leitura.",
+   "assinatura": "A direção do FOYER"
+  },
+  {
+   "tipo": "materia",
+   "slug": "aos-96-anos-fernanda-montenegro-ganha-documentario-dirigido-pelo-proprio-neto",
+   "cat": "Cinema",
+   "img": "assets/uploads/aos-96-anos-fernanda-montenegro-ganha-documentario-dirigido-pelo-proprio-neto-1787926368040.jpg",
+   "titulo": "A câmera da família",
+   "chamada": "Em “Fernanda”, Pedro Waddington filma a avó, Fernanda Montenegro, com première no Festival do Rio antes de chegar ao Universal+.",
+   "texto": "Pedro cresceu chamando de avó uma das principais referências da interpretação brasileira. No documentário, essa proximidade vira ponto de partida raro: a intimidade não precisa ser conquistada pela câmera. O desafio é transformá-la em cinema."
+  },
+  {
+   "tipo": "materia",
+   "slug": "aos-85-ney-matogrosso-vai-para-os-estadios-e-deixa-claro-que-ainda-nao-esta-se-d",
+   "cat": "Música",
+   "img": "assets/uploads/aos-85-ney-matogrosso-vai-para-os-estadios-e-deixa-claro-que-ainda-nao-esta-se-d-1787850997203.jpg",
+   "titulo": "Dez palcos, nenhum adeus",
+   "chamada": "A turnê “85 Anos de Ousadia” leva Ney Matogrosso a estádios em 2027, do Nubank Parque ao Maracanã.",
+   "texto": "A idade está no título da turnê. A despedida, não. \"Eu continuo na estrada, gosto de ter gente na minha frente e de dançar\", resumiu o cantor, fotografado por David LaChapelle para a campanha do novo projeto."
+  },
+  {
+   "tipo": "programas"
+  },
+  {
+   "tipo": "materia",
+   "slug": "mariana-muniz-celebra-50-anos-de-trajetoria-no-solo-brecha",
+   "cat": "Teatro",
+   "img": "assets/uploads/mariana-muniz-celebra-50-anos-de-trajetoria-no-solo-brecha-1787245202900.jpg",
+   "titulo": "O corpo é que lembra",
+   "chamada": "No solo “Brecha”, dirigido por Murillo Basso no Galpão do Folias, Mariana Muniz faz de cinco décadas de criação matéria viva de cena.",
+   "texto": "Nada de retrospectiva em ordem cronológica. O espetáculo trata a lembrança como sistema instável, que se reorganiza cada vez que é convocado pelo corpo, e presta homenagem a Klauss e Angel Vianna, mestres da formação da artista."
+  },
+  {
+   "tipo": "materia",
+   "slug": "quando-gays-lesbicas-e-mineiros-decidiram-ficar-do-mesmo-lado-pride-ganha-nova-v",
+   "cat": "Teatro Musical",
+   "img": "assets/uploads/quando-gays-lesbicas-e-mineiros-decidiram-ficar-do-mesmo-lado-pride-ganha-nova-v-1787850523995.jpg",
+   "titulo": "O balde que virou musical",
+   "chamada": "Nascida de uma coleta na marcha do Orgulho de 1984, a aliança entre ativistas e mineiros em greve esgota o National Theatre e segue para o Bridge.",
+   "texto": "Mark Ashton e Mike Jackson passaram um balde entre os manifestantes em Londres, e o dinheiro foi para famílias de mineiros do sul do País de Gales. Quarenta e dois anos depois, a história dobra de tamanho: da sala de 450 lugares do Dorfman para os cerca de 900 do Bridge Theatre."
+  },
+  {
+   "tipo": "materia",
+   "slug": "willi-ninja-20-anos-voguing-house-of-ninja-brasil",
+   "cat": "Memória",
+   "img": "assets/uploads/willi-ninja-20-anos-voguing-house-of-ninja-brasil.jpg",
+   "titulo": "A casa que ele deixou",
+   "chamada": "Vinte anos após a morte do padrinho do voguing, a House of Ninja continua batizando dançarinos, inclusive em São Paulo.",
+   "texto": "Willi Ninja morreu em 2 de setembro de 2006 com um projeto de teatro em cima da mesa: coreografar uma versão de palco de \"Paris Is Burning\". O espetáculo nunca saiu. A casa, sim, e a cultura ballroom virou até curso no Sesc Consolação."
+  },
+  {
+   "tipo": "materia",
+   "slug": "como-funcionam-os-premios-de-teatro-no-brasil",
+   "cat": "Bastidores",
+   "img": "assets/uploads/como-funcionam-os-premios-de-teatro-no-brasil.jpg",
+   "titulo": "O troféu tem regulamento",
+   "chamada": "Cidade, janela de temporada e grupo de votantes: os três recortes que explicam por que as listas dos prêmios de teatro nunca coincidem.",
+   "texto": "Um espetáculo pode levar troféu no Rio e nem aparecer na lista de São Paulo, sem que nada tenha mudado no palco. Do Shell ao APTR e ao Cesgranrio, o que muda é o que cada prêmio escolhe enxergar."
+  },
+  {
+   "tipo": "agenda",
+   "cidade": "São Paulo",
+   "itens": [
+    {
+     "dia": "2026-09-04",
+     "titulo": "Piaf, Eu Não Me Arrependo",
+     "texto": "Depois de Elis, Laila Garin encara outro mito e escapa da imitação: o que segura as duas horas e meia é o que ela faz de próprio com o songbook, do circo da infância ao Olympia. Sexta, 20h, no Teatro Bradesco (Bourbon Shopping, Rua Palestra Itália, 500, Perdizes); ingressos a partir de R$ 25 no Uhuu, temporada até 27/09.",
+     "local": "Teatro Bradesco",
+     "cidade": "São Paulo",
+     "link": "https://uhuu.com/evento/sp/sao-paulo/piaf-eu-nao-me-arrependo-15900"
+    },
+    {
+     "dia": "2026-09-05",
+     "titulo": "Boca a Boca: Um Solo para Gregório",
+     "texto": "Fim de semana de estreia do solo em que Ricardo Bitencourt trata Gregório de Matos como o Boca do Inferno merece: menos aula de literatura, mais poesia cuspida em ritmo de rock. Sábado, 21h, no Sesc Belenzinho (Rua Padre Adelino, 1000); R$ 50 (R$ 25 meia, R$ 15 credencial plena), venda no portal e no app do Sesc; temporada curta, até 13/09.",
+     "local": "Sesc Belenzinho",
+     "cidade": "São Paulo",
+     "link": "https://www.sescsp.org.br/programacao/boca-a-boca-um-solo-para-gregorio/"
+    },
+    {
+     "dia": "2026-09-06",
+     "titulo": "O Céu de Bibi Ferreira",
+     "texto": "Quatro atrizes (Giulia Nadruz, Bárbara Sut, Fernanda Biancamano e Carol Botelho) dividem a dama do teatro brasileiro em texto de Gabriel Chalita e direção de Gustavo Barchilon, e o resultado interessa até a quem nunca viu Bibi em cena. Domingo, 19h, no Teatro do Sesi-SP (Centro Cultural Fiesp, Av. Paulista, 1313); grátis, com reserva pelo site do Sesi-SP; temporada até 20/09.",
+     "local": "Teatro do Sesi-SP",
+     "cidade": "São Paulo",
+     "link": "https://www.sesisp.org.br/cultura/musical-o-ceu-de-bibi-ferreira-estreia-em-sao-paulo-no-centro-cultural-fiesp"
+    },
+    {
+     "dia": "2026-09-07",
+     "titulo": "Paixão Simples",
+     "texto": "Programa para o feriado da Independência: Aline Fanju sozinha em cena com a prosa cirúrgica de Annie Ernaux, Nobel de Literatura, sobre uma mulher que organiza os dias em torno da espera pelo amante. Segunda (feriado), 18h, no Sesc Santana (Av. Luiz Dumont Villares, 579); R$ 60 (R$ 30 meia, R$ 18 credencial plena), sessão com Libras e audiodescrição; temporada até 03/10.",
+     "local": "Sesc Santana",
+     "cidade": "São Paulo",
+     "link": "https://www.sescsp.org.br/programacao/paixao-simples/"
+    },
+    {
+     "dia": "2026-09-09",
+     "titulo": "VAMPYR (Chile)",
+     "texto": "A chilena Manuela Infante, um dos nomes mais inventivos da cena latino-americana, usa o mito do vampiro para falar de trabalho noturno e neocolonialismo verde; são só duas sessões na capital, dentro da extensão do festival Mirada. Quarta, 20h (repete quinta 10/09, 20h), no Sesc Vila Mariana (Rua Pelotas, 141); R$ 70 (R$ 35 meia, R$ 21 credencial plena), venda no portal e no app do Sesc.",
+     "local": "Sesc Vila Mariana",
+     "cidade": "São Paulo",
+     "link": "https://www.sescsp.org.br/wp-content/uploads/2026/08/V11_Em-Cartaz_2026_setembro_09-sem-marcas.pdf"
+    },
+    {
+     "dia": "2026-09-10",
+     "titulo": "Segunda Chance",
+     "texto": "Nany People sustenta sozinha a comédia de Bruno Motta sobre uma egocêntrica obrigada a recomeçar, com direção de Dan Rosseto e participação em voz de Fábio Porchat; como a temporada é só às quintas, os ingressos somem rápido. Quinta, 20h, no Teatro Fernando Torres (Rua Padre Estevão Pernet, 588, Tatuapé); R$ 120 (meia R$ 60), venda no Sympla; até 24/09.",
+     "local": "Teatro Fernando Torres",
+     "cidade": "São Paulo",
+     "link": "https://bileto.sympla.com.br/event/124200"
+    }
+   ]
+  },
+  {
+   "tipo": "agenda",
+   "cidade": "Rio de Janeiro",
+   "itens": [
+    {
+     "dia": "2026-09-04",
+     "titulo": "Fim de Partida",
+     "texto": "A leitura política de Rodrigo Portella para Beckett ganha peso extra com Helena Ignez e Ary França nas latas de lixo, ao lado do jogo de gato e rato entre Marco Nanini e Guilherme Weber; vale ver antes que a fila do fim de temporada aperte. Sexta, 04/09, às 20h, no Teatro TotalEnergies (Sala Adolpho Bloch), Rua do Russel, 804, Glória; ingressos de R$ 25 a R$ 160 pelo Ingresso.com; temporada até 27/09.",
+     "local": "Teatro TotalEnergies (Sala Adolpho Bloch)",
+     "cidade": "Rio de Janeiro",
+     "link": "https://riotur.rio/evento-calendario/fim-de-partida-no-teatro-totalenergies-sala-adolpho-bloch-2/"
+    },
+    {
+     "dia": "2026-09-05",
+     "titulo": "Wicked - O Musical",
+     "texto": "Depois de um milhão de espectadores em São Paulo, a bruxa verde pousa na Barra com a maquinaria completa da Broadway, e o sábado tem duas chances de conferir. Sábado, 05/09, às 15h e às 19h30, na Cidade das Artes Bibi Ferreira, Av. das Américas, 5300, Barra da Tijuca; ingressos de R$ 50 a R$ 400 (inteira) pela Sympla e na bilheteria; temporada até 04/10.",
+     "local": "Cidade das Artes Bibi Ferreira",
+     "cidade": "Rio de Janeiro",
+     "link": "https://bileto.sympla.com.br/event/114663"
+    },
+    {
+     "dia": "2026-09-06",
+     "titulo": "Restinga de Canudos",
+     "texto": "A Cia. do Tijolo, premiada pela APCA por esta direção, conta Canudos pela boca de professoras, lavradores e poetas populares, e a arena do Sesc aproxima tudo do público; é o penúltimo fim de semana. Domingo, 06/09, às 18h, na Arena do Sesc Copacabana, Rua Domingos Ferreira, 160, Copacabana; ingressos a R$ 40 (inteira), R$ 20 (meia) e R$ 28 (credencial Sesc); temporada até 13/09.",
+     "local": "Sesc Copacabana",
+     "cidade": "Rio de Janeiro",
+     "link": "https://www.uranrodrigues.com/restinga-de-canudos-revisita-a-guerra-de-canudos-pelo-olhar-de-personagens-anonimos-no-sesc-copacabana/"
+    },
+    {
+     "dia": "2026-09-07",
+     "titulo": "Quero ser Elke Maravilha",
+     "texto": "No feriado da Independência, Igor Castilho faz sessão tripla do monólogo em que o apelido de escola vira ponte com a artista que morreu há dez anos, num dos palcos mais intimistas de Ipanema. Segunda, 07/09, às 15h, 17h e 20h, no Teatro Cândido Mendes, Rua Joana Angélica, 63, Ipanema; ingressos a R$ 60 (inteira) e R$ 30 (meia) pela Sympla.",
+     "local": "Teatro Cândido Mendes",
+     "cidade": "Rio de Janeiro",
+     "link": "https://bileto.sympla.com.br/event/123127/d/410402"
+    },
+    {
+     "dia": "2026-09-09",
+     "titulo": "Tudo Preto: uma re_vista",
+     "texto": "O centenário da Companhia Negra de Revistas, pioneira do teatro negro brasileiro em 1926, vira revista contemporânea no Centro, com ingresso a preço de cinema. Quarta, 09/09, às 19h, no Teatro I do CCBB Rio, Rua Primeiro de Março, 66, Centro; ingressos a R$ 30 (inteira) e R$ 15 (meia) em bb.com.br/cultura e na bilheteria; temporada até 19/09.",
+     "local": "CCBB Rio (Teatro I)",
+     "cidade": "Rio de Janeiro",
+     "link": "https://ccbb.com.br/rio-de-janeiro/programacao/"
+    },
+    {
+     "dia": "2026-09-10",
+     "titulo": "Mar de Girassóis",
+     "texto": "Estreia da dramaturga Claudia Koogan Breitman com direção de Karen Acioly, o drama familiar sobre corpo e recomeços reúne Rosane Gofman e Giuseppe Oristanio na Gávea; restam só duas semanas de cartaz. Quinta, 10/09, às 20h, no Teatro dos Quatro, Rua Marquês de São Vicente, 52, Shopping da Gávea; ingressos pela Eventim; temporada até 17/09.",
+     "local": "Teatro dos Quatro",
+     "cidade": "Rio de Janeiro",
+     "link": "https://teatrodosquatro.com.br/programacao/"
+    }
+   ]
+  },
+  {
+   "tipo": "citacao",
+   "frase": "Eu sempre atravessei os limites, mas eu não saberia viver de outra maneira",
+   "autor": "Ney Matogrosso"
+  },
+  {
+   "tipo": "frase-celebre",
+   "frase": "Sou atriz. Venho dessa mítica, mística arte arcaica, eterna, que é o Teatro.",
+   "autor": "Fernanda Montenegro",
+   "sobre": "Maior atriz brasileira em atividade, aos 96 anos tema de documentário dirigido pelo neto; a frase abre seu discurso de posse na Academia Brasileira de Letras, proferido no Rio de Janeiro em 25 de março de 2022 e publicado na íntegra no site oficial da ABL."
+  },
+  {
+   "tipo": "expediente"
+  },
+  {
+   "tipo": "contracapa"
+  }
+ ],
+ "historico": [
+  {
+   "quando": "2026-09-02T17:14:38.345353+00:00",
+   "quem": "Redação IA (Claude)",
+   "acao": "monta o rascunho da edição 7: capa com o documentário Fernanda (Festival do Rio); 6 matérias da semana (27/08 a 02/09) em 6 editorias; agendas exclusivas de SP e Rio (04 a 10/09) com sessões confirmadas na fonte; Entre mestres com Fernanda Montenegro (discurso de posse na ABL, 2022, fonte primária) e citação da semana de Ney Matogrosso"
+  }
+ ]
+}
