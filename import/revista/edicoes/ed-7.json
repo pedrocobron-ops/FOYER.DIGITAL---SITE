@@ -75,7 +75,7 @@
    "img": "assets/uploads/como-funcionam-os-premios-de-teatro-no-brasil.jpg",
    "titulo": "O troféu tem regulamento",
    "chamada": "Cidade, janela de temporada e grupo de votantes: os três recortes que explicam por que as listas dos prêmios de teatro nunca coincidem.",
-   "texto": "Um espetáculo pode levar troféu no Rio e nem aparecer na lista de São Paulo, sem que nada tenha mudado no palco. Do Shell ao APTR e ao Cesgranrio, o que muda é o que cada prêmio escolhe enxergar."
+   "texto": "Um espetáculo pode levar troféu no Rio e nem aparecer na lista de São Paulo, sem que nada tenha mudado no palco: o que mudou foi o regulamento. Antes de julgar qualquer cena, cada prêmio desenha uma cidade, uma janela de temporada e um grupo de votantes. Do Shell, que desde 2023 tem um Destaque Nacional para montagens de fora do eixo, ao APTR, que olha só o Rio, e ao Cesgranrio, o que muda é o que cada um escolhe enxergar."
   },
   {
    "tipo": "agenda",
@@ -88,14 +88,6 @@
      "local": "Teatro Bradesco",
      "cidade": "São Paulo",
      "link": "https://uhuu.com/evento/sp/sao-paulo/piaf-eu-nao-me-arrependo-15900"
-    },
-    {
-     "dia": "2026-09-05",
-     "titulo": "Boca a Boca: Um Solo para Gregório",
-     "texto": "Fim de semana de estreia do solo em que Ricardo Bitencourt trata Gregório de Matos como o Boca do Inferno merece: menos aula de literatura, mais poesia cuspida em ritmo de rock. Sábado, 21h, no Sesc Belenzinho (Rua Padre Adelino, 1000); R$ 50 (R$ 25 meia, R$ 15 credencial plena), venda no portal e no app do Sesc; temporada curta, até 13/09.",
-     "local": "Sesc Belenzinho",
-     "cidade": "São Paulo",
-     "link": "https://www.sescsp.org.br/programacao/boca-a-boca-um-solo-para-gregorio/"
     },
     {
      "dia": "2026-09-06",
@@ -170,7 +162,7 @@
     {
      "dia": "2026-09-09",
      "titulo": "Tudo Preto: uma re_vista",
-     "texto": "O centenário da Companhia Negra de Revistas, pioneira do teatro negro brasileiro em 1926, vira revista contemporânea no Centro, com ingresso a preço de cinema. Quarta, 09/09, às 19h, no Teatro I do CCBB Rio, Rua Primeiro de Março, 66, Centro; ingressos a R$ 30 (inteira) e R$ 15 (meia) em bb.com.br/cultura e na bilheteria; temporada até 19/09.",
+     "texto": "O centenário da Companhia Negra de Revistas, pioneira do teatro negro brasileiro em 1926, vira revista contemporânea no Centro, com ingresso a preço de cinema. Quarta, 09/09, às 19h, no Teatro I do CCBB Rio, Rua Primeiro de Março, 66, Centro; ingressos a R$ 30 (inteira) e R$ 15 (meia) em bb.com.br/cultura e na bilheteria; temporada até 13/09.",
      "local": "CCBB Rio (Teatro I)",
      "cidade": "Rio de Janeiro",
      "link": "https://ccbb.com.br/rio-de-janeiro/programacao/"
@@ -194,7 +186,7 @@
    "tipo": "frase-celebre",
    "frase": "Sou atriz. Venho dessa mítica, mística arte arcaica, eterna, que é o Teatro.",
    "autor": "Fernanda Montenegro",
-   "sobre": "Maior atriz brasileira em atividade, aos 96 anos tema de documentário dirigido pelo neto; a frase abre seu discurso de posse na Academia Brasileira de Letras, proferido no Rio de Janeiro em 25 de março de 2022 e publicado na íntegra no site oficial da ABL."
+   "sobre": "Maior atriz brasileira em atividade, aos 96 anos tema de documentário dirigido pelo neto; a frase está no prólogo de seu discurso de posse na Academia Brasileira de Letras, proferido no Rio de Janeiro em 25 de março de 2022 e publicado na íntegra no site oficial da ABL."
   },
   {
    "tipo": "expediente"
@@ -205,9 +197,19 @@
  ],
  "historico": [
   {
+   "quando": "2026-09-02T17:26:04.976869+00:00",
+   "quem": "Redação IA (Claude)",
+   "acao": "fechamento: revisor e checador aprovaram (12 itens de agenda verificados, 11 checados na fonte; 1 item de SP removido por serviço divergente; fim de temporada do Tudo Preto corrigido para 13/09; nota da frase célebre ajustada); portão de design com laudo limpo (44 páginas, zero problemas) após ampliar o olho da página de Bastidores"
+  },
+  {
    "quando": "2026-09-02T17:14:38.345353+00:00",
    "quem": "Redação IA (Claude)",
    "acao": "monta o rascunho da edição 7: capa com o documentário Fernanda (Festival do Rio); 6 matérias da semana (27/08 a 02/09) em 6 editorias; agendas exclusivas de SP e Rio (04 a 10/09) com sessões confirmadas na fonte; Entre mestres com Fernanda Montenegro (discurso de posse na ABL, 2022, fonte primária) e citação da semana de Ney Matogrosso"
+  },
+  {
+   "quando": "2026-09-02T17:21:48+00:00",
+   "quem": "Revisão e checagem (Claude)",
+   "acao": "revisa a edição (sem travessões/meias-riscas; ortografia, acentuação e dias da semana conferidos; título, chamada e texto das 6 matérias e do editorial batidos contra os corpos; citação de Ney conferida ipsis litteris) e checa na fonte os 12 itens de agenda: 11 confirmados (dia, hora, teatro, preço, venda e fim de temporada) e 1 removido (Boca a Boca, Sesc Belenzinho: sessão de 05/09 não confirmada e ingresso é gratuito, com retirada só a partir de 09/09, ao contrário dos preços publicados); corrige o fim de temporada de Tudo Preto: uma re_vista no CCBB Rio (13/09, não 19/09); frase de Fernanda Montenegro conferida palavra por palavra no discurso de posse publicado em academia.org.br (posse em 25/03/2022) e nota ajustada (a frase está no prólogo do discurso, não o abre); confirmados na imprensa e no material do Festival do Rio o documentário Fernanda, de Pedro Waddington (Première Brasil: Hors-Concours, 1º a 11/10), e a turnê 85 Anos de Ousadia de Ney Matogrosso com encerramento no Maracanã em 18/12/2027"
   }
  ]
 }
