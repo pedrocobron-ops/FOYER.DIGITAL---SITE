@@ -36,7 +36,7 @@
    "img": "assets/uploads/janaina-leite-ocupa-o-instituto-capobianco-com-quatro-espetaculos-e-uma-criacao--1788229469097.jpg",
    "titulo": "A casa de Janaina",
    "chamada": "Elogiada pelo New York Times e citada por Thomas Ostermeier, a artista assume um casarão do centro de São Paulo por quatro meses.",
-   "texto": "Pornografia, maternidade, morte e tecnologia dividem o mesmo endereço até 20 de dezembro. A residência no Instituto Capobianco reúne quatro espetáculos, uma criação inédita e laboratórios gratuitos, a partir da reestreia de Stabat Mater."
+   "texto": "Pornografia, maternidade, morte e tecnologia dividem o mesmo endereço até 20 de dezembro. A Residência Artística Janaina Leite e Núcleo do Olho, num casarão centenário do Instituto Capobianco, reúne quatro espetáculos, entre eles uma criação inédita, dois laboratórios gratuitos e atividades abertas ao público, a partir da reestreia de Stabat Mater. Os ingressos custam R$ 30, com meia a R$ 15, pela Sympla."
   },
   {
    "tipo": "programas"
@@ -92,7 +92,7 @@
     {
      "dia": "2026-09-12",
      "titulo": "Paixão Simples",
-     "texto": "Aline Fanju transforma o relato de obsessão amorosa de Annie Ernaux, Nobel de Literatura, em confissão cara a cara, e a graça está justamente no incômodo de ouvir em voz alta o que se costuma esconder. Sábado, 20h, no Sesc Santana (Av. Luiz Dumont Villares, 579); R$ 18 a R$ 60, venda em sescsp.org.br; fica até 03/10.",
+     "texto": "Aline Fanju transforma o relato de obsessão amorosa de Annie Ernaux, Nobel de Literatura, em confissão cara a cara, e a graça está justamente no incômodo de ouvir em voz alta o que se costuma esconder. Sábado, 20h, no Sesc Santana (Av. Luiz Dumont Villares, 579); a sessão deste sábado é gratuita, com ingressos retirados em sescsp.org.br ou nas bilheterias do Sesc; fica até 03/10.",
      "local": "Sesc Santana",
      "cidade": "São Paulo",
      "link": "https://www.sescsp.org.br/programacao/paixao-simples/"
@@ -100,7 +100,7 @@
     {
      "dia": "2026-09-13",
      "titulo": "Egoísta",
-     "texto": "Última chance de conhecer Jô, nômade negra de 64 anos que trocou as expectativas sobre a velhice por 60 países, em cena com Ana Marlene; a sessão de encerramento tem intérprete de Libras e bate-papo depois. Domingo, 18h, na CAIXA Cultural São Paulo (Praça da Sé, 111); grátis, com retirada de ingresso uma hora antes, um por pessoa.",
+     "texto": "Última chance de conhecer Jô, nômade negra de 64 anos que trocou as expectativas sobre a velhice por 60 países, em cena com Ana Marlene; a sessão de encerramento tem intérprete de Libras. Domingo, 18h, na CAIXA Cultural São Paulo (Praça da Sé, 111); grátis, com retirada de ingresso uma hora antes, um por pessoa.",
      "local": "CAIXA Cultural São Paulo",
      "cidade": "São Paulo",
      "link": "https://entrementes.com.br/espetaculo-egoista-entra-em-cartaz-na-caixa-cultural-sao-paulo-em-setembro/"
@@ -162,7 +162,7 @@
     {
      "dia": "2026-09-16",
      "titulo": "Wicked",
-     "texto": "Depois de mais de um milhão de espectadores em São Paulo, a megaprodução das bruxas de Oz vive suas semanas finais na primeira temporada carioca, e a quarta-feira é a sessão mais tranquila para encarar a fila da Barra. Quarta, 16/09, às 20h, na Cidade das Artes Bibi Ferreira (Av. das Américas, 5.300, Barra da Tijuca), ingressos de R$ 25 a R$ 400 pelo Sympla e na bilheteria; somente até 4 de outubro.",
+     "texto": "Depois de mais de um milhão de espectadores no Brasil, a megaprodução das bruxas de Oz vive suas semanas finais na primeira temporada carioca, e a quarta-feira é a sessão mais tranquila para encarar a fila da Barra. Quarta, 16/09, às 20h, na Cidade das Artes Bibi Ferreira (Av. das Américas, 5.300, Barra da Tijuca), ingressos de R$ 50 a R$ 400 pelo Sympla e na bilheteria; somente até 4 de outubro.",
      "local": "Cidade das Artes Bibi Ferreira",
      "cidade": "Rio de Janeiro",
      "link": "https://www.wickedbrasil.com/"
@@ -184,7 +184,7 @@
   },
   {
    "tipo": "frase-celebre",
-   "frase": "Desde sempre é ofício do teatro, como de todas as outras artes, entreter as pessoas. Esse ofício lhe confere a sua dignidade particular; ele não precisa de nenhuma outra credencial além do divertimento, mas deste precisa incondicionalmente.",
+   "frase": "Desde sempre é ofício do teatro, como de todas as outras artes, entreter as pessoas. Esse ofício sempre lhe confere a sua dignidade particular; ele não precisa de nenhuma outra credencial além do divertimento, mas deste precisa incondicionalmente.",
    "autor": "Bertolt Brecht",
    "sobre": "No ano em que o Teatro do Incêndio remonta 'Baal', primeira peça de Brecht, o dramaturgo lembra que o prazer é a razão de ser do palco; a frase abre o parágrafo 3 do 'Pequeno Órganon para o Teatro' (Kleines Organon für das Theater), escrito em 1948 e publicado em 1949 na revista alemã Sinn und Form."
   },
@@ -197,9 +197,19 @@
  ],
  "historico": [
   {
+   "quando": "2026-09-09T17:22:41.473972+00:00",
+   "quem": "Redação IA (Claude)",
+   "acao": "fechamento: revisor e checador aprovaram (11 de 11 itens de agenda confirmados na fonte; sessões gratuitas do fim de semana de Paixão Simples corrigidas; piso do Wicked corrigido para R$ 50; frase de Brecht ajustada ao original); portão de design com laudo limpo (29 páginas, zero problemas) após ampliar o olho da página da Janaina Leite"
+  },
+  {
    "quando": "2026-09-09T17:12:31.107557+00:00",
    "quem": "Redação IA (Claude)",
    "acao": "monta o rascunho da edição 8: capa com Boa Noite, Mãe (estreia do dia no Poeira); 6 matérias da semana (03 a 09/09); agendas exclusivas de SP (6 itens) e Rio (5 itens) de 11 a 17/09 com sessões confirmadas na fonte; Entre mestres com Bertolt Brecht (Pequeno Órganon para o Teatro, 1948, fonte primária) e citação da semana de Ana Marlene"
+  },
+  {
+   "quando": "2026-09-09T17:20:22.088917+00:00",
+   "quem": "Revisão e checagem (Claude)",
+   "acao": "revisa e checa a edição 8: sem travessões/meia-riscas; dias x datas das agendas conferem (11 a 17/09); títulos, chamadas e textos das 6 matérias e do editorial batidos com os corpos em import/novas; citação de Ana Marlene confirmada ipsis litteris na matéria de Egoísta; frase de Brecht conferida com o original do Kleines Organon (par. 3, 1948/1949, Sinn und Form) e ajustada para incluir 'sempre' (immer); 11 de 11 itens de agenda checados na fonte; correções: Paixão Simples (sessão de 12/09 é gratuita pelo Sesc, e não R$ 18 a R$ 60), Egoísta (13/09 tem Libras, mas o bate-papo era nas sessões de 04 e 11/09, trecho removido), Wicked (piso de R$ 50, não R$ 25, e um milhão de espectadores no Brasil, não em São Paulo); Tudo Preto: fim de temporada 13/09 confirmado no CCBB (data de 19/09 só sobrevive em release antigo), item mantido; spot-checks confirmados: Boa Noite, Mãe (estreia 10/09 no Poeira, qui a sáb 20h, dom 19h, até 25/10), Dois de Nós (Axia Casa Grande, Fagundes e Torloni, R$ 160 a 230, até 1/11) e Rita Lee: Balada da Louca (Rio só de 9/10 a 15/11 no Teatro PRIO)"
   }
  ]
 }
