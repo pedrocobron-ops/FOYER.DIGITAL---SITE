@@ -660,10 +660,12 @@
   #rv-editor{ scroll-margin-top:84px; }
   /* no celular a régua de enviar/guardar gruda no pé da tela: com o teclado
      aberto ninguém rola três telas para achar o botão (Dona Marta) */
-  @media (max-width:700px){
-    .f-acoes{ position:sticky; bottom:0; z-index:5; background:var(--paper);
-      padding:10px 0; border-top:1px solid var(--line); }
-  }
+  .f-acoes{ display:flex; gap:10px; flex-wrap:wrap; }
+  .f-acoes .bt{ padding:14px 18px; position:relative; }
+  .f-acoes .bt .ic{ font-style:normal; margin-right:6px; }
+  .f-acoes .bt .n{ display:none; }
+  .f-acoes .f-pub{ flex:1; }
+  .mbar #btn-estilo{ margin-left:auto; }
   .pill.ms{ background:var(--gold); color:var(--wine); }
   .frow.fraca{ opacity:.55; }
   .cx-toast{ position:fixed; left:50%; bottom:28px; transform:translate(-50%, 20px);
@@ -970,6 +972,58 @@
     .side nav button{ min-height:46px; }
   }
 
+  /* ===== ESCREVER NO CELULAR (pedido do Pedro, 15/09/2026): vem depois do
+     bloco de legibilidade de propósito, para as medidas daqui vencerem. */
+  @media (max-width:700px){
+    /* régua compacta: UMA linha de 44px. Os quatro botões de apoio viram
+       ícone (o nome fica só para leitor de tela e no title), e o Enviar
+       segue com texto, ocupando o que sobra. Antes, os cinco botões com
+       nome empilhavam em quatro linhas e cobriam metade do formulário. */
+    .f-acoes{ position:sticky; bottom:0; z-index:5; background:var(--paper);
+      padding:8px 0; border-top:1px solid var(--line); flex-wrap:nowrap; gap:6px; align-items:stretch; }
+    .f-acoes .bt{ flex:0 0 auto; width:44px; min-height:44px; padding:0; display:flex;
+      align-items:center; justify-content:center; font-size:1.15rem; }
+    .f-acoes .bt .ic{ margin:0; }
+    .f-acoes .bt .lb{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+    .f-acoes .bt .n{ display:block; position:absolute; top:2px; right:2px; min-width:16px; text-align:center;
+      font-family:var(--sans); font-size:.6rem; font-weight:800; line-height:1.4; padding:0 4px;
+      background:var(--wine); color:var(--gold); border-radius:9px; }
+    .f-acoes .bt .n:empty{ display:none; }
+    .f-acoes .f-pub{ flex:1; min-height:44px; padding:0 12px; font-size:.86rem; }
+
+    /* escrever no celular: menos moldura e menos respiro, letra de leitura
+       nos campos com 16px (abaixo disso o iPhone dá zoom ao tocar), e a
+       barra de ferramentas do texto rola de lado numa linha só em vez de
+       empilhar três. */
+    #view-nova .hi{ font-size:1.55rem; }
+    #view-nova .hi::after{ margin-top:8px; }
+    #view-nova .hi-sub{ margin-bottom:12px; font-size:.8rem; }
+    /* a coluna da grade não pode crescer com a barra de ferramentas (1fr = "no
+       mínimo o conteúdo"); com minmax(0,1fr) a barra rola por dentro */
+    .f-grid{ gap:16px; grid-template-columns:minmax(0,1fr); }
+    .f-form{ min-width:0; }
+    .f-form > *{ min-width:0; }
+    .f-form .corpo-escreve, .f-form .corpo-duplo{ min-width:0; }
+    .f-form{ padding:14px 12px; gap:13px; }
+    .f-form label{ font-size:.74rem; margin-bottom:5px; }
+    .f-form input[type=text], .f-form input[type=password], .f-form select,
+    .f-form input[type=datetime-local]{ font-size:16px; padding:10px 11px; }
+    .f-form textarea{ font-size:16px; line-height:1.6; padding:10px 11px; }
+    .f-form .r2{ gap:10px; }
+    .f-form .f-note{ font-size:.76rem; padding:10px 12px; line-height:1.5; }
+    .f-note{ font-size:.8rem; padding:12px; line-height:1.55; }
+    .mbar{ flex-wrap:nowrap; overflow-x:auto; gap:5px; padding-bottom:4px;
+      scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+    .mbar::-webkit-scrollbar{ display:none; }
+    .mbar button{ white-space:nowrap; flex:0 0 auto; font-size:.74rem; padding:8px 10px; }
+    .mbar #btn-estilo{ margin-left:0; }
+    .up{ min-height:96px; padding:14px; }
+    .up p{ font-size:.8rem; line-height:1.5; }
+    .f-status{ font-size:.76rem; gap:10px; }
+    .f-conta{ font-size:.58rem; } .f-conta .c1{ font-size:.68rem; }
+    .msg{ font-size:.8rem; }
+  }
+
   /* ===== A COXIA NO CELULAR (correção do Pedro, 03/08/2026) =====
      A Coxia nasceu desenhada para tela de computador e o celular herdou os
      mesmos tamanhos: número de painel com 48px de altura, saudação ocupando
@@ -1245,7 +1299,7 @@ Entrevista com o diretor em 21/07"></textarea>
                 <button type="button" data-md="botao:">🎟 Botão de link</button>
                 <button type="button" data-md="***">✦ Divisor</button>
                 <button type="button" id="btn-espelho">🪞 Ver como sai</button>
-                <button type="button" id="btn-estilo" style="margin-left:auto">📖 Padrão da casa</button>
+                <button type="button" id="btn-estilo">📖 Padrão da casa</button>
               </div>
               <!-- ESCREVER VENDO O RESULTADO. O texto cru fica de um lado e o
                    espelho do outro, mostrando a matéria como sai no site — foto
@@ -1308,12 +1362,16 @@ ingressos e divisor."></textarea>
               </div>
             </div>
             <div class="f-status"><span id="st-alerta"></span></div>
-            <div class="f-acoes" style="display:flex; gap:10px; flex-wrap:wrap">
-              <button class="bt" type="button" id="btn-prev" style="padding:14px 18px">👁 Pré-visualizar</button>
-              <button class="bt" type="button" id="btn-guardar" style="padding:14px 18px" title="Guarda o rascunho na nuvem para continuar em qualquer aparelho">☁ Guardar rascunho</button>
-              <button class="bt" type="button" id="btn-novo-rasc" style="padding:14px 18px" title="Guarda o que está na tela como rascunho e abre uma matéria em branco">🗒 Novo rascunho</button>
-              <button class="bt" type="button" id="btn-rascunhos" style="padding:14px 18px;display:none" title="Abre a prateleira de rascunhos guardados">📄 Rascunhos</button>
-              <button class="f-pub" type="submit" id="btn-pub" style="flex:1">Enviar para o site</button>
+            <!-- A RÉGUA DE ENVIAR. No computador, botões com nome; no celular, a
+                 mesma régua vira uma linha só de 44px (ícone nos secundários,
+                 texto só no Enviar): com nome em todos ela ocupava metade da
+                 tela e tapava o formulário (pedido do Pedro, 15/09/2026). -->
+            <div class="f-acoes">
+              <button class="bt" type="button" id="btn-prev" title="Ver a matéria como sai no site"><i class="ic">👁</i><span class="lb">Pré-visualizar</span></button>
+              <button class="bt" type="button" id="btn-guardar" title="Guarda o rascunho na nuvem para continuar em qualquer aparelho"><i class="ic">☁</i><span class="lb">Guardar rascunho</span></button>
+              <button class="bt" type="button" id="btn-novo-rasc" title="Guarda o que está na tela como rascunho e abre uma matéria em branco"><i class="ic">🗒</i><span class="lb">Novo rascunho</span></button>
+              <button class="bt" type="button" id="btn-rascunhos" style="display:none" title="Abre a prateleira de rascunhos guardados"><i class="ic">📄</i><span class="lb">Rascunhos</span><b class="n"></b></button>
+              <button class="f-pub" type="submit" id="btn-pub">Enviar para o site</button>
             </div>
             <span class="msg" id="msg"></span>
           </form>
@@ -3730,6 +3788,15 @@ ingressos e divisor."></textarea>
     if(v && (v.title || v.corpo)){ v.id = v.id || 'nuvem-antigo'; return [v]; }
     return [];
   }
+  // os botões da régua têm ícone (.ic) e rótulo (.lb) separados, porque no
+  // celular só o ícone aparece; quem muda o texto passa por aqui
+  function rotuloBt(b, txt, ic){
+    if(!b) return;
+    var lb = b.querySelector('.lb');
+    if(lb) lb.textContent = txt; else b.textContent = txt;
+    var i = b.querySelector('.ic');
+    if(i && ic) i.textContent = ic;
+  }
   var btnGuardar = $('btn-guardar');
   if(btnGuardar) btnGuardar.addEventListener('click', function(){
     if(EDIT){ avisar('Você está editando uma matéria que já existe — as mudanças vão direto nela ao salvar/enviar. O rascunho na nuvem é só para matérias novas.'); return; }
@@ -3738,7 +3805,8 @@ ingressos e divisor."></textarea>
     if(!d.title && !d.corpo){ avisar('Escreva algo antes de guardar o rascunho.'); return; }
     if(!RASC_ID) RASC_ID = 'r' + Date.now().toString(36);
     d.id = RASC_ID; d.por = USER.nome;
-    var b = btnGuardar; var velho = b.textContent; b.disabled = true; b.textContent = 'Guardando…';
+    var b = btnGuardar; var lbG = b.querySelector('.lb'); var velho = lbG ? lbG.textContent : b.textContent;
+    b.disabled = true; rotuloBt(b, 'Guardando…', '⏳');
     ghGet(caminhoRascServidor(), true).catch(function(){ return null; }).then(function(ex){
       var lista = nuvemLista(ex).filter(function(x){ return x.id !== d.id; });
       lista.push(d);
@@ -3753,7 +3821,7 @@ ingressos e divisor."></textarea>
       checarRasc();   // o botão "Rascunhos (N)" fica em dia na hora
     })
       .catch(function(err){ avisar(msgErro(err)); })
-      .then(function(){ b.disabled = false; b.textContent = velho; });
+      .then(function(){ b.disabled = false; rotuloBt(b, velho, '☁'); });
   });
   var btnNovoRasc = $('btn-novo-rasc');
   if(btnNovoRasc) btnNovoRasc.addEventListener('click', function(){
@@ -3795,7 +3863,7 @@ ingressos e divisor."></textarea>
       // o botão permanente: a prateleira nunca fica inalcançável, nem com o
       // formulário no meio de uma matéria (item 13 do ensaio)
       var bR = $('btn-rascunhos');
-      if(bR){ bR.style.display = n ? '' : 'none'; bR.textContent = '📄 Rascunhos (' + n + ')'; }
+      if(bR){ bR.style.display = n ? '' : 'none'; rotuloBt(bR, 'Rascunhos (' + n + ')'); var nb = bR.querySelector('.n'); if(nb) nb.textContent = n || ''; }
       var av = $('rasc-aviso');
       if(!n || (!forcar && ($('f-title').value || $('f-body').value))){ av.classList.remove('on'); return; }
       av.innerHTML = '<b style="width:100%">📄 Rascunhos guardados (' + n + ') — quer continuar algum?</b>' +
