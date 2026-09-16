@@ -714,6 +714,26 @@
   .eq-foto-bts{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
   .eq-foto-bts small{ font-family:var(--mono); font-size:.52rem; letter-spacing:.08em;
     text-transform:uppercase; color:var(--ink-soft); flex-basis:100%; }
+  /* produções (vitrine do estúdio) */
+  .pd-mini{ width:176px; height:99px; flex:0 0 176px; }
+  .pd-mini img{ object-position:center; }
+  .pd-checks{ display:flex; gap:14px; flex-wrap:wrap; }
+  .pd-checks label{ display:flex; align-items:center; gap:6px; font-family:var(--sans); font-size:.9rem;
+    font-weight:600; text-transform:none; letter-spacing:0; margin:0; cursor:pointer; }
+  .pd-checks input{ width:18px; height:18px; accent-color:var(--wine); }
+  .pd-acoes{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  .pd-card .ph{ display:block; aspect-ratio:16/9; border:2px solid var(--ink); overflow:hidden; background:var(--paper-2); }
+  .pd-card .ph img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .pd-card .ph span{ display:flex; height:100%; align-items:center; justify-content:center; font-family:var(--mono);
+    font-size:.54rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); }
+  .pd-card .serv{ font-family:var(--mono); font-size:.54rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); }
+  .pd-card .res{ font-family:var(--sans); font-size:.82rem; font-weight:700; }
+  .pd-card .txt{ font-family:var(--sans); font-size:.84rem; line-height:1.5; color:var(--ink-soft); }
+  .pd-depos{ display:grid; gap:10px; margin-bottom:18px; }
+  .pd-depo{ border:var(--b); padding:14px 16px; display:flex; gap:12px; align-items:flex-start; flex-wrap:wrap; }
+  .pd-depo p{ margin:0; flex:1 1 320px; font-family:var(--sans); font-size:.9rem; line-height:1.5; }
+  .pd-depo p b{ display:block; font-size:.8rem; margin-top:6px; }
+  .pd-depo .acts{ display:flex; gap:6px; }
   .senha-out{ border:2px solid var(--gold); background:var(--paper-2); padding:14px 16px;
     font-family:var(--mono); font-size:.85rem; letter-spacing:.16em; display:none; align-items:center;
     gap:14px; justify-content:space-between; }
@@ -1145,6 +1165,7 @@
         <button data-view="revista" id="mi-revista" type="button">📖 &nbsp;Revista</button>
         <button data-view="calendario" id="mi-cal" type="button">📅 &nbsp;Calendário<span class="bdg" id="bdg-cal" style="display:none">!</span></button>
         <button data-view="pub" id="mi-pub" type="button">💰 &nbsp;Publicidade<span class="bdg" id="bdg-pub" style="display:none">0</span></button>
+        <button data-view="producoes" id="mi-producoes" type="button">🎬 &nbsp;Produções</button>
         <button data-view="divulgacao" id="mi-div" type="button">📣 &nbsp;Divulgação</button>
         <button data-view="equipe" id="mi-equipe" type="button">👥 &nbsp;Equipe</button>
         <button data-view="metricas" id="mi-metricas" type="button">📈 &nbsp;Métricas</button>
@@ -1640,6 +1661,93 @@ ingressos e divisor."></textarea>
       </section>
 
       <!-- ========== MÉTRICAS (chefe) ========== -->
+      <!-- PRODUÇÕES: a vitrine do estúdio (foyer.digital/producoes). O chefe
+           cadastra aqui as peças atendidas e os depoimentos; tudo vai para
+           import/producoes.json e o site remonta sozinho (pedido do Pedro,
+           16/09/2026). -->
+      <section class="view" id="view-producoes">
+        <h2 class="hi">Produções</h2>
+        <p class="hi-sub">A vitrine do estúdio, em <b>foyer.digital/producoes</b>: cadastre as peças atendidas e os depoimentos. O site remonta em ~2 min</p>
+
+        <div class="sec-h"><h3>Trabalhos na vitrine</h3><span id="pd-conta"></span></div>
+        <div class="eq-grid" id="pd-grid"></div>
+
+        <div class="sec-h"><h3 id="pd-form-t">Cadastrar um trabalho</h3><span>uma peça ou projeto atendido pelo estúdio</span></div>
+        <form class="f-form" id="pd-form" style="max-width:640px">
+          <input type="hidden" id="pd-id">
+          <div class="r2">
+            <div>
+              <label for="pd-titulo">Espetáculo ou projeto</label>
+              <input type="text" id="pd-titulo" placeholder="Nome da peça" required>
+            </div>
+            <div>
+              <label for="pd-ano">Ano</label>
+              <input type="text" id="pd-ano" placeholder="2026" inputmode="numeric">
+            </div>
+          </div>
+          <div>
+            <label>Serviços prestados (marque os que valem)</label>
+            <div class="pd-checks">
+              <label><input type="checkbox" value="Produção"> Produção</label>
+              <label><input type="checkbox" value="Assessoria de imprensa"> Assessoria de imprensa</label>
+              <label><input type="checkbox" value="Redes sociais"> Redes sociais</label>
+            </div>
+          </div>
+          <div>
+            <label for="pd-texto">O que foi feito (2 ou 3 frases, sem travessão)</label>
+            <textarea id="pd-texto" rows="4" placeholder="Ex.: Assessoria de imprensa da temporada de estreia, com release, agenda de entrevistas e acompanhamento da cobertura." required></textarea>
+          </div>
+          <div>
+            <label for="pd-resultado">Resultado (uma frase com número, opcional)</label>
+            <input type="text" id="pd-resultado" placeholder="Ex.: 14 matérias na imprensa e temporada prorrogada por três semanas">
+          </div>
+          <div>
+            <label for="pd-link">Link (matéria, site ou Instagram da peça, opcional)</label>
+            <input type="text" id="pd-link" placeholder="https://…">
+          </div>
+          <div class="eq-sep"><b>Foto</b><span>de cena ou cartaz, de preferência horizontal; o site mostra numa janela 16:9</span></div>
+          <div class="eq-foto">
+            <div class="eq-mini pd-mini" id="pd-foto-mini"><span>sem foto</span></div>
+            <div class="eq-foto-bts">
+              <label class="bt" for="pd-file">📷 Subir a foto</label>
+              <input type="file" id="pd-file" accept="image/*" style="display:none">
+              <button class="bt" type="button" id="pd-foto-tira">Tirar a foto</button>
+              <small id="pd-foto-st"></small>
+            </div>
+            <input type="hidden" id="pd-foto" value="">
+          </div>
+          <div class="pd-acoes">
+            <button class="f-pub" type="submit" id="pd-salvar">Salvar na vitrine</button>
+            <button class="bt" type="button" id="pd-cancelar" style="display:none">Cancelar edição</button>
+          </div>
+          <span class="msg" id="pd-msg"></span>
+        </form>
+
+        <div class="sec-h" style="margin-top:34px"><h3>Depoimentos</h3><span>só com autorização de quem disse</span></div>
+        <div id="pd-depos" class="pd-depos"></div>
+        <form class="f-form" id="pd-dform" style="max-width:640px">
+          <input type="hidden" id="pd-did">
+          <div>
+            <label for="pd-dtexto">O depoimento (sem as aspas; o site coloca)</label>
+            <textarea id="pd-dtexto" rows="3" required></textarea>
+          </div>
+          <div class="r2">
+            <div>
+              <label for="pd-dquem">Quem disse</label>
+              <input type="text" id="pd-dquem" placeholder="Nome" required>
+            </div>
+            <div>
+              <label for="pd-dcargo">Cargo ou peça</label>
+              <input type="text" id="pd-dcargo" placeholder="Ex.: produtora de “Nome da peça”">
+            </div>
+          </div>
+          <div class="pd-acoes">
+            <button class="f-pub" type="submit" id="pd-dsalvar">Salvar depoimento</button>
+            <button class="bt" type="button" id="pd-dcancelar" style="display:none">Cancelar edição</button>
+          </div>
+          <span class="msg" id="pd-dmsg"></span>
+        </form>
+      </section>
       <section class="view" id="view-pub">
         <style>
           .pub-card{ border:2px solid var(--ink,#231007); padding:14px 16px; margin-bottom:12px; }
@@ -2527,6 +2635,7 @@ ingressos e divisor."></textarea>
     // a Publicidade é dinheiro da casa: só a chefia vê (pego no ensaio dos
     // jornalistas — o estagiário conseguia operar anúncios no primeiro dia)
     $('mi-pub').classList.toggle('hid', USER.papel !== 'chefe');
+    $('mi-producoes').classList.toggle('hid', USER.papel !== 'chefe');
     $('mi-ia').classList.toggle('hid', !podeMesa());
     $('mural-fixar-l').style.display = USER.papel === 'chefe' ? 'inline-flex' : 'none';
     $('card-mesa').style.display = podeMesa() ? '' : 'none';
@@ -2774,7 +2883,7 @@ ingressos e divisor."></textarea>
     // ATENÇÃO: as chaves aqui são os nomes REAIS das abas (data-view). A cerca
     // da Publicidade nunca funcionou porque estava escrita "publicidade" e a
     // aba se chama "pub" (pego no ensaio dos jornalistas).
-    var SO_CHEFE = { revista: 1, equipe: 1, metricas: 1, pub: 1 };
+    var SO_CHEFE = { revista: 1, equipe: 1, metricas: 1, pub: 1, producoes: 1 };
     if(USER && ((SO_CHEFE[v] && USER.papel !== 'chefe') || (v === 'ia' && !podeMesa()))){
       avisar('Esta área é da chefia da casa. Se você precisa de algo dela, fale com o Pedro ou a Isabel.');
       v = 'saguao';
@@ -2794,6 +2903,7 @@ ingressos e divisor."></textarea>
     if(v === 'calendario') carregarCalendario();
     if(v === 'pub'){ carregarPedidosPub(); carregarSitePub(); pubDesempenho(); }
     if(v === 'metricas') carregarMetricas();
+    if(v === 'producoes') carregarProducoes();
     if(v === 'divulgacao') carregarDivulgacao();
     // trocar de aba começa do topo: o título não nasce escondido atrás do
     // cabeçalho fixo (ensaio geral)
@@ -6528,6 +6638,182 @@ ingressos e divisor."></textarea>
           st.textContent = '✓ foto pronta — falta salvar na equipe';
         });
     }).catch(function(e){ st.textContent = ''; avisar(msgErro(e)); });
+  });
+
+
+  /* ---------------- produções: a vitrine do estúdio ----------------
+     Lê e grava import/producoes.json (o mesmo arquivo que o site usa para
+     montar foyer.digital/producoes). Trabalhos e depoimentos; os textos
+     institucionais da página seguem no arquivo, editáveis à mão. */
+  var PROD = null;   // { data, sha }
+  function pdLer(){
+    return ghGet('import/producoes.json', true).then(function(f){
+      if(!(f && f.content)) throw new Error('import/producoes.json não encontrado');
+      return { data: JSON.parse(unb64(f.content)), sha: f.sha };
+    });
+  }
+  function carregarProducoes(){
+    var g = $('pd-grid'); g.innerHTML = '<div class="vazio">Carregando a vitrine…</div>';
+    return pdLer().then(function(r){ PROD = r; pintarProducoes(); })
+      .catch(function(e){ g.innerHTML = '<div class="vazio erro">Não deu para carregar a vitrine. ' + esc(msgErro(e)) + '</div>'; });
+  }
+  function pintarProducoes(){
+    var d = PROD.data, lista = d.cases || [], depos = d.depoimentos || [];
+    $('pd-conta').textContent = lista.length ? plural(lista.length, 'trabalho no ar', 'trabalhos no ar') : 'nenhum ainda: a seção Trabalhos só aparece no site quando houver o primeiro';
+    $('pd-grid').innerHTML = lista.length ? lista.map(function(c, i){
+      return '<article class="eq-card pd-card">' +
+        '<span class="ph">' + (c.img ? '<img src="' + esc(c.img) + '" alt="" onerror="this.parentNode.innerHTML=\'<span>foto não achada</span>\'">' : '<span>sem foto</span>') + '</span>' +
+        '<b>' + esc(c.titulo || '') + (c.ano ? ' · ' + esc(String(c.ano)) : '') + '</b>' +
+        '<span class="serv">' + esc((c.servicos || []).join(' · ') || 'sem serviço marcado') + '</span>' +
+        '<span class="txt">' + esc(corta(c.texto || '', 160)) + '</span>' +
+        (c.resultado ? '<span class="res">' + esc(c.resultado) + '</span>' : '') +
+        '<div class="acts">' +
+          '<button class="bt" type="button" data-pd-edt="' + i + '">✎ Editar</button>' +
+          (i > 0 ? '<button class="bt" type="button" data-pd-sobe="' + i + '" title="Subir na vitrine">↑</button>' : '') +
+          (i < lista.length - 1 ? '<button class="bt" type="button" data-pd-desce="' + i + '" title="Descer na vitrine">↓</button>' : '') +
+          '<button class="bt danger" type="button" data-pd-exc="' + i + '">🗑</button>' +
+        '</div></article>';
+    }).join('') : '<div class="vazio">Nenhum trabalho cadastrado. Cadastre o primeiro no formulário abaixo.</div>';
+    $('pd-depos').innerHTML = depos.length ? depos.map(function(x, i){
+      return '<div class="pd-depo"><p>“' + esc(x.texto || '') + '”<b>' + esc(x.quem || '') + (x.cargo ? ' · ' + esc(x.cargo) : '') + '</b></p>' +
+        '<div class="acts"><button class="bt" type="button" data-pd-dedt="' + i + '">✎</button>' +
+        '<button class="bt danger" type="button" data-pd-dexc="' + i + '">🗑</button></div></div>';
+    }).join('') : '<div class="vazio">Nenhum depoimento ainda.</div>';
+  }
+  function salvarProducoes(acao){
+    if(!PROD) return Promise.reject(new Error('vitrine não carregada'));
+    return ghPut('import/producoes.json', JSON.stringify(PROD.data, null, 1), assina(acao), PROD.sha)
+      .then(function(){ return pdLer().then(function(r){ PROD = r; pintarProducoes(); }); });
+  }
+  function pdPintaFoto(cam){
+    $('pd-foto').value = cam || '';
+    $('pd-foto-mini').innerHTML = cam ? '<img src="' + esc(cam) + '" alt="foto">' : '<span>sem foto</span>';
+  }
+  function pdChecks(vals){
+    document.querySelectorAll('#pd-form .pd-checks input').forEach(function(c){ c.checked = (vals || []).indexOf(c.value) !== -1; });
+  }
+  function pdLimpa(){
+    $('pd-form').reset(); $('pd-id').value = ''; pdPintaFoto(''); pdChecks([]);
+    $('pd-foto-st').textContent = ''; $('pd-form-t').textContent = 'Cadastrar um trabalho';
+    $('pd-cancelar').style.display = 'none';
+  }
+  function pdDLimpa(){
+    $('pd-dform').reset(); $('pd-did').value = ''; $('pd-dcancelar').style.display = 'none';
+  }
+  $('pd-cancelar').addEventListener('click', pdLimpa);
+  $('pd-dcancelar').addEventListener('click', pdDLimpa);
+  $('pd-foto-tira').addEventListener('click', function(){ pdPintaFoto(''); $('pd-foto-st').textContent = 'foto tirada — salve para valer'; });
+  $('pd-file').addEventListener('change', function(){
+    var arq = this.files && this.files[0];
+    if(!arq) return;
+    if(!podeGravar()){ avisarChave(); this.value = ''; return; }
+    var titulo = $('pd-titulo').value.trim();
+    if(!titulo){ avisar('Diga o nome do espetáculo antes de subir a foto.'); this.value = ''; return; }
+    var id = $('pd-id').value || slugify(titulo);
+    var st = $('pd-foto-st');
+    st.textContent = 'preparando a foto…';
+    reduzLivre(arq, 1600, 1200).then(function(dataURL){
+      st.textContent = 'subindo…';
+      var caminho = 'assets/uploads/producao-' + id + '-' + Date.now().toString(36) + '.jpg';
+      return ghPutRaw(caminho, dataURL.split(',')[1], assina('sobe a foto de ' + titulo + ' (vitrine)'))
+        .then(function(){
+          pdPintaFoto(caminho);
+          $('pd-foto-mini').innerHTML = '<img src="' + dataURL + '" alt="foto nova">';
+          st.textContent = '✓ foto pronta — falta salvar na vitrine';
+        });
+    }).catch(function(e){ st.textContent = ''; avisar(msgErro(e)); });
+  });
+  document.addEventListener('click', function(e){
+    var b, lista, i;
+    if((b = e.target.closest('[data-pd-edt]'))){
+      lista = PROD && PROD.data.cases || []; var c = lista[+b.dataset.pdEdt]; if(!c) return;
+      $('pd-id').value = c.id || slugify(c.titulo || ''); $('pd-titulo').value = c.titulo || '';
+      $('pd-ano').value = c.ano || ''; $('pd-texto').value = c.texto || '';
+      $('pd-resultado').value = c.resultado || ''; $('pd-link').value = c.link || '';
+      pdChecks(c.servicos || []); pdPintaFoto(c.img || '');
+      $('pd-form-t').textContent = 'Editar — ' + (c.titulo || ''); $('pd-cancelar').style.display = '';
+      $('pd-form').scrollIntoView({ behavior:'smooth', block:'center' });
+      return;
+    }
+    if((b = e.target.closest('[data-pd-sobe]')) || (b = e.target.closest('[data-pd-desce]'))){
+      if(!podeGravar()){ avisarChave(); return; }
+      lista = PROD.data.cases || []; i = +(b.dataset.pdSobe !== undefined ? b.dataset.pdSobe : b.dataset.pdDesce);
+      var j = b.dataset.pdSobe !== undefined ? i - 1 : i + 1;
+      if(j < 0 || j >= lista.length) return;
+      var t = lista[i]; lista[i] = lista[j]; lista[j] = t;
+      salvarProducoes('reordena a vitrine de produções').catch(function(err){ avisar(msgErro(err)); });
+      return;
+    }
+    if((b = e.target.closest('[data-pd-exc]'))){
+      if(!podeGravar()){ avisarChave(); return; }
+      lista = PROD.data.cases || []; var alvo = lista[+b.dataset.pdExc]; if(!alvo) return;
+      confirmar('Tirar “' + (alvo.titulo || '') + '” da vitrine?', { perigo:true, rotuloOk:'Tirar' }).then(function(ok){
+        if(!ok) return;
+        PROD.data.cases = lista.filter(function(x, k){ return k !== +b.dataset.pdExc; });
+        salvarProducoes('tira ' + (alvo.titulo || '') + ' da vitrine de produções').catch(function(err){ avisar(msgErro(err)); });
+      });
+      return;
+    }
+    if((b = e.target.closest('[data-pd-dedt]'))){
+      var dp = (PROD.data.depoimentos || [])[+b.dataset.pdDedt]; if(!dp) return;
+      $('pd-did').value = String(+b.dataset.pdDedt); $('pd-dtexto').value = dp.texto || '';
+      $('pd-dquem').value = dp.quem || ''; $('pd-dcargo').value = dp.cargo || '';
+      $('pd-dcancelar').style.display = '';
+      $('pd-dform').scrollIntoView({ behavior:'smooth', block:'center' });
+      return;
+    }
+    if((b = e.target.closest('[data-pd-dexc]'))){
+      if(!podeGravar()){ avisarChave(); return; }
+      var dl = PROD.data.depoimentos || []; var dalvo = dl[+b.dataset.pdDexc]; if(!dalvo) return;
+      confirmar('Tirar o depoimento de ' + (dalvo.quem || '') + '?', { perigo:true, rotuloOk:'Tirar' }).then(function(ok){
+        if(!ok) return;
+        PROD.data.depoimentos = dl.filter(function(x, k){ return k !== +b.dataset.pdDexc; });
+        salvarProducoes('tira depoimento de ' + (dalvo.quem || '') + ' da vitrine').catch(function(err){ avisar(msgErro(err)); });
+      });
+    }
+  });
+  $('pd-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var msg = $('pd-msg');
+    if(!podeGravar()){ msg.textContent = recadoSemChave(); msg.className = 'msg err'; return; }
+    if(!PROD){ msg.textContent = 'A vitrine ainda não carregou; tente de novo.'; msg.className = 'msg err'; return; }
+    var titulo = $('pd-titulo').value.trim(), texto = $('pd-texto').value.trim();
+    if(!titulo || !texto){ msg.textContent = 'Diga o espetáculo e o que foi feito'; msg.className = 'msg err'; return; }
+    var servs = [].map.call(document.querySelectorAll('#pd-form .pd-checks input:checked'), function(c){ return c.value; });
+    if(!servs.length){ msg.textContent = 'Marque ao menos um serviço prestado'; msg.className = 'msg err'; return; }
+    if(/[—–]/.test(titulo + texto + $('pd-resultado').value)){ msg.textContent = 'Sem travessão nem meia-risca nos textos (padrão da casa): use vírgula, dois-pontos ou ponto.'; msg.className = 'msg err'; return; }
+    var id = $('pd-id').value || slugify(titulo);
+    var novo = { id: id, titulo: titulo, ano: $('pd-ano').value.trim(), servicos: servs, texto: texto,
+                 resultado: $('pd-resultado').value.trim(), link: $('pd-link').value.trim(), img: $('pd-foto').value.trim() };
+    var lista = (PROD.data.cases || []).slice();
+    var pos = -1; lista.forEach(function(x, k){ if(x.id === id) pos = k; });
+    if(pos >= 0) lista[pos] = novo; else lista.unshift(novo);   // o mais novo entra no alto da vitrine
+    PROD.data.cases = lista;
+    var bt = $('pd-salvar'); bt.disabled = true;
+    salvarProducoes((pos >= 0 ? 'edita ' : 'põe ') + titulo + ' na vitrine de produções').then(function(){
+      msg.className = 'msg ok'; msg.textContent = (pos >= 0 ? 'Atualizado' : 'Na vitrine') + ' ✓ — o site remonta em ~2 min';
+      toast('Vitrine salva ✓'); pdLimpa();
+    }).catch(function(err){ msg.className = 'msg err'; msg.textContent = msgErro(err); })
+      .then(function(){ bt.disabled = false; });
+  });
+  $('pd-dform').addEventListener('submit', function(e){
+    e.preventDefault();
+    var msg = $('pd-dmsg');
+    if(!podeGravar()){ msg.textContent = recadoSemChave(); msg.className = 'msg err'; return; }
+    if(!PROD){ msg.textContent = 'A vitrine ainda não carregou; tente de novo.'; msg.className = 'msg err'; return; }
+    var texto = $('pd-dtexto').value.trim(), quem = $('pd-dquem').value.trim();
+    if(!texto || !quem){ msg.textContent = 'Diga o depoimento e quem disse'; msg.className = 'msg err'; return; }
+    if(/[—–]/.test(texto)){ msg.textContent = 'Sem travessão nem meia-risca (padrão da casa).'; msg.className = 'msg err'; return; }
+    var novo = { texto: texto, quem: quem, cargo: $('pd-dcargo').value.trim() };
+    var dl = (PROD.data.depoimentos || []).slice();
+    var k = $('pd-did').value === '' ? -1 : +$('pd-did').value;
+    if(k >= 0 && dl[k]) dl[k] = novo; else dl.push(novo);
+    PROD.data.depoimentos = dl;
+    var bt = $('pd-dsalvar'); bt.disabled = true;
+    salvarProducoes((k >= 0 ? 'edita' : 'põe') + ' depoimento de ' + quem + ' na vitrine').then(function(){
+      msg.className = 'msg ok'; msg.textContent = 'Salvo ✓ — o site remonta em ~2 min'; toast('Depoimento salvo ✓'); pdDLimpa();
+    }).catch(function(err){ msg.className = 'msg err'; msg.textContent = msgErro(err); })
+      .then(function(){ bt.disabled = false; });
   });
 
   function gerarSenha(){
