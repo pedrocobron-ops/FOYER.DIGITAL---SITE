@@ -1,0 +1,215 @@
+{
+ "numero": 9,
+ "titulo": "O que ficou por escrever",
+ "dataEdicao": "17 Set 2026",
+ "status": "rascunho",
+ "capa": {
+  "img": "assets/uploads/revista-ed-9-capa.jpg",
+  "credito": "Foto: Jamille Queiroz / Divulgação “Feito Pipa”",
+  "manchete": "Feito Pipa, rumo ao Oscar",
+  "chamadas": [
+   "A Espanha leva ao Oscar as quatro páginas que Lorca não terminou",
+   "Dez anos sem Albee: as quatro Marthas do teatro brasileiro",
+   "Renata Castro Barbosa ri da menopausa em Copacabana"
+  ]
+ },
+ "paginas": [
+  {
+   "tipo": "editorial",
+   "titulo": "O que ficou por escrever",
+   "texto": "Federico García Lorca deixou quatro páginas de uma peça chamada La bola negra quando foi assassinado, em 1936. Nesta semana, a Espanha escolheu o filme que nasceu delas para disputar o Oscar. No mesmo dia, o Brasil apontou Feito Pipa, a história de um menino queer criado pela avó no interior do Ceará, para a mesma corrida. Dois países, duas histórias sobre quem precisa de licença para ser quem é.\n\nEdward Albee, morto há dez anos, não acreditava em revisar o que escrevia. Quem Tem Medo de Virgínia Woolf? passou por quatro elencos brasileiros, de Cacilda Becker a Zezé Polessa, e chegou a todos do mesmo tamanho em que saiu das mãos dele. Já Gilvan Azevedo pegou o próprio romance e o levou ao palco do Teatro Commune ao lado do marido, Mauricio Constantino, porque o teatro torna visível o que no livro acontece por dentro.\n\nHá também o que ainda não foi escrito. O revival de Annie, que Sam Pinkleton dirige na Broadway em 2027, não tem teatro nem elenco. O Emmy pode deixar a TV aberta depois de 31 anos, mas o acordo com a Amazon ainda não foi fechado. A shortlist do Oscar só sai em 15 de dezembro. E há uma mulher, em Copacabana, que não consegue dormir a dois dias de fazer 50 anos e faz as contas do que ainda quer viver.\n\nEsta edição é sobre páginas em aberto. Boa leitura.",
+   "assinatura": "A direção do FOYER"
+  },
+  {
+   "tipo": "materia",
+   "slug": "feito-pipa-e-escolhido-para-representar-o-brasil-no-oscar-2027",
+   "cat": "Cinema",
+   "img": "assets/uploads/feito-pipa-e-escolhido-para-representar-o-brasil-no-oscar-2027-1789575786425.jpg",
+   "titulo": "Um menino, uma avó, um açude",
+   "chamada": "Escolhido pela Academia Brasileira de Cinema, o filme de Allan Deberton tenta levar o país aos finalistas do Oscar pelo terceiro ano seguido.",
+   "texto": "Gugu tem quase 12 anos, gosta de futebol e vive com a avó Dilma perto do açude Araújo Lima, no Ceará. Dentro daquela casa ele pode ser quem é; fora dela, encontra a desaprovação do pai, vivido por Lázaro Ramos. Antes de chegar ao circuito nacional, em 5 de novembro, o longa já saiu premiado de Berlim, Guadalajara e Gramado."
+  },
+  {
+   "tipo": "materia",
+   "slug": "filme-queer-inspirado-em-obra-inacabada-de-garcia-lorca-e-escolhido-pela-espanha",
+   "cat": "Cinema",
+   "img": "assets/uploads/filme-queer-inspirado-em-obra-inacabada-de-garcia-lorca-e-escolhido-pela-espanha-1789574105649.jpg",
+   "titulo": "Quatro páginas de Lorca",
+   "chamada": "A Espanha envia ao Oscar La bola negra, filme de Javier Calvo e Javier Ambrossi nascido de uma peça que o poeta não chegou a terminar.",
+   "texto": "Lorca trabalhava numa peça sobre um jovem homossexual rejeitado por um clube de Granada quando foi assassinado, em 1936. Restaram quatro páginas e o relato de um amigo. Noventa anos depois, os criadores de Veneno partem desse material para contar histórias próprias, sem tentar completar o que faltou."
+  },
+  {
+   "tipo": "programas"
+  },
+  {
+   "tipo": "materia",
+   "slug": "edward-albee-10-anos-quem-tem-medo-de-virginia-woolf-brasil",
+   "cat": "Memória",
+   "img": "assets/uploads/edward-albee-10-anos-quem-tem-medo-de-virginia-woolf-brasil.jpg",
+   "titulo": "O autor que não revisava",
+   "chamada": "Dez anos após a morte de Edward Albee, o FOYER repassa as quatro montagens brasileiras de Quem Tem Medo de Virgínia Woolf?, de Cacilda Becker a Zezé Polessa.",
+   "texto": "Em 1965, 1978, 2000 e 2014 mudaram tradutor, diretor, casa e elenco. O texto, nunca. Enquanto viveu, Albee ficou com a última palavra sobre quem encenava sua obra e de que jeito, e deixou um espólio que continua aprovando elenco e criação."
+  },
+  {
+   "tipo": "materia",
+   "slug": "casados-na-vida-real-gilvan-azevedo-e-mauricio-constantino-vivem-um-casal-em-nos",
+   "cat": "Teatro",
+   "img": "assets/uploads/casados-na-vida-real-gilvan-azevedo-e-mauricio-constantino-vivem-um-casal-em-nos-1788299697434.jpg",
+   "titulo": "Dois maridos, um segredo em cena",
+   "chamada": "Gilvan Azevedo e Mauricio Constantino, casados fora do palco, vivem Saulo e Rodney no Teatro Commune até 27 de setembro.",
+   "texto": "Saulo e Rodney são pais de família e profissionais estabelecidos quando se conhecem, tarde, com uma vida de escolhas e silêncios nas costas. A adaptação do romance Éramos Ursos e Não Sabíamos, dirigida por André Corrêa, fala de paternidade, envelhecimento e desejo num recorte que a dramaturgia brasileira ainda pouco frequenta."
+  },
+  {
+   "tipo": "materia",
+   "slug": "annie-volta-a-broadway-em-2027-sob-direcao-de-sam-pinkleton-vencedor-do-tony-por",
+   "cat": "Teatro Musical",
+   "img": "assets/uploads/annie-volta-a-broadway-em-2027-sob-direcao-de-sam-pinkleton-vencedor-do-tony-por-1789563294832.jpg",
+   "titulo": "O amanhã de Annie",
+   "chamada": "Sam Pinkleton, diretor de Oh, Mary!, assume o revival do musical que completa 50 anos na Broadway em 2027.",
+   "texto": "Quem transformou Mary Todd Lincoln em alcoólatra obcecada por cabaré diz que Annie é seu musical favorito. A órfã da Grande Depressão canta Tomorrow justamente porque o presente da trama não funciona. Teatro, datas e elenco ainda não foram anunciados."
+  },
+  {
+   "tipo": "materia",
+   "slug": "emmy-negocia-deixar-tv-aberta-apos-31-anos-e-migrar-para-o-prime-video",
+   "cat": "Televisão",
+   "img": "assets/uploads/emmy-negocia-deixar-tv-aberta-apos-31-anos-e-migrar-para-o-prime-video-1789563772679.jpg",
+   "titulo": "O Emmy pode trocar de casa",
+   "chamada": "Depois de 31 anos em rodízio entre ABC, CBS, Fox e NBC, a premiação negocia migrar para o Prime Video a partir de 2027.",
+   "texto": "A última cerimônia do pacote foi ao ar na segunda-feira, 14, pela NBC. A Television Academy conversa com a Amazon, mas o acordo ainda não foi fechado. O Oscar já definiu seu destino fora da TV aberta: a partir de 2029, será transmitido pelo YouTube."
+  },
+  {
+   "tipo": "agenda",
+   "cidade": "São Paulo",
+   "itens": [
+    {
+     "dia": "2026-09-18",
+     "titulo": "O Céu de Bibi Ferreira",
+     "texto": "Última chance de ver quatro atrizes (Giulia Nadruz, Bárbara Sut, Fernanda Biancamano e Carol Botelho) dividindo a voz e a biografia de Bibi Ferreira em um musical de Gabriel Chalita dirigido por Gustavo Barchilon: é homenagem sem vitrine, com repertório que a plateia sabe de cor. Sexta, 20h, no Teatro do Sesi-SP (Centro Cultural Fiesp, Av. Paulista, 1.313). Entrada gratuita, com reserva pela plataforma Meu SESI no site do Sesi-SP. O fim de semana fecha a temporada: sábado às 20h e domingo às 19h, última sessão.",
+     "local": "Teatro do Sesi-SP (Centro Cultural Fiesp)",
+     "cidade": "São Paulo",
+     "link": "https://www.sesisp.org.br/evento/a8fc6e9f-6693-49be-9d19-a2fe091fcb38/o-ceu-de-bibi-ferreira"
+    },
+    {
+     "dia": "2026-09-19",
+     "titulo": "Ficções, com Vera Holtz",
+     "texto": "Vera Holtz transforma o best-seller Sapiens, de Yuval Noah Harari, em jogo de cena com o público e com o músico Federico Puppi, sob direção de Rodrigo Portella: é o solo que marcou a volta dela aos palcos e passa por São Paulo só neste fim de semana, dentro do primeiro Festival de Teatro de São Paulo. Sábado, 20h, no BTG Pactual Hall (Rua Bento Branco de Andrade Filho, 722, Santo Amaro); há também sessão no domingo. Ingressos de R$ 50 a R$ 140 pela Sympla.",
+     "local": "BTG Pactual Hall",
+     "cidade": "São Paulo",
+     "link": "https://bileto.sympla.com.br/event/122876/d/395076"
+    },
+    {
+     "dia": "2026-09-20",
+     "titulo": "Nós, Ursos",
+     "texto": "Casados fora do palco, Gilvan Azevedo e Mauricio Constantino levam para a cena um amor descoberto tarde, quando os dois já são pais de família, adaptado do romance Éramos Ursos e Não Sabíamos, com direção de André Corrêa: teatro pequeno, sem truque, que fala de desejo e paternidade na maturidade sem pedir licença. Domingo, 20h, no Teatro Commune (Rua da Consolação, 1.218, perto da estação Higienópolis-Mackenzie). Ingressos R$ 100 (meia R$ 50) pela Sympla; 16 anos. Sessões aos sábados e domingos até 27/09.",
+     "local": "Teatro Commune",
+     "cidade": "São Paulo",
+     "link": "https://www.sympla.com.br/evento/nos-ursos/3453018"
+    },
+    {
+     "dia": "2026-09-21",
+     "titulo": "Valsa nº 6",
+     "texto": "O único monólogo de Nelson Rodrigues ganha leitura de Jorge Farjalla com a plateia sentada no palco, em arena, a poucos metros de Carol Costa como a adolescente Sônia: a proximidade faz o delírio da personagem virar desconforto físico, e é por isso que vale ir. Segunda, 19h, na Sala Paschoal Carlos Magno do Teatro Sérgio Cardoso (Rua Rui Barbosa, 153, Bela Vista). Apenas 73 lugares por sessão; ingressos R$ 100 (meia R$ 50) pela Sympla. Sessões de quinta a segunda, sempre às 19h, até 28/09; 14 anos.",
+     "local": "Teatro Sérgio Cardoso",
+     "cidade": "São Paulo",
+     "link": "https://valsanumero6.com.br/"
+    },
+    {
+     "dia": "2026-09-24",
+     "titulo": "Confuzo (está escurecendo dentro de mim)",
+     "texto": "André Curti e Artur Luanda Ribeiro, da Cia. Dos à Deux, fazem teatro de corpo e imagem quase sem palavras, e aqui colocam dois homens em um mundo que desaba, um preso ao chão e outro pedalando para não sumir: é a novidade mais barata e mais estranha do circuito do centro. Quinta, 19h, no Teatro do CCBB São Paulo (Rua Álvares Penteado, 112, Centro). Ingressos R$ 30 (meia R$ 15) em ingressosccbb.com.br; 65 minutos, 14 anos. Quintas e sextas às 19h, sábados e domingos às 18h, até 18/10.",
+     "local": "CCBB São Paulo",
+     "cidade": "São Paulo",
+     "link": "https://ccbb.com.br/sao-paulo/programacao/confuzo-esta-escurecendo-dentro-de-mim/"
+    }
+   ]
+  },
+  {
+   "tipo": "agenda",
+   "cidade": "Rio de Janeiro",
+   "itens": [
+    {
+     "dia": "2026-09-18",
+     "titulo": "Reminiscência (FIL 2026)",
+     "texto": "O chileno Malicho Vaca Valenzuela abriu na quinta o 23º Festival Internacional Intercâmbio de Linguagens costurando memória familiar, ditadura e cidade com projeções e arquivos pessoais: é o tipo de teatro documental que raramente passa pelo Rio e que só fica dois dias. Sexta, 18/09, às 19h, segunda e última sessão, no Teatro I do CCBB Rio (Rua Primeiro de Março, 66, Centro). Ingressos a R$ 30 (inteira) e R$ 15 (meia), à venda na bilheteria e em bb.com.br/cultura. Duração de 60 minutos, 14 anos. O festival segue até 27/09.",
+     "local": "CCBB Rio de Janeiro, Teatro I",
+     "cidade": "Rio de Janeiro",
+     "link": "https://ccbb.com.br/rio-de-janeiro/programacao/fil-2026-a-poetica-dos-imaginarios/"
+    },
+    {
+     "dia": "2026-09-19",
+     "titulo": "MAMMA MIA!",
+     "texto": "Penúltimo fim de semana da volta do musical do ABBA ao Rio, com Claudia Netto à frente de um elenco que inclui Totia Meireles e Gottsha (a escalação varia por sessão): vale pela festa que a plateia faz na segunda metade, mais do que pela trama da noiva em busca do pai. Sábado, 19/09, sessões às 15h e às 19h, no Teatro Riachuelo Rio (Rua do Passeio, 38, Centro). Ingressos de R$ 50 (balcão) a R$ 250 (plateia VIP) na Ingresso.com. Temporada até 27/09.",
+     "local": "Teatro Riachuelo Rio",
+     "cidade": "Rio de Janeiro",
+     "link": "https://www.ingresso.com/espetaculos/mamma-mia"
+    },
+    {
+     "dia": "2026-09-20",
+     "titulo": "Mande Notícias do Mundo de Lá",
+     "texto": "Aos 88 anos, Arlete Salles encara o primeiro monólogo da carreira: Eulália Eugênia, que sempre teve medo da morte, precisa se despedir da melhor amiga, e o texto de Carlos Jardim deixa a atriz alternar comédia e silêncio a seu modo. Domingo, 20/09, às 19h, no Teatro dos 4 (Shopping da Gávea, Rua Marquês de São Vicente, 52, Gávea). Ingressos de R$ 73 a R$ 147 na Eventim. Temporada até 04/10, sextas e sábados às 20h e domingos às 19h.",
+     "local": "Teatro dos 4",
+     "cidade": "Rio de Janeiro",
+     "link": "https://teatrodosquatro.com.br/programacao/"
+    },
+    {
+     "dia": "2026-09-21",
+     "titulo": "O Tempo Dela",
+     "texto": "Renata Castro Barbosa passa três madrugadas insone às vésperas dos 50, e a comédia de Martha Mendonça com direção de Bel Kutner trata de menopausa e balanço de vida sem pedir desculpas: boa pedida para uma segunda-feira, dia em que quase nada mais está aberto na cidade. Segunda, 21/09, às 20h, no Teatro Glaucio Gill (Praça Cardeal Arcoverde, s/n, Copacabana). Ingressos a R$ 80 (inteira) e R$ 40 (meia) em funarj.eleventickets.com e na bilheteria. 50 minutos, 14 anos. Sábados, domingos e segundas às 20h, até 05/10.",
+     "local": "Teatro Glaucio Gill",
+     "cidade": "Rio de Janeiro",
+     "link": "https://funarj.eleventickets.com/#!/evento/beabb69402299f72e26268ef1ca24bde7f6e1821"
+    },
+    {
+     "dia": "2026-09-23",
+     "titulo": "Wicked",
+     "texto": "Sessão de quarta é a chance de ver Myra Ruiz e Fabi Bang como Elphaba e Glinda sem a disputa por ingresso dos fins de semana, com a Grande Sala da Cidade das Artes dando à cena do voo o tamanho que ela pede. Quarta, 23/09, às 20h, na Cidade das Artes Bibi Ferreira (Av. das Américas, 5.300, Barra da Tijuca). Ingressos de R$ 50 a R$ 400 (inteira) na Sympla e na bilheteria. Cerca de 180 minutos com intervalo. Temporada carioca só até 04/10.",
+     "local": "Cidade das Artes Bibi Ferreira",
+     "cidade": "Rio de Janeiro",
+     "link": "https://www.wickedbrasil.com/"
+    },
+    {
+     "dia": "2026-09-24",
+     "titulo": "Fim de Partida",
+     "texto": "Última semana de Marco Nanini como Hamm no Beckett dirigido por Rodrigo Portella, ao lado de Guilherme Weber, Helena Ignez e Ary França: um quarteto que faz o absurdo soar como conversa de família, e a temporada acaba no domingo. Quinta, 24/09, às 20h, no Teatro TotalEnergies, Sala Adolpho Bloch (Rua do Russel, 804, Glória). Ingressos de R$ 25 a R$ 160 na Ingresso.com. 90 minutos, 16 anos. Até 27/09 (quinta e sexta 20h, sábado 19h, domingo 17h).",
+     "local": "Teatro TotalEnergies",
+     "cidade": "Rio de Janeiro",
+     "link": "https://www.ingresso.com/espetaculos/fim-de-partida-"
+    }
+   ]
+  },
+  {
+   "tipo": "citacao",
+   "frase": "Embora a história parta de uma experiência específica, acredito que ela dialoga com qualquer pessoa que já tenha se perguntado se a vida que construiu corresponde à vida que deseja viver.",
+   "autor": "Gilvan Azevedo, autor e ator de 'Nós, Ursos'"
+  },
+  {
+   "tipo": "frase-celebre",
+   "frase": "O propósito do teatro sério sempre foi segurar um espelho diante das pessoas e dizer: 'Ei, isto é você. Se não gosta do que vê, por que não muda?' Essa sempre foi a função de todas as artes: nos pôr em maior contato com as nossas possibilidades.",
+   "autor": "Edward Albee",
+   "sobre": "Dez anos depois da morte do autor de 'Quem Tem Medo de Virgínia Woolf?', o dramaturgo explica para que serve o palco; a frase é resposta a Jeffrey Brown na entrevista ao PBS NewsHour exibida em 3 de junho de 2005, às vésperas do Tony de conjunto da obra, com transcrição publicada no site da emissora."
+  },
+  {
+   "tipo": "expediente"
+  },
+  {
+   "tipo": "contracapa"
+  }
+ ],
+ "historico": [
+  {
+   "quando": "2026-09-16T17:31:13.928414+00:00",
+   "quem": "Redação IA (Claude)",
+   "acao": "fechamento: revisor e checador aprovaram (11 de 11 itens de agenda confirmados na fonte, inclusive a sessão de segunda de O Tempo Dela na bilheteria da Funarj; página do Emmy e editorial ajustados ao que a matéria afirma; enredo de Lorca corrigido; elenco do Bibi Ferreira conferido); portão de design com laudo limpo de primeira (28 páginas, zero problemas)"
+  },
+  {
+   "quando": "2026-09-16T17:20:07.125767+00:00",
+   "quem": "Redação IA (Claude)",
+   "acao": "monta o rascunho da edição 9: capa com Feito Pipa (escolha brasileira para o Oscar 2027); 6 matérias da semana (10 a 16/09); agendas exclusivas de SP (5 itens) e Rio (6 itens) de 18 a 24/09 com sessões confirmadas na fonte; Entre mestres com Edward Albee (PBS NewsHour, 2005, fonte primária) e citação da semana de Gilvan Azevedo"
+  },
+  {
+   "quando": "2026-09-16T17:29:36.966696+00:00",
+   "quem": "Revisão e checagem (Claude)",
+   "acao": "revisa a edição 9: sem travessão/meia-risca; dias da semana conferidos (18/09 sexta a 24/09 quinta); capa, editorial e 6 páginas de matéria batidas com o corpo das matérias em import/novas (ajustes: Emmy passa a 'pode trocar de casa' e 'acordo ainda não foi fechado' no texto e no editorial; Lorca 'trabalhava numa peça sobre um jovem homossexual rejeitado'); citação de Gilvan Azevedo conferida ipsis litteris; frase de Albee conferida na transcrição da PBS NewsHour de 03/06/2005 (tradução fiel; 'Virgínia' acentuado no campo sobre). Checagem na fonte de 11/11 itens de agenda: Sesi-SP (Bibi Ferreira: elenco corrigido para Bárbara Sut no lugar de Kiara Sasso), Festival de Teatro de SP/BTG Pactual Hall e imprensa (Ficções: removidos horário de domingo e 'Sala Principal', não confirmados), Sympla (Nós, Ursos: removida duração, que diverge entre matéria e Sympla; 'depois dos 40' trocado por 'tarde'), valsanumero6.com.br e imprensa (Valsa nº 6 ok), CCBB SP (Confuzo ok), CCBB Rio (Reminiscência: abertura foi quinta 17, sexta é a última sessão; venda em bb.com.br/cultura), Ingresso.com (Mamma Mia: ressalva de elenco variável; Fim de Partida ok), Teatro dos 4/Eventim/imprensa (Mande Notícias ok), Funarj eleventickets via API (O Tempo Dela: sessão de segunda 21/09 20h confirmada, link trocado pelo oficial), Cidade das Artes e imprensa (Wicked ok). Feito Pipa (Academia Brasileira de Cinema, 16/09) e La bola negra (Calvo e Ambrossi, Espanha, 16/09) confirmados na imprensa."
+  }
+ ]
+}
