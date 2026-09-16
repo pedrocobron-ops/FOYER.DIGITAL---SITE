@@ -4873,8 +4873,10 @@ def producoes_body():
       display:grid; grid-template-columns:auto 1fr; gap:26px; align-items:start; }
     .pr-mani em{ font-style:normal; font-family:var(--mono); font-size:.58rem; letter-spacing:.28em; text-transform:uppercase;
       color:var(--ink-soft); writing-mode:vertical-rl; transform:rotate(180deg); border-left:3px solid var(--gold); padding-left:10px; }
-    .pr-mani div p{ font-family:var(--didone); font-weight:400; font-size:clamp(1.15rem,2vw,1.5rem); line-height:1.4; margin:0 0 14px; max-width:34em; }
-    .pr-mani div p:last-child{ margin-bottom:0; color:var(--wine); }
+    /* texto corrido na fonte de leitura: a display (didone) fica só nos títulos curtos,
+       em parágrafo ela cansa (observação do Pedro, 16/09/2026) */
+    .pr-mani div p{ font-family:var(--sans); font-weight:500; font-size:clamp(1.02rem,1.55vw,1.2rem); line-height:1.65; margin:0 0 14px; max-width:36em; color:var(--ink); }
+    .pr-mani div p:last-child{ margin-bottom:0; color:var(--wine); font-weight:700; }
     :root[data-theme="dark"] .pr-mani div p:last-child{ color:#E9CB85; }
     .pr-sec{ margin:0 0 58px; }
     .pr-sec > h2{ font-family:var(--black); font-weight:400; text-transform:uppercase; font-size:1.05rem; letter-spacing:.04em;
@@ -4946,7 +4948,7 @@ def producoes_body():
     .pr-pessoa .pr-cobre b{ color:var(--ink); }
     .pr-depos{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin-top:16px; }
     .pr-depo{ margin:0; border:var(--b); padding:20px; background:var(--paper); }
-    .pr-depo p{ font-family:var(--didone); font-size:1.15rem; line-height:1.4; margin:0 0 14px; }
+    .pr-depo p{ font-family:var(--sans); font-size:1rem; line-height:1.6; margin:0 0 14px; }
     .pr-depo footer{ font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); }
     .pr-depo footer b{ display:block; color:var(--ink); }
     .pr-faqs{ margin-top:12px; border-top:1px solid var(--line); }
