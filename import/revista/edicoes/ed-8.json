@@ -2,7 +2,7 @@
  "numero": 8,
  "titulo": "O que a noite escuta",
  "dataEdicao": "10 Set 2026",
- "status": "rascunho",
+ "status": "publicada",
  "capa": {
   "img": "assets/uploads/revista-ed-8-capa.jpg",
   "credito": "Foto:  NIL CANINÉ",
@@ -196,6 +196,11 @@
   }
  ],
  "historico": [
+  {
+   "quando": "2026-09-16T18:02:25.133Z",
+   "quem": "Pedro Amaral",
+   "acao": "publica a edição (15 páginas)"
+  },
   {
    "quando": "2026-09-09T17:22:41.473972+00:00",
    "quem": "Redação IA (Claude)",
