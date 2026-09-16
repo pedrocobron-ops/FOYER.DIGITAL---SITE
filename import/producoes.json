@@ -1,12 +1,13 @@
 {
- "_leiame": "Página Produções do FOYER (foyer.digital/producoes). Edite AQUI os textos, serviços, cases e depoimentos; o site remonta sozinho no próximo deploy. CASES: cada item tem titulo, ano, servicos (lista com os nomes dos serviços prestados), texto (2 ou 3 frases do que foi feito), resultado (1 frase com número, opcional), img (caminho em assets/uploads/), link (matéria ou site, opcional). DEPOIMENTOS: texto, quem, cargo, só com autorização de quem disse. Sem travessão nem meia-risca nos textos. As seções de cases e depoimentos só aparecem na página quando têm itens.",
+ "_leiame": "Página Produções do FOYER (foyer.digital/producoes). Edite AQUI os textos, serviços, passos, diferenciais, perguntas, cases e depoimentos; o site remonta sozinho no próximo deploy. Os NÚMEROS da faixa (matérias, programas, edições da revista, ano de fundação) o site calcula sozinho. CASES: cada item tem titulo, ano, servicos (lista com os nomes dos serviços prestados), texto (2 ou 3 frases do que foi feito), resultado (1 frase com número, opcional), img (caminho em assets/uploads/), link (matéria ou site, opcional). DEPOIMENTOS: texto, quem, cargo, só com autorização de quem disse. Sem travessão nem meia-risca nos textos. As seções de cases e depoimentos só aparecem quando têm itens.",
  "nome": "Produções do FOYER",
  "chamada": "Produção, assessoria de imprensa e redes sociais para espetáculos, feitas por quem vive o teatro por dentro e escreve sobre ele todos os dias.",
  "abertura": "O FOYER nasceu como redação de teatro. Cobrir estreias, entrevistar elencos e acompanhar temporadas de perto ensinou a casa o que faz uma peça chegar ao público: pauta certa, material bom na mão do jornalista, redes que conversam com quem compra ingresso e uma produção que deixa o artista livre para o palco. O estúdio do FOYER coloca essa experiência a serviço de espetáculos, companhias e produtores.",
  "servicos": [
   {
    "nome": "Produção de espetáculos",
-   "texto": "Planejamento e execução de temporadas, da pré-produção à última sessão: cronograma, equipe, teatros e fornecedores, com a rotina de bastidor organizada para o artista cuidar só do que acontece em cena.",
+   "para": "Para companhias, elencos e produtores que querem uma temporada organizada sem virar produtores de si mesmos.",
+   "texto": "Planejamento e execução da temporada, da pré-produção à última sessão: cronograma, equipe, teatros e fornecedores, com a rotina de bastidor organizada para o artista cuidar só do que acontece em cena.",
    "inclui": [
     "Pré-produção e cronograma",
     "Contato com teatros e pauta",
@@ -16,6 +17,7 @@
   },
   {
    "nome": "Assessoria de imprensa",
+   "para": "Para espetáculos que precisam existir na imprensa antes da estreia e continuar existindo durante a temporada.",
    "texto": "Release que jornalista lê, pauta certa para cada veículo, agenda de entrevistas e cobertura acompanhada de perto. Quem faz isso aqui está do outro lado do balcão todos os dias, recebendo e escolhendo pautas.",
    "inclui": [
     "Release e material de imprensa",
@@ -26,7 +28,8 @@
   },
   {
    "nome": "Redes sociais para espetáculos",
-   "texto": "Feed, stories e vídeos com a identidade da peça, calendário de conteúdo do anúncio da temporada ao encerramento, e legendas escritas por quem escreve sobre teatro.",
+   "para": "Para peças que querem um perfil vivo do anúncio da temporada até a última sessão, com a cara do espetáculo.",
+   "texto": "Feed, stories e vídeos com a identidade da peça, calendário de conteúdo do anúncio ao encerramento, e legendas escritas por quem escreve sobre teatro.",
    "inclui": [
     "Identidade visual das artes",
     "Calendário de conteúdo",
@@ -47,5 +50,70 @@
   "nomeWhats": "Pedro Amaral",
   "email": "programafoyer@gmail.com",
   "mensagem": "Olá, Pedro! Vi a página Produções do FOYER e quero conversar sobre um espetáculo."
- }
+ },
+ "hero": {
+  "kicker": "Estúdio FOYER",
+  "titulo": "Sua peça, do bastidor ao público",
+  "texto": "Produção, assessoria de imprensa e redes sociais para espetáculos, feitas por quem cobre teatro todos os dias e sabe o que faz uma temporada chegar a quem compra ingresso.",
+  "botao": "Falar com o Pedro no WhatsApp"
+ },
+ "fundacao": 2023,
+ "passos": [
+  {
+   "nome": "Conversa",
+   "texto": "Você conta do espetáculo, das datas e do que precisa. Ouvimos primeiro."
+  },
+  {
+   "nome": "Proposta",
+   "texto": "Escopo, calendário e valor por escrito, sob medida para o porte da temporada."
+  },
+  {
+   "nome": "Trabalho",
+   "texto": "Pré-estreia e temporada acompanhadas de perto, com você sabendo de cada passo."
+  },
+  {
+   "nome": "Relatório",
+   "texto": "O que saiu na imprensa, o que as redes renderam e o que aprendemos para a próxima."
+  }
+ ],
+ "diferenciais": [
+  {
+   "nome": "Jornalistas de teatro, não agência genérica",
+   "texto": "A equipe escreve sobre a cena todos os dias. Sabe o que é notícia, o que é release e como cada veículo gosta de receber pauta."
+  },
+  {
+   "nome": "Conhecemos o circuito por dentro",
+   "texto": "Teatros, críticos, assessorias e produtores de São Paulo e do Rio fazem parte da rotina da redação, não de uma lista comprada."
+  },
+  {
+   "nome": "Texto e imagem com padrão editorial",
+   "texto": "Release, legenda e arte saem com a mesma exigência de uma matéria: fato conferido, frase limpa, foto que conta a história."
+  },
+  {
+   "nome": "Do tamanho do seu espetáculo",
+   "texto": "Solo de sala pequena e musical de grande porte pedem coisas diferentes. A proposta é feita sob medida, sem pacote fechado."
+  }
+ ],
+ "faq": [
+  {
+   "p": "Com quanta antecedência devo procurar o estúdio?",
+   "r": "O ideal é de seis a oito semanas antes da estreia: é o tempo de preparar o material, oferecer as pautas e organizar a agenda de entrevistas. Temporada em andamento também tem o que fazer, só com outro plano."
+  },
+  {
+   "p": "Contratar o estúdio garante matéria no FOYER?",
+   "r": "Não. A redação do FOYER decide o que cobre pelos mesmos critérios editoriais de sempre, e o estúdio não escreve matéria sobre os próprios clientes. O que garantimos é o trabalho junto à imprensa como um todo."
+  },
+  {
+   "p": "Vocês atendem fora de São Paulo e do Rio?",
+   "r": "Assessoria de imprensa e redes sociais são feitas a distância, para qualquer cidade. Produção presencial depende do projeto: conte onde e quando, e a gente responde se dá."
+  },
+  {
+   "p": "Como funciona o orçamento?",
+   "r": "Cada proposta é feita sob medida, a partir do porte da temporada, do tempo de trabalho e dos serviços combinados. Não há tabela fixa nem pacote fechado."
+  },
+  {
+   "p": "O que preciso mandar para começar?",
+   "r": "Sinopse, ficha técnica, datas e teatro, fotos e o material que já existir. Se ainda não tiver tudo, a gente ajuda a montar."
+  }
+ ]
 }

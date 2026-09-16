@@ -4731,7 +4731,8 @@ page('principios.html', 'Princípios Editoriais — FOYER', 'Como o FOYER apura,
 # espetáculos). Fica FORA do menu principal de propósito: o leitor de notícia
 # não precisa dela; o Pedro manda o endereço para clientes. Só no rodapé e no
 # mapa do site. Sem publicidade da casa (cliente não vê anúncio de outra
-# peça). Tudo que aparece vem de import/producoes.json.
+# peça). Tudo que aparece vem de import/producoes.json; os números da faixa
+# de credenciais o site calcula sozinho (matérias, programas, revista).
 
 def producoes_body():
     try:
@@ -4739,16 +4740,40 @@ def producoes_body():
         _eqd = _json.load(open(os.path.join(ROOT, 'import/equipe.json')))
     except (OSError, ValueError):
         return None
+    try:
+        _ytd = _json.load(open(os.path.join(ROOT, 'import/youtube.json')))
+        n_prog = len([p for p in _ytd.get('programas', []) if p.get('videos')])
+    except (OSError, ValueError):
+        n_prog = 0
     eq = {u['id']: u for u in _eqd.get('usuarios', [])}
     ct = d.get('contato', {})
+    hero = d.get('hero', {})
     fone = ''.join(ch for ch in ct.get('whatsapp', '') if ch.isdigit())
     zap = 'https://wa.me/55' + fone + '?text=' + _uq.quote(ct.get('mensagem', '')) if fone else ''
+    n_mat = (len(MATERIAS) // 100) * 100
+    n_ed = len(ED_PUB)
+    fund = d.get('fundacao', 2023)
+    stats = ''.join(f'<div class="pr-stat"><b>{v}</b><span>{r}</span></div>' for v, r in [
+        (f'+{n_mat:,}'.replace(',', '.'), 'matérias sobre teatro e cultura no site'),
+        (f'{n_prog}', 'programas próprios no YouTube e no Spotify'),
+        (f'{n_ed}', 'edições da revista semanal, toda quinta'),
+        (f'{fund}', 'ano em que a casa nasceu, em São Paulo')] if v and v != '0')
     servicos = ''.join(
         f'<article class="pr-serv"><span class="pr-n">{i + 1:02d}</span><h3>{safe(sv["nome"])}</h3>'
-        f'<p>{safe(sv["texto"])}</p>'
-        + ('<ul>' + ''.join(f'<li>{safe(x)}</li>' for x in sv.get('inclui', [])) + '</ul>' if sv.get('inclui') else '')
+        + (f'<p class="pr-para">{safe(sv["para"])}</p>' if sv.get('para') else '')
+        + f'<p>{safe(sv["texto"])}</p>'
+        + ('<b class="pr-inc">O que entra</b><ul>' + ''.join(f'<li>{safe(x)}</li>' for x in sv.get('inclui', [])) + '</ul>' if sv.get('inclui') else '')
         + '</article>'
         for i, sv in enumerate(d.get('servicos', [])))
+    passos = ''.join(
+        f'<li class="pr-passo"><span class="pr-num">{i + 1}</span><div><h3>{safe(p["nome"])}</h3><p>{safe(p["texto"])}</p></div></li>'
+        for i, p in enumerate(d.get('passos', [])))
+    difs = ''.join(
+        f'<article class="pr-dif"><h3>{safe(x["nome"])}</h3><p>{safe(x["texto"])}</p></article>'
+        for x in d.get('diferenciais', []))
+    faq = ''.join(
+        f'<details class="pr-faq"><summary>{safe(x["p"])}</summary><p>{safe(x["r"])}</p></details>'
+        for x in d.get('faq', []))
     cases = ''
     if d.get('cases'):
         cards = ''
@@ -4761,7 +4786,7 @@ def producoes_body():
             res = f'<p class="pr-res">{safe(c["resultado"])}</p>' if c.get('resultado') else ''
             cards += (f'<article class="pr-case">{img}<div class="pr-case-txt"><div class="tags">{tags}{ano}</div>'
                       f'<h3>{safe(c.get("titulo", ""))}</h3><p>{safe(c.get("texto", ""))}</p>{res}{link}</div></article>')
-        cases = f'<section class="pr-sec"><h2>Trabalhos</h2><div class="pr-cases">{cards}</div></section>'
+        cases = f'<section class="pr-sec" id="trabalhos"><h2>Trabalhos</h2><div class="pr-cases">{cards}</div></section>'
     depo = ''
     if d.get('depoimentos'):
         depo = '<section class="pr-sec"><h2>Quem já trabalhou com a gente</h2><div class="pr-depos">' + ''.join(
@@ -4773,35 +4798,74 @@ def producoes_body():
         u = eq.get(uid)
         if not u:
             continue
-        bio = (u.get('bio') or '').split('\n')[0].strip()
+        paras = [x.strip() for x in (u.get('bio') or '').split('\n') if x.strip()][:2]
+        bio = ''.join(f'<p>{safe(x)}</p>' for x in paras)
+        cobre = f'<p class="pr-cobre"><b>Cobre no FOYER:</b> {safe(u["cobre"])}</p>' if u.get('cobre') else ''
         foto = (f'<span class="pr-foto"><img src="{u["foto"]}" alt="{safe(u["nome"])}"></span>'
                 if u.get('foto') and os.path.exists(os.path.join(ROOT, u['foto']))
                 else f'<span class="pr-foto"><i>{safe(u["nome"][:1])}</i></span>')
         quem += (f'<article class="pr-pessoa">{foto}<div><h3>{safe(u["nome"])}</h3>'
-                 f'<span class="pr-cargo">{safe(u.get("cargo", ""))}</span><p>{safe(bio)}</p></div></article>')
+                 f'<span class="pr-cargo">{safe(u.get("cargo", ""))}</span>{bio}{cobre}</div></article>')
     contato_btns = ''
     if zap:
         contato_btns += f'<a class="pr-bt" href="{zap}" target="_blank" rel="noopener">WhatsApp · {safe(ct.get("nomeWhats", ""))}</a>'
     if ct.get('email'):
         contato_btns += f'<a class="pr-bt alt" href="mailto:{ct["email"]}">{safe(ct["email"])}</a>'
+    hero_btn = (f'<a class="pr-bt" href="{zap}" target="_blank" rel="noopener">{safe(hero.get("botao", "Falar no WhatsApp"))}</a>' if zap else '') + \
+               '<a class="pr-bt alt" href="#servicos">Ver os serviços ↓</a>'
     estilo = """
   <style>
-    .pr{ max-width:1040px; padding-top:34px; }
-    .pr-abre{ font-family:var(--didone); font-weight:400; font-size:clamp(1.25rem,2.3vw,1.7rem); line-height:1.35;
-      max-width:32em; margin:0 0 42px; }
-    .pr-sec{ margin:0 0 54px; }
-    .pr-sec > h2{ font-family:var(--black); font-weight:400; text-transform:uppercase; font-size:1.05rem;
-      letter-spacing:.04em; margin:0 0 18px; padding-bottom:10px; border-bottom:var(--b); }
-    .pr-servs{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
-    .pr-serv{ border:var(--b); background:var(--paper); padding:22px 20px 20px; position:relative; }
+    .pr{ max-width:1040px; padding-top:26px; }
+    /* o palco: fundo vinho FIXO com cortina que abre (como no Anuncie); cores claras fixas por cima, o Blackout não muda este bloco */
+    .pr-palco{ position:relative; overflow:hidden; border:3px solid var(--ink); background:#380A06; color:#EFE9DB;
+      margin:0 0 0; min-height:380px; display:flex; align-items:center; justify-content:center; }
+    .pr-palco .luz{ position:absolute; left:50%; top:-60px; width:640px; height:560px; transform:translateX(-50%);
+      background:radial-gradient(ellipse at top, rgba(233,203,133,.34), transparent 62%); pointer-events:none; }
+    .pr-palco .dentro{ position:relative; text-align:center; padding:56px 28px 50px; z-index:2; max-width:760px; }
+    .pr-palco em{ display:block; font-style:normal; font-family:var(--mono); font-size:.62rem; letter-spacing:.32em; text-transform:uppercase; color:#E9CB85; }
+    .pr-palco h1{ font-family:var(--didone); font-weight:400; font-size:clamp(2.2rem,6vw,4rem); line-height:1.02; margin:14px 0 14px; color:#EFE9DB; text-wrap:balance; }
+    .pr-palco p{ margin:0 auto 26px; color:rgba(239,232,218,.86); font-size:clamp(.98rem,1.5vw,1.12rem); line-height:1.6; max-width:38em; }
+    .pr-palco .bts{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+    .pr-cort{ position:absolute; top:0; bottom:0; width:54%; z-index:4;
+      background:repeating-linear-gradient(90deg, #4E0F09 0 26px, #3d0c07 26px 52px); box-shadow:0 0 34px rgba(0,0,0,.5); }
+    .pr-cort.e{ left:0; transform-origin:left center; animation:prAbre 1.2s .3s cubic-bezier(.7,0,.3,1) forwards; }
+    .pr-cort.d{ right:0; transform-origin:right center; animation:prAbre 1.2s .3s cubic-bezier(.7,0,.3,1) forwards; }
+    @keyframes prAbre{ to{ transform:scaleX(.04); } }
+    @media (prefers-reduced-motion:reduce){ .pr-cort{ display:none; } }
+    /* credenciais da casa: quatro números reais, calculados na montagem */
+    .pr-stats{ display:grid; grid-template-columns:repeat(4,1fr); border:3px solid var(--ink); border-top:0; background:var(--paper); margin:0 0 46px; }
+    .pr-stat{ padding:20px 18px 18px; border-right:1px solid var(--line); }
+    .pr-stat:last-child{ border-right:0; }
+    .pr-stat b{ display:block; font-family:var(--black); font-weight:400; font-size:clamp(1.7rem,3.2vw,2.4rem); line-height:1; color:var(--wine); }
+    :root[data-theme="dark"] .pr-stat b{ color:#E9CB85; }
+    .pr-stat span{ display:block; font-family:var(--mono); font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin-top:8px; line-height:1.5; }
+    .pr-abre{ font-family:var(--didone); font-weight:400; font-size:clamp(1.25rem,2.3vw,1.7rem); line-height:1.35; max-width:32em; margin:0 0 46px; }
+    .pr-sec{ margin:0 0 56px; }
+    .pr-sec > h2{ font-family:var(--black); font-weight:400; text-transform:uppercase; font-size:1.05rem; letter-spacing:.04em;
+      margin:0 0 6px; padding-bottom:10px; border-bottom:var(--b); }
+    .pr-sec > .pr-sub{ margin:8px 0 20px; color:var(--ink-soft); font-size:.95rem; max-width:60ch; }
+    .pr-servs{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:16px; }
+    .pr-serv{ border:var(--b); background:var(--paper); padding:22px 20px 20px; display:flex; flex-direction:column; }
     .pr-serv .pr-n{ font-family:var(--mono); font-size:.62rem; letter-spacing:.2em; color:var(--gold); }
-    .pr-serv h3{ font-family:var(--didone); font-weight:400; font-size:1.55rem; line-height:1.1; margin:8px 0 12px; }
-    .pr-serv p{ margin:0 0 14px; line-height:1.65; color:var(--ink-soft); font-size:.95rem; }
-    .pr-serv ul{ margin:0; padding:12px 0 0; list-style:none; border-top:1px solid var(--line); }
-    .pr-serv li{ font-family:var(--mono); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase;
-      padding:5px 0 5px 16px; position:relative; }
+    .pr-serv h3{ font-family:var(--didone); font-weight:400; font-size:1.55rem; line-height:1.1; margin:8px 0 10px; }
+    .pr-serv .pr-para{ font-weight:700; color:var(--ink); font-size:.9rem; line-height:1.5; margin:0 0 10px; }
+    .pr-serv p{ margin:0 0 14px; line-height:1.65; color:var(--ink-soft); font-size:.93rem; }
+    .pr-serv .pr-inc{ display:block; font-family:var(--mono); font-size:.56rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); margin-top:auto; padding-top:12px; border-top:1px solid var(--line); }
+    .pr-serv ul{ margin:6px 0 0; padding:0; list-style:none; }
+    .pr-serv li{ font-family:var(--mono); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; padding:5px 0 5px 16px; position:relative; }
     .pr-serv li::before{ content:'✦'; position:absolute; left:0; color:var(--gold); }
-    .pr-cases{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+    .pr-passos{ list-style:none; margin:16px 0 0; padding:0; display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:var(--b); background:var(--paper); }
+    .pr-passo{ display:flex; gap:12px; padding:20px 18px; border-right:1px solid var(--line); }
+    .pr-passo:last-child{ border-right:0; }
+    .pr-num{ flex:0 0 38px; width:38px; height:38px; border:2px solid var(--ink); background:var(--gold); color:var(--wine);
+      font-family:var(--black); font-size:1.1rem; display:flex; align-items:center; justify-content:center; }
+    .pr-passo h3{ font-family:var(--didone); font-weight:400; font-size:1.25rem; margin:4px 0 6px; line-height:1.1; }
+    .pr-passo p{ margin:0; font-size:.88rem; line-height:1.55; color:var(--ink-soft); }
+    .pr-difs{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px; }
+    .pr-dif{ border-left:4px solid var(--gold); padding:4px 0 6px 16px; }
+    .pr-dif h3{ font-family:var(--didone); font-weight:400; font-size:1.3rem; margin:0 0 6px; line-height:1.15; }
+    .pr-dif p{ margin:0; font-size:.92rem; line-height:1.6; color:var(--ink-soft); }
+    .pr-cases{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:16px; }
     .pr-case{ border:var(--b); background:var(--paper); display:flex; flex-direction:column; }
     .pr-case .ph{ display:block; aspect-ratio:16/9; overflow:hidden; border-bottom:var(--b); }
     .pr-case .ph img{ width:100%; height:100%; object-fit:cover; display:block; }
@@ -4812,51 +4876,93 @@ def producoes_body():
     .pr-ano{ font-family:var(--mono); font-size:.58rem; letter-spacing:.12em; color:var(--ink-soft); margin-left:auto; align-self:center; }
     .pr-mais{ font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--wine); font-weight:700; text-decoration:none; }
     :root[data-theme="dark"] .pr-mais{ color:var(--gold); }
-    .pr-quem{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-    .pr-pessoa{ display:flex; gap:18px; align-items:flex-start; border:var(--b); background:var(--paper); padding:18px; }
-    .pr-foto{ flex:0 0 112px; width:112px; height:112px; border:3px solid var(--ink); overflow:hidden;
-      display:flex; align-items:center; justify-content:center; background:var(--wine); }
+    .pr-quem{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:16px; align-items:start; }
+    .pr-pessoa{ display:flex; gap:18px; align-items:flex-start; border:var(--b); background:var(--paper); padding:20px; }
+    .pr-foto{ flex:0 0 124px; width:124px; height:124px; border:3px solid var(--ink); overflow:hidden; display:flex; align-items:center; justify-content:center; background:var(--wine); }
     .pr-foto img{ width:100%; height:100%; object-fit:cover; object-position:center 25%; display:block; }
     .pr-foto i{ font-style:normal; font-family:var(--didone); font-size:2.4rem; color:var(--gold); }
-    .pr-pessoa h3{ font-family:var(--didone); font-weight:400; font-size:1.35rem; margin:0 0 2px; line-height:1.1; }
+    .pr-pessoa h3{ font-family:var(--didone); font-weight:400; font-size:1.45rem; margin:0 0 2px; line-height:1.1; }
     .pr-cargo{ display:block; font-family:var(--mono); font-size:.58rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:10px; }
-    .pr-pessoa p{ margin:0; font-size:.9rem; line-height:1.6; color:var(--ink-soft); }
-    .pr-depos{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; }
+    .pr-pessoa p{ margin:0 0 10px; font-size:.9rem; line-height:1.6; color:var(--ink-soft); }
+    .pr-pessoa .pr-cobre{ font-size:.82rem; margin:0; padding-top:8px; border-top:1px solid var(--line); }
+    .pr-pessoa .pr-cobre b{ color:var(--ink); }
+    .pr-depos{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin-top:16px; }
     .pr-depo{ margin:0; border:var(--b); padding:20px; background:var(--paper); }
     .pr-depo p{ font-family:var(--didone); font-size:1.15rem; line-height:1.4; margin:0 0 14px; }
     .pr-depo footer{ font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); }
     .pr-depo footer b{ display:block; color:var(--ink); }
+    .pr-faqs{ margin-top:12px; border-top:1px solid var(--line); }
+    .pr-faq{ border-bottom:1px solid var(--line); }
+    .pr-faq summary{ cursor:pointer; list-style:none; padding:16px 34px 16px 0; position:relative; font-weight:700; font-size:1rem; }
+    .pr-faq summary::-webkit-details-marker{ display:none; }
+    .pr-faq summary::after{ content:'+'; position:absolute; right:4px; top:12px; font-family:var(--didone); font-size:1.5rem; color:var(--gold); }
+    .pr-faq[open] summary::after{ content:'−'; }
+    .pr-faq p{ margin:0 0 18px; line-height:1.65; color:var(--ink-soft); max-width:70ch; }
     .pr-transp{ border-left:4px solid var(--gold); padding:4px 0 4px 18px; margin:0 0 54px; max-width:60ch; }
     .pr-transp b{ display:block; font-family:var(--mono); font-size:.58rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:6px; }
     .pr-transp p{ margin:0; line-height:1.65; color:var(--ink-soft); }
-    /* fundo vinho FIXO, como na caixa do Anuncie: cores claras fixas por cima (o Blackout não muda este bloco) */
-    .pr-cta{ border:3px solid var(--ink); background:#380A06; color:#EFE9DB; padding:38px 28px; text-align:center; margin:0 0 30px; }
+    .pr-cta{ border:3px solid var(--ink); background:#380A06; color:#EFE9DB; padding:42px 28px; text-align:center; margin:0 0 30px; position:relative; overflow:hidden; }
+    .pr-cta .luz{ position:absolute; left:50%; top:-80px; width:560px; height:420px; transform:translateX(-50%); background:radial-gradient(ellipse at top, rgba(233,203,133,.26), transparent 62%); pointer-events:none; }
+    .pr-cta > *{ position:relative; }
     .pr-cta em{ display:block; font-style:normal; font-family:var(--mono); font-size:.6rem; letter-spacing:.3em; text-transform:uppercase; color:#E9CB85; }
-    .pr-cta h2{ font-family:var(--didone); font-weight:400; font-size:clamp(1.7rem,4vw,2.5rem); line-height:1.05; margin:10px 0 8px; color:#EFE9DB; }
-    .pr-cta p{ margin:0 0 22px; color:rgba(239,232,218,.85); }
+    .pr-cta h2{ font-family:var(--didone); font-weight:400; font-size:clamp(1.8rem,4vw,2.6rem); line-height:1.05; margin:10px 0 8px; color:#EFE9DB; }
+    .pr-cta p{ margin:0 auto 24px; color:rgba(239,232,218,.85); max-width:40em; }
     .pr-cta .bts{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
     .pr-bt{ display:inline-block; border:2px solid #E9CB85; background:#E9CB85; color:#380A06; text-decoration:none;
-      font-family:var(--mono); font-weight:700; font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; padding:14px 22px; }
+      font-family:var(--mono); font-weight:700; font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; padding:14px 22px; transition:background .15s, color .15s; }
     .pr-bt.alt{ background:transparent; color:#E9CB85; text-transform:none; letter-spacing:.04em; }
     .pr-bt:hover{ background:#EFE9DB; border-color:#EFE9DB; color:#380A06; }
-    @media (max-width:820px){ .pr-servs, .pr-quem, .pr-cases{ grid-template-columns:1fr; } }
+    @media (max-width:820px){
+      .pr-servs, .pr-quem, .pr-cases, .pr-difs{ grid-template-columns:1fr; }
+      .pr-stats{ grid-template-columns:1fr 1fr; }
+      .pr-stat:nth-child(2){ border-right:0; } .pr-stat:nth-child(-n+2){ border-bottom:1px solid var(--line); }
+      .pr-passos{ grid-template-columns:1fr 1fr; }
+      .pr-passo:nth-child(2){ border-right:0; } .pr-passo:nth-child(-n+2){ border-bottom:1px solid var(--line); }
+    }
     @media (max-width:600px){
-      .pr{ padding-top:22px; }
-      .pr-abre{ margin-bottom:30px; }
-      .pr-sec{ margin-bottom:38px; }
-      .pr-pessoa{ gap:14px; padding:14px; }
-      .pr-foto{ flex-basis:88px; width:88px; height:88px; }
-      .pr-cta{ padding:28px 18px; }
+      .pr{ padding-top:16px; }
+      .pr-palco{ min-height:0; }
+      .pr-palco .dentro{ padding:40px 18px 34px; }
+      .pr-stats{ margin-bottom:32px; }
+      .pr-stat{ padding:14px 12px 12px; }
+      .pr-abre{ margin-bottom:32px; }
+      .pr-sec{ margin-bottom:40px; }
+      .pr-passos{ grid-template-columns:1fr; }
+      .pr-passo{ border-right:0; border-bottom:1px solid var(--line); }
+      .pr-passo:last-child{ border-bottom:0; }
+      .pr-pessoa{ gap:14px; padding:14px; flex-direction:column; }
+      .pr-foto{ flex-basis:96px; width:96px; height:96px; }
+      .pr-cta{ padding:30px 18px; }
       .pr-bt{ width:100%; text-align:center; box-sizing:border-box; }
     }
   </style>
 """
-    return band('Estúdio', safe(d.get('nome', 'Produções do FOYER')), safe(d.get('chamada', ''))) + f"""
+    return f"""
 <main id="conteudo" class="wrap pr">{estilo}
+  <section class="pr-palco" aria-label="Estúdio FOYER">
+    <div class="luz"></div>
+    <div class="pr-cort e"></div><div class="pr-cort d"></div>
+    <div class="dentro">
+      <em>{safe(hero.get('kicker', 'Estúdio FOYER'))}</em>
+      <h1>{safe(hero.get('titulo', d.get('nome', 'Produções do FOYER')))}</h1>
+      <p>{safe(hero.get('texto', d.get('chamada', '')))}</p>
+      <div class="bts">{hero_btn}</div>
+    </div>
+  </section>
+  <div class="pr-stats" aria-label="A casa em números">{stats}</div>
   <p class="pr-abre">{safe(d.get('abertura', ''))}</p>
-  <section class="pr-sec">
+  <section class="pr-sec" id="servicos">
     <h2>O que fazemos</h2>
+    <p class="pr-sub">Três serviços que podem ser contratados juntos ou separados, sempre sob medida para o porte da temporada.</p>
     <div class="pr-servs">{servicos}</div>
+  </section>
+  <section class="pr-sec">
+    <h2>Como funciona</h2>
+    <ol class="pr-passos">{passos}</ol>
+  </section>
+  <section class="pr-sec">
+    <h2>Por que o FOYER</h2>
+    <div class="pr-difs">{difs}</div>
   </section>
   {cases}
   <section class="pr-sec">
@@ -4864,8 +4970,13 @@ def producoes_body():
     <div class="pr-quem">{quem}</div>
   </section>
   {depo}
+  <section class="pr-sec">
+    <h2>Perguntas frequentes</h2>
+    <div class="pr-faqs">{faq}</div>
+  </section>
   <aside class="pr-transp"><b>Redação e estúdio</b><p>{safe(d.get('transparencia', ''))}</p></aside>
-  <section class="pr-cta">
+  <section class="pr-cta" id="contato">
+    <div class="luz"></div>
     <em>Vamos conversar</em>
     <h2>Conte da sua peça</h2>
     <p>Mande o projeto, a data de estreia e o que precisa. A resposta vem de quem vai trabalhar com você.</p>
