@@ -1,0 +1,51 @@
+{
+ "_leiame": "Página Produções do FOYER (foyer.digital/producoes). Edite AQUI os textos, serviços, cases e depoimentos; o site remonta sozinho no próximo deploy. CASES: cada item tem titulo, ano, servicos (lista com os nomes dos serviços prestados), texto (2 ou 3 frases do que foi feito), resultado (1 frase com número, opcional), img (caminho em assets/uploads/), link (matéria ou site, opcional). DEPOIMENTOS: texto, quem, cargo, só com autorização de quem disse. Sem travessão nem meia-risca nos textos. As seções de cases e depoimentos só aparecem na página quando têm itens.",
+ "nome": "Produções do FOYER",
+ "chamada": "Produção, assessoria de imprensa e redes sociais para espetáculos, feitas por quem vive o teatro por dentro e escreve sobre ele todos os dias.",
+ "abertura": "O FOYER nasceu como redação de teatro. Cobrir estreias, entrevistar elencos e acompanhar temporadas de perto ensinou a casa o que faz uma peça chegar ao público: pauta certa, material bom na mão do jornalista, redes que conversam com quem compra ingresso e uma produção que deixa o artista livre para o palco. O estúdio do FOYER coloca essa experiência a serviço de espetáculos, companhias e produtores.",
+ "servicos": [
+  {
+   "nome": "Produção de espetáculos",
+   "texto": "Planejamento e execução de temporadas, da pré-produção à última sessão: cronograma, equipe, teatros e fornecedores, com a rotina de bastidor organizada para o artista cuidar só do que acontece em cena.",
+   "inclui": [
+    "Pré-produção e cronograma",
+    "Contato com teatros e pauta",
+    "Equipe técnica e fornecedores",
+    "Acompanhamento da temporada"
+   ]
+  },
+  {
+   "nome": "Assessoria de imprensa",
+   "texto": "Release que jornalista lê, pauta certa para cada veículo, agenda de entrevistas e cobertura acompanhada de perto. Quem faz isso aqui está do outro lado do balcão todos os dias, recebendo e escolhendo pautas.",
+   "inclui": [
+    "Release e material de imprensa",
+    "Distribuição para veículos e críticos",
+    "Agenda de entrevistas",
+    "Relatório de cobertura"
+   ]
+  },
+  {
+   "nome": "Redes sociais para espetáculos",
+   "texto": "Feed, stories e vídeos com a identidade da peça, calendário de conteúdo do anúncio da temporada ao encerramento, e legendas escritas por quem escreve sobre teatro.",
+   "inclui": [
+    "Identidade visual das artes",
+    "Calendário de conteúdo",
+    "Vídeos curtos e bastidores",
+    "Relatório de resultados"
+   ]
+  }
+ ],
+ "cases": [],
+ "depoimentos": [],
+ "quem": [
+  "pedro",
+  "isabel-branquinha"
+ ],
+ "transparencia": "O FOYER separa redação e estúdio. Cobrir um espetáculo é decisão editorial, tomada pelos mesmos critérios de sempre; contratar o estúdio é uma relação comercial. Uma coisa não compra a outra.",
+ "contato": {
+  "whatsapp": "(13) 99137-6169",
+  "nomeWhats": "Pedro Amaral",
+  "email": "programafoyer@gmail.com",
+  "mensagem": "Olá, Pedro! Vi a página Produções do FOYER e quero conversar sobre um espetáculo."
+ }
+}

@@ -257,6 +257,7 @@ FOOTER = '''<footer>
         <a href="sobre.html">Quem somos</a>
         <a href="contato.html">Contato</a>
         <a href="anuncie.html">Anuncie no FOYER</a>
+        <a href="producoes.html">Produções do FOYER</a>
         <a href="https://www.youtube.com/@Foyer.digital" target="_blank" rel="noopener">YouTube ↗</a>
         <a href="https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm" target="_blank" rel="noopener">Spotify ↗</a>
         <a href="principios.html">Princípios Editoriais</a>
@@ -561,7 +562,8 @@ def page(fname, title, desc, current, body, quiet=False, og_img=None, og_type='w
     # a publicidade da casa entra em todo o site, MENOS na Coxia e dentro da
     # revista (a edição fechada não carrega anúncio de site)
     _pub = '' if (fname.startswith('coxia') or fname.startswith('revista-ed-')
-                  or fname.startswith('revista-prova-') or fname.startswith('anuncie')) else ADS_CASA
+                  or fname.startswith('revista-prova-') or fname.startswith('anuncie')
+                  or fname.startswith('producoes')) else ADS_CASA
     html = head(title, desc, og_img=og_img, og_type=og_type, og_url=fname, ld=ld) + '\n' + DEFS + '\n' + UTIL + '\n' + nav(current) + '\n' + body + '\n' + _pub + FOOTER + '</body>\n</html>\n'
     with open(os.path.join(ROOT, fname), 'w') as f:
         f.write(html)
@@ -4724,6 +4726,160 @@ principios_body = band('Institucional', 'Princípios Editoriais', 'Como o FOYER 
 </main>
 '''
 page('principios.html', 'Princípios Editoriais — FOYER', 'Como o FOYER apura, escreve, credita imagens e corrige: os princípios editoriais da casa.', 'principios.html', principios_body)
+# ---------------------------------------------------------------- PRODUÇÕES DO FOYER
+# A vitrine do estúdio (produção, assessoria de imprensa, redes sociais para
+# espetáculos). Fica FORA do menu principal de propósito: o leitor de notícia
+# não precisa dela; o Pedro manda o endereço para clientes. Só no rodapé e no
+# mapa do site. Sem publicidade da casa (cliente não vê anúncio de outra
+# peça). Tudo que aparece vem de import/producoes.json.
+
+def producoes_body():
+    try:
+        d = _json.load(open(os.path.join(ROOT, 'import/producoes.json')))
+        _eqd = _json.load(open(os.path.join(ROOT, 'import/equipe.json')))
+    except (OSError, ValueError):
+        return None
+    eq = {u['id']: u for u in _eqd.get('usuarios', [])}
+    ct = d.get('contato', {})
+    fone = ''.join(ch for ch in ct.get('whatsapp', '') if ch.isdigit())
+    zap = 'https://wa.me/55' + fone + '?text=' + _uq.quote(ct.get('mensagem', '')) if fone else ''
+    servicos = ''.join(
+        f'<article class="pr-serv"><span class="pr-n">{i + 1:02d}</span><h3>{safe(sv["nome"])}</h3>'
+        f'<p>{safe(sv["texto"])}</p>'
+        + ('<ul>' + ''.join(f'<li>{safe(x)}</li>' for x in sv.get('inclui', [])) + '</ul>' if sv.get('inclui') else '')
+        + '</article>'
+        for i, sv in enumerate(d.get('servicos', [])))
+    cases = ''
+    if d.get('cases'):
+        cards = ''
+        for c in d['cases']:
+            img = (f'<span class="ph"><img src="{c["img"]}" alt="{safe(c.get("titulo", ""))}" loading="lazy" '
+                   f'onerror="this.parentNode.style.display=\'none\'"></span>') if c.get('img') else ''
+            tags = ''.join(f'<span class="tag">{safe(t)}</span>' for t in c.get('servicos', []))
+            link = f'<a class="pr-mais" href="{c["link"]}" target="_blank" rel="noopener">Ver mais ↗</a>' if c.get('link') else ''
+            ano = f'<span class="pr-ano">{safe(str(c["ano"]))}</span>' if c.get('ano') else ''
+            res = f'<p class="pr-res">{safe(c["resultado"])}</p>' if c.get('resultado') else ''
+            cards += (f'<article class="pr-case">{img}<div class="pr-case-txt"><div class="tags">{tags}{ano}</div>'
+                      f'<h3>{safe(c.get("titulo", ""))}</h3><p>{safe(c.get("texto", ""))}</p>{res}{link}</div></article>')
+        cases = f'<section class="pr-sec"><h2>Trabalhos</h2><div class="pr-cases">{cards}</div></section>'
+    depo = ''
+    if d.get('depoimentos'):
+        depo = '<section class="pr-sec"><h2>Quem já trabalhou com a gente</h2><div class="pr-depos">' + ''.join(
+            f'<blockquote class="pr-depo"><p>“{safe(x["texto"])}”</p><footer><b>{safe(x.get("quem", ""))}</b>'
+            + (f'<span>{safe(x["cargo"])}</span>' if x.get('cargo') else '') + '</footer></blockquote>'
+            for x in d['depoimentos']) + '</div></section>'
+    quem = ''
+    for uid in d.get('quem', []):
+        u = eq.get(uid)
+        if not u:
+            continue
+        bio = (u.get('bio') or '').split('\n')[0].strip()
+        foto = (f'<span class="pr-foto"><img src="{u["foto"]}" alt="{safe(u["nome"])}"></span>'
+                if u.get('foto') and os.path.exists(os.path.join(ROOT, u['foto']))
+                else f'<span class="pr-foto"><i>{safe(u["nome"][:1])}</i></span>')
+        quem += (f'<article class="pr-pessoa">{foto}<div><h3>{safe(u["nome"])}</h3>'
+                 f'<span class="pr-cargo">{safe(u.get("cargo", ""))}</span><p>{safe(bio)}</p></div></article>')
+    contato_btns = ''
+    if zap:
+        contato_btns += f'<a class="pr-bt" href="{zap}" target="_blank" rel="noopener">WhatsApp · {safe(ct.get("nomeWhats", ""))}</a>'
+    if ct.get('email'):
+        contato_btns += f'<a class="pr-bt alt" href="mailto:{ct["email"]}">{safe(ct["email"])}</a>'
+    estilo = """
+  <style>
+    .pr{ max-width:1040px; padding-top:34px; }
+    .pr-abre{ font-family:var(--didone); font-weight:400; font-size:clamp(1.25rem,2.3vw,1.7rem); line-height:1.35;
+      max-width:32em; margin:0 0 42px; }
+    .pr-sec{ margin:0 0 54px; }
+    .pr-sec > h2{ font-family:var(--black); font-weight:400; text-transform:uppercase; font-size:1.05rem;
+      letter-spacing:.04em; margin:0 0 18px; padding-bottom:10px; border-bottom:var(--b); }
+    .pr-servs{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .pr-serv{ border:var(--b); background:var(--paper); padding:22px 20px 20px; position:relative; }
+    .pr-serv .pr-n{ font-family:var(--mono); font-size:.62rem; letter-spacing:.2em; color:var(--gold); }
+    .pr-serv h3{ font-family:var(--didone); font-weight:400; font-size:1.55rem; line-height:1.1; margin:8px 0 12px; }
+    .pr-serv p{ margin:0 0 14px; line-height:1.65; color:var(--ink-soft); font-size:.95rem; }
+    .pr-serv ul{ margin:0; padding:12px 0 0; list-style:none; border-top:1px solid var(--line); }
+    .pr-serv li{ font-family:var(--mono); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase;
+      padding:5px 0 5px 16px; position:relative; }
+    .pr-serv li::before{ content:'✦'; position:absolute; left:0; color:var(--gold); }
+    .pr-cases{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+    .pr-case{ border:var(--b); background:var(--paper); display:flex; flex-direction:column; }
+    .pr-case .ph{ display:block; aspect-ratio:16/9; overflow:hidden; border-bottom:var(--b); }
+    .pr-case .ph img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .pr-case-txt{ padding:16px 18px 18px; }
+    .pr-case h3{ font-family:var(--didone); font-weight:400; font-size:1.4rem; line-height:1.1; margin:10px 0 8px; }
+    .pr-case p{ margin:0 0 10px; line-height:1.6; color:var(--ink-soft); font-size:.92rem; }
+    .pr-res{ font-weight:700; color:var(--ink) !important; }
+    .pr-ano{ font-family:var(--mono); font-size:.58rem; letter-spacing:.12em; color:var(--ink-soft); margin-left:auto; align-self:center; }
+    .pr-mais{ font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--wine); font-weight:700; text-decoration:none; }
+    :root[data-theme="dark"] .pr-mais{ color:var(--gold); }
+    .pr-quem{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .pr-pessoa{ display:flex; gap:18px; align-items:flex-start; border:var(--b); background:var(--paper); padding:18px; }
+    .pr-foto{ flex:0 0 112px; width:112px; height:112px; border:3px solid var(--ink); overflow:hidden;
+      display:flex; align-items:center; justify-content:center; background:var(--wine); }
+    .pr-foto img{ width:100%; height:100%; object-fit:cover; object-position:center 25%; display:block; }
+    .pr-foto i{ font-style:normal; font-family:var(--didone); font-size:2.4rem; color:var(--gold); }
+    .pr-pessoa h3{ font-family:var(--didone); font-weight:400; font-size:1.35rem; margin:0 0 2px; line-height:1.1; }
+    .pr-cargo{ display:block; font-family:var(--mono); font-size:.58rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:10px; }
+    .pr-pessoa p{ margin:0; font-size:.9rem; line-height:1.6; color:var(--ink-soft); }
+    .pr-depos{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; }
+    .pr-depo{ margin:0; border:var(--b); padding:20px; background:var(--paper); }
+    .pr-depo p{ font-family:var(--didone); font-size:1.15rem; line-height:1.4; margin:0 0 14px; }
+    .pr-depo footer{ font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); }
+    .pr-depo footer b{ display:block; color:var(--ink); }
+    .pr-transp{ border-left:4px solid var(--gold); padding:4px 0 4px 18px; margin:0 0 54px; max-width:60ch; }
+    .pr-transp b{ display:block; font-family:var(--mono); font-size:.58rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:6px; }
+    .pr-transp p{ margin:0; line-height:1.65; color:var(--ink-soft); }
+    /* fundo vinho FIXO, como na caixa do Anuncie: cores claras fixas por cima (o Blackout não muda este bloco) */
+    .pr-cta{ border:3px solid var(--ink); background:#380A06; color:#EFE9DB; padding:38px 28px; text-align:center; margin:0 0 30px; }
+    .pr-cta em{ display:block; font-style:normal; font-family:var(--mono); font-size:.6rem; letter-spacing:.3em; text-transform:uppercase; color:#E9CB85; }
+    .pr-cta h2{ font-family:var(--didone); font-weight:400; font-size:clamp(1.7rem,4vw,2.5rem); line-height:1.05; margin:10px 0 8px; color:#EFE9DB; }
+    .pr-cta p{ margin:0 0 22px; color:rgba(239,232,218,.85); }
+    .pr-cta .bts{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+    .pr-bt{ display:inline-block; border:2px solid #E9CB85; background:#E9CB85; color:#380A06; text-decoration:none;
+      font-family:var(--mono); font-weight:700; font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; padding:14px 22px; }
+    .pr-bt.alt{ background:transparent; color:#E9CB85; text-transform:none; letter-spacing:.04em; }
+    .pr-bt:hover{ background:#EFE9DB; border-color:#EFE9DB; color:#380A06; }
+    @media (max-width:820px){ .pr-servs, .pr-quem, .pr-cases{ grid-template-columns:1fr; } }
+    @media (max-width:600px){
+      .pr{ padding-top:22px; }
+      .pr-abre{ margin-bottom:30px; }
+      .pr-sec{ margin-bottom:38px; }
+      .pr-pessoa{ gap:14px; padding:14px; }
+      .pr-foto{ flex-basis:88px; width:88px; height:88px; }
+      .pr-cta{ padding:28px 18px; }
+      .pr-bt{ width:100%; text-align:center; box-sizing:border-box; }
+    }
+  </style>
+"""
+    return band('Estúdio', safe(d.get('nome', 'Produções do FOYER')), safe(d.get('chamada', ''))) + f"""
+<main id="conteudo" class="wrap pr">{estilo}
+  <p class="pr-abre">{safe(d.get('abertura', ''))}</p>
+  <section class="pr-sec">
+    <h2>O que fazemos</h2>
+    <div class="pr-servs">{servicos}</div>
+  </section>
+  {cases}
+  <section class="pr-sec">
+    <h2>Quem faz</h2>
+    <div class="pr-quem">{quem}</div>
+  </section>
+  {depo}
+  <aside class="pr-transp"><b>Redação e estúdio</b><p>{safe(d.get('transparencia', ''))}</p></aside>
+  <section class="pr-cta">
+    <em>Vamos conversar</em>
+    <h2>Conte da sua peça</h2>
+    <p>Mande o projeto, a data de estreia e o que precisa. A resposta vem de quem vai trabalhar com você.</p>
+    <div class="bts">{contato_btns}</div>
+  </section>
+</main>
+"""
+
+_pr_body = producoes_body()
+if _pr_body:
+    page('producoes.html', 'Produções do FOYER: produção, assessoria de imprensa e redes sociais para espetáculos',
+         'O estúdio do FOYER faz produção, assessoria de imprensa e redes sociais para espetáculos, com a experiência de quem cobre teatro todos os dias.',
+         'producoes.html', _pr_body)
+
 page('privacidade.html', 'Política de Privacidade — FOYER', 'Política de privacidade e cookies do FOYER.', 'privacidade.html', privacidade_body)
 
 # ---------------------------------------------------------------- TERMOS DE USO
