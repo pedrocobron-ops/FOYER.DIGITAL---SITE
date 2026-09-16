@@ -4731,8 +4731,7 @@ page('principios.html', 'Princípios Editoriais — FOYER', 'Como o FOYER apura,
 # espetáculos). Fica FORA do menu principal de propósito: o leitor de notícia
 # não precisa dela; o Pedro manda o endereço para clientes. Só no rodapé e no
 # mapa do site. Sem publicidade da casa (cliente não vê anúncio de outra
-# peça). Tudo que aparece vem de import/producoes.json; os números da faixa
-# de credenciais o site calcula sozinho (matérias, programas, revista).
+# peça). Tudo que aparece vem de import/producoes.json.
 
 def producoes_body():
     try:
@@ -4740,24 +4739,11 @@ def producoes_body():
         _eqd = _json.load(open(os.path.join(ROOT, 'import/equipe.json')))
     except (OSError, ValueError):
         return None
-    try:
-        _ytd = _json.load(open(os.path.join(ROOT, 'import/youtube.json')))
-        n_prog = len([p for p in _ytd.get('programas', []) if p.get('videos')])
-    except (OSError, ValueError):
-        n_prog = 0
     eq = {u['id']: u for u in _eqd.get('usuarios', [])}
     ct = d.get('contato', {})
     hero = d.get('hero', {})
     fone = ''.join(ch for ch in ct.get('whatsapp', '') if ch.isdigit())
     zap = 'https://wa.me/55' + fone + '?text=' + _uq.quote(ct.get('mensagem', '')) if fone else ''
-    n_mat = (len(MATERIAS) // 100) * 100
-    n_ed = len(ED_PUB)
-    fund = d.get('fundacao', 2023)
-    stats = ''.join(f'<div class="pr-stat"><b>{v}</b><span>{r}</span></div>' for v, r in [
-        (f'+{n_mat:,}'.replace(',', '.'), 'matérias sobre teatro e cultura no site'),
-        (f'{n_prog}', 'programas próprios no YouTube e no Spotify'),
-        (f'{n_ed}', 'edições da revista semanal, toda quinta'),
-        (f'{fund}', 'ano em que a casa nasceu, em São Paulo')] if v and v != '0')
     servicos = ''.join(
         f'<article class="pr-serv"><span class="pr-n">{i + 1:02d}</span><h3>{safe(sv["nome"])}</h3>'
         + (f'<p class="pr-para">{safe(sv["para"])}</p>' if sv.get('para') else '')
@@ -4818,7 +4804,7 @@ def producoes_body():
     .pr{ max-width:1040px; padding-top:26px; }
     /* o palco: fundo vinho FIXO com cortina que abre (como no Anuncie); cores claras fixas por cima, o Blackout não muda este bloco */
     .pr-palco{ position:relative; overflow:hidden; border:3px solid var(--ink); background:#380A06; color:#EFE9DB;
-      margin:0 0 0; min-height:380px; display:flex; align-items:center; justify-content:center; }
+      margin:0 0 46px; min-height:380px; display:flex; align-items:center; justify-content:center; }
     .pr-palco .luz{ position:absolute; left:50%; top:-60px; width:640px; height:560px; transform:translateX(-50%);
       background:radial-gradient(ellipse at top, rgba(233,203,133,.34), transparent 62%); pointer-events:none; }
     .pr-palco .dentro{ position:relative; text-align:center; padding:56px 28px 50px; z-index:2; max-width:760px; }
@@ -4832,13 +4818,6 @@ def producoes_body():
     .pr-cort.d{ right:0; transform-origin:right center; animation:prAbre 1.2s .3s cubic-bezier(.7,0,.3,1) forwards; }
     @keyframes prAbre{ to{ transform:scaleX(.04); } }
     @media (prefers-reduced-motion:reduce){ .pr-cort{ display:none; } }
-    /* credenciais da casa: quatro números reais, calculados na montagem */
-    .pr-stats{ display:grid; grid-template-columns:repeat(4,1fr); border:3px solid var(--ink); border-top:0; background:var(--paper); margin:0 0 46px; }
-    .pr-stat{ padding:20px 18px 18px; border-right:1px solid var(--line); }
-    .pr-stat:last-child{ border-right:0; }
-    .pr-stat b{ display:block; font-family:var(--black); font-weight:400; font-size:clamp(1.7rem,3.2vw,2.4rem); line-height:1; color:var(--wine); }
-    :root[data-theme="dark"] .pr-stat b{ color:#E9CB85; }
-    .pr-stat span{ display:block; font-family:var(--mono); font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin-top:8px; line-height:1.5; }
     .pr-abre{ font-family:var(--didone); font-weight:400; font-size:clamp(1.25rem,2.3vw,1.7rem); line-height:1.35; max-width:32em; margin:0 0 46px; }
     .pr-sec{ margin:0 0 56px; }
     .pr-sec > h2{ font-family:var(--black); font-weight:400; text-transform:uppercase; font-size:1.05rem; letter-spacing:.04em;
@@ -4914,8 +4893,6 @@ def producoes_body():
     .pr-bt:hover{ background:#EFE9DB; border-color:#EFE9DB; color:#380A06; }
     @media (max-width:820px){
       .pr-servs, .pr-quem, .pr-cases, .pr-difs{ grid-template-columns:1fr; }
-      .pr-stats{ grid-template-columns:1fr 1fr; }
-      .pr-stat:nth-child(2){ border-right:0; } .pr-stat:nth-child(-n+2){ border-bottom:1px solid var(--line); }
       .pr-passos{ grid-template-columns:1fr 1fr; }
       .pr-passo:nth-child(2){ border-right:0; } .pr-passo:nth-child(-n+2){ border-bottom:1px solid var(--line); }
     }
@@ -4923,8 +4900,7 @@ def producoes_body():
       .pr{ padding-top:16px; }
       .pr-palco{ min-height:0; }
       .pr-palco .dentro{ padding:40px 18px 34px; }
-      .pr-stats{ margin-bottom:32px; }
-      .pr-stat{ padding:14px 12px 12px; }
+      .pr-palco{ margin-bottom:30px; }
       .pr-abre{ margin-bottom:32px; }
       .pr-sec{ margin-bottom:40px; }
       .pr-passos{ grid-template-columns:1fr; }
@@ -4949,7 +4925,6 @@ def producoes_body():
       <div class="bts">{hero_btn}</div>
     </div>
   </section>
-  <div class="pr-stats" aria-label="A casa em números">{stats}</div>
   <p class="pr-abre">{safe(d.get('abertura', ''))}</p>
   <section class="pr-sec" id="servicos">
     <h2>O que fazemos</h2>
