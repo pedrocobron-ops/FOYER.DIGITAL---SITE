@@ -145,6 +145,40 @@
       if(navigator.share){ navigator.share({ title:title, url:url }).catch(function(){}); return; }
       kind = 'whats';
     }
+    // o botão único da matéria: folha do sistema quando existe (celular);
+    // senão, um menuzinho com as quatro opções, que reaproveita este mesmo
+    // tratador (os itens carregam data-share="whats", "x", "face", "copy")
+    if(kind === 'menu'){
+      if(navigator.share){ navigator.share({ title:title, url:url }).catch(function(){}); return; }
+      var aberto = b.parentNode.querySelector('.share-pop');
+      if(aberto){ aberto.remove(); b.setAttribute('aria-expanded', 'false'); return; }
+      var pop = document.createElement('div');
+      pop.className = 'share-pop'; pop.setAttribute('role', 'menu');
+      var t = title.replace(/"/g, '&quot;'), u = url.replace(/"/g, '&quot;');
+      pop.innerHTML =
+        '<button class="sbtn" role="menuitem" data-share="whats" data-title="' + t + '" data-url="' + u + '">WhatsApp</button>' +
+        '<button class="sbtn" role="menuitem" data-share="x" data-title="' + t + '" data-url="' + u + '">X / Twitter</button>' +
+        '<button class="sbtn" role="menuitem" data-share="face" data-title="' + t + '" data-url="' + u + '">Facebook</button>' +
+        '<button class="sbtn" role="menuitem" data-share="copy" data-title="' + t + '" data-url="' + u + '">Copiar link</button>';
+      b.parentNode.appendChild(pop);
+      b.setAttribute('aria-expanded', 'true');
+      var fecha = function(ev){
+        if(ev && ev.type === 'keydown' && ev.key !== 'Escape') return;
+        if(ev && ev.type === 'click' && ev.target === b) return;
+        if(ev && ev.type === 'click' && pop.contains(ev.target)){
+          // escolheu uma rede: o menu fecha depois da ação; "Copiar link" fica
+          // aberto para mostrar o "Copiado ✓"
+          var it = ev.target.closest('[data-share]');
+          if(!it || it.getAttribute('data-share') === 'copy') return;
+          setTimeout(function(){ fecha(); }, 200);
+          return;
+        }
+        pop.remove(); b.setAttribute('aria-expanded', 'false');
+        document.removeEventListener('click', fecha, true); document.removeEventListener('keydown', fecha);
+      };
+      setTimeout(function(){ document.addEventListener('click', fecha, true); document.addEventListener('keydown', fecha); }, 0);
+      return;
+    }
     var links = {
       whats:'https://wa.me/?text=' + encodeURIComponent(title + ' — ' + url),
       x:'https://twitter.com/intent/tweet?text=' + encodeURIComponent(title) + '&url=' + encodeURIComponent(url),
@@ -252,7 +286,8 @@
     if(document.visibilityState === 'hidden') fechar();
   });
   document.addEventListener('click', function(e){
-    if(e.target.closest('[data-share]')) enviar({ tipo: 'share' });
+    var _sh = e.target.closest('[data-share]');
+    if(_sh && (_sh.getAttribute('data-share') !== 'menu' || navigator.share)) enviar({ tipo: 'share' });
   });
 
   /* ---------- publicidade: a conta que o anunciante recebe ----------

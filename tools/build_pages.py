@@ -2027,15 +2027,10 @@ def post_page(i, p):
     </div>
     <h1>{p['title']}</h1>
     <div class="art-byline">
-      <span>Por {_byline_link(p['author'])}</span>
-      <span>{p['date']}{(', às ' + p['hora']) if p.get('hora') else ''} · {_tempo_de_leitura(p)}</span>
+      <span class="bl-por">Por {_byline_link(p['author'])}</span>
+      <span class="bl-quando">{p['date']}{(', às ' + p['hora']) if p.get('hora') else ''} · {_tempo_de_leitura(p)}</span>
+      <button class="share-one" type="button" data-share="menu" data-title="{safe(p['title'])}" aria-haspopup="menu" aria-expanded="false">↗ Compartilhar</button>
     </div>{selo_atualizada(p)}
-    <div class="share-row" aria-label="Compartilhar esta matéria">
-      <button class="sbtn" data-share="whats" data-title="{safe(p['title'])}">WhatsApp</button>
-      <button class="sbtn" data-share="x" data-title="{safe(p['title'])}">X / Twitter</button>
-      <button class="sbtn" data-share="face" data-title="{safe(p['title'])}">Facebook</button>
-      <button class="sbtn" data-share="copy" data-title="{safe(p['title'])}">Copiar link</button>
-    </div>
   </div>
 
   <figure class="art-cover">

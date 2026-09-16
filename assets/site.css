@@ -992,7 +992,36 @@ body.ads-on.ads-demo .ad-slot::after{
   padding:12px 0;
 }
 .art-byline b{ color:var(--ink); }
-.art-cover{ margin:26px 0 0; }
+/* Compartilhar em UM botão, na linha da assinatura (pedido do Pedro,
+   16/09/2026): a fileira de quatro caixas empurrava a foto para longe do
+   título, e no celular virava um buraco. No aparelho com folha de
+   compartilhar (celular), o botão abre a folha do sistema; no computador
+   sem esse recurso, abre o menuzinho .share-pop com as quatro opções. */
+.art-byline{ position:relative; align-items:center; }
+.art-byline .bl-quando{ margin-left:auto; }
+.share-one{
+  font-family:var(--mono); font-weight:600; font-size:.58rem; letter-spacing:.12em;
+  text-transform:uppercase; border:1px solid var(--ink); background:none; color:var(--ink);
+  padding:6px 10px; cursor:pointer; white-space:nowrap; line-height:1.2;
+}
+.share-one:hover, .share-one[aria-expanded="true"]{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
+.share-pop{
+  position:absolute; right:0; top:calc(100% + 6px); z-index:30; min-width:180px;
+  background:var(--paper); border:var(--b); box-shadow:0 10px 28px rgba(0,0,0,.18);
+  display:flex; flex-direction:column; text-transform:none; letter-spacing:0;
+}
+.share-pop .sbtn{ border:0; border-bottom:1px solid var(--line); text-align:left; padding:11px 14px; }
+.share-pop .sbtn:last-child{ border-bottom:0; }
+.share-pop .sbtn:hover{ transform:none; }
+.art-cover{ margin:18px 0 0; }
+@media (max-width:600px){
+  /* assinatura em duas linhas: "Por X" com o botão à direita, a data embaixo */
+  .art-byline{ padding:10px 0; }
+  .art-byline .bl-por{ order:1; }
+  .art-byline .share-one{ order:2; margin-left:auto; }
+  .art-byline .bl-quando{ order:3; flex:1 0 100%; margin-left:0; }
+  .art-cover{ margin-top:14px; }
+}
 .art-cover .ph{ display:block; aspect-ratio:16/8; border:var(--b); }
 .art-cover figcaption{
   font-family:var(--mono); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase;
