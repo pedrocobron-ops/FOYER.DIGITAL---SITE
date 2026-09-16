@@ -2,7 +2,7 @@
  "numero": 7,
  "titulo": "Ninguém se despede",
  "dataEdicao": "3 Set 2026",
- "status": "rascunho",
+ "status": "publicada",
  "capa": {
   "img": "assets/uploads/revista-ed-7-capa.jpg",
   "credito": "Foto: Fernando Young",
@@ -196,6 +196,11 @@
   }
  ],
  "historico": [
+  {
+   "quando": "2026-09-16T18:02:14.231Z",
+   "quem": "Pedro Amaral",
+   "acao": "publica a edição (15 páginas)"
+  },
   {
    "quando": "2026-09-02T17:26:04.976869+00:00",
    "quem": "Redação IA (Claude)",
