@@ -4731,7 +4731,15 @@ page('principios.html', 'Princípios Editoriais — FOYER', 'Como o FOYER apura,
 # espetáculos). Fica FORA do menu principal de propósito: o leitor de notícia
 # não precisa dela; o Pedro manda o endereço para clientes. Só no rodapé e no
 # mapa do site. Sem publicidade da casa (cliente não vê anúncio de outra
-# peça). Tudo que aparece vem de import/producoes.json.
+# peça). Tudo que aparece vem de import/producoes.json. Os trabalhos com
+# "exemplo": true são mockups ilustrativos, carimbados como tal na página
+# (nunca um cliente inventado passando por real); o chefe troca pela Coxia.
+
+_PR_ICONES = {
+    0: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18h36v22a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z"/><path d="M6 18l4-9h32l-4 9"/><path d="M14 9l4 9M22 9l4 9M30 9l4 9"/><path d="M18 30h12"/></svg>',
+    1: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20v8a3 3 0 0 0 3 3h5l16 8V9L14 17H9a3 3 0 0 0-3 3z"/><path d="M36 18a8 8 0 0 1 0 12"/><path d="M40 13a14 14 0 0 1 0 22"/><path d="M14 31l2 9h5l-2-9"/></svg>',
+    2: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="4" width="20" height="40" rx="4"/><path d="M21 8h6"/><path d="M24 36h.01"/><path d="M24 28s-6-4-6-8a3.5 3.5 0 0 1 6-2.5A3.5 3.5 0 0 1 30 20c0 4-6 8-6 8z"/></svg>',
+}
 
 def producoes_body():
     try:
@@ -4744,39 +4752,64 @@ def producoes_body():
     hero = d.get('hero', {})
     fone = ''.join(ch for ch in ct.get('whatsapp', '') if ch.isdigit())
     zap = 'https://wa.me/55' + fone + '?text=' + _uq.quote(ct.get('mensagem', '')) if fone else ''
+    # letreiro: a fita repete duas vezes para a rolagem ser contínua
+    _let = ''.join(f'<span>{safe(x)}</span><i>✦</i>' for x in d.get('letreiro', []))
+    letreiro = f'<div class="pr-let" aria-hidden="true"><div class="pr-let-fita">{_let}{_let}{_let}</div></div>' if _let else ''
+    manifesto = ''.join(f'<p>{safe(x)}</p>' for x in d.get('manifesto', []))
     servicos = ''.join(
-        f'<article class="pr-serv"><span class="pr-n">{i + 1:02d}</span><h3>{safe(sv["nome"])}</h3>'
+        f'<article class="pr-serv pr-rv"><span class="pr-ico">{_PR_ICONES.get(i, "")}</span><span class="pr-n">{i + 1:02d}</span><h3>{safe(sv["nome"])}</h3>'
         + (f'<p class="pr-para">{safe(sv["para"])}</p>' if sv.get('para') else '')
         + f'<p>{safe(sv["texto"])}</p>'
         + ('<b class="pr-inc">O que entra</b><ul>' + ''.join(f'<li>{safe(x)}</li>' for x in sv.get('inclui', [])) + '</ul>' if sv.get('inclui') else '')
         + '</article>'
         for i, sv in enumerate(d.get('servicos', [])))
+    linha = ''.join(
+        f'<li class="pr-etapa pr-rv"><b>{safe(x["quando"])}</b><p>{safe(x["o_que"])}</p></li>'
+        for x in d.get('linha', []))
     passos = ''.join(
-        f'<li class="pr-passo"><span class="pr-num">{i + 1}</span><div><h3>{safe(p["nome"])}</h3><p>{safe(p["texto"])}</p></div></li>'
+        f'<li class="pr-passo pr-rv"><span class="pr-num">{i + 1}</span><div><h3>{safe(p["nome"])}</h3><p>{safe(p["texto"])}</p></div></li>'
         for i, p in enumerate(d.get('passos', [])))
     difs = ''.join(
-        f'<article class="pr-dif"><h3>{safe(x["nome"])}</h3><p>{safe(x["texto"])}</p></article>'
+        f'<article class="pr-dif pr-rv"><h3>{safe(x["nome"])}</h3><p>{safe(x["texto"])}</p></article>'
         for x in d.get('diferenciais', []))
     faq = ''.join(
         f'<details class="pr-faq"><summary>{safe(x["p"])}</summary><p>{safe(x["r"])}</p></details>'
         for x in d.get('faq', []))
     cases = ''
-    if d.get('cases'):
+    _cases = d.get('cases') or []
+    if _cases:
+        tem_ex = any(c.get('exemplo') for c in _cases)
         cards = ''
-        for c in d['cases']:
-            img = (f'<span class="ph"><img src="{c["img"]}" alt="{safe(c.get("titulo", ""))}" loading="lazy" '
-                   f'onerror="this.parentNode.style.display=\'none\'"></span>') if c.get('img') else ''
-            tags = ''.join(f'<span class="tag">{safe(t)}</span>' for t in c.get('servicos', []))
-            link = f'<a class="pr-mais" href="{c["link"]}" target="_blank" rel="noopener">Ver mais ↗</a>' if c.get('link') else ''
+        for k, c in enumerate(_cases):
+            if c.get('exemplo'):
+                n_arte = int(c.get('arte') or (k % 6) + 1)
+                img = (f'<span class="ph"><svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#ph-{n_arte}"/></svg>'
+                       f'<i class="pr-ex">Exemplo ilustrativo</i></span>')
+            elif c.get('img'):
+                img = (f'<span class="ph"><img src="{c["img"]}" alt="{safe(c.get("titulo", ""))}" loading="lazy" '
+                       f'onerror="this.parentNode.style.display=\'none\'"></span>')
+            else:
+                img = ''
+            tags = ''.join(f'<span class="tag wine">{safe(t)}</span>' for t in c.get('servicos', []))
             ano = f'<span class="pr-ano">{safe(str(c["ano"]))}</span>' if c.get('ano') else ''
-            res = f'<p class="pr-res">{safe(c["resultado"])}</p>' if c.get('resultado') else ''
-            cards += (f'<article class="pr-case">{img}<div class="pr-case-txt"><div class="tags">{tags}{ano}</div>'
-                      f'<h3>{safe(c.get("titulo", ""))}</h3><p>{safe(c.get("texto", ""))}</p>{res}{link}</div></article>')
-        cases = f'<section class="pr-sec" id="trabalhos"><h2>Trabalhos</h2><div class="pr-cases">{cards}</div></section>'
+            blocos = ''
+            if c.get('desafio'):
+                blocos += f'<div class="pr-bl"><b>O desafio</b><p>{safe(c["desafio"])}</p></div>'
+            if c.get('texto'):
+                blocos += f'<div class="pr-bl"><b>O que fizemos</b><p>{safe(c["texto"])}</p></div>'
+            if c.get('resultado'):
+                blocos += f'<div class="pr-bl res"><b>O resultado</b><p>{safe(c["resultado"])}</p></div>'
+            link = f'<a class="pr-mais" href="{c["link"]}" target="_blank" rel="noopener">Ver o espetáculo ↗</a>' if c.get('link') else ''
+            cards += (f'<article class="pr-case pr-rv">{img}<div class="pr-case-txt"><div class="tags">{tags}{ano}</div>'
+                      f'<h3>{safe(c.get("titulo", ""))}</h3>{blocos}{link}</div></article>')
+        nota = ('<p class="pr-sub">Enquanto os trabalhos do estúdio entram nesta página, os cartões abaixo são exemplos ilustrativos '
+                'de como cada caso é contado: o desafio, o que foi feito e o resultado.</p>') if tem_ex else \
+               '<p class="pr-sub">Cada trabalho contado do mesmo jeito: o desafio, o que foi feito e o resultado.</p>'
+        cases = f'<section class="pr-sec" id="trabalhos"><h2>Trabalhos</h2>{nota}<div class="pr-cases">{cards}</div></section>'
     depo = ''
     if d.get('depoimentos'):
         depo = '<section class="pr-sec"><h2>Quem já trabalhou com a gente</h2><div class="pr-depos">' + ''.join(
-            f'<blockquote class="pr-depo"><p>“{safe(x["texto"])}”</p><footer><b>{safe(x.get("quem", ""))}</b>'
+            f'<blockquote class="pr-depo pr-rv"><p>“{safe(x["texto"])}”</p><footer><b>{safe(x.get("quem", ""))}</b>'
             + (f'<span>{safe(x["cargo"])}</span>' if x.get('cargo') else '') + '</footer></blockquote>'
             for x in d['depoimentos']) + '</div></section>'
     quem = ''
@@ -4790,7 +4823,7 @@ def producoes_body():
         foto = (f'<span class="pr-foto"><img src="{u["foto"]}" alt="{safe(u["nome"])}"></span>'
                 if u.get('foto') and os.path.exists(os.path.join(ROOT, u['foto']))
                 else f'<span class="pr-foto"><i>{safe(u["nome"][:1])}</i></span>')
-        quem += (f'<article class="pr-pessoa">{foto}<div><h3>{safe(u["nome"])}</h3>'
+        quem += (f'<article class="pr-pessoa pr-rv">{foto}<div><h3>{safe(u["nome"])}</h3>'
                  f'<span class="pr-cargo">{safe(u.get("cargo", ""))}</span>{bio}{cobre}</div></article>')
     contato_btns = ''
     if zap:
@@ -4798,63 +4831,109 @@ def producoes_body():
     if ct.get('email'):
         contato_btns += f'<a class="pr-bt alt" href="mailto:{ct["email"]}">{safe(ct["email"])}</a>'
     hero_btn = (f'<a class="pr-bt" href="{zap}" target="_blank" rel="noopener">{safe(hero.get("botao", "Falar no WhatsApp"))}</a>' if zap else '') + \
-               '<a class="pr-bt alt" href="#servicos">Ver os serviços ↓</a>'
+               '<a class="pr-bt alt" href="#trabalhos">Ver trabalhos ↓</a>'
+    atende = f'<p class="pr-atende"><b>Atendemos</b> {safe(hero["atende"])}</p>' if hero.get('atende') else ''
+    flutua = (f'<a class="pr-zap" href="{zap}" target="_blank" rel="noopener" aria-label="Falar no WhatsApp" title="Falar no WhatsApp">'
+              '<svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C9 3 3.3 8.6 3.3 15.5c0 2.4.7 4.7 1.9 6.7L3 29l7-1.8c1.9 1 4 1.6 6.1 1.6 7 0 12.7-5.6 12.7-12.5S23 3 16 3zm0 22.9c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.1 1.1-4-.3-.4a10.2 10.2 0 0 1-1.6-5.4C5.3 9.8 10.1 5.1 16 5.1s10.7 4.7 10.7 10.4S21.9 25.9 16 25.9zm5.9-7.8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6.3-.5c.1-.2.1-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.2 3.1 1.3 3.3c.2.2 2.3 3.5 5.6 4.9 2.6 1 3.1.8 3.7.8.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.5-.5z"/></svg></a>') if zap else ''
     estilo = """
   <style>
-    .pr{ max-width:1040px; padding-top:26px; }
-    /* o palco: fundo vinho FIXO com cortina que abre (como no Anuncie); cores claras fixas por cima, o Blackout não muda este bloco */
+    .pr{ max-width:1080px; padding-top:22px; }
+    .pr-rv{ opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease; }
+    .pr-rv.in{ opacity:1; transform:none; }
+    @media (prefers-reduced-motion:reduce){ .pr-rv{ opacity:1; transform:none; transition:none; } }
+    /* o letreiro: fita que rola como marquise de teatro */
+    .pr-let{ overflow:hidden; border:3px solid var(--ink); border-bottom:0; background:var(--ink); color:var(--gold-hi, var(--gold)); }
+    .pr-let-fita{ display:flex; gap:22px; white-space:nowrap; padding:10px 0; width:max-content; animation:prFita 38s linear infinite;
+      font-family:var(--mono); font-size:.62rem; letter-spacing:.32em; text-transform:uppercase; }
+    .pr-let-fita i{ font-style:normal; color:var(--gold); }
+    @keyframes prFita{ to{ transform:translateX(-33.333%); } }
+    @media (prefers-reduced-motion:reduce){ .pr-let-fita{ animation:none; } }
+    /* o palco: fundo vinho FIXO com cortina que abre; cores claras fixas por cima, o Blackout não muda este bloco */
     .pr-palco{ position:relative; overflow:hidden; border:3px solid var(--ink); background:#380A06; color:#EFE9DB;
-      margin:0 0 46px; min-height:380px; display:flex; align-items:center; justify-content:center; }
-    .pr-palco .luz{ position:absolute; left:50%; top:-60px; width:640px; height:560px; transform:translateX(-50%);
-      background:radial-gradient(ellipse at top, rgba(233,203,133,.34), transparent 62%); pointer-events:none; }
-    .pr-palco .dentro{ position:relative; text-align:center; padding:56px 28px 50px; z-index:2; max-width:760px; }
+      margin:0 0 0; min-height:440px; display:flex; align-items:center; justify-content:center; }
+    .pr-palco .luz{ position:absolute; left:50%; top:-60px; width:720px; height:620px; transform:translateX(-50%);
+      background:radial-gradient(ellipse at top, rgba(233,203,133,.36), transparent 62%); pointer-events:none; }
+    .pr-palco .chao{ position:absolute; left:0; right:0; bottom:0; height:64px;
+      background:linear-gradient(180deg, transparent, rgba(0,0,0,.45)); pointer-events:none; }
+    .pr-palco .dentro{ position:relative; text-align:center; padding:62px 28px 54px; z-index:2; max-width:780px; }
     .pr-palco em{ display:block; font-style:normal; font-family:var(--mono); font-size:.62rem; letter-spacing:.32em; text-transform:uppercase; color:#E9CB85; }
-    .pr-palco h1{ font-family:var(--didone); font-weight:400; font-size:clamp(2.2rem,6vw,4rem); line-height:1.02; margin:14px 0 14px; color:#EFE9DB; text-wrap:balance; }
+    .pr-palco h1{ font-family:var(--didone); font-weight:400; font-size:clamp(2.3rem,6.4vw,4.4rem); line-height:1; margin:16px 0 16px; color:#EFE9DB; text-wrap:balance; }
     .pr-palco p{ margin:0 auto 26px; color:rgba(239,232,218,.86); font-size:clamp(.98rem,1.5vw,1.12rem); line-height:1.6; max-width:38em; }
     .pr-palco .bts{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+    .pr-atende{ margin:22px auto 0 !important; font-family:var(--mono) !important; font-size:.6rem !important; letter-spacing:.14em; text-transform:uppercase; color:rgba(239,232,218,.7) !important; }
+    .pr-atende b{ color:#E9CB85; font-weight:600; }
     .pr-cort{ position:absolute; top:0; bottom:0; width:54%; z-index:4;
       background:repeating-linear-gradient(90deg, #4E0F09 0 26px, #3d0c07 26px 52px); box-shadow:0 0 34px rgba(0,0,0,.5); }
-    .pr-cort.e{ left:0; transform-origin:left center; animation:prAbre 1.2s .3s cubic-bezier(.7,0,.3,1) forwards; }
-    .pr-cort.d{ right:0; transform-origin:right center; animation:prAbre 1.2s .3s cubic-bezier(.7,0,.3,1) forwards; }
+    .pr-cort.e{ left:0; transform-origin:left center; animation:prAbre 1.3s .3s cubic-bezier(.7,0,.3,1) forwards; }
+    .pr-cort.d{ right:0; transform-origin:right center; animation:prAbre 1.3s .3s cubic-bezier(.7,0,.3,1) forwards; }
     @keyframes prAbre{ to{ transform:scaleX(.04); } }
     @media (prefers-reduced-motion:reduce){ .pr-cort{ display:none; } }
-    .pr-abre{ font-family:var(--didone); font-weight:400; font-size:clamp(1.25rem,2.3vw,1.7rem); line-height:1.35; max-width:32em; margin:0 0 46px; }
-    .pr-sec{ margin:0 0 56px; }
+    /* manifesto: três frases grandes, com a barra dourada da casa */
+    .pr-mani{ border:3px solid var(--ink); border-top:0; background:var(--paper); padding:40px 36px; margin:0 0 54px;
+      display:grid; grid-template-columns:auto 1fr; gap:26px; align-items:start; }
+    .pr-mani em{ font-style:normal; font-family:var(--mono); font-size:.58rem; letter-spacing:.28em; text-transform:uppercase;
+      color:var(--ink-soft); writing-mode:vertical-rl; transform:rotate(180deg); border-left:3px solid var(--gold); padding-left:10px; }
+    .pr-mani div p{ font-family:var(--didone); font-weight:400; font-size:clamp(1.15rem,2vw,1.5rem); line-height:1.4; margin:0 0 14px; max-width:34em; }
+    .pr-mani div p:last-child{ margin-bottom:0; color:var(--wine); }
+    :root[data-theme="dark"] .pr-mani div p:last-child{ color:#E9CB85; }
+    .pr-sec{ margin:0 0 58px; }
     .pr-sec > h2{ font-family:var(--black); font-weight:400; text-transform:uppercase; font-size:1.05rem; letter-spacing:.04em;
       margin:0 0 6px; padding-bottom:10px; border-bottom:var(--b); }
-    .pr-sec > .pr-sub{ margin:8px 0 20px; color:var(--ink-soft); font-size:.95rem; max-width:60ch; }
+    .pr-sec > .pr-sub{ margin:8px 0 20px; color:var(--ink-soft); font-size:.95rem; max-width:64ch; line-height:1.55; }
+    /* serviços */
     .pr-servs{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:16px; }
-    .pr-serv{ border:var(--b); background:var(--paper); padding:22px 20px 20px; display:flex; flex-direction:column; }
-    .pr-serv .pr-n{ font-family:var(--mono); font-size:.62rem; letter-spacing:.2em; color:var(--gold); }
-    .pr-serv h3{ font-family:var(--didone); font-weight:400; font-size:1.55rem; line-height:1.1; margin:8px 0 10px; }
+    .pr-serv{ border:var(--b); background:var(--paper); padding:22px 20px 20px; display:flex; flex-direction:column; position:relative;
+      transition:transform .18s ease, box-shadow .18s ease; }
+    .pr-serv:hover{ transform:translateY(-4px); box-shadow:0 14px 30px rgba(22,16,13,.14); }
+    .pr-ico{ display:block; width:44px; height:44px; color:var(--wine); margin-bottom:12px; }
+    :root[data-theme="dark"] .pr-ico{ color:#E9CB85; }
+    .pr-ico svg{ width:100%; height:100%; }
+    .pr-serv .pr-n{ position:absolute; top:16px; right:18px; font-family:var(--mono); font-size:.62rem; letter-spacing:.2em; color:var(--gold); }
+    .pr-serv h3{ font-family:var(--didone); font-weight:400; font-size:1.5rem; line-height:1.1; margin:0 0 10px; }
     .pr-serv .pr-para{ font-weight:700; color:var(--ink); font-size:.9rem; line-height:1.5; margin:0 0 10px; }
     .pr-serv p{ margin:0 0 14px; line-height:1.65; color:var(--ink-soft); font-size:.93rem; }
     .pr-serv .pr-inc{ display:block; font-family:var(--mono); font-size:.56rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); margin-top:auto; padding-top:12px; border-top:1px solid var(--line); }
     .pr-serv ul{ margin:6px 0 0; padding:0; list-style:none; }
     .pr-serv li{ font-family:var(--mono); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; padding:5px 0 5px 16px; position:relative; }
     .pr-serv li::before{ content:'✦'; position:absolute; left:0; color:var(--gold); }
+    /* trabalhos: estudos de caso, foto grande, lados alternados */
+    .pr-cases{ display:grid; gap:22px; margin-top:6px; }
+    .pr-case{ border:var(--b); background:var(--paper); display:grid; grid-template-columns:1.1fr 1fr; overflow:hidden; }
+    .pr-case:nth-child(even) .ph{ order:2; border-left:var(--b); border-right:0; }
+    .pr-case .ph{ display:block; position:relative; min-height:280px; border-right:var(--b); background:var(--paper-2); }
+    .pr-case .ph img, .pr-case .ph svg{ width:100%; height:100%; object-fit:cover; display:block; position:absolute; inset:0; }
+    .pr-ex{ position:absolute; left:14px; top:14px; z-index:2; font-style:normal; font-family:var(--mono); font-size:.54rem; letter-spacing:.2em;
+      text-transform:uppercase; background:var(--gold); color:var(--wine); padding:6px 10px; border:2px solid var(--wine); }
+    .pr-case-txt{ padding:24px 26px 26px; }
+    .pr-case .tags{ display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin-bottom:12px; }
+    .pr-case h3{ font-family:var(--didone); font-weight:400; font-size:clamp(1.4rem,2.2vw,1.8rem); line-height:1.1; margin:0 0 16px; }
+    .pr-bl{ border-top:1px solid var(--line); padding:10px 0; }
+    .pr-bl b{ display:block; font-family:var(--mono); font-size:.56rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:4px; }
+    .pr-bl p{ margin:0; font-size:.92rem; line-height:1.6; color:var(--ink-soft); }
+    .pr-bl.res p{ color:var(--ink); font-weight:700; }
+    .pr-ano{ font-family:var(--mono); font-size:.58rem; letter-spacing:.12em; color:var(--ink-soft); margin-left:auto; }
+    .pr-mais{ display:inline-block; margin-top:12px; font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--wine); font-weight:700; text-decoration:none; }
+    :root[data-theme="dark"] .pr-mais{ color:var(--gold); }
+    /* a temporada, semana a semana: linha com marcações */
+    .pr-linha{ list-style:none; margin:20px 0 0; padding:0; display:grid; grid-template-columns:repeat(6,1fr); gap:0; position:relative; }
+    .pr-linha::before{ content:''; position:absolute; left:0; right:0; top:9px; height:3px; background:var(--ink); }
+    .pr-etapa{ position:relative; padding:28px 14px 0 0; }
+    .pr-etapa::before{ content:''; position:absolute; left:0; top:2px; width:14px; height:14px; border-radius:50%; background:var(--gold); border:3px solid var(--ink); }
+    .pr-etapa:last-child::before{ background:var(--wine); }
+    .pr-etapa b{ display:block; font-family:var(--black); font-size:.78rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:6px; }
+    .pr-etapa p{ margin:0; font-size:.84rem; line-height:1.5; color:var(--ink-soft); }
+    /* passos */
     .pr-passos{ list-style:none; margin:16px 0 0; padding:0; display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:var(--b); background:var(--paper); }
     .pr-passo{ display:flex; gap:12px; padding:20px 18px; border-right:1px solid var(--line); }
     .pr-passo:last-child{ border-right:0; }
-    .pr-num{ flex:0 0 38px; width:38px; height:38px; border:2px solid var(--ink); background:var(--gold); color:var(--wine);
-      font-family:var(--black); font-size:1.1rem; display:flex; align-items:center; justify-content:center; }
-    .pr-passo h3{ font-family:var(--didone); font-weight:400; font-size:1.25rem; margin:4px 0 6px; line-height:1.1; }
+    .pr-num{ flex:0 0 40px; width:40px; height:40px; border-radius:50%; border:2px solid var(--ink); background:var(--gold); color:var(--wine);
+      font-family:var(--black); font-size:1.05rem; display:flex; align-items:center; justify-content:center; }
+    .pr-passo h3{ font-family:var(--didone); font-weight:400; font-size:1.25rem; margin:6px 0 6px; line-height:1.1; }
     .pr-passo p{ margin:0; font-size:.88rem; line-height:1.55; color:var(--ink-soft); }
     .pr-difs{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px; }
     .pr-dif{ border-left:4px solid var(--gold); padding:4px 0 6px 16px; }
     .pr-dif h3{ font-family:var(--didone); font-weight:400; font-size:1.3rem; margin:0 0 6px; line-height:1.15; }
     .pr-dif p{ margin:0; font-size:.92rem; line-height:1.6; color:var(--ink-soft); }
-    .pr-cases{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:16px; }
-    .pr-case{ border:var(--b); background:var(--paper); display:flex; flex-direction:column; }
-    .pr-case .ph{ display:block; aspect-ratio:16/9; overflow:hidden; border-bottom:var(--b); }
-    .pr-case .ph img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .pr-case-txt{ padding:16px 18px 18px; }
-    .pr-case h3{ font-family:var(--didone); font-weight:400; font-size:1.4rem; line-height:1.1; margin:10px 0 8px; }
-    .pr-case p{ margin:0 0 10px; line-height:1.6; color:var(--ink-soft); font-size:.92rem; }
-    .pr-res{ font-weight:700; color:var(--ink) !important; }
-    .pr-ano{ font-family:var(--mono); font-size:.58rem; letter-spacing:.12em; color:var(--ink-soft); margin-left:auto; align-self:center; }
-    .pr-mais{ font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--wine); font-weight:700; text-decoration:none; }
-    :root[data-theme="dark"] .pr-mais{ color:var(--gold); }
     .pr-quem{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:16px; align-items:start; }
     .pr-pessoa{ display:flex; gap:18px; align-items:flex-start; border:var(--b); background:var(--paper); padding:20px; }
     .pr-foto{ flex:0 0 124px; width:124px; height:124px; border:3px solid var(--ink); overflow:hidden; display:flex; align-items:center; justify-content:center; background:var(--wine); }
@@ -4880,56 +4959,103 @@ def producoes_body():
     .pr-transp{ border-left:4px solid var(--gold); padding:4px 0 4px 18px; margin:0 0 54px; max-width:60ch; }
     .pr-transp b{ display:block; font-family:var(--mono); font-size:.58rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:6px; }
     .pr-transp p{ margin:0; line-height:1.65; color:var(--ink-soft); }
-    .pr-cta{ border:3px solid var(--ink); background:#380A06; color:#EFE9DB; padding:42px 28px; text-align:center; margin:0 0 30px; position:relative; overflow:hidden; }
+    .pr-cta{ border:3px solid var(--ink); background:#380A06; color:#EFE9DB; padding:46px 28px; text-align:center; margin:0 0 30px; position:relative; overflow:hidden; }
     .pr-cta .luz{ position:absolute; left:50%; top:-80px; width:560px; height:420px; transform:translateX(-50%); background:radial-gradient(ellipse at top, rgba(233,203,133,.26), transparent 62%); pointer-events:none; }
     .pr-cta > *{ position:relative; }
     .pr-cta em{ display:block; font-style:normal; font-family:var(--mono); font-size:.6rem; letter-spacing:.3em; text-transform:uppercase; color:#E9CB85; }
-    .pr-cta h2{ font-family:var(--didone); font-weight:400; font-size:clamp(1.8rem,4vw,2.6rem); line-height:1.05; margin:10px 0 8px; color:#EFE9DB; }
+    .pr-cta h2{ font-family:var(--didone); font-weight:400; font-size:clamp(1.9rem,4.4vw,2.8rem); line-height:1.05; margin:10px 0 8px; color:#EFE9DB; }
     .pr-cta p{ margin:0 auto 24px; color:rgba(239,232,218,.85); max-width:40em; }
     .pr-cta .bts{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
     .pr-bt{ display:inline-block; border:2px solid #E9CB85; background:#E9CB85; color:#380A06; text-decoration:none;
-      font-family:var(--mono); font-weight:700; font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; padding:14px 22px; transition:background .15s, color .15s; }
+      font-family:var(--mono); font-weight:700; font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; padding:14px 22px; transition:background .15s, color .15s, transform .15s; }
     .pr-bt.alt{ background:transparent; color:#E9CB85; text-transform:none; letter-spacing:.04em; }
-    .pr-bt:hover{ background:#EFE9DB; border-color:#EFE9DB; color:#380A06; }
+    .pr-bt:hover{ background:#EFE9DB; border-color:#EFE9DB; color:#380A06; transform:translateY(-2px); }
+    /* o botão flutuante de WhatsApp: aparece depois de uma tela de rolagem */
+    .pr-zap{ position:fixed; right:18px; bottom:22px; z-index:70; width:56px; height:56px; border-radius:50%; background:var(--gold); color:var(--wine);
+      border:3px solid var(--ink); display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,.28);
+      opacity:0; pointer-events:none; transform:translateY(10px); transition:opacity .25s, transform .25s; }
+    .pr-zap.on{ opacity:1; pointer-events:auto; transform:none; }
+    .pr-zap svg{ width:30px; height:30px; }
+    body.tem-zap #volta-topo{ right:86px; }
     @media (max-width:820px){
-      .pr-servs, .pr-quem, .pr-cases, .pr-difs{ grid-template-columns:1fr; }
+      .pr-servs, .pr-quem, .pr-difs{ grid-template-columns:1fr; }
+      .pr-case{ grid-template-columns:1fr; }
+      .pr-case .ph, .pr-case:nth-child(even) .ph{ order:0; border-right:0; border-left:0; border-bottom:var(--b); min-height:0; aspect-ratio:16/9; }
+      .pr-linha{ grid-template-columns:1fr 1fr 1fr; gap:18px 0; }
+      .pr-linha::before{ display:none; }
+      .pr-etapa{ padding:22px 12px 0 0; }
+      .pr-etapa::before{ top:0; }
       .pr-passos{ grid-template-columns:1fr 1fr; }
       .pr-passo:nth-child(2){ border-right:0; } .pr-passo:nth-child(-n+2){ border-bottom:1px solid var(--line); }
+      .pr-mani{ grid-template-columns:1fr; padding:28px 22px; gap:14px; }
+      .pr-mani em{ writing-mode:horizontal-tb; transform:none; border-left:0; border-bottom:2px solid var(--gold); padding:0 0 6px; }
     }
     @media (max-width:600px){
-      .pr{ padding-top:16px; }
+      .pr{ padding-top:14px; }
       .pr-palco{ min-height:0; }
-      .pr-palco .dentro{ padding:40px 18px 34px; }
-      .pr-palco{ margin-bottom:30px; }
-      .pr-abre{ margin-bottom:32px; }
+      .pr-palco .dentro{ padding:42px 18px 34px; }
+      .pr-mani{ margin-bottom:36px; }
       .pr-sec{ margin-bottom:40px; }
+      .pr-linha{ grid-template-columns:1fr; }
+      .pr-etapa{ padding:0 0 0 26px; }
+      .pr-etapa::before{ left:0; top:2px; }
       .pr-passos{ grid-template-columns:1fr; }
       .pr-passo{ border-right:0; border-bottom:1px solid var(--line); }
       .pr-passo:last-child{ border-bottom:0; }
+      .pr-case-txt{ padding:18px 16px 20px; }
       .pr-pessoa{ gap:14px; padding:14px; flex-direction:column; }
       .pr-foto{ flex-basis:96px; width:96px; height:96px; }
-      .pr-cta{ padding:30px 18px; }
+      .pr-cta{ padding:32px 18px; }
       .pr-bt{ width:100%; text-align:center; box-sizing:border-box; }
+      .pr-zap{ right:14px; bottom:16px; width:52px; height:52px; }
     }
   </style>
 """
+    script = """
+  <script>
+  (function(){
+    var els = document.querySelectorAll('.pr-rv');
+    if(!('IntersectionObserver' in window)){ els.forEach(function(e){ e.classList.add('in'); }); }
+    else {
+      var io = new IntersectionObserver(function(ents){
+        ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+      }, { rootMargin:'0px 0px -8% 0px', threshold:.08 });
+      els.forEach(function(e){ io.observe(e); });
+    }
+    var z = document.querySelector('.pr-zap');
+    if(z){
+      document.body.classList.add('tem-zap');
+      var mostra = function(){ z.classList.toggle('on', window.scrollY > 520); };
+      window.addEventListener('scroll', mostra, { passive:true }); mostra();
+    }
+  })();
+  </script>
+"""
     return f"""
 <main id="conteudo" class="wrap pr">{estilo}
+  {letreiro}
   <section class="pr-palco" aria-label="Estúdio FOYER">
-    <div class="luz"></div>
+    <div class="luz"></div><div class="chao"></div>
     <div class="pr-cort e"></div><div class="pr-cort d"></div>
     <div class="dentro">
       <em>{safe(hero.get('kicker', 'Estúdio FOYER'))}</em>
       <h1>{safe(hero.get('titulo', d.get('nome', 'Produções do FOYER')))}</h1>
       <p>{safe(hero.get('texto', d.get('chamada', '')))}</p>
       <div class="bts">{hero_btn}</div>
+      {atende}
     </div>
   </section>
-  <p class="pr-abre">{safe(d.get('abertura', ''))}</p>
+  <section class="pr-mani" aria-label="Manifesto"><em>Manifesto</em><div>{manifesto}</div></section>
   <section class="pr-sec" id="servicos">
     <h2>O que fazemos</h2>
     <p class="pr-sub">Três serviços que podem ser contratados juntos ou separados, sempre sob medida para o porte da temporada.</p>
     <div class="pr-servs">{servicos}</div>
+  </section>
+  {cases}
+  <section class="pr-sec">
+    <h2>Uma temporada, semana a semana</h2>
+    <p class="pr-sub">O que precisa estar pronto, e quando, para uma estreia chegar ao público. É o calendário que guia o trabalho do estúdio.</p>
+    <ol class="pr-linha">{linha}</ol>
   </section>
   <section class="pr-sec">
     <h2>Como funciona</h2>
@@ -4939,7 +5065,6 @@ def producoes_body():
     <h2>Por que o FOYER</h2>
     <div class="pr-difs">{difs}</div>
   </section>
-  {cases}
   <section class="pr-sec">
     <h2>Quem faz</h2>
     <div class="pr-quem">{quem}</div>
@@ -4957,7 +5082,8 @@ def producoes_body():
     <p>Mande o projeto, a data de estreia e o que precisa. A resposta vem de quem vai trabalhar com você.</p>
     <div class="bts">{contato_btns}</div>
   </section>
-</main>
+  {flutua}
+</main>{script}
 """
 
 _pr_body = producoes_body()

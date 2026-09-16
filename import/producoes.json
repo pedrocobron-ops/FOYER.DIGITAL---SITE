@@ -1,5 +1,5 @@
 {
- "_leiame": "Página Produções do FOYER (foyer.digital/producoes). Edite AQUI os textos, serviços, passos, diferenciais, perguntas, cases e depoimentos; o site remonta sozinho no próximo deploy. CASES: cada item tem titulo, ano, servicos (lista com os nomes dos serviços prestados), texto (2 ou 3 frases do que foi feito), resultado (1 frase com número, opcional), img (caminho em assets/uploads/), link (matéria ou site, opcional). DEPOIMENTOS: texto, quem, cargo, só com autorização de quem disse. Sem travessão nem meia-risca nos textos. As seções de cases e depoimentos só aparecem quando têm itens.",
+ "_leiame": "Página Produções do FOYER (foyer.digital/producoes). Edite AQUI os textos; o site remonta sozinho no próximo deploy. CASES (trabalhos): titulo, ano, servicos (lista), desafio (1 ou 2 frases), texto (o que foi feito), resultado (1 frase com número), img (assets/uploads/...), link, e exemplo: true SÓ nos mockups ilustrativos (o site carimba EXEMPLO neles e usa uma arte de palco no lugar da foto). Troque os exemplos por trabalhos reais pela aba Produções da Coxia (salvar um exemplo editado já o transforma em trabalho real). DEPOIMENTOS: texto, quem, cargo, só com autorização; nunca inventar depoimento. Sem travessão nem meia-risca nos textos.",
  "nome": "Produções do FOYER",
  "chamada": "Produção, assessoria de imprensa e redes sociais para espetáculos, feitas por quem vive o teatro por dentro e escreve sobre ele todos os dias.",
  "abertura": "O FOYER nasceu como redação de teatro. Cobrir estreias, entrevistar elencos e acompanhar temporadas de perto ensinou a casa o que faz uma peça chegar ao público: pauta certa, material bom na mão do jornalista, redes que conversam com quem compra ingresso e uma produção que deixa o artista livre para o palco. O estúdio do FOYER coloca essa experiência a serviço de espetáculos, companhias e produtores.",
@@ -38,7 +38,53 @@
    ]
   }
  ],
- "cases": [],
+ "cases": [
+  {
+   "id": "exemplo-musical-de-camara",
+   "exemplo": true,
+   "titulo": "Musical de câmara estreia sem verba de mídia",
+   "ano": "2026",
+   "servicos": [
+    "Assessoria de imprensa",
+    "Redes sociais"
+   ],
+   "arte": 2,
+   "desafio": "Estreia em sala de 120 lugares, sem dinheiro para anúncio e com elenco desconhecido do grande público.",
+   "texto": "Release com ângulo de reportagem, três pautas exclusivas oferecidas a veículos diferentes, agenda de entrevistas com o diretor e artes semanais com trechos dos ensaios.",
+   "resultado": "Exemplo ilustrativo: 11 matérias na imprensa e três fins de semana lotados.",
+   "link": ""
+  },
+  {
+   "id": "exemplo-solo-de-danca-teatro",
+   "exemplo": true,
+   "titulo": "Solo de dança-teatro ganha temporada em Copacabana",
+   "ano": "2026",
+   "servicos": [
+    "Produção",
+    "Redes sociais"
+   ],
+   "arte": 4,
+   "desafio": "Uma artista só, sem produtor, com pauta conquistada num teatro público e trinta dias para montar tudo.",
+   "texto": "Cronograma de produção, equipe técnica e fornecedores fechados, contato com o teatro e um perfil da peça que contou a montagem dia a dia.",
+   "resultado": "Exemplo ilustrativo: temporada de quatro semanas entregue no prazo e prorrogada por mais duas.",
+   "link": ""
+  },
+  {
+   "id": "exemplo-comedia-em-turne",
+   "exemplo": true,
+   "titulo": "Comédia sai de São Paulo e roda o interior",
+   "ano": "2025",
+   "servicos": [
+    "Produção",
+    "Assessoria de imprensa"
+   ],
+   "arte": 6,
+   "desafio": "Levar uma peça consolidada na capital a oito cidades, cada uma com imprensa e público próprios.",
+   "texto": "Roteiro de turnê, logística e pauta cidade a cidade, com release regionalizado e entrevistas nas rádios e nos portais locais antes de cada data.",
+   "resultado": "Exemplo ilustrativo: oito cidades, oito estreias com cobertura local.",
+   "link": ""
+  }
+ ],
  "depoimentos": [],
  "quem": [
   "pedro",
@@ -52,10 +98,11 @@
   "mensagem": "Olá, Pedro! Vi a página Produções do FOYER e quero conversar sobre um espetáculo."
  },
  "hero": {
-  "kicker": "Estúdio FOYER",
-  "titulo": "Sua peça, do bastidor ao público",
+  "kicker": "Estúdio FOYER · São Paulo e Rio de Janeiro",
+  "titulo": "Sua peça merece plateia cheia",
   "texto": "Produção, assessoria de imprensa e redes sociais para espetáculos, feitas por quem cobre teatro todos os dias e sabe o que faz uma temporada chegar a quem compra ingresso.",
-  "botao": "Falar com o Pedro no WhatsApp"
+  "botao": "Falar com o Pedro no WhatsApp",
+  "atende": "Companhias, produtores, elencos, festivais e teatros"
  },
  "passos": [
   {
@@ -113,6 +160,43 @@
   {
    "p": "O que preciso mandar para começar?",
    "r": "Sinopse, ficha técnica, datas e teatro, fotos e o material que já existir. Se ainda não tiver tudo, a gente ajuda a montar."
+  }
+ ],
+ "letreiro": [
+  "Produção de espetáculos",
+  "Assessoria de imprensa",
+  "Redes sociais para peças",
+  "Estúdio FOYER"
+ ],
+ "manifesto": [
+  "A gente vem da plateia e da coxia. Antes de assessorar uma peça, passamos anos recebendo release, escolhendo pauta e sentando na cadeira do crítico.",
+  "Por isso o estúdio não vende barulho. Vende o que faz uma temporada acontecer: material que o jornalista usa, redes que o público segue e uma produção que deixa o artista livre para o palco.",
+  "Cada espetáculo tem um tamanho. O trabalho é feito sob medida para o seu."
+ ],
+ "linha": [
+  {
+   "quando": "8 semanas antes",
+   "o_que": "Material de imprensa pronto: release, fotos, ficha técnica e a identidade visual das redes."
+  },
+  {
+   "quando": "6 semanas antes",
+   "o_que": "Pautas oferecidas aos veículos certos, com o ângulo de cada um. Perfil da peça no ar."
+  },
+  {
+   "quando": "4 semanas antes",
+   "o_que": "Entrevistas agendadas, ensaio aberto para a imprensa, bastidores nas redes."
+  },
+  {
+   "quando": "Estreia",
+   "o_que": "Cobertura acompanhada de perto, críticos convidados, conteúdo da noite no ar em tempo real."
+  },
+  {
+   "quando": "Temporada",
+   "o_que": "Novas pautas a cada semana, redes ativas, ajuste de rota pelo que o público responde."
+  },
+  {
+   "quando": "Fechamento",
+   "o_que": "Relatório com tudo o que saiu, o que as redes renderam e o que levar para a próxima montagem."
   }
  ]
 }

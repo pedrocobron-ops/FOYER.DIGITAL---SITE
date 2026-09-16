@@ -1694,6 +1694,10 @@ ingressos e divisor."></textarea>
             </div>
           </div>
           <div>
+            <label for="pd-desafio">O desafio (1 ou 2 frases: a situação que a peça tinha, opcional)</label>
+            <textarea id="pd-desafio" rows="2" placeholder="Ex.: Estreia em sala pequena, sem verba de mídia e com elenco pouco conhecido."></textarea>
+          </div>
+          <div>
             <label for="pd-texto">O que foi feito (2 ou 3 frases, sem travessão)</label>
             <textarea id="pd-texto" rows="4" placeholder="Ex.: Assessoria de imprensa da temporada de estreia, com release, agenda de entrevistas e acompanhamento da cobertura." required></textarea>
           </div>
@@ -6659,11 +6663,12 @@ ingressos e divisor."></textarea>
   }
   function pintarProducoes(){
     var d = PROD.data, lista = d.cases || [], depos = d.depoimentos || [];
-    $('pd-conta').textContent = lista.length ? plural(lista.length, 'trabalho no ar', 'trabalhos no ar') : 'nenhum ainda: a seção Trabalhos só aparece no site quando houver o primeiro';
+    var nEx = lista.filter(function(c){ return c.exemplo; }).length;
+    $('pd-conta').textContent = lista.length ? plural(lista.length, 'trabalho no ar', 'trabalhos no ar') + (nEx ? ' · ' + plural(nEx, 'é exemplo ilustrativo', 'são exemplos ilustrativos') + ': edite ou tire quando os reais entrarem' : '') : 'nenhum ainda: a seção Trabalhos só aparece no site quando houver o primeiro';
     $('pd-grid').innerHTML = lista.length ? lista.map(function(c, i){
       return '<article class="eq-card pd-card">' +
         '<span class="ph">' + (c.img ? '<img src="' + esc(c.img) + '" alt="" onerror="this.parentNode.innerHTML=\'<span>foto não achada</span>\'">' : '<span>sem foto</span>') + '</span>' +
-        '<b>' + esc(c.titulo || '') + (c.ano ? ' · ' + esc(String(c.ano)) : '') + '</b>' +
+        '<b>' + (c.exemplo ? '<span class="pill" style="margin-right:6px">EXEMPLO</span>' : '') + esc(c.titulo || '') + (c.ano ? ' · ' + esc(String(c.ano)) : '') + '</b>' +
         '<span class="serv">' + esc((c.servicos || []).join(' · ') || 'sem serviço marcado') + '</span>' +
         '<span class="txt">' + esc(corta(c.texto || '', 160)) + '</span>' +
         (c.resultado ? '<span class="res">' + esc(c.resultado) + '</span>' : '') +
@@ -6728,7 +6733,7 @@ ingressos e divisor."></textarea>
     if((b = e.target.closest('[data-pd-edt]'))){
       lista = PROD && PROD.data.cases || []; var c = lista[+b.dataset.pdEdt]; if(!c) return;
       $('pd-id').value = c.id || slugify(c.titulo || ''); $('pd-titulo').value = c.titulo || '';
-      $('pd-ano').value = c.ano || ''; $('pd-texto').value = c.texto || '';
+      $('pd-ano').value = c.ano || ''; $('pd-texto').value = c.texto || ''; $('pd-desafio').value = c.desafio || '';
       $('pd-resultado').value = c.resultado || ''; $('pd-link').value = c.link || '';
       pdChecks(c.servicos || []); pdPintaFoto(c.img || '');
       $('pd-form-t').textContent = 'Editar — ' + (c.titulo || ''); $('pd-cancelar').style.display = '';
@@ -6781,9 +6786,10 @@ ingressos e divisor."></textarea>
     if(!titulo || !texto){ msg.textContent = 'Diga o espetáculo e o que foi feito'; msg.className = 'msg err'; return; }
     var servs = [].map.call(document.querySelectorAll('#pd-form .pd-checks input:checked'), function(c){ return c.value; });
     if(!servs.length){ msg.textContent = 'Marque ao menos um serviço prestado'; msg.className = 'msg err'; return; }
-    if(/[—–]/.test(titulo + texto + $('pd-resultado').value)){ msg.textContent = 'Sem travessão nem meia-risca nos textos (padrão da casa): use vírgula, dois-pontos ou ponto.'; msg.className = 'msg err'; return; }
+    if(/[—–]/.test(titulo + texto + $('pd-desafio').value + $('pd-resultado').value)){ msg.textContent = 'Sem travessão nem meia-risca nos textos (padrão da casa): use vírgula, dois-pontos ou ponto.'; msg.className = 'msg err'; return; }
     var id = $('pd-id').value || slugify(titulo);
-    var novo = { id: id, titulo: titulo, ano: $('pd-ano').value.trim(), servicos: servs, texto: texto,
+    // salvar já tira o carimbo de exemplo: o que o chefe grava aqui é trabalho real
+    var novo = { id: id, titulo: titulo, ano: $('pd-ano').value.trim(), servicos: servs, desafio: $('pd-desafio').value.trim(), texto: texto,
                  resultado: $('pd-resultado').value.trim(), link: $('pd-link').value.trim(), img: $('pd-foto').value.trim() };
     var lista = (PROD.data.cases || []).slice();
     var pos = -1; lista.forEach(function(x, k){ if(x.id === id) pos = k; });
