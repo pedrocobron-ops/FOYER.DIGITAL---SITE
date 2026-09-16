@@ -2,7 +2,7 @@
  "numero": 5,
  "titulo": "Para sempre, Laura",
  "dataEdicao": "20 Ago 2026",
- "status": "rascunho",
+ "status": "publicada",
  "capa": {
   "img": "assets/uploads/revista-ed-5-capa.jpg",
   "credito": "Foto: Fabio Pozzebom/Agência Brasil, via Wikimedia Commons, CC BY 3.0 BR",
@@ -217,6 +217,11 @@
   }
  ],
  "historico": [
+  {
+   "quando": "2026-09-16T18:01:47.510Z",
+   "quem": "Pedro Amaral",
+   "acao": "publica a edição (15 páginas)"
+  },
   {
    "quando": "2026-08-19T17:50:08.603244+00:00",
    "quem": "Redação IA (Claude)",
