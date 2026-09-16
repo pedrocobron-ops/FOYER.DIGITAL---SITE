@@ -4763,9 +4763,6 @@ def producoes_body():
         + ('<b class="pr-inc">O que entra</b><ul>' + ''.join(f'<li>{safe(x)}</li>' for x in sv.get('inclui', [])) + '</ul>' if sv.get('inclui') else '')
         + '</article>'
         for i, sv in enumerate(d.get('servicos', [])))
-    linha = ''.join(
-        f'<li class="pr-etapa pr-rv"><b>{safe(x["quando"])}</b><p>{safe(x["o_que"])}</p></li>'
-        for x in d.get('linha', []))
     passos = ''.join(
         f'<li class="pr-passo pr-rv"><span class="pr-num">{i + 1}</span><div><h3>{safe(p["nome"])}</h3><p>{safe(p["texto"])}</p></div></li>'
         for i, p in enumerate(d.get('passos', [])))
@@ -4916,14 +4913,6 @@ def producoes_body():
     .pr-ano{ font-family:var(--mono); font-size:.58rem; letter-spacing:.12em; color:var(--ink-soft); margin-left:auto; }
     .pr-mais{ display:inline-block; margin-top:12px; font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--wine); font-weight:700; text-decoration:none; }
     :root[data-theme="dark"] .pr-mais{ color:var(--gold); }
-    /* a temporada, semana a semana: linha com marcações */
-    .pr-linha{ list-style:none; margin:20px 0 0; padding:0; display:grid; grid-template-columns:repeat(6,1fr); gap:0; position:relative; }
-    .pr-linha::before{ content:''; position:absolute; left:0; right:0; top:9px; height:3px; background:var(--ink); }
-    .pr-etapa{ position:relative; padding:28px 14px 0 0; }
-    .pr-etapa::before{ content:''; position:absolute; left:0; top:2px; width:14px; height:14px; border-radius:50%; background:var(--gold); border:3px solid var(--ink); }
-    .pr-etapa:last-child::before{ background:var(--wine); }
-    .pr-etapa b{ display:block; font-family:var(--black); font-size:.78rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:6px; }
-    .pr-etapa p{ margin:0; font-size:.84rem; line-height:1.5; color:var(--ink-soft); }
     /* passos */
     .pr-passos{ list-style:none; margin:16px 0 0; padding:0; display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:var(--b); background:var(--paper); }
     .pr-passo{ display:flex; gap:12px; padding:20px 18px; border-right:1px solid var(--line); }
@@ -4983,10 +4972,6 @@ def producoes_body():
       .pr-servs, .pr-quem, .pr-difs{ grid-template-columns:1fr; }
       .pr-case{ grid-template-columns:1fr; }
       .pr-case .ph, .pr-case:nth-child(even) .ph{ order:0; border-right:0; border-left:0; border-bottom:var(--b); min-height:0; aspect-ratio:16/9; }
-      .pr-linha{ grid-template-columns:1fr 1fr 1fr; gap:18px 0; }
-      .pr-linha::before{ display:none; }
-      .pr-etapa{ padding:22px 12px 0 0; }
-      .pr-etapa::before{ top:0; }
       .pr-passos{ grid-template-columns:1fr 1fr; }
       .pr-passo:nth-child(2){ border-right:0; } .pr-passo:nth-child(-n+2){ border-bottom:1px solid var(--line); }
       .pr-mani{ grid-template-columns:1fr; padding:28px 22px; gap:14px; }
@@ -4998,9 +4983,6 @@ def producoes_body():
       .pr-palco .dentro{ padding:42px 18px 34px; }
       .pr-mani{ margin-bottom:36px; }
       .pr-sec{ margin-bottom:40px; }
-      .pr-linha{ grid-template-columns:1fr; }
-      .pr-etapa{ padding:0 0 0 26px; }
-      .pr-etapa::before{ left:0; top:2px; }
       .pr-passos{ grid-template-columns:1fr; }
       .pr-passo{ border-right:0; border-bottom:1px solid var(--line); }
       .pr-passo:last-child{ border-bottom:0; }
@@ -5054,11 +5036,6 @@ def producoes_body():
     <div class="pr-servs">{servicos}</div>
   </section>
   {cases}
-  <section class="pr-sec">
-    <h2>Uma temporada, semana a semana</h2>
-    <p class="pr-sub">O que precisa estar pronto, e quando, para uma estreia chegar ao público. É o calendário que guia o trabalho do estúdio.</p>
-    <ol class="pr-linha">{linha}</ol>
-  </section>
   <section class="pr-sec">
     <h2>Como funciona</h2>
     <ol class="pr-passos">{passos}</ol>
