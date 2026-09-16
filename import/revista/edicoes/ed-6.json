@@ -2,7 +2,7 @@
  "numero": 6,
  "titulo": "O que a gente guarda",
  "dataEdicao": "27 Ago 2026",
- "status": "rascunho",
+ "status": "publicada",
  "capa": {
   "img": "assets/uploads/revista-ed-6-capa.jpg",
   "credito": "Foto: Divulgação",
@@ -212,6 +212,11 @@
   }
  ],
  "historico": [
+  {
+   "quando": "2026-09-16T18:02:05.045Z",
+   "quem": "Pedro Amaral",
+   "acao": "publica a edição (15 páginas)"
+  },
   {
    "quando": "2026-08-26T17:33:18.060815+00:00",
    "quem": "Redação IA (Claude)",
