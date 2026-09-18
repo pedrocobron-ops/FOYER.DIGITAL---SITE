@@ -2,7 +2,7 @@
  "numero": 9,
  "titulo": "O que ficou por escrever",
  "dataEdicao": "17 Set 2026",
- "status": "rascunho",
+ "status": "publicada",
  "capa": {
   "img": "assets/uploads/revista-ed-9-capa.jpg",
   "credito": "Foto: Jamille Queiroz / Divulgação “Feito Pipa”",
@@ -196,6 +196,11 @@
   }
  ],
  "historico": [
+  {
+   "quando": "2026-09-18T14:23:25.134Z",
+   "quem": "Pedro Amaral",
+   "acao": "publica a edição (15 páginas)"
+  },
   {
    "quando": "2026-09-16T17:31:13.928414+00:00",
    "quem": "Redação IA (Claude)",
