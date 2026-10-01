@@ -1724,7 +1724,7 @@ for _i, _p in enumerate(MATERIAS[1:4]):
     _sub_cards += f'''    <article>
       {real_ph(_p, _href)}
       <div class="sub-body">
-        <span class="num">00{_i+2} — {_p['cat']}</span>
+        <span class="num">00{_i+2} — {_tipo_rotulo(_p) if _eh_opiniao(_p) else _p['cat']}</span>
         <h3><a href="{_href}">{_p['title']}</a></h3>
         <p>{_p['desc'][:120]}…</p>
         <div class="meta-row">
@@ -1791,7 +1791,7 @@ index_main = f'''<main id="conteudo">
       </a>
       <div class="manchete-body">
         <div class="tags">
-          <span class="tag wine">{_p0['cat']}</span>
+          <span class="tag wine">{_tipo_rotulo(_p0) if _eh_opiniao(_p0) else _p0['cat']}</span>
           <span class="tag">Manchete</span>
         </div>
         <h1><a href="post-{_p0['slug']}.html">{_p0['title']}</a></h1>
@@ -4826,14 +4826,47 @@ _OP_ESTILO = """
   </style>
 """
 
+def _op_filtros(active):
+    """A barra de filtros da seção, no mesmo molde da de Notícias: Tudo,
+    Colunas, Artigos, Editoriais, com a conta de cada um."""
+    n = lambda t: len([x for x in OPINIAO if x.get('tipo') == t])
+    itens = [('opiniao.html', 'Tudo', '*'), ('opiniao-colunas.html', f'Colunas ({n("coluna")})', 'coluna'),
+             ('opiniao-artigos.html', f'Artigos ({n("artigo")})', 'artigo'), ('opiniao-editoriais.html', f'Editoriais ({n("editorial")})', 'editorial')]
+    return '<div class="filters" aria-label="Ver só um tipo">' + ''.join(
+        f'<a href="{h}"{" class=on" if a == active else ""}>{r}</a>' for h, r, a in itens) + '</div>'
+
+def _op_colunas_html(lista, cabecalho_sempre=False):
+    """Colunas agrupadas por colunista (da mais nova para a mais antiga)."""
+    ordem, grupos = [], {}
+    for x in lista:
+        if x['author'] not in grupos:
+            ordem.append(x['author']); grupos[x['author']] = []
+        grupos[x['author']].append(x)
+    html = ''
+    for nome in ordem:
+        g = grupos[nome]
+        c = COLUNISTAS.get(nome) or {}
+        if cabecalho_sempre or len(ordem) > 1:
+            sub = ' · '.join(v for v in [c.get('coluna') or g[0].get('coluna') or '', c.get('periodicidade') or '', c.get('funcao') or g[0].get('autorFuncao') or ''] if v)
+            html += f'<div class="op-colunista">{_op_foto(nome)}<div><b>{safe(nome)}</b><span>{safe(sub)}</span></div></div>'
+        html += '<div class="news-grid three">\n' + '\n'.join(op_cell(x) for x in g) + '\n</div>'
+    return html
+
+def _op_pagina(active, miolo):
+    return (band('Seção', 'Opinião', 'Colunas, artigos de convidados e os editoriais do FOYER')
+            + '\n<main id="conteudo" class="wrap">' + _OP_ESTILO + '\n' + _op_filtros(active) + '\n' + miolo + '\n</main>\n')
+
 def opiniao_body():
+    """A página Tudo: um índice, não um texto só. Editorial recente em
+    destaque (só se houver), a coluna da vez, as 6 colunas anteriores mais
+    recentes e os 6 artigos mais recentes, cada bloco com o atalho para a
+    lista completa."""
     from datetime import timedelta as _td
     hoje = datetime.now(timezone.utc).date()
     editoriais = [x for x in OPINIAO if x.get('tipo') == 'editorial']
     colunas = [x for x in OPINIAO if x.get('tipo') == 'coluna']
     artigos = [x for x in OPINIAO if x.get('tipo') == 'artigo']
     partes = []
-    # editorial recente em destaque (só se houver; nada de bloco vazio)
     if editoriais:
         try:
             recente = (hoje - datetime.fromisoformat(editoriais[0]['iso']).date()) <= _td(days=60)
@@ -4841,36 +4874,41 @@ def opiniao_body():
             recente = False
         if recente:
             partes.append('<section class="op-sec">' + _op_destaque(editoriais[0], 'Editorial') + '</section>')
-    # a coluna mais recente em destaque
     if colunas:
-        partes.append('<section class="op-sec"><div class="sec-head"><h2>A coluna da vez</h2><span class="note">o texto mais recente</span></div>'
+        partes.append('<section class="op-sec"><div class="sec-head"><h2>A coluna da vez</h2><span class="note">o texto mais recente</span>'
+                      '<a href="opiniao-colunas.html" class="all">Todas as colunas →</a></div>'
                       + _op_destaque(colunas[0], _selo_opiniao(colunas[0])) + '</section>')
-        # colunas anteriores, da mais nova para a mais antiga, agrupadas por colunista
-        anteriores = colunas[1:]
-        if anteriores:
-            ordem, grupos = [], {}
-            for x in anteriores:
-                if x['author'] not in grupos:
-                    ordem.append(x['author']); grupos[x['author']] = []
-                grupos[x['author']].append(x)
-            html = '<section class="op-sec"><div class="sec-head"><h2>Colunas anteriores</h2><span class="note">da mais nova para a mais antiga</span></div>'
-            for nome in ordem:
-                lista = grupos[nome]
-                c = COLUNISTAS.get(nome) or {}
-                if len(ordem) > 1:
-                    sub = ' · '.join(v for v in [c.get('coluna') or lista[0].get('coluna') or '', c.get('periodicidade') or '', c.get('funcao') or lista[0].get('autorFuncao') or ''] if v)
-                    html += f'<div class="op-colunista">{_op_foto(nome)}<div><b>{safe(nome)}</b><span>{safe(sub)}</span></div></div>'
-                html += '<div class="news-grid three">\n' + '\n'.join(op_cell(x) for x in lista) + '\n</div>'
-            html += '</section>'
-            partes.append(html)
+        if colunas[1:]:
+            partes.append('<section class="op-sec"><div class="sec-head"><h2>Colunas anteriores</h2><span class="note">as mais recentes</span>'
+                          '<a href="opiniao-colunas.html" class="all">Todas →</a></div>' + _op_colunas_html(colunas[1:7]) + '</section>')
     if artigos:
-        partes.append('<section class="op-sec"><div class="sec-head"><h2>Artigos</h2><span class="note">convidados do FOYER</span></div>'
-                      '<div class="news-grid three">\n' + '\n'.join(op_cell(x) for x in artigos) + '\n</div></section>')
+        partes.append('<section class="op-sec" id="artigos"><div class="sec-head"><h2>Artigos</h2><span class="note">convidados do FOYER, os mais recentes</span>'
+                      '<a href="opiniao-artigos.html" class="all">Todos →</a></div>'
+                      '<div class="news-grid three">\n' + '\n'.join(op_cell(x) for x in artigos[:6]) + '\n</div></section>')
     if not partes:
         partes.append('<p class="op-vazio">A seção está sendo preparada. As primeiras colunas chegam em breve.</p>')
-    return (band('Seção', 'Opinião', 'Colunas, artigos de convidados e os editoriais do FOYER')
-            + '\n<main id="conteudo" class="wrap">' + _OP_ESTILO + '\n' + ''.join(partes) + '\n</main>\n')
+    return _op_pagina('*', ''.join(partes))
 
+def opiniao_lista_body(tipo):
+    lista = [x for x in OPINIAO if x.get('tipo') == tipo]
+    titulo = {'coluna': 'Colunas', 'artigo': 'Artigos', 'editorial': 'Editoriais'}[tipo]
+    nota = {'coluna': 'espaço fixo de cada colunista, da mais nova para a mais antiga',
+            'artigo': 'textos avulsos de convidados', 'editorial': 'a opinião do FOYER, assinada pela casa'}[tipo]
+    vazio = {'coluna': 'Ainda não há colunas publicadas.', 'artigo': 'Ainda não há artigos publicados.',
+             'editorial': 'O FOYER ainda não publicou editoriais.'}[tipo]
+    miolo = f'<section class="op-sec"><div class="sec-head"><h2>{titulo}</h2><span class="note">{nota}</span></div>'
+    if not lista:
+        miolo += f'<p class="op-vazio">{vazio}</p>'
+    elif tipo == 'coluna':
+        miolo += _op_colunas_html(lista, cabecalho_sempre=True)
+    else:
+        miolo += '<div class="news-grid three">\n' + '\n'.join(op_cell(x) for x in lista) + '\n</div>'
+    return _op_pagina(tipo, miolo + '</section>')
+
+for _t, _f, _d in (('coluna', 'opiniao-colunas.html', 'As colunas de opinião do FOYER, por colunista.'),
+                   ('artigo', 'opiniao-artigos.html', 'Artigos de opinião de convidados do FOYER.'),
+                   ('editorial', 'opiniao-editoriais.html', 'Os editoriais do FOYER.')):
+    page(_f, {'coluna': 'Colunas', 'artigo': 'Artigos', 'editorial': 'Editoriais'}[_t] + ' — Opinião — FOYER', _d, 'opiniao.html', opiniao_lista_body(_t))
 page('opiniao.html', 'Opinião — FOYER', 'Colunas, artigos de convidados e os editoriais do FOYER sobre teatro, música e cultura.', 'opiniao.html', opiniao_body())
 # a categoria antiga vira ponte para a seção: nenhum link compartilhado quebra
 for _old in ('cat-artigo-de-opiniao.html', 'cat-artigo-de-opiniao-p2.html'):
