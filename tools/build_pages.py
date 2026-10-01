@@ -4827,11 +4827,13 @@ _OP_ESTILO = """
 """
 
 def _op_filtros(active):
-    """A barra de filtros da seção, no mesmo molde da de Notícias: Tudo,
-    Colunas, Artigos, Editoriais, com a conta de cada um."""
+    """A barra de filtros da seção, no molde da de Notícias: Tudo, Colunas,
+    Artigos e, só quando existir algum, Editoriais (sem contagem, pedido do
+    Pedro, 01/10/2026)."""
     n = lambda t: len([x for x in OPINIAO if x.get('tipo') == t])
-    itens = [('opiniao.html', 'Tudo', '*'), ('opiniao-colunas.html', f'Colunas ({n("coluna")})', 'coluna'),
-             ('opiniao-artigos.html', f'Artigos ({n("artigo")})', 'artigo'), ('opiniao-editoriais.html', f'Editoriais ({n("editorial")})', 'editorial')]
+    itens = [('opiniao.html', 'Tudo', '*'), ('opiniao-colunas.html', 'Colunas', 'coluna'), ('opiniao-artigos.html', 'Artigos', 'artigo')]
+    if n('editorial'):
+        itens.append(('opiniao-editoriais.html', 'Editoriais', 'editorial'))
     return '<div class="filters" aria-label="Ver só um tipo">' + ''.join(
         f'<a href="{h}"{" class=on" if a == active else ""}>{r}</a>' for h, r, a in itens) + '</div>'
 
@@ -4857,36 +4859,23 @@ def _op_pagina(active, miolo):
             + '\n<main id="conteudo" class="wrap">' + _OP_ESTILO + '\n' + _op_filtros(active) + '\n' + miolo + '\n</main>\n')
 
 def opiniao_body():
-    """A página Tudo: um índice, não um texto só. Editorial recente em
-    destaque (só se houver), a coluna da vez, as 6 colunas anteriores mais
-    recentes e os 6 artigos mais recentes, cada bloco com o atalho para a
-    lista completa."""
-    from datetime import timedelta as _td
-    hoje = datetime.now(timezone.utc).date()
-    editoriais = [x for x in OPINIAO if x.get('tipo') == 'editorial']
-    colunas = [x for x in OPINIAO if x.get('tipo') == 'coluna']
-    artigos = [x for x in OPINIAO if x.get('tipo') == 'artigo']
-    partes = []
-    if editoriais:
-        try:
-            recente = (hoje - datetime.fromisoformat(editoriais[0]['iso']).date()) <= _td(days=60)
-        except Exception:
-            recente = False
-        if recente:
-            partes.append('<section class="op-sec">' + _op_destaque(editoriais[0], 'Editorial') + '</section>')
+    """A página Tudo é um índice: no alto, o ÚLTIMO texto que saiu em
+    Opinião, seja coluna, artigo ou editorial (pedido do Pedro, 01/10/2026);
+    depois as colunas e os artigos mais recentes, com atalho para as listas."""
+    if not OPINIAO:
+        return _op_pagina('*', '<p class="op-vazio">A seção está sendo preparada. As primeiras colunas chegam em breve.</p>')
+    ultimo = OPINIAO[0]
+    colunas = [x for x in OPINIAO if x.get('tipo') == 'coluna' and x is not ultimo]
+    artigos = [x for x in OPINIAO if x.get('tipo') == 'artigo' and x is not ultimo]
+    partes = ['<section class="op-sec"><div class="sec-head"><h2>O mais recente</h2><span class="note">o último texto publicado em Opinião</span></div>'
+              + _op_destaque(ultimo, _selo_opiniao(ultimo)) + '</section>']
     if colunas:
-        partes.append('<section class="op-sec"><div class="sec-head"><h2>A coluna da vez</h2><span class="note">o texto mais recente</span>'
-                      '<a href="opiniao-colunas.html" class="all">Todas as colunas →</a></div>'
-                      + _op_destaque(colunas[0], _selo_opiniao(colunas[0])) + '</section>')
-        if colunas[1:]:
-            partes.append('<section class="op-sec"><div class="sec-head"><h2>Colunas anteriores</h2><span class="note">as mais recentes</span>'
-                          '<a href="opiniao-colunas.html" class="all">Todas →</a></div>' + _op_colunas_html(colunas[1:7]) + '</section>')
+        partes.append('<section class="op-sec" id="colunas"><div class="sec-head"><h2>Colunas</h2><span class="note">as mais recentes</span>'
+                      '<a href="opiniao-colunas.html" class="all">Todas →</a></div>' + _op_colunas_html(colunas[:6]) + '</section>')
     if artigos:
         partes.append('<section class="op-sec" id="artigos"><div class="sec-head"><h2>Artigos</h2><span class="note">convidados do FOYER, os mais recentes</span>'
                       '<a href="opiniao-artigos.html" class="all">Todos →</a></div>'
                       '<div class="news-grid three">\n' + '\n'.join(op_cell(x) for x in artigos[:6]) + '\n</div></section>')
-    if not partes:
-        partes.append('<p class="op-vazio">A seção está sendo preparada. As primeiras colunas chegam em breve.</p>')
     return _op_pagina('*', ''.join(partes))
 
 def opiniao_lista_body(tipo):
