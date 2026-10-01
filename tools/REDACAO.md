@@ -1590,7 +1590,7 @@ Blocos opcionais (usar quando enriquecem de verdade):
   Musical, com Teatro em `cats` para seguir aparecendo na página de Teatro.
   Palavra "musical" de passagem (programação musical de um festival, trilha)
   NÃO muda a editoria. `Em Cartaz` é selo secundário e
-  entra somente em `cats`, nunca como `cat`. NUNCA usar: Artigo de Opinião,
+  entra somente em `cats`, nunca como `cat`. NUNCA usar a seção Opinião (campos `secao`, `tipo`, `coluna`: coluna, artigo e editorial são só de gente) nem:
   Astrologia, Crônicas e Histórias ou Crítica, que pertencem a humanos.
   Exemplos: notícia internacional = Notícia + Teatro; Lei Rouanet =
   Bastidores + Teatro + Edital; guia = Guia + Teatro. Esta lista precisa ser

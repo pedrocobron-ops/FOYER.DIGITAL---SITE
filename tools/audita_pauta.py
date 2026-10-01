@@ -28,6 +28,8 @@ CATS_AGENTES = {'Teatro', 'Teatro Musical', 'Notícia', 'Cinema', 'Streaming', '
                 'Edital', 'Festa', 'Programa', 'Guia', 'Bastidores',
                 'Entenda', 'Memória'}
 CATS_PROIBIDAS = {'Crítica', 'Artigo de Opinião', 'Astrologia', 'Crônicas e Histórias'}
+# a seção Opinião (secao: "opiniao": coluna, artigo, editorial) é só de gente:
+# o robô nunca escreve opinião pela casa (01/10/2026)
 
 AGENCIAS_PROIBIDAS = ['getty', 'reuters', 'afp', 'folhapress', 'associated press',
                       'shutterstock', 'istock', 'alamy', 'estadão conteúdo',
@@ -303,7 +305,9 @@ def auditar(caminho):
             elif not re.search(r'(afirm|diz|disse|cont[ao]|explic|resum|declar|escrev|lembr|avali|coment|acrescent|complet|defend|respond|segundo)', linha):
                 avisos.append(f'CITAÇÃO SEM ATRIBUIÇÃO na linha: {linha[:70]}…')
 
-    # 8. Editorias
+    # 8. Editorias (e a seção Opinião, que é só de gente)
+    if pg.get('secao') == 'opiniao' or pg.get('tipo') in ('coluna', 'artigo', 'editorial'):
+        problemas.append('SEÇÃO OPINIÃO é só de gente: agentes nunca escrevem coluna, artigo ou editorial')
     cat = pg.get('cat', '')
     cats = pg.get('cats') or []
     todas = [cat] + list(cats)

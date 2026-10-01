@@ -188,6 +188,7 @@ UTIL = '''<div class="util">
 NAV_ITEMS = [
     ('index.html', 'Capa'),
     ('noticias.html', 'Notícias'),
+    ('opiniao.html', 'Opinião'),
     ('critica.html', 'Crítica'),
     ('revista.html', 'Revista'),
     ('programas.html', 'Programas'),
@@ -240,6 +241,7 @@ FOOTER = '''<footer>
       <div class="foot-col">
         <h4>Editorias</h4>
         <a href="noticias.html">Notícias</a>
+        <a href="opiniao.html">Opinião</a>
         <a href="critica.html">Crítica</a>
         <a href="entrevistas.html">Entrevistas</a>
       </div>
@@ -1554,6 +1556,8 @@ if os.path.isdir(_novas_dir):
             'evento': _n.get('evento') or None,
             'cats': [c for c in (_n.get('cats') or []) if c][:3],
             'url': '', 'min': max(1, len(_txt)//1100),
+            'secao': _n.get('secao', ''), 'tipo': _n.get('tipo', ''),
+            'coluna': _n.get('coluna', ''), 'autorFuncao': _n.get('autorFuncao', ''),
         })
     if _novas:
         _slugs_novos = {x['slug'] for x in _novas}
@@ -1562,6 +1566,31 @@ if os.path.isdir(_novas_dir):
         print(f'• {len(_novas)} matéria(s) da Coxia no ar · {_agendadas} agendada(s) aguardando')
     elif _agendadas:
         print(f'• {_agendadas} matéria(s) agendada(s) aguardando a hora')
+
+# ---- OPINIÃO: seção própria (pedido do Pedro, 01/10/2026). Os textos de
+# opinião continuam na lista geral (capa, página de autor, busca, feeds),
+# mas saem de Notícias e das páginas de editoria. O tipo (coluna, artigo,
+# editorial) define o formato; a etiqueta de assunto segue no campo cat.
+try:
+    _OPINIAO = _json.load(open(os.path.join(ROOT, 'import/opiniao.json')))
+except Exception:
+    _OPINIAO = {'colunistas': []}
+COLUNISTAS = {c['nome']: c for c in _OPINIAO.get('colunistas', []) if c.get('nome')}
+_TIPO_ROTULO = {'coluna': 'Coluna', 'artigo': 'Artigo', 'editorial': 'Editorial'}
+def _eh_opiniao(p):
+    return p.get('secao') == 'opiniao'
+def _tipo_rotulo(p):
+    return _TIPO_ROTULO.get(p.get('tipo'), 'Opinião')
+def _selo_opiniao(p):
+    """'Coluna · Nome da coluna', 'Artigo' ou 'Editorial'."""
+    if p.get('tipo') == 'coluna' and p.get('coluna'):
+        return 'Coluna · ' + p['coluna']
+    return _tipo_rotulo(p)
+def _funcao_autor(p):
+    c = COLUNISTAS.get((p.get('author') or '').strip())
+    return (p.get('autorFuncao') or (c or {}).get('funcao') or '').strip()
+NOTICIAS = [p for p in MATERIAS if not _eh_opiniao(p)]
+OPINIAO = [p for p in MATERIAS if _eh_opiniao(p)]
 
 # crédito real da capa nos CARTÕES: extrai a legenda do fotógrafo do corpo
 # (mesma fonte que a página da matéria usa) para valorizar o nome, não "Divulgação"
@@ -1663,7 +1692,7 @@ def real_cell(p, big=False):
     return f'''    <article class="news-cell{' big' if big else ''}" data-cat="{p['cat']}">
       {real_ph(p, href, cap=big)}
       <div class="cbody">
-        <span class="tag">{p['cat']}</span>
+        {('<span class="tag wine">' + _tipo_rotulo(p) + '</span>') if _eh_opiniao(p) else ('<span class="tag">' + p['cat'] + '</span>')}
         <h3><a href="{href}">{p['title']}</a></h3>{d}
         <div class="meta-row">
           <span class="meta-l">{short_date(p)} — {p['author']}</span>
@@ -1880,7 +1909,7 @@ def _cat_slug(c):
     return _re.sub(r'[^a-zA-Z0-9]+','-',x).strip('-').lower()
 
 _cats = []
-for _p in MATERIAS:
+for _p in NOTICIAS:
     for _c in [_p['cat']] + _p.get('cats', []):
         if _c and _c != 'Em Cartaz' and _c not in _cats:
             _cats.append(_c)
@@ -2016,20 +2045,44 @@ def post_page(i, p):
                 credito_real = _cap
             corpo = _pat_dup.sub('', corpo, count=1)
     cred_capa = p.get('credito') or credito_real or 'Foto: Divulgação'
-    rel = [x for x in MATERIAS if x['cat'] == p['cat'] and x['slug'] != p['slug']][:3]
+    _leia_h2, _leia_note = 'Leia também', f"Mais de {p['cat']}"
+    if _eh_opiniao(p) and p.get('tipo') == 'coluna':
+        # ao fim de uma coluna, as outras colunas do mesmo colunista
+        rel = [x for x in OPINIAO if x.get('tipo') == 'coluna' and x['author'] == p['author'] and x['slug'] != p['slug']][:3]
+        _leia_h2, _leia_note = f"Outras colunas de {p['author']}", (p.get('coluna') or 'Coluna')
+        if not rel:
+            rel = [x for x in OPINIAO if x['slug'] != p['slug']][:3]
+            _leia_h2, _leia_note = 'Mais em Opinião', 'colunas, artigos e editoriais'
+    elif _eh_opiniao(p):
+        rel = [x for x in OPINIAO if x['slug'] != p['slug']][:3]
+        _leia_h2, _leia_note = 'Mais em Opinião', 'colunas, artigos e editoriais'
+    else:
+        rel = [x for x in NOTICIAS if x['cat'] == p['cat'] and x['slug'] != p['slug']][:3]
     if len(rel) < 3:
-        rel += [x for x in MATERIAS if x['slug'] != p['slug'] and x not in rel][:3-len(rel)]
+        rel += [x for x in MATERIAS if x['slug'] != p['slug'] and x not in rel and (_eh_opiniao(p) or not _eh_opiniao(x))][:3-len(rel)]
     rel_cells = '\n'.join(real_cell(r) for r in rel)
+    if _eh_opiniao(p):
+        _tags_html = (f'<span class="tag wine">{_selo_opiniao(p)}</span>'
+                      f'<a class="tag" href="cat-{_cat_slug(p["cat"])}.html">{p["cat"]}</a>'
+                      + ''.join(f'<a class="tag" href="cat-{_cat_slug(c)}.html">{c}</a>' for c in p.get('cats', []) if c != 'Em Cartaz'))
+        if p.get('tipo') == 'editorial':
+            _por_html = '<b>Editorial do Foyer</b>'
+        else:
+            _fn = _funcao_autor(p)
+            _por_html = 'por ' + _byline_link(p['author']) + (f', <span class="bl-funcao">{_fn}</span>' if _fn else '')
+    else:
+        _tags_html = (f'<a class="tag wine" href="cat-{_cat_slug(p["cat"])}.html">{p["cat"]}</a>'
+                      + (''.join(f'<a class="tag" href="cat-{_cat_slug(c)}.html">{c}</a>' for c in p.get('cats', []) if c != 'Em Cartaz') or '<span class="tag">Foyer</span>'))
+        _por_html = 'Por ' + _byline_link(p['author'])
     return f"""<main id="conteudo" class="wrap">
 <article class="art">
   <div class="art-head">
     <div class="tags">
-      <a class="tag wine" href="cat-{_cat_slug(p['cat'])}.html">{p['cat']}</a>
-      {''.join(f'<a class="tag" href="cat-{_cat_slug(c)}.html">{c}</a>' for c in p.get('cats', []) if c != 'Em Cartaz') or '<span class="tag">Foyer</span>'}
+      {_tags_html}
     </div>
     <h1>{p['title']}</h1>
     <div class="art-byline">
-      <span class="bl-por">Por {_byline_link(p['author'])}</span>
+      <span class="bl-por">{_por_html}</span>
       <span class="bl-quando">{p['date']}{(', às ' + p['hora']) if p.get('hora') else ''} · {_tempo_de_leitura(p)}</span>
       <button class="share-one" type="button" data-share="menu" data-title="{safe(p['title'])}" aria-haspopup="menu" aria-expanded="false">↗ Compartilhar</button>
     </div>{selo_atualizada(p)}
@@ -2065,8 +2118,8 @@ def post_page(i, p):
 
 <section>
   <div class="sec-head">
-    <h2>Leia também</h2>
-    <span class="note">Mais de {p['cat']}</span>
+    <h2>{_leia_h2}</h2>
+    <span class="note">{_leia_note}</span>
   </div>
   <div class="news-grid three">
 {rel_cells}
@@ -4669,16 +4722,16 @@ import glob as _glob
 for _f in _glob.glob(os.path.join(ROOT, 'post-*.html')) + _glob.glob(os.path.join(ROOT, 'noticias*.html')) + _glob.glob(os.path.join(ROOT, 'cat-*.html')) + _glob.glob(os.path.join(ROOT, 'pessoa-*.html')):
     os.remove(_f)
 
-_tot = len(MATERIAS)
+_tot = len(NOTICIAS)
 _pages = (_tot + POR_PAGINA - 1) // POR_PAGINA
 for _n in range(1, _pages + 1):
     _fname = 'noticias.html' if _n == 1 else f'noticias-p{_n}.html'
     page(_fname, f'Notícias — página {_n} — FOYER', 'Todas as matérias do FOYER.', 'noticias.html',
-         listing_body(MATERIAS, _n, _pages, 'noticias', 'Notícias',
+         listing_body(NOTICIAS, _n, _pages, 'noticias', 'Notícias',
                       f'{_tot} matérias no acervo — página {_n} de {_pages}'))
 
 for _c in _cats:
-    _posts = [x for x in MATERIAS if x['cat'] == _c or _c in x.get('cats', [])]
+    _posts = [x for x in NOTICIAS if x['cat'] == _c or _c in x.get('cats', [])]
     _cp = (len(_posts) + POR_PAGINA - 1) // POR_PAGINA
     _base = 'cat-' + _cat_slug(_c)
     for _n in range(1, _cp + 1):
@@ -4687,7 +4740,7 @@ for _c in _cats:
              listing_body(_posts, _n, _cp, _base, _c,
                           f'{len(_posts)} matérias — página {_n} de {_cp}', active=_c))
 
-_ec_posts = [x for x in MATERIAS if _em_cartaz(x)]
+_ec_posts = [x for x in NOTICIAS if _em_cartaz(x)]
 _ec_pages = max(1, (len(_ec_posts) + POR_PAGINA - 1) // POR_PAGINA)
 for _n in range(1, _ec_pages + 1):
     _fname = 'cat-em-cartaz.html' if _n == 1 else f'cat-em-cartaz-p{_n}.html'
@@ -4695,6 +4748,140 @@ for _n in range(1, _ec_pages + 1):
          listing_body(_ec_posts, _n, _ec_pages, 'cat-em-cartaz', 'Em Cartaz',
                       f'{len(_ec_posts)} espetáculo(s) em temporada agora — a página se atualiza sozinha',
                       active='Em Cartaz'))
+
+# ---------------------------------------------------------------- OPINIÃO (seção)
+def _op_foto(nome, tam='mini'):
+    c = COLUNISTAS.get(nome) or {}
+    f = c.get('foto') or ''
+    if f and os.path.exists(os.path.join(ROOT, f)):
+        return f'<span class="op-foto {tam}"><img src="{f}" alt="{safe(nome)}" loading="lazy"></span>'
+    return f'<span class="op-foto {tam}"><i>{safe((nome or "F")[:1])}</i></span>'
+
+def op_cell(p):
+    """Card de opinião: selo do tipo, quem assina (com função) e a data, no
+    molde do card comum do site."""
+    href = 'post-' + p['slug'] + '.html'
+    fn = _funcao_autor(p)
+    quem = 'Editorial do Foyer' if p.get('tipo') == 'editorial' else (p['author'] + (f' · {fn}' if fn else ''))
+    return (f'    <article class="news-cell" data-cat="{p["cat"]}">\n'
+            f'      {real_ph(p, href, cap=False)}\n'
+            f'      <div class="cbody">\n'
+            f'        <span class="tag wine">{_selo_opiniao(p)}</span>\n'
+            f'        <h3><a href="{href}">{p["title"]}</a></h3>\n'
+            f'        <div class="meta-row">\n'
+            f'          <span class="meta-l">{short_date(p)} — {quem}</span>\n'
+            f'          <button class="share-min" data-share="native" data-title="{safe(p["title"])}" data-url="{BASE}/{href}">Compartilhar ↗</button>\n'
+            f'        </div>\n'
+            f'      </div>\n'
+            f'    </article>')
+
+def _op_destaque(p, rotulo):
+    href = 'post-' + p['slug'] + '.html'
+    fn = _funcao_autor(p)
+    if p.get('tipo') == 'editorial':
+        quem = '<b>Editorial do Foyer</b>'
+        foto = ''
+    else:
+        quem = f'por <b>{safe(p["author"])}</b>' + (f', {safe(fn)}' if fn else '')
+        foto = _op_foto(p['author'], 'grande')
+    desc = p['desc'][:220] + ('…' if len(p['desc']) > 220 else '')
+    return (f'  <article class="op-destaque">\n'
+            f'    <a class="op-capa" href="{href}" aria-label="{safe(p["title"])}"><img src="{wiximg(p["img"])}" alt="" loading="lazy" onerror="this.parentNode.style.display=\'none\'"></a>\n'
+            f'    <div class="op-txt">\n'
+            f'      <span class="tag wine">{rotulo}</span>\n'
+            f'      <h2><a href="{href}">{p["title"]}</a></h2>\n'
+            f'      <p class="dek">{desc}</p>\n'
+            f'      <div class="op-assina">{foto}<span>{quem}<small>{p["date"]}</small></span></div>\n'
+            f'    </div>\n'
+            f'  </article>')
+
+_OP_ESTILO = """
+  <style>
+    .op-sec{ margin:0 0 44px; }
+    .op-destaque{ display:grid; grid-template-columns:1.15fr 1fr; border:var(--b); background:var(--paper); overflow:hidden; }
+    .op-capa{ display:block; aspect-ratio:16/10; border-right:var(--b); background:var(--paper-2); }
+    .op-capa img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .op-txt{ padding:24px 26px 22px; display:flex; flex-direction:column; }
+    .op-txt h2{ font-family:var(--black); font-weight:400; text-transform:uppercase; letter-spacing:-.01em;
+      font-size:clamp(1.3rem,2.4vw,2rem); line-height:1.02; margin:12px 0 12px; text-wrap:balance; }
+    .op-txt h2 a{ color:inherit; text-decoration:none; }
+    .op-txt h2 a:hover{ text-decoration:underline; text-underline-offset:4px; }
+    .op-txt .dek{ margin:0 0 18px; color:var(--ink-soft); line-height:1.55; font-size:.95rem; }
+    .op-assina{ margin-top:auto; display:flex; align-items:center; gap:12px; font-family:var(--sans); font-size:.9rem; }
+    .op-assina small{ display:block; font-family:var(--mono); font-size:.58rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin-top:3px; }
+    .op-foto{ flex:0 0 44px; width:44px; height:44px; border:2px solid var(--ink); overflow:hidden; background:var(--wine);
+      display:inline-flex; align-items:center; justify-content:center; }
+    .op-foto.grande{ flex-basis:56px; width:56px; height:56px; }
+    .op-foto img{ width:100%; height:100%; object-fit:cover; object-position:center 25%; display:block; }
+    .op-foto i{ font-style:normal; font-family:var(--didone); color:var(--gold); font-size:1.3rem; }
+    .op-colunista{ display:flex; align-items:center; gap:12px; margin:18px 0 12px; }
+    .op-colunista b{ display:block; font-family:var(--sans); font-size:1rem; }
+    .op-colunista span{ font-family:var(--mono); font-size:.58rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); }
+    .op-vazio{ font-family:var(--sans); color:var(--ink-soft); padding:30px 0; }
+    .bl-funcao{ font-weight:400; text-transform:none; letter-spacing:0; }
+    @media (max-width:820px){
+      .op-destaque{ grid-template-columns:1fr; }
+      .op-capa{ border-right:0; border-bottom:var(--b); }
+    }
+  </style>
+"""
+
+def opiniao_body():
+    from datetime import timedelta as _td
+    hoje = datetime.now(timezone.utc).date()
+    editoriais = [x for x in OPINIAO if x.get('tipo') == 'editorial']
+    colunas = [x for x in OPINIAO if x.get('tipo') == 'coluna']
+    artigos = [x for x in OPINIAO if x.get('tipo') == 'artigo']
+    partes = []
+    # editorial recente em destaque (só se houver; nada de bloco vazio)
+    if editoriais:
+        try:
+            recente = (hoje - datetime.fromisoformat(editoriais[0]['iso']).date()) <= _td(days=60)
+        except Exception:
+            recente = False
+        if recente:
+            partes.append('<section class="op-sec">' + _op_destaque(editoriais[0], 'Editorial') + '</section>')
+    # a coluna mais recente em destaque
+    if colunas:
+        partes.append('<section class="op-sec"><div class="sec-head"><h2>A coluna da vez</h2><span class="note">o texto mais recente</span></div>'
+                      + _op_destaque(colunas[0], _selo_opiniao(colunas[0])) + '</section>')
+        # colunas anteriores, da mais nova para a mais antiga, agrupadas por colunista
+        anteriores = colunas[1:]
+        if anteriores:
+            ordem, grupos = [], {}
+            for x in anteriores:
+                if x['author'] not in grupos:
+                    ordem.append(x['author']); grupos[x['author']] = []
+                grupos[x['author']].append(x)
+            html = '<section class="op-sec"><div class="sec-head"><h2>Colunas anteriores</h2><span class="note">da mais nova para a mais antiga</span></div>'
+            for nome in ordem:
+                lista = grupos[nome]
+                c = COLUNISTAS.get(nome) or {}
+                if len(ordem) > 1:
+                    sub = ' · '.join(v for v in [c.get('coluna') or lista[0].get('coluna') or '', c.get('periodicidade') or '', c.get('funcao') or lista[0].get('autorFuncao') or ''] if v)
+                    html += f'<div class="op-colunista">{_op_foto(nome)}<div><b>{safe(nome)}</b><span>{safe(sub)}</span></div></div>'
+                html += '<div class="news-grid three">\n' + '\n'.join(op_cell(x) for x in lista) + '\n</div>'
+            html += '</section>'
+            partes.append(html)
+    if artigos:
+        partes.append('<section class="op-sec"><div class="sec-head"><h2>Artigos</h2><span class="note">convidados do FOYER</span></div>'
+                      '<div class="news-grid three">\n' + '\n'.join(op_cell(x) for x in artigos) + '\n</div></section>')
+    if not partes:
+        partes.append('<p class="op-vazio">A seção está sendo preparada. As primeiras colunas chegam em breve.</p>')
+    return (band('Seção', 'Opinião', 'Colunas, artigos de convidados e os editoriais do FOYER')
+            + '\n<main id="conteudo" class="wrap">' + _OP_ESTILO + '\n' + ''.join(partes) + '\n</main>\n')
+
+page('opiniao.html', 'Opinião — FOYER', 'Colunas, artigos de convidados e os editoriais do FOYER sobre teatro, música e cultura.', 'opiniao.html', opiniao_body())
+# a categoria antiga vira ponte para a seção: nenhum link compartilhado quebra
+for _old in ('cat-artigo-de-opiniao.html', 'cat-artigo-de-opiniao-p2.html'):
+    with open(os.path.join(ROOT, _old), 'w') as _f:
+        _f.write('<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">'
+                 '<meta http-equiv="refresh" content="0; url=opiniao.html">'
+                 '<link rel="canonical" href="' + BASE + '/opiniao.html"><meta name="robots" content="noindex">'
+                 '<title>Opinião — FOYER</title></head>'
+                 '<body><p>Os artigos de opinião agora ficam em <a href="opiniao.html">Opinião</a>.</p></body></html>')
+print('• opiniao.html + pontes de cat-artigo-de-opiniao')
+
 page('critica.html', 'Crítica — FOYER', 'Críticas de teatro, musicais, dança e ópera no FOYER.', 'critica.html', critica_body)
 page('entrevistas.html', 'Entrevistas — FOYER', 'Entrevistas com artistas e profissionais do palco.', 'entrevistas.html', entrevistas_body)
 page('agenda.html', 'Agenda — FOYER', 'Estreias, temporadas e eventos de teatro pelo Brasil.', 'agenda.html', agenda_body)
@@ -6766,7 +6953,7 @@ open(_nf_arq, 'w').write(_nf)
 
 import glob as _g
 urls = sorted(os.path.basename(f) for f in _g.glob(os.path.join(ROOT, '*.html'))
-              if os.path.basename(f) not in ('coxia.html', '404.html')
+              if os.path.basename(f) not in ('coxia.html', '404.html', 'cat-artigo-de-opiniao.html', 'cat-artigo-de-opiniao-p2.html')
               and not os.path.basename(f).startswith('revista-prova-'))
 with open(os.path.join(ROOT, 'assets/busca-index.json'), 'w') as f:
     _json.dump([{'t': _p['title'], 'c': _p.get('cat', ''), 'a': _p.get('author', ''),

@@ -1,0 +1,21 @@
+{
+ "_leiame": "Seção Opinião do site. COLUNISTAS: quem tem coluna fixa (nome, slug, nome da coluna, periodicidade, função em uma linha, foto). Os textos de opinião são matérias normais (import/novas ou import/materias.json) com os campos secao: \"opiniao\", tipo: \"coluna\" | \"artigo\" | \"editorial\", coluna: <nome da coluna, só em colunas>, autorFuncao: <linha de função, para artigos e colunas de quem não é colunista cadastrado>. A etiqueta de assunto continua no campo cat. Editorial assina \"Foyer\". Sem travessão nem meia-risca nos textos.",
+ "colunistas": [
+  {
+   "slug": "pedro-amaral",
+   "nome": "Pedro Amaral",
+   "coluna": "Coluna de Opinião",
+   "periodicidade": "semanal",
+   "funcao": "Editor-chefe do FOYER",
+   "foto": "assets/uploads/equipe-pedro-msdkdjrh.jpg"
+  },
+  {
+   "slug": "gerson-steves",
+   "nome": "Gerson Steves",
+   "coluna": "Teatro a Sangue Frio",
+   "periodicidade": "",
+   "funcao": "Colunista e apresentador do programa Teatro a Sangue Frio",
+   "foto": ""
+  }
+ ]
+}
