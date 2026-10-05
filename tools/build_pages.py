@@ -1748,13 +1748,16 @@ def real_ph(p, href, cap=True):
             f'<img src="{wiximg(p["img"], 800, 450)}" alt="{safe(p["title"])}" loading="lazy" onerror="this.style.display=\'none\'">{c}</a>')
 
 def real_cell(p, big=False):
-    d = f'\n        <p>{p["desc"][:160]}…</p>' if big else ''
+    tipo = _sem_foto_op(p)   # capa tipográfica: o título e o selo já estão nela, o corpo não repete
+    d = f'\n        <p>{p["desc"][:160]}…</p>' if big else (f'\n        <p>{p["desc"][:110]}…</p>' if tipo else '')
     href = 'post-' + p['slug'] + '.html'
-    return f'''    <article class="news-cell{' big' if big else ''}" data-cat="{p['cat']}">
+    cabeca = '' if tipo else (
+        (('<span class="tag wine">' + _tipo_rotulo(p) + '</span>') if _eh_opiniao(p) else ('<span class="tag">' + p['cat'] + '</span>'))
+        + f'\n        <h3><a href="{href}">{p["title"]}</a></h3>')
+    return f'''    <article class="news-cell{' big' if big else ''}{' tipo' if tipo else ''}" data-cat="{p['cat']}">
       {real_ph(p, href, cap=big)}
       <div class="cbody">
-        {('<span class="tag wine">' + _tipo_rotulo(p) + '</span>') if _eh_opiniao(p) else ('<span class="tag">' + p['cat'] + '</span>')}
-        <h3><a href="{href}">{p['title']}</a></h3>{d}
+        {cabeca}{d}
         <div class="meta-row">
           <span class="meta-l">{short_date(p)} — {p['author']}</span>
           <button class="share-min" data-share="native" data-title="{safe(p['title'])}" data-url="{BASE}/{href}">Compartilhar ↗</button>
@@ -1786,7 +1789,7 @@ for _i, _p in enumerate(MATERIAS[1:4]):
       {real_ph(_p, _href)}
       <div class="sub-body">
         <span class="num">00{_i+2} — {_tipo_rotulo(_p) if _eh_opiniao(_p) else _p['cat']}</span>
-        <h3><a href="{_href}">{_p['title']}</a></h3>
+        {'' if _sem_foto_op(_p) else f'<h3><a href="{_href}">{_p["title"]}</a></h3>'}
         <p>{_p['desc'][:120]}…</p>
         <div class="meta-row">
           <span class="meta-l">{short_date(_p)}</span>
@@ -1856,7 +1859,7 @@ index_main = f'''<main id="conteudo">
           <span class="tag wine">{_tipo_rotulo(_p0) if _eh_opiniao(_p0) else _p0['cat']}</span>
           <span class="tag">Manchete</span>
         </div>
-        <h1><a href="post-{_p0['slug']}.html">{_p0['title']}</a></h1>
+        {'' if _sem_foto_op(_p0) else f'<h1><a href="post-{_p0["slug"]}.html">{_p0["title"]}</a></h1>'}
         <p class="dek">{_p0['desc']}</p>
         <div class="share-row" aria-label="Compartilhar esta matéria">
           <button class="sbtn" data-share="whats" data-title="{safe(_p0['title'])}">WhatsApp</button>
@@ -4835,12 +4838,13 @@ def op_cell(p):
     href = 'post-' + p['slug'] + '.html'
     fn = _funcao_autor(p)
     quem = 'Editorial do Foyer' if p.get('tipo') == 'editorial' else (p['author'] + (f' · {fn}' if fn else ''))
-    return (f'    <article class="news-cell" data-cat="{p["cat"]}">\n'
+    return (f'    <article class="news-cell{" tipo" if _sem_foto_op(p) else ""}" data-cat="{p["cat"]}">\n'
             f'      {real_ph(p, href, cap=False)}\n'
             f'      <div class="cbody">\n'
-            f'        <span class="tag wine">{_selo_opiniao(p)}</span>\n'
-            f'        <h3><a href="{href}">{p["title"]}</a></h3>\n'
-            f'        <div class="meta-row">\n'
+            + (f'        <p>{p["desc"][:110]}…</p>\n' if _sem_foto_op(p) else
+               f'        <span class="tag wine">{_selo_opiniao(p)}</span>\n'
+               f'        <h3><a href="{href}">{p["title"]}</a></h3>\n')
+            + f'        <div class="meta-row">\n'
             f'          <span class="meta-l">{short_date(p)} — {quem}</span>\n'
             f'          <button class="share-min" data-share="native" data-title="{safe(p["title"])}" data-url="{BASE}/{href}">Compartilhar ↗</button>\n'
             f'        </div>\n'
@@ -4857,13 +4861,14 @@ def _op_destaque(p, rotulo):
         quem = f'por <b>{safe(p["author"])}</b>' + (f', {safe(fn)}' if fn else '')
         foto = _op_foto(p['author'], 'grande')
     desc = p['desc'][:220] + ('…' if len(p['desc']) > 220 else '')
-    return (f'  <article class="op-destaque">\n'
+    return (f'  <article class="op-destaque{" tipo" if _sem_foto_op(p) else ""}">\n'
             + (_capa_tipo(p, href, grande=True, classe='op-capa ph-tipo') + '\n' if _sem_foto_op(p) else
                f'    <a class="op-capa" href="{href}" aria-label="{safe(p["title"])}"><img src="{wiximg(p["img"])}" alt="" loading="lazy" onerror="this.parentNode.style.display=\'none\'"></a>\n')
             + f'    <div class="op-txt">\n'
-            f'      <span class="tag wine">{rotulo}</span>\n'
-            f'      <h2><a href="{href}">{p["title"]}</a></h2>\n'
-            f'      <p class="dek">{desc}</p>\n'
+            + ('' if _sem_foto_op(p) else
+               f'      <span class="tag wine">{rotulo}</span>\n'
+               f'      <h2><a href="{href}">{p["title"]}</a></h2>\n')
+            + f'      <p class="dek">{desc}</p>\n'
             f'      <div class="op-assina">{foto}<span>{quem}<small>{p["date"]}</small></span></div>\n'
             f'    </div>\n'
             f'  </article>')
@@ -4875,6 +4880,11 @@ _OP_ESTILO = """
     .op-capa{ display:block; aspect-ratio:16/10; border-right:var(--b); background:var(--paper-2); }
     .op-capa img{ width:100%; height:100%; object-fit:cover; display:block; }
     .op-txt{ padding:24px 26px 22px; display:flex; flex-direction:column; }
+    /* capa tipográfica: o título já está na capa; o resumo e a assinatura ficam centrados ao lado */
+    .op-destaque.tipo .op-capa{ aspect-ratio:16/9; }
+    .op-destaque.tipo .op-txt{ justify-content:center; gap:22px; }
+    .op-destaque.tipo .op-txt .dek{ font-size:1.08rem; line-height:1.6; margin:0; }
+    .op-destaque.tipo .op-assina{ margin-top:0; }
     .op-txt h2{ font-family:var(--black); font-weight:400; text-transform:uppercase; letter-spacing:-.01em;
       font-size:clamp(1.3rem,2.4vw,2rem); line-height:1.02; margin:12px 0 12px; text-wrap:balance; }
     .op-txt h2 a{ color:inherit; text-decoration:none; }
