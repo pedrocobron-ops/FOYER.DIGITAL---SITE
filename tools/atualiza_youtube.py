@@ -45,11 +45,19 @@ def feed(playlist_id):
         videos.append({
             'id': vid,
             'titulo': e.findtext('a:title', '', NS),
+            # a descrição do episódio nomeia os convidados: a Enciclopédia lê daqui (05/10/2026)
+            'descricao': (e.findtext('media:group/media:description', '', NS) or '')[:1500],
             'quando': (e.findtext('a:published', '', NS) or '')[:10],
             'thumb': f'https://i.ytimg.com/vi/{vid}/hq720.jpg',
             'url': f'https://www.youtube.com/watch?v={vid}&list={playlist_id}',
         })
     return videos
+
+
+try:
+    ACERVO = json.load(open(os.path.join(ROOT, 'import/youtube-acervo.json')))
+except Exception:
+    ACERVO = {}
 
 
 def main():
@@ -73,6 +81,22 @@ def main():
             vids = []
         if not vids and antigo.get(pid):
             vids = antigo[pid]
+        # o feed só traz os ~15 mais recentes. O resto da playlist vem do
+        # acervo (import/youtube-acervo.json, puxado uma vez com yt-dlp em
+        # 05/10/2026): entra depois, na ordem da playlist, sem data nem
+        # descrição, só para a Enciclopédia e a lista completa do programa.
+        # O retrato antigo preserva descrição/data de episódio que saiu do feed.
+        vistos = {v['id'] for v in vids}
+        antigos = {v['id']: v for v in antigo.get(pid, [])}
+        for v in (ACERVO.get(pid) or {}).get('videos', []):
+            if v['id'] in vistos:
+                continue
+            velho = antigos.get(v['id']) or {}
+            vids.append({'id': v['id'], 'titulo': v.get('titulo') or velho.get('titulo', ''),
+                         'descricao': velho.get('descricao', ''), 'quando': velho.get('quando', ''),
+                         'thumb': f"https://i.ytimg.com/vi/{v['id']}/hq720.jpg", 'url': v.get('url', ''),
+                         'acervo': True})
+            vistos.add(v['id'])
             print(f'  {nome}: YouTube vazio agora — mantém os {len(vids)} vídeo(s) do retrato anterior')
         saida['programas'].append({
             'id': pid, 'nome': nome, 'papel': papel,

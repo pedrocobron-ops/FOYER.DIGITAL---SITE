@@ -4046,7 +4046,97 @@ PESSOAS = ENC.get('pessoas', {})
 POR_MATERIA = ENC.get('porMateria', {})
 POR_VIDEO = ENC.get('porVideo', {})
 
-_PAPEL_ROT = {'autor': 'Assina', 'citado': 'Citado(a)', 'convidado': 'Convidado(a)', 'apresenta': 'Apresenta'}
+# ---- o verbete ganha corpo (05/10/2026, pedido do Pedro: "a Wikipédia das
+# pessoas do teatro"). Cada pessoa junta, nesta ordem de força:
+#   1. o que foi escrito à mão na Coxia (import/enciclopedia-regras.json, "pessoas")
+#   2. a equipe do FOYER (import/equipe.json) e os colunistas (import/opiniao.json)
+#   3. a Wikipédia em português (import/enciclopedia-wiki.json, tools/enciclopedia_wiki.py)
+#   4. o que o próprio acervo diz (função deduzida do texto, datas, aparições)
+try:
+    _WIKI = _json.load(open(os.path.join(ROOT, 'import/enciclopedia-wiki.json')))
+except Exception:
+    _WIKI = {}
+try:
+    _REGRAS_ENC = _json.load(open(os.path.join(ROOT, 'import/enciclopedia-regras.json')))
+except Exception:
+    _REGRAS_ENC = {}
+try:
+    _EQ_ENC = _json.load(open(os.path.join(ROOT, 'import/equipe.json'))).get('usuarios', [])
+except Exception:
+    _EQ_ENC = []
+
+def _slug_enc(n):
+    import unicodedata as _u2
+    n = _u2.normalize('NFKD', n or '').encode('ascii', 'ignore').decode()
+    return _re.sub(r'[^a-zA-Z0-9]+', '-', n).strip('-').lower()[:70]
+
+_EQ_POR_SLUG = {_slug_enc(u.get('nome', '')): u for u in _EQ_ENC if u.get('nome')}
+_COL_POR_SLUG = {_slug_enc(c.get('nome', '')): c for c in _OPINIAO.get('colunistas', []) if c.get('nome')}
+_MAT_POR_SLUG = {m['slug']: m for m in MATERIAS}
+
+def _funcao_bonita(fs):
+    """['Direção', 'Diretor', 'Figurino'] -> 'Direção · Figurino' (sem repetir a mesma ideia)."""
+    base = {'Diretor': 'Direção', 'Diretora': 'Direção', 'Encenador': 'Direção', 'Encenadora': 'Direção',
+            'Dramaturgo': 'Dramaturgia', 'Dramaturga': 'Dramaturgia', 'Autor': 'Dramaturgia', 'Autora': 'Dramaturgia',
+            'Ator': 'Ator', 'Atriz': 'Atriz', 'Atuação': 'Atuação', 'Produtor': 'Produção', 'Produtora': 'Produção',
+            'Coreógrafo': 'Coreografia', 'Coreógrafa': 'Coreografia', 'Cenógrafo': 'Cenografia', 'Cenógrafa': 'Cenografia',
+            'Iluminador': 'Iluminação', 'Iluminadora': 'Iluminação', 'Compositor': 'Música', 'Compositora': 'Música',
+            'Cantor': 'Cantor', 'Cantora': 'Cantora', 'Músico': 'Música', 'Musicista': 'Música',
+            'Apresentador': 'Apresentação', 'Apresentadora': 'Apresentação'}
+    out = []
+    for f in fs or []:
+        b = base.get(f, f)
+        if b == 'Atuação' and any(x in out for x in ('Ator', 'Atriz')):
+            continue
+        if b in ('Ator', 'Atriz') and 'Atuação' in out:
+            out[out.index('Atuação')] = b
+            continue
+        if b not in out:
+            out.append(b)
+    return ' · '.join(out[:3])
+
+_CO = {}   # slug -> Counter de quem aparece junto (relacionados)
+import collections as _coll
+for _lista in list(POR_MATERIA.values()) + list(POR_VIDEO.values()):
+    for _a in _lista:
+        _c = _CO.setdefault(_a, _coll.Counter())
+        for _b in _lista:
+            if _b != _a:
+                _c[_b] += 1
+
+for _sp, _p in PESSOAS.items():
+    _aj = (_REGRAS_ENC.get('pessoas') or {}).get(_sp) or {}
+    _eq = _EQ_POR_SLUG.get(_sp) or {}
+    _col = _COL_POR_SLUG.get(_sp) or {}
+    _w = _WIKI.get(_sp) if (_WIKI.get(_sp) or {}).get('url') else {}
+    _p['nome'] = _aj.get('nome') or _p['nome']
+    _p['funcao'] = (_aj.get('funcao') or _eq.get('cargo') or _col.get('funcao')
+                    or (_w.get('descricao') or '').strip().capitalize() or _funcao_bonita(_p.get('funcoes')))
+    if _aj.get('bio'):
+        _p['bio'], _p['bioFonte'] = _aj['bio'], ''
+    elif _eq.get('bio'):
+        _p['bio'], _p['bioFonte'] = _eq['bio'], ''
+    elif _w.get('resumo'):
+        _p['bio'], _p['bioFonte'] = _w['resumo'], _w['url']
+    else:
+        _p['bio'], _p['bioFonte'] = '', ''
+    if _aj.get('foto'):
+        _p['foto'], _p['fotoCredito'], _p['fotoLink'] = _aj['foto'], _aj.get('fotoCredito', ''), ''
+    elif _eq.get('foto') or _col.get('foto'):
+        _p['foto'], _p['fotoCredito'], _p['fotoLink'] = (_eq.get('foto') or _col.get('foto')), 'Arquivo FOYER', ''
+    elif _w.get('foto'):
+        _p['foto'], _p['fotoCredito'], _p['fotoLink'] = _w['foto'], 'Wikimedia Commons', _w.get('fotoPagina', '')
+    else:
+        _p['foto'], _p['fotoCredito'], _p['fotoLink'] = '', '', ''
+    _p['redes'] = {k: v for k, v in (_aj.get('redes') or {}).items() if v}
+    _p['wikiUrl'] = _w.get('url', '')
+    _p['relacionados'] = [s for s, _n in _CO.get(_sp, _coll.Counter()).most_common(12) if s in PESSOAS][:8]
+    _datas = sorted(a.get('data', '') for a in _p['aparicoes'] if a.get('data'))
+    _p['desde'] = _datas[0][:4] if _datas else ''
+    _p['primeira'] = _datas[0] if _datas else ''
+    _p['ultima'] = _datas[-1] if _datas else ''
+
+_PAPEL_ROT = {'autor': 'Assina', 'citado': 'Citado(a)', 'convidado': 'Convidado(a)', 'apresenta': 'Apresenta', 'tema': 'Tema'}
 
 def _papeis_resumo(aps):
     ps = {a['papel'] for a in aps}
@@ -4054,7 +4144,7 @@ def _papeis_resumo(aps):
     if 'autor' in ps: out.append('assina no FOYER')
     if 'apresenta' in ps: out.append('apresenta programa')
     if 'convidado' in ps: out.append('nos programas')
-    if 'citado' in ps: out.append('nas matérias')
+    if 'citado' in ps or 'tema' in ps: out.append('nas matérias')
     return ' · '.join(out) or 'no acervo'
 
 def _enc_data(iso):
@@ -4064,45 +4154,171 @@ def _enc_data(iso):
     except Exception:
         return ''
 
+def _enc_data_longa(iso):
+    try:
+        _y, _m, _d = iso.split('-')
+        return f'{int(_d)} de {_MESES_PT[int(_m)-1]} de {_y}'
+    except Exception:
+        return ''
+
+def _vid_id(url):
+    _m = _re.search(r'[?&]v=([\w-]{6,})', url or '')
+    return _m.group(1) if _m else ''
+
+def _foto_verbete(p, tam='grande'):
+    if p.get('foto'):
+        src = p['foto'] if p['foto'].startswith('http') else wiximg(p['foto'], 480, 480)
+        return f'<span class="vb-foto {tam}"><img src="{_html.escape(src, quote=True)}" alt="{safe(p["nome"])}" loading="lazy"></span>'
+    return f'<span class="vb-foto {tam} ini"><i>{safe((p["nome"] or "F")[:1])}</i></span>'
+
+def _em_cartaz_de(p):
+    """Matérias desta pessoa com evento ainda em cartaz."""
+    hoje = datetime.now(timezone.utc).date().isoformat()
+    out = []
+    for a in p['aparicoes']:
+        if a['tipo'] != 'materia':
+            continue
+        m = _MAT_POR_SLUG.get(a['url'].replace('post-', '', 1).replace('.html', ''))
+        ev = (m or {}).get('evento') or {}
+        if ev.get('inicio') and (ev.get('fim') or ev['inicio']) >= hoje:
+            out.append((m, ev))
+    return out[:3]
+
 def pessoa_page(sp, p):
     aps = p['aparicoes']
-    n_mat = sum(1 for a in aps if a['tipo'] == 'materia')
-    n_ep = sum(1 for a in aps if a['tipo'] != 'materia')
-    anos = sorted(a['data'][:4] for a in aps if a.get('data'))
-    desde = anos[0] if anos else ''
+    mats = [a for a in aps if a['tipo'] == 'materia']
+    eps = [a for a in aps if a['tipo'] != 'materia']
+    n_mat, n_ep = len(mats), len(eps)
+    funcao = p.get('funcao') or _papeis_resumo(aps)
+    # ---- cabeçalho: foto, nome, função, bio, redes
+    bio = ''
+    if p.get('bio'):
+        fonte = (f' <a class="vb-fonte" href="{_html.escape(p["bioFonte"], quote=True)}" target="_blank" rel="noopener">Fonte: Wikipédia ↗</a>'
+                 if p.get('bioFonte') else '')
+        bio = f'<p class="vb-bio">{safe(p["bio"])}{fonte}</p>'
+    else:
+        partes = []
+        if n_mat: partes.append(f'{n_mat} matéria{"s" if n_mat != 1 else ""}')
+        if n_ep: partes.append(f'{n_ep} episódio{"s" if n_ep != 1 else ""} dos programas')
+        bio = (f'<p class="vb-bio auto">{safe(p["nome"])} está no acervo do FOYER desde {p.get("desde") or "sempre"}, '
+               f'em {" e ".join(partes) if partes else "nossas páginas"}. Este verbete é montado automaticamente a partir '
+               f'do que publicamos; se você é {safe(p["nome"])} ou trabalha com essa pessoa, '
+               f'<a href="mailto:contato@foyer.digital?subject=Enciclopédia%20FOYER%3A%20{_html.escape(p["nome"], quote=True)}">mande foto e uma bio curta</a>.</p>')
+    redes = ''
+    _ROT = {'instagram': 'Instagram', 'site': 'Site', 'youtube': 'YouTube', 'tiktok': 'TikTok', 'x': 'X', 'facebook': 'Facebook', 'spotify': 'Spotify', 'linkedin': 'LinkedIn'}
+    links = [(_ROT.get(k, k.capitalize()), v) for k, v in (p.get('redes') or {}).items()]
+    if p.get('wikiUrl'):
+        links.append(('Wikipédia', p['wikiUrl']))
+    if links:
+        redes = '<div class="vb-redes">' + ''.join(
+            f'<a href="{_html.escape(v, quote=True)}" target="_blank" rel="noopener">{safe(k)} ↗</a>' for k, v in links) + '</div>'
+    cred = ''
+    if p.get('foto') and p.get('fotoCredito'):
+        cred = (f'<small class="vb-cred">Foto: <a href="{_html.escape(p["fotoLink"], quote=True)}" target="_blank" rel="noopener">{safe(p["fotoCredito"])}</a></small>'
+                if p.get('fotoLink') else f'<small class="vb-cred">Foto: {safe(p["fotoCredito"])}</small>')
+    # ---- em cartaz agora
+    cartaz = ''
+    ec = _em_cartaz_de(p)
+    if ec:
+        itens = ''
+        for m, ev in ec:
+            onde = ' · '.join(x for x in (ev.get('local'), ev.get('cidade')) if x)
+            quando = _enc_data(ev.get('inicio', '')) + (' a ' + _enc_data(ev['fim']) if ev.get('fim') else '')
+            itens += (f'<a class="vb-cartaz-item" href="post-{m["slug"]}.html"><b>{m["title"]}</b>'
+                      f'<span>{safe(onde)}{" · " if onde and quando else ""}{quando}</span></a>')
+        cartaz = f'<section class="vb-sec vb-cartaz"><div class="sec-head"><h2>Em cartaz</h2><span class="note">agora, segundo nossas matérias</span></div><div class="vb-cartaz-lista">{itens}</div></section>'
+    # ---- programas (cards com a capa do episódio)
+    progs = ''
+    if eps:
+        cards = ''
+        for a in eps[:24]:
+            vid = _vid_id(a['url'])
+            thumb = f'<img src="https://i.ytimg.com/vi/{vid}/mqdefault.jpg" alt="" loading="lazy">' if vid else ''
+            prog, _, ep = a['titulo'].partition(': ')
+            cards += (f'<a class="vb-ep" href="{_rvesc(a["url"])}" target="_blank" rel="noopener">'
+                      f'<span class="vb-ep-th">{thumb}</span>'
+                      f'<span class="vb-ep-tx"><small>{_rvesc(prog)} · {_PAPEL_ROT.get(a["papel"], "")}{(" · " + _enc_data(a["data"])) if a.get("data") else ""}</small>'
+                      f'<b>{_rvesc(ep or a["titulo"])}</b></span></a>')
+        progs = (f'<section class="vb-sec"><div class="sec-head"><h2>Nos programas</h2><span class="note">{n_ep} episódio{"s" if n_ep != 1 else ""} do canal do FOYER</span></div>'
+                 f'<div class="vb-eps">{cards}</div></section>')
+    # ---- matérias (linhas com miniatura)
     rows = ''
-    for a in aps[:80]:
-        ext = ' target="_blank" rel="noopener"' if a['tipo'] != 'materia' else ''
-        tag = 'Programa' if a['tipo'] != 'materia' else 'Matéria'
-        rows += f'''    <a class="agd-row" href="{_rvesc(a['url'])}"{ext}>
-      <span class="agd-date"><b style="font-size:.9rem">{_enc_data(a.get('data',''))}</b><small>{_PAPEL_ROT.get(a['papel'], '')}</small></span>
-      <span class="agd-what"><h3 style="font-size:.95rem">{_rvesc(a['titulo'])}</h3></span>
-      <span class="tag agd-tag">{tag}</span>
-    </a>\n'''
+    for a in mats[:100]:
+        m = _MAT_POR_SLUG.get(a['url'].replace('post-', '', 1).replace('.html', ''))
+        th = ''
+        if m and m.get('img'):
+            th = f'<span class="vb-th"><img src="{wiximg(m["img"], 240, 135)}" alt="" loading="lazy"></span>'
+        elif m and _eh_opiniao(m):
+            th = '<span class="vb-th tipo"><i>' + _tipo_rotulo(m) + '</i></span>'
+        else:
+            th = '<span class="vb-th vazio"></span>'
+        rot = _PAPEL_ROT.get(a['papel'], '')
+        cat = (_tipo_rotulo(m) if _eh_opiniao(m) else m.get('cat', '')) if m else ''
+        rows += (f'<a class="vb-row" href="{_rvesc(a["url"])}">{th}'
+                 f'<span class="vb-row-tx"><small>{_enc_data(a.get("data", ""))} · {safe(cat)}{(" · " + rot) if rot else ""}</small>'
+                 f'<b>{_rvesc(a["titulo"])}</b></span></a>\n')
+    materias = ''
+    if rows:
+        materias = (f'<section class="vb-sec"><div class="sec-head"><h2>Nas matérias</h2><span class="note">{n_mat} texto{"s" if n_mat != 1 else ""} do FOYER</span></div>'
+                    f'<div class="vb-rows">{rows}</div>'
+                    + (f'<p class="vb-mais">Mostrando as 100 mais recentes de {n_mat}. <a href="busca.html?q={_html.escape(p["nome"], quote=True)}">Ver todas na busca →</a></p>' if n_mat > 100 else '')
+                    + '</section>')
+    # ---- relacionados
+    rel = ''
+    if p.get('relacionados'):
+        chips = ''
+        for s2 in p['relacionados']:
+            q = PESSOAS.get(s2)
+            if not q:
+                continue
+            chips += (f'<a class="vb-rel" href="pessoa-{s2}.html">{_foto_verbete(q, "mini")}'
+                      f'<span><b>{safe(q["nome"])}</b><small>{safe(q.get("funcao") or _papeis_resumo(q["aparicoes"]))}</small></span></a>')
+        rel = f'<section class="vb-sec"><div class="sec-head"><h2>Aparece junto com</h2><span class="note">quem divide matérias e episódios com {safe(p["nome"])}</span></div><div class="vb-rels">{chips}</div></section>'
+    desde = f'No FOYER desde {p["desde"]}' if p.get('desde') else 'No acervo do FOYER'
     return f'''<main id="conteudo" class="wrap">
-  <div class="art" style="max-width:900px; margin:0 auto">
-    <div class="art-head" style="padding-top:30px">
-      <div class="tags"><span class="tag wine">Enciclopédia do FOYER</span><span class="tag">{_papeis_resumo(aps)}</span></div>
-      <h1>{_rvesc(p['nome'])}</h1>
-      <div class="art-byline">
-        <span><b>{n_mat}</b> matéria(s) · <b>{n_ep}</b> aparição(ões) nos programas</span>
-        <span>No FOYER desde {desde}</span>
+  <article class="vb">
+    <header class="vb-head">
+      <div class="vb-foto-col">{_foto_verbete(p)}{cred}</div>
+      <div class="vb-id">
+        <div class="tags"><span class="tag wine">Enciclopédia do FOYER</span><span class="tag">{_papeis_resumo(aps)}</span></div>
+        <h1>{safe(p['nome'])}</h1>
+        <p class="vb-funcao">{safe(funcao)}</p>
+        {bio}
+        {redes}
+        <div class="vb-stats">
+          <span><b>{n_mat}</b> matéria{"s" if n_mat != 1 else ""}</span>
+          <span><b>{n_ep}</b> {"episódios" if n_ep != 1 else "episódio"}</span>
+          <span>{desde}</span>
+          {('<span>Última aparição em ' + _enc_data_longa(p['ultima']) + '</span>') if p.get('ultima') else ''}
+        </div>
+        <div class="share-row" aria-label="Compartilhar este verbete">
+          <button class="sbtn" data-share="whats" data-title="{safe(p['nome'])} na Enciclopédia do FOYER">WhatsApp</button>
+          <button class="sbtn" data-share="copy" data-title="{safe(p['nome'])}">Copiar link</button>
+        </div>
       </div>
-      <div class="share-row" aria-label="Compartilhar este verbete">
-        <button class="sbtn" data-share="whats" data-title="{safe(p['nome'])} na Enciclopédia do FOYER">WhatsApp</button>
-        <button class="sbtn" data-share="copy" data-title="{safe(p['nome'])}">Copiar link</button>
-      </div>
-    </div>
-    <div class="agd" style="margin-top:26px">
-{rows}    </div>
+    </header>
+    {cartaz}
+    {progs}
+    {materias}
+    {rel}
     <div class="filters" style="padding:24px 0 40px">
       <a href="enciclopedia.html">← Enciclopédia</a>
       <a href="busca.html">Buscar no acervo</a>
     </div>
-  </div>
+  </article>
   <div class="ad-slot" data-ad-slot="1701"></div>
 </main>
 '''
+
+def _ld_pessoa(sp, p):
+    d = {'@context': 'https://schema.org', '@type': 'Person', 'name': p['nome'],
+         'url': f'{BASE}/pessoa-{sp}.html'}
+    if p.get('funcao'): d['jobTitle'] = p['funcao']
+    if p.get('bio'): d['description'] = p['bio'][:300]
+    if p.get('foto'): d['image'] = p['foto'] if p['foto'].startswith('http') else f'{BASE}/{p["foto"]}'
+    same = [v for v in (p.get('redes') or {}).values()] + ([p['wikiUrl']] if p.get('wikiUrl') else [])
+    if same: d['sameAs'] = same
+    return '<script type="application/ld+json">' + _json.dumps(d, ensure_ascii=False) + '</script>'
 
 # ---------------------------------------------------------------- PÁGINAS DE AUTOR (assinaturas do FOYER)
 # Quem assina responde pelo texto: cada assinatura tem página própria, com o que
@@ -4726,10 +4942,28 @@ for _sp, _pp in [x for x in _top_pessoas if x[0] not in _CASA][:4]:
 _capa_enc += '</div>'
 index_main = index_main.replace('__ENCICLOPEDIA_CAPA__', _capa_enc)
 
-enciclopedia_body = band('Projeto Foyer', 'Enciclopédia do FOYER', 'Todas as pessoas que passaram pelas matérias e pelos programas — cada nome clicável leva ao histórico completo') + f'''
+# ---- índice da Enciclopédia (05/10/2026): destaques com foto, folhear por
+# letra e por função, quem entrou há pouco, os mais citados, e a busca.
+_PESSOAS_IDX = [x for x in _top_pessoas if x[0] not in _CASA]
+_destaque = [(sp, pp) for sp, pp in _PESSOAS_IDX if pp.get('foto')][:18]
+_ency_cards = ''.join(
+    f'<a class="ency-card" href="pessoa-{sp}.html">{_foto_verbete(pp, "")}<span class="tx"><b>{safe(pp["nome"])}</b><small>{safe(pp.get("funcao") or _papeis_resumo(pp["aparicoes"]))}</small></span></a>'
+    for sp, pp in _destaque)
+_hoje_iso = datetime.now(timezone.utc).date().isoformat()
+_recentes = sorted([(sp, pp) for sp, pp in PESSOAS.items() if pp.get('primeira')], key=lambda x: x[1]['primeira'], reverse=True)[:12]
+def _ency_row(sp, pp, conta=True):
+    return (f'<a class="ency-row" href="pessoa-{sp}.html" role="row"><span class="nm">{_rvesc(pp["nome"])}'
+            f'<small>{safe(pp.get("funcao") or "")}</small></span><span class="of">{_papeis_resumo(pp["aparicoes"])}</span>'
+            f'<span class="ct">{len(pp["aparicoes"])} aparições</span><span class="ar">→</span></a>\n')
+_enc_rows = ''.join(_ency_row(sp, pp) for sp, pp in _PESSOAS_IDX[:60])
+_enc_novos = ''.join(_ency_row(sp, pp) for sp, pp in _recentes)
+_n_foto = sum(1 for pp in PESSOAS.values() if pp.get('foto'))
+_n_bio = sum(1 for pp in PESSOAS.values() if pp.get('bio'))
+enciclopedia_body = band('Projeto Foyer', 'Enciclopédia do FOYER', 'Quem faz o teatro e a cultura no Brasil: cada nome leva ao histórico completo de matérias e programas') + f"""
 <main id="conteudo" class="wrap">
   <div class="ency-stats">
     <div class="stat"><span class="n" data-v="{len(PESSOAS)}">0</span><span class="l">Pessoas mapeadas</span></div>
+    <div class="stat"><span class="n" data-v="{_n_bio}">0</span><span class="l">Com bio</span></div>
     <div class="stat"><span class="n" data-v="{len(MATERIAS)}">0</span><span class="l">Matérias no acervo</span></div>
     <div class="stat"><span class="n" data-v="{_n_eps}">0</span><span class="l">Episódios dos programas</span></div>
   </div>
@@ -4737,33 +4971,78 @@ enciclopedia_body = band('Projeto Foyer', 'Enciclopédia do FOYER', 'Todas as pe
     <input type="search" id="enc-q" placeholder="Busque uma pessoa — artista, autor, convidado…" aria-label="Buscar pessoa">
     <button type="submit">Buscar</button>
   </form>
+  <div class="ency-letras" id="enc-letras" aria-label="Folhear por letra">
+    <button type="button" data-l="" class="on">Todos</button>{''.join(f'<button type="button" data-l="{c}">{c}</button>' for c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')}
+  </div>
+  <div class="ency-chips" id="enc-funcoes" aria-label="Filtrar por função">
+    <button type="button" data-f="" class="on">Todas as funções</button>
+    <button type="button" data-f="atriz|ator|atuação">Atrizes e atores</button>
+    <button type="button" data-f="direção|diretor">Direção</button>
+    <button type="button" data-f="dramaturg|autor|escritor">Dramaturgia</button>
+    <button type="button" data-f="cantor|música|compositor|músico">Música</button>
+    <button type="button" data-f="produ">Produção</button>
+    <button type="button" data-f="coreogr|bailarin|dançarin">Dança</button>
+    <button type="button" data-f="cenogr|figurin|ilumina">Cenografia, figurino e luz</button>
+    <button type="button" data-f="apresenta|jornalista|crític">Imprensa e programas</button>
+  </div>
+  <div id="enc-padrao">
+    <div class="sec-head"><h2>Em destaque</h2><span class="note">os mais presentes no FOYER, com retrato</span></div>
+    <div class="ency-grid">{_ency_cards}</div>
+    <div class="sec-head"><h2>Entraram há pouco</h2><span class="note">nomes que chegaram ao acervo nas últimas publicações</span></div>
+    <div class="ency-table" role="table" aria-label="Novos na enciclopédia" style="margin-bottom:26px">
+{_enc_novos}    </div>
+    <div class="sec-head"><h2>Os mais citados</h2><span class="note">60 nomes com mais aparições</span></div>
+  </div>
   <div class="ency-table" role="table" aria-label="Índice de pessoas" id="enc-res">
 {_enc_rows}  </div>
   <p class="note" style="font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);padding:18px 0 40px">
-    Índice montado automaticamente a partir do acervo do FOYER — os 60 nomes mais presentes acima; use a busca para os {len(PESSOAS)} verbetes.
+    Índice montado automaticamente a partir do acervo do FOYER e completado com fontes públicas (Wikipédia). Use a busca, as letras e as funções para chegar aos {len(PESSOAS)} verbetes.
+    Erro ou nome faltando? <a href="mailto:contato@foyer.digital?subject=Enciclopédia%20FOYER">Escreva para a redação</a>.
   </p>
 </main>
 <script>
 (function(){{
-  var IDX = null, res = document.getElementById('enc-res'), padrao = res.innerHTML;
-  function norm(t){{ return t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }}
-  document.getElementById('enc-q').addEventListener('input', function(){{
-    var v = norm(this.value.trim());
-    if(v.length < 2){{ res.innerHTML = padrao; return; }}
+  var IDX = null, res = document.getElementById('enc-res'), padrao = document.getElementById('enc-padrao'), lista0 = res.innerHTML;
+  var q = document.getElementById('enc-q'), letra = '', funcao = '';
+  function norm(t){{ return (t || '').normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase(); }}
+  function linha(p){{
+    var foto = p.p ? '<span class="vb-foto mini"><img src="' + p.p + '" alt="" loading="lazy"></span>' : '';
+    return '<a class="ency-row" href="' + p.u + '"><span class="nm">' + p.n + (p.f ? '<small>' + p.f + '</small>' : '') + '</span><span class="of"></span><span class="ct">' + p.c + ' aparições</span><span class="ar">→</span></a>';
+  }}
+  function roda(){{
+    var v = norm(q.value.trim());
+    if(v.length < 2 && !letra && !funcao){{ res.innerHTML = lista0; padrao.style.display = ''; return; }}
     var go = function(){{
-      var hits = [];
-      for(var i = 0; i < IDX.length && hits.length < 40; i++)
-        if(norm(IDX[i].n).indexOf(v) !== -1) hits.push(IDX[i]);
-      res.innerHTML = hits.length
-        ? hits.map(function(p){{ return '<a class="ency-row" href="' + p.u + '"><span class="nm">' + p.n + '</span><span class="of"></span><span class="ct">' + p.c + ' aparições</span><span class="ar">→</span></a>'; }}).join('')
+      var hits = [], fs = funcao ? funcao.split('|') : [];
+      var lista = IDX.slice();
+      if(letra) lista.sort(function(a, b){{ return norm(a.n) < norm(b.n) ? -1 : 1; }});
+      for(var i = 0; i < lista.length && hits.length < 200; i++){{
+        var p = lista[i], n = norm(p.n);
+        if(v.length >= 2 && n.indexOf(v) === -1) continue;
+        if(letra && n.charAt(0) !== letra.toLowerCase()) continue;
+        if(fs.length){{ var f = norm(p.f); var ok = false; for(var k = 0; k < fs.length; k++) if(f.indexOf(fs[k]) !== -1) ok = true; if(!ok) continue; }}
+        hits.push(p);
+      }}
+      padrao.style.display = 'none';
+      res.innerHTML = hits.length ? hits.map(linha).join('')
         : '<div class="ency-row"><span class="nm">Nenhuma pessoa encontrada</span><span class="of"></span><span class="ct"></span><span class="ar"></span></div>';
     }};
     if(IDX) go();
     else fetch('assets/pessoas-index.json').then(function(r){{ return r.json(); }}).then(function(d){{ IDX = d; go(); }});
+  }}
+  q.addEventListener('input', roda);
+  document.getElementById('enc-letras').addEventListener('click', function(e){{
+    var b = e.target.closest('button'); if(!b) return;
+    letra = b.dataset.l; [].forEach.call(this.querySelectorAll('button'), function(x){{ x.classList.toggle('on', x === b); }}); roda();
   }});
+  document.getElementById('enc-funcoes').addEventListener('click', function(e){{
+    var b = e.target.closest('button'); if(!b) return;
+    funcao = b.dataset.f; [].forEach.call(this.querySelectorAll('button'), function(x){{ x.classList.toggle('on', x === b); }}); roda();
+  }});
+  var qs = new URLSearchParams(location.search).get('q'); if(qs){{ q.value = qs; roda(); }}
 }})();
 </script>
-'''
+"""
 
 # ---------------------------------------------------------------- monta tudo
 
@@ -6888,12 +7167,18 @@ for _asp, _aa in AUTORES.items():
 print(f'• {len(AUTORES)} páginas de autor')
 
 for _sp, _pp in PESSOAS.items():
-    page('pessoa-' + _sp + '.html', _pp['nome'] + ' — Enciclopédia FOYER',
-         f"{_pp['nome']} na Enciclopédia do FOYER: histórico completo de matérias e programas.",
-         'enciclopedia.html', pessoa_page(_sp, _pp), quiet=True)
+    _d = (_pp.get('bio') or '').split('. ')[0][:180]
+    _d = (_d + ('.' if _d and not _d.endswith('.') else '')) if _d else ''
+    page('pessoa-' + _sp + '.html', _pp['nome'] + (' — ' + _pp['funcao'] if _pp.get('funcao') else '') + ' — Enciclopédia FOYER',
+         (_d + ' ' if _d else '') + f"{_pp['nome']} na Enciclopédia do FOYER: matérias, programas e com quem aparece.",
+         'enciclopedia.html', pessoa_page(_sp, _pp), quiet=True,
+         og_img=(_pp['foto'] if _pp['foto'].startswith('http') else wiximg(_pp['foto'], 1200, 630)) if _pp.get('foto') else None,
+         og_type='profile', ld=_ld_pessoa(_sp, _pp))
 print(f'• {len(PESSOAS)} verbetes de pessoa')
 with open(os.path.join(ROOT, 'assets/pessoas-index.json'), 'w') as _f:
-    _json.dump([{'n': _pp['nome'], 'u': 'pessoa-' + _sp + '.html', 'c': len(_pp['aparicoes'])}
+    _json.dump([{'n': _pp['nome'], 'u': 'pessoa-' + _sp + '.html', 'c': len(_pp['aparicoes']),
+                 'f': _pp.get('funcao', ''), 'p': (_pp['foto'] if _pp['foto'].startswith('http') else wiximg(_pp['foto'], 160, 160)) if _pp.get('foto') else '',
+                 'd': _pp.get('primeira', ''), 'l': _pp.get('ultima', '')}
                 for _sp, _pp in _top_pessoas], _f, ensure_ascii=False)
 
 for _e in ED_PUB:

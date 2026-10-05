@@ -1184,6 +1184,7 @@
         <button data-view="calendario" id="mi-cal" type="button">📅 &nbsp;Calendário<span class="bdg" id="bdg-cal" style="display:none">!</span></button>
         <button data-view="pub" id="mi-pub" type="button">💰 &nbsp;Publicidade<span class="bdg" id="bdg-pub" style="display:none">0</span></button>
         <button data-view="producoes" id="mi-producoes" type="button">🎬 &nbsp;Produções</button>
+        <button data-view="enciclopedia" id="mi-enc" type="button">📚 &nbsp;Enciclopédia</button>
         <button data-view="divulgacao" id="mi-div" type="button">📣 &nbsp;Divulgação</button>
         <button data-view="equipe" id="mi-equipe" type="button">👥 &nbsp;Equipe</button>
         <button data-view="metricas" id="mi-metricas" type="button">📈 &nbsp;Métricas</button>
@@ -1811,6 +1812,77 @@ ingressos e divisor."></textarea>
           <span class="msg" id="pd-dmsg"></span>
         </form>
       </section>
+      <!-- ========== ENCICLOPÉDIA (05/10/2026) ========== -->
+      <section class="view" id="view-enciclopedia">
+        <h2 class="hi">Enciclopédia</h2>
+        <p class="hi-sub">Os verbetes de <b>foyer.digital/enciclopedia</b> nascem sozinhos do acervo e da Wikipédia. Aqui você corrige, completa, junta duplicados e tira o que não é gente. O site remonta em ~2 min</p>
+
+        <div class="sec-h"><h3>Achar um verbete</h3><span>nome da pessoa como está no site</span></div>
+        <form style="display:flex;gap:8px;max-width:640px" onsubmit="return false">
+          <input type="search" id="en-q" placeholder="Busque a pessoa… (3 letras ou mais)" style="flex:1;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:inherit;padding:10px 12px;font-size:16px">
+        </form>
+        <div class="fila" id="en-res" style="max-width:640px;margin-top:10px;display:none"></div>
+
+        <form class="f-form" id="en-form" style="max-width:640px;margin-top:18px;display:none">
+          <input type="hidden" id="en-slug">
+          <div class="sec-h" style="margin-top:0"><h3 id="en-form-t">Verbete</h3><span id="en-form-s"></span></div>
+          <div class="r2">
+            <div>
+              <label for="en-nome">Nome como deve aparecer</label>
+              <input type="text" id="en-nome" placeholder="Ex.: José Celso Martinez Corrêa">
+            </div>
+            <div>
+              <label for="en-funcao">Função (uma linha)</label>
+              <input type="text" id="en-funcao" placeholder="Ex.: Atriz e diretora">
+            </div>
+          </div>
+          <div>
+            <label for="en-bio">Bio curta (2 ou 3 frases, sem travessão)</label>
+            <textarea id="en-bio" rows="4" placeholder="Quem é, o que faz, trabalhos marcantes. Deixe vazio para usar a Wikipédia (quando houver) ou o resumo automático."></textarea>
+            <p class="f-note" id="en-bio-auto" style="margin:6px 0 0;display:none"></p>
+          </div>
+          <div class="r2">
+            <div><label for="en-insta">Instagram (link)</label><input type="text" id="en-insta" placeholder="https://instagram.com/…"></div>
+            <div><label for="en-site">Site (link)</label><input type="text" id="en-site" placeholder="https://…"></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap">
+            <div class="eq-mini" id="en-foto-mini"><span>sem foto</span></div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label style="margin:0">Foto (quadrada fica melhor; a da Wikipédia entra sozinha quando não há nenhuma)</label>
+              <input type="file" id="en-file" accept="image/*" style="font-size:14px">
+              <button class="bt" type="button" id="en-foto-tira">Tirar a foto</button>
+              <small id="en-foto-st"></small>
+            </div>
+            <input type="hidden" id="en-foto" value="">
+            <input type="hidden" id="en-foto-cred" value="">
+          </div>
+          <div>
+            <label for="en-juntar">Juntar com outro verbete (este nome passa a cair no verbete escolhido)</label>
+            <input type="search" id="en-juntar" placeholder="Busque o verbete principal… ex.: José Celso Martinez Corrêa">
+            <div class="fila" id="en-juntar-res" style="margin-top:8px;display:none"></div>
+            <p class="f-note" id="en-juntar-st" style="margin:6px 0 0;display:none"></p>
+          </div>
+          <div class="f-acoes">
+            <button class="bt f-pub" type="submit">Salvar verbete</button>
+            <button class="bt" type="button" id="en-cancelar">Cancelar</button>
+            <button class="bt danger" type="button" id="en-excluir">Excluir verbete (não é gente)</button>
+          </div>
+        </form>
+
+        <div class="sec-h"><h3>Regras gerais</h3><span>quem apresenta cada programa e nomes que nunca viram verbete</span></div>
+        <div style="max-width:640px">
+          <label style="font-family:var(--sans);font-size:.8rem;font-weight:700">Apresentadores dos programas</label>
+          <div id="en-apres" style="display:flex;flex-direction:column;gap:6px;margin:6px 0 14px"></div>
+          <label style="font-family:var(--sans);font-size:.8rem;font-weight:700">Nomes bloqueados (peças, teatros, personagens que o robô confundiu com gente)</label>
+          <form style="display:flex;gap:8px;margin:6px 0 8px" id="en-bloq-form" onsubmit="return false">
+            <input type="text" id="en-bloq-novo" placeholder="Nome exatamente como aparece no site" style="flex:1;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:inherit;padding:9px 12px;font-size:16px">
+            <button class="bt" type="button" id="en-bloq-add">Bloquear</button>
+          </form>
+          <div id="en-bloq" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px"></div>
+          <p class="f-note">Verbetes excluídos pelo botão vermelho ficam na lista da aba <b>Equipe</b> (moderação), de onde podem voltar.</p>
+        </div>
+      </section>
+
       <section class="view" id="view-pub">
         <style>
           .pub-card{ border:2px solid var(--ink,#231007); padding:14px 16px; margin-bottom:12px; }
@@ -2699,6 +2771,7 @@ ingressos e divisor."></textarea>
     // jornalistas — o estagiário conseguia operar anúncios no primeiro dia)
     $('mi-pub').classList.toggle('hid', USER.papel !== 'chefe');
     $('mi-producoes').classList.toggle('hid', USER.papel !== 'chefe');
+    $('mi-enc').classList.toggle('hid', USER.papel !== 'chefe');
     $('mi-ia').classList.toggle('hid', !podeMesa());
     $('mural-fixar-l').style.display = USER.papel === 'chefe' ? 'inline-flex' : 'none';
     $('card-mesa').style.display = podeMesa() ? '' : 'none';
@@ -2946,7 +3019,7 @@ ingressos e divisor."></textarea>
     // ATENÇÃO: as chaves aqui são os nomes REAIS das abas (data-view). A cerca
     // da Publicidade nunca funcionou porque estava escrita "publicidade" e a
     // aba se chama "pub" (pego no ensaio dos jornalistas).
-    var SO_CHEFE = { revista: 1, equipe: 1, metricas: 1, pub: 1, producoes: 1 };
+    var SO_CHEFE = { revista: 1, equipe: 1, metricas: 1, pub: 1, producoes: 1, enciclopedia: 1 };
     if(USER && ((SO_CHEFE[v] && USER.papel !== 'chefe') || (v === 'ia' && !podeMesa()))){
       avisar('Esta área é da chefia da casa. Se você precisa de algo dela, fale com o Pedro ou a Isabel.');
       v = 'saguao';
@@ -2967,6 +3040,7 @@ ingressos e divisor."></textarea>
     if(v === 'pub'){ carregarPedidosPub(); carregarSitePub(); pubDesempenho(); }
     if(v === 'metricas') carregarMetricas();
     if(v === 'producoes') carregarProducoes();
+    if(v === 'enciclopedia') carregarEnciclopedia();
     if(v === 'divulgacao') carregarDivulgacao();
     // trocar de aba começa do topo: o título não nasce escondido atrás do
     // cabeçalho fixo (ensaio geral)
@@ -9319,6 +9393,185 @@ ingressos e divisor."></textarea>
       RK_MODO = b.dataset.rk;
       carregarRanking();
     });
+  });
+
+
+  /* ---------------- Enciclopédia: editar verbetes (05/10/2026) ----------------
+     Tudo vai para import/enciclopedia-regras.json: pessoas (ajustes por
+     verbete), apelidos (juntar), bloquear (nunca vira verbete) e
+     apresentadores. O site lê o arquivo ao remontar. */
+  var ENCR = { data: null, sha: null, idx: null, atual: null };
+  function enRegrasPadrao(){ return { bloquear: [], nomes_curtos: [], apelidos: {}, apresentadores: {}, pessoas: {} }; }
+  function enLer(){
+    return docJson('import/enciclopedia-regras.json').then(function(r){
+      ENCR.data = r.data || enRegrasPadrao(); ENCR.sha = r.sha;
+      ['bloquear', 'nomes_curtos'].forEach(function(k){ if(!Array.isArray(ENCR.data[k])) ENCR.data[k] = []; });
+      ['apelidos', 'apresentadores', 'pessoas'].forEach(function(k){ if(!ENCR.data[k] || typeof ENCR.data[k] !== 'object') ENCR.data[k] = {}; });
+      return ENCR;
+    });
+  }
+  function enIndice(){
+    if(ENCR.idx) return Promise.resolve(ENCR.idx);
+    return fetch('assets/pessoas-index.json').then(function(r){ return r.json(); }).then(function(d){ ENCR.idx = d; return d; });
+  }
+  function carregarEnciclopedia(){
+    enLer().then(enPintarRegras).catch(function(e){ avisar(msgErro(e)); });
+  }
+  function enSalvar(acao){
+    if(!ENCR.data) return Promise.reject(new Error('regras não carregadas'));
+    return ghPut('import/enciclopedia-regras.json', JSON.stringify(ENCR.data, null, 1), assina(acao), ENCR.sha)
+      .then(function(resp){ ENCR.sha = resp.content && resp.content.sha; });
+  }
+  function enBusca(q, alvo, aoClicar){
+    var v = normTxt(q.trim());
+    if(v.length < 3){ alvo.style.display = 'none'; return; }
+    enIndice().then(function(list){
+      var hits = [];
+      for(var i = 0; i < list.length && hits.length < 8; i++)
+        if(normTxt(list[i].n).indexOf(v) !== -1) hits.push(list[i]);
+      alvo.style.display = 'block';
+      alvo.innerHTML = hits.length ? hits.map(function(p, i){
+        return '<div class="frow" style="grid-template-columns:1fr auto">' +
+          '<span><span class="ti">' + esc(p.n) + '</span><span class="mt">' + (p.f ? esc(p.f) + ' · ' : '') + p.c + ' aparições</span></span>' +
+          '<button class="bt" type="button" data-en-pick="' + i + '">' + aoClicar + '</button></div>';
+      }).join('') : '<div class="vazio-box">Nada encontrado</div>';
+      alvo._hits = hits;
+    });
+  }
+  function enAbrir(p){
+    var sp = p.u.slice(7, -5);
+    var aj = ENCR.data.pessoas[sp] || {};
+    ENCR.atual = { slug: sp, idx: p };
+    $('en-slug').value = sp;
+    $('en-form-t').textContent = p.n;
+    $('en-form-s').textContent = 'foyer.digital/pessoa-' + sp + '.html';
+    $('en-nome').value = aj.nome || p.n;
+    $('en-funcao').value = aj.funcao || '';
+    $('en-funcao').placeholder = p.f ? 'Hoje no site: ' + p.f : 'Ex.: Atriz e diretora';
+    $('en-bio').value = aj.bio || '';
+    $('en-insta').value = (aj.redes && aj.redes.instagram) || '';
+    $('en-site').value = (aj.redes && aj.redes.site) || '';
+    enPintaFoto(aj.foto || '', aj.fotoCredito || '', p.p);
+    $('en-foto-st').textContent = '';
+    var ba = $('en-bio-auto');
+    ba.style.display = aj.bio ? 'none' : ''; ba.textContent = 'Sem bio escrita aqui, o site usa a da Wikipédia (quando a pessoa tem página) ou um resumo automático do acervo.';
+    $('en-juntar').value = ''; $('en-juntar-res').style.display = 'none';
+    var canon = ENCR.data.apelidos[p.n];
+    var js = $('en-juntar-st'); js.style.display = canon ? '' : 'none';
+    js.innerHTML = canon ? 'Este nome está juntado em <b>' + esc(canon) + '</b>. <a href="#" data-en-desjuntar>Desfazer</a>' : '';
+    $('en-form').style.display = ''; $('en-res').style.display = 'none';
+    $('en-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  function enPintaFoto(cam, cred, fotoSite){
+    $('en-foto').value = cam || ''; $('en-foto-cred').value = cred || '';
+    $('en-foto-mini').innerHTML = cam ? '<img src="' + esc(cam) + '" alt="foto">'
+      : (fotoSite ? '<img src="' + esc(fotoSite) + '" alt="foto do site" style="opacity:.6">' : '<span>sem foto</span>');
+  }
+  function enPintarRegras(){
+    var d = ENCR.data;
+    $('en-bloq').innerHTML = d.bloquear.length
+      ? d.bloquear.slice().sort().map(function(n){ return '<span class="tag">' + esc(n) + ' <a href="#" data-en-desbloq="' + esc(n) + '" style="color:inherit" title="tirar da lista">✕</a></span>'; }).join('')
+      : '<span style="font-family:var(--mono);font-size:.6rem;color:var(--ink-soft)">nenhum</span>';
+    var progs = ['Programa do Foyer', 'Teatro a Sangue Frio', 'Astro em Cena', 'Trivia Musical Game Show', 'Session Musical', 'Coxixo de Coxia', 'Corda Bamba', 'Críticas Teatrais', 'Por Bruno Cavalcanti'];
+    Object.keys(d.apresentadores).forEach(function(k){ if(progs.indexOf(k) === -1) progs.push(k); });
+    $('en-apres').innerHTML = progs.map(function(pg){
+      return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center">' +
+        '<span style="font-family:var(--sans);font-size:.85rem">' + esc(pg) + '</span>' +
+        '<input type="text" data-en-apres="' + esc(pg) + '" value="' + esc(d.apresentadores[pg] || '') + '" placeholder="sem apresentador fixo" style="border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:inherit;padding:8px 10px;font-size:14px"></div>';
+    }).join('') + '<div><button class="bt" type="button" id="en-apres-salvar">Salvar apresentadores</button></div>';
+  }
+  $('en-q').addEventListener('input', function(){ enBusca(this.value, $('en-res'), 'Editar'); });
+  $('en-juntar').addEventListener('input', function(){ enBusca(this.value, $('en-juntar-res'), 'Juntar neste'); });
+  $('en-cancelar').addEventListener('click', function(){ $('en-form').style.display = 'none'; ENCR.atual = null; });
+  $('en-foto-tira').addEventListener('click', function(){ enPintaFoto('', '', ''); $('en-foto-st').textContent = 'foto tirada — salve para valer (a da Wikipédia, se houver, volta a ser usada)'; });
+  $('en-file').addEventListener('change', function(){
+    var arq = this.files && this.files[0];
+    if(!arq || !ENCR.atual) return;
+    if(!podeGravar()){ avisarChave(); this.value = ''; return; }
+    var st = $('en-foto-st'); st.textContent = 'preparando a foto…';
+    var sp = ENCR.atual.slug;
+    reduzLivre(arq, 900, 900).then(function(dataURL){
+      st.textContent = 'subindo…';
+      var caminho = 'assets/uploads/enc-' + sp + '-' + Date.now().toString(36) + '.jpg';
+      return ghPutRaw(caminho, dataURL.split(',')[1], assina('sobe a foto de ' + ENCR.atual.idx.n + ' (enciclopédia)'))
+        .then(function(){
+          enPintaFoto(caminho, 'Arquivo FOYER', '');
+          $('en-foto-mini').innerHTML = '<img src="' + dataURL + '" alt="foto nova">';
+          st.textContent = '✓ foto pronta — falta salvar o verbete';
+        });
+    }).catch(function(e){ st.textContent = ''; avisar(msgErro(e)); });
+  });
+  $('en-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!ENCR.atual || !ENCR.data) return;
+    if(!podeGravar()){ avisarChave(); return; }
+    var sp = ENCR.atual.slug, nome = $('en-nome').value.trim();
+    var bio = $('en-bio').value.trim();
+    if(/[—–]/.test(bio + nome)){ avisar('Tem travessão no texto. Troque por vírgula ou ponto.'); return; }
+    var aj = { nome: nome !== ENCR.atual.idx.n ? nome : '', funcao: $('en-funcao').value.trim(), bio: bio,
+               foto: $('en-foto').value.trim(), fotoCredito: $('en-foto-cred').value.trim(),
+               redes: { instagram: $('en-insta').value.trim(), site: $('en-site').value.trim() } };
+    Object.keys(aj.redes).forEach(function(k){ if(!aj.redes[k]) delete aj.redes[k]; });
+    Object.keys(aj).forEach(function(k){ if(aj[k] === '' || (typeof aj[k] === 'object' && !Object.keys(aj[k]).length)) delete aj[k]; });
+    if(Object.keys(aj).length) ENCR.data.pessoas[sp] = aj; else delete ENCR.data.pessoas[sp];
+    var btn = this.querySelector('[type=submit]'); btn.disabled = true;
+    enSalvar('enciclopédia: verbete de ' + ENCR.atual.idx.n).then(function(){
+      toast('Verbete salvo ✓ — no site em ~2 minutos'); $('en-form').style.display = 'none'; ENCR.atual = null;
+    }).catch(function(e){ avisar(msgErro(e)); }).then(function(){ btn.disabled = false; });
+  });
+  $('en-excluir').addEventListener('click', function(){
+    if(!ENCR.atual) return;
+    var nome = ENCR.atual.idx.n, sp = ENCR.atual.slug;
+    confirmar('Excluir o verbete “' + nome + '”? Use só quando NÃO é uma pessoa (peça, teatro, personagem). Dá para voltar pela aba Equipe.', { perigo: true, rotuloOk: 'Excluir' }).then(function(ok){
+      if(!ok) return;
+      return docJson('import/enciclopedia-excluidos.json').then(function(r){
+        var lista = (r.data && r.data.slugs) || [];
+        if(lista.indexOf(sp) === -1) lista.push(sp);
+        return ghPut('import/enciclopedia-excluidos.json', JSON.stringify({ slugs: lista }, null, 1), assina('enciclopédia: exclui o verbete ' + nome), r.sha);
+      }).then(function(){ toast('Verbete excluído — some do site em ~2 minutos'); $('en-form').style.display = 'none'; ENCR.atual = null; });
+    }).catch(function(e){ avisar(msgErro(e)); });
+  });
+  $('en-bloq-add').addEventListener('click', function(){
+    var n = $('en-bloq-novo').value.trim(); if(!n || !ENCR.data) return;
+    if(!podeGravar()){ avisarChave(); return; }
+    if(ENCR.data.bloquear.indexOf(n) === -1) ENCR.data.bloquear.push(n);
+    enSalvar('enciclopédia: bloqueia “' + n + '”').then(function(){ $('en-bloq-novo').value = ''; enPintarRegras(); toast('Bloqueado ✓'); }).catch(function(e){ avisar(msgErro(e)); });
+  });
+  document.addEventListener('click', function(e){
+    var b;
+    if((b = e.target.closest('[data-en-pick]'))){
+      var caixa = b.closest('.fila'); var p = caixa && caixa._hits && caixa._hits[+b.dataset.enPick]; if(!p) return;
+      if(caixa.id === 'en-res'){ enAbrir(p); return; }
+      // juntar: o nome atual passa a cair no verbete escolhido
+      if(!ENCR.atual || !podeGravar()){ if(!podeGravar()) avisarChave(); return; }
+      var de = ENCR.atual.idx.n, para = p.n;
+      if(de === para){ avisar('É o mesmo verbete.'); return; }
+      confirmar('Juntar “' + de + '” em “' + para + '”? Tudo que foi contado para o primeiro passa a aparecer no segundo, e o verbete separado some.', { rotuloOk: 'Juntar' }).then(function(ok){
+        if(!ok) return;
+        ENCR.data.apelidos[de] = para;
+        return enSalvar('enciclopédia: junta “' + de + '” em “' + para + '”').then(function(){ toast('Juntado ✓ — no site em ~2 minutos'); $('en-form').style.display = 'none'; ENCR.atual = null; });
+      }).catch(function(err){ avisar(msgErro(err)); });
+      return;
+    }
+    if((b = e.target.closest('[data-en-desjuntar]'))){
+      e.preventDefault(); if(!ENCR.atual) return;
+      delete ENCR.data.apelidos[ENCR.atual.idx.n];
+      enSalvar('enciclopédia: desfaz a junção de “' + ENCR.atual.idx.n + '”').then(function(){ $('en-juntar-st').style.display = 'none'; toast('Desfeito ✓'); }).catch(function(err){ avisar(msgErro(err)); });
+      return;
+    }
+    if((b = e.target.closest('[data-en-desbloq]'))){
+      e.preventDefault(); if(!podeGravar()){ avisarChave(); return; }
+      var n = b.dataset.enDesbloq; ENCR.data.bloquear = ENCR.data.bloquear.filter(function(x){ return x !== n; });
+      enSalvar('enciclopédia: desbloqueia “' + n + '”').then(function(){ enPintarRegras(); toast('Liberado ✓'); }).catch(function(err){ avisar(msgErro(err)); });
+      return;
+    }
+    if(e.target.id === 'en-apres-salvar'){
+      if(!podeGravar()){ avisarChave(); return; }
+      document.querySelectorAll('[data-en-apres]').forEach(function(i){
+        var v = i.value.trim(); if(v) ENCR.data.apresentadores[i.dataset.enApres] = v; else delete ENCR.data.apresentadores[i.dataset.enApres];
+      });
+      enSalvar('enciclopédia: apresentadores dos programas').then(function(){ toast('Apresentadores salvos ✓'); }).catch(function(err){ avisar(msgErro(err)); });
+    }
   });
 
   // ---------------- moderação de verbetes ----------------

@@ -1496,3 +1496,93 @@ html.tem-aviso body{ padding-bottom:var(--aviso-alt, 0px); }
 }
 .op-abre .op-foto img{ width:100%; height:100%; object-fit:cover; object-position:center 25%; display:block; }
 .op-abre .op-foto i{ font-style:normal; font-family:var(--didone); color:var(--gold); font-size:1.5rem; }
+
+/* ============ ENCICLOPÉDIA: verbete ============ */
+.vb{ max-width:980px; margin:0 auto; }
+.vb-head{ display:grid; grid-template-columns:200px 1fr; gap:30px; padding:34px 0 26px; border-bottom:var(--b); align-items:start; }
+.vb-foto-col{ display:flex; flex-direction:column; gap:8px; }
+.vb-foto{ display:flex; align-items:center; justify-content:center; width:200px; height:200px; border:var(--b);
+  background:var(--wine); overflow:hidden; flex:0 0 auto; }
+.vb-foto img{ width:100%; height:100%; object-fit:cover; object-position:center 20%; display:block; }
+.vb-foto.ini i{ font-style:normal; font-family:var(--didone); color:var(--gold); font-size:5rem; line-height:1; }
+.vb-foto.mini{ width:44px; height:44px; border-width:1.5px; }
+.vb-foto.mini.ini i{ font-size:1.3rem; }
+.vb-cred{ font-family:var(--mono); font-size:.56rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); }
+.vb-cred a{ color:inherit; }
+.vb-id h1{ font-family:var(--black); font-weight:400; font-size:clamp(1.9rem,4.2vw,3.2rem); line-height:1.02; margin:10px 0 6px; text-transform:uppercase; letter-spacing:-.01em; }
+.vb-funcao{ font-family:var(--didone); font-style:italic; font-size:1.25rem; color:var(--wine); margin:0 0 14px; }
+:root[data-theme="dark"] .vb-funcao{ color:var(--gold); }
+.vb-bio{ font-family:Georgia,'Times New Roman',serif; font-size:1.05rem; line-height:1.65; margin:0 0 12px; max-width:62ch; }
+.vb-bio.auto{ color:var(--ink-soft); font-size:.98rem; }
+.vb-fonte{ font-family:var(--mono); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); white-space:nowrap; }
+.vb-redes{ display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; }
+.vb-redes a{ font-family:var(--mono); font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; border:1.5px solid var(--line);
+  padding:7px 11px; text-decoration:none; color:var(--ink); }
+.vb-redes a:hover{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
+.vb-stats{ display:flex; flex-wrap:wrap; gap:6px 18px; font-family:var(--mono); font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin:0 0 14px; }
+.vb-stats b{ color:var(--ink); font-size:.9rem; }
+.vb-sec{ padding:26px 0 6px; }
+.vb-cartaz-lista{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; }
+.vb-cartaz-item{ display:flex; flex-direction:column; gap:6px; border:var(--b); background:var(--paper-2); padding:14px 16px; text-decoration:none; color:inherit; }
+.vb-cartaz-item b{ font-family:var(--sans); font-weight:800; font-size:.95rem; line-height:1.2; text-transform:uppercase; }
+.vb-cartaz-item span{ font-family:var(--mono); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); }
+.vb-cartaz-item:hover{ background:var(--wine); color:var(--gold); }
+.vb-cartaz-item:hover span{ color:var(--gold); opacity:.8; }
+.vb-eps{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1px; background:var(--line); border:var(--b); }
+.vb-ep{ display:flex; flex-direction:column; background:var(--paper); text-decoration:none; color:inherit; }
+.vb-ep-th{ display:block; aspect-ratio:16/9; background:var(--wine-deep); overflow:hidden; }
+.vb-ep-th img{ width:100%; height:100%; object-fit:cover; display:block; }
+.vb-ep-tx{ display:flex; flex-direction:column; gap:5px; padding:12px 14px 14px; }
+.vb-ep-tx small{ font-family:var(--mono); font-size:.56rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); }
+.vb-ep-tx b{ font-family:var(--sans); font-weight:800; font-size:.9rem; line-height:1.2; }
+.vb-ep:hover{ background:var(--wine); color:var(--gold); }
+.vb-ep:hover small{ color:var(--gold); opacity:.8; }
+.vb-rows{ border:var(--b); }
+.vb-row{ display:grid; grid-template-columns:112px 1fr; gap:16px; align-items:center; padding:10px 14px; border-bottom:1px solid var(--line); text-decoration:none; color:inherit; }
+.vb-row:last-child{ border-bottom:0; }
+.vb-th{ display:block; aspect-ratio:16/9; width:112px; background:var(--wine-deep); overflow:hidden; border:1px solid var(--line); }
+.vb-th img{ width:100%; height:100%; object-fit:cover; display:block; }
+.vb-th.tipo{ background:var(--paper-2); display:flex; align-items:center; justify-content:center; }
+.vb-th.tipo i{ font-style:italic; font-family:var(--didone); color:var(--wine); font-size:.95rem; }
+.vb-th.vazio{ background:var(--paper-2); }
+.vb-row-tx{ display:flex; flex-direction:column; gap:4px; min-width:0; }
+.vb-row-tx small{ font-family:var(--mono); font-size:.58rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); }
+.vb-row-tx b{ font-family:var(--sans); font-weight:800; font-size:.95rem; line-height:1.2; text-transform:uppercase; }
+.vb-row:hover{ background:var(--ink); color:var(--gold); }
+.vb-row:hover small{ color:var(--gold); opacity:.8; }
+.vb-mais{ font-family:var(--mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); padding:10px 0 0; }
+.vb-rels{ display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:10px; }
+.vb-rel{ display:flex; align-items:center; gap:12px; border:var(--b); padding:10px 12px; text-decoration:none; color:inherit; background:var(--paper); }
+.vb-rel span{ display:flex; flex-direction:column; min-width:0; }
+.vb-rel b{ font-family:var(--sans); font-weight:800; font-size:.9rem; line-height:1.15; }
+.vb-rel small{ font-family:var(--mono); font-size:.56rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.vb-rel:hover{ background:var(--wine); color:var(--gold); }
+.vb-rel:hover small{ color:var(--gold); opacity:.8; }
+@media (max-width:720px){
+  .vb-head{ grid-template-columns:1fr; gap:16px; padding-top:22px; }
+  .vb-foto{ width:132px; height:132px; }
+  .vb-foto.ini i{ font-size:3.4rem; }
+  .vb-row{ grid-template-columns:88px 1fr; gap:12px; padding:10px 12px; }
+  .vb-th{ width:88px; }
+}
+
+/* ============ ENCICLOPÉDIA: índice ============ */
+.ency-letras{ display:flex; flex-wrap:wrap; gap:4px; margin:18px 0 10px; }
+.ency-letras button{ font-family:var(--mono); font-size:.66rem; font-weight:700; letter-spacing:.08em; min-width:34px; padding:8px 6px;
+  border:1.5px solid var(--line); background:var(--paper); color:var(--ink); cursor:pointer; }
+.ency-letras button.on, .ency-letras button:hover{ background:var(--wine); color:var(--gold); border-color:var(--wine); }
+.ency-chips{ display:flex; flex-wrap:wrap; gap:6px; margin:0 0 18px; }
+.ency-chips button{ font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; padding:7px 10px;
+  border:1.5px solid var(--line); background:var(--paper); color:var(--ink); cursor:pointer; }
+.ency-chips button.on, .ency-chips button:hover{ background:var(--ink); color:var(--gold); border-color:var(--ink); }
+.ency-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:1px; background:var(--line); border:var(--b); margin:0 0 26px; }
+.ency-card{ display:flex; flex-direction:column; background:var(--paper); text-decoration:none; color:inherit; }
+.ency-card .vb-foto{ width:100%; height:auto; aspect-ratio:1; border:0; border-bottom:1px solid var(--line); }
+.ency-card .vb-foto.ini i{ font-size:3.2rem; }
+.ency-card span.tx{ display:flex; flex-direction:column; gap:4px; padding:10px 12px 12px; }
+.ency-card b{ font-family:var(--sans); font-weight:800; font-size:.86rem; line-height:1.15; text-transform:uppercase; }
+.ency-card small{ font-family:var(--mono); font-size:.54rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ency-card:hover{ background:var(--wine); color:var(--gold); }
+.ency-card:hover small{ color:var(--gold); opacity:.8; }
+.ency-row .nm small{ display:block; font-family:var(--mono); font-size:.54rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin-top:3px; }
+.ency-row:not(.head):hover .nm small{ color:var(--gold); opacity:.8; }
