@@ -7234,8 +7234,14 @@ for _asp, _aa in AUTORES.items():
 print(f'• {len(AUTORES)} páginas de autor')
 
 for _sp, _pp in PESSOAS.items():
-    _d = (_pp.get('bio') or '').split('. ')[0][:180]
-    _d = (_d + ('.' if _d and not _d.endswith('.') else '')) if _d else ''
+    _d = (_pp.get('bio') or '').split('. ')[0]
+    if len(_d) > 180:  # corta em palavra inteira e sem conectivo solto no fim ("a voz de Portugal e .")
+        _d = _d[:180].rsplit(' ', 1)[0].rstrip(' ,;:')
+        while _d.split(' ')[-1].lower() in ('e', 'de', 'da', 'do', 'das', 'dos', 'a', 'o', 'as', 'os', 'em', 'no', 'na', 'com', 'por', 'que', 'um', 'uma', 'ou', 'como', 'para', 'pelo', 'pela'):
+            _d = _d.rsplit(' ', 1)[0].rstrip(' ,;:')
+        _d += '…'
+    elif _d and not _d.endswith('.'):
+        _d += '.'
     page('pessoa-' + _sp + '.html', _pp['nome'] + (' — ' + _pp['funcao'] if _pp.get('funcao') else '') + ' — Enciclopédia FOYER',
          (_d + ' ' if _d else '') + f"{_pp['nome']} na Enciclopédia do FOYER: matérias, programas e com quem aparece.",
          'enciclopedia.html', pessoa_page(_sp, _pp), quiet=True,
