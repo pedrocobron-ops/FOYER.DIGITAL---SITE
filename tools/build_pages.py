@@ -4939,7 +4939,10 @@ def _op_colunas_html(lista, cabecalho_sempre=False):
 
 def _op_pagina(active, miolo):
     return (band('Seção', 'Opinião', 'Colunas, artigos de convidados e os editoriais do FOYER')
-            + '\n<main id="conteudo" class="wrap">' + _OP_ESTILO + '\n' + _op_filtros(active) + '\n' + miolo + '\n</main>\n')
+            + '\n<main id="conteudo" class="wrap">' + _OP_ESTILO + '\n' + _op_filtros(active) + '\n' + miolo
+            # o mesmo espaço de publicidade das listas de Notícias (1003): a seção
+            # nasceu sem ele em 01/10/2026 e ficou fora da receita do Google
+            + '\n  <div class="ad-slot" data-ad-slot="1003"></div>\n</main>\n')
 
 def opiniao_body():
     """A página Tudo é um índice: no alto, o ÚLTIMO texto que saiu em
