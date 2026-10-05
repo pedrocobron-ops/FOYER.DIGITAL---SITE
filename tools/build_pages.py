@@ -1690,9 +1690,67 @@ def _byline_link(nome):
         return ' e '.join(f'<a href="{_AUTOR_PAGINA[p]}" rel="author"><b>{p}</b></a>' for p in partes)
     return f'<b>{n}</b>'
 
+# ---- miniaturas (05/10/2026): as fotos iam para a página no tamanho em que
+# foram enviadas (200 a 930 KB cada; listas de 0,8 a 1,8 MB). Toda foto local
+# usada em card, capa ou verbete ganha uma versão reduzida em assets/thumbs/,
+# feita na hora da montagem (Pillow; sem ele, segue a original). O nome leva o
+# tamanho do arquivo de origem: foto nova = miniatura nova, e a pasta é
+# guardada entre publicações pelo cache do GitHub Actions (pages.yml).
+try:
+    from PIL import Image as _PILImage
+    _PIL_OK = True
+except Exception:
+    _PIL_OK = False
+_THUMB_CACHE = {}
+_THUMB_FEITAS = [0]
+
+def _thumb(url, w):
+    if not _PIL_OK or not url or not url.startswith('assets/') or not url.lower().endswith(('.jpg', '.jpeg')):
+        return url
+    key = (url, w)
+    if key in _THUMB_CACHE:
+        return _THUMB_CACHE[key]
+    src = os.path.join(ROOT, url)
+    try:
+        tam = os.path.getsize(src)
+    except OSError:
+        _THUMB_CACHE[key] = url
+        return url
+    base = os.path.splitext(os.path.basename(url))[0][:90]
+    # WebP: 40% menor que JPEG na mesma qualidade (medido em 05/10/2026 numa
+    # amostra do acervo); a prévia de link (og:image) usa a foto original,
+    # porque os robôs do WhatsApp e do Facebook não pedem leveza
+    out_rel = f'assets/thumbs/{base}-{w}-{tam}.webp'
+    out = os.path.join(ROOT, out_rel)
+    if os.path.exists(out):
+        _THUMB_CACHE[key] = out_rel
+        return out_rel
+    try:
+        im = _PILImage.open(src)
+        if im.width <= w and tam < 160_000:
+            _THUMB_CACHE[key] = url
+            return url
+        im = im.convert('RGB')
+        if im.width > w:
+            im = im.resize((w, max(1, round(im.height * w / im.width))), _PILImage.LANCZOS)
+        os.makedirs(os.path.dirname(out), exist_ok=True)
+        im.save(out, 'WEBP', quality=75 if w >= 1000 else 74, method=4)
+        _THUMB_FEITAS[0] += 1
+        _THUMB_CACHE[key] = out_rel
+        return out_rel
+    except Exception:
+        _THUMB_CACHE[key] = url
+        return url
+
 def wiximg(url, w=1200, h=675):
     if 'static.wixstatic.com/media/' in url and '/v1/' not in url:
         return f'{url}/v1/fill/w_{w},h_{h},al_c,q_82/cover.jpg'
+    return _thumb(url, min(w, 1000))
+
+def _og_src(url):
+    """Imagem para prévia de link e feed: a original (sem miniatura)."""
+    if 'static.wixstatic.com/media/' in url and '/v1/' not in url:
+        return f'{url}/v1/fill/w_1200,h_630,al_c,q_82/cover.jpg'
     return url
 
 def _cred_curto(p):
@@ -3364,7 +3422,7 @@ def edicao_page(ed):
         '<div class="nameplate"><img src="assets/logo/foyer-horizontal-wine.png" alt="FOYER"></div>'
         f'<div class="linha-ed"><span>A revista da semana</span><span>Nº {_rvesc(ed.get("numero"))} · {_rvesc(ed.get("dataEdicao", ""))}</span></div>'
         '<div class="moldura">'
-        + (f'<img src="{_rvesc(capa.get("img", ""))}" alt="">' if capa.get('img') else '')
+        + (f'<img src="{_rvesc(wiximg(capa.get("img", ""), 800, 1000))}" alt="" loading="lazy">' if capa.get('img') else '')
         + (f'<span class="cred">Foto: {_rvesc(capa["credito"])}</span>' if capa.get('credito') else '')
         + '</div>'
         f'<div class="manchete"><h2>{_rvesc(capa.get("manchete") or ed.get("titulo", ""))}</h2></div>'
@@ -3975,7 +4033,7 @@ def revista_listagem():
     revs = ''
     for e in ED_PUB:
         capa = e.get('capa', {})
-        img = (f'<img src="{_rvesc(capa.get("img", ""))}" alt="" loading="lazy" '
+        img = (f'<img src="{_rvesc(wiximg(capa.get("img", ""), 800, 1000))}" alt="" loading="lazy" '
                'onerror="this.style.display=\'none\'">') if capa.get('img') else ''
         _iso_e = _rv_iso_edicao(e)
         _lib_e = ((datetime.strptime(_iso_e, '%Y-%m-%d')
@@ -5298,6 +5356,15 @@ for _old in ('cat-artigo-de-opiniao.html', 'cat-artigo-de-opiniao-p2.html'):
                  '<title>Opinião — FOYER</title></head>'
                  '<body><p>Os artigos de opinião agora ficam em <a href="opiniao.html">Opinião</a>.</p></body></html>')
 print('• opiniao.html + pontes de cat-artigo-de-opiniao')
+# endereços antigos que ainda podem estar em links de fora (05/10/2026)
+for _old, _novo, _tit in (('assine.html', 'revista.html#assinar', 'Assine a Revista — FOYER'),
+                          ('em-cartaz.html', 'cat-em-cartaz.html', 'Em cartaz — FOYER')):
+    with open(os.path.join(ROOT, _old), 'w') as _f:
+        _f.write('<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">'
+                 '<meta http-equiv="refresh" content="0; url=' + _novo + '">'
+                 '<link rel="canonical" href="' + BASE + '/' + _novo.split('#')[0] + '"><meta name="robots" content="noindex">'
+                 '<title>' + _tit + '</title></head>'
+                 '<body><p>Esta página mudou de endereço: <a href="' + _novo + '">' + _tit + '</a>.</p></body></html>')
 
 page('critica.html', 'Crítica — FOYER', 'Críticas de teatro, musicais, dança e ópera no FOYER.', 'critica.html', critica_body)
 page('entrevistas.html', 'Entrevistas — FOYER', 'Entrevistas com artistas e profissionais do palco.', 'entrevistas.html', entrevistas_body)
@@ -7112,7 +7179,7 @@ descadastrar_body = band('Newsletter', 'Descadastrar', 'Sair da lista da Revista
 page('descadastrar.html', 'Descadastrar — Revista do FOYER', 'Sair da lista de e-mails da Revista do FOYER.', 'descadastrar.html', descadastrar_body)
 
 def _ld_materia(p):
-    img = wiximg(p['img'], 1200, 630) if p['img'] else (_og_tipo(p) or f'{BASE}/assets/logo/src/foyer-banner.png')
+    img = _og_src(p['img']) if p['img'] else (_og_tipo(p) or f'{BASE}/assets/logo/src/foyer-banner.png')
     if not img.startswith('http'):
         img = f'{BASE}/{img}'
     autor = p.get('author') or 'Redação Foyer'
@@ -7153,7 +7220,7 @@ def _ld_materia(p):
 
 for _i, _p in enumerate(MATERIAS):
     page('post-' + _p['slug'] + '.html', _p['title'] + ' — FOYER', _p['desc'][:200], 'opiniao.html' if _eh_opiniao(_p) else 'noticias.html', post_page(_i, _p), quiet=True,
-         og_img=wiximg(_p['img'], 1200, 630) if _p['img'] else _og_tipo(_p), og_type='article', ld=_ld_materia(_p))
+         og_img=_og_src(_p['img']) if _p['img'] else _og_tipo(_p), og_type='article', ld=_ld_materia(_p))
 print(f'• {len(MATERIAS)} páginas de matéria')
 
 for _asp, _aa in AUTORES.items():
@@ -7172,7 +7239,7 @@ for _sp, _pp in PESSOAS.items():
     page('pessoa-' + _sp + '.html', _pp['nome'] + (' — ' + _pp['funcao'] if _pp.get('funcao') else '') + ' — Enciclopédia FOYER',
          (_d + ' ' if _d else '') + f"{_pp['nome']} na Enciclopédia do FOYER: matérias, programas e com quem aparece.",
          'enciclopedia.html', pessoa_page(_sp, _pp), quiet=True,
-         og_img=(_pp['foto'] if _pp['foto'].startswith('http') else wiximg(_pp['foto'], 1200, 630)) if _pp.get('foto') else None,
+         og_img=(_pp['foto'] if _pp['foto'].startswith('http') else _og_src(_pp['foto'])) if _pp.get('foto') else None,
          og_type='profile', ld=_ld_pessoa(_sp, _pp))
 print(f'• {len(PESSOAS)} verbetes de pessoa')
 with open(os.path.join(ROOT, 'assets/pessoas-index.json'), 'w') as _f:
@@ -7376,7 +7443,7 @@ open(_nf_arq, 'w').write(_nf)
 
 import glob as _g
 urls = sorted(os.path.basename(f) for f in _g.glob(os.path.join(ROOT, '*.html'))
-              if os.path.basename(f) not in ('coxia.html', '404.html', 'cat-artigo-de-opiniao.html', 'cat-artigo-de-opiniao-p2.html')
+              if os.path.basename(f) not in ('coxia.html', '404.html', 'cat-artigo-de-opiniao.html', 'cat-artigo-de-opiniao-p2.html', 'assine.html', 'em-cartaz.html')
               and not os.path.basename(f).startswith('revista-prova-'))
 with open(os.path.join(ROOT, 'assets/busca-index.json'), 'w') as f:
     _json.dump([{'t': _p['title'], 'c': _p.get('cat', ''), 'a': _p.get('author', ''),
@@ -7389,6 +7456,27 @@ print(f'busca: {len(MATERIAS)} matérias indexadas')
 _hoje_sm = datetime.now(timezone.utc).strftime('%Y-%m-%d')
 _mod = {'post-' + p['slug'] + '.html': ((p.get('atualizado') or p.get('iso') or _hoje_sm)[:10])
         for p in MATERIAS}
+# Datas reais também para verbetes, autores, editorias e edições da revista
+# (05/10/2026): tudo sem data ganhava a data de hoje a cada publicação, e o
+# Google aprende a ignorar um lastmod que muda sempre.
+for _sp, _pp in PESSOAS.items():
+    if _pp.get('ultima'):
+        _mod['pessoa-' + _sp + '.html'] = _pp['ultima'][:10]
+for _asp, _aa in AUTORES.items():
+    _ds = [m.get('iso', '') for m in MATERIAS if _aa['nome'] in [x.strip() for x in str(m.get('author') or '').split(' e ')]]
+    if any(_ds):
+        _mod['autor-' + _asp + '.html'] = max(d for d in _ds if d)[:10]
+_por_cat = {}
+for _m in MATERIAS:
+    for _c in set([_m.get('cat', '')] + list(_m.get('cats') or [])):
+        if _c and _m.get('iso') and _m['iso'] > _por_cat.get(_c, ''):
+            _por_cat[_c] = _m['iso']
+for _c, _d in _por_cat.items():
+    _mod['cat-' + _cat_slug(_c) + '.html'] = _d[:10]
+for _e in ED_PUB:
+    _de = str(_e.get('dataEdicao') or '')
+    if _re.match(r'^\d{4}-\d{2}-\d{2}', _de) and _e.get('numero'):
+        _mod[f"revista-ed-{_e['numero']}.html"] = _de[:10]
 with open(os.path.join(ROOT, 'sitemap.xml'), 'w') as f:
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
     for u in urls:
@@ -7433,7 +7521,7 @@ with open(os.path.join(ROOT, 'sitemap-news.xml'), 'w') as f:
     f.write('</urlset>\n')
 from email.utils import format_datetime as _fmt822
 with open(os.path.join(ROOT, 'feed.xml'), 'w') as f:
-    f.write('<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel>'
+    f.write('<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel>'
             '<title>FOYER</title><link>' + BASE + '/</link>'
             '<description>Jornalismo de teatro, música e cultura</description>'
             '<language>pt-BR</language>\n')
@@ -7448,7 +7536,10 @@ with open(os.path.join(ROOT, 'feed.xml'), 'w') as f:
                 '<guid>' + BASE + '/post-' + p['slug'] + '.html</guid>'
                 '<description>' + _html.escape(p['desc'][:220]) + '</description>'
                 '<category>' + _html.escape(p.get('cat', '')) + '</category>'
-                + (f'<pubDate>{_pub}</pubDate>' if _pub else '') + '</item>\n')
+                + (f'<pubDate>{_pub}</pubDate>' if _pub else '')
+                # a foto da matéria vai no feed (leitores de RSS, Google Discover) — 05/10/2026
+                + (('<media:content url="' + _html.escape((lambda u: u if u.startswith('http') else BASE + '/' + u)(_og_src(p['img'])), quote=True) + '" medium="image"/>') if p.get('img') else '')
+                + '</item>\n')
     f.write('</channel></rss>\n')
 
 # O site da Wix servia o mesmo feed em /blog-feed.xml, e é esse endereço que
@@ -7586,4 +7677,6 @@ for _cam, _dest in _SECOES_WIX.items():
 ''')
     _n_sec += 1
 print(f'• {_n_sec} pontes das seções do site antigo (/equipe, /teatro, /blog/categories/…)')
+if _THUMB_FEITAS[0]:
+    print(f'• {_THUMB_FEITAS[0]} miniatura(s) de foto geradas em assets/thumbs/')
 print('pronto')

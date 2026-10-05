@@ -1,2 +1,5 @@
 __pycache__/
 *.pyc
+
+# miniaturas das fotos: geradas na montagem (tools/build_pages.py), nunca no repositório
+assets/thumbs/

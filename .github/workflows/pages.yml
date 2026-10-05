@@ -31,8 +31,16 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Ferramentas de imagem (prévia de link das colunas sem foto)
+      - name: Ferramentas de imagem (miniaturas das fotos e prévia de link das colunas)
         run: pip install --quiet pillow
+      # As miniaturas (assets/thumbs/) ficam guardadas entre publicações: só o
+      # que é foto nova é gerado de novo. A chave muda quando entra matéria.
+      - name: Miniaturas guardadas da publicação anterior
+        uses: actions/cache@v4
+        with:
+          path: assets/thumbs
+          key: thumbs-v1-${{ hashFiles('import/novas/**', 'import/materias.json', 'import/equipe.json', 'import/revista/edicoes/**') }}
+          restore-keys: thumbs-v1-
       - name: Gerar o site (inclui matérias da Coxia já liberadas)
         run: |
           python3 tools/atualiza_youtube.py || echo "YouTube fora do ar — usa o último retrato salvo"
