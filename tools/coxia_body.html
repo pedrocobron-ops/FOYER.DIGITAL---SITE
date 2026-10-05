@@ -324,6 +324,21 @@
   .f-note{ border:var(--b); background:var(--paper-2); padding:18px; font-family:var(--mono);
     font-size:.62rem; letter-spacing:.06em; line-height:2.1; color:var(--ink-soft); text-transform:uppercase; }
   .f-note b{ color:var(--ink); }
+  /* sanfonas do formulário (foto de capa, fontes): fechadas por padrão */
+  .f-dobra{ border:var(--b); background:var(--paper); }
+  .f-dobra > summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:10px;
+    padding:12px 14px; min-height:44px; font-family:var(--sans); font-size:.92rem; font-weight:700;
+    color:var(--ink); user-select:none; -webkit-user-select:none; }
+  .f-dobra > summary::-webkit-details-marker{ display:none; }
+  .f-dobra > summary::before{ content:'▸'; color:var(--gold); font-size:1.05rem; flex:0 0 auto; width:14px; }
+  .f-dobra[open] > summary::before{ content:'▾'; }
+  .f-dobra > summary:hover{ background:var(--paper-2); }
+  .f-dobra > summary:focus-visible{ outline:2.5px solid var(--gold); outline-offset:-2px; }
+  .f-dobra > summary .fd-t{ flex:1; min-width:0; }
+  .f-dobra > summary .fd-s{ font-family:var(--mono); font-size:.62rem; font-weight:600; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--ink-soft); white-space:nowrap; }
+  .f-dobra > summary .fd-s.ok{ color:var(--wine); }
+  .f-dobra > .fd-c{ padding:12px 14px 14px; border-top:1px solid var(--line); }
   .msg{ font-family:var(--mono); font-size:.64rem; letter-spacing:.1em; text-transform:uppercase; display:none; }
   .msg.ok{ display:block; color:var(--ok); } .msg.err{ display:block; color:var(--err); }
   .mbar{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
@@ -1039,6 +1054,9 @@
     .mbar #btn-estilo{ margin-left:0; }
     .up{ min-height:96px; padding:14px; }
     .up p{ font-size:.8rem; line-height:1.5; }
+    .f-dobra > summary{ padding:10px 12px; font-size:.86rem; gap:8px; }
+    .f-dobra > summary .fd-s{ font-size:.58rem; }
+    .f-dobra > .fd-c{ padding:10px 12px 12px; }
     .f-status{ font-size:.76rem; gap:10px; }
     .f-conta{ font-size:.58rem; } .f-conta .c1{ font-size:.68rem; }
     .msg{ font-size:.8rem; }
@@ -1302,8 +1320,13 @@
                 <p class="f-note" style="margin:6px 0 0">Com o campo de evento preenchido, ela entra e sai da página Em Cartaz sozinha.</p>
               </div>
             </div>
-            <div>
-              <label>Foto de capa — suba o arquivo da imagem</label>
+            <!-- Foto e fontes ficam DOBRADAS (pedido do Pedro, 05/10/2026): no celular
+                 a tela de escrever ficava comprida demais. A linha fechada mostra um
+                 resumo do que já está preenchido; tocar abre, tocar de novo fecha. -->
+            <details class="f-dobra" id="dobra-foto">
+              <summary><span class="fd-t">📷 Foto de capa</span><span class="fd-s" id="dobra-foto-s">sem foto</span></summary>
+              <div class="fd-c">
+              <label style="margin-top:0">Suba o arquivo da imagem</label>
               <div class="up" id="up" tabindex="0" role="button" aria-label="Subir foto de capa">
                 <p><b>Clique para escolher a foto</b> ou arraste o arquivo até aqui<br>
                    JPG ou PNG · a Coxia ajusta o tamanho sozinha<br>
@@ -1327,15 +1350,19 @@
                 </div>
               </div>
               <p class="f-note" style="margin:6px 0 0">Só entra foto de divulgação da produção coberta, de Creative Commons/domínio público (com crédito e licença) ou nossa. Nunca de agência.</p>
-            </div>
-            <div>
-              <label for="f-fontes">Fontes de apuração (uma por linha — links, releases, quem falou)</label>
+              </div>
+            </details>
+            <details class="f-dobra" id="dobra-fontes">
+              <summary><span class="fd-t">🔎 Fontes de apuração</span><span class="fd-s" id="dobra-fontes-s">nenhuma</span></summary>
+              <div class="fd-c">
+              <label for="f-fontes" style="margin-top:0">Uma por linha — links, releases, quem falou</label>
               <textarea id="f-fontes" rows="4" placeholder="Cole aqui o que sustenta a matéria — uma fonte por linha.
 https://site-oficial-da-producao.com
 Release da assessoria (recebido em 20/07)
 Entrevista com o diretor em 21/07"></textarea>
               <p class="f-note" style="margin:6px 0 0">O chefe vê estas fontes na hora de aprovar. Ajuda a checar sem partir do zero.</p>
-            </div>
+              </div>
+            </details>
             <div>
               <label for="f-body">Texto</label>
               <div class="mbar">
@@ -3682,6 +3709,34 @@ ingressos e divisor."></textarea>
     $('up-prev').src = ''; $('up-file').value = ''; up.classList.remove('tem');
   });
 
+  /* ---------------- sanfonas: foto de capa e fontes ----------------
+     Ficam fechadas; a linha fechada resume o que já está lá ("foto ✓ ·
+     crédito ✓", "3 fontes"). A foto entra e sai por vários caminhos (subir,
+     tirar, editar, rascunho), e todos mexem na classe .tem do #up — por isso
+     o resumo acompanha essa classe em vez de cada caminho. */
+  function dobraFotoEstado(){
+    var s = $('dobra-foto-s'); if(!s) return;
+    var tem = up.classList.contains('tem');
+    var cred = ($('f-cred').value || '').trim();
+    s.textContent = tem ? (cred ? 'foto ✓ · crédito ✓' : 'foto ✓ · sem crédito') : 'sem foto';
+    s.className = 'fd-s' + (tem ? ' ok' : '');
+  }
+  function dobraFontesEstado(){
+    var s = $('dobra-fontes-s'); if(!s) return;
+    var n = ($('f-fontes').value || '').split(/\r?\n/).filter(function(l){ return l.trim(); }).length;
+    s.textContent = n ? plural(n, 'fonte') : 'nenhuma';
+    s.className = 'fd-s' + (n ? ' ok' : '');
+  }
+  function dobrasAtualiza(){ dobraFotoEstado(); dobraFontesEstado(); }
+  function dobrasFecha(){
+    ['dobra-foto', 'dobra-fontes'].forEach(function(id){ var d = $(id); if(d) d.open = false; });
+    dobrasAtualiza();
+  }
+  new MutationObserver(dobraFotoEstado).observe(up, { attributes:true, attributeFilter:['class'] });
+  $('f-cred').addEventListener('input', dobraFotoEstado);
+  $('f-fontes').addEventListener('input', dobraFontesEstado);
+  dobrasAtualiza();
+
 
   /* ---------------- seção Opinião no formulário ----------------
      Coluna, artigo ou editorial. Os colunistas vêm de import/opiniao.json;
@@ -3987,7 +4042,8 @@ ingressos e divisor."></textarea>
       $('f-ev-local').value = d.ev.local || ''; $('f-ev-cidade').value = d.ev.cidade || ''; }
     statusTexto(); $('rasc-aviso').classList.remove('on'); irPara('nova'); histReset();
     rascStatus('📄 Continuando o rascunho "' + (d.title || 'sem título') + '".');
-    if(d.temFoto) setTimeout(function(){ avisar('Recuperei o texto do rascunho. A foto de capa não fica guardada, então reanexe a imagem antes de enviar.'); }, 200);
+    dobrasAtualiza();
+    if(d.temFoto){ $('dobra-foto').open = true; setTimeout(function(){ avisar('Recuperei o texto do rascunho. A foto de capa não fica guardada, então reanexe a imagem antes de enviar.'); }, 200); }
   }
   function limparFormNova(){
     ['f-title', 'f-body', 'f-cred', 'f-imgleg', 'f-imgfonte', 'f-imgdir', 'f-fontes',
@@ -3995,7 +4051,7 @@ ingressos e divisor."></textarea>
     aplicarCats([]);
     CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-ajustar').innerHTML = '';
     $('up-prev').src = ''; $('up-file').value = ''; up.classList.remove('tem');
-    statusTexto(); histReset();
+    dobrasFecha(); statusTexto(); histReset();
   }
   // rascunhos na nuvem (um arquivo por pessoa, com a LISTA), para qualquer aparelho.
   // Formato antigo (um rascunho solto no arquivo) é entendido na leitura.
@@ -5294,9 +5350,11 @@ ingressos e divisor."></textarea>
     var checaEnvio = checaTravessao.then(function(okT){
       if(!okT) return false;
       if(EDIT || !ehChefe) return true;
+      var semCapa = !CAPA && !(EDIT && EDIT.img);
       return confirmar((quando === 'agendar' ? 'Agendar “' : 'Publicar “') + corta(title, 64) +
-        (quando === 'agendar' ? '” para a data marcada?' : '” no site agora?'),
-        { rotuloOk: quando === 'agendar' ? 'Agendar' : 'Publicar' });
+        (quando === 'agendar' ? '” para a data marcada?' : '” no site agora?') +
+        (semCapa ? '\n\n⚠ Esta matéria está SEM foto de capa (a sanfona “Foto de capa” está vazia).' : ''),
+        { rotuloOk: quando === 'agendar' ? 'Agendar' : 'Publicar', perigo: semCapa });
     });
     // matéria nova: confere se já existe uma com esse endereço (evita sobrescrever a de outra pessoa)
     var NOVO_ORIG = null;  // originais da foto subidos neste envio (se a foto for nova)
@@ -5461,7 +5519,7 @@ ingressos e divisor."></textarea>
       $('f-quando-dt').style.display = 'none';
       CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-ajustar').innerHTML = ''; $('up-prev').src = ''; up.classList.remove('tem');
       var rascEnviado = RASC_ID;  // guarda o id ANTES de limpar
-      limparRasc(); statusTexto(); histReset();
+      dobrasFecha(); limparRasc(); statusTexto(); histReset();
       // tira da nuvem SÓ o rascunho desta matéria; os outros ficam esperando
       if(!EDIT && rascEnviado && podeGravar()){
         ghGet(caminhoRascServidor(), true).catch(function(){ return null; }).then(function(ff){
@@ -7084,6 +7142,7 @@ ingressos e divisor."></textarea>
     CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-ajustar').innerHTML = '';
     if(EDIT.img){ $('up-prev').src = EDIT.img; up.classList.add('tem'); }
     else { $('up-prev').src = ''; up.classList.remove('tem'); }
+    dobrasFecha();
     $('edit-titulo').textContent = dados.title || dados.slug;
     $('edit-banner').firstChild.textContent = fonte === 'pauta'
       ? '✎ Editando matéria DA MESA (ainda não publicada): '
@@ -7109,6 +7168,7 @@ ingressos e divisor."></textarea>
     $('f-quando').parentElement.parentElement.style.display = '';
     $('form').reset();
     CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-ajustar').innerHTML = ''; $('up-prev').src = ''; up.classList.remove('tem');
+    dobrasFecha();
     aplicarUsuario();
   }
   $('edit-cancelar').addEventListener('click', function(){
