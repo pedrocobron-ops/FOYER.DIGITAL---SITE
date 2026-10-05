@@ -54,11 +54,32 @@ def lote(nomes):
     return None
 
 
+# descrição curta que denuncia que a página NÃO é de uma pessoa (gênero
+# musical, personagem, banda, festival…) — "Bossa nova" e "Homem de Lata"
+# passaram na primeira rodada por falarem de música e de cinema (05/10/2026)
+NAO_PESSOA = re.compile(r'\b(personagem|g[êe]nero|estilo|movimento|banda|grupo|dupla|trio|coletivo|festival|'
+                        r'[áa]lbum|can[çc][ãa]o|filme|pe[çc]a|telenovela|s[ée]rie|programa|empresa|teatro|pr[êe]mio|'
+                        r'evento|escola|institui[çc][ãa]o|companhia|cia\.|bairro|cidade|munic[íi]pio|livro|romance|'
+                        r'revista|jornal|emissora|canal|site|obra|espet[áa]culo|musical|minis[ée]rie|desenho|jogo)\b', re.I)
+PESSOA = re.compile(r'\b(ator|atriz|cantor|cantora|diretor|diretora|dramaturg|escritor|escritora|poeta|m[úu]sico|'
+                    r'musicista|compositor|compositora|humorista|comediante|bailarin|core[óo]graf|apresentador|'
+                    r'apresentadora|produtor|produtora|cineasta|jornalista|artista|performer|pianista|maestro|'
+                    r'roteirista|dublador|dubladora|figurinista|cen[óo]graf|iluminador|encenador|regente|'
+                    r'arranjador|ilustrador|fot[óo]graf|dan[çc]arin|palha[çc]|drag|intérprete|interprete|empres[áa]ri)', re.I)
+
+
 def aceita(pg, aparicoes):
     if 'missing' in pg or 'invalid' in pg:
         return None
     desc = (pg.get('description') or '').lower()
     ext = (pg.get('extract') or '').strip()
+    primeira = re.split(r'(?<=[.!?])\s', ext, 1)[0].lower() if ext else ''
+    # a descrição curta (ou a primeira frase) diz o que a página é: se fala de
+    # coisa e não de gente, fora
+    if NAO_PESSOA.search(desc) and not PESSOA.search(desc):
+        return None
+    if not desc and NAO_PESSOA.search(primeira) and not PESSOA.search(primeira):
+        return None
     if 'desambigua' in desc or 'desambigua' in ext.lower()[:200] or 'pode referir-se' in ext.lower()[:200]:
         return None
     if not ARTES.search(desc + ' ' + ext):
@@ -72,7 +93,28 @@ def aceita(pg, aparicoes):
             'foto': foto, 'fotoPagina': ('https://commons.wikimedia.org/wiki/File:' + urllib.parse.quote(arq)) if arq else ''}
 
 
+def revalidar():
+    arq = f'{ROOT}/import/enciclopedia-wiki.json'
+    wiki = json.load(open(arq))
+    enc = json.load(open(f'{ROOT}/import/enciclopedia.json'))['pessoas']
+    fora = 0
+    for sp, v in list(wiki.items()):
+        if not v.get('url'):
+            continue
+        pg = {'title': v.get('titulo', ''), 'description': v.get('descricao', ''), 'extract': v.get('resumo', ''),
+              'thumbnail': {'source': v.get('foto', '')} if v.get('foto') else None, 'fullurl': v.get('url', '')}
+        n = len(enc.get(sp, {}).get('aparicoes', [])) if sp in enc else 0
+        if not aceita(pg, n):
+            print('  fora:', sp, '|', v.get('descricao', '')[:60])
+            wiki[sp] = {'nao': True, 'quando': v.get('quando', '')}
+            fora += 1
+    json.dump(wiki, open(arq, 'w'), ensure_ascii=False, indent=1)
+    print(f'revalidação: {fora} verbete(s) perderam a página da Wikipédia')
+
+
 def main():
+    if '--revalidar' in sys.argv:
+        return revalidar()
     todos = '--todos' in sys.argv
     limite = int(sys.argv[sys.argv.index('--limite') + 1]) if '--limite' in sys.argv else 0
     enc = json.load(open(f'{ROOT}/import/enciclopedia.json'))['pessoas']
@@ -125,7 +167,7 @@ def main():
                 wiki[sp] = {'nao': True, 'quando': agora.isoformat()}
         json.dump(wiki, open(arq, 'w'), ensure_ascii=False, indent=1)
         print(f'  {min(i + 20, len(pend))}/{len(pend)} · com página: {achados}', flush=True)
-        time.sleep(1.5)
+        time.sleep(3)
     print(f'pronto: {achados} verbete(s) com bio da Wikipédia nesta rodada; total no arquivo: {sum(1 for v in wiki.values() if v.get("url"))}')
 
 
