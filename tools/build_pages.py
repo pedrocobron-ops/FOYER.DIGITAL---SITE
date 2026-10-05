@@ -47,7 +47,21 @@ BUSCA_LD = ('<script type="application/ld+json">{"@context":"https://schema.org"
             f'"target":{{"@type":"EntryPoint","urlTemplate":"{BASE}/busca.html?q={{search_term_string}}"}},'
             '"query-input":"required name=search_term_string"}}</script>')
 
-def head(title, desc, og_img=None, og_type='website', og_url='', ld=''):
+# A publicidade do Google começa a ser pedida AQUI, no cabeçalho, e não só no
+# fim da página (assets/ads.js): nas visitas curtas que vêm da busca, cada
+# fração de segundo antes do primeiro anúncio é impressão a mais. O id do
+# editor é o mesmo de assets/ads.js (mude nos dois).
+ADS_EDITOR = 'ca-pub-5861702469763970'
+ADS_HEAD = ('<link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>\n'
+            '<link rel="preconnect" href="https://googleads.g.doubleclick.net" crossorigin>\n'
+            '<link rel="preconnect" href="https://tpc.googlesyndication.com" crossorigin>\n'
+            '<script>/* anúncio do Google: pede cedo; quem escolheu "Só o essencial" recebe anúncio sem personalização (assets/ads.js explica) */\n'
+            "try{if(!/[?&]ads=demo\\b/.test(location.search)){var _c=(JSON.parse(localStorage.getItem('foyer-consent')||'null')||{}).nivel||'';"
+            "if(_c==='essencial'){(window.adsbygoogle=window.adsbygoogle||[]).requestNonPersonalizedAds=1;}"
+            "var _s=document.createElement('script');_s.async=true;_s.crossOrigin='anonymous';"
+            "_s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + ADS_EDITOR + "';document.head.appendChild(_s);}}catch(e){}</script>\n")
+
+def head(title, desc, og_img=None, og_type='website', og_url='', ld='', ads=False):
     t = _html.escape(title, quote=True)
     d = _html.escape(desc, quote=True)
     _img_raw = og_img or f'{BASE}/assets/logo/src/foyer-banner.png'
@@ -83,7 +97,7 @@ try{{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')documen
 <link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
 <link rel="preload" href="fonts/AbrilFatface-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/Archivo-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/site.css">
+{ADS_HEAD if ads else ''}<link rel="stylesheet" href="assets/site.css">
 {ORG_LD}{ld}
 </head>
 <body>
@@ -511,6 +525,15 @@ def _elenco_pub(formatos=('entreato', 'cartaz')):
     return ('<script id="foyer-pub-elenco" type="application/json">'
             + _json0.dumps(pool, ensure_ascii=False).replace('<', '\\u003c') + '</script>')
 
+def _google_meio(corpo):
+    """Terceiro espaço do Google, só em texto longo (12 parágrafos ou mais),
+    depois do 7º parágrafo: entre o Entreato (4º) e o Cartaz (10º) da casa.
+    Revisão da publicidade de 05/10/2026."""
+    if corpo.count('</p>') < 12:
+        return corpo
+    partes = corpo.split('</p>', 7)
+    return '</p>'.join(partes[:7]) + '</p>\n  <div class="ad-slot ad-meio" data-ad-slot="2002" data-ad-formato="artigo"></div>\n' + partes[7]
+
 def _injeta_ads_materia(corpo, slug=''):
     """A publicidade DENTRO da matéria, com duas regras de casa:
 
@@ -566,7 +589,8 @@ def page(fname, title, desc, current, body, quiet=False, og_img=None, og_type='w
     _pub = '' if (fname.startswith('coxia') or fname.startswith('revista-ed-')
                   or fname.startswith('revista-prova-') or fname.startswith('anuncie')
                   or fname.startswith('producoes')) else ADS_CASA
-    html = head(title, desc, og_img=og_img, og_type=og_type, og_url=fname, ld=ld) + '\n' + DEFS + '\n' + UTIL + '\n' + nav(current) + '\n' + body + '\n' + _pub + FOOTER + '</body>\n</html>\n'
+    _ads = ('class="ad-slot"' in body) and not fname.startswith(('revista', 'coxia', 'anuncie'))
+    html = head(title, desc, og_img=og_img, og_type=og_type, og_url=fname, ld=ld, ads=_ads) + '\n' + DEFS + '\n' + UTIL + '\n' + nav(current) + '\n' + body + '\n' + _pub + FOOTER + '</body>\n</html>\n'
     with open(os.path.join(ROOT, fname), 'w') as f:
         f.write(html)
     if not quiet:
@@ -1200,7 +1224,7 @@ materia_body = '''<main id="conteudo" class="wrap">
     <span class="ph"><svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#ph-1"/></svg></span>
     <figcaption>O elenco no ensaio aberto da nova temporada — Foto: Divulgação</figcaption>
   </figure>
-  <div class="ad-slot" data-ad-slot="2001"></div>
+  <div class="ad-slot" data-ad-slot="2001" data-ad-formato="artigo"></div>
   <div class="art-body">
     <p class="drop">Durante décadas, o musical brasileiro viveu de licenças: títulos da Broadway traduzidos, coreografias importadas quadro a quadro, cenografias replicadas sob contrato. A temporada que agora se encerra virou essa página.</p>
     <h2>O público comprou o tema</h2>
@@ -1389,7 +1413,7 @@ privacidade_body = band('Institucional', 'Política de Privacidade', 'Última at
     <h2>Newsletter</h2>
     <p>O e-mail cadastrado é usado exclusivamente para o envio da Revista do Foyer. Não vendemos nem compartilhamos a lista com terceiros. Todo envio traz um link de cancelamento imediato.</p>
     <h2>Cookies e publicidade</h2>
-    <p>O site exibe anúncios fornecidos por terceiros, incluindo o Google AdSense. Esses serviços podem usar cookies para exibir anúncios baseados em visitas anteriores. Você pode desativar a publicidade personalizada nas <a href="https://adssettings.google.com" target="_blank" rel="noopener">configurações de anúncios do Google</a>.</p>
+    <p>O site exibe anúncios fornecidos por terceiros, incluindo o Google AdSense. Esses serviços podem usar cookies para exibir anúncios baseados em visitas anteriores, inclusive em outros sites. Se preferir anúncios sem personalização, escolha <b>Só o essencial</b> no aviso de cookies (a escolha fica guardada neste navegador e pode ser refeita a qualquer momento pelo link no rodapé) ou use as <a href="https://adssettings.google.com" target="_blank" rel="noopener">configurações de anúncios do Google</a>. A revista enviada por e-mail não carrega anúncios do Google.</p>
     <h2>Seus direitos (LGPD)</h2>
     <p>Nos termos da Lei nº 13.709/2018, você pode solicitar a qualquer momento o acesso, a correção ou a exclusão dos seus dados pessoais pelo e-mail de contato abaixo.</p>
     <h2>Contato</h2>
@@ -2168,10 +2192,10 @@ def post_page(i, p):
 
   {_capa_html}
 
-  <div class="ad-slot" data-ad-slot="2001"></div>
+  <div class="ad-slot" data-ad-slot="2001" data-ad-formato="artigo"></div>
 
   <div class="art-body">
-{_injeta_ads_materia(corpo, p['slug'])}
+{_injeta_ads_materia(_google_meio(corpo), p['slug'])}
   </div>
   {nota_correcao(p)}
   {quem_bloco}
@@ -4076,6 +4100,7 @@ def pessoa_page(sp, p):
       <a href="busca.html">Buscar no acervo</a>
     </div>
   </div>
+  <div class="ad-slot" data-ad-slot="1701"></div>
 </main>
 '''
 
@@ -4786,7 +4811,7 @@ _SPLASH = '''<div id="abre" hidden>
 # capa tem ordem própria: ticker+masthead antes da nav
 capa_html = (head('FOYER — Teatro, Cultura & Arte',
                   'FOYER — portal de teatro, música e cultura. Notícias, crítica, revista semanal, programas e a Enciclopédia do Teatro Musical Brasileiro.',
-                  ld=BUSCA_LD)
+                  ld=BUSCA_LD, ads=True)
              + '\n' + _SPLASH + '\n' + DEFS + '\n' + index_body + '\n' + UTIL + '\n' + nav('index.html')
              + '\n' + index_main + '\n' + ADS_CASA + FOOTER + '</body>\n</html>\n')
 with open(os.path.join(ROOT, 'index.html'), 'w') as f:

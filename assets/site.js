@@ -884,7 +884,7 @@ function prendeFoco(veu, sair){
     b.setAttribute('aria-label', 'Cookies no FOYER');
     b.innerHTML =
       '<p><b>🍪 Cookies no FOYER.</b> Usamos armazenamento essencial (tema, sessão) e métricas anônimas de audiência. ' +
-      'Com anúncios ativos, parceiros como o Google podem usar cookies de publicidade. ' +
+      'Os anúncios do Google podem ser personalizados pelo seu histórico; se preferir, escolha “Só o essencial” e eles ficam genéricos. ' +
       'Saiba mais na <a href="privacidade.html">Política de Privacidade</a>.</p>' +
       '<div class="lgpd-acoes"><button class="lgpd-sim" type="button">Aceitar tudo</button>' +
       '<button class="lgpd-min" type="button">Só o essencial</button></div>';

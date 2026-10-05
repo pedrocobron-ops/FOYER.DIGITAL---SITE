@@ -43,7 +43,14 @@ window.FOYER_ADS = {
   unidades: [
     '5626283619',                       // "FOYER — geral"         (1º espaço da página)
     '2828015872',                       // "FOYER — segundo lugar"  (2º espaço da página)
-  ]
+    // 3º lugar (meio das matérias longas): crie no AdSense uma unidade
+    // "Display responsivo" chamada "FOYER — terceiro lugar" e cole o número
+    // aqui; enquanto estiver vazio, o 3º espaço reaproveita a 1ª unidade.
+  ],
+  // Formato "Em artigo" (Anúncios → Por unidade → Em artigo): encaixa entre
+  // parágrafos e costuma render mais que o display comum. Cole o número da
+  // unidade aqui; vazio = os espaços de matéria seguem como display.
+  unidadeArtigo: ''
 };
 
 (function(){
@@ -68,18 +75,26 @@ window.FOYER_ADS = {
   var espacos = document.querySelectorAll('.ad-slot');
   if(!espacos.length) return;
 
-  // sem "Aceitar tudo" explícito, o anúncio roda sem perfilar ninguém
-  if(!(window.foyerConsent && window.foyerConsent() === 'tudo')){
-    window.adsbygoogle = window.adsbygoogle || [];
+  // Desde 05/10/2026 (decisão do Pedro): anúncio personalizado por padrão, como
+  // a LGPD permite para publicidade; quem escolhe "Só o essencial" na tarja
+  // passa a receber anúncio sem personalização. Antes era o contrário (só o
+  // "Aceitar tudo" liberava), e a maioria dos leitores, que não responde a
+  // tarja, via anúncio genérico, que paga bem menos.
+  window.adsbygoogle = window.adsbygoogle || [];
+  if(window.foyerConsent && window.foyerConsent() === 'essencial'){
     window.adsbygoogle.requestNonPersonalizedAds = 1;
   }
   document.body.classList.add('ads-on');
 
-  var s = document.createElement('script');
-  s.async = true;
-  s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + cfg.editor;
-  s.crossOrigin = 'anonymous';
-  document.head.appendChild(s);
+  // o cabeçalho da página já pede o script do Google (build_pages.py, ADS_HEAD);
+  // aqui só garante, para página antiga ou montada fora do gerador
+  if(!document.querySelector('script[src*="adsbygoogle.js"]')){
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + cfg.editor;
+    s.crossOrigin = 'anonymous';
+    document.head.appendChild(s);
+  }
 
   for(var i = 0; i < espacos.length; i++){
     var el = espacos[i];
@@ -92,10 +107,19 @@ window.FOYER_ADS = {
     // Cada espaço da página pega a unidade seguinte da lista; se a lista
     // acabar, ela recomeça — pior caso, volta a repetir, que é o que já
     // acontecia antes.
-    var lista = cfg.unidades && cfg.unidades.length ? cfg.unidades : [cfg.unidade];
+    var lista = (cfg.unidades || []).filter(Boolean);
+    if(!lista.length) lista = [cfg.unidade];
     var u = el.getAttribute('data-ad-unidade') || lista[i % lista.length];
+    // espaço marcado como "artigo" (abertura e meio da matéria) usa a unidade
+    // "Em artigo" quando ela existir: formato fluido, desenhado para o meio do texto
+    if(el.getAttribute('data-ad-formato') === 'artigo' && cfg.unidadeArtigo){
+      u = cfg.unidadeArtigo;
+      ins.setAttribute('data-ad-layout', 'in-article');
+      ins.setAttribute('data-ad-format', 'fluid');
+    } else {
+      ins.setAttribute('data-ad-format', el.getAttribute('data-ad-format') || 'auto');
+    }
     if(u) ins.setAttribute('data-ad-slot', u);
-    ins.setAttribute('data-ad-format', el.getAttribute('data-ad-format') || 'auto');
     // "Largura total no celular" DESLIGADA, e não é preferência de gosto.
     // Com ela ligada, o Google aplica margem negativa e estica o anúncio até a
     // largura da tela, passando por cima da moldura da casa: no celular do
