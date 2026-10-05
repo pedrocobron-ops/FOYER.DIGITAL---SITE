@@ -203,7 +203,180 @@ def _cabecalho(dr, base, cat, y=132):
     dr.text((x + logo.width + 6, y + alt - 35), sufixo, font=f_sans, fill=BRANCO)
 
 
+# ---------------------------------------------------------------- capa tipográfica
+# Coluna, artigo ou editorial SEM foto (05/10/2026, pedido do Pedro): em vez
+# da foto, a arte é só letra, no molde do post que ele fez à mão — fundo de
+# papel, logo vinho, selo da coluna, título grande na fonte de títulos da
+# casa (Abril Fatface) com o trecho *marcado* em itálico vinho e "por Fulano"
+# embaixo. O site desenha a mesma capa em HTML nos cards; aqui sai em JPG
+# para o feed, os stories e a prévia de link (og, 1200x630).
+PAPEL = (240, 235, 226)
+VINHO = (78, 15, 9)
+TINTA = (24, 20, 18)
+TINTA_SUAVE = (112, 104, 96)
+LINHA = (196, 188, 176)
+
+
+def _eh_tipografica(pg):
+    return pg.get('secao') == 'opiniao' and not _foto(pg)
+
+
+def _selo_capa(pg):
+    tipo = pg.get('tipo') or ''
+    if tipo == 'coluna' and pg.get('coluna'):
+        return pg['coluna']
+    return {'coluna': 'Coluna', 'artigo': 'Artigo', 'editorial': 'Editorial'}.get(tipo, 'Opinião')
+
+
+def _toks_capa(pg):
+    """[(palavra, destacada?)] — só a marcação com *asteriscos* vale aqui."""
+    t = pg.get('title', '')
+    toks = []
+    for i, parte in enumerate(t.split('*')):
+        for w in parte.split():
+            toks.append((w, i % 2 == 1))
+    return toks
+
+
+def _italico(texto, font, fill, k=0.2):
+    """Abril Fatface não tem itálico: desenha a palavra numa camada e inclina."""
+    dr0 = ImageDraw.Draw(Image.new('RGBA', (10, 10)))
+    x0, y0, x1, y1 = dr0.textbbox((0, 0), texto, font=font)
+    pad = 6
+    w, h = x1 + pad * 2, y1 + pad * 2
+    cam = Image.new('RGBA', (w, h), (0, 0, 0, 0))
+    ImageDraw.Draw(cam).text((pad, pad), texto, font=font, fill=fill + (255,))
+    desl = round(k * h)
+    cam = cam.transform((w + desl, h), Image.AFFINE, (1, k, -desl, 0, 1, 0), resample=Image.BICUBIC)
+    return cam, pad, desl
+
+
+def _linhas_capa(toks, font, larg):
+    dr0 = ImageDraw.Draw(Image.new('RGB', (10, 10)))
+    esp = dr0.textlength(' ', font=font)
+    linhas, atual, cw = [], [], 0
+    for w, dest in toks:
+        tw = dr0.textlength(w, font=font)
+        if atual and cw + tw > larg:
+            linhas.append(atual)
+            atual, cw = [], 0
+        atual.append((w, dest, tw))
+        cw += tw + esp
+    if atual:
+        linhas.append(atual)
+    return linhas, esp
+
+
+def _titulo_capa(base, toks, x, y, larg, tam, max_linhas, entre=1.04, centro=None, sobra=0):
+    """Título na Abril Fatface; encolhe até caber em max_linhas. Devolve o y final.
+    centro=(y0, y1): centraliza o bloco (título + sobra, a altura da assinatura)
+    entre essas duas alturas, em vez de começar em y."""
+    while True:
+        f = _fonte('AbrilFatface-Regular.ttf', tam)
+        linhas, esp = _linhas_capa(toks, f, larg)
+        if len(linhas) <= max_linhas or tam <= 40:
+            break
+        tam -= 6
+    dr = ImageDraw.Draw(base)
+    alt = round(tam * entre)
+    if centro:
+        y = round(centro[0] + ((centro[1] - centro[0]) - (alt * len(linhas) + sobra)) / 2)
+    for linha in linhas:
+        cx = x
+        for w, dest, tw in linha:
+            if dest:
+                cam, pad, desl = _italico(w, f, VINHO)
+                base.paste(cam, (round(cx) - pad, y - pad), cam)
+                cx += tw + esp + desl * 0.25
+            else:
+                dr.text((cx, y), w, font=f, fill=TINTA)
+                cx += tw + esp
+        y += alt
+    return y
+
+
+def _espacado(dr, xy, texto, font, fill, esp=3, direita=False):
+    """Texto em caixa alta com as letras espaçadas (o selo e o rodapé)."""
+    x, y = xy
+    larg = sum(dr.textlength(c, font=font) + esp for c in texto) - esp
+    if direita:
+        x -= larg
+    for c in texto:
+        dr.text((x, y), c, font=font, fill=fill)
+        x += dr.textlength(c, font=font) + esp
+    return larg
+
+
+def _cabecalho_capa(base, margem, y, alt_logo, tam_selo, selo):
+    """Logo vinho à esquerda, selo da coluna à direita, fio embaixo. Devolve o y do fio."""
+    dr = ImageDraw.Draw(base)
+    logo = Image.open(os.path.join(ROOT, 'assets/logo/foyer-horizontal-wine.png'))
+    esc = alt_logo / logo.height
+    logo = logo.resize((round(logo.width * esc), alt_logo), Image.LANCZOS)
+    base.paste(Image.new('RGB', logo.size, VINHO), (margem, y), logo.getchannel('A'))
+    f = _fonte('Archivo-Bold.ttf', tam_selo)
+    texto = selo.upper()
+    larg = sum(dr.textlength(c, font=f) + 2 for c in texto) - 2
+    px, py = round(tam_selo * 0.9), round(tam_selo * 0.55)
+    x1 = base.width - margem
+    x0 = x1 - larg - px * 2
+    ym = y + alt_logo // 2
+    dr.rectangle((x0, ym - tam_selo // 2 - py, x1, ym + tam_selo // 2 + py), fill=VINHO)
+    _espacado(dr, (x0 + px, ym - tam_selo // 2 - round(tam_selo * 0.08)), texto, f, PAPEL, esp=2)
+    yf = y + alt_logo + round(alt_logo * 0.75)
+    dr.line((margem, yf, base.width - margem, yf), fill=LINHA, width=2)
+    return yf
+
+
+def _por_capa(base, x, y, pg, tam):
+    if pg.get('tipo') == 'editorial':
+        texto = 'Editorial do Foyer'
+    else:
+        texto = 'por ' + (pg.get('author') or 'Redação Foyer')
+    f = _fonte('AbrilFatface-Regular.ttf', tam)
+    cam, pad, _ = _italico(texto, f, TINTA_SUAVE, k=0.16)
+    base.paste(cam, (x - pad, y - pad), cam)
+    return y + round(tam * 1.3)
+
+
+def _rodape_capa(base, margem, y, texto, tam):
+    dr = ImageDraw.Draw(base)
+    dr.line((margem, y, base.width - margem, y), fill=LINHA, width=2)
+    f = _fonte('Archivo-Bold.ttf', tam)
+    _espacado(dr, (margem, y + round(tam * 0.9)), texto.upper(), f, TINTA_SUAVE, esp=3)
+    _espacado(dr, (base.width - margem, y + round(tam * 0.9)), 'FOYER.DIGITAL', f, VINHO, esp=3, direita=True)
+
+
+def gerar_tipografica(pg, formato='feed'):
+    """feed 1080x1350 · story 1080x1920 · og 1200x630, todas só de letra."""
+    if formato == 'story':
+        w, h, margem = 1080, 1920, 96
+        base = Image.new('RGB', (w, h), PAPEL)
+        yf = _cabecalho_capa(base, margem, 150, 54, 24, _selo_capa(pg))
+        y = _titulo_capa(base, _toks_capa(pg), margem, 0, w - margem * 2, 124, 7, centro=(yf, h - 250), sobra=110)
+        _por_capa(base, margem, y + 40, pg, 50)
+        _rodape_capa(base, margem, h - 250, 'Leia a coluna completa no site', 24)
+        return base
+    if formato == 'og':
+        w, h, margem = 1200, 630, 64
+        base = Image.new('RGB', (w, h), PAPEL)
+        yf = _cabecalho_capa(base, margem, 48, 40, 18, _selo_capa(pg))
+        y = _titulo_capa(base, _toks_capa(pg), margem, 0, w - margem * 2, 84, 3, centro=(yf, h - 62), sobra=70)
+        _por_capa(base, margem, y + 18, pg, 36)
+        _rodape_capa(base, margem, h - 62, 'Opinião', 16)
+        return base
+    w, h, margem = 1080, 1350, 90
+    base = Image.new('RGB', (w, h), PAPEL)
+    yf = _cabecalho_capa(base, margem, 110, 54, 24, _selo_capa(pg))
+    y = _titulo_capa(base, _toks_capa(pg), margem, yf + 120, w - margem * 2, 132, 6)
+    _por_capa(base, margem, y + 36, pg, 50)
+    _rodape_capa(base, margem, h - 150, 'Deslize para ler', 24)
+    return base
+
+
 def gerar(pg, formato='feed'):
+    if _eh_tipografica(pg):
+        return gerar_tipografica(pg, formato)
     if formato == 'story':
         return _gerar_story(pg)
     w, h = 1080, 1350
@@ -302,6 +475,10 @@ def _assinatura(pg):
     sig = {'img': pg.get('img', ''), 'foco': pg.get('foco') or None,
            'titulo': insta.get('titulo') or pg.get('title', ''),
            'cat': pg.get('cat', '')}
+    if _eh_tipografica(pg):
+        # capa só de letra: muda com o selo e a assinatura, não com foto
+        sig['tipo'] = pg.get('tipo', ''); sig['coluna'] = pg.get('coluna', '')
+        sig['author'] = pg.get('author', ''); sig['capa'] = 'tipografica'
     if pg.get('imgOriginal'):
         # só entra quando existe: pôr a chave sempre mudaria a assinatura de
         # TODAS as matérias antigas e o robô refaria todas as artes à toa
@@ -349,11 +526,13 @@ def pendentes():
         if slug in focos:
             pg['foco'] = focos[slug]
         cam = os.path.join(ROOT, pg.get('img', ''))
-        if not pg.get('img') or not os.path.exists(cam):
+        tipografica = _eh_tipografica(pg)
+        if (not pg.get('img') or not os.path.exists(cam)) and not tipografica:
             continue
         sig = _assinatura(pg)
+        formatos = ('feed', 'story', 'og') if tipografica else ('feed', 'story')
         tem_arte = all(os.path.exists(os.path.join(SAIDA, f'{slug}-{f}.jpg'))
-                       for f in ('feed', 'story'))
+                       for f in formatos)
         if tem_arte and slug not in registro:
             # arte feita antes do registro existir: adota como está, sem refazer
             registro[slug] = sig
@@ -361,7 +540,7 @@ def pendentes():
             continue
         if tem_arte and registro.get(slug) == sig:
             continue
-        for formato in ('feed', 'story'):
+        for formato in formatos:
             gerar(pg, formato).save(os.path.join(SAIDA, f'{slug}-{formato}.jpg'), quality=88)
         registro[slug] = sig
         feitas += 1
@@ -382,7 +561,7 @@ def main():
         slug = pg['slug']
         if slug in focos and not pg.get('foco'):
             pg['foco'] = focos[slug]
-        for formato in ('feed', 'story'):
+        for formato in (('feed', 'story', 'og') if _eh_tipografica(pg) else ('feed', 'story')):
             img = gerar(pg, formato)
             destino = os.path.join(SAIDA, f'{slug}-{formato}.jpg')
             img.save(destino, quality=88)

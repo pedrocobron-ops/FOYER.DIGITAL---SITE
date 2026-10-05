@@ -1544,7 +1544,10 @@ if os.path.isdir(_novas_dir):
         except Exception:
             _iso_full = ''
         _novas.append({
-            'title': _n['title'], 'slug': _slug, 'desc': _desc,
+            # *asteriscos* no título marcam o trecho que vai em itálico vinho
+            # na capa tipográfica (coluna sem foto); fora dela o título é limpo
+            'title': _n['title'].replace('*', ''), 'slug': _slug, 'desc': _desc,
+            'titleMarcado': _n['title'] if '*' in _n['title'] else '',
             'cat': _n.get('cat', 'Notícia'), 'author': _n.get('author', 'Redação Foyer'),
             'date': f'{int(_dd)} de {_MESES_PT[int(_mo)-1]} de {_y}',
             'hora': _hora, 'isoFull': _iso_full,
@@ -1562,7 +1565,10 @@ if os.path.isdir(_novas_dir):
     if _novas:
         _slugs_novos = {x['slug'] for x in _novas}
         MATERIAS = [_m for _m in MATERIAS if _m['slug'] not in _slugs_novos]
-        MATERIAS = sorted(_novas + MATERIAS, key=lambda x: x.get('iso',''), reverse=True)
+        # no mesmo dia, a ordem é a da hora de publicação (isoFull); antes era a
+        # ordem alfabética dos arquivos, e uma matéria da manhã podia ficar na
+        # frente de uma da tarde (visto em 05/10/2026, com a coluna do Pedro)
+        MATERIAS = sorted(_novas + MATERIAS, key=lambda x: (x.get('iso',''), x.get('isoFull','')), reverse=True)
         print(f'• {len(_novas)} matéria(s) da Coxia no ar · {_agendadas} agendada(s) aguardando')
     elif _agendadas:
         print(f'• {_agendadas} matéria(s) agendada(s) aguardando a hora')
@@ -1681,7 +1687,62 @@ def _cred_curto(p):
         return 'Divulgação'
     return c
 
+# ---------------------------------------------------------------- capa tipográfica
+# Coluna, artigo ou editorial SEM foto (pedido do Pedro, 05/10/2026): no lugar
+# da foto, o card ganha o título na fonte de títulos, o selo da coluna e "por
+# Fulano", no molde dos posts de Instagram da casa. Vai no mesmo lugar e com o
+# mesmo tamanho da foto, então a grade não muda. A Coxia gera a mesma capa em
+# JPG para o feed, os stories e a prévia de link (tools/gera_social.py).
+def _sem_foto_op(p):
+    return _eh_opiniao(p) and not p.get('img')
+
+def _titulo_capa_html(p):
+    t = p.get('titleMarcado') or ''
+    if '*' in t:
+        return ''.join((f'<em>{safe(x)}</em>' if i % 2 else safe(x)) for i, x in enumerate(t.split('*')))
+    return safe(p['title'])
+
+def _selo_capa(p):
+    if p.get('tipo') == 'coluna' and p.get('coluna'):
+        return safe(p['coluna'])
+    return _tipo_rotulo(p)
+
+def _capa_tipo(p, href, grande=False, classe='ph ph-tipo'):
+    quem = 'Editorial do Foyer' if p.get('tipo') == 'editorial' else 'por ' + safe(p['author'])
+    return (f'<a class="{classe}{" grande" if grande else ""}" href="{href}" aria-label="{safe(p["title"])}">'
+            f'<span class="pt-selo">{_selo_capa(p)}</span>'
+            f'<span class="pt-titulo">{_titulo_capa_html(p)}</span>'
+            f'<span class="pt-por">{quem}</span></a>')
+
+_GS = None
+def _og_tipo(p):
+    """A imagem da prévia de link (WhatsApp etc.) da coluna sem foto: a mesma
+    capa tipográfica em JPG, feita aqui no build se ainda não existir. Sem
+    Pillow, fica o banner da casa."""
+    global _GS
+    if not _sem_foto_op(p):
+        return None
+    cam = f'assets/social/{p["slug"]}-og.jpg'
+    full = os.path.join(ROOT, cam)
+    if os.path.exists(full):
+        return cam
+    try:
+        if _GS is None:
+            import importlib.util as _iu
+            _spec = _iu.spec_from_file_location('gera_social', os.path.join(ROOT, 'tools/gera_social.py'))
+            _GS = _iu.module_from_spec(_spec); _spec.loader.exec_module(_GS)
+        pg = {'title': p.get('titleMarcado') or p['title'], 'author': p['author'], 'secao': 'opiniao',
+              'tipo': p.get('tipo', ''), 'coluna': p.get('coluna', ''), 'cat': p.get('cat', '')}
+        os.makedirs(os.path.dirname(full), exist_ok=True)
+        _GS.gerar_tipografica(pg, 'og').save(full, 'JPEG', quality=86)
+        return cam
+    except Exception as e:
+        print(f'  (prévia de link da coluna "{p["slug"]}" fica com o banner: {e})')
+        return None
+
 def real_ph(p, href, cap=True):
+    if _sem_foto_op(p):
+        return _capa_tipo(p, href, grande=cap)
     c = f'<span class="ph-cap">Foto — {safe(_cred_curto(p))}</span>' if cap else ''
     return (f'<a class="ph" href="{href}" aria-label="Foto da matéria">'
             f'<img src="{wiximg(p["img"], 800, 450)}" alt="{safe(p["title"])}" loading="lazy" onerror="this.style.display=\'none\'">{c}</a>')
@@ -1781,14 +1842,15 @@ index_body = TICKER + '''
 </header>
 '''
 
+_manchete_capa = _capa_tipo(_p0, f"post-{_p0['slug']}.html", grande=True, classe='ph cover ph-tipo') if _sem_foto_op(_p0) else f'''<a class="ph cover" href="post-{_p0['slug']}.html" aria-label="Foto da reportagem de capa">
+        <img src="{wiximg(_p0['img'])}" alt="" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'">
+        <span class="ph-cap">Foto — {safe(_cred_curto(_p0))}</span>
+      </a>'''
 index_main = f'''<main id="conteudo">
 <section class="frontpage wrap">
   <div class="fp-grid">
     <article class="manchete">
-      <a class="ph cover" href="post-{_p0['slug']}.html" aria-label="Foto da reportagem de capa">
-        <img src="{wiximg(_p0['img'])}" alt="" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'">
-        <span class="ph-cap">Foto — {safe(_cred_curto(_p0))}</span>
-      </a>
+      {_manchete_capa}
       <div class="manchete-body">
         <div class="tags">
           <span class="tag wine">{_tipo_rotulo(_p0) if _eh_opiniao(_p0) else _p0['cat']}</span>
@@ -2013,6 +2075,15 @@ def nota_correcao(p):
             'font-family:var(--sans);font-size:.92rem;line-height:1.6">'
             f'<b>{safe(txt)}</b><span style="color:var(--ink-soft)">{quando}</span></aside>')
 
+def _abre_opiniao(p):
+    """Abertura da coluna sem foto: a foto do colunista (ou a inicial), o nome
+    da coluna e quem assina, no lugar onde ficaria a foto de capa."""
+    if p.get('tipo') == 'editorial':
+        return '<div class="op-abre"><b>Editorial do Foyer</b></div>'
+    fn = _funcao_autor(p)
+    return (f'<div class="op-abre">{_op_foto(p["author"], "grande")}'
+            f'<span><b>{_selo_capa(p)}</b><small>{safe(p["author"])}{(" · " + safe(fn)) if fn else ""}</small></span></div>')
+
 def post_page(i, p):
     _sps = globals().get('POR_MATERIA', {}).get(p['slug'], [])
     _pes = globals().get('PESSOAS', {})
@@ -2074,6 +2145,10 @@ def post_page(i, p):
         _tags_html = (f'<a class="tag wine" href="cat-{_cat_slug(p["cat"])}.html">{p["cat"]}</a>'
                       + (''.join(f'<a class="tag" href="cat-{_cat_slug(c)}.html">{c}</a>' for c in p.get('cats', []) if c != 'Em Cartaz') or '<span class="tag">Foyer</span>'))
         _por_html = 'Por ' + _byline_link(p['author'])
+    _capa_html = _abre_opiniao(p) if _sem_foto_op(p) else f'''<figure class="art-cover">
+    <span class="ph"><img src="{wiximg(p['img'])}" alt="{safe(p.get('legenda') or p['title'])}" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'"></span>
+    <figcaption>{(safe(p['legenda']) + ' — ') if p.get('legenda') else ''}{safe(cred_capa)}</figcaption>
+  </figure>'''
     return f"""<main id="conteudo" class="wrap">
 <article class="art">
   <div class="art-head">
@@ -2088,10 +2163,7 @@ def post_page(i, p):
     </div>{selo_atualizada(p)}
   </div>
 
-  <figure class="art-cover">
-    <span class="ph"><img src="{wiximg(p['img'])}" alt="{safe(p.get('legenda') or p['title'])}" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'"></span>
-    <figcaption>{(safe(p['legenda']) + ' — ') if p.get('legenda') else ''}{safe(cred_capa)}</figcaption>
-  </figure>
+  {_capa_html}
 
   <div class="ad-slot" data-ad-slot="2001"></div>
 
@@ -4786,8 +4858,9 @@ def _op_destaque(p, rotulo):
         foto = _op_foto(p['author'], 'grande')
     desc = p['desc'][:220] + ('…' if len(p['desc']) > 220 else '')
     return (f'  <article class="op-destaque">\n'
-            f'    <a class="op-capa" href="{href}" aria-label="{safe(p["title"])}"><img src="{wiximg(p["img"])}" alt="" loading="lazy" onerror="this.parentNode.style.display=\'none\'"></a>\n'
-            f'    <div class="op-txt">\n'
+            + (_capa_tipo(p, href, grande=True, classe='op-capa ph-tipo') + '\n' if _sem_foto_op(p) else
+               f'    <a class="op-capa" href="{href}" aria-label="{safe(p["title"])}"><img src="{wiximg(p["img"])}" alt="" loading="lazy" onerror="this.parentNode.style.display=\'none\'"></a>\n')
+            + f'    <div class="op-txt">\n'
             f'      <span class="tag wine">{rotulo}</span>\n'
             f'      <h2><a href="{href}">{p["title"]}</a></h2>\n'
             f'      <p class="dek">{desc}</p>\n'
@@ -6722,7 +6795,7 @@ descadastrar_body = band('Newsletter', 'Descadastrar', 'Sair da lista da Revista
 page('descadastrar.html', 'Descadastrar — Revista do FOYER', 'Sair da lista de e-mails da Revista do FOYER.', 'descadastrar.html', descadastrar_body)
 
 def _ld_materia(p):
-    img = wiximg(p['img'], 1200, 630) if p['img'] else f'{BASE}/assets/logo/src/foyer-banner.png'
+    img = wiximg(p['img'], 1200, 630) if p['img'] else (_og_tipo(p) or f'{BASE}/assets/logo/src/foyer-banner.png')
     if not img.startswith('http'):
         img = f'{BASE}/{img}'
     autor = p.get('author') or 'Redação Foyer'
@@ -6762,8 +6835,8 @@ def _ld_materia(p):
             '<script type="application/ld+json">' + _json.dumps(migalhas, ensure_ascii=False) + '</script>')
 
 for _i, _p in enumerate(MATERIAS):
-    page('post-' + _p['slug'] + '.html', _p['title'] + ' — FOYER', _p['desc'][:200], 'noticias.html', post_page(_i, _p), quiet=True,
-         og_img=wiximg(_p['img'], 1200, 630) if _p['img'] else None, og_type='article', ld=_ld_materia(_p))
+    page('post-' + _p['slug'] + '.html', _p['title'] + ' — FOYER', _p['desc'][:200], 'opiniao.html' if _eh_opiniao(_p) else 'noticias.html', post_page(_i, _p), quiet=True,
+         og_img=wiximg(_p['img'], 1200, 630) if _p['img'] else _og_tipo(_p), og_type='article', ld=_ld_materia(_p))
 print(f'• {len(MATERIAS)} páginas de matéria')
 
 for _asp, _aa in AUTORES.items():

@@ -31,6 +31,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - name: Ferramentas de imagem (prévia de link das colunas sem foto)
+        run: pip install --quiet pillow
       - name: Gerar o site (inclui matérias da Coxia já liberadas)
         run: |
           python3 tools/atualiza_youtube.py || echo "YouTube fora do ar — usa o último retrato salvo"

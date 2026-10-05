@@ -1438,3 +1438,58 @@ html.tem-aviso body{ padding-bottom:var(--aviso-alt, 0px); }
   font-family:var(--mono); font-weight:700; font-size:.66rem; letter-spacing:.14em; text-transform:uppercase;
   padding:12px 18px; text-decoration:none; }
 .bt-anuncie:hover{ background:var(--gold); color:var(--wine); }
+
+/* ============ CAPA TIPOGRÁFICA (coluna/artigo sem foto) ============
+   No lugar da foto: selo da coluna, título na fonte de títulos (o trecho
+   marcado em itálico vinho) e "por Fulano". Mesmo tamanho da foto. */
+.ph-tipo{
+  background:var(--paper); color:var(--ink); display:flex; flex-direction:column;
+  padding:7% 7% 6%; container-type:inline-size; text-decoration:none; box-sizing:border-box;
+}
+.ph-tipo .pt-selo{
+  font-family:var(--mono); font-size:clamp(.46rem,2.6cqw,.62rem); font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--gold-hi); background:var(--wine); padding:4px 8px; align-self:flex-start;
+  white-space:nowrap; max-width:100%; overflow:hidden; text-overflow:ellipsis;
+}
+.ph-tipo .pt-titulo{
+  font-family:var(--didone); font-weight:400; line-height:1.02; letter-spacing:-.01em;
+  font-size:clamp(1rem,8.6cqw,3.6rem); margin:auto 0 0; padding:7% 0 5%;
+  display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden;
+  text-transform:none;
+}
+.ph-tipo.grande .pt-titulo{ -webkit-line-clamp:5; }
+.ph-tipo .pt-titulo em{ font-style:italic; color:var(--wine); }
+.ph-tipo .pt-por{
+  font-family:var(--didone); font-style:italic; font-size:clamp(.7rem,3.8cqw,1.15rem);
+  color:var(--ink-soft); border-top:1px solid var(--line); padding-top:4%;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.ph-tipo:hover .pt-titulo{
+  text-decoration:underline; text-decoration-thickness:2px;
+  text-decoration-color:var(--gold); text-underline-offset:4px;
+}
+.news-cell:hover .ph-tipo{ background:var(--wine); color:var(--gold); }
+.news-cell:hover .ph-tipo .pt-titulo em, .news-cell:hover .ph-tipo .pt-por{ color:var(--gold-hi); }
+.news-cell:hover .ph-tipo .pt-por{ border-color:rgba(233,203,133,.4); }
+.news-cell:hover .ph-tipo .pt-selo{ background:var(--gold); color:var(--wine); }
+.fp-sub article:hover .ph-tipo{ background:var(--paper-2); }
+.manchete .cover.ph-tipo{ padding:5% 6% 4%; }
+.manchete .cover.ph-tipo .pt-titulo{ font-size:clamp(1.6rem,8.4cqw,5rem); }
+.op-capa.ph-tipo{ display:flex; aspect-ratio:16/10; }
+
+/* abertura da coluna sem foto, na página do texto */
+.op-abre{
+  display:flex; align-items:center; gap:14px; margin:16px 0 4px; padding:14px 0;
+  border-top:var(--b); border-bottom:1px solid var(--line);
+}
+.op-abre b{
+  display:block; font-family:var(--mono); font-size:.62rem; font-weight:700;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--wine);
+}
+.op-abre small{ font-family:var(--sans); font-size:.88rem; color:var(--ink-soft); }
+.op-abre .op-foto{
+  flex:0 0 56px; width:56px; height:56px; border:2px solid var(--ink); overflow:hidden;
+  background:var(--wine); display:flex; align-items:center; justify-content:center;
+}
+.op-abre .op-foto img{ width:100%; height:100%; object-fit:cover; object-position:center 25%; display:block; }
+.op-abre .op-foto i{ font-style:normal; font-family:var(--didone); color:var(--gold); font-size:1.5rem; }

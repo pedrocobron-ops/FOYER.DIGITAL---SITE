@@ -1283,6 +1283,7 @@
                 <label for="f-funcao">Função de quem assina (uma linha)</label>
                 <input type="text" id="f-funcao" placeholder="Ex.: produtora cultural">
               </div>
+              <p class="f-note" style="grid-column:1/-1;margin:0">Em Opinião a foto é opcional: sem foto, o texto sai com a <b>capa tipográfica</b> (selo da coluna, título grande e quem assina), no site e no Instagram. Para um trecho do título sair em itálico vinho, marque-o com asteriscos: <b>Teatro independente *de quem?*</b></p>
             </div>
             <div class="r2">
               <div>
@@ -3718,8 +3719,10 @@ ingressos e divisor."></textarea>
     var s = $('dobra-foto-s'); if(!s) return;
     var tem = up.classList.contains('tem');
     var cred = ($('f-cred').value || '').trim();
-    s.textContent = tem ? (cred ? 'foto ✓ · crédito ✓' : 'foto ✓ · sem crédito') : 'sem foto';
-    s.className = 'fd-s' + (tem ? ' ok' : '');
+    var opiniao = $('f-secao') && $('f-secao').value === 'opiniao';
+    s.textContent = tem ? (cred ? 'foto ✓ · crédito ✓' : 'foto ✓ · sem crédito')
+                        : (opiniao ? 'sem foto · capa tipográfica' : 'sem foto');
+    s.className = 'fd-s' + (tem || opiniao ? ' ok' : '');
   }
   function dobraFontesEstado(){
     var s = $('dobra-fontes-s'); if(!s) return;
@@ -3734,6 +3737,7 @@ ingressos e divisor."></textarea>
   }
   new MutationObserver(dobraFotoEstado).observe(up, { attributes:true, attributeFilter:['class'] });
   $('f-cred').addEventListener('input', dobraFotoEstado);
+  if($('f-secao')) $('f-secao').addEventListener('change', dobraFotoEstado);
   $('f-fontes').addEventListener('input', dobraFontesEstado);
   dobrasAtualiza();
 
@@ -4211,7 +4215,8 @@ ingressos e divisor."></textarea>
                          : '<span class="err">✗ só ' + n + ' palavras</span>');
     avisos.push(/[—–]/.test(corpo + title) ? '<span class="err">✗ travessão no texto</span>'
                                            : '<span class="ok">✓ sem travessão</span>');
-    avisos.push(img ? '<span class="ok">✓ foto de capa</span>' : '<span class="err">✗ sem foto de capa</span>');
+    avisos.push(img ? '<span class="ok">✓ foto de capa</span>'
+                    : ($('f-secao').value === 'opiniao' ? '<span class="ok">✓ sem foto: sai com a capa tipográfica</span>' : '<span class="err">✗ sem foto de capa</span>'));
     var links = [];
     corpo.replace(/\]\(((?:post-|pessoa-|cat-)[a-z0-9-]+\.html)\)/g, function(_, u){ links.push(u); return _; });
     $('prev-avisos').innerHTML = avisos.join(' · ') + (links.length ? ' · conferindo ' + plural(links.length, 'link') + '…' : ' · <span class="err">sem links internos</span>');
@@ -5350,7 +5355,7 @@ ingressos e divisor."></textarea>
     var checaEnvio = checaTravessao.then(function(okT){
       if(!okT) return false;
       if(EDIT || !ehChefe) return true;
-      var semCapa = !CAPA && !(EDIT && EDIT.img);
+      var semCapa = !CAPA && !(EDIT && EDIT.img) && $('f-secao').value !== 'opiniao';
       return confirmar((quando === 'agendar' ? 'Agendar “' : 'Publicar “') + corta(title, 64) +
         (quando === 'agendar' ? '” para a data marcada?' : '” no site agora?') +
         (semCapa ? '\n\n⚠ Esta matéria está SEM foto de capa (a sanfona “Foto de capa” está vazia).' : ''),
@@ -6237,7 +6242,9 @@ ingressos e divisor."></textarea>
             ? '<div class="mesa-capa"><img src="' + esc(doSite(d.img)) + '" alt="" data-p="' + esc(d.img) + '" ' +
               'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/\'+this.dataset.p}else{this.parentNode.outerHTML=\'<div class=mesa-semfoto>⚠ Foto no repositório ainda não carregou aqui, mas ela existe e sai na publicação</div>\'}">' +
               credLinha + '</div>'
-            : '<div class="mesa-semfoto">⚠ Sem foto de capa — suba uma antes de aprovar</div>';
+            : (d.secao === 'opiniao'
+                ? '<div class="mesa-semfoto" style="background:var(--paper-2);color:var(--ink-soft)">✎ Sem foto: sai com a capa tipográfica (selo, título e quem assina), como as colunas</div>'
+                : '<div class="mesa-semfoto">⚠ Sem foto de capa — suba uma antes de aprovar</div>');
           var chk = d.checagem;
           var nFontes = (d.fontes && d.fontes.length) || 0;
           var apuracaoAutor = '<div class="mesa-checa' + (nFontes ? '' : ' semcheca') + '">' +
@@ -6538,7 +6545,7 @@ ingressos e divisor."></textarea>
         '.\n\nDesmarque essas para seguir com o lote.');
       return;
     }
-    var semFoto = ds.filter(function(d){ return !d.img; });
+    var semFoto = ds.filter(function(d){ return !d.img && d.secao !== 'opiniao'; });
     if(semFoto.length){ avisar('Estas ainda estão sem foto de capa: ' + semFoto.map(function(d){ return '“' + corta(d.title, 30) + '”'; }).join(', ') + '. Suba a capa antes.'); return; }
     if(!ds.length) return;
     confirmar((rotulo ? 'Agendar' : 'Aprovar e publicar') + ' ' + plural(ds.length, 'matéria') + ' ' + (rotulo || 'agora') + '?').then(function(okc){
@@ -6650,7 +6657,7 @@ ingressos e divisor."></textarea>
     }
     if((b = e.target.closest('[data-aprovar]'))){
       if(!podeGravar()){ avisarChave(); return; }
-      if(MESA[b.dataset.aprovar] && !MESA[b.dataset.aprovar].img){
+      if(MESA[b.dataset.aprovar] && !MESA[b.dataset.aprovar].img && MESA[b.dataset.aprovar].secao !== 'opiniao'){
         avisar('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de aprovar.'); return;
       }
       var slugAp = b.dataset.aprovar;
@@ -6664,7 +6671,7 @@ ingressos e divisor."></textarea>
       if(!podeGravar()){ avisarChave(); return; }
       var dSug = MESA[b.dataset.aprovarSug];
       if(!dSug) return;
-      if(!dSug.img){ avisar('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de aprovar.'); return; }
+      if(!dSug.img && dSug.secao !== 'opiniao'){ avisar('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de aprovar.'); return; }
       var qSug = b.dataset.sug;
       if(new Date(qSug) <= new Date()){
         avisar('A hora sugerida já passou. Use 🕐 Aprovar e agendar para escolher outra.'); return;
@@ -6682,7 +6689,7 @@ ingressos e divisor."></textarea>
       var slugAg = b.dataset.agendar;
       var dAg = MESA[slugAg];
       if(!podeGravar()){ avisarChave(); return; }
-      if(dAg && !dAg.img){
+      if(dAg && !dAg.img && dAg.secao !== 'opiniao'){
         avisar('Toda matéria precisa de foto de capa. Use o botão 📷 Subir a capa antes de agendar.'); return;
       }
       agAbre({ titulo: 'Quando “' + corta((dAg && dAg.title) || 'esta matéria', 46) + '” vai ao ar?',
