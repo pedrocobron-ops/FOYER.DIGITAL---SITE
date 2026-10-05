@@ -67,7 +67,9 @@ PESSOA = re.compile(r'\b(ator|atriz|cantor|cantora|diretor|diretora|dramaturg|es
                     r'roteirista|dublador|dubladora|figurinista|cen[óo]graf|iluminador|encenador|regente|'
                     r'arranjador|ilustrador|fot[óo]graf|dan[çc]arin|palha[çc]|drag|intérprete|interprete|empres[áa]ri|'
                     r'fundador|fundadora|criador|criadora|professor|professora|pesquisador|historiador|crítico|crítica|'
-                    r'autor|autora|libretista|ativista|educador|educadora|nascid|falecid)', re.I)
+                    r'autor|autora|libretista|ativista|educador|educadora|fadista|transformista|travesti|sambista|violonista|'
+                    r'guitarrista|baterista|percussionista|saxofonista|flautista|violinista|cellista|tenor|soprano|bar[íi]tono|'
+                    r'rapper|mc|dj|modelo|estilista|arquitet|pintor|pintora|escultor|escultora|cartunista|quadrinista|nascid|falecid)', re.I)
 
 
 def aceita(pg, aparicoes):
