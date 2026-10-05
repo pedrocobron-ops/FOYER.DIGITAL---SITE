@@ -2,7 +2,6 @@
  "_leiame": "Regras da Enciclopédia, editadas na Coxia (aba Enciclopédia) e lidas por tools/enciclopedia.py e tools/build_pages.py. bloquear: nomes que NÃO são pessoas (peças, instituições, personagens, pedaços de frase) e nunca viram verbete. nomes_curtos: nomes artísticos de uma palavra só que valem como verbete (a regra geral exige duas palavras). apelidos: nome como aparece no texto -> nome do verbete (junta duplicados). pessoas: ajustes feitos à mão por verbete (slug -> nome, funcao, bio, foto, redes), que valem por cima do automático. apresentadores: nome do programa (como está em tools/atualiza_youtube.py, sem a temporada) -> quem apresenta; cada episódio credita o apresentador.",
  "bloquear": [
   "Ainda Estou Aqui",
-  "Alfredo Mesquita",
   "Além da Ilusão",
   "American Horror Story",
   "Associated Press",
@@ -53,7 +52,6 @@
   "Federal de Incentivo",
   "Financial Times",
   "France Inter",
-  "Frank Baum",
   "Fundo Setorial do Audiovisual",
   "Galpão do Folias",
   "Harry Potter",
