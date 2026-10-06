@@ -5833,6 +5833,22 @@ ingressos e divisor."></textarea>
           if(jaSaiu && (d.instagram || d.img)){
             acoes += '<button class="bt" data-igmat="' + esc(d.slug) + '" type="button">📱 Instagram</button>';
           }
+          // a foto da matéria no tamanho em que foi enviada (pedido do Pedro,
+          // 06/10/2026), para fazer outros conteúdos: o original guardado
+          // (imgOriginal, ou A/B na capa dupla) e, nas antigas, a capa enviada.
+          (function(){
+            var base = 'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/';
+            var fotos = [];
+            if(d.imgOriginalA || d.imgOriginalB){
+              if(d.imgOriginalA) fotos.push(['⬇ Foto A', d.imgOriginalA]);
+              if(d.imgOriginalB) fotos.push(['⬇ Foto B', d.imgOriginalB]);
+            } else if(d.imgOriginal) fotos.push(['⬇ Foto', d.imgOriginal]);
+            else if(d.img) fotos.push(['⬇ Foto', d.img]);
+            fotos.forEach(function(f){
+              var url = /^https?:/.test(f[1]) ? f[1] : base + f[1];
+              acoes += '<a class="bt" href="' + esc(url) + '" target="_blank" rel="noopener" download title="Baixar a foto no tamanho original">' + f[0] + '</a>';
+            });
+          })();
           // editar: chefe/editor em publicadas; autor na própria matéria ainda não publicada (mesa ou devolvida)
           if(podeEditar() && !d._mesa){
             acoes += '<button class="bt" data-edtm="' + esc(d.slug) + '" type="button">✎ Editar</button>';
