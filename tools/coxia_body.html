@@ -3414,6 +3414,10 @@ ingressos e divisor."></textarea>
               '<div class="ig-links">' +
                 '<a class="bt" href="' + RAW_BASE + feed + '" target="_blank" rel="noopener">⬇ Post</a>' +
                 '<a class="bt" href="' + RAW_BASE + story + '" target="_blank" rel="noopener">⬇ Stories</a>' +
+                // a foto da matéria no tamanho em que foi enviada (pedido do Pedro, 06/10/2026):
+                // serve para fazer outros conteúdos com ela. O caminho fica no JSON da
+                // matéria, lido só quando a pessoa clica.
+                '<button class="bt" type="button" data-igfoto="' + esc(p.slug) + '" title="Baixar a foto da matéria no tamanho original">⬇ Foto</button>' +
                 (p.legenda ? '<button class="bt" type="button" data-igleg="' + esc(p.slug) + '">📋 Legenda</button>' : '') +
                 '<button class="bt ap" type="button" data-igpostei="' + esc(p.slug) + '">✓ Já postei</button>' +
               '</div>' +
@@ -3425,6 +3429,29 @@ ingressos e divisor."></textarea>
   var INSTA_SHA = null;
   document.addEventListener('click', function(e){
     var b;
+    if((b = e.target.closest('[data-igfoto]'))){
+      // foto original da matéria: imgOriginal (ou A/B na capa dupla); se não
+      // houver, a capa enviada (img). Abre numa aba nova, como Post e Stories.
+      b.disabled = true; b.textContent = '…';
+      docJson('import/novas/' + b.dataset.igfoto + '.json').then(function(r){
+        var d = r.data || {};
+        var lista = [];
+        if(d.imgOriginalA || d.imgOriginalB){
+          if(d.imgOriginalA) lista.push(['⬇ Foto A', d.imgOriginalA]);
+          if(d.imgOriginalB) lista.push(['⬇ Foto B', d.imgOriginalB]);
+        } else if(d.imgOriginal) lista.push(['⬇ Foto', d.imgOriginal]);
+        else if(d.img) lista.push(['⬇ Foto', d.img]);
+        if(!lista.length){ b.textContent = 'sem foto'; return; }
+        var html = lista.map(function(x){
+          var url = /^https?:/.test(x[1]) ? x[1] : RAW_BASE + x[1];
+          return '<a class="bt" href="' + esc(url) + '" target="_blank" rel="noopener" download>' + x[0] + '</a>';
+        }).join('');
+        b.insertAdjacentHTML('afterend', html);
+        var primeiro = b.nextElementSibling; b.remove();
+        if(lista.length === 1 && primeiro) window.open(primeiro.href, '_blank', 'noopener');
+      }).catch(function(){ b.disabled = false; b.textContent = '⬇ Foto'; avisar('Não consegui ler a matéria agora. Tente de novo em instantes.'); });
+      return;
+    }
     if((b = e.target.closest('[data-igleg]'))){
       var card = b.closest('.ig-card'), ta = card && card.querySelector('.ig-leg');
       if(ta && navigator.clipboard){ navigator.clipboard.writeText(ta.value).then(function(){
