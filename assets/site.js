@@ -883,9 +883,12 @@ function prendeFoco(veu, sair){
     b.setAttribute('role', 'dialog');
     b.setAttribute('aria-label', 'Cookies no FOYER');
     b.innerHTML =
-      '<p><b>🍪 Cookies no FOYER.</b> Usamos armazenamento essencial (tema, sessão) e métricas anônimas de audiência. ' +
+      '<p class="lgpd-longo"><b>🍪 Cookies no FOYER.</b> Usamos armazenamento essencial (tema, sessão) e métricas anônimas de audiência. ' +
       'Os anúncios do Google podem ser personalizados pelo seu histórico; se preferir, escolha “Só o essencial” e eles ficam genéricos. ' +
       'Saiba mais na <a href="privacidade.html">Política de Privacidade</a>.</p>' +
+      // no celular a tarja tomava 28% da tela: versão de duas linhas, mesmo sentido
+      '<p class="lgpd-curto"><b>🍪 Cookies no FOYER.</b> Essenciais e anúncios do Google personalizados; ' +
+      '“Só o essencial” os deixa genéricos. <a href="privacidade.html">Política de Privacidade</a>.</p>' +
       '<div class="lgpd-acoes"><button class="lgpd-sim" type="button">Aceitar tudo</button>' +
       '<button class="lgpd-min" type="button">Só o essencial</button></div>';
     // ENTRA NO COMEÇO DO CORPO, não no fim. A tarja é presa na tela por CSS,

@@ -103,6 +103,11 @@ def aceita(pg, aparicoes):
     if not (BRASIL.search(desc + ' ' + ext) or aparicoes >= 5):
         return None
     foto = (pg.get('thumbnail') or {}).get('source', '')
+    # a API devolve o arquivo original quando ele é pequeno (thumbnail_unscaled),
+    # e esse caminho é limitado por IP (429). Guarda sempre a miniatura de 500 px.
+    foto = re.sub(r'^https?://upload\.wikimedia\.org/wikipedia/([a-z]+)/([0-9a-f])/([0-9a-f]{2})/([^/?]+)(\?.*)?$',
+                  lambda m: f'https://thumb.wikimedia.org/wikipedia/{m.group(1)}/thumb/{m.group(2)}/{m.group(3)}/{m.group(4)}/500px-{m.group(4)}' + ('.png' if m.group(4).lower().endswith('.svg') else ''),
+                  foto)
     arq = pg.get('pageimage') or ''
     return {'titulo': pg.get('title', ''), 'url': pg.get('fullurl') or ('https://pt.wikipedia.org/wiki/' + urllib.parse.quote(pg.get('title', '').replace(' ', '_'))),
             'descricao': pg.get('description') or '', 'resumo': re.sub(r'\s+', ' ', ext)[:600],

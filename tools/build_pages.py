@@ -950,7 +950,7 @@ revista_body = band('Newsletter semanal', 'A Revista do Foyer', 'Toda sexta, uma
 # ---------------------------------------------------------------- CAPA (index)
 
 index_body = '''<!-- ===================== TICKER ===================== -->
-<div class="ticker" aria-label="Últimas notícias">
+<div class="ticker" role="marquee" aria-label="Últimas notícias">
   <div class="ticker-inner">
     <div class="ticker-seq">
       <span><b>Últimas</b> Musical brasileiro anuncia turnê em 12 capitais</span>
@@ -1817,6 +1817,40 @@ def wiximg(url, w=1200, h=675):
         return f'{url}/v1/fill/w_{w},h_{h},al_c,q_82/cover.jpg'
     return _thumb(url, min(w, 1000))
 
+def _dim_local(url):
+    """width/height de uma foto local, para o texto não pular enquanto ela carrega."""
+    if not _PIL_OK or not url or url.startswith('http'):
+        return ''
+    try:
+        from PIL import Image
+        with Image.open(os.path.join(ROOT, url.split('?')[0].split('#')[0])) as im:
+            w, h = im.size
+        return f' width="{w}" height="{h}"'
+    except Exception:
+        return ''
+
+def _fotos_do_texto(corpo):
+    """Fotos dentro do texto (figuras e galerias) saem em miniatura, com
+    width/height nas figuras (vistoria de 06/10/2026: 59 matérias mandavam
+    até 1,3 MB de originais para fotos exibidas com 350 px). Foto do Wix usa
+    'fit' (não corta); foto da casa passa pelo gerador de WebP."""
+    def _menor(url, w, h):
+        if 'static.wixstatic.com/media/' in url and '/v1/' not in url:
+            return f'{url}/v1/fit/w_{w},h_{h},q_82/foto.jpg'
+        if url.startswith('assets/'):
+            return _thumb(url, w)
+        return url
+    def _fig(m):
+        url = _html.unescape(m.group(1))
+        return f'<figure class="art-img"><img src="{_html.escape(_menor(url, 1000, 1000), quote=True)}"{_dim_local(url)}'
+    corpo = _re.sub(r'<figure class="art-img"><img src="([^"]+)"', _fig, corpo)
+    def _gal_fig(m):
+        url = _html.unescape(m.group(1))
+        return f'<figure><img src="{_html.escape(_menor(url, 800, 800), quote=True)}"'
+    corpo = _re.sub(r'<div class="art-galeria">.*?</div>',
+                    lambda g: _re.sub(r'<figure><img src="([^"]+)"', _gal_fig, g.group(0)), corpo, flags=_re.S)
+    return corpo
+
 def _og_src(url):
     """Imagem para prévia de link e feed: a original (sem miniatura)."""
     if 'static.wixstatic.com/media/' in url and '/v1/' not in url:
@@ -1919,11 +1953,11 @@ def real_cell(p, big=False):
 
 # --- ticker com manchetes reais
 _tk = ''.join(f'<span>{p["title"]}</span>\n      ' for p in MATERIAS[:5])
-TICKER = f'''<div class="ticker" aria-label="Últimas notícias">
+TICKER = f'''<div class="ticker" role="marquee" aria-label="Últimas notícias">
   <div class="ticker-inner">
     <div class="ticker-seq">
-      <span><b>Últimas</b> {MATERIAS[0]['title']}</span>
-      {''.join(f'<span>{p["title"]}</span>' for p in MATERIAS[1:5])}
+      <span><b>Últimas</b> <a href="post-{MATERIAS[0]['slug']}.html">{MATERIAS[0]['title']}</a></span>
+      {''.join(f'<span><a href="post-{p["slug"]}.html">{p["title"]}</a></span>' for p in MATERIAS[1:5])}
     </div>
     <div class="ticker-seq" aria-hidden="true">
       <span><b>Últimas</b> {MATERIAS[0]['title']}</span>
@@ -2325,7 +2359,7 @@ def post_page(i, p):
   <div class="ad-slot" data-ad-slot="2001" data-ad-formato="artigo"></div>
 
   <div class="art-body">
-{_injeta_ads_materia(_google_meio(corpo), p['slug'])}
+{_injeta_ads_materia(_google_meio(_fotos_do_texto(corpo)), p['slug'])}
   </div>
   {nota_correcao(p)}
   {quem_bloco}
@@ -4318,10 +4352,34 @@ def _vid_id(url):
     _m = _re.search(r'[?&]v=([\w-]{6,})', url or '')
     return _m.group(1) if _m else ''
 
+def _foto_wm(url, w):
+    """Foto da Wikimedia na largura pedida (120, 250 ou 500: tamanhos oficiais).
+    O arquivo original (upload.wikimedia.org) é limitado por IP e devolvia 429;
+    a miniatura em thumb.wikimedia.org não. Vistoria de 06/10/2026."""
+    if not url or 'wikimedia.org/wikipedia/' not in url:
+        return url
+    u = url.split('?')[0]
+    m = _re.match(r'https?://(?:upload|thumb)\.wikimedia\.org/wikipedia/([a-z]+)/thumb/([0-9a-f])/([0-9a-f]{2})/([^/]+)/\d+px-(.+)$', u)
+    if m:
+        proj, a, ab, arq, resto = m.groups()
+        return f'https://thumb.wikimedia.org/wikipedia/{proj}/thumb/{a}/{ab}/{arq}/{w}px-{resto}'
+    m = _re.match(r'https?://upload\.wikimedia\.org/wikipedia/([a-z]+)/([0-9a-f])/([0-9a-f]{2})/([^/]+)$', u)
+    if m:
+        proj, a, ab, arq = m.groups()
+        fim = arq + ('.png' if arq.lower().endswith('.svg') else '')
+        return f'https://thumb.wikimedia.org/wikipedia/{proj}/thumb/{a}/{ab}/{arq}/{w}px-{fim}'
+    return url
+
 def _foto_verbete(p, tam='grande'):
     if p.get('foto'):
-        src = p['foto'] if p['foto'].startswith('http') else wiximg(p['foto'], 480, 480)
-        return f'<span class="vb-foto {tam}"><img src="{_html.escape(src, quote=True)}" alt="{safe(p["nome"])}" loading="lazy"></span>'
+        if p['foto'].startswith('http'):
+            # avatar de 44 px pede 120; cartão e cabeçalho do verbete, 250 (500 em tela retina)
+            w1, w2 = (120, 250) if tam == 'mini' else (250, 500)
+            src, src2 = _foto_wm(p['foto'], w1), _foto_wm(p['foto'], w2)
+            _ss = f' srcset="{_html.escape(src, quote=True)} 1x, {_html.escape(src2, quote=True)} 2x"' if src2 != src else ''
+        else:
+            src, _ss = wiximg(p['foto'], 480, 480), ''
+        return f'<span class="vb-foto {tam}"><img src="{_html.escape(src, quote=True)}"{_ss} alt="{safe(p["nome"])}" loading="lazy"></span>'
     return f'<span class="vb-foto {tam} ini"><i>{safe((p["nome"] or "F")[:1])}</i></span>'
 
 def _em_cartaz_de(p):
@@ -4468,7 +4526,7 @@ def _ld_pessoa(sp, p):
          'url': f'{BASE}/pessoa-{sp}.html'}
     if p.get('funcao'): d['jobTitle'] = p['funcao']
     if p.get('bio'): d['description'] = p['bio'][:300]
-    if p.get('foto'): d['image'] = p['foto'] if p['foto'].startswith('http') else f'{BASE}/{p["foto"]}'
+    if p.get('foto'): d['image'] = _foto_wm(p['foto'], 500) if p['foto'].startswith('http') else f'{BASE}/{p["foto"]}'
     same = [v for v in (p.get('redes') or {}).values()] + ([p['wikiUrl']] if p.get('wikiUrl') else [])
     if same: d['sameAs'] = same
     return '<script type="application/ld+json">' + _json.dumps(d, ensure_ascii=False) + '</script>'
@@ -6427,12 +6485,12 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
             </div>
             <p class="pv-rot" id="pv-rot">a aplicação real do seu anúncio</p>
             <div class="az-campo" id="az-legenda-campo" style="display:none;margin-top:10px">
-              <label>Uma linha para descrever a arte (opcional)</label>
+              <label for="az-legenda-tx">Uma linha para descrever a arte (opcional)</label>
               <input type="text" id="az-legenda-tx" maxlength="90" placeholder="Peça X em cartaz no Teatro Y">
               <small>serve de legenda para quem usa leitor de tela e aparece se a imagem demorar a carregar.</small>
             </div>
             <div class="az-campo" style="margin-top:10px">
-              <label>Para onde o clique leva</label>
+              <label for="az-link">Para onde o clique leva</label>
               <input type="url" id="az-link" placeholder="https://… bilheteria, Sympla, site da peça, Instagram">
               <small id="az-link-eco">Todo anúncio no FOYER é clicável: quem toca na sua arte cai onde você escolher.</small>
             </div>
@@ -6442,11 +6500,11 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
 
       <div class="az-passo" data-p="3">
         <h4>3. A temporada — e o orçamento na hora, sem surpresa</h4>
-        <div class="az-campo"><label>Quando você quer começar?</label>
+        <div class="az-campo"><label for="az-inicio">Quando você quer começar?</label>
           <input type="text" id="az-inicio" placeholder="ex.: semana que vem · edição de 6 de agosto · o quanto antes">
           <small>o anúncio pode entrar a qualquer momento da sua temporada em cartaz, não só na estreia.</small></div>
-        <div class="az-campo"><label>Por quanto tempo?</label>
-          <div class="az-ops" id="az-duracao"></div>
+        <div class="az-campo"><label id="az-dur-rot">Por quanto tempo?</label>
+          <div class="az-ops" id="az-duracao" role="group" aria-labelledby="az-dur-rot"></div>
           <small id="az-dur-nota">no site a temporada se vende por semana: 7 dias cheios, da meia-noite do dia combinado até o fim do último dia. A semana seguinte é sempre mais barata: 2ª com −10%, 3ª com −20%, 4ª com −30%.</small></div>
         <div class="az-orca" id="az-orca" hidden></div>
       </div>
@@ -6459,34 +6517,34 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
           <button class="az-op" type="button" id="az-pj" data-tp="pj">🏛 Empresa / produtora (CNPJ)</button>
         </div>
         <div id="az-bloco-pf" style="display:none">
-          <div class="az-campo"><label>Nome completo (como vai na nota) *</label><input type="text" id="az-nome-pf"></div>
-          <div class="az-campo"><label>CPF *</label><input type="text" id="az-cpf" inputmode="numeric" placeholder="000.000.000-00"></div>
+          <div class="az-campo"><label for="az-nome-pf">Nome completo (como vai na nota) *</label><input type="text" id="az-nome-pf"></div>
+          <div class="az-campo"><label for="az-cpf">CPF *</label><input type="text" id="az-cpf" inputmode="numeric" placeholder="000.000.000-00"></div>
         </div>
         <div id="az-bloco-pj" style="display:none">
-          <div class="az-campo"><label>Razão social (como vai na nota) *</label><input type="text" id="az-razao"></div>
-          <div class="az-campo"><label>Nome fantasia (opcional)</label><input type="text" id="az-fantasia" placeholder="ex.: Teatro Exemplo"></div>
-          <div class="az-campo"><label>CNPJ *</label><input type="text" id="az-cnpj" inputmode="numeric" placeholder="00.000.000/0000-00"></div>
-          <div class="az-campo"><label>Inscrição municipal (se a empresa for contribuinte de ISS; opcional)</label><input type="text" id="az-im"></div>
-          <div class="az-campo"><label>Quem fala com a gente (nome do responsável) *</label><input type="text" id="az-resp"></div>
+          <div class="az-campo"><label for="az-razao">Razão social (como vai na nota) *</label><input type="text" id="az-razao"></div>
+          <div class="az-campo"><label for="az-fantasia">Nome fantasia (opcional)</label><input type="text" id="az-fantasia" placeholder="ex.: Teatro Exemplo"></div>
+          <div class="az-campo"><label for="az-cnpj">CNPJ *</label><input type="text" id="az-cnpj" inputmode="numeric" placeholder="00.000.000/0000-00"></div>
+          <div class="az-campo"><label for="az-im">Inscrição municipal (se a empresa for contribuinte de ISS; opcional)</label><input type="text" id="az-im"></div>
+          <div class="az-campo"><label for="az-resp">Quem fala com a gente (nome do responsável) *</label><input type="text" id="az-resp"></div>
         </div>
         <div id="az-bloco-end" style="display:none">
-          <div class="az-campo"><label>CEP *</label><input type="text" id="az-cep" inputmode="numeric" placeholder="00000-000">
+          <div class="az-campo"><label for="az-cep">CEP *</label><input type="text" id="az-cep" inputmode="numeric" placeholder="00000-000">
             <small id="az-cep-st">digite o CEP e o endereço se preenche sozinho</small></div>
-          <div class="az-campo"><label>Endereço (rua/avenida) *</label><input type="text" id="az-logr"></div>
+          <div class="az-campo"><label for="az-logr">Endereço (rua/avenida) *</label><input type="text" id="az-logr"></div>
           <div class="az-grid2">
-            <div class="az-campo"><label>Número *</label><input type="text" id="az-num"></div>
-            <div class="az-campo"><label>Complemento</label><input type="text" id="az-compl" placeholder="sala, andar…"></div>
+            <div class="az-campo"><label for="az-num">Número *</label><input type="text" id="az-num"></div>
+            <div class="az-campo"><label for="az-compl">Complemento</label><input type="text" id="az-compl" placeholder="sala, andar…"></div>
           </div>
-          <div class="az-campo"><label>Bairro *</label><input type="text" id="az-bairro"></div>
+          <div class="az-campo"><label for="az-bairro">Bairro *</label><input type="text" id="az-bairro"></div>
           <div class="az-grid2">
-            <div class="az-campo"><label>Cidade *</label><input type="text" id="az-cidade"></div>
-            <div class="az-campo"><label>UF *</label><input type="text" id="az-uf" maxlength="2" placeholder="SP"></div>
+            <div class="az-campo"><label for="az-cidade">Cidade *</label><input type="text" id="az-cidade"></div>
+            <div class="az-campo"><label for="az-uf">UF *</label><input type="text" id="az-uf" maxlength="2" placeholder="SP"></div>
           </div>
-          <div class="az-campo"><label>E-mail (recebe a nota e o orçamento) *</label><input type="email" id="az-email"></div>
-          <div class="az-campo"><label>WhatsApp (com DDD) *</label><input type="tel" id="az-whats" placeholder="11 90000-0000">
+          <div class="az-campo"><label for="az-email">E-mail (recebe a nota e o orçamento) *</label><input type="email" id="az-email"></div>
+          <div class="az-campo"><label for="az-whats">WhatsApp (com DDD) *</label><input type="tel" id="az-whats" placeholder="11 90000-0000">
             <small>é por ele que confirmamos os dados e combinamos o pagamento</small></div>
-          <div class="az-campo"><label>Instagram (opcional)</label><input type="text" id="az-insta" placeholder="@suacasa"></div>
-          <div class="az-campo"><label>Algo mais sobre o anúncio? (opcional)</label>
+          <div class="az-campo"><label for="az-insta">Instagram (opcional)</label><input type="text" id="az-insta" placeholder="@suacasa"></div>
+          <div class="az-campo"><label for="az-msg">Algo mais sobre o anúncio? (opcional)</label>
             <textarea id="az-msg" rows="3" placeholder="ex.: a temporada vai até setembro; queremos focar nos fins de semana"></textarea></div>
         </div>
         <input type="hidden" id="az-nome"><input type="hidden" id="az-empresa">
@@ -7394,7 +7452,7 @@ for _sp, _pp in PESSOAS.items():
     page('pessoa-' + _sp + '.html', _pp['nome'] + (' — ' + _re.sub(r'\s*\([^)]*\d{4}[^)]*\)\s*$', '', _pp['funcao']) if _pp.get('funcao') else '') + ' — Enciclopédia FOYER',
          (_d + ' ' if _d else '') + f"{_pp['nome']} na Enciclopédia do FOYER: matérias, programas e com quem aparece.",
          'enciclopedia.html', pessoa_page(_sp, _pp), quiet=True,
-         og_img=(_pp['foto'] if _pp['foto'].startswith('http') else _og_src(_pp['foto'])) if _pp.get('foto') else None,
+         og_img=(_foto_wm(_pp['foto'], 500) if _pp['foto'].startswith('http') else _og_src(_pp['foto'])) if _pp.get('foto') else None,
          og_type='profile', ld=_ld_pessoa(_sp, _pp), robots=('noindex,follow' if _magro else ''))
 print(f'• {len(PESSOAS)} verbetes de pessoa')
 with open(os.path.join(ROOT, 'assets/pessoas-index.json'), 'w') as _f:

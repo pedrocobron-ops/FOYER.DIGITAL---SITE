@@ -89,7 +89,7 @@ button{ font:inherit; }
 /* foco visível por teclado em toda a navegação (não atrapalha quem usa mouse) */
 a:focus-visible, button:focus-visible, [tabindex]:focus-visible,
 input:focus-visible, select:focus-visible, textarea:focus-visible{
-  outline:3px solid var(--gold); outline-offset:2px; border-radius:1px;
+  outline:3px solid var(--ink); outline-offset:2px; border-radius:1px;  /* --ink muda por tema: 15:1 nos dois */
 }
 
 .wrap{ width:100%; max-width:var(--wrap); margin:0 auto; padding:0 20px; }
@@ -157,7 +157,9 @@ article:hover .ph svg, article:hover .ph img{ transform:scale(1.055); }
   border-bottom:var(--b); overflow:hidden; white-space:nowrap;
 }
 .ticker-inner{ display:flex; width:max-content; animation:marq 36s linear infinite; }
-.ticker:hover .ticker-inner{ animation-play-state:paused; }
+.ticker:hover .ticker-inner, .ticker:focus-within .ticker-inner{ animation-play-state:paused; }
+.ticker a{ color:inherit; text-decoration:none; }
+.ticker a:hover{ text-decoration:underline; text-underline-offset:3px; }
 .ticker-seq{
   display:flex; align-items:center;
   font-family:var(--mono); font-size:.68rem; font-weight:600;
@@ -599,7 +601,7 @@ nav.main a.brand img.only-dark, .gate img.only-dark{ display:none; }
   flex:1; border:0; background:var(--paper); color:var(--ink);
   font-family:var(--mono); font-size:.85rem; padding:15px 18px; min-width:0;
 }
-.ency-search input:focus{ outline:2px solid var(--gold); outline-offset:-2px; }
+.ency-search input:focus{ outline:2px solid var(--ink); outline-offset:-2px; }
 .ency-search button{
   border:0; border-left:1px solid var(--line); background:var(--wine); color:var(--gold);
   font-family:var(--mono); font-weight:600; font-size:.66rem; letter-spacing:.16em;
@@ -661,7 +663,7 @@ nav.main a.brand img.only-dark, .gate img.only-dark{ display:none; }
   border:1.5px solid var(--line); background:var(--paper); color:var(--ink);
   font-family:var(--mono); font-size:.82rem; padding:13px 14px; width:100%;
 }
-.signup-card input:focus{ outline:2px solid var(--gold); outline-offset:-2px; }
+.signup-card input:focus{ outline:2px solid var(--ink); outline-offset:-2px; }
 .signup-card .sg-chamada{ font-size:.9rem; line-height:1.55; margin:0; }
 .signup-card .sg-abrir{
   border:2px solid var(--wine); background:var(--wine); color:var(--gold); cursor:pointer;
@@ -670,7 +672,7 @@ nav.main a.brand img.only-dark, .gate img.only-dark{ display:none; }
 .signup-card .sg-abrir:hover{ transform:translateY(-2px); background:var(--ink); border-color:var(--ink); }
 
 /* ---------- a conversa da revista ---------- */
-.cv-overlay{ position:fixed; inset:0; z-index:220; background:rgba(23,10,7,.82);
+.cv-overlay{ position:fixed; inset:0; z-index:240;  /* acima da tarja de cookies (230): o Continuar ficava escondido no celular */ background:rgba(23,10,7,.82);
   display:flex; align-items:center; justify-content:center; padding:18px;
   animation:cvFundo .25s ease; }
 @keyframes cvFundo{ from{ opacity:0; } }
@@ -871,7 +873,7 @@ nav.main a.brand img.only-dark, .gate img.only-dark{ display:none; }
   font-family:var(--mono); font-size:.9rem; padding:13px 14px; text-align:center;
   letter-spacing:.2em;
 }
-.gate input:focus{ outline:2px solid var(--gold); outline-offset:-2px; }
+.gate input:focus{ outline:2px solid var(--ink); outline-offset:-2px; }
 .gate button{
   width:100%; margin-top:10px; border:1.5px solid var(--line); background:var(--ink);
   color:var(--gold); font-family:var(--mono); font-weight:600; font-size:.7rem;
@@ -901,7 +903,7 @@ nav.main a.brand img.only-dark, .gate img.only-dark{ display:none; }
 }
 .adm-form textarea{ resize:vertical; }
 .adm-form input:focus, .adm-form select:focus, .adm-form textarea:focus{
-  outline:2px solid var(--gold); outline-offset:-2px;
+  outline:2px solid var(--ink); outline-offset:-2px;
 }
 .adm-form .row2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 .adm-form .pub{
@@ -1055,7 +1057,7 @@ body.ads-on.ads-demo .ad-slot::after{
 .news-grid.three{ grid-template-columns:repeat(3,1fr); }
 @media (max-width:1020px){ .news-grid.three{ grid-template-columns:1fr; } }
 .art-img{ margin:26px 0; }
-.art-img img{ width:100%; display:block; border:var(--b); }
+.art-img img{ width:100%; height:auto; display:block; border:var(--b); }
 .art-img figcaption{
   font-family:var(--mono); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase;
   color:var(--ink-soft); padding:8px 2px 0;
@@ -1201,6 +1203,10 @@ footer{ background:var(--wine); color:var(--gold); overflow:hidden; }
 @media (prefers-reduced-motion:reduce){
   html{ scroll-behavior:auto; }
   .reveal{ opacity:1; transform:none; transition:none; }
+  /* 'reduzir movimento' vale na capa inteira: letreiro, entrada da página, logo
+     do rodapé, cabeçalho, estrelinhas da tagline e o ponto do 'ao vivo' */
+  .ticker-inner, main, .foot-giant img, .mast-side.left, .mast-side.right, .logo-link, .mast-tagline,
+  .mast-tagline::before, .mast-tagline::after, .giro-head .dot{ animation:none !important; }
 }
 
 
@@ -1271,8 +1277,16 @@ a:hover .tag, .tag:hover{ transform:translateY(-1px); }
   .util .cell{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
     min-width:0; flex:1; }
   .util .right{ gap:4px; flex-shrink:0; }
-  .util a{ padding:10px 8px; }
-  .theme-btn{ padding:10px 8px; font-size:.54rem; letter-spacing:.06em; }
+  .util a{ padding:10px 8px; min-height:44px; }
+  .theme-btn{ padding:10px 8px; font-size:.62rem; letter-spacing:.06em; min-height:44px; }
+  /* vistoria de 06/10/2026: alvos de toque e letras miúdas no celular */
+  .util .wrap{ font-size:.62rem; }
+  .share-min{ padding:10px 0; margin:-10px 0; }
+  .foot-col a{ padding:10px 0; }
+  .filters a{ padding:9px 12px; }
+  .meta-l, .tag, .share-min, .ph-cap, .ency-card small, .ency-row .nm small, .vb-cred, .vb-row-tx small,
+  .vb-ep-tx small, .vb-rel small, .art-cover figcaption, .art-galeria figcaption, .bl-quando, .bl-por{
+    font-size:.7rem; letter-spacing:.08em; }
 }
 
 
@@ -1596,3 +1610,7 @@ html.tem-aviso body{ padding-bottom:var(--aviso-alt, 0px); }
 /* anuncie.html: canal direto antes dos 5 passos */
 .az-palco .az-direto{ margin-top:10px; font-size:.9rem; }
 .az-palco .az-direto a{ color:inherit; text-decoration:underline; text-underline-offset:3px; }
+
+/* tarja de cookies: texto curto no celular, completo no computador (06/10/2026) */
+@media (max-width:640px){ #lgpd .lgpd-longo{ display:none; } }
+@media (min-width:641px){ #lgpd .lgpd-curto{ display:none; } }

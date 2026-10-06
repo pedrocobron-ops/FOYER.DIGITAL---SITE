@@ -2,7 +2,7 @@
 /* v3: a virada do tema (a casa abre com a luz da sala em todo aparelho). O
    nome novo joga fora as cópias guardadas do CSS antigo, para que nem o
    aplicativo aberto sem rede volte a abrir no Blackout. */
-var CACHE = 'foyer-v7';
+var CACHE = 'foyer-v8';  // v8 (06/10/2026): miniaturas e fontes passam a 'cache primeiro'
 
 self.addEventListener('install', function (e) {
   self.skipWaiting();
@@ -58,6 +58,23 @@ self.addEventListener('fetch', function (e) {
   if (e.request.method !== 'GET') return;
   var url = new URL(e.request.url);
   if (url.origin !== location.origin) return; // só o próprio site
+  // Miniaturas (o nome já carrega largura e tamanho de origem, nunca muda) e
+  // fontes: guardadas de vez, sem conferir com o servidor a cada 10 minutos
+  // (limite do GitHub Pages). HTML, CSS, JS e logos seguem 'rede primeiro'.
+  if (/\/assets\/thumbs\/|\/fonts\//.test(url.pathname)) {
+    e.respondWith(
+      caches.match(e.request).then(function (hit) {
+        return hit || fetch(e.request).then(function (r) {
+          if (r && r.ok) {
+            var copia = r.clone();
+            caches.open(CACHE).then(function (c) { c.put(e.request, copia); }).catch(function () {});
+          }
+          return r;
+        });
+      })
+    );
+    return;
+  }
   e.respondWith(
     fetch(e.request).then(function (r) {
       if (r && r.ok) {
