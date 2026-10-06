@@ -51,6 +51,8 @@ jobs:
 
       - uses: actions/configure-pages@v5
         if: steps.yt.outputs.mudou == 'sim'
+      - name: Deixar fora do site publicado a fila, as pautas, a lixeira e as anotações internas (ficam só no repositório)
+        run: rm -rf import/novas import/pauta import/lixeira import/coxia
       - uses: actions/upload-pages-artifact@v3
         if: steps.yt.outputs.mudou == 'sim'
         with:

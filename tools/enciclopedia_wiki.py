@@ -19,10 +19,14 @@ Cuidados (05/10/2026):
   Wikimedia pede.
 Uso: python3 tools/enciclopedia_wiki.py [--todos] [--limite N]
 """
-import json, os, re, sys, time, urllib.parse, urllib.request
+import json, os, re, sys, time, unicodedata, urllib.parse, urllib.request
 from datetime import datetime, timezone, timedelta
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+try:
+    WIKI_OK = set(json.load(open(f'{ROOT}/import/enciclopedia-regras.json')).get('wiki_ok', []))
+except Exception:
+    WIKI_OK = set()
 UA = 'FOYER-enciclopedia/1.0 (https://foyer.digital; contato@foyer.digital)'
 ARTES = re.compile(r'\b(ator|atriz|atores|diretor|diretora|encenador|dramaturg|teatr|cantor|cantora|m[úu]sic|compositor|'
                    r'cineasta|humorista|comediante|bailarin|coreógraf|coreograf|escritor|poeta|jornalista|apresentador|'
@@ -70,6 +74,14 @@ PESSOA = re.compile(r'\b(ator|atriz|cantor|cantora|diretor|diretora|dramaturg|es
                     r'autor|autora|libretista|ativista|educador|educadora|fadista|transformista|travesti|sambista|violonista|'
                     r'guitarrista|baterista|percussionista|saxofonista|flautista|violinista|cellista|tenor|soprano|bar[íi]tono|'
                     r'rapper|mc|dj|modelo|estilista|arquitet|pintor|pintora|escultor|escultora|cartunista|quadrinista|nascid|falecid)', re.I)
+
+
+def _palavras_em_comum(a, b):
+    """Há alguma palavra (3+ letras, sem acento, minúscula) em comum?"""
+    def toks(t):
+        t = unicodedata.normalize('NFKD', t or '').encode('ascii', 'ignore').decode().lower()
+        return {w for w in re.findall(r'[a-z]{3,}', t)}
+    return bool(toks(a) & toks(b))
 
 
 def aceita(pg, aparicoes):
@@ -165,6 +177,18 @@ def main():
                 t = mapa[t]
             pg = por_titulo.get(t)
             res = aceita(pg, n) if pg else None
+            # Duas guardas de precisão (06/10/2026), depois de Thales Bretas sair
+            # com a página do Paulo Gustavo: (a) o título devolvido tem de ter ao
+            # menos uma palavra em comum com o nome pedido (redirecionamento para
+            # outra pessoa não passa); (b) a mesma página da Wikipédia não serve
+            # para dois verbetes (o segundo é homônimo ou grafia alternativa, e
+            # se for a mesma pessoa a junção é feita em 'apelidos', não aqui).
+            if res and sp not in WIKI_OK and not _palavras_em_comum(nome, res.get('titulo', '')):
+                print(f'  fora (título sem relação): {sp} -> {res.get("titulo")}')
+                res = None
+            if res and any(v.get('url') == res['url'] for k, v in wiki.items() if k != sp):
+                print(f'  fora (página já é de outro verbete): {sp} -> {res.get("titulo")}')
+                res = None
             if res:
                 res['quando'] = agora.isoformat(); wiki[sp] = res; achados += 1
             else:

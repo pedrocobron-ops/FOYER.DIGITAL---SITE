@@ -19,7 +19,7 @@ Redesign do portal [foyer.digital](https://www.foyer.digital/): **brutalismo de 
 | Espetáculo | `espetaculo.html` | Ficha técnica completa com nomes clicáveis |
 | Busca | `busca.html` | Busca instantânea (client-side; completa com o backend) |
 | Privacidade | `privacidade.html` | Política de privacidade/LGPD — obrigatória para o AdSense |
-| Coxia | `coxia.html` | **Central de conteúdo** (não linkada no menu) — cria, publica e agenda matérias direto no site via API do GitHub. Senha de acesso: `terceirosinal` + token fine-grained do GitHub |
+| Coxia | `coxia.html` | **Central de conteúdo** (não linkada no menu) — cria, publica e agenda matérias direto no site via API do GitHub. Acesso restrito à equipe: senha pessoal de cada um, definida na aba Equipe (nunca documentada aqui) |
 
 ## Estrutura
 

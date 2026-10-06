@@ -47,6 +47,8 @@ jobs:
           python3 tools/enciclopedia.py || echo "Enciclopédia: usa o último mapeamento salvo"
           python3 tools/build_pages.py
       - uses: actions/configure-pages@v5
+      - name: Deixar fora do site publicado a fila, as pautas, a lixeira e as anotações internas (ficam só no repositório)
+        run: rm -rf import/novas import/pauta import/lixeira import/coxia
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .

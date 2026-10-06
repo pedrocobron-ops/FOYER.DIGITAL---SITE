@@ -7072,12 +7072,37 @@ ingressos e divisor."></textarea>
       .then(function(){ bt.disabled = false; });
   });
 
+  // Senha sugerida: 4 palavras de teatro sorteadas de uma lista de 128 + 4
+  // caracteres, tudo com sorteio criptográfico (crypto.getRandomValues).
+  // A versão antiga (1 palavra de 10 + 4 caracteres, Math.random) dava só
+  // 9 milhões de combinações: com o equipe.json público, quebrável em horas.
+  // Esta dá cerca de 2,5 × 10^14, inviável mesmo offline com PBKDF2.
   function gerarSenha(){
-    var pal = ['cortina','plateia','ribalta','ensaio','coxia','rotunda','proscenio','camarim','gambiarra','urdimento'];
+    var pal = ['cortina','plateia','ribalta','ensaio','coxia','rotunda','proscenio','camarim','gambiarra','urdimento',
+      'bastidor','cenario','figurino','ciclorama','refletor','holofote','contrarregra','ponto','aplauso','estreia',
+      'temporada','repertorio','monologo','dialogo','prologo','epilogo','ato','cena','quadro','elenco',
+      'protagonista','coadjuvante','dramaturgo','encenador','diretor','produtor','iluminador','cenografo','sonoplasta','maquinista',
+      'camarote','balcao','galeria','frisa','poltrona','bilheteria','foyer','saguao','palco','varanda',
+      'tablado','picadeiro','arena','anfiteatro','coliseu','opera','musical','comedia','tragedia','farsa',
+      'melodrama','vaudeville','cabare','revista','circo','palhaco','mimico','marionete','fantoche','mascara',
+      'sombra','mambembe','trupe','companhia','coletivo','oficina','laboratorio','improviso','partitura','libreto',
+      'aria','coro','solista','maestro','orquestra','fosso','batuta','clarinete','violino','piano',
+      'tambor','pandeiro','sanfona','viola','cavaquinho','bandolim','flauta','trompete','sax','berimbau',
+      'lanterna','vela','lampiao','neon','fresnel','gelatina','gobo','sombra','penumbra','blackout',
+      'fumaca','neblina','cortineiro','bambolina','perna','rotula','vara','contrapeso','corda','alcapao',
+      'veludo','seda','cetim','brocado','renda','pluma','paete','lantejoula','cartola','bengala'];
     var chars = 'abcdefghjkmnpqrstuvwxyz23456789';
+    function sorteia(n){
+      // uniforme: rejeita valores fora do múltiplo de n
+      var buf = new Uint32Array(1), max = Math.floor(4294967296 / n) * n;
+      do { crypto.getRandomValues(buf); } while(buf[0] >= max);
+      return buf[0] % n;
+    }
+    var partes = [];
+    for(var i = 0; i < 4; i++) partes.push(pal[sorteia(pal.length)]);
     var suf = '';
-    for(var i = 0; i < 4; i++) suf += chars[Math.floor(Math.random() * chars.length)];
-    return pal[Math.floor(Math.random() * pal.length)] + '-' + suf;
+    for(var j = 0; j < 4; j++) suf += chars[sorteia(chars.length)];
+    return partes.join('-') + '-' + suf;
   }
   $('e-gerar').addEventListener('click', function(){ $('e-senha').value = gerarSenha(); });
 
