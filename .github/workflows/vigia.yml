@@ -1,0 +1,67 @@
+name: Vigia da fila
+
+# Três vezes em dois dias (05 e 06/10/2026) um run do "Relógio de matérias
+# agendadas" ficou preso em "queued" sem nunca ganhar máquina. Como todos os
+# relógios e a publicação dividem a mesma fila ("pages"), tudo o que veio
+# depois ficou pendente e foi cancelado em cadeia: o site parou de publicar
+# até alguém cancelar o run preso à mão. Este vigia faz isso sozinho, de
+# meia em meia hora, fora da fila "pages" para nunca ficar preso junto.
+# Criado em 06/10/2026 com autorização do Pedro.
+
+on:
+  schedule:
+    - cron: '7,37 * * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: vigia
+  cancel-in-progress: true
+
+jobs:
+  vigiar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Cancelar runs presos na fila e republicar o site se a publicação se perdeu
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          RAMO: claude/foyer-digital-redesign-14l2b6
+        run: |
+          set -u
+          agora=$(date -u +%s)
+          cancelados=0
+          for st in queued pending; do
+            gh api "repos/$REPO/actions/runs?status=$st&per_page=50" \
+              --jq '.workflow_runs[] | "\(.id)\t\(.created_at)\t\(.name)"' > lista.txt || true
+            while IFS=$'\t' read -r id criado nome; do
+              [ -z "${id:-}" ] && continue
+              t=$(date -u -d "$criado" +%s)
+              idade=$(( (agora - t) / 60 ))
+              # até 20 min na fila é normal (espera a publicação anterior terminar)
+              [ "$idade" -lt 20 ] && continue
+              # mais de 3 dias: fantasma antigo que o GitHub não deixa cancelar (409)
+              [ "$idade" -gt 4320 ] && continue
+              echo "preso há $idade min: $nome ($id), cancelando"
+              if gh api -X POST "repos/$REPO/actions/runs/$id/cancel" >/dev/null 2>&1; then
+                cancelados=$((cancelados+1))
+              fi
+            done < lista.txt
+          done
+          echo "runs presos cancelados: $cancelados"
+
+          # A última publicação do site foi cancelada e não há nenhuma na fila?
+          # Então o que está no ar ficou para trás do ramo: republica.
+          ultimo=$(gh api "repos/$REPO/actions/workflows/pages.yml/runs?branch=$RAMO&per_page=1" \
+            --jq '.workflow_runs[0] | "\(.status) \(.conclusion)"')
+          ativos=$(gh api "repos/$REPO/actions/workflows/pages.yml/runs?branch=$RAMO&per_page=10" \
+            --jq '[.workflow_runs[] | select(.status != "completed")] | length')
+          echo "última publicação: $ultimo; na fila: $ativos"
+          if [ "$ultimo" = "completed cancelled" ] && [ "$ativos" = "0" ]; then
+            echo "::notice::Publicação perdida; republicando o site"
+            gh api -X POST "repos/$REPO/actions/workflows/pages.yml/dispatches" -f ref="$RAMO"
+          fi
