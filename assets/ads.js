@@ -43,9 +43,7 @@ window.FOYER_ADS = {
   unidades: [
     '5626283619',                       // "FOYER — geral"         (1º espaço da página)
     '2828015872',                       // "FOYER — segundo lugar"  (2º espaço da página)
-    // 3º lugar (meio das matérias longas): crie no AdSense uma unidade
-    // "Display responsivo" chamada "FOYER — terceiro lugar" e cole o número
-    // aqui; enquanto estiver vazio, o 3º espaço reaproveita a 1ª unidade.
+    '6726214462',                       // "FOYER - terceiro lugar" (3º espaço: meio das matérias longas; criada em 06/10/2026)
   ],
   // Formato "Em artigo" (Anúncios → Por unidade → Em artigo): encaixa entre
   // parágrafos e costuma render mais que o display comum. Cole o número da
