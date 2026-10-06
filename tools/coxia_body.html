@@ -1338,6 +1338,7 @@
                 <input type="file" id="up-file" accept="image/*" multiple>
               </div>
               <div id="up-ajustar" style="display:none;margin-top:8px"></div>
+              <p class="msg" id="up-pequena" style="display:none;margin-top:8px"></p>
               <input type="text" id="f-cred" placeholder="Crédito da foto — ex.: Foto: João Silva/Divulgação" style="margin-top:8px">
               <input type="text" id="f-imgleg" placeholder="Descrição da foto (legenda) — ex.: O elenco em cena no Teatro Renault" style="margin-top:8px">
               <div class="r2" style="margin-top:8px">
@@ -3541,6 +3542,9 @@ ingressos e divisor."></textarea>
       var url = URL.createObjectURL(file);
       img.onload = function(){
         var sw = img.width, sh = img.height, sy = 0;
+        // foto estreita demais para o destaque grande do Google Discover (1200 px):
+        // avisa, mas deixa publicar (vistoria de 06/10/2026)
+        if(modo !== 'livre') window.CAPA_PEQUENA = sw < 1200 ? sw : 0;
         // foto em pé (cartaz)? recorta para 16:9 preservando o topo, onde ficam os rostos
         if(modo !== 'livre' && sh > sw * 0.85){
           var alvo = Math.round(sw * 9 / 16);
@@ -3794,9 +3798,18 @@ ingressos e divisor."></textarea>
     var tem = up.classList.contains('tem');
     var cred = ($('f-cred').value || '').trim();
     var opiniao = $('f-secao') && $('f-secao').value === 'opiniao';
-    s.textContent = tem ? (cred ? 'foto ✓ · crédito ✓' : 'foto ✓ · sem crédito')
+    var pequena = tem && window.CAPA_PEQUENA ? window.CAPA_PEQUENA : 0;
+    s.textContent = tem ? (cred ? 'foto ✓ · crédito ✓' : 'foto ✓ · sem crédito') + (pequena ? ' · foto pequena' : '')
                         : (opiniao ? 'sem foto · capa tipográfica' : 'sem foto');
     s.className = 'fd-s' + (tem || opiniao ? ' ok' : '');
+    var av = $('up-pequena');
+    if(av){
+      av.style.display = pequena ? '' : 'none';
+      av.textContent = pequena
+        ? 'Foto pequena (' + pequena + ' px de largura). O Google só destaca a matéria no Discover com foto de pelo menos 1200 px. ' +
+          'Se puder, pegue a foto original da assessoria ou o cartaz em alta; foto baixada do Instagram vem com 1080 px e também fica abaixo. Dá para publicar assim mesmo.'
+        : '';
+    }
   }
   function dobraFontesEstado(){
     var s = $('dobra-fontes-s'); if(!s) return;

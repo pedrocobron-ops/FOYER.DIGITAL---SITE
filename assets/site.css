@@ -1267,7 +1267,7 @@ a:hover .tag, .tag:hover{ transform:translateY(-1px); }
 /* barra util no celular: só o essencial, sem cortes */
 @media (max-width:700px){
   .util .wrap{ font-size:.54rem; letter-spacing:.06em; gap:6px; }
-  .util a[href*="youtube"], .util a[href*="spotify"]{ display:none; }
+  .util a[href*="youtube"], .util a[href*="spotify"], .util a[href*="instagram"]{ display:none; }
   .util .cell{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
     min-width:0; flex:1; }
   .util .right{ gap:4px; flex-shrink:0; }
@@ -1586,3 +1586,13 @@ html.tem-aviso body{ padding-bottom:var(--aviso-alt, 0px); }
 .ency-card:hover small{ color:var(--gold); opacity:.8; }
 .ency-row .nm small{ display:block; font-family:var(--mono); font-size:.54rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin-top:3px; }
 .ency-row:not(.head):hover .nm small{ color:var(--gold); opacity:.8; }
+
+/* programas.html: quem já passou por cada programa (06/10/2026) */
+.prog-quem{ border-top:var(--b); padding:10px 0; }
+.prog-quem summary{ cursor:pointer; font-family:var(--mono); font-weight:600; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; padding:6px 0; }
+.prog-quem summary small{ font-weight:400; color:var(--ink-soft); margin-left:8px; }
+.prog-quem p{ font-size:.92rem; line-height:1.8; margin:6px 0 10px; }
+.prog-quem a{ color:inherit; }
+/* anuncie.html: canal direto antes dos 5 passos */
+.az-palco .az-direto{ margin-top:10px; font-size:.9rem; }
+.az-palco .az-direto a{ color:inherit; text-decoration:underline; text-underline-offset:3px; }
