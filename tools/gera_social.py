@@ -192,7 +192,7 @@ def _desenha_titulo(dr, toks, x, y_base, larg, tam, entre=1.14):
 
 def _cabecalho(dr, base, cat, y=132):
     """FOYER = a logo oficial da casa em branco + .EDITORIA (discreto, como nos posts)."""
-    logo = Image.open(os.path.join(ROOT, 'assets/logo/foyer-horizontal-gold.png'))
+    logo = Image.open(os.path.join(ROOT, 'assets/logo/foyer-horizontal-gold.png')).convert('RGBA')  # o PNG é de paleta desde 06/10/2026: converte antes de pedir o alfa
     alt = 46
     esc = alt / logo.height
     logo = logo.resize((round(logo.width * esc), alt), Image.LANCZOS)
@@ -310,7 +310,7 @@ def _espacado(dr, xy, texto, font, fill, esp=3, direita=False):
 def _cabecalho_capa(base, margem, y, alt_logo, tam_selo, selo):
     """Logo vinho à esquerda, selo da coluna à direita, fio embaixo. Devolve o y do fio."""
     dr = ImageDraw.Draw(base)
-    logo = Image.open(os.path.join(ROOT, 'assets/logo/foyer-horizontal-wine.png'))
+    logo = Image.open(os.path.join(ROOT, 'assets/logo/foyer-horizontal-wine.png')).convert('RGBA')
     esc = alt_logo / logo.height
     logo = logo.resize((round(logo.width * esc), alt_logo), Image.LANCZOS)
     base.paste(Image.new('RGB', logo.size, VINHO), (margem, y), logo.getchannel('A'))
