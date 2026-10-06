@@ -48,7 +48,12 @@ window.FOYER_ADS = {
   // Formato "Em artigo" (Anúncios → Por unidade → Em artigo): encaixa entre
   // parágrafos e costuma render mais que o display comum. Cole o número da
   // unidade aqui; vazio = os espaços de matéria seguem como display.
-  unidadeArtigo: '6066994058'                // "FOYER - em artigo" (criada em 06/10/2026)
+  unidadeArtigo: '6066994058',               // "FOYER - em artigo" (criada em 06/10/2026)
+  // Formato "Multiplex" (Anúncios → Por bloco → Multiplex): grade de anúncios
+  // em jeito de "recomendações", para o fim da matéria, abaixo do "Leia
+  // também". Crie no AdSense a unidade "FOYER - multiplex" e cole o número
+  // aqui; enquanto estiver vazio, o espaço do fim da matéria segue como display.
+  unidadeMultiplex: ''
 };
 
 (function(){
@@ -114,6 +119,10 @@ window.FOYER_ADS = {
       u = cfg.unidadeArtigo;
       ins.setAttribute('data-ad-layout', 'in-article');
       ins.setAttribute('data-ad-format', 'fluid');
+    } else if(el.getAttribute('data-ad-formato') === 'multiplex' && cfg.unidadeMultiplex){
+      // fim da matéria: grade de anúncios "recomendados" (formato autorelaxed do Google)
+      u = cfg.unidadeMultiplex;
+      ins.setAttribute('data-ad-format', 'autorelaxed');
     } else {
       ins.setAttribute('data-ad-format', el.getAttribute('data-ad-format') || 'auto');
     }

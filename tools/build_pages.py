@@ -1328,6 +1328,7 @@ busca_body = band('Ferramenta', 'Buscar',
   <div class="ency-table" id="res" aria-live="polite"></div>
   <p class="meta-l" style="display:block; padding:12px 4px 0" id="busca-mais" aria-live="polite"></p>
   <p class="meta-l" style="display:block; padding:18px 4px" id="busca-info">Carregando o índice do acervo…</p>
+  <div class="ad-slot" data-ad-slot="1901"></div>
 </main>
 <script>
 (function(){
@@ -2281,7 +2282,7 @@ def post_page(i, p):
   <div class="news-grid three">
 {rel_cells}
   </div>
-  <div class="ad-slot" data-ad-slot="2003"></div>
+  <div class="ad-slot" data-ad-slot="2003" data-ad-formato="multiplex"></div>
 </section>
 </main>
 {_elenco_pub()}
@@ -4495,6 +4496,7 @@ def autor_page(sp, a, mats):
     <div class="agd" style="margin-top:26px">
 {rows}    </div>
     {mais}
+    <div class="ad-slot" data-ad-slot="2101"></div>
     <div class="filters" style="padding:24px 0 40px">
       <a href="principios.html">Princípios editoriais</a>
       <a href="sobre.html">Quem somos</a>
@@ -5046,6 +5048,7 @@ enciclopedia_body = band('Projeto Foyer', 'Enciclopédia do FOYER', 'Quem faz o 
   <div id="enc-padrao">
     <div class="sec-head"><h2>Em destaque</h2><span class="note">os mais presentes no FOYER, com retrato</span></div>
     <div class="ency-grid">{_ency_cards}</div>
+    <div class="ad-slot" data-ad-slot="1801"></div>
     <div class="sec-head"><h2>Entraram há pouco</h2><span class="note">nomes que chegaram ao acervo nas últimas publicações</span></div>
     <div class="ency-table" role="table" aria-label="Novos na enciclopédia" style="margin-bottom:26px">
 {_enc_novos}    </div>
