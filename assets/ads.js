@@ -50,7 +50,7 @@ window.FOYER_ADS = {
   // Formato "Em artigo" (Anúncios → Por unidade → Em artigo): encaixa entre
   // parágrafos e costuma render mais que o display comum. Cole o número da
   // unidade aqui; vazio = os espaços de matéria seguem como display.
-  unidadeArtigo: ''
+  unidadeArtigo: '6066994058'                // "FOYER - em artigo" (criada em 06/10/2026)
 };
 
 (function(){
