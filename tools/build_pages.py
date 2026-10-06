@@ -194,6 +194,7 @@ UTIL = '''<div class="util">
       <a href="https://www.instagram.com/foyer.digital/" target="_blank" rel="noopener">Instagram ↗</a>
       <a href="revista.html#assinar">Assine</a>
       <a href="anuncie.html">Anuncie</a>
+      <a href="busca.html" class="lupa" aria-label="Buscar no site" title="Buscar">⌕</a>
       <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
     </span>
   </div>
@@ -203,11 +204,13 @@ UTIL = '''<div class="util">
 NAV_ITEMS = [
     ('index.html', 'Capa'),
     ('noticias.html', 'Notícias'),
+    # Enciclopédia subiu para o 3º lugar (vistoria de 06/10/2026): no celular só
+    # os três primeiros itens aparecem sem rolar, e ela ficava fora da tela.
+    ('enciclopedia.html', 'Enciclopédia'),
     ('opiniao.html', 'Opinião'),
     ('critica.html', 'Crítica'),
     ('revista.html', 'Revista'),
     ('programas.html', 'Programas'),
-    ('enciclopedia.html', 'Enciclopédia'),
     # Agenda ESCONDIDA do menu por decisão do Pedro (06/08/2026), após a
     # prestação de contas das duas semanas: 3 leituras em 14 dias, 17s de
     # permanência, 40 páginas na frente. A página CONTINUA sendo gerada em
@@ -1369,17 +1372,27 @@ busca_body = band('Ferramenta', 'Buscar',
     var v = norm(q.value.trim());
     if(v.length < 2){ res.innerHTML=''; mais.textContent=''; return; }
     var hits = [], achados = 0;
+    // Pontuação (vistoria de 06/10/2026): nome de verbete igual ao termo >
+    // termo no título > termo em quem aparece na matéria > editoria/autor.
+    // Empate fica na ordem do índice, que já é a mais nova primeiro.
     for(var i=0; i<IDX.length; i++){
       var it = IDX[i];
-      // o autor entra na busca: quem procura "Isabel Branquinha" quer as
-      // matérias dela, não o único verbete com esse nome.
-      if(norm(it.t + ' ' + it.c + ' ' + (it.a || '')).indexOf(v) === -1) continue;
+      var t = norm(it.t), pes = norm(it.p || ''), ca = norm((it.c || '') + ' ' + (it.a || ''));
+      var s = 0;
+      if(t === v) s = 100; else if(t.indexOf(v) === 0) s = 60; else if(t.indexOf(v) >= 0) s = 50;
+      if(!s && pes.indexOf(v) >= 0) s = 30;
+      if(!s && ca.indexOf(v) >= 0) s = 10;
+      if(!s) continue;
+      if(it.c === 'Enciclopédia' && s >= 50) s += 5;
+      if(it.c === 'Seção') s += 3;
       achados++;
-      if(hits.length < TETO) hits.push(it);
+      hits.push({ it: it, s: s, i: i });
     }
+    hits.sort(function(x, y){ return y.s - x.s || x.i - y.i; });
+    hits = hits.slice(0, TETO).map(function(h){ return h.it; });
     res.innerHTML = hits.length
       ? hits.map(function(i){ return '<a class="ency-row" href="'+esc(i.u)+'"><span class="nm">'+esc(i.t)+'</span><span class="of">'+esc(i.c)+'</span><span class="ct">'+esc(i.a||'')+'</span><span class="ar">→</span></a>'; }).join('')
-      : '<div class="ency-row"><span class="of">Nada encontrado</span></div>';
+      : '<div class="ency-row"><span class="of">Nada encontrado. Tente a <a href="enciclopedia.html">Enciclopédia</a> ou as <a href="noticias.html">Notícias</a>.</span></div>';
     // cortar em 40 sem avisar fazia toda busca grande parecer pequena
     mais.textContent = achados > hits.length
       ? 'Mostrando ' + hits.length + ' de ' + achados.toLocaleString('pt-BR') + ' resultados. Escreva mais para afinar a busca.'
@@ -7431,7 +7444,28 @@ for _asp, _aa in AUTORES.items():
          'sobre.html', autor_page(_asp, _aa, _amats), quiet=True)
 print(f'• {len(AUTORES)} páginas de autor')
 
+# Verbete juntado a outro (regras -> apelidos): a página antiga vira ponte
+# para o verbete certo, porque ela já esteve no ar e no sitemap (vistoria de
+# 06/10/2026). Fica fora do sitemap; o Google aprende o endereço novo pelo
+# canonical e pelo redirecionamento.
+
 _FORA_SITEMAP = set()
+_n_pontes_enc = 0
+for _apk, _apv in (_REGRAS_ENC.get('apelidos') or {}).items():
+    _old, _new = _slug_enc(_apk), _slug_enc(_apv)
+    if not _old or _old == _new or _old in PESSOAS or _new not in PESSOAS:
+        continue
+    _alvo = f'{BASE}/pessoa-{_new}.html'
+    with open(os.path.join(ROOT, f'pessoa-{_old}.html'), 'w') as _fp:
+        _fp.write('<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">'
+                  f'<title>{safe(PESSOAS[_new]["nome"])} — Enciclopédia FOYER</title>'
+                  f'<link rel="canonical" href="{_alvo}"><meta name="robots" content="noindex">'
+                  f'<meta http-equiv="refresh" content="0; url={_alvo}">'
+                  f'<script>location.replace({_json.dumps(_alvo)});</script></head>'
+                  f'<body><p>Este verbete fica em <a href="{_alvo}">{safe(PESSOAS[_new]["nome"])}</a>.</p></body></html>')
+    _FORA_SITEMAP.add(f'pessoa-{_old}.html'); _n_pontes_enc += 1
+if _n_pontes_enc:
+    print(f'• {_n_pontes_enc} ponte(s) de verbete juntado')
 for _sp, _pp in PESSOAS.items():
     # verbete só com nome e até dois links, sem bio, sem foto e sem episódio:
     # existe e é linkado, mas não vai ao Google nem ao sitemap até ganhar
@@ -7659,12 +7693,27 @@ urls = sorted(os.path.basename(f) for f in _g.glob(os.path.join(ROOT, '*.html'))
               if os.path.basename(f) not in ('coxia.html', '404.html', 'cat-artigo-de-opiniao.html', 'cat-artigo-de-opiniao-p2.html', 'assine.html', 'em-cartaz.html', 'midia-kit.html')
               and os.path.basename(f) not in _FORA_SITEMAP
               and not os.path.basename(f).startswith('revista-prova-'))
+# apelidos e grafias juntadas (regras -> apelidos) entram na busca: quem digita
+# "Zé Celso" acha as matérias de José Celso Martinez Corrêa
+_ALIAS_DE = {}
+for _apk, _apv in (_REGRAS_ENC.get('apelidos') or {}).items():
+    _ALIAS_DE.setdefault(_slug_enc(_apv), []).append(_apk)
+_ALIAS_DE = {k: ', '.join(dict.fromkeys(v)) for k, v in _ALIAS_DE.items()}
 with open(os.path.join(ROOT, 'assets/busca-index.json'), 'w') as f:
-    _json.dump([{'t': _p['title'], 'c': _p.get('cat', ''), 'a': _p.get('author', ''),
-                 'u': 'post-' + _p['slug'] + '.html'}
+    # 'p': quem aparece na matéria (vistoria de 06/10/2026: "Zé Celso" só achava
+    # a matéria com o nome no título). Seções fixas entram como entradas da busca.
+    _json.dump([dict({'t': _p['title'], 'c': _p.get('cat', ''), 'a': _p.get('author', ''),
+                      'u': 'post-' + _p['slug'] + '.html'},
+                     **({'p': ' · '.join(PESSOAS[_q]['nome'] + (f' ({_ALIAS_DE.get(_q)})' if _ALIAS_DE.get(_q) else '')
+                                         for _q in POR_MATERIA.get(_p['slug'], []) if _q in PESSOAS)}
+                        if POR_MATERIA.get(_p['slug']) else {}))
                 for _p in MATERIAS]
                + [{'t': _pp['nome'], 'c': 'Enciclopédia', 'u': 'pessoa-' + _sp + '.html'}
-                  for _sp, _pp in _top_pessoas], f, ensure_ascii=False)
+                  for _sp, _pp in _top_pessoas]
+               + [{'t': _t, 'c': 'Seção', 'u': _u} for _t, _u in (
+                   ('Agenda', 'agenda.html'), ('Revista FOYER', 'revista.html'), ('Programas', 'programas.html'),
+                   ('Enciclopédia', 'enciclopedia.html'), ('Opinião', 'opiniao.html'), ('Crítica', 'critica.html'),
+                   ('Notícias', 'noticias.html'))], f, ensure_ascii=False)
 print(f'busca: {len(MATERIAS)} matérias indexadas')
 
 _hoje_sm = datetime.now(timezone.utc).strftime('%Y-%m-%d')

@@ -338,6 +338,7 @@
   .f-dobra > summary .fd-s{ font-family:var(--mono); font-size:.62rem; font-weight:600; letter-spacing:.08em;
     text-transform:uppercase; color:var(--ink-soft); white-space:nowrap; }
   .f-dobra > summary .fd-s.ok{ color:var(--wine); }
+  .f-dobra > summary .fd-s.err{ color:#b3261e; }
   .f-dobra > .fd-c{ padding:12px 14px 14px; border-top:1px solid var(--line); }
   .msg{ font-family:var(--mono); font-size:.64rem; letter-spacing:.1em; text-transform:uppercase; display:none; }
   .msg.ok{ display:block; color:var(--ok); } .msg.err{ display:block; color:var(--err); }
@@ -1340,7 +1341,7 @@
               <div id="up-ajustar" style="display:none;margin-top:8px"></div>
               <p class="msg" id="up-pequena" style="display:none;margin-top:8px"></p>
               <input type="text" id="f-cred" placeholder="Crédito da foto — ex.: Foto: João Silva/Divulgação" style="margin-top:8px">
-              <input type="text" id="f-imgleg" placeholder="Descrição da foto (legenda) — ex.: O elenco em cena no Teatro Renault" style="margin-top:8px">
+              <input type="text" id="f-imgleg" placeholder="Descrição curta da foto, para quem não enxerga e para o Google — ex.: O elenco em cena no Teatro Renault" style="margin-top:8px">
               <div class="r2" style="margin-top:8px">
                 <div><input type="text" id="f-imgfonte" placeholder="Origem da foto (link) — de onde ela saiu"></div>
                 <div>
@@ -1455,7 +1456,7 @@ ingressos e divisor."></textarea>
               <button class="bt" type="button" id="btn-rascunhos" style="display:none" title="Abre a prateleira de rascunhos guardados"><i class="ic">📄</i><span class="lb">Rascunhos</span><b class="n"></b></button>
               <button class="f-pub" type="submit" id="btn-pub">Enviar para o site</button>
             </div>
-            <span class="msg" id="msg"></span>
+            <span class="msg" id="msg" role="alert"></span>
           </form>
           <div class="f-side">
             <div class="f-note" id="nova-nota">
@@ -3565,11 +3566,19 @@ ingressos e divisor."></textarea>
       img.src = url;
     });
   }
+  // Foto subida nesta sessão: se o JSON falhar e a pessoa clicar de novo, a
+  // mesma foto não sobe outra vez com outro nome (vistoria de 06/10/2026).
+  var SUBIDAS = {};
   function subirImagem(dataURL, slug){
     var puro = dataURL.split(',')[1];
+    var chave = slug + '|' + puro.length + '|' + puro.slice(-80);
+    if(SUBIDAS[chave]) return Promise.resolve(SUBIDAS[chave]);
     var caminho = 'assets/uploads/' + slug + '-' + Date.now() + '.jpg';
-    return ghPutRaw(caminho, puro, assina('sobe foto de capa'))
-      .then(function(){ return caminho; });
+    // [skip ci]: a foto sozinha não monta o site; quem monta é o JSON da
+    // matéria, gravado logo depois. Antes eram 3 publicações por matéria e o
+    // GitHub cancelava a da própria matéria, que só entrava no deploy seguinte.
+    return ghPutRaw(caminho, puro, assina('sobe foto de capa') + ' [skip ci]')
+      .then(function(){ SUBIDAS[chave] = caminho; return caminho; });
   }
   function subirOriginais(slug){
     // A foto ORIGINAL inteira (sem o corte 16:9 da capa) também fica guardada
@@ -3799,9 +3808,11 @@ ingressos e divisor."></textarea>
     var cred = ($('f-cred').value || '').trim();
     var opiniao = $('f-secao') && $('f-secao').value === 'opiniao';
     var pequena = tem && window.CAPA_PEQUENA ? window.CAPA_PEQUENA : 0;
-    s.textContent = tem ? (cred ? 'foto ✓ · crédito ✓' : 'foto ✓ · sem crédito') + (pequena ? ' · foto pequena' : '')
+    var leg = ($('f-imgleg') && $('f-imgleg').value || '').trim();
+    s.textContent = tem ? (cred ? 'foto ✓ · crédito ✓' : 'foto ✓ · SEM CRÉDITO') + (leg ? '' : ' · sem descrição') + (pequena ? ' · foto pequena' : '')
                         : (opiniao ? 'sem foto · capa tipográfica' : 'sem foto');
-    s.className = 'fd-s' + (tem || opiniao ? ' ok' : '');
+    // 'ok' só quando a foto está completa (com crédito); sem crédito fica em vermelho
+    s.className = 'fd-s' + ((tem && cred) || (!tem && opiniao) ? ' ok' : (tem ? ' err' : ''));
     var av = $('up-pequena');
     if(av){
       av.style.display = pequena ? '' : 'none';
@@ -3823,7 +3834,16 @@ ingressos e divisor."></textarea>
     dobrasAtualiza();
   }
   new MutationObserver(dobraFotoEstado).observe(up, { attributes:true, attributeFilter:['class'] });
-  $('f-cred').addEventListener('input', dobraFotoEstado);
+  $('f-cred').addEventListener('input', function(){
+    // o direito de uso se preenche sozinho a partir do crédito, quando ainda está vazio
+    var c = $('f-cred').value, dir = $('f-imgdir');
+    if(dir && !dir.value){
+      if(/divulga/i.test(c)) dir.value = 'Divulgação';
+      else if(/wikimedia|wikipedia|creative commons|\bcc\b|dom[íi]nio p[úu]blico/i.test(c)) dir.value = 'Creative Commons / domínio público';
+    }
+    dobraFotoEstado();
+  });
+  if($('f-imgleg')) $('f-imgleg').addEventListener('input', dobraFotoEstado);
   if($('f-secao')) $('f-secao').addEventListener('change', dobraFotoEstado);
   $('f-fontes').addEventListener('input', dobraFontesEstado);
   dobrasAtualiza();
@@ -4118,6 +4138,8 @@ ingressos e divisor."></textarea>
     return { title: $('f-title').value, cat: $('f-cat').value, cats: colherCats(), corpo: $('f-body').value,
              cred: $('f-cred').value, imgleg: $('f-imgleg').value, imgfonte: $('f-imgfonte').value, imgdir: $('f-imgdir').value,
              fontes: $('f-fontes').value, temFoto: !!CAPA,
+             // seção Opinião (tipo, coluna, função) e autor(a) também vão no rascunho (06/10/2026)
+             op: colherOpiniao(), autor: $('f-autor') ? $('f-autor').value : '',
              ev: { ini: $('f-ev-ini').value, fim: $('f-ev-fim').value,
                    local: $('f-ev-local').value, cidade: $('f-ev-cidade').value },
              quando: new Date().toISOString() };
@@ -4131,6 +4153,12 @@ ingressos e divisor."></textarea>
     $('f-fontes').value = d.fontes || '';
     if(d.ev){ $('f-ev-ini').value = d.ev.ini || ''; $('f-ev-fim').value = d.ev.fim || '';
       $('f-ev-local').value = d.ev.local || ''; $('f-ev-cidade').value = d.ev.cidade || ''; }
+    if(d.autor && $('f-autor')){
+      var selA = $('f-autor');
+      if(![].some.call(selA.options, function(o){ return o.value === d.autor; })) selA.add(new Option(d.autor, d.autor));
+      selA.value = d.autor;
+    }
+    if(typeof opCarregaForm === 'function') opCarregaForm(d.op || {});
     statusTexto(); $('rasc-aviso').classList.remove('on'); irPara('nova'); histReset();
     rascStatus('📄 Continuando o rascunho "' + (d.title || 'sem título') + '".');
     dobrasAtualiza();
@@ -5417,15 +5445,21 @@ ingressos e divisor."></textarea>
     e.preventDefault();
     var _erroOp = validaOpiniao(); if(_erroOp){ avisar(_erroOp); return; }
     var msg = $('msg');
-    if(!podeGravar()){ msg.textContent = recadoSemChave(); msg.className = 'msg err'; return; }
+    if(!podeGravar()){ avisar(recadoSemChave()); return; }
     var title = $('f-title').value.trim();
     var corpo = $('f-body').value.trim();
-    if(!title || !corpo){ msg.textContent = 'Preencha título e texto'; msg.className = 'msg err'; return; }
+    if(!title || !corpo){ avisar('Preencha o título e o texto da matéria.'); return; }
+    // foto sem crédito não entra: o site imprimiria "Foto: Divulgação" sem ninguém ter dito isso (06/10/2026)
+    if(CAPA && !$('f-cred').value.trim()){
+      $('dobra-foto').open = true;
+      avisar('Preencha o crédito da foto: quem fez ou de onde ela veio (ex.: Foto: João Silva/Divulgação).');
+      return;
+    }
     var quando = $('f-quando').value;
     var publishAt = new Date().toISOString();
     if(quando === 'agendar'){
       var dt = $('f-data').value;
-      if(!dt){ msg.textContent = 'Escolha a data e hora do agendamento'; msg.className = 'msg err'; return; }
+      if(!dt){ avisar('Escolha a data e a hora do agendamento.'); return; }
       publishAt = new Date(dt).toISOString();
     }
     var slug = EDIT ? EDIT.slug : slugify(title);

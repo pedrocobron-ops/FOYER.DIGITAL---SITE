@@ -84,7 +84,21 @@ VETO_TOTAL = set('''Teatro Teatros Cine Cinema Museu Centro Casa Companhia Cia G
 Instituto Shopping Orquestra Auditório Auditorio Sala Espaço Espaco Galeria Arena Complexo
 Palácio Palacio Fundação Fundacao Universidade Faculdade Avenida Rua Alameda Praça Praca Largo
 Viaduto Estação Estacao Prêmio Premio Prêmios Premios Festival Mostra Bienal Edifício Edificio
-Hospital Aeroporto Estádio Estadio Ginásio Ginasio Biblioteca Livraria Colégio Colegio'''.split())
+Hospital Aeroporto Estádio Estadio Ginásio Ginasio Biblioteca Livraria Colégio Colegio
+Coletivo Trupe Circo Núcleo Nucleo Coral Rádio Radio Blog Plataforma App Dicionário Dicionario
+Presídio Presidio Prédio Predio Multipalco Condecine Ticketmaster Rede Canal Portal Revista Jornal
+Programa Podcast Série Serie Novela Filme Clube Hotel Igreja Catedral Parque Praia Ilha Shopping'''.split())
+
+# Texto logo ANTES do nome que diz que é endereço ou lugar, não gente:
+# "R. Rui Barbosa", "Av. Roque Petroni Júnior", "teatros Arthur Azevedo, Alfredo
+# Mesquita e Paulo Eiró" (vistoria de 06/10/2026: 12 verbetes eram ruas e
+# avenidas). Só palavras que o próprio nome capturado não traz: abreviações,
+# minúsculas e plurais; "Teatro X" com maiúscula já cai pelo VETO_TOTAL.
+ANTES_LUGAR = re.compile(
+    r"(?:\b(?:R|Av|Al|Pç|Pça|Tv|Est|Rod)\.|\b(?:rua|avenida|alameda|praça|praca|largo|travessa|estrada|rodovia|"
+    r"teatros|salas|cinemas|espaços|espacos|auditórios|auditorios|prêmios|premios|escolas|institutos|fundações|"
+    r"fundacoes|galerias|bibliotecas|hospitais|estações|estacoes|aeroportos|colégios|colegios))"
+    r"(?:\s+(?:[A-ZÀ-Ú][^\s,]*|de|do|da|dos|das|e)|,)*\s*$", re.I)
 
 CONECT = {'de', 'da', 'do', 'das', 'dos', 'del', 'von', 'van', 'di'}
 
@@ -93,7 +107,18 @@ CONECT = {'de', 'da', 'do', 'das', 'dos', 'del', 'von', 'van', 'di'}
 PREP_PONTA = {'na', 'no', 'nas', 'nos', 'em', 'a', 'à', 'ao', 'às', 'aos', 'pela', 'pelo',
               'pelas', 'pelos', 'com', 'sem', 'para', 'por', 'sob', 'sobre', 'entre',
               'até', 'ate', 'desde', 'após', 'apos', 'durante', 'contra', 'segundo',
-              'conforme', 'perante', 'já', 'ja', 'e', 'ou', 'mas', 'se', 'quando', 'como'}
+              'conforme', 'perante', 'já', 'ja', 'e', 'ou', 'mas', 'se', 'quando', 'como',
+              # palavra de frase colada na ponta de um nome ("Priscila Prade Depois",
+              # "Seu Dinheiro", "Poder Neste"): vistoria de 06/10/2026
+              'depois', 'pois', 'neste', 'nesta', 'nisso', 'ela', 'ele', 'eles', 'elas', 'há', 'ha',
+              'letra', 'tema', 'volta', 'design', 'venda', 'vem', 'veja', 'seu', 'sua', 'seus', 'suas',
+              'minha', 'meu', 'nossa', 'nosso', 'todo', 'toda', 'todos', 'todas', 'nada', 'muito', 'muita',
+              'hoje', 'ontem', 'amanhã', 'amanha', 'agora', 'ainda', 'também', 'tambem', 'assim', 'onde',
+              'porque', 'porém', 'porem', 'então', 'entao', 'aqui', 'ali', 'lá', 'la', 'cá', 'ca', 'sim',
+              'não', 'nao', 'mais', 'menos', 'bem', 'mal', 'só', 'so', 'tudo', 'algo', 'cada', 'outro', 'outra',
+              'antes', 'eu', 'nós', 'nos', 'você', 'voce', 'vocês', 'voces', 'primeira', 'primeiro', 'segunda',
+              'terceira', 'terceiro', 'última', 'ultima', 'último', 'ultimo', 'um', 'uma', 'dois', 'duas', 'três',
+              'tres', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove', 'dez', 'vindos', 'vindas', 'vindo', 'vinda'}
 
 # Uma palavra de nome: maiúscula + minúsculas, aceitando emenda por apóstrofo
 # (reto ou curvo) ou hífen que recomeça em maiúscula — O'Hara, D'Ávila,
@@ -242,6 +267,8 @@ def extrair_nomes(texto):
     texto = re.sub(r'[“"‘\'』«][^”"’\'»]{2,90}[”"’\'»]', ' ', texto)
     achados = set()
     for m in NOME_RE.finditer(texto):
+        if ANTES_LUGAR.search(texto[max(0, m.start() - 90):m.start()]):
+            continue
         n = re.sub(r'\s+', ' ', m.group(1)).strip()
         n = CAUDA_RE.sub('', n)
         partes = n.split()
@@ -407,13 +434,22 @@ def main():
     # ---- episódios: convidados nos títulos E nas descrições; apresentador
     # de cada programa (import/enciclopedia-regras.json, "apresentadores") ----
     APRESENTA = dict(REGRAS.get('apresentadores') or {'Por Bruno Cavalcanti': 'Bruno Cavalcanti'})
+    # Nome tirado só da DESCRIÇÃO de um episódio precisa ter primeiro nome
+    # conhecido no acervo (quem já aparece em matéria): é da descrição que
+    # saíam "Poder Neste", "Caso Lorena", "Ticketmaster Vem" (vistoria 06/10/2026).
+    prenomes = {p['nome'].split()[0].lower() for p in pessoas.values()
+                if any(a['tipo'] == 'materia' for a in p['aparicoes'])}
     for prog in yt.get('programas', []):
         nome_prog = prog['nome'].split(' — ')[0]
         apres = APRESENTA.get(nome_prog)
         sp_apres = slugify(canonico(apres)) if apres else None
         for v in prog.get('videos', []):
             texto_ep = v['titulo'] + '. ' + (v.get('descricao') or '')
-            nomes = extrair_nomes(texto_ep)
+            nomes_tit = extrair_nomes(v['titulo'])
+            nomes = set(nomes_tit)
+            for nm in extrair_nomes(v.get('descricao') or '') - nomes_tit:
+                if nm in NOMES_CURTOS or nm.split()[0].lower() in prenomes:
+                    nomes.add(nm)
             for nm, fs in pistas_funcao(texto_ep).items():
                 for rot, n in fs.items():
                     votos[slugify(nm)][rot] += n

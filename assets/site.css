@@ -1614,3 +1614,12 @@ html.tem-aviso body{ padding-bottom:var(--aviso-alt, 0px); }
 /* tarja de cookies: texto curto no celular, completo no computador (06/10/2026) */
 @media (max-width:640px){ #lgpd .lgpd-longo{ display:none; } }
 @media (min-width:641px){ #lgpd .lgpd-curto{ display:none; } }
+
+/* capa no celular: cabeçalho mais baixo (a primeira manchete aparecia só depois
+   de rolar) e itens do menu mais estreitos, para caber um a mais (06/10/2026) */
+@media (max-width:600px){
+  .logo-img{ height:84px; }
+  .masthead .wrap{ padding-top:16px; padding-bottom:14px; gap:12px; }
+  nav.main a{ padding:13px 14px; }
+}
+.util .lupa{ font-size:1rem; line-height:1; padding:8px 10px; }
