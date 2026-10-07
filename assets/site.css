@@ -1623,3 +1623,6 @@ html.tem-aviso body{ padding-bottom:var(--aviso-alt, 0px); }
   nav.main a{ padding:13px 14px; }
 }
 .util .lupa{ font-size:1rem; line-height:1; padding:8px 10px; }
+
+/* anúncio 'no feed' nas listas: uma linha inteira da grade (07/10/2026) */
+.news-grid .ad-feed{ grid-column:1 / -1; margin:6px 0; }

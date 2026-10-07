@@ -53,7 +53,14 @@ window.FOYER_ADS = {
   // em jeito de "recomendações", para o fim da matéria, abaixo do "Leia
   // também". Crie no AdSense a unidade "FOYER - multiplex" e cole o número
   // aqui; enquanto estiver vazio, o espaço do fim da matéria segue como display.
-  unidadeMultiplex: '6708751214'            // "FOYER - multiplex" (criada em 07/10/2026)
+  unidadeMultiplex: '6708751214',           // "FOYER - multiplex" (criada em 07/10/2026)
+  // Formato "In-feed" (Anúncios → Por bloco → In-feed): cartão de anúncio no
+  // meio das listas de matérias (Notícias e editorias), a cada 9 cartões.
+  // Crie a unidade "FOYER - no feed" e cole aqui o número (data-ad-slot) e a
+  // chave de layout (data-ad-layout-key) do código que o AdSense mostra.
+  // Enquanto estiverem vazios, os cartões de anúncio das listas não aparecem.
+  unidadeFeed: '',
+  chaveFeed: ''
 };
 
 (function(){
@@ -99,8 +106,13 @@ window.FOYER_ADS = {
     document.head.appendChild(s);
   }
 
+  var k = 0;  // posição entre os espaços que de fato viram anúncio (o 'no feed' sem unidade some)
   for(var i = 0; i < espacos.length; i++){
     var el = espacos[i];
+    if(el.getAttribute('data-ad-formato') === 'feed' && !(cfg.unidadeFeed && cfg.chaveFeed)){
+      el.style.display = 'none';
+      continue;
+    }
     var ins = document.createElement('ins');
     ins.className = 'adsbygoogle';
     ins.style.display = 'block';
@@ -112,13 +124,19 @@ window.FOYER_ADS = {
     // acontecia antes.
     var lista = (cfg.unidades || []).filter(Boolean);
     if(!lista.length) lista = [cfg.unidade];
-    var u = el.getAttribute('data-ad-unidade') || lista[i % lista.length];
+    var u = el.getAttribute('data-ad-unidade') || lista[k % lista.length];
+    k++;
     // espaço marcado como "artigo" (abertura e meio da matéria) usa a unidade
     // "Em artigo" quando ela existir: formato fluido, desenhado para o meio do texto
     if(el.getAttribute('data-ad-formato') === 'artigo' && cfg.unidadeArtigo){
       u = cfg.unidadeArtigo;
       ins.setAttribute('data-ad-layout', 'in-article');
       ins.setAttribute('data-ad-format', 'fluid');
+    } else if(el.getAttribute('data-ad-formato') === 'feed'){
+      // cartão no meio da lista: formato fluido com a chave de layout da unidade In-feed
+      u = cfg.unidadeFeed;
+      ins.setAttribute('data-ad-format', 'fluid');
+      ins.setAttribute('data-ad-layout-key', cfg.chaveFeed);
     } else if(el.getAttribute('data-ad-formato') === 'multiplex' && cfg.unidadeMultiplex){
       // fim da matéria: grade de anúncios "recomendados" (formato autorelaxed do Google)
       u = cfg.unidadeMultiplex;

@@ -2221,7 +2221,15 @@ def _pager(base, page, pages):
 def listing_body(posts, page, pages, base, titulo, nota, active='*'):
     ini = (page-1)*POR_PAGINA
     chunk = posts[ini:ini+POR_PAGINA]
-    grid = real_cell(chunk[0], big=True) + '\n' + '\n'.join(real_cell(x) for x in chunk[1:]) if chunk else ''
+    # um cartão de anúncio 'no feed' a cada 9 matérias (decisão do Pedro,
+    # 07/10/2026): ocupa uma linha inteira da grade, com a marca Publicidade;
+    # some sozinho enquanto a unidade do AdSense não estiver em assets/ads.js
+    cells = []
+    for _k, x in enumerate(chunk):
+        if _k and _k % 9 == 0:
+            cells.append(f'<div class="ad-slot ad-feed" data-ad-slot="{1004 + _k // 9}" data-ad-formato="feed"></div>')
+        cells.append(real_cell(x, big=(_k == 0)))
+    grid = '\n'.join(cells)
     return band('Editoria', titulo, nota) + f"""
 <main id="conteudo" class="wrap">
   <div class="filters" aria-label="Filtrar por editoria">
