@@ -34,9 +34,10 @@
 // a Starlink apareceu em cima e embaixo. Blocos distintos resolvem, e é o
 // que o próprio Google recomenda: um bloco por posição.
 //
-// A lista é percorrida na ordem em que os espaços aparecem na página. Como
-// nenhuma página do FOYER tem mais de dois, duas unidades já bastam; a
-// terceira fica de folga para quando algum lugar novo entrar.
+// A lista é percorrida na ordem em que os espaços aparecem na página (só os
+// de display; 'em artigo', 'multiplex' e 'no feed' têm unidade própria). Desde
+// 06/10/2026 uma matéria longa tem até três espaços (abertura e meio em
+// artigo, fim em multiplex) e a capa tem três de display, um por lugar.
 window.FOYER_ADS = {
   ligado: true,
   editor: 'ca-pub-5861702469763970',    // conta programafoyer@gmail.com
@@ -94,6 +95,9 @@ window.FOYER_ADS = {
   if(window.foyerConsent && window.foyerConsent() === 'essencial'){
     window.adsbygoogle.requestNonPersonalizedAds = 1;
   }
+  // o cabeçalho avisa (classe sem-ads) quando o script do Google não carregou
+  // (bloqueador, rede): as caixas ficam fechadas, sem 'Publicidade' em branco
+  if(document.documentElement.classList.contains('sem-ads')) return;
   document.body.classList.add('ads-on');
 
   // o cabeçalho da página já pede o script do Google (build_pages.py, ADS_HEAD);
@@ -103,6 +107,7 @@ window.FOYER_ADS = {
     s.async = true;
     s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + cfg.editor;
     s.crossOrigin = 'anonymous';
+    s.onerror = function(){ document.documentElement.classList.add('sem-ads'); };
     document.head.appendChild(s);
   }
 
@@ -163,22 +168,32 @@ window.FOYER_ADS = {
   // vazia, com "Publicidade" escrito por cima — cara de site quebrado, num
   // lugar onde o leitor decide se fica. Aqui a caixa some sozinha, e o texto
   // volta a correr como se o espaço nunca tivesse existido.
+  // Recolher a caixa vazia só quando ela está fora da tela: recolher sob os
+  // olhos do leitor faz o texto pular (vistoria de 07/10/2026). Na tela, espera
+  // o leitor rolar para longe dela.
+  function recolhe(caixa){
+    function fora(){ var r = caixa.getBoundingClientRect(); return r.bottom < 0 || r.top > window.innerHeight; }
+    if(fora()){ caixa.style.display = 'none'; return; }
+    var h = function(){ if(fora()){ caixa.style.display = 'none'; window.removeEventListener('scroll', h); } };
+    window.addEventListener('scroll', h, { passive: true });
+  }
   function vigiaVazio(caixa, ins){
     function confere(){
       var st = ins.getAttribute('data-ad-status');
-      if(st === 'unfilled'){ caixa.style.display = 'none'; return true; }
+      if(st === 'unfilled'){ recolhe(caixa); return true; }
       return st === 'filled';
     }
     if(confere()) return;
     if(!window.MutationObserver) return;
     var obs = new MutationObserver(function(){ if(confere()) obs.disconnect(); });
     obs.observe(ins, { attributes: true, attributeFilter: ['data-ad-status'] });
-    // rede fora do ar, bloqueador de anúncio, resposta que nunca chega: em
-    // 12 segundos a caixa vazia sai de cena de qualquer jeito
+    // rede fora do ar, resposta que nunca chega: em 30 segundos a caixa vazia
+    // sai de cena (quando estiver fora da tela). O multiplex do fim da matéria
+    // só é pedido quando o leitor se aproxima, por isso o prazo não é curto.
     setTimeout(function(){
       obs.disconnect();
       if(ins.getAttribute('data-ad-status') !== 'filled' && !ins.offsetHeight)
-        caixa.style.display = 'none';
-    }, 12000);
+        recolhe(caixa);
+    }, 30000);
   }
 })();

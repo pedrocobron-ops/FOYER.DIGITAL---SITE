@@ -59,7 +59,8 @@ ADS_HEAD = ('<link rel="preconnect" href="https://pagead2.googlesyndication.com"
             "try{if(!/[?&]ads=demo\\b/.test(location.search)){var _c=(JSON.parse(localStorage.getItem('foyer-consent')||'null')||{}).nivel||'';"
             "if(_c==='essencial'){(window.adsbygoogle=window.adsbygoogle||[]).requestNonPersonalizedAds=1;}"
             "var _s=document.createElement('script');_s.async=true;_s.crossOrigin='anonymous';"
-            "_s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + ADS_EDITOR + "';document.head.appendChild(_s);}}catch(e){}</script>\n")
+            "_s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + ADS_EDITOR + "';"
+            "_s.onerror=function(){document.documentElement.classList.add('sem-ads');};document.head.appendChild(_s);}}catch(e){}</script>\n")
 
 def head(title, desc, og_img=None, og_type='website', og_url='', ld='', ads=False, robots=''):
     t = _html.escape(title, quote=True)
@@ -531,13 +532,24 @@ def _elenco_pub(formatos=('entreato', 'cartaz')):
             + _json0.dumps(pool, ensure_ascii=False).replace('<', '\\u003c') + '</script>')
 
 def _google_meio(corpo):
-    """Terceiro espaço do Google, só em texto longo (12 parágrafos ou mais),
-    depois do 7º parágrafo: entre o Entreato (4º) e o Cartaz (10º) da casa.
-    Revisão da publicidade de 05/10/2026."""
-    if corpo.count('</p>') < 12:
+    """Terceiro espaço do Google no meio do texto. Texto longo (12 parágrafos
+    ou mais) recebe depois do 7º parágrafo, entre o Entreato (4º) e o Cartaz
+    (10º) da casa. Texto de 7 a 11 parágrafos mas com 350 palavras ou mais
+    (vistoria de 07/10/2026: 46% das matérias ficavam sem nada no meio mesmo
+    sendo longas) recebe no parágrafo do meio, desde que a casa não tenha
+    anunciante no Entreato, que já ocupa esse lugar."""
+    n = corpo.count('</p>')
+    if n < 7:
         return corpo
-    partes = corpo.split('</p>', 7)
-    return '</p>'.join(partes[:7]) + '</p>\n  <div class="ad-slot ad-meio" data-ad-slot="2002" data-ad-formato="artigo"></div>\n' + partes[7]
+    if n < 12:
+        palavras = len(_re.sub(r'<[^>]+>', ' ', corpo).split())
+        if palavras < 350 or _anun_ativo('entreato'):
+            return corpo
+        pos = max(4, n // 2)
+    else:
+        pos = 7
+    partes = corpo.split('</p>', pos)
+    return '</p>'.join(partes[:pos]) + '</p>\n  <div class="ad-slot ad-meio" data-ad-slot="2002" data-ad-formato="artigo"></div>\n' + partes[pos]
 
 def _injeta_ads_materia(corpo, slug=''):
     """A publicidade DENTRO da matéria, com duas regras de casa:
@@ -594,6 +606,11 @@ def page(fname, title, desc, current, body, quiet=False, og_img=None, og_type='w
     _pub = '' if (fname.startswith('coxia') or fname.startswith('revista-ed-')
                   or fname.startswith('revista-prova-') or fname.startswith('anuncie')
                   or fname.startswith('producoes')) else ADS_CASA
+    # Página que o próprio site tira do Google (noindex: verbete magro) não
+    # leva anúncio: sem espaço, o cabeçalho não pede o script e o ads.js não
+    # faz nada. Política do AdSense: anúncio só em tela com conteúdo do editor.
+    if 'noindex' in (robots or ''):
+        body = _re.sub(r'\s*<div class="ad-slot"[^>]*></div>', '', body)
     _ads = ('class="ad-slot"' in body) and not fname.startswith(('revista', 'coxia', 'anuncie'))
     html = head(title, desc, og_img=og_img, og_type=og_type, og_url=fname, ld=ld, ads=_ads, robots=robots) + '\n' + DEFS + '\n' + UTIL + '\n' + nav(current) + '\n' + body + '\n' + _pub + FOOTER + '</body>\n</html>\n'
     with open(os.path.join(ROOT, fname), 'w') as f:
@@ -765,6 +782,7 @@ programas_body = band('O canal', 'Os Programas', 'YouTube &amp; Spotify — novo
   </div>
 </section>
 <main id="conteudo" class="wrap">
+  <div class="ad-slot" data-ad-slot="1400"></div>
   <div class="sec-head">
     <h2>Últimos episódios</h2>
     <span class="note">Direto do canal</span>
@@ -1333,7 +1351,6 @@ busca_body = band('Ferramenta', 'Buscar',
   <div class="ency-table" id="res" aria-live="polite"></div>
   <p class="meta-l" style="display:block; padding:12px 4px 0" id="busca-mais" aria-live="polite"></p>
   <p class="meta-l" style="display:block; padding:18px 4px" id="busca-info">Carregando o índice do acervo…</p>
-  <div class="ad-slot" data-ad-slot="1901"></div>
 </main>
 <script>
 (function(){
@@ -2083,7 +2100,7 @@ index_main = f'''<main id="conteudo">
       <a class="giro-more" href="noticias.html">Todas as matérias →</a>
     </aside>
   </div>
-
+  <div class="ad-slot" data-ad-slot="1000"></div>
   <div class="fp-sub">
 {_sub_cards}  </div>
 </section>
@@ -2238,8 +2255,8 @@ def listing_body(posts, page, pages, base, titulo, nota, active='*'):
   <div class="news-grid">
 {grid}
   </div>
-  {_pager(base, page, pages)}
   <div class="ad-slot" data-ad-slot="1003"></div>
+  {_pager(base, page, pages)}
 </main>
 """
 
@@ -4786,6 +4803,7 @@ if _yt_progs:
   </div>
 </section>
 <main id="conteudo" class="wrap">
+  <div class="ad-slot" data-ad-slot="1400"></div>
   <div class="sec-head">
     <h2>Últimos episódios</h2>
     <span class="note">Direto do canal</span>

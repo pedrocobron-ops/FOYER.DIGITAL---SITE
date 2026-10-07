@@ -1626,3 +1626,9 @@ html.tem-aviso body{ padding-bottom:var(--aviso-alt, 0px); }
 
 /* anúncio 'no feed' nas listas: uma linha inteira da grade (07/10/2026) */
 .news-grid .ad-feed{ grid-column:1 / -1; margin:6px 0; }
+
+/* AdSense (vistoria de 07/10/2026): script bloqueado ou fora do ar = caixa nem
+   aparece; no celular o 'em artigo' reserva a altura que costuma ocupar, para o
+   texto não pular quando o anúncio chega */
+html.sem-ads .ad-slot{ display:none !important; }
+@media (max-width:700px){ body.ads-on .ad-slot[data-ad-formato="artigo"]{ min-height:250px; } }
