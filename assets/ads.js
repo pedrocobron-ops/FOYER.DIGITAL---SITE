@@ -59,8 +59,8 @@ window.FOYER_ADS = {
   // Crie a unidade "FOYER - no feed" e cole aqui o número (data-ad-slot) e a
   // chave de layout (data-ad-layout-key) do código que o AdSense mostra.
   // Enquanto estiverem vazios, os cartões de anúncio das listas não aparecem.
-  unidadeFeed: '',
-  chaveFeed: ''
+  unidadeFeed: '1143317930',                // "FOYER - no feed" (criada em 07/10/2026)
+  chaveFeed: '-fb+5w+4e-db+86'
 };
 
 (function(){
