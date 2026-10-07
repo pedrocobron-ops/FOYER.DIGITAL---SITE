@@ -53,7 +53,7 @@ window.FOYER_ADS = {
   // em jeito de "recomendações", para o fim da matéria, abaixo do "Leia
   // também". Crie no AdSense a unidade "FOYER - multiplex" e cole o número
   // aqui; enquanto estiver vazio, o espaço do fim da matéria segue como display.
-  unidadeMultiplex: ''
+  unidadeMultiplex: '6708751214'            // "FOYER - multiplex" (criada em 07/10/2026)
 };
 
 (function(){
