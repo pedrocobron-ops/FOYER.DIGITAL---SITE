@@ -802,6 +802,7 @@
   .prev-body.guia .guia-fecho{ margin-top:20px; padding-top:14px; border-top:1px solid var(--line);
     color:var(--ink-soft); }
   .prev-body h1{ font-family:var(--didone); font-weight:400; font-size:1.9rem; line-height:1.1; margin:8px 0 14px; }
+  .prev-body .dek{ font-size:1.05rem; line-height:1.5; color:var(--ink-soft, #555); margin:-6px 0 14px; }
   .prev-body img.capa{ width:100%; max-height:340px; object-fit:cover; border:2px solid var(--ink); }
   .prev-body .cred{ font-family:var(--mono); font-size:.56rem; letter-spacing:.1em;
     text-transform:uppercase; color:var(--ink-soft); }
@@ -1254,6 +1255,15 @@
             <div>
               <label for="f-title">Título</label>
               <input type="text" id="f-title" placeholder="O título da matéria" spellcheck="true" lang="pt-BR" required>
+            </div>
+            <!-- LINHA FINA (pedido do Pedro, 08/10/2026): a frase que completa o título,
+                 abaixo dele e acima da assinatura, como nos grandes jornais. Opcional.
+                 Quando preenchida vira a descrição para o Google, o WhatsApp, o feed,
+                 os cartões da capa e a legenda do Instagram. Não entra na arte. -->
+            <div>
+              <label for="f-sub">Linha fina <small style="text-transform:none;letter-spacing:0">— opcional. Uma frase que completa o título sem repeti-lo</small></label>
+              <input type="text" id="f-sub" placeholder="O quê, quem, onde, quando — ex.: Montagem de Zé Celso volta ao Oficina em outubro, com elenco original" maxlength="220" spellcheck="true" lang="pt-BR">
+              <p class="msg" id="f-sub-st" style="display:none;margin-top:6px"></p>
             </div>
             <!-- SEÇÃO OPINIÃO (pedido do Pedro, 01/10/2026): coluna, artigo ou
                  editorial. A seção define o formato; a editoria vira a etiqueta
@@ -4028,6 +4038,7 @@ ingressos e divisor."></textarea>
   function mil(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
 
   function statusTexto(){
+    if(typeof linhaFinaEstado === 'function') linhaFinaEstado();
     var t = $('f-body').value;
     var n = t.split(/\s+/).filter(Boolean).length;
     var chars = t.length;
@@ -4150,8 +4161,41 @@ ingressos e divisor."></textarea>
     };
     if(agora) faz(); else rascTimer = setTimeout(faz, 800);
   }
-  ['f-title', 'f-body', 'f-cred', 'f-imgleg', 'f-imgfonte', 'f-imgdir', 'f-fontes', 'f-cat', 'f-cat2', 'f-cat3', 'f-secao', 'f-tipo', 'f-coluna', 'f-coluna-outra', 'f-funcao', 'f-ev-ini', 'f-ev-fim', 'f-ev-local', 'f-ev-cidade']
+  ['f-title', 'f-sub', 'f-body', 'f-cred', 'f-imgleg', 'f-imgfonte', 'f-imgdir', 'f-fontes', 'f-cat', 'f-cat2', 'f-cat3', 'f-secao', 'f-tipo', 'f-coluna', 'f-coluna-outra', 'f-funcao', 'f-ev-ini', 'f-ev-fim', 'f-ev-local', 'f-ev-cidade']
     .forEach(function(id){ var el = $(id); if(el) el.addEventListener('input', salvarRasc); el && el.addEventListener('change', salvarRasc); });
+  // LINHA FINA: avisa (sem travar) quando passa de 160 caracteres ou repete o
+  // título; e, com o campo vazio, oferece mover para ele o parágrafo de abertura
+  // todo em negrito, que era como a redação fazia a linha fina até aqui (08/10/2026).
+  var RE_NEGRITO_ABRE = /^\*\*([^*\n]{30,260})\*\*\s*(?:\n|$)/;
+  function linhaFinaEstado(){
+    var el = $('f-sub'), st = $('f-sub-st');
+    if(!el || !st) return;
+    var v = el.value.trim(), t = $('f-title').value.trim();
+    var norm = function(x){ return x.toLowerCase().replace(/[^a-z0-9\u00c0-\u017f]+/g, ' ').trim(); };
+    st.className = 'msg'; st.innerHTML = ''; st.style.display = 'none';
+    if(v){
+      if(v.length > 160){
+        st.className = 'msg err'; st.style.display = 'block';
+        st.textContent = '⚠ ' + v.length + ' caracteres: o Google costuma cortar a descrição por volta de 160. Dá para publicar assim, mas vale encurtar.';
+      } else if(t && norm(v) === norm(t)){
+        st.className = 'msg err'; st.style.display = 'block';
+        st.textContent = '⚠ A linha fina repete o título. Ela deve completar, não repetir.';
+      }
+      return;
+    }
+    if(RE_NEGRITO_ABRE.test($('f-body').value.replace(/^\s+/, ''))){
+      st.className = 'msg ok'; st.style.display = 'block';
+      st.innerHTML = 'O texto abre com um parágrafo todo em negrito. <button class="bt mini" type="button" id="f-sub-mover">↑ Usar esse negrito como linha fina</button>';
+      $('f-sub-mover').addEventListener('click', function(){
+        var b = $('f-body'), corpo = b.value.replace(/^\s+/, ''), m = corpo.match(RE_NEGRITO_ABRE);
+        if(!m) return;
+        el.value = m[1].trim();
+        b.value = corpo.slice(m[0].length).replace(/^\s+/, '');
+        salvarRasc(); statusTexto(); el.focus();
+      });
+    }
+  }
+  ['f-sub', 'f-title'].forEach(function(id){ $(id).addEventListener('input', linhaFinaEstado); });
   function limparRasc(){
     // tira SÓ o rascunho que acabou de ser enviado; os outros ficam na prateleira
     if(RASC_ID) rascGrava(rascLista().filter(function(x){ return x.id !== RASC_ID; }));
@@ -4162,7 +4206,7 @@ ingressos e divisor."></textarea>
     if(n) $('bdg-rasc').textContent = n === 1 ? 'rascunho' : n + ' rascunhos';
   }
   function coletarRasc(){
-    return { title: $('f-title').value, cat: $('f-cat').value, cats: colherCats(), corpo: $('f-body').value,
+    return { title: $('f-title').value, sub: $('f-sub').value, cat: $('f-cat').value, cats: colherCats(), corpo: $('f-body').value,
              cred: $('f-cred').value, imgleg: $('f-imgleg').value, imgfonte: $('f-imgfonte').value, imgdir: $('f-imgdir').value,
              fontes: $('f-fontes').value, temFoto: !!CAPA,
              // seção Opinião (tipo, coluna, função) e autor(a) também vão no rascunho (06/10/2026)
@@ -4173,7 +4217,7 @@ ingressos e divisor."></textarea>
   }
   function aplicarRascunho(d){
     RASC_ID = d.id || null;
-    $('f-title').value = d.title || ''; $('f-cat').value = d.cat || 'Teatro';
+    $('f-title').value = d.title || ''; $('f-sub').value = d.sub || ''; $('f-cat').value = d.cat || 'Teatro';
     aplicarCats(d.cats);
     $('f-body').value = d.corpo || ''; $('f-cred').value = d.cred || ''; $('f-imgleg').value = d.imgleg || '';
     $('f-imgfonte').value = d.imgfonte || ''; $('f-imgdir').value = d.imgdir || '';
@@ -4192,7 +4236,7 @@ ingressos e divisor."></textarea>
     if(d.temFoto){ $('dobra-foto').open = true; setTimeout(function(){ avisar('Recuperei o texto do rascunho. A foto de capa não fica guardada, então reanexe a imagem antes de enviar.'); }, 200); }
   }
   function limparFormNova(){
-    ['f-title', 'f-body', 'f-cred', 'f-imgleg', 'f-imgfonte', 'f-imgdir', 'f-fontes',
+    ['f-title', 'f-sub', 'f-body', 'f-cred', 'f-imgleg', 'f-imgfonte', 'f-imgdir', 'f-fontes',
      'f-ev-ini', 'f-ev-fim', 'f-ev-local', 'f-ev-cidade'].forEach(function(id){ $(id).value = ''; });
     aplicarCats([]);
     CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-ajustar').innerHTML = '';
@@ -4341,6 +4385,7 @@ ingressos e divisor."></textarea>
   }
   $('btn-prev').addEventListener('click', function(){
     var title = $('f-title').value.trim() || '(sem título)';
+    var linhaFina = $('f-sub').value.trim();
     var corpo = $('f-body').value;
     var img = CAPA || (EDIT && EDIT.img) || '';
     var cred = $('f-cred').value.trim();
@@ -4348,6 +4393,7 @@ ingressos e divisor."></textarea>
     $('prev-body').innerHTML =
       '<span class="tag wine">' + esc($('f-cat').value) + '</span>' +
       '<h1>' + esc(title) + '</h1>' +
+      (linhaFina ? '<p class="dek">' + esc(linhaFina) + '</p>' : '') +
       '<p class="cred">Por ' + esc($('f-autor').value) + '</p>' +
       (img ? '<img class="capa" src="' + esc(img) + '">' + ((legCapa || cred) ? '<p class="cred">' + esc(legCapa ? legCapa + ' \u2014 ' + cred : cred) + '</p>' : '') : '') +
       '<div class="corpo">' + mdRender(corpo) + '</div>';
@@ -4812,7 +4858,9 @@ ingressos e divisor."></textarea>
       .map(function(p){ return p.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/\*\*/g, '').replace(/\*/g, ''); });
     if(!paras.length) return '';
     var cred = (d.imgCredito || 'Divulgação').replace('Foto: ', '');
-    return paras.slice(0, 2).join('\n\n') +
+    // com linha fina, ela abre a legenda e só o primeiro parágrafo vem depois
+    var abertura = d.linhaFina ? [String(d.linhaFina).trim(), paras[0]] : paras.slice(0, 2);
+    return abertura.join('\n\n') +
       '\n\nPara conferir a matéria completa, acesse o site: www.foyer.digital' +
       '\n📷: ' + cred + '\nPor ' + (d.author || 'Redação Foyer');
   }
@@ -5474,6 +5522,7 @@ ingressos e divisor."></textarea>
     var msg = $('msg');
     if(!podeGravar()){ avisar(recadoSemChave()); return; }
     var title = $('f-title').value.trim();
+    var linhaFina = $('f-sub').value.trim();
     var corpo = $('f-body').value.trim();
     if(!title || !corpo){ avisar('Preencha o título e o texto da matéria.'); return; }
     // foto sem crédito não entra: o site imprimiria "Foto: Divulgação" sem ninguém ter dito isso (06/10/2026)
@@ -5557,6 +5606,7 @@ ingressos e divisor."></textarea>
         aplicaOriginais(pac, NOVO_ORIG);  // foto trocada: os originais novos entram no lugar
         var pLeg = $('f-imgleg').value.trim(); if(pLeg) pac.imgLegenda = pLeg; else delete pac.imgLegenda;
         pac.corpo = corpo; pac.editadoPor = USER.nome;
+        if(linhaFina) pac.linhaFina = linhaFina; else delete pac.linhaFina;
         pac.status = 'aguardando_aprovacao';
         pac.fontes = colherFontes();
         var _pif = $('f-imgfonte').value.trim(); if(_pif) pac.imgFonte = _pif; else delete pac.imgFonte;
@@ -5596,6 +5646,7 @@ ingressos e divisor."></textarea>
         var eif = $('f-imgfonte').value.trim(); if(eif) edicao.imgFonte = eif;
         var eid = $('f-imgdir').value.trim(); if(eid) edicao.imgDireito = eid;
         var efo = colherFontes(); if(efo.length) edicao.fontes = efo;
+        if(linhaFina) edicao.linhaFina = linhaFina;
         edicao.cats = colherCats();
         aplicaOpiniao(edicao, colherOpiniao());
         var evE = colherEvento();
@@ -5622,6 +5673,7 @@ ingressos e divisor."></textarea>
         var cif = $('f-imgfonte').value.trim(); if(cif) dados.imgFonte = cif;
         var cid = $('f-imgdir').value.trim(); if(cid) dados.imgDireito = cid;
         var cfo = colherFontes(); if(cfo.length) dados.fontes = cfo;
+        if(linhaFina) dados.linhaFina = linhaFina;
         var evN = colherEvento();
         if(evN) dados.evento = evN;
         return ghPut('import/novas/' + slug + '.json', JSON.stringify(dados, null, 1),
@@ -5641,6 +5693,7 @@ ingressos e divisor."></textarea>
       aplicaOriginais(pacote, NOVO_ORIG);
       var _if = $('f-imgfonte').value.trim(); if(_if) pacote.imgFonte = _if;
       var _id = $('f-imgdir').value.trim(); if(_id) pacote.imgDireito = _id;
+      if(linhaFina) pacote.linhaFina = linhaFina;
       pacote.cats = colherCats();
       aplicaOpiniao(pacote, colherOpiniao());
       var evP = colherEvento();
@@ -6652,6 +6705,7 @@ ingressos e divisor."></textarea>
       origem: d.origem === 'autor' ? 'autor' : 'redacao-ia', aprovadoPor: USER.nome
     };
     if(d.cats && d.cats.length) dados.cats = d.cats;
+    if(d.linhaFina) dados.linhaFina = d.linhaFina;
     if(d.instagram) dados.instagram = d.instagram;
     CAMPOS_ORIG.forEach(function(k){ if(d[k]) dados[k] = d[k]; });
     if(d.imgFonte) dados.imgFonte = d.imgFonte;
@@ -7316,6 +7370,7 @@ ingressos e divisor."></textarea>
       orig: dados, sha: dados._sha || null
     };
     $('f-title').value = dados.title || '';
+    $('f-sub').value = dados.linhaFina || '';
     $('f-cat').value = dados.cat || 'Notícia';
     opCarregaForm(dados);
     aplicarCats(dados.cats);

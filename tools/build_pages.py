@@ -1619,7 +1619,10 @@ if os.path.isdir(_novas_dir):
         _corpo = md_lite(_n.get('corpo', ''))
         open(os.path.join(ROOT, 'import/corpo', _slug + '.html'), 'w').write(_corpo)
         _txt = _re.sub(r'<[^>]+>', '', _corpo)
-        _desc = (_re.sub(r'\s+', ' ', _txt).strip()[:230] or _n.get('title',''))
+        # linha fina (08/10/2026): quando existe, é ela a descrição para o Google,
+        # o WhatsApp, o feed e os cartões; sem ela, o começo do texto, como antes
+        _lf = _re.sub(r'\s+', ' ', (_n.get('linhaFina') or '').replace('*', '')).strip()
+        _desc = _lf or (_re.sub(r'\s+', ' ', _txt).strip()[:230] or _n.get('title',''))
         _iso = (_pub or _agora)[:10]
         _y, _mo, _dd = _iso.split('-')
         # horário de publicação em Brasília (as antigas do Wix não têm hora registrada)
@@ -1635,7 +1638,7 @@ if os.path.isdir(_novas_dir):
         _novas.append({
             # *asteriscos* no título marcam o trecho que vai em itálico vinho
             # na capa tipográfica (coluna sem foto); fora dela o título é limpo
-            'title': _n['title'].replace('*', ''), 'slug': _slug, 'desc': _desc,
+            'title': _n['title'].replace('*', ''), 'slug': _slug, 'desc': _desc, 'linhaFina': _lf,
             'titleMarcado': _n['title'] if '*' in _n['title'] else '',
             'cat': _n.get('cat', 'Notícia'), 'author': _n.get('author', 'Redação Foyer'),
             'date': f'{int(_dd)} de {_MESES_PT[int(_mo)-1]} de {_y}',
@@ -1735,6 +1738,21 @@ def _desc_saida(p, n=200):
     if fim >= 100:
         return corte[:fim + 1]
     return corte.rsplit(' ', 1)[0].rstrip(' ,;:') + '…'
+
+
+def _corta(t, n):
+    """Corta em palavra inteira com reticências, e só quando precisa: uma
+    linha fina curta e completa não ganha "…" no fim."""
+    t = (t or '').strip()
+    if len(t) <= n:
+        return t
+    return t[:n].rsplit(' ', 1)[0].rstrip(' ,;:') + '…'
+
+
+def _dek_html(p):
+    """A linha fina da matéria: abaixo do título, acima da assinatura."""
+    lf = p.get('linhaFina')
+    return f'\n    <p class="dek">{_html.escape(lf, quote=False)}</p>' if lf else ''
 
 
 def safe(t):
@@ -2006,7 +2024,7 @@ for _i, _p in enumerate(MATERIAS[1:4]):
       <div class="sub-body">
         <span class="num">00{_i+2} — {_tipo_rotulo(_p) if _eh_opiniao(_p) else _p['cat']}</span>
         {'' if _sem_foto_op(_p) else f'<h3><a href="{_href}">{_p["title"]}</a></h3>'}
-        <p>{_p['desc'][:120]}…</p>
+        <p>{_corta(_p['desc'], 120)}</p>
         <div class="meta-row">
           <span class="meta-l">{short_date(_p)}</span>
           <button class="share-min" data-share="native" data-title="{safe(_p['title'])}">Compartilhar ↗</button>
@@ -2384,7 +2402,7 @@ def post_page(i, p):
     <div class="tags">
       {_tags_html}
     </div>
-    <h1>{p['title']}</h1>
+    <h1>{p['title']}</h1>{_dek_html(p)}
     <div class="art-byline">
       <span class="bl-por">{_por_html}</span>
       <span class="bl-quando">{p['date']}{(', às ' + p['hora']) if p.get('hora') else ''} · {_tempo_de_leitura(p)}</span>
@@ -4911,7 +4929,7 @@ def _agd_linha(p, destaque=''):
     except Exception:
         _dia, _mes = '·', ''
     lugar = ', '.join(x for x in (ev.get('local', ''), ev.get('cidade', '')) if x)
-    meta = destaque or lugar or (p['desc'][:100].rsplit(' ', 1)[0] + '…')
+    meta = destaque or lugar or _corta(p['desc'], 100)
     return f'''    <a class="agd-row" href="post-{p['slug']}.html">
       <span class="agd-date"><b>{_dia}</b><small>{_mes}</small></span>
       <span class="agd-what"><h3>{_rvesc(p['title'])}</h3><span class="agd-meta">{_rvesc(meta)}</span></span>
@@ -5444,7 +5462,7 @@ def _op_destaque(p, rotulo):
     else:
         quem = f'por <b>{safe(p["author"])}</b>' + (f', {safe(fn)}' if fn else '')
         foto = _op_foto(p['author'], 'grande')
-    desc = p['desc'][:220] + ('…' if len(p['desc']) > 220 else '')
+    desc = _corta(p['desc'], 220)
     return (f'  <article class="op-destaque{" tipo" if _sem_foto_op(p) else ""}">\n'
             + (_capa_tipo(p, href, grande=True, classe='op-capa ph-tipo') + '\n' if _sem_foto_op(p) else
                f'    <a class="op-capa" href="{href}" aria-label="{safe(p["title"])}"><img src="{wiximg(p["img"])}" alt="" loading="lazy" onerror="this.parentNode.style.display=\'none\'"></a>\n')
@@ -7430,7 +7448,8 @@ def _ld_materia(p):
     _a = [_pessoa_ld(x) for x in _partes] if (len(_partes) > 1 and all(_pagina_de_quem_assina(x) for x in _partes)) else _pessoa_ld(autor)
     dados = {
         '@context': 'https://schema.org', '@type': 'NewsArticle',
-        'headline': p['title'][:110],
+        'headline': p['title'],
+        **({'alternativeHeadline': p['linhaFina']} if p.get('linhaFina') else {}),
         'description': _desc_saida(p, 200),
         'image': [img],
         'datePublished': p.get('isoFull') or p.get('iso', ''),
