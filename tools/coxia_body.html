@@ -4243,7 +4243,7 @@ ingressos e divisor."></textarea>
   //    o anterior fica inteiro (a investigação de 08/10 apontou este como o
   //    caminho mais provável do sumiço: a matéria seguinte gravava por cima
   //    do rascunho, e publicá-la apagava o que sobrava).
-  // Quatro revisões adversárias em 08 e 09/10 (24, 13, 16 e 9 achados confirmados) moldaram este bloco.
+  // Cinco revisões adversárias em 08 e 09/10 (24, 13, 16, 9 e 4 achados confirmados) moldaram este bloco.
   var RASC_K = 'coxia-rascunho', rascTimer = null;
   var RASC_ID = null;         // o rascunho em edição AGORA neste formulário
   var RASC_FOTO = null;       // a foto do rascunho aberto, quando a tela ainda não tem as originais: {orig, enq, k}
@@ -4433,6 +4433,37 @@ ingressos e divisor."></textarea>
   // que subiu para a nuvem). Num rascunho que só existe nesta tela, a maior
   // versão da mesma matéria até aqui.
   function baseDe(x, assentada){ var b = paraNuvem(x); if(assentada) b._assentada = true; return b; }
+  // sequências de 4 palavras de um texto
+  function telhasDe(t){
+    var w = String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(/[^a-z0-9]+/).filter(Boolean), s = {};
+    for(var i = 0; i + 4 <= w.length; i++) s[w.slice(i, i + 4).join(' ')] = 1;
+    return s;
+  }
+  // o MESMO texto (revisado, cortado, em outra ordem), e não outro texto do
+  // mesmo assunto (duas matérias do mesmo filme têm metade das palavras em comum)
+  function mesmoTextoEstrito(a, b){
+    var ta = Object.keys(telhasDe(a)), tb = Object.keys(telhasDe(b));
+    if(Math.min(ta.length, tb.length) < 20) return mesmoTexto(a, b);   // texto curto: a regra das palavras
+    var menor = ta.length <= tb.length ? ta : tb, outro = {};
+    (menor === ta ? tb : ta).forEach(function(x){ outro[x] = 1; });
+    return menor.filter(function(x){ return outro[x]; }).length / menor.length >= 0.3;
+  }
+  // a base sem texto (o texto foi apagado e essa versão subiu) cede à cópia de
+  // segurança, que é a matéria inteira de antes de apagar
+  function baseViva(x){
+    var b = x._base, g = x._guarda;
+    if(b && !temTexto(b.corpo) && g && temTexto(g.corpo)) return baseDe(g, true);
+    return b;
+  }
+  // o texto de a é o começo do texto de b (o que já estava digitado na pausa
+  // anterior); a última palavra pode estar pela metade, e uma em cada quatro corrigida
+  function comecoDe(a, b){
+    var wa = achatado(a).split(' ').filter(Boolean), wb = achatado(b).split(' ').filter(Boolean);
+    if(!wa.length || wa.length > wb.length) return false;
+    var dif = 0;
+    for(var i = 0; i < wa.length; i++){ if(wa[i] !== wb[i] && !(i === wa.length - 1 && wb[i].indexOf(wa[i]) === 0)) dif++; }
+    return dif <= Math.floor(wa.length / 4);
+  }
   // A TELA VIROU OUTRA MATÉRIA? Texto trocado por outro, ou título trocado sem
   // o texto de antes, é outra matéria. Título reescrito com o mesmo texto, ou
   // texto revisado, continua a mesma (antes a decisão era só pelo título, e
@@ -4441,7 +4472,7 @@ ingressos e divisor."></textarea>
     if(!base) return false;
     var bb = temTexto(base.corpo), bd = temTexto(d.corpo);
     if(!base._assentada && (!bb || miudo(base))) return false;   // título provisório de um rascunho que nunca foi guardado
-    if(bb && bd) return !mesmoTexto(base.corpo, d.corpo);
+    if(bb && bd) return !mesmoTextoEstrito(base.corpo, d.corpo);
     return temTexto(base.title) && temTexto(d.title) && !tituloParecido(base.title, d.title);
   }
   // A MATÉRIA INTEIRA guardada num rascunho (tela esvaziada, ou outra matéria
@@ -4450,10 +4481,11 @@ ingressos e divisor."></textarea>
   // outra coisa), vale a cópia de segurança (ou a base), completada com o que
   // só as mais novas têm (foto, data, crédito). Uma cópia de segurança de
   // OUTRO texto vira rascunho à parte.
-  function inteiraDe(x){
+  function inteiraDe(x, tela){
     var b = x._base, g = x._guarda;
     var perdeuTexto = function(v){ return g && v !== g && tamanhoRasc(v) < tamanhoRasc(g) * 0.6 && !(temTexto(v.corpo) && mesmaMateria(v, g)); };
-    var serve = function(v){ return v && temConteudo(v) && !miudo(v) && !perdeuTexto(v); };
+    // (na divisão: a gravação que é o começo da tela nova já é a outra matéria)
+    var serve = function(v){ return v && temConteudo(v) && !miudo(v) && !perdeuTexto(v) && !(tela && comecoDe(v.corpo, tela.corpo)); };
     var esc = [x._pico, x].filter(serve)[0], recentes = [];
     if(!esc){
       esc = [g, b].filter(function(v){ return v && temConteudo(v); })[0] || x._pico || x;
@@ -4645,8 +4677,10 @@ ingressos e divisor."></textarea>
       // OUTRA MATÉRIA POR CIMA (o caminho mais provável do sumiço de 08/10):
       // a tela deixou de ser a matéria guardada. O rascunho guardado fica
       // inteiro, com o id e o título dele, e a tela vira um rascunho novo.
-      if(antes && outraMateria(antes._base, d)){
-        var q = inteiraDe(antes), bt = antes._base.title;
+      var bv = antes && baseViva(antes), bt = '';
+      if(antes && outraMateria(bv, d)){
+        var q = inteiraDe(antes, d);
+        bt = bv.title;
         velho = q.r;
         if(bt && (!velho.title || !tituloParecido(bt, velho.title))){ velho.title = bt; velho._titulo = bt; }
         lista.push(velho);
@@ -4689,7 +4723,12 @@ ingressos e divisor."></textarea>
         if(!b._assentada && !outraMateria(b, d) && tamanhoTudo(d) >= tamanhoTudo(b) &&
            (tituloParecido(b.title || '', d.title || '') || !temTexto(b.corpo) || miudo(b))) b = baseDe(d);
         d._base = b;
-      } else d._base = baseDe(d);
+      } else {
+        d._base = baseDe(d);
+        // nasceu de uma divisão com o título do velho ainda na tela: esse título
+        // é do velho, e a base aceita o primeiro título que vier
+        if(velho && bt && tituloParecido(bt, d.title || '')) d._base.title = '';
+      }
       if(d.title) d._titulo = d.title;
       // de qual versão da nuvem esta cópia nasceu (para nunca gravar por cima de outro aparelho)
       var nv = RASC_NUVEM[RASC_ID];
