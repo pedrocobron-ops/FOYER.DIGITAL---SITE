@@ -4243,7 +4243,7 @@ ingressos e divisor."></textarea>
   //    o anterior fica inteiro (a investigação de 08/10 apontou este como o
   //    caminho mais provável do sumiço: a matéria seguinte gravava por cima
   //    do rascunho, e publicá-la apagava o que sobrava).
-  // Cinco revisões adversárias em 08 e 09/10 (24, 13, 16, 9 e 4 achados confirmados) moldaram este bloco.
+  // Seis revisões adversárias em 08 e 09/10 (24, 13, 16, 9, 4 e 8 achados confirmados) moldaram este bloco.
   var RASC_K = 'coxia-rascunho', rascTimer = null;
   var RASC_ID = null;         // o rascunho em edição AGORA neste formulário
   var RASC_FOTO = null;       // a foto do rascunho aberto, quando a tela ainda não tem as originais: {orig, enq, k}
@@ -4452,9 +4452,54 @@ ingressos e divisor."></textarea>
   // segurança, que é a matéria inteira de antes de apagar
   function baseViva(x){
     var b = x._base, g = x._guarda;
-    if(b && !temTexto(b.corpo) && g && temTexto(g.corpo)) return baseDe(g, true);
+    if(b && g && temTexto(g.corpo) && (!temTexto(b.corpo) || (curtoTxt(b.corpo) && tamanhoRasc(b) < tamanhoRasc(g) * 0.6))) return baseDe(g, true);
     return b;
   }
+  // poucas palavras (menos de 20 sequências de 4) não provam que é a mesma matéria
+  function curtoTxt(t){ return Object.keys(telhasDe(t)).length < 20; }
+  // v perdeu o texto em relação a ref: bem menor e não é um corte dela
+  function perdeuPara(v, ref){ return !!ref && v !== ref && tamanhoRasc(v) < tamanhoRasc(ref) * 0.6 && !(temTexto(v.corpo) && !curtoTxt(v.corpo) && mesmaMateria(v, ref)); }
+  // a referência de um rascunho: a maior entre a cópia de segurança e a base, com texto
+  function refDe(x){ return [x._guarda, x._base].filter(function(v){ return v && temTexto(v.corpo); }).sort(function(p, q){ return tamanhoRasc(q) - tamanhoRasc(p); })[0] || null; }
+  // o texto é igual ao da versão guardada (aberta, ou salva com 💾)
+  function ehBaseDe(x, v){ var b = x._base; return !!(b && b._assentada && temTexto(v.corpo) && achatado(v.corpo) === achatado(b.corpo)); }
+  // a tela tem só o começo de outra coisa por cima de um rascunho guardado
+  function trocadoPorPouco(x){ return !!x && temConteudo(x) && curtoTxt(x.corpo) && perdeuPara(x, refDe(x)) && !ehBaseDe(x, x); }
+  // Na divisão, o que o rascunho antigo tem IGUAL à tela nova já é da outra
+  // matéria (título, linha fina, foto, crédito e fontes preenchidos de cima
+  // para baixo, antes do texto): volta o valor da versão guardada dele.
+  // (se a versão guardada já tinha esses campos da outra matéria, porque o 💾
+  // foi tocado depois de trocar o título e antes de colar o texto, vale a
+  // versão guardada de antes, com o mesmo texto: _origem)
+  function devolveCampos(v, tela, b){
+    if(!b) return;
+    var o = b._origem || null;
+    var jx = function(x){ return JSON.stringify(x === undefined ? null : x); };
+    var tOk = function(t){ return temTexto(t) && !tituloParecido(t, tela.title || ''); };
+    if(!temTexto(v.title) || tituloParecido(v.title, tela.title || '')){
+      if(tOk(b.title)) v.title = b.title; else if(o && tOk(o.title)) v.title = o.title;
+    }
+    ['sub', 'cred', 'imgleg', 'imgfonte', 'imgdir', 'fontes', 'cat', 'cats', 'autor', 'op', 'ev', 'pub'].forEach(function(k){
+      if(jx(v[k]) !== jx(tela[k])) return;
+      var src = jx(b[k]) !== jx(tela[k]) ? b : (o && jx(o[k]) !== jx(tela[k])) ? o : null;
+      if(src){ if(src[k] === undefined) delete v[k]; else v[k] = src[k]; }
+    });
+    var fk = function(x){ return x && x.foto ? (x.foto.k || JSON.stringify(x.foto.orig || null)) : ''; };
+    if(fk(v) === fk(tela)){
+      var fs = fk(b) !== fk(tela) ? b : (o && fk(o) !== fk(tela)) ? o : null;
+      if(fs){ v.foto = fs.foto || null; v.temFoto = !!(fs.foto || fs.temFoto); }
+    }
+    if(!v.foto && v.temFoto && tela.temFoto && !(b.foto || b.temFoto)) v.temFoto = false;
+    if(v.title) v._titulo = v.title;
+  }
+  // uma versão guardada nova com o MESMO texto da anterior lembra a primeira
+  function baseNova(x, ant){
+    var nb = baseDe(x, true);
+    if(ant && ant._assentada && temTexto(ant.corpo) && achatado(ant.corpo) === achatado(nb.corpo) && !mesmoGuardado(ant, nb)) nb._origem = ant._origem || paraNuvem(ant);
+    else if(ant && ant._origem && achatado(ant.corpo) === achatado(nb.corpo)) nb._origem = ant._origem;
+    return nb;
+  }
+  function mesmoGuardado(a, b){ return assinaturaRasc(a) === assinaturaRasc(b); }
   // o texto de a é o começo do texto de b (o que já estava digitado na pausa
   // anterior); a última palavra pode estar pela metade, e uma em cada quatro corrigida
   function comecoDe(a, b){
@@ -4482,13 +4527,15 @@ ingressos e divisor."></textarea>
   // só as mais novas têm (foto, data, crédito). Uma cópia de segurança de
   // OUTRO texto vira rascunho à parte.
   function inteiraDe(x, tela){
-    var b = x._base, g = x._guarda;
-    var perdeuTexto = function(v){ return g && v !== g && tamanhoRasc(v) < tamanhoRasc(g) * 0.6 && !(temTexto(v.corpo) && mesmaMateria(v, g)); };
-    // (na divisão: a gravação que é o começo da tela nova já é a outra matéria)
-    var serve = function(v){ return v && temConteudo(v) && !miudo(v) && !perdeuTexto(v) && !(tela && comecoDe(v.corpo, tela.corpo)); };
+    var b = x._base, g = x._guarda, ref = refDe(x);
+    // serve: tem conteúdo, não perdeu o texto (ou é a versão que a pessoa
+    // guardou com 💾); na divisão, a gravação que é o começo da tela nova já é
+    // a outra matéria
+    var serve = function(v){ return v && temConteudo(v) && !miudo(v) && (ehBaseDe(x, v) || !perdeuPara(v, ref)) && !(tela && comecoDe(v.corpo, tela.corpo)); };
     var esc = [x._pico, x].filter(serve)[0], recentes = [];
     if(!esc){
-      esc = [g, b].filter(function(v){ return v && temConteudo(v); })[0] || x._pico || x;
+      var gServe = g && temConteudo(g) && !(b && temTexto(b.corpo) && perdeuPara(g, b));
+      esc = (gServe ? g : null) || (b && temConteudo(b) ? b : null) || x._pico || x;
       recentes = [x, x._pico].filter(Boolean);
     }
     var r = versaoLimpa(esc);
@@ -4680,9 +4727,11 @@ ingressos e divisor."></textarea>
       var bv = antes && baseViva(antes), bt = '';
       if(antes && outraMateria(bv, d)){
         var q = inteiraDe(antes, d);
-        bt = bv.title;
         velho = q.r;
-        if(bt && (!velho.title || !tituloParecido(bt, velho.title))){ velho.title = bt; velho._titulo = bt; }
+        devolveCampos(velho, d, bv);
+        bt = velho.title || '';
+        // uma subida da tela de antes da divisão, ainda em andamento, não passa por cima do velho
+        if(NUVEM_GRAVANDO[velho.id]) velho.quando = new Date().toISOString();
         lista.push(velho);
         if(q.extra && !jaNaPrateleira(q.extra, lista)){ separado = q.extra; lista.push(separado); }
         RASC_ID = novoIdRasc(); d.id = RASC_ID;
@@ -4864,6 +4913,15 @@ ingressos e divisor."></textarea>
         rascGrava(rascLista().concat([g]));
         sobeEntrada(g, true);
       }
+      // a versão guardada deste rascunho (a aberta, ou a do 💾) era OUTRA
+      // matéria e não está em nenhum outro rascunho: fica guardada
+      var bb = e && e._base;
+      if(bb && bb._assentada && temConteudo(bb) && !miudo(bb) && outraMateria(bb, pub) && !jaNaPrateleira(bb, rascLista()) &&
+         !rascLista().some(function(x){ return !achatado(bb.corpo) && x.title === bb.title; })){
+        var ab = aParte(bb);
+        rascGrava(rascLista().concat([ab]));
+        sobeEntrada(ab, true);
+      }
     }
     if(RASC_ID === id){ RASC_ID = null; RASC_FOTO = null; estadoSalvar('mudou'); }
     VAZIO_DE = null;
@@ -4973,6 +5031,9 @@ ingressos e divisor."></textarea>
     // versão inteira vai junto, no mesmo arquivo (antes o salvamento calado
     // esperava, e o rascunho deixava de ir para a nuvem sem aviso)
     var local = rascLista().filter(function(x){ return x.id === id; })[0];
+    // só o começo de outra coisa por cima de um rascunho guardado: a subida
+    // calada espera (a nuvem continua com a matéria inteira; o 💾 sobe)
+    if(calado && local && trocadoPorPouco(local)) return Promise.resolve({ ok: false, motivo: 'curto' });
     if(local && local._guarda) d.anterior = paraNuvem(local._guarda);
     NUVEM_GRAVANDO[id] = (NUVEM_GRAVANDO[id] || 0) + 1;
     var sai = function(){ if(!--NUVEM_GRAVANDO[id]) delete NUVEM_GRAVANDO[id]; };
@@ -5039,7 +5100,10 @@ ingressos e divisor."></textarea>
               if(maisNova) local = maisNova;
               else if(velhoL) ['_titulo', '_guarda', '_pico', '_versaoAnterior'].forEach(function(k){ if(velhoL[k] !== undefined) local[k] = velhoL[k]; });
               if(!local._guarda && pacote.anterior) local._guarda = pacote.anterior;
-              local._base = baseDe(pacote, true);   // a versão que a nuvem tem passa a ser a base
+              // a versão guardada (base) muda pelo 💾, ou na primeira subida; uma
+              // subida automática no meio de uma troca de matéria não a muda
+              var bAnt = maisNova ? maisNova._base : (velhoL && velhoL._base);
+              local._base = (calado && !outro && bAnt && bAnt._assentada) ? bAnt : baseNova(pacote, outro ? null : bAnt);
               local._nuvemEm = pacote.salvoEm; local._hNuvem = h; delete local._divergiu;
               if(USER) local.dono = USER.id;
               rascGrava(l.filter(function(x){ return x.id !== alvoId; }).concat([local]));
@@ -5060,7 +5124,9 @@ ingressos e divisor."></textarea>
     var nv = RASC_NUVEM[r.id];
     var conhecida = nv && nv.em ? nv : { em: r._nuvemEm || null, h: r._hNuvem || null };
     enfileiraNuvem(function(){
-      return gravaNaNuvem(d, r.id, { estaciona: true }, conhecida);
+      // se este aparelho gravou depois do pedido, a versão conhecida é essa
+      var nv2 = RASC_NUVEM[r.id];
+      return gravaNaNuvem(d, r.id, { estaciona: true }, nv2 && nv2.em && nv2.t && nv2 !== nv ? nv2 : conhecida);
     }).catch(function(){});
   }
   // o salvamento sozinho na nuvem: só para quem já foi para a nuvem, 90 s
@@ -5100,6 +5166,28 @@ ingressos e divisor."></textarea>
       return { ok: false, motivo: 'falhou' };
     });
   }
+  // A TELA SÓ TEM O COMEÇO DE OUTRA COISA por cima de um rascunho guardado
+  // (poucas palavras no lugar do texto): ao sair dela (＋ Nova em branco, abrir
+  // outro rascunho, editar), o rascunho volta inteiro, e as poucas palavras não
+  // viram rascunho.
+  function devolveInteiro(){
+    if(EDIT || !RASC_ID) return null;
+    salvarRasc(true, true);
+    var l = rascLista(), e = l.filter(function(x){ return x.id === RASC_ID; })[0];
+    if(!e || (CAPA_SRC && !fotoDoRascunho()) || !trocadoPorPouco(e)) return null;
+    var q = inteiraDe(e);
+    var nl = l.map(function(x){ return x.id === e.id ? q.r : x; });
+    var extra = q.extra && !jaNaPrateleira(q.extra, nl) ? q.extra : null;
+    if(extra) nl.push(extra);
+    rascGrava(nl);
+    clearTimeout(NUVEM_TIMER); NUVEM_TIMER = null; NUVEM_DESDE = 0;
+    RASC_ID = null; RASC_FOTO = null;
+    var nv = RASC_NUVEM[e.id];
+    if((nv && nv.em) || q.r._nuvemEm) sobeEntrada(q.r);
+    if(extra) sobeEntrada(extra, true);
+    atualizaContagem();
+    return q.r;
+  }
   // Tirar o rascunho da tela (outra aba, outra matéria, app em segundo plano):
   // grava no aparelho na hora e manda para a nuvem sem esperar.
   function estacionaRascunho(soDeVezEmQuando){
@@ -5121,7 +5209,7 @@ ingressos e divisor."></textarea>
     var d = coletarRasc();
     if(!temConteudo(d)) return Promise.resolve(true);
     var fotoSoNaTela = !!CAPA_SRC && !fotoDoRascunho();
-    if(!fotoSoNaTela){ estacionaRascunho(); return Promise.resolve(true); }
+    if(!fotoSoNaTela){ if(!devolveInteiro()) estacionaRascunho(); return Promise.resolve(true); }
     // uma troca por vez: a segunda espera a primeira terminar
     if(PORTA_P){ toast('⏳ Ainda guardando a foto do rascunho; toque de novo em instantes.'); return Promise.resolve(false); }
     salvarRasc(true, true);
@@ -5204,7 +5292,7 @@ ingressos e divisor."></textarea>
       loc._base = baseDe(d, true);
       rascGrava(rascLista().filter(function(x){ return x.id !== RASC_ID; }).concat([loc]));
     } else {
-      var lb = rascLista(); lb.forEach(function(x){ if(x.id === RASC_ID) x._base = baseDe(x, true); }); rascGrava(lb);
+      var lb = rascLista(); lb.forEach(function(x){ if(x.id === RASC_ID) x._base = baseNova(x, x._base); }); rascGrava(lb);
     }
     limparCamposNova();
     $('f-title').value = d.title || ''; $('f-sub').value = d.sub || ''; $('f-cat').value = d.cat || 'Teatro';
@@ -5341,6 +5429,12 @@ ingressos e divisor."></textarea>
       $('f-title').focus();
     };
     if(!temConteudo(d)){ limpa('🗒 Matéria nova em branco.'); return; }
+    var dvN = devolveInteiro();
+    if(dvN){
+      toast('Rascunho guardado inteiro ✓');
+      limpa('🗒 Matéria nova em branco. O rascunho “' + corta(dvN.title || 'sem título', 50) + '” ficou guardado inteiro, como estava, em 📄 Rascunhos.');
+      return;
+    }
     salvarRasc(true, true);   // no aparelho, na hora (antes era em 0,8 s, e a tela limpava antes)
     if(!podeGravar()){
       var fotoPerde = !!CAPA_SRC;
