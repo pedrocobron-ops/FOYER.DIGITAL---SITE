@@ -9,8 +9,18 @@
  "imgfonte": "",
  "imgdir": "",
  "fontes": "",
- "temFoto": false,
- "foto": null,
+ "temFoto": true,
+ "foto": {
+  "orig": {
+   "imgOriginal": "assets/uploads/rascunho-original-1791568505161.jpg"
+  },
+  "enq": {
+   "fx": 0.46071428571428585,
+   "fy": 0.38011474609374973,
+   "z": 1
+  },
+  "k": "615756:HyDUtDk/pRH1F9uZoL4vz9KocuLnRhvM2+I4aDJfMLGg/9k=:OXFTdHpZJZZJij4vugb/TR9w"
+ },
  "op": null,
  "autor": "Redação Foyer",
  "ev": {
@@ -23,9 +33,9 @@
   "modo": "agora",
   "data": "2026-10-17T09:00"
  },
- "quando": "2026-10-09T17:54:49.392Z",
+ "quando": "2026-10-09T17:55:10.249Z",
  "id": "rmv19mcsejjuh",
- "salvoEm": "2026-10-09T17:54:50.939Z",
+ "salvoEm": "2026-10-09T17:55:10.946Z",
  "por": "Isabel Branquinha",
  "v": 2
 }
