@@ -4743,9 +4743,9 @@ ingressos e divisor."></textarea>
     if(!e) return;
     var r = q.r, nv = RASC_NUVEM[id];
     var naNuvem = !!((nv && nv.em) || r._nuvemEm);
-    // nunca guardado (nem 💾 nem nuvem) e quase nada, ou só um título
-    // provisório apagado: não é rascunho
-    if(!naNuvem && !q.extra && !r._guarda && (miudo(r) || soTitulo(r))){
+    // nunca guardado (nem 💾, nem nuvem, nem aberto da lista) e quase nada,
+    // ou só um título provisório apagado: não é rascunho
+    if(!naNuvem && !q.extra && !r._guarda && !(r._base && r._base._assentada) && (miudo(r) || soTitulo(r))){
       rascGrava(l.filter(function(x){ return x.id !== id; }));
       rascStatus('Tela em branco.'); estadoSalvar('mudou'); atualizaContagem();
       return;
