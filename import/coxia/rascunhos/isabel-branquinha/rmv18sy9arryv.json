@@ -4,15 +4,25 @@
  "cat": "Teatro",
  "cats": [],
  "corpo": "",
- "cred": "Foto: Thiago Bugalo ",
+ "cred": "Foto: Tiago Bugalo ",
  "imgleg": "",
  "imgfonte": "",
  "imgdir": "",
  "fontes": "",
- "temFoto": false,
- "foto": null,
+ "temFoto": true,
+ "foto": {
+  "orig": {
+   "imgOriginal": "assets/uploads/rascunho-original-1791567127616.jpg"
+  },
+  "enq": {
+   "fx": 0.4892857142857143,
+   "fy": 0.21654054807687734,
+   "z": 1
+  },
+  "k": "317616:GU0t88+svpx6PJLW6Rf03u17HllPbkAOrhtyx7c2ckuo/9k=:cb9RxparsjUeTI5ucnKe9l48"
+ },
  "op": null,
- "autor": "Redação Foyer",
+ "autor": "Isabel Branquinha",
  "ev": {
   "ini": "",
   "fim": "",
@@ -23,9 +33,9 @@
   "modo": "agora",
   "data": "2026-10-10T12:00"
  },
- "quando": "2026-10-09T17:31:59.605Z",
+ "quando": "2026-10-09T17:32:16.529Z",
  "id": "rmv18sy9arryv",
- "salvoEm": "2026-10-09T17:32:00.915Z",
+ "salvoEm": "2026-10-09T17:32:17.502Z",
  "por": "Isabel Branquinha",
  "v": 2
 }
