@@ -330,6 +330,22 @@ def pistas_funcao(texto):
     return votos
 
 
+def _dia_brasilia(iso):
+    """O dia da publicação em Brasília, igual ao que a página da matéria mostra
+    (auditoria de 10/10/2026: cortado do texto em UTC, o que saiu entre 21h e
+    23h59 ganhava a data do dia seguinte)."""
+    if len(iso) <= 10:
+        return iso
+    try:
+        from zoneinfo import ZoneInfo
+        d = datetime.fromisoformat(iso.replace('Z', '+00:00'))
+        if d.tzinfo is None:
+            d = d.replace(tzinfo=timezone.utc)
+        return d.astimezone(ZoneInfo('America/Sao_Paulo')).strftime('%Y-%m-%d')
+    except Exception:
+        return iso[:10]
+
+
 def main():
     materias = json.load(open(f'{ROOT}/import/materias.json'))
     # inclui as matérias publicadas pela Coxia (import/novas) que não estão no índice do Wix
@@ -362,7 +378,7 @@ def main():
             # enciclopédia (o Pedro notou em 05/08/2026, na matéria do Divine).
             materias.insert(0, {'slug': n['slug'], 'title': n['title'],
                                 'author': n.get('author', ''), 'desc': n.get('desc', ''),
-                                'iso': (n.get('publishAt') or '')[:10],
+                                'iso': _dia_brasilia(n.get('publishAt') or ''),
                                 'cat': n.get('cat', ''),
                                 '_corpo': n.get('corpo', '')})
     try:

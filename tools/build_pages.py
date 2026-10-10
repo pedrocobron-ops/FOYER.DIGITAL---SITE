@@ -1354,12 +1354,13 @@ busca_body = band('Ferramenta', 'Buscar',
 </main>
 <script>
 (function(){
-  var IDX = [];
+  var IDX = [], FALHOU = false;
   var info = document.getElementById('busca-info');
   var mais = document.getElementById('busca-mais');
+  var q = document.getElementById('q'), res = document.getElementById('res');
   fetch('assets/busca-index.json').then(function(r){ return r.json(); }).then(function(d){
     IDX = d;
-    // O índice junta matéria, verbete de pessoa e episódio de programa.
+    // O índice junta matéria, verbete de pessoa e as seções do site.
     // Chamar os 4.221 de "matérias" era contar 2.643 pessoas como matéria,
     // e o leitor via isso brigando com o número do olho da própria página.
     var mat = 0, pes = 0, out = 0;
@@ -1370,10 +1371,17 @@ busca_body = band('Ferramenta', 'Buscar',
       else out++;
     }
     var n = function(x){ return x.toLocaleString('pt-BR'); };
-    info.textContent = n(mat) + ' matérias e ' + n(pes) + ' pessoas'
-      + (out ? ' e ' + n(out) + ' episódios' : '') + ' — digite para buscar';
-  }).catch(function(){ info.textContent = 'Não foi possível carregar o índice.'; });
-  var q = document.getElementById('q'), res = document.getElementById('res');
+    // o resto são as seções (Agenda, Revista...), não episódios (auditoria de 10/10/2026)
+    info.textContent = n(mat) + ' matérias, ' + n(pes) + ' pessoas'
+      + (out ? ' e ' + n(out) + ' seções do site' : '') + ' — digite para buscar';
+    // quem digitou antes de o índice chegar ficava com "Nada encontrado"
+    // até apagar e digitar de novo (auditoria de 10/10/2026)
+    if(q.value.trim().length >= 2) render();
+  }).catch(function(){
+    FALHOU = true;
+    info.textContent = 'Não foi possível carregar o índice.';
+    if(q.value.trim().length >= 2) render();
+  });
   function norm(s){ return s.toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g,''); }
   // O título de uma matéria é escrito por gente e pode ter < ou > um dia
   // (uma peça chamada "Peça <Anônima>", um verbete com aspas). Como a lista
@@ -1388,6 +1396,13 @@ busca_body = band('Ferramenta', 'Buscar',
   function render(){
     var v = norm(q.value.trim());
     if(v.length < 2){ res.innerHTML=''; mais.textContent=''; return; }
+    if(!IDX.length){
+      res.innerHTML = '<div class="ency-row"><span class="of">' + (FALHOU
+        ? 'Não foi possível carregar o índice. Recarregue a página para buscar.'
+        : 'Carregando o índice do acervo…') + '</span></div>';
+      mais.textContent = '';
+      return;
+    }
     var hits = [], achados = 0;
     // Pontuação (vistoria de 06/10/2026): nome de verbete igual ao termo >
     // termo no título > termo em quem aparece na matéria > editoria/autor.
@@ -1495,12 +1510,46 @@ def _link_interno(m):
         return txt
     return f'<a href="{alvo}">{txt}</a>'
 
-def md_lite(txt):
-    """Formato simples da Coxia -> HTML: parágrafos, ## intertítulo,
-    > citação, **negrito**, *itálico*, [texto](url), img:URL | legenda"""
-    import html as _h
+def _md_blocos(txt):
+    """Os blocos do texto (separados por linha em branco). Intertítulo (#, ##,
+    ###), linha de botão, foto ou vídeo e trecho de citação (>) colados ao
+    texto sem linha em branco viram blocos próprios (auditoria de 10/10/2026:
+    um '## ' sem linha em branco engolia o bloco inteiro num h2, com a ficha
+    técnica, a citação e o botão dentro). A galeria segue com suas linhas."""
     out = []
     for bloco in _re.split(r'\n\s*\n', txt.strip()):
+        b = bloco.strip()
+        if not b or b.startswith('galeria:'):
+            out.append(b)
+            continue
+        atual, tipo = [], ''
+        for ln in b.split('\n'):
+            s = ln.strip()
+            if _re.match(r'#{1,6}(?:\s|$)|(?:botao|img|video|spotify):', s):
+                if atual:
+                    out.append('\n'.join(atual).strip())
+                out.append(s)
+                atual, tipo = [], ''
+                continue
+            t = 'q' if s.startswith(('> ', '&gt; ')) else 't'
+            if atual and t != tipo:
+                out.append('\n'.join(atual).strip())
+                atual = []
+            atual.append(ln)
+            tipo = t
+        if atual:
+            out.append('\n'.join(atual).strip())
+    return out
+
+def md_lite(txt, titulo=''):
+    """Formato simples da Coxia -> HTML: parágrafos, ## intertítulo,
+    > citação, **negrito**, *itálico*, [texto](url), img:URL | legenda.
+    'titulo': o título da matéria; um intertítulo igual a ele é descartado."""
+    import html as _h
+    def _mesmo(a):
+        return _re.sub(r'\W+', ' ', a.replace('*', '')).strip().lower()
+    out = []
+    for bloco in _md_blocos(txt):
         b = bloco.strip()
         if not b:
             continue
@@ -1518,8 +1567,13 @@ def md_lite(txt):
             capt = f'<figcaption>{dentro}</figcaption>' if (cap or cred) else ''
             out.append(f'<figure class="art-img"><img src="{_h.escape(url)}" alt="{_h.escape(cap)}" loading="lazy">{capt}</figure>')
             continue
-        if b.startswith('## '):
-            out.append(f'<h2>{_h.escape(b[3:].strip())}</h2>')
+        _mh = _re.match(r'(#{1,6})(?:\s+(.*))?$', b)
+        if _mh:
+            # '#' e '###' também são intertítulo (saíam crus); intertítulo vazio
+            # ou repetindo o título da matéria some (auditoria de 10/10/2026)
+            _tt = (_mh.group(2) or '').strip().rstrip('#').strip()
+            if _tt and not (titulo and _mesmo(_tt) == _mesmo(titulo)):
+                out.append(f'<h2>{_h.escape(_tt)}</h2>')
             continue
         if b.startswith('video:'):
             _u = b[6:].strip()
@@ -1592,7 +1646,8 @@ def md_lite(txt):
         e = e.replace('\\&quot;', '&quot;')  # aspas escapadas com barra no texto da Coxia saíam com a barra
         e = e.replace('\n', '<br>')
         if b.startswith('&gt; ') or b.startswith('> '):
-            e = _re.sub(r'^(&gt;|>)\s*', '', e)
+            # citação de várias linhas: o '>' de cada linha sai (não só o da primeira)
+            e = _re.sub(r'(^|<br>)(&gt;|>)\s*', r'\1', e)
             out.append(f'<blockquote class="pull">{e}</blockquote>')
         else:
             out.append(f'<p>{e}</p>')
@@ -1616,7 +1671,7 @@ if os.path.isdir(_novas_dir):
             _agendadas += 1
             continue
         _slug = _n['slug']
-        _corpo = md_lite(_n.get('corpo', ''))
+        _corpo = md_lite(_n.get('corpo', ''), _n.get('title', ''))
         open(os.path.join(ROOT, 'import/corpo', _slug + '.html'), 'w').write(_corpo)
         _txt = _re.sub(r'<[^>]+>', '', _corpo)
         # linha fina (08/10/2026): quando existe, é ela a descrição para o Google,
@@ -1624,7 +1679,6 @@ if os.path.isdir(_novas_dir):
         _lf = _re.sub(r'\s+', ' ', (_n.get('linhaFina') or '').replace('*', '')).strip()
         _desc = _lf or (_re.sub(r'\s+', ' ', _txt).strip()[:230] or _n.get('title',''))
         _iso = (_pub or _agora)[:10]
-        _y, _mo, _dd = _iso.split('-')
         # horário de publicação em Brasília (as antigas do Wix não têm hora registrada)
         _hora = ''
         try:
@@ -1633,8 +1687,13 @@ if os.path.isdir(_novas_dir):
             _dtb = _dtp.astimezone(_ZI('America/Sao_Paulo'))
             _hora = f'{_dtb.hour}h{_dtb.minute:02d}'
             _iso_full = _dtb.isoformat(timespec='seconds')
+            # o DIA também é o de Brasília (auditoria de 10/10/2026): cortado do
+            # texto em UTC, a matéria publicada entre 21h e 23h59 saía com a data
+            # do dia seguinte na assinatura, nos cartões e no sitemap
+            _iso = _dtb.strftime('%Y-%m-%d')
         except Exception:
             _iso_full = ''
+        _y, _mo, _dd = _iso.split('-')
         _novas.append({
             # *asteriscos* no título marcam o trecho que vai em itálico vinho
             # na capa tipográfica (coluna sem foto); fora dela o título é limpo
@@ -1713,7 +1772,23 @@ if _n_creds:
 _MES_N = {'Jan':'01','Feb':'02','Mar':'03','Apr':'04','May':'05','Jun':'06',
           'Jul':'07','Aug':'08','Sep':'09','Oct':'10','Nov':'11','Dec':'12'}
 
-_ANO_ATUAL = datetime.now(timezone.utc).strftime('%Y')
+def _dia_brasilia(iso):
+    """'AAAA-MM-DD' de Brasília para um carimbo com hora (com fuso ou em UTC);
+    data sem hora volta como veio (auditoria de 10/10/2026: cortar o texto em
+    UTC adiantava um dia o que foi feito entre 21h e 23h59)."""
+    iso = str(iso or '')
+    if len(iso) <= 10:
+        return iso
+    try:
+        from zoneinfo import ZoneInfo as _ZId
+        d = datetime.fromisoformat(iso.replace('Z', '+00:00'))
+        if d.tzinfo is None:
+            d = d.replace(tzinfo=timezone.utc)
+        return d.astimezone(_ZId('America/Sao_Paulo')).strftime('%Y-%m-%d')
+    except Exception:
+        return iso[:10]
+
+_ANO_ATUAL = _dia_brasilia(datetime.now(timezone.utc).isoformat())[:4]
 
 def short_date(p):
     """Data curta dos cartões e listas. 'DD.MM' no ano corrente; 'DD.MM.AA' nos
@@ -1726,11 +1801,32 @@ def short_date(p):
         return f'<time datetime="{iso}">{txt}</time>'
     return p.get('short', '')
 
+def _desc_reserva(p):
+    """Matéria sem descrição (as de vídeo do Wix saíam com description vazia,
+    auditoria de 10/10/2026): o começo do texto do corpo; se o corpo só tem o
+    vídeo, uma frase com o título e quem assina. O JSON da matéria fica igual."""
+    corpo = ''
+    try:
+        corpo = open(os.path.join(ROOT, 'import/corpo', p.get('slug', '') + '.html')).read()
+    except Exception:
+        pass
+    t = _re.sub(r'\s+', ' ', _html.unescape(_re.sub(r'<[^>]+>', ' ', corpo))).strip()
+    if t:
+        return t
+    tit = _re.sub(r'\s+', ' ', p.get('title') or '').strip()
+    if not tit:
+        return ''
+    if tit[-1] not in '.!?…':
+        tit += '.'
+    quem = (p.get('author') or '').strip()
+    quem = '' if (not quem or 'reda' in quem.lower()) else ' de ' + quem
+    return f"{tit} {'Vídeo' if 'art-video' in corpo else 'Matéria'}{quem} no FOYER."
+
 def _desc_saida(p, n=200):
     """A description que vai para o Google, o WhatsApp e o feed: sem entidade
     HTML visível (&quot;), cortada no fim de frase ou, se não der, em palavra
     inteira com reticências. Nunca no meio da palavra (vistoria de 06/10/2026)."""
-    t = _re.sub(r'\s+', ' ', _html.unescape(p.get('desc') or '')).strip()
+    t = _re.sub(r'\s+', ' ', _html.unescape(p.get('desc') or '')).strip() or _desc_reserva(p)
     if len(t) <= n:
         return t
     corte = t[:n]
@@ -1905,11 +2001,27 @@ def _og_src(url):
         return f'{url}/v1/fill/w_1200,h_630,al_c,q_82/cover.jpg'
     return url
 
+def _cred_limpo(c):
+    """Crédito sem o rótulo que já veio escrito: 'Crédito: Foto: Fulano' vira
+    'Fulano' (auditoria de 10/10/2026: a tarja da capa repetia o rótulo, e a
+    capa da Revista dizia 'Foto: Foto:')."""
+    return _re.sub(r'^(?:(?:cr[ée]dito(?:\s+da\s+foto)?|fotos?|fotp|imagem|reprodu[çc][ãa]o)\s*:\s*)+',
+                   '', (c or '').strip(), flags=_re.I).strip()
+
+def _tarja_cred(c, sep=' — '):
+    """O crédito com o rótulo 'Foto' na frente. Crédito que já se apresenta
+    ('Imagem gerada por IA', 'Ilustração...', 'Frame de vídeo: ...') vai sem
+    rótulo, e imagem feita por inteligência artificial leva 'Imagem:', não 'Foto'."""
+    if _re.match(r'(imagem|ilustra[çc][ãa]o|frame)\b', c, _re.I):
+        return c
+    if _re.search(r'intelig[êe]ncia artificial|\bia\b', c, _re.I):
+        return 'Imagem: ' + c
+    return 'Foto' + sep + c
+
 def _cred_curto(p):
     """Crédito curto para tarjas de cartão: o NOME do fotógrafo vem antes da
     palavra 'Divulgação' (que só aparece quando não há fotógrafo conhecido)."""
-    c = (p.get('credito') or '').strip()
-    c = _re.sub(r'^(fotos?|reprodução|imagem)\s*:\s*', '', c, flags=_re.I)
+    c = _cred_limpo(p.get('credito'))
     if '/' in c:
         antes = c.split('/')[0].strip()
         if antes and antes.lower() not in ('divulgação', 'divulgacao', 'reprodução', 'reproducao'):
@@ -1977,7 +2089,7 @@ def _og_tipo(p):
 def real_ph(p, href, cap=True):
     if _sem_foto_op(p):
         return _capa_tipo(p, href, grande=cap)
-    c = f'<span class="ph-cap">Foto — {safe(_cred_curto(p))}</span>' if cap else ''
+    c = f'<span class="ph-cap">{safe(_tarja_cred(_cred_curto(p)))}</span>' if cap else ''
     return (f'<a class="ph" href="{href}" aria-label="Foto da matéria">'
             f'<img src="{wiximg(p["img"], 800, 450)}" alt="{safe(p["title"])}" loading="lazy" onerror="this.style.display=\'none\'">{c}</a>')
 
@@ -2081,7 +2193,7 @@ index_body = TICKER + '''
 
 _manchete_capa = _capa_tipo(_p0, f"post-{_p0['slug']}.html", grande=True, classe='ph cover ph-tipo') if _sem_foto_op(_p0) else f'''<a class="ph cover" href="post-{_p0['slug']}.html" aria-label="Foto da reportagem de capa">
         <img src="{wiximg(_p0['img'])}" alt="" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'">
-        <span class="ph-cap">Foto — {safe(_cred_curto(_p0))}</span>
+        <span class="ph-cap">{safe(_tarja_cred(_cred_curto(_p0)))}</span>
       </a>'''
 index_main = f'''<main id="conteudo">
 <section class="frontpage wrap">
@@ -3237,14 +3349,14 @@ def _rv_pagina(pg, ed, num):
                 f'</div>{fol}</section>')
     if t == 'materia':
         # o crédito da foto de abertura: o expediente promete, a página cumpre
-        cred_foto = (pg.get('imgCredito') or '').strip()
+        cred_foto = _cred_limpo(pg.get('imgCredito'))
         if not cred_foto and pg.get('slug'):
             _mm = next((m for m in MATERIAS if m.get('slug') == pg.get('slug')), None)
             if _mm and (_mm.get('credito') or '').strip():
                 cred_foto = _cred_curto(_mm)
         img = (f'<div class="foto"><img src="{_rvesc(wiximg(pg.get("img", ""), 1200, 700))}" alt="" '
                f'onerror="this.style.display=\'none\'"><span class="cat">{_rvesc(pg.get("cat") or "FOYER")}</span>'
-               + (f'<span class="cred">Foto — {_rvesc(cred_foto)}</span>' if cred_foto else '')
+               + (f'<span class="cred">{_rvesc(_tarja_cred(cred_foto))}</span>' if cred_foto else '')
                + '</div>') if pg.get('img') else ''
         leia = (f'<div class="leia"><a href="post-{_rvesc(pg.get("slug"))}.html">Abrir esta matéria no site →</a></div>'
                 ) if pg.get('slug') else ''
@@ -3585,7 +3697,8 @@ def edicao_page(ed):
         f'<div class="linha-ed"><span>A revista da semana</span><span>Nº {_rvesc(ed.get("numero"))} · {_rvesc(ed.get("dataEdicao", ""))}</span></div>'
         '<div class="moldura">'
         + (f'<img src="{_rvesc(wiximg(capa.get("img", ""), 800, 1000))}" alt="" loading="lazy">' if capa.get('img') else '')
-        + (f'<span class="cred">Foto: {_rvesc(capa["credito"])}</span>' if capa.get('credito') else '')
+        # o crédito já costuma vir com 'Foto:' escrito: saía 'Foto: Foto:' (auditoria de 10/10/2026)
+        + (f'<span class="cred">{_rvesc(_tarja_cred(_cred_limpo(capa["credito"]), ": "))}</span>' if _cred_limpo(capa.get('credito')) else '')
         + '</div>'
         f'<div class="manchete"><h2>{_rvesc(capa.get("manchete") or ed.get("titulo", ""))}</h2></div>'
         + (f'<div class="faixa">{calls}</div>' if calls else '')
@@ -4268,7 +4381,8 @@ POR_MATERIA = ENC.get('porMateria', {})
 POR_VIDEO = ENC.get('porVideo', {})
 
 _WIKI_PAL = {'actriz': 'atriz', 'actor': 'ator', 'realizador': 'diretor', 'realizadora': 'diretora',
-             'argumentista': 'roteirista', 'guionista': 'roteirista'}
+             'argumentista': 'roteirista', 'guionista': 'roteirista',
+             'dobrador': 'dublador', 'dobradora': 'dubladora'}
 
 def _desc_wiki(d):
     """A descrição curta da Wikipédia, arrumada para o subtítulo do verbete
@@ -4282,9 +4396,13 @@ def _desc_wiki(d):
         return ''
     if _re.match(r'^(nome art[íi]stico|pseud[ôo]nimo|fundador|fundadora|é um|é uma)\b', d, _re.I):
         return ''
-    d = _re.sub(r'\b(actriz|actor|realizadora?|argumentista|guionista)\b',
+    d = _re.sub(r'\b(actriz|actor|realizadora?|argumentista|guionista|dobradora?)\b',
                 lambda m: _WIKI_PAL.get(m.group(1).lower(), m.group(1)), d, flags=_re.I)
-    partes = _re.split(r',\s*|\s+e\s+', d)
+    # a lista se parte nas vírgulas e só no primeiro ' e ' depois da última
+    # vírgula: o resto é a última função inteira (auditoria de 10/10/2026: o
+    # 'cronista de costumes e de futebol' de Nelson Rodrigues virava 'de futebol')
+    partes = _re.split(r',\s*', d)
+    partes = partes[:-1] + _re.split(r'\s+e\s+', partes[-1], maxsplit=1)
     if len(partes) > 3:
         d = f'{partes[0]} e {partes[-1]}'
     return d[0].upper() + d[1:]
@@ -4929,15 +5047,19 @@ def _agd_linha(p, destaque=''):
     except Exception:
         _dia, _mes = '·', ''
     lugar = ', '.join(x for x in (ev.get('local', ''), ev.get('cidade', '')) if x)
-    meta = destaque or lugar or _corta(p['desc'], 100)
+    # desc já vem com entidades (&quot;) e o _rvesc escapava de novo: o leitor
+    # via "&quot;" na Agenda (auditoria de 10/10/2026)
+    meta = destaque or lugar or _desc_saida(p, 100)
     return f'''    <a class="agd-row" href="post-{p['slug']}.html">
       <span class="agd-date"><b>{_dia}</b><small>{_mes}</small></span>
       <span class="agd-what"><h3>{_rvesc(p['title'])}</h3><span class="agd-meta">{_rvesc(meta)}</span></span>
       <span class="tag agd-tag">{_rvesc(p['cat'])}</span>
     </a>\n'''
 
-_hoje = datetime.now(timezone.utc).strftime('%Y-%m-%d')
-_hoje7 = (datetime.now(timezone.utc) + __import__('datetime').timedelta(days=7)).strftime('%Y-%m-%d')
+# o dia de Brasília: em UTC, a partir das 21h o evento que acaba hoje já
+# saía da Agenda como encerrado (auditoria de 10/10/2026)
+_hoje = _dia_brasilia(datetime.now(timezone.utc).isoformat())
+_hoje7 = _dia_brasilia((datetime.now(timezone.utc) + __import__('datetime').timedelta(days=7)).isoformat())
 
 _com_evento = [p for p in MATERIAS if p.get('evento') and (p['evento'].get('inicio') or '')]
 _ativos = [p for p in _com_evento if not (p['evento'].get('fim') and p['evento']['fim'] < _hoje)]
@@ -5304,14 +5426,29 @@ enciclopedia_body = band('Projeto Foyer', 'Enciclopédia do FOYER', 'Quem faz o 
     var foto = p.p ? '<span class="vb-foto mini"><img src="' + p.p + '" alt="" loading="lazy"></span>' : '';
     return '<a class="ency-row" href="' + p.u + '"><span class="nm">' + p.n + (p.f ? '<small>' + p.f + '</small>' : '') + '</span><span class="of"></span><span class="ct">' + p.c + ' aparições</span><span class="ar">→</span></a>';
   }}
+  // auditoria de 10/10/2026: a lista parava em 200 sem avisar (a letra M
+  // terminava em 'Mary'). Agora conta tudo, desenha 200 e oferece o resto.
+  var lim = 200, achados = [];
+  function desenha(){{
+    res.innerHTML = achados.length ? achados.slice(0, lim).map(linha).join('') + (achados.length > lim
+        ? '<div class="ency-row head" style="grid-template-columns:1fr auto"><span>Mostrando ' + lim + ' de ' + achados.length.toLocaleString('pt-BR') + ' nomes</span><span class="ency-chips" style="margin:0"><button type="button" id="enc-todos">Mostrar todos</button></span></div>' : '')
+      : '<div class="ency-row"><span class="nm">Nenhuma pessoa encontrada</span><span class="of"></span><span class="ct"></span><span class="ar"></span></div>';
+    var bt = document.getElementById('enc-todos');
+    if(bt) bt.addEventListener('click', function(){{
+      var de = lim; lim = Infinity; desenha();
+      var a = res.querySelectorAll('a.ency-row')[de]; if(a) a.focus();
+    }});
+  }}
   function roda(){{
     var v = norm(q.value.trim());
     if(v.length < 2 && !letra && !funcao){{ res.innerHTML = lista0; padrao.style.display = ''; return; }}
     var go = function(){{
-      var hits = [], fs = funcao ? funcao.split('|') : [];
+      // os termos do botão perdem o acento como a função do verbete
+      // ('direção' nunca casava com 'direcao' e o filtro escondia 4 de 5 diretores)
+      var hits = [], fs = funcao ? norm(funcao).split('|') : [];
       var lista = IDX.slice();
       if(letra) lista.sort(function(a, b){{ return norm(a.n) < norm(b.n) ? -1 : 1; }});
-      for(var i = 0; i < lista.length && hits.length < 200; i++){{
+      for(var i = 0; i < lista.length; i++){{
         var p = lista[i], n = norm(p.n);
         if(v.length >= 2 && n.indexOf(v) === -1) continue;
         if(letra && n.charAt(0) !== letra.toLowerCase()) continue;
@@ -5319,8 +5456,7 @@ enciclopedia_body = band('Projeto Foyer', 'Enciclopédia do FOYER', 'Quem faz o 
         hits.push(p);
       }}
       padrao.style.display = 'none';
-      res.innerHTML = hits.length ? hits.map(linha).join('')
-        : '<div class="ency-row"><span class="nm">Nenhuma pessoa encontrada</span><span class="of"></span><span class="ct"></span><span class="ar"></span></div>';
+      achados = hits; lim = 200; desenha();
     }};
     if(IDX) go();
     else fetch('assets/pessoas-index.json').then(function(r){{ return r.json(); }}).then(function(d){{ IDX = d; go(); }});
@@ -5582,10 +5718,18 @@ def opiniao_lista_body(tipo):
         miolo += '<div class="news-grid three">\n' + '\n'.join(op_cell(x) for x in lista) + '\n</div>'
     return _op_pagina(tipo, miolo + '</section>')
 
+# lista ainda vazia (Editoriais, hoje) sai do Google e do sitemap até ganhar o
+# primeiro texto; ninguém linka para ela, e página vazia conta como conteúdo
+# raso (auditoria de 10/10/2026)
+_OP_VAZIAS = set()
 for _t, _f, _d in (('coluna', 'opiniao-colunas.html', 'As colunas de opinião do FOYER, por colunista.'),
                    ('artigo', 'opiniao-artigos.html', 'Artigos de opinião de convidados do FOYER.'),
                    ('editorial', 'opiniao-editoriais.html', 'Os editoriais do FOYER.')):
-    page(_f, {'coluna': 'Colunas', 'artigo': 'Artigos', 'editorial': 'Editoriais'}[_t] + ' — Opinião — FOYER', _d, 'opiniao.html', opiniao_lista_body(_t))
+    _vz = not any(x.get('tipo') == _t for x in OPINIAO)
+    if _vz:
+        _OP_VAZIAS.add(_f)
+    page(_f, {'coluna': 'Colunas', 'artigo': 'Artigos', 'editorial': 'Editoriais'}[_t] + ' — Opinião — FOYER', _d, 'opiniao.html', opiniao_lista_body(_t),
+         robots=('noindex,follow' if _vz else ''))
 page('opiniao.html', 'Opinião — FOYER', 'Colunas, artigos de convidados e os editoriais do FOYER sobre teatro, música e cultura.', 'opiniao.html', opiniao_body())
 # a categoria antiga vira ponte para a seção: nenhum link compartilhado quebra
 for _old in ('cat-artigo-de-opiniao.html', 'cat-artigo-de-opiniao-p2.html'):
@@ -7430,6 +7574,29 @@ descadastrar_body = band('Newsletter', 'Descadastrar', 'Sair da lista da Revista
 </script>'''
 page('descadastrar.html', 'Descadastrar — Revista do FOYER', 'Sair da lista de e-mails da Revista do FOYER.', 'descadastrar.html', descadastrar_body)
 
+def _quando_mod(p):
+    """dateModified do JSON-LD (e base do lastmod do sitemap): o mais recente
+    entre a publicação e a última edição, com fuso (auditoria de 10/10/2026:
+    matéria editada enquanto esperava a hora agendada saía "modificada" antes
+    de existir, e o corte em 25 letras arrancava o fuso de uma das datas)."""
+    pub = p.get('isoFull') or p.get('iso', '')
+    upd = str(p.get('atualizado') or '')
+    if not upd:
+        return pub
+    try:
+        from zoneinfo import ZoneInfo as _ZIm
+        def _dt(s):
+            d = datetime.fromisoformat(s.replace('Z', '+00:00'))
+            return (d if d.tzinfo else d.replace(tzinfo=timezone.utc)).astimezone(_ZIm('America/Sao_Paulo'))
+        du = _dt(upd)
+        if len(pub) > 10 and _dt(pub) >= du:
+            return pub
+        if len(pub) == 10 and du.strftime('%Y-%m-%d') < pub:
+            return pub
+        return du.isoformat(timespec='seconds')
+    except Exception:
+        return pub or upd
+
 def _ld_materia(p):
     img = _og_src(p['img']) if p['img'] else (_og_tipo(p) or f'{BASE}/assets/logo/src/foyer-banner.png')
     if not img.startswith('http'):
@@ -7456,7 +7623,7 @@ def _ld_materia(p):
         'description': _desc_saida(p, 200),
         'image': [img],
         'datePublished': p.get('isoFull') or p.get('iso', ''),
-        'dateModified': (p.get('atualizado') or p.get('isoFull') or p.get('iso', ''))[:25],
+        'dateModified': _quando_mod(p),
         'author': _a if isinstance(_a, list) else [_a],
         'publisher': {'@type': 'NewsMediaOrganization', 'name': 'FOYER',
                       'logo': {'@type': 'ImageObject', 'url': f'{BASE}/assets/logo/foyer-stacked-gold.png'}},
@@ -7740,6 +7907,7 @@ import glob as _g
 urls = sorted(os.path.basename(f) for f in _g.glob(os.path.join(ROOT, '*.html'))
               if os.path.basename(f) not in ('coxia.html', '404.html', 'cat-artigo-de-opiniao.html', 'cat-artigo-de-opiniao-p2.html', 'assine.html', 'em-cartaz.html', 'midia-kit.html')
               and os.path.basename(f) not in _FORA_SITEMAP
+              and os.path.basename(f) not in _OP_VAZIAS
               and not os.path.basename(f).startswith('revista-prova-'))
 # apelidos e grafias juntadas (regras -> apelidos) entram na busca: quem digita
 # "Zé Celso" acha as matérias de José Celso Martinez Corrêa
@@ -7764,8 +7932,9 @@ with open(os.path.join(ROOT, 'assets/busca-index.json'), 'w') as f:
                    ('Notícias', 'noticias.html'))], f, ensure_ascii=False)
 print(f'busca: {len(MATERIAS)} matérias indexadas')
 
-_hoje_sm = datetime.now(timezone.utc).strftime('%Y-%m-%d')
-_mod = {'post-' + p['slug'] + '.html': ((p.get('atualizado') or p.get('iso') or _hoje_sm)[:10])
+# dias de Brasília, como a data que a matéria mostra (auditoria de 10/10/2026)
+_hoje_sm = _dia_brasilia(datetime.now(timezone.utc).isoformat())
+_mod = {'post-' + p['slug'] + '.html': (_dia_brasilia(_quando_mod(p)) or _hoje_sm)
         for p in MATERIAS}
 # Datas reais também para verbetes, autores, editorias e edições da revista
 # (05/10/2026): tudo sem data ganhava a data de hoje a cada publicação, e o
@@ -7804,7 +7973,8 @@ with open(os.path.join(ROOT, 'sitemap.xml'), 'w') as f:
 _agora_utc = datetime.now(timezone.utc)
 # sem hora registrada, o mais tarde que a matéria pode ser é meia-noite de
 # ontem — 48h no pior caso. Usar anteontem deixaria passar até 72h.
-_corte_dia = (_agora_utc - __import__('datetime').timedelta(days=1)).strftime('%Y-%m-%d')
+# O dia é o de Brasília, o mesmo da data da matéria (auditoria de 10/10/2026).
+_corte_dia = _dia_brasilia((_agora_utc - __import__('datetime').timedelta(days=1)).isoformat())
 
 def _fresca(p):
     cheia = p.get('isoFull') or ''
