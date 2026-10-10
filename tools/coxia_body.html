@@ -2749,6 +2749,15 @@ ingressos e divisor."></textarea>
         .then(checaResp).then(function(v){ ghCacheLimpa(); return v; });
     });
   }
+  // cria o arquivo SÓ se ele ainda não existe: vai sem sha e sem buscar o
+  // atual, então o GitHub recusa (422) quando alguém criou antes, e nada é
+  // sobrescrito. O 422 vira o aviso de conflito de quem chamou.
+  function ghPutNovo(path, content, msg){
+    var body = { message: msg, content: b64(content), branch: BRANCH };
+    return naFilaGrava(function(){ return ghFetch(API + path, { method:'PUT',
+      headers: hdr({'Content-Type':'application/json'}), body: JSON.stringify(body) }); })
+      .then(checaResp).then(function(v){ ghCacheLimpa(); return v; });
+  }
   function ghPutRaw(path, base64content, msg){
     var vai = function(){
       return naFilaGrava(function(){ return ghFetch(API + path, { method:'PUT',
@@ -6883,6 +6892,33 @@ ingressos e divisor."></textarea>
     var slug = EDIT ? EDIT.slug : slugify(title);
     var btn = $('btn-pub');
     var ehChefe = podeEditar();
+    // A TRAVA DE ASSINATURA VALE TAMBÉM AQUI, e não só no botão da mesa. O
+    // chefe escolhia "Isabel Branquinha" no Autor(a) e a matéria ia direto ao
+    // ar no nome dela, sem ela ter visto (auditoria de 10/10/2026). Agora, se
+    // quem assina é outra pessoa da equipe, a matéria vai para a mesa e é essa
+    // pessoa que aprova. Na edição de matéria publicada, trocar a assinatura
+    // para o nome de outra pessoa da equipe é barrado; manter a assinatura que
+    // já estava (corrigir o texto da Isabel, por exemplo) continua livre.
+    var autorFinal = (colherOpiniao() || {}).tipo === 'editorial' ? 'Foyer' : $('f-autor').value;
+    var mesaDe = (!EDIT && ehChefe) ? donosDaEquipe(autorFinal) : [];
+    var quemMesa = mesaDe.map(function(n){ return n.split(' ')[0]; }).join(' ou ');
+    if(mesaDe.length && !mesaDe.some(temMesaNaEquipe)){
+      // a pessoa do nome não tem a mesa: na mesa, a matéria ficaria parada para sempre
+      avisar('Esta matéria vai assinada por ' + autorFinal + '. Só ' + quemMesa + ' publica no próprio nome, e ' + quemMesa +
+        ' não tem a mesa de aprovação.\n\nPeça para ' + quemMesa + ' enviar a matéria pela Coxia, ou assine com o seu nome ou como Redação Foyer.');
+      return;
+    }
+    if(EDIT && EDIT.fonte !== 'pauta' && ehChefe &&
+       String(autorFinal || '').trim() !== String((EDIT.orig && EDIT.orig.author) || '').trim()){
+      var alheiosE = donosDaEquipe(autorFinal);
+      if(alheiosE.length){
+        var quemE = alheiosE.map(function(n){ return n.split(' ')[0]; }).join(' ou ');
+        avisar('Assim a matéria passaria a sair assinada por ' + autorFinal + '.\n\nSó ' + quemE +
+          ' põe o próprio nome numa matéria. Volte a assinatura para "' + ((EDIT.orig && EDIT.orig.author) || 'Redação Foyer') +
+          '" e salve, ou peça para ' + quemE + ' fazer essa troca.');
+        return;
+      }
+    }
     btn.disabled = true; btn.textContent = 'Enviando…';
     ENVIANDO = true; clearTimeout(NUVEM_TIMER); NUVEM_TIMER = null; NUVEM_DESDE = 0;
     try{ $('form').inert = true; }catch(eI){}
@@ -6910,6 +6946,12 @@ ingressos e divisor."></textarea>
     var checaEnvio = checaTravessao.then(function(okT){
       if(!okT) return false;
       if(editEnvio || !ehChefe) return true;
+      if(mesaDe.length){
+        return confirmar('“' + corta(title, 64) + '” vai assinada por ' + autorFinal + '.\n\nSó ' + quemMesa +
+          ' publica no próprio nome: a matéria vai para a mesa de aprovação, e ' + quemMesa + ' aprova' +
+          (quando === 'agendar' ? ' (a data marcada segue como sugestão).' : ' e programa a publicação.') +
+          '\n\nMandar para a mesa?', { rotuloOk: 'Mandar para a mesa' });
+      }
       var semCapa = !fotoF.src && !fotoF.foto && F.secao !== 'opiniao';
       return confirmar((quando === 'agendar' ? 'Agendar “' : 'Publicar “') + corta(title, 64) +
         (quando === 'agendar' ? '” para a data marcada?' : '” no site agora?') +
@@ -6922,11 +6964,21 @@ ingressos e divisor."></textarea>
       if(!okE) return false;
       return editEnvio ? true : Promise.all([
       ghGet('import/novas/' + slug + '.json').catch(function(){ return null; }),
-      ghGet('import/pauta/' + slug + '.json').catch(function(){ return null; })
+      ghGet('import/pauta/' + slug + '.json').catch(function(){ return null; }),
+      // o acervo antigo (import/materias.json) também conta: o build tira do ar
+      // a matéria antiga que tem o mesmo endereço de uma da Coxia, e o "Peter
+      // Pan" novo apagava o de 2024 sem ninguém saber (auditoria de 10/10/2026).
+      // undefined = não deu para conferir
+      acervoTodos().then(function(mats){ return acervoDoSlug(mats, slug); }, function(){ return undefined; })
     ]).then(function(ex){
         if(ex[0] || ex[1]){
           return confirmar('Já existe uma matéria com este título (endereço "' + slug + '").\n' +
             'Se continuar, você vai SOBRESCREVER a que já está lá.\n\nMude um pouco o título para publicar as duas. Continuar assim mesmo?', { perigo:true });
+        }
+        if(ex[2]) return confirmar(avisoAcervo([ex[2]]), { perigo:true });
+        if(ex[2] === undefined){
+          return confirmar('Não consegui conferir o acervo antigo agora (conexão). Se já existir uma matéria antiga com o endereço "' + slug +
+            '", ela sai do ar e o endereço passa a mostrar esta.\n\nContinuar assim mesmo?', { perigo:true });
         }
         return true;
       });
@@ -7011,7 +7063,8 @@ ingressos e divisor."></textarea>
         return ghPut('import/pauta/' + slug + '.json', JSON.stringify(pac, null, 1),
           assina('edita na mesa "' + title + '"' + (pac.assinaturaTrocada
             ? ' (assinatura: ' + (pac.assinaturaTrocada.de || 'sem assinatura') +
-              ' → ' + pac.assinaturaTrocada.para + ')' : '')), editEnvio.sha);
+              ' → ' + pac.assinaturaTrocada.para + ')' : '')), editEnvio.sha)
+          .catch(function(err){ return conflitoEdicao(err, 'import/pauta/' + slug + '.json', editEnvio); });
       }
       if(editEnvio){
         var edicao = {
@@ -7040,13 +7093,32 @@ ingressos e divisor."></textarea>
         aplicaOpiniao(edicao, F.op);
         var evE = F.ev;
         if(evE) edicao.evento = evE;
-        var notaC = F.correcao;
-        if(notaC){ edicao.correcao = { texto: notaC, quando: new Date().toISOString(), por: USER.nome }; }
-        else if(o.correcao){ edicao.correcao = o.correcao; }  // mantém correção anterior se não mexeu
-        return ghPut('import/novas/' + slug + '.json', JSON.stringify(edicao, null, 1),
-          assina('edita matéria publicada "' + title + '"' + (notaC ? ' (com nota de correção)' : '')));
+        if(o.aprovadoPor) edicao.aprovadoPor = o.aprovadoPor;   // quem aprovou na mesa não some na edição
+        // A NOTA DE CORREÇÃO. O campo já abre com a nota que existe, então ter
+        // texto não quer dizer nota nova: toda edição regravava a data e o autor
+        // da nota com os de agora, e o leitor via a correção com a data da última
+        // vírgula mexida. Agora: o mesmo texto mantém a nota antiga intacta,
+        // texto novo é nota nova (com quando e por), campo vazio tira a nota
+        // (uma nota posta por engano não ficava mais presa na matéria).
+        var notaC = F.correcao, notaAntiga = o.correcao && String(o.correcao.texto || '').trim();
+        var notaNova = !!notaC && notaC !== notaAntiga;
+        if(notaC && !notaNova) edicao.correcao = o.correcao;
+        else if(notaNova) edicao.correcao = { texto: notaC, quando: new Date().toISOString(), por: USER.nome };
+        // SÓ POR CIMA DA VERSÃO QUE ESTA TELA ABRIU. Sem o sha, o ghPut buscava
+        // o mais novo e gravava por cima: o Pedro corrigia o título, a Isabel
+        // (com a tela aberta desde antes) punha uma nota de correção, e o título
+        // voltava ao antigo sem ninguém saber (auditoria de 10/10/2026). Com o
+        // sha, a segunda gravação é recusada e a pessoa é avisada. Matéria do
+        // acervo que ainda não tem JSON grava só se continuar sem.
+        var camE = 'import/novas/' + slug + '.json';
+        var txtE = JSON.stringify(edicao, null, 1);
+        var msgE = assina('edita matéria publicada "' + title + '"' +
+          (notaNova ? ' (com nota de correção)' : (notaAntiga && !notaC ? ' (tira a nota de correção)' : '')));
+        var gravaE = editEnvio.sha ? ghPut(camE, txtE, msgE, editEnvio.sha)
+          : (editEnvio.fonte === 'acervo' ? ghPutNovo(camE, txtE, msgE) : ghPut(camE, txtE, msgE));
+        return gravaE.catch(function(err){ return conflitoEdicao(err, camE, editEnvio); });
       }
-      if(ehChefe){
+      if(ehChefe && !mesaDe.length){
         var dados = {
           title: title, slug: slug,
           cat: F.cat,
@@ -7068,11 +7140,12 @@ ingressos e divisor."></textarea>
         return ghPut('import/novas/' + slug + '.json', JSON.stringify(dados, null, 1),
           assina((quando === 'agendar' ? 'agenda' : 'publica') + ' "' + title + '"'));
       }
-      // autor(a): vai para a mesa de aprovação do chefe
+      // autor(a): vai para a mesa de aprovação do chefe. O chefe que assina com
+      // o nome de outra pessoa da equipe também cai aqui: a mesa é dela.
       var pacote = {
         title: title, slug: slug,
         cat: F.cat,
-        author: USER.nome,
+        author: ehChefe ? F.autor : USER.nome,
         img: imgPath, imgCredito: F.cred,
         corpo: corpo, fontes: F.fontes,
         status: 'aguardando_aprovacao', origem: 'autor',
@@ -7080,6 +7153,7 @@ ingressos e divisor."></textarea>
         geradoEm: new Date().toISOString(), criadoPor: USER.nome
       };
       aplicaOriginais(pacote, NOVO_ORIG);
+      var _il = F.imgleg; if(_il) pacote.imgLegenda = _il;   // a descrição da foto ficava para trás
       var _if = F.imgfonte; if(_if) pacote.imgFonte = _if;
       var _id = F.imgdir; if(_id) pacote.imgDireito = _id;
       if(linhaFina) pacote.linhaFina = linhaFina;
@@ -7088,7 +7162,7 @@ ingressos e divisor."></textarea>
       var evP = F.ev;
       if(evP) pacote.evento = evP;
       return ghPut('import/pauta/' + slug + '.json', JSON.stringify(pacote, null, 1),
-        assina('envia "' + title + '" para a aprovação do chefe'));
+        assina('envia "' + title + '" para a aprovação ' + (mesaDe.length ? 'de ' + mesaDe.join(' e ') : 'do chefe')));
     }).then(function(){
       msg.className = 'msg ok';
       if(editEnvio){
@@ -7100,10 +7174,15 @@ ingressos e divisor."></textarea>
         if(eraPauta) irPara('ia');
         return;
       }
-      msg.textContent = ehChefe
-        ? (quando === 'agendar' ? 'Agendada ✓ — sai no site na hora marcada' : 'Enviada ✓ — no ar em ~2 minutos')
-        : 'Enviada para a mesa do chefe ✓ — ele aprova e programa a publicação';
-      if(ehChefe) toast(quando === 'agendar' ? 'Agendada ✓ — sai na hora marcada' : 'Enviada ✓ — no ar em ~2 minutos');
+      if(mesaDe.length){
+        msg.textContent = 'Enviada para a mesa ✓: ' + quemMesa + ' aprova e programa a publicação, porque a matéria sai no nome dela(e).';
+        toast('Enviada para a mesa de ' + quemMesa + ' ✓');
+      } else {
+        msg.textContent = ehChefe
+          ? (quando === 'agendar' ? 'Agendada ✓ — sai no site na hora marcada' : 'Enviada ✓ — no ar em ~2 minutos')
+          : 'Enviada para a mesa do chefe ✓ — ele aprova e programa a publicação';
+        if(ehChefe) toast(quando === 'agendar' ? 'Agendada ✓ — sai na hora marcada' : 'Enviada ✓ — no ar em ~2 minutos');
+      }
       // o autor vai para a Fila ver a matéria com o selo "Na mesa do chefe":
       // prova concreta de que o envio chegou (item 15 do ensaio)
       if(!ehChefe){
@@ -7872,8 +7951,10 @@ ingressos e divisor."></textarea>
           var origem = ehAutor
             ? 'Enviada por ' + esc(d.criadoPor || d.author)
             : 'Redação IA — esteira: ' + esc(d.esteira || 'agentes');
+          var meuNome = podeLiberarAssinatura(d);
           var parecer = ehAutor
-            ? '<div class="mesa-parecer"><b>Matéria da equipe:</b> ' + esc(d.author) + ' assina; você aprova, programa ou recusa.</div>'
+            ? '<div class="mesa-parecer"><b>Matéria da equipe:</b> ' + esc(d.author) + ' assina; ' +
+              (meuNome ? 'você aprova, programa ou recusa.' : 'a aprovação é de quem assina. Você pode ler, editar e devolver com um recado.') + '</div>'
             : '<div class="mesa-parecer"><b>Parecer do chefe de redação (agente):</b> ' + esc(ch.parecer || 'sem parecer') + '<br>' + ressalvas + '</div>';
           // a matéria já chega com a data de lançamento: um SELO no topo do
           // card, no estilo do QUENTE, e o botão aprova nela com um clique
@@ -7911,7 +7992,6 @@ ingressos e divisor."></textarea>
             blocoArrobas(d.instagram) +
             '</details>';
           var fontesBloco = fontes ? '<details class="mesa-dobra"><summary>Fontes apuradas</summary>' + fontes + '</details>' : '';
-          var meuNome = podeLiberarAssinatura(d);
           return '<article class="mesa-card' + (meuNome ? '' : ' de-outro') + (MESA_ABERTOS[d.slug] ? '' : ' fechado') + '" id="card-' + esc(d.slug) + '" data-slug="' + esc(d.slug) + '">' +
             '<div class="mesa-head">' +
               '<label class="mesa-pick" title="' + (meuNome ? 'Selecionar para aprovar/agendar em lote' : 'Assinada por outra pessoa: só ela aprova') + '"><input type="checkbox" class="mesa-check" data-pick="' + esc(d.slug) + '"' + ((d.img && meuNome) ? '' : ' disabled') + '></label>' +
@@ -8058,30 +8138,86 @@ ingressos e divisor."></textarea>
   // Matéria que vai sair assinada por uma PESSOA só pode ser liberada por essa pessoa.
   // O nome de quem assina é o que responde pelo texto diante do leitor: ninguém publica
   // no nome de outro. Matéria de "Redação Foyer" segue liberada por quem tem a mesa.
+  // Coletiva é só o nome inteiro da casa: "Redação Foyer" (ou "Redação") e
+  // "Foyer", que é como o editorial assina. Antes bastava COMEÇAR com
+  // "Redação", e "Redação Foyer e Isabel Branquinha" passava pela trava: o
+  // Pedro aprovava uma matéria com o nome da Isabel (auditoria de 10/10/2026).
   function ehAssinaturaColetiva(nome){
-    return !nome || /^reda(ç|c)ão/i.test(String(nome).trim());
+    return !nome || /^(reda[çc][aã]o( foyer)?|foyer)$/i.test(String(nome).trim());
   }
   function donoDaAssinatura(d){
     var a = (d && d.author) ? String(d.author).trim() : '';
     return ehAssinaturaColetiva(a) ? '' : a;
   }
+  // o nome de quem está na Coxia faz parte da assinatura? (dupla conta: qualquer um dos dois)
+  function assinaComigo(nome){
+    var meu = (USER && USER.nome) ? String(USER.nome).trim().toLowerCase() : '';
+    return !!meu && String(nome || '').toLowerCase().split(' e ').some(function(n){ return n.trim() === meu; });
+  }
+  // A MATÉRIA DE QUEM ESCREVE PARA A MESA. O(a) Escritor(a) assina com o
+  // próprio nome e manda para a mesa: o envio é o carimbo dele(a). Sem isto
+  // ninguém aprovava (o chefe não é o dono do nome, e quem escreve não tem a
+  // mesa), e o card ainda dizia "você aprova". Vale só enquanto o que está na
+  // mesa é o que a própria pessoa mandou: assinatura trocada ou texto mexido
+  // por outra pessoa voltam à trava, e o caminho é devolver para ela conferir
+  // e reenviar (o reenvio é o carimbo novo).
+  function enviadaPeloDono(d){
+    var dono = donoDaAssinatura(d).toLowerCase();
+    var ehDono = function(n){ return String(n || '').trim().toLowerCase() === dono; };
+    // quem mexe na mesa fica em editadoPor (inclusive quem troca a assinatura);
+    // se a última mão foi a do dono, o reenvio dele(a) já é o carimbo novo
+    return !!dono && !!d && d.origem === 'autor' && ehDono(d.criadoPor) &&
+      (d.editadoPor ? ehDono(d.editadoPor) : !d.assinaturaTrocada);
+  }
   function podeLiberarAssinatura(d){
     var dono = donoDaAssinatura(d);
     if(!dono) return true;                       // Redação Foyer: qualquer editor da mesa
     // assinatura dupla ("Pedro Amaral e Isabel Branquinha"): qualquer um dos dois aprova
-    var meu = (USER && USER.nome) ? String(USER.nome).trim().toLowerCase() : '';
-    return !!meu && dono.toLowerCase().split(' e ').some(function(n){ return n.trim() === meu; });
+    if(assinaComigo(dono)) return true;
+    return podeMesa() && enviadaPeloDono(d);
+  }
+  // mandada pela própria pessoa da assinatura, mas mexida (texto ou assinatura) por outra depois
+  function mexidaDepoisDoEnvio(d){
+    var dono = donoDaAssinatura(d).toLowerCase();
+    return !!dono && !!d && d.origem === 'autor' && String(d.criadoPor || '').trim().toLowerCase() === dono && !enviadaPeloDono(d);
+  }
+  // quem da EQUIPE assina, fora quem está publicando: são essas pessoas que
+  // carimbam. Nome de fora da equipe (colunista convidado, que não entra na
+  // Coxia) não tem como carimbar e segue com quem publica; dupla com quem
+  // publica vale como na mesa (qualquer um dos dois).
+  function donosDaEquipe(nome){
+    if(ehAssinaturaColetiva(nome) || assinaComigo(nome)) return [];
+    var eq = ((EQUIPE && EQUIPE.lista) || []).map(function(u){ return String(u.nome || '').trim().toLowerCase(); });
+    return String(nome).split(' e ').map(function(n){ return n.trim(); })
+      .filter(function(n){ return n && eq.indexOf(n.toLowerCase()) >= 0; });
+  }
+  function temMesaNaEquipe(nome){
+    var n = String(nome || '').trim().toLowerCase();
+    return ((EQUIPE && EQUIPE.lista) || []).some(function(u){ return String(u.nome || '').trim().toLowerCase() === n && u.papel === 'chefe'; });
   }
   function nomesDaAssinatura(dono){
-    return String(dono || '').split(' e ').map(function(n){ return n.trim().split(' ')[0]; }).join(' ou ');
+    return String(dono || '').split(' e ').map(function(n){ return n.trim(); })
+      .filter(function(n){ return !ehAssinaturaColetiva(n); })   // "Redação Foyer e Isabel": quem carimba é a Isabel
+      .map(function(n){ return n.split(' ')[0]; }).join(' ou ');
+  }
+  // o porquê da trava, dito do mesmo jeito no card, no Aprovar e no lote
+  function motivoTrava(d){
+    var dono = donoDaAssinatura(d), quem = nomesDaAssinatura(dono);
+    if(mexidaDepoisDoEnvio(d))
+      return dono + ' mandou esta matéria, mas ela foi mexida depois do envio' + (d.editadoPor ? ' (por ' + d.editadoPor + ')' : '') +
+        '. Só sai no nome de ' + quem + ' com o carimbo de ' + quem + ': devolva com um recado, ' + quem + ' confere e reenvia.';
+    return 'Só ' + quem + ' pode aprovar, porque é o nome dela(e) que vai ao ar.';
   }
   function avisoAssinatura(d){
     var dono = donoDaAssinatura(d);
     if(!dono) return '';
-    return podeLiberarAssinatura(d)
-      ? '<div class="mesa-assina minha">✍ Esta matéria vai ao ar <b>assinada por você</b>. Leia inteira antes de aprovar: é o seu nome que responde por ela.</div>'
-      : '<div class="mesa-assina outra">🔒 Assinada por <b>' + esc(dono) + '</b>. Só ' + esc(nomesDaAssinatura(dono)) +
-        ' pode aprovar, porque é o nome dela(e) que vai ao ar. Você pode ler, editar e devolver com um recado.</div>';
+    if(assinaComigo(dono))
+      return '<div class="mesa-assina minha">✍ Esta matéria vai ao ar <b>assinada por você</b>. Leia inteira antes de aprovar: é o seu nome que responde por ela.</div>';
+    if(podeLiberarAssinatura(d))
+      return '<div class="mesa-assina minha">✍ Assinada por <b>' + esc(dono) + '</b>, que mandou este texto para a mesa: o envio é o carimbo dela(e). ' +
+        'Você aprova a publicação. Se mexer no texto ou na assinatura, a aprovação volta a ser de ' + esc(nomesDaAssinatura(dono)) + '.</div>';
+    return '<div class="mesa-assina outra">🔒 Assinada por <b>' + esc(dono) + '</b>. ' + esc(motivoTrava(d)) +
+      (mexidaDepoisDoEnvio(d) ? '' : ' Você pode ler, editar e devolver com um recado.') + '</div>';
   }
   // núcleo: publica a matéria e a retira da mesa; devolve uma promessa (sem UI)
   function publicarDaMesa(d, publishAt){
@@ -8101,6 +8237,12 @@ ingressos e divisor."></textarea>
     if(d.imgDireito) dados.imgDireito = d.imgDireito;
     if(d.fontes && d.fontes.length) dados.fontes = d.fontes;
     if(d.evento) dados.evento = d.evento;
+    // a descrição da foto (alt e legenda no site), a seção Opinião (tipo,
+    // coluna, função de quem assina) e quem criou: ficavam gravados na pauta e
+    // não iam para o ar. O texto de opinião aprovado saía como notícia comum
+    // (auditoria de 10/10/2026)
+    if(d.imgLegenda) dados.imgLegenda = d.imgLegenda;
+    ['secao', 'tipo', 'coluna', 'autorFuncao', 'criadoPor'].forEach(function(k){ if(d[k]) dados[k] = d[k]; });
     return ghPut('import/novas/' + d.slug + '.json', JSON.stringify(dados, null, 1),
           assina('aprova "' + d.title + '"' + (d.origem === 'autor' ? ' (matéria de ' + (d.criadoPor || d.author) + ')' : ' (Redação IA)')))
       .then(function(){ return ghDel(d._path, d._sha, assina('retira da mesa após aprovação'))
@@ -8110,22 +8252,36 @@ ingressos e divisor."></textarea>
     var d = MESA[slug];
     if(!d) return;
     if(!podeLiberarAssinatura(d)){
-      avisar('Esta matéria vai sair assinada por ' + donoDaAssinatura(d) + '. Só ' + donoDaAssinatura(d).split(' ')[0] +
-             ' pode aprovar, porque é o nome dela(e) que responde pelo texto.\n\nSe quiser mudar isso, troque a assinatura no editor antes de aprovar.');
+      avisar('Esta matéria vai sair assinada por ' + donoDaAssinatura(d) + '. ' + motivoTrava(d) +
+             (mexidaDepoisDoEnvio(d) ? '' : '\n\nSe quiser mudar isso, troque a assinatura no editor antes de aprovar.'));
       return;
     }
     var card = document.getElementById('card-' + slug);
-    travarCard(card, true);
-    publicarDaMesa(d, publishAt)
-      .then(function(){
-        toast('✓ ' + (quando || 'No ar em ~2 min') + ' — ' + corta(d.title, 40));
-        tiraCardEatualiza(slug);
-        if(d.instagram) registrarInsta(d);  // entra na fila do que falta postar (não trava a aprovação se falhar)
-      })
-      .catch(function(err){
-        travarCard(card, false);
-        avisar(msgErro(err));
-      });
+    checaAcervoMesa([d]).then(function(segue){
+      if(!segue) return;
+      travarCard(card, true);
+      return publicarDaMesa(d, publishAt)
+        .then(function(){
+          toast('✓ ' + (quando || 'No ar em ~2 min') + ' — ' + corta(d.title, 40));
+          tiraCardEatualiza(slug);
+          if(d.instagram) registrarInsta(d);  // entra na fila do que falta postar (não trava a aprovação se falhar)
+        })
+        .catch(function(err){
+          travarCard(card, false);
+          avisar(msgErro(err));
+        });
+    });
+  }
+  // a mesa também confere o acervo antigo: aprovar uma pauta com o endereço de
+  // uma matéria antiga tirava a antiga do ar sem aviso (auditoria de 10/10/2026)
+  function checaAcervoMesa(ds){
+    return acervoTodos().then(function(mats){
+      var bate = ds.map(function(d){ return acervoDoSlug(mats, d.slug); }).filter(Boolean);
+      return bate.length ? confirmar(avisoAcervo(bate, true), { perigo:true }) : true;
+    }, function(){
+      return confirmar('Não consegui conferir o acervo antigo agora (conexão). Se já existir uma matéria antiga com o mesmo endereço, ' +
+        'ela sai do ar e o endereço passa a mostrar a aprovada.\n\nContinuar assim mesmo?', { perigo:true });
+    });
   }
   // ---------- aprovar / agendar em lote ----------
   function slugsSelecionados(){
@@ -8149,13 +8305,16 @@ ingressos e divisor."></textarea>
     if(deOutro.length){
       avisar('Estas estão assinadas por outra pessoa e só ela pode aprovar: ' +
         deOutro.map(function(d){ return '“' + corta(d.title, 28) + '” (' + donoDaAssinatura(d) + ')'; }).join(', ') +
-        '.\n\nDesmarque essas para seguir com o lote.');
+        '.' + (deOutro.some(mexidaDepoisDoEnvio) ? ' As que foram mexidas depois do envio precisam voltar para quem assina conferir e reenviar (↩ Devolver ao autor).' : '') +
+        '\n\nDesmarque essas para seguir com o lote.');
       return;
     }
     var semFoto = ds.filter(function(d){ return !d.img && d.secao !== 'opiniao'; });
     if(semFoto.length){ avisar('Estas ainda estão sem foto de capa: ' + semFoto.map(function(d){ return '“' + corta(d.title, 30) + '”'; }).join(', ') + '. Suba a capa antes.'); return; }
     if(!ds.length) return;
-    confirmar((rotulo ? 'Agendar' : 'Aprovar e publicar') + ' ' + plural(ds.length, 'matéria') + ' ' + (rotulo || 'agora') + '?').then(function(okc){
+    checaAcervoMesa(ds).then(function(segue){
+      return segue && confirmar((rotulo ? 'Agendar' : 'Aprovar e publicar') + ' ' + plural(ds.length, 'matéria') + ' ' + (rotulo || 'agora') + '?');
+    }).then(function(okc){
       if(!okc) return;
       $('ml-aprovar').disabled = true; $('ml-agendar').disabled = true;
       var ok = 0, falhas = [];
@@ -8734,7 +8893,17 @@ ingressos e divisor."></textarea>
   /* ================= EDIÇÃO DE MATÉRIA PUBLICADA ================= */
   function htmlParaCoxia(h){
     h = String(h || '')
-      .replace(/<h2[^>]*>([\s\S]*?)<\/h2>/gi, function(_, t){ return '\n\n## ' + t.replace(/<[^>]+>/g, '') + '\n\n'; })
+      // o vídeo do YouTube embutido vira a linha video: que o site entende. Sem
+      // isto o iframe sumia na limpeza das tags, e corrigir uma vírgula numa
+      // matéria antiga do Programa do Foyer tirava o vídeo do ar (auditoria de
+      // 10/10/2026). O h3/h4 vira intertítulo como o h2 (o site tem um nível
+      // só), o intertítulo vazio some (virava um "##" solto no texto) e cada
+      // item de lista fica na sua linha, em vez de grudar no seguinte.
+      .replace(/<iframe[^>]*src="[^"]*youtube(?:-nocookie)?\.com\/embed\/([\w-]+)[^"]*"[^>]*>\s*<\/iframe>/gi, '\n\nvideo:https://www.youtube.com/watch?v=$1\n\n')
+      .replace(/<(h[234])[^>]*>([\s\S]*?)<\/\1>/gi, function(_, n, t){
+        t = t.replace(/<[^>]+>/g, '');
+        return /\S/.test(t.replace(/&nbsp;|&#160;/gi, ' ')) ? '\n\n## ' + t + '\n\n' : '\n\n';
+      })
       .replace(/<blockquote[^>]*>([\s\S]*?)<\/blockquote>/gi, function(_, q){ return '\n\n> ' + q.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() + '\n\n'; })
       .replace(/<figure[^>]*>[\s\S]*?<img[^>]*src="([^"]+)"[\s\S]*?(?:<figcaption[^>]*>([\s\S]*?)<\/figcaption>)?[\s\S]*?<\/figure>/gi,
         function(_, src, cap){ return '\n\nimg:' + src + (cap ? ' | ' + cap.replace(/<[^>]+>/g, '').trim() : '') + '\n\n'; })
@@ -8742,7 +8911,9 @@ ingressos e divisor."></textarea>
       .replace(/<(strong|b)[^>]*>([\s\S]*?)<\/\1>/gi, '**$2**')
       .replace(/<(em|i)[^>]*>([\s\S]*?)<\/\1>/gi, '*$2*')
       .replace(/<a [^>]*href="(https?:\/\/[^"]+)"[^>]*>([\s\S]*?)<\/a>/gi, '[$2]($1)')
+      .replace(/<a [^>]*href="((?:post-|pessoa-|cat-)[a-z0-9-]+\.html)"[^>]*>([\s\S]*?)<\/a>/gi, '[$2]($1)')
       .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<\/li>/gi, '\n')
       .replace(/<\/p>/gi, '\n\n')
       .replace(/<[^>]+>/g, '');
     var ta = document.createElement('textarea');
@@ -8770,7 +8941,7 @@ ingressos e divisor."></textarea>
       publishAt: dados.publishAt || (dados.iso ? dados.iso + 'T12:00:00.000Z' : new Date().toISOString()),
       criadoEm: dados.criadoEm || dados.publishAt || '',
       img: dados.img || '', origem: dados.origem || (fonte === 'acervo' ? 'acervo' : ''),
-      orig: dados, sha: dados._sha || null
+      orig: dados, sha: dados._sha || null, abertaEm: new Date().toISOString()
     };
     $('f-title').value = dados.title || '';
     $('f-sub').value = dados.linhaFina || '';
@@ -8838,11 +9009,52 @@ ingressos e divisor."></textarea>
     irPara('fila');
   });
 
+  // A EDIÇÃO QUE CHEGOU DEPOIS. O GitHub recusou a gravação porque o arquivo
+  // mudou desde que esta tela o abriu (409), ou porque alguém o criou antes
+  // (422). Nada é gravado, e a tela fica como está: o aviso diz o que houve e
+  // como refazer sem perder o texto. O "recarregue a página" de antes jogava
+  // fora a edição inteira, que não tem rascunho.
+  function conflitoEdicao(err, cam, ed){
+    if(!err || (err.gh !== 409 && err.gh !== 422)) throw err;
+    var daMesa = ed && ed.fonte === 'pauta';
+    return ghGet(cam, true).then(function(f){ return f; }, function(){ return undefined; }).then(function(f){
+      var atual = null;
+      try{ atual = f && f.content ? JSON.parse(unb64(f.content)) : null; }catch(eJ){}
+      var txt;
+      if(f === null){
+        txt = (daMesa ? 'Esta matéria saiu da mesa (foi aprovada, recusada ou removida)' : 'Esta matéria foi removida') +
+          ' depois que você abriu a edição. Nada foi gravado.\n\nO seu texto continua aqui na tela: copie o que precisar antes de sair da edição.';
+      } else {
+        var quem = '';
+        if(atual && atual.editadoPor && atual.atualizadoEm && ed && ed.abertaEm && atual.atualizadoEm >= ed.abertaEm)
+          quem = ' (edição de ' + (atual.editadoPor === (USER && USER.nome) ? 'você mesmo(a), em outro aparelho ou aba' : atual.editadoPor) +
+            ', ' + horaDe(atual.atualizadoEm) + ')';
+        txt = 'Esta matéria ' + (daMesa ? 'da mesa ' : '') + 'foi mudada depois que você abriu a edição' + quem +
+          '. Nada foi gravado, para não apagar essa mudança.\n\nO seu texto continua aqui na tela. Copie o que você mudou, ' +
+          'toque em ✕ Cancelar edição e abra a matéria de novo' + (daMesa && podeMesa() ? ' na mesa' : ' pela Fila') +
+          ': ela vem com a versão nova, e aí você refaz a sua mudança.';
+      }
+      avisar(txt, { titulo: 'Não gravei' });
+      var e2 = new Error('conflito'); e2.foyer = txt.split('\n\n')[0] + ' O seu texto continua na tela.'; e2.gh = err.gh;
+      throw e2;
+    });
+  }
+
   var MATS_ACERVO = null;
   function acervoTodos(){
     if(MATS_ACERVO) return Promise.resolve(MATS_ACERVO);
     return fetch('import/materias.json', { cache: 'no-store' }).then(function(r){ return r.json(); })
       .then(function(d){ MATS_ACERVO = d; return d; });
+  }
+  function acervoDoSlug(mats, slug){
+    return (mats || []).filter(function(m){ return m && m.slug === slug; })[0] || null;
+  }
+  function avisoAcervo(ms, naMesa){
+    return (ms.length === 1
+      ? 'Já existe uma matéria do acervo antigo com este endereço ("' + ms[0].slug + '"): “' + corta(ms[0].title, 70) + '”' + (ms[0].date ? ', de ' + ms[0].date : '') + '.'
+      : 'Já existem matérias do acervo antigo com estes endereços: ' + ms.map(function(m){ return '"' + m.slug + '"'; }).join(', ') + '.') +
+      '\nSe continuar, a matéria antiga SAI DO AR, e o endereço dela passa a mostrar a nova.' +
+      (naMesa ? '\n\nAprovar assim mesmo?' : '\n\nMude um pouco o título para publicar as duas. Continuar assim mesmo?');
   }
   function normTxt(t){ return t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
   var acervoFiltrosProntos = false;
@@ -8909,7 +9121,19 @@ ingressos e divisor."></textarea>
     var b;
     if((b = e.target.closest('[data-edtm]'))){
       var d = FILA_CACHE[b.dataset.edtm];
-      if(d) entrarEdicao(d, 'novas');
+      // a edição parte do que o GitHub tem AGORA, texto e sha da mesma leitura.
+      // A cópia da Fila vem do raw, que pode estar alguns minutos atrás do sha
+      // da lista: editar o texto velho com o sha novo apagaria, calado, a
+      // mudança de outra pessoa. Sem conexão, segue com a cópia da Fila.
+      if(d){
+        var camM = d._path || ('import/novas/' + d.slug + '.json');
+        ghGet(camM, true).then(function(f){
+          if(f === null){ avisar('Esta matéria não está mais publicada (pode ter ido para a Lixeira). Recarregue a Fila.'); return; }
+          var dd = d;
+          try{ if(f && f.content){ dd = JSON.parse(unb64(f.content)); dd._path = camM; dd._sha = f.sha; } }catch(eJ){ dd = d; }
+          entrarEdicao(dd, 'novas');
+        }, function(){ entrarEdicao(d, 'novas'); });
+      }
       return;
     }
     if((b = e.target.closest('[data-edtp]'))){
@@ -8925,7 +9149,8 @@ ingressos e divisor."></textarea>
       var slug = b.dataset.edta;
       // se já existe versão editada na Coxia, parte dela; senão converte o corpo antigo
       ghGet('import/novas/' + slug + '.json').then(function(f){
-        if(f){ entrarEdicao(JSON.parse(unb64(f.content)), 'novas'); return; }
+        // com o sha da versão aberta: a edição não grava por cima da de outra pessoa
+        if(f){ var dd = JSON.parse(unb64(f.content)); dd._sha = f.sha; entrarEdicao(dd, 'novas'); return; }
         acervoTodos().then(function(mats){
           var m = mats.filter(function(x){ return x.slug === slug; })[0];
           if(!m) return;
@@ -8933,7 +9158,14 @@ ingressos e divisor."></textarea>
             .then(function(r){ return r.ok ? r.text() : ''; })
             .then(function(html){
               m = Object.assign({}, m, { corpo: htmlParaCoxia(html) || m.desc || '' });
-              entrarEdicao(m, 'acervo');
+              // rede de segurança: quadro embutido que a conversão não trouxe
+              // (um que não seja do YouTube) sumiria da página ao salvar
+              var nQuadros = (html.match(/<iframe/gi) || []).length, nVideos = (m.corpo.match(/^video:/mg) || []).length;
+              entrarEdicao(m, 'acervo').then(function(){
+                if(nQuadros > nVideos && EDIT && EDIT.slug === slug)
+                  avisar('Esta matéria antiga tem ' + plural(nQuadros - nVideos, 'vídeo ou quadro embutido', 'vídeos ou quadros embutidos') +
+                    ' que a Coxia não conseguiu trazer para o texto. Se salvar a edição, ele sai da página. Confira antes de salvar.');
+              });
             });
         });
       });
