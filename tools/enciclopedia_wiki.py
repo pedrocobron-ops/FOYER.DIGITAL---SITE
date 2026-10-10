@@ -19,7 +19,7 @@ Cuidados (05/10/2026):
   Wikimedia pede.
 Uso: python3 tools/enciclopedia_wiki.py [--todos] [--limite N]
 """
-import json, os, re, sys, time, unicodedata, urllib.parse, urllib.request
+import json, os, re, sys, time, unicodedata, urllib.error, urllib.parse, urllib.request
 from datetime import datetime, timezone, timedelta
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,7 +32,8 @@ ARTES = re.compile(r'\b(ator|atriz|atores|diretor|diretora|encenador|dramaturg|t
                    r'cineasta|humorista|comediante|bailarin|coreógraf|coreograf|escritor|poeta|jornalista|apresentador|'
                    r'produtor|cenógraf|figurinista|iluminador|roteirista|maestro|maestrina|pianista|instrumentista|'
                    r'performer|drag|artista|dublador|ilustrador|crítico|crítica|dançarin|circense|palhaç|ópera|opera|'
-                   r'musical|novela|televis|cinema|filme|banda|rapper|dj\b|regente|arranjador|libretista|fotógraf)', re.I)
+                   r'musical|novela|televis|cinema|filme|banda|rapper|dj\b|regente|arranjador|libretista|fotógraf|'
+                   r'fadista|transformista)', re.I)
 BRASIL = re.compile(r'brasileir|são paulo|rio de janeiro|brasil|paulistan|carioca|mineir|baian|gaúch|pernambucan|'
                     r'paranaense|catarinense|capixab|goian|cearense|paraiban|potiguar|sergipan|alagoan|maranhense|'
                     r'piauiense|amazonense|paraense|acrean|rondonien|roraimense|amapaense|tocantinense|mato-grossense|'
@@ -61,19 +62,43 @@ def lote(nomes):
 # descrição curta que denuncia que a página NÃO é de uma pessoa (gênero
 # musical, personagem, banda, festival…) — "Bossa nova" e "Homem de Lata"
 # passaram na primeira rodada por falarem de música e de cinema (05/10/2026)
-NAO_PESSOA = re.compile(r'\b(personagem|g[êe]nero|estilo|movimento|banda|grupo|dupla|trio|coletivo|festival|'
-                        r'[áa]lbum|can[çc][ãa]o|filme|pe[çc]a|telenovela|s[ée]rie|programa|empresa|teatro|pr[êe]mio|'
+#   Auditoria de 10/10/2026: o plural escapava ("distribuidora de filmes" é
+# Diamond Films) e faltavam franquia, distribuidora, editora e reality (Star
+# Wars, American Idol). Do outro lado, PESSOA casava pedaço de palavra:
+# "banda de cantores e compositores" (Barão Vermelho) passava por "cantor".
+# Agora PESSOA só vale no singular e com a palavra inteira, porque quem
+# descreve uma pessoa diz "cantor", e "cantores" descreve um grupo.
+NAO_PESSOA = re.compile(r'\b(personage[mn]|g[êe]nero|estilo|movimento|banda|grupo|dupla|trio|coletivo|festival|'
+                        r'[áa]lbum|can[çc][ãa]o|can[çc][õo]es|filme|pe[çc]a|telenovela|s[ée]rie|programa|empresa|teatro|pr[êe]mio|'
                         r'evento|escola|institui[çc][ãa]o|companhia|cia\.|bairro|cidade|munic[íi]pio|livro|romance|'
-                        r'revista|jornal|emissora|canal|site|obra|espet[áa]culo|musical|minis[ée]rie|desenho|jogo)\b', re.I)
-PESSOA = re.compile(r'\b(ator|atriz|cantor|cantora|diretor|diretora|dramaturg|escritor|escritora|poeta|m[úu]sico|'
-                    r'musicista|compositor|compositora|humorista|comediante|bailarin|core[óo]graf|apresentador|'
+                        r'revista|jornal|emissora|canal|site|obra|espet[áa]culo|musical|musicais|minis[ée]rie|desenho|jogo|'
+                        r'franquia|distribuidora|editora|gravadora|talent show|reality show|reality)s?\b', re.I)
+PESSOA = re.compile(r'\b(?:ator|atriz|cantor|cantora|diretor|diretora|dramaturg[oa]|escritor|escritora|poeta|m[úu]sico|'
+                    r'musicista|compositor|compositora|humorista|comediante|bailarin[oa]|core[óo]graf[oa]|apresentador|'
                     r'apresentadora|produtor|produtora|cineasta|jornalista|artista|performer|pianista|maestro|'
-                    r'roteirista|dublador|dubladora|figurinista|cen[óo]graf|iluminador|encenador|regente|'
-                    r'arranjador|ilustrador|fot[óo]graf|dan[çc]arin|palha[çc]|drag|intérprete|interprete|empres[áa]ri|'
-                    r'fundador|fundadora|criador|criadora|professor|professora|pesquisador|historiador|crítico|crítica|'
+                    r'roteirista|dublador|dubladora|figurinista|cen[óo]graf[oa]|iluminador|iluminadora|encenador|encenadora|regente|'
+                    r'arranjador|arranjadora|ilustrador|ilustradora|fot[óo]graf[oa]|dan[çc]arin[oa]|palha[çc][oa]|drag|'
+                    r'intérprete|interprete|empres[áa]ri[oa]|'
+                    r'fundador|fundadora|criador|criadora|professor|professora|pesquisador|pesquisadora|historiador|historiadora|'
+                    r'crítico|crítica|'
                     r'autor|autora|libretista|ativista|educador|educadora|fadista|transformista|travesti|sambista|violonista|'
                     r'guitarrista|baterista|percussionista|saxofonista|flautista|violinista|cellista|tenor|soprano|bar[íi]tono|'
-                    r'rapper|mc|dj|modelo|estilista|arquitet|pintor|pintora|escultor|escultora|cartunista|quadrinista|nascid|falecid)', re.I)
+                    r'rapper|mc|dj|modelo|estilista|arquitet[oa]|pintor|pintora|escultor|escultora|cartunista|quadrinista|'
+                    r'nascid[oa]|falecid[oa])\b', re.I)
+_UM_DOS = re.compile(r'\bum[a]? d[oa]s((?:\s+[^\s,.;:]+){1,3})', re.I)
+
+
+def _fala_de_gente(t):
+    """A descrição fala de gente: 'atriz brasileira', ou 'um dos grandes
+    diretores do teatro brasileiro' (o plural só vale depois de 'um dos')."""
+    if PESSOA.search(t):
+        return True
+    for m in _UM_DOS.finditer(t):
+        for w in m.group(1).split():
+            for sing in (w[:-2] if w.endswith('es') else '', w[:-1] if w.endswith('s') else ''):
+                if sing and PESSOA.fullmatch(sing):
+                    return True
+    return False
 
 
 def _palavras_em_comum(a, b):
@@ -92,9 +117,9 @@ def aceita(pg, aparicoes):
     primeira = re.split(r'(?<=[.!?])\s', ext, 1)[0].lower() if ext else ''
     # a descrição curta (ou a primeira frase) diz o que a página é: se fala de
     # coisa e não de gente, fora
-    if NAO_PESSOA.search(desc) and not PESSOA.search(desc):
+    if NAO_PESSOA.search(desc) and not _fala_de_gente(desc):
         return None
-    if not desc and NAO_PESSOA.search(primeira) and not PESSOA.search(primeira):
+    if not desc and NAO_PESSOA.search(primeira) and not _fala_de_gente(primeira):
         return None
     if 'desambigua' in desc or 'desambigua' in ext.lower()[:200] or 'pode referir-se' in ext.lower()[:200]:
         return None
@@ -112,6 +137,24 @@ def aceita(pg, aparicoes):
     return {'titulo': pg.get('title', ''), 'url': pg.get('fullurl') or ('https://pt.wikipedia.org/wiki/' + urllib.parse.quote(pg.get('title', '').replace(' ', '_'))),
             'descricao': pg.get('description') or '', 'resumo': re.sub(r'\s+', ' ', ext)[:600],
             'foto': foto, 'fotoPagina': ('https://commons.wikimedia.org/wiki/File:' + urllib.parse.quote(arq)) if arq else ''}
+
+
+def _foto_no_ar(url):
+    """A miniatura ainda existe no Wikimedia Commons? Arquivo apagado ou
+    renomeado responde 404 e deixava ícone de imagem quebrada no verbete, na
+    vitrine e no compartilhamento (Myra Ruiz e Diego Martins, auditoria de
+    10/10/2026). Só 404 e 410 derrubam a foto: limite de pedidos (429) ou
+    rede fora do ar não dizem nada sobre o arquivo."""
+    if not url:
+        return True
+    req = urllib.request.Request(url, method='HEAD', headers={'User-Agent': UA})
+    try:
+        with urllib.request.urlopen(req, timeout=20):
+            return True
+    except urllib.error.HTTPError as e:
+        return e.code not in (404, 410)
+    except Exception:
+        return True
 
 
 def revalidar():
@@ -194,6 +237,9 @@ def main():
             if res and any(v.get('url') == res['url'] for k, v in wiki.items() if k != sp):
                 print(f'  fora (página já é de outro verbete): {sp} -> {res.get("titulo")}')
                 res = None
+            if res and res.get('foto') and not _foto_no_ar(res['foto']):
+                print(f'  foto fora do ar (fica sem foto): {sp} -> {res["foto"]}')
+                res['foto'], res['fotoPagina'] = '', ''
             if res:
                 res['quando'] = agora.isoformat(); wiki[sp] = res; achados += 1
             else:

@@ -8,7 +8,12 @@ import/enciclopedia.json:
 
   { "pessoas":   { "slug": {"nome", "aparicoes": [{tipo, papel, titulo, url, data}]} },
     "porMateria":{ "slug-da-materia": ["slug-pessoa", ...] },
-    "porVideo":  { "videoId": ["slug-pessoa", ...] } }
+    "porVideo":  { "videoId": ["slug-pessoa", ...] },
+    "convidadosPorVideo": { "videoId": ["slug-convidado", ...] } }
+
+Papel no episódio: 'convidado' (no título, num convite da descrição ou na
+lista à mão das regras), 'mencionado' (só citado na descrição) e 'apresenta'.
+convidadosPorVideo guarda só os convidados, título primeiro, sem apresentador.
 
 Critério de verbete: a pessoa assina matéria, aparece em título de episódio,
 é TEMA de matéria (nome no título, quando o título é no padrão da casa) ou é
@@ -94,8 +99,11 @@ Programa Podcast Série Serie Novela Filme Clube Hotel Igreja Catedral Parque Pr
 # Mesquita e Paulo Eiró" (vistoria de 06/10/2026: 12 verbetes eram ruas e
 # avenidas). Só palavras que o próprio nome capturado não traz: abreviações,
 # minúsculas e plurais; "Teatro X" com maiúscula já cai pelo VETO_TOTAL.
+#   Metrô e estação também (auditoria de 10/10/2026): o "metrô Jardim São
+# Paulo-Ayrton Senna" de uma descrição punha o piloto como convidado de um
+# episódio de 2026.
 ANTES_LUGAR = re.compile(
-    r"(?:\b(?:R|Av|Al|Pç|Pça|Tv|Est|Rod)\.|\b(?:rua|avenida|alameda|praça|praca|largo|travessa|estrada|rodovia|"
+    r"(?:\b(?:R|Av|Al|Pç|Pça|Tv|Est|Rod)\.|\b(?:rua|avenida|alameda|praça|praca|largo|travessa|estrada|rodovia|metrô|estação|estacao|"
     r"teatros|salas|cinemas|espaços|espacos|auditórios|auditorios|prêmios|premios|escolas|institutos|fundações|"
     r"fundacoes|galerias|bibliotecas|hospitais|estações|estacoes|aeroportos|colégios|colegios))"
     r"(?:\s+(?:[A-ZÀ-Ú][^\s,]*|de|do|da|dos|das|e)|,)*\s*$", re.I)
@@ -118,7 +126,17 @@ PREP_PONTA = {'na', 'no', 'nas', 'nos', 'em', 'a', 'à', 'ao', 'às', 'aos', 'pe
               'não', 'nao', 'mais', 'menos', 'bem', 'mal', 'só', 'so', 'tudo', 'algo', 'cada', 'outro', 'outra',
               'antes', 'eu', 'nós', 'nos', 'você', 'voce', 'vocês', 'voces', 'primeira', 'primeiro', 'segunda',
               'terceira', 'terceiro', 'última', 'ultima', 'último', 'ultimo', 'um', 'uma', 'dois', 'duas', 'três',
-              'tres', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove', 'dez', 'vindos', 'vindas', 'vindo', 'vinda'}
+              'tres', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove', 'dez', 'vindos', 'vindas', 'vindo', 'vinda',
+              # verbo que abre a frase colado no nome ("Recebemos Ivan Parente",
+              # "Fala de Paulo Gustavo"): auditoria de 10/10/2026
+              'recebemos', 'recebe', 'recebem', 'receberam', 'fala', 'falam', 'conversa', 'conversam',
+              'conversamos', 'entrevista', 'entrevistamos', 'convida', 'convidamos', 'revela', 'revelam'}
+
+# Primeira palavra que denuncia frase, título ou instituição, nunca gente: o
+# nome inteiro cai ("Que Isso Quer Dizer", "Nome da Mãe", "Central de
+# Atendimento", "Copa do Mundo", "Pré Indicações"). Auditoria de 10/10/2026.
+PRIMEIRA_FORA = set('''Que Nome Projeto Projetos Central Menina Menino Quintal Queda Copa Força Pré
+Cemitério Boneca Salão Departamento Fusão Economia Caixa Anatomia Amigas Amigos Aquela Aquele Reprodução'''.split())
 
 # Uma palavra de nome: maiúscula + minúsculas, aceitando emenda por apóstrofo
 # (reto ou curvo) ou hífen que recomeça em maiúscula — O'Hara, D'Ávila,
@@ -136,6 +154,10 @@ except Exception:
 BLOQUEAR_NOMES = {n.strip().lower() for n in REGRAS.get('bloquear', []) if n.strip()}
 NOMES_CURTOS = [n.strip() for n in REGRAS.get('nomes_curtos', []) if n.strip()]
 APELIDOS = {k.strip().lower(): v.strip() for k, v in (REGRAS.get('apelidos') or {}).items() if k.strip() and v.strip()}
+# convidados de um episódio escritos à mão (id do vídeo -> nomes), para quando
+# o título e a descrição não dizem quem veio
+CONVIDADOS_MANUAIS = {k: [n.strip() for n in v if isinstance(n, str) and n.strip()]
+                      for k, v in (REGRAS.get('convidados') or {}).items() if isinstance(v, list)}
 BLOQUEIO |= set((REGRAS.get('palavras_bloqueio') or []))
 # instituições, veículos e termos em inglês que vinham virando "pessoa"
 # (Royal Court Theatre, The Guardian, Box Office Mojo), mais os termos de
@@ -201,6 +223,9 @@ FUNCOES = {
     'dançarina': 'Dançarina', 'palhaço': 'Palhaço', 'palhaça': 'Palhaça', 'ativista': 'Ativista',
     'historiador': 'Historiador', 'historiadora': 'Historiadora', 'crítica teatral': 'Crítica teatral',
 }
+# pistas que servem tanto para gente quanto para peça e empresa ("produção de
+# Kinky Boots", "idealização da Cia X"): sozinhas não provam que é pessoa
+FUNCAO_COISA = {'Produção', 'Idealização', 'Concepção'}
 _QUALIF = r'(?:\s+(?:musical|artístico|artística|geral|executiva|executivo|cultural|teatral|de teatro|de cinema|de movimento|de arte|vocal|corporal|de produção|de cena|lírico|lírica|de elenco))?'
 _FUNC_ALT = '|'.join(sorted(map(re.escape, FUNCOES), key=len, reverse=True))
 # a mesma gramática de nome do NOME_RE, para casar o nome logo depois da pista
@@ -214,6 +239,9 @@ PISTA_DE = re.compile(r"\b(dirigid[oa]s?\s+por|direção\s+(?:geral\s+|musical\s
                       r"|interpretad[oa]\s+por|adaptação\s+de|tradução\s+de|produção\s+de|idealização\s+de|concepção\s+de"
                       r"|encenação\s+de|encenad[oa]\s+por|composição\s+de|arranjos\s+de|fotos?\s+de|fotografia\s+de)\s+"
                       + _NOME_GRP + r"\b", re.I)
+# crédito de foto na legenda ("Imagem: João Caldas", "Fotos: Priscila Prade"):
+# quem assina a foto é gente (prova para o JSON-LD de pessoa; não muda a função)
+CREDITO_RE = re.compile(r"\b(?:Imagem|Imagens|Foto|Fotos|Crédito|Créditos)\s*:\s*" + _NOME_GRP + r"(?![\w'’\-])")
 PISTA_DE_ROTULO = [
     ('dirigid', 'Direção'), ('direção', 'Direção'), ('texto', 'Dramaturgia'), ('dramaturgia', 'Dramaturgia'),
     ('escrit', 'Dramaturgia'), ('música', 'Música'), ('coreografia', 'Coreografia'), ('figurino', 'Figurino'),
@@ -242,6 +270,8 @@ def nome_valido(nome):
         return True
     partes = nome.replace('-', ' ').split()
     if len([p for p in partes if p.lower() not in CONECT]) < 2:
+        return False
+    if partes[0] in PRIMEIRA_FORA:
         return False
     for p in partes:
         if p in BLOQUEIO or p.lower() in LUGARES:
@@ -307,6 +337,92 @@ def extrair_nomes(texto):
     return achados
 
 
+# ---- quem a DESCRIÇÃO do episódio apresenta como convidado (auditoria de
+# 10/10/2026). Antes todo nome da descrição virava convidado: o metrô "Ayrton
+# Senna", Shakespeare, Rita Lee, a "fala de Paulo Gustavo". Agora só conta o
+# nome que vem logo depois de um convite ("Isabel Branquinha recebe a diretora
+# Rhena de Faria e a dramaturga Sofia Fransolin", "conversa com", "Convidados:")
+# ou que está na lista de convidados da descrição; o resto é só mencionado.
+_CONVITE = re.compile(r"\b(?:receb(?:e|em|emos|eram|er)|(?:conversa(?:m|mos)?|bate-papo|papo|entrevista(?:m|mos)?)\s+com"
+                      r"|convida(?:m|mos)?|convidad[oa]s?)\b", re.I)
+# palavras que, entre o convite e o nome, mostram que a frase fala de outra
+# coisa ("recebe o elenco do musical Tim Maia", "conversa com ela sobre")
+_CONVITE_VETO = {'sobre', 'para', 'de', 'do', 'da', 'dos', 'das', 'com', 'em', 'na', 'no', 'nas', 'nos', 'pelo',
+                 'pela', 'que', 'elenco', 'musical', 'espetáculo', 'espetaculo', 'peça', 'peca', 'montagem', 'livro',
+                 'filme', 'obra', 'história', 'historia', 'missão', 'missao'}
+_MINUSCULA = re.compile(r"^[a-záâãàéêíóôõúüç][a-záâãàéêíóôõúüç\-]*$")
+_NOME_INICIO = re.compile(r"^\s*(" + _NOME_GRP + r")(?![\w'’\-])")
+_SEP_NOMES = re.compile(r"^\s*(?:,\s*e\s+|,\s*|\s+e\s+)(.*)$", re.S)
+
+
+def _so_artigo_e_funcao(t, maximo):
+    ws = re.findall(r"[^\s,:]+", t)
+    return len(ws) <= maximo and all(_MINUSCULA.match(w) and w.lower() not in _CONVITE_VETO for w in ws)
+
+
+def convidados_descricao(desc):
+    """Nomes que a descrição apresenta como convidados, na ordem do texto."""
+    texto = re.sub(r'\s*\([^()]*\)', '', desc or '')                 # "(atriz, dramaturga e pesquisadora)"
+    texto = re.sub(r'[“"‘\'』«][^”"’\'»]{2,90}[”"’\'»]', ' ¶ ', texto)  # obra entre aspas corta a frase
+    saida = []
+
+    def junta(trecho):
+        for nm in sorted(extrair_nomes(trecho)):
+            if nm not in saida:
+                saida.append(nm)
+
+    linhas = texto.split('\n')
+    for i, linha in enumerate(linhas):
+        # lista com título: "🎤 CONVIDADOS" e um nome por linha, às vezes
+        # seguido do perfil ("Larissa da Matta, @larissadamatta_")
+        if re.match(r"^\W*convidad[oa]s?\W*$", linha, re.I):
+            vistos = 0
+            for seg in linhas[i + 1:]:
+                if not seg.strip():
+                    continue
+                vistos += 1
+                m = _NOME_INICIO.match(seg)
+                if m and re.match(r"^\s*(?:$|[\u2014\u2013\-|:,@])", seg[m.end():]):
+                    junta(m.group(1))
+                elif not re.match(r"^\s*[A-ZÀ-Ú][\w'’\-]*\s*$", seg) or vistos > 12:
+                    break      # acabou a lista (a linha seguinte é outro título)
+            continue
+        for g in _CONVITE.finditer(linha):
+            # a frase do convite acaba no ponto, no travessão ou no hífen solto
+            resto = re.split(r"[.!?;](?:\s|$)|\s[\u2014\u2013]|\s-\s|¶", linha[g.end():g.end() + 300], 1)[0]
+            m = NOME_RE.search(resto)
+            if not m:
+                continue
+            antes = re.sub(r"\bno Foyer\b|\bninguém menos que\b", ' ', resto[:m.start()]).strip()
+            if not (antes.endswith(':') and len(antes.split()) <= 14) and not _so_artigo_e_funcao(antes, 8):
+                continue
+            pos = m.start()
+            while True:
+                mn = _NOME_INICIO.match(resto[pos:])
+                if not mn or not extrair_nomes(mn.group(1)):
+                    break
+                junta(mn.group(1))
+                pos += mn.end()
+                # o próximo nome vem depois de vírgula ou "e", com artigo e
+                # função no meio ("e a dramaturga", "e os atores")
+                ms = _SEP_NOMES.match(resto[pos:])
+                if not ms:
+                    break
+                prox = NOME_RE.search(ms.group(1))
+                if not prox or not _so_artigo_e_funcao(ms.group(1)[:prox.start()], 3):
+                    break
+                pos += ms.start(1) + prox.start()
+    return saida
+
+
+def _em_ordem(nomes, texto):
+    """Nomes na ordem em que aparecem no texto (quem vem antes no título primeiro)."""
+    def pos(n):
+        i = texto.find(n)
+        return i if i >= 0 else len(texto)
+    return sorted(nomes, key=lambda n: (pos(n), n))
+
+
 def pistas_funcao(texto):
     """{nome: {rótulo: votos}} a partir das pistas do texto."""
     votos = defaultdict(lambda: defaultdict(int))
@@ -347,6 +463,13 @@ def _dia_brasilia(iso):
 
 
 def main():
+    # verbetes que já estão no ar (o mapeamento anterior): quem só é mencionado
+    # em descrição de episódio não ganha verbete novo, mas também não perde o
+    # que já tem
+    try:
+        ja_no_ar = set(json.load(open(f'{ROOT}/import/enciclopedia.json')).get('pessoas', {}))
+    except Exception:
+        ja_no_ar = set()
     materias = json.load(open(f'{ROOT}/import/materias.json'))
     # inclui as matérias publicadas pela Coxia (import/novas) que não estão no índice do Wix
     ja = {m['slug'] for m in materias}
@@ -392,6 +515,7 @@ def main():
     citacoes = defaultdict(set)   # slug-pessoa -> set(slug-materia) p/ regra dos 2+
     entre_aspas = defaultdict(int)   # "Sweet Charity": nome que vive entre aspas é obra, não gente
     votos = defaultdict(lambda: defaultdict(int))   # slug-pessoa -> {função: votos}
+    creditados = set()   # slug de quem assina foto em legenda
 
     def registra(nome, tipo, papel, titulo, url, data, chave_grupo=None):
         nome = canonico(nome)
@@ -431,6 +555,10 @@ def main():
         for nm, fs in pistas_funcao(texto).items():
             for rot, n in fs.items():
                 votos[slugify(nm)][rot] += n
+        for mc in CREDITO_RE.finditer(texto):
+            nm = canonico(re.sub(r'\s+', ' ', mc.group(1)))
+            if nome_valido(nm):
+                creditados.add(slugify(nm))
         # QUEM ESTÁ NO TÍTULO É TEMA da matéria, não citação de passagem:
         # ganha verbete direto, sem esperar a segunda citação (Pedro, 05/08/2026).
         # MAS só em título no padrão da casa (caixa de frase). Os títulos da era
@@ -455,27 +583,73 @@ def main():
     # saíam "Poder Neste", "Caso Lorena", "Ticketmaster Vem" (vistoria 06/10/2026).
     prenomes = {p['nome'].split()[0].lower() for p in pessoas.values()
                 if any(a['tipo'] == 'materia' for a in p['aparicoes'])}
+    # CONVIDADO do episódio (auditoria de 10/10/2026) é quem está no título,
+    # quem a descrição apresenta como convidado (convidados_descricao) e quem
+    # está na lista à mão das regras ("convidados"). Os outros nomes da
+    # descrição ficam como MENCIONADOS: aparecem no verbete como "citado no
+    # episódio", mas não entram no "Com ..." do card nem em "Quem já passou".
+    conv_por_video = defaultdict(list)   # videoId -> convidados, título primeiro
+    mencoes = defaultdict(set)           # slug-pessoa -> vídeos em que só é mencionada
+    # o nome do programa no título não é gente ("Coxixo de Coxia Temporalmente Vivos")
+    nomes_progs = sorted({p['nome'].split(' \u2014 ')[0] for p in yt.get('programas', [])}, key=len, reverse=True)
     for prog in yt.get('programas', []):
         nome_prog = prog['nome'].split(' — ')[0]
         apres = APRESENTA.get(nome_prog)
         sp_apres = slugify(canonico(apres)) if apres else None
         for v in prog.get('videos', []):
-            texto_ep = v['titulo'] + '. ' + (v.get('descricao') or '')
-            nomes_tit = extrair_nomes(v['titulo'])
-            nomes = set(nomes_tit)
-            for nm in extrair_nomes(v.get('descricao') or '') - nomes_tit:
-                if nm in NOMES_CURTOS or nm.split()[0].lower() in prenomes:
-                    nomes.add(nm)
+            desc = v.get('descricao') or ''
+            texto_ep = v['titulo'] + '. ' + desc
+            tit = v['titulo']
+            for np_ in nomes_progs:
+                tit = re.sub(re.escape(np_), ' | ', tit, flags=re.I)
+            # No título, convidado é quem vem depois de "com" ou "por" ("Rainha
+            # Cult com Gilda Nomacce", "Malu por Yara de Novaes"); o resto é a
+            # peça ou a canção ("Passeio Cênico", "Força do Maranhão"). Título
+            # sem "com": vale quem a descrição também apresenta como convidado
+            # ("Coxixo de Coxia - A Viagem do Jilo" recebe Giba Freitas), ou o
+            # título inteiro quando a descrição não diz quem veio. "Com" que só
+            # credita o apresentador ("... no Astro em Cena - Com Neusa Romano")
+            # não conta.
+            conv_desc = convidados_descricao(desc)
+            nomes_tit, tem_com = [], False
+            for seg in re.split(r"\s+-\s+|\s*[|\u2013\u2014?!]\s*|\s{2,}", tit):
+                mc = re.search(r"\b(?:com|por)\s+", seg, re.I)
+                if mc:
+                    depois = _em_ordem(extrair_nomes(seg[mc.end():]), seg)
+                    if depois and all(slugify(canonico(n)) == sp_apres for n in depois):
+                        continue
+                    tem_com = True
+                    nomes_tit += [n for n in depois if n not in nomes_tit]
+            if not tem_com:
+                nomes_tit = _em_ordem(extrair_nomes(tit), tit)
+                if conv_desc:
+                    nomes_tit = [n for n in nomes_tit if n in conv_desc]
+            # nome que a descrição põe entre aspas é a peça, não o convidado
+            # ("Com Elton Towersey - Tom Jobim O Musical")
+            obras = ['-' + slugify(q) + '-' for q in QUOTE_RE.findall(desc)]
+            nomes_tit = [n for n in nomes_tit if not any('-' + slugify(n) + '-' in o for o in obras)]
+            convidados = []
+            for nm in nomes_tit + conv_desc + CONVIDADOS_MANUAIS.get(v['id'], []):
+                nm = canonico(nm)
+                if nm not in convidados:
+                    convidados.append(nm)
+            mencionados = [nm for nm in _em_ordem(extrair_nomes(desc), desc)
+                           if nm not in convidados and (nm in NOMES_CURTOS or nm.split()[0].lower() in prenomes)]
             for nm, fs in pistas_funcao(texto_ep).items():
                 for rot, n in fs.items():
                     votos[slugify(nm)][rot] += n
-            for nome in nomes:
+            for nome, papel in [(n, 'convidado') for n in convidados] + [(n, 'mencionado') for n in mencionados]:
                 if sp_apres and slugify(canonico(nome)) == sp_apres:
                     continue
-                sp = registra(nome, 'episodio', 'convidado', f"{nome_prog}: {v['titulo']}",
+                sp = registra(nome, 'episodio', papel, f"{nome_prog}: {v['titulo']}",
                               v['url'], v.get('quando', ''))
                 if sp:
                     por_video[v['id']].append(sp)
+                    if papel == 'convidado':
+                        if sp not in conv_por_video[v['id']]:
+                            conv_por_video[v['id']].append(sp)
+                    else:
+                        mencoes[sp].add(v['id'])
             if apres:
                 sp = registra(apres, 'episodio', 'apresenta', f"{nome_prog}: {v['titulo']}",
                               v['url'], v.get('quando', ''))
@@ -485,16 +659,20 @@ def main():
 
     # ---- regra de corte: citação única não vira verbete; nome que vive
     # entre aspas é título de obra (a não ser que o texto diga que é gente) ----
+    # Mencionado na descrição de episódio vale como citado: sozinho, uma vez
+    # só, não cria verbete; somado a matérias e a outros episódios, conta para
+    # a regra das 2+. Verbete que já estava no ar não é apagado por isso.
     finais = {}
     descartados_obra = []
     for sp, p in pessoas.items():
         papeis = {a['papel'] for a in p['aparicoes']}
         n_asp = entre_aspas.get(sp, 0)
-        eh_gente = bool(votos.get(sp)) or bool(papeis - {'citado', 'tema'})
+        eh_gente = bool(votos.get(sp)) or bool(papeis - {'citado', 'tema', 'mencionado'})
         if n_asp and not eh_gente and n_asp * 2 >= len(p['aparicoes']):
             descartados_obra.append(p['nome'])
             continue
-        if papeis - {'citado'} or len(citacoes.get(sp, ())) >= 2:
+        if (papeis - {'citado', 'mencionado'} or len(citacoes.get(sp, ())) + len(mencoes.get(sp, ())) >= 2
+                or (sp in ja_no_ar and sp in mencoes)):
             # dedup de aparições iguais
             vistos, aps = set(), []
             for a in sorted(p['aparicoes'], key=lambda x: x.get('data', ''), reverse=True):
@@ -506,11 +684,20 @@ def main():
             fs = sorted(votos.get(sp, {}).items(), key=lambda x: -x[1])
             finais[sp] = {'nome': p['nome'], 'aparicoes': aps,
                           'funcoes': [f for f, _ in fs[:3]]}
+            # o texto dá ofício ("a atriz Fulana", "dirigido por Fulano"), a
+            # pessoa assina matéria ou foto, ou apresenta programa: é gente. O
+            # site só dá JSON-LD de pessoa a quem tem essa prova ou bio
+            # confirmada; "Kinky Boots" ganhava Person com função "Produção"
+            # (auditoria de 10/10/2026)
+            if sp in creditados or any(r not in FUNCAO_COISA for r in votos.get(sp, {})):
+                finais[sp]['gente'] = True
 
     por_materia = {k: sorted({s for s in v if s in finais}) for k, v in por_materia.items()}
     por_materia = {k: v for k, v in por_materia.items() if v}
     por_video = {k: sorted({s for s in v if s in finais}) for k, v in por_video.items()}
     por_video = {k: v for k, v in por_video.items() if v}
+    conv_por_video = {k: [s for s in v if s in finais] for k, v in conv_por_video.items()}
+    conv_por_video = {k: v for k, v in conv_por_video.items() if v}
 
     # moderação: verbetes excluídos pelo chefe na Coxia
     try:
@@ -523,9 +710,12 @@ def main():
         por_materia = {k: v for k, v in por_materia.items() if v}
         por_video = {k: [x for x in v if x in finais] for k, v in por_video.items()}
         por_video = {k: v for k, v in por_video.items() if v}
+        conv_por_video = {k: [x for x in v if x in finais] for k, v in conv_por_video.items()}
+        conv_por_video = {k: v for k, v in conv_por_video.items() if v}
         print(f'moderação: {len(_exc)} verbete(s) excluído(s) pelo chefe')
 
-    saida = {'pessoas': finais, 'porMateria': por_materia, 'porVideo': por_video}
+    saida = {'pessoas': finais, 'porMateria': por_materia, 'porVideo': por_video,
+             'convidadosPorVideo': conv_por_video}
     json.dump(saida, open(f'{ROOT}/import/enciclopedia.json', 'w'),
               ensure_ascii=False, indent=1)
     if descartados_obra:

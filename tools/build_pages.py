@@ -4385,6 +4385,18 @@ PESSOAS = ENC.get('pessoas', {})
 _NOME2SLUG = {pp.get('nome', ''): sp for sp, pp in PESSOAS.items() if pp.get('nome')}
 POR_MATERIA = ENC.get('porMateria', {})
 POR_VIDEO = ENC.get('porVideo', {})
+# Só os CONVIDADOS de cada episódio, título primeiro e sem apresentador
+# (auditoria de 10/10/2026): POR_VIDEO tem também quem a descrição só
+# menciona, e o card do programa dizia "Com Ayrton Senna" e "Com Shakespeare".
+# Mapeamento antigo, sem a chave: quem tem papel 'convidado' no episódio.
+if 'convidadosPorVideo' in ENC:
+    CONV_POR_VIDEO = ENC['convidadosPorVideo']
+else:
+    CONV_POR_VIDEO = {}
+    for _vid, _sps in POR_VIDEO.items():
+        CONV_POR_VIDEO[_vid] = [_s for _s in _sps if any(
+            _a.get('papel') == 'convidado' and _vid in (_a.get('url') or '')
+            for _a in (ENC.get('pessoas', {}).get(_s) or {}).get('aparicoes', []))]
 
 _WIKI_PAL = {'actriz': 'atriz', 'actor': 'ator', 'realizador': 'diretor', 'realizadora': 'diretora',
              'argumentista': 'roteirista', 'guionista': 'roteirista',
@@ -4497,20 +4509,25 @@ for _sp, _p in PESSOAS.items():
         _p['foto'], _p['fotoCredito'], _p['fotoLink'] = '', '', ''
     _p['redes'] = {k: v for k, v in (_aj.get('redes') or {}).items() if v}
     _p['wikiUrl'] = _w.get('url', '')
+    # é gente com prova: ajuste na Coxia, equipe, colunista, página da
+    # Wikipédia aceita como pessoa, ou o texto lhe dá ofício (enciclopedia.py)
+    _p['confirmada'] = bool(_aj.get('funcao') or _aj.get('bio') or _eq or _col or _w.get('url') or _p.get('gente'))
     _p['relacionados'] = [s for s, _n in _CO.get(_sp, _coll.Counter()).most_common(12) if s in PESSOAS][:8]
     _datas = sorted(a.get('data', '') for a in _p['aparicoes'] if a.get('data'))
     _p['desde'] = _datas[0][:4] if _datas else ''
     _p['primeira'] = _datas[0] if _datas else ''
     _p['ultima'] = _datas[-1] if _datas else ''
 
-_PAPEL_ROT = {'autor': 'Assina', 'citado': 'Citado(a)', 'convidado': 'Convidado(a)', 'apresenta': 'Apresenta', 'tema': 'Tema'}
+# 'mencionado': o nome está só na descrição do episódio, sem ser convidado
+_PAPEL_ROT = {'autor': 'Assina', 'citado': 'Citado(a)', 'convidado': 'Convidado(a)', 'apresenta': 'Apresenta', 'tema': 'Tema',
+              'mencionado': 'Citado(a) no episódio'}
 
 def _papeis_resumo(aps):
     ps = {a['papel'] for a in aps}
     out = []
     if 'autor' in ps: out.append('assina no FOYER')
     if 'apresenta' in ps: out.append('apresenta programa')
-    if 'convidado' in ps: out.append('nos programas')
+    if 'convidado' in ps or 'mencionado' in ps: out.append('nos programas')
     if 'citado' in ps or 'tema' in ps: out.append('nas matérias')
     return ' · '.join(out) or 'no acervo'
 
@@ -4559,7 +4576,12 @@ def _foto_verbete(p, tam='grande'):
             _ss = f' srcset="{_html.escape(src, quote=True)} 1x, {_html.escape(src2, quote=True)} 2x"' if src2 != src else ''
         else:
             src, _ss = wiximg(p['foto'], 480, 480), ''
-        return f'<span class="vb-foto {tam}"><img src="{_html.escape(src, quote=True)}"{_ss} alt="{safe(p["nome"])}" loading="lazy"></span>'
+        # foto que sumiu da origem (arquivo apagado do Wikimedia Commons, como o
+        # de Myra Ruiz) vira a inicial do nome, sem ícone de imagem quebrada
+        _err = ("this.onerror=null;var s=this.parentNode,i=document.createElement('i');"
+                "i.textContent=(this.alt||'F').charAt(0);s.classList.add('ini');s.innerHTML='';s.appendChild(i)")
+        return (f'<span class="vb-foto {tam}"><img src="{_html.escape(src, quote=True)}"{_ss} alt="{safe(p["nome"])}" loading="lazy" '
+                f'onerror="{_html.escape(_err, quote=True)}"></span>')
     return f'<span class="vb-foto {tam} ini"><i>{safe((p["nome"] or "F")[:1])}</i></span>'
 
 def _em_cartaz_de(p):
@@ -4702,6 +4724,11 @@ def pessoa_page(sp, p):
 '''
 
 def _ld_pessoa(sp, p):
+    # Sem prova de que é pessoa, a página segue no ar mas sem dado estruturado
+    # de Person: "Star Wars" e "Kinky Boots" iam ao Google como gente
+    # (auditoria de 10/10/2026). Perder o JSON-LD não tira a página do índice.
+    if not p.get('confirmada'):
+        return ''
     d = {'@context': 'https://schema.org', '@type': 'Person', 'name': p['nome'],
          'url': f'{BASE}/pessoa-{sp}.html'}
     if p.get('funcao'): d['jobTitle'] = p['funcao']
@@ -4839,7 +4866,7 @@ def autor_page(sp, a, mats):
 '''
 
 def _yt_pessoas(v):
-    sps = POR_VIDEO.get(v.get('id', ''), [])
+    sps = CONV_POR_VIDEO.get(v.get('id', ''), [])
     if not sps:
         return ''
     links = ' · '.join(f'<a href="pessoa-{sp}.html" style="color:inherit">{_rvesc(PESSOAS[sp]["nome"])}</a>'
@@ -4917,12 +4944,14 @@ if _yt_progs:
     # Quem já passou por cada programa (vistoria de 06/10/2026): 132 verbetes
     # só apareciam em episódios e não recebiam link de página nenhuma. Aqui
     # cada programa lista todos os convidados com verbete, em ordem alfabética,
-    # numa dobra fechada (temporadas do mesmo programa somadas).
+    # numa dobra fechada (temporadas do mesmo programa somadas). Só convidado
+    # de verdade: nem o apresentador nem quem a descrição apenas menciona
+    # (Tim Maia, Rita Lee e Shakespeare apareciam aqui; auditoria de 10/10/2026).
     _conv_prog = {}
     for _p in _yt_progs:
         _nm = _p['nome'].split(' — ')[0]
         for _v in _p.get('videos', []):
-            for _sp in POR_VIDEO.get(_v.get('id', ''), []):
+            for _sp in CONV_POR_VIDEO.get(_v.get('id', ''), []):
                 if _sp in PESSOAS:
                     _conv_prog.setdefault(_nm, set()).add(_sp)
     _quem_passou = ''
@@ -7691,8 +7720,12 @@ for _sp, _pp in PESSOAS.items():
     # verbete só com nome e até dois links, sem bio, sem foto e sem episódio:
     # existe e é linkado, mas não vai ao Google nem ao sitemap até ganhar
     # corpo (bio ou foto na Coxia, ou uma aparição nova). Vistoria de 06/10/2026.
+    # Episódio em que o nome só é mencionado na descrição conta como aparição
+    # comum; só convidado e apresentador seguram o verbete no índice
+    # (auditoria de 10/10/2026).
     _magro = (not _pp.get('bio') and not _pp.get('foto')
-              and not any(a.get('tipo') == 'episodio' for a in _pp.get('aparicoes', []))
+              and not any(a.get('tipo') == 'episodio' and a.get('papel') != 'mencionado'
+                          for a in _pp.get('aparicoes', []))
               and len(_pp.get('aparicoes', [])) <= 2)
     if _magro:
         _FORA_SITEMAP.add('pessoa-' + _sp + '.html')
