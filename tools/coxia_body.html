@@ -961,7 +961,9 @@
     text-transform:uppercase; display:flex; gap:10px; align-items:center; }
   .rv-add{ display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; }
   .rv-add select{ border:1.5px solid var(--line); background:var(--paper-2); color:var(--ink);
-    font-family:var(--mono); font-size:.72rem; padding:10px 12px; }
+    font-family:var(--mono); font-size:.72rem; padding:10px 12px;
+    /* o rótulo mais longo media 445 px e empurrava a tela de lado no iPhone (#B17) */
+    flex:1 1 220px; min-width:0; max-width:100%; text-overflow:ellipsis; }
   .rv-pg-row{ display:grid; grid-template-columns:44px 1fr auto; gap:12px; align-items:center;
     border-bottom:1px solid var(--line); padding:10px 14px; }
   .rv-pg-row:last-child{ border-bottom:0; }
@@ -970,6 +972,15 @@
   .rv-pg-row .rn{ font-family:var(--mono); font-size:.54rem; letter-spacing:.08em;
     text-transform:uppercase; color:var(--ink-soft); display:block; margin-top:3px; }
   .rv-pg-row .acts{ display:flex; gap:6px; }
+  /* no celular, o que foi feito desce para a linha de baixo do histórico: um
+     nome comprido ('Revisão e checagem (Claude)') empurrava a tela de lado (#B17).
+     Nas páginas da edição, o título cede espaço aos botões em vez de vazar */
+  @media (max-width:600px){
+    #rv-hist .mov{ flex-wrap:wrap; row-gap:4px; }
+    #rv-hist .mov > span:last-child{ flex-basis:100%; min-width:0; overflow-wrap:anywhere; }
+    .rv-pg-row{ grid-template-columns:28px minmax(0, 1fr) auto; gap:8px; padding:10px; }
+    .rv-pg-row .rt, .rv-pg-row .rn{ overflow-wrap:anywhere; }
+  }
   @media (max-width:820px){
     .shell{ flex-direction:column; }
     .side{ width:100%; border-right:0; border-bottom:2px solid var(--ink); position:relative; }
@@ -2738,10 +2749,12 @@ ingressos e divisor."></textarea>
     GRAVA_FILA = p.catch(function(){});
     return p;
   }
-  function ghPut(path, content, msg, sha){
+  // opcoes.soCriar: o arquivo é NOVO. Vai sem sha e sem buscar o atual; se já
+  // existir um arquivo com esse nome, o GitHub recusa (422) em vez de gravar por cima.
+  function ghPut(path, content, msg, sha, opcoes){
     var body = { message: msg, content: b64(content), branch: BRANCH };
     if(sha) body.sha = sha;
-    var go = sha ? Promise.resolve()
+    var go = (sha || (opcoes && opcoes.soCriar)) ? Promise.resolve()
                  : ghGet(path).then(function(ex){ if(ex && ex.sha) body.sha = ex.sha; }, function(){});
     return go.then(function(){
       return naFilaGrava(function(){ return ghFetch(API + path, { method:'PUT',
@@ -8595,7 +8608,13 @@ ingressos e divisor."></textarea>
   function pdLer(){
     return ghGet('import/producoes.json', true).then(function(f){
       if(!(f && f.content)) throw new Error('import/producoes.json não encontrado');
-      return { data: JSON.parse(unb64(f.content)), sha: f.sha };
+      var data = JSON.parse(unb64(f.content));
+      // um item vazio (null) no arquivo não trava a aba: some da leitura, e a
+      // próxima gravação já sai limpa (#18 da auditoria)
+      ['cases', 'depoimentos'].forEach(function(k){
+        if(Array.isArray(data[k])) data[k] = data[k].filter(function(x){ return x && typeof x === 'object'; });
+      });
+      return { data: data, sha: f.sha };
     });
   }
   function carregarProducoes(){
@@ -8627,10 +8646,17 @@ ingressos e divisor."></textarea>
         '<button class="bt danger" type="button" data-pd-dexc="' + i + '">🗑</button></div></div>';
     }).join('') : '<div class="vazio">Nenhum depoimento ainda.</div>';
   }
-  function salvarProducoes(acao){
+  // Grava a versão NOVA da vitrine, montada numa cópia (pdCopia): PROD só
+  // muda depois que o GitHub aceitou. Antes, o Tirar mexia em PROD antes de
+  // gravar e, se a gravação falhasse, a tela ficava com um card a mais que a
+  // memória; o ↑ seguinte gravava um null e travava a aba e o build (#18).
+  // Na falha, a tela é relida do arquivo, para voltar a bater com ele.
+  function pdCopia(){ return JSON.parse(JSON.stringify(PROD.data)); }
+  function salvarProducoes(acao, dados){
     if(!PROD) return Promise.reject(new Error('vitrine não carregada'));
-    return ghPut('import/producoes.json', JSON.stringify(PROD.data, null, 1), assina(acao), PROD.sha)
-      .then(function(){ return pdLer().then(function(r){ PROD = r; pintarProducoes(); }); });
+    return ghPut('import/producoes.json', JSON.stringify(dados, null, 1), assina(acao), PROD.sha)
+      .then(function(){ return pdLer().then(function(r){ PROD = r; pintarProducoes(); }); },
+            function(err){ carregarProducoes(); throw err; });
   }
   function pdPintaFoto(cam){
     $('pd-foto').value = cam || '';
@@ -8684,20 +8710,28 @@ ingressos e divisor."></textarea>
     }
     if((b = e.target.closest('[data-pd-sobe]')) || (b = e.target.closest('[data-pd-desce]'))){
       if(!podeGravar()){ avisarChave(); return; }
-      lista = PROD.data.cases || []; i = +(b.dataset.pdSobe !== undefined ? b.dataset.pdSobe : b.dataset.pdDesce);
+      if(!PROD) return;
+      var dadosR = pdCopia();
+      lista = dadosR.cases || []; i = +(b.dataset.pdSobe !== undefined ? b.dataset.pdSobe : b.dataset.pdDesce);
       var j = b.dataset.pdSobe !== undefined ? i - 1 : i + 1;
-      if(j < 0 || j >= lista.length) return;
+      if(j < 0 || j >= lista.length || !lista[i] || !lista[j]) return;
       var t = lista[i]; lista[i] = lista[j]; lista[j] = t;
-      salvarProducoes('reordena a vitrine de produções').catch(function(err){ avisar(msgErro(err)); });
+      salvarProducoes('reordena a vitrine de produções', dadosR).catch(function(err){ avisar(msgErro(err)); });
       return;
     }
     if((b = e.target.closest('[data-pd-exc]'))){
       if(!podeGravar()){ avisarChave(); return; }
-      lista = PROD.data.cases || []; var alvo = lista[+b.dataset.pdExc]; if(!alvo) return;
+      lista = PROD && PROD.data.cases || []; var alvo = lista[+b.dataset.pdExc]; if(!alvo) return;
       confirmar('Tirar “' + (alvo.titulo || '') + '” da vitrine?', { perigo:true, rotuloOk:'Tirar' }).then(function(ok){
         if(!ok) return;
-        PROD.data.cases = lista.filter(function(x, k){ return k !== +b.dataset.pdExc; });
-        salvarProducoes('tira ' + (alvo.titulo || '') + ' da vitrine de produções').catch(function(err){ avisar(msgErro(err)); });
+        // a vitrine pode ter mudado enquanto a pergunta estava aberta: tira
+        // só se o card daquela posição ainda for o mesmo
+        var dadosT = pdCopia(), k = +b.dataset.pdExc, atual = (dadosT.cases || [])[k];
+        if(!atual || (atual.id || atual.titulo) !== (alvo.id || alvo.titulo)){
+          avisar('A vitrine mudou enquanto você confirmava. Nada foi tirado; confira e tente de novo.'); carregarProducoes(); return;
+        }
+        dadosT.cases.splice(k, 1);
+        salvarProducoes('tira ' + (alvo.titulo || '') + ' da vitrine de produções', dadosT).catch(function(err){ avisar(msgErro(err)); });
       });
       return;
     }
@@ -8711,11 +8745,15 @@ ingressos e divisor."></textarea>
     }
     if((b = e.target.closest('[data-pd-dexc]'))){
       if(!podeGravar()){ avisarChave(); return; }
-      var dl = PROD.data.depoimentos || []; var dalvo = dl[+b.dataset.pdDexc]; if(!dalvo) return;
+      var dl = PROD && PROD.data.depoimentos || []; var dalvo = dl[+b.dataset.pdDexc]; if(!dalvo) return;
       confirmar('Tirar o depoimento de ' + (dalvo.quem || '') + '?', { perigo:true, rotuloOk:'Tirar' }).then(function(ok){
         if(!ok) return;
-        PROD.data.depoimentos = dl.filter(function(x, k){ return k !== +b.dataset.pdDexc; });
-        salvarProducoes('tira depoimento de ' + (dalvo.quem || '') + ' da vitrine').catch(function(err){ avisar(msgErro(err)); });
+        var dadosD = pdCopia(), kd = +b.dataset.pdDexc, atualD = (dadosD.depoimentos || [])[kd];
+        if(!atualD || atualD.quem !== dalvo.quem || atualD.texto !== dalvo.texto){
+          avisar('A vitrine mudou enquanto você confirmava. Nada foi tirado; confira e tente de novo.'); carregarProducoes(); return;
+        }
+        dadosD.depoimentos.splice(kd, 1);
+        salvarProducoes('tira depoimento de ' + (dalvo.quem || '') + ' da vitrine', dadosD).catch(function(err){ avisar(msgErro(err)); });
       });
     }
   });
@@ -8733,12 +8771,13 @@ ingressos e divisor."></textarea>
     // salvar já tira o carimbo de exemplo: o que o chefe grava aqui é trabalho real
     var novo = { id: id, titulo: titulo, ano: $('pd-ano').value.trim(), servicos: servs, desafio: $('pd-desafio').value.trim(), texto: texto,
                  resultado: $('pd-resultado').value.trim(), link: $('pd-link').value.trim(), img: $('pd-foto').value.trim() };
-    var lista = (PROD.data.cases || []).slice();
+    var dados = pdCopia();
+    var lista = dados.cases || [];
     var pos = -1; lista.forEach(function(x, k){ if(x.id === id) pos = k; });
     if(pos >= 0) lista[pos] = novo; else lista.unshift(novo);   // o mais novo entra no alto da vitrine
-    PROD.data.cases = lista;
+    dados.cases = lista;
     var bt = $('pd-salvar'); bt.disabled = true;
-    salvarProducoes((pos >= 0 ? 'edita ' : 'põe ') + titulo + ' na vitrine de produções').then(function(){
+    salvarProducoes((pos >= 0 ? 'edita ' : 'põe ') + titulo + ' na vitrine de produções', dados).then(function(){
       msg.className = 'msg ok'; msg.textContent = (pos >= 0 ? 'Atualizado' : 'Na vitrine') + ' ✓ — o site remonta em ~2 min';
       toast('Vitrine salva ✓'); pdLimpa();
     }).catch(function(err){ msg.className = 'msg err'; msg.textContent = msgErro(err); })
@@ -8753,12 +8792,13 @@ ingressos e divisor."></textarea>
     if(!texto || !quem){ msg.textContent = 'Diga o depoimento e quem disse'; msg.className = 'msg err'; return; }
     if(/[—–]/.test(texto)){ msg.textContent = 'Sem travessão nem meia-risca (padrão da casa).'; msg.className = 'msg err'; return; }
     var novo = { texto: texto, quem: quem, cargo: $('pd-dcargo').value.trim() };
-    var dl = (PROD.data.depoimentos || []).slice();
+    var dados = pdCopia();
+    var dl = dados.depoimentos || [];
     var k = $('pd-did').value === '' ? -1 : +$('pd-did').value;
     if(k >= 0 && dl[k]) dl[k] = novo; else dl.push(novo);
-    PROD.data.depoimentos = dl;
+    dados.depoimentos = dl;
     var bt = $('pd-dsalvar'); bt.disabled = true;
-    salvarProducoes((k >= 0 ? 'edita' : 'põe') + ' depoimento de ' + quem + ' na vitrine').then(function(){
+    salvarProducoes((k >= 0 ? 'edita' : 'põe') + ' depoimento de ' + quem + ' na vitrine', dados).then(function(){
       msg.className = 'msg ok'; msg.textContent = 'Salvo ✓ — o site remonta em ~2 min'; toast('Depoimento salvo ✓'); pdDLimpa();
     }).catch(function(err){ msg.className = 'msg err'; msg.textContent = msgErro(err); })
       .then(function(){ bt.disabled = false; });
@@ -8826,11 +8866,13 @@ ingressos e divisor."></textarea>
     }
   });
 
+  // devolve true só quando gravou: na falha, o formulário não pode dizer
+  // 'Cadastrado ✓', entregar a senha nem se apagar (#19 da auditoria)
   function salvarEquipe(lista, acao){
     var conteudo = JSON.stringify({ usuarios: lista }, null, 1);
     return ghPut('import/equipe.json', conteudo, assina(acao), EQUIPE.sha)
-      .then(function(){ EQUIPE = null; pintarEquipe(); })
-      .catch(function(err){ avisar(msgErro(err)); });
+      .then(function(){ EQUIPE = null; pintarEquipe(); return true; })
+      .catch(function(err){ avisar(msgErro(err)); return false; });
   }
 
   $('eq-form').addEventListener('submit', function(e){
@@ -8868,7 +8910,13 @@ ingressos e divisor."></textarea>
       if(!prox.filter(function(x){ return x.papel === 'chefe'; }).length){
         msg.textContent = 'A equipe precisa ter ao menos um chefe'; msg.className = 'msg err'; return;
       }
-      return salvarEquipe(prox, (atual ? 'edita ' : 'cadastra ') + nome + ' na equipe').then(function(){
+      return salvarEquipe(prox, (atual ? 'edita ' : 'cadastra ') + nome + ' na equipe').then(function(gravou){
+        if(!gravou){
+          msg.className = 'msg err';
+          msg.textContent = 'Não gravado: nada mudou na equipe' + (senha ? ' e esta senha ainda NÃO vale (não entregue)' : '') +
+            '. O que você digitou continua aqui.';
+          return;
+        }
         msg.className = 'msg ok';
         msg.textContent = (atual ? 'Atualizado' : 'Cadastrado') + ' ✓ — ' +
           (senha ? 'a senha passa a valer' : 'a página de quem assina se refaz') + ' no site em ~2 min';
@@ -9714,13 +9762,22 @@ ingressos e divisor."></textarea>
     var l = Array.isArray(v) ? v.slice() : (v && (v.img || v.texto) ? [v] : []);
     return l.filter(function(c){ return c && (c.img || c.texto); });
   }
+  // Ocupa a vaga só quem está no ar HOJE: a temporada vendida para depois
+  // aparece à parte (contada junto, dava '4 de 3 vagas · -1 livre').
+  function pubFase(c, hoje){
+    if(c.de && c.de > hoje) return 1;     // começa depois
+    if(c.ate && c.ate < hoje) return 2;   // já terminou
+    return 0;                              // no ar hoje
+  }
   // até quando o formato está tomado, e a partir de quando volta a ter vaga
   function pubOcupacao(doc, id){
     var l = pubVagas(doc, id), max = PUB_VAGAS[id] || 1, hoje = pubISO(new Date());
-    var vivos = l.filter(function(c){ return !c.ate || c.ate >= hoje; });
-    var livre = max - vivos.length;
+    var vivos = l.filter(function(c){ return pubFase(c, hoje) === 0; });
+    var futuros = l.filter(function(c){ return pubFase(c, hoje) === 1; });
+    var livre = Math.max(0, max - vivos.length);
     var fim = vivos.map(function(c){ return c.ate || ''; }).sort()[0] || '';
-    return { usadas:vivos.length, max:max, livre:livre, primeiroFim:fim, lista:l };
+    var proxIni = futuros.map(function(c){ return c.de; }).sort()[0] || '';
+    return { usadas:vivos.length, max:max, livre:livre, primeiroFim:fim, lista:l, futuros:futuros.length, proxIni:proxIni };
   }
   var PUB_SLOTS = [
     { id:'cartaz',   nome:'O CARTAZ',   dica:'no meio da matéria e na capa, ao lado da manchete · quadrada 1:1 · mande 1080×1080', larg:1200, alt:1200 },
@@ -9737,13 +9794,26 @@ ingressos e divisor."></textarea>
       PUB.sitejson = f && f.content ? JSON.parse(unb64(f.content)) : { cartaz:{}, cortina:{}, entreato:{} };
       PUB.siteSha = f ? f.sha : null;
       var d = PUB.sitejson;
+      var hojePub = pubISO(new Date());
+      PUB.naTela = {};
       el.innerHTML =
         '<div class="f-note">Aqui você sobe publicidade na mão: a sua, a de um projeto seu ou a de um anunciante que fechou fora do site. ' +
         'A arte sai do seu computador e vai direto para o ar. A temporada é de dias cheios: entra na virada do dia "de" e sai no fim do dia "até". ' +
         'Deixar tudo vazio tira o formato do ar.</div>' +
         PUB_SLOTS.map(function(sl){
           var oc = pubOcupacao(d, sl.id);
-          var fichas = oc.lista.slice(0, oc.max);
+          // Na tela, primeiro quem está no ar hoje, depois quem começa mais
+          // adiante, e as vencidas por último. O que não cabe nas vagas fica
+          // guardado como está e aparece embaixo, só para leitura: antes ficava
+          // escondido e o Salvar o apagava do arquivo (#16 da auditoria).
+          var ordem = oc.lista.map(function(c, i){ return i; }).sort(function(a, b){
+            var ca = oc.lista[a], cb = oc.lista[b];
+            return (pubFase(ca, hojePub) - pubFase(cb, hojePub)) ||
+                   String(ca.de || '').localeCompare(String(cb.de || '')) || (a - b);
+          });
+          var mostra = ordem.slice(0, oc.max), fora = ordem.slice(oc.max);
+          PUB.naTela[sl.id] = mostra;                        // posição de cada vaga da tela na lista do arquivo
+          var fichas = mostra.map(function(i){ return oc.lista[i]; });
           if(fichas.length < oc.max) fichas.push({});          // a vaga vazia, pronta para receber
           return '<div class="pub-formato"><div class="pf-cab"><b>' + sl.nome + '</b>' +
             '<span>' + esc(sl.dica) + '</span>' +
@@ -9753,7 +9823,18 @@ ingressos e divisor."></textarea>
                 : oc.usadas + ' de ' + oc.max + ' vagas' +
                   (oc.livre ? ' · ' + oc.livre + ' livre' + (oc.livre > 1 ? 's' : '')
                             : (oc.primeiroFim ? ' · a próxima vaga abre em ' + pubDiaBR(oc.primeiroFim) : ''))) +
-            '</em></div>' + fichas.map(function(c, ix){
+            '</em>' +
+            (oc.futuros ? '<em class="pf-vagas">+' + oc.futuros + ' agendado' + (oc.futuros > 1 ? 's' : '') +
+              ' a partir de ' + pubDiaBR(oc.proxIni) + '</em>' : '') +
+            '</div>' +
+            (fora.length ? '<div class="f-note pf-fora">Também guardado neste formato, fora das vagas da tela (o Salvar mantém como está): ' +
+              fora.map(function(i){
+                var c = oc.lista[i];
+                return '<b>' + esc(c.pedido || c.legenda || 'anúncio') + '</b> · ' +
+                  (pubFase(c, hojePub) === 1 ? 'começa em ' + pubDiaBR(c.de) + (c.ate ? ', até ' + pubDiaBR(c.ate) : '')
+                                             : pubEstadoTexto(c));
+              }).join('; ') + '.</div>' : '') +
+            fichas.map(function(c, ix){
           var vg = sl.id + '-' + ix;
           return '<div class="pub-slot" data-slot="' + vg + '">' +
             '<div class="ps-cab"><b>' + (oc.max > 1 ? 'Vaga ' + (ix + 1) : sl.nome) + '</b>' +
@@ -9929,19 +10010,26 @@ ingressos e divisor."></textarea>
         var novo = {};
         var erro = '';
         PUB_SLOTS.forEach(function(sl){
-          var lista = [];
+          // parte do arquivo como foi lido (o mesmo do sha): só as vagas que
+          // estão na tela mudam; o resto, como a temporada vendida para depois,
+          // fica como está e na mesma ordem (#16 da auditoria)
+          var lista = pubVagas(PUB.sitejson, sl.id);
+          var naTela = (PUB.naTela && PUB.naTela[sl.id]) || [];
+          var novas = [];
           for(var iv = 0; iv < (PUB_VAGAS[sl.id] || 1); iv++){
             var vg = sl.id + '-' + iv;
             if(!$('pub-' + vg + '-img')) continue;            // vaga não está na tela
+            var orig = naTela[iv];                            // undefined = a vaga vazia da tela
             var img = $('pub-' + vg + '-img').value.trim();
-            if(!img) continue;
+            if(!img){ if(orig != null) lista[orig] = null; continue; }
             var de = $('pub-' + vg + '-de').value.trim(), ate = $('pub-' + vg + '-ate').value.trim();
             if(de && ate && de > ate) erro = 'Em ' + sl.nome + ' (vaga ' + (iv + 1) + '), o dia de início é depois do fim.';
-            lista.push({ img: img, link: $('pub-' + vg + '-link').value.trim(),
+            var item = { img: img, link: $('pub-' + vg + '-link').value.trim(),
                          legenda: $('pub-' + vg + '-legenda').value.trim(),
-                         de: de, ate: ate, pedido: $('pub-' + vg + '-pedido').value.trim() });
+                         de: de, ate: ate, pedido: $('pub-' + vg + '-pedido').value.trim() };
+            if(orig != null) lista[orig] = item; else novas.push(item);
           }
-          novo[sl.id] = lista;
+          novo[sl.id] = lista.filter(Boolean).concat(novas);
         });
         if(erro){ avisar(erro); return; }
         ghPut(PUB_ARQ, JSON.stringify(novo, null, 1), assina('atualiza os anúncios do site'), PUB.siteSha)
@@ -11401,7 +11489,10 @@ ingressos e divisor."></textarea>
   }
   function salvarVerbExc(acao){
     return ghPut('import/enciclopedia-excluidos.json', JSON.stringify({ slugs: VERB.lista }, null, 1),
-      assina(acao), VERB.sha).then(function(resp){ VERB.sha = resp.content && resp.content.sha; carregarVerbExc(); });
+      assina(acao), VERB.sha).then(function(resp){ VERB.sha = resp.content && resp.content.sha; carregarVerbExc(); })
+      // na falha, avisa e relê o arquivo: a mudança que não gravou sai da
+      // memória e não vai junto, escondida, na próxima exclusão (#19)
+      .catch(function(err){ avisar(msgErro(err)); carregarVerbExc(); });
   }
   $('verb-q').addEventListener('input', function(){
     var v = normTxt(this.value.trim()), res = $('verb-res');
@@ -11501,14 +11592,19 @@ ingressos e divisor."></textarea>
     var el = $('rv-lista');
     ghGet('import/revista/edicoes').then(function(list){
       var files = (list || []).filter(function(f){ return f.name.endsWith('.json'); });
-      if(!files.length){ el.innerHTML = '<div class="vazio-box">Nenhuma edição ainda — clique em ➕ Nova edição</div>'; return; }
+      // o número da edição nova sai dos NOMES da pasta, não do que baixou:
+      // uma edição que falhou ao baixar continua contando (#15 da auditoria)
+      RV.numeros = files.map(function(f){ var m = /ed-(\d+)\.json$/.exec(f.name); return m ? +m[1] : 0; });
+      if(!files.length){ RV.todas = []; el.innerHTML = '<div class="vazio-box">Nenhuma edição ainda — clique em ➕ Nova edição</div>'; return; }
+      var naoBaixou = [];
       return Promise.all(files.map(function(f){
-        return fetch(f.download_url).then(function(r){ return r.json(); })
-          .then(function(d){ d._sha = f.sha; return d; }).catch(function(){ return null; });
+        return fetch(f.download_url).then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+          .then(function(d){ d._sha = f.sha; return d; }).catch(function(){ naoBaixou.push(f.name); return null; });
       })).then(function(eds){
         eds = eds.filter(Boolean).sort(function(a,b){ return (b.numero||0) - (a.numero||0); });
         RV.todas = eds;
-        el.innerHTML = eds.map(function(ed){
+        el.innerHTML = (naoBaixou.length ? '<div class="vazio-box">Não deu para baixar agora: ' + esc(naoBaixou.join(', ')) +
+          '. Nada se perdeu; recarregue a página para ver.</div>' : '') + eds.map(function(ed){
           var pub = ed.status === 'publicada';
           return '<div class="frow lx" style="grid-template-columns:1fr auto auto">' +
             '<span><span class="ti">Nº ' + ed.numero + ' — ' + esc((ed.capa && ed.capa.manchete) || ed.titulo || 'sem título') + '</span>' +
@@ -11523,7 +11619,10 @@ ingressos e divisor."></textarea>
   }
 
   $('rv-nova').addEventListener('click', function(){
+    // sem a lista, o número sairia 1 e a edição nova cairia por cima da Nº 1 publicada
+    if(!RV.numeros){ avisar('Espere a lista de edições carregar (ou recarregue a página, se ela deu erro). Sem a lista, a Coxia não sabe o número da edição nova.'); return; }
     var num = 1;
+    RV.numeros.forEach(function(n){ if(n >= num) num = n + 1; });
     (RV.todas || []).forEach(function(e){ if((e.numero||0) >= num) num = e.numero + 1; });
     RV.ed = { numero: num, titulo: '', dataEdicao: '', status: 'rascunho',
       capa: { img: '', manchete: '', chamadas: [] }, paginas: [],
@@ -11941,8 +12040,11 @@ ingressos e divisor."></textarea>
     RV.ed.historico.unshift({ quando: new Date().toISOString(), quem: USER.nome,
       acao: acao + ' (' + ((RV.ed.paginas || []).length + 1) + ' páginas)' });
     RV.ed.historico = RV.ed.historico.slice(0, 60);
+    // edição nova (ainda sem sha) só CRIA o arquivo: se já existir um ed-N.json,
+    // o GitHub recusa, em vez de trocar uma edição publicada por este rascunho
+    var criando = !RV.sha;
     return ghPut('import/revista/edicoes/ed-' + RV.ed.numero + '.json',
-      JSON.stringify(RV.ed, null, 1), assina('revista ed. ' + RV.ed.numero + ': ' + acao), RV.sha)
+      JSON.stringify(RV.ed, null, 1), assina('revista ed. ' + RV.ed.numero + ': ' + acao), RV.sha, { soCriar: criando })
       .then(function(resp){
         RV.sha = resp.content && resp.content.sha;
         RV.mexeu = false;
@@ -11954,7 +12056,15 @@ ingressos e divisor."></textarea>
         toast('Salvo ✓');
         carregarEdicoes();
       })
-      .catch(function(err){ msg.className = 'msg err'; msg.textContent = msgErro(err); throw err; });
+      .catch(function(err){
+        msg.className = 'msg err'; msg.textContent = msgErro(err);
+        if(criando && err && (err.gh === 422 || err.gh === 409)){
+          msg.textContent = 'Já existe uma edição Nº ' + RV.ed.numero + ' guardada, e ela NÃO foi trocada. Nada foi gravado. ' +
+            'Recarregue a página e toque em Nova edição de novo: a Coxia pega o número certo.';
+          avisar(msg.textContent);
+        }
+        throw err;
+      });
   }
   // contador vivo das chamadas: a 4ª em diante não sai na capa
   function rvContaChamadas(){
@@ -11967,7 +12077,7 @@ ingressos e divisor."></textarea>
     ct.style.fontWeight = n > 3 ? '700' : '400';
   }
   (function(){ var ta = $('rv-chamadas'); if(ta) ta.addEventListener('input', rvContaChamadas); })();
-  $('rv-salvar').addEventListener('click', function(){ if(RV.ed) salvarEd('salva rascunho'); });
+  $('rv-salvar').addEventListener('click', function(){ if(RV.ed) salvarEd('salva rascunho').catch(function(){}); });   // o erro já fica no rv-msg
   $('rv-publicar').addEventListener('click', function(){
     if(!RV.ed) return;
     if(RV.ed.status === 'publicada'){

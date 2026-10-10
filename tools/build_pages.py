@@ -5684,7 +5684,9 @@ def producoes_body():
         f'<details class="pr-faq"><summary>{safe(x["p"])}</summary><p>{safe(x["r"])}</p></details>'
         for x in d.get('faq', []))
     cases = ''
-    _cases = d.get('cases') or []
+    # um item vazio (null) gravado por engano no arquivo não pode derrubar o
+    # deploy do site inteiro: só entra o que é trabalho de verdade
+    _cases = [c for c in (d.get('cases') or []) if isinstance(c, dict)]
     if _cases:
         tem_ex = any(c.get('exemplo') for c in _cases)
         cards = ''
@@ -5715,11 +5717,12 @@ def producoes_body():
                '<p class="pr-sub">Cada trabalho contado do mesmo jeito: o desafio, o que foi feito e o resultado.</p>'
         cases = f'<section class="pr-sec" id="trabalhos"><h2>Trabalhos</h2>{nota}<div class="pr-cases">{cards}</div></section>'
     depo = ''
-    if d.get('depoimentos'):
+    _depos = [x for x in (d.get('depoimentos') or []) if isinstance(x, dict)]
+    if _depos:
         depo = '<section class="pr-sec"><h2>Quem já trabalhou com a gente</h2><div class="pr-depos">' + ''.join(
             f'<blockquote class="pr-depo pr-rv"><p>“{safe(x["texto"])}”</p><footer><b>{safe(x.get("quem", ""))}</b>'
             + (f'<span>{safe(x["cargo"])}</span>' if x.get('cargo') else '') + '</footer></blockquote>'
-            for x in d['depoimentos']) + '</div></section>'
+            for x in _depos) + '</div></section>'
     quem = ''
     for uid in d.get('quem', []):
         u = eq.get(uid)
