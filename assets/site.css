@@ -67,6 +67,25 @@
   --wine:#4E0F09; --wine-deep:#2A0705; --gold:#CEB26A; --gold-hi:#E9CB85;
   --line:#EDE5D2; --err:#E06A5A; --ok:#7FBF7F;
 }
+/* Blackout: o realce que no claro é bloco escuro com letra dourada vira bloco
+   creme (o --ink inverte), e o dourado sobre creme não se lia (1,64:1). Aqui
+   a letra do realce passa a ser a cor do fundo da página, 15:1 (auditoria de
+   10/10/2026). Itens já marcados (.on) em vinho ficam como estão. */
+:root[data-theme="dark"] .util a:hover, :root[data-theme="dark"] .util .theme-btn:hover,
+:root[data-theme="dark"] nav.main a:not(.on):hover,
+:root[data-theme="dark"] .filters a:not(.on):hover,
+:root[data-theme="dark"] .pager a:not(.on):hover,
+:root[data-theme="dark"] .sec-head .all:hover,
+:root[data-theme="dark"] .giro-item:hover, :root[data-theme="dark"] .giro-more:hover,
+:root[data-theme="dark"] .agd-row:hover, :root[data-theme="dark"] .agd-row:hover .agd-meta,
+:root[data-theme="dark"] .agd-row:hover .agd-date small, :root[data-theme="dark"] .agd-row:hover .agd-date b,
+:root[data-theme="dark"] .ency-search button:hover,
+:root[data-theme="dark"] .ency-row:not(.head):hover, :root[data-theme="dark"] .ency-row:not(.head):hover .of,
+:root[data-theme="dark"] .ency-row:not(.head):hover .nm small,
+:root[data-theme="dark"] .ency-chips button.on, :root[data-theme="dark"] .ency-chips button:hover,
+:root[data-theme="dark"] .vb-row:hover, :root[data-theme="dark"] .vb-row:hover small,
+:root[data-theme="dark"] .signup-card .sg-abrir:hover, :root[data-theme="dark"] .cv-vai:hover,
+:root[data-theme="dark"] .cv-band button:hover{ color:var(--paper); }
 
 *{ box-sizing:border-box; }
 html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
@@ -91,6 +110,13 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible,
 input:focus-visible, select:focus-visible, textarea:focus-visible{
   outline:3px solid var(--ink); outline-offset:2px; border-radius:1px;  /* --ink muda por tema: 15:1 nos dois */
 }
+/* nos blocos de fundo vinho ou escuro (rodapé, letreiro, cabeçalho da capa,
+   faixa da newsletter, Programas) o anel escuro sumia (1,25:1); ali ele é
+   dourado, igual nos dois temas (auditoria de 10/10/2026) */
+footer :focus-visible, .ticker :focus-visible, .masthead :focus-visible,
+.news-bar :focus-visible, .programas :focus-visible{ outline-color:var(--gold); }
+/* nas grades de Programas o cartão vizinho cobria metade do anel */
+.prog-grid .show:focus-visible, .prog-cta a:focus-visible{ position:relative; z-index:1; }
 
 .wrap{ width:100%; max-width:var(--wrap); margin:0 auto; padding:0 20px; }
 
@@ -1034,6 +1060,10 @@ body.ads-on.ads-demo .ad-slot::after{
   padding-top:8px;
 }
 .art-body p{ margin:0 0 20px; }
+/* endereço de ingresso ou e-mail comprido quebra em vez de passar da borda e
+   sumir no celular; texto comum não muda (auditoria de 10/10/2026). O
+   break-word vem antes para o Safari antigo, que não conhece o anywhere. */
+.art-body p, .art-body li, .art-body a{ overflow-wrap:break-word; overflow-wrap:anywhere; }
 .art-body h2{
   font-family:var(--black); font-weight:400; text-transform:uppercase;
   font-size:1.3rem; line-height:1.05; margin:34px 0 14px; letter-spacing:0;
@@ -1193,6 +1223,9 @@ footer{ background:var(--wine); color:var(--gold); overflow:hidden; }
   .prog-grid{ grid-template-columns:1fr; }
   .ency-row{ grid-template-columns:1fr 90px 40px; }
   .ency-row .of{ display:none; }
+  /* ...menos quando ela é a linha inteira: o 'Nada encontrado' da Busca
+     sumia no celular e ficava uma caixa vazia (auditoria de 10/10/2026) */
+  .ency-row .of:only-child{ display:block; grid-column:1 / -1; }
   .foot-cols{ grid-template-columns:1fr; }
   .manchete-body{ padding:20px; }
   .news-bar .wrap{ flex-direction:column; align-items:stretch; }
@@ -1211,7 +1244,15 @@ footer{ background:var(--wine); color:var(--gold); overflow:hidden; }
 
 
 /* ---------- movimento da casa (v2) ---------- */
-main{ animation:pagein .45s ease both; }
+/* 'backwards', não 'both' (auditoria de 10/10/2026): a entrada é a mesma, mas
+   com 'both' a animação continuava valendo no main depois de acabar, e o
+   Chrome trata isso como um transform para sempre. Efeitos: (1) o navegador
+   deixava de segurar o texto no lugar quando algo acima da tela muda de altura,
+   e a caixa de anúncio vazia recolhida fazia a matéria saltar 310 px no
+   celular; (2) o que é position:fixed dentro do main (o botão de WhatsApp de
+   Produções, a cortina e o aviso da revista) ficava preso ao main em vez da
+   tela. */
+main{ animation:pagein .45s ease backwards; }
 @keyframes pagein{ from{ opacity:0; transform:translateY(12px);} to{ opacity:1; transform:none;} }
 
 nav.main a{ position:relative; }
@@ -1274,7 +1315,9 @@ a:hover .tag, .tag:hover{ transform:translateY(-1px); }
 @media (max-width:700px){
   .util .wrap{ font-size:.54rem; letter-spacing:.06em; gap:6px; }
   .util a[href*="youtube"], .util a[href*="spotify"], .util a[href*="instagram"]{ display:none; }
-  .util .cell{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  /* a data pode quebrar em duas linhas: numa linha só o iPhone mostrava
+     '10.10.202', com o ano cortado (auditoria de 10/10/2026) */
+  .util .cell{ white-space:normal; line-height:1.2; overflow:hidden;
     min-width:0; flex:1; }
   .util .right{ gap:4px; flex-shrink:0; }
   .util a{ padding:10px 8px; min-height:44px; }
@@ -1298,7 +1341,8 @@ a:hover .tag, .tag:hover{ transform:translateY(-1px); }
 .art-galeria{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
   gap:10px; margin:22px 0; }
 .art-galeria figure{ margin:0; }
-.art-galeria img{ width:100%; aspect-ratio:4/3; object-fit:cover; border:2px solid var(--ink); }
+.art-galeria img{ width:100%; aspect-ratio:4/3; object-fit:cover; border:2px solid var(--ink);
+  object-position:center 22%; }  /* foto em pé: o corte guarda o rosto, como nas capas */
 .art-galeria figcaption{ font-family:var(--mono); font-size:.56rem; letter-spacing:.08em;
   text-transform:uppercase; color:var(--ink-soft); padding:6px 2px 0; }
 .art-galeria .fig-cred{ display:block; opacity:.75; margin-top:2px; }

@@ -173,9 +173,33 @@ window.FOYER_ADS = {
   // o leitor rolar para longe dela.
   function recolhe(caixa){
     function fora(){ var r = caixa.getBoundingClientRect(); return r.bottom < 0 || r.top > window.innerHeight; }
-    if(fora()){ caixa.style.display = 'none'; return; }
-    var h = function(){ if(fora()){ caixa.style.display = 'none'; window.removeEventListener('scroll', h); } };
+    if(fora()){ some(caixa); return; }
+    var h = function(){ if(fora()){ some(caixa); window.removeEventListener('scroll', h); } };
     window.addEventListener('scroll', h, { passive: true });
+  }
+  // Caixa que já ficou ACIMA da tela: some e o texto sobe junto. O Chrome e o
+  // Firefox seguram a linha do leitor sozinhos (ajuste de rolagem; ver o main
+  // no site.css). O Safari não tem esse ajuste: lá é este código que recua a
+  // rolagem na mesma medida que a caixa ocupava, e o leitor não perde a linha
+  // (auditoria de 10/10/2026: o texto saltava 310 px no celular).
+  function some(caixa){
+    var acima = caixa.getBoundingClientRect().bottom <= 0;
+    var segura = window.CSS && CSS.supports && CSS.supports('overflow-anchor', 'auto');
+    var ref = (acima && !segura) ? seguinte(caixa) : null;
+    var antes = ref ? ref.getBoundingClientRect().top : 0;
+    caixa.style.display = 'none';
+    if(!ref) return;
+    var d = ref.getBoundingClientRect().top - antes;   // o quanto o texto subiu
+    if(!d) return;
+    try{ window.scrollBy({ top: d, left: 0, behavior: 'instant' }); }
+    catch(e){ window.scrollBy(0, d); }
+  }
+  // o primeiro elemento visível que vem depois da caixa (a medida do salto)
+  function seguinte(el){
+    for(var e = el; e && e !== document.body; e = e.parentElement)
+      for(var s = e.nextElementSibling; s; s = s.nextElementSibling)
+        if(s.getClientRects().length) return s;
+    return null;
   }
   function vigiaVazio(caixa, ins){
     function confere(){

@@ -2086,14 +2086,20 @@ def _og_tipo(p):
         print(f'  (prévia de link da coluna "{p["slug"]}" fica com o banner: {e})')
         return None
 
-def real_ph(p, href, cap=True):
+def real_ph(p, href, cap=True, cedo=False):
+    """Foto do cartão. O link da foto leva ao mesmo lugar que o título logo
+    abaixo, então fica fora do Tab e do leitor de tela: antes cada matéria
+    era duas paradas, a primeira chamada 'Foto da matéria' (auditoria de
+    10/10/2026). cedo=True é a foto do primeiro cartão da lista, o maior
+    elemento da tela: baixa já, sem esperar a rolagem."""
     if _sem_foto_op(p):
         return _capa_tipo(p, href, grande=cap)
     c = f'<span class="ph-cap">{safe(_tarja_cred(_cred_curto(p)))}</span>' if cap else ''
-    return (f'<a class="ph" href="{href}" aria-label="Foto da matéria">'
-            f'<img src="{wiximg(p["img"], 800, 450)}" alt="{safe(p["title"])}" loading="lazy" onerror="this.style.display=\'none\'">{c}</a>')
+    carga = 'loading="eager" fetchpriority="high"' if cedo else 'loading="lazy"'
+    return (f'<a class="ph" href="{href}" aria-hidden="true" tabindex="-1">'
+            f'<img src="{wiximg(p["img"], 800, 450)}" alt="{safe(p["title"])}" {carga} onerror="this.style.display=\'none\'">{c}</a>')
 
-def real_cell(p, big=False):
+def real_cell(p, big=False, cedo=False):
     tipo = _sem_foto_op(p)   # capa tipográfica: o título e o selo já estão nela, o corpo não repete
     d = f'\n        <p>{p["desc"][:160]}…</p>' if big else (f'\n        <p>{p["desc"][:110]}…</p>' if tipo else '')
     href = 'post-' + p['slug'] + '.html'
@@ -2101,7 +2107,7 @@ def real_cell(p, big=False):
         (('<span class="tag wine">' + _tipo_rotulo(p) + '</span>') if _eh_opiniao(p) else ('<span class="tag">' + p['cat'] + '</span>'))
         + f'\n        <h3><a href="{href}">{p["title"]}</a></h3>')
     return f'''    <article class="news-cell{' big' if big else ''}{' tipo' if tipo else ''}" data-cat="{p['cat']}">
-      {real_ph(p, href, cap=big)}
+      {real_ph(p, href, cap=big, cedo=cedo)}
       <div class="cbody">
         {cabeca}{d}
         <div class="meta-row">
@@ -2375,7 +2381,7 @@ def listing_body(posts, page, pages, base, titulo, nota, active='*'):
     for _k, x in enumerate(chunk):
         if _k and _k % 9 == 0:
             cells.append(f'<div class="ad-slot ad-feed" data-ad-slot="{1004 + _k // 9}" data-ad-formato="feed"></div>')
-        cells.append(real_cell(x, big=(_k == 0)))
+        cells.append(real_cell(x, big=(_k == 0), cedo=(_k == 0)))
     grid = '\n'.join(cells)
     return band('Editoria', titulo, nota) + f"""
 <main id="conteudo" class="wrap">
