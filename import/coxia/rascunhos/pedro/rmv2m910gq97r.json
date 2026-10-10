@@ -11,8 +11,18 @@
  "imgfonte": "",
  "imgdir": "",
  "fontes": "",
- "temFoto": false,
- "foto": null,
+ "temFoto": true,
+ "foto": {
+  "orig": {
+   "imgOriginal": "assets/uploads/rascunho-original-1791676434301.jpg"
+  },
+  "enq": {
+   "fx": 0.5,
+   "fy": 0.5,
+   "z": 1
+  },
+  "k": "73684:ABzdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//2Q==:/0ZAu4PwHaiiy2FfK1iEnnH6"
+ },
  "op": null,
  "autor": "Pedro Amaral",
  "ev": {
@@ -25,9 +35,9 @@
   "modo": "agora",
   "data": "2026-10-10T15:10"
  },
- "quando": "2026-10-10T16:37:04.887Z",
+ "quando": "2026-10-10T23:53:59.411Z",
  "id": "rmv2m910gq97r",
- "salvoEm": "2026-10-10T16:37:05.862Z",
+ "salvoEm": "2026-10-10T23:54:00.222Z",
  "por": "Pedro Amaral",
  "v": 2
 }
