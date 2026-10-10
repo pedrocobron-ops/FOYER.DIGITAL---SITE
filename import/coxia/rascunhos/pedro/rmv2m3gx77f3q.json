@@ -11,8 +11,18 @@
  "imgfonte": "",
  "imgdir": "",
  "fontes": "",
- "temFoto": false,
- "foto": null,
+ "temFoto": true,
+ "foto": {
+  "orig": {
+   "imgOriginal": "assets/uploads/rascunho-original-1791650093895.jpg"
+  },
+  "enq": {
+   "fx": 0.5,
+   "fy": 0.5,
+   "z": 1
+  },
+  "k": "94168:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf/Z:boetDm8vk2YhF5VYwUcNZ6b9"
+ },
  "op": null,
  "autor": "Redação Foyer",
  "ev": {
@@ -25,9 +35,9 @@
   "modo": "agora",
   "data": ""
  },
- "quando": "2026-10-10T16:32:51.613Z",
+ "quando": "2026-10-10T16:34:57.478Z",
  "id": "rmv2m3gx77f3q",
- "salvoEm": "2026-10-10T16:32:52.537Z",
+ "salvoEm": "2026-10-10T16:34:58.271Z",
  "por": "Pedro Amaral",
  "v": 2
 }
