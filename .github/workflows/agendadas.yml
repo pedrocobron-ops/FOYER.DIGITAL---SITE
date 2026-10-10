@@ -94,6 +94,17 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      # Sem a Pillow o site subia sem as miniaturas das fotos (e sem as medidas
+      # das imagens): cada matéria publicada pelo relógio deixava o site 5 vezes
+      # mais pesado até a próxima publicação da Coxia (auditoria de 10/10/2026).
+      - name: Ferramentas de imagem (miniaturas das fotos e prévia de link das colunas)
+        run: pip install --quiet pillow
+      - name: Miniaturas guardadas da publicação anterior
+        uses: actions/cache@v4
+        with:
+          path: assets/thumbs
+          key: thumbs-v1-${{ hashFiles('import/novas/**', 'import/materias.json', 'import/equipe.json', 'import/revista/edicoes/**') }}
+          restore-keys: thumbs-v1-
       - name: Gerar o site com as matérias liberadas
         run: |
           python3 tools/atualiza_youtube.py || echo "YouTube fora do ar — usa o último retrato salvo"

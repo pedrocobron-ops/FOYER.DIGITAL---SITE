@@ -45,6 +45,17 @@ jobs:
           git commit -m "YouTube: episódios novos no site [skip ci]"
           git push
 
+      # Sem a Pillow o site subia sem as miniaturas das fotos (auditoria de 10/10/2026)
+      - name: Ferramentas de imagem (miniaturas das fotos e prévia de link das colunas)
+        if: steps.yt.outputs.mudou == 'sim'
+        run: pip install --quiet pillow
+      - name: Miniaturas guardadas da publicação anterior
+        if: steps.yt.outputs.mudou == 'sim'
+        uses: actions/cache@v4
+        with:
+          path: assets/thumbs
+          key: thumbs-v1-${{ hashFiles('import/novas/**', 'import/materias.json', 'import/equipe.json', 'import/revista/edicoes/**') }}
+          restore-keys: thumbs-v1-
       - name: Gerar o site com os episódios novos
         if: steps.yt.outputs.mudou == 'sim'
         run: python3 tools/build_pages.py
