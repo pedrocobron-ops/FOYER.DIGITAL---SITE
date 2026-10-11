@@ -2094,10 +2094,12 @@ def real_ph(p, href, cap=True, cedo=False):
     elemento da tela: baixa já, sem esperar a rolagem."""
     if _sem_foto_op(p):
         return _capa_tipo(p, href, grande=cap)
-    c = f'<span class="ph-cap">{safe(_tarja_cred(_cred_curto(p)))}</span>' if cap else ''
+    # O crédito da foto não vai escrito sobre a foto nas capas e listas: como
+    # no g1, Estadão, Folha, UOL e Guardian, ele fica na página da matéria e,
+    # aqui, só no title da imagem (pedido do Pedro, 11/10/2026)
     carga = 'loading="eager" fetchpriority="high"' if cedo else 'loading="lazy"'
     return (f'<a class="ph" href="{href}" aria-hidden="true" tabindex="-1">'
-            f'<img src="{wiximg(p["img"], 800, 450)}" alt="{safe(p["title"])}" {carga} onerror="this.style.display=\'none\'">{c}</a>')
+            f'<img src="{wiximg(p["img"], 800, 450)}" alt="{safe(p["title"])}" title="{safe(_tarja_cred(_cred_curto(p)))}" {carga} onerror="this.style.display=\'none\'"></a>')
 
 def real_cell(p, big=False, cedo=False):
     tipo = _sem_foto_op(p)   # capa tipográfica: o título e o selo já estão nela, o corpo não repete
@@ -2198,8 +2200,7 @@ index_body = TICKER + '''
 '''
 
 _manchete_capa = _capa_tipo(_p0, f"post-{_p0['slug']}.html", grande=True, classe='ph cover ph-tipo') if _sem_foto_op(_p0) else f'''<a class="ph cover" href="post-{_p0['slug']}.html" aria-label="Foto da reportagem de capa">
-        <img src="{wiximg(_p0['img'])}" alt="" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'">
-        <span class="ph-cap">{safe(_tarja_cred(_cred_curto(_p0)))}</span>
+        <img src="{wiximg(_p0['img'])}" alt="" title="{safe(_tarja_cred(_cred_curto(_p0)))}" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'">
       </a>'''
 index_main = f'''<main id="conteudo">
 <section class="frontpage wrap">
