@@ -1114,7 +1114,7 @@ body.ads-on.ads-demo .ad-slot::after{
 /* verbete: tabela com 4 colunas */
 .ency-row.four{ grid-template-columns:1.6fr 1fr 1.2fr 90px; }
 @media (max-width:600px){
-  .ency-row.four{ grid-template-columns:1fr 70px; }
+  .ency-row.four{ grid-template-columns:minmax(0,1fr) 70px; }
   .ency-row.four .of{ display:none; }
 }
 
@@ -1222,7 +1222,9 @@ footer{ background:var(--wine); color:var(--gold); overflow:hidden; }
   .news-grid{ grid-template-columns:1fr; }
   .news-cell.big{ grid-column:span 1; grid-row:span 1; }
   .prog-grid{ grid-template-columns:1fr; }
-  .ency-row{ grid-template-columns:1fr 90px 40px; }
+  .ency-row{ grid-template-columns:minmax(0,1fr) 90px 40px; }
+  /* nome comprido quebra em vez de alargar a página (320 px, 11/10/2026) */
+  .ency-row .nm{ min-width:0; overflow-wrap:anywhere; }
   .ency-row .of{ display:none; }
   /* ...menos quando ela é a linha inteira: o 'Nada encontrado' da Busca
      sumia no celular e ficava uma caixa vazia (auditoria de 10/10/2026) */
