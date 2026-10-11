@@ -343,8 +343,16 @@ def extrair_nomes(texto):
 # nome que vem logo depois de um convite ("Isabel Branquinha recebe a diretora
 # Rhena de Faria e a dramaturga Sofia Fransolin", "conversa com", "Convidados:")
 # ou que está na lista de convidados da descrição; o resto é só mencionado.
+#   Também valem (conferência de 11/10/2026, convidados reais que tinham virado
+# "citado"): a lista de quem joga ("Quem topou o desafio dessa vez foram A, B e
+# C", "Apresentação dos participantes (A, B e C)") e o crédito de quem canta
+# no Session Musical ("Intérprete: Fulano").
 _CONVITE = re.compile(r"\b(?:receb(?:e|em|emos|eram|er)|(?:conversa(?:m|mos)?|bate-papo|papo|entrevista(?:m|mos)?)\s+com"
-                      r"|convida(?:m|mos)?|convidad[oa]s?)\b", re.I)
+                      r"|convida(?:m|mos)?|convidad[oa]s?|top(?:ou|aram)\s+o\s+desafio|participantes"
+                      r"|int[ée]rpretes?(?=\s*:))\b", re.I)
+# "Fábio Enríquez interpreta 'As Leis São Belas'": o nome que abre a frase e
+# canta no episódio é o convidado
+_INTERPRETA = re.compile(r"(?:^|[.!?]\s+)[^\w\s]*\s*(" + _NOME_GRP + r")\s+(?:interpreta|interpretam|canta|cantam)\b")
 # palavras que, entre o convite e o nome, mostram que a frase fala de outra
 # coisa ("recebe o elenco do musical Tim Maia", "conversa com ela sobre")
 _CONVITE_VETO = {'sobre', 'para', 'de', 'do', 'da', 'dos', 'das', 'com', 'em', 'na', 'no', 'nas', 'nos', 'pelo',
@@ -362,7 +370,9 @@ def _so_artigo_e_funcao(t, maximo):
 
 def convidados_descricao(desc):
     """Nomes que a descrição apresenta como convidados, na ordem do texto."""
-    texto = re.sub(r'\s*\([^()]*\)', '', desc or '')                 # "(atriz, dramaturga e pesquisadora)"
+    # "participantes (A, B e C)": o parêntese é a própria lista, não um aposto
+    texto = re.sub(r'\b(participantes)\s*\(([^()]*)\)', r'\1: \2.', desc or '', flags=re.I)
+    texto = re.sub(r'\s*\([^()]*\)', '', texto)                      # "(atriz, dramaturga e pesquisadora)"
     texto = re.sub(r'[“"‘\'』«][^”"’\'»]{2,90}[”"’\'»]', ' ¶ ', texto)  # obra entre aspas corta a frase
     saida = []
 
@@ -387,6 +397,8 @@ def convidados_descricao(desc):
                 elif not re.match(r"^\s*[A-ZÀ-Ú][\w'’\-]*\s*$", seg) or vistos > 12:
                     break      # acabou a lista (a linha seguinte é outro título)
             continue
+        for g in _INTERPRETA.finditer(linha):
+            junta(g.group(1))
         for g in _CONVITE.finditer(linha):
             # a frase do convite acaba no ponto, no travessão ou no hífen solto
             resto = re.split(r"[.!?;](?:\s|$)|\s[\u2014\u2013]|\s-\s|¶", linha[g.end():g.end() + 300], 1)[0]
@@ -594,8 +606,11 @@ def main():
     nomes_progs = sorted({p['nome'].split(' \u2014 ')[0] for p in yt.get('programas', [])}, key=len, reverse=True)
     for prog in yt.get('programas', []):
         nome_prog = prog['nome'].split(' — ')[0]
-        apres = APRESENTA.get(nome_prog)
-        sp_apres = slugify(canonico(apres)) if apres else None
+        # programa com mais de um apresentador: nomes separados por vírgula ou
+        # "e" ("Pedro Amaral, Isabel Branquinha"); quem apresenta nunca é
+        # convidado nem citado no próprio programa
+        apres_lista = [n.strip() for n in re.split(r"\s*[,;]\s*|\s+e\s+", APRESENTA.get(nome_prog) or '') if n.strip()]
+        sp_apres = {slugify(canonico(n)) for n in apres_lista}
         for v in prog.get('videos', []):
             desc = v.get('descricao') or ''
             texto_ep = v['titulo'] + '. ' + desc
@@ -616,7 +631,7 @@ def main():
                 mc = re.search(r"\b(?:com|por)\s+", seg, re.I)
                 if mc:
                     depois = _em_ordem(extrair_nomes(seg[mc.end():]), seg)
-                    if depois and all(slugify(canonico(n)) == sp_apres for n in depois):
+                    if depois and all(slugify(canonico(n)) in sp_apres for n in depois):
                         continue
                     tem_com = True
                     nomes_tit += [n for n in depois if n not in nomes_tit]
@@ -639,7 +654,7 @@ def main():
                 for rot, n in fs.items():
                     votos[slugify(nm)][rot] += n
             for nome, papel in [(n, 'convidado') for n in convidados] + [(n, 'mencionado') for n in mencionados]:
-                if sp_apres and slugify(canonico(nome)) == sp_apres:
+                if slugify(canonico(nome)) in sp_apres:
                     continue
                 sp = registra(nome, 'episodio', papel, f"{nome_prog}: {v['titulo']}",
                               v['url'], v.get('quando', ''))
@@ -650,7 +665,7 @@ def main():
                             conv_por_video[v['id']].append(sp)
                     else:
                         mencoes[sp].add(v['id'])
-            if apres:
+            for apres in apres_lista:
                 sp = registra(apres, 'episodio', 'apresenta', f"{nome_prog}: {v['titulo']}",
                               v['url'], v.get('quando', ''))
                 if sp:

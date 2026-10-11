@@ -1,5 +1,5 @@
 {
- "_leiame": "Regras da Enciclopédia, editadas na Coxia (aba Enciclopédia) e lidas por tools/enciclopedia.py e tools/build_pages.py. bloquear: nomes que NÃO são pessoas (peças, instituições, personagens, pedaços de frase) e nunca viram verbete. nomes_curtos: nomes artísticos de uma palavra só que valem como verbete (a regra geral exige duas palavras). apelidos: nome como aparece no texto -> nome do verbete (junta duplicados). pessoas: ajustes feitos à mão por verbete (slug -> nome, funcao, bio, foto, redes), que valem por cima do automático. apresentadores: nome do programa (como está em tools/atualiza_youtube.py, sem a temporada) -> quem apresenta; cada episódio credita o apresentador. convidados: id do vídeo do YouTube -> nomes de quem participou do episódio, para quando o título e a descrição não dizem; o card do programa e a lista \"Quem já passou\" usam só os convidados.",
+ "_leiame": "Regras da Enciclopédia, editadas na Coxia (aba Enciclopédia) e lidas por tools/enciclopedia.py e tools/build_pages.py. bloquear: nomes que NÃO são pessoas (peças, instituições, personagens, pedaços de frase) e nunca viram verbete. nomes_curtos: nomes artísticos de uma palavra só que valem como verbete (a regra geral exige duas palavras). apelidos: nome como aparece no texto -> nome do verbete (junta duplicados). pessoas: ajustes feitos à mão por verbete (slug -> nome, funcao, bio, foto, redes), que valem por cima do automático. apresentadores: nome do programa (como está em tools/atualiza_youtube.py, sem a temporada) -> quem apresenta (mais de um: nomes separados por vírgula); cada episódio credita o apresentador, que nunca conta como convidado nem citado no próprio programa. convidados: id do vídeo do YouTube -> nomes de quem participou do episódio, para quando o título e a descrição não dizem; o card do programa e a lista \"Quem já passou\" usam só os convidados.",
  "bloquear": [
   "Ainda Estou Aqui",
   "Além da Ilusão",
@@ -274,7 +274,9 @@
   "Leonino Mais Brilhante",
   "Atividade Paranormal",
   "Mapa Astral de Maysa",
-  "Alice de Cor"
+  "Alice de Cor",
+  "Amazon Prime",
+  "Ennis Del Mar"
  ],
  "nomes_curtos": [
   "Molière",
@@ -342,11 +344,12 @@
   "Lili Monteiro Revela": "Lili Monteiro",
   "Entrevista de Marília Gabriela": "Marília Gabriela",
   "Ronaldo Gutierrez Escrita": "Ronaldo Gutierrez",
-  "Bruno Cavalcante": "Bruno Cavalcanti"
+  "Bruno Cavalcante": "Bruno Cavalcanti",
+  "Belle Cárceres": "Belle Cáceres"
  },
  "pessoas": {},
  "apresentadores": {
-  "Programa do Foyer": "Pedro Amaral",
+  "Programa do Foyer": "Pedro Amaral, Isabel Branquinha",
   "Teatro a Sangue Frio": "Gerson Steves",
   "Astro em Cena": "Neusa Romano",
   "Coxixo de Coxia": "Isabel Branquinha",
@@ -355,5 +358,33 @@
  "wiki_ok": [
   "letrux"
  ],
- "convidados": {}
+ "convidados": {
+  "hOb6l5zf3-8": [
+   "Diego Campagnoli"
+  ],
+  "OYwFlWbjcpc": [
+   "Kyra Piscitelli",
+   "Bruno Cavalcanti",
+   "Cláudio Erlichman"
+  ],
+  "eV8W50mW6hI": [
+   "Kyra Piscitelli",
+   "Bruno Cavalcanti",
+   "Cláudio Erlichman"
+  ],
+  "hOD08pWuL80": [
+   "Kyra Piscitelli"
+  ],
+  "HMLFK6LC_lA": [
+   "Kleber Montanheiro"
+  ],
+  "9hbaagKDd1I": [
+   "Henrique Moretzsohn",
+   "Diego Luri",
+   "Velson D’Souza"
+  ],
+  "Q9EZikkFA9Q": [
+   "Ângela Ribeiro"
+  ]
+ }
 }
