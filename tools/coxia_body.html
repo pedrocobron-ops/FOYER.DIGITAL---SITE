@@ -7179,12 +7179,19 @@ ingressos e divisor."></textarea>
     }).then(function(){
       msg.className = 'msg ok';
       if(editEnvio){
-        msg.textContent = editEnvio.fonte === 'pauta'
+        var eraDevolvida = editEnvio.fonte === 'pauta' && editEnvio.orig && editEnvio.orig.status === 'devolvida';
+        var quemAprova = String(F.autor || '').split(' ')[0];
+        msg.textContent = eraDevolvida
+          ? 'Reenviada ✓: a matéria voltou para a mesa' + (quemAprova && !assinaComigo(F.autor) ? ' de ' + quemAprova : ' de aprovação')
+          : editEnvio.fonte === 'pauta'
           ? 'Editada ✓ — a matéria voltou para a mesa de aprovação'
           : 'Edição salva ✓ — no ar em ~2 min, com o selo “atualizada em”';
+        if(eraDevolvida) toast(msg.textContent);
         var eraPauta = editEnvio.fonte === 'pauta';
         if(EDIT === editEnvio) sairEdicao();
-        if(eraPauta) irPara('ia');
+        // quem não tem a mesa volta para a Fila (a cerca da mesa mandava o
+        // autor(a) para o Saguão com o aviso de "área da chefia")
+        if(eraPauta) irPara(podeMesa() ? 'ia' : 'fila');
         return;
       }
       if(mesaDe.length){
@@ -7223,6 +7230,12 @@ ingressos e divisor."></textarea>
   });
 
   /* ---------------- fila ---------------- */
+  // devolvida na mesa e escrita por quem está na Coxia (o recado é para ela/ele)
+  function devolvidaParaMim(d){
+    var eu = (USER && USER.nome) ? String(USER.nome).trim().toLowerCase() : '';
+    return !!eu && !!d && !!d._mesa && d.status === 'devolvida' &&
+      String(d.criadoPor || '').trim().toLowerCase() === eu;
+  }
   function carregarFila(){
     var el = $('fila-list');
     el.innerHTML = '<div class="vazio-box">Carregando…</div>';
@@ -7263,7 +7276,12 @@ ingressos e divisor."></textarea>
           // pergunta do Pedro é "alguém já programou isso?", e a resposta
           // pode estar numa matéria ainda esperando aprovação
           mesaBusca = items.filter(function(d){ return d._mesa; });
-          items = items.filter(function(d){ return !d._mesa; });
+          // A DEVOLVIDA VOLTA PARA QUEM ESCREVEU. O chefe que escreve no nome
+          // da Isabel manda a matéria para a mesa dela; se ela devolve, a mesa
+          // esconde a devolvida e esta lista não mostrava a pauta: o recado
+          // sumia e ninguém corrigia. Agora quem escreveu (criadoPor) vê aqui,
+          // com o recado e o "Corrigir e reenviar", como o autor(a) já via.
+          items = items.filter(function(d){ return !d._mesa || devolvidaParaMim(d); });
         }
         if(!items.length){
           el.innerHTML = avisoPerda || '<div class="vazio-box">Nenhuma matéria por aqui ainda</div>';
@@ -7387,6 +7405,9 @@ ingressos e divisor."></textarea>
           if(podeEditar() && !d._mesa){
             acoes += '<button class="bt" data-edtm="' + esc(d.slug) + '" type="button">✎ Editar</button>';
             if(d.atualizadoEm) acoes += '<button class="bt" data-vers="' + esc(d.slug) + '" type="button">🔍 Versões</button>';
+          } else if(podeEditar() && devolvidaParaMim(d)){
+            // escrita no nome de outra pessoa e devolvida: corrige e reenvia para a mesa dela
+            acoes += '<button class="bt" data-edtp="' + esc(d.slug) + '" type="button">✎ Corrigir e reenviar</button>';
           } else if(!podeEditar() && proprio && (d._mesa || devolvida)){
             acoes += '<button class="bt" data-edtp="' + esc(d.slug) + '" type="button">' + (devolvida ? '✎ Corrigir e reenviar' : '✎ Editar') + '</button>';
           }
@@ -8523,7 +8544,12 @@ ingressos e divisor."></textarea>
     pac.status = 'devolvida';
     pac.devolucao = { por: USER.nome, quando: new Date().toISOString(), motivo: motivo || 'sem comentário' };
     ghPut(d._path, JSON.stringify(pac, null, 1), assina('devolve "' + d.title + '" ao autor com parecer'))
-      .then(function(){ toast('Devolvida ao autor com o seu recado'); tiraCardEatualiza(d.slug); })
+      .then(function(){
+        // escrita por outra pessoa no nome de quem devolve: o recado vai para quem escreveu
+        var quem = (d.criadoPor && d.criadoPor !== d.author) ? String(d.criadoPor).split(' ')[0] : '';
+        toast(quem ? 'Devolvida a ' + quem + ' com o seu recado' : 'Devolvida ao autor com o seu recado');
+        tiraCardEatualiza(d.slug);
+      })
       .catch(function(err){ travarCard(card, false); avisar(msgErro(err)); });
   }
 
