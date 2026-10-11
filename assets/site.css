@@ -1669,6 +1669,20 @@ html.tem-aviso body{ padding-bottom:var(--aviso-alt, 0px); }
 }
 .util .lupa{ font-size:1rem; line-height:1; padding:8px 10px; }
 
+/* tarja em telas de até 359px (iPhone SE antigo, 320px): a data ainda saía
+   cortada porque Assine, Anuncie, busca e Blackout ('Luz da sala' no tema
+   escuro) ocupavam quase toda a largura. Aqui os botões perdem o respiro
+   lateral e o espaço entre eles, e a data perde o espaçamento entre letras.
+   A altura (44px de toque) não muda, e de 360px para cima nada muda. */
+@media (max-width:359px){
+  .util .wrap{ gap:4px; }
+  .util .cell{ letter-spacing:0; }
+  .util .right{ gap:0; }
+  .util a{ padding:10px 5px; }
+  .util .lupa{ padding:8px 8px; }
+  .theme-btn{ padding:10px 5px; letter-spacing:.02em; }
+}
+
 /* anúncio 'no feed' nas listas: uma linha inteira da grade (07/10/2026) */
 .news-grid .ad-feed{ grid-column:1 / -1; margin:6px 0; }
 
