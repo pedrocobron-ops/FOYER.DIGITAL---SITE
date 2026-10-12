@@ -222,7 +222,7 @@ UTIL = '''<div class="util">
       <a href="revista.html#assinar">Assine</a>
       <a href="anuncie.html">Anuncie</a>
       <a href="busca.html" class="lupa" aria-label="Buscar no site" title="Buscar">⌕</a>
-      <button class="theme-btn" id="theme" aria-label="Alternar tema">Blackout</button>
+      <button class="theme-btn" id="theme" type="button" aria-label="Blackout (tema escuro)">Blackout</button>
     </span>
   </div>
 </div>
@@ -270,13 +270,15 @@ def nav(current):
 '''
 
 def band(kicker, h1, note):
-    return f'''<header class="page-band">
+    # região com o nome do próprio título: sem ser <header> (o cabeçalho do
+    # site já é o .topo), a faixa precisa de um marco para não ficar solta
+    return f'''<section class="page-band" aria-labelledby="pb-titulo">
   <div class="wrap">
     <span class="kicker">{kicker}</span>
-    <h1>{h1}</h1>
+    <h1 id="pb-titulo">{h1}</h1>
     <p class="note">{note}</p>
   </div>
-</header>
+</section>
 '''
 
 # Logos no tamanho em que aparecem (12/10/2026): o grande do rodapé tinha
@@ -292,21 +294,21 @@ FOOTER = '''<footer>
         <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
       </div>
       <div class="foot-col">
-        <h4>Editorias</h4>
+        <h2>Editorias</h2>
         <a href="noticias.html">Notícias</a>
         <a href="opiniao.html">Opinião</a>
         <a href="critica.html">Crítica</a>
         <a href="entrevistas.html">Entrevistas</a>
       </div>
       <div class="foot-col">
-        <h4>Programas</h4>
+        <h2>Programas</h2>
         <a href="programas.html">Programa do Foyer</a>
         <a href="programas.html">Críticas Teatrais · Por Bruno Cavalcanti</a>
         <a href="programas.html">Trivia Musical · Astro em Cena</a>
         <a href="programas.html">Session Musical · Coxixo de Coxia</a>
       </div>
       <div class="foot-col">
-        <h4>Foyer</h4>
+        <h2>Foyer</h2>
         <a href="revista.html">A Revista</a>
         <a href="enciclopedia.html">Enciclopédia</a>
         <a href="sobre.html">Quem somos</a>
@@ -451,6 +453,17 @@ def _semente_slug(slug):
 def _dia_do_ano():
     return _dtmod.date.today().timetuple().tm_yday
 
+def _pub_alt(a):
+    """Texto alternativo da arte do anunciante. A arte é a única coisa dentro
+    do link: com a legenda vazia, o link ficava sem nome para o leitor de tela
+    (auditoria de 12/10/2026). Sem legenda, vale 'Publicidade: domínio'."""
+    leg = (a.get('legenda') or '').strip()
+    if leg:
+        return leg
+    from urllib.parse import urlparse as _up
+    dom = (_up(a.get('link') or '').hostname or '').replace('www.', '', 1)
+    return 'Publicidade: ' + (dom or 'anunciante')
+
 def _monta_ads_casa():
     """A publicidade que mora no site inteiro. Hoje é só a Cortina: a Faixa de
     rodapé saiu em 30/07/2026 (ordem do Pedro) porque exigia uma arte muito
@@ -484,7 +497,7 @@ def _monta_ads_casa():
                      '<span class="rotulo">Publicidade</span>'
                      f'<a href="{_html.escape(_lc)}" target="_blank" rel="noopener sponsored" '
                      f'data-pub="{_html.escape(_kc)}">'
-                     f'<img src="{_html.escape(ct.get("img", ""))}" alt="{_html.escape(ct.get("legenda", ""))}"></a>'
+                     f'<img src="{_html.escape(ct.get("img", ""))}" alt="{_html.escape(_pub_alt(ct))}"></a>'
                      + (f'<div class="leg">{_html.escape(ct["legenda"])}</div>' if ct.get('legenda') else '')
                      + '</div></div>')
         js.append('''(function(){
@@ -521,7 +534,7 @@ def _entreato_html(en=None):
     leg = f'<figcaption>{_html.escape(en["legenda"])}</figcaption>' if en.get('legenda') else ''
     return (f'<aside class="pub-entreato" data-pub-slot="entreato" data-pub-chave="{_html.escape(_ke)}"><em>Publicidade</em>'
             f'<a href="{_html.escape(_l)}" target="_blank" rel="noopener sponsored" data-pub="{_html.escape(_ke)}">'
-            f'<img src="{_html.escape(en.get("img", ""))}" alt="{_html.escape(en.get("legenda", ""))}" loading="lazy"></a>'
+            f'<img src="{_html.escape(en.get("img", ""))}" alt="{_html.escape(_pub_alt(en))}" loading="lazy"></a>'
             f'{leg}</aside>')
 
 # ---------------------------------------------------------------- O CARTAZ (quadrado)
@@ -537,7 +550,7 @@ def _cartaz_html(ca=None, onde='materia'):
     _leg = _html.escape(ca.get('legenda', ''))
     _arte = (f'<a href="{_html.escape(_l)}" target="_blank" rel="noopener sponsored" '
              f'data-pub="{_html.escape(_k)}">'
-             f'<img src="{_html.escape(ca["img"])}" alt="{_leg}" loading="lazy"></a>')
+             f'<img src="{_html.escape(ca["img"])}" alt="{_html.escape(_pub_alt(ca))}" loading="lazy"></a>')
     if onde == 'giro':
         return (f'<div class="giro-cartaz" data-pub-slot="cartaz" data-pub-chave="{_html.escape(_k)}">'
                 f'<em>Publicidade</em>{_arte}'
@@ -634,6 +647,12 @@ def news_cell(sym, tag, title, meta, desc=None, big=False):
       </div>
     </article>'''
 
+# auditoria de 12/10/2026: a barra útil (data, redes, Assine, tema) ficava fora
+# de qualquer região da página, e a matéria não tinha cabeçalho (banner). Agora
+# ela mora num <header> em toda página; a faixa de título virou <div>, para não
+# haver dois cabeçalhos de site na mesma tela.
+TOPO = '<header class="topo">\n' + UTIL + '</header>'
+
 def page(fname, title, desc, current, body, quiet=False, og_img=None, og_type='website', ld='', robots='', extra=''):
     # a publicidade da casa entra em todo o site, MENOS na Coxia e dentro da
     # revista (a edição fechada não carrega anúncio de site)
@@ -646,7 +665,7 @@ def page(fname, title, desc, current, body, quiet=False, og_img=None, og_type='w
     if 'noindex' in (robots or ''):
         body = _re.sub(r'\s*<div class="ad-slot"[^>]*></div>', '', body)
     _ads = ('class="ad-slot"' in body) and not fname.startswith(('revista', 'coxia', 'anuncie'))
-    html = head(title, desc, og_img=og_img, og_type=og_type, og_url=fname, ld=ld, ads=_ads, robots=robots, extra=extra) + '\n' + DEFS + '\n' + UTIL + '\n' + nav(current) + '\n' + body + '\n' + _pub + FOOTER + '</body>\n</html>\n'
+    html = head(title, desc, og_img=og_img, og_type=og_type, og_url=fname, ld=ld, ads=_ads, robots=robots, extra=extra) + '\n' + DEFS + '\n' + TOPO + '\n' + nav(current) + '\n' + body + '\n' + _pub + FOOTER + '</body>\n</html>\n'
     with open(os.path.join(ROOT, fname), 'w') as f:
         f.write(html)
     if not quiet:
@@ -836,7 +855,7 @@ programas_body = band('O canal', 'Os Programas', 'YouTube &amp; Spotify — novo
 # ---------------------------------------------------------------- ENCICLOPÉDIA
 
 def erow(nm, of, ct):
-    return f'''    <a class="ency-row" href="artista.html" role="row">
+    return f'''    <a class="ency-row" href="artista.html">
       <span class="nm">{nm}</span><span class="of">{of}</span><span class="ct">{ct}</span><span class="ar">→</span>
     </a>'''
 
@@ -851,8 +870,8 @@ enciclopedia_body = band('Projeto Foyer', 'Enciclopédia do Teatro Musical Brasi
     <input type="search" placeholder="Busque por artista, espetáculo, teatro ou função…" aria-label="Buscar na enciclopédia">
     <button type="submit">Buscar</button>
   </form>
-  <div class="ency-table" role="table" aria-label="Índice de artistas">
-    <div class="ency-row head" role="row">
+  <div class="ency-table" role="group" aria-label="Índice de artistas">
+    <div class="ency-row head">
       <span>Nome</span><span class="of">Ofício</span><span class="ct">Produções</span><span class="ar"></span>
     </div>
 {erow('Marina Villas','Atriz · Diretora musical','012')}
@@ -1061,7 +1080,7 @@ index_main = '''<main id="conteudo">
         </div>
         <h1><a href="materia.html">A temporada em que o musical brasileiro decidiu contar as próprias histórias</a></h1>
         <p class="dek">De biografias a fábulas urbanas, as grandes produções da estação abandonam a tradução literal da Broadway para inventar uma dramaturgia com sotaque nacional — e o público respondeu lotando as casas.</p>
-        <div class="share-row" aria-label="Compartilhar esta matéria">
+        <div class="share-row" role="group" aria-label="Compartilhar esta matéria">
           <button class="sbtn" data-share="whats" data-title="A temporada em que o musical brasileiro decidiu contar as próprias histórias">WhatsApp</button>
           <button class="sbtn" data-share="x" data-title="A temporada em que o musical brasileiro decidiu contar as próprias histórias">X / Twitter</button>
           <button class="sbtn" data-share="face" data-title="A temporada em que o musical brasileiro decidiu contar as próprias histórias">Facebook</button>
@@ -1224,8 +1243,8 @@ __CRITICA_CAPA__
     <div class="stat"><span class="n" data-v="1240">0</span><span class="l">Artistas &amp; equipes</span></div>
     <div class="stat"><span class="n" data-v="96">0</span><span class="l">Teatros mapeados</span></div>
   </div>
-  <div class="ency-table" role="table" aria-label="Índice de artistas">
-    <div class="ency-row head" role="row">
+  <div class="ency-table" role="group" aria-label="Índice de artistas">
+    <div class="ency-row head">
       <span>Nome</span><span class="of">Ofício</span><span class="ct">Produções</span><span class="ar"></span>
     </div>
 ''' + erow('Marina Villas','Atriz · Diretora musical','012') + '\n' + \
@@ -1241,9 +1260,9 @@ erow('Bia Camargo','Desenhista de luz','034') + '''
 </main>
 
 <!-- ===================== REVISTA ===================== -->
-<section class="news-bar">
+<section class="news-bar" aria-labelledby="h-revista-capa">
   <div class="wrap">
-    <h2>A Revista do Foyer — assinante lê um dia antes</h2>
+    <h2 id="h-revista-capa">A Revista do Foyer — assinante lê um dia antes</h2>
     <div class="go-rev">
       <button type="button" data-conversa>🎟 Assinar em um minuto</button>
       <a href="revista.html">conhecer a revista →</a>
@@ -1270,7 +1289,7 @@ materia_body = '''<main id="conteudo" class="wrap">
       <span>Por <b>Redação Foyer</b> — São Paulo</span>
       <span>22.07.2026 · 8 min de leitura</span>
     </div>
-    <div class="share-row" aria-label="Compartilhar esta matéria">
+    <div class="share-row" role="group" aria-label="Compartilhar esta matéria">
       <button class="sbtn" data-share="whats" data-title="A temporada em que o musical brasileiro decidiu contar as próprias histórias">WhatsApp</button>
       <button class="sbtn" data-share="x" data-title="A temporada em que o musical brasileiro decidiu contar as próprias histórias">X / Twitter</button>
       <button class="sbtn" data-share="face" data-title="A temporada em que o musical brasileiro decidiu contar as próprias histórias">Facebook</button>
@@ -1312,7 +1331,7 @@ news_cell('ph-3','Perfil','A atriz que trocou a televisão pelo teatro de câmar
 # ---------------------------------------------------------------- ARTISTA (verbete)
 
 def credit(prod, fn, teatro, ano):
-    return f'''    <a class="ency-row four" href="espetaculo.html" role="row">
+    return f'''    <a class="ency-row four" href="espetaculo.html">
       <span class="nm">{prod}</span><span class="of">{fn}</span><span class="of">{teatro}</span><span class="ct">{ano}</span>
     </a>'''
 
@@ -1327,8 +1346,8 @@ artista_body = band('Enciclopédia — Verbete', 'Marina Villas', 'Atriz · Cant
     <h2>Trajetória</h2>
     <span class="note">Cada espetáculo é clicável — siga o fio</span>
   </div>
-  <div class="ency-table" role="table" aria-label="Produções de Marina Villas">
-    <div class="ency-row head four" role="row">
+  <div class="ency-table" role="group" aria-label="Produções de Marina Villas">
+    <div class="ency-row head four">
       <span>Espetáculo</span><span class="of">Função</span><span class="of">Teatro</span><span class="ct">Ano</span>
     </div>
 ''' + credit('A Cidade Cantada','Protagonista','Theatro Municipal — SP','2025') + '\n' + \
@@ -1343,7 +1362,7 @@ credit('Cabaré do Fim do Mundo','Solista','Teatro Oficina — SP','2022') + '''
 # ---------------------------------------------------------------- ESPETÁCULO
 
 def ficha(fn, nome):
-    return f'''    <a class="ency-row" href="artista.html" role="row">
+    return f'''    <a class="ency-row" href="artista.html">
       <span class="of">{fn}</span><span class="nm">{nome}</span><span class="ct"></span><span class="ar">→</span>
     </a>'''
 
@@ -1353,8 +1372,8 @@ espetaculo_body = band('Enciclopédia — Espetáculo', 'A Cidade Cantada', 'Mus
     <h2>Ficha técnica</h2>
     <span class="note">Cada nome é clicável — veja a trajetória completa</span>
   </div>
-  <div class="ency-table" role="table" aria-label="Ficha técnica">
-    <div class="ency-row head" role="row">
+  <div class="ency-table" role="group" aria-label="Ficha técnica">
+    <div class="ency-row head">
       <span class="of">Função</span><span>Nome</span><span class="ct"></span><span class="ar"></span>
     </div>
 ''' + ficha('Protagonista','Marina Villas') + '\n' + \
@@ -1378,11 +1397,13 @@ ficha('Direção musical','Caio Bezerra') + '''
 busca_body = band('Ferramenta', 'Buscar',
                   'Todo o acervo do Foyer — __ACERVO__ matérias, mais artistas e espetáculos') + '''
 <main id="conteudo" class="wrap">
-  <form class="ency-search" style="border-top:var(--b); margin-top:26px" onsubmit="return false;">
+  <form class="ency-search" role="search" aria-label="Buscar no acervo" style="border-top:var(--b); margin-top:26px" onsubmit="return false;">
     <input type="search" id="q" placeholder="Digite: espetáculo, artista, teatro…" aria-label="Buscar no site" autofocus>
     <button type="submit">Buscar</button>
   </form>
-  <div class="ency-table" id="res" aria-live="polite"></div>
+  <!-- só a contagem (#busca-mais) é anunciada; a lista inteira relida a cada
+       tecla era ruído para o leitor de tela (auditoria de 12/10/2026) -->
+  <div class="ency-table" id="res"></div>
   <p class="meta-l" style="display:block; padding:12px 4px 0" id="busca-mais" aria-live="polite"></p>
   <p class="meta-l" style="display:block; padding:18px 4px" id="busca-info">Carregando o índice do acervo…</p>
 </main>
@@ -2239,6 +2260,40 @@ def _dim_local(url):
     except Exception:
         return ''
 
+# Aspas tipográficas no texto da matéria (auditoria de 12/10/2026): as citações
+# em destaque abriam e fechavam com aspas retas ("), enquanto a mesma página
+# usava “ ” em outros trechos. Troca só no TEXTO, nunca dentro de marcação
+# (atributos) nem em <script>, <style>, <code>, <pre> ou <iframe>. A aspa abre
+# depois de espaço, começo de bloco ou ( [ { e travessão; nos outros casos fecha.
+_ASPAS_CRU = ('script', 'style', 'code', 'pre', 'iframe', 'textarea')
+_ASPAS_BLOCO = ('p', 'br', 'li', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'figcaption', 'div', 'td', 'th', 'ul', 'ol', 'figure')
+def _aspas_curvas(html):
+    if '"' not in html and '&quot;' not in html:
+        return html
+    out, cru, antes = [], 0, ' '
+    for pt in _re.split(r'(<[^>]*>)', html):
+        if pt.startswith('<'):
+            nome = _re.match(r'</?\s*([a-zA-Z0-9]+)', pt)
+            nome = nome.group(1).lower() if nome else ''
+            if nome in _ASPAS_CRU:
+                cru = max(0, cru + (-1 if pt.startswith('</') else 1))
+            if nome in _ASPAS_BLOCO:
+                antes = ' '
+            out.append(pt)
+            continue
+        if cru or not pt:
+            out.append(pt)
+            continue
+        t = pt.replace('&quot;', '"')
+        novo = []
+        for ch in t:
+            if ch == '"':
+                ch = '\u201c' if (antes.isspace() or antes in '([{\u2014\u2013-\u201c') else '\u201d'
+            novo.append(ch)
+            antes = ch
+        out.append(''.join(novo))
+    return ''.join(out)
+
 def _fotos_do_texto(corpo):
     """Fotos dentro do texto (figuras e galerias) saem em miniatura, com
     width/height nas figuras (vistoria de 06/10/2026: 59 matérias mandavam
@@ -2455,6 +2510,10 @@ def _giro_linhas():
     return (''.join(linha(p) for p in mats[:3]) + '        ' + cartaz
             + ''.join(linha(p) for p in mats[3:]))
 _giro = _giro_linhas()
+# auditoria de 12/10/2026: o bloco Notícias pegava MATERIAS[4] a [8], as mesmas
+# do Giro logo ao lado (MATERIAS[4:11]), e repetia cinco chamadas na mesma
+# dobra. Agora ele começa onde o Giro termina.
+_NOT_CAPA = MATERIAS[(10 if _CARTAZ_CAPA else 11):]
 # O SEGUNDO lugar do Cartaz na capa: uma célula da grade de Notícias, do
 # tamanho de um card. Só entra quando há um segundo anunciante contratado; com
 # um só, ele fica no Giro e a grade continua inteira de matérias.
@@ -2463,7 +2522,7 @@ _cartaz_grade = ('  ' + _cartaz_html(_CARTAZ_CAPA[1], 'grade')) if len(_CARTAZ_C
 index_body = TICKER + '''
 
 <!-- ===================== MASTHEAD ===================== -->
-<header class="masthead">
+<div class="masthead">
   <div class="wrap">
     <div class="mast-side left">
       <span class="ln">Edição de hoje</span>
@@ -2480,10 +2539,10 @@ index_body = TICKER + '''
     </div>
     <div class="mast-tagline">O saguão do teatro brasileiro</div>
   </div>
-</header>
+</div>
 '''
 
-_manchete_capa = _capa_tipo(_p0, f"post-{_p0['slug']}.html", grande=True, classe='ph cover ph-tipo') if _sem_foto_op(_p0) else f'''<a class="ph cover" href="post-{_p0['slug']}.html" aria-label="Foto da reportagem de capa">
+_manchete_capa = _capa_tipo(_p0, f"post-{_p0['slug']}.html", grande=True, classe='ph cover ph-tipo') if _sem_foto_op(_p0) else f'''<a class="ph cover" href="post-{_p0['slug']}.html" aria-hidden="true" tabindex="-1">
         <img src="{wiximg(_p0['img'])}" alt=""{_title_cred(_p0)} loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'">
       </a>'''
 index_main = f'''<main id="conteudo">
@@ -2498,7 +2557,7 @@ index_main = f'''<main id="conteudo">
         </div>
         {'' if _sem_foto_op(_p0) else f'<h1><a href="post-{_p0["slug"]}.html">{_e(_p0["title"])}</a></h1>'}
         <p class="dek">{_p0['desc']}</p>
-        <div class="share-row" aria-label="Compartilhar esta matéria">
+        <div class="share-row" role="group" aria-label="Compartilhar esta matéria">
           <button class="sbtn" data-share="whats" data-title="{safe(_p0['title'])}" data-url="{BASE}/post-{_p0['slug']}.html">WhatsApp</button>
           <button class="sbtn" data-share="x" data-title="{safe(_p0['title'])}" data-url="{BASE}/post-{_p0['slug']}.html">X / Twitter</button>
           <button class="sbtn" data-share="face" data-title="{safe(_p0['title'])}" data-url="{BASE}/post-{_p0['slug']}.html">Facebook</button>
@@ -2522,6 +2581,7 @@ index_main = f'''<main id="conteudo">
     </aside>
   </div>
   <div class="ad-slot" data-ad-slot="1000"></div>
+  <h2 class="sr-only">Outros destaques</h2>
   <div class="fp-sub">
 {_sub_cards}  </div>
 </section>
@@ -2534,11 +2594,11 @@ index_main = f'''<main id="conteudo">
     <a href="noticias.html" class="all">Ver todas →</a>
   </div>
   <div class="news-grid">
-{real_cell(MATERIAS[4], big=True)}
-{real_cell(MATERIAS[5])}
-{real_cell(MATERIAS[6])}
-{_cartaz_grade}{real_cell(MATERIAS[7])}
-{real_cell(MATERIAS[8])}
+{real_cell(_NOT_CAPA[0], big=True)}
+{real_cell(_NOT_CAPA[1])}
+{real_cell(_NOT_CAPA[2])}
+{_cartaz_grade}{real_cell(_NOT_CAPA[3])}
+{real_cell(_NOT_CAPA[4])}
   </div>
   <div class="ad-slot" data-ad-slot="1001"></div>
 </section>
@@ -2592,9 +2652,9 @@ __ENCICLOPEDIA_CAPA__
 
 
 <!-- ===================== REVISTA ===================== -->
-<section class="news-bar">
+<section class="news-bar" aria-labelledby="h-revista-capa">
   <div class="wrap">
-    <h2>A Revista do Foyer — assinante lê um dia antes</h2>
+    <h2 id="h-revista-capa">A Revista do Foyer — assinante lê um dia antes</h2>
     <div class="go-rev">
       <button type="button" data-conversa>🎟 Assinar em um minuto</button>
       <a href="revista.html">conhecer a revista →</a>
@@ -2631,13 +2691,13 @@ def _em_cartaz(x):
     return True
 
 def _filters(active='*'):
-    out = f'<a href="noticias.html"{" class=on" if active=="*" else ""}>Todas</a>'
+    out = f'<a href="noticias.html"{" class=on aria-current=page" if active=="*" else ""}>Todas</a>'
     # ESCONDIDO em 12/08/2026 (pedido do Pedro): o filtro Em Cartaz servia à
     # Agenda, que saiu do site. A página cat-em-cartaz.html continua sendo
     # gerada — para reativar, descomente a linha abaixo (e o selo na Coxia).
     # out += f'<a href="cat-em-cartaz.html"{" class=on" if active=="Em Cartaz" else ""}>✦ Em Cartaz</a>'
     for c in sorted(_cats):
-        cls = ' class="on"' if active == c else ''
+        cls = ' class="on" aria-current="page"' if active == c else ''
         out += f'<a href="cat-{_cat_slug(c)}.html"{cls}>{c}</a>'
     return out
 
@@ -2671,9 +2731,10 @@ def listing_body(posts, page, pages, base, titulo, nota, active='*'):
     grid = '\n'.join(cells)
     return band('Editoria', titulo, nota) + f"""
 <main id="conteudo" class="wrap">
-  <div class="filters" aria-label="Filtrar por editoria">
+  <nav class="filters" aria-label="Filtrar por editoria">
     {_filters(active)}
-  </div>
+  </nav>
+  <h2 class="sr-only">Matérias</h2>
   <div class="news-grid">
 {grid}
   </div>
@@ -2938,25 +2999,25 @@ def post_page(i, p):
   <div class="ad-slot" data-ad-slot="2001" data-ad-formato="artigo"></div>
 
   <div class="art-body">
-{_injeta_ads_materia(_google_meio(_fotos_do_texto(corpo)), p['slug'])}
+{_injeta_ads_materia(_google_meio(_fotos_do_texto(_aspas_curvas(corpo))), p['slug'])}
   </div>
   {_fontes_html(p)}
   {nota_correcao(p)}
   {quem_bloco}
   <div class="art-foot">
     <div class="tags"><span class="tag">{_e(p['cat'])}</span><span class="tag">{_e(p['author'])}</span></div>
-    <div class="share-row" aria-label="Compartilhar">
+    <div class="share-row" role="group" aria-label="Compartilhar">
       <button class="sbtn" data-share="whats" data-title="{safe(p['title'])}">WhatsApp</button>
       <button class="sbtn" data-share="copy" data-title="{safe(p['title'])}">Copiar link</button>
     </div>
   </div>
-  <aside class="cv-band">
+  <section class="cv-band" aria-label="Assine a revista">
     <div class="cv-band-txt">
       <b>Gostou desta leitura?</b>
       <span>A revista do FOYER sai toda quinta, às 7h, para assinantes. Aberta a todos só na sexta. De graça.</span>
     </div>
     <button type="button" data-conversa>🎟 Quero a minha</button>
-  </aside>
+  </section>
 </article>
 
 <section>
@@ -3564,8 +3625,12 @@ html[data-theme="dark"] .rv-quina{ color:var(--gold); }
 /* ---------- NAVEGAÇÃO ---------- */
 /* na capa (primeira dobra) o painel quase some, para não cobrir as chamadas;
    volta inteiro ao passar o mouse ou ao virar a página */
-html.rv-na-capa .rv-nav{ opacity:.25; }
-html.rv-na-capa .rv-nav:hover, html.rv-na-capa .rv-nav:focus-within{ opacity:1; }
+/* (12/10/2026) só onde existe mouse: no celular não há "passar por cima", e
+   os botões ficavam apagados, com cara de desativados, até alguém tocar */
+@media (hover:hover){
+  html.rv-na-capa .rv-nav{ opacity:.25; }
+  html.rv-na-capa .rv-nav:hover, html.rv-na-capa .rv-nav:focus-within{ opacity:1; }
+}
 .rv-nav{ position:sticky; bottom:14px; display:flex; justify-content:center; gap:8px;
   transition:opacity .25s;
   width:max-content; max-width:100%; margin:18px auto 0; padding:8px;
@@ -5252,7 +5317,7 @@ def pessoa_page(sp, p):
           <span>{desde}</span>
           {('<span>Última aparição em ' + _enc_data_longa(p['ultima']) + '</span>') if p.get('ultima') else ''}
         </div>
-        <div class="share-row" aria-label="Compartilhar este verbete">
+        <div class="share-row" role="group" aria-label="Compartilhar este verbete">
           <button class="sbtn" data-share="whats" data-title="{safe(p['nome'])} na Enciclopédia do FOYER">WhatsApp</button>
           <button class="sbtn" data-share="copy" data-title="{safe(p['nome'])}">Copiar link</button>
         </div>
@@ -5437,7 +5502,7 @@ def autor_page(sp, a, mats):
       {f'<p class="dek" style="margin-top:14px">{_rvesc(_periodo)}</p>' if (_periodo and not _bio) else ''}
       {f'<p class="meta-l" style="display:block;margin-top:10px"><b>Cobre:</b> {_rvesc(_cobre)}</p>' if _cobre else ''}
       </div></div>
-      <div class="share-row" aria-label="Compartilhar esta página">
+      <div class="share-row" role="group" aria-label="Compartilhar esta página">
         <button class="sbtn" data-share="copy" data-title="{safe(a['nome'])} no FOYER">Copiar link</button>
       </div>
     </div>
@@ -5532,7 +5597,7 @@ def yt_cell(v, rotulo, cedo=False):
         _tit = f'<h3><a href="post-{_mat}.html">{_rvesc(v["titulo"])}</a></h3>'
         _yt = f' · <a href="{_rvesc(v["url"])}" target="_blank" rel="noopener">no YouTube ↗</a>'
     else:
-        _abre = f'<a class="ph" href="{_rvesc(v["url"])}" target="_blank" rel="noopener" aria-label="Assistir no YouTube">'
+        _abre = f'<a class="ph" href="{_rvesc(v["url"])}" target="_blank" rel="noopener" aria-label="Assistir no YouTube: {_rvesc(v["titulo"])} (abre em nova aba)">'
         _tit = f'<h3>{_rvesc(v["titulo"])}</h3>'
         _yt = ''
     return f'''    <article class="ep-cell">
@@ -5611,8 +5676,9 @@ if _yt_progs:
         _quem_passou += (f'  <details class="prog-quem"><summary>{_rvesc(_nm)} <small>{len(_sps)} convidado(s)</small></summary>'
                          f'<p>{_links}</p></details>\n')
     programas_body = band('O canal', 'Os Programas', 'YouTube &amp; Spotify — novos episódios toda semana') + f'''
-<section class="programas first">
+<section class="programas first" aria-labelledby="h-progs">
   <div class="wrap">
+    <h2 class="sr-only" id="h-progs">Os programas do canal</h2>
     <div class="prog-grid" style="margin-top:40px">
 {_cards}    </div>
     <div class="prog-cta">
@@ -6029,22 +6095,22 @@ _CASA = {'pedro-amaral', 'isabel-branquinha', 'pedro-cantelli', 'pedro-cobron', 
 _CASA |= {_slug_nome(u.get('nome', '')) for u in _EQ_PUB}
 _enc_rows = ''
 for _sp, _pp in [x for x in _top_pessoas if x[0] not in _CASA][:60]:
-    _enc_rows += f'''    <a class="ency-row" href="pessoa-{_sp}.html" role="row">
+    _enc_rows += f'''    <li><a class="ency-row" href="pessoa-{_sp}.html">
       <span class="nm">{_rvesc(_pp['nome'])}</span><span class="of">{_papeis_resumo(_pp['aparicoes'])}</span><span class="ct">{_ap_txt(_pp)}</span><span class="ar">→</span>
-    </a>\n'''
+    </a></li>\n'''
 # o número real já vai no HTML (12/10/2026): robô, prévia de link e leitor
 # sem JavaScript liam "0 Pessoas mapeadas"; o JS só anima a partir dele
 _capa_enc = ('<div class="ency-stats">'
   f'<div class="stat"><span class="n" data-v="{len(PESSOAS)}">{_num_br(len(PESSOAS))}</span><span class="l">Pessoas mapeadas</span></div>'
   f'<div class="stat"><span class="n" data-v="{len(MATERIAS)}">{_num_br(len(MATERIAS))}</span><span class="l">Matérias no acervo</span></div>'
   f'<div class="stat"><span class="n" data-v="{_n_eps}">{_num_br(_n_eps)}</span><span class="l">Episódios dos programas</span></div>'
-  '</div>\n  <div class="ency-table" role="table" aria-label="Índice de pessoas">'
-  '<div class="ency-row head" role="row"><span>Nome</span><span class="of">Presença</span><span class="ct">Aparições</span><span class="ar"></span></div>')
+  '</div>\n  <ul class="ency-table" aria-label="Índice de pessoas">'
+  '<li aria-hidden="true"><div class="ency-row head"><span>Nome</span><span class="of">Presença</span><span class="ct">Aparições</span><span class="ar"></span></div></li>')
 for _sp, _pp in [x for x in _top_pessoas if x[0] not in _CASA][:4]:
-    _capa_enc += (f'<a class="ency-row" href="pessoa-{_sp}.html" role="row"><span class="nm">{_rvesc(_pp["nome"])}</span>'
+    _capa_enc += (f'<li><a class="ency-row" href="pessoa-{_sp}.html"><span class="nm">{_rvesc(_pp["nome"])}</span>'
                   f'<span class="of">{_papeis_resumo(_pp["aparicoes"])}</span>'
-                  f'<span class="ct">{_n_cit(_pp)}</span><span class="ar">→</span></a>')
-_capa_enc += '</div>'
+                  f'<span class="ct">{_n_cit(_pp)}</span><span class="ar">→</span></a></li>')
+_capa_enc += '</ul>'
 index_main = index_main.replace('__ENCICLOPEDIA_CAPA__', _capa_enc)
 # as mais lidas da semana, logo abaixo das Notícias (12/10/2026)
 index_main = index_main.replace('<div class="wrap">__MAIS_LIDAS__</div>',
@@ -6059,10 +6125,14 @@ _ency_cards = ''.join(
     for sp, pp in _destaque)
 _hoje_iso = datetime.now(timezone.utc).date().isoformat()
 _recentes = sorted([(sp, pp) for sp, pp in PESSOAS.items() if pp.get('primeira')], key=lambda x: x[1]['primeira'], reverse=True)[:12]
+# auditoria de 12/10/2026: as linhas eram <a role="row"> dentro de role="table",
+# e o papel de linha apagava o de link: o leitor de tela não achava nenhum dos
+# nomes na lista de links. Agora é lista de verdade (<ul><li><a>), com o mesmo
+# visual de tabela; o cabeçalho é só enfeite e fica escondido do leitor.
 def _ency_row(sp, pp, conta=True):
-    return (f'<a class="ency-row" href="pessoa-{sp}.html" role="row"><span class="nm">{_rvesc(pp["nome"])}'
+    return (f'<li><a class="ency-row" href="pessoa-{sp}.html"><span class="nm">{_rvesc(pp["nome"])}'
             f'<small>{safe(pp.get("funcao") or "")}</small></span><span class="of">{_papeis_resumo(pp["aparicoes"])}</span>'
-            f'<span class="ct">{_ap_txt(pp)}</span><span class="ar">→</span></a>\n')
+            f'<span class="ct">{_ap_txt(pp)}</span><span class="ar">→</span></a></li>\n')
 _enc_rows = ''.join(_ency_row(sp, pp) for sp, pp in _PESSOAS_IDX[:60])
 _enc_novos = ''.join(_ency_row(sp, pp) for sp, pp in _recentes)
 _n_foto = sum(1 for pp in PESSOAS.values() if pp.get('foto'))
@@ -6075,35 +6145,36 @@ enciclopedia_body = band('Projeto Foyer', 'Enciclopédia do FOYER', 'Quem faz o 
     <div class="stat"><span class="n" data-v="{len(MATERIAS)}">{_num_br(len(MATERIAS))}</span><span class="l">Matérias no acervo</span></div>
     <div class="stat"><span class="n" data-v="{_n_eps}">{_num_br(_n_eps)}</span><span class="l">Episódios dos programas</span></div>
   </div>
-  <form class="ency-search" onsubmit="return false;">
+  <form class="ency-search" role="search" aria-label="Buscar na enciclopédia" onsubmit="return false;">
     <input type="search" id="enc-q" placeholder="Busque uma pessoa — artista, autor, convidado…" aria-label="Buscar pessoa">
     <button type="submit">Buscar</button>
   </form>
-  <div class="ency-letras" id="enc-letras" aria-label="Folhear por letra">
-    <button type="button" data-l="" class="on">Todos</button>{''.join(f'<button type="button" data-l="{c}">{c}</button>' for c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')}
+  <div class="ency-letras" id="enc-letras" role="group" aria-label="Folhear por letra">
+    <button type="button" data-l="" class="on" aria-pressed="true">Todos</button>{''.join(f'<button type="button" data-l="{c}" aria-pressed="false">{c}</button>' for c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')}
   </div>
-  <div class="ency-chips" id="enc-funcoes" aria-label="Filtrar por função">
-    <button type="button" data-f="" class="on">Todas as funções</button>
-    <button type="button" data-f="atriz|ator|atuação">Atrizes e atores</button>
-    <button type="button" data-f="direção|diretor">Direção</button>
-    <button type="button" data-f="dramaturg|autor|escritor">Dramaturgia</button>
-    <button type="button" data-f="cantor|música|compositor|músico">Música</button>
-    <button type="button" data-f="produ">Produção</button>
-    <button type="button" data-f="coreogr|bailarin|dançarin">Dança</button>
-    <button type="button" data-f="cenogr|figurin|ilumina">Cenografia, figurino e luz</button>
-    <button type="button" data-f="apresenta|jornalista|crític">Imprensa e programas</button>
+  <div class="ency-chips" id="enc-funcoes" role="group" aria-label="Filtrar por função">
+    <button type="button" data-f="" class="on" aria-pressed="true">Todas as funções</button>
+    <button type="button" data-f="atriz|ator|atuação" aria-pressed="false">Atrizes e atores</button>
+    <button type="button" data-f="direção|diretor" aria-pressed="false">Direção</button>
+    <button type="button" data-f="dramaturg|autor|escritor" aria-pressed="false">Dramaturgia</button>
+    <button type="button" data-f="cantor|música|compositor|músico" aria-pressed="false">Música</button>
+    <button type="button" data-f="produ" aria-pressed="false">Produção</button>
+    <button type="button" data-f="coreogr|bailarin|dançarin" aria-pressed="false">Dança</button>
+    <button type="button" data-f="cenogr|figurin|ilumina" aria-pressed="false">Cenografia, figurino e luz</button>
+    <button type="button" data-f="apresenta|jornalista|crític" aria-pressed="false">Imprensa e programas</button>
   </div>
   <div id="enc-padrao">
     <div class="sec-head"><h2>Em destaque</h2><span class="note">os mais presentes no FOYER, com retrato</span></div>
     <div class="ency-grid">{_ency_cards}</div>
     <div class="ad-slot" data-ad-slot="1801"></div>
     <div class="sec-head"><h2>Entraram há pouco</h2><span class="note">nomes que chegaram ao acervo nas últimas publicações</span></div>
-    <div class="ency-table" role="table" aria-label="Novos na enciclopédia" style="margin-bottom:26px">
-{_enc_novos}    </div>
+    <ul class="ency-table" aria-label="Novos na enciclopédia" style="margin-bottom:26px">
+{_enc_novos}    </ul>
     <div class="sec-head"><h2>Os mais citados</h2><span class="note">60 nomes com mais aparições</span></div>
   </div>
-  <div class="ency-table" role="table" aria-label="Índice de pessoas" id="enc-res">
-{_enc_rows}  </div>
+  <p class="sr-only" id="enc-status" role="status"></p>
+  <ul class="ency-table" aria-label="Índice de pessoas" id="enc-res">
+{_enc_rows}  </ul>
   <p class="note" style="font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);padding:18px 0 40px">
     Índice montado automaticamente a partir do acervo do FOYER e completado com fontes públicas (Wikipédia). Use a busca, as letras e as funções para chegar aos {len(PESSOAS)} verbetes.
     Erro ou nome faltando? <a href="mailto:contato@foyer.digital?subject=Enciclopédia%20FOYER">Escreva para a redação</a>.
@@ -6116,24 +6187,34 @@ enciclopedia_body = band('Projeto Foyer', 'Enciclopédia do FOYER', 'Quem faz o 
   function norm(t){{ return (t || '').normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase(); }}
   function linha(p){{
     var foto = p.p ? '<span class="vb-foto mini"><img src="' + p.p + '" alt="" loading="lazy"></span>' : '';
-    return '<a class="ency-row" href="' + p.u + '"><span class="nm">' + p.n + (p.f ? '<small>' + p.f + '</small>' : '') + '</span><span class="of"></span><span class="ct">' + p.c + (p.c == 1 ? ' aparição' : ' aparições') + '</span><span class="ar">→</span></a>';
+    return '<li><a class="ency-row" href="' + p.u + '"><span class="nm">' + p.n + (p.f ? '<small>' + p.f + '</small>' : '') + '</span><span class="of"></span><span class="ct">' + p.c + (p.c == 1 ? ' aparição' : ' aparições') + '</span><span class="ar">→</span></a></li>';
   }}
   // auditoria de 10/10/2026: a lista parava em 200 sem avisar (a letra M
   // terminava em 'Mary'). Agora conta tudo, desenha 200 e oferece o resto.
   var lim = 200, achados = [];
   function desenha(){{
     res.innerHTML = achados.length ? achados.slice(0, lim).map(linha).join('') + (achados.length > lim
-        ? '<div class="ency-row head" style="grid-template-columns:1fr auto"><span>Mostrando ' + lim + ' de ' + achados.length.toLocaleString('pt-BR') + ' nomes</span><span class="ency-chips" style="margin:0"><button type="button" id="enc-todos">Mostrar todos</button></span></div>' : '')
-      : '<div class="ency-row"><span class="nm">Nenhuma pessoa encontrada</span><span class="of"></span><span class="ct"></span><span class="ar"></span></div>';
+        ? '<li><div class="ency-row head" style="grid-template-columns:1fr auto"><span>Mostrando ' + lim + ' de ' + achados.length.toLocaleString('pt-BR') + ' nomes</span><span class="ency-chips" style="margin:0"><button type="button" id="enc-todos">Mostrar todos</button></span></div></li>' : '')
+      : '<li><div class="ency-row"><span class="nm">Nenhuma pessoa encontrada</span><span class="of"></span><span class="ct"></span><span class="ar"></span></div></li>';
     var bt = document.getElementById('enc-todos');
     if(bt) bt.addEventListener('click', function(){{
       var de = lim; lim = Infinity; desenha();
       var a = res.querySelectorAll('a.ency-row')[de]; if(a) a.focus();
     }});
   }}
+  // auditoria de 12/10/2026: a lista mudava sem aviso para quem usa leitor de
+  // tela; agora a contagem vai para uma região de status (só a contagem, não
+  // a lista inteira)
+  var st = document.getElementById('enc-status');
+  function avisa(t){{ if(st) st.textContent = t; }}
+  function marca(grupo, b){{
+    [].forEach.call(grupo.querySelectorAll('button'), function(x){{
+      x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b ? 'true' : 'false');
+    }});
+  }}
   function roda(){{
     var v = norm(q.value.trim());
-    if(v.length < 2 && !letra && !funcao){{ res.innerHTML = lista0; padrao.style.display = ''; return; }}
+    if(v.length < 2 && !letra && !funcao){{ res.innerHTML = lista0; padrao.style.display = ''; avisa(''); return; }}
     var go = function(){{
       // os termos do botão perdem o acento como a função do verbete
       // ('direção' nunca casava com 'direcao' e o filtro escondia 4 de 5 diretores)
@@ -6149,6 +6230,9 @@ enciclopedia_body = band('Projeto Foyer', 'Enciclopédia do FOYER', 'Quem faz o 
       }}
       padrao.style.display = 'none';
       achados = hits; lim = 200; desenha();
+      var n = hits.length, fr = n === 1 ? '1 nome encontrado' : (n ? n.toLocaleString('pt-BR') + ' nomes encontrados' : 'Nenhuma pessoa encontrada');
+      if(letra) fr += ' com a letra ' + letra;
+      avisa(fr);
     }};
     if(IDX) go();
     else fetch('assets/pessoas-index.json').then(function(r){{ return r.json(); }}).then(function(d){{ IDX = d; go(); }});
@@ -6158,11 +6242,11 @@ enciclopedia_body = band('Projeto Foyer', 'Enciclopédia do FOYER', 'Quem faz o 
   q.addEventListener('input', function(){{ clearTimeout(_espera); _espera = setTimeout(roda, 150); }});
   document.getElementById('enc-letras').addEventListener('click', function(e){{
     var b = e.target.closest('button'); if(!b) return;
-    letra = b.dataset.l; [].forEach.call(this.querySelectorAll('button'), function(x){{ x.classList.toggle('on', x === b); }}); roda();
+    letra = b.dataset.l; marca(this, b); roda();
   }});
   document.getElementById('enc-funcoes').addEventListener('click', function(e){{
     var b = e.target.closest('button'); if(!b) return;
-    funcao = b.dataset.f; [].forEach.call(this.querySelectorAll('button'), function(x){{ x.classList.toggle('on', x === b); }}); roda();
+    funcao = b.dataset.f; marca(this, b); roda();
   }});
   var qs = new URLSearchParams(location.search).get('q'); if(qs){{ q.value = qs; roda(); }}
 }})();
@@ -6216,7 +6300,7 @@ _SPLASH = '''<div id="abre" hidden>
 capa_html = (head('FOYER — Teatro, Cultura & Arte',
                   'FOYER — portal de teatro, música e cultura. Notícias, crítica, revista semanal, programas e a Enciclopédia do Teatro Musical Brasileiro.',
                   ld=BUSCA_LD, ads=True)
-             + '\n' + _SPLASH + '\n' + DEFS + '\n' + index_body + '\n' + UTIL + '\n' + nav('index.html')
+             + '\n' + _SPLASH + '\n' + DEFS + '\n' + '<header class="topo">\n' + index_body + '\n' + UTIL + '</header>\n' + nav('index.html')
              + '\n' + index_main + '\n' + ADS_CASA + FOOTER + '</body>\n</html>\n')
 with open(os.path.join(ROOT, 'index.html'), 'w') as f:
     f.write(capa_html)
@@ -6354,8 +6438,8 @@ def _op_filtros(active):
     itens = [('opiniao.html', 'Tudo', '*'), ('opiniao-colunas.html', 'Colunas', 'coluna'), ('opiniao-artigos.html', 'Artigos', 'artigo')]
     if n('editorial'):
         itens.append(('opiniao-editoriais.html', 'Editoriais', 'editorial'))
-    return '<div class="filters" aria-label="Ver só um tipo">' + ''.join(
-        f'<a href="{h}"{" class=on" if a == active else ""}>{r}</a>' for h, r, a in itens) + '</div>'
+    return '<nav class="filters" aria-label="Ver só um tipo">' + ''.join(
+        f'<a href="{h}"{" class=on aria-current=page" if a == active else ""}>{r}</a>' for h, r, a in itens) + '</nav>'
 
 def _op_colunas_html(lista, cabecalho_sempre=False):
     """Colunas agrupadas por colunista (da mais nova para a mais antiga)."""
@@ -6598,7 +6682,9 @@ def producoes_body():
     .pr-rv.in{ opacity:1; transform:none; }
     @media (prefers-reduced-motion:reduce){ .pr-rv{ opacity:1; transform:none; transition:none; } }
     /* o letreiro: fita que rola como marquise de teatro */
-    .pr-let{ overflow:hidden; border:3px solid var(--ink); border-bottom:0; background:var(--ink); color:var(--gold-hi, var(--gold)); }
+    /* fundo escuro fixo (12/10/2026): no Blackout o --ink vira creme e o
+       dourado da fita sumia (1,25:1) */
+    .pr-let{ overflow:hidden; border:3px solid var(--ink); border-bottom:0; background:#16100D; color:var(--gold-hi, var(--gold)); }
     .pr-let-fita{ display:flex; gap:22px; white-space:nowrap; padding:10px 0; width:max-content; animation:prFita 38s linear infinite;
       font-family:var(--mono); font-size:.62rem; letter-spacing:.32em; text-transform:uppercase; }
     .pr-let-fita i{ font-style:normal; color:var(--gold); }
@@ -6646,7 +6732,9 @@ def producoes_body():
     .pr-ico{ display:block; width:44px; height:44px; color:var(--wine); margin-bottom:12px; }
     :root[data-theme="dark"] .pr-ico{ color:#E9CB85; }
     .pr-ico svg{ width:100%; height:100%; }
-    .pr-serv .pr-n{ position:absolute; top:16px; right:18px; font-family:var(--mono); font-size:.62rem; letter-spacing:.2em; color:var(--gold); }
+    /* número em vinho no claro (o dourado sobre creme dava 1,7:1) e dourado no Blackout (12/10/2026) */
+    .pr-serv .pr-n{ position:absolute; top:16px; right:18px; font-family:var(--mono); font-size:.75rem; letter-spacing:.2em; color:var(--wine); }
+    :root[data-theme="dark"] .pr-serv .pr-n{ color:var(--gold); }
     .pr-serv h3{ font-family:var(--didone); font-weight:400; font-size:1.5rem; line-height:1.1; margin:0 0 10px; }
     .pr-serv .pr-para{ font-weight:700; color:var(--ink); font-size:.9rem; line-height:1.5; margin:0 0 10px; }
     .pr-serv p{ margin:0 0 14px; line-height:1.65; color:var(--ink-soft); font-size:.93rem; }
@@ -6717,7 +6805,7 @@ def producoes_body():
     .pr-cta p{ margin:0 auto 24px; color:rgba(239,232,218,.85); max-width:40em; }
     .pr-cta .bts{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
     .pr-bt{ display:inline-block; border:2px solid #E9CB85; background:#E9CB85; color:#380A06; text-decoration:none;
-      font-family:var(--mono); font-weight:700; font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; padding:14px 22px; transition:background .15s, color .15s, transform .15s; }
+      font-family:var(--mono); font-weight:700; font-size:.75rem; letter-spacing:.16em; text-transform:uppercase; padding:14px 22px; transition:background .15s, color .15s, transform .15s; }
     .pr-bt.alt{ background:transparent; color:#E9CB85; text-transform:none; letter-spacing:.04em; }
     .pr-bt:hover{ background:#EFE9DB; border-color:#EFE9DB; color:#380A06; transform:translateY(-2px); }
     /* o botão flutuante de WhatsApp: aparece depois de uma tela de rolagem */
@@ -7178,9 +7266,9 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     .az-rev img{ max-width:130px; max-height:100px; border:2px solid var(--ink); }
     .az-nav{ display:flex; gap:10px; padding:0 18px 18px; }
     .az-volta{ border:2px solid var(--ink); background:transparent; cursor:pointer; padding:12px 16px;
-      font-family:var(--mono); font-weight:700; font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; }
+      font-family:var(--mono); font-weight:700; font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; }
     .az-vai{ margin-left:auto; border:2px solid var(--wine); background:var(--wine); color:var(--gold);
-      cursor:pointer; padding:12px 20px; font-family:var(--mono); font-weight:700; font-size:.62rem;
+      cursor:pointer; padding:12px 20px; font-family:var(--mono); font-weight:700; font-size:.75rem;
       letter-spacing:.12em; text-transform:uppercase; }
     .az-vai{ transition:transform .18s ease, background .18s ease, color .18s ease; }
     .az-vai:hover{ background:var(--gold); color:var(--wine); transform:translateY(-2px); }
@@ -8650,6 +8738,10 @@ nf_body = band('Erro 404', 'Esta página saiu de cartaz', 'O endereço não exis
     <p class="nf-status">Procurando esta matéria no acervo…</p>
     <div id="nf-lista"></div>
   </div>
+  <form class="ency-search" role="search" aria-label="Buscar no acervo" action="/busca.html" style="border-top:var(--b); margin-top:28px">
+    <input type="search" name="q" placeholder="Procure pelo título, artista ou teatro" aria-label="Buscar no acervo">
+    <button type="submit">Buscar</button>
+  </form>
   <div class="filters" style="padding-top:28px">
     <a href="/" class="on">← Voltar à capa</a>
     <a href="/noticias.html">Notícias</a>
@@ -8708,7 +8800,7 @@ nf_body = band('Erro 404', 'Esta página saiu de cartaz', 'O endereço não exis
 })();
 </script>
 '''
-page('404.html', 'Página não encontrada — FOYER', 'Página não encontrada no FOYER.', 'index.html', nf_body)
+page('404.html', 'Página não encontrada — FOYER', 'Página não encontrada no FOYER.', '', nf_body)
 
 # O 404 é servido em QUALQUER endereço errado, inclusive fundo de pasta
 # (/post/nome-da-materia/). Com caminho relativo, o navegador ia buscar o CSS

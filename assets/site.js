@@ -19,9 +19,15 @@
   function current(){
     return root.getAttribute('data-theme') || guardado() || 'light';
   }
+  // O nome que o leitor de tela anuncia COMEÇA pelo texto que se vê no botão
+  // (auditoria de 12/10/2026): antes era sempre "Alternar tema", e quem usa
+  // comando de voz dizia "clicar Blackout" sem efeito (WCAG 2.5.3).
   function apply(t){
     root.setAttribute('data-theme', t);
-    if(btn) btn.textContent = (t === 'dark') ? 'Luz da sala' : 'Blackout';
+    if(btn){
+      btn.textContent = (t === 'dark') ? 'Luz da sala' : 'Blackout';
+      btn.setAttribute('aria-label', (t === 'dark') ? 'Luz da sala (tema claro)' : 'Blackout (tema escuro)');
+    }
   }
   apply(current());
   if(btn) btn.addEventListener('click', function(){
@@ -29,6 +35,33 @@
     apply(novo);
     try{ localStorage.setItem(CHAVE, novo); }catch(e){}
   });
+})();
+
+// letreiro "Últimas" da capa: botão de pausa (auditoria de 12/10/2026).
+// O letreiro andava sem parar e só parava com o mouse em cima ou o foco
+// dentro dele, o que não existe em tela de toque (WCAG 2.2.2). O botão para
+// e retoma, e a escolha fica guardada no aparelho para as próximas visitas.
+(function(){
+  var tk = document.querySelector('.ticker');
+  if(!tk) return;
+  var K = 'foyer-letreiro';
+  var b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'ticker-pausa';
+  function pinta(parado){
+    tk.classList.toggle('parado', parado);
+    b.innerHTML = parado ? '<span aria-hidden="true">▶</span> Retomar' : '<span aria-hidden="true">❚❚</span> Pausar';
+    b.setAttribute('aria-label', parado ? 'Retomar o letreiro' : 'Pausar o letreiro');
+  }
+  var parado = false;
+  try{ parado = localStorage.getItem(K) === 'parado'; }catch(e){}
+  pinta(parado);
+  b.addEventListener('click', function(){
+    parado = !tk.classList.contains('parado');
+    pinta(parado);
+    try{ if(parado) localStorage.setItem(K, 'parado'); else localStorage.removeItem(K); }catch(e){}
+  });
+  tk.appendChild(b);
 })();
 
 // data corrente em pt-BR no formato industrial
@@ -415,6 +448,9 @@
      anúncio de verdade); aqui só trocamos a arte, o link e o nome do
      anúncio nas métricas. Roda ANTES do contador de vistas, para a vista
      ser contada para quem realmente apareceu. */
+  function dominio(u){
+    try{ return new URL(u, location.href).hostname.replace(/^www\./, ''); }catch(e){ return ''; }
+  }
   function pubSorteia(){
     var fonte = document.getElementById('foyer-pub-elenco');
     if(!fonte) return;
@@ -438,7 +474,9 @@
         link.setAttribute('href', a.link || '#');
         link.setAttribute('data-pub', a.chave);
         img.setAttribute('src', a.img);
-        img.setAttribute('alt', a.legenda || '');
+        // sem legenda, a arte é a única coisa dentro do link e ele ficava sem
+        // nome para o leitor de tela (auditoria de 12/10/2026)
+        img.setAttribute('alt', a.legenda || ('Publicidade: ' + (dominio(a.link) || 'anunciante')));
         var leg = el.querySelector('figcaption, .leg, span:not(.ph)');
         if(leg && leg !== img) leg.textContent = a.legenda || '';
       });
@@ -477,6 +515,10 @@
             key: 'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB' };
   var R = { nome:'', email:'', cidade:'', frequencia:'', interesses:[], conteudos:[] };
   var ov = null, passo = 0;
+  // auditoria de 12/10/2026: ao fechar (Esc, X ou clique fora) o foco caía no
+  // BODY e quem usa teclado voltava ao começo da página. Agora ele volta ao
+  // botão que abriu a conversa.
+  var voltarPara = null;
 
   var PASSOS = [
     { id:'nome', sinal:'🔔 primeiro sinal', titulo:'Que bom ter você no saguão.',
@@ -514,6 +556,7 @@
   }
   function abre(){
     if(ov) ov.remove();
+    else voltarPara = document.activeElement;
     ov = document.createElement('div');
     ov.className = 'cv-overlay';
     ov.innerHTML = '<div class="cv-caixa" role="dialog" aria-modal="true" aria-label="Assinar a revista">' +
@@ -530,6 +573,10 @@
   function fecha(){
     if(ov){ ov.remove(); ov = null; }
     document.body.style.overflow = '';
+    if(voltarPara && voltarPara.focus && document.contains(voltarPara)){
+      try{ voltarPara.focus(); }catch(e){}
+    }
+    voltarPara = null;
   }
   function pinta(dir){
     var p = PASSOS[passo];
@@ -539,20 +586,26 @@
     c.classList.add(dir < 0 ? 'anima-b' : 'anima-f');
     var miolo = '';
     if(p.tipo === 'texto' || p.tipo === 'email'){
+      // autocomplete: o celular oferece o nome e o e-mail já guardados (WCAG
+      // 1.3.5); o erro fica ligado ao campo para o leitor de tela (12/10/2026)
       miolo = '<input class="cv-input" type="' + (p.tipo === 'email' ? 'email' : 'text') + '" ' +
-        'placeholder="' + p.place + '" value="' + (R[p.id] || '') + '" aria-label="' + p.sub + '">' +
+        'autocomplete="' + (p.tipo === 'email' ? 'email' : 'given-name') + '" ' +
+        (p.tipo === 'email' ? 'inputmode="email" ' : '') +
+        'placeholder="' + p.place + '" value="' + (R[p.id] || '') + '" aria-label="' + p.sub + '" aria-describedby="cv-erro">' +
         (p.nota ? '<p class="cv-nota">' + p.nota + '</p>' : '') +
-        '<p class="cv-erro" aria-live="polite"></p>';
+        '<p class="cv-erro" id="cv-erro" aria-live="polite"></p>';
     } else {
-      miolo = '<div class="cv-ops">' + p.ops.map(function(o, k){
+      // cada opção diz se está marcada (aria-pressed), não só pela cor; o
+      // grupo leva o nome da pergunta (auditoria de 12/10/2026)
+      miolo = '<div class="cv-ops" role="group" aria-labelledby="cv-t">' + p.ops.map(function(o, k){
         var marcada = p.tipo === 'um' ? R[p.id] === o : R[p.id].indexOf(o) >= 0;
-        return '<button type="button" class="cv-op' + (marcada ? ' on' : '') + '" data-op="' + o + '" ' +
+        return '<button type="button" class="cv-op' + (marcada ? ' on' : '') + '" aria-pressed="' + (marcada ? 'true' : 'false') + '" data-op="' + o + '" ' +
           'style="animation-delay:' + (k * 45) + 'ms">' + o + '</button>';
       }).join('') + '</div>';
     }
     c.innerHTML =
       '<span class="cv-sinal">' + p.sinal + '</span>' +
-      '<h3 class="cv-t">' + p.titulo + '</h3>' +
+      '<h3 class="cv-t" id="cv-t">' + p.titulo + '</h3>' +
       '<p class="cv-s">' + p.sub + '</p>' + miolo +
       '<div class="cv-pe">' +
         (passo > 0 ? '<button type="button" class="cv-volta">← voltar</button>' : '<span></span>') +
@@ -572,7 +625,10 @@
         var o = b.dataset.op;
         if(p.tipo === 'um'){
           R[p.id] = o;
-          c.querySelectorAll('.cv-op').forEach(function(x){ x.classList.toggle('on', x === b); });
+          c.querySelectorAll('.cv-op').forEach(function(x){
+            x.classList.toggle('on', x === b);
+            x.setAttribute('aria-pressed', x === b ? 'true' : 'false');
+          });
           if(p.outra && o === 'Outra cidade'){       // conta pra gente qual
             var caixa = c.querySelector('.cv-outra');
             if(!caixa){
@@ -593,6 +649,7 @@
           var i = R[p.id].indexOf(o);
           if(i >= 0) R[p.id].splice(i, 1); else R[p.id].push(o);
           b.classList.toggle('on');
+          b.setAttribute('aria-pressed', b.classList.contains('on') ? 'true' : 'false');
         }
       });
     });
@@ -607,10 +664,13 @@
       var v = (c.querySelector('.cv-input') || {}).value || '';
       v = v.trim();
       var erro = c.querySelector('.cv-erro');
-      if(p.tipo === 'texto' && !v){ erro.textContent = 'Pode ser só o primeiro nome.'; return; }
+      var campo = c.querySelector('.cv-input');
+      var falha = function(t){ erro.textContent = t; if(campo){ campo.setAttribute('aria-invalid', 'true'); campo.focus(); } };
+      if(p.tipo === 'texto' && !v){ falha('Pode ser só o primeiro nome.'); return; }
       if(p.tipo === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){
-        erro.textContent = 'Confere esse e-mail? É por ele que a revista chega.'; return;
+        falha('Confere esse e-mail? É por ele que a revista chega.'); return;
       }
+      if(campo) campo.removeAttribute('aria-invalid');
       R[p.id] = v;
     }
     if(p.tipo === 'um' && !R[p.id]){ return; }   // precisa escolher uma
