@@ -1509,7 +1509,7 @@ privacidade_body = band('Institucional', 'Política de Privacidade', 'Última at
       <li><b>Google AdSense</b>: exibe os anúncios, como descrito acima.</li>
       <li><b>Serviço de notificações do seu navegador</b> (do Google, da Mozilla ou da Apple, conforme o navegador): entrega os avisos de matéria nova.</li>
       <li><b>ViaCEP</b>: preenche o endereço a partir do CEP no pedido de anúncio.</li>
-      <li><b>YouTube e Spotify</b>: vídeos e áudios embutidos em algumas páginas. O YouTube é carregado no modo de privacidade reforçada (youtube-nocookie.com). Esses serviços seguem as próprias políticas de privacidade.</li>
+      <li><b>YouTube e Spotify</b>: vídeos e áudios embutidos em algumas páginas. Nas matérias novas, o YouTube é carregado no modo de privacidade reforçada (youtube-nocookie.com); nas matérias mais antigas do acervo, o vídeo vem do endereço comum do YouTube. Esses serviços seguem as próprias políticas de privacidade.</li>
     </ul>
 
     <h2>Dados fora do Brasil</h2>
@@ -1537,7 +1537,7 @@ privacidade_body = band('Institucional', 'Política de Privacidade', 'Última at
       <li>revogação do consentimento.</li>
     </ul>
     <p>Você também pode se opor a um tratamento feito com base no legítimo interesse.</p>
-    <p><b>Como pedir:</b> escreva para {_PRIV_MAIL} (ou use a página de <a href="contato.html">contato</a>), dizendo o que deseja e, se for sobre a revista, o e-mail usado no cadastro. Respondemos em até 15 dias. Se não ficar satisfeito com a resposta, você pode reclamar à Autoridade Nacional de Proteção de Dados (ANPD), pelo site <a href="https://www.gov.br/anpd" target="_blank" rel="noopener">gov.br/anpd</a>.</p>
+    <p><b>Como pedir:</b> escreva para {_PRIV_MAIL} (ou use a página de <a href="contato.html">contato</a>), dizendo o que deseja e, se for sobre a revista, o e-mail usado no cadastro. Respondemos o quanto antes. Se não ficar satisfeito com a resposta, você pode reclamar à Autoridade Nacional de Proteção de Dados (ANPD), pelo site <a href="https://www.gov.br/anpd" target="_blank" rel="noopener">gov.br/anpd</a>.</p>
 
     <h2>Mudanças nesta política</h2>
     <p>Quando esta política mudar, a data no topo da página muda junto.</p>
@@ -2204,7 +2204,7 @@ def real_cell(p, big=False, cedo=False):
     d = f'\n        <p>{p["desc"][:160]}…</p>' if big else (f'\n        <p>{p["desc"][:110]}…</p>' if tipo else '')
     href = 'post-' + p['slug'] + '.html'
     cabeca = '' if tipo else (
-        (('<span class="tag wine">' + _tipo_rotulo(p) + '</span>') if _eh_opiniao(p) else ('<span class="tag">' + p['cat'] + '</span>'))
+        (('<span class="tag wine">' + _tipo_rotulo(p) + '</span>') if _eh_opiniao(p) else ('<span class="tag">' + _e(p['cat']) + '</span>'))
         + f'\n        <h3><a href="{href}">{_e(p["title"])}</a></h3>')
     return f'''    <article class="news-cell{' big' if big else ''}{' tipo' if tipo else ''}" data-cat="{_e(p['cat'])}">
       {real_ph(p, href, cap=big, cedo=cedo)}
@@ -2218,15 +2218,17 @@ def real_cell(p, big=False, cedo=False):
     </article>'''
 
 # --- ticker com manchetes reais
+# 12/10/2026: o título da matéria mais recente também passa por _e() nos dois
+# "Últimas": é o primeiro lugar onde um título novo com < ou & feito na Coxia aparece.
 _tk = ''.join(f'<span>{_e(p["title"])}</span>\n      ' for p in MATERIAS[:5])
 TICKER = f'''<div class="ticker" role="marquee" aria-label="Últimas notícias">
   <div class="ticker-inner">
     <div class="ticker-seq">
-      <span><b>Últimas</b> <a href="post-{MATERIAS[0]['slug']}.html">{MATERIAS[0]['title']}</a></span>
+      <span><b>Últimas</b> <a href="post-{MATERIAS[0]['slug']}.html">{_e(MATERIAS[0]['title'])}</a></span>
       {''.join(f'<span><a href="post-{p["slug"]}.html">{_e(p["title"])}</a></span>' for p in MATERIAS[1:5])}
     </div>
     <div class="ticker-seq" aria-hidden="true">
-      <span><b>Últimas</b> {MATERIAS[0]['title']}</span>
+      <span><b>Últimas</b> {_e(MATERIAS[0]['title'])}</span>
       {''.join(f'<span>{_e(p["title"])}</span>' for p in MATERIAS[1:5])}
     </div>
   </div>
@@ -2240,7 +2242,7 @@ for _i, _p in enumerate(MATERIAS[1:4]):
     _sub_cards += f'''    <article>
       {real_ph(_p, _href)}
       <div class="sub-body">
-        <span class="num">00{_i+2} — {_tipo_rotulo(_p) if _eh_opiniao(_p) else _p['cat']}</span>
+        <span class="num">00{_i+2} — {_tipo_rotulo(_p) if _eh_opiniao(_p) else _e(_p['cat'])}</span>
         {'' if _sem_foto_op(_p) else f'<h3><a href="{_href}">{_e(_p["title"])}</a></h3>'}
         <p>{_corta(_p['desc'], 120)}</p>
         <div class="meta-row">
@@ -2307,7 +2309,7 @@ index_main = f'''<main id="conteudo">
       {_manchete_capa}
       <div class="manchete-body">
         <div class="tags">
-          <span class="tag wine">{_tipo_rotulo(_p0) if _eh_opiniao(_p0) else _p0['cat']}</span>
+          <span class="tag wine">{_tipo_rotulo(_p0) if _eh_opiniao(_p0) else _e(_p0['cat'])}</span>
           <span class="tag">Manchete</span>
         </div>
         {'' if _sem_foto_op(_p0) else f'<h1><a href="post-{_p0["slug"]}.html">{_e(_p0["title"])}</a></h1>'}
