@@ -8620,12 +8620,12 @@ with open(os.path.join(ROOT, 'assets/pessoas-index.json'), 'w') as _f:
                  'd': _pp.get('primeira', ''), 'l': _pp.get('ultima', '')}
                 for _sp, _pp in _top_pessoas], _f, ensure_ascii=False)
 
-for _e in ED_PUB:
-    _cap = _e.get('capa', {})
-    page(f'revista-ed-{_e.get("numero")}.html',
-         f'A Revista do FOYER — Nº {_e.get("numero")}',
-         (_cap.get('manchete') or _e.get('titulo', 'Edição da Revista do FOYER'))[:200],
-         'revista.html', edicao_page(_e), quiet=True,
+for _ed in ED_PUB:
+    _cap = _ed.get('capa', {})
+    page(f'revista-ed-{_ed.get("numero")}.html',
+         f'A Revista do FOYER — Nº {_ed.get("numero")}',
+         (_cap.get('manchete') or _ed.get('titulo', 'Edição da Revista do FOYER'))[:200],
+         'revista.html', edicao_page(_ed), quiet=True,
          og_img=_cap.get('img') or None)
 if ED_PUB:
     print(f'• {len(ED_PUB)} edição(ões) da revista no ar')
@@ -8638,23 +8638,23 @@ _PROVA_SELO = ('<div style="position:fixed;left:14px;bottom:14px;z-index:9999;po
                'background:#8E1B10;color:#E9C46A;font:700 11px/1.4 ui-monospace,monospace;'
                'letter-spacing:.18em;text-transform:uppercase;padding:9px 14px;'
                'box-shadow:0 6px 18px rgba(0,0,0,.35)">Prova de gr&aacute;fica &middot; edi&ccedil;&atilde;o n&atilde;o publicada</div>')
-for _e in EDICOES:
-    if _e.get('status') == 'publicada' or not _e.get('numero'):
+for _ed in EDICOES:
+    if _ed.get('status') == 'publicada' or not _ed.get('numero'):
         continue
-    _pf = f'revista-prova-{_e.get("numero")}.html'
+    _pf = f'revista-prova-{_ed.get("numero")}.html'
     try:
-        page(_pf, f'PROVA — Revista do FOYER Nº {_e.get("numero")}',
+        page(_pf, f'PROVA — Revista do FOYER Nº {_ed.get("numero")}',
              'Prova de gráfica: edição ainda não publicada.', 'revista.html',
-             edicao_page(_e), quiet=True)
+             edicao_page(_ed), quiet=True)
         with open(os.path.join(ROOT, _pf)) as _f:
             _ph = _f.read()
         _ph = _ph.replace('</head>', '<meta name="robots" content="noindex,nofollow"></head>', 1)
         _ph = _ph.replace('</body>', _PROVA_SELO + '</body>', 1)
         with open(os.path.join(ROOT, _pf), 'w') as _f:
             _f.write(_ph)
-        print(f'• prova de gráfica: revista-prova-{_e.get("numero")}.html (rascunho)')
+        print(f'• prova de gráfica: revista-prova-{_ed.get("numero")}.html (rascunho)')
     except Exception as _exc:
-        print(f'  AVISO: prova da edição {_e.get("numero")} não gerada: {_exc}')
+        print(f'  AVISO: prova da edição {_ed.get("numero")} não gerada: {_exc}')
 # some toda prova cuja edição não é mais rascunho: publicada OU apagada
 _provas_validas = {f'revista-prova-{_e.get("numero")}.html'
                    for _e in EDICOES if _e.get('status') != 'publicada' and _e.get('numero')}
@@ -8911,10 +8911,10 @@ for _m in MATERIAS:
             _por_cat[_c] = _m['iso']
 for _c, _d in _por_cat.items():
     _mod['cat-' + _cat_slug(_c) + '.html'] = _d[:10]
-for _e in ED_PUB:
-    _de = str(_e.get('dataEdicao') or '')
-    if _re.match(r'^\d{4}-\d{2}-\d{2}', _de) and _e.get('numero'):
-        _mod[f"revista-ed-{_e['numero']}.html"] = _de[:10]
+for _ed in ED_PUB:
+    _de = str(_ed.get('dataEdicao') or '')
+    if _re.match(r'^\d{4}-\d{2}-\d{2}', _de) and _ed.get('numero'):
+        _mod[f"revista-ed-{_ed['numero']}.html"] = _de[:10]
 with open(os.path.join(ROOT, 'sitemap.xml'), 'w') as f:
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
     for u in urls:
