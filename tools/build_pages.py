@@ -3623,13 +3623,16 @@ html[data-theme="dark"] .rv-quina{ color:var(--gold); }
 .ct-voltar:hover{ color:var(--wine); }
 
 /* ---------- NAVEGAÇÃO ---------- */
-/* na capa (primeira dobra) o painel quase some, para não cobrir as chamadas;
-   volta inteiro ao passar o mouse ou ao virar a página */
-/* (12/10/2026) só onde existe mouse: no celular não há "passar por cima", e
-   os botões ficavam apagados, com cara de desativados, até alguém tocar */
+/* na capa o painel não pode cobrir as chamadas. Antes ele ficava apagado
+   (25%) e voltava inteiro ao passar o mouse; no celular isso já tinha caído
+   em 12/10/2026, porque os botões pareciam desativados */
+/* (12/10/2026, conferência) no computador o painel apagado (25%) flutuava sobre
+   a segunda linha da manchete da capa, e os três controles ficavam abaixo de
+   2:1 de contraste. Na capa ele deixa de flutuar: fica inteiro, no seu lugar
+   abaixo da revista, e não cobre nada; da página 2 em diante volta a
+   acompanhar a tela */
 @media (hover:hover){
-  html.rv-na-capa .rv-nav{ opacity:.25; }
-  html.rv-na-capa .rv-nav:hover, html.rv-na-capa .rv-nav:focus-within{ opacity:1; }
+  html.rv-na-capa .rv-nav{ position:static; }
 }
 .rv-nav{ position:sticky; bottom:14px; display:flex; justify-content:center; gap:8px;
   transition:opacity .25s;
