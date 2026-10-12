@@ -121,6 +121,42 @@
   // O botão pode declarar o próprio endereço em data-url. É o caso dos
   // cartões de "leia também": eles carregam o TÍTULO da matéria recomendada,
   // e sem isso levavam o título de uma com o endereço de outra.
+  // cópia pelo caminho antigo (execCommand), para navegador sem a API nova
+  function copiaAntiga(texto){
+    var ta = document.createElement('textarea');
+    ta.value = texto; ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    var ok = false;
+    try{ ta.select(); ta.setSelectionRange(0, texto.length); ok = document.execCommand('copy'); }catch(e){ ok = false; }
+    ta.remove();
+    return ok;
+  }
+  // último recurso: o link num campo já selecionado, para copiar à mão
+  function copiaManual(texto){
+    var velho = document.getElementById('copia-manual');
+    if(velho) velho.remove();
+    var volta = document.activeElement;
+    var box = document.createElement('div');
+    box.id = 'copia-manual';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-label', 'Copiar o link');
+    box.innerHTML = '<p>Não foi possível copiar sozinho. Toque e segure o link abaixo (ou use Ctrl+C) para copiar:</p>' +
+      '<input type="text" readonly aria-label="Link desta página">' +
+      '<button type="button">Fechar</button>';
+    var campo = box.querySelector('input');
+    campo.value = texto;
+    document.body.appendChild(box);
+    var fecha = function(){
+      box.remove(); document.removeEventListener('keydown', esc);
+      try{ if(volta && volta.focus && document.contains(volta)) volta.focus(); }catch(e){}
+    };
+    var esc = function(ev){ if(ev.key === 'Escape') fecha(); };
+    box.querySelector('button').addEventListener('click', fecha);
+    document.addEventListener('keydown', esc);
+    campo.addEventListener('focus', function(){ campo.select(); });
+    campo.focus(); campo.select();
+  }
   function enderecoDaPagina(){
     var c = document.querySelector('link[rel="canonical"]');
     return (c && c.href) || location.href;
@@ -133,12 +169,19 @@
     var title = b.getAttribute('data-title') || document.title;
     var url   = b.getAttribute('data-url') || enderecoDaPagina();
     if(kind === 'copy'){
+      // 12/10/2026 (auditoria, achado 139): quando o navegador não liberava a
+      // área de transferência (navegador de dentro do Instagram e do Facebook,
+      // página sem https, permissão negada), o botão ficava mudo. Agora tenta
+      // o jeito antigo de copiar e, se também falhar, mostra o link pronto
+      // para a pessoa copiar à mão.
+      var copiou = function(){
+        var old = b.textContent; b.textContent = 'Copiado ✓';
+        setTimeout(function(){ b.textContent = old; }, 1800);
+      };
+      var falhou = function(){ if(copiaAntiga(url)) copiou(); else copiaManual(url); };
       if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(url).then(function(){
-          var old = b.textContent; b.textContent = 'Copiado ✓';
-          setTimeout(function(){ b.textContent = old; }, 1800);
-        });
-      }
+        navigator.clipboard.writeText(url).then(copiou, falhou);
+      } else falhou();
       return;
     }
     if(kind === 'native'){
@@ -199,7 +242,18 @@
   // não medir: a Coxia (ferramenta interna) nem quem é da casa (equipe logada neste navegador)
   if(/\/coxia\//.test(location.pathname)) return;
   try{ if(localStorage.getItem('foyer-equipe') === '1') return; }catch(e){}
-  function consent(){ try{ return localStorage.getItem('foyer-consent') || ''; }catch(e){ return ''; } }
+  // 12/10/2026 (auditoria, achados 90 e 127): a tarja grava o consentimento
+  // como JSON ({nivel, quando}), mas aqui se lia o texto cru e se comparava
+  // com 'tudo'. Nunca batia, então o identificador de leitor recorrente não
+  // nascia nem para quem aceitou tudo, e o painel de recorrentes ficava vazio.
+  // Lê o nível do mesmo jeito que window.foyerConsent (definido mais abaixo).
+  function consent(){
+    try{
+      var v = localStorage.getItem('foyer-consent') || '';
+      if(v.charAt(0) === '{') return (JSON.parse(v) || {}).nivel || '';
+      return v;
+    }catch(e){ return ''; }
+  }
   function sid(){
     try{
       var s = sessionStorage.getItem('foyer-sessao');
@@ -410,7 +464,7 @@
       sub:'Como a gente te chama?', tipo:'texto', place:'pode ser só o primeiro nome' },
     { id:'email', sinal:'🔔 primeiro sinal', titulo:'Assinante lê na quinta, às 7h. Todo mundo, só na sexta.',
       sub:'Em qual caixa de entrada ela te encontra?', tipo:'email', place:'seu@email.com',
-      nota:'De graça, sem spam, e seus dados ficam só com o FOYER. <a href="privacidade.html" target="_blank">Política de privacidade</a>' },
+      nota:'De graça, sem spam, e nunca vendemos seus dados. <a href="privacidade.html" target="_blank">Política de privacidade</a>' },
     { id:'cidade', sinal:'🔔🔔 segundo sinal', titulo:'De onde você aplaude?',
       sub:'A agenda certa depende disso.', tipo:'um', outra:true,
       ops:['São Paulo','Rio de Janeiro','Belo Horizonte','Brasília','Curitiba',
@@ -883,7 +937,7 @@ function prendeFoco(veu, sair){
     b.setAttribute('role', 'dialog');
     b.setAttribute('aria-label', 'Cookies no FOYER');
     b.innerHTML =
-      '<p class="lgpd-longo"><b>🍪 Cookies no FOYER.</b> Usamos armazenamento essencial (tema, sessão) e métricas anônimas de audiência. ' +
+      '<p class="lgpd-longo"><b>🍪 Cookies no FOYER.</b> Usamos armazenamento essencial (tema, sessão) e métricas de audiência sem nome nem e-mail; com “Aceitar tudo”, também contamos quem volta ao site. ' +
       'Os anúncios do Google podem ser personalizados pelo seu histórico; se preferir, escolha “Só o essencial” e eles ficam genéricos. ' +
       'Saiba mais na <a href="privacidade.html">Política de Privacidade</a>.</p>' +
       // no celular a tarja tomava 28% da tela: versão de duas linhas, mesmo sentido

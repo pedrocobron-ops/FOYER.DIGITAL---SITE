@@ -877,7 +877,7 @@ revista_body = band('Newsletter semanal', 'A Revista do Foyer', 'Toda sexta, uma
       <h3>Assinante lê na quinta, às 7h</h3>
       <p class="sg-chamada">Uma edição fechada, com começo, meio e fim, na sua caixa de entrada. De graça.</p>
       <button type="button" class="sg-abrir" data-conversa>🎟 Quero a minha</button>
-      <span class="fine">Sem spam, cancele quando quiser. Seus dados ficam só com o FOYER.</span>
+      <span class="fine">Sem spam, cancele quando quiser. Nunca vendemos seus dados. <a href="privacidade.html">Privacidade</a></span>
     </div>
   </div>
 
@@ -1451,21 +1451,96 @@ busca_body = band('Ferramenta', 'Buscar',
 
 # ---------------------------------------------------------------- PRIVACIDADE
 
-privacidade_body = band('Institucional', 'Política de Privacidade', 'Última atualização — julho de 2026') + '''
+# 12/10/2026 (auditoria, achados 86 e 73): a política dizia que o site
+# coletava "apenas" nome e e-mail e que a lista não ia a terceiros. O código
+# grava também cidade, frequência, interesses e conteúdos (assets/site.js),
+# guarda inscrições de avisos (foyer_push), métricas de leitura
+# (foyer_metricas) e pedidos de anúncio com CPF ou CNPJ e endereço
+# (anuncie.html), e usa Supabase, Brevo, GitHub Pages e Google AdSense.
+# O texto abaixo descreve só o que o código faz hoje. Ao mudar o que o site
+# coleta ou com quem fala, mude aqui também.
+# EM ABERTO PARA O PEDRO: CNPJ do controlador, nome do encarregado (art. 41)
+# e prazos exatos de guarda das métricas e dos pedidos de anúncio.
+try:
+    _PRIV_EMAIL = (_json0.load(open(os.path.join(ROOT, 'import/site.json'))) or {}).get('emailContato') or ''
+except Exception:
+    _PRIV_EMAIL = ''
+_PRIV_EMAIL = _PRIV_EMAIL or 'contato@foyer.digital'
+_PRIV_MAIL = f'<a href="mailto:{_html.escape(_PRIV_EMAIL)}">{_html.escape(_PRIV_EMAIL)}</a>'
+_PRIV_CONTATO = _PRIV_MAIL + ' ou a página de <a href="contato.html">contato</a>'
+
+privacidade_body = band('Institucional', 'Política de Privacidade', 'Última atualização: 12 de outubro de 2026') + f'''
 <main id="conteudo" class="wrap">
   <div class="legal">
-    <h2>Quem somos</h2>
-    <p>O FOYER (foyer.digital) é um portal de jornalismo cultural dedicado ao teatro, à música e às artes no Brasil, com sede em São Paulo, SP.</p>
-    <h2>Dados que coletamos</h2>
-    <p>Coletamos apenas os dados necessários para operar o site: o e-mail e o nome informados voluntariamente no cadastro da newsletter, e dados anônimos de navegação usados para melhorar o conteúdo.</p>
-    <h2>Newsletter</h2>
-    <p>O e-mail cadastrado é usado exclusivamente para o envio da Revista do Foyer. Não vendemos nem compartilhamos a lista com terceiros. Todo envio traz um link de cancelamento imediato.</p>
-    <h2>Cookies e publicidade</h2>
-    <p>O site exibe anúncios fornecidos por terceiros, incluindo o Google AdSense. Esses serviços podem usar cookies para exibir anúncios baseados em visitas anteriores, inclusive em outros sites. Se preferir anúncios sem personalização, escolha <b>Só o essencial</b> no aviso de cookies (a escolha fica guardada neste navegador e pode ser refeita a qualquer momento pelo link no rodapé) ou use as <a href="https://adssettings.google.com" target="_blank" rel="noopener">configurações de anúncios do Google</a>. A revista enviada por e-mail não carrega anúncios do Google.</p>
-    <h2>Seus direitos (LGPD)</h2>
-    <p>Nos termos da Lei nº 13.709/2018, você pode solicitar a qualquer momento o acesso, a correção ou a exclusão dos seus dados pessoais pelo e-mail de contato abaixo.</p>
-    <h2>Contato</h2>
-    <p>Dúvidas sobre esta política: <b>contato@foyer.digital</b></p>
+    <h2>Quem cuida dos seus dados</h2>
+    <p>O controlador dos dados pessoais tratados neste site é o <b>FOYER.DIGITAL</b> (foyer.digital), portal de jornalismo cultural publicado por Foyer Estúdio e Comunicação, em São Paulo (SP). Para qualquer assunto sobre os seus dados, inclusive para exercer os direitos listados abaixo, use {_PRIV_CONTATO}.</p>
+
+    <h2>O que coletamos, para quê e com que base legal</h2>
+
+    <h3>Revista do FOYER (newsletter)</h3>
+    <p>Quando você assina, guardamos o <b>nome</b>, o <b>e-mail</b> e as respostas da conversa de cadastro: <b>cidade</b>, <b>com que frequência vai a espetáculos</b>, <b>linguagens que interessam</b> e <b>tipos de conteúdo que prefere</b>. Usamos esses dados para enviar a revista, escolher o que entra nela e conhecer o público. Em números somados, sem identificar ninguém (por exemplo, a cidade mais citada pelos assinantes), essas respostas também aparecem na página <a href="anuncie.html">Anuncie no FOYER</a>.</p>
+    <p><b>Base legal:</b> o seu consentimento (art. 7º, I, da LGPD), dado ao assinar. Todo e-mail traz no rodapé um link para cancelar na hora.</p>
+
+    <h3>Avisos de matéria nova no navegador</h3>
+    <p>Se você ativar os avisos, o navegador cria um endereço técnico de entrega, que guardamos para enviar os avisos. Esse endereço não traz nome nem e-mail.</p>
+    <p><b>Base legal:</b> consentimento. Para parar, desative as notificações do FOYER nas configurações do navegador.</p>
+
+    <h3>Pedido de anúncio</h3>
+    <p>Quem pede um anúncio na página <a href="anuncie.html">Anuncie no FOYER</a> informa nome, e-mail, WhatsApp, Instagram (se quiser), <b>CPF ou CNPJ</b>, nome ou razão social para a cobrança, nome fantasia e inscrição municipal (empresas), <b>endereço completo</b>, a arte, o link do anúncio e uma mensagem. Usamos esses dados para responder ao pedido, fechar e cumprir o contrato e fazer a cobrança e os documentos fiscais. Ao digitar o CEP, o formulário consulta o serviço público ViaCEP para preencher o endereço; só o CEP é enviado a ele.</p>
+    <p><b>Base legal:</b> procedimentos antes do contrato e execução do contrato (art. 7º, V) e, para os dados de cobrança, cumprimento de obrigação legal (art. 7º, II).</p>
+
+    <h3>Métricas de leitura</h3>
+    <p>Para saber o que é lido, o site registra em cada visita: a página e a matéria abertas, o tempo de leitura e quanto da página foi rolado, o site de onde você veio, o tipo de aparelho (celular, computador ou aplicativo), o idioma do navegador e um código de sessão que deixa de valer quando a aba é fechada. Nesses registros não entram nome, e-mail nem endereço IP. Quem é da equipe do FOYER não é contado.</p>
+    <p><b>Base legal:</b> legítimo interesse (art. 7º, IX) em entender a audiência e melhorar o conteúdo. Se você escolher <b>Aceitar tudo</b> no aviso de cookies, o navegador também guarda um código aleatório que permite contar quem volta ao site. Sem essa escolha, esse código não é criado. A base legal dele é o consentimento.</p>
+
+    <h3>Escolhas guardadas no seu navegador</h3>
+    <p>A sua resposta ao aviso de cookies (<b>Aceitar tudo</b> ou <b>Só o essencial</b>, com a data), o tema claro ou escuro e outras preferências do site ficam guardadas no próprio navegador, para não perguntarmos de novo. Elas não são enviadas para nós. Para refazer a escolha de cookies, use o link no rodapé.</p>
+
+    <h3>Publicidade do Google</h3>
+    <p>O site exibe anúncios do Google AdSense, que sustentam a redação. O Google pode usar cookies e identificadores para mostrar e medir anúncios, inclusive com base em visitas anteriores a este e a outros sites. Se você escolher <b>Só o essencial</b>, os anúncios passam a ser pedidos sem personalização. Você também pode ajustar isso nas <a href="https://adssettings.google.com" target="_blank" rel="noopener">configurações de anúncios do Google</a>. O Google trata esses dados conforme a <a href="https://policies.google.com/technologies/partner-sites?hl=pt-BR" target="_blank" rel="noopener">política dele para sites parceiros</a>. A revista enviada por e-mail não traz anúncios do Google.</p>
+    <p><b>Base legal:</b> legítimo interesse na exibição de anúncios, com a personalização recusável a qualquer momento em <b>Só o essencial</b>.</p>
+
+    <h2>Serviços que tratam dados para o FOYER</h2>
+    <p>Não vendemos dados pessoais. Para o site funcionar, alguns serviços recebem dados em nosso nome ou exibem conteúdo dentro das páginas:</p>
+    <ul>
+      <li><b>Supabase</b>: banco de dados onde ficam a lista da revista, as inscrições de avisos, as métricas de leitura e os pedidos de anúncio.</li>
+      <li><b>Brevo</b>: entrega a revista por e-mail e, para isso, recebe o nome e o e-mail de quem assina.</li>
+      <li><b>GitHub Pages</b>: hospeda o site e, como todo servidor, registra dados técnicos de acesso, como o endereço IP.</li>
+      <li><b>Google AdSense</b>: exibe os anúncios, como descrito acima.</li>
+      <li><b>Serviço de notificações do seu navegador</b> (do Google, da Mozilla ou da Apple, conforme o navegador): entrega os avisos de matéria nova.</li>
+      <li><b>ViaCEP</b>: preenche o endereço a partir do CEP no pedido de anúncio.</li>
+      <li><b>YouTube e Spotify</b>: vídeos e áudios embutidos em algumas páginas. O YouTube é carregado no modo de privacidade reforçada (youtube-nocookie.com). Esses serviços seguem as próprias políticas de privacidade.</li>
+    </ul>
+
+    <h2>Dados fora do Brasil</h2>
+    <p>Alguns desses serviços guardam ou processam dados em servidores fora do Brasil, por exemplo nos Estados Unidos e na União Europeia. Essa transferência acontece para que o serviço funcione, nos termos do art. 33 da LGPD.</p>
+
+    <h2>Por quanto tempo guardamos</h2>
+    <ul>
+      <li><b>Revista:</b> enquanto a assinatura estiver ativa. Ao cancelar pelo link do e-mail, os envios param na hora. Se quiser que o cadastro seja apagado de vez, peça pelo contato abaixo.</li>
+      <li><b>Avisos no navegador:</b> enquanto os avisos estiverem ativos, ou até você pedir a exclusão.</li>
+      <li><b>Pedidos de anúncio:</b> enquanto durar a relação comercial e, depois, pelo prazo que a lei fiscal e contábil exigir.</li>
+      <li><b>Métricas de leitura:</b> enquanto servirem aos relatórios de audiência da redação. Elas não trazem nome nem e-mail.</li>
+      <li><b>Escolhas no navegador:</b> até você apagar os dados do site no próprio navegador.</li>
+    </ul>
+
+    <h2>Seus direitos</h2>
+    <p>Pelo art. 18 da Lei nº 13.709/2018 (LGPD), você pode pedir a qualquer momento:</p>
+    <ul>
+      <li>confirmação de que tratamos dados seus e acesso a eles;</li>
+      <li>correção de dados incompletos, errados ou desatualizados;</li>
+      <li>anonimização, bloqueio ou eliminação de dados desnecessários, excessivos ou tratados fora do que a lei permite;</li>
+      <li>portabilidade dos seus dados para outro fornecedor;</li>
+      <li>eliminação dos dados tratados com o seu consentimento;</li>
+      <li>informação sobre com quem compartilhamos os seus dados;</li>
+      <li>informação sobre a possibilidade de não dar o consentimento e o que acontece se você não der;</li>
+      <li>revogação do consentimento.</li>
+    </ul>
+    <p>Você também pode se opor a um tratamento feito com base no legítimo interesse.</p>
+    <p><b>Como pedir:</b> escreva para {_PRIV_MAIL} (ou use a página de <a href="contato.html">contato</a>), dizendo o que deseja e, se for sobre a revista, o e-mail usado no cadastro. Respondemos em até 15 dias. Se não ficar satisfeito com a resposta, você pode reclamar à Autoridade Nacional de Proteção de Dados (ANPD), pelo site <a href="https://www.gov.br/anpd" target="_blank" rel="noopener">gov.br/anpd</a>.</p>
+
+    <h2>Mudanças nesta política</h2>
+    <p>Quando esta política mudar, a data no topo da página muda junto.</p>
   </div>
 </main>
 '''
@@ -1629,7 +1704,17 @@ def md_lite(txt, titulo=''):
             continue
         if b.startswith('botao:'):
             _rot, _, _url = b[6:].partition('|')
-            if _url.strip():
+            # 12/10/2026 (auditoria, achado 85): o botão aceitava qualquer
+            # endereço, até javascript:. Agora só http(s) ou caminho do próprio
+            # site (sem esquema e sem //). Espaço e caractere de controle no
+            # meio também barram, porque o navegador apaga a tabulação e "java" +
+            # tabulação + "script:" viraria javascript:. Barra invertida também,
+            # porque o navegador a lê como barra. Endereço recusado: o botão não sai.
+            _url = _url.strip()
+            if not (_re.match(r'https?://[^\s\x00-\x1f\x7f]+$', _url, _re.I)
+                    or _re.match(r'(?![a-zA-Z][a-zA-Z0-9+.-]*:)(?!//)[^\s\x00-\x1f\x7f\\]+$', _url)):
+                _url = ''
+            if _url:
                 out.append(f'<p class="art-cta"><a href="{_h.escape(_url.strip())}" target="_blank" rel="noopener">{_h.escape(_rot.strip())}</a></p>')
             continue
         if b.strip('* ') == '' and '*' in b:
@@ -1762,7 +1847,9 @@ for _p in MATERIAS:
                      r'"[^>]*>(?:<figcaption>(.*?)</figcaption>)?</figure>',
                      open(_cf).read(), _re.S)
     if _mc and _mc.group(1):
-        _capc = _re.sub(r'<[^>]+>', '', _mc.group(1)).strip()
+        # a legenda vem do HTML do corpo, com '&amp;' e cia.: volta a texto
+        # puro, porque safe() escapa na saída (12/10/2026, achado 83)
+        _capc = _html.unescape(_re.sub(r'<[^>]+>', '', _mc.group(1))).strip()
         if _capc:
             _p['credito'] = _capc
             _n_creds += 1
@@ -1852,7 +1939,18 @@ def _dek_html(p):
 
 
 def safe(t):
-    return t.replace('"', '”')
+    # 12/10/2026 (auditoria, achado 83): além de trocar a aspa reta pela
+    # tipográfica (para caber em atributo), escapa & < >. Um título como
+    # "A <Gaivota>" sumia da página, lido como tag. Os dados de import/ não
+    # trazem entidade nem tag pronta (conferido), então não escapa duas vezes.
+    return _html.escape(t.replace('"', '”'), quote=False)
+
+def _e(t):
+    """Texto de matéria (título, assinatura, editoria) indo para o HTML.
+    Mesmo motivo de safe(), para os pontos que interpolavam o dado cru
+    (auditoria de 12/10/2026, achado 83)."""
+    return _html.escape(str(t if t is not None else ''), quote=True)
+
 
 # assinaturas com página própria (a definição completa fica em AUTORES, mais abaixo)
 _AUTOR_PAGINA = {
@@ -1889,11 +1987,11 @@ def _byline_link(nome):
         n = 'Redação Foyer'
     alvo = _pagina_de_quem_assina(n)
     if alvo:
-        return f'<a href="{alvo}" rel="author"><b>{n}</b></a>'
+        return f'<a href="{alvo}" rel="author"><b>{_e(n)}</b></a>'
     partes = [p.strip() for p in n.split(' e ')]
     if len(partes) > 1 and all(_pagina_de_quem_assina(p) for p in partes):
-        return ' e '.join(f'<a href="{_pagina_de_quem_assina(p)}" rel="author"><b>{p}</b></a>' for p in partes)
-    return f'<b>{n}</b>'
+        return ' e '.join(f'<a href="{_pagina_de_quem_assina(p)}" rel="author"><b>{_e(p)}</b></a>' for p in partes)
+    return f'<b>{_e(n)}</b>'
 
 def _pagina_de_quem_assina(nome):
     """Página da assinatura: a de autor, quando existe; senão o verbete da
@@ -2107,29 +2205,29 @@ def real_cell(p, big=False, cedo=False):
     href = 'post-' + p['slug'] + '.html'
     cabeca = '' if tipo else (
         (('<span class="tag wine">' + _tipo_rotulo(p) + '</span>') if _eh_opiniao(p) else ('<span class="tag">' + p['cat'] + '</span>'))
-        + f'\n        <h3><a href="{href}">{p["title"]}</a></h3>')
-    return f'''    <article class="news-cell{' big' if big else ''}{' tipo' if tipo else ''}" data-cat="{p['cat']}">
+        + f'\n        <h3><a href="{href}">{_e(p["title"])}</a></h3>')
+    return f'''    <article class="news-cell{' big' if big else ''}{' tipo' if tipo else ''}" data-cat="{_e(p['cat'])}">
       {real_ph(p, href, cap=big, cedo=cedo)}
       <div class="cbody">
         {cabeca}{d}
         <div class="meta-row">
-          <span class="meta-l">{short_date(p)} — {p['author']}</span>
+          <span class="meta-l">{short_date(p)} — {_e(p['author'])}</span>
           <button class="share-min" data-share="native" data-title="{safe(p['title'])}" data-url="{BASE}/{href}">Compartilhar ↗</button>
         </div>
       </div>
     </article>'''
 
 # --- ticker com manchetes reais
-_tk = ''.join(f'<span>{p["title"]}</span>\n      ' for p in MATERIAS[:5])
+_tk = ''.join(f'<span>{_e(p["title"])}</span>\n      ' for p in MATERIAS[:5])
 TICKER = f'''<div class="ticker" role="marquee" aria-label="Últimas notícias">
   <div class="ticker-inner">
     <div class="ticker-seq">
       <span><b>Últimas</b> <a href="post-{MATERIAS[0]['slug']}.html">{MATERIAS[0]['title']}</a></span>
-      {''.join(f'<span><a href="post-{p["slug"]}.html">{p["title"]}</a></span>' for p in MATERIAS[1:5])}
+      {''.join(f'<span><a href="post-{p["slug"]}.html">{_e(p["title"])}</a></span>' for p in MATERIAS[1:5])}
     </div>
     <div class="ticker-seq" aria-hidden="true">
       <span><b>Últimas</b> {MATERIAS[0]['title']}</span>
-      {''.join(f'<span>{p["title"]}</span>' for p in MATERIAS[1:5])}
+      {''.join(f'<span>{_e(p["title"])}</span>' for p in MATERIAS[1:5])}
     </div>
   </div>
 </div>'''
@@ -2143,7 +2241,7 @@ for _i, _p in enumerate(MATERIAS[1:4]):
       {real_ph(_p, _href)}
       <div class="sub-body">
         <span class="num">00{_i+2} — {_tipo_rotulo(_p) if _eh_opiniao(_p) else _p['cat']}</span>
-        {'' if _sem_foto_op(_p) else f'<h3><a href="{_href}">{_p["title"]}</a></h3>'}
+        {'' if _sem_foto_op(_p) else f'<h3><a href="{_href}">{_e(_p["title"])}</a></h3>'}
         <p>{_corta(_p['desc'], 120)}</p>
         <div class="meta-row">
           <span class="meta-l">{short_date(_p)}</span>
@@ -2165,7 +2263,7 @@ def _giro_linhas():
     cartaz = _cartaz_html(_CARTAZ_CAPA[0], 'giro') if _CARTAZ_CAPA else ''
     mats = MATERIAS[4:10] if cartaz else MATERIAS[4:11]
     linha = lambda p: (f'''        <a class="giro-item" href="post-{p['slug']}.html">'''
-                       f'''<span class="t">{short_date(p)}</span><span class="h">{p['title']}</span></a>\n''')
+                       f'''<span class="t">{short_date(p)}</span><span class="h">{_e(p['title'])}</span></a>\n''')
     if not cartaz:
         return ''.join(linha(p) for p in mats)
     return (''.join(linha(p) for p in mats[:3]) + '        ' + cartaz
@@ -2212,7 +2310,7 @@ index_main = f'''<main id="conteudo">
           <span class="tag wine">{_tipo_rotulo(_p0) if _eh_opiniao(_p0) else _p0['cat']}</span>
           <span class="tag">Manchete</span>
         </div>
-        {'' if _sem_foto_op(_p0) else f'<h1><a href="post-{_p0["slug"]}.html">{_p0["title"]}</a></h1>'}
+        {'' if _sem_foto_op(_p0) else f'<h1><a href="post-{_p0["slug"]}.html">{_e(_p0["title"])}</a></h1>'}
         <p class="dek">{_p0['desc']}</p>
         <div class="share-row" aria-label="Compartilhar esta matéria">
           <button class="sbtn" data-share="whats" data-title="{safe(_p0['title'])}">WhatsApp</button>
@@ -2221,7 +2319,7 @@ index_main = f'''<main id="conteudo">
           <button class="sbtn" data-share="copy" data-title="{safe(_p0['title'])}">Copiar link</button>
         </div>
         <div class="foot">
-          <span>Por {_p0['author']} — {_p0['date']}</span>
+          <span>Por {_e(_p0['author'])} — {_p0['date']}</span>
           <a href="post-{_p0['slug']}.html" class="ler">Ler a matéria →</a>
         </div>
       </div>
@@ -2475,18 +2573,19 @@ def post_page(i, p):
             r'"[^>]*>(?:<figcaption>(.*?)</figcaption>)?</figure>\s*', _re.S)
         _mdup = _pat_dup.search(corpo)
         if _mdup:
-            _cap = _re.sub(r'<[^>]+>', '', _mdup.group(1) or '').strip()
+            # texto puro: safe() escapa na saída (12/10/2026, achado 83)
+            _cap = _html.unescape(_re.sub(r'<[^>]+>', '', _mdup.group(1) or '')).strip()
             if _cap:
                 credito_real = _cap
             corpo = _pat_dup.sub('', corpo, count=1)
     cred_capa = p.get('credito') or credito_real or 'Foto: Divulgação'
     if _re.match(r'^(foto|imagem)?\s*:?\s*(de\s+)?divulga[çc][ãa]o\.?\s*$', cred_capa, _re.I):
         cred_capa = 'Foto: Divulgação'  # 'Divulgação', 'foto divulgação', 'Foto: de Divulgação' viram um só texto
-    _leia_h2, _leia_note = 'Leia também', f"Mais de {p['cat']}"
+    _leia_h2, _leia_note = 'Leia também', f"Mais de {_e(p['cat'])}"
     if _eh_opiniao(p) and p.get('tipo') == 'coluna':
         # ao fim de uma coluna, as outras colunas do mesmo colunista
         rel = [x for x in OPINIAO if x.get('tipo') == 'coluna' and x['author'] == p['author'] and x['slug'] != p['slug']][:3]
-        _leia_h2, _leia_note = f"Outras colunas de {p['author']}", (p.get('coluna') or 'Coluna')
+        _leia_h2, _leia_note = f"Outras colunas de {_e(p['author'])}", (p.get('coluna') or 'Coluna')
         if not rel:
             rel = [x for x in OPINIAO if x['slug'] != p['slug']][:3]
             _leia_h2, _leia_note = 'Mais em Opinião', 'colunas, artigos e editoriais'
@@ -2500,16 +2599,16 @@ def post_page(i, p):
     rel_cells = '\n'.join(real_cell(r) for r in rel)
     if _eh_opiniao(p):
         _tags_html = (f'<span class="tag wine">{_selo_opiniao(p)}</span>'
-                      f'<a class="tag" href="cat-{_cat_slug(p["cat"])}.html">{p["cat"]}</a>'
-                      + ''.join(f'<a class="tag" href="cat-{_cat_slug(c)}.html">{c}</a>' for c in p.get('cats', []) if c != 'Em Cartaz'))
+                      f'<a class="tag" href="cat-{_cat_slug(p["cat"])}.html">{_e(p["cat"])}</a>'
+                      + ''.join(f'<a class="tag" href="cat-{_cat_slug(c)}.html">{_e(c)}</a>' for c in p.get('cats', []) if c != 'Em Cartaz'))
         if p.get('tipo') == 'editorial':
             _por_html = '<b>Editorial do Foyer</b>'
         else:
             _fn = _funcao_autor(p)
             _por_html = 'por ' + _byline_link(p['author']) + (f', <span class="bl-funcao">{_fn}</span>' if _fn else '')
     else:
-        _tags_html = (f'<a class="tag wine" href="cat-{_cat_slug(p["cat"])}.html">{p["cat"]}</a>'
-                      + (''.join(f'<a class="tag" href="cat-{_cat_slug(c)}.html">{c}</a>' for c in p.get('cats', []) if c != 'Em Cartaz') or '<span class="tag">Foyer</span>'))
+        _tags_html = (f'<a class="tag wine" href="cat-{_cat_slug(p["cat"])}.html">{_e(p["cat"])}</a>'
+                      + (''.join(f'<a class="tag" href="cat-{_cat_slug(c)}.html">{_e(c)}</a>' for c in p.get('cats', []) if c != 'Em Cartaz') or '<span class="tag">Foyer</span>'))
         _por_html = 'Por ' + _byline_link(p['author'])
     _capa_html = _abre_opiniao(p) if _sem_foto_op(p) else f'''<figure class="art-cover">
     <span class="ph"><img src="{wiximg(p['img'])}" alt="{safe(p.get('legenda') or p['title'])}" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'"></span>
@@ -2521,7 +2620,7 @@ def post_page(i, p):
     <div class="tags">
       {_tags_html}
     </div>
-    <h1>{p['title']}</h1>{_dek_html(p)}
+    <h1>{_e(p['title'])}</h1>{_dek_html(p)}
     <div class="art-byline">
       <span class="bl-por">{_por_html}</span>
       <span class="bl-quando">{p['date']}{(', às ' + p['hora']) if p.get('hora') else ''} · {_tempo_de_leitura(p)}</span>
@@ -2539,7 +2638,7 @@ def post_page(i, p):
   {nota_correcao(p)}
   {quem_bloco}
   <div class="art-foot">
-    <div class="tags"><span class="tag">{p['cat']}</span><span class="tag">{p['author']}</span></div>
+    <div class="tags"><span class="tag">{_e(p['cat'])}</span><span class="tag">{_e(p['author'])}</span></div>
     <div class="share-row" aria-label="Compartilhar">
       <button class="sbtn" data-share="whats" data-title="{safe(p['title'])}">WhatsApp</button>
       <button class="sbtn" data-share="copy" data-title="{safe(p['title'])}">Copiar link</button>
@@ -4361,7 +4460,7 @@ revista_body = band('Newsletter semanal', 'A Revista do Foyer',
       <h3>Assinante lê na quinta, às 7h</h3>
       <p class="sg-chamada">Uma edição fechada, com começo, meio e fim, na sua caixa de entrada. De graça.</p>
       <button type="button" class="sg-abrir" data-conversa>🎟 Quero a minha</button>
-      <span class="fine">Sem spam, cancele quando quiser. Seus dados ficam só com o FOYER.</span>
+      <span class="fine">Sem spam, cancele quando quiser. Nunca vendemos seus dados. <a href="privacidade.html">Privacidade</a></span>
     </div>
   </div>
 
@@ -4638,7 +4737,7 @@ def pessoa_page(sp, p):
         for m, ev in ec:
             onde = ' · '.join(x for x in (ev.get('local'), ev.get('cidade')) if x)
             quando = _enc_data(ev.get('inicio', '')) + (' a ' + _enc_data(ev['fim']) if ev.get('fim') else '')
-            itens += (f'<a class="vb-cartaz-item" href="post-{m["slug"]}.html"><b>{m["title"]}</b>'
+            itens += (f'<a class="vb-cartaz-item" href="post-{m["slug"]}.html"><b>{_e(m["title"])}</b>'
                       f'<span>{safe(onde)}{" · " if onde and quando else ""}{quando}</span></a>')
         cartaz = f'<section class="vb-sec vb-cartaz"><div class="sec-head"><h2>Em cartaz</h2><span class="note">agora, segundo nossas matérias</span></div><div class="vb-cartaz-lista">{itens}</div></section>'
     # ---- programas (cards com a capa do episódio)
@@ -4737,7 +4836,9 @@ def _ld_pessoa(sp, p):
     if p.get('foto'): d['image'] = _foto_wm(p['foto'], 500) if p['foto'].startswith('http') else f'{BASE}/{p["foto"]}'
     same = [v for v in (p.get('redes') or {}).values()] + ([p['wikiUrl']] if p.get('wikiUrl') else [])
     if same: d['sameAs'] = same
-    return '<script type="application/ld+json">' + _json.dumps(d, ensure_ascii=False) + '</script>'
+    # '<' vira \u003c: uma bio da Wikipédia com '</script>' fechava o bloco
+    # e injetava HTML na página (auditoria de 12/10/2026, achado 84)
+    return '<script type="application/ld+json">' + _json.dumps(d, ensure_ascii=False).replace('<', '\\u003c') + '</script>'
 
 # ---------------------------------------------------------------- PÁGINAS DE AUTOR (assinaturas do FOYER)
 # Quem assina responde pelo texto: cada assinatura tem página própria, com o que
@@ -5180,9 +5281,13 @@ _n_eps = sum(len(p.get('videos', [])) for p in YT.get('programas', []))
 # (import/equipe.json), com o mesmo texto que já sustenta a página de autor.
 # Quem entra na casa aparece nesta página sozinho, sem ninguém mexer no
 # gerador — que é justamente o que o Pedro pediu.
+# 12/10/2026 (auditoria, achado 73): conta como a página de autor conta,
+# separando a assinatura dupla ("Pedro Amaral e Isabel Branquinha"). Antes o
+# Quem somos dizia 194 matérias e a página do Pedro, 196.
 _mats_por_autor = {}
 for _p in MATERIAS:
-    _mats_por_autor[_p.get('author', '')] = _mats_por_autor.get(_p.get('author', ''), 0) + 1
+    for _quem in {x.strip() for x in str(_p.get('author') or '').split(' e ')}:
+        _mats_por_autor[_quem] = _mats_por_autor.get(_quem, 0) + 1
 
 def _eq_slug(nome):
     import unicodedata as _u
@@ -5325,7 +5430,7 @@ sobre_body = band('O Foyer', 'Quem somos', 'Seu veículo de informação artíst
   <div class="art" style="max-width:820px; margin:0 auto">
     <div class="art-body">
       <h2>Como trabalhamos</h2>
-      <p>Título sem caça-clique, apuração com fonte e serviço completo ao final. Parte das matérias assinadas como <b>Redação Foyer</b> conta com apuração assistida por inteligência artificial — todas são revisadas, checadas e aprovadas por um editor humano antes de ir ao ar. Fotografias são sempre de divulgação oficial, com o devido crédito. Conteúdo publicitário, quando houver, é identificado como tal.</p>
+      <p>Título sem caça-clique, apuração com fonte e serviço completo ao final. Parte das matérias assinadas como <b>Redação Foyer</b> conta com apuração assistida por inteligência artificial — todas são revisadas, checadas e aprovadas por um editor humano antes de ir ao ar. As imagens vêm de divulgação das produções, de arquivos em licença livre, de reprodução de redes sociais quando a própria imagem é notícia e de material próprio, sempre com crédito. Ilustração feita com inteligência artificial é identificada como tal no crédito. Conteúdo publicitário, quando houver, é identificado como tal.</p>
       <p>O FOYER é um veículo independente: quem sustenta a redação é a venda de espaço publicitário,
       nunca a interferência no que publicamos. Quer a sua marca aqui? Veja os formatos e contrate em
       <a href="anuncie.html"><b>Anuncie no FOYER</b></a>.</p>
@@ -5611,13 +5716,13 @@ def op_cell(p):
     molde do card comum do site."""
     href = 'post-' + p['slug'] + '.html'
     fn = _funcao_autor(p)
-    quem = 'Editorial do Foyer' if p.get('tipo') == 'editorial' else (p['author'] + (f' · {fn}' if fn else ''))
-    return (f'    <article class="news-cell{" tipo" if _sem_foto_op(p) else ""}" data-cat="{p["cat"]}">\n'
+    quem = 'Editorial do Foyer' if p.get('tipo') == 'editorial' else (_e(p['author']) + (f' · {_e(fn)}' if fn else ''))
+    return (f'    <article class="news-cell{" tipo" if _sem_foto_op(p) else ""}" data-cat="{_e(p["cat"])}">\n'
             f'      {real_ph(p, href, cap=False)}\n'
             f'      <div class="cbody">\n'
             + (f'        <p>{p["desc"][:110]}…</p>\n' if _sem_foto_op(p) else
                f'        <span class="tag wine">{_selo_opiniao(p)}</span>\n'
-               f'        <h3><a href="{href}">{p["title"]}</a></h3>\n')
+               f'        <h3><a href="{href}">{_e(p["title"])}</a></h3>\n')
             + f'        <div class="meta-row">\n'
             f'          <span class="meta-l">{short_date(p)} — {quem}</span>\n'
             f'          <button class="share-min" data-share="native" data-title="{safe(p["title"])}" data-url="{BASE}/{href}">Compartilhar ↗</button>\n'
@@ -5641,7 +5746,7 @@ def _op_destaque(p, rotulo):
             + f'    <div class="op-txt">\n'
             + ('' if _sem_foto_op(p) else
                f'      <span class="tag wine">{rotulo}</span>\n'
-               f'      <h2><a href="{href}">{p["title"]}</a></h2>\n')
+               f'      <h2><a href="{href}">{_e(p["title"])}</a></h2>\n')
             + f'      <p class="dek">{desc}</p>\n'
             f'      <div class="op-assina">{foto}<span>{quem}<small>{p["date"]}</small></span></div>\n'
             f'    </div>\n'
@@ -5807,7 +5912,7 @@ principios_body = band('Institucional', 'Princípios Editoriais', 'Como o FOYER 
       <h2>Correções</h2>
       <p>Erramos? Corrigimos. Matérias corrigidas ou ampliadas exibem o selo "Atualizada em" com data e horário da mudança. Para apontar um erro, escreva para <a href="mailto:programafoyer@gmail.com">programafoyer@gmail.com</a> com o endereço da matéria: respondemos e, quando for o caso, corrigimos com registro visível.</p>
       <h2>Imagens e créditos</h2>
-      <p>Usamos fotografias de divulgação oficial das produções que cobrimos, imagens em licença livre (com autor e licença citados) e material próprio. O crédito do fotógrafo acompanha a imagem, no cartão e dentro da matéria.</p>
+      <p>Usamos fotografias de divulgação oficial das produções que cobrimos, imagens em licença livre (com autor e licença citados) e material próprio. O crédito acompanha a imagem na página da matéria. Nas capas e listas, ele aparece ao passar o mouse sobre a foto.</p>
       <h2>Independência</h2>
       <p>Conteúdo publicitário ou patrocinado, quando existir, é identificado como tal. A curadoria dos guias e da agenda é decisão exclusiva da redação, sem interferência de bilheteiras ou produções.</p>
       <h2>Quem responde</h2>
@@ -7381,9 +7486,18 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
     var c1 = topo(d.por_cidade); if(c1) tiles.push([c1, 'cidade nº 1']);
     var c2 = topo(d.por_frequencia); if(c2) tiles.push([c2, 'vão ao vivo']);
     var c3 = topo(d.por_interesse); if(c3) tiles.push([c3, 'linguagem nº 1']);
-    document.getElementById('mk-tiles').innerHTML = tiles.map(function(t){
-      return '<div class="mk-tile"><b>' + t[0] + '</b><span>' + t[1] + '</span></div>';
-    }).join('');
+    // 12/10/2026 (auditoria, achado 82): a cidade, a frequência e o interesse
+    // são texto livre gravado por qualquer visitante no cadastro da newsletter.
+    // Iam crus para o innerHTML: um cadastro com tag na cidade virava script
+    // nesta página, que é da mesma origem da Coxia. Agora entram como texto.
+    var caixa = document.getElementById('mk-tiles');
+    caixa.textContent = '';
+    tiles.forEach(function(t){
+      var div = document.createElement('div'), b = document.createElement('b'), sp = document.createElement('span');
+      div.className = 'mk-tile';
+      b.textContent = String(t[0]).slice(0, 60); sp.textContent = t[1];
+      div.appendChild(b); div.appendChild(sp); caixa.appendChild(div);
+    });
     document.getElementById('mk-leitor').classList.add('mostra');
   }).catch(function(){});
 })();
@@ -7677,8 +7791,10 @@ def _ld_materia(p):
         trilha.append({'@type': 'ListItem', 'position': 2, 'name': _cat, 'item': f'{BASE}/{_pag_cat}'})
     trilha.append({'@type': 'ListItem', 'position': len(trilha) + 1, 'name': p['title'][:110]})
     migalhas = {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': trilha}
-    return ('<script type="application/ld+json">' + _json.dumps(dados, ensure_ascii=False) + '</script>'
-            '<script type="application/ld+json">' + _json.dumps(migalhas, ensure_ascii=False) + '</script>')
+    # '<' vira \u003c, como no bloco do elenco: título ou linha fina com
+    # '</script>' não pode fechar o JSON-LD (auditoria de 12/10/2026, achado 84)
+    return ('<script type="application/ld+json">' + _json.dumps(dados, ensure_ascii=False).replace('<', '\\u003c') + '</script>'
+            '<script type="application/ld+json">' + _json.dumps(migalhas, ensure_ascii=False).replace('<', '\\u003c') + '</script>')
 
 for _i, _p in enumerate(MATERIAS):
     page('post-' + _p['slug'] + '.html', _p['title'] + ' — FOYER', _desc_saida(_p, 200), 'opiniao.html' if _eh_opiniao(_p) else 'noticias.html', post_page(_i, _p), quiet=True,
@@ -8071,8 +8187,12 @@ with open(os.path.join(ROOT, 'feed.xml'), 'w') as f:
 import shutil as _shutil
 _shutil.copyfile(os.path.join(ROOT, 'feed.xml'), os.path.join(ROOT, 'blog-feed.xml'))
 
+# 12/10/2026 (auditoria, achado 2): import/corpo/ guarda só o miolo das
+# matérias, sem cabeçalho nem canonical, para a Coxia abrir na edição. Não pode
+# ser indexado como cópia da matéria. Não bloqueia /import/ inteiro porque o
+# anuncie.html lê import/anuncios/site.json ao montar a página.
 with open(os.path.join(ROOT, 'robots.txt'), 'w') as f:
-    f.write(f'User-agent: *\nAllow: /\nDisallow: /coxia.html\nDisallow: /coxia/\n\n'
+    f.write(f'User-agent: *\nAllow: /\nDisallow: /coxia.html\nDisallow: /coxia/\nDisallow: /import/corpo/\n\n'
             f'Sitemap: {BASE}/sitemap.xml\nSitemap: {BASE}/sitemap-news.xml\n')
 print(f'sitemap: {len(urls)} URLs · news: {len(_news)} matéria(s) recentes')
 

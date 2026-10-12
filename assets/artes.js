@@ -172,7 +172,7 @@
       itens:[], cta:'foyer.digital/programas' },
     { id:'assine', fundo:'plateia', nome:'Assine (captação)', estilo:'palco', etiqueta:'Assine',
       titulo:'Assine de graça',
-      linha:'A revista da semana na sua caixa de entrada, antes de todo mundo. Sem spam, e seus dados ficam só com o FOYER.',
+      linha:'A revista da semana na sua caixa de entrada, antes de todo mundo. Sem spam, e nunca vendemos seus dados.',
       itens:[], cta:'foyer.digital/assine' },
     { id:'anuncie', fundo:'cortina', nome:'Anuncie (produtores)', estilo:'cortina', etiqueta:'Anuncie',
       titulo:'Sua peça no saguão do teatro brasileiro',

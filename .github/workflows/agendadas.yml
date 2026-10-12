@@ -111,8 +111,10 @@ jobs:
           python3 tools/enciclopedia.py || echo "Enciclopédia: usa o último mapeamento salvo"
           python3 tools/build_pages.py
       - uses: actions/configure-pages@v5
-      - name: Deixar fora do site publicado a fila, as pautas, a lixeira e as anotações internas (ficam só no repositório)
-        run: rm -rf import/novas import/pauta import/lixeira import/coxia
+      - name: Deixar fora do site publicado o que é só do repositório (fila, pautas, ferramentas, funções, manuais, senhas)
+        # a lista do que sobe mora em .github/so-o-site.sh, a mesma nos três
+        # fluxos que publicam (12/10/2026, auditoria achados 89 e 2)
+        run: bash .github/so-o-site.sh
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .

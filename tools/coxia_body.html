@@ -1615,7 +1615,7 @@ ingressos e divisor."></textarea>
           <div>
             <label for="e-senha">Senha de entrada</label>
             <div style="display:flex; gap:8px">
-              <input type="text" id="e-senha" placeholder="deixe em branco para manter a atual" autocomplete="off" style="flex:1">
+              <input type="text" id="e-senha" placeholder="no mínimo 12 caracteres; em branco mantém a atual" autocomplete="off" style="flex:1">
               <button class="bt" type="button" id="e-gerar" style="white-space:nowrap">🎲 Gerar</button>
             </div>
           </div>
@@ -2831,8 +2831,17 @@ ingressos e divisor."></textarea>
     // chave) virava "equipe vazia", ficava 60s guardado no cache e o portão
     // dizia "Sem conexão" para quem tinha internet perfeita — foi o que
     // barrou a Isabel em 10/08/2026. Agora só desiste se o site também falhar.
+    //
+    // 12/10/2026 (auditoria, achados 61 e 76): o socorro lia a cópia do
+    // import/equipe.json publicada em foyer.digital, o que deixava o sal e o
+    // hash das senhas abertos no domínio do site. O arquivo saiu do site
+    // publicado (.github/so-o-site.sh) e o socorro passou a ler o mesmo arquivo direto do
+    // repositório pelo raw.githubusercontent, que não conta no limite de 60
+    // leituras por hora da API (a causa do 10/08) e é de onde a função coxia
+    // do servidor já lê a equipe para abrir a sessão.
     var doSitio = function(){
-      return fetch('import/equipe.json', {cache:'no-store'}).then(function(r){ return r.json(); })
+      return fetch('https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/' + BRANCH + '/import/equipe.json', {cache:'no-store'})
+        .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
         .then(function(j){ EQUIPE = { lista: j.usuarios || [], sha: null }; return EQUIPE; })
         .catch(function(){ EQUIPE = { lista: [], sha: null }; return EQUIPE; });
     };
@@ -2909,6 +2918,38 @@ ingressos e divisor."></textarea>
     bemVindo();
     calAviso();
     pubAviso();
+    senhaAntigaAviso();
+  }
+  // 12/10/2026 (auditoria, achados 61 e 76): as contas de chefe criadas antes
+  // do PBKDF2 ainda guardam a senha no formato antigo (um sha256 só), fácil de
+  // quebrar fora do site. O formato novo só nasce quando a senha é trocada,
+  // então a chefia é lembrada a cada entrada até trocar. O aviso não trava
+  // nada: a pessoa entra e trabalha normalmente.
+  function senhaAntigaAviso(){
+    if(!USER || USER.papel !== 'chefe' || $('cx-senha-velha')) return;
+    var eu = (EQUIPE && EQUIPE.lista || []).filter(function(x){ return x.id === USER.id; })[0];
+    if(!eu || eu.kdf === 'pbkdf2') return;
+    var d = document.createElement('div');
+    d.id = 'cx-senha-velha'; d.className = 'palco-aviso'; d.setAttribute('role', 'status');
+    d.style.margin = '0 0 22px';
+    d.innerHTML = '<b>Troque a sua senha da Coxia.</b> A sua conta ainda usa o formato antigo de senha, ' +
+      'que é mais fácil de quebrar. Na aba Equipe, edite o seu nome, gere uma senha nova (no mínimo 12 caracteres) e salve. ' +
+      'Até lá você continua entrando normalmente. ' +
+      '<button class="bt" type="button" id="cx-senha-velha-ir">Trocar agora</button> ' +
+      '<button class="bt" type="button" id="cx-senha-velha-nao">Depois</button>';
+    var palco = $('conteudo');
+    palco.insertBefore(d, palco.firstChild);
+    $('cx-senha-velha-nao').addEventListener('click', function(){ d.remove(); });
+    $('cx-senha-velha-ir').addEventListener('click', function(){
+      irPara('equipe');
+      // a lista da equipe se desenha em seguida; abre o formulário já com a conta da pessoa
+      var tentativas = 0;
+      (function abreMinha(){
+        var bt = document.querySelector('[data-edt="' + USER.id + '"]');
+        if(bt){ bt.click(); $('e-senha').focus(); return; }
+        if(++tentativas < 20) setTimeout(abreMinha, 250);
+      })();
+    });
   }
   // pedidos de anúncio novos acendem a contagem no menu Publicidade
   function pubAviso(){
@@ -9156,6 +9197,12 @@ ingressos e divisor."></textarea>
     if(!lista.length) lista = [];
     var atual = lista.filter(function(x){ return x.id === id; })[0];
     if(!atual && !senha){ msg.textContent = 'Crie uma senha para quem entra agora (botão Gerar)'; msg.className = 'msg err'; return; }
+    // 12/10/2026 (auditoria, achado 76): senha curta cai rápido num ataque
+    // feito fora do site, sem passar pela trava de tentativas do servidor.
+    // O botão Gerar já entrega uma senha bem maior que isso.
+    if(senha && senha.length < 12){
+      msg.textContent = 'A senha precisa ter no mínimo 12 caracteres. Use o botão Gerar para criar uma forte.'; msg.className = 'msg err'; return;
+    }
 
     var prep = senha
       ? novaCredencial(senha)
@@ -9192,6 +9239,8 @@ ingressos e divisor."></textarea>
         if(senha){
           $('senha-out-v').textContent = 'Senha de ' + nome.split(' ')[0] + ': ' + senha;
           $('senha-out').classList.add('on');
+          // trocou a própria senha: já está no formato novo, o lembrete sai
+          if(USER && id === USER.id && $('cx-senha-velha')) $('cx-senha-velha').remove();
         }
         $('eq-form').reset(); $('e-id').value = '';
         eqPintaFoto(''); eqContaBio(); $('e-foto-st').textContent = '';
