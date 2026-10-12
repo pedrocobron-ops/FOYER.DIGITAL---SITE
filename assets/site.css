@@ -1845,6 +1845,18 @@ body.ads-on .ad-slot::before{ font-size:.75rem; }
 /* a data da barra útil é informação, não botão: no celular ela segue menor,
    para Assine, Anuncie, busca e tema caberem lado a lado em 320px */
 @media (max-width:700px){ .util .cell{ font-size:.62rem; } }
+/* com o piso de 12px, Assine, Anuncie, busca e o botão de tema ficaram mais
+   largos e a data voltou a sair cortada ('12.10.2'), sobretudo no Blackout,
+   em que o botão diz 'Luz da sala'. A data passa a ter a largura mínima do
+   seu trecho mais longo (o overflow:hidden zerava esse mínimo), e quem cede
+   é o botão de tema, que pode quebrar em duas linhas ('Luz da / sala').
+   As letras dos botões perdem parte do espaçamento, não do tamanho. */
+@media (max-width:700px){
+  .util .cell{ min-width:min-content; }
+  .util .right{ flex-shrink:1; min-width:0; }
+  .util a, .theme-btn{ letter-spacing:.02em; }
+  .theme-btn{ white-space:normal; line-height:1.15; text-align:center; min-width:0; }
+}
 
 /* o primeiro anúncio da matéria no celular reserva a altura que um anúncio
    'em artigo' costuma ter (cerca de 330px), para o texto não descer quando ele
