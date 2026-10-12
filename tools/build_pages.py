@@ -31,21 +31,40 @@ def _endereco_do_site():
 
 BASE = _endereco_do_site()
 
-ORG_LD = ('<script type="application/ld+json">{"@context":"https://schema.org",'
-          '"@type":"NewsMediaOrganization","name":"FOYER","alternateName":"Foyer Estúdio e Comunicação",'
-          f'"url":"{BASE}/","logo":"{BASE}/assets/logo/foyer-stacked-gold.png",'
-          '"sameAs":["https://www.youtube.com/@Foyer.digital","https://www.instagram.com/foyer.digital/","https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm"]'
-          '}</script>')
+# A ficha da organização aponta para as políticas que o site já publica
+# (12/10/2026): princípios editoriais, correções, quem somos e contato. É o
+# que o Google Notícias e o Trust Project leem para saber quem responde pelo
+# que sai aqui. Só entra o que existe de verdade no site: nada de endereço,
+# CNPJ ou data de fundação que não esteja escrito numa fonte da casa.
+import json as _json_org
+ORG_LD = ('<script type="application/ld+json">' + _json_org.dumps({
+    '@context': 'https://schema.org', '@type': 'NewsMediaOrganization',
+    'name': 'FOYER', 'alternateName': 'Foyer Estúdio e Comunicação',
+    'url': f'{BASE}/', 'logo': f'{BASE}/assets/logo/foyer-stacked-gold.png',
+    'sameAs': ['https://www.youtube.com/@Foyer.digital', 'https://www.instagram.com/foyer.digital/',
+               'https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm'],
+    'publishingPrinciples': f'{BASE}/principios.html',
+    'correctionsPolicy': f'{BASE}/principios.html#correcoes',
+    'verificationFactCheckingPolicy': f'{BASE}/principios.html#apuracao',
+    'ethicsPolicy': f'{BASE}/principios.html',
+    'masthead': f'{BASE}/sobre.html',
+    'ownershipFundingInfo': f'{BASE}/sobre.html',
+    'actionableFeedbackPolicy': f'{BASE}/contato.html',
+}, ensure_ascii=False) + '</script>')
 
-# A caixa de pesquisa que o Google mostra logo abaixo do site no resultado de
-# busca. Quem procura "foyer" ganha um campo para procurar DENTRO do acervo
-# sem precisar entrar antes — e o acervo do FOYER tem 1.531 matérias que
-# ninguém mais tem. Só aparece na capa; nas outras páginas não faz sentido.
+# O WebSite da capa: nome e endereço do site. A caixa de pesquisa dentro do
+# resultado (SearchAction) saiu em 12/10/2026: o Google deixou de mostrá-la
+# em novembro de 2024 e a marcação virou peso morto. A busca do site segue
+# aceitando busca.html?q=, para link de fora.
 BUSCA_LD = ('<script type="application/ld+json">{"@context":"https://schema.org",'
             '"@type":"WebSite","name":"FOYER",'
-            f'"url":"{BASE}/","potentialAction":{{"@type":"SearchAction",'
-            f'"target":{{"@type":"EntryPoint","urlTemplate":"{BASE}/busca.html?q={{search_term_string}}"}},'
-            '"query-input":"required name=search_term_string"}}</script>')
+            f'"url":"{BASE}/"}}</script>')
+
+# A arte padrão de compartilhamento (12/10/2026): 1200x630, a proporção que
+# WhatsApp, Facebook e X esperam. O banner antigo (1128x320) saía cortado ou
+# com faixas. Feita por tools/gera_og_padrao.py a partir do logo da casa.
+OG_PADRAO = 'assets/logo/foyer-og-1200x630.jpg'
+OG_PADRAO_ALT = 'FOYER: teatro, música e cultura'
 
 # A publicidade do Google começa a ser pedida AQUI, no cabeçalho, e não só no
 # fim da página (assets/ads.js): nas visitas curtas que vêm da busca, cada
@@ -62,13 +81,20 @@ ADS_HEAD = ('<link rel="preconnect" href="https://pagead2.googlesyndication.com"
             "_s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + ADS_EDITOR + "';"
             "_s.onerror=function(){document.documentElement.classList.add('sem-ads');};document.head.appendChild(_s);}}catch(e){}</script>\n")
 
-def head(title, desc, og_img=None, og_type='website', og_url='', ld='', ads=False, robots=''):
+def head(title, desc, og_img=None, og_type='website', og_url='', ld='', ads=False, robots='', extra=''):
+    """extra (12/10/2026): linhas a mais no cabeçalho, como as metas de artigo
+    (article:published_time etc.) e o preconnect das páginas de vídeo."""
     t = _html.escape(title, quote=True)
     d = _html.escape(desc, quote=True)
-    _img_raw = og_img or f'{BASE}/assets/logo/src/foyer-banner.png'
+    _img_raw = og_img or f'{BASE}/{OG_PADRAO}'
     if not _img_raw.startswith('http'):
         _img_raw = f'{BASE}/{_img_raw}'
     img = _html.escape(_img_raw, quote=True)
+    # tamanho e texto alternativo só da arte padrão, que a casa conhece; a
+    # foto da matéria leva o próprio alt pelo extra
+    _img_dim = ('<meta property="og:image:width" content="1200">\n'
+                '<meta property="og:image:height" content="630">\n'
+                f'<meta property="og:image:alt" content="{_html.escape(OG_PADRAO_ALT, quote=True)}">\n') if not og_img else ''
     url = _html.escape(f'{BASE}/{og_url}', quote=True)
     return f'''<!DOCTYPE html>
 <html lang="pt-BR">
@@ -89,10 +115,10 @@ try{{var t=localStorage.getItem('foyer-tema');if(t==='dark'||t==='light')documen
 <meta property="og:title" content="{t}">
 <meta property="og:description" content="{d}">
 <meta property="og:image" content="{img}">
-<meta property="og:url" content="{url}">
+{_img_dim}<meta property="og:url" content="{url}">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
-<title>{t}</title>
+{extra}<title>{t}</title>
 <link rel="canonical" href="{url}">
 <link rel="alternate" type="application/rss+xml" title="FOYER — Últimas" href="{BASE}/feed.xml">
 <link rel="icon" type="image/png" href="assets/logo/foyer-icon.png">
@@ -224,15 +250,18 @@ NAV_ITEMS = [
 
 def nav(current):
     ON = ' class="on" aria-current="page"'
+    # A Capa aponta para "./" (a raiz), não para index.html (12/10/2026): o
+    # canonical da capa é o endereço sem index.html, e todo o menu levava ao
+    # outro, que é uma cópia. "./" funciona no domínio e no servidor local.
     links = '\n'.join(
-        f'    <a href="{href}"{ON if href == current else ""}>{label}</a>'
+        f'    <a href="{"./" if href == "index.html" else href}"{ON if href == current else ""}>{label}</a>'
         for href, label in NAV_ITEMS
     )
     return f'''<nav class="main" aria-label="Seções">
   <div class="row">
-    <a href="index.html" class="brand" aria-label="FOYER — capa">
-      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160">
-      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160">
+    <a href="./" class="brand" aria-label="FOYER — capa">
+      <img class="only-light" src="assets/logo/foyer-stacked-wine-sm.png" alt="" width="173" height="160" loading="lazy">
+      <img class="only-dark" src="assets/logo/foyer-stacked-gold-sm.png" alt="" width="173" height="160" loading="lazy">
     </a>
 {links}
     <a href="busca.html" class="busca">⌕ Buscar</a>
@@ -250,11 +279,16 @@ def band(kicker, h1, note):
 </header>
 '''
 
+# Logos no tamanho em que aparecem (12/10/2026): o grande do rodapé tinha
+# 2000 px para um espaço de 350 px no celular, e os do rodapé e do menu não
+# tinham loading="lazy". No menu, o lazy também evita baixar a versão do tema
+# que está escondida (display:none com lazy não é pedido pelo navegador).
+# Os arquivos menores saem de tools/gera_og_padrao.py.
 FOOTER = '''<footer>
   <div class="wrap">
     <div class="foot-cols">
       <div class="foot-brand">
-        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160">
+        <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160" loading="lazy">
         <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
       </div>
       <div class="foot-col">
@@ -295,7 +329,7 @@ FOOTER = '''<footer>
     </div>
   </div>
   <div class="foot-giant" aria-hidden="true">
-    <img src="assets/logo/foyer-horizontal-gold.png" alt="" width="2000" height="517" loading="lazy">
+    <img src="assets/logo/foyer-horizontal-gold-800.png" srcset="assets/logo/foyer-horizontal-gold-800.png 800w, assets/logo/foyer-horizontal-gold-1400.png 1400w" sizes="94vw" alt="" width="1400" height="362" loading="lazy">
   </div>
 </footer>
 <script src="assets/site.js"></script>
@@ -600,7 +634,7 @@ def news_cell(sym, tag, title, meta, desc=None, big=False):
       </div>
     </article>'''
 
-def page(fname, title, desc, current, body, quiet=False, og_img=None, og_type='website', ld='', robots=''):
+def page(fname, title, desc, current, body, quiet=False, og_img=None, og_type='website', ld='', robots='', extra=''):
     # a publicidade da casa entra em todo o site, MENOS na Coxia e dentro da
     # revista (a edição fechada não carrega anúncio de site)
     _pub = '' if (fname.startswith('coxia') or fname.startswith('revista-ed-')
@@ -612,7 +646,7 @@ def page(fname, title, desc, current, body, quiet=False, og_img=None, og_type='w
     if 'noindex' in (robots or ''):
         body = _re.sub(r'\s*<div class="ad-slot"[^>]*></div>', '', body)
     _ads = ('class="ad-slot"' in body) and not fname.startswith(('revista', 'coxia', 'anuncie'))
-    html = head(title, desc, og_img=og_img, og_type=og_type, og_url=fname, ld=ld, ads=_ads, robots=robots) + '\n' + DEFS + '\n' + UTIL + '\n' + nav(current) + '\n' + body + '\n' + _pub + FOOTER + '</body>\n</html>\n'
+    html = head(title, desc, og_img=og_img, og_type=og_type, og_url=fname, ld=ld, ads=_ads, robots=robots, extra=extra) + '\n' + DEFS + '\n' + UTIL + '\n' + nav(current) + '\n' + body + '\n' + _pub + FOOTER + '</body>\n</html>\n'
     with open(os.path.join(ROOT, fname), 'w') as f:
         f.write(html)
     if not quiet:
@@ -998,8 +1032,8 @@ index_body = '''<!-- ===================== TICKER ===================== -->
       <span>Ano I — Diária</span>
       <span>Teatro · Música · Cultura</span>
     </div>
-    <a class="logo-link" href="index.html" aria-label="FOYER — voltar à capa">
-      <img class="logo-img" src="assets/logo/foyer-stacked-gold.png" alt="FOYER" width="518" height="480">
+    <a class="logo-link" href="./" aria-label="FOYER — voltar à capa">
+      <img class="logo-img" src="assets/logo/foyer-stacked-gold-200.png" srcset="assets/logo/foyer-stacked-gold-200.png 216w, assets/logo/foyer-stacked-gold-400.png 432w" sizes="(max-width:600px) 91px, 216px" alt="FOYER" width="216" height="200">
     </a>
     <div class="mast-side right">
       <span class="ln">São Paulo — Brasil</span>
@@ -1360,6 +1394,12 @@ busca_body = band('Ferramenta', 'Buscar',
   var q = document.getElementById('q'), res = document.getElementById('res');
   fetch('assets/busca-index.json').then(function(r){ return r.json(); }).then(function(d){
     IDX = d;
+    // os campos já normalizados uma vez só, na chegada do índice: antes cada
+    // tecla tirava acento de 5 mil títulos de novo (12/10/2026)
+    for(var j=0; j<IDX.length; j++){
+      var x = IDX[j];
+      x._t = norm(x.t || ''); x._p = norm(x.p || ''); x._ca = norm((x.c || '') + ' ' + (x.a || ''));
+    }
     // O índice junta matéria, verbete de pessoa e as seções do site.
     // Chamar os 4.221 de "matérias" era contar 2.643 pessoas como matéria,
     // e o leitor via isso brigando com o número do olho da própria página.
@@ -1393,6 +1433,8 @@ busca_body = band('Ferramenta', 'Buscar',
     });
   }
   var TETO = 40;
+  // a data da matéria no resultado (12/10/2026): "12/10/2026"
+  function data(d){ return /^\\d{4}-\\d{2}-\\d{2}/.test(d || '') ? d.slice(8,10) + '/' + d.slice(5,7) + '/' + d.slice(0,4) : ''; }
   function render(){
     var v = norm(q.value.trim());
     if(v.length < 2){ res.innerHTML=''; mais.textContent=''; return; }
@@ -1404,17 +1446,27 @@ busca_body = band('Ferramenta', 'Buscar',
       return;
     }
     var hits = [], achados = 0;
-    // Pontuação (vistoria de 06/10/2026): nome de verbete igual ao termo >
-    // termo no título > termo em quem aparece na matéria > editoria/autor.
-    // Empate fica na ordem do índice, que já é a mais nova primeiro.
+    // Palavras em qualquer ordem (12/10/2026): "raiz newton" acha "A Raiz",
+    // de Newton Moreno. Cada palavra precisa aparecer em algum lugar (título,
+    // quem aparece, editoria ou autor). Pontuação (vistoria de 06/10/2026):
+    // nome de verbete igual ao termo > frase inteira no título > todas as
+    // palavras no título > em quem aparece > editoria/autor. Empate fica na
+    // ordem do índice, que já é a mais nova primeiro.
+    var pals = v.split(/\\s+/).filter(function(x){ return x.length > 0; });
     for(var i=0; i<IDX.length; i++){
       var it = IDX[i];
-      var t = norm(it.t), pes = norm(it.p || ''), ca = norm((it.c || '') + ' ' + (it.a || ''));
+      var t = it._t, pes = it._p, ca = it._ca;
+      var tudo = t + ' ' + pes + ' ' + ca, ok = true, noTit = true, nTit = 0;
+      for(var k=0; k<pals.length; k++){
+        if(tudo.indexOf(pals[k]) < 0){ ok = false; break; }
+        if(t.indexOf(pals[k]) < 0) noTit = false; else nTit++;
+      }
+      if(!ok) continue;
       var s = 0;
       if(t === v) s = 100; else if(t.indexOf(v) === 0) s = 60; else if(t.indexOf(v) >= 0) s = 50;
+      else if(noTit) s = 40;
       if(!s && pes.indexOf(v) >= 0) s = 30;
-      if(!s && ca.indexOf(v) >= 0) s = 10;
-      if(!s) continue;
+      if(!s) s = 10 + Math.min(nTit, 5) * 4;  // mais palavras no título, mais acima
       if(it.c === 'Enciclopédia' && s >= 50) s += 5;
       if(it.c === 'Seção') s += 3;
       achados++;
@@ -1423,14 +1475,17 @@ busca_body = band('Ferramenta', 'Buscar',
     hits.sort(function(x, y){ return y.s - x.s || x.i - y.i; });
     hits = hits.slice(0, TETO).map(function(h){ return h.it; });
     res.innerHTML = hits.length
-      ? hits.map(function(i){ return '<a class="ency-row" href="'+esc(i.u)+'"><span class="nm">'+esc(i.t)+'</span><span class="of">'+esc(i.c)+'</span><span class="ct">'+esc(i.a||'')+'</span><span class="ar">→</span></a>'; }).join('')
+      ? hits.map(function(i){ return '<a class="ency-row" href="'+esc(i.u)+'"><span class="nm">'+esc(i.t)+'</span><span class="of">'+esc(i.c)+'</span><span class="ct">'+esc([i.a||'', data(i.d)].filter(Boolean).join(' · '))+'</span><span class="ar">→</span></a>'; }).join('')
       : '<div class="ency-row"><span class="of">Nada encontrado. Tente a <a href="enciclopedia.html">Enciclopédia</a> ou as <a href="noticias.html">Notícias</a>.</span></div>';
     // cortar em 40 sem avisar fazia toda busca grande parecer pequena
     mais.textContent = achados > hits.length
       ? 'Mostrando ' + hits.length + ' de ' + achados.toLocaleString('pt-BR') + ' resultados. Escreva mais para afinar a busca.'
       : (achados ? achados.toLocaleString('pt-BR') + (achados === 1 ? ' resultado' : ' resultados') : '');
   }
-  q.addEventListener('input', render);
+  // espera a pessoa parar de digitar (150 ms) antes de refazer a lista: no
+  // celular cada tecla custava até 250 ms de tela travada (12/10/2026)
+  var _espera = null;
+  q.addEventListener('input', function(){ clearTimeout(_espera); _espera = setTimeout(render, 150); });
   // busca.html?q=alguma-coisa já chega procurando. Serve para link de fora,
   // para o buscador do Google (a caixa de pesquisa que ele mostra abaixo do
   // site) e para a pessoa poder mandar o resultado de uma busca a alguém.
@@ -1763,13 +1818,41 @@ if os.path.isdir(_novas_dir):
             _agendadas += 1
             continue
         _slug = _n['slug']
-        _corpo = md_lite(_n.get('corpo', ''), _n.get('title', ''))
-        open(os.path.join(ROOT, 'import/corpo', _slug + '.html'), 'w').write(_corpo)
-        _txt = _re.sub(r'<[^>]+>', '', _corpo)
+        _corpo_md = _n.get('corpo', '')
         # linha fina (08/10/2026): quando existe, é ela a descrição para o Google,
         # o WhatsApp, o feed e os cartões; sem ela, o começo do texto, como antes
         _lf = _re.sub(r'\s+', ' ', (_n.get('linhaFina') or '').replace('*', '')).strip()
-        _desc = _lf or (_re.sub(r'\s+', ' ', _txt).strip()[:230] or _n.get('title',''))
+        if not _lf:
+            # 12/10/2026 (auditoria): 6 em cada 10 matérias da Coxia abrem o
+            # texto com a linha fina escrita como 1º parágrafo todo em negrito
+            # (o campo próprio nasceu em 08/10). Na página ela saía como
+            # parágrafo comum, e a matéria ficava sem linha fina sob o título.
+            # Quando o 1º parágrafo é inteiro em negrito e curto, ele sobe para
+            # linha fina e sai do corpo (não aparece duas vezes). Só na
+            # montagem: o arquivo da matéria em import/novas fica como está.
+            _blocos_lf = _re.split(r'(\n\s*\n)', _corpo_md.strip())
+            _k = 0
+            while _k < len(_blocos_lf) and (not _blocos_lf[_k].strip()
+                                             or _re.fullmatch(r'\s*#{1,6}\s*', _blocos_lf[_k])):
+                _k += 1
+            if _k < len(_blocos_lf):
+                _mlf = _re.fullmatch(r'\s*\*\*\s*(.+?)\s*\*\*\s*', _blocos_lf[_k], _re.S)
+                _cand = _re.sub(r'\s+', ' ', _mlf.group(1)).strip() if _mlf else ''
+                if _cand and '**' not in _cand and 40 <= len(_cand) <= 320:
+                    _lf = _cand
+                    _corpo_md = ''.join(_blocos_lf[_k + 1:]).strip()
+        _corpo = md_lite(_corpo_md, _n.get('title', ''))
+        open(os.path.join(ROOT, 'import/corpo', _slug + '.html'), 'w').write(_corpo)
+        _txt = _re.sub(r'<[^>]+>', '', _corpo)
+        # sem linha fina, o começo do texto cortado em palavra inteira com "…"
+        # (12/10/2026: o corte fixo em 230 letras deixava "…uma criança que d"
+        # na linha fina da manchete da capa)
+        _t230 = _re.sub(r'\s+', ' ', _txt).strip()
+        if len(_t230) > 230:
+            # o texto ainda tem as entidades do HTML (&quot;): o corte não pode
+            # deixar uma pela metade
+            _t230 = _re.sub(r'&[#a-zA-Z0-9]*$', '', _t230[:230].rsplit(' ', 1)[0]).rstrip(' ,;:') + '…'
+        _desc = _lf or (_t230 or _n.get('title',''))
         _iso = (_pub or _agora)[:10]
         # horário de publicação em Brasília (as antigas do Wix não têm hora registrada)
         _hora = ''
@@ -1804,6 +1887,8 @@ if os.path.isdir(_novas_dir):
             'url': '', 'min': max(1, len(_txt)//1100),
             'secao': _n.get('secao', ''), 'tipo': _n.get('tipo', ''),
             'coluna': _n.get('coluna', ''), 'autorFuncao': _n.get('autorFuncao', ''),
+            # as fontes apuradas na Coxia (12/10/2026): saem no fim da matéria
+            'fontes': [f for f in (_n.get('fontes') or []) if isinstance(f, str)][:20],
         })
     if _novas:
         _slugs_novos = {x['slug'] for x in _novas}
@@ -1862,6 +1947,82 @@ for _p in MATERIAS:
             _n_creds += 1
 if _n_creds:
     print(f'• crédito de fotógrafo herdado do corpo em {_n_creds} capas de cartão')
+
+# ---- vídeos do YouTube dentro das matérias (12/10/2026, auditoria)
+# _VIDEOS_MAT: os vídeos embutidos em cada matéria, na ordem do texto.
+# _MAT_DO_VIDEO: a matéria do site de cada vídeo (a mais recente), para os
+# cartões de Programas, Crítica e Entrevistas levarem para o site, e não
+# só para o YouTube.
+_YT_EMBED = _re.compile(r'youtube(?:-nocookie)?\.com/embed/([A-Za-z0-9_-]{6,20})')
+_VIDEOS_MAT, _MAT_DO_VIDEO = {}, {}
+for _p in MATERIAS:
+    try:
+        with open(os.path.join(ROOT, 'import/corpo', _p['slug'] + '.html')) as _fv:
+            _ids = list(dict.fromkeys(_YT_EMBED.findall(_fv.read())))
+    except OSError:
+        continue
+    if _ids:
+        _VIDEOS_MAT[_p['slug']] = _ids
+        for _iv in _ids:
+            _MAT_DO_VIDEO.setdefault(_iv, _p['slug'])
+
+def _yt_indisponiveis(ids):
+    """Vídeos que deixaram de ser públicos ou embutíveis. O oEmbed do YouTube
+    responde 401/403/404 para vídeo privado, removido ou com incorporação
+    desligada; nesses casos a matéria mostra um aviso no lugar do player
+    quebrado (um vídeo de 2023 virou privado e a página exibia "This video
+    is private"). A resposta fica guardada em assets/thumbs/ (cache do
+    GitHub Actions): vídeo bom é conferido de novo a cada 7 dias, vídeo fora
+    do ar a cada dia. Sem rede, nada muda: vale o que estava guardado."""
+    import time as _time, urllib.request as _ur, urllib.error as _ue
+    from concurrent.futures import ThreadPoolExecutor as _TPE
+    arq = os.path.join(ROOT, 'assets/thumbs/yt-oembed.json')
+    try:
+        cache = _json.load(open(arq))
+    except Exception:
+        cache = {}
+    agora = _time.time()
+    def _vencido(i):
+        c = cache.get(i)
+        return not c or agora - c.get('t', 0) > (7 * 86400 if c.get('ok') else 86400)
+    falta = [i for i in ids if _vencido(i)][:400]
+    if falta and not os.environ.get('FOYER_SEM_REDE'):
+        def _checa(i):
+            u = ('https://www.youtube.com/oembed?format=json&url='
+                 + _uq.quote('https://www.youtube.com/watch?v=' + i, safe=''))
+            try:
+                _ur.urlopen(_ur.Request(u, headers={'User-Agent': 'Mozilla/5.0'}), timeout=6).read(200)
+                return i, True
+            except _ue.HTTPError as e:
+                return i, (False if e.code in (401, 403, 404) else None)
+            except Exception:
+                return i, None
+        with _TPE(8) as _ex:
+            for i, ok in _ex.map(_checa, falta):
+                if ok is not None:
+                    cache[i] = {'ok': ok, 't': agora}
+        try:
+            os.makedirs(os.path.dirname(arq), exist_ok=True)
+            _json.dump(cache, open(arq, 'w'))
+        except Exception:
+            pass
+    return {i for i in ids if (cache.get(i) or {}).get('ok') is False}
+
+_YT_FORA = _yt_indisponiveis(sorted({i for v in _VIDEOS_MAT.values() for i in v}))
+if _YT_FORA:
+    print(f'• {len(_YT_FORA)} vídeo(s) do YouTube fora do ar nas matérias: ' + ', '.join(sorted(_YT_FORA)))
+
+# Matéria de vídeo sem foto de capa (as do "Teatro a Sangue Frio" vinham com
+# <img src=""> e prévia de link genérica): a miniatura do vídeo vira a capa do
+# cartão e a imagem da prévia. Na página da matéria ela não aparece em cima,
+# porque o próprio player já abre o texto. O crédito fica vazio.
+for _p in MATERIAS:
+    if _p.get('img'):
+        continue
+    _vs = [i for i in _VIDEOS_MAT.get(_p['slug'], []) if i not in _YT_FORA]
+    if _vs and _p.get('secao') != 'opiniao':
+        _p['img'] = f'https://i.ytimg.com/vi/{_vs[0]}/hqdefault.jpg'
+        _p['imgDoVideo'] = True
 
 _MES_N = {'Jan':'01','Feb':'02','Mar':'03','Apr':'04','May':'05','Jun':'06',
           'Jul':'07','Aug':'08','Sep':'09','Oct':'10','Nov':'11','Dec':'12'}
@@ -2134,9 +2295,19 @@ def _cred_curto(p):
     c = c.strip(' .')
     if len(c) > 38:
         c = c[:38].rsplit(' ', 1)[0].rstrip(',.;:') + '…'
-    if not c or _re.fullmatch(r'(fotos?\s+)?(de\s+)?divulga[çc][ãa]o', c, _re.I):
+    # sem crédito informado, nenhum crédito (12/10/2026): antes saía
+    # "Divulgação" inventado, até em retrato de tapete vermelho
+    if not c:
+        return ''
+    if _re.fullmatch(r'(fotos?\s+)?(de\s+)?divulga[çc][ãa]o', c, _re.I):
         return 'Divulgação'
     return c
+
+def _title_cred(p):
+    """O atributo title com o crédito da foto do cartão, ou nada quando a
+    matéria não informa crédito."""
+    c = _cred_curto(p)
+    return f' title="{safe(_tarja_cred(c))}"' if c else ''
 
 # ---------------------------------------------------------------- capa tipográfica
 # Coluna, artigo ou editorial SEM foto (pedido do Pedro, 05/10/2026): no lugar
@@ -2203,12 +2374,18 @@ def real_ph(p, href, cap=True, cedo=False):
     # no g1, Estadão, Folha, UOL e Guardian, ele fica na página da matéria e,
     # aqui, só no title da imagem (pedido do Pedro, 11/10/2026)
     carga = 'loading="eager" fetchpriority="high"' if cedo else 'loading="lazy"'
+    if not p.get('img'):
+        # sem foto e sem vídeo: a arte de palco da casa, nunca <img src="">
+        # (12/10/2026; o src vazio pedia a própria página de novo ao servidor)
+        return (f'<a class="ph" href="{href}" aria-hidden="true" tabindex="-1">'
+                f'<svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#ph-2"/></svg></a>')
     return (f'<a class="ph" href="{href}" aria-hidden="true" tabindex="-1">'
-            f'<img src="{wiximg(p["img"], 800, 450)}" alt="{safe(p["title"])}" title="{safe(_tarja_cred(_cred_curto(p)))}" {carga} onerror="this.style.display=\'none\'"></a>')
+            f'<img src="{wiximg(p["img"], 800, 450)}" alt="{safe(p["title"])}"{_title_cred(p)} {carga} onerror="this.style.display=\'none\'"></a>')
 
 def real_cell(p, big=False, cedo=False):
     tipo = _sem_foto_op(p)   # capa tipográfica: o título e o selo já estão nela, o corpo não repete
-    d = f'\n        <p>{p["desc"][:160]}…</p>' if big else (f'\n        <p>{p["desc"][:110]}…</p>' if tipo else '')
+    # resumo do cartão cortado em palavra inteira (12/10/2026; era no meio da palavra)
+    d = f'\n        <p>{_corta(p["desc"], 160)}</p>' if big else (f'\n        <p>{_corta(p["desc"], 110)}</p>' if tipo else '')
     href = 'post-' + p['slug'] + '.html'
     cabeca = '' if tipo else (
         (('<span class="tag wine">' + _tipo_rotulo(p) + '</span>') if _eh_opiniao(p) else ('<span class="tag">' + _e(p['cat']) + '</span>'))
@@ -2254,7 +2431,7 @@ for _i, _p in enumerate(MATERIAS[1:4]):
         <p>{_corta(_p['desc'], 120)}</p>
         <div class="meta-row">
           <span class="meta-l">{short_date(_p)}</span>
-          <button class="share-min" data-share="native" data-title="{safe(_p['title'])}">Compartilhar ↗</button>
+          <button class="share-min" data-share="native" data-title="{safe(_p['title'])}" data-url="{BASE}/{_href}">Compartilhar ↗</button>
         </div>
       </div>
     </article>
@@ -2293,8 +2470,8 @@ index_body = TICKER + '''
       <span>Diária — desde 2023</span>
       <span>Teatro · Música · Cultura</span>
     </div>
-    <a class="logo-link" href="index.html" aria-label="FOYER — voltar à capa">
-      <img class="logo-img" src="assets/logo/foyer-stacked-gold.png" alt="FOYER" width="518" height="480">
+    <a class="logo-link" href="./" aria-label="FOYER — voltar à capa">
+      <img class="logo-img" src="assets/logo/foyer-stacked-gold-200.png" srcset="assets/logo/foyer-stacked-gold-200.png 216w, assets/logo/foyer-stacked-gold-400.png 432w" sizes="(max-width:600px) 91px, 216px" alt="FOYER" width="216" height="200">
     </a>
     <div class="mast-side right">
       <span class="ln">São Paulo — Brasil</span>
@@ -2307,7 +2484,7 @@ index_body = TICKER + '''
 '''
 
 _manchete_capa = _capa_tipo(_p0, f"post-{_p0['slug']}.html", grande=True, classe='ph cover ph-tipo') if _sem_foto_op(_p0) else f'''<a class="ph cover" href="post-{_p0['slug']}.html" aria-label="Foto da reportagem de capa">
-        <img src="{wiximg(_p0['img'])}" alt="" title="{safe(_tarja_cred(_cred_curto(_p0)))}" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'">
+        <img src="{wiximg(_p0['img'])}" alt=""{_title_cred(_p0)} loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'">
       </a>'''
 index_main = f'''<main id="conteudo">
 <section class="frontpage wrap">
@@ -2322,10 +2499,10 @@ index_main = f'''<main id="conteudo">
         {'' if _sem_foto_op(_p0) else f'<h1><a href="post-{_p0["slug"]}.html">{_e(_p0["title"])}</a></h1>'}
         <p class="dek">{_p0['desc']}</p>
         <div class="share-row" aria-label="Compartilhar esta matéria">
-          <button class="sbtn" data-share="whats" data-title="{safe(_p0['title'])}">WhatsApp</button>
-          <button class="sbtn" data-share="x" data-title="{safe(_p0['title'])}">X / Twitter</button>
-          <button class="sbtn" data-share="face" data-title="{safe(_p0['title'])}">Facebook</button>
-          <button class="sbtn" data-share="copy" data-title="{safe(_p0['title'])}">Copiar link</button>
+          <button class="sbtn" data-share="whats" data-title="{safe(_p0['title'])}" data-url="{BASE}/post-{_p0['slug']}.html">WhatsApp</button>
+          <button class="sbtn" data-share="x" data-title="{safe(_p0['title'])}" data-url="{BASE}/post-{_p0['slug']}.html">X / Twitter</button>
+          <button class="sbtn" data-share="face" data-title="{safe(_p0['title'])}" data-url="{BASE}/post-{_p0['slug']}.html">Facebook</button>
+          <button class="sbtn" data-share="copy" data-title="{safe(_p0['title'])}" data-url="{BASE}/post-{_p0['slug']}.html">Copiar link</button>
         </div>
         <div class="foot">
           <span>Por {_e(_p0['author'])} — {_p0['date']}</span>
@@ -2365,6 +2542,7 @@ index_main = f'''<main id="conteudo">
   </div>
   <div class="ad-slot" data-ad-slot="1001"></div>
 </section>
+<div class="wrap">__MAIS_LIDAS__</div>
 
 <!-- ===================== CRÍTICA ===================== -->
 <section id="critica" class="wrap">
@@ -2555,6 +2733,103 @@ def _abre_opiniao(p):
     return (f'<div class="op-abre">{_op_foto(p["author"], "grande")}'
             f'<span><b>{_selo_capa(p)}</b><small>{safe(p["author"])}{(" · " + safe(fn)) if fn else ""}</small></span></div>')
 
+_WIX_TLD_FALSO = _re.compile(r'<a href="https?://[^"/]*\.[A-Z][a-z]+/?"[^>]*>(.*?)</a>', _re.S)
+
+def _conserta_links(corpo):
+    """Links tortos herdados do Wix, consertados na hora de montar a página
+    (12/10/2026). O arquivo em import/corpo fica como está. Só os padrões
+    sem ambiguidade:
+    - texto que o Wix virou link sozinho ("18h. Na", "poética. Com",
+      "Musical. Rio"): endereço sem caminho cujo final tem uma maiúscula
+      seguida de minúsculas. Fica o texto, sai o link;
+    - "Bilheteria" grudado no fim do endereço (".../musical-15323Bilheteria"):
+      a palavra sai do endereço; se o endereço era só "/Bilheteria", sai o link;
+    - âncora sem texto (só espaço), que não leva o leitor a lugar nenhum;
+    - endereço do próprio site com http, www ou maiúscula
+      ("http://www.foyer.digital/..."): vira caminho relativo, sem passar
+      por redirecionamento."""
+    def _casa(m):
+        return m.group(1) + (m.group(2) or './') + '"'
+    corpo = _re.sub(r'(<a href=")https?://(?:www\.)?foyer\.digital/?([^"]*)"', _casa, corpo, flags=_re.I)
+    corpo = _WIX_TLD_FALSO.sub(lambda m: m.group(1), corpo)
+    corpo = _re.sub(r'<a href="https?://[^"/]+/Bilheteria"[^>]*>(.*?)</a>', lambda m: m.group(1), corpo, flags=_re.S)
+    corpo = _re.sub(r'(<a href="https?://[^"]+?[0-9a-z])Bilheteria"', r'\1"', corpo)
+    corpo = _re.sub(r'<a href=[^>]*>((?:\s|&nbsp;|<u>\s*</u>)*)</a>',
+                    lambda m: m.group(1).replace('<u>', '').replace('</u>', ''), corpo)
+    return corpo
+
+def _tira_videos_fora(corpo):
+    """Player de vídeo que saiu do ar no YouTube (privado ou removido) vira
+    um aviso: o leitor via "This video is private" dentro da matéria."""
+    if not _YT_FORA:
+        return corpo
+    def _troca(m):
+        if m.group(1) in _YT_FORA:
+            return '<p class="art-video-fora">Este vídeo não está mais disponível no YouTube.</p>'
+        return m.group(0)
+    return _re.sub(r'<div class="art-video"><iframe src="https://www\.youtube(?:-nocookie)?\.com/embed/([A-Za-z0-9_-]{6,20})"[^>]*></iframe></div>',
+                   _troca, corpo)
+
+def _fontes_html(p):
+    """As fontes apuradas na Coxia, no fim da matéria (12/10/2026): o campo
+    existia em 112 matérias e nunca chegava ao leitor. Só endereço http(s)
+    vira link, sempre escapado, com nofollow e em nova aba; o texto do link
+    é o site e o caminho, sem o "https://"."""
+    itens = []
+    for u in p.get('fontes') or []:
+        u = (u or '').strip()
+        if not _re.match(r'https?://[^\s"<>]+$', u):
+            continue
+        rot = _re.sub(r'^https?://(www\.)?', '', u).rstrip('/')
+        if len(rot) > 70:
+            rot = rot[:70].rstrip('/-_.') + '…'
+        itens.append(f'<li><a href="{_html.escape(u, quote=True)}" target="_blank" rel="noopener nofollow">{_html.escape(rot)}</a></li>')
+    if not itens:
+        return ''
+    return ('<aside class="art-fontes" aria-label="Fontes"><h2>Fontes</h2><ul>'
+            + ''.join(itens) + '</ul></aside>')
+
+def _carrega_mais_lidas():
+    """As mais lidas da semana (12/10/2026, auditoria): o site já conta as
+    leituras (assets/site.js grava em foyer_metricas) e o Supabase expõe só
+    o total por matéria, na visão foyer_ranking, que a Coxia já lê com a
+    mesma chave pública. A montagem roda a cada 30 minutos, então a lista se
+    renova sozinha. Sem rede ou sem a visão, o bloco simplesmente não aparece."""
+    if os.environ.get('FOYER_SEM_REDE'):
+        return []
+    import urllib.request as _ur
+    _k = 'sb_publishable_IeMSoNvrWisQxJg9uP-V1w_jmVMQ0YB'
+    try:
+        _rq = _ur.Request('https://jcaqjlrzmrtzjyfbljxh.supabase.co/rest/v1/foyer_ranking'
+                          '?select=slug,views_semana&order=views_semana.desc&limit=80',
+                          headers={'apikey': _k, 'Authorization': 'Bearer ' + _k})
+        linhas = _json.loads(_ur.urlopen(_rq, timeout=8).read())
+    except Exception as e:
+        print(f'  (mais lidas fora desta montagem: {e})')
+        return []
+    por_slug = {m['slug']: m for m in MATERIAS}
+    out = []
+    for r in linhas or []:
+        m = por_slug.get((r or {}).get('slug') or '')
+        if m and int((r or {}).get('views_semana') or 0) > 0 and m not in out:
+            out.append(m)
+    return out[:8]
+
+_MAIS_LIDAS = _carrega_mais_lidas()
+if _MAIS_LIDAS:
+    print(f'• mais lidas da semana: {len(_MAIS_LIDAS)} matérias')
+
+def _mais_lidas_html(sem=''):
+    """Bloco "Mais lidas" (5 títulos, sem a matéria aberta)."""
+    itens = [m for m in _MAIS_LIDAS if m['slug'] != sem][:5]
+    if len(itens) < 3:
+        return ''
+    lis = ''.join(f'<li><a href="post-{m["slug"]}.html">{m["title"]}</a></li>' for m in itens)
+    return ('<section class="mais-lidas" aria-labelledby="ml-t"><div class="sec-head"><h2 id="ml-t">Mais lidas</h2>'
+            '<span class="note">na última semana</span></div>'
+            f'<ol>{lis}</ol></section>')
+
+
 def post_page(i, p):
     _sps = globals().get('POR_MATERIA', {}).get(p['slug'], [])
     _pes = globals().get('PESSOAS', {})
@@ -2594,8 +2869,11 @@ def post_page(i, p):
             if _cap:
                 credito_real = _cap
             corpo = _pat_dup.sub('', corpo, count=1)
-    cred_capa = p.get('credito') or credito_real or 'Foto: Divulgação'
-    if _re.match(r'^(foto|imagem)?\s*:?\s*(de\s+)?divulga[çc][ãa]o\.?\s*$', cred_capa, _re.I):
+    # sem crédito informado, a capa sai sem crédito (12/10/2026): o
+    # "Foto: Divulgação" automático creditava como divulgação até foto de
+    # agência e retrato de evento. Quem completa o crédito é a redação.
+    cred_capa = p.get('credito') or credito_real or ''
+    if cred_capa and _re.match(r'^(foto|imagem)?\s*:?\s*(de\s+)?divulga[çc][ãa]o\.?\s*$', cred_capa, _re.I):
         cred_capa = 'Foto: Divulgação'  # 'Divulgação', 'foto divulgação', 'Foto: de Divulgação' viram um só texto
     _leia_h2, _leia_note = 'Leia também', f"Mais de {_e(p['cat'])}"
     if _eh_opiniao(p) and p.get('tipo') == 'coluna':
@@ -2626,10 +2904,21 @@ def post_page(i, p):
         _tags_html = (f'<a class="tag wine" href="cat-{_cat_slug(p["cat"])}.html">{_e(p["cat"])}</a>'
                       + (''.join(f'<a class="tag" href="cat-{_cat_slug(c)}.html">{_e(c)}</a>' for c in p.get('cats', []) if c != 'Em Cartaz') or '<span class="tag">Foyer</span>'))
         _por_html = 'Por ' + _byline_link(p['author'])
-    _capa_html = _abre_opiniao(p) if _sem_foto_op(p) else f'''<figure class="art-cover">
+    # legenda e crédito só quando existem; sem os dois, sem figcaption vazio
+    _capt = ' — '.join(safe(x) for x in (p.get('legenda') or '', cred_capa) if x)
+    if _sem_foto_op(p):
+        _capa_html = _abre_opiniao(p)
+    elif not p.get('img') or p.get('imgDoVideo'):
+        # matéria de vídeo: o player abre o texto, e a miniatura do vídeo
+        # serve só aos cartões e à prévia de link (12/10/2026)
+        _capa_html = ''
+    else:
+        _capa_html = f'''<figure class="art-cover">
     <span class="ph"><img src="{wiximg(p['img'])}" alt="{safe(p.get('legenda') or p['title'])}" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'"></span>
-    <figcaption>{(safe(p['legenda']) + ' — ') if p.get('legenda') else ''}{safe(cred_capa)}</figcaption>
+    {f'<figcaption>{_capt}</figcaption>' if _capt else ''}
   </figure>'''
+    corpo = _conserta_links(corpo)
+    corpo = _tira_videos_fora(corpo)
     return f"""<main id="conteudo" class="wrap">
 <article class="art">
   <div class="art-head">
@@ -2651,6 +2940,7 @@ def post_page(i, p):
   <div class="art-body">
 {_injeta_ads_materia(_google_meio(_fotos_do_texto(corpo)), p['slug'])}
   </div>
+  {_fontes_html(p)}
   {nota_correcao(p)}
   {quem_bloco}
   <div class="art-foot">
@@ -2679,6 +2969,7 @@ def post_page(i, p):
   </div>
   <div class="ad-slot" data-ad-slot="2003" data-ad-formato="multiplex"></div>
 </section>
+{_mais_lidas_html(p['slug'])}
 </main>
 {_elenco_pub()}
 """
@@ -2808,7 +3099,8 @@ html[data-theme="dark"] .rv-capa2 .linha-ed{ color:var(--gold); border-color:var
   letter-spacing:.14em; text-transform:uppercase; color:#efe8da;
   background:rgba(20,6,3,.72); padding:5px 9px; }
 .rv-capa2 .manchete{ padding:16px 24px 0; flex:none; }
-.rv-capa2 .manchete h2{ font-family:var(--didone); font-weight:400; color:var(--ink);
+/* a manchete da capa é o h1 da edição (12/10/2026); sem herdar o h1 da capa do site */
+.rv-capa2 .manchete h1, .rv-capa2 .manchete h2{ font-family:var(--didone); font-weight:400; color:var(--ink); text-transform:none; letter-spacing:normal;
   font-size:2.2rem; line-height:1.03; margin:0; display:-webkit-box;
   -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
 .rv-capa2 .faixa{ display:flex; flex-direction:column; justify-content:center; gap:6px;
@@ -3568,8 +3860,7 @@ def _rv_pagina(pg, ed, num):
             return t[:90]
         cels = ''.join(
             f'<a class="ep" href="{_rvesc(v["url"])}" target="_blank" rel="noopener">'
-            f'<img src="{_rvesc(v["thumb"])}" alt="" loading="lazy" '
-            f'onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/{_rvesc(v.get("id",""))}/mqdefault.jpg\'">'
+            + _yt_img(v.get('id', ''), '', larg='(max-width:620px) 46vw, 300px', dims=False) +
             f'<span class="mt"><span class="pr">{_rvesc(n.split(" — ")[0])}</span>'
             f'<span class="tt">{_rvesc(_ep_tit(n.split(" — ")[0], v["titulo"]))}</span></span></a>'
             for q, n, v in _semana)
@@ -3822,7 +4113,7 @@ def edicao_page(ed):
         # o crédito já costuma vir com 'Foto:' escrito: saía 'Foto: Foto:' (auditoria de 10/10/2026)
         + (f'<span class="cred">{_rvesc(_tarja_cred(_cred_limpo(capa["credito"]), ": "))}</span>' if _cred_limpo(capa.get('credito')) else '')
         + '</div>'
-        f'<div class="manchete"><h2>{_rvesc(capa.get("manchete") or ed.get("titulo", ""))}</h2></div>'
+        f'<div class="manchete"><h1>{_rvesc(capa.get("manchete") or ed.get("titulo", ""))}</h1></div>'
         + (f'<div class="faixa">{calls}</div>' if calls else '')
         + '<div class="rodape-capa"><span>foyer.digital · edição gratuita</span><span class="rv-barcode"></span></div>'
         '</section>')
@@ -5052,6 +5343,32 @@ def _autores_da_equipe():
             if v:
                 a[campo] = v
 _autores_da_equipe()
+
+def _autores_colaboradores():
+    """Página de autor para TODA assinatura do acervo (12/10/2026, auditoria).
+    Pedro Cantelli (80 textos), Gerson Steves (34), Bruno Cavalcanti e outros
+    colaboradores levavam a um verbete automático da enciclopédia que pedia à
+    própria pessoa uma foto e uma bio; duas assinaturas levavam a verbete com
+    noindex. Agora cada um tem autor-<nome>.html com o que assinou. Cargo e bio
+    só vêm de fonte da casa (import/opiniao.json para colunistas); sem isso, a
+    página diz apenas "Colaborador(a)" e mostra o período em que assinou."""
+    import unicodedata as _u
+    _col = {c.get('nome', '').strip(): c for c in _OPINIAO.get('colunistas', []) if c.get('nome')}
+    _vistos = {a['nome'] for a in AUTORES.values()}
+    for _m in MATERIAS:
+        for nome in [x.strip() for x in str(_m.get('author') or '').split(' e ')]:
+            if not nome or nome in _vistos or nome.lower() in ('redação', 'redacao'):
+                continue
+            _vistos.add(nome)
+            sp = _re.sub(r'[^a-z0-9]+', '-',
+                         _u.normalize('NFKD', nome).encode('ascii', 'ignore').decode().lower()).strip('-')
+            if not sp or sp in AUTORES:
+                continue
+            c = _col.get(nome) or {}
+            AUTORES[sp] = {'nome': nome, 'cargo': (c.get('funcao') or '').strip() or 'Colaborador(a)',
+                           'cobre': '', 'bio': (c.get('bio') or '').strip(), 'foto': (c.get('foto') or '').strip(),
+                           'colaborador': True}
+_autores_colaboradores()
 _AUTOR_SLUG = {a['nome']: sp for sp, a in AUTORES.items()}
 # o byline linka para a página de quem assina — inclusive de quem entrou hoje na equipe
 _AUTOR_PAGINA.update({a['nome']: 'autor-' + sp + '.html' for sp, a in AUTORES.items()})
@@ -5069,6 +5386,16 @@ def autor_page(sp, a, mats):
     total = len(mats)
     anos = sorted(p.get('iso', '')[:4] for p in mats if p.get('iso'))
     desde = anos[0] if anos else ''
+    # colaborador sem bio da casa: o período em que assinou, que é fato do
+    # acervo, no lugar de uma apresentação inventada (12/10/2026)
+    _periodo = ''
+    if a.get('colaborador') and anos:
+        _periodo = (f'Assinou textos no FOYER em {anos[0]}.' if anos[0] == anos[-1]
+                    else f'Assinou textos no FOYER entre {anos[0]} e {anos[-1]}.')
+    # o verbete da pessoa na Enciclopédia, quando existe e está no ar
+    _sp_enc = (globals().get('_NOME2SLUG') or {}).get(a['nome'])
+    _verbete = (f'<a href="pessoa-{_sp_enc}.html">{_rvesc(a["nome"])} na Enciclopédia</a>'
+                if _sp_enc and _sp_enc in (globals().get('PESSOAS') or {}) else '')
     mais = (f'<div class="filters" style="padding:6px 0 0"><a href="busca.html">Ver todas as {total} no acervo →</a></div>'
             if total > 120 else '')
     # a foto é opcional e NUNCA é distorcida: moldura quadrada, imagem cortada no centro
@@ -5107,6 +5434,7 @@ def autor_page(sp, a, mats):
         {f'<span>No FOYER desde {desde}</span>' if desde else ''}
       </div>
       {_bio}
+      {f'<p class="dek" style="margin-top:14px">{_rvesc(_periodo)}</p>' if (_periodo and not _bio) else ''}
       {f'<p class="meta-l" style="display:block;margin-top:10px"><b>Cobre:</b> {_rvesc(_cobre)}</p>' if _cobre else ''}
       </div></div>
       <div class="share-row" aria-label="Compartilhar esta página">
@@ -5118,6 +5446,7 @@ def autor_page(sp, a, mats):
     {mais}
     <div class="ad-slot" data-ad-slot="2101"></div>
     <div class="filters" style="padding:24px 0 40px">
+      {_verbete}
       <a href="principios.html">Princípios editoriais</a>
       <a href="sobre.html">Quem somos</a>
       <a href="busca.html">Buscar no acervo</a>
@@ -5125,6 +5454,27 @@ def autor_page(sp, a, mats):
   </div>
 </main>
 '''
+
+def _ld_autor(sp, a):
+    """ProfilePage + Person (ou Organization, para a assinatura coletiva)
+    nas páginas de autor (12/10/2026). Só com o que a casa informa."""
+    url = f'{BASE}/autor-{sp}.html'
+    org = {'@type': 'NewsMediaOrganization', 'name': 'FOYER', 'url': f'{BASE}/'}
+    if 'reda' in a['nome'].lower():
+        quem = dict(org, name=a['nome'])
+    else:
+        quem = {'@type': 'Person', 'name': a['nome'], 'url': url, 'worksFor': org}
+        if a.get('cargo') and a['cargo'] != 'Colaborador(a)':
+            quem['jobTitle'] = a['cargo']
+        _bio = _re.split(r'\n\s*\n', (a.get('bio') or '').strip())[0].strip()
+        if _bio:
+            quem['description'] = _bio[:300]
+        _f = (a.get('foto') or '').strip()
+        if _f:
+            quem['image'] = _f if _f.startswith('http') else f'{BASE}/{_f}'
+    d = {'@context': 'https://schema.org', '@type': 'ProfilePage', 'url': url,
+         'name': f"{a['nome']} no FOYER", 'mainEntity': quem}
+    return '<script type="application/ld+json">' + _json.dumps(d, ensure_ascii=False).replace('</', '<\\/') + '</script>'
 
 def _yt_pessoas(v):
     sps = CONV_POR_VIDEO.get(v.get('id', ''), [])
@@ -5147,19 +5497,56 @@ def _yt_data(iso):
     except Exception:
         return iso
 
-def yt_cell(v, rotulo):
+# a data de cada vídeo no canal, para o VideoObject das matérias (12/10/2026)
+_YT_DATA = {v.get('id'): v.get('quando', '') for _pg in YT.get('programas', []) for v in _pg.get('videos', []) if v.get('id')}
+
+# Preconnect para as miniaturas do YouTube nas páginas que abrem com vídeos
+# (Crítica, Entrevistas, Programas e capa): a primeira miniatura é o maior
+# elemento da tela no celular (12/10/2026).
+YT_PRECONNECT = '<link rel="preconnect" href="https://i.ytimg.com">\n'
+
+def _yt_img(vid, alt, cedo=False, larg='(max-width:620px) 60vw, 440px', dims=True):
+    """Miniatura do YouTube no tamanho exibido (12/10/2026). Era a hq720
+    (1280x720, até 230 KB) para um cartão de 440x245: Programas baixava
+    2,4 MB só de miniatura. Agora vão as versões em WebP: mqdefault (320x180,
+    ~7 a 13 KB), hqdefault (480x360, ~15 KB; a que o celular usa) e
+    sddefault (640x480, ~25 a 40 KB, para tela grande de alta densidade). As
+    faixas pretas das duas últimas ficam fora do recorte 16:9 do cartão. Se o
+    WebP faltar, o onerror cai na mqdefault em JPG, que todo vídeo tem."""
+    i = _rvesc(vid)
+    carga = 'loading="eager" fetchpriority="high"' if cedo else 'loading="lazy"'
+    _dim = ' width="320" height="180"' if dims else ''
+    return (f'<img src="https://i.ytimg.com/vi_webp/{i}/mqdefault.webp" '
+            f'srcset="https://i.ytimg.com/vi_webp/{i}/mqdefault.webp 320w, https://i.ytimg.com/vi_webp/{i}/hqdefault.webp 480w, https://i.ytimg.com/vi_webp/{i}/sddefault.webp 640w" '
+            f'sizes="{larg}"{_dim} alt="{_rvesc(alt)}" {carga} '
+            f'onerror="this.onerror=null;this.removeAttribute(\'srcset\');this.src=\'https://i.ytimg.com/vi/{i}/mqdefault.jpg\'">')
+
+def yt_cell(v, rotulo, cedo=False):
+    """Cartão de episódio. cedo=True: o primeiro da página, que costuma ser
+    o maior elemento da tela; baixa já, sem esperar a rolagem (12/10/2026).
+    Quando o episódio tem matéria no site, o cartão leva para ela, e o
+    YouTube fica como link secundário (antes todo o tráfego ia para fora)."""
+    _mat = _MAT_DO_VIDEO.get(v.get('id', ''))
+    if _mat:
+        _abre = f'<a class="ph" href="post-{_mat}.html" aria-label="Ver a matéria: {_rvesc(v["titulo"])}">'
+        _tit = f'<h3><a href="post-{_mat}.html">{_rvesc(v["titulo"])}</a></h3>'
+        _yt = f' · <a href="{_rvesc(v["url"])}" target="_blank" rel="noopener">no YouTube ↗</a>'
+    else:
+        _abre = f'<a class="ph" href="{_rvesc(v["url"])}" target="_blank" rel="noopener" aria-label="Assistir no YouTube">'
+        _tit = f'<h3>{_rvesc(v["titulo"])}</h3>'
+        _yt = ''
     return f'''    <article class="ep-cell">
-      <a class="ph" href="{_rvesc(v['url'])}" target="_blank" rel="noopener" aria-label="Assistir no YouTube">
-        <img src="{_rvesc(v['thumb'])}" alt="{_rvesc(v['titulo'])}" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/{_rvesc(v.get('id',''))}/mqdefault.jpg'">
+      {_abre}
+        {_yt_img(v.get('id', ''), v['titulo'], cedo)}
         <span class="play">▶</span>
       </a>
       <div class="ep-body">
         <span class="meta-l">{_rvesc(rotulo)}</span>
-        <h3>{_rvesc(v['titulo'])}</h3>
+        {_tit}
         {_yt_pessoas(v)}
         <div class="meta-row">
-          <span class="meta-l">{_yt_data(v.get('quando',''))}</span>
-          <button class="share-min" data-share="native" data-title="{safe(v['titulo'])}">Compartilhar ↗</button>
+          <span class="meta-l">{_yt_data(v.get('quando',''))}{_yt}</span>
+          <button class="share-min" data-share="native" data-title="{safe(v['titulo'])}"{f' data-url="{BASE}/post-{_mat}.html"' if _mat else f' data-url="{_rvesc(v["url"])}"'}>Compartilhar ↗</button>
         </div>
       </div>
     </article>'''
@@ -5201,7 +5588,7 @@ if _yt_progs:
         <h3>{_rvesc(_nome)}</h3>
         <p>{_rvesc(_desc)}</p>
       </a>\n'''
-    _ult = '\n'.join(yt_cell(v, nome.split(' — ')[0]) for _, nome, v in _yt_videos(_yt_progs, 12))
+    _ult = '\n'.join(yt_cell(v, nome.split(' — ')[0], cedo=(_k == 0)) for _k, (_, nome, v) in enumerate(_yt_videos(_yt_progs, 12)))
     # Quem já passou por cada programa (vistoria de 06/10/2026): 132 verbetes
     # só apareciam em episódios e não recebiam link de página nenhuma. Aqui
     # cada programa lista todos os convidados com verbete, em ordem alfabética,
@@ -5269,7 +5656,7 @@ if _yt_progs:
     index_main = index_main.replace('__PROGRAMAS_CAPA__', _capa_progs)
 
     # ---------- CRÍTICA ----------
-    _crit_vids = '\n'.join(yt_cell(v, 'Críticas Teatrais') for _, _n, v in _yt_videos(_kyra, 6))
+    _crit_vids = '\n'.join(yt_cell(v, 'Críticas Teatrais', cedo=(_k == 0)) for _k, (_, _n, v) in enumerate(_yt_videos(_kyra, 6)))
     _bruno = [p for p in _yt_progs if p['nome'] == 'Por Bruno Cavalcanti']
     _bruno_vids = '\n'.join(yt_cell(v, 'Por Bruno Cavalcanti') for _, _n, v in _yt_videos(_bruno, 3))
     _crit_mats = [p for p in MATERIAS if p.get('cat') == 'Crítica'][:12]
@@ -5304,7 +5691,7 @@ if _yt_progs:
 '''
 
     # ---------- ENTREVISTAS ----------
-    _ent_vids = '\n'.join(yt_cell(v, 'Programa do Foyer') for _, _n, v in _yt_videos(_yt_por_papel('entrevista'), 9))
+    _ent_vids = '\n'.join(yt_cell(v, 'Programa do Foyer', cedo=(_k == 0)) for _k, (_, _n, v) in enumerate(_yt_videos(_yt_por_papel('entrevista'), 9)))
     _ent_mats = [p for p in MATERIAS if p.get('cat') == 'Entrevista'][:6]
     _ent_extra = ''
     if _ent_mats:
@@ -5659,6 +6046,9 @@ for _sp, _pp in [x for x in _top_pessoas if x[0] not in _CASA][:4]:
                   f'<span class="ct">{_n_cit(_pp)}</span><span class="ar">→</span></a>')
 _capa_enc += '</div>'
 index_main = index_main.replace('__ENCICLOPEDIA_CAPA__', _capa_enc)
+# as mais lidas da semana, logo abaixo das Notícias (12/10/2026)
+index_main = index_main.replace('<div class="wrap">__MAIS_LIDAS__</div>',
+                                (f'<div class="wrap">{_mais_lidas_html()}</div>' if _mais_lidas_html() else ''))
 
 # ---- índice da Enciclopédia (05/10/2026): destaques com foto, folhear por
 # letra e por função, quem entrou há pouco, os mais citados, e a busca.
@@ -5763,7 +6153,9 @@ enciclopedia_body = band('Projeto Foyer', 'Enciclopédia do FOYER', 'Quem faz o 
     if(IDX) go();
     else fetch('assets/pessoas-index.json').then(function(r){{ return r.json(); }}).then(function(d){{ IDX = d; go(); }});
   }}
-  q.addEventListener('input', roda);
+  // espera a pessoa parar de digitar (150 ms) antes de redesenhar a lista (12/10/2026)
+  var _espera = null;
+  q.addEventListener('input', function(){{ clearTimeout(_espera); _espera = setTimeout(roda, 150); }});
   document.getElementById('enc-letras').addEventListener('click', function(e){{
     var b = e.target.closest('button'); if(!b) return;
     letra = b.dataset.l; [].forEach.call(this.querySelectorAll('button'), function(x){{ x.classList.toggle('on', x === b); }}); roda();
@@ -5843,13 +6235,18 @@ for _n in range(1, _pages + 1):
          listing_body(NOTICIAS, _n, _pages, 'noticias', 'Notícias',
                       f'{_tot} matérias no acervo — página {_n} de {_pages}'))
 
+_TITULO_CAT = {'Crítica': 'Críticas escritas do acervo'}
 for _c in _cats:
     _posts = [x for x in NOTICIAS if x['cat'] == _c or _c in x.get('cats', [])]
     _cp = (len(_posts) + POR_PAGINA - 1) // POR_PAGINA
     _base = 'cat-' + _cat_slug(_c)
     for _n in range(1, _cp + 1):
         _fname = f'{_base}.html' if _n == 1 else f'{_base}-p{_n}.html'
-        page(_fname, f'{_c} — FOYER' if _n == 1 else f'{_c} — página {_n} de {_cp} — FOYER',
+        # cat-critica.html e critica.html tinham o mesmo título "Crítica —
+        # FOYER" (12/10/2026): a editoria de textos ganha nome próprio, e a
+        # seção Crítica (com os vídeos) fica com o nome curto
+        _tc = _TITULO_CAT.get(_c, _c)
+        page(_fname, f'{_tc} — FOYER' if _n == 1 else f'{_tc} — página {_n} de {_cp} — FOYER',
              f'Matérias de {_c} no FOYER.' if _n == 1 else f'Matérias de {_c} no FOYER, página {_n} de {_cp}.', 'noticias.html',
              listing_body(_posts, _n, _cp, _base, _c,
                           f'{len(_posts)} matérias — página {_n} de {_cp}', active=_c))
@@ -6052,14 +6449,16 @@ for _old, _novo, _tit in (('assine.html', 'revista.html#assinar', 'Assine a Revi
                  '<title>' + _tit + '</title></head>'
                  '<body><p>Esta página mudou de endereço: <a href="' + _novo + '">' + _tit + '</a>.</p></body></html>')
 
-page('critica.html', 'Crítica — FOYER', 'Críticas de teatro, musicais, dança e ópera no FOYER.', 'critica.html', critica_body)
-page('entrevistas.html', 'Entrevistas — FOYER', 'Entrevistas com artistas e profissionais do palco.', 'entrevistas.html', entrevistas_body)
+page('critica.html', 'Crítica — FOYER', 'Críticas de teatro, musicais, dança e ópera no FOYER.', 'critica.html', critica_body, extra=YT_PRECONNECT)
+page('entrevistas.html', 'Entrevistas — FOYER', 'Entrevistas com artistas e profissionais do palco.', 'entrevistas.html', entrevistas_body, extra=YT_PRECONNECT)
 page('agenda.html', 'Agenda — FOYER', 'Estreias, temporadas e eventos de teatro pelo Brasil.', 'agenda.html', agenda_body)
-page('programas.html', 'Programas — FOYER', 'Os programas do canal Foyer no YouTube e Spotify.', 'programas.html', programas_body)
+page('programas.html', 'Programas — FOYER', 'Os programas do canal Foyer no YouTube e Spotify.', 'programas.html', programas_body, extra=YT_PRECONNECT)
 page('enciclopedia.html', 'Enciclopédia — FOYER', 'Enciclopédia do Teatro Musical Brasileiro: artistas, espetáculos e fichas técnicas.', 'enciclopedia.html', enciclopedia_body)
 page('revista.html', 'A Revista — FOYER', 'A revista semanal do Foyer: edições fechadas para ler online ou baixar em PDF.', 'revista.html', revista_body)
+# Busca e descadastro são ferramentas, não conteúdo (12/10/2026): ficam fora
+# do Google (noindex, mas os links seguem valendo) e fora do sitemap.
 page('busca.html', 'Buscar — FOYER', 'Busque matérias, críticas, artistas e espetáculos no FOYER.', 'busca.html',
-     busca_body.replace('__ACERVO__', f'{len(MATERIAS):,}'.replace(',', '.')))
+     busca_body.replace('__ACERVO__', f'{len(MATERIAS):,}'.replace(',', '.')), robots='noindex,follow')
 page('sobre.html', 'Quem somos — FOYER', 'O FOYER: portal de jornalismo cultural e canal de programas sobre teatro, música e artes.', 'index.html', sobre_body)
 page('contato.html', 'Contato — FOYER', 'Fale com a redação do FOYER: pautas, imprensa, parcerias e publicidade.', 'index.html', contato_body)
 principios_body = band('Institucional', 'Princípios Editoriais', 'Como o FOYER apura, escreve e corrige') + '''
@@ -6068,9 +6467,9 @@ principios_body = band('Institucional', 'Princípios Editoriais', 'Como o FOYER 
     <div class="art-body" style="padding-top:34px">
       <h2>O que publicamos</h2>
       <p>O FOYER cobre teatro, música e artes cênicas no Brasil e no mundo: notícias, guias de programação, explicadores, perfis e memória do palco. Todo conteúdo publicado é baseado em fatos verificáveis, com fontes citadas no próprio texto sempre que a informação não for de apuração direta da casa.</p>
-      <h2>Apuração e revisão</h2>
+      <h2 id="apuracao">Apuração e revisão</h2>
       <p>Matérias assinadas como Redação Foyer podem contar com apuração assistida por inteligência artificial. Nenhuma delas chega ao site sem passar por revisão e aprovação de um editor humano, que responde pelo que foi publicado. Serviço (datas, horários, preços e locais) é conferido na fonte antes da publicação e vale para a data em que a matéria foi ao ar.</p>
-      <h2>Correções</h2>
+      <h2 id="correcoes">Correções</h2>
       <p>Erramos? Corrigimos. Matérias corrigidas ou ampliadas exibem o selo "Atualizada em" com data e horário da mudança. Para apontar um erro, escreva para <a href="mailto:programafoyer@gmail.com">programafoyer@gmail.com</a> com o endereço da matéria: respondemos e, quando for o caso, corrigimos com registro visível.</p>
       <h2>Imagens e créditos</h2>
       <p>Usamos fotografias de divulgação oficial das produções que cobrimos, imagens em licença livre (com autor e licença citados) e material próprio. O crédito acompanha a imagem na página da matéria. Nas capas e listas, ele aparece ao passar o mouse sobre a foto.</p>
@@ -7865,7 +8264,7 @@ descadastrar_body = band('Newsletter', 'Descadastrar', 'Sair da lista da Revista
 <main id="conteudo" class="wrap">
   <div class="legal">
     <div id="desc-estado"><p>Confirmando o seu descadastro…</p></div>
-    <p style="margin-top:24px"><a href="index.html">Voltar para a capa do FOYER</a></p>
+    <p style="margin-top:24px"><a href="./">Voltar para a capa do FOYER</a></p>
   </div>
 </main>
 <script>
@@ -7883,14 +8282,26 @@ descadastrar_body = band('Newsletter', 'Descadastrar', 'Sair da lista da Revista
   }).catch(function(){ el.innerHTML = '<h2>Não deu agora</h2><p>Tente de novo em instantes, ou fale com a gente pela página de <a href="contato.html">contato</a>.</p>'; });
 })();
 </script>'''
-page('descadastrar.html', 'Descadastrar — Revista do FOYER', 'Sair da lista de e-mails da Revista do FOYER.', 'descadastrar.html', descadastrar_body)
+page('descadastrar.html', 'Descadastrar — Revista do FOYER', 'Sair da lista de e-mails da Revista do FOYER.', 'descadastrar.html', descadastrar_body, robots='noindex,follow')
+
+def _iso_cheio(p):
+    """Data de publicação com hora e fuso (12/10/2026). As 1.529 matérias do
+    acervo do Wix só guardam o dia: saíam no JSON-LD como "2023-10-08", sem
+    hora, enquanto o feed inventava 09:00 em UTC. Agora todas as saídas (JSON-LD,
+    metas de artigo, feed e sitemap de notícias) usam a mesma convenção: a
+    hora real quando existe; senão, 9h da manhã de Brasília."""
+    cheia = p.get('isoFull') or ''
+    if cheia:
+        return cheia
+    dia = (p.get('iso') or '')[:10]
+    return f'{dia}T09:00:00-03:00' if len(dia) == 10 else dia
 
 def _quando_mod(p):
     """dateModified do JSON-LD (e base do lastmod do sitemap): o mais recente
     entre a publicação e a última edição, com fuso (auditoria de 10/10/2026:
     matéria editada enquanto esperava a hora agendada saía "modificada" antes
     de existir, e o corte em 25 letras arrancava o fuso de uma das datas)."""
-    pub = p.get('isoFull') or p.get('iso', '')
+    pub = _iso_cheio(p)
     upd = str(p.get('atualizado') or '')
     if not upd:
         return pub
@@ -7909,7 +8320,7 @@ def _quando_mod(p):
         return pub or upd
 
 def _ld_materia(p):
-    img = _og_src(p['img']) if p['img'] else (_og_tipo(p) or f'{BASE}/assets/logo/src/foyer-banner.png')
+    img = _og_src(p['img']) if p['img'] else (_og_tipo(p) or f'{BASE}/{OG_PADRAO}')
     if not img.startswith('http'):
         img = f'{BASE}/{img}'
     autor = (p.get('author') or 'Redação Foyer').strip()
@@ -7927,21 +8338,52 @@ def _ld_materia(p):
         return _o
     _partes = [x.strip() for x in autor.split(' e ')]
     _a = [_pessoa_ld(x) for x in _partes] if (len(_partes) > 1 and all(_pagina_de_quem_assina(x) for x in _partes)) else _pessoa_ld(autor)
+    # O tipo diz o gênero do texto (12/10/2026): coluna, artigo e editorial
+    # são OpinionNewsArticle (a seção é Opinião, como no selo da página) e a
+    # crítica é ReviewNewsArticle. O resto segue NewsArticle. A crítica não
+    # leva itemReviewed nem nota: o acervo não guarda o nome do espetáculo
+    # separado do título, e inventar seria pior que omitir.
+    if _eh_opiniao(p):
+        _tipo, _secao = 'OpinionNewsArticle', 'Opinião'
+    elif (p.get('cat') or '') == 'Crítica':
+        _tipo, _secao = 'ReviewNewsArticle', 'Crítica'
+    else:
+        _tipo, _secao = 'NewsArticle', p.get('cat', '')
     dados = {
-        '@context': 'https://schema.org', '@type': 'NewsArticle',
+        '@context': 'https://schema.org', '@type': _tipo,
         'headline': p['title'],
         **({'alternativeHeadline': p['linhaFina']} if p.get('linhaFina') else {}),
         'description': _desc_saida(p, 200),
         'image': [img],
-        'datePublished': p.get('isoFull') or p.get('iso', ''),
+        'datePublished': _iso_cheio(p),
         'dateModified': _quando_mod(p),
         'author': _a if isinstance(_a, list) else [_a],
-        'publisher': {'@type': 'NewsMediaOrganization', 'name': 'FOYER',
+        'publisher': {'@type': 'NewsMediaOrganization', 'name': 'FOYER', 'url': f'{BASE}/',
+                      'publishingPrinciples': f'{BASE}/principios.html',
                       'logo': {'@type': 'ImageObject', 'url': f'{BASE}/assets/logo/foyer-stacked-gold.png'}},
         'mainEntityOfPage': f"{BASE}/post-{p['slug']}.html",
         'inLanguage': 'pt-BR',
-        'articleSection': p.get('cat', ''),
+        'articleSection': _secao,
     }
+    if _secao != p.get('cat') and p.get('cat'):
+        dados['keywords'] = p['cat']
+    # Matéria com vídeo do YouTube (12/10/2026): o vídeo vai descrito como
+    # VideoObject, com miniatura, data e endereço do player. A data de envio
+    # é a do canal quando o retrato do YouTube (import/youtube.json) conhece
+    # o vídeo; senão, a da matéria. Vídeo que saiu do ar não entra.
+    _vids = [i for i in _VIDEOS_MAT.get(p['slug'], []) if i not in _YT_FORA]
+    if _vids:
+        _iv = _vids[0]
+        _quando_yt = (_YT_DATA.get(_iv) or '')[:10]
+        dados['video'] = {
+            '@type': 'VideoObject',
+            'name': p['title'],
+            'description': _desc_saida(p, 200) or p['title'],
+            'thumbnailUrl': [f'https://i.ytimg.com/vi/{_iv}/hqdefault.jpg'],
+            'uploadDate': (f'{_quando_yt}T09:00:00-03:00' if len(_quando_yt) == 10 else _iso_cheio(p)),
+            'embedUrl': f'https://www.youtube.com/embed/{_iv}',
+            'url': f'https://www.youtube.com/watch?v={_iv}',
+        }
     # A trilha "FOYER › Teatro › matéria" que o Google mostra no lugar do
     # endereço cru no resultado de busca. Muda o que o leitor vê antes de
     # clicar, e não custa nada.
@@ -7957,19 +8399,43 @@ def _ld_materia(p):
     return ('<script type="application/ld+json">' + _json.dumps(dados, ensure_ascii=False).replace('<', '\\u003c') + '</script>'
             '<script type="application/ld+json">' + _json.dumps(migalhas, ensure_ascii=False).replace('<', '\\u003c') + '</script>')
 
+def _metas_artigo(p):
+    """Metas de artigo que WhatsApp, Facebook, LinkedIn e agregadores leem
+    (12/10/2026): publicação, modificação, seção, autor e o texto alternativo
+    da imagem. twitter:site fica de fora: a casa não tem conta no X registrada
+    em fonte do repositório, e um @ inventado apontaria para outra pessoa."""
+    e = lambda x: _html.escape(str(x or ''), quote=True)
+    sec = 'Opinião' if _eh_opiniao(p) else (p.get('cat') or '')
+    linhas = [f'<meta property="article:published_time" content="{e(_iso_cheio(p))}">',
+              f'<meta property="article:modified_time" content="{e(_quando_mod(p))}">']
+    if sec:
+        linhas.append(f'<meta property="article:section" content="{e(sec)}">')
+    for _nm in [x.strip() for x in str(p.get('author') or '').split(' e ') if x.strip()]:
+        _pg = _pagina_de_quem_assina(_nm)
+        linhas.append(f'<meta property="article:author" content="{e(BASE + "/" + _pg if _pg else _nm)}">')
+    linhas.append(f'<meta property="og:image:alt" content="{e(p.get("legenda") or p["title"])}">')
+    return '\n'.join(linhas) + '\n'
+
 for _i, _p in enumerate(MATERIAS):
     page('post-' + _p['slug'] + '.html', _p['title'] + ' — FOYER', _desc_saida(_p, 200), 'opiniao.html' if _eh_opiniao(_p) else 'noticias.html', post_page(_i, _p), quiet=True,
-         og_img=_og_src(_p['img']) if _p['img'] else _og_tipo(_p), og_type='article', ld=_ld_materia(_p))
+         og_img=_og_src(_p['img']) if _p['img'] else _og_tipo(_p), og_type='article', ld=_ld_materia(_p), extra=_metas_artigo(_p))
 print(f'• {len(MATERIAS)} páginas de matéria')
 
 for _asp, _aa in AUTORES.items():
     _amats = [_m for _m in MATERIAS
               if _aa['nome'] in [p.strip() for p in str(_m.get('author') or '').split(' e ')]]
-    _adesc = f"{_aa['nome']}, {_aa['cargo'].lower()} do FOYER."
+    _cg = _aa['cargo'].strip()
+    _adesc = f"{_aa['nome']}, {_cg[:1].lower() + _cg[1:]}" + ('' if 'foyer' in _cg.lower() else ' do FOYER') + '.'
     if (_aa.get('cobre') or '').strip():
-        _adesc += ' ' + _aa['cobre'].strip().rstrip('.') + '.'
+        # 'cobre' vem da Coxia em minúscula ("estreias e temporadas..."): a frase
+        # nova começa com maiúscula, como aparece no Google (12/10/2026)
+        _cb = _aa['cobre'].strip().rstrip('.')
+        _adesc += ' Cobre ' + _cb[:1].lower() + _cb[1:] + '.'
+    elif _aa.get('colaborador') and _amats:
+        _adesc = _adesc[:-1] + (f": {len(_amats)} textos assinados no acervo." if len(_amats) > 1 else ": um texto assinado no acervo.")
     page('autor-' + _asp + '.html', _aa['nome'] + ' — FOYER', _adesc,
-         'sobre.html', autor_page(_asp, _aa, _amats), quiet=True)
+         'sobre.html', autor_page(_asp, _aa, _amats), quiet=True, ld=_ld_autor(_asp, _aa), og_type='profile',
+         og_img=(_aa.get('foto') or None))
 print(f'• {len(AUTORES)} páginas de autor')
 
 # Verbete juntado a outro (regras -> apelidos): a página antiga vira ponte
@@ -8257,8 +8723,51 @@ _nf = _re.sub(
 open(_nf_arq, 'w').write(_nf)
 
 import glob as _g
+
+# Verbetes sem nenhum link de outra página (12/10/2026, auditoria): estavam no
+# sitemap, mas o leitor e o Google só chegavam a eles pela busca em
+# JavaScript. Depois de tudo gravado, o build procura quem ficou sem link e
+# lista esses nomes no pé do índice da Enciclopédia, em ordem alfabética.
+def _liga_verbetes_orfaos():
+    _ref = _re.compile(r'href="pessoa-([a-z0-9-]+)\.html"')
+    ligados = set()
+    for _fn in _g.glob(os.path.join(ROOT, '*.html')):
+        _b = os.path.basename(_fn)
+        try:
+            with open(_fn, encoding='utf-8') as _fh:
+                for _sp in _ref.findall(_fh.read()):
+                    if 'pessoa-' + _sp + '.html' != _b:
+                        ligados.add(_sp)
+        except OSError:
+            pass
+    orfaos = sorted((sp for sp in PESSOAS
+                     if sp not in ligados and 'pessoa-' + sp + '.html' not in _FORA_SITEMAP
+                     and os.path.exists(os.path.join(ROOT, 'pessoa-' + sp + '.html'))),
+                    key=lambda sp: _slug_enc(PESSOAS[sp]['nome']))
+    if not orfaos:
+        return 0
+    _arq = os.path.join(ROOT, 'enciclopedia.html')
+    _h = open(_arq, encoding='utf-8').read()
+    _bloco = ('<section style="padding:10px 0 34px"><div class="sec-head"><h2>Mais verbetes</h2>'
+              '<span class="note">nomes que ainda não aparecem nas listas acima</span></div><p class="meta-l" style="display:block;line-height:2">'
+              + ' · '.join(f'<a href="pessoa-{sp}.html">{_rvesc(PESSOAS[sp]["nome"])}</a>' for sp in orfaos)
+              + '</p></section>\n')
+    if '</main>' in _h:
+        _h = _h.replace('</main>', _bloco + '</main>', 1)
+        open(_arq, 'w', encoding='utf-8').write(_h)
+        return len(orfaos)
+    return 0
+_n_orf = _liga_verbetes_orfaos()
+if _n_orf:
+    print(f'• {_n_orf} verbete(s) sem link ganharam lugar no índice da Enciclopédia')
+
 urls = sorted(os.path.basename(f) for f in _g.glob(os.path.join(ROOT, '*.html'))
-              if os.path.basename(f) not in ('coxia.html', '404.html', 'cat-artigo-de-opiniao.html', 'cat-artigo-de-opiniao-p2.html', 'assine.html', 'em-cartaz.html', 'midia-kit.html')
+              # busca e descadastrar: ferramentas com noindex; cat-em-cartaz: o
+              # filtro saiu do menu em 12/08/2026 e a página ficou sem link de
+              # nenhuma outra (12/10/2026)
+              if os.path.basename(f) not in ('coxia.html', '404.html', 'cat-artigo-de-opiniao.html', 'cat-artigo-de-opiniao-p2.html', 'assine.html', 'em-cartaz.html', 'midia-kit.html',
+                                             'busca.html', 'descadastrar.html')
+              and not os.path.basename(f).startswith('cat-em-cartaz')
               and os.path.basename(f) not in _FORA_SITEMAP
               and os.path.basename(f) not in _OP_VAZIAS
               and not os.path.basename(f).startswith('revista-prova-'))
@@ -8271,8 +8780,9 @@ _ALIAS_DE = {k: ', '.join(dict.fromkeys(v)) for k, v in _ALIAS_DE.items()}
 with open(os.path.join(ROOT, 'assets/busca-index.json'), 'w') as f:
     # 'p': quem aparece na matéria (vistoria de 06/10/2026: "Zé Celso" só achava
     # a matéria com o nome no título). Seções fixas entram como entradas da busca.
+    # 'd' (12/10/2026): a data da matéria, que a busca mostra no resultado
     _json.dump([dict({'t': _p['title'], 'c': _p.get('cat', ''), 'a': _p.get('author', ''),
-                      'u': 'post-' + _p['slug'] + '.html'},
+                      'u': 'post-' + _p['slug'] + '.html', 'd': (_p.get('iso') or '')[:10]},
                      **({'p': ' · '.join(PESSOAS[_q]['nome'] + (f' ({_ALIAS_DE.get(_q)})' if _ALIAS_DE.get(_q) else '')
                                          for _q in POR_MATERIA.get(_p['slug'], []) if _q in PESSOAS)}
                         if POR_MATERIA.get(_p['slug']) else {}))
@@ -8350,39 +8860,55 @@ with open(os.path.join(ROOT, 'sitemap-news.xml'), 'w') as f:
         f.write('<url><loc>' + BASE + '/post-' + p['slug'] + '.html</loc>'
                 '<news:news><news:publication><news:name>FOYER</news:name>'
                 '<news:language>pt</news:language></news:publication>'
-                '<news:publication_date>' + (p.get('isoFull') or p.get('iso', _hoje_sm)) + '</news:publication_date>'
+                '<news:publication_date>' + (_iso_cheio(p) or _hoje_sm) + '</news:publication_date>'
                 '<news:title>' + _html.escape(p['title']) + '</news:title></news:news></url>\n')
     f.write('</urlset>\n')
 from email.utils import format_datetime as _fmt822
-with open(os.path.join(ROOT, 'feed.xml'), 'w') as f:
-    f.write('<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel>'
+# O feed (12/10/2026): a data de quem só tem o dia segue a mesma convenção
+# do JSON-LD (9h de Brasília; antes era 9h em UTC); o canal ganhou
+# atom:link rel=self, lastBuildDate (a data da matéria mais nova, para o
+# arquivo não mudar à toa) e a imagem da casa, que os leitores de RSS mostram.
+_itens_feed, _datas_feed = [], []
+for p in MATERIAS[:30]:
+    try:
+        _dt = datetime.fromisoformat(_iso_cheio(p))
+        _pub = _fmt822(_dt)
+        _datas_feed.append(_dt)
+    except Exception:
+        _pub = ''
+    _itens_feed.append('<item><title>' + _html.escape(p['title']) + '</title>'
+            '<link>' + BASE + '/post-' + p['slug'] + '.html</link>'
+            '<guid>' + BASE + '/post-' + p['slug'] + '.html</guid>'
+            '<description>' + _html.escape(_desc_saida(p, 220)) + '</description>'
+            '<category>' + _html.escape('Opinião' if _eh_opiniao(p) else p.get('cat', '')) + '</category>'
+            + (('<dc:creator>' + _html.escape(p['author']) + '</dc:creator>') if p.get('author') else '')
+            + (f'<pubDate>{_pub}</pubDate>' if _pub else '')
+            # a foto da matéria vai no feed (leitores de RSS, Google Discover) — 05/10/2026
+            + (('<media:content url="' + _html.escape((lambda u: u if u.startswith('http') else BASE + '/' + u)(_og_src(p['img'])), quote=True) + '" medium="image"/>') if p.get('img') else '')
+            + '</item>\n')
+
+def _feed_xml(arquivo):
+    return ('<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" '
+            'xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel>'
             '<title>FOYER</title><link>' + BASE + '/</link>'
             '<description>Jornalismo de teatro, música e cultura</description>'
-            '<language>pt-BR</language>\n')
-    for p in MATERIAS[:30]:
-        try:
-            _dt = datetime.fromisoformat(p.get('isoFull') or (p['iso'] + 'T09:00:00+00:00'))
-            _pub = _fmt822(_dt)
-        except Exception:
-            _pub = ''
-        f.write('<item><title>' + _html.escape(p['title']) + '</title>'
-                '<link>' + BASE + '/post-' + p['slug'] + '.html</link>'
-                '<guid>' + BASE + '/post-' + p['slug'] + '.html</guid>'
-                '<description>' + _html.escape(_desc_saida(p, 220)) + '</description>'
-                '<category>' + _html.escape(p.get('cat', '')) + '</category>'
-                + (('<dc:creator>' + _html.escape(p['author']) + '</dc:creator>') if p.get('author') else '')
-                + (f'<pubDate>{_pub}</pubDate>' if _pub else '')
-                # a foto da matéria vai no feed (leitores de RSS, Google Discover) — 05/10/2026
-                + (('<media:content url="' + _html.escape((lambda u: u if u.startswith('http') else BASE + '/' + u)(_og_src(p['img'])), quote=True) + '" medium="image"/>') if p.get('img') else '')
-                + '</item>\n')
-    f.write('</channel></rss>\n')
+            '<language>pt-BR</language>'
+            f'<atom:link href="{BASE}/{arquivo}" rel="self" type="application/rss+xml"/>'
+            + (f'<lastBuildDate>{_fmt822(max(_datas_feed))}</lastBuildDate>' if _datas_feed else '')
+            + f'<image><url>{BASE}/assets/logo/foyer-icon.png</url><title>FOYER</title><link>{BASE}/</link></image>\n'
+            + ''.join(_itens_feed) + '</channel></rss>\n')
+
+with open(os.path.join(ROOT, 'feed.xml'), 'w') as f:
+    f.write(_feed_xml('feed.xml'))
 
 # O site da Wix servia o mesmo feed em /blog-feed.xml, e é esse endereço que
 # está guardado em quem assinou o RSS de lá. Depois da virada do domínio, ele
 # precisa continuar respondendo — com as matérias de hoje, não com a cópia
 # congelada de julho que estava parada aqui.
 import shutil as _shutil
-_shutil.copyfile(os.path.join(ROOT, 'feed.xml'), os.path.join(ROOT, 'blog-feed.xml'))
+# (12/10/2026) o mesmo conteúdo, com o atom:link self apontando para ele mesmo
+with open(os.path.join(ROOT, 'blog-feed.xml'), 'w') as f:
+    f.write(_feed_xml('blog-feed.xml'))
 
 # 12/10/2026 (auditoria, achado 2): import/corpo/ guarda só o miolo das
 # matérias, sem cabeçalho nem canonical, para a Coxia abrir na edição. Não pode

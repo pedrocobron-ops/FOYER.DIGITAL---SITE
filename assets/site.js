@@ -294,12 +294,13 @@
   }
   function enviar(extra){
     var corpo = {
-      slug: slugDe(), pagina: pagina(), tipo: extra.tipo,
+      slug: (extra.slug || slugDe()), pagina: pagina(), tipo: extra.tipo,
       sessao: sid(), visitante: vid(), ref: origem(),
       utm: (function(){ try{ return (new URLSearchParams(location.search).get('utm_source') || '').slice(0, 60) || null; }catch(e){ return null; } })(),
       disp: disp(), lingua: (navigator.language || '').slice(0, 10) || null
     };
     if(extra.segundos != null){ corpo.segundos = extra.segundos; corpo.rolagem = extra.rolagem; }
+    if(extra.rede) corpo.utm = ('rede:' + extra.rede).slice(0, 60);
     try{
       fetch(M.url + '/rest/v1/foyer_metricas', {
         method: 'POST',
@@ -339,9 +340,27 @@
   document.addEventListener('visibilitychange', function(){
     if(document.visibilityState === 'hidden') fechar();
   });
+  // Compartilhamento (12/10/2026, auditoria): conta a matéria que foi
+  // compartilhada, e não a página aberta. O cartão de "Leia também" leva o
+  // endereço da matéria dele em data-url, e o clique ali era contado para a
+  // matéria em que a pessoa estava. O canal vai junto (whats, x, face, copy,
+  // ou "sistema" para a folha de compartilhar do celular). A tabela não tem
+  // coluna própria para o canal, e o campo utm não é usado em compartilhamento
+  // (nem no painel da Coxia), então ele leva "rede:<canal>". Abrir o menu não
+  // conta: conta a rede escolhida nele.
   document.addEventListener('click', function(e){
     var _sh = e.target.closest('[data-share]');
-    if(_sh && (_sh.getAttribute('data-share') !== 'menu' || navigator.share)) enviar({ tipo: 'share' });
+    if(!_sh) return;
+    var k = _sh.getAttribute('data-share');
+    if((k === 'menu' || k === 'native') && navigator.share) k = 'sistema';
+    else if(k === 'menu') return;
+    else if(k === 'native') k = 'whats';
+    var alvo = null;
+    try{
+      var m = (_sh.getAttribute('data-url') || '').match(/post-([a-z0-9-]+)\.html/);
+      if(m) alvo = m[1];
+    }catch(err){}
+    enviar({ tipo: 'share', slug: alvo, rede: k });
   });
 
   /* ---------- publicidade: a conta que o anunciante recebe ----------
