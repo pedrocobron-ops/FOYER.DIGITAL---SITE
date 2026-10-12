@@ -60,7 +60,58 @@ except Exception:
     ACERVO = {}
 
 
+def datas_do_acervo():
+    """Data e descrição dos vídeos do acervo que nunca passaram pelo feed RSS
+    (auditoria de 12/10/2026: 130 de 265 episódios sem data, que iam para o
+    fim das listas, e 148 sem descrição, de onde a Enciclopédia lê os
+    convidados). Usa o yt-dlp, uma vez, e grava em import/youtube-acervo.json;
+    o atualiza normal só lê. O cliente 'tv_embedded' é o que o YouTube ainda
+    responde sem pedir login a um servidor. Vídeo que não responder fica como
+    está e entra na próxima rodada.
+    Uso: python3 tools/atualiza_youtube.py --datas"""
+    import subprocess, time
+    arq = os.path.join(ROOT, 'import/youtube-acervo.json')
+    acervo = json.load(open(arq))
+    try:
+        retrato = {v['id']: v for p in json.load(open(os.path.join(ROOT, 'import/youtube.json'))).get('programas', [])
+                   for v in p.get('videos', [])}
+    except Exception:
+        retrato = {}
+    feitos = falhas = 0
+    for pid, prog in acervo.items():
+        for v in prog.get('videos', []):
+            velho = retrato.get(v['id']) or {}
+            if (v.get('quando') or velho.get('quando')) and (v.get('descricao') or velho.get('descricao')):
+                continue
+            try:
+                r = subprocess.run(['yt-dlp', '--skip-download', '--no-warnings', '--extractor-args',
+                                    'youtube:player_client=tv_embedded', '--print', '%(upload_date)s', '--print',
+                                    '%(description)j', 'https://www.youtube.com/watch?v=' + v['id']],
+                                   capture_output=True, text=True, timeout=90)
+                linhas = r.stdout.strip().split('\n', 1)
+                d = linhas[0].strip()
+                if r.returncode != 0 or not re.fullmatch(r'\d{8}', d):
+                    raise ValueError((r.stderr or '').strip()[-120:])
+                v['quando'] = f'{d[:4]}-{d[4:6]}-{d[6:]}'
+                if len(linhas) > 1:
+                    try:
+                        desc = json.loads(linhas[1])
+                    except Exception:
+                        desc = ''
+                    if desc and desc != 'NA':
+                        v['descricao'] = desc[:1500]
+                feitos += 1
+            except Exception as e:
+                falhas += 1
+                print(f"  ! {v['id']}: {e}")
+            time.sleep(1.5)
+    json.dump(acervo, open(arq, 'w'), ensure_ascii=False, indent=1)
+    print(f'acervo: {feitos} vídeo(s) com data agora, {falhas} sem resposta')
+
+
 def main():
+    if '--datas' in __import__('sys').argv:
+        return datas_do_acervo()
     # O retrato anterior é a rede de segurança: nas rodadas das 6h o YouTube
     # vinha devolvendo TUDO vazio, o robô salvava o vazio por cima do retrato
     # bom, e a seção de críticas da capa sumia até a rodada seguinte
@@ -92,8 +143,11 @@ def main():
             if v['id'] in vistos:
                 continue
             velho = antigos.get(v['id']) or {}
+            # data e descrição puxadas uma vez para o acervo (--datas,
+            # 12/10/2026) valem quando o retrato antigo não tem
             vids.append({'id': v['id'], 'titulo': v.get('titulo') or velho.get('titulo', ''),
-                         'descricao': velho.get('descricao', ''), 'quando': velho.get('quando', ''),
+                         'descricao': velho.get('descricao') or v.get('descricao', ''),
+                         'quando': velho.get('quando') or v.get('quando', ''),
                          'thumb': f"https://i.ytimg.com/vi/{v['id']}/hq720.jpg", 'url': v.get('url', ''),
                          'acervo': True})
             vistos.add(v['id'])

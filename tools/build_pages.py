@@ -1573,11 +1573,18 @@ def _slugs_enc():
             _SLUGS_ENC = set((_e.get('pessoas') or {}).keys())
         except Exception:
             _SLUGS_ENC = set()
-        try:
-            _SLUGS_ENC -= set(_json.load(open(os.path.join(ROOT, 'import/enciclopedia-excluidos.json'))) or [])
-        except Exception:
-            pass
+        # a Coxia grava {"slugs": [...]} (auditoria de 12/10/2026: set() de um
+        # dict pegava só a chave "slugs" e nenhum excluído saía); lista pura
+        # também vale, para o formato antigo
+        _SLUGS_ENC -= _excluidos_enc()
     return _SLUGS_ENC
+
+def _excluidos_enc():
+    try:
+        _exc = _json.load(open(os.path.join(ROOT, 'import/enciclopedia-excluidos.json'))) or []
+        return set((_exc.get('slugs') or []) if isinstance(_exc, dict) else _exc)
+    except Exception:
+        return set()
 
 def _link_interno(m):
     txt, alvo = m.group(1), m.group(2)
@@ -2557,9 +2564,16 @@ def post_page(i, p):
     # misturando quem apurou com quem foi apurado — justo na casa que promete
     # essa separação nos Princípios Editoriais.
     _assina = {n.strip().lower() for n in str(p.get('author') or '').replace(' e ', '|').split('|')}
-    _chips = ''.join(f'<a class="tag" href="pessoa-{s}.html">{_pes[s]["nome"]}</a>'
-                     for s in _sps[:14]
-                     if s in _pes and _pes[s]['nome'].strip().lower() not in _assina)
+    # Todos os nomes (auditoria de 12/10/2026): a lista parava em 14, em ordem
+    # alfabética, e 33 verbetes ficavam sem nenhum link de entrada. Os 14
+    # primeiros aparecem; o resto fica num "ver todos" que já está no HTML
+    # (o robô de busca segue os links mesmo fechado).
+    _lst = [f'<a class="tag" href="pessoa-{s}.html">{_pes[s]["nome"]}</a>'
+            for s in _sps if s in _pes and _pes[s]['nome'].strip().lower() not in _assina]
+    _chips = ''.join(_lst[:14])
+    if len(_lst) > 14:
+        _chips += (f'<details class="quem-mais"><summary>ver todos ({len(_lst)})</summary>'
+                   f'<div class="tags">{"".join(_lst[14:])}</div></details>')
     if _chips:
         quem_bloco = ('<div class="art-foot" style="border-top:1px solid var(--line);padding-top:16px">'
                       '<div class="tags" style="align-items:center">'
@@ -4484,6 +4498,10 @@ try:
 except Exception:
     ENC = {'pessoas': {}, 'porMateria': {}, 'porVideo': {}}
 PESSOAS = ENC.get('pessoas', {})
+# a moderação vale também aqui (12/10/2026): se o enciclopedia.py falhar no
+# deploy e o mapeamento salvo for antigo, o verbete excluído na Coxia não volta
+for _x in _excluidos_enc():
+    PESSOAS.pop(_x, None)
 _NOME2SLUG = {pp.get('nome', ''): sp for sp, pp in PESSOAS.items() if pp.get('nome')}
 POR_MATERIA = ENC.get('porMateria', {})
 POR_VIDEO = ENC.get('porVideo', {})
@@ -4514,7 +4532,11 @@ def _desc_wiki(d):
     d = _re.sub(r'\s+', ' ', (d or '')).strip()
     if not d:
         return ''
-    if _re.match(r'^(nome art[íi]stico|pseud[ôo]nimo|fundador|fundadora|é um|é uma)\b', d, _re.I):
+    if _re.match(r'^(nome art[íi]stico|pseud[ôo]nimo|fundador|fundadora|é um|é uma|um dos|uma das)\b', d, _re.I):
+        return ''
+    # adjetivo de elogio não é ofício ("célebre dramaturgo"), 12/10/2026
+    d = _re.sub(r'^(?:c[ée]lebre|famos[oa]|renomad[oa]|premiad[oa]|consagrad[oa]|aclamad[oa])\s+', '', d, flags=_re.I)
+    if not d:
         return ''
     d = _re.sub(r'\b(actriz|actor|realizadora?|argumentista|guionista|dobradora?)\b',
                 lambda m: _WIKI_PAL.get(m.group(1).lower(), m.group(1)), d, flags=_re.I)
@@ -4524,7 +4546,13 @@ def _desc_wiki(d):
     partes = _re.split(r',\s*', d)
     partes = partes[:-1] + _re.split(r'\s+e\s+', partes[-1], maxsplit=1)
     if len(partes) > 3:
-        d = f'{partes[0]} e {partes[-1]}'
+        # as DUAS PRIMEIRAS profissões, que a Wikipédia põe em ordem de
+        # importância, mais o gentílico do fim (auditoria de 12/10/2026: a
+        # primeira e a última davam "Cantor e político" para Gilberto Gil e
+        # "Cantor e diplomata" para Vinicius de Moraes)
+        _gent = _re.search(r'\s((?:norte|sul|luso|ítalo|ibero|afro|franco|anglo)-)?([a-zà-ú]+(?:o|a|ês|esa|ense|ano|ana|eiro|eira|ino|ina|eu|eia|aco|aca))$',
+                           partes[-1].strip())
+        d = f'{partes[0]} e {partes[1]}' + (f' {_gent.group(0).strip()}' if _gent and len(partes[-1].split()) > 1 else '')
     return d[0].upper() + d[1:]
 
 # ---- o verbete ganha corpo (05/10/2026, pedido do Pedro: "a Wikipédia das
@@ -4578,7 +4606,18 @@ def _funcao_bonita(fs):
 
 _CO = {}   # slug -> Counter de quem aparece junto (relacionados)
 import collections as _coll
-for _lista in list(POR_MATERIA.values()) + list(POR_VIDEO.values()):
+# "Aparece junto com" é quem divide a matéria ou o episódio como assunto
+# (auditoria de 12/10/2026): a editora que assina entrava em 2.437 dos 3.180
+# verbetes. Fica de fora quem assina a matéria, a equipe do FOYER e quem
+# apresenta o programa; o crédito de foto já não entra em porMateria.
+_CO_FORA = set(_EQ_POR_SLUG) | {_slug_enc(n) for _v in (_REGRAS_ENC.get('apresentadores') or {}).values()
+                                for n in _re.split(r'\s*[,;]\s*|\s+e\s+', _v or '') if n.strip()}
+def _autores_da(slug_mat):
+    _m = _MAT_POR_SLUG.get(slug_mat) or {}
+    return {_slug_enc(_n) for _n in _re.split(r'\s+e\s+', str(_m.get('author') or '')) if _n.strip()}
+_CO_LISTAS = ([[s for s in _l if s not in _CO_FORA and s not in _autores_da(_k)] for _k, _l in POR_MATERIA.items()]
+              + [[s for s in _l if s not in _CO_FORA] for _l in POR_VIDEO.values()])
+for _lista in _CO_LISTAS:
     for _a in _lista:
         _c = _CO.setdefault(_a, _coll.Counter())
         for _b in _lista:
@@ -4605,8 +4644,13 @@ for _sp, _p in PESSOAS.items():
         _p['foto'], _p['fotoCredito'], _p['fotoLink'] = _aj['foto'], _aj.get('fotoCredito', ''), ''
     elif _eq.get('foto') or _col.get('foto'):
         _p['foto'], _p['fotoCredito'], _p['fotoLink'] = (_eq.get('foto') or _col.get('foto')), 'Arquivo FOYER', ''
-    elif _w.get('foto'):
+    elif _w.get('foto') and _w.get('fotoLicenca') and '/wikipedia/commons/' in _w['foto']:
+        # só foto do Commons com licença livre conferida (tools/enciclopedia_wiki.py
+        # --licencas). Sem autor e licença guardados, a foto não é usada:
+        # auditoria de 12/10/2026, 24 verbetes usavam foto de uso restrito
         _p['foto'], _p['fotoCredito'], _p['fotoLink'] = _w['foto'], 'Wikimedia Commons', _w.get('fotoPagina', '')
+        _p['fotoAutor'], _p['fotoLicenca'], _p['fotoLicencaUrl'] = (
+            _w.get('fotoAutor', ''), _w.get('fotoLicenca', ''), _w.get('fotoLicencaUrl', ''))
     else:
         _p['foto'], _p['fotoCredito'], _p['fotoLink'] = '', '', ''
     _p['redes'] = {k: v for k, v in (_aj.get('redes') or {}).items() if v}
@@ -4621,8 +4665,9 @@ for _sp, _p in PESSOAS.items():
     _p['ultima'] = _datas[-1] if _datas else ''
 
 # 'mencionado': o nome está só na descrição do episódio, sem ser convidado
+# 'foto': assina a foto da matéria (12/10/2026), não é citado(a) no texto
 _PAPEL_ROT = {'autor': 'Assina', 'citado': 'Citado(a)', 'convidado': 'Convidado(a)', 'apresenta': 'Apresenta', 'tema': 'Tema',
-              'mencionado': 'Citado(a) no episódio'}
+              'mencionado': 'Citado(a) no episódio', 'foto': 'Foto na matéria'}
 
 def _papeis_resumo(aps):
     ps = {a['papel'] for a in aps}
@@ -4631,7 +4676,25 @@ def _papeis_resumo(aps):
     if 'apresenta' in ps: out.append('apresenta programa')
     if 'convidado' in ps or 'mencionado' in ps: out.append('nos programas')
     if 'citado' in ps or 'tema' in ps: out.append('nas matérias')
+    if 'foto' in ps: out.append('fotos no FOYER')
     return ' · '.join(out) or 'no acervo'
+
+def _n_cit(pp):
+    """Aparições que contam para o ranking: o crédito de foto fica de fora
+    (auditoria de 12/10/2026: fotógrafos lideravam 'Os mais citados')."""
+    return sum(1 for a in pp.get('aparicoes', []) if a.get('papel') != 'foto')
+
+def _ap_txt(pp):
+    """'1 aparição', '12 aparições' ou, para quem só assina foto, '3 fotos'
+    (auditoria de 12/10/2026: saía '1 aparições')."""
+    n = _n_cit(pp)
+    if not n:
+        f = len(pp.get('aparicoes', []))
+        return f'{f} foto' + ('s' if f != 1 else '')
+    return f'{n} aparição' if n == 1 else f'{n} aparições'
+
+def _num_br(n):
+    return f'{n:,}'.replace(',', '.')
 
 def _enc_data(iso):
     try:
@@ -4669,12 +4732,87 @@ def _foto_wm(url, w):
         return f'https://thumb.wikimedia.org/wikipedia/{proj}/thumb/{a}/{ab}/{arq}/{w}px-{fim}'
     return url
 
+# ---- cópia local das fotos da Wikimedia (auditoria de 12/10/2026). O hotlink
+# de thumb.wikimedia.org trazia JPEG pesado, dependia de outro servidor e a
+# prévia de link do Facebook recebia 403 (a Wikimedia barra o robô da Meta).
+# Na montagem, cada foto (já com licença livre conferida) é baixada uma vez,
+# em 500 px, e vira assets/thumbs/pessoas/<arquivo>-500.jpg (prévia de link e
+# tela retina), -250.webp e -120.webp. A pasta assets/thumbs fica fora do git
+# e é guardada entre publicações pelo cache do GitHub Actions, como as outras
+# miniaturas. Até POR_RODADA downloads por montagem, com User-Agent e pausa:
+# o que faltar segue no hotlink e é baixado nas próximas.
+_PESSOA_FOTO_DIR = 'assets/thumbs/pessoas'
+_PESSOA_FOTO_POR_RODADA = int(os.environ.get('FOYER_FOTOS_POR_RODADA', '150'))
+_PESSOA_FOTO_CACHE = {}
+_PESSOA_FOTO_BAIXADAS = [0, 0]   # baixadas nesta montagem, falhas
+
+def _foto_local(url):
+    """{120: 'assets/...webp', 250: ..., 500: '...jpg'} da foto da Wikimedia,
+    ou None se não deu para ter a cópia local (fica o hotlink)."""
+    if not url or 'wikimedia.org/wikipedia/' not in url or not _PIL_OK:
+        return None
+    if url in _PESSOA_FOTO_CACHE:
+        return _PESSOA_FOTO_CACHE[url]
+    import hashlib as _hl, urllib.request, urllib.parse, urllib.error
+    src500 = _foto_wm(url, 500)
+    nome = _re.sub(r'[^A-Za-z0-9]+', '-', urllib.parse.unquote(src500.rsplit('/', 1)[-1]).rsplit('.', 1)[0])[:60].strip('-')
+    base = f'{_PESSOA_FOTO_DIR}/{nome}-{_hl.sha1(src500.encode()).hexdigest()[:8]}'
+    out = {120: base + '-120.webp', 250: base + '-250.webp', 500: base + '-500.jpg'}
+    if all(os.path.exists(os.path.join(ROOT, f)) for f in out.values()):
+        _PESSOA_FOTO_CACHE[url] = out
+        return out
+    if _PESSOA_FOTO_BAIXADAS[0] >= _PESSOA_FOTO_POR_RODADA or _PESSOA_FOTO_BAIXADAS[1] >= 20:
+        _PESSOA_FOTO_CACHE[url] = None
+        return None
+    try:
+        import io as _io, time as _time
+        req = urllib.request.Request(src500, headers={'User-Agent': 'FOYER-enciclopedia/1.0 (https://foyer.digital; contato@foyer.digital)'})
+        with urllib.request.urlopen(req, timeout=25) as r:
+            dados = r.read()
+        im = _PILImage.open(_io.BytesIO(dados))
+        im = im.convert('RGB')
+        os.makedirs(os.path.join(ROOT, _PESSOA_FOTO_DIR), exist_ok=True)
+        if im.width > 500:
+            im = im.resize((500, max(1, round(im.height * 500 / im.width))), _PILImage.LANCZOS)
+        im.save(os.path.join(ROOT, out[500]), 'JPEG', quality=82, optimize=True, progressive=True)
+        for w in (250, 120):
+            iw = im.resize((w, max(1, round(im.height * w / im.width))), _PILImage.LANCZOS) if im.width > w else im
+            iw.save(os.path.join(ROOT, out[w]), 'WEBP', quality=76, method=4)
+        _PESSOA_FOTO_BAIXADAS[0] += 1
+        _time.sleep(1)   # um pedido por segundo: a Wikimedia responde 429 a rajadas
+        _PESSOA_FOTO_CACHE[url] = out
+        return out
+    except urllib.error.HTTPError as _e:
+        # 429 é "devagar": para de baixar nesta montagem e segue no hotlink
+        _PESSOA_FOTO_BAIXADAS[1] += 20 if _e.code == 429 else 1
+        _PESSOA_FOTO_CACHE[url] = None
+        return None
+    except Exception:
+        _PESSOA_FOTO_BAIXADAS[1] += 1
+        _PESSOA_FOTO_CACHE[url] = None
+        return None
+
+def _foto_og(p):
+    """Imagem da prévia de link e do JSON-LD: a cópia local (500 px, JPEG) ou,
+    sem ela, a miniatura da Wikimedia; foto da casa vai como está."""
+    f = p.get('foto') or ''
+    if not f:
+        return None
+    if f.startswith('http'):
+        loc = _foto_local(f)
+        return loc[500] if loc else _foto_wm(f, 500)
+    return _og_src(f)
+
 def _foto_verbete(p, tam='grande'):
     if p.get('foto'):
         if p['foto'].startswith('http'):
             # avatar de 44 px pede 120; cartão e cabeçalho do verbete, 250 (500 em tela retina)
             w1, w2 = (120, 250) if tam == 'mini' else (250, 500)
-            src, src2 = _foto_wm(p['foto'], w1), _foto_wm(p['foto'], w2)
+            loc = _foto_local(p['foto'])
+            if loc:
+                src, src2 = loc[w1], loc[w2]
+            else:
+                src, src2 = _foto_wm(p['foto'], w1), _foto_wm(p['foto'], w2)
             _ss = f' srcset="{_html.escape(src, quote=True)} 1x, {_html.escape(src2, quote=True)} 2x"' if src2 != src else ''
         else:
             src, _ss = wiximg(p['foto'], 480, 480), ''
@@ -4682,7 +4820,11 @@ def _foto_verbete(p, tam='grande'):
         # de Myra Ruiz) vira a inicial do nome, sem ícone de imagem quebrada
         _err = ("this.onerror=null;var s=this.parentNode,i=document.createElement('i');"
                 "i.textContent=(this.alt||'F').charAt(0);s.classList.add('ini');s.innerHTML='';s.appendChild(i)")
-        return (f'<span class="vb-foto {tam}"><img src="{_html.escape(src, quote=True)}"{_ss} alt="{safe(p["nome"])}" loading="lazy" '
+        # a foto do cabeçalho do verbete está na primeira tela: carrega já, com
+        # prioridade (auditoria de 12/10/2026: era lazy e atrasava o LCP)
+        _carga = 'loading="eager" fetchpriority="high"' if tam == 'grande' else 'loading="lazy"'
+        _dim = ' width="200" height="200"' if tam == 'grande' else (' width="44" height="44"' if tam == 'mini' else '')
+        return (f'<span class="vb-foto {tam}"><img src="{_html.escape(src, quote=True)}"{_ss} alt="{safe(p["nome"])}"{_dim} {_carga} '
                 f'onerror="{_html.escape(_err, quote=True)}"></span>')
     return f'<span class="vb-foto {tam} ini"><i>{safe((p["nome"] or "F")[:1])}</i></span>'
 
@@ -4708,7 +4850,10 @@ def pessoa_page(sp, p):
     # ---- cabeçalho: foto, nome, função, bio, redes
     bio = ''
     if p.get('bio'):
-        fonte = (f' <a class="vb-fonte" href="{_html.escape(p["bioFonte"], quote=True)}" target="_blank" rel="noopener">Fonte: Wikipédia ↗</a>'
+        # o resumo é texto da Wikipédia, que é CC BY-SA 4.0: a atribuição diz
+        # de onde veio e sob que licença (auditoria de 12/10/2026)
+        fonte = (f' <span class="vb-fonte">Texto: <a href="{_html.escape(p["bioFonte"], quote=True)}" target="_blank" rel="noopener">Wikipédia</a>, '
+                 f'<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.pt-br" target="_blank" rel="noopener license">CC BY-SA 4.0</a></span>'
                  if p.get('bioFonte') else '')
         bio = f'<p class="vb-bio">{safe(p["bio"])}{fonte}</p>'
     else:
@@ -4728,7 +4873,17 @@ def pessoa_page(sp, p):
         redes = '<div class="vb-redes">' + ''.join(
             f'<a href="{_html.escape(v, quote=True)}" target="_blank" rel="noopener">{safe(k)} ↗</a>' for k, v in links) + '</div>'
     cred = ''
-    if p.get('foto') and p.get('fotoCredito'):
+    if p.get('foto') and p.get('fotoLicenca'):
+        # crédito completo da foto do Commons (auditoria de 12/10/2026): autor,
+        # fonte e licença com link, como pedem as licenças CC BY e CC BY-SA
+        _lic = safe(p['fotoLicenca'])
+        if p.get('fotoLicencaUrl'):
+            _lic = f'<a href="{_html.escape(p["fotoLicencaUrl"], quote=True)}" target="_blank" rel="noopener license">{_lic}</a>'
+        _fonte = (f'<a href="{_html.escape(p["fotoLink"], quote=True)}" target="_blank" rel="noopener">Wikimedia Commons</a>'
+                  if p.get('fotoLink') else 'Wikimedia Commons')
+        cred = (f'<small class="vb-cred">Foto: {(safe(p["fotoAutor"]) + " / ") if p.get("fotoAutor") else ""}'
+                f'{_fonte} ({_lic})</small>')
+    elif p.get('foto') and p.get('fotoCredito'):
         cred = (f'<small class="vb-cred">Foto: <a href="{_html.escape(p["fotoLink"], quote=True)}" target="_blank" rel="noopener">{safe(p["fotoCredito"])}</a></small>'
                 if p.get('fotoLink') else f'<small class="vb-cred">Foto: {safe(p["fotoCredito"])}</small>')
     # ---- em cartaz agora
@@ -4835,7 +4990,9 @@ def _ld_pessoa(sp, p):
          'url': f'{BASE}/pessoa-{sp}.html'}
     if p.get('funcao'): d['jobTitle'] = p['funcao']
     if p.get('bio'): d['description'] = p['bio'][:300]
-    if p.get('foto'): d['image'] = _foto_wm(p['foto'], 500) if p['foto'].startswith('http') else f'{BASE}/{p["foto"]}'
+    if p.get('foto'):
+        _im = _foto_og(p)
+        d['image'] = _im if _im.startswith('http') else f'{BASE}/{_im}'
     same = [v for v in (p.get('redes') or {}).values()] + ([p['wikiUrl']] if p.get('wikiUrl') else [])
     if same: d['sameAs'] = same
     # '<' vira \u003c: uma bio da Wikipédia com '</script>' fechava o bloco
@@ -5475,7 +5632,7 @@ contato_body = band('Fale conosco', 'Contato', 'Quer saber mais sobre o Foyer, s
 </main>
 '''
 
-_top_pessoas = sorted(PESSOAS.items(), key=lambda x: len(x[1]['aparicoes']), reverse=True)
+_top_pessoas = sorted(PESSOAS.items(), key=lambda x: _n_cit(x[1]), reverse=True)
 # quem trabalha no FOYER não ocupa o topo do índice (mas segue com verbete e na busca)
 def _slug_nome(n):
     import unicodedata as _u
@@ -5486,18 +5643,20 @@ _CASA |= {_slug_nome(u.get('nome', '')) for u in _EQ_PUB}
 _enc_rows = ''
 for _sp, _pp in [x for x in _top_pessoas if x[0] not in _CASA][:60]:
     _enc_rows += f'''    <a class="ency-row" href="pessoa-{_sp}.html" role="row">
-      <span class="nm">{_rvesc(_pp['nome'])}</span><span class="of">{_papeis_resumo(_pp['aparicoes'])}</span><span class="ct">{len(_pp['aparicoes'])} aparições</span><span class="ar">→</span>
+      <span class="nm">{_rvesc(_pp['nome'])}</span><span class="of">{_papeis_resumo(_pp['aparicoes'])}</span><span class="ct">{_ap_txt(_pp)}</span><span class="ar">→</span>
     </a>\n'''
+# o número real já vai no HTML (12/10/2026): robô, prévia de link e leitor
+# sem JavaScript liam "0 Pessoas mapeadas"; o JS só anima a partir dele
 _capa_enc = ('<div class="ency-stats">'
-  f'<div class="stat"><span class="n" data-v="{len(PESSOAS)}">0</span><span class="l">Pessoas mapeadas</span></div>'
-  f'<div class="stat"><span class="n" data-v="{len(MATERIAS)}">0</span><span class="l">Matérias no acervo</span></div>'
-  f'<div class="stat"><span class="n" data-v="{_n_eps}">0</span><span class="l">Episódios dos programas</span></div>'
+  f'<div class="stat"><span class="n" data-v="{len(PESSOAS)}">{_num_br(len(PESSOAS))}</span><span class="l">Pessoas mapeadas</span></div>'
+  f'<div class="stat"><span class="n" data-v="{len(MATERIAS)}">{_num_br(len(MATERIAS))}</span><span class="l">Matérias no acervo</span></div>'
+  f'<div class="stat"><span class="n" data-v="{_n_eps}">{_num_br(_n_eps)}</span><span class="l">Episódios dos programas</span></div>'
   '</div>\n  <div class="ency-table" role="table" aria-label="Índice de pessoas">'
   '<div class="ency-row head" role="row"><span>Nome</span><span class="of">Presença</span><span class="ct">Aparições</span><span class="ar"></span></div>')
 for _sp, _pp in [x for x in _top_pessoas if x[0] not in _CASA][:4]:
     _capa_enc += (f'<a class="ency-row" href="pessoa-{_sp}.html" role="row"><span class="nm">{_rvesc(_pp["nome"])}</span>'
                   f'<span class="of">{_papeis_resumo(_pp["aparicoes"])}</span>'
-                  f'<span class="ct">{len(_pp["aparicoes"])}</span><span class="ar">→</span></a>')
+                  f'<span class="ct">{_n_cit(_pp)}</span><span class="ar">→</span></a>')
 _capa_enc += '</div>'
 index_main = index_main.replace('__ENCICLOPEDIA_CAPA__', _capa_enc)
 
@@ -5513,7 +5672,7 @@ _recentes = sorted([(sp, pp) for sp, pp in PESSOAS.items() if pp.get('primeira')
 def _ency_row(sp, pp, conta=True):
     return (f'<a class="ency-row" href="pessoa-{sp}.html" role="row"><span class="nm">{_rvesc(pp["nome"])}'
             f'<small>{safe(pp.get("funcao") or "")}</small></span><span class="of">{_papeis_resumo(pp["aparicoes"])}</span>'
-            f'<span class="ct">{len(pp["aparicoes"])} aparições</span><span class="ar">→</span></a>\n')
+            f'<span class="ct">{_ap_txt(pp)}</span><span class="ar">→</span></a>\n')
 _enc_rows = ''.join(_ency_row(sp, pp) for sp, pp in _PESSOAS_IDX[:60])
 _enc_novos = ''.join(_ency_row(sp, pp) for sp, pp in _recentes)
 _n_foto = sum(1 for pp in PESSOAS.values() if pp.get('foto'))
@@ -5521,10 +5680,10 @@ _n_bio = sum(1 for pp in PESSOAS.values() if pp.get('bio'))
 enciclopedia_body = band('Projeto Foyer', 'Enciclopédia do FOYER', 'Quem faz o teatro e a cultura no Brasil: cada nome leva ao histórico completo de matérias e programas') + f"""
 <main id="conteudo" class="wrap">
   <div class="ency-stats">
-    <div class="stat"><span class="n" data-v="{len(PESSOAS)}">0</span><span class="l">Pessoas mapeadas</span></div>
-    <div class="stat"><span class="n" data-v="{_n_bio}">0</span><span class="l">Com bio</span></div>
-    <div class="stat"><span class="n" data-v="{len(MATERIAS)}">0</span><span class="l">Matérias no acervo</span></div>
-    <div class="stat"><span class="n" data-v="{_n_eps}">0</span><span class="l">Episódios dos programas</span></div>
+    <div class="stat"><span class="n" data-v="{len(PESSOAS)}">{_num_br(len(PESSOAS))}</span><span class="l">Pessoas mapeadas</span></div>
+    <div class="stat"><span class="n" data-v="{_n_bio}">{_num_br(_n_bio)}</span><span class="l">Com bio</span></div>
+    <div class="stat"><span class="n" data-v="{len(MATERIAS)}">{_num_br(len(MATERIAS))}</span><span class="l">Matérias no acervo</span></div>
+    <div class="stat"><span class="n" data-v="{_n_eps}">{_num_br(_n_eps)}</span><span class="l">Episódios dos programas</span></div>
   </div>
   <form class="ency-search" onsubmit="return false;">
     <input type="search" id="enc-q" placeholder="Busque uma pessoa — artista, autor, convidado…" aria-label="Buscar pessoa">
@@ -5567,7 +5726,7 @@ enciclopedia_body = band('Projeto Foyer', 'Enciclopédia do FOYER', 'Quem faz o 
   function norm(t){{ return (t || '').normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase(); }}
   function linha(p){{
     var foto = p.p ? '<span class="vb-foto mini"><img src="' + p.p + '" alt="" loading="lazy"></span>' : '';
-    return '<a class="ency-row" href="' + p.u + '"><span class="nm">' + p.n + (p.f ? '<small>' + p.f + '</small>' : '') + '</span><span class="of"></span><span class="ct">' + p.c + ' aparições</span><span class="ar">→</span></a>';
+    return '<a class="ency-row" href="' + p.u + '"><span class="nm">' + p.n + (p.f ? '<small>' + p.f + '</small>' : '') + '</span><span class="of"></span><span class="ct">' + p.c + (p.c == 1 ? ' aparição' : ' aparições') + '</span><span class="ar">→</span></a>';
   }}
   // auditoria de 10/10/2026: a lista parava em 200 sem avisar (a letra M
   // terminava em 'Mary'). Agora conta tudo, desenha 200 e oferece o resto.
@@ -7835,6 +7994,32 @@ for _apk, _apv in (_REGRAS_ENC.get('apelidos') or {}).items():
     _FORA_SITEMAP.add(f'pessoa-{_old}.html'); _n_pontes_enc += 1
 if _n_pontes_enc:
     print(f'• {_n_pontes_enc} ponte(s) de verbete juntado')
+# Verbete que saiu da Enciclopédia (limpeza, exclusão na Coxia) já esteve no
+# ar: no lugar do 404, uma página que leva ao verbete que o absorveu ou à
+# Enciclopédia, com canonical e noindex (auditoria de 12/10/2026: Aldir Blanc
+# e mais 510 endereços davam 404).
+_n_saidos = 0
+for _old, _alvo_sp in (ENC.get('removidos') or {}).items():
+    _arq = f'pessoa-{_old}.html'
+    if not _re.fullmatch(r'[a-z0-9-]{1,80}', _old or '') or _old in PESSOAS or os.path.exists(os.path.join(ROOT, _arq)):
+        continue
+    if _alvo_sp and _alvo_sp in PESSOAS:
+        _alvo = f'{BASE}/pessoa-{_alvo_sp}.html'
+        _tit = f'{safe(PESSOAS[_alvo_sp]["nome"])} na Enciclopédia do FOYER'
+        _txt = f'Este verbete agora fica em <a href="{_alvo}">{safe(PESSOAS[_alvo_sp]["nome"])}</a>.'
+    else:
+        _alvo, _tit = f'{BASE}/enciclopedia.html', 'Enciclopédia do FOYER'
+        _txt = f'Este verbete saiu da Enciclopédia. Procure o nome na <a href="{_alvo}">Enciclopédia do FOYER</a>.'
+    with open(os.path.join(ROOT, _arq), 'w') as _fp:
+        _fp.write('<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">'
+                  f'<title>{_tit}</title>'
+                  f'<link rel="canonical" href="{_alvo}"><meta name="robots" content="noindex">'
+                  f'<meta http-equiv="refresh" content="0; url={_alvo}">'
+                  f'<script>location.replace({_json.dumps(_alvo)});</script></head>'
+                  f'<body><p>{_txt}</p></body></html>')
+    _FORA_SITEMAP.add(_arq); _n_saidos += 1
+if _n_saidos:
+    print(f'• {_n_saidos} verbete(s) que saíram levam à Enciclopédia ou ao verbete certo')
 for _sp, _pp in PESSOAS.items():
     # verbete só com nome e até dois links, sem bio, sem foto e sem episódio:
     # existe e é linkado, mas não vai ao Google nem ao sitemap até ganhar
@@ -7842,10 +8027,16 @@ for _sp, _pp in PESSOAS.items():
     # Episódio em que o nome só é mencionado na descrição conta como aparição
     # comum; só convidado e apresentador seguram o verbete no índice
     # (auditoria de 10/10/2026).
-    _magro = (not _pp.get('bio') and not _pp.get('foto')
-              and not any(a.get('tipo') == 'episodio' and a.get('papel') != 'mencionado'
-                          for a in _pp.get('aparicoes', []))
-              and len(_pp.get('aparicoes', [])) <= 2)
+    #   Auditoria de 12/10/2026: verbete sem prova de que é gente (sem
+    # 'confirmada': nem ofício no texto, nem Wikipédia, nem ajuste na Coxia)
+    # também fica fora do Google e do sitemap. Eram 611 indexados, entre eles
+    # "Piso Terraço", "Cota de Tela" e "Nova Zelândia". Segue no ar e linkado;
+    # entra no índice quando a redação confirmar na Coxia.
+    _magro = ((not _pp.get('bio') and not _pp.get('foto')
+               and not any(a.get('tipo') == 'episodio' and a.get('papel') != 'mencionado'
+                           for a in _pp.get('aparicoes', []))
+               and len(_pp.get('aparicoes', [])) <= 2)
+              or not _pp.get('confirmada'))
     if _magro:
         _FORA_SITEMAP.add('pessoa-' + _sp + '.html')
     _d = (_pp.get('bio') or '').split('. ')[0]
@@ -7859,12 +8050,16 @@ for _sp, _pp in PESSOAS.items():
     page('pessoa-' + _sp + '.html', _pp['nome'] + (' — ' + _re.sub(r'\s*\([^)]*\d{4}[^)]*\)\s*$', '', _pp['funcao']) if _pp.get('funcao') else '') + ' — Enciclopédia FOYER',
          (_d + ' ' if _d else '') + f"{_pp['nome']} na Enciclopédia do FOYER: matérias, programas e com quem aparece.",
          'enciclopedia.html', pessoa_page(_sp, _pp), quiet=True,
-         og_img=(_foto_wm(_pp['foto'], 500) if _pp['foto'].startswith('http') else _og_src(_pp['foto'])) if _pp.get('foto') else None,
+         og_img=_foto_og(_pp),
          og_type='profile', ld=_ld_pessoa(_sp, _pp), robots=('noindex,follow' if _magro else ''))
 print(f'• {len(PESSOAS)} verbetes de pessoa')
 with open(os.path.join(ROOT, 'assets/pessoas-index.json'), 'w') as _f:
-    _json.dump([{'n': _pp['nome'], 'u': 'pessoa-' + _sp + '.html', 'c': len(_pp['aparicoes']),
-                 'f': _pp.get('funcao', ''), 'p': (_pp['foto'] if _pp['foto'].startswith('http') else wiximg(_pp['foto'], 160, 160)) if _pp.get('foto') else '',
+    # 'c' sem os créditos de foto e 'p' com a cópia local da foto quando há
+    # (12/10/2026)
+    _json.dump([{'n': _pp['nome'], 'u': 'pessoa-' + _sp + '.html', 'c': _n_cit(_pp),
+                 'f': _pp.get('funcao', ''),
+                 'p': (((_foto_local(_pp['foto']) or {}).get(120) or _foto_wm(_pp['foto'], 120)) if _pp['foto'].startswith('http')
+                       else wiximg(_pp['foto'], 160, 160)) if _pp.get('foto') else '',
                  'd': _pp.get('primeira', ''), 'l': _pp.get('ultima', '')}
                 for _sp, _pp in _top_pessoas], _f, ensure_ascii=False)
 
@@ -8323,4 +8518,6 @@ for _cam, _dest in _SECOES_WIX.items():
 print(f'• {_n_sec} pontes das seções do site antigo (/equipe, /teatro, /blog/categories/…)')
 if _THUMB_FEITAS[0]:
     print(f'• {_THUMB_FEITAS[0]} miniatura(s) de foto geradas em assets/thumbs/')
+print(f'• fotos dos verbetes: {_PESSOA_FOTO_BAIXADAS[0]} copiada(s) da Wikimedia nesta montagem, '
+      f'{_PESSOA_FOTO_BAIXADAS[1]} falha(s); {sum(1 for v in _PESSOA_FOTO_CACHE.values() if v)} com cópia local')
 print('pronto')

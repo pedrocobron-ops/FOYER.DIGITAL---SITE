@@ -1085,6 +1085,12 @@ body.ads-on.ads-demo .ad-slot::after{
   display:flex; flex-direction:column; gap:8px;
 }
 .art-foot .tags{ display:flex; gap:8px; flex-wrap:wrap; }
+/* "Quem aparece nesta matéria" com mais de 14 nomes: o resto abre em "ver
+   todos" (12/10/2026); os links já estão no HTML */
+.art-foot .quem-mais{ flex-basis:100%; }
+.art-foot .quem-mais summary{ cursor:pointer; display:inline-block; font-family:var(--mono); font-weight:600; font-size:.62rem;
+  letter-spacing:.14em; text-transform:uppercase; padding:6px 0; text-decoration:underline; text-underline-offset:3px; }
+.art-foot .quem-mais .tags{ margin-top:8px; }
 .news-grid.three{ grid-template-columns:repeat(3,1fr); }
 @media (max-width:1020px){ .news-grid.three{ grid-template-columns:1fr; } }
 .art-img{ margin:26px 0; }
@@ -1585,12 +1591,16 @@ html.tem-aviso body{ padding-bottom:var(--aviso-alt, 0px); }
 .vb-foto.mini.ini i{ font-size:1.3rem; }
 .vb-cred{ font-family:var(--mono); font-size:.56rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); }
 .vb-cred a{ color:inherit; }
+/* crédito completo da foto (autor / Commons / licença) pode ser longo: quebra
+   em qualquer ponto para não vazar da coluna de 200px (12/10/2026) */
+.vb-cred{ overflow-wrap:anywhere; line-height:1.5; }
 .vb-id h1{ font-family:var(--black); font-weight:400; font-size:clamp(1.9rem,4.2vw,3.2rem); line-height:1.02; margin:10px 0 6px; text-transform:uppercase; letter-spacing:-.01em; }
 .vb-funcao{ font-family:var(--didone); font-style:italic; font-size:1.25rem; color:var(--wine); margin:0 0 14px; }
 :root[data-theme="dark"] .vb-funcao{ color:var(--gold); }
 .vb-bio{ font-family:Georgia,'Times New Roman',serif; font-size:1.05rem; line-height:1.65; margin:0 0 12px; max-width:62ch; }
 .vb-bio.auto{ color:var(--ink-soft); font-size:.98rem; }
 .vb-fonte{ font-family:var(--mono); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); white-space:nowrap; }
+.vb-fonte a{ color:inherit; }
 .vb-redes{ display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; }
 .vb-redes a{ font-family:var(--mono); font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; border:1.5px solid var(--line);
   padding:7px 11px; text-decoration:none; color:var(--ink); }
