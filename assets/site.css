@@ -1742,6 +1742,9 @@ html.sem-ads .ad-slot{ display:none !important; }
 .mais-lidas li{ counter-increment:ml; display:grid; grid-template-columns:2.2rem 1fr; align-items:baseline;
   border-bottom:1px solid var(--line); padding:12px 0; }
 .mais-lidas li::before{ content:counter(ml); font-family:var(--didone); font-size:1.6rem; color:var(--wine); line-height:1; }
+/* no Blackout o vinho sobre o fundo escuro dava 1,3:1 e os números sumiam;
+   o dourado do tema escuro dá cerca de 9:1 */
+:root[data-theme="dark"] .mais-lidas li::before{ color:var(--gold); }
 .mais-lidas a{ color:var(--ink); text-decoration:none; font-family:var(--sans); font-weight:600; font-size:1rem; line-height:1.35; }
 .mais-lidas a:hover, .mais-lidas a:focus-visible{ text-decoration:underline; }
 
