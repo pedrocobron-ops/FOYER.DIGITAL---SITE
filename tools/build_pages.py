@@ -36,10 +36,12 @@ BASE = _endereco_do_site()
 # que o Google Notícias e o Trust Project leem para saber quem responde pelo
 # que sai aqui. Só entra o que existe de verdade no site: nada de endereço,
 # CNPJ ou data de fundação que não esteja escrito numa fonte da casa.
+# Razão social e CNPJ da matriz informados pelo Pedro em 12/10/2026.
 import json as _json_org
 ORG_LD = ('<script type="application/ld+json">' + _json_org.dumps({
     '@context': 'https://schema.org', '@type': 'NewsMediaOrganization',
     'name': 'FOYER', 'alternateName': 'Foyer Estúdio e Comunicação',
+    'legalName': 'Pedro Amaral Martin & Cia Ltda', 'taxID': '31.153.535/0001-26',
     'url': f'{BASE}/', 'logo': f'{BASE}/assets/logo/foyer-stacked-gold.png',
     'sameAs': ['https://www.youtube.com/@Foyer.digital', 'https://www.instagram.com/foyer.digital/',
                'https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm'],
@@ -326,7 +328,7 @@ FOOTER = '''<footer>
       </div>
     </div>
     <div class="foot-legal">
-      <span>© 2026 Foyer Estúdio e Comunicação — Todos os direitos reservados</span>
+      <span>© 2026 Foyer Estúdio e Comunicação · Pedro Amaral Martin &amp; Cia Ltda · CNPJ 31.153.535/0001-26 · Todos os direitos reservados</span>
       <span>São Paulo — Brasil</span>
     </div>
   </div>
@@ -1535,8 +1537,9 @@ busca_body = band('Ferramenta', 'Buscar',
 # (anuncie.html), e usa Supabase, Brevo, GitHub Pages e Google AdSense.
 # O texto abaixo descreve só o que o código faz hoje. Ao mudar o que o site
 # coleta ou com quem fala, mude aqui também.
-# EM ABERTO PARA O PEDRO: CNPJ do controlador, nome do encarregado (art. 41)
-# e prazos exatos de guarda das métricas e dos pedidos de anúncio.
+# Controlador: razão social e CNPJ informados pelo Pedro em 12/10/2026.
+# EM ABERTO PARA O PEDRO: nome do encarregado (art. 41) e prazos exatos de
+# guarda das métricas e dos pedidos de anúncio.
 try:
     _PRIV_EMAIL = (_json0.load(open(os.path.join(ROOT, 'import/site.json'))) or {}).get('emailContato') or ''
 except Exception:
@@ -1549,7 +1552,7 @@ privacidade_body = band('Institucional', 'Política de Privacidade', 'Última at
 <main id="conteudo" class="wrap">
   <div class="legal">
     <h2>Quem cuida dos seus dados</h2>
-    <p>O controlador dos dados pessoais tratados neste site é o <b>FOYER.DIGITAL</b> (foyer.digital), portal de jornalismo cultural publicado por Foyer Estúdio e Comunicação, em São Paulo (SP). Para qualquer assunto sobre os seus dados, inclusive para exercer os direitos listados abaixo, use {_PRIV_CONTATO}.</p>
+    <p>O controlador dos dados pessoais tratados neste site é o <b>FOYER.DIGITAL</b> (foyer.digital), portal de jornalismo cultural publicado por <b>Pedro Amaral Martin &amp; Cia Ltda</b> (nome fantasia Foyer Estúdio e Comunicação), CNPJ 31.153.535/0001-26, com sede em Santos (SP) e filial em São Paulo (SP). Para qualquer assunto sobre os seus dados, inclusive para exercer os direitos listados abaixo, use {_PRIV_CONTATO}.</p>
 
     <h2>O que coletamos, para quê e com que base legal</h2>
 
@@ -6934,7 +6937,8 @@ termos_body = band('Institucional', 'Termos de Uso',
   <div class="legal">
     <h2>Quem é o FOYER</h2>
     <p>O FOYER (foyer.digital) é um portal brasileiro de jornalismo cultural dedicado ao teatro, à música e às
-    artes, publicado por Foyer Estúdio e Comunicação, em São Paulo. Ao usar o site você concorda com estes termos.
+    artes, publicado por Pedro Amaral Martin &amp; Cia Ltda (nome fantasia Foyer Estúdio e Comunicação),
+    CNPJ 31.153.535/0001-26. Ao usar o site você concorda com estes termos.
     Se não concordar com algum deles, o caminho honesto é não usar.</p>
 
     <h2>O conteúdo é nosso, e a leitura é sua</h2>
