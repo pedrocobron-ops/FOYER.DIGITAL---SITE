@@ -1169,6 +1169,15 @@
     .stat b{ font-size:1.7rem; }
     .stat span{ font-size:.67rem; }
   }
+  /* ✕ dos nomes bloqueados da Enciclopédia (12/10/2026): era um link de 8×14 px,
+     276 deles colados, e um toque errado liberava o nome no site. Agora é botão
+     de 28 px (44 px no celular), longe do vizinho, e pede confirmação. */
+  .en-x{ display:inline-flex; align-items:center; justify-content:center; min-width:28px; min-height:28px;
+         margin-left:4px; padding:0 4px; border:1px solid currentColor; background:transparent; color:inherit;
+         font:inherit; font-size:.8rem; line-height:1; cursor:pointer; }
+  .en-x:focus-visible{ outline:2px solid var(--wine); outline-offset:2px; }
+  #en-bloq .tag{ display:inline-flex; align-items:center; }
+  @media (max-width:760px){ .en-x{ min-width:44px; min-height:44px; } }
 </style>
 
 <!-- ==================== PORTÃO ==================== -->
@@ -1618,8 +1627,11 @@ ingressos e divisor."></textarea>
           </div>
         </form>
         <div class="f-note" style="max-width:560px; margin-top:16px">
-          Entregue a senha ao autor junto com a <b>chave de publicação</b>
-          (o token — aba Conexão). Mudanças na equipe valem no site
+          <!-- 12/10/2026: o texto mandava entregar o token ao autor, mas desde a
+               chave da casa ninguém da equipe recebe chave (auditoria, achado 107) -->
+          Entregue <b>só a senha</b> ao autor. Com a chave da casa guardada na
+          aba Conexão, ele publica com o próprio usuário, sem colar chave
+          nenhuma. Mudanças na equipe valem no site
           em ~2 minutos. <b>Guarde a senha na hora:</b> ela não fica
           gravada às claras — só uma impressão digital dela.
         </div>
@@ -1697,6 +1709,8 @@ ingressos e divisor."></textarea>
             <button class="bt" type="button" id="rv-salvar">💾 Salvar rascunho</button>
             <button class="bt ap" type="button" id="rv-publicar" style="background:var(--wine);color:var(--gold);border-color:var(--wine)">🚀 Publicar edição</button>
             <button class="bt" type="button" id="rv-prever">👁 Prever o e-mail</button>
+            <!-- 12/10/2026: teste e envio em massa viraram dois botões separados (achado 102) -->
+            <button class="bt" type="button" id="rv-teste" style="display:none">✉ Mandar teste</button>
             <button class="bt" type="button" id="rv-enviar" style="display:none">📧 Enviar aos assinantes</button>
             <button class="bt" type="button" id="rv-fechar">↩ Fechar</button>
           </div>
@@ -1917,7 +1931,7 @@ ingressos e divisor."></textarea>
             <input type="text" id="en-bloq-novo" placeholder="Nome exatamente como aparece no site" style="flex:1;border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:inherit;padding:9px 12px;font-size:16px">
             <button class="bt" type="button" id="en-bloq-add">Bloquear</button>
           </form>
-          <div id="en-bloq" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px"></div>
+          <div id="en-bloq" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px"></div>
           <p class="f-note">Verbetes excluídos pelo botão vermelho ficam na lista da aba <b>Equipe</b> (moderação), de onde podem voltar.</p>
         </div>
       </section>
@@ -2245,18 +2259,20 @@ ingressos e divisor."></textarea>
         <!-- a resposta do "Conectar" fica DEPOIS do botão, no caminho do olho de
              quem acabou de clicar. Ficava acima do campo, e quem apertava não via
              nada acontecer. -->
-        <span class="st" id="tk-st" role="status" aria-live="polite" style="display:block;margin-top:12px">Cole a chave de publicação — ela fica salva só neste navegador</span>
+        <span class="st" id="tk-st" role="status" aria-live="polite" style="display:block;margin-top:12px">Reserva de emergência, só para o chefe: a chave colada aqui fica salva só neste navegador e é apagada ao clicar em Sair</span>
         <div style="margin-top:12px">
           <button class="bt" type="button" id="tk-testar">🔎 Conferir a chave e as consultas</button>
           <div id="tk-diag" class="f-note" style="margin-top:10px;display:none"></div>
         </div>
         <div class="f-note" style="margin-top:16px">
-          <b>Como criar a chave (o chefe faz uma vez e entrega à equipe):</b><br>
+          <!-- 12/10/2026: a chave não é mais entregue à equipe (achado 107) -->
+          <b>Como criar a chave (só o chefe, uma vez; ela não é entregue a ninguém da equipe):</b><br>
           github.com → Settings → Developer settings → Fine-grained tokens →
           Generate new token · Only select repositories:
           FOYER.DIGITAL---SITE · Permissions → Contents: Read and write.<br><br>
-          Sem a chave dá para ver tudo; para publicar, aprovar ou
-          mexer na equipe, ela é obrigatória.
+          Guarde a chave em <b>A chave da casa</b>, no alto desta aba. O campo
+          logo acima é só a reserva deste aparelho, para o caso de o servidor
+          da casa sair do ar.
         </div>
       </section>
 
@@ -2578,6 +2594,22 @@ ingressos e divisor."></textarea>
       return u.replace(/["'<>\s]/g, function(c){ return encodeURIComponent(c); });
     }
     return '#';
+  }
+  // Dado que vem de FORA da casa (pedido de anúncio feito por qualquer
+  // visitante, fontes coladas na mesa) passa por régua mais estreita
+  // (auditoria de 12/10/2026: um pedido com arte 'data:image/png" onerror=...'
+  // rodava script na Coxia do chefe e lia a sessão guardada no navegador).
+  // Link de fora: só http ou https, sem espaço nem aspas; o resto vira ''.
+  function urlHttp(u){
+    u = String(u == null ? '' : u).trim();
+    return /^https?:\/\/[^\s"'<>`\\]+$/i.test(u) ? u : '';
+  }
+  // Arte de fora: só imagem comum em base64, e só caracteres de base64.
+  // Qualquer outra coisa (aspas, svg, html) é descartada antes de virar atributo.
+  var RX_DATA_IMG = /^data:image\/(png|jpeg|jpg|webp|gif);base64,[A-Za-z0-9+\/]+={0,2}$/;
+  function dataImgSegura(s){
+    s = String(s == null ? '' : s);
+    return RX_DATA_IMG.test(s) ? s : '';
   }
   function token(){ try{ return localStorage.getItem('coxia-token') || ''; }catch(e){ return ''; } }
   function hdr(extra){
@@ -2922,14 +2954,16 @@ ingressos e divisor."></textarea>
         '<li><b>🤖 Redação IA</b>: a mesa onde você aprova, agenda ou recusa as matérias, já com o laudo do checador.</li>' +
         '<li><b>Fila &amp; agendadas</b>: a grade da semana e tudo o que vai sair.</li>' +
         '<li><b>Revista, Equipe, Métricas</b>: fechamento da revista, quem tem acesso e os números do site.</li>' +
-        '<li><b>Conexão</b>: onde você cola a chave que deixa a Coxia gravar no site.</li></ul>' +
-        '<p>Comece pela aba <b>Conexão</b> se ainda não conectou a chave.</p>'
+        // 12/10/2026: o texto antigo mandava colar e distribuir chave; hoje só
+        // o chefe guarda a chave da casa, uma vez (auditoria, achado 107)
+        '<li><b>Conexão</b>: onde você guarda, uma vez só, a chave da casa. Com ela, a equipe publica só com a própria senha.</li></ul>' +
+        '<p>Se a chave da casa ainda não estiver guardada, comece pela aba <b>Conexão</b>. Não é preciso entregar chave a ninguém.</p>'
       : '<p>Bem-vindo(a) à Coxia, a redação do FOYER. Como funciona:</p><ul>' +
         '<li>Em <b>Nova matéria</b> você escreve, sobe a foto de capa e envia.</li>' +
         '<li>O botão <b>📖 Padrão da casa</b> (dentro do editor) explica como o FOYER escreve.</li>' +
         '<li>Sua matéria vai para o chefe aprovar. Você acompanha o status em <b>Fila &amp; agendadas</b>.</li>' +
         '<li>Se ela voltar para ajuste, aparece lá com o motivo e o botão de corrigir.</li></ul>' +
-        '<p>Para enviar, você precisa da <b>chave</b> que o chefe te passa (aba Conexão).</p>';
+        '<p>Para enviar, basta entrar com a <b>sua senha</b>. Você não precisa colar chave nenhuma. Se aparecer um aviso de chave, fale com o chefe.</p>';
     $('bv-corpo').innerHTML = corpo;
     abreOverlay('bv-overlay');
     try{ localStorage.setItem(K, '1'); }catch(e){}
@@ -3025,9 +3059,36 @@ ingressos e divisor."></textarea>
       $('gate-rede').style.display = 'block';
     });
   });
+  // Sair encerra de verdade (auditoria de 12/10/2026): antes só esquecia o
+  // nome da pessoa, e o token de sete dias da casa (coxia-sessao), que grava
+  // no GitHub, ficava no navegador. Num computador do teatro ou da redação,
+  // quem viesse depois herdava a sessão. Agora o servidor apaga a sessão
+  // (ação 'sair' da função coxia) e o navegador esquece a sessão e também a
+  // chave local deste aparelho. O chefe cola a chave de novo na Conexão se
+  // quiser a reserva de volta. A prateleira de rascunhos fica: é trabalho
+  // de alguém, não credencial.
   $('logout').addEventListener('click', function(){
-    try{ sessionStorage.removeItem('coxia-user'); localStorage.removeItem(PERSIST_K); }catch(e){}
-    location.reload();
+    // edição de matéria com mudança por salvar: pergunta no estilo da casa
+    // antes de sair (e não deixa o navegador perguntar de novo)
+    if(edMexeu()){
+      confirmar('Você mexeu na edição de uma matéria e ainda não salvou.\n\nSair assim mesmo? As mudanças se perdem.',
+        { titulo:'Sair da Coxia', rotuloOk:'Sair sem salvar', rotuloCancel:'Continuar editando', perigo:true })
+        .then(function(ok){ if(ok){ EDIT.marca = edAssinatura(); $('logout').click(); } });
+      return;
+    }
+    var s = sessao();
+    try{
+      sessionStorage.removeItem('coxia-user'); localStorage.removeItem(PERSIST_K);
+      localStorage.removeItem('coxia-token');
+      localStorage.removeItem('coxia-token-vence'); localStorage.removeItem('coxia-token-quando');
+    }catch(e){}
+    guardaSessao('', false);
+    var foi = false;
+    function fim(){ if(foi) return; foi = true; location.reload(); }
+    if(!s) return fim();
+    // servidor lento ou fora do ar não segura a pessoa: em 2,5 s recarrega assim mesmo
+    var t = setTimeout(fim, 2500);
+    casaPede({ acao:'sair', sessao: s }).catch(function(){}).then(function(){ clearTimeout(t); fim(); });
   });
   // aviso de que está sem internet (a Coxia depende de rede para gravar)
   function pintarRede(){
@@ -3484,14 +3545,15 @@ ingressos e divisor."></textarea>
       if(!posts.length){ el.innerHTML = ''; return; }
       el.innerHTML = '<div class="sec-h"><h3>📱 Para postar no Instagram</h3><span>aprovadas e ainda não postadas — baixe a arte, copie a legenda e marque quando postar</span></div>' +
         '<div class="ig-fila">' + posts.map(function(p){
+          // caminhos montados com o slug também passam por esc() no atributo (auditoria de 12/10/2026)
           var feed = 'assets/social/' + p.slug + '-feed.jpg', story = 'assets/social/' + p.slug + '-story.jpg';
           return '<div class="ig-card" data-igslug="' + esc(p.slug) + '">' +
-            '<img class="ig-th" src="' + feed + '" data-p="' + feed + '" alt="" loading="lazy" ' +
+            '<img class="ig-th" src="' + esc(feed) + '" data-p="' + esc(feed) + '" alt="" loading="lazy" ' +
               'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'' + RAW_BASE + '\'+this.dataset.p}else{this.style.visibility=\'hidden\'}">' +
             '<div class="ig-cont"><span class="ig-tit">' + esc(p.titulo) + '</span>' +
               '<div class="ig-links">' +
-                '<a class="bt" href="' + RAW_BASE + feed + '" target="_blank" rel="noopener">⬇ Post</a>' +
-                '<a class="bt" href="' + RAW_BASE + story + '" target="_blank" rel="noopener">⬇ Stories</a>' +
+                '<a class="bt" href="' + esc(RAW_BASE + feed) + '" target="_blank" rel="noopener">⬇ Post</a>' +
+                '<a class="bt" href="' + esc(RAW_BASE + story) + '" target="_blank" rel="noopener">⬇ Stories</a>' +
                 // a foto da matéria no tamanho em que foi enviada (pedido do Pedro, 06/10/2026):
                 // serve para fazer outros conteúdos com ela. O caminho fica no JSON da
                 // matéria, lido só quando a pessoa clica.
@@ -5753,12 +5815,29 @@ ingressos e divisor."></textarea>
     var img = CAPA || (EDIT && EDIT.img) || (RASC_FOTO ? RAW_BASE + (RASC_FOTO.img || origPrincipal(RASC_FOTO)) : '');
     var cred = $('f-cred').value.trim();
     var legCapa = $('f-imgleg').value.trim();
+    // PRÉVIA FIEL AO SITE (auditoria de 12/10/2026): o site tira os
+    // *asteriscos* do título da matéria (eles só marcam o itálico da capa
+    // tipográfica), assina o editorial como "Editorial do Foyer" e, na
+    // Opinião sem foto, abre com o bloco de quem assina no lugar da foto.
+    // A prévia mostrava os asteriscos crus e o nome do campo Autor(a).
+    var op = colherOpiniao();
+    var autorPrev = $('f-autor').value;
+    var titleLimpo = title.replace(/\*/g, '');
+    var porHtml = !op ? 'Por ' + esc(autorPrev)
+      : (op.tipo === 'editorial' ? '<b>Editorial do Foyer</b>'
+         : 'por ' + esc(autorPrev) + (op.autorFuncao ? ', ' + esc(op.autorFuncao) : ''));
+    var seloOp = op ? (op.tipo === 'coluna' && op.coluna ? op.coluna : ({ coluna:'Coluna', artigo:'Artigo', editorial:'Editorial' }[op.tipo] || 'Opinião')) : '';
+    var abreOp = !op ? ''
+      : (op.tipo === 'editorial' ? '<div class="op-abre"><b>Editorial do Foyer</b></div>'
+         : '<div class="op-abre"><span><b>' + esc(seloOp) + '</b><small>' + esc(autorPrev) + (op.autorFuncao ? ' · ' + esc(op.autorFuncao) : '') + '</small></span></div>');
     $('prev-body').innerHTML =
-      '<span class="tag wine">' + esc($('f-cat').value) + '</span>' +
-      '<h1>' + esc(title) + '</h1>' +
-      (linhaFina ? '<p class="dek">' + esc(linhaFina) + '</p>' : '') +
-      '<p class="cred">Por ' + esc($('f-autor').value) + '</p>' +
-      (img ? '<img class="capa" src="' + esc(img) + '">' + ((legCapa || cred) ? '<p class="cred">' + esc(legCapa ? legCapa + ' \u2014 ' + cred : cred) + '</p>' : '') : '') +
+      (op ? '<span class="tag wine">' + esc(op.tipo === 'coluna' && op.coluna ? 'Coluna · ' + op.coluna : seloOp) + '</span> ' : '') +
+      '<span class="tag' + (op ? '' : ' wine') + '">' + esc($('f-cat').value) + '</span>' +
+      '<h1>' + esc(titleLimpo) + '</h1>' +
+      (linhaFina ? '<p class="dek">' + esc(linhaFina.replace(/\*/g, '')) + '</p>' : '') +
+      '<p class="cred">' + porHtml + '</p>' +
+      // a legenda e o crédito saem juntos como no site (build_pages.py, figcaption da capa)
+      (img ? '<img class="capa" src="' + esc(img) + '">' + ((legCapa || cred) ? '<p class="cred">' + esc(legCapa ? legCapa + ' \u2014 ' + cred : cred) + '</p>' : '') : abreOp) +
       '<div class="corpo">' + mdRender(corpo) + '</div>';
     var n = corpo.split(/\s+/).filter(Boolean).length;
     var avisos = [];
@@ -5766,6 +5845,10 @@ ingressos e divisor."></textarea>
                          : '<span class="err">✗ só ' + n + ' palavras</span>');
     avisos.push(/[—–]/.test(corpo + title) ? '<span class="err">✗ travessão no texto</span>'
                                            : '<span class="ok">✓ sem travessão</span>');
+    // o trecho entre *asteriscos* aparece em itálico na capa tipográfica (capa do site e listas)
+    if(title.indexOf('*') >= 0){
+      avisos.push('<span class="ok">✓ na capa tipográfica: ' + esc(title).split('*').map(function(x, i){ return i % 2 ? '<em>' + x + '</em>' : x; }).join('') + '</span>');
+    }
     avisos.push(img ? '<span class="ok">✓ foto de capa</span>'
                     : ($('f-secao').value === 'opiniao' ? '<span class="ok">✓ sem foto: sai com a capa tipográfica</span>' : '<span class="err">✗ sem foto de capa</span>'));
     var links = [];
@@ -6245,9 +6328,9 @@ ingressos e divisor."></textarea>
         ['feed', 'story'].map(function(fmt){
           var cam = fmt === 'feed' ? feed : story;
           var src = v ? RB + cam + v : cam;
-          return '<div class="ig-arte"><img src="' + src + '" data-p="' + cam + '" alt="" ' +
+          return '<div class="ig-arte"><img src="' + esc(src) + '" data-p="' + esc(cam) + '" alt="" ' +
             'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'' + RB + '\'+this.dataset.p}else{this.parentNode.innerHTML=\'<p class=cred>arte não encontrada — se a matéria acabou de sair, o ateliê prepara em ~1 min</p>\'}">' +
-            '<a class="bt" href="' + RB + cam + '" target="_blank" rel="noopener" download>⬇ Baixar ' + (fmt === 'feed' ? 'post (feed)' : 'stories') + '</a></div>';
+            '<a class="bt" href="' + esc(RB + cam) + '" target="_blank" rel="noopener" download>⬇ Baixar ' + (fmt === 'feed' ? 'post (feed)' : 'stories') + '</a></div>';
         }).join('') +
       '</div>' +
       (d.img ? '<div style="text-align:center;margin-top:12px">' +
@@ -6954,21 +7037,38 @@ ingressos e divisor."></textarea>
     var checaTravessao = /[—–]/.test(title + corpo)
       ? confirmar('O texto tem TRAVESSÃO (—), que é banido no padrão da casa.\nTroque por vírgula, dois-pontos ou parênteses.\n\nEnviar assim mesmo?', { perigo:true, rotuloOk:'Enviar assim mesmo', rotuloCancel:'Voltar e corrigir' })
       : Promise.resolve(true);
+    // avisos que não travam (12/10/2026): data citada que já terá passado,
+    // título repetido e foto com menos de 1200 px. Na edição de matéria já
+    // publicada não entram (a data dela é a original e o título já é dela).
+    var checaAvisos = checaTravessao.then(function(okT){
+      if(!okT) return null;
+      if(editEnvio) return [];
+      var ipvA = $('up-prev');
+      // a largura vem da prévia na tela (a mesma régua do aviso da sanfona da foto)
+      var largA = (up.classList.contains('tem') && ipvA && ipvA.getAttribute('src') && ipvA.complete) ? ipvA.naturalWidth : 0;
+      return avisosPublicacao({ title: title, linhaFina: linhaFina, corpo: corpo, publishAt: publishAt,
+                                largura: largA, foto: '' }).catch(function(){ return []; });
+    });
     // publicar direto no site merece um "vai mesmo?" com o título (Dona Marta,
     // no escuro do saguão, agradece) — só para quem publica sem mesa
-    var checaEnvio = checaTravessao.then(function(okT){
-      if(!okT) return false;
-      if(editEnvio || !ehChefe) return true;
+    var checaEnvio = checaAvisos.then(function(av){
+      if(av === null) return false;
+      var txtAv = av.length ? '\n\nAntes, confira:\n\n' + av.join('\n\n') : '';
+      if(editEnvio) return true;
+      if(!ehChefe){
+        return av.length ? confirmar('Antes de enviar “' + corta(title, 64) + '”, confira:\n\n' + av.join('\n\n') + '\n\nEnviar assim mesmo?',
+                                     { titulo:'Confira antes de enviar', rotuloOk:'Enviar assim mesmo', rotuloCancel:'Voltar e revisar' }) : true;
+      }
       if(mesaDe.length){
         return confirmar('“' + corta(title, 64) + '” vai assinada por ' + autorFinal + '.\n\nSó ' + quemMesa +
           ' publica no próprio nome: a matéria vai para a mesa de aprovação, e ' + quemMesa + ' aprova' +
           (quando === 'agendar' ? ' (a data marcada segue como sugestão).' : ' e programa a publicação.') +
-          '\n\nMandar para a mesa?', { rotuloOk: 'Mandar para a mesa' });
+          txtAv + '\n\nMandar para a mesa?', { rotuloOk: 'Mandar para a mesa' });
       }
       var semCapa = !fotoF.src && !fotoF.foto && F.secao !== 'opiniao';
       return confirmar((quando === 'agendar' ? 'Agendar “' : 'Publicar “') + corta(title, 64) +
         (quando === 'agendar' ? '” para a data marcada?' : '” no site agora?') +
-        (semCapa ? '\n\n⚠ Esta matéria está SEM foto de capa (a sanfona “Foto de capa” está vazia).' : ''),
+        (semCapa ? '\n\n⚠ Esta matéria está SEM foto de capa (a sanfona “Foto de capa” está vazia).' : '') + txtAv,
         { rotuloOk: quando === 'agendar' ? 'Agendar' : 'Publicar', perigo: semCapa });
     });
     // matéria nova: confere se já existe uma com esse endereço (evita sobrescrever a de outra pessoa)
@@ -7372,7 +7472,7 @@ ingressos e divisor."></textarea>
           else { pill = 'Publicada'; cls = 'pb'; }
           var quando = new Date(d.publishAt || d.geradoEm || d.criadoEm || Date.now()).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' });
           var th = d.img
-            ? '<img class="th" src="' + esc(d.img) + '" alt="" data-p="' + esc(d.img) + '" ' +
+            ? '<img class="th" src="' + esc(d.img) + '" alt="" loading="lazy" data-p="' + esc(d.img) + '" ' +
               'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/\'+this.dataset.p}else{this.className=\'th no\';this.removeAttribute(\'src\')}">'
             : '<span class="th no">sem foto</span>';
           var proprio = d.author === USER.nome || d.criadoPor === USER.nome;
@@ -7427,7 +7527,7 @@ ingressos e divisor."></textarea>
             '<span class="pill ' + cls + '">' + pill + '</span>' +
             '<span class="fr-acts">' + acoes + '</span>' +
             '</div>';
-        }).join('');
+        }).join('') + '<div id="fila-mais-w" style="margin:12px 0 0"></div>';
         preencherViews();
         if(podeEditar()) enriquecerGrade();
 
@@ -7438,7 +7538,14 @@ ingressos e divisor."></textarea>
                               d.corpo || ''].join(' '));
         });
         var qEl = $('fila-q'), qN = $('fila-q-n'), qMesa = $('fila-q-mesa'), qT;
-        var FF = { v: 'todas' };  // o filtro dos chips (Todas / No ar / Agendadas / Devolvidas)
+        // MOSTRAR MAIS (auditoria de 12/10/2026): eram 387 linhas de uma vez,
+        // 45 mil pixels de rolagem no celular. Sem busca, a lista mostra 40 e
+        // um botão traz as próximas 40; com busca, mostra tudo o que bate.
+        // As miniaturas têm loading="lazy", então as linhas escondidas não
+        // baixam foto. O download dos JSON continua inteiro, porque a busca
+        // de temas usa o corpo das matérias.
+        var FILA_PASSO = 40;
+        var FF = { v: 'todas', lim: FILA_PASSO };  // o filtro dos chips (Todas / No ar / Agendadas / Devolvidas)
         function filaFiltra(){
           var q = amassaBusca(qEl.value.trim());
           var termos = q.split(/\s+/).filter(function(t){ return t.length >= 2; });
@@ -7448,19 +7555,25 @@ ingressos e divisor."></textarea>
               if(chave.indexOf(termos[i]) < 0) return false;
             return true;
           };
-          var nFila = 0, nFraca = 0;
+          var nFila = 0, nFraca = 0, nOk = 0;
           el.querySelectorAll('.frow[data-bi]').forEach(function(row){
             var bi = +row.dataset.bi;
             var forte = ativa && bate(chavesFortes[bi] || '');
             var ok = (!ativa || bate(chavesBusca[bi] || '')) &&
                      (FF.v === 'todas' || row.dataset.st === FF.v);
-            row.style.display = ok ? '' : 'none';
+            if(ok) nOk++;
+            row.style.display = (ok && (ativa || nOk <= FF.lim)) ? '' : 'none';
             row.classList.toggle('fraca', ativa && ok && !forte);
             if(ativa && ok){ if(forte) nFila++; else nFraca++; }
           });
           el.querySelectorAll('.fa-row[data-bq]').forEach(function(row){
             row.style.display = (!ativa || bate(row.dataset.bq)) ? '' : 'none';
           });
+          var mw = $('fila-mais-w'), resta = ativa ? 0 : nOk - FF.lim;
+          if(mw) mw.innerHTML = resta > 0
+            ? '<button class="bt" type="button" id="fila-mais">Mostrar mais ' + Math.min(FILA_PASSO, resta) + '</button>' +
+              ' <span class="mt">' + FF.lim + ' de ' + nOk + ' na lista</span>'
+            : '';
           var gw = $('fila-grade-w');
           if(gw) gw.style.display = ativa ? 'none' : '';  // o calendário não é filtrável
           var achouMesa = ativa ? mesaBusca.filter(function(d, i){ return bate(chavesMesa[i]); }) : [];
@@ -7510,10 +7623,17 @@ ingressos e divisor."></textarea>
         qEl.addEventListener('input', function(){
           clearTimeout(qT); qT = setTimeout(function(){ filaFiltra(); acervoEco(); }, 150);
         });
+        // um ouvinte só por vez: a Fila é recarregada a cada visita à aba
+        if(el._maisH) el.removeEventListener('click', el._maisH);
+        el._maisH = function(e){
+          if(e.target.id === 'fila-mais'){ FF.lim += FILA_PASSO; filaFiltra(); }
+        };
+        el.addEventListener('click', el._maisH);
+        filaFiltra();
         // chips de filtro: Todas / No ar / Agendadas / Devolvidas
         el.querySelectorAll('.fila-filtros [data-ff]').forEach(function(b){
           b.addEventListener('click', function(){
-            FF.v = b.dataset.ff;
+            FF.v = b.dataset.ff; FF.lim = FILA_PASSO;
             el.querySelectorAll('.fila-filtros [data-ff]').forEach(function(x){
               x.classList.toggle('on', x === b);
             });
@@ -7525,7 +7645,7 @@ ingressos e divisor."></textarea>
           function vai(){
             var alvo = el.querySelector('.frow[data-slug="' + r.dataset.vaiSlug + '"]');
             if(!alvo) return;
-            if(alvo.style.display === 'none'){ FF.v = 'todas'; qEl.value = ''; filaFiltra();
+            if(alvo.style.display === 'none'){ FF.v = 'todas'; FF.lim = Math.max(FF.lim, +alvo.dataset.bi + 1); qEl.value = ''; filaFiltra();
               el.querySelectorAll('.fila-filtros [data-ff]').forEach(function(x){ x.classList.toggle('on', x.dataset.ff === 'todas'); }); }
             alvo.scrollIntoView({ behavior: 'smooth', block: 'center' });
             alvo.style.outline = '3px solid var(--gold)';
@@ -7949,7 +8069,8 @@ ingressos e divisor."></textarea>
             : '';
           var fontes = (d.fontes && d.fontes.length)
             ? '<div class="mesa-fontes"><b style="font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase">Fontes apuradas:</b><br>' +
-              d.fontes.map(function(u){ return '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(u) + '</a>'; }).join('<br>') + '</div>'
+              // fonte que não é http(s) vira texto, sem link (12/10/2026: javascript: aqui rodava no clique)
+              d.fontes.map(function(u){ var ok = urlHttp(u); return ok ? '<a href="' + esc(ok) + '" target="_blank" rel="noopener noreferrer">' + esc(ok) + '</a>' : esc(u); }).join('<br>') + '</div>'
             : '';
           var dirBadge = d.imgDireito ? ' · <b>' + esc(d.imgDireito) + '</b>' : '';
           var credLinha = d.imgCredito
@@ -8014,8 +8135,8 @@ ingressos e divisor."></textarea>
           var insta = '<details class="mesa-insta"><summary><b>📱 Instagram</b> — post, stories e legenda</summary><div class="insta-artes">' +
             ['feed', 'story'].map(function(fmt){
               var cam = 'assets/social/' + d.slug + '-' + fmt + '.jpg';
-              return '<a href="' + RAWB + cam + '" target="_blank" rel="noopener" title="Abrir para salvar">' +
-                '<img src="' + cam + '" data-p="' + cam + '" alt="" loading="lazy" ' +
+              return '<a href="' + esc(RAWB + cam) + '" target="_blank" rel="noopener" title="Abrir para salvar">' +
+                '<img src="' + esc(cam) + '" data-p="' + esc(cam) + '" alt="" loading="lazy" ' +
                 'onerror="if(!this.dataset.f){this.dataset.f=1;this.src=\'' + RAWB + '\'+this.dataset.p}else{this.parentNode.style.display=\'none\'}">' +
                 '<span>' + (fmt === 'feed' ? '⬇ Post (feed)' : '⬇ Stories') + '</span></a>';
             }).join('') + '</div>' +
@@ -8282,6 +8403,100 @@ ingressos e divisor."></textarea>
       .then(function(){ return ghDel(d._path, d._sha, assina('retira da mesa após aprovação'))
         .catch(function(e){ if(e && e.gh === 404) return; throw e; }); });  // 404 = já saiu da mesa; publicação já deu certo
   }
+  /* ---------- AVISOS QUE NÃO TRAVAM, na hora de publicar, agendar ou aprovar ----------
+     Auditoria de 12/10/2026. Três problemas chegaram ao ar sem ninguém notar:
+     (1) matéria agendada saindo DEPOIS do evento que anunciava ("estreia neste
+     sábado, 8 de agosto" publicada em 11/08); (2) duas matérias no ar com o
+     mesmo título; (3) foto principal com menos de 1200 px, que perde o destaque
+     grande do Google Discover. Nada disso bloqueia: a Coxia mostra o aviso e
+     quem publica decide. */
+  var AV_MESES = ['janeiro','fevereiro','marco','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  // o dia (meia-noite) de uma data no horário de Brasília (UTC-3, sem horário de verão)
+  function avDiaBR(dt){ var b = new Date(new Date(dt).getTime() - 3 * 3600e3); return Date.UTC(b.getUTCFullYear(), b.getUTCMonth(), b.getUTCDate()); }
+  function avDDMM(ms){ var d = new Date(ms); return ('0' + d.getUTCDate()).slice(-2) + '/' + ('0' + (d.getUTCMonth() + 1)).slice(-2); }
+  // (1) datas do texto que já passaram no dia em que a matéria vai ao ar.
+  // Só olha os 60 dias antes da publicação e ignora ano explícito diferente
+  // (isso é história, não serviço). "nos dias 12 e 13 de setembro" conta pelo
+  // último dia. Palavras relativas ("hoje", "neste sábado") também avisam
+  // quando a matéria sai num dia depois daquele em que foi escrita.
+  function avisoDatas(texto, publishAt, escritoEm){
+    var pub = new Date(publishAt); if(isNaN(pub)) return '';
+    var diaPub = avDiaBR(pub), anoPub = new Date(diaPub).getUTCFullYear();
+    var t = String(texto || '').replace(/\*/g, '');
+    var re = /(^|[^\d])(\d{1,2})[º°]?((?:\s*(?:,|e|a)\s*\d{1,2}[º°]?)*)\s+de\s+(janeiro|fevereiro|mar[çc]o|abril|maio|junho|julho|agosto|setembro|outubro|novembro|dezembro)(?:\s+de\s+(\d{4}))?/gi;
+    var achou = [], m;
+    while((m = re.exec(t))){
+      var nums = (m[2] + m[3]).match(/\d{1,2}/g);
+      var dia = Number(nums[nums.length - 1]);
+      var mes = AV_MESES.indexOf(normTxt(m[4]));
+      var ano = m[5] ? Number(m[5]) : anoPub;
+      if(m[5] && ano !== anoPub) continue;
+      if(mes < 0 || dia < 1 || dia > 31) continue;
+      var dif = (diaPub - Date.UTC(ano, mes, dia)) / 864e5;
+      var trecho = m[0].replace(/^[^\d]/, '').trim();
+      if(dif >= 1 && dif <= 60 && achou.indexOf(trecho) < 0) achou.push(trecho);
+    }
+    var rel = '';
+    var ref = avDiaBR(escritoEm || new Date());
+    if(diaPub > ref){
+      var r = /(^|[^A-Za-zÀ-ÿ])(hoje(?! em dia)|amanh[ãa]|nest[ea] (?:segunda|terça|terca|quarta|quinta|sexta|sábado|sabado|domingo)(?:-feira)?|neste fim de semana)(?![A-Za-zÀ-ÿ])/i.exec(t);
+      if(r) rel = r[2];
+    }
+    if(!achou.length && !rel) return '';
+    return '📅 A matéria vai ao ar em ' + avDDMM(diaPub) + ', mas o texto ' +
+      (achou.length ? 'cita ' + achou.slice(0, 3).map(function(x){ return '“' + x + '”'; }).join(', ') + ', que já terá passado' : '') +
+      (achou.length && rel ? ', e ' : '') +
+      (rel ? 'usa “' + rel + '”, escrito no dia ' + avDDMM(ref) : '') +
+      '. Confira se ele não anuncia como futuro algo que já aconteceu.';
+  }
+  // (2) outra matéria com o mesmo título (no site, na Fila ou na mesa)
+  function avNormTitulo(t){ return normTxt(String(t || '').replace(/\*/g, '')).replace(/[^a-z0-9]+/g, ' ').trim(); }
+  // mesaSlug: na aprovação, a própria pauta da mesa não conta como "outra".
+  // Uma matéria já publicada com o mesmo endereço conta, sim: é outra matéria.
+  function avisoTituloIgual(title, mesaSlug){
+    var alvo = avNormTitulo(title);
+    if(alvo.length < 8) return Promise.resolve('');
+    return titulos().catch(function(){ return {}; }).then(function(map){
+      var iguais = [];
+      var olha = function(sl, t){ if(sl && avNormTitulo(t) === alvo && iguais.indexOf(sl) < 0) iguais.push(sl); };
+      Object.keys(map || {}).forEach(function(sl){ olha(sl, map[sl] && map[sl].t); });
+      Object.keys(FILA_CACHE).forEach(function(sl){ var d = FILA_CACHE[sl]; if(!(d && d._mesa && sl === mesaSlug)) olha(sl, d && d.title); });
+      Object.keys(MESA).forEach(function(sl){ if(sl !== mesaSlug) olha(sl, MESA[sl] && MESA[sl].title); });
+      if(!iguais.length) return '';
+      return '🔁 Já existe matéria com este mesmo título (' + iguais.slice(0, 3).map(function(sl){ return 'post-' + sl + '.html'; }).join(', ') +
+        '). Se é o mesmo assunto, atualize a que já existe em vez de publicar outra; se não é, mude o título.';
+    });
+  }
+  // (3) largura da foto principal: lê a imagem e devolve 0 se não der para medir
+  function larguraFoto(src){
+    return new Promise(function(res){
+      if(!src) return res(0);
+      var im = new Image(), feito = false;
+      var fim = function(w){ if(!feito){ feito = true; res(w); } };
+      im.onload = function(){ fim(im.naturalWidth || 0); };
+      im.onerror = function(){
+        // o caminho do site pode ainda não existir: tenta a cópia do repositório
+        if(!im.dataset.f && !/^(data:|blob:|https?:)/.test(src)){ im.dataset.f = '1'; im.src = RAW_BASE + String(src).replace(/^\//, ''); return; }
+        fim(0);
+      };
+      setTimeout(function(){ fim(0); }, 6000);
+      im.src = /^(data:|blob:|https?:)/.test(src) ? src : doSite(src);
+    });
+  }
+  function avisoFotoPequena(w){
+    return (w && w < 1200)
+      ? '🖼 A foto principal tem ' + w + ' px de largura. O Google só dá o destaque grande do Discover para foto com pelo menos 1200 px. Se der, troque por uma maior (a original da assessoria ou o cartaz em alta).'
+      : '';
+  }
+  // junta os três; cada um que falhar vira "sem aviso", nunca trava a publicação
+  function avisosPublicacao(o){
+    var datas = '';
+    try{ datas = avisoDatas([o.title, o.linhaFina, o.corpo].join('\n'), o.publishAt, o.escritoEm); }catch(e){}
+    return Promise.all([
+      avisoTituloIgual(o.title, o.mesaSlug).catch(function(){ return ''; }),
+      (o.largura ? Promise.resolve(o.largura) : larguraFoto(o.foto)).then(avisoFotoPequena, function(){ return ''; })
+    ]).then(function(r){ return [datas, r[0], r[1]].filter(Boolean); });
+  }
   function aprovar(slug, publishAt, quando){
     var d = MESA[slug];
     if(!d) return;
@@ -8292,6 +8507,15 @@ ingressos e divisor."></textarea>
     }
     var card = document.getElementById('card-' + slug);
     checaAcervoMesa([d]).then(function(segue){
+      if(!segue) return false;
+      // avisos que não travam (12/10/2026): data já passada, título repetido, foto pequena
+      return avisosPublicacao({ title: d.title, linhaFina: d.linhaFina, corpo: d.corpo, publishAt: publishAt,
+                                escritoEm: d.geradoEm || d.criadoEm, mesaSlug: d.slug, foto: d.img })
+        .then(function(av){
+          return av.length ? confirmar('Antes de aprovar “' + corta(d.title, 60) + '”, confira:\n\n' + av.join('\n\n') + '\n\nAprovar assim mesmo?',
+                                       { titulo:'Confira antes de aprovar', rotuloOk:'Aprovar assim mesmo', rotuloCancel:'Voltar' }) : true;
+        });
+    }).then(function(segue){
       if(!segue) return;
       travarCard(card, true);
       return publicarDaMesa(d, publishAt)
@@ -8347,7 +8571,19 @@ ingressos e divisor."></textarea>
     if(semFoto.length){ avisar('Estas ainda estão sem foto de capa: ' + semFoto.map(function(d){ return '“' + corta(d.title, 30) + '”'; }).join(', ') + '. Suba a capa antes.'); return; }
     if(!ds.length) return;
     checaAcervoMesa(ds).then(function(segue){
-      return segue && confirmar((rotulo ? 'Agendar' : 'Aprovar e publicar') + ' ' + plural(ds.length, 'matéria') + ' ' + (rotulo || 'agora') + '?');
+      if(!segue) return false;
+      // avisos que não travam (12/10/2026), um bloco por matéria que tiver algum
+      var baseL = new Date(publishAt);
+      return Promise.all(ds.map(function(d, iL){
+        var qL = rotulo ? new Date(baseL.getTime() + iL * AG_INTERVALO * 60000).toISOString() : publishAt;
+        return avisosPublicacao({ title: d.title, linhaFina: d.linhaFina, corpo: d.corpo, publishAt: qL,
+                                  escritoEm: d.geradoEm || d.criadoEm, mesaSlug: d.slug, foto: d.img })
+          .then(function(av){ return av.length ? '“' + corta(d.title, 50) + '”:\n' + av.join('\n') : ''; });
+      })).then(function(blocos){
+        blocos = blocos.filter(Boolean);
+        return confirmar((blocos.length ? 'Antes, confira:\n\n' + blocos.join('\n\n') + '\n\n' : '') +
+          (rotulo ? 'Agendar' : 'Aprovar e publicar') + ' ' + plural(ds.length, 'matéria') + ' ' + (rotulo || 'agora') + '?');
+      });
     }).then(function(okc){
       if(!okc) return;
       $('ml-aprovar').disabled = true; $('ml-agendar').disabled = true;
@@ -8516,10 +8752,17 @@ ingressos e divisor."></textarea>
       if(!podeGravar()){ avisarChave(); return; }
       var ehAutorR = d.origem === 'autor';
       if(ehAutorR){
-        perguntar('Por que está devolvendo "' + d.title + '"?\n(o autor vai ver este recado e pode corrigir e reenviar)', '', { titulo:'Devolver ao autor', rotuloOk:'Devolver' }).then(function(motivo){
-          if(motivo === null) return;
-          devolverAoAutor(d, motivo.trim());
-        });
+        // 12/10/2026: o recado é obrigatório. Vazio, o autor recebia "sem
+        // comentário" e não sabia o que corrigir; agora a pergunta volta.
+        var pedeMotivo = function(){
+          perguntar('Por que está devolvendo "' + d.title + '"?\n(o autor vai ver este recado e pode corrigir e reenviar)', '', { titulo:'Devolver ao autor', rotuloOk:'Devolver' }).then(function(motivo){
+            if(motivo === null) return;
+            motivo = motivo.trim();
+            if(!motivo){ avisar('Escreva o que precisa mudar. É esse recado que o autor vai ler para corrigir a matéria.', { titulo:'Falta o recado' }).then(pedeMotivo); return; }
+            devolverAoAutor(d, motivo);
+          });
+        };
+        pedeMotivo();
         return;
       }
       // recusa com motivo: a decisão não evapora — fica registrada no item da
@@ -9058,7 +9301,24 @@ ingressos e divisor."></textarea>
     $('btn-pub').textContent = 'Salvar edição';
     irPara('nova');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    // retrato do formulário logo depois de abrir: é com ele que o Cancelar e o
+    // fechar da aba sabem se há mudança por salvar (12/10/2026)
+    var esta = EDIT;
+    setTimeout(function(){ if(EDIT === esta) EDIT.marca = edAssinatura(); }, 0);
   }
+  // EDIÇÃO POR SALVAR NÃO SOME CALADA (auditoria de 12/10/2026). Antes, o
+  // Cancelar edição, recarregar ou fechar a aba jogavam fora a correção de
+  // uma matéria publicada sem perguntar nada (a matéria nova tem rascunho
+  // automático; a edição não tem). A comparação usa os mesmos campos do
+  // rascunho, sem a foto em si: foto nova escolhida também conta como mudança.
+  function edAssinatura(){
+    try{
+      var d = coletarRasc(); delete d.quando; delete d.foto;
+      d.capaNova = !!CAPA; d.correcao = $('f-correcao') ? $('f-correcao').value : '';
+      return JSON.stringify(d);
+    }catch(e){ return ''; }
+  }
+  function edMexeu(){ return !!(EDIT && EDIT.marca != null && edAssinatura() !== EDIT.marca); }
   function sairEdicao(){
     EDIT = null;
     ['btn-guardar', 'btn-novo-rasc'].forEach(function(id){ var x = $(id); if(x) x.style.display = ''; });
@@ -9079,8 +9339,12 @@ ingressos e divisor."></textarea>
     if(ENVIANDO){ toast('Espere terminar o envio.'); return; }
     // cancelar volta para a FILA, de onde a edição partiu — cair no Palco
     // perdia a posição na lista (B11 do ensaio geral)
-    sairEdicao();
-    irPara('fila');
+    var vai = function(){ sairEdicao(); irPara('fila'); };
+    if(!edMexeu()) return vai();
+    // 12/10/2026: com mudança por salvar, pergunta antes de descartar
+    confirmar('Você mexeu nesta edição e ainda não salvou.\n\nDescartar as mudanças? A versão publicada continua como está.',
+      { titulo:'Cancelar edição', rotuloOk:'Descartar mudanças', rotuloCancel:'Continuar editando', perigo:true })
+      .then(function(ok){ if(ok) vai(); });
   });
 
   // A EDIÇÃO QUE CHEGOU DEPOIS. O GitHub recusou a gravação porque o arquivo
@@ -9364,6 +9628,9 @@ ingressos e divisor."></textarea>
         // alguém (formato, quem é, quando e quanto) e oferece conselho antes
         // de falar em dinheiro.
         var oi = encodeURIComponent(pubPrimeiraFala(p));
+        // link e arte vêm do formulário público: passam pela régua estreita
+        // (urlHttp e dataImgSegura) e ainda por esc() no atributo (12/10/2026)
+        var linkOk = urlHttp(p.link), arteOk = dataImgSegura(p.arte);
         return '<div class="pub-card">' +
           '<div class="pc-t"><b>' + esc(PUB_NOME[p.formato] || p.formato) + (p.cupom ? ' + 🎟 cupom' : '') + '</b>' +
           (p.protocolo ? '<span class="mt">' + esc(p.protocolo) + '</span>' : '') +
@@ -9384,13 +9651,14 @@ ingressos e divisor."></textarea>
                  ' em ' + esc(new Date(p.aceite_em).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' })) + '</small>' : '') +
               '</span></div>'
             : '') +
-          (p.link ? '<div class="pub-linha"><em>O clique leva para</em><span><a href="' + esc(p.link) + '" target="_blank" rel="noopener">' + esc(p.link) + '</a></span></div>' : '') +
+          (linkOk ? '<div class="pub-linha"><em>O clique leva para</em><span><a href="' + esc(linkOk) + '" target="_blank" rel="noopener noreferrer">' + esc(linkOk) + '</a></span></div>'
+            : (p.link ? '<div class="pub-linha"><em>O clique leva para</em><span>⚠ link recusado (não começa com http:// ou https://): ' + esc(String(p.link).slice(0, 120)) + '</span></div>' : '')) +
           (p.mensagem ? '<div class="pub-linha"><em>O anúncio</em><span>' + esc(p.mensagem) + '</span></div>' : '') +
-          (p.arte && /^data:image\//.test(p.arte)
-            ? '<div class="pub-linha"><em>A arte</em><span><a href="' + p.arte + '" download="arte-' + esc(p.id).slice(0, 8) + '.jpg">' +
-              '<img src="' + p.arte + '" alt="arte do anunciante" style="max-width:220px;max-height:160px;border:2px solid currentColor;display:block"></a>' +
+          (arteOk
+            ? '<div class="pub-linha"><em>A arte</em><span><a href="' + esc(arteOk) + '" download="arte-' + esc(String(p.id || '').slice(0, 8)) + '.jpg">' +
+              '<img src="' + esc(arteOk) + '" alt="arte do anunciante" style="max-width:220px;max-height:160px;border:2px solid currentColor;display:block"></a>' +
               '<small style="font-size:.68rem;opacity:.7">tocar para baixar</small></span></div>'
-            : '') +
+            : (p.arte ? '<div class="pub-linha"><em>A arte</em><span>⚠ arte recusada: o arquivo não é uma imagem válida. Peça outra ao anunciante.</span></div>' : '')) +
           '<div class="pub-acoes">' +
           '<a class="pub-whats" target="_blank" rel="noopener" href="https://wa.me/' + zap + '?text=' + oi + '">💬 Chamar no WhatsApp</a>' +
           (p.status === 'fechado'
@@ -9537,8 +9805,9 @@ ingressos e divisor."></textarea>
   }
   // a arte viaja no pedido como data:image; aqui ela vira arquivo no site
   function pubSobeArte(p, caminho){
-    var arte = p.arte || '';
-    var m = /^data:image\/[a-z+]+;base64,(.+)$/i.exec(arte);
+    // só sobe arte que passa na régua estreita (12/10/2026): nada de svg nem texto solto
+    var arte = dataImgSegura(p.arte);
+    var m = /^data:image\/[a-z]+;base64,(.+)$/i.exec(arte);
     if(!m) return Promise.resolve(null);           // pedido sem arte
     return ghPutRaw(caminho, m[1], assina('sobe a arte do anúncio ' + (p.protocolo || '')))
       .then(function(){ return caminho; });
@@ -9560,7 +9829,8 @@ ingressos e divisor."></textarea>
       return ghGet(PUB_ARQ).then(function(f){
         var doc = (f && f.content) ? JSON.parse(unb64(f.content)) : {};
         var lista = pubVagas(doc, slot);
-        var novo = { link:p.link || '', de:temporada.de, ate:temporada.ate, pedido:p.protocolo || '' };
+        // o link vai para o site público: só http(s) (12/10/2026)
+        var novo = { link:urlHttp(p.link), de:temporada.de, ate:temporada.ate, pedido:p.protocolo || '' };
         // a legenda que o anunciante escreveu no pedido vira o texto alternativo da arte
         var _leg = /Legenda da arte: “([^”]+)”/.exec(p.mensagem || '');
         novo.legenda = (_leg ? _leg[1] : '').slice(0, 90) || p.empresa || p.nome || '';
@@ -9688,7 +9958,7 @@ ingressos e divisor."></textarea>
         return pubSobeArte(p, caminho).then(function(cam){
           if(!cam) throw new Error('sem arte');
           return pubReserva(nums, p.formato, cam,
-            { link: p.link || '', legenda: p.empresa || p.nome || '', pedido: p.protocolo || '' })
+            { link: urlHttp(p.link), legenda: p.empresa || p.nome || '', pedido: p.protocolo || '' })
             .then(function(){ return { edicoes: nums }; });
         });
       });
@@ -10808,10 +11078,11 @@ ingressos e divisor."></textarea>
   function mxBarras(el, itens, rotulo, valor, extra){
     if(!itens || !itens.length){ el.innerHTML = '<div class="vazio">Ainda sem registros</div>'; return; }
     var max = Math.max.apply(null, itens.map(valor));
+    // os números vêm do medidor, que recebe dado de leitor: saem escapados (12/10/2026)
     el.innerHTML = itens.map(function(i){
       return '<div class="mx-linha"><span class="mx-rot">' + rotulo(i) + '</span>' +
-        '<span class="mx-bar"><i style="width:' + Math.max(2, Math.round(valor(i) / max * 100)) + '%"></i></span>' +
-        '<span class="mx-n">' + valor(i) + (extra ? extra(i) : '') + '</span></div>';
+        '<span class="mx-bar"><i style="width:' + (Math.max(2, Math.round(valor(i) / max * 100)) || 2) + '%"></i></span>' +
+        '<span class="mx-n">' + esc(valor(i)) + (extra ? extra(i) : '') + '</span></div>';
     }).join('');
   }
   function carregarMetricas(){
@@ -10863,7 +11134,7 @@ ingressos e divisor."></textarea>
           var pct = total ? Math.round(p[1] * 100 / total) : 0;
           return '<div class="lt-linha"><span class="lt-rot" title="' + esc(p[0]) + '">' + esc(p[0]) + '</span>' +
             '<span class="lt-barra"><i style="width:' + Math.max(3, Math.round(p[1] * 100 / max)) + '%"></i></span>' +
-            '<span class="lt-n">' + p[1] + ' · ' + pct + '%</span></div>';
+            '<span class="lt-n">' + esc(p[1]) + ' · ' + pct + '%</span></div>';
         }).join('');
       }
       function topo(obj){
@@ -10892,9 +11163,9 @@ ingressos e divisor."></textarea>
         cresc = '<h4 class="lt-h">Crescimento da lista (por semana)</h4><div class="lt-serie">' +
           serie.map(function(s){
             var dt = s.semana.slice(8, 10) + '/' + s.semana.slice(5, 7);
-            return '<div class="lt-col" title="semana de ' + esc(dt) + ': ' + s.n + '">' +
+            return '<div class="lt-col" title="semana de ' + esc(dt) + ': ' + esc(s.n) + '">' +
               '<i style="height:' + Math.max(6, Math.round(s.n * 100 / maxS)) + '%"></i>' +
-              '<span>' + esc(dt) + '</span><b>' + s.n + '</b></div>';
+              '<span>' + esc(dt) + '</span><b>' + esc(s.n) + '</b></div>';
           }).join('') + '</div>';
       }
       // cruzamento: as maiores cidades e como cada uma frequenta
@@ -10910,7 +11181,7 @@ ingressos e divisor."></textarea>
               FREQS.map(function(f){
                 var n = (c.freqs || {})[f] || 0;
                 return '<td' + (n ? '' : ' class="zero"') + '>' + (n || '·') + '</td>';
-              }).join('') + '<td><b>' + c.total + '</b></td></tr>';
+              }).join('') + '<td><b>' + esc(c.total) + '</b></td></tr>';
           }).join('') + '</table>';
       }
       // as últimas chegadas: primeiro nome e cidade, sem e-mail
@@ -10926,12 +11197,12 @@ ingressos e divisor."></textarea>
       var perfilPct = total ? Math.round((d.perfil_completo || 0) * 100 / total) : 0;
       el.innerHTML =
         '<div class="stats" style="margin-bottom:18px">' +
-          '<div class="stat"><b>' + total + '</b><span>leitores na lista</span></div>' +
-          '<div class="stat"><b>' + (d.hoje || 0) + '</b><span>chegaram hoje</span></div>' +
-          '<div class="stat"><b>' + (d.ultimos_7d || 0) + '</b><span>nos últimos 7 dias</span></div>' +
-          '<div class="stat"><b>' + (d.ultimos_30d || 0) + '</b><span>nos últimos 30 dias</span></div>' +
+          '<div class="stat"><b>' + esc(total) + '</b><span>leitores na lista</span></div>' +
+          '<div class="stat"><b>' + esc(d.hoje || 0) + '</b><span>chegaram hoje</span></div>' +
+          '<div class="stat"><b>' + esc(d.ultimos_7d || 0) + '</b><span>nos últimos 7 dias</span></div>' +
+          '<div class="stat"><b>' + esc(d.ultimos_30d || 0) + '</b><span>nos últimos 30 dias</span></div>' +
           '<div class="stat"><b>' + (conv == null ? '—' : conv + '%') + '</b><span>concluem a conversa (30 d)</span></div>' +
-          '<div class="stat"><b>' + (d.saidas || 0) + '</b><span>pediram para sair</span></div>' +
+          '<div class="stat"><b>' + esc(d.saidas || 0) + '</b><span>pediram para sair</span></div>' +
         '</div>' +
         retrato + cresc +
         '<div class="mx-grid" style="margin-top:16px">' +
@@ -10977,7 +11248,7 @@ ingressos e divisor."></textarea>
     URL.revokeObjectURL(a.href);
   }
   var MX_DADOS = null, MX_MAP = null;
-  function mxNum(n){ return (n || 0).toLocaleString('pt-BR'); }
+  function mxNum(n){ return esc((Number(n) || 0).toLocaleString('pt-BR')); }
   // "subiu de 3 para 123" dito do jeito que se diz em voz alta
   function mxVs(agora, antes, oque){
     agora = agora || 0; antes = antes || 0;
@@ -11140,11 +11411,11 @@ ingressos e divisor."></textarea>
                       app: '📲 Pelo app instalado', desconhecido: 'Sem registro' };
     mxBarras($('mx-disp'), d.disp7, function(i){ return nomesDisp[i.disp] || esc(i.disp); }, function(i){ return i.n; });
     mxBarras($('mx-horas'), (d.horas7 || []).slice().sort(function(a, b){ return b.n - a.n; }).slice(0, 8),
-      function(i){ return ('0' + i.h).slice(-2) + 'h às ' + ('0' + ((i.h + 1) % 24)).slice(-2) + 'h'; },
+      function(i){ var h = Number(i.h) || 0; return ('0' + h).slice(-2) + 'h às ' + ('0' + ((h + 1) % 24)).slice(-2) + 'h'; },
       function(i){ return i.n; });
     var DOW = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
     var sem = (d.semana7 || []).slice().sort(function(a, b){ return a.dow - b.dow; });
-    mxBarras($('mx-semana'), sem, function(i){ return DOW[i.dow] || i.dow; }, function(i){ return i.n; });
+    mxBarras($('mx-semana'), sem, function(i){ return DOW[i.dow] || esc(i.dow); }, function(i){ return i.n; });
 
     // ---------- 11. máquina ----------
     var elRobo = $('mx-robo');
@@ -11262,8 +11533,9 @@ ingressos e divisor."></textarea>
     }).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(rows){
       return titulos().then(function(map){
         (rows || []).forEach(function(r){
-          r.v = RK_MODO === 'semana' ? (r.views_semana || 0) : (r.views || 0);
-          r.s = RK_MODO === 'semana' ? (r.shares_semana || 0) : (r.shares || 0);
+          // contagem vira número antes de ir para o HTML (12/10/2026)
+          r.v = Number(RK_MODO === 'semana' ? r.views_semana : r.views) || 0;
+          r.s = Number(RK_MODO === 'semana' ? r.shares_semana : r.shares) || 0;
           r.pts = r.v + r.s * 3;
         });
         rows = (rows || []).filter(function(r){ return r.pts > 0; })
@@ -11396,7 +11668,7 @@ ingressos e divisor."></textarea>
   function enPintarRegras(){
     var d = ENCR.data;
     $('en-bloq').innerHTML = d.bloquear.length
-      ? d.bloquear.slice().sort().map(function(n){ return '<span class="tag">' + esc(n) + ' <a href="#" data-en-desbloq="' + esc(n) + '" style="color:inherit" title="tirar da lista">✕</a></span>'; }).join('')
+      ? d.bloquear.slice().sort().map(function(n){ return '<span class="tag">' + esc(n) + ' <button type="button" class="en-x" data-en-desbloq="' + esc(n) + '" title="Liberar ' + esc(n) + '" aria-label="Liberar ' + esc(n) + ' (volta a virar verbete no site)">✕</button></span>'; }).join('')
       : '<span style="font-family:var(--mono);font-size:.6rem;color:var(--ink-soft)">nenhum</span>';
     var progs = ['Programa do Foyer', 'Teatro a Sangue Frio', 'Astro em Cena', 'Trivia Musical Game Show', 'Session Musical', 'Coxixo de Coxia', 'Corda Bamba', 'Críticas Teatrais', 'Por Bruno Cavalcanti'];
     Object.keys(d.apresentadores).forEach(function(k){ if(progs.indexOf(k) === -1) progs.push(k); });
@@ -11487,8 +11759,17 @@ ingressos e divisor."></textarea>
     }
     if((b = e.target.closest('[data-en-desbloq]'))){
       e.preventDefault(); if(!podeGravar()){ avisarChave(); return; }
-      var n = b.dataset.enDesbloq; ENCR.data.bloquear = ENCR.data.bloquear.filter(function(x){ return x !== n; });
-      enSalvar('enciclopédia: desbloqueia “' + n + '”').then(function(){ enPintarRegras(); toast('Liberado ✓'); }).catch(function(err){ avisar(msgErro(err)); });
+      // 12/10/2026: liberar muda o site, então pergunta antes, diz o nome e,
+      // se a gravação falhar, a lista volta a ser o que era
+      var n = b.dataset.enDesbloq;
+      confirmar('Liberar “' + n + '”? Ele volta a virar verbete no site na próxima publicação.',
+        { titulo:'Liberar nome', rotuloOk:'Liberar', rotuloCancel:'Manter bloqueado' }).then(function(ok){
+        if(!ok) return;
+        var antes = ENCR.data.bloquear.slice();
+        ENCR.data.bloquear = ENCR.data.bloquear.filter(function(x){ return x !== n; });
+        enSalvar('enciclopédia: desbloqueia “' + n + '”').then(function(){ enPintarRegras(); toast('“' + n + '” liberado ✓'); })
+          .catch(function(err){ ENCR.data.bloquear = antes; enPintarRegras(); avisar(msgErro(err)); });
+      });
       return;
     }
     if(e.target.id === 'en-apres-salvar'){
@@ -11679,6 +11960,8 @@ ingressos e divisor."></textarea>
   // guarda contra fechar a aba/janela com a edição por salvar
   window.addEventListener('beforeunload', function(e){
     if(RV.ed && RV.mexeu){ e.preventDefault(); e.returnValue = ''; return ''; }
+    // 12/10/2026: a edição de matéria com mudança por salvar também pede confirmação
+    if(edMexeu()){ e.preventDefault(); e.returnValue = ''; return ''; }
   });
 
   // folhear a edição como o leitor vai ver: a publicada abre a página real;
@@ -11701,6 +11984,8 @@ ingressos e divisor."></textarea>
     $('rv-status').className = 'pill ' + (ed.status === 'publicada' ? 'pb' : 'ag');
     $('rv-publicar').textContent = ed.status === 'publicada' ? '📥 Despublicar' : '🚀 Publicar edição';
     $('rv-enviar').style.display = ed.status === 'publicada' ? 'inline-flex' : 'none';
+    $('rv-teste').style.display = ed.status === 'publicada' ? 'inline-flex' : 'none';
+    if(ed.status === 'publicada') rvPintaEnvio();
     atualizaFolhear();
     $('rv-titulo').value = ed.titulo || '';
     $('rv-data').value = ed.dataEdicao || '';
@@ -12163,9 +12448,19 @@ ingressos e divisor."></textarea>
     return fetch(RKC.url + '/rest/v1/foyer_newsletter?select=id&ativo=eq.true', {
       headers: { 'apikey': RKC.key, 'Authorization': 'Bearer ' + RKC.key, 'Prefer': 'count=exact', 'Range': '0-0' }
     }).then(function(r){
+      // resposta ruim ou sem contagem é "não sei", nunca zero (12/10/2026)
+      if(!r.ok) return null;
       var cr = r.headers.get('content-range') || '';
-      var m = cr.match(/\/(\d+)$/); return m ? Number(m[1]) : 0;
+      var m = cr.match(/\/(\d+)$/); return m ? Number(m[1]) : null;
     }).catch(function(){ return null; });
+  }
+  // o botão de envio diz para quantas pessoas vai, como no Mailchimp e no Substack
+  function rvPintaEnvio(){
+    var b = $('rv-enviar'); if(!b) return;
+    b.textContent = '📧 Enviar aos assinantes';
+    contarAssinantes().then(function(n){
+      if(n != null && n > 0) b.textContent = '📧 Enviar para ' + plural(n, 'assinante');
+    });
   }
   // monta o mesmo HTML que a Edge Function envia (para prever antes de disparar)
   function corpoEmailRevista(ed, capa, url, tokenLink){
@@ -12259,20 +12554,35 @@ ingressos e divisor."></textarea>
         : ('Enviada aos assinantes ✓ — ' + plural(res.enviados, 'entregue') + (res.falhas ? ', ' + plural(res.falhas, 'falha') : ''));
     }).catch(function(){ msg.className='msg err'; msg.textContent='Não deu para enviar agora. Tente de novo.'; });
   }
+  // ENVIO EM MASSA COM CONFIRMAÇÃO DE VERDADE (auditoria de 12/10/2026).
+  // A caixa antiga já abria com ENVIAR escrito: bastava apertar Enter para
+  // disparar para todo mundo, e com a contagem fora do ar seguia com "?".
+  // Agora o teste tem botão próprio, o envio diz o número de pessoas, o campo
+  // abre vazio e pede o número da edição, e sem contagem não há envio.
+  $('rv-teste').addEventListener('click', function(){
+    if(!RV.ed) return;
+    perguntar('Para qual e-mail mandar o teste da Edição Nº ' + RV.ed.numero + '? Só esse endereço recebe.', '',
+      { titulo:'Mandar teste', rotuloOk:'Mandar teste' }).then(function(op){
+      if(op === null) return;
+      op = op.trim().toLowerCase();
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(op)){ avisar('Isso não parece um e-mail. Nada foi enviado.'); return; }
+      enviarEdicao(op);
+    });
+  });
   $('rv-enviar').addEventListener('click', function(){
     if(!RV.ed) return;
+    var num = String(RV.ed.numero);
     contarAssinantes().then(function(n){
-      var qtd = (n == null) ? '?' : n;
+      if(n == null){ avisar('Não consegui contar os assinantes agora, então o envio ficou bloqueado. Nada foi enviado. Tente de novo em alguns minutos.'); return; }
       if(n === 0){ avisar('Ainda não há assinantes ativos. Quando alguém assinar a revista no site, a lista aparece aqui.'); return; }
-      perguntar('Enviar a Edição Nº ' + RV.ed.numero + ' para ' + plural(qtd, 'assinante') + '?\n\n' +
-        'Digite ENVIAR para disparar para todos,\n' +
-        'ou um e-mail para mandar só um TESTE para você antes.', 'ENVIAR',
-        { titulo:'Enviar a revista', rotuloOk:'Continuar' }).then(function(op){
+      $('rv-enviar').textContent = '📧 Enviar para ' + plural(n, 'assinante');
+      perguntar('Isto manda a Edição Nº ' + num + ' para ' + plural(n, 'assinante') + ', e e-mail não tem como desfazer.\n\n' +
+        'Para confirmar, digite o número da edição (' + num + ').', '',
+        { titulo:'Enviar para ' + plural(n, 'assinante'), rotuloOk:'Enviar para ' + plural(n, 'assinante') }).then(function(op){
         if(op === null) return;
-        op = op.trim();
-        if(op.toUpperCase() === 'ENVIAR') enviarEdicao(null);
-        else if(op.indexOf('@') > 0) enviarEdicao(op.toLowerCase());
-        else { avisar('Cancelado. Digite ENVIAR ou um e-mail de teste.'); }
+        op = op.trim().replace(/^n[ºo°.]*\s*/i, '');
+        if(op === num) enviarEdicao(null);
+        else avisar('O número não confere. Nada foi enviado.');
       });
     });
   });
