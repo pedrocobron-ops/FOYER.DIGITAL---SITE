@@ -92,7 +92,6 @@ Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors })
   try {
     const body = await req.json().catch(() => ({}))
-    const url = new URL(req.url)
     const supa = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!)
     const sessao = String(body.sessao || '')
     const { data: quem } = sessao.length >= 32
