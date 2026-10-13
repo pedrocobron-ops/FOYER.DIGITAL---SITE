@@ -8131,17 +8131,18 @@ anuncie_body = band('Comercial', 'Anuncie no FOYER', 'No site todos os dias, na 
   })();
   pinta();
 
-  fetch(M.url + '/rest/v1/rpc/foyer_leitores_resumo', {
+  // retrato público dos leitores (13/10/2026): só o total e o primeiro de cada
+  // lista. A chave fixa que abria o retrato completo, com nomes, saiu da página.
+  fetch(M.url + '/rest/v1/rpc/foyer_leitores_publico', {
     method: 'POST',
     headers: { 'apikey': M.key, 'Authorization': 'Bearer ' + M.key, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chave: 'foyer-cx-metricas-terceiro-sinal-9427' })
+    body: '{}'
   }).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
     if(!d || !d.total || d.total < 10) return;
-    function topo(o){ var ks = Object.keys(o || {}); return ks.length ? ks.sort(function(a, b){ return o[b] - o[a]; })[0] : null; }
     var tiles = [[d.total, 'assinantes']];
-    var c1 = topo(d.por_cidade); if(c1) tiles.push([c1, 'cidade nº 1']);
-    var c2 = topo(d.por_frequencia); if(c2) tiles.push([c2, 'vão ao vivo']);
-    var c3 = topo(d.por_interesse); if(c3) tiles.push([c3, 'linguagem nº 1']);
+    if(d.cidade) tiles.push([d.cidade, 'cidade nº 1']);
+    if(d.frequencia) tiles.push([d.frequencia, 'vão ao vivo']);
+    if(d.interesse) tiles.push([d.interesse, 'linguagem nº 1']);
     // 12/10/2026 (auditoria, achado 82): a cidade, a frequência e o interesse
     // são texto livre gravado por qualquer visitante no cadastro da newsletter.
     // Iam crus para o innerHTML: um cadastro com tag na cidade virava script

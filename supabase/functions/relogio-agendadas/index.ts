@@ -22,17 +22,20 @@ const REPO = "FOYER.DIGITAL---SITE";
 // nome. O aviso de repositório abaixo é o caminho que ela pode percorrer, e
 // a rotina "agendadas" foi ensinada a atender por ele.
 const AVISO = "relogio";
-const SEGREDO = "foyer-pendulo-2026";
 
+// O segredo que o relógio do banco manda na chamada mora na tabela
+// coxia_segredo (linha 'relogio'), que só o servidor lê. Antes ele estava
+// escrito aqui, num arquivo público (tranca de 13/10/2026).
 Deno.serve(async (req: Request) => {
   const u = new URL(req.url);
-  if (u.searchParams.get("chave") !== SEGREDO) {
-    return new Response("nada por aqui", { status: 401 });
-  }
-
   const SB = Deno.env.get("SUPABASE_URL")!;
   const SR = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
   const cab = { apikey: SR, Authorization: `Bearer ${SR}` };
+  const sg = await (await fetch(`${SB}/rest/v1/coxia_segredo?id=eq.relogio&select=chave`, { headers: cab })).json();
+  const segredo = Array.isArray(sg) && sg[0] ? sg[0].chave : null;
+  if (!segredo || u.searchParams.get("chave") !== segredo) {
+    return new Response("nada por aqui", { status: 401 });
+  }
 
   const r = await fetch(`${SB}/rest/v1/coxia_segredo?id=eq.github&select=chave`, { headers: cab });
   const linhas = await r.json();

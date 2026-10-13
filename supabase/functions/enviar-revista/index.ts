@@ -1,5 +1,13 @@
 // Envia a edição da revista do FOYER aos assinantes, via Brevo.
-// Chamada pela Coxia (chefe) com a chave. Requer o secret BREVO_KEY.
+// Chamada pela Coxia com a SESSÃO de quem entrou (só chefe envia). Requer o
+// secret BREVO_KEY.
+//
+// TRANCA DE 13/10/2026. Até aqui a porta era uma chave fixa escrita neste
+// arquivo e na Coxia, os dois públicos: qualquer um mandava e-mail em nome do
+// FOYER pelo Brevo, com assunto e link livres, e reenviava a revista a todos os
+// assinantes. Agora vale só a sessão de um chefe (a mesma da função coxia), o
+// teste vai só para um e-mail bem formado, e a capa e o link do e-mail só podem
+// apontar para o próprio FOYER.
 //
 // O que mudou nesta versão, e por quê:
 //
@@ -23,7 +31,6 @@
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-const CHAVE = 'foyer-nl-terceiro-sinal-2026'
 const REMETENTE_NOME = 'Revista do FOYER'
 // antes do domínio verificado, aponte REVISTA_FROM para um e-mail verificado no
 // Brevo; depois da verificação do domínio, revista@foyer.digital funciona sozinho
@@ -86,18 +93,27 @@ Deno.serve(async (req) => {
   try {
     const body = await req.json().catch(() => ({}))
     const url = new URL(req.url)
-    const chave = body.chave || url.searchParams.get('chave')
-    if (chave !== CHAVE) return devolve({ erro: 'chave invalida' }, 401)
+    const supa = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!)
+    const sessao = String(body.sessao || '')
+    const { data: quem } = sessao.length >= 32
+      ? await supa.from('coxia_sessao').select('papel, expira_em, nome').eq('token', sessao).maybeSingle()
+      : { data: null }
+    if (!quem || new Date(quem.expira_em).getTime() < Date.now()) return devolve({ erro: 'Sua sessão da Coxia venceu. Saia e entre de novo.' }, 401)
+    if (quem.papel !== 'chefe') return devolve({ erro: 'Só a chefia envia a revista.' }, 403)
 
     const BREVO = Deno.env.get('BREVO_KEY')
     if (!BREVO) return devolve({ erro: 'BREVO_KEY nao configurada', pendente: true })
 
-    const ed = body.edicao || {}
-    const assunto = body.assunto || `Revista do FOYER · Edição Nº ${ed.numero || ''}`
-    const teste = body.teste || null // e-mail único para teste
+    const ed = { ...(body.edicao || {}) }
+    // capa e link do e-mail só podem ser do próprio FOYER (site ou repositório)
+    const daCasa = (u: unknown) => typeof u === 'string' &&
+      (u.startsWith(BASE + '/') || u.startsWith('https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/'))
+    if (!daCasa(ed.url)) ed.url = BASE + '/revista.html'
+    if (ed.capa && !daCasa(ed.capa)) ed.capa = ''
+    const assunto = String(body.assunto || `Revista do FOYER · Edição Nº ${ed.numero || ''}`).replace(/[\r\n]+/g, ' ').slice(0, 160)
+    const teste = body.teste ? String(body.teste).trim().toLowerCase() : null // e-mail único para teste
+    if (teste && !/^[^\s@<>"']+@[^\s@<>"']+\.[a-z]{2,}$/i.test(teste)) return devolve({ erro: 'E-mail de teste inválido.' }, 400)
     const numero = String(ed.numero || '')
-
-    const supa = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!)
 
     // trava do envio repetido: vale só para o envio de verdade, nunca para o teste
     if (!teste && numero && !body.forcar) {
@@ -112,7 +128,7 @@ Deno.serve(async (req) => {
 
     let destinatarios: { email: string; nome?: string; token?: string }[] = []
     if (teste) {
-      destinatarios = [{ email: String(teste).toLowerCase(), nome: 'Teste', token: 'teste' }]
+      destinatarios = [{ email: teste, nome: 'Teste', token: 'teste' }]
     } else {
       const { data, error } = await supa.from('foyer_newsletter').select('nome,email,token').eq('ativo', true)
       if (error) throw error
@@ -134,6 +150,10 @@ Deno.serve(async (req) => {
           to: [{ email: d.email, name: d.nome || undefined }],
           subject: assunto,
           htmlContent: html,
+          // descadastro em um clique, que o Gmail e o Yahoo pedem para envio em massa
+          ...(d.token && d.token !== 'teste' ? { headers: {
+            'List-Unsubscribe': `<${BASE}/descadastrar.html?t=${encodeURIComponent(d.token)}>`,
+          } } : {}),
         }),
       })
       if (r.ok) { enviados++ } else {

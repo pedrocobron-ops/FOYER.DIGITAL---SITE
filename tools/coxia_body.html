@@ -2954,7 +2954,7 @@ ingressos e divisor."></textarea>
   }
   // pedidos de anúncio novos acendem a contagem no menu Publicidade
   function pubAviso(){
-    pubRPC('foyer_anuncios_lista', { chave: 'foyer-cx-metricas-terceiro-sinal-9427' }).then(function(lista){
+    pubRPC('foyer_anuncios_lista', { chave: sessao() }).then(function(lista){
       var n = (lista || []).filter(function(p){ return p.status === 'novo'; }).length;
       var b = $('bdg-pub');
       if(b){ b.style.display = n ? '' : 'none'; b.textContent = n; }
@@ -9691,7 +9691,7 @@ ingressos e divisor."></textarea>
   }
   function carregarPedidosPub(){
     var el = $('pub-pedidos');
-    pubRPC('foyer_anuncios_lista', { chave: 'foyer-cx-metricas-terceiro-sinal-9427' }).then(function(lista){
+    pubRPC('foyer_anuncios_lista', { chave: sessao() }).then(function(lista){
       lista = lista || [];
       var novos = lista.filter(function(p){ return p.status === 'novo'; }).length;
       var b = $('bdg-pub');
@@ -9758,7 +9758,7 @@ ingressos e divisor."></textarea>
   document.addEventListener('click', function(e){
     var b = e.target.closest('[data-pub-st]');
     if(!b) return;
-    pubRPC('foyer_anuncio_status', { chave: 'foyer-cx-metricas-terceiro-sinal-9427', p_id: b.dataset.pubId, p_status: b.dataset.pubSt })
+    pubRPC('foyer_anuncio_status', { chave: sessao(), p_id: b.dataset.pubId, p_status: b.dataset.pubSt })
       .then(function(){ carregarPedidosPub(); })
       .catch(function(){ avisar('Não mudou o status agora; tente de novo.'); });
   });
@@ -9795,7 +9795,7 @@ ingressos e divisor."></textarea>
   function pubDesempenho(){
     var el = $('pub-desempenho'); if(!el) return;
     Promise.all([
-      pubRPC('foyer_pub_desempenho', { chave: 'foyer-cx-metricas-terceiro-sinal-9427' }).catch(function(){ return []; }),
+      pubRPC('foyer_pub_desempenho', { chave: sessao() }).catch(function(){ return []; }),
       ghGet(PUB_ARQ).catch(function(){ return null; })
     ]).then(function(res){
       var dados = res[0] || [];
@@ -9896,7 +9896,7 @@ ingressos e divisor."></textarea>
       .then(function(){ return caminho; });
   }
   function pubMarcaNoAr(p){
-    return pubRPC('foyer_anuncio_status', { chave:'foyer-cx-metricas-terceiro-sinal-9427',
+    return pubRPC('foyer_anuncio_status', { chave: sessao(),
                                             p_id:p.id, p_status:'no-ar' }).catch(function(){});
   }
   // ---- formatos do site: cartaz, cortina, entreato ----
@@ -11135,7 +11135,9 @@ ingressos e divisor."></textarea>
   });
 
   /* ================= MÉTRICAS (chefe) ================= */
-  var MX_CHAVE = 'foyer-cx-metricas-terceiro-sinal-9427';
+  // O banco passou a pedir a sessão de quem entrou na Coxia, no lugar da chave
+  // fixa que ficava escrita aqui e qualquer um lia no código (tranca de
+  // 13/10/2026). Sem sessão válida, o medidor responde erro e o painel avisa.
   function mxTempo(s){
     if(s == null) return 'sem dados';
     s = Math.round(s);
@@ -11173,7 +11175,7 @@ ingressos e divisor."></textarea>
     fetch(RKC.url + '/rest/v1/rpc/foyer_painel_metricas', {
       method: 'POST',
       headers: { 'apikey': RKC.key, 'Authorization': 'Bearer ' + RKC.key, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chave: MX_CHAVE })
+      body: JSON.stringify({ chave: sessao() })
     }).then(function(r){
       // resposta ruim NÃO pode virar zero confiante: era o problema mais
       // repetido do ensaio geral (6 de 13 testadores) — o painel mostrava
@@ -11204,7 +11206,7 @@ ingressos e divisor."></textarea>
     fetch(RKC.url + '/rest/v1/rpc/foyer_leitores_resumo', {
       method: 'POST',
       headers: { 'apikey': RKC.key, 'Authorization': 'Bearer ' + RKC.key, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chave: MX_CHAVE })
+      body: JSON.stringify({ chave: sessao() })
     }).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
       LT_DADOS = d;
       var total = d.total || 0;
@@ -12526,15 +12528,17 @@ ingressos e divisor."></textarea>
   });
 
   // ---- envio da edição aos assinantes (Brevo, via Edge Function) ----
-  var NL_CHAVE = 'foyer-nl-terceiro-sinal-2026';
   function contarAssinantes(){
-    return fetch(RKC.url + '/rest/v1/foyer_newsletter?select=id&ativo=eq.true', {
-      headers: { 'apikey': RKC.key, 'Authorization': 'Bearer ' + RKC.key, 'Prefer': 'count=exact', 'Range': '0-0' }
+    // a lista de assinantes não se lê direto da tabela (o banco não deixa, e a
+    // contagem saía zero): vem do retrato dos leitores, com a sessão (13/10/2026)
+    return fetch(RKC.url + '/rest/v1/rpc/foyer_leitores_resumo', {
+      method: 'POST',
+      headers: { 'apikey': RKC.key, 'Authorization': 'Bearer ' + RKC.key, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chave: sessao() })
     }).then(function(r){
       // resposta ruim ou sem contagem é "não sei", nunca zero (12/10/2026)
       if(!r.ok) return null;
-      var cr = r.headers.get('content-range') || '';
-      var m = cr.match(/\/(\d+)$/); return m ? Number(m[1]) : null;
+      return r.json().then(function(d){ return d && typeof d.total === 'number' ? d.total : null; });
     }).catch(function(){ return null; });
   }
   // o botão de envio diz para quantas pessoas vai, como no Mailchimp e no Substack
@@ -12597,7 +12601,7 @@ ingressos e divisor."></textarea>
     var RB = 'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/';
     var capa = (ed.capa && ed.capa.img) ? (/^https?:/.test(ed.capa.img) ? ed.capa.img : RB + ed.capa.img) : '';
     var payload = {
-      chave: NL_CHAVE,
+      sessao: sessao(),
       assunto: 'Revista do FOYER · Edição Nº ' + ed.numero + (ed.titulo ? ' — ' + ed.titulo : ''),
       edicao: { numero: ed.numero, titulo: ed.titulo || ('Edição Nº ' + ed.numero),
                 manchete: (ed.capa && ed.capa.manchete) || '', capa: capa,
