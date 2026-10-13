@@ -1538,8 +1538,9 @@ busca_body = band('Ferramenta', 'Buscar',
 # O texto abaixo descreve só o que o código faz hoje. Ao mudar o que o site
 # coleta ou com quem fala, mude aqui também.
 # Controlador: razão social e CNPJ informados pelo Pedro em 12/10/2026.
-# EM ABERTO PARA O PEDRO: nome do encarregado (art. 41) e prazos exatos de
-# guarda das métricas e dos pedidos de anúncio.
+# Encarregado (art. 41): o próprio Pedro, por decisão dele em 13/10/2026.
+# EM ABERTO PARA O PEDRO: prazos exatos de guarda das métricas e dos pedidos
+# de anúncio.
 try:
     _PRIV_EMAIL = (_json0.load(open(os.path.join(ROOT, 'import/site.json'))) or {}).get('emailContato') or ''
 except Exception:
@@ -1552,7 +1553,7 @@ privacidade_body = band('Institucional', 'Política de Privacidade', 'Última at
 <main id="conteudo" class="wrap">
   <div class="legal">
     <h2>Quem cuida dos seus dados</h2>
-    <p>O controlador dos dados pessoais tratados neste site é o <b>FOYER.DIGITAL</b> (foyer.digital), portal de jornalismo cultural publicado por <b>Pedro Amaral Martin &amp; Cia Ltda</b> (nome fantasia Foyer Estúdio e Comunicação), CNPJ 31.153.535/0001-26, com sede em Santos (SP) e filial em São Paulo (SP). Para qualquer assunto sobre os seus dados, inclusive para exercer os direitos listados abaixo, use {_PRIV_CONTATO}.</p>
+    <p>O controlador dos dados pessoais tratados neste site é o <b>FOYER.DIGITAL</b> (foyer.digital), portal de jornalismo cultural publicado por <b>Pedro Amaral Martin &amp; Cia Ltda</b> (nome fantasia Foyer Estúdio e Comunicação), CNPJ 31.153.535/0001-26, com sede em Santos (SP) e filial em São Paulo (SP). O encarregado pelo tratamento de dados pessoais (art. 41 da LGPD) é <b>Pedro Amaral Martin</b>. Para qualquer assunto sobre os seus dados, inclusive para exercer os direitos listados abaixo, use {_PRIV_CONTATO}.</p>
 
     <h2>O que coletamos, para quê e com que base legal</h2>
 
@@ -6562,7 +6563,7 @@ principios_body = band('Institucional', 'Princípios Editoriais', 'Como o FOYER 
       <h2 id="correcoes">Correções</h2>
       <p>Erramos? Corrigimos. Matérias corrigidas ou ampliadas exibem o selo "Atualizada em" com data e horário da mudança. Para apontar um erro, escreva para <a href="mailto:programafoyer@gmail.com">programafoyer@gmail.com</a> com o endereço da matéria: respondemos e, quando for o caso, corrigimos com registro visível.</p>
       <h2>Imagens e créditos</h2>
-      <p>Usamos fotografias de divulgação oficial das produções que cobrimos, imagens em licença livre (com autor e licença citados) e material próprio. O crédito acompanha a imagem na página da matéria. Nas capas e listas, ele aparece ao passar o mouse sobre a foto.</p>
+      <p>Usamos fotografias de divulgação oficial das produções que cobrimos, imagens em licença livre (com autor e licença citados) e material próprio. Quando não há foto liberada para uso, a matéria pode levar uma ilustração feita com inteligência artificial, sempre identificada no crédito e nunca apresentada como registro de uma cena ou de uma pessoa real. O crédito acompanha a imagem na página da matéria. Nas capas e listas, ele aparece ao passar o mouse sobre a foto.</p>
       <h2>Independência</h2>
       <p>Conteúdo publicitário ou patrocinado, quando existir, é identificado como tal. A curadoria dos guias e da agenda é decisão exclusiva da redação, sem interferência de bilheteiras ou produções.</p>
       <h2>Quem responde</h2>

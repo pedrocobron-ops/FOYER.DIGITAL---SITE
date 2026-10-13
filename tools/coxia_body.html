@@ -1386,6 +1386,7 @@
               <div id="up-ajustar" style="display:none;margin-top:8px"></div>
               <p class="msg" id="up-pequena" style="display:none;margin-top:8px"></p>
               <input type="text" id="f-cred" placeholder="Crédito da foto — ex.: Foto: João Silva/Divulgação" style="margin-top:8px">
+              <p class="msg" id="cred-ia" style="display:none;margin-top:8px"></p>
               <input type="text" id="f-imgleg" placeholder="Descrição curta da foto, para quem não enxerga e para o Google — ex.: O elenco em cena no Teatro Renault" style="margin-top:8px">
               <div class="r2" style="margin-top:8px">
                 <div><input type="text" id="f-imgfonte" placeholder="Origem da foto (link) — de onde ela saiu"></div>
@@ -4094,6 +4095,19 @@ ingressos e divisor."></textarea>
       av.textContent = pequena
         ? 'Foto pequena (' + pequena + ' px de largura). O Google só destaca a matéria no Discover com foto de pelo menos 1200 px. ' +
           'Se puder, pegue a foto original da assessoria ou o cartaz em alta; foto baixada do Instagram vem com 1080 px e também fica abaixo. Dá para publicar assim mesmo.'
+        : '';
+    }
+    // imagem feita por IA: regra da casa desde 13/10/2026 (Pedro). Só quando a
+    // matéria não tem foto liberada, e com cara de ilustração: uma cena
+    // realista com pessoas passaria por foto do espetáculo, e é isso que o
+    // Google Notícias e o leitor tratam como enganoso.
+    var avIa = $('cred-ia');
+    if(avIa){
+      var ehIa = /\bIA\b|\bAI\b/.test(cred) || /intelig[êe]ncia artificial|(gerada|feita|criada) (por|com) ia\b/i.test(cred);
+      avIa.style.display = ehIa ? '' : 'none';
+      avIa.textContent = ehIa
+        ? 'Imagem de IA só quando não houver foto liberada. Ela deve ter cara de ilustração (cartaz, desenho, objeto, palco vazio, cenário), ' +
+          'nunca uma cena realista com pessoas como se fosse foto do espetáculo, e nunca o rosto de alguém real. Crédito padrão: Ilustração gerada por IA.'
         : '';
     }
   }
