@@ -6049,7 +6049,7 @@ sobre_body = band('O Foyer', 'Quem somos', 'Seu veículo de informação artíst
   <div class="art" style="max-width:820px; margin:0 auto">
     <div class="art-body">
       <h2>Como trabalhamos</h2>
-      <p>Título sem caça-clique, apuração com fonte e serviço completo ao final. Parte das matérias assinadas como <b>Redação Foyer</b> conta com apuração assistida por inteligência artificial — todas são revisadas, checadas e aprovadas por um editor humano antes de ir ao ar. As imagens vêm de divulgação das produções, de arquivos em licença livre, de reprodução de redes sociais quando a própria imagem é notícia e de material próprio, sempre com crédito. Ilustração feita com inteligência artificial é identificada como tal no crédito. Conteúdo publicitário, quando houver, é identificado como tal.</p>
+      <p>Título sem caça-clique, apuração com fonte e serviço completo ao final. Todo texto é editado e aprovado por um editor antes de ir ao ar. As imagens vêm de divulgação das produções, de arquivos em licença livre, de reprodução de redes sociais quando a própria imagem é notícia e de material próprio, sempre com crédito. Ilustração feita com inteligência artificial é identificada como tal no crédito. Conteúdo publicitário, quando houver, é identificado como tal.</p>
       <p>O FOYER é um veículo independente: quem sustenta a redação é a venda de espaço publicitário,
       nunca a interferência no que publicamos. Quer a sua marca aqui? Veja os formatos e contrate em
       <a href="anuncie.html"><b>Anuncie no FOYER</b></a>.</p>
@@ -6559,7 +6559,7 @@ principios_body = band('Institucional', 'Princípios Editoriais', 'Como o FOYER 
       <h2>O que publicamos</h2>
       <p>O FOYER cobre teatro, música e artes cênicas no Brasil e no mundo: notícias, guias de programação, explicadores, perfis e memória do palco. Todo conteúdo publicado é baseado em fatos verificáveis, com fontes citadas no próprio texto sempre que a informação não for de apuração direta da casa.</p>
       <h2 id="apuracao">Apuração e revisão</h2>
-      <p>Matérias assinadas como Redação Foyer podem contar com apuração assistida por inteligência artificial. Nenhuma delas chega ao site sem passar por revisão e aprovação de um editor humano, que responde pelo que foi publicado. Serviço (datas, horários, preços e locais) é conferido na fonte antes da publicação e vale para a data em que a matéria foi ao ar.</p>
+      <p>Usamos ferramentas digitais de pesquisa e checagem. Todo texto é editado e aprovado por um editor, que responde pelo que foi publicado. Serviço (datas, horários, preços e locais) é conferido na fonte antes da publicação e vale para a data em que a matéria foi ao ar.</p>
       <h2 id="correcoes">Correções</h2>
       <p>Erramos? Corrigimos. Matérias corrigidas ou ampliadas exibem o selo "Atualizada em" com data e horário da mudança. Para apontar um erro, escreva para <a href="mailto:programafoyer@gmail.com">programafoyer@gmail.com</a> com o endereço da matéria: respondemos e, quando for o caso, corrigimos com registro visível.</p>
       <h2>Imagens e créditos</h2>
