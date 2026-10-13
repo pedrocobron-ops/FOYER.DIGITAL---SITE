@@ -7240,7 +7240,10 @@ ingressos e divisor."></textarea>
           cat: F.cat, author: F.autor,
           img: imgPath || editEnvio.img, imgCredito: F.cred,
           imgLegenda: F.imgleg,
-          corpo: corpo, publishAt: editEnvio.publishAt,
+          // matéria agendada que ainda não saiu: a data e a hora vêm do
+          // formulário, que agora aparece também na edição (pedido do Pedro,
+          // 13/10/2026). Matéria que já saiu mantém a data de publicação.
+          corpo: corpo, publishAt: editEnvio.agendada ? publishAt : editEnvio.publishAt,
           criadoEm: editEnvio.criadoEm || editEnvio.publishAt,
           atualizadoEm: new Date().toISOString(),
           origem: editEnvio.origem, editadoPor: USER.nome
@@ -7280,7 +7283,9 @@ ingressos e divisor."></textarea>
         // acervo que ainda não tem JSON grava só se continuar sem.
         var camE = 'import/novas/' + slug + '.json';
         var txtE = JSON.stringify(edicao, null, 1);
-        var msgE = assina('edita matéria publicada "' + title + '"' +
+        var trocouHora = editEnvio.agendada && publishAt !== editEnvio.publishAt;
+        var msgE = assina((editEnvio.agendada ? 'edita matéria agendada "' : 'edita matéria publicada "') + title + '"' +
+          (trocouHora ? (quando === 'agendar' ? ' (nova data: ' + qdRelativo(publishAt) + ')' : ' (publica agora)') : '') +
           (notaNova ? ' (com nota de correção)' : (notaAntiga && !notaC ? ' (tira a nota de correção)' : '')));
         var gravaE = editEnvio.sha ? ghPut(camE, txtE, msgE, editEnvio.sha)
           : (editEnvio.fonte === 'acervo' ? ghPutNovo(camE, txtE, msgE) : ghPut(camE, txtE, msgE));
@@ -7340,6 +7345,8 @@ ingressos e divisor."></textarea>
           ? 'Reenviada ✓: a matéria voltou para a mesa' + (quemAprova && !assinaComigo(F.autor) ? ' de ' + quemAprova : ' de aprovação')
           : editEnvio.fonte === 'pauta'
           ? 'Editada ✓ — a matéria voltou para a mesa de aprovação'
+          : editEnvio.agendada
+          ? (quando === 'agendar' ? 'Edição salva ✓ — agendada para ' + qdRelativo(publishAt) : 'Edição salva ✓ — no ar em ~2 min')
           : 'Edição salva ✓ — no ar em ~2 min, com o selo “atualizada em”';
         if(eraDevolvida) toast(msg.textContent);
         var eraPauta = editEnvio.fonte === 'pauta';
@@ -9360,7 +9367,19 @@ ingressos e divisor."></textarea>
     statusTexto(); histReset();
     rascStatus('✎ Editando matéria existente: as mudanças só entram ao salvar a edição.');
     $('nova-titulo').textContent = 'Editar matéria';
-    $('f-quando').parentElement.parentElement.style.display = 'none';
+    // Matéria agendada que ainda não saiu: o campo de data e hora aparece já
+    // com a hora marcada, para trocar a data ou publicar agora (pedido do
+    // Pedro, 13/10/2026). Na matéria que já saiu ele continua escondido.
+    var agendadaE = fonte === 'novas' && !!EDIT.publishAt && new Date(EDIT.publishAt) > new Date();
+    EDIT.agendada = agendadaE;
+    $('f-quando').parentElement.parentElement.style.display = agendadaE ? '' : 'none';
+    if(agendadaE){
+      var qE = new Date(EDIT.publishAt);
+      $('f-quando').value = 'agendar'; $('f-quando-dt').style.display = 'block';
+      $('f-data').value = new Date(qE.getTime() - qE.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+      $('f-marcar').textContent = '🗓 ' + qdRelativo(EDIT.publishAt) + ' (trocar)';
+      $('edit-banner').firstChild.textContent = '✎ Editando matéria AGENDADA (ainda não saiu): ';
+    }
     $('btn-pub').textContent = 'Salvar edição';
     irPara('nova');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -9393,6 +9412,7 @@ ingressos e divisor."></textarea>
     $('nova-titulo').textContent = 'Nova matéria';
     $('f-quando').parentElement.parentElement.style.display = '';
     $('form').reset();
+    $('f-quando-dt').style.display = 'none'; $('f-marcar').textContent = '🗓 Escolher data e hora';
     CAPA = null; CAPA_SRC = null; $('up-ajustar').style.display = 'none'; $('up-ajustar').innerHTML = ''; $('up-prev').src = ''; up.classList.remove('tem');
     dobrasFecha();
     aplicarUsuario();
