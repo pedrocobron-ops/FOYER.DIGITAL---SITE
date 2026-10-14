@@ -82,6 +82,9 @@ function corpoEmail(ed: Record<string, unknown>, tokenLink: string){
       <a href="${url}" style="display:inline-block;background:#4E0F09;color:#CEB26A;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;letter-spacing:1px;text-transform:uppercase;padding:14px 26px">Ler a edição completa</a>
     </div>
     <div style="padding:18px 28px;border-top:1px solid #D8CEB8;font-family:Arial,sans-serif;font-size:11px;color:#6B6152;line-height:1.6">
+      <!-- 14/10/2026: fonte preferida do Google. Só o link, a mesma chamada que o site traz no fim das matérias e no rodapé -->
+      <a href="https://www.google.com/preferences/source?q=foyer.digital" style="color:#4E0F09;font-weight:bold">&#9733; Adicionar o FOYER como fonte preferida no Google</a>:
+      quem marca passa a ver as nossas matérias em destaque nas Principais Notícias do Google.<br>
       Você recebe este e-mail porque assinou a revista do FOYER, de graça.<br>
       <a href="${BASE}/descadastrar.html?t=${encodeURIComponent(tokenLink)}" style="color:#6B6152">Descadastrar</a> · FOYER.DIGITAL, o saguão do teatro brasileiro
     </div>

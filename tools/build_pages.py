@@ -37,11 +37,25 @@ BASE = _endereco_do_site()
 # que sai aqui. Só entra o que existe de verdade no site: nada de endereço,
 # CNPJ ou data de fundação que não esteja escrito numa fonte da casa.
 # Razão social e CNPJ da matriz informados pelo Pedro em 12/10/2026.
+# 14/10/2026: a ficha ganha a descrição (a frase que o Quem somos já diz), o
+# e-mail da redação (o emailContato de import/site.json, o mesmo da página de
+# contato) e um ponto de contato. Sem data de fundação nem endereço: o site
+# diz 2023 num lugar e o canal é anterior, e o rodapé diz São Paulo enquanto a
+# privacidade diz Santos. Entram quando o Pedro decidir, não por chute.
 import json as _json_org
+try:
+    _EMAIL_CASA = (_json_org.load(open(os.path.join(ROOT, 'import/site.json'))).get('emailContato') or '').strip()
+except Exception:
+    _EMAIL_CASA = ''
 ORG_LD = ('<script type="application/ld+json">' + _json_org.dumps({
     '@context': 'https://schema.org', '@type': 'NewsMediaOrganization',
     'name': 'FOYER', 'alternateName': 'Foyer Estúdio e Comunicação',
     'legalName': 'Pedro Amaral Martin & Cia Ltda', 'taxID': '31.153.535/0001-26',
+    'description': ('O FOYER é um veículo de comunicação artístico: portal de jornalismo cultural e canal de '
+                    'programas sobre teatro, música e artes, dedicado à cultura, à criatividade e à expressão artística.'),
+    **({'email': _EMAIL_CASA,
+        'contactPoint': [{'@type': 'ContactPoint', 'contactType': 'Redação', 'email': _EMAIL_CASA,
+                          'url': f'{BASE}/contato.html', 'availableLanguage': 'pt-BR'}]} if _EMAIL_CASA else {}),
     'url': f'{BASE}/', 'logo': f'{BASE}/assets/logo/foyer-stacked-gold.png',
     'sameAs': ['https://www.youtube.com/@Foyer.digital', 'https://www.instagram.com/foyer.digital/',
                'https://open.spotify.com/show/4GBFkc9ZaHC09krfoguHbm'],
@@ -61,6 +75,21 @@ ORG_LD = ('<script type="application/ld+json">' + _json_org.dumps({
 BUSCA_LD = ('<script type="application/ld+json">{"@context":"https://schema.org",'
             '"@type":"WebSite","name":"FOYER",'
             f'"url":"{BASE}/"}}</script>')
+
+# Fonte preferida do Google (14/10/2026). Desde 30/04/2026 o leitor brasileiro
+# pode marcar um site como fonte preferida (a estrela ao lado de Principais
+# Notícias), e quem marca passa a ver o FOYER com prioridade ali e nas
+# respostas de IA do Google. O botão é só um link para a tela do Google, em
+# nova aba: nada do publisher.js que o Google oferece, para a página não
+# ganhar script de terceiro nem a política de privacidade um terceiro novo.
+# Entra no fim de cada matéria (junto do compartilhar), no Quem somos, no
+# rodapé e no e-mail da revista (supabase/functions/enviar-revista/index.ts).
+FONTE_PREF_URL = 'https://www.google.com/preferences/source?q=foyer.digital'
+FONTE_PREF_NOTA = 'Quem marca passa a ver as nossas matérias em destaque nas Principais Notícias do Google.'
+def fonte_pref_html():
+    return (f'<div class="fonte-pref"><a class="sbtn fp-btn" href="{FONTE_PREF_URL}" target="_blank" rel="noopener">'
+            '<span aria-hidden="true">★</span> Adicionar o FOYER como fonte preferida no Google</a>'
+            f'<p class="fp-nota">{FONTE_PREF_NOTA}</p></div>')
 
 # A arte padrão de compartilhamento (12/10/2026): 1200x630, a proporção que
 # WhatsApp, Facebook e X esperam. O banner antigo (1128x320) saía cortado ou
@@ -294,6 +323,8 @@ FOOTER = '''<footer>
       <div class="foot-brand">
         <img class="mini-logo" src="assets/logo/foyer-stacked-gold-sm.png" alt="FOYER" width="173" height="160" loading="lazy">
         <p>Portal de teatro, música e cultura — e um canal de programas sobre a arte de quem faz o palco.</p>
+        <a class="foot-pref" href="''' + FONTE_PREF_URL + '''" target="_blank" rel="noopener"><span aria-hidden="true">★</span> Adicionar o FOYER como fonte preferida no Google</a>
+        <small class="foot-pref-nota">''' + FONTE_PREF_NOTA + '''</small>
       </div>
       <div class="foot-col">
         <h2>Editorias</h2>
@@ -2037,16 +2068,71 @@ _YT_FORA = _yt_indisponiveis(sorted({i for v in _VIDEOS_MAT.values() for i in v}
 if _YT_FORA:
     print(f'• {len(_YT_FORA)} vídeo(s) do YouTube fora do ar nas matérias: ' + ', '.join(sorted(_YT_FORA)))
 
+# Miniatura grande do vídeo (14/10/2026). A hqdefault (480x360) tem faixas
+# pretas e fica abaixo dos 1200 px que o Discover pede para destacar imagem;
+# para o VideoObject, a prévia de link e a capa das matérias de vídeo sem foto
+# vale a maxresdefault (1280x720), que só existe quando o vídeo subiu em HD.
+# Conferimos por HEAD, uma vez por vídeo, qual a maior que existe
+# (maxresdefault, senão hq720, senão hqdefault, que todo vídeo tem) e guardamos
+# em assets/thumbs/yt-maxres.json, como o yt-oembed.json: a resposta boa não
+# vence; a que caiu numa menor é conferida de novo a cada 7 dias, porque o
+# YouTube pode gerar a grande depois. Sem rede, vale o que estava guardado;
+# sem nada guardado, a hqdefault. Os CARTÕES dos programas seguem com a
+# miniatura pequena (_yt_img), que foi escolhida por desempenho.
+def _yt_miniaturas_grandes(ids):
+    import time as _time, urllib.request as _ur, urllib.error as _ue
+    from concurrent.futures import ThreadPoolExecutor as _TPE
+    arq = os.path.join(ROOT, 'assets/thumbs/yt-maxres.json')
+    try:
+        cache = _json.load(open(arq))
+    except Exception:
+        cache = {}
+    agora = _time.time()
+    def _vencido(i):
+        c = cache.get(i)
+        return not c or (c.get('n') != 'maxresdefault' and agora - c.get('t', 0) > 7 * 86400)
+    falta = [i for i in ids if _vencido(i)][:400]
+    if falta and not os.environ.get('FOYER_SEM_REDE'):
+        def _checa(i):
+            for n in ('maxresdefault', 'hq720'):
+                try:
+                    _ur.urlopen(_ur.Request(f'https://i.ytimg.com/vi/{i}/{n}.jpg', method='HEAD',
+                                            headers={'User-Agent': 'Mozilla/5.0'}), timeout=6)
+                    return i, n
+                except _ue.HTTPError as e:
+                    if e.code not in (404, 403):
+                        return i, None
+                except Exception:
+                    return i, None
+            return i, 'hqdefault'
+        with _TPE(8) as _ex:
+            for i, n in _ex.map(_checa, falta):
+                if n:
+                    cache[i] = {'n': n, 't': agora}
+        try:
+            os.makedirs(os.path.dirname(arq), exist_ok=True)
+            _json.dump(cache, open(arq, 'w'))
+        except Exception:
+            pass
+    return {i: (cache.get(i) or {}).get('n') or 'hqdefault' for i in ids}
+
+_YT_GRANDE = _yt_miniaturas_grandes(sorted({v[0] for v in _VIDEOS_MAT.values() if v and v[0] not in _YT_FORA}))
+
+def _yt_capa(vid):
+    """Endereço da maior miniatura conhecida do vídeo (JPG, 16:9 na maxresdefault e na hq720)."""
+    return f'https://i.ytimg.com/vi/{vid}/{_YT_GRANDE.get(vid, "hqdefault")}.jpg'
+
 # Matéria de vídeo sem foto de capa (as do "Teatro a Sangue Frio" vinham com
 # <img src=""> e prévia de link genérica): a miniatura do vídeo vira a capa do
 # cartão e a imagem da prévia. Na página da matéria ela não aparece em cima,
 # porque o próprio player já abre o texto. O crédito fica vazio.
+# 14/10/2026: a miniatura é a grande (_yt_capa), não mais a hqdefault.
 for _p in MATERIAS:
     if _p.get('img'):
         continue
     _vs = [i for i in _VIDEOS_MAT.get(_p['slug'], []) if i not in _YT_FORA]
     if _vs and _p.get('secao') != 'opiniao':
-        _p['img'] = f'https://i.ytimg.com/vi/{_vs[0]}/hqdefault.jpg'
+        _p['img'] = _yt_capa(_vs[0])
         _p['imgDoVideo'] = True
 
 _MES_N = {'Jan':'01','Feb':'02','Mar':'03','Apr':'04','May':'05','Jun':'06',
@@ -2194,6 +2280,15 @@ def _pagina_de_quem_assina(nome):
         return alvo
     sp = (globals().get('_NOME2SLUG') or {}).get(nome)
     return f'pessoa-{sp}.html' if sp else ''
+
+def _redes_casa(nome):
+    """Redes de uma pessoa gravadas numa fonte da casa (14/10/2026): hoje só
+    o campo redes do verbete, editado na aba Enciclopédia da Coxia
+    (import/enciclopedia-regras.json). Sem registro, lista vazia: um @
+    chutado apontaria para outra pessoa."""
+    sp = (globals().get('_NOME2SLUG') or {}).get(nome)
+    pp = (globals().get('PESSOAS') or {}).get(sp) if sp else None
+    return [v for v in ((pp or {}).get('redes') or {}).values() if isinstance(v, str) and v.startswith('http')]
 
 # ---- miniaturas (05/10/2026): as fotos iam para a página no tamanho em que
 # foram enviadas (200 a 930 KB cada; listas de 0,8 a 1,8 MB). Toda foto local
@@ -2952,7 +3047,11 @@ def post_page(i, p):
         rel = [x for x in OPINIAO if x['slug'] != p['slug']][:3]
         _leia_h2, _leia_note = 'Mais em Opinião', 'colunas, artigos e editoriais'
     else:
-        rel = [x for x in NOTICIAS if x['cat'] == p['cat'] and x['slug'] != p['slug']][:3]
+        # por afinidade (14/10/2026): pessoas e espetáculo em comum antes da
+        # editoria; a nota do bloco diz qual foi o critério que mandou
+        rel, _afim = _leia_tambem(p)
+        if _afim:
+            _leia_note = 'Sobre o mesmo assunto'
     if len(rel) < 3:
         rel += [x for x in MATERIAS if x['slug'] != p['slug'] and x not in rel and (_eh_opiniao(p) or not _eh_opiniao(x))][:3-len(rel)]
     rel_cells = '\n'.join(real_cell(r) for r in rel)
@@ -3014,6 +3113,7 @@ def post_page(i, p):
       <button class="sbtn" data-share="whats" data-title="{safe(p['title'])}">WhatsApp</button>
       <button class="sbtn" data-share="copy" data-title="{safe(p['title'])}">Copiar link</button>
     </div>
+    {fonte_pref_html()}
   </div>
   <section class="cv-band" aria-label="Assine a revista">
     <div class="cv-band-txt">
@@ -5357,6 +5457,11 @@ def _ld_pessoa(sp, p):
         _im = _foto_og(p)
         d['image'] = _im if _im.startswith('http') else f'{BASE}/{_im}'
     same = [v for v in (p.get('redes') or {}).values()] + ([p['wikiUrl']] if p.get('wikiUrl') else [])
+    # quem assina no FOYER tem página de autor: o verbete aponta para ela
+    # (14/10/2026), e a página de autor aponta para o verbete (_ld_autor)
+    _spa = (globals().get('_AUTOR_SLUG') or {}).get(p['nome'])
+    if _spa:
+        same.append(f'{BASE}/autor-{_spa}.html')
     if same: d['sameAs'] = same
     # '<' vira \u003c: uma bio da Wikipédia com '</script>' fechava o bloco
     # e injetava HTML na página (auditoria de 12/10/2026, achado 84)
@@ -5544,6 +5649,13 @@ def _ld_autor(sp, a):
         _f = (a.get('foto') or '').strip()
         if _f:
             quem['image'] = _f if _f.startswith('http') else f'{BASE}/{_f}'
+        # 14/10/2026: a mesma pessoa no verbete da Enciclopédia (quando ele
+        # existe) e as redes gravadas na casa; o Google junta as duas páginas
+        # numa só entidade. Sem rede registrada, sameAs leva só o verbete.
+        _sp_enc = (globals().get('_NOME2SLUG') or {}).get(a['nome'])
+        _same = ([f'{BASE}/pessoa-{_sp_enc}.html'] if _sp_enc and _sp_enc in (globals().get('PESSOAS') or {}) else []) + _redes_casa(a['nome'])
+        if _same:
+            quem['sameAs'] = _same
     d = {'@context': 'https://schema.org', '@type': 'ProfilePage', 'url': url,
          'name': f"{a['nome']} no FOYER", 'mainEntity': quem}
     return '<script type="application/ld+json">' + _json.dumps(d, ensure_ascii=False).replace('</', '<\\/') + '</script>'
@@ -6054,6 +6166,9 @@ sobre_body = band('O Foyer', 'Quem somos', 'Seu veículo de informação artíst
       nunca a interferência no que publicamos. Quer a sua marca aqui? Veja os formatos e contrate em
       <a href="anuncie.html"><b>Anuncie no FOYER</b></a>.</p>
       <p>Quer falar com a redação? <a href="contato.html">Visite a página de contato</a>.</p>
+      <h2>Leia o FOYER primeiro no Google</h2>
+      <p>O Google deixa você escolher as fontes de notícia que prefere. Marque o FOYER e as nossas matérias aparecem em destaque quando o assunto é teatro, música e cultura.</p>
+      {fonte_pref_html()}
     </div>
   </div>
 </main>
@@ -8432,6 +8547,16 @@ def _ld_materia(p):
         _pg = _pagina_de_quem_assina(nome)
         if _pg:
             _o['url'] = f'{BASE}/{_pg}'
+        # cargo e redes de quem assina (14/10/2026): o cargo é o de
+        # import/equipe.json ou import/opiniao.json (via AUTORES); as redes,
+        # só as gravadas na Coxia para o verbete da pessoa (_redes_casa).
+        if _o['@type'] == 'Person':
+            _cg = (AUTORES.get(_AUTOR_SLUG.get(nome, ''), {}).get('cargo') or '').strip()
+            if _cg and _cg != 'Colaborador(a)':
+                _o['jobTitle'] = _cg
+            _rd = _redes_casa(nome)
+            if _rd:
+                _o['sameAs'] = _rd
         return _o
     _partes = [x.strip() for x in autor.split(' e ')]
     _a = [_pessoa_ld(x) for x in _partes] if (len(_partes) > 1 and all(_pagina_de_quem_assina(x) for x in _partes)) else _pessoa_ld(autor)
@@ -8472,11 +8597,14 @@ def _ld_materia(p):
     if _vids:
         _iv = _vids[0]
         _quando_yt = (_YT_DATA.get(_iv) or '')[:10]
+        # a miniatura grande primeiro (14/10/2026), e a hqdefault, que todo
+        # vídeo tem, como segunda opção
+        _mins = list(dict.fromkeys([_yt_capa(_iv), f'https://i.ytimg.com/vi/{_iv}/hqdefault.jpg']))
         dados['video'] = {
             '@type': 'VideoObject',
             'name': p['title'],
             'description': _desc_saida(p, 200) or p['title'],
-            'thumbnailUrl': [f'https://i.ytimg.com/vi/{_iv}/hqdefault.jpg'],
+            'thumbnailUrl': _mins,
             'uploadDate': (f'{_quando_yt}T09:00:00-03:00' if len(_quando_yt) == 10 else _iso_cheio(p)),
             'embedUrl': f'https://www.youtube.com/embed/{_iv}',
             'url': f'https://www.youtube.com/watch?v={_iv}',
@@ -8493,8 +8621,83 @@ def _ld_materia(p):
     migalhas = {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': trilha}
     # '<' vira \u003c, como no bloco do elenco: título ou linha fina com
     # '</script>' não pode fechar o JSON-LD (auditoria de 12/10/2026, achado 84)
+    _ev_ld = _ld_evento(p, img)
     return ('<script type="application/ld+json">' + _json.dumps(dados, ensure_ascii=False).replace('<', '\\u003c') + '</script>'
-            '<script type="application/ld+json">' + _json.dumps(migalhas, ensure_ascii=False).replace('<', '\\u003c') + '</script>')
+            '<script type="application/ld+json">' + _json.dumps(migalhas, ensure_ascii=False).replace('<', '\\u003c') + '</script>'
+            + (('<script type="application/ld+json">' + _json.dumps(_ev_ld, ensure_ascii=False).replace('<', '\\u003c') + '</script>') if _ev_ld else ''))
+
+# ---- Ficha de evento (14/10/2026). O Google mostra espetáculo com data e
+# local em buscas de peça e de ingresso no Brasil, lendo um Event na página.
+# Sai só na matéria que tem o campo evento com início, local e cidade (o
+# bloco da Coxia) e temporada ainda em cartaz ou por vir: temporada encerrada
+# e matéria sem local físico ficam sem ficha. O nome do espetáculo é o que
+# está entre aspas no título (senão, na linha fina); sem nome confiável, não
+# há ficha, porque a ficha errada é pior que nenhuma. Ingresso (offers) só
+# quando a matéria traz um link de bilheteria, no corpo ou nas fontes, e sem
+# preço: o preço muda e a casa não o apura. Nada de organizador inventado.
+# TheaterEvent só para as editorias de teatro; o resto sai como Event genérico
+# (um 'Show' pode ser circo, e MusicEvent seria chute)
+_TIPO_EVENTO = {'Teatro': 'TheaterEvent', 'Teatro Musical': 'TheaterEvent', 'Em Cartaz': 'TheaterEvent', 'Crítica': 'TheaterEvent'}
+_BILHETERIAS = _re.compile(r'https?://[^\s"<>]*(sympla|eventim|ingressorapido|ingresso\.com|ticketmaster|uhuu\.com|'
+                           r'blueticket|bileto|ticket360|ingressodigital|ingressocerto|clubedoingresso|guicheweb|'
+                           r'minhaentrada|q2ingressos|ticketsforfun|ingressos?\b)[^\s"<>]*', _re.I)
+_N_EVENTOS = [0]
+
+def _nome_espetaculo(p, so_titulo=False):
+    """O nome entre aspas (curvas ou retas) no título; depois, na linha fina."""
+    for campo in (('title',) if so_titulo else ('title', 'linhaFina')):
+        for m in _re.findall(r'[“"]([^”“"]{2,120})[”"]', str(p.get(campo) or '')):
+            m = m.strip(' ,;:')   # o ponto, a exclamação e a interrogação ficam: "Meu Deus!", "A Filha da..."
+            if len(m) >= 2:
+                return m
+    return ''
+
+def _link_ingresso(p):
+    """Primeiro link de bilheteria da matéria: nas fontes ou nos links do corpo."""
+    for u in p.get('fontes') or []:
+        if isinstance(u, str) and _BILHETERIAS.search(u):
+            return u.strip()
+    try:
+        corpo = open(os.path.join(ROOT, 'import/corpo', p['slug'] + '.html')).read()
+    except OSError:
+        return ''
+    for u in _re.findall(r'href="(https?://[^"]+)"', corpo):
+        u = _html.unescape(u)
+        if _BILHETERIAS.search(u):
+            return u
+    return ''
+
+def _ld_evento(p, img):
+    ev = p.get('evento') or {}
+    ini, fim = str(ev.get('inicio') or '')[:10], str(ev.get('fim') or '')[:10]
+    local, cidade = str(ev.get('local') or '').strip(), str(ev.get('cidade') or '').strip()
+    if not (len(ini) == 10 and local and cidade):
+        return None
+    if (fim or ini) < _hoje:
+        return None
+    nome = _nome_espetaculo(p)
+    if not nome:
+        return None
+    tipo = next((_TIPO_EVENTO[c] for c in [p.get('cat', '')] + p.get('cats', []) if c in _TIPO_EVENTO), 'Event')
+    end = {'@type': 'PostalAddress', 'addressLocality': cidade, 'addressCountry': 'BR'}
+    if str(ev.get('uf') or ev.get('estado') or '').strip():
+        end['addressRegion'] = str(ev.get('uf') or ev.get('estado')).strip()
+    d = {'@context': 'https://schema.org', '@type': tipo, 'name': nome,
+         'startDate': ini, **({'endDate': fim} if fim else {}),
+         'eventStatus': 'https://schema.org/EventScheduled',
+         'eventAttendanceMode': 'https://schema.org/OfflineEventAttendanceMode',
+         'location': {'@type': 'Place', 'name': local, 'address': end},
+         'image': [img],
+         'description': p.get('linhaFina') or _desc_saida(p, 200) or p['title'],
+         'url': f"{BASE}/post-{p['slug']}.html",
+         'inLanguage': 'pt-BR'}
+    if str(ev.get('organizador') or '').strip():
+        d['organizer'] = {'@type': 'Organization', 'name': str(ev['organizador']).strip()}
+    _ing = _link_ingresso(p)
+    if _ing:
+        d['offers'] = {'@type': 'Offer', 'url': _ing}
+    _N_EVENTOS[0] += 1
+    return d
 
 def _metas_artigo(p):
     """Metas de artigo que WhatsApp, Facebook, LinkedIn e agregadores leem
@@ -8513,10 +8716,83 @@ def _metas_artigo(p):
     linhas.append(f'<meta property="og:image:alt" content="{e(p.get("legenda") or p["title"])}">')
     return '\n'.join(linhas) + '\n'
 
+# ---- "Leia também" por afinidade (14/10/2026). Eram as 3 mais recentes da
+# mesma editoria, o que ligava a crítica de uma peça à notícia de outra só
+# porque as duas são "Teatro". Agora a ordem é por afinidade: pessoas em
+# comum (o mapeamento pessoa -> matérias da Enciclopédia, já carregado em
+# POR_MATERIA; quem aparece em poucas matérias pesa mais que um nome que
+# está em centenas), espetáculo em comum (o nome entre aspas no título),
+# editoria em comum, e a recência desempata. Fica de fora a própria matéria
+# e, enquanto houver outra opção, a matéria de vídeo sem foto. Os índices
+# invertidos são montados uma vez; por matéria só entram os candidatos com
+# algo em comum e os 60 mais recentes de cada editoria dela, para a montagem
+# não ficar mais lenta (medido em 14/10/2026: a montagem inteira foi de 7,3 s
+# para 7,4 s, nas 1.918 matérias, sem contar rede).
+import heapq as _heapq
+_POS_MAT = {m['slug']: i for i, m in enumerate(MATERIAS)}   # MATERIAS já vem da mais nova para a mais antiga
+_IDX_PESSOA, _IDX_SHOW, _IDX_CAT, _SHOW_DE = {}, {}, {}, {}
+for _s, _l in POR_MATERIA.items():
+    if _s not in _MAT_POR_SLUG:
+        continue
+    _aut = _autores_da(_s)
+    for _sp in _l:
+        if _sp not in _CO_FORA and _sp not in _aut:
+            _IDX_PESSOA.setdefault(_sp, []).append(_s)
+for _m in NOTICIAS:
+    _k = _nome_espetaculo(_m, so_titulo=True).lower()
+    if len(_k) >= 3:
+        _SHOW_DE[_m['slug']] = _k
+        _IDX_SHOW.setdefault(_k, []).append(_m['slug'])
+    for _c in [_m['cat']] + _m.get('cats', []):
+        if _c:
+            _IDX_CAT.setdefault(_c, []).append(_m['slug'])
+_UM_ANO_ATRAS = (datetime.now(timezone.utc) - __import__('datetime').timedelta(days=365)).strftime('%Y-%m-%d')
+
+def _leia_tambem(p, n=3):
+    """As n matérias mais afins a p (fora da Opinião) e se a primeira delas
+    tem pessoa ou espetáculo em comum com p (muda a nota do bloco)."""
+    s = p['slug']
+    pts, afins = {}, set()
+    _aut = _autores_da(s)
+    for sp in POR_MATERIA.get(s, []):
+        if sp in _CO_FORA or sp in _aut:
+            continue
+        lst = _IDX_PESSOA.get(sp, [])
+        peso = 1 + 2 * min(1.0, 12 / max(1, len(lst)))   # nome raro pesa 3; nome em centenas, pouco mais de 1
+        for s2 in lst:
+            pts[s2] = pts.get(s2, 0) + peso
+            afins.add(s2)
+    k = _SHOW_DE.get(s)
+    if k:
+        for s2 in _IDX_SHOW.get(k, []):
+            pts[s2] = pts.get(s2, 0) + 4
+            afins.add(s2)
+    cats = {c for c in [p['cat']] + p.get('cats', []) if c}
+    for c in cats:
+        for s2 in _IDX_CAT.get(c, [])[:60]:
+            pts.setdefault(s2, 0)
+    pts.pop(s, None)
+    cand = []
+    for s2, v in pts.items():
+        m = _MAT_POR_SLUG.get(s2)
+        if not m or _eh_opiniao(m):
+            continue
+        if m['cat'] in cats:
+            v += 1
+        elif any(c in cats for c in m.get('cats', [])):
+            v += 0.5
+        if (m.get('iso') or '') >= _UM_ANO_ATRAS:
+            v += 0.5
+        if m.get('imgDoVideo'):
+            v -= 2
+        cand.append((-v, _POS_MAT.get(s2, 10 ** 9), s2))
+    rel = [_MAT_POR_SLUG[c[2]] for c in _heapq.nsmallest(n, cand)]
+    return rel, bool(rel and rel[0]['slug'] in afins)
+
 for _i, _p in enumerate(MATERIAS):
     page('post-' + _p['slug'] + '.html', _p['title'] + ' — FOYER', _desc_saida(_p, 200), 'opiniao.html' if _eh_opiniao(_p) else 'noticias.html', post_page(_i, _p), quiet=True,
          og_img=_og_src(_p['img']) if _p['img'] else _og_tipo(_p), og_type='article', ld=_ld_materia(_p), extra=_metas_artigo(_p))
-print(f'• {len(MATERIAS)} páginas de matéria')
+print(f'• {len(MATERIAS)} páginas de matéria' + (f' · {_N_EVENTOS[0]} com ficha de evento' if _N_EVENTOS[0] else ''))
 
 for _asp, _aa in AUTORES.items():
     _amats = [_m for _m in MATERIAS

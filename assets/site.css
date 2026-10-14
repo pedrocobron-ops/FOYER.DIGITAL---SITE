@@ -1865,3 +1865,21 @@ body.ads-on .ad-slot::before{ font-size:.75rem; }
    'em artigo' costuma ter (cerca de 330px), para o texto não descer quando ele
    chega */
 @media (max-width:700px){ body.ads-on .ad-slot[data-ad-slot="2001"]{ min-height:330px; } }
+
+/* 14/10/2026: "Adicionar o FOYER como fonte preferida no Google". Quem marca
+   passa a ver as matérias da casa em destaque nas Principais Notícias. É um
+   link vestido de botão, no tom dos botões de compartilhar (sem o script do
+   Google, que pesaria a página e criaria um terceiro novo na privacidade).
+   Entra no fim da matéria, no Quem somos e no rodapé; a frase ao lado explica
+   em uma linha o que acontece ao marcar. */
+.fonte-pref{ display:flex; flex-direction:column; align-items:flex-start; gap:8px; margin-top:14px; }
+.fonte-pref .fp-btn{ display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+  border-color:var(--ink); line-height:1.3; text-align:left; }
+.fonte-pref .fp-btn:hover{ transform:translateY(-2px); }
+.fonte-pref .fp-nota{ font-family:var(--sans); font-size:.82rem; line-height:1.5; color:var(--ink-soft); max-width:62ch; margin:0; }
+/* no rodapé (vinho) o botão é dourado, como os demais links da coluna */
+footer .foot-pref{ display:inline-block; margin-top:16px; font-family:var(--mono); font-weight:600;
+  font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; border:1px solid var(--gold);
+  color:var(--gold); padding:8px 12px; line-height:1.3; }
+footer .foot-pref:hover{ background:var(--gold); color:var(--wine); }
+footer .foot-pref-nota{ display:block; font-size:.8rem; line-height:1.5; opacity:.8; margin-top:8px; max-width:34ch; }
