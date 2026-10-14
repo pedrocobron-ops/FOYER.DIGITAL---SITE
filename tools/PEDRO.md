@@ -443,8 +443,20 @@ o descritivo diz quem está de cada lado. Uma só das duas na capa é erro.
 matéria sobre filme ou série é uma cena da obra: still do material de
 divulgação (sala de imprensa do estúdio ou da distribuidora, página oficial
 do filme) ou o quadro do trailer oficial. Crédito "Foto: Divulgação / Nome do
-Estúdio" (ou "Frame do trailer oficial / Estúdio"). Retrato de ator em
-evento é a segunda opção, não a primeira.
+Estúdio" (still) ou "Foto: Reprodução / Nome da Distribuidora" (quadro do
+trailer). Retrato de ator em evento é a segunda opção, não a primeira.
+
+O quadro do trailer sai do próprio YouTube, sem baixar o vídeo: cada vídeo
+tem três quadros automáticos (`maxres1`, `maxres2`, `maxres3`), que são
+cenas reais, ao contrário da miniatura principal, que costuma trazer o
+texto "trailer oficial" e não serve de capa. O comando é
+`capa --slug X --quadro URL_DO_YOUTUBE --n 2 --distribuidora "Universal
+Pictures"`: ele tira as barras pretas, corta marcas do canal no topo com
+`--corta-topo 72` quando houver, e põe o quadro de cinema (mais largo que
+16:9) inteiro, em moldura, para não cortar ninguém das pontas. Olhe os três
+(`--n 1`, `2`, `3`) antes de escolher: quadro com legenda queimada ou com
+texto do canal não entra. Quando a matéria junta duas pessoas, o quadro
+precisa mostrar as duas (regra da capa dupla).
 
 Regras da capa: **16:9, até 1600 px de largura, rostos preservados.** Foto
 em pé (retrato, cartaz) entra **inteira, em moldura**: sobre um fundo 16:9

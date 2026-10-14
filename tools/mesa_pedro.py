@@ -278,6 +278,28 @@ def _baixa(url, destino=None):
 
 # --------------------------------------------------------------------- capa
 
+def _id_youtube(texto):
+    m = re.search(r'(?:v=|youtu\.be/|/shorts/|/embed/)([\w-]{11})', texto) or re.fullmatch(r'([\w-]{11})', texto.strip())
+    if not m:
+        sys.exit(f'não achei o id do vídeo em: {texto}')
+    return m.group(1)
+
+
+def _sem_barras(im, corta_topo=0, limiar=24):
+    """Tira as barras pretas (letterbox) do quadro e, se pedido, uma faixa no topo (marcas do canal)."""
+    from PIL import ImageOps
+    g = ImageOps.autocontrast(im.convert('L'))
+    w, h = g.size
+    linhas = [y for y in range(h) if g.crop((0, y, w, y + 1)).getextrema()[1] > limiar]
+    cols = [x for x in range(w) if g.crop((x, 0, x + 1, h)).getextrema()[1] > limiar]
+    if not linhas or not cols:
+        return im
+    topo = linhas[0] + max(0, corta_topo)
+    if linhas[-1] - topo < 100:
+        topo = linhas[0]
+    return im.crop((cols[0], topo, cols[-1] + 1, linhas[-1] + 1))
+
+
 def _corta_16_9(im, foco='alto'):
     """Capa exata em 16:9. Foto em pé ou quase quadrada: preserva o alto, onde
     ficam os rostos. Foto deitada: recorta pelo foco pedido."""
@@ -525,6 +547,15 @@ def cmd_capa(a):
                 '_commons': {'descricao': info['descricao'], 'data': info['data'], 'licenca_url': info['licenca_url'],
                              'tamanho': f'{info["largura"]}x{info["altura"]}'},
             })
+        elif a.quadro:
+            vid = _id_youtube(a.quadro)
+            url = f'https://i.ytimg.com/vi/{vid}/maxres{a.n}.jpg'
+            assista = f'https://www.youtube.com/watch?v={vid}'
+            saida.update({'imgCredito': 'Foto: Reprodução' + (f' / {a.distribuidora}' if a.distribuidora else ''),
+                          'imgFonte': assista, 'imgLegenda': '',
+                          'imgDireito': (f'Quadro do trailer oficial publicado no YouTube ({assista}; quadro automático {a.n}), '
+                                         f'capturado em {_brt(_agora()).strftime("%d/%m/%Y")}. Uso jornalístico de material de divulgação; '
+                                         'crédito à distribuidora.' + ('' if a.distribuidora else ' CONFIRA a distribuidora e complete o crédito.'))})
         else:
             url = a.url
             saida.update({'imgCredito': 'Foto: Divulgação', 'imgFonte': url, 'imgLegenda': '',
@@ -553,6 +584,9 @@ def cmd_capa(a):
             fundo.paste(im.convert('RGBA'), mask=im.convert('RGBA').split()[-1])
             im = fundo
         im = im.convert('RGB')
+        if a.quadro:
+            im = _sem_barras(im, a.corta_topo)
+            print(f'  quadro sem barras: {im.width}x{im.height}', file=sys.stderr)
         # a original inteira (redimensionada), para as artes do Instagram
         orig = im.copy()
         if orig.width > 1600:
@@ -561,7 +595,9 @@ def cmd_capa(a):
         orig.save(os.path.join(pasta, caminho_orig), 'JPEG', quality=86, optimize=True)
         saida['imgOriginal'] = caminho_orig
     em_pe = im.height > im.width * 0.85
-    if a.foco == 'moldura' or (a.foco == 'auto' and em_pe and not a.arte):
+    # quadro de cinema (mais largo que 16:9) entra inteiro, em moldura, para não perder as pontas
+    larga = im.width > im.height * 16 / 9 * 1.05
+    if a.foco == 'moldura' or (a.foco == 'auto' and em_pe and not a.arte) or (a.foco == 'auto' and larga and getattr(a, 'quadro', None)):
         capa = _moldura_16_9(im)
         saida['_corte'] = 'moldura: foto inteira sobre fundo desfocado dela mesma'
     else:
@@ -1312,6 +1348,10 @@ def main():
     g.add_argument('--url', help='imagem de divulgação oficial')
     g.add_argument('--commons', help='nome do arquivo no Wikimedia Commons (File:...)')
     g.add_argument('--arte', help='arte da casa, 1 a 6')
+    g.add_argument('--quadro', help='quadro automático do trailer oficial no YouTube (URL ou id do vídeo); escolha com --n')
+    c.add_argument('--n', type=int, choices=[1, 2, 3], default=2, help='qual dos três quadros automáticos do YouTube (1, 2 ou 3)')
+    c.add_argument('--corta-topo', type=int, default=0, help='px a cortar no topo do quadro (marcas do canal, logotipos)')
+    c.add_argument('--distribuidora', default='', help='nome para o crédito "Foto: Reprodução / Distribuidora" (com --quadro)')
     c.add_argument('--foco', choices=['auto', 'moldura', 'alto', 'centro', 'baixo'], default='auto',
                    help='auto: foto em pé vira moldura (inteira sobre fundo desfocado), deitada recorta pelo alto; alto/centro/baixo forçam o recorte')
     c.set_defaults(fn=cmd_capa)
