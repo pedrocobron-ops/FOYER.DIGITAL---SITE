@@ -315,8 +315,12 @@ Nunca: Getty, Reuters, AFP, Folhapress, Shutterstock, Alamy, foto de jornal
 concorrente, foto de rede social de pessoa, frame de vídeo sem ser o trailer
 oficial. Ilustração gerada por IA só se o Pedro a entregar ou pedir.
 
-Regras da capa: **16:9, até 1600 px de largura, rostos preservados** (foto em
-pé é recortada pelo terço superior). O site não distorce imagem nunca.
+Regras da capa: **16:9, até 1600 px de largura, rostos preservados.** Foto
+em pé (retrato, cartaz) entra **inteira, em moldura**: sobre um fundo 16:9
+feito dela mesma, desfocado e escurecido (`--foco auto`, o padrão). Recortar
+foto em pé pelo terço superior (`--foco alto`) só quando ela tem corpo
+inteiro e o rosto fica no alto; em retrato fechado o corte decapita. O site
+não distorce imagem nunca.
 **Trocar foto é arquivo novo com nome novo**, nunca sobrescrever (o navegador
 guarda a imagem pelo nome).
 

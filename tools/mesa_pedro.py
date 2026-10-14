@@ -79,6 +79,25 @@ TEMPO_NO_TITULO = r'\b(?:hoje|ontem|amanhã|nest[ae] (?:segunda|terça|quarta|qu
 LICENCAS_OK = re.compile(r'^(cc0|public domain|pd[- ]|cc[- ]by(?:[- ]sa)?(?:[- ]\d(?:\.\d)?)?|attribution)', re.I)
 LICENCAS_NAO = re.compile(r'\b(nc|nd|non[- ]?commercial|no[- ]?deriv|fair use|non-free|copyright)\b', re.I)
 
+TAMANHOS_THUMB = (1920, 1280, 960, 500)   # larguras padrão do Wikimedia (mediawiki.org/wiki/Common_thumbnail_sizes); fora delas o servidor responde 400 ou 429
+
+
+def _thumb_padrao(url_original, largura):
+    """A miniatura no maior tamanho padrão menor que a largura original: o
+    Wikimedia limita quem baixa o original e pede as miniaturas listadas em
+    https://w.wiki/GHai. Vale para JPG e PNG; outros formatos vão no original."""
+    # a API devolve o original com ?utm_source=... no fim: a consulta sai antes de casar
+    url_original = (url_original or '').split('?')[0]
+    m = re.match(r'(https://upload\.wikimedia\.org/wikipedia/commons)/([0-9a-f])/([0-9a-f]{2})/([^/]+\.(?:jpe?g|png|JPE?G|PNG))$', url_original)
+    if not m or not largura:
+        return url_original
+    for t in TAMANHOS_THUMB:
+        # 1920 só quando a original é bem maior; abaixo disso, 1280 é a mais segura
+        if t < largura:
+            return f'{m.group(1)}/thumb/{m.group(2)}/{m.group(3)}/{m.group(4)}/{t}px-{m.group(4)}'
+    return url_original
+
+
 ARTES = {1: 'arte-1-refletor', 2: 'arte-2-cortina', 3: 'arte-3-plateia',
          4: 'arte-4-arena', 5: 'arte-5-urdimento', 6: 'arte-6-degraus'}
 ARTES_LEGENDA = {1: 'Arte da identidade do FOYER: o ator sob o refletor',
@@ -164,7 +183,9 @@ def _grava_json(c, d):
         f.write('\n')
 
 
-def _slugs_acervo(pasta):
+def _slugs_acervo(pasta, exceto=None):
+    """Slugs do acervo e da fila. `exceto` é o arquivo que está sendo
+    auditado: quando ele já mora em import/novas, não conta contra si mesmo."""
     s = set()
     try:
         for m in _le_json(os.path.join(pasta, 'import/materias.json')):
@@ -172,7 +193,10 @@ def _slugs_acervo(pasta):
                 s.add(m['slug'])
     except Exception:
         pass
+    ex = os.path.abspath(exceto) if exceto else None
     for f in glob.glob(os.path.join(pasta, 'import/novas/*.json')):
+        if ex and os.path.abspath(f) == ex:
+            continue
         s.add(os.path.basename(f)[:-5])
     return s
 
@@ -189,12 +213,13 @@ def _novas(pasta):
     return out
 
 
-def _abre(url, accept='*/*', tentativas=4):
+def _abre(url, accept='*/*', tentativas=6):
     """GET com User-Agent de navegador e paciência: 429 e 503 esperam o
     retry-after (até 20 s) e tentam de novo. Devolve (bytes, content-type)."""
     import urllib.error
     import urllib.request
-    espera = 3
+    import random
+    espera = 5
     for t in range(tentativas):
         req = urllib.request.Request(url, headers={'User-Agent': UA, 'Accept': accept,
                                                    'Accept-Language': 'pt-BR,pt;q=0.9,en;q=0.8'})
@@ -204,12 +229,13 @@ def _abre(url, accept='*/*', tentativas=4):
         except urllib.error.HTTPError as e:
             if e.code in (429, 503, 502) and t < tentativas - 1:
                 try:
-                    espera = min(int(e.headers.get('Retry-After', espera)), 20)
+                    espera = max(espera, int(e.headers.get('Retry-After', 0)))
                 except Exception:
                     pass
+                espera = min(espera, 45) + random.randint(1, 6)
                 print(f'  ({e.code} em {url[:60]}; esperando {espera}s)', file=sys.stderr)
                 time.sleep(espera)
-                espera = min(espera * 2, 20)
+                espera = min(espera * 2, 45)
                 continue
             raise
     raise RuntimeError('sem resposta')
@@ -246,14 +272,33 @@ def _corta_16_9(im, foco='alto'):
     return im.crop((x, 0, x + alvo_w, h))
 
 
+def _moldura_16_9(im):
+    """Foto em pé inteira sobre um fundo 16:9 feito dela mesma, desfocado e
+    escurecido. É o `contain` que a casa permite (imagem inteira, com sobra),
+    e evita decapitar retrato fechado, que o corte pelo topo faz."""
+    from PIL import Image, ImageEnhance, ImageFilter
+    W = 1600
+    H = 900
+    fundo = im.convert('RGB')
+    esc = max(W / fundo.width, H / fundo.height)
+    fundo = fundo.resize((round(fundo.width * esc), round(fundo.height * esc)), Image.LANCZOS)
+    x, y = (fundo.width - W) // 2, (fundo.height - H) // 2
+    fundo = fundo.crop((x, y, x + W, y + H)).filter(ImageFilter.GaussianBlur(30))
+    fundo = ImageEnhance.Brightness(fundo).enhance(0.5)
+    frente = im.convert('RGB')
+    esc2 = min(W / frente.width, H / frente.height)
+    frente = frente.resize((round(frente.width * esc2), round(frente.height * esc2)), Image.LANCZOS)
+    fundo.paste(frente, ((W - frente.width) // 2, (H - frente.height) // 2))
+    return fundo
+
+
 def _commons_info(titulo):
     import urllib.parse
     import urllib.request
     if not titulo.lower().startswith('file:'):
         titulo = 'File:' + titulo
     q = urllib.parse.urlencode({'action': 'query', 'titles': titulo, 'prop': 'imageinfo',
-                                'iiprop': 'url|extmetadata|size|mime', 'iiurlwidth': '2000',
-                                'format': 'json'})
+                                'iiprop': 'url|extmetadata|size|mime', 'format': 'json'})
     try:
         bruto, _ = _abre('https://commons.wikimedia.org/w/api.php?' + q, accept='application/json')
         dados = json.loads(bruto.decode('utf-8'))
@@ -274,8 +319,8 @@ def _commons_info(titulo):
         return {
             'titulo': p.get('title', titulo),
             'pagina': 'https://commons.wikimedia.org/wiki/' + urllib.parse.quote(p.get('title', titulo).replace(' ', '_'), safe=':/,()!'),
-            'url': ii.get('thumburl') or ii.get('url'),
-            'original': ii.get('url'),
+            'url': _thumb_padrao(ii.get('url'), ii.get('width')),
+            'original': (ii.get('url') or '').split('?')[0],
             'largura': ii.get('width'), 'altura': ii.get('height'),
             'licenca': v('LicenseShortName') or v('License'),
             'licenca_url': v('LicenseUrl'),
@@ -290,34 +335,34 @@ def _commons_info(titulo):
 def _commons_pagina(titulo):
     """Plano B: a página do arquivo no Commons traz a licença (licensetpl_short),
     se exige atribuição (licensetpl_attr_req), o autor (fileinfotpl_aut) e o
-    endereço do original (fullMedia)."""
+    endereço do original (fullMedia). No HTML servido o sublinhado das classes
+    vem escapado (&#95;), por isso o `U` nas expressões."""
     import urllib.parse
     pagina = 'https://commons.wikimedia.org/wiki/' + urllib.parse.quote(titulo.replace(' ', '_'), safe=':/,()!')
     bruto, _ = _abre(pagina, accept='text/html')
     h = bruto.decode('utf-8', 'replace')
+    U = r'(?:_|&#95;)'
 
     def limpa(x):
         x = re.sub(r'<[^>]+>', '', html.unescape(x or ''))
         return re.sub(r'\s+', ' ', x).strip()
-    lic = re.search(r'class="licensetpl_short"[^>]*>(.*?)</span>', h, re.S)
-    attr = re.search(r'class="licensetpl_attr_req"[^>]*>(.*?)</span>', h, re.S)
-    aut = re.search(r'id="fileinfotpl_aut"[^>]*>.*?</td>\s*<td[^>]*>(.*?)</td>', h, re.S)
-    desc = re.search(r'id="fileinfotpl_desc"[^>]*>.*?</td>\s*<td[^>]*>(.*?)</td>', h, re.S)
-    data = re.search(r'id="fileinfotpl_date"[^>]*>.*?</td>\s*<td[^>]*>(.*?)</td>', h, re.S)
+    lic = re.search(r'class="licensetpl' + U + r'short"[^>]*>(.*?)</span>', h, re.S)
+    attr = re.search(r'class="licensetpl' + U + r'attr' + U + r'req"[^>]*>(.*?)</span>', h, re.S)
+    aut = re.search(r'id="fileinfotpl' + U + r'aut"[^>]*>.*?</td>\s*<td[^>]*>(.*?)</td>', h, re.S)
+    if not aut:
+        aut = re.search(r'class="exif-artist"[^>]*>.*?<td[^>]*>(.*?)</td>', h, re.S)
+    desc = re.search(r'id="fileinfotpl' + U + r'desc"[^>]*>.*?</td>\s*<td[^>]*>(.*?)</td>', h, re.S)
+    data = re.search(r'id="fileinfotpl' + U + r'date"[^>]*>.*?</td>\s*<td[^>]*>(.*?)</td>', h, re.S)
     orig = re.search(r'class="fullMedia"[^>]*>.*?<a[^>]+href="([^"]+)"', h, re.S)
     dim = re.search(r'class="fileInfo"[^>]*>\s*\(?([\d,.]+)\s*[×x]\s*([\d,.]+)', h, re.S)
     if not lic or not orig:
         raise RuntimeError(f'não achei licença ou arquivo em {pagina}')
-    url = orig.group(1)
+    url = html.unescape(orig.group(1)).split('?')[0]
     if url.startswith('//'):
         url = 'https:' + url
     w = int(re.sub(r'\D', '', dim.group(1))) if dim else None
     hh = int(re.sub(r'\D', '', dim.group(2))) if dim else None
-    # miniatura de 2000 px pelo caminho padrão do Commons (upload.wikimedia.org/.../thumb/a/ab/Nome.jpg/2000px-Nome.jpg)
-    thumb = url
-    m = re.match(r'(https://upload\.wikimedia\.org/wikipedia/commons)/([0-9a-f])/([0-9a-f]{2})/([^/]+)$', url)
-    if m and w and w > 2000:
-        thumb = f'{m.group(1)}/thumb/{m.group(2)}/{m.group(3)}/{m.group(4)}/2000px-{m.group(4)}'
+    thumb = _thumb_padrao(url, w)
     return {
         'titulo': titulo, 'pagina': pagina, 'url': thumb, 'original': url,
         'largura': w, 'altura': hh, 'licenca': limpa(lic.group(1)), 'licenca_url': '',
@@ -368,7 +413,22 @@ def cmd_capa(a):
             url = a.url
             saida.update({'imgCredito': 'Foto: Divulgação', 'imgFonte': url, 'imgLegenda': '',
                           'imgDireito': f'Divulgação oficial, baixada de {url} em {_brt(_agora()).strftime("%d/%m/%Y")}. CONFIRA o fotógrafo e ajuste o crédito.'})
-        dados, tipo = _baixa(url)
+        # a miniatura padrão primeiro; se o servidor recusar o tamanho (400) ou
+        # a imagem for menor, cai para o original
+        candidatos = [url]
+        if a.commons and info.get('original') and info['original'] != url:
+            candidatos.append(info['original'])
+        dados = tipo = None
+        for cand in candidatos:
+            print(f'  baixando: {cand}' + (f'  (original {info.get("largura")}x{info.get("altura")})' if a.commons else ''), file=sys.stderr)
+            try:
+                dados, tipo = _baixa(cand)
+                url = cand
+                break
+            except Exception as e:
+                if cand is candidatos[-1]:
+                    raise
+                print(f'  ({e}; tentando o original)', file=sys.stderr)
         if 'image' not in tipo and not dados[:4] in (b'\xff\xd8\xff\xe0', b'\xff\xd8\xff\xe1', b'\x89PNG'):
             sys.exit(f'o endereço não devolveu imagem (Content-Type {tipo})')
         im = Image.open(io.BytesIO(dados))
@@ -384,7 +444,13 @@ def cmd_capa(a):
         caminho_orig = f'assets/uploads/{a.slug}-original-{carimbo}.jpg'
         orig.save(os.path.join(pasta, caminho_orig), 'JPEG', quality=86, optimize=True)
         saida['imgOriginal'] = caminho_orig
-    capa = _corta_16_9(im, a.foco)
+    em_pe = im.height > im.width * 0.85
+    if a.foco == 'moldura' or (a.foco == 'auto' and em_pe and not a.arte):
+        capa = _moldura_16_9(im)
+        saida['_corte'] = 'moldura: foto inteira sobre fundo desfocado dela mesma'
+    else:
+        capa = _corta_16_9(im, 'alto' if a.foco == 'auto' else a.foco)
+        saida['_corte'] = 'recorte 16:9 (' + ('terço superior' if em_pe else a.foco) + ')'
     if capa.width > 1600:
         capa = capa.resize((1600, 900), Image.LANCZOS)
     caminho = f'assets/uploads/{a.slug}-{carimbo}.jpg'
@@ -494,7 +560,7 @@ def auditar(caminho, pasta, corrige=False):
         P.append('slug só com a-z, 0-9 e hifens')
     if slug and len(slug) > 80:
         P.append(f'slug com {len(slug)} caracteres (máximo 80)')
-    if slug and not corrige and slug in _slugs_acervo(pasta):
+    if slug and not corrige and slug in _slugs_acervo(pasta, exceto=caminho):
         P.append(f'slug "{slug}" já existe no acervo ou em import/novas (use --corrige se for correção)')
     if slug and os.path.basename(caminho) != slug + '.json':
         A.append(f'o arquivo deveria chamar {slug}.json')
@@ -816,6 +882,8 @@ def cmd_publica(a):
         destino = os.path.join(pasta, 'import/novas', slug + '.json')
         if os.path.exists(destino) and not a.corrige and os.path.abspath(destino) != os.path.abspath(c):
             sys.exit(f'{slug}.json já existe em import/novas; use --corrige para substituir')
+        if not a.corrige and slug in _slugs_acervo(pasta, exceto=destino):
+            sys.exit(f'slug "{slug}" já existe no acervo; escolha outro ou use --corrige')
         _grava_json(destino, pg)
         P, A, info = auditar(destino, pasta, corrige=a.corrige)
         print(f'\n== {slug}  [{info.get("porte")}, {info.get("palavras")} palavras, {info.get("inter")} intertítulos]')
@@ -892,7 +960,8 @@ def main():
     g.add_argument('--url', help='imagem de divulgação oficial')
     g.add_argument('--commons', help='nome do arquivo no Wikimedia Commons (File:...)')
     g.add_argument('--arte', help='arte da casa, 1 a 6')
-    c.add_argument('--foco', choices=['alto', 'centro', 'baixo'], default='alto')
+    c.add_argument('--foco', choices=['auto', 'moldura', 'alto', 'centro', 'baixo'], default='auto',
+                   help='auto: foto em pé vira moldura (inteira sobre fundo desfocado), deitada recorta pelo alto; alto/centro/baixo forçam o recorte')
     c.set_defaults(fn=cmd_capa)
 
     c = sub.add_parser('confere', help='o portão: reprova ou avisa')
