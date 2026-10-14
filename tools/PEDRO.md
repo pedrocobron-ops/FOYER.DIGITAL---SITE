@@ -392,7 +392,16 @@ intertítulo; `**negrito**` para nome de obra; `*itálico*`; `> ` para citação
 real; `[texto](url)` para link (os internos do FOYER entram durante a
 leitura, não no fim); `img:caminho | legenda | crédito` para foto no meio;
 `video:URL` para trailer oficial no YouTube; `botao:Comprar ingressos | URL`
-quando há venda oficial. Aspas tipográficas (“ ”). Serviço em `## Serviço`,
+quando há venda oficial.
+
+**Trailer (ordem do Pedro, 14/10/2026: "matérias de filme podem ter o
+trailer junto, gosto de matérias bem completas").** Matéria de filme, série
+ou especial leva o trailer oficial embutido (`video:` com o endereço do
+YouTube do estúdio, da distribuidora ou da plataforma), logo depois do
+trecho que apresenta a obra. Peça ou musical com teaser oficial no YouTube
+também leva. O portão avisa quando uma matéria de Cinema, Streaming ou
+Televisão sai sem a linha `video:`. Nunca embutir vídeo de terceiros
+(reupload, fã, trecho pirata). Aspas tipográficas (“ ”). Serviço em `## Serviço`,
 com uma linha por item.
 
 ## 6. A imagem: sempre existe uma, sempre com crédito e descritivo
@@ -422,6 +431,20 @@ Matéria sem imagem não sai. A hierarquia, do melhor para o de reserva:
 Nunca: Getty, Reuters, AFP, Folhapress, Shutterstock, Alamy, foto de jornal
 concorrente, foto de rede social de pessoa, frame de vídeo sem ser o trailer
 oficial. Ilustração gerada por IA só se o Pedro a entregar ou pedir.
+
+**Duas pessoas, duas na capa (ordem do Pedro, 14/10/2026).** Quando a matéria
+é sobre duas pessoas famosas, ou gira em torno das duas, a capa leva as duas
+lado a lado: `python3 tools/mesa_pedro.py capa-dupla --slug <slug>
+--esquerda commons:File:A.jpg --direita commons:File:B.jpg` (ou `url:` para
+divulgação). O crédito nomeia as duas fotos ("Fotos: X (esq.) e Y (dir.)"),
+o descritivo diz quem está de cada lado. Uma só das duas na capa é erro.
+
+**Matéria de filme, cena do filme (ordem do Pedro, 14/10/2026).** A capa de
+matéria sobre filme ou série é uma cena da obra: still do material de
+divulgação (sala de imprensa do estúdio ou da distribuidora, página oficial
+do filme) ou o quadro do trailer oficial. Crédito "Foto: Divulgação / Nome do
+Estúdio" (ou "Frame do trailer oficial / Estúdio"). Retrato de ator em
+evento é a segunda opção, não a primeira.
 
 Regras da capa: **16:9, até 1600 px de largura, rostos preservados.** Foto
 em pé (retrato, cartaz) entra **inteira, em moldura**: sobre um fundo 16:9

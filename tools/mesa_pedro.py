@@ -319,6 +319,95 @@ def _moldura_16_9(im):
     return fundo
 
 
+def _lado(im, w, h, foco='alto'):
+    """Um lado da capa dupla: a foto cobre a caixa w x h (cover), com o corte
+    guardando o alto quando ela é em pé."""
+    from PIL import Image
+    im = im.convert('RGB')
+    esc = max(w / im.width, h / im.height)
+    im = im.resize((round(im.width * esc), round(im.height * esc)), Image.LANCZOS)
+    sobra_y = im.height - h
+    y = min(round(sobra_y * 0.12), sobra_y) if foco == 'alto' else sobra_y // 2
+    x = (im.width - w) // 2
+    return im.crop((x, y, x + w, y + h))
+
+
+def _capa_dupla(im_a, im_b):
+    """Duas pessoas, uma capa: as duas fotos lado a lado numa capa 1600x900,
+    com 6 px de respiro na cor de papel da casa, como a Coxia faz."""
+    from PIL import Image
+    W, H, meia, resp = 1600, 900, 797, 6
+    base = Image.new('RGB', (W, H), (239, 232, 218))
+    base.paste(_lado(im_a, meia, H), (0, 0))
+    base.paste(_lado(im_b, meia, H), (meia + resp, 0))
+    return base
+
+
+def _fonte_imagem(a, pasta, spec, carimbo, sufixo):
+    """Resolve uma origem de imagem (commons:File:X | url:https://... ) e
+    devolve (imagem PIL, metadados de crédito, caminho da original gravada)."""
+    from PIL import Image
+    tipo, _, valor = spec.partition(':')
+    if tipo == 'commons':
+        info = _commons_info(valor)
+        lic = info['licenca']
+        if not lic or LICENCAS_NAO.search(lic) or not LICENCAS_OK.search(lic):
+            sys.exit(f'licença recusada no Commons: "{lic}" ({info["pagina"]})')
+        autor = info['autor'] if len(info['autor']) <= 60 else info['autor'][:57].rstrip() + '...'
+        dp = re.match(r'^(cc0|public domain|pd)', lic, re.I)
+        meta = {'credito': f'{autor} / Wikimedia Commons ({"domínio público" if dp else lic})',
+                'fonte': info['pagina'],
+                'direito': f'Licença {lic} conferida em {_brt(_agora()).strftime("%d/%m/%Y")} no Wikimedia Commons (autor: {info["autor"]}).'}
+        candidatos = [info['url']] + ([info['original']] if info.get('original') and info['original'] != info['url'] else [])
+    elif tipo == 'url':
+        meta = {'credito': 'Divulgação', 'fonte': valor,
+                'direito': f'Divulgação oficial, baixada de {valor} em {_brt(_agora()).strftime("%d/%m/%Y")}. CONFIRA o fotógrafo e ajuste o crédito.'}
+        candidatos = [valor]
+    else:
+        sys.exit(f'origem desconhecida "{spec}": use commons:File:X.jpg ou url:https://...')
+    dados = None
+    for cand in candidatos:
+        print(f'  baixando: {cand}', file=sys.stderr)
+        try:
+            dados, _ = _baixa(cand)
+            break
+        except Exception as e:
+            if cand is candidatos[-1]:
+                raise
+            print(f'  ({e}; tentando o original)', file=sys.stderr)
+    im = Image.open(io.BytesIO(dados))
+    if im.mode in ('RGBA', 'LA', 'P'):
+        fundo = Image.new('RGB', im.size, (239, 232, 218))
+        fundo.paste(im.convert('RGBA'), mask=im.convert('RGBA').split()[-1])
+        im = fundo
+    im = im.convert('RGB')
+    orig = im.copy()
+    if orig.width > 1600:
+        orig = orig.resize((1600, round(orig.height * 1600 / orig.width)), Image.LANCZOS)
+    caminho = f'assets/uploads/{a.slug}-original-{sufixo}-{carimbo}.jpg'
+    orig.save(os.path.join(pasta, caminho), 'JPEG', quality=86, optimize=True)
+    return im, meta, caminho
+
+
+def cmd_capa_dupla(a):
+    """Duas pessoas famosas, as duas na capa (ordem do Pedro, 14/10/2026)."""
+    pasta = producao()
+    carimbo = str(int(time.time() * 1000))
+    os.makedirs(os.path.join(pasta, 'assets/uploads'), exist_ok=True)
+    im_a, meta_a, orig_a = _fonte_imagem(a, pasta, a.esquerda, carimbo, 'a')
+    im_b, meta_b, orig_b = _fonte_imagem(a, pasta, a.direita, carimbo, 'b')
+    capa = _capa_dupla(im_a, im_b)
+    caminho = f'assets/uploads/{a.slug}-{carimbo}.jpg'
+    capa.save(os.path.join(pasta, caminho), 'JPEG', quality=86, optimize=True)
+    print(json.dumps({
+        'img': caminho, 'imgOriginalA': orig_a, 'imgOriginalB': orig_b,
+        'imgCredito': f'Fotos: {meta_a["credito"]} (esq.) e {meta_b["credito"]} (dir.)',
+        'imgFonte': meta_a['fonte'] + ' | ' + meta_b['fonte'],
+        'imgDireito': 'Capa dupla. Esquerda: ' + meta_a['direito'] + ' Direita: ' + meta_b['direito'],
+        'imgLegenda': '', '_capa': f'{capa.width}x{capa.height}',
+    }, ensure_ascii=False, indent=1))
+
+
 def _commons_info(titulo):
     import urllib.parse
     import urllib.request
@@ -687,6 +776,10 @@ def auditar(caminho, pasta, corrige=False, rascunho=False):
             P.append(f'ritmo: média de {media:.1f} palavras por frase (máximo 28)')
         elif media > 26:
             A.append(f'ritmo: média de {media:.1f} palavras por frase (ideal até 26)')
+    # trailer (pedido do Pedro, 14/10/2026): matéria de filme ou série leva o trailer oficial
+    if (pg.get('cat') in ('Cinema', 'Streaming', 'Televisão') or 'Cinema' in cats or 'Streaming' in cats) \
+            and not re.search(r'^video:', corpo, re.M):
+        A.append('matéria de filme ou série sem trailer (linha video:URL do YouTube oficial)')
     # serviço quando há evento
     if pg.get('evento') and porte in ('nota', 'quente') and not re.search(r'^## +Serviço', corpo, re.M):
         A.append('matéria com evento e sem bloco ## Serviço')
@@ -769,7 +862,7 @@ def auditar(caminho, pasta, corrige=False, rascunho=False):
     for ag in AGENCIAS:
         if ag in cred:
             P.append(f'agência proibida no crédito: {ag}')
-    if cred and not re.match(r'^(foto|arte|imagem|ilustra|reprodu|frame|cr[eé]dito)', cred):
+    if cred and not re.match(r'^(fotos?|arte|imagem|ilustra|reprodu|frame|cr[eé]dito)', cred):
         A.append('crédito sem rótulo (Foto:, Arte:, Imagem:)')
     leg = pg.get('imgLegenda') or ''
     if leg:
@@ -1049,7 +1142,7 @@ def cmd_guarda(a):
             os.remove(destino)
             sys.exit('reprovado no portão: o rascunho não foi guardado. Corrija e rode de novo.')
         arquivos = [os.path.relpath(destino, pasta)]
-        for k in ('img', 'imgOriginal'):
+        for k in ('img', 'imgOriginal', 'imgOriginalA', 'imgOriginalB'):
             if pg.get(k) and os.path.isfile(os.path.join(pasta, pg[k])):
                 arquivos.append(pg[k])
         _git(pasta, 'add', '--', *arquivos, quiet=True)
@@ -1140,7 +1233,7 @@ def cmd_publica(a):
                 os.remove(destino)
             sys.exit('reprovado no portão: nada foi publicado. Corrija e rode de novo.')
         arquivos = ['import/novas/' + slug + '.json']
-        for k in ('img', 'imgOriginal'):
+        for k in ('img', 'imgOriginal', 'imgOriginalA', 'imgOriginalB'):
             if pg.get(k) and os.path.isfile(os.path.join(pasta, pg[k])):
                 arquivos.append(pg[k])
         if origem.startswith(os.path.join(pasta, MESA)):
@@ -1222,6 +1315,12 @@ def main():
     c.add_argument('--foco', choices=['auto', 'moldura', 'alto', 'centro', 'baixo'], default='auto',
                    help='auto: foto em pé vira moldura (inteira sobre fundo desfocado), deitada recorta pelo alto; alto/centro/baixo forçam o recorte')
     c.set_defaults(fn=cmd_capa)
+
+    c = sub.add_parser('capa-dupla', help='duas pessoas lado a lado numa capa 16:9')
+    c.add_argument('--slug', required=True)
+    c.add_argument('--esquerda', required=True, help='commons:File:X.jpg ou url:https://...')
+    c.add_argument('--direita', required=True, help='commons:File:Y.jpg ou url:https://...')
+    c.set_defaults(fn=cmd_capa_dupla)
 
     c = sub.add_parser('confere', help='o portão: reprova ou avisa')
     c.add_argument('pacotes', nargs='+')
