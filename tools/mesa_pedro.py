@@ -61,16 +61,28 @@ CATS = {'Teatro', 'Teatro Musical', 'Notícia', 'Cinema', 'Streaming', 'Música'
         'Programa', 'Guia', 'Bastidores', 'Entenda', 'Memória'}
 CATS_SO_SECUNDARIA = {'Em Cartaz'}
 
-# porte: (piso, teto de palavras, mínimo e máximo de intertítulos)
+# porte: (piso, teto de palavras, mínimo e máximo de intertítulos).
+# Régua de 14/10/2026, com base no que o mercado produz (medido): notícia
+# cultural de 230 a 520 palavras (Omelete, CNN Brasil, Deadline, Exame),
+# análise de 600 a 950 (Playbill, Agência Brasil, Gazeta do Povo), entrevista
+# e perfil acima de 2.000 (CNN Brasil). O FOYER promete o tratamento que o
+# mercado não faz, então a quente fica acima da notícia do mercado e a
+# reportagem acima da análise dele. Piso é de substância: encher é proibido.
 PORTES = {
-    'nota':       (160, 300, 0, 0),
-    'quente':     (350, 600, 0, 2),
-    'contexto':   (650, 1000, 2, 4),
-    'resposta':   (250, 550, 0, 2),
-    'lista':      (550, 1100, 5, 12),
-    'explicador': (700, 1100, 3, 5),
+    'nota':       (250, 400, 0, 0),
+    'quente':     (600, 900, 1, 3),
+    'contexto':   (1000, 1500, 3, 5),
+    'perfil':     (1200, 2000, 3, 6),
+    'resposta':   (700, 1000, 2, 4),
+    'explicador': (1000, 1500, 3, 5),
+    'lista':      (1200, 1800, 7, 12),
 }
 PORTES_FRIOS = {'resposta', 'lista', 'explicador'}
+# apuração mínima (URLs lidas) por porte
+APURACAO_MIN = {'nota': 2, 'quente': 4, 'contexto': 6, 'perfil': 6, 'resposta': 4, 'explicador': 5, 'lista': 5}
+# movimentos do repertório do Pedro: são dele, não são fôrma. No máximo uma
+# vez por semana cada um, somando todas as matérias dele.
+REPERTORIO = ['conta desta redação', 'vale ficar de olho', 'vale olhar']
 
 AGENCIAS = ['getty', 'reuters', 'afp', 'folhapress', 'associated press', 'shutterstock',
             'istock', 'alamy', 'estadão conteúdo', 'estadao conteudo', 'epa images', 'zuma press']
@@ -679,6 +691,61 @@ def auditar(caminho, pasta, corrige=False, rascunho=False):
     if pg.get('evento') and porte in ('nota', 'quente') and not re.search(r'^## +Serviço', corpo, re.M):
         A.append('matéria com evento e sem bloco ## Serviço')
 
+    # ---- profundidade e cara de máquina (ordem do Pedro, 14/10/2026)
+    prosa = _paragrafos_prosa(corpo)
+    texto_sa_corpo = _sem_acento(_texto_limpo(corpo))
+    # repertório: os movimentos dele, no máximo uma vez por semana no conjunto
+    for mov in REPERTORIO:
+        n_aqui = texto_sa_corpo.count(_sem_acento(mov))
+        if n_aqui > 1:
+            P.append(f'"{mov}" {n_aqui} vezes na mesma matéria: é repertório, não fôrma')
+        elif n_aqui == 1:
+            limite = _agora() - timedelta(days=7)
+            for n in _novas(pasta):
+                if n.get('author') != AUTOR or n.get('slug') == slug:
+                    continue
+                try:
+                    d = datetime.fromisoformat((n.get('publishAt') or '').replace('Z', '+00:00'))
+                except Exception:
+                    continue
+                if d >= limite and _sem_acento(mov) in _sem_acento(n.get('corpo', '')):
+                    A.append(f'"{mov}" já saiu esta semana em "{n.get("title", "")[:50]}"; use outro movimento')
+                    break
+    # prosa de planilha: números demais num parágrafo, listas de valores entre parênteses
+    for par in prosa:
+        t = _texto_limpo(par)
+        # conta só o que é número de verdade na leitura: dinheiro, porcentagem,
+        # quantidade (mil, milhões) e cifras de quatro dígitos ou mais; dia e ano não contam
+        t_sem_datas = re.sub(r'\b\d{1,2} de [a-zç]+(?: de \d{4})?|\(\d{1,2}\)|\b(?:19|20)\d{2}\b', ' ', t)
+        nums = re.findall(r'(?:R\$|US\$|€|£)\s?[\d.,]+(?:\s?(?:mil|milh[õo]es|bilh[õo]es))?|\d[\d.,]*\s?(?:%|mil\b|milh[õo]es|bilh[õo]es)|\b\d{1,3}(?:\.\d{3})+\b', t_sem_datas)
+        parens = re.findall(r'\((?:R\$|US\$|€|£)\s?[\d.,]+', t)
+        if len(parens) >= 3:
+            P.append('prosa de planilha: três ou mais valores entre parênteses num parágrafo ("' + t[:50] + '...")')
+        elif len(nums) > 5:
+            A.append(f'{len(nums)} números num parágrafo ("' + t[:50] + '..."): escolha um e explique')
+    # staccato: frase de até três palavras, no máximo uma por matéria
+    curtissimas = [f for f in _frases(corpo) if len(f.split()) <= 3]
+    if len(curtissimas) > 2:
+        P.append(f'{len(curtissimas)} frases de até três palavras: soa máquina ("' + '", "'.join(c[:25] for c in curtissimas[:3]) + '")')
+    elif len(curtissimas) == 2:
+        A.append('duas frases de até três palavras; uma por matéria basta')
+    # parágrafo de fôlego e variedade de tamanho
+    if porte in ('quente', 'contexto', 'perfil', 'explicador', 'resposta') and prosa:
+        tam = [len(_texto_limpo(x).split()) for x in prosa]
+        if max(tam) < 70:
+            P.append(f'nenhum parágrafo de fôlego (o maior tem {max(tam)} palavras; a matéria precisa de ao menos um com 70 ou mais)')
+        if len(tam) >= 5 and (max(tam) - min(tam)) < 25:
+            A.append('parágrafos quase todos do mesmo tamanho: a simetria é a marca mais traiçoeira')
+    # voz humana: aspas reais com mais de cinco palavras
+    if porte in ('quente', 'contexto', 'perfil'):
+        falas = [m for m in re.findall(r'[“"]([^”"]{20,}?)[”"]', corpo) if len(m.split()) >= 6]
+        if not falas:
+            A.append('nenhuma declaração entre aspas: procure uma voz real (entrevista publicada, release, rede oficial), com o veículo nomeado')
+    # apuração mínima por porte
+    ap_n = len([u for u in (pg.get('apuracao') or []) if isinstance(u, str)])
+    if porte in APURACAO_MIN and ap_n < APURACAO_MIN[porte]:
+        P.append(f'apuracao com {ap_n} URLs; o porte {porte} pede ao menos {APURACAO_MIN[porte]} páginas lidas')
+
     # imagem
     img = pg.get('img') or ''
     if img:
@@ -723,8 +790,6 @@ def auditar(caminho, pasta, corrige=False, rascunho=False):
         P.append('apuracao precisa ser lista de URLs')
     elif len(ap) < 2:
         P.append(f'apuracao com {len(ap)} URL (mínimo 2)')
-    elif len(ap) == 2:
-        A.append('apuracao com só 2 URLs')
     if any('foyer.digital' in u for u in ap if isinstance(u, str)):
         A.append('matéria da casa em apuracao (link interno vai no corpo, não na apuração)')
 

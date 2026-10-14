@@ -157,36 +157,93 @@ Como escolher:
 - Numa leva de N frias, **portes e formatos variados**: nunca cinco listas
   seguidas, nunca cinco perguntas com a mesma estrutura.
 
-## 3. A régua do tamanho (ordem do Pedro: "n sair com o mesmo tamanho sempre")
+## 3. A régua do tamanho, com base no que o mercado produz (ordem do Pedro, 14/10/2026)
 
-O tamanho vem do assunto, e o assunto se declara no campo `porte`. O portão
-cobra a faixa e os intertítulos. **Faixa, não meta**: resolvido em 220
-palavras está pronto em 220.
+Depois da primeira rodada, o Pedro achou as matérias rasas e curtas e pediu
+uma base medida no mercado. A medição é de 14/10/2026, texto do corpo, em
+palavras, feita em páginas renderizadas (as mesmas pautas do dia):
 
-| `porte` | Quando | Palavras | Intertítulos |
+| Veículo e tipo de texto | Palavras |
+|---|---|
+| Omelete, nota de bilheteria e nota de recorde | 230 a 270 |
+| The Hollywood Reporter, balanço semanal da Broadway | 300 |
+| CNN Brasil, notícia de elenco (Percy Jackson) | 305 |
+| AdoroCinema, Papelpop, Alô Alô Bahia, notícia de bilheteria | 270 a 375 |
+| Broadway.com, Exame, Ingresso.com, notícia com apuração | 400 a 430 |
+| Deadline, balanço da Broadway; NYTG, elenco completo | 475 a 520 |
+| Playbill, análise semanal de bilheteria | 600 |
+| Agência Brasil, cobertura de premiação (Festival do Rio) | 850 |
+| Gazeta do Povo, análise do fenômeno "Minha Melhor Amiga" | 935 |
+| CNN Brasil, entrevista com o protagonista de "Percy Jackson" | 2.250 |
+| FOYER, acervo 2026, mediana | 490 |
+| FOYER, matérias do Pedro pela Coxia, mediana | 590 |
+| FOYER, Redação Foyer pela Coxia, mediana | 1.020 |
+
+As réguas das agências e dos jornais dizem o mesmo: a AP (2014) pede 300 a
+500 palavras para a notícia comum, 500 a 700 para a principal do dia e mais
+de 700 só para a global; a Reuters trabalha com 400 (nota do dia), 800
+(matéria principal, exclusiva) e 2.000 (reportagem especial); o Washington
+Post (2007) media a notícia do dia em 6 a 15 polegadas de coluna (200 a 500
+palavras) e a reportagem em 25 a 35 (900 a 1.250). A lauda brasileira tem
+1.400 caracteres, cerca de 230 palavras, e "uma matéria razoável tem duas
+laudas". A Pew Research mediu em 2016 que texto de 1.000 palavras ou mais
+prende o leitor no celular o dobro do tempo do texto curto (123 segundos
+contra 57), e que o tempo cresce com o tamanho até 5.000 palavras.
+
+**A leitura.** O mercado faz a notícia cultural em 250 a 520 palavras, a
+análise em 600 a 950 e a entrevista ou o perfil acima de 2.000. O que o FOYER
+promete é o tratamento que o mercado não faz: o tamanho real do número, quem
+pagou, o que muda para quem trabalha. Por isso a quente do FOYER fica
+**acima da notícia do mercado**, e a reportagem **acima da análise dele**.
+Curta só quando o assunto é curto.
+
+| `porte` | Quando | Palavras (caracteres) | Intertítulos |
 |---|---|---|---|
-| `nota` | o aviso curto: data marcada, elenco confirmado, trailer, temporada estendida, prêmio anunciado, número isolado que fala por si | **160 a 300** | nenhum |
-| `quente` | a notícia com consequência: bilheteria com leitura, cancelamento, polêmica com os dois lados, decisão de plataforma, estreia esperada | **350 a 600** | 0 a 2 |
-| `contexto` | o fato que só se entende com o antes: disputa judicial, morte e legado, regra nova com efeito no bolso, fenômeno que pede números | **650 a 1.000** | 2 a 4 |
-| `resposta` (fria) | a pergunta do público respondida de pé | **250 a 550** | 0 a 2 |
-| `lista` (fria) | N itens, cada um com intertítulo próprio | **550 a 1.100** | um por item, de 5 a 12 |
-| `explicador` (fria) | o tema que pede contexto: dinheiro, direito, história | **700 a 1.100** | 3 a 5 |
+| `nota` | o aviso curto: data marcada, elenco confirmado, trailer, temporada estendida, prêmio anunciado | **250 a 400** (1.500 a 2.500) | nenhum |
+| `quente` | a notícia com consequência: bilheteria com leitura, cancelamento, polêmica com os dois lados, decisão de plataforma, estreia esperada | **600 a 900** (3.600 a 5.500) | 1 a 3 |
+| `contexto` | a reportagem com o antes: disputa, morte e legado, regra nova com efeito no bolso, fenômeno que pede números e história | **1.000 a 1.500** (6.000 a 9.000) | 3 a 5 |
+| `perfil` | perfil ou memória de alguém, com obra e trajetória documentadas | **1.200 a 2.000** | 3 a 6 |
+| `resposta` (fria) | a pergunta do público respondida de pé, com fontes nomeadas | **700 a 1.000** | 2 a 4 |
+| `explicador` (fria) | o tema que pede contexto: dinheiro, direito, história | **1.000 a 1.500** | 3 a 5 |
+| `lista` (fria) | N itens, cada um com intertítulo próprio e um parágrafo de verdade | **1.200 a 1.800** | um por item, de 7 a 12 |
 
-Regras que impedem a fôrma:
+**O piso é de substância, não de palavras.** Encher para chegar ao piso é
+proibido. Se não há material para as camadas da seção 3.1, a pauta é `nota`,
+ou não é pauta. O portão cobra a faixa, a cota de intertítulos e a apuração
+mínima por porte (nota 2 páginas lidas; quente 4; resposta 4; explicador e
+lista 5; contexto e perfil 6).
 
-- **A divulgação de uma peça é `nota`.** Release de estreia com serviço não
-  vira reportagem de 600 palavras; vira 220 palavras com o que importa e o
-  serviço em duas linhas.
-- **O que precisa de contexto é `contexto`.** Se a matéria só faz sentido
-  para quem acompanhou os três capítulos anteriores, ela conta os capítulos,
-  e isso é o tamanho dela.
-- **Na dúvida entre dois portes, o menor.**
-- **Três matérias seguidas do Pedro não podem ter o mesmo porte e a mesma
-  conta de intertítulos.** O portão avisa quando a rodada sai com o mesmo
-  esqueleto. Variar só o tamanho não quebra a fôrma: 400 palavras cortadas em
-  5 seções continuam sendo a mesma fôrma, só menor.
-- **`## Serviço` não conta** como intertítulo. Entra só quando a matéria é
-  sobre algo com ingresso e data; vai no fim, em ficha curta.
+### 3.1 As camadas: o que o leitor acha numa matéria do FOYER e não acha no Omelete
+
+A matéria rasa tem só a camada 1. A régua do tamanho existe para caber as
+outras.
+
+1. **O fato**, com data, sujeito e o número certo. É o lide.
+2. **O antes.** Quem é a pessoa, de onde veio a obra, o que aconteceu nas
+   edições anteriores, o que o mercado fazia até ontem. Dois parágrafos na
+   quente, quatro ou mais na reportagem. Sem o antes, o número não tem
+   tamanho.
+3. **Gente.** Ao menos uma voz real: declaração publicada (entrevista,
+   release, rede oficial), com o veículo nomeado. A matéria sem aspas é
+   relatório.
+4. **A ponte com o leitor daqui.** O que isso muda para quem compra ingresso
+   no Brasil, para a montagem brasileira anunciada, para o artista que
+   trabalha aqui. Matéria internacional sem ponte é tradução.
+5. **O dinheiro, explicado.** Um número escolhido e explicado vale mais que
+   cinco listados. Quem pagou, quanto custa, quanto sobra.
+6. **O que falta saber.** O que a fonte não diz, a decisão que ainda vem, a
+   data a olhar. É o fecho honesto, e varia de matéria para matéria.
+
+Mínimos: `nota` tem a 1 e uma das outras; `quente` tem 1, 2, 5 e 6 e ao
+menos uma entre 3 e 4; `contexto`, `perfil` e `explicador` têm as seis.
+
+### 3.2 Apuração mínima
+
+Antes de escrever a quente: a fonte oficial ou primária, dois veículos
+independentes, uma página de contexto (a história, a edição anterior, o
+perfil de quem aparece) e uma busca específica por declarações. Para a
+reportagem, seis páginas ou mais, com documento quando existir. Página
+aberta e lida; a ementa do buscador não é fonte.
 
 ## 4. Como o Pedro escreve (e como nunca parecer máquina)
 
@@ -262,6 +319,27 @@ O que fazer com a próxima frase:
 13. **Começo de matéria** varia: pelo fato, pela cena, pelo número, pelo
     nome. Nunca pela definição ("X é um musical que..."), nunca por
     "Em um cenário...".
+14. **Repertório não é fôrma (14/10/2026).** "É conta desta redação" e
+    "vale ficar de olho" são movimentos do Pedro, e na primeira rodada
+    apareceram em duas de três matérias. Cada um entra **no máximo uma vez
+    por semana**, somando todas as matérias dele; o portão conta. O mesmo
+    vale para qualquer frase que você perceba repetindo de uma matéria para
+    outra.
+15. **Prosa de planilha é proibida.** "Harry Potter (US$ 2,22 milhões), O
+    Rei Leão (US$ 2,22 milhões), MJ (US$ 1,89 milhão)" é tabela disfarçada.
+    Um número por frase no lide; no máximo cinco por parágrafo; nunca três
+    valores entre parênteses no mesmo parágrafo. Escolha o número que conta
+    a história e explique-o; os outros entram em uma frase cada, com o que
+    significam, ou não entram.
+16. **Staccato também é máquina.** "Vende menos." uma vez é respiro; três
+    vezes é tique. Frase de até três palavras: no máximo uma por matéria.
+    E toda quente ou reportagem tem ao menos **um parágrafo de fôlego, de
+    70 palavras ou mais**, onde a história anda de verdade.
+17. **Leitura fria obrigatória.** Depois do texto pronto, uma segunda
+    passada, por outro agente quando a rodada roda com agentes, com uma
+    pergunta: *um jornalista de cultura, lendo isto, acharia que foi
+    escrito por máquina? Em quais frases, e por quê?* A resposta nomeia as
+    frases, e elas são reescritas. "Está bom" não é resposta.
 
 ### 4.2 Título e linha fina (os últimos a serem escritos)
 
