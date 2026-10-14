@@ -56,6 +56,17 @@ A redação roda **dentro do Claude Code**, com a assinatura Claude do editor �
 - Ao aprovar, a matéria move de `import/pauta/` para `import/novas/` e entra no fluxo normal de publicação/agendamento. Ao recusar, é descartada.
 - Transparência editorial: as matérias saem assinadas como "Redação Foyer" — sem personas falsas de jornalistas (proteção da marca e das políticas do AdSense).
 
+## A mesa do Pedro (matérias assinadas, publicadas direto)
+
+Fluxo criado em 14/10/2026 a pedido do Pedro: o Claude pesquisa, escreve e **publica no site** as matérias assinadas por Pedro Amaral, sem passar pela mesa de aprovação. Manual completo em `tools/PEDRO.md`; ferramenta em `tools/mesa_pedro.py`.
+
+- **Pautas quentes**: duas rodadas por dia (7h e 17h, Brasília), automáticas, com 1 a 3 matérias cada, no ar assim que passam no portão. Eixos: teatro musical, bilheteria, estreias, polêmicas, decisões de plataforma e teatro com repercussão nacional, sempre com o dinheiro como chão.
+- **Pautas frias**: sob pedido (perguntas do público, listas, explicadores), agendadas uma por dia às 7h, na fila depois da última já marcada.
+- **A régua do tamanho vem do assunto** (`porte`: nota, quente, contexto, resposta, lista, explicador), com faixas de palavras e de intertítulos diferentes, para a matéria nunca sair com o mesmo tamanho.
+- **Estrutura completa**: título, linha fina, editoria principal, até 2 secundárias, corpo no formato da Coxia, imagem com crédito e descritivo. A apuração fica no campo interno `apuracao` (o campo `fontes` sai impresso, por isso não é usado).
+- **Imagem sempre**: divulgação oficial, Wikimedia Commons com licença conferida pela API, ou uma das seis artes de palco da casa.
+- **Publicação**: o script grava em `import/novas/` na branch de produção (`claude/foyer-digital-redesign-14l2b6`, por um worktree em `../FOYER-PRODUCAO` quando a pasta atual está em outra branch), faz commit e push; o `pages.yml` monta o site em 2 a 3 minutos. Correção, troca de foto e remoção estão no manual.
+
 ## A Revista (edições reais)
 
 As edições vivem em `import/revista/edicoes/ed-N.json` e são montadas na Coxia (📖 Revista, só chefes): capa com manchete e chamadas, e páginas de tipos variados — matéria da semana (puxada do site), conteúdo exclusivo, editorial, citação, cartaz/divulgação de peças, página patrocinada, página livre e expediente automático. Cada edição guarda um `historico` com quem alterou o quê (visível no editor). Publicar gera `revista-ed-N.html` — leitor com cara de revista (navegação por páginas, setas do teclado, swipe e ⤓ PDF via impressão) — e a listagem em `revista.html`. A IA monta/pole rascunhos seguindo `tools/REVISTA.md`; publicar é sempre humano.

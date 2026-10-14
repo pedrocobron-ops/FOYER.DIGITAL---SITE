@@ -1,0 +1,936 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""A mesa do Pedro: o braço do manual tools/PEDRO.md.
+
+Matérias assinadas por Pedro Amaral, escritas nesta conversa do Claude e
+publicadas direto no site (ordem dele, 14/10/2026).
+
+Uso:
+  python3 tools/mesa_pedro.py capa --slug SLUG (--url URL | --commons "File:X.jpg" | --arte N) [--foco alto|centro|baixo]
+  python3 tools/mesa_pedro.py confere PACOTE.json [OUTRO.json ...]
+  python3 tools/mesa_pedro.py ja-saiu "palavras chave"
+  python3 tools/mesa_pedro.py proximo-7h [--n 5]
+  python3 tools/mesa_pedro.py publica PACOTE.json [...] (--agora | --proximo-7h | --em ISO) [--corrige] [--sessao URL]
+  python3 tools/mesa_pedro.py remove SLUG --motivo "..." [--sessao URL]
+
+A cópia de produção: o site é montado a partir da branch PRODUCAO. Se a pasta
+atual já está nela, é ela. Senão, o script mantém um worktree dessa branch em
+../FOYER-PRODUCAO (ou em $FOYER_PRODUCAO) e publica por ele. A branch de
+desenvolvimento nunca recebe matéria.
+"""
+import argparse
+import glob
+import html
+import io
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+import time
+import unicodedata
+from datetime import datetime, timedelta, timezone
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PRODUCAO = 'claude/foyer-digital-redesign-14l2b6'
+BASE_URL = 'https://www.foyer.digital'
+AUTOR = 'Pedro Amaral'
+ORIGEM = 'mesa-pedro'
+UA = ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) '
+      'Chrome/128.0 Safari/537.36 FOYER-mesa/1.0 (+https://www.foyer.digital)')
+COAUTOR = 'Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>'
+
+CATS = {'Teatro', 'Teatro Musical', 'Notícia', 'Cinema', 'Streaming', 'Música', 'Show',
+        'Dança', 'Exposições', 'Literatura', 'Televisão', 'Audições', 'Edital', 'Festa',
+        'Programa', 'Guia', 'Bastidores', 'Entenda', 'Memória'}
+CATS_SO_SECUNDARIA = {'Em Cartaz'}
+
+# porte: (piso, teto de palavras, mínimo e máximo de intertítulos)
+PORTES = {
+    'nota':       (160, 300, 0, 0),
+    'quente':     (350, 600, 0, 2),
+    'contexto':   (650, 1000, 2, 4),
+    'resposta':   (250, 550, 0, 2),
+    'lista':      (550, 1100, 5, 12),
+    'explicador': (700, 1100, 3, 5),
+}
+PORTES_FRIOS = {'resposta', 'lista', 'explicador'}
+
+AGENCIAS = ['getty', 'reuters', 'afp', 'folhapress', 'associated press', 'shutterstock',
+            'istock', 'alamy', 'estadão conteúdo', 'estadao conteudo', 'epa images', 'zuma press']
+
+FORMULAS = [
+    r'\bnão é (?:um|uma|o|a)?\s*\w+, (?:é|mas) ', r'\bmais do que (?:um|uma)?\s*\w+, (?:é|são) ',
+    r'\bverdadeir[oa]s? \w+', r'\bnão é (?:um )?detalhe\b', r'\bprova de que\b', r'\bé aí que entra\b',
+    r'\bo resultado\?', r'\bvale lembrar\b', r'\bvale destacar\b', r'\bvale ressaltar\b',
+    r'\bé importante (?:ressaltar|destacar|lembrar)\b', r'\bnesse sentido\b', r'\bneste sentido\b',
+    r'\bnesse contexto\b', r'\bneste contexto\b', r'\bem suma\b', r'\bem resumo\b', r'\bpor fim\b',
+    r'\bseja \w+, seja \w+', r'\bnão por acaso\b', r'\blonge de ser\b', r'\buma espécie de\b',
+    r'\bem meio a\b', r'\bem um cenário\b', r'\bnum cenário\b', r'\bcom o avanço d[aeo]s?\b',
+    r'\bespecialistas (?:afirmam|dizem|apontam|alertam|explicam)\b', r'\bao foyer\b',
+]
+CLICHES = ['imperdível', 'vibrante', 'emocionante', 'icônic', 'mergulh', 'celebra', 'promete emocionar',
+           'promete encantar', 'experiência única', 'sucesso absoluto', 'vem conquistando',
+           'não poderia ser diferente']
+RESUMO_FINAL = r'^(?:assim|dessa forma|desse modo|portanto|em suma|em resumo|por fim|ou seja)\b'
+TEMPO_NO_TITULO = r'\b(?:hoje|ontem|amanhã|nest[ae] (?:segunda|terça|quarta|quinta|sexta|sábado|domingo|semana|manhã|tarde|noite))\b'
+
+LICENCAS_OK = re.compile(r'^(cc0|public domain|pd[- ]|cc[- ]by(?:[- ]sa)?(?:[- ]\d(?:\.\d)?)?|attribution)', re.I)
+LICENCAS_NAO = re.compile(r'\b(nc|nd|non[- ]?commercial|no[- ]?deriv|fair use|non-free|copyright)\b', re.I)
+
+ARTES = {1: 'arte-1-refletor', 2: 'arte-2-cortina', 3: 'arte-3-plateia',
+         4: 'arte-4-arena', 5: 'arte-5-urdimento', 6: 'arte-6-degraus'}
+ARTES_LEGENDA = {1: 'Arte da identidade do FOYER: o ator sob o refletor',
+                 2: 'Arte da identidade do FOYER: a cortina e a ribalta',
+                 3: 'Arte da identidade do FOYER: alguém na plateia',
+                 4: 'Arte da identidade do FOYER: o teatro de arena',
+                 5: 'Arte da identidade do FOYER: as cordas da coxia',
+                 6: 'Arte da identidade do FOYER: a subida ao palco'}
+
+
+# ---------------------------------------------------------------- utilidades
+
+def _git(cwd, *args, check=True, quiet=False):
+    r = subprocess.run(['git', '-C', cwd] + list(args), text=True,
+                       stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    if check and r.returncode != 0:
+        raise RuntimeError(f'git {" ".join(args)}: {r.stdout.strip()}')
+    if not quiet and r.stdout.strip():
+        print(r.stdout.strip())
+    return r
+
+
+def _branch_atual(cwd):
+    r = subprocess.run(['git', '-C', cwd, 'rev-parse', '--abbrev-ref', 'HEAD'],
+                       text=True, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+    return r.stdout.strip()
+
+
+def producao(atualiza=False):
+    """A pasta cuja branch é a de produção. Cria o worktree se preciso."""
+    if _branch_atual(ROOT) == PRODUCAO:
+        pasta = ROOT
+    else:
+        pasta = os.environ.get('FOYER_PRODUCAO') or os.path.join(os.path.dirname(ROOT), 'FOYER-PRODUCAO')
+        if not os.path.isdir(os.path.join(pasta, '.git')) and not os.path.isfile(os.path.join(pasta, '.git')):
+            _git(ROOT, 'fetch', 'origin', PRODUCAO, quiet=True)
+            # worktree numa branch local com o mesmo nome, seguindo a remota
+            r = subprocess.run(['git', '-C', ROOT, 'show-ref', '--verify', '--quiet', f'refs/heads/{PRODUCAO}'])
+            if r.returncode == 0:
+                _git(ROOT, 'worktree', 'add', pasta, PRODUCAO, quiet=True)
+            else:
+                _git(ROOT, 'worktree', 'add', '-b', PRODUCAO, pasta, f'origin/{PRODUCAO}', quiet=True)
+            _git(pasta, 'branch', f'--set-upstream-to=origin/{PRODUCAO}', PRODUCAO, quiet=True)
+        if _branch_atual(pasta) != PRODUCAO:
+            raise RuntimeError(f'{pasta} não está em {PRODUCAO}; resolva à mão')
+    if atualiza:
+        _git(pasta, 'fetch', 'origin', PRODUCAO, quiet=True)
+        r = _git(pasta, 'rebase', f'origin/{PRODUCAO}', check=False, quiet=True)
+        if r.returncode != 0:
+            _git(pasta, 'rebase', '--abort', check=False, quiet=True)
+            raise RuntimeError('a cópia de produção divergiu e o rebase falhou: ' + r.stdout.strip())
+    return pasta
+
+
+def _agora():
+    return datetime.now(timezone.utc)
+
+
+def _iso_ms(dt):
+    return dt.astimezone(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S.000Z')
+
+
+def _brt(dt):
+    try:
+        from zoneinfo import ZoneInfo
+        return dt.astimezone(ZoneInfo('America/Sao_Paulo'))
+    except Exception:
+        return dt.astimezone(timezone(timedelta(hours=-3)))
+
+
+def _sem_acento(s):
+    return ''.join(c for c in unicodedata.normalize('NFKD', s) if not unicodedata.combining(c)).lower()
+
+
+def _le_json(c):
+    with open(c, encoding='utf-8') as f:
+        return json.load(f)
+
+
+def _grava_json(c, d):
+    with open(c, 'w', encoding='utf-8') as f:
+        json.dump(d, f, ensure_ascii=False, indent=1)
+        f.write('\n')
+
+
+def _slugs_acervo(pasta):
+    s = set()
+    try:
+        for m in _le_json(os.path.join(pasta, 'import/materias.json')):
+            if m.get('slug'):
+                s.add(m['slug'])
+    except Exception:
+        pass
+    for f in glob.glob(os.path.join(pasta, 'import/novas/*.json')):
+        s.add(os.path.basename(f)[:-5])
+    return s
+
+
+def _novas(pasta):
+    out = []
+    for f in sorted(glob.glob(os.path.join(pasta, 'import/novas/*.json'))):
+        try:
+            d = _le_json(f)
+            d['_arquivo'] = f
+            out.append(d)
+        except Exception:
+            pass
+    return out
+
+
+def _abre(url, accept='*/*', tentativas=4):
+    """GET com User-Agent de navegador e paciência: 429 e 503 esperam o
+    retry-after (até 20 s) e tentam de novo. Devolve (bytes, content-type)."""
+    import urllib.error
+    import urllib.request
+    espera = 3
+    for t in range(tentativas):
+        req = urllib.request.Request(url, headers={'User-Agent': UA, 'Accept': accept,
+                                                   'Accept-Language': 'pt-BR,pt;q=0.9,en;q=0.8'})
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return r.read(), r.headers.get('Content-Type', '')
+        except urllib.error.HTTPError as e:
+            if e.code in (429, 503, 502) and t < tentativas - 1:
+                try:
+                    espera = min(int(e.headers.get('Retry-After', espera)), 20)
+                except Exception:
+                    pass
+                print(f'  ({e.code} em {url[:60]}; esperando {espera}s)', file=sys.stderr)
+                time.sleep(espera)
+                espera = min(espera * 2, 20)
+                continue
+            raise
+    raise RuntimeError('sem resposta')
+
+
+def _baixa(url, destino=None):
+    dados, tipo = _abre(url, accept='image/*,*/*;q=0.8')
+    if destino:
+        with open(destino, 'wb') as f:
+            f.write(dados)
+    return dados, tipo
+
+
+# --------------------------------------------------------------------- capa
+
+def _corta_16_9(im, foco='alto'):
+    """Capa exata em 16:9. Foto em pé ou quase quadrada: preserva o alto, onde
+    ficam os rostos. Foto deitada: recorta pelo foco pedido."""
+    w, h = im.size
+    alvo_h = round(w * 9 / 16)
+    if alvo_h <= h:
+        sobra = h - alvo_h
+        if h > w * 0.85:          # em pé: terço superior (regra da Coxia)
+            y = min(round(h * 0.06), sobra)
+        elif foco == 'centro':
+            y = sobra // 2
+        elif foco == 'baixo':
+            y = sobra
+        else:                     # alto: um quarto da sobra, para não decapitar
+            y = sobra // 4
+        return im.crop((0, y, w, y + alvo_h))
+    alvo_w = round(h * 16 / 9)    # mais larga que 16:9: corta as laterais pelo centro
+    x = (w - alvo_w) // 2
+    return im.crop((x, 0, x + alvo_w, h))
+
+
+def _commons_info(titulo):
+    import urllib.parse
+    import urllib.request
+    if not titulo.lower().startswith('file:'):
+        titulo = 'File:' + titulo
+    q = urllib.parse.urlencode({'action': 'query', 'titles': titulo, 'prop': 'imageinfo',
+                                'iiprop': 'url|extmetadata|size|mime', 'iiurlwidth': '2000',
+                                'format': 'json'})
+    try:
+        bruto, _ = _abre('https://commons.wikimedia.org/w/api.php?' + q, accept='application/json')
+        dados = json.loads(bruto.decode('utf-8'))
+    except Exception as e:
+        print(f'  (API do Commons indisponível: {e}; lendo a página do arquivo)', file=sys.stderr)
+        return _commons_pagina(titulo)
+    paginas = dados.get('query', {}).get('pages', {})
+    for _, p in paginas.items():
+        ii = (p.get('imageinfo') or [None])[0]
+        if not ii:
+            raise RuntimeError(f'Commons não encontrou {titulo}')
+        md = ii.get('extmetadata', {})
+
+        def v(k):
+            x = md.get(k, {}).get('value', '') or ''
+            x = re.sub(r'<[^>]+>', '', html.unescape(x))
+            return re.sub(r'\s+', ' ', x).strip()
+        return {
+            'titulo': p.get('title', titulo),
+            'pagina': 'https://commons.wikimedia.org/wiki/' + urllib.parse.quote(p.get('title', titulo).replace(' ', '_'), safe=':/,()!'),
+            'url': ii.get('thumburl') or ii.get('url'),
+            'original': ii.get('url'),
+            'largura': ii.get('width'), 'altura': ii.get('height'),
+            'licenca': v('LicenseShortName') or v('License'),
+            'licenca_url': v('LicenseUrl'),
+            'autor': v('Artist') or v('Credit') or 'Autor não identificado',
+            'descricao': v('ImageDescription'),
+            'data': v('DateTimeOriginal') or v('DateTime'),
+            'atribuicao': v('AttributionRequired'),
+        }
+    raise RuntimeError('resposta vazia do Commons')
+
+
+def _commons_pagina(titulo):
+    """Plano B: a página do arquivo no Commons traz a licença (licensetpl_short),
+    se exige atribuição (licensetpl_attr_req), o autor (fileinfotpl_aut) e o
+    endereço do original (fullMedia)."""
+    import urllib.parse
+    pagina = 'https://commons.wikimedia.org/wiki/' + urllib.parse.quote(titulo.replace(' ', '_'), safe=':/,()!')
+    bruto, _ = _abre(pagina, accept='text/html')
+    h = bruto.decode('utf-8', 'replace')
+
+    def limpa(x):
+        x = re.sub(r'<[^>]+>', '', html.unescape(x or ''))
+        return re.sub(r'\s+', ' ', x).strip()
+    lic = re.search(r'class="licensetpl_short"[^>]*>(.*?)</span>', h, re.S)
+    attr = re.search(r'class="licensetpl_attr_req"[^>]*>(.*?)</span>', h, re.S)
+    aut = re.search(r'id="fileinfotpl_aut"[^>]*>.*?</td>\s*<td[^>]*>(.*?)</td>', h, re.S)
+    desc = re.search(r'id="fileinfotpl_desc"[^>]*>.*?</td>\s*<td[^>]*>(.*?)</td>', h, re.S)
+    data = re.search(r'id="fileinfotpl_date"[^>]*>.*?</td>\s*<td[^>]*>(.*?)</td>', h, re.S)
+    orig = re.search(r'class="fullMedia"[^>]*>.*?<a[^>]+href="([^"]+)"', h, re.S)
+    dim = re.search(r'class="fileInfo"[^>]*>\s*\(?([\d,.]+)\s*[×x]\s*([\d,.]+)', h, re.S)
+    if not lic or not orig:
+        raise RuntimeError(f'não achei licença ou arquivo em {pagina}')
+    url = orig.group(1)
+    if url.startswith('//'):
+        url = 'https:' + url
+    w = int(re.sub(r'\D', '', dim.group(1))) if dim else None
+    hh = int(re.sub(r'\D', '', dim.group(2))) if dim else None
+    # miniatura de 2000 px pelo caminho padrão do Commons (upload.wikimedia.org/.../thumb/a/ab/Nome.jpg/2000px-Nome.jpg)
+    thumb = url
+    m = re.match(r'(https://upload\.wikimedia\.org/wikipedia/commons)/([0-9a-f])/([0-9a-f]{2})/([^/]+)$', url)
+    if m and w and w > 2000:
+        thumb = f'{m.group(1)}/thumb/{m.group(2)}/{m.group(3)}/{m.group(4)}/2000px-{m.group(4)}'
+    return {
+        'titulo': titulo, 'pagina': pagina, 'url': thumb, 'original': url,
+        'largura': w, 'altura': hh, 'licenca': limpa(lic.group(1)), 'licenca_url': '',
+        'autor': limpa(aut.group(1)) if aut else 'Autor não identificado',
+        'descricao': limpa(desc.group(1)) if desc else '', 'data': limpa(data.group(1)) if data else '',
+        'atribuicao': limpa(attr.group(1)) if attr else '',
+    }
+
+
+def cmd_capa(a):
+    from PIL import Image
+    pasta = producao()
+    carimbo = str(int(time.time() * 1000))
+    uploads = os.path.join(pasta, 'assets/uploads')
+    os.makedirs(uploads, exist_ok=True)
+    saida = {}
+    if a.arte:
+        n = int(a.arte)
+        if n not in ARTES:
+            sys.exit('arte deve ser de 1 a 6')
+        src = os.path.join(pasta, 'assets/artes', ARTES[n] + '-paisagem.png')
+        im = Image.open(src).convert('RGB')
+        saida.update({'imgCredito': 'Arte: FOYER', 'imgLegenda': ARTES_LEGENDA[n],
+                      'imgDireito': 'Arte própria do FOYER (conjunto de artes de palco aprovado em 29/07/2026).',
+                      'imgFonte': 'assets/artes/' + ARTES[n] + '.svg'})
+    else:
+        if a.commons:
+            info = _commons_info(a.commons)
+            lic = info['licenca']
+            if not lic or LICENCAS_NAO.search(lic) or not LICENCAS_OK.search(lic):
+                sys.exit(f'licença recusada no Commons: "{lic}" ({info["pagina"]}). Só CC0, domínio público, CC BY e CC BY-SA.')
+            url = info['url']
+            autor = info['autor']
+            if len(autor) > 60:
+                autor = autor[:57].rstrip() + '...'
+            dp = re.match(r'^(cc0|public domain|pd)', lic, re.I)
+            saida.update({
+                'imgCredito': f'Foto: {autor} / Wikimedia Commons ({"domínio público" if dp else lic})',
+                'imgFonte': info['pagina'],
+                'imgDireito': (f'Licença {lic} conferida em {_brt(_agora()).strftime("%d/%m/%Y")} na API do Wikimedia Commons '
+                               f'(autor: {info["autor"]}; atribuição exigida: {info["atribuicao"] or "não informado"}).'
+                               + (f' Descrição no arquivo: {info["descricao"][:200]}' if info['descricao'] else '')),
+                'imgLegenda': '',
+                '_commons': {'descricao': info['descricao'], 'data': info['data'], 'licenca_url': info['licenca_url'],
+                             'tamanho': f'{info["largura"]}x{info["altura"]}'},
+            })
+        else:
+            url = a.url
+            saida.update({'imgCredito': 'Foto: Divulgação', 'imgFonte': url, 'imgLegenda': '',
+                          'imgDireito': f'Divulgação oficial, baixada de {url} em {_brt(_agora()).strftime("%d/%m/%Y")}. CONFIRA o fotógrafo e ajuste o crédito.'})
+        dados, tipo = _baixa(url)
+        if 'image' not in tipo and not dados[:4] in (b'\xff\xd8\xff\xe0', b'\xff\xd8\xff\xe1', b'\x89PNG'):
+            sys.exit(f'o endereço não devolveu imagem (Content-Type {tipo})')
+        im = Image.open(io.BytesIO(dados))
+        if im.mode in ('RGBA', 'LA', 'P'):
+            fundo = Image.new('RGB', im.size, (239, 232, 218))
+            fundo.paste(im.convert('RGBA'), mask=im.convert('RGBA').split()[-1])
+            im = fundo
+        im = im.convert('RGB')
+        # a original inteira (redimensionada), para as artes do Instagram
+        orig = im.copy()
+        if orig.width > 1600:
+            orig = orig.resize((1600, round(orig.height * 1600 / orig.width)), Image.LANCZOS)
+        caminho_orig = f'assets/uploads/{a.slug}-original-{carimbo}.jpg'
+        orig.save(os.path.join(pasta, caminho_orig), 'JPEG', quality=86, optimize=True)
+        saida['imgOriginal'] = caminho_orig
+    capa = _corta_16_9(im, a.foco)
+    if capa.width > 1600:
+        capa = capa.resize((1600, 900), Image.LANCZOS)
+    caminho = f'assets/uploads/{a.slug}-{carimbo}.jpg'
+    capa.save(os.path.join(pasta, caminho), 'JPEG', quality=86, optimize=True)
+    saida['img'] = caminho
+    saida['_capa'] = f'{capa.width}x{capa.height}'
+    if capa.width < 1200:
+        saida['_aviso'] = f'capa estreita ({capa.width} px); o Google Discover prefere 1200'
+    print(json.dumps(saida, ensure_ascii=False, indent=1))
+
+
+# ------------------------------------------------------------------ confere
+
+def _texto_limpo(corpo):
+    t = re.sub(r'\[([^\]]+)\]\([^)]*\)', r'\1', corpo)
+    t = re.sub(r'^galeria:[^\n]*(?:\n[ \t]*\S[^\n]*)*', '', t, flags=re.M)
+    t = re.sub(r'^(img:|video:|galeria:|botao:|spotify:|#+ |\*\*\*).*$', '', t, flags=re.M)
+    return t
+
+
+def _blocos(corpo):
+    return [b.strip() for b in re.split(r'\n\s*\n', corpo.strip()) if b.strip()]
+
+
+def _e_intertitulo(b):
+    if re.match(r'#{1,6}\s', b):
+        return True
+    # linha única toda em negrito, curta: intertítulo de lista ("**1. Obra (ano)**")
+    return bool(re.fullmatch(r'\*\*[^*\n]{3,120}\*\*', b))
+
+
+def _paragrafos_prosa(corpo):
+    corte = re.split(r'^## +(?:Serviço|Servico)', corpo, flags=re.M)[0]
+    return [b for b in _blocos(corte)
+            if not _e_intertitulo(b) and not b.startswith(('img:', 'video:', 'galeria:', 'botao:', 'spotify:', '> ', '***', '- ', '* '))]
+
+
+def _frases(corpo):
+    out = []
+    for par in _paragrafos_prosa(corpo):
+        t = _texto_limpo(par).replace('\n', ' ')
+        bruto = re.split(r'(?<=[.!?])\s+(?=[A-ZÀ-ÚÁÉÍÓÚÂÊÔÃÕÇ“"\*\[])', t)
+        out += [f for f in (x.strip() for x in bruto) if len(f.split()) >= 3]
+    return out
+
+
+def _palavras(corpo):
+    return len(re.findall(r"[\wÀ-ÿ'’-]+", _texto_limpo(corpo)))
+
+
+def _intertitulos(corpo):
+    n = 0
+    for b in _blocos(corpo):
+        if re.match(r'#{1,6}\s*(Serviço|Servico)\b', b):
+            continue
+        if _e_intertitulo(b):
+            n += 1
+    return n
+
+
+def _tira_nomes(txt, nomes):
+    for n in nomes or []:
+        txt = txt.replace(n, ' ')
+    return txt
+
+
+def auditar(caminho, pasta, corrige=False):
+    P, A = [], []
+    try:
+        pg = _le_json(caminho)
+    except Exception as e:
+        return [f'JSON inválido: {e}'], [], {}
+    titulo = pg.get('title', '') or ''
+    corpo = pg.get('corpo', '') or ''
+    nomes = pg.get('nomes_proprios') or []
+    porte = pg.get('porte', '')
+    slug = pg.get('slug', '')
+
+    for k in ('title', 'linhaFina', 'slug', 'cat', 'author', 'porte', 'corpo', 'img',
+              'imgCredito', 'imgLegenda', 'imgDireito', 'apuracao', 'publishAt'):
+        if not pg.get(k):
+            P.append(f'campo obrigatório vazio: {k}')
+    if 'cats' not in pg or not isinstance(pg.get('cats'), list):
+        P.append('cats precisa existir e ser lista (vazia se não houver secundária)')
+    for k in ('fontes', 'status', 'chefe', 'checagem', 'sugestaoPublishAt'):
+        if k in pg:
+            P.append(f'campo proibido no pacote: {k}' + (' (sai impresso no site)' if k == 'fontes' else ''))
+    if pg.get('author') != AUTOR:
+        P.append(f'author tem de ser "{AUTOR}"')
+    if pg.get('origem') not in (None, ORIGEM):
+        A.append(f'origem "{pg.get("origem")}" (esperado {ORIGEM}; o publica carimba)')
+    if pg.get('cat') not in CATS:
+        P.append(f'cat "{pg.get("cat")}" fora da lista canônica')
+    cats = [c for c in (pg.get('cats') or []) if c]
+    if len(cats) > 2:
+        P.append(f'cats com {len(cats)} editorias; o máximo é 2')
+    for c in cats:
+        if c not in CATS | CATS_SO_SECUNDARIA:
+            P.append(f'editoria secundária "{c}" fora da lista')
+        if c == pg.get('cat'):
+            P.append(f'"{c}" repetida em cat e cats')
+    if porte not in PORTES:
+        P.append(f'porte "{porte}" desconhecido ({", ".join(PORTES)})')
+
+    # slug
+    if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', slug or ''):
+        P.append('slug só com a-z, 0-9 e hifens')
+    if slug and len(slug) > 80:
+        P.append(f'slug com {len(slug)} caracteres (máximo 80)')
+    if slug and not corrige and slug in _slugs_acervo(pasta):
+        P.append(f'slug "{slug}" já existe no acervo ou em import/novas (use --corrige se for correção)')
+    if slug and os.path.basename(caminho) != slug + '.json':
+        A.append(f'o arquivo deveria chamar {slug}.json')
+
+    # título e linha fina
+    if titulo:
+        if '*' in titulo:
+            P.append('título com asterisco')
+        if len(titulo) > 110:
+            P.append(f'título com {len(titulo)} caracteres (teto duro 110)')
+        elif len(titulo) > 90:
+            A.append(f'título com {len(titulo)} caracteres (ideal até 90; os 60 primeiros decidem)')
+        if re.search(TEMPO_NO_TITULO, _sem_acento(titulo)):
+            P.append('título com "hoje/ontem/amanhã/nesta": use a data')
+        if re.search(r'\b(entenda|veja|confira|saiba|descubra)\b', _sem_acento(titulo)) and not re.search(r'\?$', titulo.strip()):
+            A.append('título com muleta (entenda/veja/confira/saiba/descubra)')
+    lf = pg.get('linhaFina') or ''
+    if lf:
+        if not 60 <= len(lf) <= 220:
+            P.append(f'linha fina com {len(lf)} caracteres (faixa 60 a 220)')
+        if _sem_acento(lf).strip('. ') == _sem_acento(titulo).strip('. '):
+            P.append('linha fina igual ao título')
+        if '**' in lf:
+            P.append('linha fina com negrito')
+
+    # travessão e meia-risca
+    for campo in ('title', 'linhaFina', 'corpo', 'imgLegenda'):
+        v = _tira_nomes(pg.get(campo) or '', nomes)
+        if '—' in v or '–' in v:
+            P.append(f'travessão ou meia-risca em {campo} (fora de nomes_proprios)')
+    if '—' in (pg.get('imgCredito') or '') or '–' in (pg.get('imgCredito') or ''):
+        A.append('travessão no crédito da foto; prefira " / " e parênteses')
+
+    # fórmulas, clichês, aspas
+    texto_sa = _sem_acento(_texto_limpo(corpo) + ' ' + titulo + ' ' + lf)
+    for f in FORMULAS:
+        m = re.search(_sem_acento(f), texto_sa)
+        if m:
+            P.append(f'fórmula proibida: "{m.group(0)}"')
+    for c in CLICHES:
+        if _sem_acento(c) in texto_sa:
+            P.append(f'clichê: "{c}"')
+    # trio de adjetivos/termos: "x, y e z" com três palavras curtas seguidas no fim de frase
+    for m in re.finditer(r'\b(\w{5,}), (\w{5,}) e (\w{5,})[.,]', corpo):
+        a1, a2, a3 = m.groups()
+        if all(x.endswith(('nte', 'ado', 'ada', 'oso', 'osa', 'vel', 'ico', 'ica', 'ivo', 'iva')) for x in (a1, a2, a3)):
+            A.append(f'trio de adjetivos: "{m.group(0)}"')
+    # pergunta retórica seguida de resposta
+    for m in re.finditer(r'\?\s+(Sim|Não|A resposta|Depende)\b', corpo):
+        A.append(f'pergunta retórica com resposta imediata: "...{m.group(0)}"')
+    if re.search(r'^\s*[-*] ', corpo, re.M):
+        if porte in PORTES_FRIOS:
+            A.append('lista de tópicos no corpo (na fria, prefira intertítulos por item)')
+        else:
+            P.append('lista de tópicos no corpo de matéria quente')
+    if re.search(r'https?://', _texto_limpo(re.sub(r'\[([^\]]+)\]\([^)]*\)', r'\1', corpo))):
+        A.append('URL crua no texto; use [texto](url)')
+
+    # porte, intertítulos, blocos
+    blocos = _blocos(corpo)
+    if blocos:
+        if re.fullmatch(r'\*\*[^*]+\*\*', blocos[0]) and len(blocos[0]) > 40:
+            P.append('primeiro parágrafo inteiro em negrito (o site o transforma em linha fina)')
+        prosa = _paragrafos_prosa(corpo)
+        if prosa and re.match(RESUMO_FINAL, _sem_acento(prosa[-1])):
+            P.append('parágrafo final de resumo ("' + prosa[-1][:40] + '...")')
+        inicios = [re.sub(r'\W+', ' ', _sem_acento(_texto_limpo(p))).strip().split(' ')[:2] for p in prosa]
+        for i in range(2, len(inicios)):
+            if inicios[i] and inicios[i] == inicios[i - 1] == inicios[i - 2]:
+                A.append(f'três parágrafos seguidos começando com "{" ".join(inicios[i])}"')
+                break
+    if porte in PORTES:
+        piso, teto, imin, imax = PORTES[porte]
+        n = _palavras(corpo)
+        if n < piso:
+            P.append(f'{n} palavras: abaixo do piso do porte {porte} ({piso}-{teto})')
+        elif n > teto * 1.1:
+            P.append(f'{n} palavras: acima do teto do porte {porte} ({piso}-{teto})')
+        elif n > teto:
+            A.append(f'{n} palavras: passou do teto do porte {porte} ({teto}) dentro da folga de 10%')
+        k = _intertitulos(corpo)
+        if k < imin or k > imax:
+            P.append(f'{k} intertítulos; o porte {porte} pede de {imin} a {imax}')
+    # ritmo
+    fr = _frases(corpo)
+    if len(fr) >= 6:
+        curtas = sum(1 for f in fr if len(f.split()) < 12) / len(fr)
+        media = sum(len(f.split()) for f in fr) / len(fr)
+        if curtas < 0.15:
+            P.append(f'ritmo: só {curtas:.0%} das frases com menos de 12 palavras (mínimo 20%)')
+        elif curtas < 0.20:
+            A.append(f'ritmo: {curtas:.0%} de frases curtas (meta 20%)')
+        if media > 28:
+            P.append(f'ritmo: média de {media:.1f} palavras por frase (máximo 28)')
+        elif media > 26:
+            A.append(f'ritmo: média de {media:.1f} palavras por frase (ideal até 26)')
+    # serviço quando há evento
+    if pg.get('evento') and porte in ('nota', 'quente') and not re.search(r'^## +Serviço', corpo, re.M):
+        A.append('matéria com evento e sem bloco ## Serviço')
+
+    # imagem
+    img = pg.get('img') or ''
+    if img:
+        cam = os.path.join(pasta, img)
+        if not img.startswith('assets/uploads/'):
+            P.append('img precisa estar em assets/uploads/')
+        elif not os.path.isfile(cam):
+            P.append(f'imagem não existe na cópia de produção: {img}')
+        else:
+            try:
+                from PIL import Image
+                with Image.open(cam) as im:
+                    w, h = im.size
+                if abs(w / h - 16 / 9) > 0.03:
+                    P.append(f'capa {w}x{h} não está em 16:9')
+                if w < 1200:
+                    A.append(f'capa com {w} px de largura (o Discover prefere 1200)')
+            except Exception as e:
+                P.append(f'não abri a imagem: {e}')
+    cred = (pg.get('imgCredito') or '').lower()
+    for ag in AGENCIAS:
+        if ag in cred:
+            P.append(f'agência proibida no crédito: {ag}')
+    if cred and not re.match(r'^(foto|arte|imagem|ilustra|reprodu|frame|cr[eé]dito)', cred):
+        A.append('crédito sem rótulo (Foto:, Arte:, Imagem:)')
+    leg = pg.get('imgLegenda') or ''
+    if leg:
+        if len(leg) < 25:
+            P.append('descritivo da imagem curto demais')
+        if _sem_acento(leg).strip('. ') == _sem_acento(titulo).strip('. '):
+            P.append('descritivo igual ao título')
+        if len(leg) > 240:
+            A.append(f'descritivo com {len(leg)} caracteres; uma frase basta')
+    if (pg.get('imgCredito') or '').startswith('Foto: Divulgação') and 'CONFIRA' in (pg.get('imgDireito') or ''):
+        A.append('crédito genérico "Foto: Divulgação": confira o fotógrafo')
+    if cred and 'divulga' not in cred and 'arte' not in cred and not pg.get('imgFonte'):
+        A.append('imgFonte vazio')
+
+    # apuração
+    ap = pg.get('apuracao') or []
+    if not isinstance(ap, list) or any(not isinstance(u, str) or not u.startswith('http') for u in ap):
+        P.append('apuracao precisa ser lista de URLs')
+    elif len(ap) < 2:
+        P.append(f'apuracao com {len(ap)} URL (mínimo 2)')
+    elif len(ap) == 2:
+        A.append('apuracao com só 2 URLs')
+    if any('foyer.digital' in u for u in ap if isinstance(u, str)):
+        A.append('matéria da casa em apuracao (link interno vai no corpo, não na apuração)')
+
+    # publishAt
+    pub = pg.get('publishAt') or ''
+    if pub:
+        try:
+            dtp = datetime.fromisoformat(pub.replace('Z', '+00:00'))
+            if porte in PORTES_FRIOS:
+                if dtp.strftime('%H:%M:%S') != '10:00:00':
+                    P.append(f'fria com publishAt fora das 10:00:00Z (7h de Brasília): {pub}')
+                if dtp <= _agora() and not corrige:
+                    P.append('fria com publishAt no passado')
+                for n in _novas(pasta):
+                    if n.get('author') == AUTOR and n.get('slug') != slug and (n.get('publishAt') or '')[:13] == pub[:13]:
+                        P.append(f'colide com "{n.get("title", "")[:50]}" no mesmo horário')
+            else:
+                if abs((dtp - _agora()).total_seconds()) > 3600 and not corrige:
+                    A.append(f'quente com publishAt a mais de uma hora de agora ({pub})')
+        except Exception:
+            P.append(f'publishAt inválido: {pub}')
+    if not re.search(r'\.\d{3}Z$', pub):
+        A.append('publishAt sem milissegundos (o publica normaliza)')
+
+    info = {'porte': porte, 'inter': _intertitulos(corpo), 'palavras': _palavras(corpo), 'slug': slug}
+    return P, A, info
+
+
+def cmd_confere(a, pasta=None, corrige=False):
+    pasta = pasta or producao()
+    total = 0
+    esqueletos = []
+    for c in a.pacotes:
+        P, A, info = auditar(c, pasta, corrige=corrige)
+        total += len(P)
+        esqueletos.append((info.get('porte'), info.get('inter')))
+        print(f'\n== {os.path.basename(c)}  [{info.get("porte")}, {info.get("palavras")} palavras, {info.get("inter")} intertítulos]')
+        for p in P:
+            print('  ✗ PROBLEMA:', p)
+        for w in A:
+            print('  ! aviso:', w)
+        if not P and not A:
+            print('  ✓ limpo')
+        elif not P:
+            print('  ✓ passa (com avisos)')
+    if len(esqueletos) >= 2 and len(set(esqueletos)) == 1:
+        print('\n  ! aviso de MOLDE: todas as matérias desta leva têm o mesmo porte e a mesma conta de intertítulos')
+    # as últimas do Pedro em novas, para a régua de três seguidas
+    ultimas = [(n.get('porte'), _intertitulos(n.get('corpo', ''))) for n in sorted(_novas(pasta), key=lambda n: n.get('publishAt', ''))
+               if n.get('author') == AUTOR][-2:]
+    if ultimas and esqueletos and all(e == esqueletos[0] for e in ultimas + esqueletos[:1]) and esqueletos[0][0]:
+        print('  ! aviso de MOLDE: as duas últimas do Pedro no site já têm este porte e esta conta de intertítulos')
+    return total
+
+
+# ------------------------------------------------------------ ja-saiu / fila
+
+def cmd_ja_saiu(a):
+    pasta = producao()
+    chaves = [_sem_acento(p) for p in re.findall(r'\w{4,}', a.termos)]
+    if not chaves:
+        sys.exit('dê ao menos uma palavra com 4 letras ou mais')
+    achados = []
+    try:
+        for m in _le_json(os.path.join(pasta, 'import/materias.json')):
+            t = _sem_acento(m.get('title', '') + ' ' + m.get('desc', ''))
+            if all(k in t for k in chaves):
+                achados.append((m.get('iso', ''), m.get('author', ''), m.get('title', ''), 'acervo'))
+    except Exception:
+        pass
+    for n in _novas(pasta):
+        t = _sem_acento(n.get('title', '') + ' ' + (n.get('linhaFina') or '') + ' ' + n.get('corpo', '')[:600])
+        if all(k in t for k in chaves):
+            quando = (n.get('publishAt') or '')[:16]
+            estado = 'agendada' if (n.get('publishAt') or '') > _iso_ms(_agora()) else 'no ar'
+            achados.append((quando, n.get('author', ''), n.get('title', ''), estado))
+    achados.sort(reverse=True)
+    if not achados:
+        print('nada no acervo nem na fila com:', ' + '.join(chaves))
+    for q, au, t, e in achados[:25]:
+        print(f'{q[:10]:>10} | {e:8} | {au:18} | {t}')
+
+
+def _proximos_7h(pasta, n=5):
+    ocupados = set()
+    for m in _novas(pasta):
+        if m.get('author') == AUTOR:
+            ocupados.add((m.get('publishAt') or '')[:10])
+    dia = (_agora() + timedelta(days=1)).date()
+    ultimo = max((d for d in ocupados if d), default='')
+    if ultimo and ultimo >= dia.isoformat():
+        dia = datetime.fromisoformat(ultimo).date() + timedelta(days=1)
+    saida = []
+    while len(saida) < n:
+        if dia.isoformat() not in ocupados:
+            saida.append(datetime(dia.year, dia.month, dia.day, 10, 0, tzinfo=timezone.utc))
+        dia += timedelta(days=1)
+    return saida
+
+
+def cmd_proximo_7h(a):
+    pasta = producao()
+    for dt in _proximos_7h(pasta, a.n):
+        print(_iso_ms(dt), '  (', _brt(dt).strftime('%a %d/%m 7h'), ')')
+
+
+# ------------------------------------------------------------------- publica
+
+def _mensagem(acao, titulo, sessao):
+    msg = f'Mesa do Pedro: {acao} "{titulo}"\n\n{COAUTOR}'
+    if sessao:
+        msg += f'\nClaude-Session: {sessao}'
+    return msg
+
+
+def _push(pasta):
+    espera = 2
+    for tent in range(5):
+        r = _git(pasta, 'push', '-u', 'origin', PRODUCAO, check=False, quiet=True)
+        if r.returncode == 0:
+            return True
+        print(f'push recusado ({tent + 1}/5): {r.stdout.strip()[:300]}')
+        if tent == 4:
+            break
+        _git(pasta, 'fetch', 'origin', PRODUCAO, check=False, quiet=True)
+        rb = _git(pasta, 'rebase', f'origin/{PRODUCAO}', check=False, quiet=True)
+        if rb.returncode != 0:
+            _git(pasta, 'rebase', '--abort', check=False, quiet=True)
+            print('rebase falhou; a cópia de produção precisa de conserto à mão')
+            return False
+        time.sleep(espera)
+        espera *= 2
+    return False
+
+
+def cmd_publica(a):
+    pasta = producao(atualiza=True)
+    modos = sum(bool(x) for x in (a.agora, a.proximo_7h, a.em))
+    if modos > 1:
+        sys.exit('escolha um só: --agora, --proximo-7h ou --em')
+    fila = _proximos_7h(pasta, len(a.pacotes) + 2) if a.proximo_7h else []
+    publicados = []
+    for i, c in enumerate(a.pacotes):
+        pg = _le_json(c)
+        slug = pg.get('slug') or ''
+        if not slug:
+            sys.exit(f'{c}: sem slug')
+        agora = _agora()
+        if a.agora:
+            pg['publishAt'] = _iso_ms(agora.replace(second=0, microsecond=0))
+        elif a.proximo_7h:
+            pg['publishAt'] = _iso_ms(fila[i])
+        elif a.em:
+            dt = datetime.fromisoformat(a.em.replace('Z', '+00:00'))
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            pg['publishAt'] = _iso_ms(dt + timedelta(days=i) if len(a.pacotes) > 1 and pg.get('porte') in PORTES_FRIOS else dt)
+        elif not pg.get('publishAt'):
+            sys.exit(f'{c}: sem publishAt; use --agora, --proximo-7h ou --em')
+        else:
+            pg['publishAt'] = _iso_ms(datetime.fromisoformat(pg['publishAt'].replace('Z', '+00:00')))
+        pg.setdefault('criadoEm', _iso_ms(agora))
+        pg['criadoPor'] = AUTOR
+        pg['author'] = AUTOR
+        pg['origem'] = ORIGEM
+        if a.corrige:
+            pg['atualizadoEm'] = _iso_ms(agora)
+            if a.correcao:
+                pg['correcao'] = {'texto': a.correcao if a.correcao.lower().startswith('corre') else 'Correção: ' + a.correcao,
+                                  'quando': agora.isoformat()}
+        pg.pop('_capa', None)
+        pg.pop('_commons', None)
+        destino = os.path.join(pasta, 'import/novas', slug + '.json')
+        if os.path.exists(destino) and not a.corrige and os.path.abspath(destino) != os.path.abspath(c):
+            sys.exit(f'{slug}.json já existe em import/novas; use --corrige para substituir')
+        _grava_json(destino, pg)
+        P, A, info = auditar(destino, pasta, corrige=a.corrige)
+        print(f'\n== {slug}  [{info.get("porte")}, {info.get("palavras")} palavras, {info.get("inter")} intertítulos]')
+        for p in P:
+            print('  ✗ PROBLEMA:', p)
+        for w in A:
+            print('  ! aviso:', w)
+        if P:
+            if os.path.abspath(destino) != os.path.abspath(c):
+                os.remove(destino)
+            sys.exit('reprovado no portão: nada foi publicado. Corrija e rode de novo.')
+        arquivos = ['import/novas/' + slug + '.json']
+        for k in ('img', 'imgOriginal'):
+            if pg.get(k) and os.path.isfile(os.path.join(pasta, pg[k])):
+                arquivos.append(pg[k])
+        _git(pasta, 'add', '--', *arquivos, quiet=True)
+        dtp = datetime.fromisoformat(pg['publishAt'].replace('Z', '+00:00'))
+        futuro = dtp > agora + timedelta(minutes=2)
+        if a.corrige:
+            acao = 'corrige'
+        elif futuro:
+            acao = f'agenda'
+        else:
+            acao = 'publica'
+        titulo = pg.get('title', slug)
+        msg = _mensagem(acao + (f' para {_brt(dtp).strftime("%d/%m às %-Hh%M")}' if futuro and not a.corrige else ''), titulo, a.sessao)
+        r = _git(pasta, 'commit', '-q', '-m', msg, check=False, quiet=True)
+        if r.returncode != 0:
+            print('nada para commitar?', r.stdout.strip()[:200])
+        publicados.append((slug, titulo, dtp, futuro))
+    if a.sem_push:
+        print('\n(--sem-push: commits feitos na cópia de produção, nada enviado)')
+    elif not _push(pasta):
+        sys.exit('o push não entrou. Os commits estão na cópia de produção; nada no ar. Avise o Pedro com o erro acima.')
+    print()
+    for slug, titulo, dtp, futuro in publicados:
+        quando = _brt(dtp).strftime('%d/%m/%Y %Hh%M')
+        print(('AGENDADA para ' if futuro else 'PUBLICADA às ') + quando + ' (Brasília)')
+        print('  ' + titulo)
+        print(f'  {BASE_URL}/post-{slug}.html' + ('' if futuro else '   (no ar em 2 a 3 minutos, depois que o pages.yml montar o site)'))
+
+
+def cmd_remove(a):
+    pasta = producao(atualiza=True)
+    origem = os.path.join(pasta, 'import/novas', a.slug + '.json')
+    if not os.path.isfile(origem):
+        sys.exit(f'não achei import/novas/{a.slug}.json na cópia de produção')
+    pg = _le_json(origem)
+    agora = _agora()
+    pg['_origem'] = 'import/novas/' + a.slug + '.json'
+    pg['removidoPor'] = AUTOR + ' (mesa)'
+    pg['removidoEm'] = _iso_ms(agora)
+    pg['motivoRemocao'] = a.motivo
+    destino = os.path.join(pasta, 'import/lixeira', f'{a.slug}-{int(agora.timestamp() * 1000)}.json')
+    os.makedirs(os.path.dirname(destino), exist_ok=True)
+    _grava_json(destino, pg)
+    _git(pasta, 'rm', '-q', '--', 'import/novas/' + a.slug + '.json', quiet=True)
+    _git(pasta, 'add', '--', os.path.relpath(destino, pasta), quiet=True)
+    _git(pasta, 'commit', '-q', '-m', _mensagem('remove', pg.get('title', a.slug), a.sessao), quiet=True)
+    if not _push(pasta):
+        sys.exit('o push não entrou; a remoção ficou só na cópia de produção')
+    print(f'REMOVIDA: "{pg.get("title", a.slug)}" foi para import/lixeira; o site remonta sem ela em 2 a 3 minutos.')
+
+
+# ---------------------------------------------------------------------- main
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = ap.add_subparsers(dest='cmd', required=True)
+
+    c = sub.add_parser('capa', help='baixa e recorta a foto de capa para a cópia de produção')
+    c.add_argument('--slug', required=True)
+    g = c.add_mutually_exclusive_group(required=True)
+    g.add_argument('--url', help='imagem de divulgação oficial')
+    g.add_argument('--commons', help='nome do arquivo no Wikimedia Commons (File:...)')
+    g.add_argument('--arte', help='arte da casa, 1 a 6')
+    c.add_argument('--foco', choices=['alto', 'centro', 'baixo'], default='alto')
+    c.set_defaults(fn=cmd_capa)
+
+    c = sub.add_parser('confere', help='o portão: reprova ou avisa')
+    c.add_argument('pacotes', nargs='+')
+    c.add_argument('--corrige', action='store_true', help='aceita slug já existente')
+    c.set_defaults(fn=lambda a: sys.exit(1 if cmd_confere(a, corrige=a.corrige) else 0))
+
+    c = sub.add_parser('ja-saiu', help='procura o assunto no acervo e na fila')
+    c.add_argument('termos')
+    c.set_defaults(fn=cmd_ja_saiu)
+
+    c = sub.add_parser('proximo-7h', help='os próximos dias livres às 7h para pautas frias')
+    c.add_argument('--n', type=int, default=5)
+    c.set_defaults(fn=cmd_proximo_7h)
+
+    c = sub.add_parser('publica', help='grava em import/novas da produção, commit e push')
+    c.add_argument('pacotes', nargs='+')
+    c.add_argument('--agora', action='store_true', help='quente: publishAt = agora')
+    c.add_argument('--proximo-7h', action='store_true', help='fria: próximo 7h livre (uma por dia)')
+    c.add_argument('--em', help='ISO (UTC ou com fuso); várias frias entram em dias seguidos')
+    c.add_argument('--corrige', action='store_true', help='correção de matéria já publicada ou agendada')
+    c.add_argument('--correcao', help='texto da nota de correção impressa no fim da matéria')
+    c.add_argument('--sessao', default=os.environ.get('CLAUDE_SESSION_URL', ''), help='URL da sessão para o rodapé do commit')
+    c.add_argument('--sem-push', action='store_true')
+    c.set_defaults(fn=cmd_publica)
+
+    c = sub.add_parser('remove', help='tira a matéria do ar (vai para import/lixeira)')
+    c.add_argument('slug')
+    c.add_argument('--motivo', required=True)
+    c.add_argument('--sessao', default=os.environ.get('CLAUDE_SESSION_URL', ''))
+    c.set_defaults(fn=cmd_remove)
+
+    a = ap.parse_args()
+    try:
+        a.fn(a)
+    except RuntimeError as e:
+        sys.exit(f'erro: {e}')
+
+
+if __name__ == '__main__':
+    main()
