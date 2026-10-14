@@ -828,6 +828,35 @@
   .f-conta .c1{ font-size:.72rem; font-weight:700; color:var(--ink); letter-spacing:.05em; }
   .f-conta .bom{ color:var(--ok); font-weight:700; }
   .f-conta .err{ color:var(--err); font-weight:700; }
+  /* contador do TÍTULO (14/10/2026): a régua 60/90 que a casa já cobrava da
+     IA, agora na frente de quem escreve. Verde até 60, âmbar de 61 a 90,
+     vermelho acima; sem borda em cima porque fica colado no campo de uma linha. */
+  .f-conta.tit{ border-top:0; padding-top:5px; margin-top:0; }
+  .f-conta .amb{ color:#8a5a00; font-weight:700; }
+  html[data-theme="dark"] .f-conta .amb, body.dark .f-conta .amb{ color:#E2B65A; }
+  /* RADAR "EM ALTA AGORA NO BRASIL" (14/10/2026): os termos mais buscados no
+     Google neste momento, lidos pela função trends do Supabase. Em dourado o
+     que bate com nome da enciclopédia ou com matéria já publicada. */
+  .radar{ border:var(--b); background:var(--paper); padding:14px 16px; }
+  .radar ol{ list-style:none; margin:0; padding:0; counter-reset:radar; }
+  .radar li{ display:flex; gap:12px; align-items:flex-start; padding:9px 0; border-top:1px solid var(--line); counter-increment:radar; }
+  .radar li:first-child{ border-top:0; padding-top:2px; }
+  .radar li::before{ content:counter(radar); font-family:var(--mono); font-size:.62rem; color:var(--ink-soft); min-width:16px; padding-top:4px; }
+  .radar .rd-c{ flex:1; min-width:0; }
+  .radar .rd-linha{ display:flex; gap:10px; align-items:baseline; flex-wrap:wrap; }
+  .radar .rd-termo{ font-family:var(--sans); font-weight:700; font-size:.95rem; color:var(--ink); text-decoration:none; overflow-wrap:anywhere; }
+  .radar .rd-termo:hover{ text-decoration:underline; }
+  .radar li.bate .rd-termo{ color:var(--wine); background:rgba(206,178,106,.32); padding:0 5px; box-shadow:inset 0 -2px 0 var(--gold); }
+  html[data-theme="dark"] .radar li.bate .rd-termo, body.dark .radar li.bate .rd-termo{ color:var(--gold-hi); background:rgba(206,178,106,.16); }
+  .radar .rd-traf{ font-family:var(--mono); font-size:.58rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); white-space:nowrap; }
+  .radar .rd-bate, .radar .rd-not{ display:block; font-family:var(--sans); font-size:.8rem; line-height:1.5; color:var(--ink-soft); margin-top:3px; overflow-wrap:anywhere; }
+  .radar .rd-bate{ color:var(--ink); }
+  .radar .rd-bate a, .radar .rd-not a{ color:inherit; }
+  .radar .rd-nota{ font-family:var(--sans); font-size:.8rem; color:var(--ink-soft); margin:12px 0 0; line-height:1.5; }
+  .radar .rd-fora{ font-family:var(--sans); font-size:.86rem; color:var(--ink-soft); margin:0; line-height:1.5; }
+  .radar.compacto{ padding:12px 14px; }
+  .radar.compacto .rd-termo{ font-size:.86rem; }
+  .radar.compacto .rd-not{ display:none; }
   /* ---- O ESPELHO: escrever vendo o resultado (pedido do Pedro, 05/08/2026).
      O desenho é o dos editores de redação (Gutenberg do WordPress): a foto
      aparece no fluxo do texto com a legenda embaixo, não como linha de código. */
@@ -1262,6 +1291,11 @@
           <a href="index.html" target="_blank" rel="noopener">Ver o site no ar ↗</a>
         </div>
         <div id="palco-insta"></div>
+        <!-- RADAR DE PAUTA (14/10/2026): o que o Brasil busca no Google agora, pelo
+             RSS público do Google Trends lido pela função trends do Supabase (o
+             navegador não lê o RSS direto). Em dourado o que bate com a enciclopédia
+             ou com matéria publicada. Só vira matéria com apuração própria. -->
+        <div id="palco-radar"></div>
         <div class="sec-h"><h3>Últimos movimentos</h3><span>o que a equipe andou fazendo</span></div>
         <div class="ativ" id="ativ"><div class="vazio">Carregando…</div></div>
       </section>
@@ -1290,6 +1324,10 @@
             <div>
               <label for="f-title">Título</label>
               <input type="text" id="f-title" placeholder="O título da matéria" spellcheck="true" lang="pt-BR" required>
+              <!-- CONTADOR DO TÍTULO (14/10/2026): marcas 60 e 90. Quem procura a peça
+                   digita o nome dela e o Google corta o título no celular; a casa já
+                   cobrava isso da IA, mas quem escrevia não via. Só avisa, não trava. -->
+              <div class="f-conta tit" id="tit-conta"></div>
             </div>
             <!-- LINHA FINA (pedido do Pedro, 08/10/2026): a frase que completa o título,
                  abaixo dele e acima da assinatura, como nos grandes jornais. Opcional.
@@ -1512,6 +1550,8 @@ ingressos e divisor."></textarea>
               Capa, listagens, busca e compartilhamento
               se atualizam automaticamente.
             </div>
+            <!-- o mesmo radar do Palco, em versão curta, ao lado de quem está escrevendo (14/10/2026) -->
+            <div id="nova-radar"></div>
           </div>
         </div>
       </section>
@@ -3575,7 +3615,125 @@ ingressos e divisor."></textarea>
     carregarAtividade('ativ', 12);
     if(podeMesa()){ carregarInstaPalco(); lembreteRevista(); }
     pintarNovidades();
+    carregarRadar();
   }
+
+  /* ---------- RADAR "EM ALTA AGORA NO BRASIL" (14/10/2026) ----------
+     O Google Trends publica um RSS público com o que o país mais busca neste
+     momento (trends.google.com/trending/rss?geo=BR). O navegador não lê esse
+     RSS direto (CORS), então a função trends do Supabase busca, guarda dez
+     minutos e devolve JSON. Aqui a Coxia mostra os 10 termos com o tráfego
+     aproximado e marca em dourado o que bate com nome da enciclopédia ou com
+     título de matéria publicada, para sugerir a atualização. Nada disto é
+     pauta pronta: só vira matéria com apuração própria, e o Google Notícias
+     penaliza prévia enganosa. Se a função não responder, o cartão diz que o
+     radar não respondeu, e nada mais na Coxia depende dele. */
+  var RADAR_URL = 'https://jcaqjlrzmrtzjyfbljxh.supabase.co/functions/v1/trends';
+  var RADAR_VALE = 10 * 60 * 1000;
+  var RADAR = { itens: null, em: 0, proximo: 0, erro: false, pedido: null };
+  function radarChave(s){ return normTxt(String(s || '')).replace(/[^a-z0-9]+/g, ' ').trim(); }
+  // "20000+" vira "20 mil+ buscas"; "200+" fica "200+ buscas"
+  function radarTraf(s){
+    var n = parseInt(String(s || '').replace(/[^\d]/g, ''), 10);
+    if(!n) return '';
+    return (n >= 1000 ? (n % 1000 ? mil(n) : (n / 1000) + ' mil') : n) + '+ buscas';
+  }
+  // cruza os termos com a enciclopédia (assets/pessoas-index.json) e com as
+  // matérias publicadas (assets/busca-index.json), sem acento e sem caixa
+  function radarCruza(itens){
+    return Promise.all([
+      fetch('assets/pessoas-index.json').then(function(r){ return r.json(); }).catch(function(){ return []; }),
+      fetch('assets/busca-index.json').then(function(r){ return r.json(); }).catch(function(){ return []; })
+    ]).then(function(r){
+      var pessoas = (Array.isArray(r[0]) ? r[0] : []).filter(function(p){ return p && p.n && p.u; })
+        .map(function(p){ return { n: p.n, u: p.u, k: ' ' + radarChave(p.n) + ' ' }; });
+      var mats = (Array.isArray(r[1]) ? r[1] : []).filter(function(i){ return i && i.t && i.u && i.u.indexOf('post-') === 0; })
+        .map(function(i){ return { t: i.t, u: i.u, k: ' ' + radarChave(i.t) + ' ' }; });
+      itens.forEach(function(it){
+        var k = radarChave(it.termo), kk = ' ' + k + ' ';
+        it.pessoas = []; it.materias = [];
+        if(k.length < 4) return;
+        pessoas.forEach(function(p){
+          if(it.pessoas.length >= 2) return;
+          // o termo é o nome inteiro ou está dentro dele ("tarantino" em "Quentin Tarantino");
+          // ou o nome (com duas palavras, ou longo) está dentro do termo ("fernanda torres oscar")
+          var nomeDentro = (p.k.trim().indexOf(' ') > -1 || p.k.trim().length >= 7) && kk.indexOf(p.k) > -1;
+          if(p.k.indexOf(kk) > -1 || nomeDentro) it.pessoas.push(p);
+        });
+        mats.forEach(function(m){ if(it.materias.length < 2 && m.k.indexOf(kk) > -1) it.materias.push(m); });
+      });
+      return itens;
+    });
+  }
+  function radarBusca(force){
+    if(RADAR.pedido) return RADAR.pedido;
+    if(!force && Date.now() < RADAR.proximo) return Promise.resolve(RADAR);
+    RADAR.pedido = fetch(RADAR_URL).then(function(r){ if(!r.ok) throw new Error('radar ' + r.status); return r.json(); })
+      .then(function(d){
+        var itens = ((d && Array.isArray(d.itens)) ? d.itens : []).filter(function(i){ return i && i.termo; }).slice(0, 10)
+          .map(function(i){
+            return { termo: String(i.termo).trim(), trafego: String(i.trafego || ''),
+                     noticias: (Array.isArray(i.noticias) ? i.noticias : []).filter(function(n){ return n && /^https?:\/\//i.test(String(n.url || '')); }).slice(0, 3) };
+          });
+        return radarCruza(itens).then(function(its){
+          RADAR.itens = its; RADAR.em = Date.now(); RADAR.erro = false; RADAR.proximo = Date.now() + RADAR_VALE;
+        });
+      })
+      .catch(function(){ RADAR.erro = true; RADAR.proximo = Date.now() + 60 * 1000; })   // tenta de novo daqui a um minuto
+      .then(function(){ RADAR.pedido = null; return RADAR; });
+    return RADAR.pedido;
+  }
+  function radarHtml(compacto){
+    var corpo;
+    if(!RADAR.itens && RADAR.erro){
+      corpo = '<p class="rd-fora">O radar não respondeu agora. Os termos em alta voltam quando a função trends responder; nada do site depende disto. ' +
+        '<button class="bt mini" type="button" data-radar-tenta>↻ Tentar de novo</button></p>';
+    } else if(!RADAR.itens){
+      corpo = '<p class="rd-fora">Consultando o radar…</p>';
+    } else if(!RADAR.itens.length){
+      corpo = '<p class="rd-fora">O radar respondeu sem termos agora. <button class="bt mini" type="button" data-radar-tenta>↻ Tentar de novo</button></p>';
+    } else {
+      corpo = '<ol>' + RADAR.itens.map(function(it){
+        var bate = it.pessoas.length || it.materias.length;
+        var urlT = 'https://trends.google.com/trends/explore?geo=BR&q=' + encodeURIComponent(it.termo);
+        var not = it.noticias[0], traf = radarTraf(it.trafego), sug = [];
+        it.pessoas.forEach(function(p){ sug.push('na enciclopédia: <a href="' + esc(p.u) + '" target="_blank" rel="noopener">' + esc(p.n) + '</a>'); });
+        it.materias.forEach(function(m){
+          // título que já começa com aspas não ganha outras por fora
+          var tm = corta(m.t, 70), comAspas = /^[“"]/.test(tm) ? tm : '“' + tm + '”';
+          sug.push('atualizar a matéria <a href="' + esc(m.u) + '" target="_blank" rel="noopener">' + esc(comAspas) + '</a>');
+        });
+        return '<li' + (bate ? ' class="bate"' : '') + '><div class="rd-c"><div class="rd-linha">' +
+          '<a class="rd-termo" href="' + esc(urlT) + '" target="_blank" rel="noopener" title="Ver no Google Trends">' + esc(it.termo) + '</a>' +
+          (traf ? '<span class="rd-traf">' + esc(traf) + '</span>' : '') + '</div>' +
+          (sug.length ? '<span class="rd-bate">★ ' + sug.join(' · ') + '</span>' : '') +
+          (not ? '<span class="rd-not">Notícia mais citada: <a href="' + esc(not.url) + '" target="_blank" rel="noopener">' + esc(corta(not.titulo || not.url, 90)) + '</a>' +
+                 (not.fonte ? ' (' + esc(not.fonte) + ')' : '') + '</span>' : '') +
+          '</div></li>';
+      }).join('') + '</ol>' +
+        '<p class="rd-nota">Só vira matéria com apuração própria: o radar mostra o que o Brasil procura, não o que a casa confirmou.' +
+        (RADAR.erro ? ' O radar não respondeu na última tentativa; esta lista é a anterior.' : '') +
+        (RADAR.em ? ' Lido às ' + new Date(RADAR.em).toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }) + '.' : '') +
+        ' <button class="bt mini" type="button" data-radar-tenta>↻ Atualizar</button></p>';
+    }
+    return '<div class="radar' + (compacto ? ' compacto' : '') + '">' +
+      (compacto ? '<div class="sec-h" style="margin-top:0"><h3>📡 Em alta no Brasil</h3></div>' : '') + corpo + '</div>';
+  }
+  function pintarRadar(){
+    var pal = $('palco-radar'), nov = $('nova-radar');
+    if(pal) pal.innerHTML = '<div class="sec-h"><h3>📡 Em alta agora no Brasil</h3><span>o que o país busca no Google neste momento · em dourado, o que bate com a enciclopédia ou com matéria publicada</span></div>' + radarHtml(false);
+    if(nov) nov.innerHTML = radarHtml(true);
+  }
+  function carregarRadar(force){
+    if(!RADAR.itens && !RADAR.erro) pintarRadar();
+    radarBusca(force).then(pintarRadar, pintarRadar);
+  }
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-radar-tenta]');
+    if(!b) return;
+    b.disabled = true;
+    carregarRadar(true);
+  });
 
   var RAW_BASE = 'https://raw.githubusercontent.com/pedrocobron-ops/FOYER.DIGITAL---SITE/claude/foyer-digital-redesign-14l2b6/';
   // seção "para postar no Instagram" no Palco (só chefe): o que já foi aprovado e ainda não foi postado
@@ -4290,8 +4448,28 @@ ingressos e divisor."></textarea>
   };
   function mil(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
 
+  // CONTADOR DO TÍTULO (14/10/2026). A regra 60/90 existe para a IA desde
+  // 08/08, mas quem escreve na Coxia não via nenhuma conta: das 40 últimas
+  // publicadas, 35 passavam de 70 caracteres e 11 de 90. Quem busca digita
+  // o nome da peça, e o Google corta o título no celular por volta dos 60.
+  // Verde até 60, âmbar de 61 a 90, vermelho acima. Só informa; não trava.
+  function tituloConta(){
+    var cx = $('tit-conta'); if(!cx) return;
+    var n = $('f-title').value.replace(/\*/g, '').trim().length;
+    if(!n){ cx.innerHTML = ''; return; }
+    var faixa = n <= 60 ? 'bom' : (n <= 90 ? 'amb' : 'err');
+    var frase = faixa === 'bom'
+      ? 'cabe inteiro na busca do celular (marcas: 60 e 90)'
+      : faixa === 'amb'
+        ? 'passou de 60: o Google corta no celular, então o nome da peça ou do artista vai no começo (teto 90)'
+        : 'passou de 90: o Google corta o título e quem busca digita o nome da peça. Encurte; o resto vai na linha fina';
+    cx.innerHTML = '<span class="c1 ' + faixa + '">' + n + ' caractere' + (n === 1 ? '' : 's') + '</span>' +
+      '<span>' + frase + '</span>';
+  }
+
   function statusTexto(){
     if(typeof linhaFinaEstado === 'function') linhaFinaEstado();
+    tituloConta();
     var t = $('f-body').value;
     var n = t.split(/\s+/).filter(Boolean).length;
     var chars = t.length;
@@ -4344,7 +4522,13 @@ ingressos e divisor."></textarea>
                    'vem conquistando', 'não poderia ser diferente'];
     var achou = CLICHES.filter(function(c){ return t.toLowerCase().indexOf(c) > -1; });
     if(achou.length) avisos.push('⚠ clichê de release: ' + achou.join(', '));
-    $('st-alerta').innerHTML = avisos.length ? '<span class="err">' + avisos.join(' · ') + '</span>' : '';
+    // nome da peça fora dos primeiros 60 caracteres do título em matéria com
+    // serviço (14/10/2026): o mesmo aviso aparece de novo na hora de publicar
+    try{
+      var avPeca = avisoNomePeca({ title: $('f-title').value, linhaFina: $('f-sub').value, corpo: t, evento: colherEvento() });
+      if(avPeca) avisos.push(avPeca);
+    }catch(eP){}
+    $('st-alerta').innerHTML = avisos.length ? '<span class="err">' + avisos.map(esc).join(' · ') + '</span>' : '';
     // o espelho acompanha: statusTexto roda a cada tecla E depois de toda
     // gravação programática (abrir para editar, restaurar rascunho), então
     // pendurar aqui garante que o espelho nunca fica para trás
@@ -4352,6 +4536,7 @@ ingressos e divisor."></textarea>
   }
   $('f-body').addEventListener('input', statusTexto);
   $('f-title').addEventListener('input', statusTexto);
+  $('f-sub').addEventListener('input', statusTexto);   // o nome da peça pode estar só na linha fina (14/10/2026)
 
   // Ctrl+Enter envia
   $('f-body').addEventListener('keydown', function(e){
@@ -7102,7 +7287,7 @@ ingressos e divisor."></textarea>
       // a largura vem da prévia na tela (a mesma régua do aviso da sanfona da foto)
       var largA = (up.classList.contains('tem') && ipvA && ipvA.getAttribute('src') && ipvA.complete) ? ipvA.naturalWidth : 0;
       return avisosPublicacao({ title: title, linhaFina: linhaFina, corpo: corpo, publishAt: publishAt,
-                                largura: largA, foto: '' }).catch(function(){ return []; });
+                                largura: largA, foto: '', evento: F.ev }).catch(function(){ return []; });
     });
     // publicar direto no site merece um "vai mesmo?" com o título (Dona Marta,
     // no escuro do saguão, agradece) — só para quem publica sem mesa
@@ -8481,7 +8666,9 @@ ingressos e divisor."></textarea>
   // (isso é história, não serviço). "nos dias 12 e 13 de setembro" conta pelo
   // último dia. Palavras relativas ("hoje", "neste sábado") também avisam
   // quando a matéria sai num dia depois daquele em que foi escrita.
-  function avisoDatas(texto, publishAt, escritoEm){
+  // jaCoberta (14/10/2026): a palavra relativa que o aviso de notícia quente já
+  // apontou no título ou na linha fina não entra uma segunda vez aqui.
+  function avisoDatas(texto, publishAt, escritoEm, jaCoberta){
     var pub = new Date(publishAt); if(isNaN(pub)) return '';
     var diaPub = avDiaBR(pub), anoPub = new Date(diaPub).getUTCFullYear();
     var t = String(texto || '').replace(/\*/g, '');
@@ -8503,6 +8690,7 @@ ingressos e divisor."></textarea>
     if(diaPub > ref){
       var r = /(^|[^A-Za-zÀ-ÿ])(hoje(?! em dia)|amanh[ãa]|nest[ea] (?:segunda|terça|terca|quarta|quinta|sexta|sábado|sabado|domingo)(?:-feira)?|neste fim de semana)(?![A-Za-zÀ-ÿ])/i.exec(t);
       if(r) rel = r[2];
+      if(rel && jaCoberta && normTxt(String(jaCoberta)).indexOf(normTxt(rel)) > -1) rel = '';
     }
     if(!achou.length && !rel) return '';
     return '📅 A matéria vai ao ar em ' + avDDMM(diaPub) + ', mas o texto ' +
@@ -8550,14 +8738,74 @@ ingressos e divisor."></textarea>
       ? '🖼 A foto principal tem ' + w + ' px de largura. O Google só dá o destaque grande do Discover para foto com pelo menos 1200 px. Se der, troque por uma maior (a original da assessoria ou o cartaz em alta).'
       : '';
   }
-  // junta os três; cada um que falhar vira "sem aviso", nunca trava a publicação
+  // (4) NOME DA PEÇA NO COMEÇO DO TÍTULO (14/10/2026). Das 11 matérias da
+  // semana de 08 a 14/10 sobre peça em cartaz com serviço de ingresso, 7 não
+  // tinham o nome da peça no título. Quem procura a peça digita o nome dela, e
+  // o Google corta o título no celular por volta dos 60 caracteres. A peça é o
+  // que aparece entre aspas curvas duas ou mais vezes no texto ou na linha
+  // fina, ou o que está entre aspas no próprio título. Só avisa quando a
+  // matéria tem serviço (Serviço, Ingressos, Onde:, Quando:, Temporada ou o
+  // campo evento preenchido). Não trava.
+  var RE_SERVICO = /(^|[^A-Za-zÀ-ÿ])(servi[çc]o|ingressos?|onde:|quando:|temporada)(?![A-Za-zÀ-ÿ])/i;
+  // nomes entre aspas curvas e quantas vezes cada um aparece
+  function avNomesAspas(txt){
+    var m, re = /“([^”\n]{3,80})”/g, c = {};
+    while((m = re.exec(String(txt || '')))){
+      var k = avNormTitulo(m[1]);
+      if(k.length < 3) continue;
+      if(!c[k]) c[k] = { n: 0, txt: m[1].trim() };
+      c[k].n++;
+    }
+    return c;
+  }
+  function avisoNomePeca(o){
+    var title = String(o.title || '').replace(/\*/g, ''), corpo = String(o.corpo || ''), lf = String(o.linhaFina || '');
+    if(!title.trim()) return '';
+    if(!o.evento && !RE_SERVICO.test(corpo) && !RE_SERVICO.test(lf)) return '';
+    var nomes = [], noTitulo = avNomesAspas(title), noTexto = avNomesAspas(lf + '\n' + corpo);
+    Object.keys(noTitulo).forEach(function(k){ nomes.push(noTitulo[k].txt); });
+    Object.keys(noTexto).forEach(function(k){ if(noTexto[k].n >= 2 && !noTitulo[k]) nomes.push(noTexto[k].txt); });
+    if(!nomes.length) return '';
+    // o nome precisa caber inteiro nos primeiros 60 caracteres do título
+    var inicio = ' ' + avNormTitulo(title.slice(0, 60)) + ' ';
+    var fora = nomes.filter(function(nm){ return inicio.indexOf(' ' + avNormTitulo(nm) + ' ') < 0; });
+    if(fora.length < nomes.length) return '';
+    return '🎭 O texto tem serviço (ingressos, onde e quando), mas o nome da peça, ' +
+      fora.slice(0, 2).map(function(x){ return '“' + x + '”'; }).join(' ou ') +
+      ', não aparece nos primeiros 60 caracteres do título. Quem procura a peça digita o nome dela, e o Google corta o título no celular: ponha o nome no começo e deixe o achado literário para a linha fina.';
+  }
+  // (5) NOTÍCIA QUENTE MARCADA PARA OUTRO DIA (14/10/2026). O Nobel de
+  // Literatura saiu 29 horas depois do anúncio e o Festival do Rio, 24; o
+  // Google lista o frescor entre os fatores do Notícias. Quando o título ou a
+  // linha fina soa como notícia do dia (hoje, nesta noite, neste sábado,
+  // estreia hoje, vence, ganha, morre, anuncia) e a matéria está marcada para
+  // um dia diferente do dia em que está sendo escrita, a Coxia avisa. Não trava.
+  var RE_QUENTE = /(^|[^A-Za-zÀ-ÿ])(hoje(?! em dia)|nesta (?:noite|manh[ãa]|tarde|madrugada)|nest[ea] (?:segunda|terça|terca|quarta|quinta|sexta|s[áa]bado|domingo)(?:-feira)?|neste fim de semana|estreia hoje|venc(?:e|eu|em|eram)|ganh(?:a|ou|am|aram)|morr(?:e|eu|em|eram)|anunci(?:a|ou|am|aram))(?![A-Za-zÀ-ÿ])/i;
+  function avisoQuente(o){
+    var pub = new Date(o.publishAt); if(isNaN(pub)) return '';
+    var txt = [o.title, o.linhaFina].map(function(x){ return String(x || '').replace(/\*/g, ''); }).join('\n');
+    var m = RE_QUENTE.exec(txt); if(!m) return '';
+    var ref = o.escritoEm ? new Date(o.escritoEm) : new Date(); if(isNaN(ref)) ref = new Date();
+    var diaPub = avDiaBR(pub), diaRef = avDiaBR(ref);
+    if(diaPub === diaRef && (pub - ref) <= 24 * 3600e3) return '';
+    var dias = Math.round((diaPub - diaRef) / 864e5);
+    return '⏱ O título ou a linha fina soa como notícia de hoje (“' + m[2] + '”), mas a matéria está marcada para ' + avDDMM(diaPub) +
+      (dias > 0 ? ', ' + plural(dias, 'dia') + ' depois de escrita' : '') +
+      '. Notícia quente sai no mesmo dia, mesmo curta; a versão completa entra depois como atualização. Se for mesmo para depois, troque a frase.';
+  }
+  // junta os cinco; cada um que falhar vira "sem aviso", nunca trava a publicação
   function avisosPublicacao(o){
-    var datas = '';
-    try{ datas = avisoDatas([o.title, o.linhaFina, o.corpo].join('\n'), o.publishAt, o.escritoEm); }catch(e){}
+    var datas = '', quente = '', peca = '';
+    try{ quente = avisoQuente(o); }catch(e){}
+    try{
+      var palQ = quente ? (quente.match(/“([^”]+)”/) || [])[1] : '';
+      datas = avisoDatas([o.title, o.linhaFina, o.corpo].join('\n'), o.publishAt, o.escritoEm, palQ);
+    }catch(e){}
+    try{ peca = avisoNomePeca(o); }catch(e){}
     return Promise.all([
       avisoTituloIgual(o.title, o.mesaSlug).catch(function(){ return ''; }),
       (o.largura ? Promise.resolve(o.largura) : larguraFoto(o.foto)).then(avisoFotoPequena, function(){ return ''; })
-    ]).then(function(r){ return [datas, r[0], r[1]].filter(Boolean); });
+    ]).then(function(r){ return [datas, quente, peca, r[0], r[1]].filter(Boolean); });
   }
   function aprovar(slug, publishAt, quando){
     var d = MESA[slug];
@@ -8572,7 +8820,7 @@ ingressos e divisor."></textarea>
       if(!segue) return false;
       // avisos que não travam (12/10/2026): data já passada, título repetido, foto pequena
       return avisosPublicacao({ title: d.title, linhaFina: d.linhaFina, corpo: d.corpo, publishAt: publishAt,
-                                escritoEm: d.geradoEm || d.criadoEm, mesaSlug: d.slug, foto: d.img })
+                                escritoEm: d.geradoEm || d.criadoEm, mesaSlug: d.slug, foto: d.img, evento: d.evento })
         .then(function(av){
           return av.length ? confirmar('Antes de aprovar “' + corta(d.title, 60) + '”, confira:\n\n' + av.join('\n\n') + '\n\nAprovar assim mesmo?',
                                        { titulo:'Confira antes de aprovar', rotuloOk:'Aprovar assim mesmo', rotuloCancel:'Voltar' }) : true;
@@ -8639,7 +8887,7 @@ ingressos e divisor."></textarea>
       return Promise.all(ds.map(function(d, iL){
         var qL = rotulo ? new Date(baseL.getTime() + iL * AG_INTERVALO * 60000).toISOString() : publishAt;
         return avisosPublicacao({ title: d.title, linhaFina: d.linhaFina, corpo: d.corpo, publishAt: qL,
-                                  escritoEm: d.geradoEm || d.criadoEm, mesaSlug: d.slug, foto: d.img })
+                                  escritoEm: d.geradoEm || d.criadoEm, mesaSlug: d.slug, foto: d.img, evento: d.evento })
           .then(function(av){ return av.length ? '“' + corta(d.title, 50) + '”:\n' + av.join('\n') : ''; });
       })).then(function(blocos){
         blocos = blocos.filter(Boolean);
