@@ -157,6 +157,33 @@ Como escolher:
 - Numa leva de N frias, **portes e formatos variados**: nunca cinco listas
   seguidas, nunca cinco perguntas com a mesma estrutura.
 
+**A fria tem de envelhecer bem (ordem do Pedro, 14/10/2026).** Na primeira
+leva, as cinco frias saíram com cara de quente: lide pendurado no caso da
+semana, trailer, "ainda não tem data", "até 14 de outubro não havia
+votação". O Pedro leu urgência onde devia ler acervo. A regra, a partir daí:
+
+- **o lide abre com a pergunta ou com o mecanismo, nunca com o caso da
+  semana.** O caso recente entra como exemplo, no corpo, no passado e
+  fechado ("em setembro de 2026, o Prime Video encerrou X cinco meses depois
+  de lançar a segunda temporada"), nunca como gancho;
+- **o teste é a leitura daqui a um ano:** se uma frase deixa de ser verdade
+  em seis meses, ela não entra ou vira passado datado. Proibidos na fria:
+  "ainda não", "ainda está", "sem data", "até o momento", "até agora", "por
+  enquanto", "no momento", "segue em cartaz", "está em cartaz", "esta
+  semana", "este fim de semana", "neste mês", "nos próximos dias", "em
+  breve" e contagens com "em DD/MM" ("em 14 de outubro, o JustWatch
+  registrava"). Estado presente só para o que é permanente (a lei, o
+  contrato, o modelo de negócio). O portão reprova essas expressões em
+  `resposta`, `lista` e `explicador` e avisa quando o lide traz data dos
+  últimos quatro meses;
+- **trailer só em fria de filme ou de lista de filmes**, nunca como gancho
+  de atualidade numa pergunta geral;
+- os números têm data na frase quando vão mudar ("US$ 540,8 milhões pelo
+  Box Office Mojo em outubro de 2026"), para a matéria continuar certa
+  depois que o número subir;
+- o fecho olha para o leitor, não para a semana: o que ele pode fazer, onde
+  olhar, o que a regra diz. Nada de "enquanto a data não sai".
+
 ## 3. A régua do tamanho, com base no que o mercado produz (ordem do Pedro, 14/10/2026)
 
 Depois da primeira rodada, o Pedro achou as matérias rasas e curtas e pediu

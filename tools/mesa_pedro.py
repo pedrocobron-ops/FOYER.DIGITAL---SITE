@@ -78,6 +78,12 @@ PORTES = {
     'lista':      (1200, 1800, 7, 12),
 }
 PORTES_FRIOS = {'resposta', 'lista', 'explicador'}
+MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro']
+# na fria, frases que deixam de ser verdade em meses (manual, seção 2)
+ENVELHECE_MAL = re.compile(
+    r'\b(ainda não|ainda est[áa]|sem data|até o momento|até agora|até o fechamento|por enquanto|no momento(?! d[oa]\b)|'
+    r'segue em cartaz|está em cartaz|esta semana|este fim de semana|neste mês|nos próximos dias|em breve|'
+    r'enquanto a data não sai|em \d{1,2} de (?:janeiro|fevereiro|março|abril|maio|junho|julho|agosto|setembro|outubro|novembro|dezembro)(?: de 20\d\d)?, o \w+ registrava)\b', re.I)
 # apuração mínima (URLs lidas) por porte
 APURACAO_MIN = {'nota': 2, 'quente': 4, 'contexto': 6, 'perfil': 6, 'resposta': 4, 'explicador': 5, 'lista': 5}
 # movimentos do repertório do Pedro: são dele, não são fôrma. No máximo uma
@@ -774,6 +780,21 @@ def auditar(caminho, pasta, corrige=False, rascunho=False):
     if re.search(r'https?://', _texto_limpo(re.sub(r'\[([^\]]+)\]\([^)]*\)', r'\1', corpo))):
         A.append('URL crua no texto; use [texto](url)')
 
+    # a fria tem de envelhecer bem (ordem do Pedro, 14/10/2026)
+    if porte in PORTES_FRIOS:
+        for m in ENVELHECE_MAL.finditer(corpo):
+            P.append(f'fria com expressão que envelhece mal: "{m.group(0)}" (vire passado datado ou corte)')
+        lide = (_blocos(corpo) or [''])[0]
+        for m in re.finditer(r'\b(\d{1,2} de )?(' + '|'.join(MESES) + r') de (20\d\d)\b', lide):
+            try:
+                dt = datetime(int(m.group(3)), MESES.index(m.group(2)) + 1, int(m.group(1).split()[0]) if m.group(1) else 1, tzinfo=timezone.utc)
+            except ValueError:
+                continue
+            if 0 <= (_agora() - dt).days <= 120:
+                A.append(f'lide de fria com data dos últimos quatro meses ("{m.group(0)}"): gancho quente? a fria abre pela pergunta ou pelo mecanismo')
+        if 'video:' in corpo and pg.get('cat') not in ('Cinema', 'Streaming', 'Televisão'):
+            A.append('trailer em fria que não é de filme: só entra em fria de filme ou de lista de filmes')
+
     # porte, intertítulos, blocos
     blocos = _blocos(corpo)
     if blocos:
@@ -813,7 +834,7 @@ def auditar(caminho, pasta, corrige=False, rascunho=False):
         elif media > 26:
             A.append(f'ritmo: média de {media:.1f} palavras por frase (ideal até 26)')
     # trailer (pedido do Pedro, 14/10/2026): matéria de filme ou série leva o trailer oficial
-    if (pg.get('cat') in ('Cinema', 'Streaming', 'Televisão') or 'Cinema' in cats or 'Streaming' in cats) \
+    if porte not in PORTES_FRIOS and (pg.get('cat') in ('Cinema', 'Streaming', 'Televisão') or 'Cinema' in cats or 'Streaming' in cats) \
             and not re.search(r'^video:', corpo, re.M):
         A.append('matéria de filme ou série sem trailer (linha video:URL do YouTube oficial)')
     # serviço quando há evento
