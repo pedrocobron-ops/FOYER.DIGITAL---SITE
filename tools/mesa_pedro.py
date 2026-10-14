@@ -1043,7 +1043,7 @@ def cmd_guarda(a):
         pg['mesa'] = {'status': 'aguardando o Pedro', 'guardadoEm': _iso_ms(_agora())}
         destino = os.path.join(pasta, MESA, slug + '.json')
         _grava_json(destino, pg)
-        P, A, info = auditar(destino, pasta, rascunho=True)
+        P, A, info = auditar(destino, pasta, rascunho=True, corrige=a.corrige)
         _imprime_laudo(slug, P, A, info)
         if P:
             os.remove(destino)
@@ -1071,8 +1071,8 @@ def cmd_publica(a):
     if not a.ok:
         sys.exit('sem --ok: o Pedro não autorizou esta publicação nesta conversa. Nada foi feito.')
     modos = sum(bool(x) for x in (a.agora, a.proximo_7h, a.em))
-    if modos != 1:
-        sys.exit('diga a hora que o Pedro mandou: --em "15/10 09:00" (ou --agora, ou --proximo-7h para frias)')
+    if modos != 1 and not (a.corrige and modos == 0):
+        sys.exit('diga a hora que o Pedro mandou: --em "15/10 09:00" (ou --agora, ou --proximo-7h para frias; correção sem hora mantém a original)')
     if (a.em or a.agora) and len(a.pacotes) > 1:
         sys.exit('com --em ou --agora, uma matéria por chamada: cada uma tem a sua hora, e nunca duas juntas')
     pasta = producao(atualiza=True)
@@ -1085,17 +1085,34 @@ def cmd_publica(a):
         if not slug:
             sys.exit(f'{origem}: sem slug')
         agora = _agora()
+        hora_mantida = False
         if a.agora:
             dtp = agora.replace(second=0, microsecond=0)
         elif a.proximo_7h:
             dtp = fila[i]
-        else:
+        elif a.em:
             dtp = _hora_pedro(a.em)
+        else:
+            # correção sem hora: mantém a hora da matéria já publicada ou agendada
+            atual = pg.get('publishAt') or ''
+            ja = os.path.join(pasta, 'import/novas', slug + '.json')
+            if not atual and os.path.isfile(ja):
+                atual = _le_json(ja).get('publishAt') or ''
+            if not atual:
+                sys.exit('correção sem hora e sem matéria publicada com este slug: diga a hora')
+            dtp = datetime.fromisoformat(atual.replace('Z', '+00:00'))
+            hora_mantida = True
         if dtp < agora - timedelta(minutes=5) and not a.corrige:
             sys.exit(f'a hora pedida ({_brt(dtp).strftime("%d/%m %Hh%M")}) já passou')
-        if a.corrige and pg.get('publishAt') and not (a.em or a.agora):
-            dtp = datetime.fromisoformat(pg['publishAt'].replace('Z', '+00:00'))
         pg['publishAt'] = _iso_ms(dtp)
+        if a.corrige:
+            ja = os.path.join(pasta, 'import/novas', slug + '.json')
+            if os.path.isfile(ja) and os.path.abspath(ja) != os.path.abspath(origem):
+                antigo = _le_json(ja)
+                for k in ('criadoEm', 'img', 'imgOriginal', 'imgCredito', 'imgLegenda', 'imgDireito', 'imgFonte'):
+                    if not pg.get(k) and antigo.get(k):
+                        pg[k] = antigo[k]
+                pg.setdefault('criadoEm', antigo.get('criadoEm', _iso_ms(agora)))
         pg.setdefault('criadoEm', _iso_ms(agora))
         pg.pop('mesa', None)
         if a.corrige:
@@ -1104,7 +1121,7 @@ def cmd_publica(a):
                 pg['correcao'] = {'texto': a.correcao if a.correcao.lower().startswith('corre') else 'Correção: ' + a.correcao,
                                   'quando': agora.isoformat()}
         # o espaço entre matérias: nunca duas juntas
-        if a.espaco > 0:
+        if a.espaco > 0 and not hora_mantida:
             viz = _vizinhos(pasta, dtp, slug, a.espaco)
             if viz:
                 for t, d in viz:
@@ -1224,6 +1241,7 @@ def main():
     c.add_argument('pacotes', nargs='+')
     c.add_argument('--sessao', default=os.environ.get('CLAUDE_SESSION_URL', ''))
     c.add_argument('--sem-push', action='store_true')
+    c.add_argument('--corrige', action='store_true', help='rascunho de reescrita de matéria já publicada (mesmo slug)')
     c.set_defaults(fn=cmd_guarda)
 
     c = sub.add_parser('horarios', help='próximos horários livres do relógio da casa (7, 9, 12, 15, 18, 20h)')
