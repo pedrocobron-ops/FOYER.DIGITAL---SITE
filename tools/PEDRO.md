@@ -358,7 +358,7 @@ O que o `publica` faz, nesta ordem, e por quê:
    Push rejeitado: `fetch`, `rebase`, tenta de novo, quatro vezes com espera
    crescente. A Coxia pode ter gravado no meio; a cópia de produção nunca é
    sobrescrita à força.
-5. **Devolve o endereço**: `https://www.foyer.digital/post-<slug>.html`. O
+5. **Devolve o endereço**: `https://foyer.digital/post-<slug>.html`. O
    `pages.yml` monta o site em 2 a 3 minutos. Fria agendada entra pelo
    relógio de `agendadas.yml`, que roda a cada 30 minutos: sai entre 7h00 e
    7h30.

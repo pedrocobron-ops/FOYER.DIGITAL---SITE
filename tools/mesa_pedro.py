@@ -34,7 +34,7 @@ from datetime import datetime, timedelta, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PRODUCAO = 'claude/foyer-digital-redesign-14l2b6'
-BASE_URL = 'https://www.foyer.digital'
+BASE_URL = 'https://foyer.digital'
 AUTOR = 'Pedro Amaral'
 ORIGEM = 'mesa-pedro'
 UA = ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) '
