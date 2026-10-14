@@ -3936,14 +3936,14 @@ ingressos e divisor."></textarea>
   }
   function soltaQuadro(c){ try{ c.width = 0; c.height = 0; }catch(e){} }
   function podeSerTransparente(f){ return !/jpe?g/i.test((f && f.type) || ''); }
-  function quadroParaJpeg(c, fundo, desenha){
+  function quadroParaJpeg(c, fundo, desenha, qualidade){
     if(quadroFalhou(c, fundo || SENTINELA, desenha)){
       soltaQuadro(c);
       var e = new Error('quadro vazio'); e.quadroVazio = true;
       e.foyer = 'O aparelho ficou sem memória para preparar a foto (no iPhone isso acontece depois de muitas fotos na mesma sessão). Recarregue a página da Coxia e tente de novo: o rascunho fica guardado.';
       throw e;
     }
-    var u = c.toDataURL('image/jpeg', .85);
+    var u = c.toDataURL('image/jpeg', qualidade || .85);
     soltaQuadro(c);
     return u;
   }
@@ -3961,23 +3961,34 @@ ingressos e divisor."></textarea>
         var sw = img.width, sh = img.height, sy = 0;
         // foto estreita demais para o destaque grande do Google Discover (1200 px):
         // avisa, mas deixa publicar (vistoria de 06/10/2026)
-        if(modo !== 'livre') window.CAPA_PEQUENA = sw < 1200 ? sw : 0;
+        // 'original' é como 'livre': a foto inteira, sem corte (15/10/2026)
+        var semCorte = modo === 'livre' || modo === 'original';
+        if(!semCorte) window.CAPA_PEQUENA = sw < 1200 ? sw : 0;
         // foto em pé (cartaz)? recorta para 16:9 preservando o topo, onde ficam os rostos
-        if(modo !== 'livre' && sh > sw * 0.85){
+        if(!semCorte && sh > sw * 0.85){
           var alvo = Math.round(sw * 9 / 16);
           sy = Math.round(sh * 0.06);
           if(sy + alvo > sh) sy = sh - alvo;
           sh = alvo;
         }
-        var W = Math.min(sw, 1600);
+        // modo 'original' (15/10/2026): a foto inteira que o ateliê usa para o
+        // feed (1080x1350) e o stories (1080x1920) do Instagram. Com o teto de
+        // 1600 px, o feed de uma foto deitada saía de um recorte de 1067 px de
+        // altura ampliado para 1350, e o stories mais ainda: borrado. Agora
+        // guarda até 2400 de largura (o recorte do feed numa foto 16:9 já tem
+        // 1350 de altura) e 3000 de altura, em qualidade .9; continua abaixo do
+        // limite de memória do iPhone.
+        var orig = modo === 'original';
+        var W = Math.min(sw, orig ? 2400 : 1600);
         var H = Math.round(W * sh / sw);
-        if(H > 2200){ H = 2200; W = Math.round(H * sw / sh); }  // torre sem fim também não
+        var tetoH = orig ? 3000 : 2200;
+        if(H > tetoH){ H = tetoH; W = Math.round(H * sw / sh); }  // torre sem fim também não
         var c = document.createElement('canvas');
         c.width = W; c.height = H;
         preparaQuadro(c).drawImage(img, 0, sy, sw, sh, 0, 0, W, H);
         URL.revokeObjectURL(url);
         var confere = podeSerTransparente(file) ? function(g, w, h){ g.drawImage(img, 0, sy, sw, sh, 0, 0, w, h); } : null;
-        try{ res(quadroParaJpeg(c, null, confere)); }catch(err){ rej(err); }
+        try{ res(quadroParaJpeg(c, null, confere, orig ? .9 : .85)); }catch(err){ rej(err); }
       };
       img.onerror = function(){ URL.revokeObjectURL(url); rej(new Error('imagem inválida')); };
       img.src = url;
@@ -4204,7 +4215,7 @@ ingressos e divisor."></textarea>
     // (matéria de duas pessoas), cada lado com seu próprio enquadramento.
     var lista = [].slice.call(files && files.length !== undefined ? files : [files]).slice(0, 2);
     if(!lista.length || !lista[0]) return;
-    Promise.all(lista.map(function(f){ return redimensionar(f, 'livre'); })).then(function(origs){
+    Promise.all(lista.map(function(f){ return redimensionar(f, 'original'); })).then(function(origs){
       RASC_FOTO = null;   // foto nova lida: a do rascunho (se havia) sai de cena
       CAPA_SRC = origs.length >= 2
         ? { dupla: true, a: { orig: origs[0], fx: 0.5, fy: null, z: 1 },
@@ -8467,7 +8478,7 @@ ingressos e divisor."></textarea>
     var d = MESA[capaMesaSlug];
     // sobe o corte 16:9 da capa E a foto original inteira (é dela que saem
     // as artes de Instagram; o recorte deitado não serve para os formatos em pé)
-    Promise.all([redimensionar(file), redimensionar(file, 'livre')]).then(function(fotos){
+    Promise.all([redimensionar(file), redimensionar(file, 'original')]).then(function(fotos){
       return subirImagem(fotos[0], d.slug).then(function(caminho){
         d.img = caminho;
         if(fotos[1] === fotos[0]) return caminho;  // foto já era deitada: nada foi cortado

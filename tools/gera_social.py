@@ -19,6 +19,12 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FONTES = os.path.join(ROOT, 'tools/fonts')
 SAIDA = os.path.join(ROOT, 'assets/social')
+# Qualidade das artes (15/10/2026, queixa do Pedro: "as imagens do Instagram
+# estão indo em baixa"). Com quality=88 o Pillow grava em 4:2:0, que guarda a
+# cor em meia resolução: as letras douradas e vinho do título ficavam com borda
+# borrada, e o Instagram ainda recomprime por cima. 4:4:4 (subsampling=0) e
+# qualidade 92 mantêm o letreiro nítido; o arquivo fica em torno de 500 KB.
+JPEG_ARTE = dict(quality=92, subsampling=0, optimize=True)
 OURO = (233, 203, 133)          # o dourado claro dos posts da casa (--gold-hi)
 BRANCO = (255, 255, 255)
 # 03/08/2026: a foto do feed vai SANGRADA, encostando nas quatro bordas.
@@ -541,7 +547,7 @@ def pendentes():
         if tem_arte and registro.get(slug) == sig:
             continue
         for formato in formatos:
-            gerar(pg, formato).save(os.path.join(SAIDA, f'{slug}-{formato}.jpg'), quality=88)
+            gerar(pg, formato).save(os.path.join(SAIDA, f'{slug}-{formato}.jpg'), **JPEG_ARTE)
         registro[slug] = sig
         feitas += 1
         print('• arte refeita:', slug)
@@ -564,7 +570,7 @@ def main():
         for formato in (('feed', 'story', 'og') if _eh_tipografica(pg) else ('feed', 'story')):
             img = gerar(pg, formato)
             destino = os.path.join(SAIDA, f'{slug}-{formato}.jpg')
-            img.save(destino, quality=88)
+            img.save(destino, **JPEG_ARTE)
             print('•', os.path.relpath(destino, ROOT))
         print('--- legenda ---')
         print(legenda_de(pg))

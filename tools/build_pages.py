@@ -2320,7 +2320,21 @@ def _thumb(url, w):
     # WebP: 40% menor que JPEG na mesma qualidade (medido em 05/10/2026 numa
     # amostra do acervo); a prévia de link (og:image) usa a foto original,
     # porque os robôs do WhatsApp e do Facebook não pedem leveza
-    out_rel = f'assets/thumbs/{base}-{w}-{tam}.webp'
+    # '-q82' no nome: a qualidade subiu em 15/10/2026 e as miniaturas antigas
+    # (q75, guardadas no cache) não podem ser reaproveitadas
+    # a de 1600 (capa grande e tela de alta definição) é a própria foto que a
+    # Coxia grava, já com 1600 px: uma cópia em WebP dobraria o peso do site,
+    # que tem de caber em 1 GB no GitHub Pages (15/10/2026)
+    if w >= 1600:
+        try:
+            with _PILImage.open(src) as _im0:
+                if _im0.width <= w:
+                    _THUMB_CACHE[key] = url
+                    return url
+        except Exception:
+            _THUMB_CACHE[key] = url
+            return url
+    out_rel = f'assets/thumbs/{base}-{w}-{tam}-q82.webp'
     out = os.path.join(ROOT, out_rel)
     if os.path.exists(out):
         _THUMB_CACHE[key] = out_rel
@@ -2334,7 +2348,7 @@ def _thumb(url, w):
         if im.width > w:
             im = im.resize((w, max(1, round(im.height * w / im.width))), _PILImage.LANCZOS)
         os.makedirs(os.path.dirname(out), exist_ok=True)
-        im.save(out, 'WEBP', quality=75 if w >= 1000 else 74, method=4)
+        im.save(out, 'WEBP', quality=82, method=5)
         _THUMB_FEITAS[0] += 1
         _THUMB_CACHE[key] = out_rel
         return out_rel
@@ -2355,7 +2369,32 @@ def wiximg(url, w=1200, h=675):
     _my = _YT_MINI.match(url or '')
     if _my and w <= 640:
         return f'https://i.ytimg.com/vi/{_my.group(1)}/{"mqdefault" if w <= 320 else "hqdefault"}.jpg'
-    return _thumb(url, min(w, 1000))
+    # Teto de 1000 px até 15/10/2026: a capa da matéria (820 px na tela) e a
+    # manchete da capa saíam borradas em celular e computador de tela de alta
+    # definição, que pedem o dobro. Agora o teto é 1600 (o tamanho da capa que
+    # a Coxia grava); as capas grandes ainda oferecem 1000 px a telas comuns
+    # pelo srcset de _srcset_capa.
+    return _thumb(url, min(w, 1600))
+
+def _srcset_cartao(url):
+    """srcset 800/1600 dos cartões (15/10/2026): no celular o cartão ocupa a
+    largura toda e a tela de alta definição pedia mais que 800 px."""
+    if not url or url.startswith('http'):
+        return ''
+    a, b = wiximg(url, 800, 450), wiximg(url, 1600)
+    if a == b:
+        return ''
+    return f' srcset="{a} 800w, {b} 1600w" sizes="(max-width: 700px) 100vw, 400px"'
+
+def _srcset_capa(url):
+    """srcset 1000/1600 para as fotos grandes (capa da matéria e manchete):
+    celular comum baixa a de 1000, tela de alta definição a de 1600."""
+    if not url or url.startswith('http'):
+        return ''
+    a, b = wiximg(url, 1000), wiximg(url, 1600)
+    if a == b:
+        return ''
+    return f' srcset="{a} 1000w, {b} 1600w" sizes="(max-width: 860px) 100vw, 820px"'
 
 def _dim_local(url):
     """width/height de uma foto local, para o texto não pular enquanto ela carrega."""
@@ -2560,7 +2599,7 @@ def real_ph(p, href, cap=True, cedo=False, larg=None):
                 f'https://i.ytimg.com/vi_webp/{_vid}/sddefault.webp 640w" sizes="{_larg}" alt="{safe(p["title"])}" {carga} '
                 f'onerror="this.onerror=null;this.removeAttribute(\'srcset\');this.src=\'https://i.ytimg.com/vi/{_vid}/mqdefault.jpg\'"></a>')
     return (f'<a class="ph" href="{href}" aria-hidden="true" tabindex="-1">'
-            f'<img src="{wiximg(p["img"], 800, 450)}" alt="{safe(p["title"])}"{_title_cred(p)} {carga} onerror="this.style.display=\'none\'"></a>')
+            f'<img src="{wiximg(p["img"], 800, 450)}"{_srcset_cartao(p["img"])} alt="{safe(p["title"])}"{_title_cred(p)} {carga} onerror="this.style.display=\'none\'"></a>')
 
 def real_cell(p, big=False, cedo=False):
     tipo = _sem_foto_op(p)   # capa tipográfica: o título e o selo já estão nela, o corpo não repete
@@ -2668,7 +2707,7 @@ index_body = TICKER + '''
 '''
 
 _manchete_capa = _capa_tipo(_p0, f"post-{_p0['slug']}.html", grande=True, classe='ph cover ph-tipo') if _sem_foto_op(_p0) else f'''<a class="ph cover" href="post-{_p0['slug']}.html" aria-hidden="true" tabindex="-1">
-        <img src="{wiximg(_p0['img'])}" alt=""{_title_cred(_p0)} loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'">
+        <img src="{wiximg(_p0['img'], 1600)}"{_srcset_capa(_p0['img'])} alt=""{_title_cred(_p0)} loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'">
       </a>'''
 index_main = f'''<main id="conteudo">
 <section class="frontpage wrap">
@@ -3108,7 +3147,7 @@ def post_page(i, p):
         _capa_html = ''
     else:
         _capa_html = f'''<figure class="art-cover">
-    <span class="ph"><img src="{wiximg(p['img'])}" alt="{safe(p.get('legenda') or p['title'])}" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'"></span>
+    <span class="ph"><img src="{wiximg(p['img'], 1600)}"{_srcset_capa(p['img'])} alt="{safe(p.get('legenda') or p['title'])}" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.display='none'"></span>
     {f'<figcaption>{_capt}</figcaption>' if _capt else ''}
   </figure>'''
     corpo = _conserta_links(corpo)
@@ -9542,6 +9581,23 @@ for _cam, _dest in _SECOES_WIX.items():
 print(f'• {_n_sec} pontes das seções do site antigo (/equipe, /teatro, /blog/categories/…)')
 if _THUMB_FEITAS[0]:
     print(f'• {_THUMB_FEITAS[0]} miniatura(s) de foto geradas em assets/thumbs/')
+# Faxina das miniaturas (15/10/2026): a pasta vem do cache do GitHub Actions
+# de publicação em publicação. Quando a qualidade mudou (q75 -> q82), as
+# antigas ficariam lá para sempre, e o site passaria de 1 GB, o limite do
+# GitHub Pages. Sai toda miniatura de foto que esta montagem não usou; as
+# subpastas (fotos dos verbetes) e os .json de cache não são tocados.
+_thumbs_usadas = {os.path.basename(v) for v in _THUMB_CACHE.values() if str(v).startswith('assets/thumbs/')}
+_thumbs_dir = os.path.join(ROOT, 'assets/thumbs')
+_thumbs_fora = 0
+if os.path.isdir(_thumbs_dir) and _thumbs_usadas:
+    for _nm in os.listdir(_thumbs_dir):
+        if _nm.endswith('.webp') and _nm not in _thumbs_usadas:
+            try:
+                os.remove(os.path.join(_thumbs_dir, _nm)); _thumbs_fora += 1
+            except OSError:
+                pass
+if _thumbs_fora:
+    print(f'• {_thumbs_fora} miniatura(s) que ninguém usa mais apagadas de assets/thumbs/')
 print(f'• fotos dos verbetes: {_PESSOA_FOTO_BAIXADAS[0]} copiada(s) da Wikimedia nesta montagem, '
       f'{_PESSOA_FOTO_BAIXADAS[1]} falha(s); {sum(1 for v in _PESSOA_FOTO_CACHE.values() if v)} com cópia local')
 print('pronto')

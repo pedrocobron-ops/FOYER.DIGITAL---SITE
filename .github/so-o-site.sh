@@ -35,6 +35,13 @@ chmod 755 import   # o mktemp nasce fechado (700); o Pages precisa ler
 rm -rf tools supabase .github .gitignore
 find . -type f \( -name '*.md' -o -name '*.py' -o -name '*.sh' -o -name '*.ts' \) -not -path './.git/*' -print -delete
 
+# Artes de Instagram (feed e stories, cerca de 200 MB): o leitor não as vê e a
+# Coxia já as abre e baixa pelo raw.githubusercontent, em qualidade cheia.
+# Fora do site publicado, ele cabe em 1 GB, o limite do GitHub Pages, mesmo
+# com as fotos em qualidade maior (15/10/2026). A prévia de link das colunas
+# sem foto (*-og.jpg) fica: é ela que aparece no WhatsApp.
+find assets/social -type f \( -name '*-feed.jpg' -o -name '*-story.jpg' \) -delete 2>/dev/null || true
+
 # o que o site e a Coxia não podem perder
 for f in import/anuncios/site.json import/materias.json import/opiniao.json import/corpo \
          index.html coxia/index.html assets/site.js robots.txt sitemap.xml; do
