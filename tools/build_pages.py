@@ -2342,9 +2342,19 @@ def _thumb(url, w):
         _THUMB_CACHE[key] = url
         return url
 
+# Miniatura do YouTube (14/10/2026): a matéria de vídeo sem foto tem como
+# capa a miniatura grande do vídeo (1280x720, ~140 KB), que serve à prévia de
+# link e ao VideoObject. Num cartão ou numa lista ela passa por aqui como as
+# fotos locais passam por _thumb: até 320 px vai a mqdefault (~17 KB), até
+# 640 px a hqdefault (~32 KB, que todo vídeo tem); acima disso, a grande.
+_YT_MINI = _re.compile(r'^https://i\.ytimg\.com/vi/([\w-]{6,})/(?:maxresdefault|hq720|sddefault|hqdefault|mqdefault|default)\.jpg$')
+
 def wiximg(url, w=1200, h=675):
     if 'static.wixstatic.com/media/' in url and '/v1/' not in url:
         return f'{url}/v1/fill/w_{w},h_{h},al_c,q_82/cover.jpg'
+    _my = _YT_MINI.match(url or '')
+    if _my and w <= 640:
+        return f'https://i.ytimg.com/vi/{_my.group(1)}/{"mqdefault" if w <= 320 else "hqdefault"}.jpg'
     return _thumb(url, min(w, 1000))
 
 def _dim_local(url):
@@ -2516,12 +2526,13 @@ def _og_tipo(p):
         print(f'  (prévia de link da coluna "{p["slug"]}" fica com o banner: {e})')
         return None
 
-def real_ph(p, href, cap=True, cedo=False):
+def real_ph(p, href, cap=True, cedo=False, larg=None):
     """Foto do cartão. O link da foto leva ao mesmo lugar que o título logo
     abaixo, então fica fora do Tab e do leitor de tela: antes cada matéria
     era duas paradas, a primeira chamada 'Foto da matéria' (auditoria de
     10/10/2026). cedo=True é a foto do primeiro cartão da lista, o maior
-    elemento da tela: baixa já, sem esperar a rolagem."""
+    elemento da tela: baixa já, sem esperar a rolagem. larg é o atributo
+    sizes da miniatura de vídeo, quando o cartão não é o da grade de notícias."""
     if _sem_foto_op(p):
         return _capa_tipo(p, href, grande=cap)
     # O crédito da foto não vai escrito sobre a foto nas capas e listas: como
@@ -2533,6 +2544,21 @@ def real_ph(p, href, cap=True, cedo=False):
         # (12/10/2026; o src vazio pedia a própria página de novo ao servidor)
         return (f'<a class="ph" href="{href}" aria-hidden="true" tabindex="-1">'
                 f'<svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#ph-2"/></svg></a>')
+    _my = _YT_MINI.match(p['img']) if p.get('imgDoVideo') else None
+    if _my:
+        # matéria de vídeo sem foto (14/10/2026): o cartão não baixa a
+        # miniatura grande (1280x720, ~140 KB), que fica para a prévia de link.
+        # Vão as versões do YouTube em WebP no tamanho do cartão, como nos
+        # cartões dos programas (_yt_img), e o maior candidato é a sddefault
+        # (640 px). Se o WebP faltar, cai na mqdefault em JPG, que todo vídeo tem.
+        _vid = _my.group(1)
+        _larg = larg or ('(max-width:600px) 100vw, (max-width:1020px) 100vw, 660px' if cap
+                         else '(max-width:600px) 100vw, (max-width:1020px) 50vw, 330px')
+        return (f'<a class="ph" href="{href}" aria-hidden="true" tabindex="-1">'
+                f'<img src="https://i.ytimg.com/vi_webp/{_vid}/mqdefault.webp" '
+                f'srcset="https://i.ytimg.com/vi_webp/{_vid}/mqdefault.webp 320w, https://i.ytimg.com/vi_webp/{_vid}/hqdefault.webp 480w, '
+                f'https://i.ytimg.com/vi_webp/{_vid}/sddefault.webp 640w" sizes="{_larg}" alt="{safe(p["title"])}" {carga} '
+                f'onerror="this.onerror=null;this.removeAttribute(\'srcset\');this.src=\'https://i.ytimg.com/vi/{_vid}/mqdefault.jpg\'"></a>')
     return (f'<a class="ph" href="{href}" aria-hidden="true" tabindex="-1">'
             f'<img src="{wiximg(p["img"], 800, 450)}" alt="{safe(p["title"])}"{_title_cred(p)} {carga} onerror="this.style.display=\'none\'"></a>')
 
@@ -2578,7 +2604,7 @@ _sub_cards = ''
 for _i, _p in enumerate(MATERIAS[1:4]):
     _href = 'post-' + _p['slug'] + '.html'
     _sub_cards += f'''    <article>
-      {real_ph(_p, _href)}
+      {real_ph(_p, _href, larg='(max-width:600px) 100vw, 440px')}
       <div class="sub-body">
         <span class="num">00{_i+2} — {_tipo_rotulo(_p) if _eh_opiniao(_p) else _e(_p['cat'])}</span>
         {'' if _sem_foto_op(_p) else f'<h3><a href="{_href}">{_e(_p["title"])}</a></h3>'}
@@ -3048,10 +3074,14 @@ def post_page(i, p):
         _leia_h2, _leia_note = 'Mais em Opinião', 'colunas, artigos e editoriais'
     else:
         # por afinidade (14/10/2026): pessoas e espetáculo em comum antes da
-        # editoria; a nota do bloco diz qual foi o critério que mandou
+        # editoria; a nota do bloco diz qual foi o critério que mandou, sem
+        # prometer mais do que entrega (revisão de 14/10/2026): "Sobre o mesmo
+        # assunto" só com espetáculo ou pessoa-assunto em comum
         rel, _afim = _leia_tambem(p)
-        if _afim:
+        if _afim == 'assunto':
             _leia_note = 'Sobre o mesmo assunto'
+        elif _afim == 'nomes':
+            _leia_note = 'Com nomes em comum'
     if len(rel) < 3:
         rel += [x for x in MATERIAS if x['slug'] != p['slug'] and x not in rel and (_eh_opiniao(p) or not _eh_opiniao(x))][:3-len(rel)]
     rel_cells = '\n'.join(real_cell(r) for r in rel)
@@ -8633,29 +8663,79 @@ def _ld_materia(p):
 # e matéria sem local físico ficam sem ficha. O nome do espetáculo é o que
 # está entre aspas no título (senão, na linha fina); sem nome confiável, não
 # há ficha, porque a ficha errada é pior que nenhuma. Ingresso (offers) só
-# quando a matéria traz um link de bilheteria, no corpo ou nas fontes, e sem
-# preço: o preço muda e a casa não o apura. Nada de organizador inventado.
+# quando a matéria traz um link de página de evento numa casa de ingressos
+# (_eh_link_de_ingresso), no corpo ou nas fontes, e sem preço: o preço muda e
+# a casa não o apura. Nada de organizador inventado.
 # TheaterEvent só para as editorias de teatro; o resto sai como Event genérico
 # (um 'Show' pode ser circo, e MusicEvent seria chute)
 _TIPO_EVENTO = {'Teatro': 'TheaterEvent', 'Teatro Musical': 'TheaterEvent', 'Em Cartaz': 'TheaterEvent', 'Crítica': 'TheaterEvent'}
-_BILHETERIAS = _re.compile(r'https?://[^\s"<>]*(sympla|eventim|ingressorapido|ingresso\.com|ticketmaster|uhuu\.com|'
-                           r'blueticket|bileto|ticket360|ingressodigital|ingressocerto|clubedoingresso|guicheweb|'
-                           r'minhaentrada|q2ingressos|ticketsforfun|ingressos?\b)[^\s"<>]*', _re.I)
+# A ficha só sai na matéria de palco (revisão de 14/10/2026): a editoria, ou
+# uma das secundárias, tem de ser de espetáculo. Sem isso, o nome entre aspas
+# no título de um explicador de cinema ("O Agente Secreto") virava um Event.
+_EDITORIAS_PALCO = {'Teatro', 'Teatro Musical', 'Em Cartaz', 'Crítica', 'Show', 'Dança'}
+# Casas de ingresso, pela marca no domínio. O Google exige que offers.url seja
+# a página que vende o ingresso daquele evento; a regra anterior casava qualquer
+# endereço com 'sympla' ou com a palavra 'ingresso' (revisão de 14/10/2026), e o
+# guia do blog da Sympla, a notícia do ingresso.com e a multa do Procon à
+# Sympla entravam como bilheteria.
+_CASAS_DE_INGRESSO = {'sympla', 'eventim', 'ingressorapido', 'ingresso', 'ticketmaster', 'uhuu', 'blueticket', 'bileto',
+                      'ticket360', 'ingressodigital', 'ingressocerto', 'clubedoingresso', 'guicheweb', 'minhaentrada',
+                      'q2ingressos', 'ticketsforfun'}
+_PARTE_EDITORIAL = {'blog', 'ajuda', 'help', 'suporte', 'news', 'noticias', 'institucional'}
 _N_EVENTOS = [0]
+
+def _eh_link_de_ingresso(u):
+    """Página de evento numa casa de ingressos: a marca é o domínio
+    (bileto.sympla.com.br sim, blog.sympla.com.br não) e o caminho tem pelo
+    menos duas partes (/event/119588). A página inicial e a vitrine de um
+    teatro (/teatrovivo/) vendem muitos espetáculos, não o desta matéria."""
+    try:
+        pu = _uq.urlparse(str(u).strip())
+    except Exception:
+        return False
+    if pu.scheme not in ('http', 'https') or not pu.hostname:
+        return False
+    rotulos = pu.hostname.lower().split('.')
+    while rotulos and rotulos[-1] in ('br', 'com', 'net'):
+        rotulos.pop()
+    if not rotulos or rotulos[-1] not in _CASAS_DE_INGRESSO or _PARTE_EDITORIAL & set(rotulos[:-1]):
+        return False
+    partes = [x for x in pu.path.split('/') if x]
+    return len(partes) >= 2 and partes[0].lower() not in _PARTE_EDITORIAL
+
+def _nomes_entre_aspas(txt):
+    """Os trechos entre aspas (curvas ou retas) com pelo menos 2 letras, na ordem."""
+    out = []
+    for m in _re.findall(r'[“"]([^”“"]{2,120})[”"]', str(txt or '')):
+        m = m.strip(' ,;:')   # o ponto, a exclamação e a interrogação ficam: "Meu Deus!", "A Filha da..."
+        if len(m) >= 2:
+            out.append(m)
+    return out
 
 def _nome_espetaculo(p, so_titulo=False):
     """O nome entre aspas (curvas ou retas) no título; depois, na linha fina."""
     for campo in (('title',) if so_titulo else ('title', 'linhaFina')):
-        for m in _re.findall(r'[“"]([^”“"]{2,120})[”"]', str(p.get(campo) or '')):
-            m = m.strip(' ,;:')   # o ponto, a exclamação e a interrogação ficam: "Meu Deus!", "A Filha da..."
-            if len(m) >= 2:
-                return m
+        ns = _nomes_entre_aspas(p.get(campo))
+        if ns:
+            return ns[0]
     return ''
+
+def _servico_de(p):
+    """O texto do bloco Serviço da matéria (do título 'Serviço' em diante), em
+    minúsculas e sem marcação; vazio quando a matéria não tem o bloco."""
+    try:
+        corpo = open(os.path.join(ROOT, 'import/corpo', p['slug'] + '.html')).read()
+    except OSError:
+        return ''
+    m = _re.search(r'<(?:h[1-6]|strong|b)[^>]*>\s*servi[çc]o\b', corpo, _re.I)
+    if not m:
+        return ''
+    return _html.unescape(_re.sub(r'<[^>]+>', ' ', corpo[m.start():])).lower()
 
 def _link_ingresso(p):
     """Primeiro link de bilheteria da matéria: nas fontes ou nos links do corpo."""
     for u in p.get('fontes') or []:
-        if isinstance(u, str) and _BILHETERIAS.search(u):
+        if isinstance(u, str) and _eh_link_de_ingresso(u):
             return u.strip()
     try:
         corpo = open(os.path.join(ROOT, 'import/corpo', p['slug'] + '.html')).read()
@@ -8663,7 +8743,7 @@ def _link_ingresso(p):
         return ''
     for u in _re.findall(r'href="(https?://[^"]+)"', corpo):
         u = _html.unescape(u)
-        if _BILHETERIAS.search(u):
+        if _eh_link_de_ingresso(u):
             return u
     return ''
 
@@ -8675,7 +8755,18 @@ def _ld_evento(p, img):
         return None
     if (fim or ini) < _hoje:
         return None
-    nome = _nome_espetaculo(p)
+    if not (_EDITORIAS_PALCO & set([p.get('cat', '')] + p.get('cats', []))):
+        return None
+    nomes = _nomes_entre_aspas(p['title'])
+    if len(nomes) >= 2:
+        # dois espetáculos no título ('Puff' e 'Lavagem'): fica o que o
+        # Serviço do corpo nomeia. Nomeando os dois ou nenhum, não há ficha,
+        # porque o bloco evento é um só e não dá para saber de qual é.
+        serv = _servico_de(p)
+        nomes = [n for n in nomes if n.lower() in serv]
+        if len(nomes) != 1:
+            return None
+    nome = nomes[0] if nomes else _nome_espetaculo(p)
     if not nome:
         return None
     tipo = next((_TIPO_EVENTO[c] for c in [p.get('cat', '')] + p.get('cats', []) if c in _TIPO_EVENTO), 'Event')
@@ -8748,11 +8839,34 @@ for _m in NOTICIAS:
             _IDX_CAT.setdefault(_c, []).append(_m['slug'])
 _UM_ANO_ATRAS = (datetime.now(timezone.utc) - __import__('datetime').timedelta(days=365)).strftime('%Y-%m-%d')
 
+# Quem é assunto de cada matéria (revisão de 14/10/2026): as pessoas do
+# mapeamento cujo nome está no título, na linha fina ou no começo do texto.
+# A nota "Sobre o mesmo assunto" saía em 1.672 das 1.918 matérias, porque
+# bastava um nome em comum, e um nome de listagem (programação de festival,
+# elenco de serviço) ligava matérias sem assunto comum. Agora ela só sai com
+# espetáculo em comum ou pessoa que é assunto das duas matérias; só nome em
+# comum vira "Com nomes em comum"; sem nada em comum, "Mais de <editoria>".
+def _texto_sem_acento(t):
+    import unicodedata as _u3
+    return _u3.normalize('NFKD', t or '').encode('ascii', 'ignore').decode().lower()
+_SUJEITOS = {}
+for _s, _l in POR_MATERIA.items():
+    _m = _MAT_POR_SLUG.get(_s)
+    if not _m:
+        continue
+    _txt = _texto_sem_acento(' '.join([_m.get('title') or '', _m.get('linhaFina') or '', _m.get('desc') or '']))
+    _SUJEITOS[_s] = set()
+    for _sp in _l:
+        _nm = _texto_sem_acento((PESSOAS.get(_sp) or {}).get('nome') or '')
+        if len(_nm) >= 4 and _nm in _txt:
+            _SUJEITOS[_s].add(_sp)
+
 def _leia_tambem(p, n=3):
-    """As n matérias mais afins a p (fora da Opinião) e se a primeira delas
-    tem pessoa ou espetáculo em comum com p (muda a nota do bloco)."""
+    """As n matérias mais afins a p (fora da Opinião) e o que a primeira delas
+    tem em comum com p, que muda a nota do bloco: 'assunto' (espetáculo em
+    comum ou pessoa que é assunto das duas), 'nomes' (só nome em comum) ou ''."""
     s = p['slug']
-    pts, afins = {}, set()
+    pts, afins, elo, mesmo_show = {}, set(), {}, set()
     _aut = _autores_da(s)
     for sp in POR_MATERIA.get(s, []):
         if sp in _CO_FORA or sp in _aut:
@@ -8762,11 +8876,13 @@ def _leia_tambem(p, n=3):
         for s2 in lst:
             pts[s2] = pts.get(s2, 0) + peso
             afins.add(s2)
+            elo.setdefault(s2, set()).add(sp)
     k = _SHOW_DE.get(s)
     if k:
         for s2 in _IDX_SHOW.get(k, []):
             pts[s2] = pts.get(s2, 0) + 4
             afins.add(s2)
+            mesmo_show.add(s2)
     cats = {c for c in [p['cat']] + p.get('cats', []) if c}
     for c in cats:
         for s2 in _IDX_CAT.get(c, [])[:60]:
@@ -8787,7 +8903,12 @@ def _leia_tambem(p, n=3):
             v -= 2
         cand.append((-v, _POS_MAT.get(s2, 10 ** 9), s2))
     rel = [_MAT_POR_SLUG[c[2]] for c in _heapq.nsmallest(n, cand)]
-    return rel, bool(rel and rel[0]['slug'] in afins)
+    if not rel:
+        return rel, ''
+    r0 = rel[0]['slug']
+    if r0 in mesmo_show or (elo.get(r0, set()) & _SUJEITOS.get(s, set()) & _SUJEITOS.get(r0, set())):
+        return rel, 'assunto'
+    return rel, ('nomes' if r0 in afins else '')
 
 for _i, _p in enumerate(MATERIAS):
     page('post-' + _p['slug'] + '.html', _p['title'] + ' — FOYER', _desc_saida(_p, 200), 'opiniao.html' if _eh_opiniao(_p) else 'noticias.html', post_page(_i, _p), quiet=True,
