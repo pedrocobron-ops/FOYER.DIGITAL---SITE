@@ -19,9 +19,11 @@ Uso:
   python3 tools/mesa_pedro.py ja-saiu "palavras chave"
   python3 tools/mesa_pedro.py guarda PACOTE.json [...]            # rascunho na mesa, aguardando o Pedro
   python3 tools/mesa_pedro.py horarios [--n 4]                     # próximos horários livres do relógio da casa
-  python3 tools/mesa_pedro.py proximo-7h [--n 5]                   # a fila das frias
+  python3 tools/mesa_pedro.py proximo-7h [--n 5]                   # a fila das frias (7h, dias úteis)
+  python3 tools/mesa_pedro.py proximo-fds [--n 5]                  # sábados e domingos livres às 17h (segunda fria do dia)
   python3 tools/mesa_pedro.py publica SLUG --ok --em "15/10 09:00"  # só depois da autorização do Pedro
   python3 tools/mesa_pedro.py publica SLUG [...] --ok --proximo-7h  # frias aprovadas, uma por dia
+  python3 tools/mesa_pedro.py publica SLUG [...] --ok --proximo-fds # frias aprovadas, 17h de sábado e domingo
   python3 tools/mesa_pedro.py descarta SLUG [...] --motivo "..."   # o Pedro recusou
   python3 tools/mesa_pedro.py remove SLUG --motivo "..."           # tira do ar
 
@@ -232,6 +234,25 @@ def _slugs_acervo(pasta, exceto=None):
             continue
         s.add(os.path.basename(f)[:-5])
     return s
+
+
+def _publish_por_slug(pasta):
+    """slug -> publishAt (datetime UTC ou None) do acervo e da fila."""
+    out = {}
+    try:
+        itens = list(_le_json(os.path.join(pasta, 'import/materias.json')))
+    except Exception:
+        itens = []
+    itens += _novas(pasta)
+    for m in itens:
+        slug = m.get('slug')
+        if not slug:
+            continue
+        try:
+            out[slug] = datetime.fromisoformat((m.get('publishAt') or '').replace('Z', '+00:00'))
+        except Exception:
+            out[slug] = None
+    return out
 
 
 def _novas(pasta):
@@ -780,6 +801,23 @@ def auditar(caminho, pasta, corrige=False, rascunho=False):
     if re.search(r'https?://', _texto_limpo(re.sub(r'\[([^\]]+)\]\([^)]*\)', r'\1', corpo))):
         A.append('URL crua no texto; use [texto](url)')
 
+    # links internos: a matéria linkada existe e já estará no ar quando esta sair
+    pub_links = pg.get('publishAt') or ''
+    try:
+        dt_esta = datetime.fromisoformat(pub_links.replace('Z', '+00:00')) if pub_links else None
+    except Exception:
+        dt_esta = None
+    datas = _publish_por_slug(pasta)
+    for m in re.finditer(r'\]\((?:https?://(?:www\.)?foyer\.digital/)?post-([\w-]+)\.html\)', corpo):
+        alvo = m.group(1)
+        if alvo not in datas:
+            P.append(f'link interno para matéria que não existe no acervo nem na fila: post-{alvo}.html')
+            continue
+        dt_alvo = datas[alvo]
+        if dt_alvo and ((dt_esta and dt_alvo > dt_esta) or (not dt_esta and dt_alvo > _agora())):
+            msg = f'link para matéria que só sai em {_brt(dt_alvo).strftime("%d/%m %Hh%M")}: post-{alvo}.html (agende depois dela ou tire o link)'
+            (P if dt_esta else A).append(msg)
+
     # a fria tem de envelhecer bem (ordem do Pedro, 14/10/2026)
     if porte in PORTES_FRIOS:
         for m in ENVELHECE_MAL.finditer(corpo):
@@ -949,8 +987,10 @@ def auditar(caminho, pasta, corrige=False, rascunho=False):
         try:
             dtp = datetime.fromisoformat(pub.replace('Z', '+00:00'))
             if porte in PORTES_FRIOS:
-                if dtp.strftime('%H:%M:%S') != '10:00:00':
-                    P.append(f'fria com publishAt fora das 10:00:00Z (7h de Brasília): {pub}')
+                hhmm = dtp.strftime('%H:%M:%S')
+                fds = _brt(dtp).weekday() >= 5
+                if not (hhmm == '10:00:00' or (fds and hhmm == '20:00:00')):
+                    P.append(f'fria com publishAt fora do relógio das frias (7h todo dia; 17h só sábado e domingo): {pub}')
                 if dtp <= _agora() and not corrige:
                     P.append('fria com publishAt no passado')
                 for n in _novas(pasta):
@@ -1043,6 +1083,37 @@ def cmd_proximo_7h(a):
     pasta = producao()
     for dt in _proximos_7h(pasta, a.n):
         print(_iso_ms(dt), '  (', _brt(dt).strftime('%a %d/%m 7h'), ')')
+
+
+def _proximos_fds(pasta, n=5):
+    """Sábados e domingos (Brasília) às 17h (20:00Z) sem nada a menos de ESPACO_MIN,
+    a partir de amanhã. É a segunda fria do fim de semana (estratégia do Pedro, 14/10/2026)."""
+    novas = _novas(pasta)
+    dia = (_agora() + timedelta(days=1)).date()
+    saida = []
+    while len(saida) < n and len(saida) < 60:
+        if dia.weekday() >= 5:
+            dt = datetime(dia.year, dia.month, dia.day, 20, 0, tzinfo=timezone.utc)
+            livre = True
+            for m in novas:
+                p = m.get('publishAt') or ''
+                try:
+                    dm = datetime.fromisoformat(p.replace('Z', '+00:00'))
+                except Exception:
+                    continue
+                if abs((dm - dt).total_seconds()) < ESPACO_MIN * 60:
+                    livre = False
+                    break
+            if livre:
+                saida.append(dt)
+        dia += timedelta(days=1)
+    return saida
+
+
+def cmd_proximo_fds(a):
+    pasta = producao()
+    for dt in _proximos_fds(pasta, a.n):
+        print(_iso_ms(dt), '  (', _brt(dt).strftime('%a %d/%m 17h'), ')')
 
 
 # ------------------------------------------------- mesa, horários e publicação
@@ -1220,13 +1291,13 @@ def cmd_guarda(a):
 def cmd_publica(a):
     if not a.ok:
         sys.exit('sem --ok: o Pedro não autorizou esta publicação nesta conversa. Nada foi feito.')
-    modos = sum(bool(x) for x in (a.agora, a.proximo_7h, a.em))
+    modos = sum(bool(x) for x in (a.agora, a.proximo_7h, a.proximo_fds, a.em))
     if modos != 1 and not (a.corrige and modos == 0):
-        sys.exit('diga a hora que o Pedro mandou: --em "15/10 09:00" (ou --agora, ou --proximo-7h para frias; correção sem hora mantém a original)')
+        sys.exit('diga a hora que o Pedro mandou: --em "15/10 09:00" (ou --agora, ou --proximo-7h / --proximo-fds para frias; correção sem hora mantém a original)')
     if (a.em or a.agora) and len(a.pacotes) > 1:
         sys.exit('com --em ou --agora, uma matéria por chamada: cada uma tem a sua hora, e nunca duas juntas')
     pasta = producao(atualiza=True)
-    fila = _proximos_7h(pasta, len(a.pacotes) + 2) if a.proximo_7h else []
+    fila = _proximos_7h(pasta, len(a.pacotes) + 2) if a.proximo_7h else (_proximos_fds(pasta, len(a.pacotes) + 2) if a.proximo_fds else [])
     publicados = []
     for i, ref in enumerate(a.pacotes):
         origem = _acha_pacote(pasta, ref)
@@ -1238,7 +1309,7 @@ def cmd_publica(a):
         hora_mantida = False
         if a.agora:
             dtp = agora.replace(second=0, microsecond=0)
-        elif a.proximo_7h:
+        elif a.proximo_7h or a.proximo_fds:
             dtp = fila[i]
         elif a.em:
             dtp = _hora_pedro(a.em)
@@ -1393,6 +1464,10 @@ def main():
     c.add_argument('termos')
     c.set_defaults(fn=cmd_ja_saiu)
 
+    c = sub.add_parser('proximo-fds', help='os próximos sábados e domingos livres às 17h (segunda fria do fim de semana)')
+    c.add_argument('--n', type=int, default=5)
+    c.set_defaults(fn=cmd_proximo_fds)
+
     c = sub.add_parser('proximo-7h', help='os próximos dias livres às 7h para pautas frias')
     c.add_argument('--n', type=int, default=5)
     c.set_defaults(fn=cmd_proximo_7h)
@@ -1414,6 +1489,7 @@ def main():
     c.add_argument('--em', help='a hora que o Pedro mandou: "15/10 09:00", "09:00" ou ISO (Brasília se sem fuso)')
     c.add_argument('--agora', action='store_true', help='só se o Pedro disse "agora"')
     c.add_argument('--proximo-7h', action='store_true', help='frias aprovadas: próximo 7h livre, uma por dia')
+    c.add_argument('--proximo-fds', action='store_true', help='frias aprovadas: próximo sábado ou domingo livre às 17h (segunda fria do dia)')
     c.add_argument('--espaco', type=int, default=ESPACO_MIN, help=f'minutos mínimos até outra matéria dele (padrão {ESPACO_MIN}; 0 só se o Pedro mandar)')
     c.add_argument('--corrige', action='store_true', help='correção de matéria já publicada ou agendada')
     c.add_argument('--correcao', help='texto da nota de correção impressa no fim da matéria')

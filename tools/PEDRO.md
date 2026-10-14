@@ -149,11 +149,24 @@ Como escolher:
   novembro de 2026 e o Pedro já cobriu muita pergunta óbvia;
 - apuração de verdade, com o nome das coisas (lei, obra, ano, número oficial,
   dicionário, estudo com instituição e ano), e nunca "especialistas afirmam";
-- **a sugestão é uma por dia às 7h.** A fila continua de onde está: a
-  primeira fria nova entraria no primeiro dia livre depois da última já
-  agendada (`python3 tools/mesa_pedro.py proximo-7h --n 5` lista os próximos
-  cinco). O relatório propõe a data de cada uma; **nada entra na fila sem o
+- **o relógio das frias tem dois ponteiros (estratégia do Pedro,
+  14/10/2026).** Nos dias úteis, uma fria por dia às 7h, na fila que o
+  Pedro mesmo alimenta (`python3 tools/mesa_pedro.py proximo-7h --n 5` lista
+  os próximos dias livres). **No sábado e no domingo saem duas**: a dele às
+  7h, já agendada, e uma segunda às 17h, que é onde entram as frias
+  escritas aqui, porque o fim de semana é o dia em que ele tem mais
+  dificuldade de lançar. `python3 tools/mesa_pedro.py proximo-fds --n 5`
+  lista os próximos sábados e domingos livres às 17h, e `publica ... --ok
+  --proximo-fds` agenda neles, um por fim de semana de cada vez. Fria nova
+  vai primeiro para o fim de semana às 17h; só quando os fins de semana
+  estiverem cheios ela volta para os 7h de dia útil. O portão só aceita
+  fria às 10:00Z (7h) em qualquer dia ou às 20:00Z (17h) em sábado e
+  domingo. O relatório propõe a data de cada uma; **nada entra na fila sem o
   Pedro confirmar**, e ele pode pedir outra ordem ou outra hora.
+- **link interno só para matéria que já estará no ar.** O portão reprova
+  link para matéria que só sai depois desta (a fila das 7h vai longe, e a
+  fria de hoje pode linkar uma lista que só entra em novembro). Ou a fria é
+  agendada depois da matéria linkada, ou o link sai e fica só o texto.
 - Numa leva de N frias, **portes e formatos variados**: nunca cinco listas
   seguidas, nunca cinco perguntas com a mesma estrutura.
 
@@ -511,7 +524,8 @@ python3 tools/mesa_pedro.py guarda pacote.json               # rascunho na mesa;
 python3 tools/mesa_pedro.py horarios --n 4                   # horários livres do relógio da casa
 python3 tools/mesa_pedro.py publica <slug> --ok --em "15/10 09:00"   # SÓ depois da palavra do Pedro
 python3 tools/mesa_pedro.py publica <slug> --ok --agora              # só se ele disse "agora"
-python3 tools/mesa_pedro.py publica <s1> <s2> --ok --proximo-7h      # frias que ele aprovou, uma por dia
+python3 tools/mesa_pedro.py publica <s1> <s2> --ok --proximo-7h      # frias que ele aprovou, uma por dia útil às 7h
+python3 tools/mesa_pedro.py publica <s1> <s2> --ok --proximo-fds     # frias que ele aprovou, 17h de sábado e domingo
 python3 tools/mesa_pedro.py descarta <slug> --motivo "..."           # ele recusou
 ```
 
