@@ -58,14 +58,14 @@ A redação roda **dentro do Claude Code**, com a assinatura Claude do editor �
 
 ## A mesa do Pedro (matérias assinadas, publicadas direto)
 
-Fluxo criado em 14/10/2026 a pedido do Pedro: o Claude pesquisa, escreve e **publica no site** as matérias assinadas por Pedro Amaral, sem passar pela mesa de aprovação. Manual completo em `tools/PEDRO.md`; ferramenta em `tools/mesa_pedro.py`.
+Fluxo criado em 14/10/2026 a pedido do Pedro: o Claude pesquisa, escreve, entrega na conversa e, **só depois que o Pedro aprova e marca a hora**, publica no site as matérias assinadas por Pedro Amaral. Regra canônica dele: nada sai sem autorização, e nunca duas matérias juntas (mínimo de 60 minutos entre elas). Manual completo em `tools/PEDRO.md`; ferramenta em `tools/mesa_pedro.py`.
 
-- **Pautas quentes**: duas rodadas por dia (7h e 17h, Brasília), automáticas, com 1 a 3 matérias cada, no ar assim que passam no portão. Eixos: teatro musical, bilheteria, estreias, polêmicas, decisões de plataforma e teatro com repercussão nacional, sempre com o dinheiro como chão.
-- **Pautas frias**: sob pedido (perguntas do público, listas, explicadores), agendadas uma por dia às 7h, na fila depois da última já marcada.
+- **Pautas quentes**: duas rodadas por dia (7h e 17h, Brasília), automáticas, com 1 a 3 rascunhos cada, guardados em `import/mesa-pedro/` (no repositório, nunca no site) até a palavra dele. Eixos: teatro musical, bilheteria, estreias, polêmicas, decisões de plataforma e teatro com repercussão nacional, sempre com o dinheiro como chão.
+- **Pautas frias**: sob pedido (perguntas do público, listas, explicadores); a sugestão é uma por dia às 7h, na fila depois da última já marcada, e ele confirma.
 - **A régua do tamanho vem do assunto** (`porte`: nota, quente, contexto, resposta, lista, explicador), com faixas de palavras e de intertítulos diferentes, para a matéria nunca sair com o mesmo tamanho.
 - **Estrutura completa**: título, linha fina, editoria principal, até 2 secundárias, corpo no formato da Coxia, imagem com crédito e descritivo. A apuração fica no campo interno `apuracao` (o campo `fontes` sai impresso, por isso não é usado).
 - **Imagem sempre**: divulgação oficial, Wikimedia Commons com licença conferida pela API, ou uma das seis artes de palco da casa.
-- **Publicação**: o script grava em `import/novas/` na branch de produção (`claude/foyer-digital-redesign-14l2b6`, por um worktree em `../FOYER-PRODUCAO` quando a pasta atual está em outra branch), faz commit e push; o `pages.yml` monta o site em 2 a 3 minutos. Correção, troca de foto e remoção estão no manual.
+- **Publicação**: `publica <slug> --ok --em "15/10 09:00"` só roda com a marca de autorização e a hora que o Pedro deu, recusa hora a menos de 60 minutos de outra matéria dele, move o rascunho para `import/novas/` na branch de produção (`claude/foyer-digital-redesign-14l2b6`, por um worktree em `../FOYER-PRODUCAO` quando a pasta atual está em outra branch), faz commit e push; o `pages.yml` monta o site em 2 a 3 minutos e o `agendadas.yml` solta as marcadas para depois. Correção, troca de foto e remoção estão no manual.
 
 ## A Revista (edições reais)
 

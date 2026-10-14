@@ -2,16 +2,28 @@
 # -*- coding: utf-8 -*-
 """A mesa do Pedro: o braço do manual tools/PEDRO.md.
 
-Matérias assinadas por Pedro Amaral, escritas nesta conversa do Claude e
-publicadas direto no site (ordem dele, 14/10/2026).
+Matérias assinadas por Pedro Amaral, escritas nesta conversa do Claude,
+entregues a ele aqui e publicadas no site só depois que ele aprova e marca a
+hora (ordem dele, 14/10/2026).
+
+REGRA CANÔNICA (ordem do Pedro, 14/10/2026): NADA VAI AO AR SEM O PEDRO
+AUTORIZAR NESTA CONVERSA E DIZER A HORA. A rodada escreve, guarda o rascunho
+em import/mesa-pedro/ (fica no repositório, nunca no site) e entrega aqui.
+Publicar exige --ok, que só se usa depois da autorização dele, e uma hora.
+Nunca duas matérias juntas: o script recusa publicar a menos de ESPACO_MIN
+minutos de outra matéria dele.
 
 Uso:
-  python3 tools/mesa_pedro.py capa --slug SLUG (--url URL | --commons "File:X.jpg" | --arte N) [--foco alto|centro|baixo]
-  python3 tools/mesa_pedro.py confere PACOTE.json [OUTRO.json ...]
+  python3 tools/mesa_pedro.py capa --slug SLUG (--url URL | --commons "File:X.jpg" | --arte N) [--foco auto|moldura|alto|centro|baixo]
+  python3 tools/mesa_pedro.py confere PACOTE.json [...] [--rascunho]
   python3 tools/mesa_pedro.py ja-saiu "palavras chave"
-  python3 tools/mesa_pedro.py proximo-7h [--n 5]
-  python3 tools/mesa_pedro.py publica PACOTE.json [...] (--agora | --proximo-7h | --em ISO) [--corrige] [--sessao URL]
-  python3 tools/mesa_pedro.py remove SLUG --motivo "..." [--sessao URL]
+  python3 tools/mesa_pedro.py guarda PACOTE.json [...]            # rascunho na mesa, aguardando o Pedro
+  python3 tools/mesa_pedro.py horarios [--n 4]                     # próximos horários livres do relógio da casa
+  python3 tools/mesa_pedro.py proximo-7h [--n 5]                   # a fila das frias
+  python3 tools/mesa_pedro.py publica SLUG --ok --em "15/10 09:00"  # só depois da autorização do Pedro
+  python3 tools/mesa_pedro.py publica SLUG [...] --ok --proximo-7h  # frias aprovadas, uma por dia
+  python3 tools/mesa_pedro.py descarta SLUG [...] --motivo "..."   # o Pedro recusou
+  python3 tools/mesa_pedro.py remove SLUG --motivo "..."           # tira do ar
 
 A cópia de produção: o site é montado a partir da branch PRODUCAO. Se a pasta
 atual já está nela, é ela. Senão, o script mantém um worktree dessa branch em
@@ -37,6 +49,9 @@ PRODUCAO = 'claude/foyer-digital-redesign-14l2b6'
 BASE_URL = 'https://foyer.digital'
 AUTOR = 'Pedro Amaral'
 ORIGEM = 'mesa-pedro'
+MESA = 'import/mesa-pedro'           # os rascunhos aguardando o Pedro (nunca vão ao site)
+ESPACO_MIN = 60                      # minutos mínimos entre duas matérias dele
+RELOGIO = (7, 9, 12, 15, 18, 20)     # as horas cheias da casa, em Brasília
 UA = ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) '
       'Chrome/128.0 Safari/537.36 FOYER-mesa/1.0 (+https://www.foyer.digital)')
 COAUTOR = 'Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>'
@@ -517,7 +532,7 @@ def _tira_nomes(txt, nomes):
     return txt
 
 
-def auditar(caminho, pasta, corrige=False):
+def auditar(caminho, pasta, corrige=False, rascunho=False):
     P, A = [], []
     try:
         pg = _le_json(caminho)
@@ -529,8 +544,11 @@ def auditar(caminho, pasta, corrige=False):
     porte = pg.get('porte', '')
     slug = pg.get('slug', '')
 
-    for k in ('title', 'linhaFina', 'slug', 'cat', 'author', 'porte', 'corpo', 'img',
-              'imgCredito', 'imgLegenda', 'imgDireito', 'apuracao', 'publishAt'):
+    obrig = ['title', 'linhaFina', 'slug', 'cat', 'author', 'porte', 'corpo', 'img',
+             'imgCredito', 'imgLegenda', 'imgDireito', 'apuracao']
+    if not rascunho:
+        obrig.append('publishAt')
+    for k in obrig:
         if not pg.get(k):
             P.append(f'campo obrigatório vazio: {k}')
     if 'cats' not in pg or not isinstance(pg.get('cats'), list):
@@ -724,23 +742,22 @@ def auditar(caminho, pasta, corrige=False):
                     if n.get('author') == AUTOR and n.get('slug') != slug and (n.get('publishAt') or '')[:13] == pub[:13]:
                         P.append(f'colide com "{n.get("title", "")[:50]}" no mesmo horário')
             else:
-                if abs((dtp - _agora()).total_seconds()) > 3600 and not corrige:
-                    A.append(f'quente com publishAt a mais de uma hora de agora ({pub})')
+                pass  # quem marca a hora é o Pedro; o espaço entre matérias é conferido no publica
         except Exception:
             P.append(f'publishAt inválido: {pub}')
-    if not re.search(r'\.\d{3}Z$', pub):
+    if pub and not re.search(r'\.\d{3}Z$', pub):
         A.append('publishAt sem milissegundos (o publica normaliza)')
 
     info = {'porte': porte, 'inter': _intertitulos(corpo), 'palavras': _palavras(corpo), 'slug': slug}
     return P, A, info
 
 
-def cmd_confere(a, pasta=None, corrige=False):
+def cmd_confere(a, pasta=None, corrige=False, rascunho=False):
     pasta = pasta or producao()
     total = 0
     esqueletos = []
     for c in a.pacotes:
-        P, A, info = auditar(c, pasta, corrige=corrige)
+        P, A, info = auditar(c, pasta, corrige=corrige, rascunho=rascunho)
         total += len(P)
         esqueletos.append((info.get('porte'), info.get('inter')))
         print(f'\n== {os.path.basename(c)}  [{info.get("porte")}, {info.get("palavras")} palavras, {info.get("inter")} intertítulos]')
@@ -813,10 +830,84 @@ def cmd_proximo_7h(a):
         print(_iso_ms(dt), '  (', _brt(dt).strftime('%a %d/%m 7h'), ')')
 
 
-# ------------------------------------------------------------------- publica
+# ------------------------------------------------- mesa, horários e publicação
 
-def _mensagem(acao, titulo, sessao):
-    msg = f'Mesa do Pedro: {acao} "{titulo}"\n\n{COAUTOR}'
+def _hora_pedro(txt):
+    """A hora como o Pedro escreve: ISO (com Z ou fuso), "15/10 09:00",
+    "15/10/2026 09:00" ou "09:00" (hoje, ou amanhã se já passou). Sem fuso, é
+    Brasília. Devolve datetime em UTC."""
+    from zoneinfo import ZoneInfo
+    br = ZoneInfo('America/Sao_Paulo')
+    t = (txt or '').strip().lower().replace('h', ':').replace('às', '').strip()
+    agora_br = _agora().astimezone(br)
+    m = re.fullmatch(r'(\d{4}-\d{2}-\d{2})[t ](\d{1,2}):(\d{2})(?::\d{2}(?:\.\d+)?)?(z|[+-]\d{2}:?\d{2})?', t)
+    if m:
+        base = datetime.fromisoformat(m.group(1) + 'T' + m.group(2).zfill(2) + ':' + m.group(3) + ':00')
+        if m.group(4):
+            dt = datetime.fromisoformat(m.group(1) + 'T' + m.group(2).zfill(2) + ':' + m.group(3) + ':00' + ('+00:00' if m.group(4) == 'z' else m.group(4)))
+        else:
+            dt = base.replace(tzinfo=br)
+        return dt.astimezone(timezone.utc)
+    m = re.fullmatch(r'(\d{1,2})/(\d{1,2})(?:/(\d{4}))?\s+(\d{1,2}):(\d{2})', t)
+    if m:
+        ano = int(m.group(3) or agora_br.year)
+        dt = datetime(ano, int(m.group(2)), int(m.group(1)), int(m.group(4)), int(m.group(5)), tzinfo=br)
+        if not m.group(3) and dt < agora_br - timedelta(days=1):
+            dt = dt.replace(year=ano + 1)
+        return dt.astimezone(timezone.utc)
+    m = re.fullmatch(r'(\d{1,2}):(\d{2})', t)
+    if m:
+        dt = agora_br.replace(hour=int(m.group(1)), minute=int(m.group(2)), second=0, microsecond=0)
+        if dt <= agora_br:
+            dt += timedelta(days=1)
+        return dt.astimezone(timezone.utc)
+    raise RuntimeError(f'não entendi a hora "{txt}": use "15/10 09:00", "09:00" ou ISO')
+
+
+def _vizinhos(pasta, dtp, slug, minutos=ESPACO_MIN):
+    """Outras matérias do Pedro (no ar ou agendadas) a menos de `minutos` da hora dada."""
+    out = []
+    for n in _novas(pasta):
+        if n.get('author') != AUTOR or n.get('slug') == slug:
+            continue
+        try:
+            d = datetime.fromisoformat((n.get('publishAt') or '').replace('Z', '+00:00'))
+        except Exception:
+            continue
+        if abs((d - dtp).total_seconds()) < minutos * 60:
+            out.append((n.get('title', ''), d))
+    return out
+
+
+def _horarios_livres(pasta, n=4, a_partir=None):
+    """Os próximos horários do relógio da casa com espaço livre em volta."""
+    from zoneinfo import ZoneInfo
+    br = ZoneInfo('America/Sao_Paulo')
+    piso = (a_partir or _agora()) + timedelta(minutes=30)
+    dia = piso.astimezone(br).date()
+    saida = []
+    while len(saida) < n and (dia - piso.astimezone(br).date()).days < 14:
+        for h in RELOGIO:
+            dt = datetime(dia.year, dia.month, dia.day, h, 0, tzinfo=br).astimezone(timezone.utc)
+            if dt < piso or _vizinhos(pasta, dt, None):
+                continue
+            if any(abs((dt - x).total_seconds()) < ESPACO_MIN * 60 for x in saida):
+                continue
+            saida.append(dt)
+            if len(saida) >= n:
+                break
+        dia += timedelta(days=1)
+    return saida
+
+
+def cmd_horarios(a):
+    pasta = producao()
+    for dt in _horarios_livres(pasta, a.n):
+        print(_brt(dt).strftime('%a %d/%m %Hh%M'), ' ', _iso_ms(dt))
+
+
+def _mensagem(acao, titulo, sessao, skip_ci=False):
+    msg = f'Mesa do Pedro: {acao} "{titulo}"' + (' [skip ci]' if skip_ci else '') + f'\n\n{COAUTOR}'
     if sessao:
         msg += f'\nClaude-Session: {sessao}'
     return msg
@@ -842,74 +933,143 @@ def _push(pasta):
     return False
 
 
-def cmd_publica(a):
+def _acha_pacote(pasta, ref):
+    """Um caminho, ou um slug que mora na mesa (rascunho) ou em import/novas."""
+    if os.path.isfile(ref):
+        return os.path.abspath(ref)
+    for base in (MESA, 'import/novas'):
+        c = os.path.join(pasta, base, ref.removesuffix('.json') + '.json')
+        if os.path.isfile(c):
+            return c
+    raise RuntimeError(f'não achei o pacote "{ref}" (nem na mesa, nem em import/novas)')
+
+
+def _limpa_pacote(pg):
+    for k in ('_capa', '_commons', '_corte', '_aviso'):
+        pg.pop(k, None)
+    pg['author'] = AUTOR
+    pg['criadoPor'] = AUTOR
+    pg['origem'] = ORIGEM
+    return pg
+
+
+def _imprime_laudo(slug, P, A, info):
+    print(f'\n== {slug}  [{info.get("porte")}, {info.get("palavras")} palavras, {info.get("inter")} intertítulos]')
+    for p in P:
+        print('  ✗ PROBLEMA:', p)
+    for w in A:
+        print('  ! aviso:', w)
+
+
+def cmd_guarda(a):
+    """O rascunho vai para import/mesa-pedro/ na branch de produção, com
+    [skip ci]: fica guardado no repositório e NÃO aparece no site. Dali só sai
+    com o `publica --ok`, depois que o Pedro autorizar aqui na conversa."""
     pasta = producao(atualiza=True)
-    modos = sum(bool(x) for x in (a.agora, a.proximo_7h, a.em))
-    if modos > 1:
-        sys.exit('escolha um só: --agora, --proximo-7h ou --em')
-    fila = _proximos_7h(pasta, len(a.pacotes) + 2) if a.proximo_7h else []
-    publicados = []
-    for i, c in enumerate(a.pacotes):
-        pg = _le_json(c)
+    os.makedirs(os.path.join(pasta, MESA), exist_ok=True)
+    guardados = []
+    for c in a.pacotes:
+        pg = _limpa_pacote(_le_json(c))
         slug = pg.get('slug') or ''
         if not slug:
             sys.exit(f'{c}: sem slug')
+        pg.setdefault('criadoEm', _iso_ms(_agora()))
+        pg['publishAt'] = ''
+        pg['mesa'] = {'status': 'aguardando o Pedro', 'guardadoEm': _iso_ms(_agora())}
+        destino = os.path.join(pasta, MESA, slug + '.json')
+        _grava_json(destino, pg)
+        P, A, info = auditar(destino, pasta, rascunho=True)
+        _imprime_laudo(slug, P, A, info)
+        if P:
+            os.remove(destino)
+            sys.exit('reprovado no portão: o rascunho não foi guardado. Corrija e rode de novo.')
+        arquivos = [os.path.relpath(destino, pasta)]
+        for k in ('img', 'imgOriginal'):
+            if pg.get(k) and os.path.isfile(os.path.join(pasta, pg[k])):
+                arquivos.append(pg[k])
+        _git(pasta, 'add', '--', *arquivos, quiet=True)
+        r = _git(pasta, 'commit', '-q', '-m', _mensagem('rascunho', pg.get('title', slug), a.sessao, skip_ci=True) + '\n\nAguardando a autorização do Pedro na conversa. Não aparece no site.', check=False, quiet=True)
+        guardados.append((slug, pg.get('title', slug)))
+    if a.sem_push:
+        print('(--sem-push: rascunhos commitados só na cópia de produção local)')
+    elif not _push(pasta):
+        sys.exit('o push não entrou; os rascunhos estão só na cópia de produção local.')
+    print('\nRASCUNHOS GUARDADOS (nada no ar). Aguardando o Pedro dizer qual sai e a que hora:')
+    for slug, t in guardados:
+        print(f'  {slug}\n    {t}')
+    print('\nHorários livres do relógio da casa (mínimo de', ESPACO_MIN, 'min entre matérias):')
+    for dt in _horarios_livres(pasta, max(3, len(guardados) + 1)):
+        print('  ', _brt(dt).strftime('%a %d/%m %Hh%M'))
+
+
+def cmd_publica(a):
+    if not a.ok:
+        sys.exit('sem --ok: o Pedro não autorizou esta publicação nesta conversa. Nada foi feito.')
+    modos = sum(bool(x) for x in (a.agora, a.proximo_7h, a.em))
+    if modos != 1:
+        sys.exit('diga a hora que o Pedro mandou: --em "15/10 09:00" (ou --agora, ou --proximo-7h para frias)')
+    if (a.em or a.agora) and len(a.pacotes) > 1:
+        sys.exit('com --em ou --agora, uma matéria por chamada: cada uma tem a sua hora, e nunca duas juntas')
+    pasta = producao(atualiza=True)
+    fila = _proximos_7h(pasta, len(a.pacotes) + 2) if a.proximo_7h else []
+    publicados = []
+    for i, ref in enumerate(a.pacotes):
+        origem = _acha_pacote(pasta, ref)
+        pg = _limpa_pacote(_le_json(origem))
+        slug = pg.get('slug') or ''
+        if not slug:
+            sys.exit(f'{origem}: sem slug')
         agora = _agora()
         if a.agora:
-            pg['publishAt'] = _iso_ms(agora.replace(second=0, microsecond=0))
+            dtp = agora.replace(second=0, microsecond=0)
         elif a.proximo_7h:
-            pg['publishAt'] = _iso_ms(fila[i])
-        elif a.em:
-            dt = datetime.fromisoformat(a.em.replace('Z', '+00:00'))
-            if dt.tzinfo is None:
-                dt = dt.replace(tzinfo=timezone.utc)
-            pg['publishAt'] = _iso_ms(dt + timedelta(days=i) if len(a.pacotes) > 1 and pg.get('porte') in PORTES_FRIOS else dt)
-        elif not pg.get('publishAt'):
-            sys.exit(f'{c}: sem publishAt; use --agora, --proximo-7h ou --em')
+            dtp = fila[i]
         else:
-            pg['publishAt'] = _iso_ms(datetime.fromisoformat(pg['publishAt'].replace('Z', '+00:00')))
+            dtp = _hora_pedro(a.em)
+        if dtp < agora - timedelta(minutes=5) and not a.corrige:
+            sys.exit(f'a hora pedida ({_brt(dtp).strftime("%d/%m %Hh%M")}) já passou')
+        if a.corrige and pg.get('publishAt') and not (a.em or a.agora):
+            dtp = datetime.fromisoformat(pg['publishAt'].replace('Z', '+00:00'))
+        pg['publishAt'] = _iso_ms(dtp)
         pg.setdefault('criadoEm', _iso_ms(agora))
-        pg['criadoPor'] = AUTOR
-        pg['author'] = AUTOR
-        pg['origem'] = ORIGEM
+        pg.pop('mesa', None)
         if a.corrige:
             pg['atualizadoEm'] = _iso_ms(agora)
             if a.correcao:
                 pg['correcao'] = {'texto': a.correcao if a.correcao.lower().startswith('corre') else 'Correção: ' + a.correcao,
                                   'quando': agora.isoformat()}
-        pg.pop('_capa', None)
-        pg.pop('_commons', None)
+        # o espaço entre matérias: nunca duas juntas
+        if a.espaco > 0:
+            viz = _vizinhos(pasta, dtp, slug, a.espaco)
+            if viz:
+                for t, d in viz:
+                    print(f'  ✗ a menos de {a.espaco} min de "{t[:60]}" ({_brt(d).strftime("%d/%m %Hh%M")})')
+                sys.exit('hora recusada: nunca duas matérias juntas. Escolha outra hora (veja `horarios`) ou passe --espaco 0 se o Pedro mandou assim.')
         destino = os.path.join(pasta, 'import/novas', slug + '.json')
-        if os.path.exists(destino) and not a.corrige and os.path.abspath(destino) != os.path.abspath(c):
+        if os.path.exists(destino) and not a.corrige and os.path.abspath(destino) != os.path.abspath(origem):
             sys.exit(f'{slug}.json já existe em import/novas; use --corrige para substituir')
         if not a.corrige and slug in _slugs_acervo(pasta, exceto=destino):
             sys.exit(f'slug "{slug}" já existe no acervo; escolha outro ou use --corrige')
         _grava_json(destino, pg)
         P, A, info = auditar(destino, pasta, corrige=a.corrige)
-        print(f'\n== {slug}  [{info.get("porte")}, {info.get("palavras")} palavras, {info.get("inter")} intertítulos]')
-        for p in P:
-            print('  ✗ PROBLEMA:', p)
-        for w in A:
-            print('  ! aviso:', w)
+        _imprime_laudo(slug, P, A, info)
         if P:
-            if os.path.abspath(destino) != os.path.abspath(c):
+            if os.path.abspath(destino) != os.path.abspath(origem):
                 os.remove(destino)
             sys.exit('reprovado no portão: nada foi publicado. Corrija e rode de novo.')
         arquivos = ['import/novas/' + slug + '.json']
         for k in ('img', 'imgOriginal'):
             if pg.get(k) and os.path.isfile(os.path.join(pasta, pg[k])):
                 arquivos.append(pg[k])
+        if origem.startswith(os.path.join(pasta, MESA)):
+            _git(pasta, 'rm', '-q', '--cached', '--', os.path.relpath(origem, pasta), check=False, quiet=True)
+            os.remove(origem)
         _git(pasta, 'add', '--', *arquivos, quiet=True)
-        dtp = datetime.fromisoformat(pg['publishAt'].replace('Z', '+00:00'))
         futuro = dtp > agora + timedelta(minutes=2)
-        if a.corrige:
-            acao = 'corrige'
-        elif futuro:
-            acao = f'agenda'
-        else:
-            acao = 'publica'
+        acao = 'corrige' if a.corrige else ('agenda' if futuro else 'publica')
         titulo = pg.get('title', slug)
         msg = _mensagem(acao + (f' para {_brt(dtp).strftime("%d/%m às %-Hh%M")}' if futuro and not a.corrige else ''), titulo, a.sessao)
+        msg += '\n\nAutorizado pelo Pedro na conversa.'
         r = _git(pasta, 'commit', '-q', '-m', msg, check=False, quiet=True)
         if r.returncode != 0:
             print('nada para commitar?', r.stdout.strip()[:200])
@@ -924,6 +1084,23 @@ def cmd_publica(a):
         print(('AGENDADA para ' if futuro else 'PUBLICADA às ') + quando + ' (Brasília)')
         print('  ' + titulo)
         print(f'  {BASE_URL}/post-{slug}.html' + ('' if futuro else '   (no ar em 2 a 3 minutos, depois que o pages.yml montar o site)'))
+
+
+def cmd_descarta(a):
+    pasta = producao(atualiza=True)
+    fora = []
+    for ref in a.slugs:
+        c = os.path.join(pasta, MESA, ref.removesuffix('.json') + '.json')
+        if not os.path.isfile(c):
+            sys.exit(f'não achei o rascunho {ref} na mesa')
+        pg = _le_json(c)
+        _git(pasta, 'rm', '-q', '--', os.path.relpath(c, pasta), quiet=True)
+        fora.append(pg.get('title', ref))
+    _git(pasta, 'commit', '-q', '-m', _mensagem('descarta', '; '.join(t[:60] for t in fora), a.sessao, skip_ci=True) + f'\n\nMotivo: {a.motivo}', quiet=True)
+    if not _push(pasta):
+        sys.exit('o push não entrou; o descarte ficou só na cópia local')
+    for t in fora:
+        print('DESCARTADO:', t)
 
 
 def cmd_remove(a):
@@ -967,7 +1144,8 @@ def main():
     c = sub.add_parser('confere', help='o portão: reprova ou avisa')
     c.add_argument('pacotes', nargs='+')
     c.add_argument('--corrige', action='store_true', help='aceita slug já existente')
-    c.set_defaults(fn=lambda a: sys.exit(1 if cmd_confere(a, corrige=a.corrige) else 0))
+    c.add_argument('--rascunho', action='store_true', help='rascunho na mesa: publishAt ainda vazio')
+    c.set_defaults(fn=lambda a: sys.exit(1 if cmd_confere(a, corrige=a.corrige, rascunho=a.rascunho) else 0))
 
     c = sub.add_parser('ja-saiu', help='procura o assunto no acervo e na fila')
     c.add_argument('termos')
@@ -977,16 +1155,34 @@ def main():
     c.add_argument('--n', type=int, default=5)
     c.set_defaults(fn=cmd_proximo_7h)
 
-    c = sub.add_parser('publica', help='grava em import/novas da produção, commit e push')
+    c = sub.add_parser('guarda', help='rascunho na mesa (import/mesa-pedro), aguardando o Pedro; nada vai ao site')
     c.add_argument('pacotes', nargs='+')
-    c.add_argument('--agora', action='store_true', help='quente: publishAt = agora')
-    c.add_argument('--proximo-7h', action='store_true', help='fria: próximo 7h livre (uma por dia)')
-    c.add_argument('--em', help='ISO (UTC ou com fuso); várias frias entram em dias seguidos')
+    c.add_argument('--sessao', default=os.environ.get('CLAUDE_SESSION_URL', ''))
+    c.add_argument('--sem-push', action='store_true')
+    c.set_defaults(fn=cmd_guarda)
+
+    c = sub.add_parser('horarios', help='próximos horários livres do relógio da casa (7, 9, 12, 15, 18, 20h)')
+    c.add_argument('--n', type=int, default=4)
+    c.set_defaults(fn=cmd_horarios)
+
+    c = sub.add_parser('publica', help='SÓ depois que o Pedro autorizar na conversa e disser a hora')
+    c.add_argument('pacotes', nargs='+', help='slug na mesa, ou caminho do pacote')
+    c.add_argument('--ok', action='store_true', help='o Pedro autorizou esta publicação nesta conversa')
+    c.add_argument('--em', help='a hora que o Pedro mandou: "15/10 09:00", "09:00" ou ISO (Brasília se sem fuso)')
+    c.add_argument('--agora', action='store_true', help='só se o Pedro disse "agora"')
+    c.add_argument('--proximo-7h', action='store_true', help='frias aprovadas: próximo 7h livre, uma por dia')
+    c.add_argument('--espaco', type=int, default=ESPACO_MIN, help=f'minutos mínimos até outra matéria dele (padrão {ESPACO_MIN}; 0 só se o Pedro mandar)')
     c.add_argument('--corrige', action='store_true', help='correção de matéria já publicada ou agendada')
     c.add_argument('--correcao', help='texto da nota de correção impressa no fim da matéria')
     c.add_argument('--sessao', default=os.environ.get('CLAUDE_SESSION_URL', ''), help='URL da sessão para o rodapé do commit')
     c.add_argument('--sem-push', action='store_true')
     c.set_defaults(fn=cmd_publica)
+
+    c = sub.add_parser('descarta', help='o Pedro recusou: tira o rascunho da mesa')
+    c.add_argument('slugs', nargs='+')
+    c.add_argument('--motivo', required=True)
+    c.add_argument('--sessao', default=os.environ.get('CLAUDE_SESSION_URL', ''))
+    c.set_defaults(fn=cmd_descarta)
 
     c = sub.add_parser('remove', help='tira a matéria do ar (vai para import/lixeira)')
     c.add_argument('slug')

@@ -1,15 +1,43 @@
 # A mesa do Pedro: matérias assinadas por Pedro Amaral, publicadas direto
 
-Manual do fluxo em que o Claude pesquisa, escreve e **publica no site** as
-matérias assinadas por Pedro Amaral, por ordem dele (14/10/2026). Substitui o
-trabalho que ele fazia no ChatGPT e colava à mão na Coxia.
+Manual do fluxo em que o Claude pesquisa, escreve, entrega aqui e, **depois
+que o Pedro aprova e marca a hora**, publica no site as matérias assinadas
+por Pedro Amaral (ordem dele, 14/10/2026). Substitui o trabalho que ele fazia
+no ChatGPT e colava à mão na Coxia.
 
 Este fluxo tem dois produtos:
 
 | Produto | Quando | Quantas | Vai ao ar |
 |---|---|---|---|
-| **Pautas quentes** | todo dia, rodadas das **7h** e das **17h** (Brasília), automáticas, nesta conversa | 1 a 3 por rodada (2 é o normal) | na hora, assim que a matéria passa no portão |
-| **Pautas frias** | quando o Pedro pede nesta conversa ("escreva N pautas frias") | o número que ele pedir | agendadas, **uma por dia às 7h**, na fila depois da última já marcada |
+| **Pautas quentes** | todo dia, rodadas das **7h** e das **17h** (Brasília), automáticas, nesta conversa | 1 a 3 por rodada (2 é o normal) | **só depois que o Pedro aprova aqui e diz a hora**, uma de cada vez |
+| **Pautas frias** | quando o Pedro pede nesta conversa ("escreva N pautas frias") | o número que ele pedir | **só depois que o Pedro aprova**; a sugestão é uma por dia às 7h, na fila depois da última já marcada |
+
+## A REGRA CANÔNICA: nada sai sem o Pedro (ordem dele, 14/10/2026)
+
+Nas palavras dele, depois da primeira rodada, que publicou três matérias de
+uma vez sem perguntar: *"vc n deve nunca lançar nada sem eu autorizar e dizer
+a hora q vai sair! (...) vc me avisa q fez a varredura e me da aqui as
+materias, eu aprovo e digo o horario, nunca deve sair como hoje tudo junto,
+sempre deve ter tempo entre as materias."*
+
+1. **A rodada termina na entrega.** Pesquisa, escreve, guarda o rascunho na
+   mesa (`import/mesa-pedro/`, no repositório, nunca no site) e entrega aqui
+   na conversa, com os horários livres. Depois disso, para.
+2. **Só o Pedro publica.** A matéria vai ao ar quando ele, nesta conversa,
+   nomeia a matéria e diz a hora ("aprova a 1 para as 15h", "publica a da
+   Broadway amanhã às 9h", "pode sair agora"). O comando `publica` exige a
+   marca `--ok`, que só se usa depois dessas palavras, e a hora dele.
+3. **O que não vale como autorização:** silêncio, "gostei", "ficou boa", a
+   aprovação de outra matéria, o texto de uma rotina, a sugestão de horário
+   que a própria mesa fez. Na dúvida, pergunta e espera.
+4. **Nunca duas juntas.** Mínimo de **60 minutos** entre duas matérias dele,
+   no ar ou agendadas. O script recusa hora que fira isso. Quando ele aprova
+   várias sem dizer a hora de cada uma, a mesa propõe horários do relógio da
+   casa (7h, 9h, 12h, 15h, 18h, 20h) com esse espaço e **espera a confirmação**.
+5. **Rascunho não envelhece na mesa.** Quente sem autorização em 24 horas é
+   descartado (`descarta`), com uma linha no relatório seguinte. Fria espera
+   o tempo que ele quiser.
+6. **Correção e remoção** continuam sendo pedido dele, na hora (seção 8).
 
 Ferramenta de apoio: `tools/mesa_pedro.py` (foto de capa, portão, fila das 7h,
 publicação, remoção). Tudo o que ele confere está descrito aqui; o script é o
@@ -23,8 +51,9 @@ que é verdade e método: **"Verdade acima de tudo"**, **"Escrita humana"**, os
 direitos de **"Foto de capa"** e **"A voz de Pedro Amaral"**. O que NÃO vale
 aqui:
 
-- a "regra de ouro" de nunca publicar. Neste fluxo a ordem é a oposta e é do
-  próprio Pedro: o que passa no portão **é publicado no nome dele**;
+- a mesa de aprovação da Coxia. Aqui a aprovação é **nesta conversa**: o que
+  passa no portão vai para `import/mesa-pedro/` e só sai dali com a palavra
+  do Pedro e a hora que ele marcar;
 - o pacote de aprovação (`status`, `chefe`, `checagem`, `instagram`,
   `sugestaoPublishAt`). A matéria daqui é um arquivo de `import/novas/`, igual
   ao que a Coxia grava;
@@ -87,8 +116,8 @@ consequência que o leitor sente.
 - A rodada das **7h** cobre o que aconteceu desde a véspera, inclusive a
   noite americana (Broadway anuncia à noite, bilheteria sai de manhã). A das
   **17h** cobre o dia. A das 17h lê o que a das 7h publicou e não repete.
-- **Pedido fora de hora** ("escreve sobre X agora") segue o mesmo caminho e
-  publica na hora.
+- **Pedido fora de hora** ("escreve sobre X agora") segue o mesmo caminho:
+  entrega na hora, publica quando ele disser.
 
 ### 1.4 Onde olhar
 
@@ -120,10 +149,11 @@ Como escolher:
   novembro de 2026 e o Pedro já cobriu muita pergunta óbvia;
 - apuração de verdade, com o nome das coisas (lei, obra, ano, número oficial,
   dicionário, estudo com instituição e ano), e nunca "especialistas afirmam";
-- **uma por dia às 7h.** A fila continua de onde está: a primeira fria nova
-  entra no primeiro dia livre depois da última já agendada
-  (`python3 tools/mesa_pedro.py proximo-7h --n 5` lista os próximos cinco).
-  O relatório diz a data de cada uma. O Pedro pode pedir outra ordem.
+- **a sugestão é uma por dia às 7h.** A fila continua de onde está: a
+  primeira fria nova entraria no primeiro dia livre depois da última já
+  agendada (`python3 tools/mesa_pedro.py proximo-7h --n 5` lista os próximos
+  cinco). O relatório propõe a data de cada uma; **nada entra na fila sem o
+  Pedro confirmar**, e ele pode pedir outra ordem ou outra hora.
 - Numa leva de N frias, **portes e formatos variados**: nunca cinco listas
   seguidas, nunca cinco perguntas com a mesma estrutura.
 
@@ -333,59 +363,75 @@ casa: "Arte da identidade do FOYER: a cortina e a ribalta".
 produção, baixada da sala de imprensa X em 14/10/2026", ou a licença com a
 data da conferência, ou "arte própria do FOYER".
 
-## 7. Publicar
+## 7. Guardar, aprovar e publicar
 
 ```
-python3 tools/mesa_pedro.py confere pacote.json            # o portão
-python3 tools/mesa_pedro.py publica pacote.json --agora    # quente: no ar em ~3 min
-python3 tools/mesa_pedro.py publica pacote.json --proximo-7h   # fria: entra na fila
-python3 tools/mesa_pedro.py publica pacote.json --em 2026-10-20T10:00:00Z
+python3 tools/mesa_pedro.py confere pacote.json --rascunho   # o portão, sem hora ainda
+python3 tools/mesa_pedro.py guarda pacote.json               # rascunho na mesa; nada no ar
+python3 tools/mesa_pedro.py horarios --n 4                   # horários livres do relógio da casa
+python3 tools/mesa_pedro.py publica <slug> --ok --em "15/10 09:00"   # SÓ depois da palavra do Pedro
+python3 tools/mesa_pedro.py publica <slug> --ok --agora              # só se ele disse "agora"
+python3 tools/mesa_pedro.py publica <s1> <s2> --ok --proximo-7h      # frias que ele aprovou, uma por dia
+python3 tools/mesa_pedro.py descarta <slug> --motivo "..."           # ele recusou
 ```
 
-O que o `publica` faz, nesta ordem, e por quê:
+**O `guarda`** grava o pacote em `import/mesa-pedro/<slug>.json` na branch de
+produção, com a foto, num commit `[skip ci]`. O site não monta e, mesmo
+quando monta, `so-o-site.sh` tira `import/` inteiro do que sobe: **rascunho
+nunca aparece para o leitor**. Fica guardado no repositório, por isso
+sobrevive à reciclagem deste ambiente. O relatório mostra os horários livres.
+
+**O `publica`** só anda com `--ok` e uma hora. O que ele faz, nesta ordem:
 
 1. **Resolve a cópia de produção.** O site é montado a partir da branch
    `claude/foyer-digital-redesign-14l2b6` (é dela que `pages.yml` publica e é
-   nela que a Coxia grava). A matéria tem de estar lá, ou não existe para o
-   leitor. O script usa a pasta de trabalho atual se ela já estiver nessa
-   branch; senão mantém uma cópia dela em `../FOYER-PRODUCAO` (worktree) e a
-   atualiza com `fetch` + `rebase` antes de escrever. Nunca escreve na branch
-   de desenvolvimento.
-2. **Roda o portão** (seção 9). Reprovou, não publica. Sem exceção.
-3. **Carimba** `publishAt`, `criadoEm`, `criadoPor`, `origem`.
-4. **Commit e push** só do JSON e das imagens da matéria, com a mensagem
-   `Mesa do Pedro: publica "título"` (ou `agenda "título" para 20/10 às 7h`).
-   Push rejeitado: `fetch`, `rebase`, tenta de novo, quatro vezes com espera
-   crescente. A Coxia pode ter gravado no meio; a cópia de produção nunca é
-   sobrescrita à força.
-5. **Devolve o endereço**: `https://foyer.digital/post-<slug>.html`. O
-   `pages.yml` monta o site em 2 a 3 minutos. Fria agendada entra pelo
-   relógio de `agendadas.yml`, que roda a cada 30 minutos: sai entre 7h00 e
-   7h30.
+   nela que a Coxia grava). O script usa a pasta de trabalho atual se ela já
+   estiver nessa branch; senão mantém uma cópia dela em `../FOYER-PRODUCAO`
+   (worktree) e a atualiza com `fetch` + `rebase` antes de escrever.
+2. **Converte a hora** como o Pedro escreve ("15/10 09:00", "09:00", ISO),
+   em Brasília quando não há fuso, e recusa hora já passada.
+3. **Confere o espaço**: a menos de 60 minutos de outra matéria dele, no ar
+   ou agendada, recusa e manda olhar `horarios`. `--espaco 0` só se ele mandar.
+4. **Move o rascunho** da mesa para `import/novas/`, carimba `publishAt`,
+   roda o portão (reprovou, não publica), commit e push com a mensagem
+   `Mesa do Pedro: publica "título"` (ou `agenda "título" para 15/10 às 9h`),
+   e a linha "Autorizado pelo Pedro na conversa". Push rejeitado: `fetch`,
+   `rebase`, tenta de novo, quatro vezes. Nunca força.
+5. **Devolve o endereço**: `https://foyer.digital/post-<slug>.html`. Hora
+   passada ou "agora": o `pages.yml` monta o site em 2 a 3 minutos. Hora
+   futura: entra pelo relógio de `agendadas.yml`, que roda a cada 30 minutos,
+   então sai até meia hora depois da hora marcada.
 
-**Reconferir o fato na hora de publicar.** Entre a apuração e o push podem
-passar 40 minutos. Bilheteria muda, elenco desmente, plataforma recua. Antes
-do `publica`, abrir de novo a fonte principal da matéria.
+**Uma matéria por chamada** quando há hora marcada. Cada uma tem a sua, e
+nunca duas juntas.
+
+**Reconferir o fato na hora de publicar.** Entre a apuração e a autorização
+podem passar horas. Bilheteria muda, elenco desmente, plataforma recua.
+Antes do `publica`, abrir de novo a fonte principal da matéria; se o fato
+mudou, avisar o Pedro antes de publicar, não depois.
 
 ## 8. Correção, troca de foto e remoção
+
+Tudo nesta seção é pedido do Pedro, nunca iniciativa da mesa.
 
 - **Corrigir** ("corrige a matéria X: o valor é Y"): editar o JSON na cópia
   de produção, acrescentar `atualizadoEm` e, quando o erro já foi lido, o
   campo `correcao: {"texto": "Correção: ...", "quando": ISO}` (o site imprime
-  a nota no fim da matéria). Depois `publica pacote.json --corrige`, que
+  a nota no fim da matéria). Depois `publica <slug> --ok --corrige`, que
   aceita o slug existente e mantém o `publishAt` original.
 - **Trocar a foto:** `capa` de novo (nome novo), apontar `img` para o novo,
-  `publica --corrige`.
+  `publica <slug> --ok --corrige`.
 - **Remover** ("tira a matéria X do ar"):
   `python3 tools/mesa_pedro.py remove <slug> --motivo "..."`. A matéria vai
   para `import/lixeira/` com `removidoEm`, `removidoPor` e o motivo, como a
   Coxia faz; o site remonta sem ela.
-- **Reagendar fria:** editar `publishAt` na cópia de produção e
-  `publica --corrige`.
+- **Reagendar:** `publica <slug> --ok --corrige --em "nova hora"`.
 
 ## 9. O portão (`confere`): o que reprova e o que avisa
 
-Reprova (não publica): campo obrigatório faltando; `author` diferente de
+Reprova (não publica): hora a menos de 60 minutos de outra matéria dele;
+`publica` sem `--ok` ou sem hora; campo obrigatório faltando (`publishAt`
+só no `publica`: o rascunho ainda não tem hora); `author` diferente de
 Pedro Amaral; `cat` fora da lista ou `cats` com mais de 2; `fontes` ou
 `status` no pacote; travessão fora de `nomes_proprios`; fórmula ou clichê da
 seção 4.1; "ao FOYER"; "especialistas afirmam"; palavras fora da faixa do
@@ -405,23 +451,38 @@ crédito; rodada inteira com o mesmo porte e a mesma conta de intertítulos
 
 ## 10. O relatório nesta conversa
 
-A cada rodada (ou pedido de frias), o Pedro recebe aqui, para cada matéria:
+A cada rodada (ou pedido de frias), o Pedro recebe aqui, para cada rascunho:
 
 1. **Título** e **linha fina**; editoria principal e secundárias; porte e
    contagem de palavras.
 2. **Foto**: crédito, descritivo e origem.
-3. **Endereço** no site e a hora em que entrou (ou a data da fila, para fria).
-4. **O texto integral**, como foi publicado.
-5. Uma linha de **"o que ficou de fora"**: a candidata descartada e o motivo
+3. **O texto integral**, como vai sair.
+4. Uma linha de **"o que ficou de fora"**: a candidata descartada e o motivo
    (sem repercussão, fato não confirmado, já saiu, não é pauta dele).
+
+E, no fim, o bloco de decisão: **"Nada foi publicado."**, a lista dos
+horários livres do relógio da casa (`horarios`) e a frase de como aprovar:
+*"para publicar, diga qual e a hora: 'aprova a 1 para as 15h e a 2 para as
+18h'"*. Depois disso a rodada para e espera.
 
 Nada de descrever o processo: o Pedro lê a matéria, não o diário. Quando a
 rodada sai vazia, o relatório diz as candidatas e por que nenhuma passou.
+
+Quando ele responde, a mesa faz o que ele disse e devolve uma linha por
+matéria: publicada (ou agendada), a hora e o endereço. Hora que fira o
+espaço de 60 minutos: a mesa diz qual matéria está perto e propõe a hora
+livre mais próxima, sem publicar.
 
 ## 11. Pontas soltas: o que fazer quando
 
 | Se | Então |
 |---|---|
+| A rodada terminou e o Pedro não respondeu | Nada sai. Os rascunhos ficam na mesa; quente com mais de 24 h é descartado com uma linha no relatório seguinte |
+| O Pedro aprova sem dizer a hora | A mesa propõe horários livres do relógio da casa, um por matéria, e espera a confirmação |
+| O Pedro aprova duas para a mesma hora | A mesa publica a primeira e devolve a segunda com a hora livre mais próxima; só publica a segunda quando ele confirmar |
+| O Pedro diz "agora" | `publica --ok --agora`; se houver matéria dele a menos de 60 min, a mesa avisa e pergunta antes |
+| O Pedro diz "pode soltar todas" | Uma por horário do relógio da casa, com o espaço de 60 min; a mesa lista as horas e só então publica |
+| Este ambiente foi reciclado entre a rodada e a aprovação | Os rascunhos estão em `import/mesa-pedro/` na branch de produção: `git fetch` e `publica <slug> --ok --em ...` funcionam de qualquer sessão |
 | Nenhuma pauta passa nos quatro testes | Rodada vazia, com relatório das candidatas. Não se inventa quente |
 | O fato central tem duas fontes com números diferentes | Vale a fonte oficial (produção, estúdio, bilheteria, órgão). Sem oficial, o número sai do texto |
 | O fato é só um boato com um veículo | Não sai. Espera confirmação ou a resposta da parte, e entra na rodada seguinte |
@@ -438,6 +499,7 @@ rodada sai vazia, o relatório diz as candidatas e por que nenhuma passou.
 | Aspas só existem traduzidas | Veículo de origem nomeado no texto. Sem origem, sem aspas |
 | O Pedro pede para parar as rodadas | Desligar as duas rotinas (update_trigger com enabled=false); nada mais muda |
 | O Pedro escreve "corrige", "tira do ar", "troca a foto" | Seção 8, na hora, e o relatório diz o que mudou |
+| O Pedro recusa um rascunho | `descarta <slug> --motivo`, e o motivo entra no registro |
 
 ## 12. Checklist de 60 segundos antes do `publica`
 
@@ -451,3 +513,5 @@ rodada sai vazia, o relatório diz as candidatas e por que nenhuma passou.
 - `apuracao` preenchido, `fontes` ausente?
 - O fecho fecha o lide sem resumir e sem assunto novo?
 - O Pedro explicaria essa matéria a um amigo em duas frases?
+- **O Pedro autorizou esta matéria, com esta hora, nesta conversa?** Sem
+  isso, o `publica` não roda.
