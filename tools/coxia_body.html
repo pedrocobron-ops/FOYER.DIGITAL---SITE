@@ -1462,7 +1462,7 @@ Entrevista com o diretor em 21/07"></textarea>
                 <button type="button" data-md="> ">Citação</button>
                 <button type="button" id="btn-acervo">🔗 Ligar ao acervo</button>
                 <button type="button" data-md="img:">📷 Fotos (várias)</button>
-                <button type="button" data-md="video:">▶ Vídeo</button>
+                <button type="button" data-md="video:">▶ Vídeo / post do X</button>
                 <button type="button" data-md="botao:">🎟 Botão de link</button>
                 <button type="button" data-md="***">✦ Divisor</button>
                 <button type="button" id="btn-espelho">🪞 Ver como sai</button>
@@ -4411,9 +4411,12 @@ ingressos e divisor."></textarea>
       }
       if(md === 'img:'){ corpoImgInput.click(); return; }
       if(md === 'video:'){
-        perguntar('Cole o link do vídeo (YouTube) ou do episódio (Spotify):', '', { titulo:'Vídeo', rotuloOk:'Inserir' }).then(function(vu){
+        perguntar('Cole o link do vídeo (YouTube), do episódio (Spotify) ou do post do X (Twitter):', '', { titulo:'Vídeo ou post', rotuloOk:'Inserir' }).then(function(vu){
           if(!vu) return;
-          inserirNoCorpo(ta, ini, fim, '\n\n' + (vu.indexOf('spotify.com') > -1 ? 'spotify:' : 'video:') + vu.trim() + '\n\n');
+          // post do X vira 'post:' e aparece embutido na matéria (15/10/2026)
+          var pre = /(?:^|\/\/)(?:www\.|mobile\.)?(?:x|twitter)\.com\/\w+\/status\/\d+/.test(vu.trim()) ? 'post:'
+                  : (vu.indexOf('spotify.com') > -1 ? 'spotify:' : 'video:');
+          inserirNoCorpo(ta, ini, fim, '\n\n' + pre + vu.trim() + '\n\n');
         });
         return;
       }
@@ -8175,6 +8178,9 @@ ingressos e divisor."></textarea>
         var vm = b.slice(6).match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([A-Za-z0-9_-]{6,20})/);
         return vm ? '<div style="aspect-ratio:16/9;border:2px solid var(--ink)"><iframe src="https://www.youtube-nocookie.com/embed/' + vm[1] + '" style="width:100%;height:100%" frameborder="0" allowfullscreen></iframe></div>' : '';
       }
+      var px = b.match(/^(?:post:|tweet:)?\s*(https?:\/\/(?:www\.|mobile\.)?(?:x|twitter)\.com\/(\w{1,15})\/status\/\d+)\S*$/);
+      if(px) return '<div style="border:2px solid var(--ink);padding:12px 14px;font-family:var(--sans)">𝕏 Post de @' + esc(px[2]) +
+        ' (aparece embutido no site) · <a href="' + esc(urlSegura(px[1])) + '" target="_blank" rel="noopener">abrir</a></div>';
       if(b.indexOf('spotify:') === 0){
         var su = b.slice(8).trim().split('?')[0].replace('open.spotify.com/intl-pt/', 'open.spotify.com/').replace('open.spotify.com/', 'open.spotify.com/embed/');
         return su.indexOf('embed') > -1 ? '<iframe src="' + esc(su) + '" style="width:100%;height:152px;border:2px solid var(--ink)" frameborder="0"></iframe>' : '';

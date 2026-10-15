@@ -1620,7 +1620,7 @@ privacidade_body = band('Institucional', 'Política de Privacidade', 'Última at
       <li><b>Google AdSense</b>: exibe os anúncios, como descrito acima.</li>
       <li><b>Serviço de notificações do seu navegador</b> (do Google, da Mozilla ou da Apple, conforme o navegador): entrega os avisos de matéria nova.</li>
       <li><b>ViaCEP</b>: preenche o endereço a partir do CEP no pedido de anúncio.</li>
-      <li><b>YouTube e Spotify</b>: vídeos e áudios embutidos em algumas páginas. Nas matérias novas, o YouTube é carregado no modo de privacidade reforçada (youtube-nocookie.com); nas matérias mais antigas do acervo, o vídeo vem do endereço comum do YouTube. Esses serviços seguem as próprias políticas de privacidade.</li>
+      <li><b>YouTube, Spotify e X (Twitter)</b>: vídeos, áudios e posts embutidos em algumas páginas. Nas matérias novas, o YouTube é carregado no modo de privacidade reforçada (youtube-nocookie.com); nas matérias mais antigas do acervo, o vídeo vem do endereço comum do YouTube. Esses serviços seguem as próprias políticas de privacidade.</li>
     </ul>
 
     <h2>Dados fora do Brasil</h2>
@@ -1773,6 +1773,18 @@ def md_lite(txt, titulo=''):
             _m = _re.search(r'(?:youtu\.be/|v=|shorts/|embed/)([A-Za-z0-9_-]{6,20})', _u)
             if _m:
                 out.append(f'<div class="art-video"><iframe src="https://www.youtube-nocookie.com/embed/{_m.group(1)}" title="Vídeo" loading="lazy" allowfullscreen frameborder="0"></iframe></div>')
+            continue
+        # Post do X (Twitter) embutido (15/10/2026, pedido do Pedro): o link
+        # sozinho num parágrafo, ou com 'post:' na frente, vira o post do X na
+        # matéria. Sem o script do X (bloqueador, rede lenta), fica a citação
+        # com o link, que continua legível.
+        _mx = _re.match(r'^(?:post:|tweet:)?\s*(https?://(?:www\.|mobile\.)?(?:x|twitter)\.com/([A-Za-z0-9_]{1,15})/status/(\d{5,25}))\S*$', b)
+        if _mx:
+            _tu = f'https://twitter.com/{_mx.group(2)}/status/{_mx.group(3)}'
+            out.append(f'<div class="art-post"><blockquote class="twitter-tweet" data-lang="pt" data-dnt="true">'
+                       f'<p>Post de @{_h.escape(_mx.group(2))} no X</p>'
+                       f'<a href="{_h.escape(_tu)}">Ver o post no X</a></blockquote>'
+                       f'<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div>')
             continue
         if b.startswith('spotify:'):
             _u = b[8:].strip().split('?')[0]
