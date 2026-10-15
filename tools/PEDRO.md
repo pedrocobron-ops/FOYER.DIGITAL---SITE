@@ -498,6 +498,15 @@ Pictures"`: ele tira as barras pretas, corta marcas do canal no topo com
 texto do canal não entra. Quando a matéria junta duas pessoas, o quadro
 precisa mostrar as duas (regra da capa dupla).
 
+**Política sem político na capa (preferência do Pedro, 15/10/2026).** Matéria
+que passa por lei, Congresso, governo ou agência reguladora não leva na capa
+pessoa conhecida da política: nem senador, nem deputado, nem ministro, nem
+presidente de Casa. A capa mostra o lugar ou a coisa: plenário vazio,
+fachada do Congresso, a sala, o objeto, a obra. Se a foto tem gente ao
+fundo, recorte até ninguém ser reconhecível, e o descritivo não nomeia
+político. A exceção é a matéria ser sobre a própria pessoa, e aí o Pedro
+decide. Foto de arquivo diz o ano no descritivo ("em foto de 2018").
+
 Regras da capa: **16:9, até 1600 px de largura, rostos preservados.** Foto
 em pé (retrato, cartaz) entra **inteira, em moldura**: sobre um fundo 16:9
 feito dela mesma, desfocado e escurecido (`--foco auto`, o padrão). Recortar
