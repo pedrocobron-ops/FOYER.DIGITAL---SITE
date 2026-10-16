@@ -3250,7 +3250,11 @@
  },
  "clarice-lispector-levou-este-conto-a-um-simposio-de-bruxaria-em-1975-e-os-relato": {
   "img": "assets/uploads/clarice-lispector-levou-este-conto-a-um-simposio-de-bruxaria-em-1975-e-os-relato-1792016019701.jpg",
-  "foco": null,
+  "foco": {
+   "x": 0.5281,
+   "y": 0.6701,
+   "z": 1.15
+  },
   "titulo": "Clarice Lispector levou este conto a um simpósio de bruxaria em 1975, e os relatos não batem",
   "cat": "Teatro",
   "orig": "assets/uploads/rascunho-original-1792015875190.jpg"
