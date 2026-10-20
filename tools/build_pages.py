@@ -8856,6 +8856,9 @@ def _metas_artigo(p):
         _pg = _pagina_de_quem_assina(_nm)
         linhas.append(f'<meta property="article:author" content="{e(BASE + "/" + _pg if _pg else _nm)}">')
     linhas.append(f'<meta property="og:image:alt" content="{e(p.get("legenda") or p["title"])}">')
+    # a fonte do texto da matéria (Source Serif 4) só é usada aqui: o preload
+    # fica só nas matérias, para a capa e as listas não baixarem 120 KB à toa
+    linhas.append('<link rel="preload" href="fonts/SourceSerif4-var.woff2" as="font" type="font/woff2" crossorigin>')
     return '\n'.join(linhas) + '\n'
 
 # ---- "Leia também" por afinidade (14/10/2026). Eram as 3 mais recentes da
