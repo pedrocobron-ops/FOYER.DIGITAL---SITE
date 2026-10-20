@@ -31,6 +31,17 @@ def _endereco_do_site():
 
 BASE = _endereco_do_site()
 
+# AS FOTOS MORAM FORA DO SITE (20/10/2026). O GitHub Pages aceita 1 GB por
+# site e as fotos já passavam disso. Com FOYER_CDN no ambiente (o endereço do
+# Cloudflare R2, hoje o r2.dev de teste, depois https://img.foyer.digital),
+# toda referência a assets/uploads, acervo, thumbs e social nas páginas
+# geradas passa a apontar para lá, no fim da montagem (_fotos_para_cdn). Sem
+# FOYER_CDN (montagem no computador de alguém), tudo fica relativo, como era.
+# Quem sobe as fotos para o R2 é tools/fotos_r2.py, nos fluxos de publicação.
+CDN = (os.environ.get('FOYER_CDN') or '').strip().rstrip('/')
+if CDN and not CDN.startswith('https://'):
+    raise SystemExit(f'FOYER_CDN precisa começar com https:// (veio {CDN!r})')
+
 # A ficha da organização aponta para as políticas que o site já publica
 # (12/10/2026): princípios editoriais, correções, quem somos e contato. É o
 # que o Google Notícias e o Trust Project leem para saber quem responde pelo
@@ -9126,7 +9137,8 @@ coxia_html = (head('Coxia — FOYER', 'Área restrita da redação do Foyer.')
               .replace('rel="apple-touch-icon" href="assets/logo/pwa-192.png"',
                        'rel="apple-touch-icon" href="assets/logo/pwa-coxia-192.png"')
               + '\n' + coxia_body.replace('__TOTAL__', str(len(MATERIAS)))
-                                  .replace('__VERSAO_COXIA__', _dtmod.datetime.now().strftime('%Y%m%d-%H%M%S')) + '\n'
+                                  .replace('__VERSAO_COXIA__', _dtmod.datetime.now().strftime('%Y%m%d-%H%M%S'))
+                                  .replace('__FOYER_CDN__', CDN) + '\n'
               + '<script src="assets/artes.js"></script>\n'
               + '<script src="assets/site.js"></script></body>\n</html>\n')
 # a Coxia mora em /coxia/ (escopo próprio de aplicativo, separado do app do site);
@@ -9615,4 +9627,35 @@ if _thumbs_fora:
     print(f'• {_thumbs_fora} miniatura(s) que ninguém usa mais apagadas de assets/thumbs/')
 print(f'• fotos dos verbetes: {_PESSOA_FOTO_BAIXADAS[0]} copiada(s) da Wikimedia nesta montagem, '
       f'{_PESSOA_FOTO_BAIXADAS[1]} falha(s); {sum(1 for v in _PESSOA_FOTO_CACHE.values() if v)} com cópia local')
+# As fotos no endereço do R2 (20/10/2026): passa por toda página e feed
+# gerados e troca as quatro pastas de fotos pelo endereço de FOYER_CDN. Nos
+# arquivos, as referências vêm de três jeitos: relativa (assets/...), com
+# ../ (páginas em subpastas), com / ou com o endereço completo do site (prévia
+# de link e JSON-LD). A Coxia fica de fora: o JS dela usa 'assets/uploads/'
+# como caminho de GRAVAÇÃO no repositório, e já recebe o CDN por __FOYER_CDN__.
+def _fotos_para_cdn():
+    import re as _r
+    pad = _r.compile(r'(?<![\w/.\-])(?:' + _r.escape(BASE) + r'/|(?:\.\./)+|/)?assets/(uploads|acervo|thumbs|social)/')
+    troca = CDN + r'/assets/\1/'
+    fora = {'.git', 'tools', 'import', 'supabase', 'coxia', 'node_modules', '.github', 'assets'}
+    arqs = trocas = 0
+    for dp, ds, fs in os.walk(ROOT):
+        ds[:] = [d for d in ds if d not in fora or dp != ROOT]
+        for f in fs:
+            if not f.endswith(('.html', '.xml')):
+                continue
+            cam = os.path.join(dp, f)
+            try:
+                with open(cam, encoding='utf-8') as fh:
+                    txt = fh.read()
+            except (UnicodeDecodeError, OSError):
+                continue
+            novo, n = pad.subn(troca, txt)
+            if n:
+                with open(cam, 'w', encoding='utf-8') as fh:
+                    fh.write(novo)
+                arqs += 1; trocas += n
+    print(f'• fotos apontadas para {CDN}: {trocas} referência(s) em {arqs} arquivo(s)')
+if CDN:
+    _fotos_para_cdn()
 print('pronto')

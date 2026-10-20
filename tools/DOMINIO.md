@@ -70,6 +70,29 @@ o DNS na Wix não custa nada e não atrapalha nada. O único motivo para mudar
 6. Conferir tudo no ar (`dig` ou dns.google) antes de dar por encerrado.
 7. **Só então** cancelar o plano da Wix.
 
+## 00-B. AS FOTOS NO CLOUDFLARE R2 (20/10/2026)
+
+O GitHub Pages aceita 1 GB por site; as fotos passavam de 800 MB. Agora:
+
+- Conta Cloudflare: Pedrocobron@gmail (plano Free). Domínio foyer.digital
+  adicionado na Cloudflare com a zona importada (seção 00), tudo "DNS only".
+- Nameservers atribuídos pela Cloudflare: frida.ns.cloudflare.com e
+  neil.ns.cloudflare.com. Trocar na GoDaddy (hoje ns4/ns5.wixdns.net).
+- R2: bucket `foyer-fotos` (Standard, ENAM). Endereço público de teste:
+  https://pub-36dc382dfe4449bf89a3a04befb10c6c.r2.dev. Endereço definitivo
+  (custom domain do bucket, só depois da troca de nameservers):
+  https://img.foyer.digital. Depois de ligado, desligar o r2.dev.
+- Chave de API `github-foyer` (Object Read & Write, só foyer-fotos, Forever).
+  Os valores moram nos segredos do repositório: R2_ACCOUNT_ID,
+  R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY. Nunca passam por chat.
+- Quem sobe: tools/fotos_r2.py (pages.yml, agendadas.yml, youtube.yml), depois
+  do build e antes do Pages. Sobe assets/uploads, acervo, thumbs e social.
+- Quem aponta: build_pages.py lê FOYER_CDN (env dos três fluxos) e troca as
+  referências no fim da montagem; so-o-site.sh tira as quatro pastas do site
+  publicado. A Coxia recebe o mesmo endereço por __FOYER_CDN__.
+- Para mudar de r2.dev para img.foyer.digital: trocar FOYER_CDN nos três
+  fluxos. O repositório segue com as fotos (cópia de segurança).
+
 ## 0. O RETRATO DE ANTES — para desfazer, se precisar
 
 Estado do domínio em 02/08/2026, 12h20 de Brasília, antes de mexer em nada.

@@ -5,6 +5,11 @@ on:
     branches: [claude/foyer-digital-redesign-14l2b6]
   workflow_dispatch:
 
+# Onde as fotos moram (20/10/2026): o endereço público do bucket do R2. Hoje o
+# de teste do Cloudflare; quando img.foyer.digital estiver no ar, muda aqui.
+env:
+  FOYER_CDN: https://pub-36dc382dfe4449bf89a3a04befb10c6c.r2.dev
+
 permissions:
   contents: read
   pages: write
@@ -32,7 +37,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Ferramentas de imagem (miniaturas das fotos e prévia de link das colunas)
-        run: pip install --quiet pillow
+        run: pip install --quiet pillow boto3
       # As miniaturas (assets/thumbs/) ficam guardadas entre publicações: só o
       # que é foto nova é gerado de novo. A chave muda quando entra matéria.
       - name: Miniaturas guardadas da publicação anterior
@@ -46,6 +51,14 @@ jobs:
           python3 tools/atualiza_youtube.py || echo "YouTube fora do ar — usa o último retrato salvo"
           python3 tools/enciclopedia.py || echo "Enciclopédia: usa o último mapeamento salvo"
           python3 tools/build_pages.py
+      - name: Fotos para o Cloudflare R2 (o site publicado só aponta para lá)
+        # as chaves moram nos segredos do repositório; o endereço público em
+        # FOYER_CDN, no env deste fluxo (20/10/2026)
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        run: python3 tools/fotos_r2.py
       - uses: actions/configure-pages@v5
       - name: Deixar fora do site publicado o que é só do repositório (fila, pautas, ferramentas, funções, manuais, senhas)
         # a lista do que sobe mora em .github/so-o-site.sh, a mesma nos três

@@ -2555,10 +2555,17 @@ ingressos e divisor."></textarea>
   var RAIZ = location.pathname.replace(/coxia(\.html)?\/?$/, '')
                               .replace(/coxia\/index\.html$/, '')
                               .replace(/index\.html$/, '');
+  // 20/10/2026: as fotos (uploads, acervo, miniaturas e artes) moram no
+  // Cloudflare R2 e não vêm mais no site publicado. O endereço entra aqui na
+  // montagem (build_pages.py, FOYER_CDN); vazio, a Coxia busca na raiz como antes.
+  var CDN_FOTOS = '__FOYER_CDN__';
+  if(/^__/.test(CDN_FOTOS)) CDN_FOTOS = '';
   function doSite(p){
     p = String(p || '');
     if(!p || /^(https?:|data:|blob:)/.test(p)) return p;   // já é endereço completo
-    return RAIZ + p.replace(/^\//, '');
+    p = p.replace(/^\//, '');
+    if(CDN_FOTOS && /^assets\/(uploads|acervo|thumbs|social)\//.test(p)) return CDN_FOTOS + '/' + p;
+    return RAIZ + p;
   }
 
   // ESTA PERGUNTA É A QUE OS BOTÕES DEVEM FAZER: dá para gravar no site?

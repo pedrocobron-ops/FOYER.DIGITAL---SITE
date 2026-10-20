@@ -42,6 +42,15 @@ find . -type f \( -name '*.md' -o -name '*.py' -o -name '*.sh' -o -name '*.ts' \
 # sem foto (*-og.jpg) fica: é ela que aparece no WhatsApp.
 find assets/social -type f \( -name '*-feed.jpg' -o -name '*-story.jpg' \) -delete 2>/dev/null || true
 
+# As fotos moram no Cloudflare R2 (20/10/2026): quando a montagem apontou
+# para lá (FOYER_CDN), as quatro pastas de fotos saem do site publicado. É o
+# que faz o site caber no 1 GB do GitHub Pages com folga: ficam só páginas,
+# CSS, JS, fontes, logos, artes da casa e divulgação.
+if [ -n "${FOYER_CDN:-}" ]; then
+  rm -rf assets/uploads assets/acervo assets/thumbs assets/social
+  echo "fotos fora do site publicado: servidas de $FOYER_CDN"
+fi
+
 # o que o site e a Coxia não podem perder
 for f in import/anuncios/site.json import/materias.json import/opiniao.json import/corpo \
          index.html coxia/index.html assets/site.js robots.txt sitemap.xml; do
