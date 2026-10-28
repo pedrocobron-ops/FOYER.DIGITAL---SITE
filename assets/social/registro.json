@@ -3812,7 +3812,11 @@
  },
  "amalia-se-apaixona-por-quem-ela-olha-e-o-conto-de-newton-moreno-virou-peca-gratu": {
   "img": "assets/uploads/amalia-se-apaixona-por-quem-ela-olha-e-o-conto-de-newton-moreno-virou-peca-gratu-1793201137678.jpg",
-  "foco": null,
+  "foco": {
+   "x": 0.6365,
+   "y": 0.4788,
+   "z": 1
+  },
   "titulo": "Amália se apaixona por quem ela olha, e o conto de Newton Moreno virou peça gratuita em São Paulo",
   "cat": "Teatro",
   "orig": "assets/uploads/rascunho-original-1793201129923.jpg"
