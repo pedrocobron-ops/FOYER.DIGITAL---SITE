@@ -92,7 +92,7 @@ parceria (eles têm a API pronta), ou rodar a coleta do Sesc de outro lugar
 ordem que achar melhor, com imagem"):** entraram Theatro Municipal
 (coleta_municipal.py: lista pela API, datas, local, duração, classificação,
 ingresso e foto pela página de cada evento, com cache), MASP e MAM
-(coleta_exposicoes.py) e MIS (no coleta_calendario.py). Total: 7 fontes,
+(coleta_exposicoes.py) e MIS (no coleta_calendario.py). Total: 6 fontes,
 cerca de 216 programas no dia.
 Testados e sem caminho seguro por enquanto: Belas Artes, Cinesala e Reserva
 Cultural (horários não legíveis com segurança), Pinacoteca (404), Japan
