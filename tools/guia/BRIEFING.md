@@ -80,6 +80,14 @@ de dentro do GitHub, que tem outra rede.
 | Ingresso Rápido, Eventim | não responderam (Eventim: tempo esgotado) | | | | idem |
 | Wikidata | aberto | API livre, sem chave | liberado | | para a ficha dos filmes (Fase 1b) |
 
+**Primeira rodada no GitHub (08/11/2026, 14h33):** Guia OFF e Cinemateca
+ok (187 programas publicados em foyer.digital/guia/). SP Cultura: tempo
+esgotado também do GitHub. **Sesc: recusa até o robots.txt para a rede do
+GitHub** (o mesmo bloqueio da API). Ou seja, um coletor do Sesc rodando no
+Actions não entra. Caminhos a decidir com o Pedro: pedir ao Sesc acesso ou
+parceria (eles têm a API pronta), ou rodar a coleta do Sesc de outro lugar
+(só se o Sesc não estiver bloqueando de propósito; nunca contornar bloqueio).
+
 Observações importantes:
 - **Guia OFF** sinaliza "use=reference" e "ai-train=no": o uso combinado é
   listar com link para eles (como um buscador) e trecho curto. O coletor é

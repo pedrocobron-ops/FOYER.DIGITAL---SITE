@@ -48,8 +48,11 @@ class Educado:
                 txt = self._baixa(base + '/robots.txt', checa=False)
                 rp.parse(txt.splitlines())
             except urllib.error.HTTPError as e:
-                # sem robots.txt (404) = liberado; erro de servidor = não arrisca
-                rp.parse([] if e.code in (404, 410) else ['User-agent: *', 'Disallow: /'])
+                # sem robots.txt (404) = liberado. Outro erro (403 etc.) = o site
+                # recusa até o robots.txt para esta rede: não arrisca, e diz.
+                if e.code not in (404, 410):
+                    raise PermissionError('o site recusou o robots.txt (HTTP %d): bloqueia esta rede' % e.code)
+                rp.parse([])
             self._robots[base] = rp
         return self._robots[base].can_fetch(UA, url)
 
