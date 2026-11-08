@@ -1,19 +1,18 @@
 {
- "em": "2026-11-08T14:29:54-03:00",
+ "em": "2026-11-08T14:36:49-03:00",
  "resultado": {
   "sesc_api": {
-   "erro": "HTTP 403",
+   "erro": "PermissionError: robots.txt não permite: https://www.sescsp.org.br/wp-json/wp/v1/atividades/filter?intervalo=hoje&ppp=1",
    "ok": false,
    "url": "https://www.sescsp.org.br/wp-json/wp/v1/atividades/filter?intervalo=hoje&ppp=1"
   },
   "sesc_mapa": {
-   "bytes": 8597,
-   "inicio": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><?xml-stylesheet type=\"text/xsl\" href=\"//www.sescsp.org.br/wp-content/plugins/word",
-   "ok": true,
+   "erro": "PermissionError: robots.txt não permite: https://www.sescsp.org.br/sitemap_index.xml",
+   "ok": false,
    "url": "https://www.sescsp.org.br/sitemap_index.xml"
   },
   "spcultura": {
-   "erro": "URLError: <urlopen error [Errno 104] Connection reset by peer>",
+   "erro": "URLError: <urlopen error timed out>",
    "ok": false,
    "url": "https://spcultura.prefeitura.sp.gov.br/api/event/find?@select=id,name&@limit=1"
   }
