@@ -102,6 +102,36 @@ Blue Note, Sesi, Museu do Ipiranga, Oficina (sem dado estruturado: um leitor
 por site, próximos da fila), Biblioteca Mário de Andrade e TUCA (não
 responderam).
 
+**Segunda ampliação (08/11/2026, Pedro: "essas páginas são muito
+importantes, tente por outro caminho"):**
+- Belas Artes: o endereço mudou para cinebelasartes.com.br; a grade da semana
+  está na página inicial. ENTROU (coleta_belasartes.py), com cartaz.
+- Pinacoteca: a lista mudou para /programacao/tipo/exposicoes/. ENTROU (no
+  coleta_exposicoes.py), com prédio e foto. Itinerâncias e on-line ficam fora.
+- Itaú Cultural: os dados vêm dentro das páginas públicas /agenda e
+  /mostras-e-exposicoes/exposicoes (__NEXT_DATA__). ENTROU
+  (coleta_itaucultural.py). Período sem horário.
+- Centro Cultural São Paulo: o endereço certo é centrocultural.sp.gov.br, com
+  API aberta de sessões (dia, hora, sala, ingresso). ENTROU (coleta_ccsp.py).
+- Agenda Viva SP (Governo do Estado, agendavivasp.com.br): reúne muita coisa,
+  mas a lista só sai por uma API com chave embutida no site deles. Usar essa
+  chave seria entrar pela porta dos fundos: NÃO. Caminho: pedir acesso à
+  Secretaria (é plataforma pública e convida produtores a cadastrar eventos).
+- Sesc: segue bloqueando robôs de propósito, inclusive o GitHub. Caminho:
+  pedir acesso/parceria ao Sesc.
+- SP Cultura: fora do ar daqui e do GitHub.
+- Reserva Cultural: a lista da API parou em janeiro de 2025. Cinesala: não
+  publica horários no site. Japan House, Farol Santander, Teatro Santander:
+  recusam robôs (403). Fora.
+- Bilheterias (pedido do Pedro, 08/11/2026): Sympla e Shotgun liberam no
+  robots; Uhuu libera fora da busca; Ticket360 só "use=reference"; Eventim e
+  Ingresso Rápido não responderam. Os termos de uso da Sympla não abriram
+  (central de ajuda recusa acesso automático) e as páginas de lista não trazem
+  dado estruturado. Pela regra de ouro, bilheteria por enquanto só como LINK
+  de ingresso (já vem de Guia OFF, Municipal, CCSP). Caminho certo: programa
+  de parceiros/afiliados das bilheterias (Sympla, Uhuu, Ingresse, Eventim),
+  que também abre a renda por afiliação da Fase 4. Decisão do Pedro.
+
 **Decisão sobre imagens (08/11/2026, pedido do Pedro):** só a foto oficial
 que o próprio lugar publica para divulgar o evento (og:image ou a foto do
 calendário dele). A foto não é copiada para o FOYER: a página aponta para o

@@ -33,8 +33,14 @@ jobs:
         run: python3 tools/guia/coleta_calendario.py || echo "::warning::calendário falhou hoje"
       - name: Theatro Municipal (música, ópera, dança)
         run: python3 tools/guia/coleta_municipal.py || echo "::warning::Theatro Municipal falhou hoje"
-      - name: Museus (MASP, MAM)
+      - name: Museus (MASP, MAM, Pinacoteca)
         run: python3 tools/guia/coleta_exposicoes.py || echo "::warning::algum museu falhou hoje"
+      - name: Belas Artes (cinema)
+        run: python3 tools/guia/coleta_belasartes.py || echo "::warning::Belas Artes falhou hoje"
+      - name: Itaú Cultural
+        run: python3 tools/guia/coleta_itaucultural.py || echo "::warning::Itaú Cultural falhou hoje"
+      - name: Centro Cultural São Paulo
+        run: python3 tools/guia/coleta_ccsp.py || echo "::warning::CCSP falhou hoje"
       - name: Sonda das fontes ainda sem coletor (SP Cultura, Sesc)
         run: python3 tools/guia/sonda_fontes.py || true
       - name: Juntar, tirar o que acabou, registrar mudanças

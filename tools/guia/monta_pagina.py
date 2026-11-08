@@ -66,7 +66,7 @@ details{margin-top:24px;font-size:13px;color:var(--mu)}
 <script>
 const D = __DADOS__;
 const AREAS = {teatro:'Teatro', opera:'Ópera', danca:'Dança', infantil:'Infantil', eventos:'Eventos e festivais', cinema:'Cinema', musica:'Música', exposicao:'Exposições', literatura:'Literatura', cursos:'Cursos e oficinas'};
-const NOMES = {guiaoff:'Guia OFF', cinemateca:'Cinemateca Brasileira', municipal:'Theatro Municipal', masp:'MASP', mam:'MAM São Paulo', mis:'MIS'};
+const NOMES = {guiaoff:'Guia OFF', cinemateca:'Cinemateca Brasileira', municipal:'Theatro Municipal', masp:'MASP', mam:'MAM São Paulo', mis:'MIS', pinacoteca:'Pinacoteca', belasartes:'Cine Belas Artes', itaucultural:'Itaú Cultural', ccsp:'Centro Cultural São Paulo'};
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const dt = iso => { try { return new Date(iso).toLocaleString('pt-BR', {dateStyle:'short', timeStyle:'short'}); } catch(e) { return iso; } };
 const dia = iso => iso.length > 10 ? new Date(iso).toLocaleString('pt-BR', {weekday:'short', day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'}) : iso.split('-').reverse().join('/');

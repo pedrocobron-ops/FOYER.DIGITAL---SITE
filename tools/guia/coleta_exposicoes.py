@@ -6,7 +6,8 @@
 #   título, período (dd.mm.aaaa — dd.mm.aaaa), foto oficial e legenda/crédito.
 # - MAM São Paulo: mam.org.br/exposicoes/em-cartaz/ e /futuras/, cartões com
 #   título, período ("12 set 26 - 24 jan 27") e foto.
-# Fora por enquanto: Pinacoteca (página de exposições deu 404), Japan House
+# - Pinacoteca: /programacao/tipo/exposicoes/ (cartões com prédio e período).
+# Fora por enquanto: Japan House
 # (403 para robôs), Itaú Cultural (página montada por JavaScript), CCBB
 # (formato a estudar), Museu da Língua Portuguesa (API só com exposições de
 # 2021). robots.txt de MASP e MAM liberado.
@@ -71,9 +72,41 @@ def _mam(web):
     return out
 
 
+MESES_LONGOS = {m: i + 1 for i, m in enumerate(['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho',
+                                               'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'])}
+
+
+def _pinacoteca(web):
+    """pinacoteca.org.br/programacao/tipo/exposicoes/ (o endereço antigo
+    /programacao/exposicoes/ dá 404). Cartão: foto, título, resumo, prédio e
+    'Data Início Exposição 04 de julho de 2026 - Data Término ...'."""
+    s = web.texto('https://pinacoteca.org.br/programacao/tipo/exposicoes/')
+    out = []
+    for b in s.split('card-programacao-container')[1:]:
+        ml = re.search(r'<h3[^>]*>\s*<a href="(https://pinacoteca\.org\.br/programacao/exposicoes/[^"]+)">(.*?)</a>', b, re.S)
+        md = re.findall(r'(\d{1,2}) de ([a-zç]+) de (\d{4})', b)
+        if not ml or len(md) < 2:
+            continue
+        (d1, m1, a1), (d2, m2, a2) = md[0], md[1]
+        if m1 not in MESES_LONGOS or m2 not in MESES_LONGOS:
+            continue
+        mi = re.search(r'<img[^>]+src="([^"]+)"', b)
+        loc = re.search(r'Local: </span>([^<]+)</a>', b)
+        res = re.search(r'<p class="resumo">(.*?)</p>', b, re.S)
+        out.append({'titulo': limpa(re.sub(r'<span class="visually-hidden">.*?</span>', '', ml.group(2))),
+                    'link': ml.group(1),
+                    'de': '%s-%02d-%02d' % (a1, MESES_LONGOS[m1], int(d1)),
+                    'ate': '%s-%02d-%02d' % (a2, MESES_LONGOS[m2], int(d2)),
+                    'imagem': mi.group(1) if mi else None, 'credito': None, 'categoria': 'Exposição',
+                    'sala': limpa(loc.group(1)) if loc else None,
+                    'resumo': limpa(res.group(1)) if res else None})
+    return out
+
+
 MUSEUS = [
     {'fonte': 'masp', 'nome': 'MASP', 'site': 'https://masp.org.br', 'ler': _masp},
     {'fonte': 'mam', 'nome': 'MAM São Paulo', 'site': 'https://mam.org.br', 'ler': _mam},
+    {'fonte': 'pinacoteca', 'nome': 'Pinacoteca de São Paulo', 'site': 'https://pinacoteca.org.br', 'ler': _pinacoteca},
 ]
 
 
@@ -85,7 +118,7 @@ def coleta(m, web):
              'origens': [{'fonte': m['fonte'], 'url': m['site'], 'coletado_em': coletado}]}
     itens, vistos = [], set()
     for x in m['ler'](web):
-        if x['ate'] < hoje or x['link'] in vistos:
+        if x['ate'] < hoje or x['link'] in vistos or (x.get('sala') or '').lower() in ('itinerâncias', 'on-line', 'online'):
             continue
         vistos.add(x['link'])
         cred = 'Divulgação / ' + m['nome'] + ((': ' + x['credito'][:160]) if x.get('credito') else '')
@@ -94,7 +127,8 @@ def coleta(m, web):
             'area': campo('exposicao', 0), 'titulo': campo(x['titulo'], 0),
             'categoria': campo(x.get('categoria'), 0), 'link_fonte': campo(x['link'], 0),
             'imagem': campo(x.get('imagem'), 0, credito=cred),
-            'sessoes': [sem_vazios({'lugar': lid, 'estreia': campo(x['de'], 0), 'ate': campo(x['ate'], 0),
+            'trecho': campo(x.get('resumo'), 0),
+            'sessoes': [sem_vazios({'lugar': lid, 'sala': campo(x.get('sala'), 0), 'estreia': campo(x['de'], 0), 'ate': campo(x['ate'], 0),
                                     'site': campo(x['link'], 0)})],
             'origens': [{'fonte': m['fonte'], 'url': x['link'], 'coletado_em': coletado}]}))
     if not itens:
