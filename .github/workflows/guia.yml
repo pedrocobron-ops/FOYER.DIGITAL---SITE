@@ -31,6 +31,10 @@ jobs:
         run: python3 tools/guia/coleta_guiaoff.py || echo "::warning::Guia OFF falhou hoje"
       - name: Calendários abertos (Cinemateca)
         run: python3 tools/guia/coleta_calendario.py || echo "::warning::calendário falhou hoje"
+      - name: Theatro Municipal (música, ópera, dança)
+        run: python3 tools/guia/coleta_municipal.py || echo "::warning::Theatro Municipal falhou hoje"
+      - name: Museus (MASP, MAM)
+        run: python3 tools/guia/coleta_exposicoes.py || echo "::warning::algum museu falhou hoje"
       - name: Sonda das fontes ainda sem coletor (SP Cultura, Sesc)
         run: python3 tools/guia/sonda_fontes.py || true
       - name: Juntar, tirar o que acabou, registrar mudanças

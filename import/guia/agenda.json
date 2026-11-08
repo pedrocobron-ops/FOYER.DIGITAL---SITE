@@ -6,12 +6,67 @@
     "o": 0,
     "v": "cinema"
    },
+   "fonte": "mis",
+   "id": "mis-34o-festival-mixbrasil",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/55577685140_9950d5c256_o-768x432.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/34o-festival-mixbrasil/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98495",
+     "coletado_em": "2026-11-08T14:42:45-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/34o-festival-mixbrasil/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-22T21:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-12T16:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/34o-festival-mixbrasil/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "34º Festival MixBrasil"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "A seleção de longas-metragens do Panorama Internacional reúne filmes de cineastas que passaram por alguns dos principais festivais do mundo"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
    "categoria": {
     "o": 0,
     "v": "Cursos e debates"
    },
    "fonte": "cinemateca",
    "id": "cinemateca-a-jornada-do-cinema-silencioso-conversa-com-jay-weissberg-remoto",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/10/passeio_sheffield-2-768x578.png"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/a-jornada-do-cinema-silencioso-conversa-com-jay-weissberg/"
@@ -19,7 +74,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67098",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/a-jornada-do-cinema-silencioso-conversa-com-jay-weissberg/"
     }
@@ -61,6 +116,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-a-paixao-de-joana-darc",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_a_paixao_de_joana_darc-768x576.webp"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/a-paixao-de-joana-darc/"
@@ -68,7 +128,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67371",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/a-paixao-de-joana-darc/"
     }
@@ -106,6 +166,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-a-ultima-noite",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_a_ultima_noite-768x631.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/a-ultima-noite-2/"
@@ -113,13 +178,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67285",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/a-ultima-noite-2/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67331",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/a-ultima-noite-3/"
     }
@@ -172,6 +237,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-andrei-rublev",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_andrei_rublev-1-768x432.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/andrei-rublev/"
@@ -179,7 +249,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67292",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/andrei-rublev/"
     }
@@ -217,6 +287,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-canal-100-oficina-de-stop-motion",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2024/11/cbs_bnn_projeto_canal_100-768x432.png"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/canal-100-oficina-de-stop-motion/"
@@ -224,7 +299,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67387",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/canal-100-oficina-de-stop-motion/"
     }
@@ -256,12 +331,67 @@
     "o": 0,
     "v": "cinema"
    },
+   "fonte": "mis",
+   "id": "mis-ciclo-de-cinema-e-psicanalise-sirat",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/V__0500-768x512.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/ciclo-de-cinema-e-psicanalise-sirat/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98445",
+     "coletado_em": "2026-11-08T14:42:45-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/ciclo-de-cinema-e-psicanalise-sirat/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-10T21:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-10T19:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/ciclo-de-cinema-e-psicanalise-sirat/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Ciclo de Cinema e Psicanálise | Sirāt"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Após a sessão gratuita, será realizado um bate-papo com a presença do psicanalista Pedro Colli e Daigo Oliva"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
    "categoria": {
     "o": 0,
     "v": "Sessão"
    },
    "fonte": "cinemateca",
    "id": "cinemateca-cineclubinho-castelo-ra-tim-bum-o-filme",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2024/06/cbs_id_castelo_ra_tim_bum_o_filme-768x432.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/cineclubinho-castelo-ra-tim-bum-o-filme/"
@@ -269,7 +399,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67385",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/cineclubinho-castelo-ra-tim-bum-o-filme/"
     }
@@ -301,12 +431,67 @@
     "o": 0,
     "v": "cinema"
    },
+   "fonte": "mis",
+   "id": "mis-cinematographo-a-noite-dos-mortos-vivos",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/10/noite-dos-mortos-3-768x432.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/cinematographo-a-noite-dos-mortos-vivos-2/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98324",
+     "coletado_em": "2026-11-08T14:42:45-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/cinematographo-a-noite-dos-mortos-vivos-2/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-08T17:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-08T15:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/cinematographo-a-noite-dos-mortos-vivos-2/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Cinematographo | A noite dos mortos-vivos"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "O duo Caranguejo-Escorpião, formado por Cauê Bravim e Daniele Dantas, se une a músicos convidados para executar ao vivo uma trilha sonora para o clássico de George A. Romero"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
    "categoria": {
     "o": 0,
     "v": "Sessão"
    },
    "fonte": "cinemateca",
    "id": "cinemateca-domando-o-fogo",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_domando_o_fogo-768x728.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/domando-o-fogo/"
@@ -314,13 +499,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67277",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/domando-o-fogo/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67335",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/domando-o-fogo-2/"
     }
@@ -373,6 +558,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-garotas-do-abc",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_garotas_do_abc-768x432.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/garotas-do-abc/"
@@ -380,7 +570,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67376",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/garotas-do-abc/"
     }
@@ -425,13 +615,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67298",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/introducao-ao-idioma-russo/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67329",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/introducao-ao-idioma-russo-2/"
     }
@@ -484,6 +674,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-kin-dza-dza",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_kin_dza_dza-768x432.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/kin-dza-dza/"
@@ -491,13 +686,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67305",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/kin-dza-dza/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67307",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/kin-dza-dza-2/"
     }
@@ -550,6 +745,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-numero-217",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_numero_217-768x500.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/numero-217/"
@@ -557,13 +757,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67287",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/numero-217/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67311",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/numero-217-2/"
     }
@@ -616,6 +816,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-o-velho-e-o-novo",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_o_velho_e_o_novo.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/o-velho-e-o-novo/"
@@ -623,7 +828,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67319",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/o-velho-e-o-novo/"
     }
@@ -661,6 +866,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-o-voo-espacial",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_o_voo_espacial-768x552.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/o-voo-espacial/"
@@ -668,13 +878,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67271",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/o-voo-espacial/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67309",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/o-voo-espacial-2/"
     }
@@ -734,13 +944,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67294",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/oficina-de-matryoshkas/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67325",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/oficina-de-matryoshkas-2/"
     }
@@ -793,6 +1003,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-os-irmaos-karamazov-parte-1",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_os_irmaos_karamazov-1-768x756.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-parte-1/"
@@ -800,13 +1015,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67300",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-parte-1/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67313",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-parte-1-2/"
     }
@@ -859,6 +1074,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-os-irmaos-karamazov-partes-2-e-3",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_os_irmaos_karamazov-1-768x756.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-partes-2-e-3/"
@@ -866,13 +1086,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67303",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-partes-2-e-3/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67315",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-partes-2-e-3-2/"
     }
@@ -925,6 +1145,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-poema-do-mar",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_poema_do_mar-768x502.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/poema-do-mar/"
@@ -932,13 +1157,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67279",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/poema-do-mar/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67333",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/poema-do-mar-2/"
     }
@@ -991,6 +1216,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-revisao-critica-do-cinema-brasileiro-canal-100-processos-de-restauro-na-cinemate",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2024/11/cbs_bnn_projeto_canal_100-768x432.png"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-canal-100-processos-de-restauro-na-cinemateca-brasileira/"
@@ -998,7 +1228,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67369",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-canal-100-processos-de-restauro-na-cinemateca-brasileira/"
     }
@@ -1036,6 +1266,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-revisao-critica-do-cinema-brasileiro-deus-e-o-diabo-na-terra-do-sol",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2023/10/cbs_id_deus_e_o_diabo_na_terra_do_sol_2-768x432.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-deus-e-o-diabo-na-terra-do-sol/"
@@ -1043,7 +1278,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67367",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-deus-e-o-diabo-na-terra-do-sol/"
     }
@@ -1081,6 +1316,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-revisao-critica-do-cinema-brasileiro-garota-de-ipanema",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/01/garota-de-ipanema-768x593.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-garota-de-ipanema/"
@@ -1088,7 +1328,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67365",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-garota-de-ipanema/"
     }
@@ -1126,6 +1366,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-revisao-critica-do-cinema-brasileiro-ladroes-de-cinema",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2023/02/ladroes-de-cinema_1200x675-768x432.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-ladroes-de-cinema/"
@@ -1133,7 +1378,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67360",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-ladroes-de-cinema/"
     }
@@ -1171,6 +1416,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-revisao-critica-do-cinema-brasileiro-sao-paulo-sociedade-anonima",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2024/10/cbs_id_sao_paulo_sa_restaurado-768x464.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-sao-paulo-sociedade-anonima-2/"
@@ -1178,7 +1428,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67357",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-sao-paulo-sociedade-anonima-2/"
     }
@@ -1216,6 +1466,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-sessao-de-curtas-cinema-espanhol-das-origens-1906-1913",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/10/2_inauguracao_do_bairro_operario-768x600.png"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/sessao-de-curtas-cinema-espanhol-das-origens-1906-1913/"
@@ -1223,7 +1478,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67108",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-de-curtas-cinema-espanhol-das-origens-1906-1913/"
     }
@@ -1261,6 +1516,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-sessao-dupla-passeio-de-bonde-pela-cidade-de-sheffield-e-mliss",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/10/passeio_sheffield-2-768x578.png"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/sessao-dupla-passeio-de-bonde-pela-cidade-de-sheffield-e-mliss-2/"
@@ -1268,7 +1528,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67112",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-dupla-passeio-de-bonde-pela-cidade-de-sheffield-e-mliss-2/"
     }
@@ -1306,6 +1566,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-sessao-dupla-stellina-a-pescadora-de-veneza-e-genuine",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/10/stellina-2-768x578.png"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/sessao-dupla-stellina-a-pescadora-de-veneza-e-genuine/"
@@ -1313,7 +1578,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67100",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-dupla-stellina-a-pescadora-de-veneza-e-genuine/"
     }
@@ -1351,6 +1616,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-sessao-dupla-um-passeio-de-bonde-pelas-ruas-de-aarhus-e-a-familia-gyurkovics",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/10/familia_gyurkovics-12-768x579.png"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/sessao-dupla-um-passeio-de-bonde-pelas-ruas-de-aarhus-e-a-familia-gyurkovics/"
@@ -1358,7 +1628,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67106",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-dupla-um-passeio-de-bonde-pelas-ruas-de-aarhus-e-a-familia-gyurkovics/"
     }
@@ -1396,6 +1666,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-sessao-dupla-um-passeio-no-bonde-funicular-de-hong-kong-e-o-bobo",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/10/bobo-7-768x587.png"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/sessao-dupla-um-passeio-no-bonde-funicular-de-hong-kong-e-o-bobo-2/"
@@ -1403,7 +1678,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67114",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-dupla-um-passeio-no-bonde-funicular-de-hong-kong-e-o-bobo-2/"
     }
@@ -1441,6 +1716,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-sessao-especial-os-doces-barbaros-13o-festival-de-finos-filmes",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_os_doces_barbaros-768x432.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/sessao-especial-os-doces-barbaros/"
@@ -1448,7 +1728,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67348",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-especial-os-doces-barbaros/"
     }
@@ -1490,6 +1770,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-sinos-vermelhos-mexico-em-chamas",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_sinos_vermelhos-1-768x494.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/sinos-vermelhos-mexico-em-chamas/"
@@ -1497,13 +1782,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67281",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sinos-vermelhos-mexico-em-chamas/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67321",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sinos-vermelhos-mexico-em-chamas-2/"
     }
@@ -1556,6 +1841,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-sinos-vermelhos-vi-o-nascimento-de-um-novo-mundo",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_sinos_vermelhos_vi_o_nascimento_de_um_novo_mundo-768x494.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/sinos-vermelhos-vi-o-nascimento-de-um-novo-mundo/"
@@ -1563,13 +1853,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67283",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sinos-vermelhos-vi-o-nascimento-de-um-novo-mundo/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67323",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sinos-vermelhos-vi-o-nascimento-de-um-novo-mundo-2/"
     }
@@ -1622,6 +1912,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-uma-pagina-de-loucura",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/10/uma_pagina_de_loucura-6-768x576.png"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/uma-pagina-de-loucura-2/"
@@ -1629,7 +1924,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67110",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/uma-pagina-de-loucura-2/"
     }
@@ -1667,6 +1962,11 @@
    },
    "fonte": "cinemateca",
    "id": "cinemateca-venenos-ou-a-historia-mundial-do-envenenamento",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_venenos-768x518.jpg"
+   },
    "link_fonte": {
     "o": 0,
     "v": "https://cinemateca.org.br/exibicao/venenos-ou-a-historia-mundial-do-envenenamento/"
@@ -1674,13 +1974,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67275",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/venenos-ou-a-historia-mundial-do-envenenamento/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67317",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/venenos-ou-a-historia-mundial-do-envenenamento-2/"
     }
@@ -1740,13 +2040,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67296",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/workshop-de-dancas-folcloricas-russas-2/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67327",
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/workshop-de-dancas-folcloricas-russas-3/"
     }
@@ -1786,6 +2086,276 @@
    "titulo": {
     "o": 0,
     "v": "WORKSHOP DE DANÇAS FOLCLÓRICAS RUSSAS"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cursos"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Cursos"
+   },
+   "fonte": "mis",
+   "id": "mis-a-mente-de-quentin-tarantino-e-o-universo-unificado",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/09/Bastardos-Inglorios-768x512.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/a-mente-de-quentin-tarantino-e-o-universo-unificado/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/97447",
+     "coletado_em": "2026-11-08T14:42:45-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/a-mente-de-quentin-tarantino-e-o-universo-unificado/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-10T21:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-10T19:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/a-mente-de-quentin-tarantino-e-o-universo-unificado/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "A mente de Quentin Tarantino e o universo unificado"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Curso presencial | 10, 12, 19 e 26 de novembro, terças e quintas, das 19h às 21h"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cursos"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Cursos"
+   },
+   "fonte": "mis",
+   "id": "mis-bruxaria-e-performance",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/09/Bruxaria-e-Performance_-768x463.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/bruxaria-e-performance/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/97443",
+     "coletado_em": "2026-11-08T14:42:45-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/bruxaria-e-performance/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-10T21:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-10T19:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/bruxaria-e-performance/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Bruxaria e performance"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Curso online | 10, 12, 17 e 19 de novembro, terças e quintas, das 19h às 21h"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cursos"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Cursos"
+   },
+   "fonte": "mis",
+   "id": "mis-direcao-de-arte-cinematografica-materialidade-cenica-e-linguagem-visual",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/09/Direcao-de-arte-768x259.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/direcao-de-arte-cinematografica-materialidade-cenica-e-linguagem-visual/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/97433",
+     "coletado_em": "2026-11-08T14:42:45-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/direcao-de-arte-cinematografica-materialidade-cenica-e-linguagem-visual/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-09T22:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-09T19:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/direcao-de-arte-cinematografica-materialidade-cenica-e-linguagem-visual/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Direção de arte cinematográfica: materialidade cênica e linguagem visual"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Curso presencial | 09, 11, 16, 18, 23, 25 e 30 de novembro e 02 de dezembro, segundas e quartas, das 19h às 22h"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cursos"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Cursos"
+   },
+   "fonte": "mis",
+   "id": "mis-fazendo-um-videoclipe",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/09/Fazendo-um-videoclipe-1-768x511.png"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/fazendo-um-videoclipe/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/97449",
+     "coletado_em": "2026-11-08T14:42:45-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/fazendo-um-videoclipe/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-23T21:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-23T19:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/fazendo-um-videoclipe/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Fazendo um videoclipe"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Curso presencial | 23, 24, 27 e 28 de novembro, segunda, terça e sexta, das 19h às 22h, e sábado, das 10h às 17h"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cursos"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Cursos"
+   },
+   "fonte": "mis",
+   "id": "mis-mergulhando-na-onda-pop-coreana",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/09/img_banner_1029_78703f481b20-768x432.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/mergulhando-na-onda-pop-coreana/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/97437",
+     "coletado_em": "2026-11-08T14:42:45-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/mergulhando-na-onda-pop-coreana/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-09T21:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-09T19:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/mergulhando-na-onda-pop-coreana/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Mergulhando na onda pop coreana"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Curso online | 09, 16, 23 e 30 de novembro, segundas, das 19h às 21h"
    }
   },
   {
@@ -1980,6 +2550,54 @@
   },
   {
    "area": {
+    "o": 0,
+    "v": "danca"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Dança"
+   },
+   "fonte": "municipal",
+   "id": "municipal-27124",
+   "imagem": {
+    "credito": "Divulgação / Theatro Municipal",
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/10/larissapaz-0594-26.png"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/eventos/municipal-circula-no-ceu-cidade-dutra/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:51:37-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/municipal-circula-no-ceu-cidade-dutra/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre para todos os públicos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 60
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-13T14:30"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Municipal Circula – Balé da Cidade no CEU Cidade Dutra"
+   }
+  },
+  {
+   "area": {
     "o": 1,
     "v": "danca"
    },
@@ -2112,6 +2730,349 @@
    "trecho": {
     "o": 0,
     "v": "Espetáculo investiga os efeitos do uso intensificado das telas sobre o corpo, as relações humanas e a percepção do que é real e do que é ficção."
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "exposicao"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Exposição"
+   },
+   "fonte": "mam",
+   "id": "mam-39o-panorama-da-arte-brasileira-depois-que-tudo-foi-dito",
+   "imagem": {
+    "credito": "Divulgação / MAM São Paulo",
+    "o": 0,
+    "v": "https://mam.org.br/wp-content/uploads/2025/11/captura-de-tela-2026-05-19-as-114154-1920x600.png"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mam.org.br/exposicao/39o-panorama-da-arte-brasileira-depois-que-tudo-foi-dito/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:55:50-03:00",
+     "fonte": "mam",
+     "url": "https://mam.org.br/exposicao/39o-panorama-da-arte-brasileira-depois-que-tudo-foi-dito/"
+    }
+   ],
+   "sessoes": [
+    {
+     "ate": {
+      "o": 0,
+      "v": "2027-01-24"
+     },
+     "estreia": {
+      "o": 0,
+      "v": "2026-09-12"
+     },
+     "lugar": "mam-sao-paulo",
+     "site": {
+      "o": 0,
+      "v": "https://mam.org.br/exposicao/39o-panorama-da-arte-brasileira-depois-que-tudo-foi-dito/"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "39º Panorama da Arte Brasileira: Depois que tudo foi dito"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "exposicao"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Exposição"
+   },
+   "fonte": "masp",
+   "id": "masp-historias-latino-americanas",
+   "imagem": {
+    "credito": "Divulgação / MASP: Autoria desconhecida (Alto Peru, Bolívia), Virgem de Copacabana, 1730-50. Acervo MASP, doação Lais Zogbi Porto e Telmo Porto, 2008. Foto João Musa",
+    "o": 0,
+    "v": "https://assets.masp.org.br/uploads/exposures/HAaGPsOmYNzLViKQwg5E-ajg0xlyviDq6pFnjnYqy.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://masp.org.br/exposicoes/historias-latino-americanas"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:55:48-03:00",
+     "fonte": "masp",
+     "url": "https://masp.org.br/exposicoes/historias-latino-americanas"
+    }
+   ],
+   "sessoes": [
+    {
+     "ate": {
+      "o": 0,
+      "v": "2027-01-31"
+     },
+     "estreia": {
+      "o": 0,
+      "v": "2026-09-04"
+     },
+     "lugar": "masp",
+     "site": {
+      "o": 0,
+      "v": "https://masp.org.br/exposicoes/historias-latino-americanas"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Histórias latino-americanas"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "exposicao"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Exposição"
+   },
+   "fonte": "masp",
+   "id": "masp-jesus-soto",
+   "imagem": {
+    "credito": "Divulgação / MASP: Jesús Soto, Metal negro y metal [Metal negro e metal], 1969. Institute for Studies on Latin American Art - ISLAA, Nova York",
+    "o": 0,
+    "v": "https://assets.masp.org.br/uploads/exposures/3Yz5wegCD5YOdadvjURU-56HS0MwcoIE4dVeydmI5.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://masp.org.br/exposicoes/jesus-soto"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:55:48-03:00",
+     "fonte": "masp",
+     "url": "https://masp.org.br/exposicoes/jesus-soto"
+    }
+   ],
+   "sessoes": [
+    {
+     "ate": {
+      "o": 0,
+      "v": "2027-04-04"
+     },
+     "estreia": {
+      "o": 0,
+      "v": "2026-11-27"
+     },
+     "lugar": "masp",
+     "site": {
+      "o": 0,
+      "v": "https://masp.org.br/exposicoes/jesus-soto"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Jesús Soto"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "exposicao"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Exposição"
+   },
+   "fonte": "masp",
+   "id": "masp-manuel-herreros-mateo-manaure-mi-nombre-es-venezuela",
+   "imagem": {
+    "credito": "Divulgação / MASP",
+    "o": 0,
+    "v": "https://assets.masp.org.br/uploads/exposures/JX1YA92sFGYnkoLUoMqI-vh5Ibu8mvj575zXSb43p.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://masp.org.br/exposicoes/manuel-herreros-mateo-manaure-mi-nombre-es-venezuela"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:55:48-03:00",
+     "fonte": "masp",
+     "url": "https://masp.org.br/exposicoes/manuel-herreros-mateo-manaure-mi-nombre-es-venezuela"
+    }
+   ],
+   "sessoes": [
+    {
+     "ate": {
+      "o": 0,
+      "v": "2027-04-04"
+     },
+     "estreia": {
+      "o": 0,
+      "v": "2026-11-27"
+     },
+     "lugar": "masp",
+     "site": {
+      "o": 0,
+      "v": "https://masp.org.br/exposicoes/manuel-herreros-mateo-manaure-mi-nombre-es-venezuela"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Manuel Herreros & Mateo Manaure: mi nombre es Venezuela"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "exposicao"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Exposição"
+   },
+   "fonte": "masp",
+   "id": "masp-pablo-delano-museu-da-antiga-colonia",
+   "imagem": {
+    "credito": "Divulgação / MASP: Pablo Delano, vista da instalação Museu da Antiga Colônia, 2024. Foto Pablo Delano",
+    "o": 0,
+    "v": "https://assets.masp.org.br/uploads/exposures/ZYUY6WEotg5RB2akcSWa-626h43FFNyrGkCsET6MM.png"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://masp.org.br/exposicoes/pablo-delano-museu-da-antiga-colonia"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:55:48-03:00",
+     "fonte": "masp",
+     "url": "https://masp.org.br/exposicoes/pablo-delano-museu-da-antiga-colonia"
+    }
+   ],
+   "sessoes": [
+    {
+     "ate": {
+      "o": 0,
+      "v": "2027-01-31"
+     },
+     "estreia": {
+      "o": 0,
+      "v": "2026-10-30"
+     },
+     "lugar": "masp",
+     "site": {
+      "o": 0,
+      "v": "https://masp.org.br/exposicoes/pablo-delano-museu-da-antiga-colonia"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Pablo Delano: O museu da antiga colônia"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "exposicao"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Exposição"
+   },
+   "fonte": "masp",
+   "id": "masp-rosa-elena-curruchich-cronicas-de-comalapa",
+   "imagem": {
+    "credito": "Divulgação / MASP: Rosa Elena Curruchich, Rosa Elena van a tejer río Chiperen [Rosa Elena vai tecer no rio Chiperen], circa 1980. Acervo MASP, doação anônima no contexto da Bienna",
+    "o": 0,
+    "v": "https://assets.masp.org.br/uploads/exposures/tfFSc1gwEOuHZ0ML18L7-bX2HpvaM18ebEa4eGBmk.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://masp.org.br/exposicoes/rosa-elena-curruchich-cronicas-de-comalapa"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:55:48-03:00",
+     "fonte": "masp",
+     "url": "https://masp.org.br/exposicoes/rosa-elena-curruchich-cronicas-de-comalapa"
+    }
+   ],
+   "sessoes": [
+    {
+     "ate": {
+      "o": 0,
+      "v": "2027-04-04"
+     },
+     "estreia": {
+      "o": 0,
+      "v": "2026-10-30"
+     },
+     "lugar": "masp",
+     "site": {
+      "o": 0,
+      "v": "https://masp.org.br/exposicoes/rosa-elena-curruchich-cronicas-de-comalapa"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Rosa Elena Curruchich: crônicas de Comalapa"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "exposicao"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Exposição"
+   },
+   "fonte": "masp",
+   "id": "masp-sala-de-video-edgar-calel",
+   "imagem": {
+    "credito": "Divulgação / MASP: Edgar Calel. Ab’ej taj ch’ab’el – Palabras de piedra [Ab’ej taj ch’ab’el – Palavras de Pedra], 2025",
+    "o": 0,
+    "v": "https://assets.masp.org.br/uploads/exposures/ceRt8B3degGDzqaU3a8G-VOHcbT7pbO2OtMomIeSp.png"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://masp.org.br/exposicoes/sala-de-video-edgar-calel"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:55:48-03:00",
+     "fonte": "masp",
+     "url": "https://masp.org.br/exposicoes/sala-de-video-edgar-calel"
+    }
+   ],
+   "sessoes": [
+    {
+     "ate": {
+      "o": 0,
+      "v": "2027-01-31"
+     },
+     "estreia": {
+      "o": 0,
+      "v": "2026-10-30"
+     },
+     "lugar": "masp",
+     "site": {
+      "o": 0,
+      "v": "https://masp.org.br/exposicoes/sala-de-video-edgar-calel"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Sala de vídeo: Edgar Calel"
    }
   },
   {
@@ -3300,6 +4261,887 @@
    "trecho": {
     "o": 0,
     "v": "www.ticketmaster.com.br/ A montagem convida crianças e famílias a refletirem sobre os impactos do lixo plástico nos oceanos."
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "fonte": "mis",
+   "id": "mis-concerto-sp-chamber-orchestra",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/Claudio-Cruz-768x508.jpeg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/concerto-sp-chamber-orchestra/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98463",
+     "coletado_em": "2026-11-08T14:42:45-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/concerto-sp-chamber-orchestra/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-22T13:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-22T11:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/concerto-sp-chamber-orchestra/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Concerto SP Chamber Orchestra"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "O MIS recebe o violinista e maestro Cláudio Cruz como solista, sob a regência de Giovanna Elias"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Música"
+   },
+   "fonte": "municipal",
+   "id": "municipal-21966",
+   "imagem": {
+    "credito": "Divulgação / Theatro Municipal",
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/06/084_rafael-salvador_cr7_6435.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/eventos/corpo-sonoro/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:51:37-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/corpo-sonoro/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre para todos os públicos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 70
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/orquestra-experimental-corpo-sonoro"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-20T11:00"
+     },
+     "lugar": "theatro-municipal"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Corpo Sonoro"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "fonte": "mis",
+   "id": "mis-estereo-mis-vitao",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/IMG_2185-768x512.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/estereo-mis-vitao/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98448",
+     "coletado_em": "2026-11-08T14:42:45-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/estereo-mis-vitao/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-13T21:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-13T19:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/estereo-mis-vitao/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Estéreo MIS | Vitão"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Vitão, cantor e compositor paulistano que se consolidou como um dos nomes de destaque da nova geração da música brasileira"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Música"
+   },
+   "fonte": "municipal",
+   "id": "municipal-27151",
+   "imagem": {
+    "credito": "Divulgação / Theatro Municipal",
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/11/larissapaz-2-scaled.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/eventos/festival-ecos-latinoamericanos-misa-criolla-coral-paulistano-e-indiana-nomma/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:51:37-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/festival-ecos-latinoamericanos-misa-criolla-coral-paulistano-e-indiana-nomma/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre para todos os públicos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 60
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://tickets.oneboxtds.com/osesp/events/61191"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-19T20:30"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Festival Ecos Latinoamericanos: Misa Criolla, Coral Paulistano e Indiana Nomma"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Concertos"
+   },
+   "fonte": "municipal",
+   "id": "municipal-27128",
+   "imagem": {
+    "credito": "Divulgação / Theatro Municipal",
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/11/larissapaz-6160-scaled.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/eventos/municipal-circula-orquestra-experimental-de-repertorio-no-ceu-vila-atlantica/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:51:37-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/municipal-circula-orquestra-experimental-de-repertorio-no-ceu-vila-atlantica/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre para todos os públicos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 60
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-24T16:00"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Municipal Circula – Orquestra Experimental de Repertório no CEU Vila Atlântica"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Concertos"
+   },
+   "fonte": "municipal",
+   "id": "municipal-9758",
+   "imagem": {
+    "credito": "Divulgação / Theatro Municipal",
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/wp-content/uploads/2025/08/6E7A6541.LARISSA-PAZ-2.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/eventos/concerto-nativita-del-signore/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:51:37-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/concerto-nativita-del-signore/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre para todos os públicos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 50
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/concerto-nativita-del-signore"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-03T20:00"
+     },
+     "lugar": "praca-das-artes"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Natività Del Signore"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Concertos"
+   },
+   "fonte": "municipal",
+   "id": "municipal-9761",
+   "imagem": {
+    "credito": "Divulgação / Theatro Municipal",
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/wp-content/uploads/2025/08/LARISSAPAZ-7084-e1755567673937.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/eventos/concerto-noite-de-festa/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:51:37-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/concerto-noite-de-festa/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre para todos os públicos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 80
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/noite-de-festa"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-18T20:00"
+     },
+     "lugar": "theatro-municipal"
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre para todos os públicos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 80
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/noite-de-festa"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-19T17:00"
+     },
+     "lugar": "theatro-municipal"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Noite de Festa"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Concertos"
+   },
+   "fonte": "municipal",
+   "id": "municipal-23758",
+   "imagem": {
+    "credito": "Divulgação / Theatro Municipal",
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/07/007_rafael-salvador_cr5_1076.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/eventos/orquestra-experimental-de-repertorio-palavra-em-travessia/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:51:37-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/orquestra-experimental-de-repertorio-palavra-em-travessia/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre para todos os públicos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 40
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/orquestra-experimental-de-repertorio-apresenta-palavra-em-travessia"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-08T11:00"
+     },
+     "lugar": "theatro-municipal"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Palavra em Travessia"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Concertos"
+   },
+   "fonte": "municipal",
+   "id": "municipal-21961",
+   "imagem": {
+    "credito": "Divulgação / Theatro Municipal",
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/06/larissapaz-0308-scaled.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/eventos/quarteto-convida-heloisa-fernandes/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:51:37-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/quarteto-convida-heloisa-fernandes/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre para todos os públicos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 60
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/quarteto-convida-heloisa-fernandes"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-12T20:00"
+     },
+     "lugar": "praca-das-artes"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Quarteto convida Heloisa Fernandes"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Música"
+   },
+   "fonte": "municipal",
+   "id": "municipal-16727",
+   "imagem": {
+    "credito": "Divulgação / Theatro Municipal",
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/01/capa_-opcao-2_ef9a2338.larissa-paz-scaled.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/eventos/quarteto-de-cordas-apresenta-dialogos-price-brahms-e-dvorak/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:51:37-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/quarteto-de-cordas-apresenta-dialogos-price-brahms-e-dvorak/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre para todos os públicos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 60
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/quarteto-de-cordas-apresenta-dialogos-price-brahms-e-dvorak"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-26T20:00"
+     },
+     "lugar": "praca-das-artes"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Quarteto de Cordas – Diálogos: Price, Brahms e Dvořák"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Concertos"
+   },
+   "fonte": "municipal",
+   "id": "municipal-27163",
+   "imagem": {
+    "credito": "Divulgação / Theatro Municipal",
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/11/larissapaz-0342-scaled.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/eventos/quarteto-de-cordas-na-biblioteca-brasiliana-guita-e-jose-mindlin-usp/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:51:37-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/quarteto-de-cordas-na-biblioteca-brasiliana-guita-e-jose-mindlin-usp/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre para todos os públicos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 50
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-19T17:00"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Quarteto de Cordas no Festival Britten"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Música"
+   },
+   "fonte": "municipal",
+   "id": "municipal-26722",
+   "imagem": {
+    "credito": "Divulgação / Theatro Municipal",
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/10/creditos-paschoal-rodriguez-10-scaled.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/eventos/tarsila-a-brasileira/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:51:37-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/tarsila-a-brasileira/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Acima de 10 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 150
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/tarsila-a-brasileira"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-12T15:00"
+     },
+     "lugar": "theatro-municipal"
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Acima de 10 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 150
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/tarsila-a-brasileira"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-12T20:00"
+     },
+     "lugar": "theatro-municipal"
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Acima de 10 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 150
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/tarsila-a-brasileira"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-13T15:00"
+     },
+     "lugar": "theatro-municipal"
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Acima de 10 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 150
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/tarsila-a-brasileira"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-13T20:00"
+     },
+     "lugar": "theatro-municipal"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Tarsila, a brasileira"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "opera"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Ópera"
+   },
+   "fonte": "municipal",
+   "id": "municipal-24586",
+   "imagem": {
+    "credito": "Divulgação / Theatro Municipal",
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/08/os-pescadores-de-perolas.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/eventos/opera-os-pescadores-de-perolas-de-georges-bizet/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:51:37-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/opera-os-pescadores-de-perolas-de-georges-bizet/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Acima de 12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 150
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/opera-pescadores-de-perolas-ctmsp"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-27T20:00"
+     },
+     "lugar": "theatro-municipal"
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Acima de 12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 150
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/opera-pescadores-de-perolas-ctmsp"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-28T17:00"
+     },
+     "lugar": "theatro-municipal"
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Acima de 12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 150
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/opera-pescadores-de-perolas-ctmsp"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-29T17:00"
+     },
+     "lugar": "theatro-municipal"
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Acima de 12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 150
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/opera-pescadores-de-perolas-ctmsp"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-01T20:00"
+     },
+     "lugar": "theatro-municipal"
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Acima de 12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 150
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/opera-pescadores-de-perolas-ctmsp"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-02T20:00"
+     },
+     "lugar": "theatro-municipal"
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Acima de 12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 150
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/opera-pescadores-de-perolas-ctmsp"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-04T20:00"
+     },
+     "lugar": "theatro-municipal"
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Acima de 12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 150
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/opera-pescadores-de-perolas-ctmsp"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-05T17:00"
+     },
+     "lugar": "theatro-municipal"
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Acima de 12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 150
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/opera-pescadores-de-perolas-ctmsp"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-06T17:00"
+     },
+     "lugar": "theatro-municipal"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Ópera Os Pescadores de Pérolas, de Georges Bizet"
    }
   },
   {
@@ -12226,8 +14068,8 @@
    "nota": "47 sessões nos próximos 45 dias",
    "ok": true,
    "publicada": true,
-   "rodou_em": "2026-11-08T14:34:18-03:00",
-   "ultima_coleta_boa": "2026-11-08T14:34:18-03:00"
+   "rodou_em": "2026-11-08T14:42:40-03:00",
+   "ultima_coleta_boa": "2026-11-08T14:42:40-03:00"
   },
   "guiaoff": {
    "erro": null,
@@ -12237,9 +14079,45 @@
    "publicada": true,
    "rodou_em": "2026-11-08T14:34:14-03:00",
    "ultima_coleta_boa": "2026-11-08T14:34:14-03:00"
+  },
+  "mam": {
+   "erro": null,
+   "itens": 1,
+   "nota": null,
+   "ok": true,
+   "publicada": true,
+   "rodou_em": "2026-11-08T14:55:56-03:00",
+   "ultima_coleta_boa": "2026-11-08T14:55:56-03:00"
+  },
+  "masp": {
+   "erro": null,
+   "itens": 6,
+   "nota": null,
+   "ok": true,
+   "publicada": true,
+   "rodou_em": "2026-11-08T14:55:50-03:00",
+   "ultima_coleta_boa": "2026-11-08T14:55:50-03:00"
+  },
+  "mis": {
+   "erro": null,
+   "itens": 10,
+   "nota": "10 sessões nos próximos 45 dias",
+   "ok": true,
+   "publicada": true,
+   "rodou_em": "2026-11-08T14:42:45-03:00",
+   "ultima_coleta_boa": "2026-11-08T14:42:45-03:00"
+  },
+  "municipal": {
+   "erro": null,
+   "itens": 12,
+   "nota": "83 páginas de evento conferidas",
+   "ok": true,
+   "publicada": true,
+   "rodou_em": "2026-11-08T14:55:32-03:00",
+   "ultima_coleta_boa": "2026-11-08T14:55:32-03:00"
   }
  },
- "gerado_em": "2026-11-08T14:36:49-03:00",
+ "gerado_em": "2026-11-08T14:55:56-03:00",
  "hoje": "2026-11-08",
  "lugares": {
   "agora-teatro": {
@@ -12670,7 +14548,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-08T14:34:18-03:00",
+     "coletado_em": "2026-11-08T14:42:40-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br"
     }
@@ -13126,6 +15004,72 @@
     }
    ]
   },
+  "mam-sao-paulo": {
+   "cidade": {
+    "o": 0,
+    "v": "São Paulo"
+   },
+   "id": "mam-sao-paulo",
+   "nome": {
+    "o": 0,
+    "v": "MAM São Paulo"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:55:50-03:00",
+     "fonte": "mam",
+     "url": "https://mam.org.br"
+    }
+   ],
+   "site": {
+    "o": 0,
+    "v": "https://mam.org.br"
+   }
+  },
+  "masp": {
+   "cidade": {
+    "o": 0,
+    "v": "São Paulo"
+   },
+   "id": "masp",
+   "nome": {
+    "o": 0,
+    "v": "MASP"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:55:48-03:00",
+     "fonte": "masp",
+     "url": "https://masp.org.br"
+    }
+   ],
+   "site": {
+    "o": 0,
+    "v": "https://masp.org.br"
+   }
+  },
+  "mis-museu-da-imagem-e-do-som": {
+   "cidade": {
+    "o": 0,
+    "v": "São Paulo"
+   },
+   "id": "mis-museu-da-imagem-e-do-som",
+   "nome": {
+    "o": 0,
+    "v": "MIS - Museu da Imagem e do Som"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:42:45-03:00",
+     "fonte": "mis",
+     "url": "https://www.mis-sp.org.br"
+    }
+   ],
+   "site": {
+    "o": 0,
+    "v": "https://www.mis-sp.org.br"
+   }
+  },
   "mis-museu-de-imagem-e-som": {
    "endereco_texto": {
     "o": 0,
@@ -13263,6 +15207,24 @@
      "coletado_em": "2026-11-08T14:34:14-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/kleztival-2026-170-festival-internacional-de-musica-judaica/"
+    }
+   ]
+  },
+  "praca-das-artes": {
+   "cidade": {
+    "o": 0,
+    "v": "São Paulo"
+   },
+   "id": "praca-das-artes",
+   "nome": {
+    "o": 0,
+    "v": "Praça das Artes"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:51:37-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/quarteto-convida-heloisa-fernandes/"
     }
    ]
   },
@@ -14705,6 +16667,24 @@
      "coletado_em": "2026-11-08T14:34:14-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/o-alienista-2/"
+    }
+   ]
+  },
+  "theatro-municipal": {
+   "cidade": {
+    "o": 0,
+    "v": "São Paulo"
+   },
+   "id": "theatro-municipal",
+   "nome": {
+    "o": 0,
+    "v": "Theatro Municipal"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:51:37-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/orquestra-experimental-de-repertorio-palavra-em-travessia/"
     }
    ]
   },

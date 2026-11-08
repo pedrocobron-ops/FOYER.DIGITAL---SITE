@@ -88,6 +88,29 @@ Actions não entra. Caminhos a decidir com o Pedro: pedir ao Sesc acesso ou
 parceria (eles têm a API pronta), ou rodar a coleta do Sesc de outro lugar
 (só se o Sesc não estiver bloqueando de propósito; nunca contornar bloqueio).
 
+**Ampliação (08/11/2026, pedido do Pedro: "incluir todas as fontes, na
+ordem que achar melhor, com imagem"):** entraram Theatro Municipal
+(coleta_municipal.py: lista pela API, datas, local, duração, classificação,
+ingresso e foto pela página de cada evento, com cache), MASP e MAM
+(coleta_exposicoes.py) e MIS (no coleta_calendario.py). Total: 7 fontes,
+cerca de 216 programas no dia.
+Testados e sem caminho seguro por enquanto: Belas Artes, Cinesala e Reserva
+Cultural (horários não legíveis com segurança), Pinacoteca (404), Japan
+House, Farol Santander e Teatro Santander (403 para robôs), Itaú Cultural
+(página montada por JavaScript), Osesp, Tomie Ohtake, CCSP, Teatro Porto,
+Blue Note, Sesi, Museu do Ipiranga, Oficina (sem dado estruturado: um leitor
+por site, próximos da fila), Biblioteca Mário de Andrade e TUCA (não
+responderam).
+
+**Decisão sobre imagens (08/11/2026, pedido do Pedro):** só a foto oficial
+que o próprio lugar publica para divulgar o evento (og:image ou a foto do
+calendário dele). A foto não é copiada para o FOYER: a página aponta para o
+endereço no site do lugar, mostra o crédito ("Divulgação / MASP: legenda") e
+leva de volta à fonte. Se a foto sair do ar, o cartão some com ela. Guia OFF
+não publica foto: as peças que só ele traz ficam sem imagem. Quando o guia
+abrir ao público, o ideal é guardar as fotos no R2 com autorização dos
+lugares ou das assessorias.
+
 Observações importantes:
 - **Guia OFF** sinaliza "use=reference" e "ai-train=no": o uso combinado é
   listar com link para eles (como um buscador) e trecho curto. O coletor é

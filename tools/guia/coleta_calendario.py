@@ -24,8 +24,26 @@ SITES = [
      'area': 'cinema', 'cidade': 'São Paulo',
      # categoria do site -> área do guia
      'areas': {'Sessão': 'cinema', 'Infantil': 'cinema', 'Evento': 'cinema', 'Cursos e debates': 'cinema'}},
+    # MIS (Museu da Imagem e do Som), testado em 08/11/2026: mesmo calendário,
+    # com foto; sem preço e sem sala. Categoria quase sempre vazia: a área sai
+    # de palavras do título, e o que não casar fica em "eventos".
+    {'fonte': 'mis', 'nome': 'MIS - Museu da Imagem e do Som', 'base': 'https://www.mis-sp.org.br',
+     'area': 'eventos', 'cidade': 'São Paulo', 'areas': {'Cursos': 'cursos'},
+     'palavras': [(r'concerto|estéreo|show|orquestra', 'musica'),
+                  (r'cinemat|cinema|sessão|mostra|festival|filme', 'cinema')]},
 ]
 DIAS = 45      # janela: hoje até 45 dias à frente
+
+
+def _img(e):
+    im = e.get('image')
+    if not isinstance(im, dict):
+        return None
+    tam = im.get('sizes') or {}
+    for k in ('medium_large', 'large', 'medium'):
+        if isinstance(tam.get(k), dict) and tam[k].get('url'):
+            return tam[k]['url']
+    return im.get('url')
 
 
 def coleta(site):
@@ -54,7 +72,9 @@ def coleta(site):
                             'site': campo(site['base'], 0),
                             'origens': [{'fonte': site['fonte'], 'url': site['base'], 'coletado_em': coletado}]}
         cats = [c.get('name') for c in e.get('categories', [])]
-        area = next((site['areas'][c] for c in cats if c in site['areas']), site['area'])
+        area = next((site['areas'][c] for c in cats if c in site['areas']), None)
+        if not area:
+            area = next((a for rx, a in site.get('palavras', []) if re.search(rx, titulo, re.I)), site['area'])
         # uma obra por título (o mesmo filme em vários dias vira várias sessões)
         chave = slug(titulo)
         o = obras.get(chave)
@@ -64,6 +84,9 @@ def coleta(site):
                 'categoria': campo(', '.join(c for c in cats if c), 0),
                 'link_fonte': campo(e.get('url'), 0),
                 'trecho': campo(trecho(limpa(e.get('excerpt') or e.get('description') or '')), 0),
+                # foto oficial publicada pelo próprio lugar: só o endereço (fica
+                # no site deles), com crédito e link de volta na página
+                'imagem': campo(_img(e), 0, credito='Divulgação / ' + site['nome']),
                 'sessoes': [], 'origens': []}
         o['origens'].append({'fonte': site['fonte'], 'url': e.get('url'), 'coletado_em': coletado,
                              'api': e.get('rest_url')})

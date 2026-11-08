@@ -46,6 +46,9 @@ h1{font:600 26px/1.2 Georgia,serif;margin:0 0 4px}
 a{color:var(--ac)}
 sup a{text-decoration:none;font-size:11px;margin-left:2px}
 .ded{color:var(--av);font-size:12px}
+.foto{margin:-12px -14px 10px;position:relative}
+.foto img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px 10px 0 0;background:var(--li)}
+.foto figcaption{font-size:11px;color:var(--mu);padding:4px 14px 0}
 details{margin-top:24px;font-size:13px;color:var(--mu)}
 </style>
 </head>
@@ -62,8 +65,8 @@ details{margin-top:24px;font-size:13px;color:var(--mu)}
 </main>
 <script>
 const D = __DADOS__;
-const AREAS = {teatro:'Teatro', danca:'Dança', infantil:'Infantil', eventos:'Eventos e festivais', cinema:'Cinema', musica:'Música', exposicao:'Exposições', literatura:'Literatura'};
-const NOMES = {guiaoff:'Guia OFF', cinemateca:'Cinemateca Brasileira'};
+const AREAS = {teatro:'Teatro', opera:'Ópera', danca:'Dança', infantil:'Infantil', eventos:'Eventos e festivais', cinema:'Cinema', musica:'Música', exposicao:'Exposições', literatura:'Literatura', cursos:'Cursos e oficinas'};
+const NOMES = {guiaoff:'Guia OFF', cinemateca:'Cinemateca Brasileira', municipal:'Theatro Municipal', masp:'MASP', mam:'MAM São Paulo', mis:'MIS'};
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const dt = iso => { try { return new Date(iso).toLocaleString('pt-BR', {dateStyle:'short', timeStyle:'short'}); } catch(e) { return iso; } };
 const dia = iso => iso.length > 10 ? new Date(iso).toLocaleString('pt-BR', {weekday:'short', day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'}) : iso.split('-').reverse().join('/');
@@ -111,7 +114,9 @@ function card(ev) {
       linha('Classificação', ev, s.classificacao) + linha('Ingresso', ev, s.ingresso, link) +
       linha('Site', ev, s.site, link) + linha('Obs.', ev, s.obs) + `</dl></div>`;
   }).join('');
-  return `<article class="ev"><span class="tag">${esc(AREAS[val(ev.area)] || val(ev.area))}${ev.categoria ? ' · ' + esc(val(ev.categoria)) : ''} · fonte: ${esc(NOMES[ev.fonte] || ev.fonte)}</span>` +
+  const foto = ev.imagem ? `<figure class="foto"><img loading="lazy" referrerpolicy="no-referrer" alt="" src="${esc(val(ev.imagem))}" onerror="this.parentNode.remove()">` +
+    `<figcaption>${esc(ev.imagem.credito || 'Divulgação')}${fonte(ev, ev.imagem)}</figcaption></figure>` : '';
+  return `<article class="ev">${foto}<span class="tag">${esc(AREAS[val(ev.area)] || val(ev.area))}${ev.categoria ? ' · ' + esc(val(ev.categoria)) : ''} · fonte: ${esc(NOMES[ev.fonte] || ev.fonte)}</span>` +
     `<h2><a href="${esc(val(ev.link_fonte))}" target="_blank" rel="noopener nofollow">${esc(val(ev.titulo))}</a>${fonte(ev, ev.titulo)}</h2>` +
     (ev.trecho ? `<p>${esc(val(ev.trecho))}${fonte(ev, ev.trecho)}</p>` : '') +
     (ev.ficha ? `<p style="font-size:13px;color:var(--mu)">${esc(val(ev.ficha))}${fonte(ev, ev.ficha)}</p>` : '') +
