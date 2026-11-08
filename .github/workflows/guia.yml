@@ -1,0 +1,59 @@
+name: Relógio do Guia
+
+# Guia interativo (tools/guia/BRIEFING.md). Todo dia de madrugada os coletores
+# buscam a agenda nas fontes públicas, juntam tudo em import/guia/agenda.json
+# e pedem uma publicação nova do site. Só código determinístico: não gasta
+# crédito do Claude. Repositório público: o GitHub Actions é de graça.
+on:
+  schedule:
+    # 06:17 UTC = 03:17 em São Paulo (minuto quebrado para fugir da fila das horas cheias)
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write     # para pedir a publicação (pages.yml) depois de gravar
+
+concurrency:
+  group: guia
+  cancel-in-progress: false
+
+jobs:
+  coletar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      # Cada coletor que falha marca a própria fonte como quebrada e segue: o
+      # junta.py tira do ar o que ficar velho e a página mostra o aviso.
+      - name: Guia OFF (teatro, dança, infantil)
+        run: python3 tools/guia/coleta_guiaoff.py || echo "::warning::Guia OFF falhou hoje"
+      - name: Calendários abertos (Cinemateca)
+        run: python3 tools/guia/coleta_calendario.py || echo "::warning::calendário falhou hoje"
+      - name: Sonda das fontes ainda sem coletor (SP Cultura, Sesc)
+        run: python3 tools/guia/sonda_fontes.py || true
+      - name: Juntar, tirar o que acabou, registrar mudanças
+        run: python3 tools/guia/junta.py
+
+      - name: Guardar e pedir a publicação
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add import/guia
+          if git diff --cached --quiet; then
+            echo "Nada mudou na agenda."
+            exit 0
+          fi
+          git config user.name "Relógio do Guia (Foyer)"
+          git config user.email "actions@github.com"
+          git commit -m "Guia: agenda do dia [skip ci]"
+          # a Coxia grava na mesma branch o tempo todo: sempre rebase antes do push
+          for i in 1 2 3 4; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}" && ok=1 && break
+            sleep $((i * 10))
+          done
+          [ "${ok:-}" = 1 ] || { echo "::error::não consegui gravar a agenda"; exit 1; }
+          # push feito com o token da Action não dispara o pages.yml sozinho;
+          # o pedido manual (workflow_dispatch) dispara.
+          gh workflow run pages.yml --ref "${GITHUB_REF_NAME}"

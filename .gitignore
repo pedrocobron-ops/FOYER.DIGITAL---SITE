@@ -3,3 +3,6 @@ __pycache__/
 
 # miniaturas das fotos: geradas na montagem (tools/build_pages.py), nunca no repositório
 assets/thumbs/
+
+# página escondida do Guia: gerada na montagem (tools/guia/monta_pagina.py)
+guia/index.html

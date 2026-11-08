@@ -9656,6 +9656,14 @@ def _fotos_para_cdn():
                     fh.write(novo)
                 arqs += 1; trocas += n
     print(f'• fotos apontadas para {CDN}: {trocas} referência(s) em {arqs} arquivo(s)')
+# Guia interativo (08/11/2026): página ESCONDIDA de conferência em /guia/
+# (noindex, fora do sitemap e do menu). Dados e coletores em tools/guia/; ver
+# tools/guia/BRIEFING.md. Se falhar, o resto do site sobe normalmente.
+try:
+    import subprocess as _sp_guia, sys as _sys_guia
+    _sp_guia.run([_sys_guia.executable, os.path.join(ROOT, 'tools/guia/monta_pagina.py')], check=True)
+except Exception as _e_guia:
+    print('• guia: página não montada (' + str(_e_guia)[:120] + ')')
 if CDN:
     _fotos_para_cdn()
 print('pronto')

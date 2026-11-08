@@ -1,4 +1,4 @@
-# GUIA INTERATIVO DO FOYER: briefing do projeto (08/11/2026)
+# GUIA INTERATIVO DO FOYER: briefing do projeto (08/11/2026, atualizado no mesmo dia com a Fase 1)
 
 Pedido do Pedro Amaral (dono do FOYER.DIGITAL). Este arquivo é a fonte da
 verdade do projeto. A sessão dedicada ao guia lê isto antes de tudo e o
@@ -57,36 +57,43 @@ Na prática:
   curto, com link para a fonte. Imagem de terceiro só com licença clara.
 - Ingresso: só link para a bilheteria oficial. O FOYER não vende ingresso.
 
-## 3. Fontes a investigar (lista inicial, validar cada uma)
+## 3. Fontes: inventário (testado em 08/11/2026)
 
-Nada aqui foi testado ainda. O primeiro trabalho é testar uma a uma:
-acessível daqui? que formato? termos permitem? com que frequência muda?
-- **Guia OFF**: indicação do Pedro. Publica todo mês o "livretinho" aberto,
-  com a agenda completa do mês teatral de São Paulo. Fonte principal de
-  teatro. Ver formato (PDF? página?) e termos.
-- **SP Cultura** (agenda da Prefeitura de São Paulo, dados abertos).
-- **Sesc São Paulo** (programação pública de todas as unidades).
-- Teatros e centros culturais com agenda própria: Theatro Municipal, CCSP,
-  Itaú Cultural, IMS Paulista, Teatro Sérgio Cardoso, Teatro Porto, Sesi,
-  Oficina, Teatro Santander, Renault, Bradesco, Procópio Ferreira etc.
-- Museus: MASP, Pinacoteca, MAM, MAC USP, Museu da Língua Portuguesa, Museu
-  do Ipiranga, CCBB SP, Japan House, Farol Santander, Instituto Tomie Ohtake.
-- Bilheterias com páginas públicas de evento (Sympla, Ingresso Rápido,
-  Eventim, Ticket360, Bilheteria Express): só leitura de páginas públicas e
-  só se os termos permitirem.
-- Cinema: programação pública das salas (Belas Artes, Reserva Cultural,
-  Petra Belas Artes, Cinesala, Espaço Itaú, Cinemateca, CineSesc, redes),
-  Mostra Internacional de Cinema de São Paulo, festivais. Dados de filmes:
-  preferir Wikidata/Wikipédia (livre, sem chave). TMDB exige chave gratuita:
-  se for preciso, pedir ao Pedro pelo formulário seguro de credenciais,
-  nunca pelo chat.
-- Literatura: Bienal, Flip (fora de SP, só referência), livrarias com agenda
-  pública (Megafauna, Martins Fontes, Livraria da Travessa, Blooks), Casa
-  Guilherme de Almeida, Biblioteca Mário de Andrade.
-- Como chegar: estações de metrô e trem a partir de dado aberto (Metrô SP,
-  CPTM ou OpenStreetMap). Tempo de deslocamento: link de rota do Google Maps
-  (gratuito, sem API paga). Café, estacionamento e acessibilidade: só do
-  site oficial do lugar ou de etiqueta do OpenStreetMap com fonte.
+Teste feito com User-Agent do FOYER, lendo robots.txt e termos de cada uma.
+"Rede da sessão" = teste daqui; a sonda diária (sondas.json) repete o teste
+de dentro do GitHub, que tem outra rede.
+
+| Fonte | Acesso | Formato | Robots e termos | Muda | Situação |
+|---|---|---|---|---|---|
+| **Guia OFF** (guiaoff.com.br/guia/) | aberto | página HTML bem organizada: um bloco por espetáculo com lugar, endereço, dias, hora, preço, duração, classificação, temporada, link | liberado; "Content-Signal: search=yes, ai-train=no, use=reference" | mensal, com ajustes no mês | **COLETOR PRONTO** (coleta_guiaoff.py). ~240 espetáculos/mês; ~150 a 190 em cartaz no dia |
+| **Cinemateca Brasileira** | aberto | API do calendário (The Events Calendar): título, dia, hora, sala, categoria, link | liberado | diária | **COLETOR PRONTO** (coleta_calendario.py). Preço não vem: o guia não fala de preço |
+| **SP Cultura** (Prefeitura) | recusou a conexão (connection reset) na rede da sessão; o site comum da Prefeitura dá 403 | API Mapas Culturais (conhecida) | não deu para ler | ? | **BLOQUEADO daqui.** A sonda diária testa do GitHub. Se abrir, é o próximo coletor |
+| Dados Abertos SP (dados.prefeitura) | aberto | planilhas | CC-BY | esporádica | só relatórios passados de uma subprefeitura: não serve para agenda |
+| **Sesc SP** | páginas abertas; a API de atividades responde 403 a robôs | páginas de evento com dias e horas; mapa do site (sitemap) com data de atualização de cada página | robots libera tudo; termos não proíbem. O 403 da API é bloqueio de propósito: **não contornar** | diária | **VIÁVEL pelas páginas + sitemap** (só as alteradas desde ontem). Próximo coletor. Cuidado: mistura cursos e esporte, filtrar por categoria |
+| IMS (Paulista) | API aberta (mesmo calendário da Cinemateca) | sem sede (SP, Rio ou Poços) e preço "R$1" em quase tudo | liberado | diária | **FORA** pela regra de ouro até dar para confirmar a sede (talvez pela página do evento) |
+| Theatro Municipal | API WordPress aberta ("eventos") | só título e link; data e preço na página | liberado | semanal | viável lendo as páginas |
+| Reserva Cultural | API aberta ("programacao") | só filmes em cartaz, sem horário | liberado | semanal | horários não estão na API: investigar |
+| Belas Artes, Teatro Porto, CineSesc | não responderam da rede da sessão | ? | ? | ? | testar de novo pela sonda |
+| MASP, Pinacoteca, MAM, Itaú Cultural, Museu da Língua Portuguesa, CCBB, Japan House, Mostra | páginas abertas | HTML; Museu da Língua tem API de exposições ("exponova"); Pinacoteca e MAM com API fechada | robots liberam | mensal (exposições) | viáveis lendo páginas, um a um (Fase 1b) |
+| CCSP | o endereço ccsp.com.br hoje é de outra entidade (Clube de Criação) | | | | achar o endereço certo do Centro Cultural São Paulo |
+| Sympla, Ticket360 | abertos | páginas de evento | Ticket360 com "Content-Signal" igual ao Guia OFF | | **só como link de ingresso**, nunca como fonte de agenda (por ora) |
+| Ingresso Rápido, Eventim | não responderam (Eventim: tempo esgotado) | | | | idem |
+| Wikidata | aberto | API livre, sem chave | liberado | | para a ficha dos filmes (Fase 1b) |
+
+Observações importantes:
+- **Guia OFF** sinaliza "use=reference" e "ai-train=no": o uso combinado é
+  listar com link para eles (como um buscador) e trecho curto. O coletor é
+  só código, sem IA. **Recomendação ao Pedro: avisar o Guia OFF / pedir
+  parceria antes de abrir o guia ao público** (é trabalho editorial deles).
+- Guia OFF escreve datas sem ano ("até 29/11"): o ano é deduzido da data da
+  coleta e o campo leva a marca "ano deduzido".
+- Os blocos de festival no Guia OFF trazem a atração em negrito, não o lugar:
+  o coletor reconhece (sem endereço = atração) e não cria lugar falso.
+- Lista de sites ainda não testados: Itaú Cultural/Espaço Itaú, Petra Belas
+  Artes, Cinesala, Sesi, Oficina (agenda própria), Teatro Santander, Renault,
+  Bradesco, Procópio, Farol Santander, Tomie Ohtake, MAC USP, Museu do
+  Ipiranga, livrarias, Casa Guilherme de Almeida, Biblioteca Mário de Andrade,
+  metrô (GTFS/OpenStreetMap).
 
 ## 4. Como funciona por dentro (proposta inicial, a sessão decide)
 
@@ -114,6 +121,25 @@ acessível daqui? que formato? termos permitem? com que frequência muda?
   não estourar o 1 GB do GitHub Pages.
 - Aplicativo próprio instalável, como a Coxia: manifest e escopo em /guia/.
 
+## 4b. Como ficou (Fase 1, 08/11/2026)
+
+- `tools/guia/comum.py`: busca educada (robots.txt, pausa de 1,5 s por site,
+  User-Agent "FOYER-Guia/1.0", 3 tentativas) e o formato de campo com fonte.
+- `tools/guia/coleta_guiaoff.py` e `tools/guia/coleta_calendario.py`: os dois
+  primeiros coletores. Saem em `import/guia/brutos/`.
+- `tools/guia/sonda_fontes.py`: testa todo dia SP Cultura e Sesc.
+- `tools/guia/junta.py`: junta, tira o que acabou, liga repetidos, registra
+  mudanças, segura fonte velha (3 dias). Sai em `import/guia/agenda.json`.
+- `tools/guia/monta_pagina.py`: a página escondida `guia/index.html`, chamada
+  pelo `build_pages.py` no fim (os três fluxos que publicam levam a página).
+  Os dados vão embutidos na página, porque o site publicado não leva
+  `import/guia/` (ver `.github/so-o-site.sh`). `guia/index.html` está no
+  .gitignore.
+- `.github/workflows/guia.yml`: "Relógio do Guia", todo dia 03:17 de SP. Roda
+  os coletores, grava com `git pull --rebase` e pede a publicação
+  (`gh workflow run pages.yml`). Custo: zero crédito do Claude.
+- Formato dos dados: `tools/guia/FORMATO.md`.
+
 ## 5. Escondido por enquanto
 
 Em desenvolvimento, o guia mora em foyer.digital/guia/ com noindex, fora do
@@ -126,6 +152,9 @@ conteúdo de exemplo: quando o guia estiver confiável, ele pode alimentá-la.
 Vai virar uma marca dentro do FOYER. A sessão propõe nomes (curtos, em
 português, que digam "achar o que ver") e o Pedro escolhe. Até lá, "Guia".
 
+Propostas de 08/11/2026 (aguardando o Pedro): **Deixa**, **Plateia**,
+**Bússola**, **Programa**, **Achei**. Ver RELATORIO-FASE1.md.
+
 ## 7. Fases
 
 1. **Motor de dados**: inventário e teste das fontes, formato único, um
@@ -133,6 +162,10 @@ português, que digam "achar o que ver") e o Pedro escolhe. Até lá, "Guia".
    mais relevantes, rotina diária no Actions, página escondida mínima para
    conferir os dados. Este é o produto de verdade: sem agenda certa, nada
    mais importa.
+   *Situação em 08/11/2026*: feitos inventário, formato, coletores Guia OFF e
+   Cinemateca, rotina diária e página escondida. Faltam (Fase 1b, nesta
+   ordem): Sesc pelas páginas públicas, fichas dos lugares com metrô, museus,
+   mais cinemas, ligação dos filmes ao Wikidata.
 2. **Produto**: a tela do guia (filtros por área, região, lugar, data,
    preço, gosto), o questionário que afunila, o "monte seu roteiro" do fim
    de semana, aplicativo instalável, cinema completo.
