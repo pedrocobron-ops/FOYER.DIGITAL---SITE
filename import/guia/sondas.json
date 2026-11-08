@@ -1,13 +1,13 @@
 {
- "em": "2026-11-08T14:36:49-03:00",
+ "em": "2026-11-08T15:00:25-03:00",
  "resultado": {
   "sesc_api": {
-   "erro": "PermissionError: robots.txt não permite: https://www.sescsp.org.br/wp-json/wp/v1/atividades/filter?intervalo=hoje&ppp=1",
+   "erro": "PermissionError: o site recusou o robots.txt (HTTP 403): bloqueia esta rede",
    "ok": false,
    "url": "https://www.sescsp.org.br/wp-json/wp/v1/atividades/filter?intervalo=hoje&ppp=1"
   },
   "sesc_mapa": {
-   "erro": "PermissionError: robots.txt não permite: https://www.sescsp.org.br/sitemap_index.xml",
+   "erro": "PermissionError: o site recusou o robots.txt (HTTP 403): bloqueia esta rede",
    "ok": false,
    "url": "https://www.sescsp.org.br/sitemap_index.xml"
   },
