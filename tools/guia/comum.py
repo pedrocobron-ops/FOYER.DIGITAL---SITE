@@ -4,6 +4,7 @@
 # Regra de ouro (BRIEFING.md, seção 2): todo campo guarda de onde veio.
 # Cada registro tem uma lista "origens" (fonte, url, coletado_em) e cada campo
 # é {"v": valor, "o": índice da origem}. Campo sem origem não existe.
+import gzip
 import json
 import os
 import re
@@ -69,7 +70,11 @@ class Educado:
                 req = urllib.request.Request(url, headers={'User-Agent': UA, 'Accept-Language': 'pt-BR'})
                 with urllib.request.urlopen(req, timeout=40) as r:
                     self._ultimo[base] = time.time()
-                    return r.read().decode('utf-8', 'replace')
+                    dados = r.read()
+                    # alguns sites mandam compactado mesmo sem pedir (Osesp)
+                    if r.headers.get('Content-Encoding', '').lower() == 'gzip' or dados[:2] == b'\x1f\x8b':
+                        dados = gzip.decompress(dados)
+                    return dados.decode('utf-8', 'replace')
             except urllib.error.HTTPError as e:
                 self._ultimo[base] = time.time()
                 if e.code < 500:

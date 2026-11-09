@@ -21,7 +21,7 @@ concurrency:
 jobs:
   coletar:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@v4
 
@@ -29,7 +29,7 @@ jobs:
       # junta.py tira do ar o que ficar velho e a página mostra o aviso.
       - name: Guia OFF (teatro, dança, infantil)
         run: python3 tools/guia/coleta_guiaoff.py || echo "::warning::Guia OFF falhou hoje"
-      - name: Calendários abertos (Cinemateca)
+      - name: Calendários abertos (Cinemateca, MIS, Museu do Futebol)
         run: python3 tools/guia/coleta_calendario.py || echo "::warning::calendário falhou hoje"
       - name: Theatro Municipal (música, ópera, dança)
         run: python3 tools/guia/coleta_municipal.py || echo "::warning::Theatro Municipal falhou hoje"
@@ -41,6 +41,12 @@ jobs:
         run: python3 tools/guia/coleta_itaucultural.py || echo "::warning::Itaú Cultural falhou hoje"
       - name: Centro Cultural São Paulo
         run: python3 tools/guia/coleta_ccsp.py || echo "::warning::CCSP falhou hoje"
+      - name: Casas com lista aberta (Blue Note, Teatro Porto, Tomie Ohtake, exposições do MIS)
+        run: python3 tools/guia/coleta_casas.py || echo "::warning::alguma casa falhou hoje"
+      - name: Osesp e Sala São Paulo
+        run: python3 tools/guia/coleta_osesp.py || echo "::warning::Osesp falhou hoje"
+      - name: Amigos da Arte (Teatro Sérgio Cardoso, O Mundo do Circo SP)
+        run: python3 tools/guia/coleta_amigosdaarte.py || echo "::warning::Amigos da Arte falhou hoje"
       - name: Sonda das fontes ainda sem coletor (SP Cultura, Sesc)
         run: python3 tools/guia/sonda_fontes.py || true
       - name: Juntar, tirar o que acabou, registrar mudanças

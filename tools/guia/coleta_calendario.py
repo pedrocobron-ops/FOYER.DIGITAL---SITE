@@ -31,6 +31,12 @@ SITES = [
      'area': 'eventos', 'cidade': 'São Paulo', 'areas': {'Cursos': 'cursos'},
      'palavras': [(r'concerto|estéreo|show|orquestra', 'musica'),
                   (r'cinemat|cinema|sessão|mostra|festival|filme', 'cinema')]},
+    # Museu do Futebol, testado em 09/11/2026: mesmo calendário, com sala
+    # e foto; atividades educativas, oficinas e encontros.
+    {'fonte': 'museufutebol', 'nome': 'Museu do Futebol', 'base': 'https://www.museudofutebol.org.br',
+     'area': 'eventos', 'cidade': 'São Paulo', 'areas': {},
+     'palavras': [(r'oficina|curso|atividade educativa|visita', 'cursos'), (r'infantil|criança|dente de leite', 'infantil'),
+                  (r'filme|cinema|sessão', 'cinema'), (r'show|música|samba', 'musica')]},
 ]
 DIAS = 45      # janela: hoje até 45 dias à frente
 

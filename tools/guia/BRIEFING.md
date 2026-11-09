@@ -132,6 +132,23 @@ importantes, tente por outro caminho"):**
   de parceiros/afiliados das bilheterias (Sympla, Uhuu, Ingresse, Eventim),
   que também abre a renda por afiliação da Fase 4. Decisão do Pedro.
 
+**Terceira ampliação (09/11/2026, Pedro: "pode seguir"):**
+- Museu do Futebol (calendário aberto, no coleta_calendario.py).
+- coleta_casas.py: Blue Note (API com dia, hora, sala, ingresso, esgotado),
+  Teatro Porto (lista pela API, datas na página, ano deduzido), Instituto
+  Tomie Ohtake (exposições; a versão /en/ é ignorada) e exposições do MIS.
+- coleta_osesp.py: Osesp e tudo da Sala São Paulo (inclui Estação Motiva
+  Cultural e Teatro B32 quando a Osesp toca lá), com preço e bilheteria.
+  O site manda as páginas compactadas: comum.py agora descompacta.
+- coleta_amigosdaarte.py: Amigos da Arte, que administra o Teatro Sérgio
+  Cardoso e O Mundo do Circo SP (teatrosergiocardoso.org.br redireciona para
+  amigosdaarte.org.br). Sessões exatas com sala e preços por setor.
+- Sem caminho por enquanto: Auditório Ibirapuera, Teatro Bradesco e Casa de
+  Francisca (página inicial vazia, montada por JavaScript), Museu Afro Brasil
+  (não respondeu).
+- As leituras de página guardam cache em import/guia/cache/: a primeira vez
+  leva até 15 minutos por casa; depois só relê o que mudou.
+
 **Decisão sobre imagens (08/11/2026, pedido do Pedro):** só a foto oficial
 que o próprio lugar publica para divulgar o evento (og:image ou a foto do
 calendário dele). A foto não é copiada para o FOYER: a página aponta para o
