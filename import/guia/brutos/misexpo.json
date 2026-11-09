@@ -1,7 +1,55 @@
 {
- "coletado_em": "2026-11-09T00:02:38-03:00",
+ "coletado_em": "2026-11-09T13:37:17-03:00",
  "fonte": "misexpo",
  "itens": [
+  {
+   "area": {
+    "o": 0,
+    "v": "exposicao"
+   },
+   "id": "misexpo-97541",
+   "imagem": {
+    "credito": "Divulgação / MIS",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/09/32Cirio-de-Nazare-768x512.png"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/exposicao/cirio-de-nazare-do-sagrado-ao-profano-uma-extensao-do-brasil-nova-fotografia-2026/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-09T13:37:17-03:00",
+     "fonte": "misexpo",
+     "url": "https://mis-sp.org.br/exposicao/cirio-de-nazare-do-sagrado-ao-profano-uma-extensao-do-brasil-nova-fotografia-2026/"
+    }
+   ],
+   "sessoes": [
+    {
+     "ate": {
+      "o": 0,
+      "v": "2026-11-22"
+     },
+     "estreia": {
+      "o": 0,
+      "v": "2026-10-06"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som",
+     "quando": {
+      "o": 0,
+      "v": "terças a sextas / 10h às 19h · sábados / 10h às 20h · domingos e feriados / 10h às 18h · *Permanência até 1h após o último horário"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Círio de Nazaré. Do sagrado ao profano: uma extensão do Brasil | Nova Fotografia 2026"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "O ensaio propõe uma imersão fotográfica documental na vivência coletiva do maior festejo religioso do país, onde a fé, a tradição e a cultura popular se entrelaçam."
+   }
+  },
   {
    "area": {
     "o": 0,
@@ -97,54 +145,6 @@
     "o": 0,
     "v": "Ensaios feitos com celular, da Caatinga à paisagem urbana de São Paulo"
    }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "exposicao"
-   },
-   "id": "misexpo-97541",
-   "imagem": {
-    "credito": "Divulgação / MIS",
-    "o": 0,
-    "v": "https://mis-sp.org.br/wp-content/uploads/2026/09/32Cirio-de-Nazare-768x512.png"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://mis-sp.org.br/exposicao/cirio-de-nazare-do-sagrado-ao-profano-uma-extensao-do-brasil-nova-fotografia-2026/"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-08T23:37:03-03:00",
-     "fonte": "misexpo",
-     "url": "https://mis-sp.org.br/exposicao/cirio-de-nazare-do-sagrado-ao-profano-uma-extensao-do-brasil-nova-fotografia-2026/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ate": {
-      "o": 0,
-      "v": "2026-11-15"
-     },
-     "estreia": {
-      "o": 0,
-      "v": "2026-10-06"
-     },
-     "lugar": "mis-museu-da-imagem-e-do-som",
-     "quando": {
-      "o": 0,
-      "v": "terças a sextas / 10h às 19h · sábados / 10h às 20h · domingos e feriados / 10h às 18h · *Permanência até 1h após o último horário"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Círio de Nazaré. Do sagrado ao profano: uma extensão do Brasil | Nova Fotografia 2026"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "O ensaio propõe uma imersão fotográfica documental na vivência coletiva do maior festejo religioso do país, onde a fé, a tradição e a cultura popular se entrelaçam."
-   }
   }
  ],
  "lugares": [
@@ -160,7 +160,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-09T00:02:05-03:00",
+     "coletado_em": "2026-11-09T13:35:34-03:00",
      "fonte": "misexpo",
      "url": "https://www.mis-sp.org.br"
     }
@@ -172,5 +172,5 @@
   }
  ],
  "ok": true,
- "rodou_em": "2026-11-09T00:02:38-03:00"
+ "rodou_em": "2026-11-09T13:37:17-03:00"
 }

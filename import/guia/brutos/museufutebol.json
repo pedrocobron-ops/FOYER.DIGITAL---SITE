@@ -1,186 +1,7 @@
 {
- "coletado_em": "2026-11-08T23:37:49-03:00",
- "erro": "<urlopen error [Errno 101] Network is unreachable>",
+ "coletado_em": "2026-11-09T13:34:11-03:00",
  "fonte": "museufutebol",
  "itens": [
-  {
-   "area": {
-    "o": 0,
-    "v": "cursos"
-   },
-   "id": "museufutebol-visitas-educativas-para-publico-espontaneo",
-   "imagem": {
-    "credito": "Divulgação / Museu do Futebol",
-    "o": 0,
-    "v": "https://museudofutebol.org.br/wp-content/uploads/2024/12/0817_Amaury_02-1-768x435.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-346/"
-   },
-   "origens": [
-    {
-     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22811",
-     "coletado_em": "2026-11-08T23:37:49-03:00",
-     "fonte": "museufutebol",
-     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-346/"
-    },
-    {
-     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22815",
-     "coletado_em": "2026-11-08T23:37:49-03:00",
-     "fonte": "museufutebol",
-     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-347/"
-    },
-    {
-     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22855",
-     "coletado_em": "2026-11-08T23:37:49-03:00",
-     "fonte": "museufutebol",
-     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-348/"
-    },
-    {
-     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22859",
-     "coletado_em": "2026-11-08T23:37:49-03:00",
-     "fonte": "museufutebol",
-     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-349/"
-    },
-    {
-     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22863",
-     "coletado_em": "2026-11-08T23:37:49-03:00",
-     "fonte": "museufutebol",
-     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-350/"
-    },
-    {
-     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22865",
-     "coletado_em": "2026-11-08T23:37:49-03:00",
-     "fonte": "museufutebol",
-     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-351/"
-    }
-   ],
-   "sessoes": [
-    {
-     "fim": {
-      "o": 0,
-      "v": "2026-11-08T12:30"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-08T11:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-346/"
-     },
-     "lugar": "museu-do-futebol",
-     "sala": {
-      "o": 0,
-      "v": "Grande Área"
-     }
-    },
-    {
-     "fim": {
-      "o": 1,
-      "v": "2026-11-08T15:30"
-     },
-     "inicio": {
-      "o": 1,
-      "v": "2026-11-08T14:00"
-     },
-     "link": {
-      "o": 1,
-      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-347/"
-     },
-     "lugar": "museu-do-futebol",
-     "sala": {
-      "o": 1,
-      "v": "Grande Área"
-     }
-    },
-    {
-     "fim": {
-      "o": 2,
-      "v": "2026-11-14T12:30"
-     },
-     "inicio": {
-      "o": 2,
-      "v": "2026-11-14T11:00"
-     },
-     "link": {
-      "o": 2,
-      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-348/"
-     },
-     "lugar": "museu-do-futebol",
-     "sala": {
-      "o": 2,
-      "v": "Grande Área"
-     }
-    },
-    {
-     "fim": {
-      "o": 3,
-      "v": "2026-11-14T15:30"
-     },
-     "inicio": {
-      "o": 3,
-      "v": "2026-11-14T14:00"
-     },
-     "link": {
-      "o": 3,
-      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-349/"
-     },
-     "lugar": "museu-do-futebol",
-     "sala": {
-      "o": 3,
-      "v": "Grande Área"
-     }
-    },
-    {
-     "fim": {
-      "o": 4,
-      "v": "2026-11-15T12:30"
-     },
-     "inicio": {
-      "o": 4,
-      "v": "2026-11-15T11:00"
-     },
-     "link": {
-      "o": 4,
-      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-350/"
-     },
-     "lugar": "museu-do-futebol",
-     "sala": {
-      "o": 4,
-      "v": "Grande Área"
-     }
-    },
-    {
-     "fim": {
-      "o": 5,
-      "v": "2026-11-15T15:30"
-     },
-     "inicio": {
-      "o": 5,
-      "v": "2026-11-15T14:00"
-     },
-     "link": {
-      "o": 5,
-      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-351/"
-     },
-     "lugar": "museu-do-futebol",
-     "sala": {
-      "o": 5,
-      "v": "Grande Área"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Visitas educativas para público espontâneo"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "Nos fins de semana e feriados, o Museu do Futebol oferece visitas acompanhadas pelo time educativo, com grupos de até 15 pessoas por ordem de chegada. A experiência dura cerca de 11h30, começa pela mostra temporária e…"
-   }
-  },
   {
    "area": {
     "o": 0,
@@ -199,7 +20,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22851",
-     "coletado_em": "2026-11-08T23:37:49-03:00",
+     "coletado_em": "2026-11-09T13:34:11-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/encontro-de-colecionadores-de-figurinhas-132/"
     }
@@ -256,7 +77,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22869",
-     "coletado_em": "2026-11-08T23:37:49-03:00",
+     "coletado_em": "2026-11-09T13:34:11-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/22869/"
     }
@@ -309,13 +130,13 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22853",
-     "coletado_em": "2026-11-08T23:37:49-03:00",
+     "coletado_em": "2026-11-09T13:34:11-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/espaco-dente-de-leite-72/"
     },
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22861",
-     "coletado_em": "2026-11-08T23:37:49-03:00",
+     "coletado_em": "2026-11-09T13:34:11-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/espaco-dente-de-leite-73/"
     }
@@ -374,6 +195,134 @@
     "o": 0,
     "v": "cursos"
    },
+   "id": "museufutebol-visitas-educativas-para-publico-espontaneo",
+   "imagem": {
+    "credito": "Divulgação / Museu do Futebol",
+    "o": 0,
+    "v": "https://museudofutebol.org.br/wp-content/uploads/2024/12/0817_Amaury_02-1-768x435.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-348/"
+   },
+   "origens": [
+    {
+     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22855",
+     "coletado_em": "2026-11-09T13:34:11-03:00",
+     "fonte": "museufutebol",
+     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-348/"
+    },
+    {
+     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22859",
+     "coletado_em": "2026-11-09T13:34:11-03:00",
+     "fonte": "museufutebol",
+     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-349/"
+    },
+    {
+     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22863",
+     "coletado_em": "2026-11-09T13:34:11-03:00",
+     "fonte": "museufutebol",
+     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-350/"
+    },
+    {
+     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22865",
+     "coletado_em": "2026-11-09T13:34:11-03:00",
+     "fonte": "museufutebol",
+     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-351/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-14T12:30"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-14T11:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-348/"
+     },
+     "lugar": "museu-do-futebol",
+     "sala": {
+      "o": 0,
+      "v": "Grande Área"
+     }
+    },
+    {
+     "fim": {
+      "o": 1,
+      "v": "2026-11-14T15:30"
+     },
+     "inicio": {
+      "o": 1,
+      "v": "2026-11-14T14:00"
+     },
+     "link": {
+      "o": 1,
+      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-349/"
+     },
+     "lugar": "museu-do-futebol",
+     "sala": {
+      "o": 1,
+      "v": "Grande Área"
+     }
+    },
+    {
+     "fim": {
+      "o": 2,
+      "v": "2026-11-15T12:30"
+     },
+     "inicio": {
+      "o": 2,
+      "v": "2026-11-15T11:00"
+     },
+     "link": {
+      "o": 2,
+      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-350/"
+     },
+     "lugar": "museu-do-futebol",
+     "sala": {
+      "o": 2,
+      "v": "Grande Área"
+     }
+    },
+    {
+     "fim": {
+      "o": 3,
+      "v": "2026-11-15T15:30"
+     },
+     "inicio": {
+      "o": 3,
+      "v": "2026-11-15T14:00"
+     },
+     "link": {
+      "o": 3,
+      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-351/"
+     },
+     "lugar": "museu-do-futebol",
+     "sala": {
+      "o": 3,
+      "v": "Grande Área"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Visitas educativas para público espontâneo"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Nos fins de semana e feriados, o Museu do Futebol oferece visitas acompanhadas pelo time educativo, com grupos de até 15 pessoas por ordem de chegada. A experiência dura cerca de 11h30, começa pela mostra temporária e…"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cursos"
+   },
    "id": "museufutebol-atividade-educativa-mapa-dos-estadios",
    "imagem": {
     "credito": "Divulgação / Museu do Futebol",
@@ -387,7 +336,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22857",
-     "coletado_em": "2026-11-08T23:37:49-03:00",
+     "coletado_em": "2026-11-09T13:34:11-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/atividade-educativa-mapa-dos-estadios-17/"
     }
@@ -440,7 +389,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22867",
-     "coletado_em": "2026-11-08T23:37:49-03:00",
+     "coletado_em": "2026-11-09T13:34:11-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/atividade-educativa-brincar-de-futebol-3/"
     }
@@ -489,7 +438,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-08T23:37:49-03:00",
+     "coletado_em": "2026-11-09T13:34:11-03:00",
      "fonte": "museufutebol",
      "url": "https://www.museudofutebol.org.br"
     }
@@ -500,7 +449,7 @@
    }
   }
  ],
- "nota": "12 sessões nos próximos 45 dias",
- "ok": false,
- "rodou_em": "2026-11-08T23:58:38-03:00"
+ "nota": "10 sessões nos próximos 45 dias",
+ "ok": true,
+ "rodou_em": "2026-11-09T13:34:11-03:00"
 }

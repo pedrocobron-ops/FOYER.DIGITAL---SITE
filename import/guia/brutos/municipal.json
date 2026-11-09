@@ -1,60 +1,7 @@
 {
- "coletado_em": "2026-11-08T15:15:28-03:00",
- "erro": "Expecting value: line 1 column 1 (char 0)",
+ "coletado_em": "2026-11-09T13:34:15-03:00",
  "fonte": "municipal",
  "itens": [
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Concertos"
-   },
-   "id": "municipal-23758",
-   "imagem": {
-    "credito": "Divulgação / Theatro Municipal",
-    "o": 0,
-    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/07/007_rafael-salvador_cr5_1076.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://theatromunicipal.org.br/eventos/orquestra-experimental-de-repertorio-palavra-em-travessia/"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-08T14:51:37-03:00",
-     "fonte": "municipal",
-     "url": "https://theatromunicipal.org.br/eventos/orquestra-experimental-de-repertorio-palavra-em-travessia/"
-    }
-   ],
-   "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre para todos os públicos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 40
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://theatromunicipalsp.byinti.com/#/event/orquestra-experimental-de-repertorio-apresenta-palavra-em-travessia"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-08T11:00"
-     },
-     "lugar": "theatro-municipal"
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Palavra em Travessia"
-   }
-  },
   {
    "area": {
     "o": 0,
@@ -827,24 +774,6 @@
     "o": 0,
     "v": "São Paulo"
    },
-   "id": "theatro-municipal",
-   "nome": {
-    "o": 0,
-    "v": "Theatro Municipal"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-08T14:51:37-03:00",
-     "fonte": "municipal",
-     "url": "https://theatromunicipal.org.br/eventos/orquestra-experimental-de-repertorio-palavra-em-travessia/"
-    }
-   ]
-  },
-  {
-   "cidade": {
-    "o": 0,
-    "v": "São Paulo"
-   },
    "id": "praca-das-artes",
    "nome": {
     "o": 0,
@@ -857,9 +786,27 @@
      "url": "https://theatromunicipal.org.br/eventos/quarteto-convida-heloisa-fernandes/"
     }
    ]
+  },
+  {
+   "cidade": {
+    "o": 0,
+    "v": "São Paulo"
+   },
+   "id": "theatro-municipal",
+   "nome": {
+    "o": 0,
+    "v": "Theatro Municipal"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-08T14:51:37-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/tarsila-a-brasileira/"
+    }
+   ]
   }
  ],
  "nota": "83 páginas de evento conferidas",
- "ok": false,
- "rodou_em": "2026-11-08T23:58:42-03:00"
+ "ok": true,
+ "rodou_em": "2026-11-09T13:34:15-03:00"
 }
