@@ -1,5 +1,6 @@
 {
  "coletado_em": "2026-11-08T23:37:16-03:00",
+ "erro": "Expecting value: line 1 column 1 (char 0)",
  "fonte": "cinemateca",
  "itens": [
   {
@@ -1932,6 +1933,6 @@
   }
  ],
  "nota": "47 sessões nos próximos 45 dias",
- "ok": true,
- "rodou_em": "2026-11-08T23:37:16-03:00"
+ "ok": false,
+ "rodou_em": "2026-11-08T23:55:45-03:00"
 }

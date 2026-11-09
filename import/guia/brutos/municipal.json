@@ -1,5 +1,6 @@
 {
  "coletado_em": "2026-11-08T15:15:28-03:00",
+ "erro": "Expecting value: line 1 column 1 (char 0)",
  "fonte": "municipal",
  "itens": [
   {
@@ -859,6 +860,6 @@
   }
  ],
  "nota": "83 páginas de evento conferidas",
- "ok": true,
- "rodou_em": "2026-11-08T15:15:28-03:00"
+ "ok": false,
+ "rodou_em": "2026-11-08T23:58:42-03:00"
 }

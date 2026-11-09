@@ -1,5 +1,6 @@
 {
  "coletado_em": "2026-11-08T23:37:49-03:00",
+ "erro": "<urlopen error [Errno 101] Network is unreachable>",
  "fonte": "museufutebol",
  "itens": [
   {
@@ -500,6 +501,6 @@
   }
  ],
  "nota": "12 sessões nos próximos 45 dias",
- "ok": true,
- "rodou_em": "2026-11-08T23:37:49-03:00"
+ "ok": false,
+ "rodou_em": "2026-11-08T23:58:38-03:00"
 }
