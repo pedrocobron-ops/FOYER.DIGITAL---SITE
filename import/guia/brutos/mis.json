@@ -1,269 +1,7 @@
 {
- "coletado_em": "2026-11-09T13:34:05-03:00",
- "erro": "<urlopen error [Errno 104] Connection reset by peer>",
+ "coletado_em": "2026-11-11T11:31:29-03:00",
  "fonte": "mis",
  "itens": [
-  {
-   "area": {
-    "o": 0,
-    "v": "cursos"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Cursos"
-   },
-   "id": "mis-direcao-de-arte-cinematografica-materialidade-cenica-e-linguagem-visual",
-   "imagem": {
-    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
-    "o": 0,
-    "v": "https://mis-sp.org.br/wp-content/uploads/2026/09/Direcao-de-arte-768x259.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://mis-sp.org.br/evento/direcao-de-arte-cinematografica-materialidade-cenica-e-linguagem-visual/"
-   },
-   "origens": [
-    {
-     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/97433",
-     "coletado_em": "2026-11-09T13:34:05-03:00",
-     "fonte": "mis",
-     "url": "https://mis-sp.org.br/evento/direcao-de-arte-cinematografica-materialidade-cenica-e-linguagem-visual/"
-    }
-   ],
-   "sessoes": [
-    {
-     "fim": {
-      "o": 0,
-      "v": "2026-11-09T22:00"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-09T19:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://mis-sp.org.br/evento/direcao-de-arte-cinematografica-materialidade-cenica-e-linguagem-visual/"
-     },
-     "lugar": "mis-museu-da-imagem-e-do-som"
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Direção de arte cinematográfica: materialidade cênica e linguagem visual"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "Curso presencial | 09, 11, 16, 18, 23, 25 e 30 de novembro e 02 de dezembro, segundas e quartas, das 19h às 22h"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cursos"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Cursos"
-   },
-   "id": "mis-mergulhando-na-onda-pop-coreana",
-   "imagem": {
-    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
-    "o": 0,
-    "v": "https://mis-sp.org.br/wp-content/uploads/2026/09/img_banner_1029_78703f481b20-768x432.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://mis-sp.org.br/evento/mergulhando-na-onda-pop-coreana/"
-   },
-   "origens": [
-    {
-     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/97437",
-     "coletado_em": "2026-11-09T13:34:05-03:00",
-     "fonte": "mis",
-     "url": "https://mis-sp.org.br/evento/mergulhando-na-onda-pop-coreana/"
-    }
-   ],
-   "sessoes": [
-    {
-     "fim": {
-      "o": 0,
-      "v": "2026-11-09T21:00"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-09T19:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://mis-sp.org.br/evento/mergulhando-na-onda-pop-coreana/"
-     },
-     "lugar": "mis-museu-da-imagem-e-do-som"
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Mergulhando na onda pop coreana"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "Curso online | 09, 16, 23 e 30 de novembro, segundas, das 19h às 21h"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cursos"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Cursos"
-   },
-   "id": "mis-bruxaria-e-performance",
-   "imagem": {
-    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
-    "o": 0,
-    "v": "https://mis-sp.org.br/wp-content/uploads/2026/09/Bruxaria-e-Performance_-768x463.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://mis-sp.org.br/evento/bruxaria-e-performance/"
-   },
-   "origens": [
-    {
-     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/97443",
-     "coletado_em": "2026-11-09T13:34:05-03:00",
-     "fonte": "mis",
-     "url": "https://mis-sp.org.br/evento/bruxaria-e-performance/"
-    }
-   ],
-   "sessoes": [
-    {
-     "fim": {
-      "o": 0,
-      "v": "2026-11-10T21:00"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-10T19:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://mis-sp.org.br/evento/bruxaria-e-performance/"
-     },
-     "lugar": "mis-museu-da-imagem-e-do-som"
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Bruxaria e performance"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "Curso online | 10, 12, 17 e 19 de novembro, terças e quintas, das 19h às 21h"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cursos"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Cursos"
-   },
-   "id": "mis-a-mente-de-quentin-tarantino-e-o-universo-unificado",
-   "imagem": {
-    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
-    "o": 0,
-    "v": "https://mis-sp.org.br/wp-content/uploads/2026/09/Bastardos-Inglorios-768x512.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://mis-sp.org.br/evento/a-mente-de-quentin-tarantino-e-o-universo-unificado/"
-   },
-   "origens": [
-    {
-     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/97447",
-     "coletado_em": "2026-11-09T13:34:05-03:00",
-     "fonte": "mis",
-     "url": "https://mis-sp.org.br/evento/a-mente-de-quentin-tarantino-e-o-universo-unificado/"
-    }
-   ],
-   "sessoes": [
-    {
-     "fim": {
-      "o": 0,
-      "v": "2026-11-10T21:00"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-10T19:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://mis-sp.org.br/evento/a-mente-de-quentin-tarantino-e-o-universo-unificado/"
-     },
-     "lugar": "mis-museu-da-imagem-e-do-som"
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "A mente de Quentin Tarantino e o universo unificado"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "Curso presencial | 10, 12, 19 e 26 de novembro, terças e quintas, das 19h às 21h"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "id": "mis-ciclo-de-cinema-e-psicanalise-sirat",
-   "imagem": {
-    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
-    "o": 0,
-    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/V__0500-768x512.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://mis-sp.org.br/evento/ciclo-de-cinema-e-psicanalise-sirat/"
-   },
-   "origens": [
-    {
-     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98445",
-     "coletado_em": "2026-11-09T13:34:05-03:00",
-     "fonte": "mis",
-     "url": "https://mis-sp.org.br/evento/ciclo-de-cinema-e-psicanalise-sirat/"
-    }
-   ],
-   "sessoes": [
-    {
-     "fim": {
-      "o": 0,
-      "v": "2026-11-10T21:00"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-10T19:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://mis-sp.org.br/evento/ciclo-de-cinema-e-psicanalise-sirat/"
-     },
-     "lugar": "mis-museu-da-imagem-e-do-som"
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Ciclo de Cinema e Psicanálise | Sirāt"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "Após a sessão gratuita, será realizado um bate-papo com a presença do psicanalista Pedro Colli e Daigo Oliva"
-   }
-  },
   {
    "area": {
     "o": 0,
@@ -282,7 +20,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98495",
-     "coletado_em": "2026-11-09T13:34:05-03:00",
+     "coletado_em": "2026-11-11T11:31:29-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/34o-festival-mixbrasil/"
     }
@@ -331,7 +69,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98448",
-     "coletado_em": "2026-11-09T13:34:05-03:00",
+     "coletado_em": "2026-11-11T11:31:29-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/estereo-mis-vitao/"
     }
@@ -380,7 +118,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98538",
-     "coletado_em": "2026-11-09T13:34:05-03:00",
+     "coletado_em": "2026-11-11T11:31:29-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/cineciencia-coerencia/"
     }
@@ -429,7 +167,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98541",
-     "coletado_em": "2026-11-09T13:34:05-03:00",
+     "coletado_em": "2026-11-11T11:31:29-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/clube-do-filme-do-livro-especial-festival-mixbrasil-2026-maurice/"
     }
@@ -478,7 +216,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98547",
-     "coletado_em": "2026-11-09T13:34:05-03:00",
+     "coletado_em": "2026-11-11T11:31:29-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/mostra-internacional-do-cinema-negro-2/"
     }
@@ -527,7 +265,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98463",
-     "coletado_em": "2026-11-09T13:34:05-03:00",
+     "coletado_em": "2026-11-11T11:31:29-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/concerto-sp-chamber-orchestra/"
     }
@@ -580,7 +318,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/97449",
-     "coletado_em": "2026-11-09T13:34:05-03:00",
+     "coletado_em": "2026-11-11T11:31:29-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/fazendo-um-videoclipe/"
     }
@@ -625,7 +363,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-09T13:34:05-03:00",
+     "coletado_em": "2026-11-11T11:31:29-03:00",
      "fonte": "mis",
      "url": "https://www.mis-sp.org.br"
     }
@@ -636,7 +374,7 @@
    }
   }
  ],
- "nota": "12 sessões nos próximos 45 dias",
- "ok": false,
- "rodou_em": "2026-11-10T12:02:20-03:00"
+ "nota": "7 sessões nos próximos 45 dias",
+ "ok": true,
+ "rodou_em": "2026-11-11T11:31:29-03:00"
 }

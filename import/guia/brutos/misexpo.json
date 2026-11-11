@@ -1,5 +1,6 @@
 {
  "coletado_em": "2026-11-10T12:05:42-03:00",
+ "erro": "<urlopen error [Errno 104] Connection reset by peer>",
  "fonte": "misexpo",
  "itens": [
   {
@@ -171,6 +172,6 @@
    }
   }
  ],
- "ok": true,
- "rodou_em": "2026-11-10T12:05:42-03:00"
+ "ok": false,
+ "rodou_em": "2026-11-11T11:36:10-03:00"
 }

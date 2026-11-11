@@ -1,7 +1,103 @@
 {
- "coletado_em": "2026-11-10T12:04:08-03:00",
+ "coletado_em": "2026-11-11T11:33:04-03:00",
  "fonte": "tomieohtake",
  "itens": [
+  {
+   "area": {
+    "o": 0,
+    "v": "exposicao"
+   },
+   "id": "tomieohtake-10885",
+   "imagem": {
+    "credito": "Divulgação / Instituto Tomie Ohtake",
+    "o": 0,
+    "v": "https://www.institutotomieohtake.org.br/wp-content/uploads/2026/11/MI261110_banner_site_comprimido-1x1.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://www.institutotomieohtake.org.br/exposicoes/materia-impressa/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-11T11:33:02-03:00",
+     "fonte": "tomieohtake",
+     "url": "https://www.institutotomieohtake.org.br/exposicoes/materia-impressa/"
+    }
+   ],
+   "sessoes": [
+    {
+     "ate": {
+      "o": 0,
+      "v": "2027-02-21"
+     },
+     "classificacao": {
+      "o": 0,
+      "v": "Livre"
+     },
+     "estreia": {
+      "o": 0,
+      "v": "2026-11-18"
+     },
+     "lugar": "instituto-tomie-ohtake",
+     "sala": {
+      "o": 0,
+      "v": "Instituto Tomie Ohtake"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Matéria impressa"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "exposicao"
+   },
+   "id": "tomieohtake-10850",
+   "imagem": {
+    "credito": "Divulgação / Instituto Tomie Ohtake",
+    "o": 0,
+    "v": "https://www.institutotomieohtake.org.br/wp-content/uploads/2026/11/P-82-08-1x1.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://www.institutotomieohtake.org.br/exposicoes/tomie-ohtake-o-sol-daqui/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-11T11:33:04-03:00",
+     "fonte": "tomieohtake",
+     "url": "https://www.institutotomieohtake.org.br/exposicoes/tomie-ohtake-o-sol-daqui/"
+    }
+   ],
+   "sessoes": [
+    {
+     "ate": {
+      "o": 0,
+      "v": "2027-02-21"
+     },
+     "classificacao": {
+      "o": 0,
+      "v": "Livre"
+     },
+     "estreia": {
+      "o": 0,
+      "v": "2026-11-18"
+     },
+     "lugar": "instituto-tomie-ohtake",
+     "sala": {
+      "o": 0,
+      "v": "Instituto Tomie Ohtake"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Tomie Ohtake – O sol daqui"
+   }
+  },
   {
    "area": {
     "o": 0,
@@ -60,7 +156,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-10T12:03:57-03:00",
+     "coletado_em": "2026-11-11T11:32:46-03:00",
      "fonte": "tomieohtake",
      "url": "https://www.institutotomieohtake.org.br"
     }
@@ -72,5 +168,5 @@
   }
  ],
  "ok": true,
- "rodou_em": "2026-11-10T12:04:08-03:00"
+ "rodou_em": "2026-11-11T11:33:04-03:00"
 }
