@@ -9,8 +9,18 @@
  "imgfonte": "",
  "imgdir": "",
  "fontes": "",
- "temFoto": false,
- "foto": null,
+ "temFoto": true,
+ "foto": {
+  "orig": {
+   "imgOriginal": "assets/uploads/rascunho-original-1794401497343.jpg"
+  },
+  "enq": {
+   "fx": 0.5,
+   "fy": 0.51,
+   "z": 1
+  },
+  "k": "344872:gQIABAgQIABAgQIABBjjAgQAOAaQmBAgAECBAgAVAgQIAP/Z:E/G8cswx0lVbBmGHTT8yQJfI"
+ },
  "op": null,
  "autor": "Isabel Branquinha",
  "ev": {
@@ -23,9 +33,9 @@
   "modo": "agora",
   "data": ""
  },
- "quando": "2026-11-11T12:49:30.650Z",
+ "quando": "2026-11-11T12:51:38.516Z",
  "id": "rmwc47kanitfw",
- "salvoEm": "2026-11-11T12:49:36.517Z",
+ "salvoEm": "2026-11-11T12:51:41.122Z",
  "por": "Isabel Branquinha",
  "v": 2
 }
