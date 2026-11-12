@@ -1,7 +1,382 @@
 {
- "coletado_em": "2026-11-11T11:36:59-03:00",
+ "coletado_em": "2026-11-12T12:34:24-03:00",
  "fonte": "amigosdaarte",
  "itens": [
+  {
+   "area": {
+    "o": 0,
+    "v": "teatro"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Teatro Musical"
+   },
+   "ficha": {
+    "o": 0,
+    "v": "Companhia/artista: Planeta Biê"
+   },
+   "id": "amigosdaarte-59682",
+   "imagem": {
+    "credito": "Divulgação / Amigos da Arte",
+    "o": 0,
+    "v": "https://amigosdaarte.org.br/wp-content/uploads/2026/07/menina_2560x934-1-768x280.png"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://amigosdaarte.org.br/agenda-equipamento/a-menina-que-inundou-o-mundo/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-12T12:34:13-03:00",
+     "fonte": "amigosdaarte",
+     "url": "https://amigosdaarte.org.br/agenda-equipamento/a-menina-que-inundou-o-mundo/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 60
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-14T15:00"
+     },
+     "lugar": "teatro-sergio-cardoso",
+     "preco": {
+      "o": 0,
+      "v": "Inteira: R$ 120,00 Meia-entrada: R$ 60,00 Social: R$ 45,00 Sessões especiais: Segundas dos feriados de 12/10 e 02/11/2026, às 15h"
+     },
+     "sala": {
+      "o": 0,
+      "v": "Paschoal Carlos Magno"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 60
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-15T15:00"
+     },
+     "lugar": "teatro-sergio-cardoso",
+     "preco": {
+      "o": 0,
+      "v": "Inteira: R$ 120,00 Meia-entrada: R$ 60,00 Social: R$ 45,00 Sessões especiais: Segundas dos feriados de 12/10 e 02/11/2026, às 15h"
+     },
+     "sala": {
+      "o": 0,
+      "v": "Paschoal Carlos Magno"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 60
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-21T11:00"
+     },
+     "lugar": "teatro-sergio-cardoso",
+     "preco": {
+      "o": 0,
+      "v": "Inteira: R$ 120,00 Meia-entrada: R$ 60,00 Social: R$ 45,00 Sessões especiais: Segundas dos feriados de 12/10 e 02/11/2026, às 15h"
+     },
+     "sala": {
+      "o": 0,
+      "v": "Paschoal Carlos Magno"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 60
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-21T15:00"
+     },
+     "lugar": "teatro-sergio-cardoso",
+     "preco": {
+      "o": 0,
+      "v": "Inteira: R$ 120,00 Meia-entrada: R$ 60,00 Social: R$ 45,00 Sessões especiais: Segundas dos feriados de 12/10 e 02/11/2026, às 15h"
+     },
+     "sala": {
+      "o": 0,
+      "v": "Paschoal Carlos Magno"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 60
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-22T11:00"
+     },
+     "lugar": "teatro-sergio-cardoso",
+     "preco": {
+      "o": 0,
+      "v": "Inteira: R$ 120,00 Meia-entrada: R$ 60,00 Social: R$ 45,00 Sessões especiais: Segundas dos feriados de 12/10 e 02/11/2026, às 15h"
+     },
+     "sala": {
+      "o": 0,
+      "v": "Paschoal Carlos Magno"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 60
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-22T15:00"
+     },
+     "lugar": "teatro-sergio-cardoso",
+     "preco": {
+      "o": 0,
+      "v": "Inteira: R$ 120,00 Meia-entrada: R$ 60,00 Social: R$ 45,00 Sessões especiais: Segundas dos feriados de 12/10 e 02/11/2026, às 15h"
+     },
+     "sala": {
+      "o": 0,
+      "v": "Paschoal Carlos Magno"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 60
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-28T11:00"
+     },
+     "lugar": "teatro-sergio-cardoso",
+     "preco": {
+      "o": 0,
+      "v": "Inteira: R$ 120,00 Meia-entrada: R$ 60,00 Social: R$ 45,00 Sessões especiais: Segundas dos feriados de 12/10 e 02/11/2026, às 15h"
+     },
+     "sala": {
+      "o": 0,
+      "v": "Paschoal Carlos Magno"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 60
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-28T15:00"
+     },
+     "lugar": "teatro-sergio-cardoso",
+     "preco": {
+      "o": 0,
+      "v": "Inteira: R$ 120,00 Meia-entrada: R$ 60,00 Social: R$ 45,00 Sessões especiais: Segundas dos feriados de 12/10 e 02/11/2026, às 15h"
+     },
+     "sala": {
+      "o": 0,
+      "v": "Paschoal Carlos Magno"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 60
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-29T11:00"
+     },
+     "lugar": "teatro-sergio-cardoso",
+     "preco": {
+      "o": 0,
+      "v": "Inteira: R$ 120,00 Meia-entrada: R$ 60,00 Social: R$ 45,00 Sessões especiais: Segundas dos feriados de 12/10 e 02/11/2026, às 15h"
+     },
+     "sala": {
+      "o": 0,
+      "v": "Paschoal Carlos Magno"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 60
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-29T15:00"
+     },
+     "lugar": "teatro-sergio-cardoso",
+     "preco": {
+      "o": 0,
+      "v": "Inteira: R$ 120,00 Meia-entrada: R$ 60,00 Social: R$ 45,00 Sessões especiais: Segundas dos feriados de 12/10 e 02/11/2026, às 15h"
+     },
+     "sala": {
+      "o": 0,
+      "v": "Paschoal Carlos Magno"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "A Menina que Inundou o Mundo"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Biê tem 9 anos e sempre se entrega às emoções, muitas vezes em forma de lágrimas. Entre descobertas, aventuras e encontros inesperados, ela embarca em uma jornada pelo universo dos sentimentos, aprendendo que cada…"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "teatro"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Teatro"
+   },
+   "ficha": {
+    "o": 0,
+    "v": "Companhia/artista: Coletivo Corpo Aberto"
+   },
+   "id": "amigosdaarte-62218",
+   "imagem": {
+    "credito": "Divulgação / Amigos da Arte",
+    "o": 0,
+    "v": "https://amigosdaarte.org.br/wp-content/uploads/2026/10/TSC-Casa-de-Vo-Banner-Desktop-2560-por-934-pixels-768x280.png"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://amigosdaarte.org.br/agenda-equipamento/casa-de-vo/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-12T12:34:13-03:00",
+     "fonte": "amigosdaarte",
+     "url": "https://amigosdaarte.org.br/agenda-equipamento/casa-de-vo/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 50
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-29T12:00"
+     },
+     "lugar": "teatro-sergio-cardoso",
+     "preco": {
+      "o": 0,
+      "v": "Entrada gratuita Retirada de ingressos na bilheteria 1 hora antes da apresentação"
+     },
+     "sala": {
+      "o": 0,
+      "v": "Sala Paschoal Carlos Magno"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Casa de Vó"
+   }
+  },
   {
    "area": {
     "o": 0,
@@ -328,70 +703,6 @@
    "titulo": {
     "o": 0,
     "v": "Exposição: O Legado das Personalidades Negras no Brasil"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "teatro"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Teatro"
-   },
-   "ficha": {
-    "o": 0,
-    "v": "Companhia/artista: Coletivo Corpo Aberto"
-   },
-   "id": "amigosdaarte-62218",
-   "imagem": {
-    "credito": "Divulgação / Amigos da Arte",
-    "o": 0,
-    "v": "https://amigosdaarte.org.br/wp-content/uploads/2026/10/TSC-Casa-de-Vo-Banner-Desktop-2560-por-934-pixels-768x280.png"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://amigosdaarte.org.br/agenda-equipamento/casa-de-vo/"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-08T23:49:47-03:00",
-     "fonte": "amigosdaarte",
-     "url": "https://amigosdaarte.org.br/agenda-equipamento/casa-de-vo/"
-    }
-   ],
-   "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 50
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-29T11:00"
-     },
-     "lugar": "teatro-sergio-cardoso",
-     "preco": {
-      "o": 0,
-      "v": "Entrada gratuita Retirada de ingressos na bilheteria 1 hora antes da apresentação"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Sala Paschoal Carlos Magno"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Casa de Vó"
    }
   },
   {
@@ -1073,277 +1384,6 @@
    },
    "ficha": {
     "o": 0,
-    "v": "Companhia/artista: Projeto Espetáculo – Instituto Poiesis"
-   },
-   "id": "amigosdaarte-61527",
-   "imagem": {
-    "credito": "Divulgação / Amigos da Arte",
-    "o": 0,
-    "v": "https://amigosdaarte.org.br/wp-content/uploads/2026/10/verona_2560x934-768x280.png"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://amigosdaarte.org.br/agenda-equipamento/verona-brasilandia-entre-romeus-e-julietas-nossos-amores-nao-cabem-em-seus-muros/"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-08T23:49:47-03:00",
-     "fonte": "amigosdaarte",
-     "url": "https://amigosdaarte.org.br/agenda-equipamento/verona-brasilandia-entre-romeus-e-julietas-nossos-amores-nao-cabem-em-seus-muros/"
-    }
-   ],
-   "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 75
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-11T19:00"
-     },
-     "lugar": "teatro-sergio-cardoso",
-     "preco": {
-      "o": 0,
-      "v": "Entrada gratuita Retirada de ingressos na bilheteria 1 hora antes da apresentação"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Sala Paschoal Carlos Magno"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Verona Brasilândia: Entre Romeus e Julietas, nossos amores não cabem em seus muros"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "Dizem que Verona era uma cidade dividida pelo ódio. A Brasilândia também conhece seus muros invisíveis. Entre vielas, escadões, conflitos e sonhos, jovens desafiam os muros impostos aos seus corpos e afetos. Unindo…"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "teatro"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Teatro Musical"
-   },
-   "ficha": {
-    "o": 0,
-    "v": "Companhia/artista: Planeta Biê"
-   },
-   "id": "amigosdaarte-59682",
-   "imagem": {
-    "credito": "Divulgação / Amigos da Arte",
-    "o": 0,
-    "v": "https://amigosdaarte.org.br/wp-content/uploads/2026/07/menina_2560x934-1-768x280.png"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://amigosdaarte.org.br/agenda-equipamento/a-menina-que-inundou-o-mundo/"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-08T23:49:47-03:00",
-     "fonte": "amigosdaarte",
-     "url": "https://amigosdaarte.org.br/agenda-equipamento/a-menina-que-inundou-o-mundo/"
-    }
-   ],
-   "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 60
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-14T15:00"
-     },
-     "lugar": "teatro-sergio-cardoso",
-     "preco": {
-      "o": 0,
-      "v": "Inteira: R$ 120,00 Meia-entrada: R$ 60,00 Social: R$ 45,00 Sessões especiais: Segundas dos feriados de 12/10 e 02/11/2026, às 15h"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Paschoal Carlos Magno"
-     }
-    },
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 60
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-15T15:00"
-     },
-     "lugar": "teatro-sergio-cardoso",
-     "preco": {
-      "o": 0,
-      "v": "Inteira: R$ 120,00 Meia-entrada: R$ 60,00 Social: R$ 45,00 Sessões especiais: Segundas dos feriados de 12/10 e 02/11/2026, às 15h"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Paschoal Carlos Magno"
-     }
-    },
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 60
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-21T15:00"
-     },
-     "lugar": "teatro-sergio-cardoso",
-     "preco": {
-      "o": 0,
-      "v": "Inteira: R$ 120,00 Meia-entrada: R$ 60,00 Social: R$ 45,00 Sessões especiais: Segundas dos feriados de 12/10 e 02/11/2026, às 15h"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Paschoal Carlos Magno"
-     }
-    },
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 60
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-22T15:00"
-     },
-     "lugar": "teatro-sergio-cardoso",
-     "preco": {
-      "o": 0,
-      "v": "Inteira: R$ 120,00 Meia-entrada: R$ 60,00 Social: R$ 45,00 Sessões especiais: Segundas dos feriados de 12/10 e 02/11/2026, às 15h"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Paschoal Carlos Magno"
-     }
-    },
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 60
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-28T15:00"
-     },
-     "lugar": "teatro-sergio-cardoso",
-     "preco": {
-      "o": 0,
-      "v": "Inteira: R$ 120,00 Meia-entrada: R$ 60,00 Social: R$ 45,00 Sessões especiais: Segundas dos feriados de 12/10 e 02/11/2026, às 15h"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Paschoal Carlos Magno"
-     }
-    },
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 60
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-29T15:00"
-     },
-     "lugar": "teatro-sergio-cardoso",
-     "preco": {
-      "o": 0,
-      "v": "Inteira: R$ 120,00 Meia-entrada: R$ 60,00 Social: R$ 45,00 Sessões especiais: Segundas dos feriados de 12/10 e 02/11/2026, às 15h"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Paschoal Carlos Magno"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "A Menina que Inundou o Mundo"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "Biê tem 9 anos e sempre se entrega às emoções, muitas vezes em forma de lágrimas. Entre descobertas, aventuras e encontros inesperados, ela embarca em uma jornada pelo universo dos sentimentos, aprendendo que cada…"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "teatro"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Teatro"
-   },
-   "ficha": {
-    "o": 0,
     "v": "Companhia/artista: Cia Melodramática Brasileira Prods Art Ltda ME"
    },
    "id": "amigosdaarte-61056",
@@ -1641,9 +1681,9 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-10T12:06:32-03:00",
+     "coletado_em": "2026-11-12T12:34:13-03:00",
      "fonte": "amigosdaarte",
-     "url": "https://amigosdaarte.org.br/agenda-equipamento/natal-solidario-2026-milton-bituca-nascimento-in-concert/"
+     "url": "https://amigosdaarte.org.br/agenda-equipamento/a-menina-que-inundou-o-mundo/"
     }
    ],
    "site": {
@@ -1653,5 +1693,5 @@
   }
  ],
  "ok": true,
- "rodou_em": "2026-11-11T11:36:59-03:00"
+ "rodou_em": "2026-11-12T12:34:24-03:00"
 }

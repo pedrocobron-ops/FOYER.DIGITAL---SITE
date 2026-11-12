@@ -1,7 +1,58 @@
 {
- "coletado_em": "2026-11-11T11:31:39-03:00",
+ "coletado_em": "2026-11-12T12:29:29-03:00",
  "fonte": "municipal",
  "itens": [
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Música"
+   },
+   "id": "municipal-27151",
+   "imagem": {
+    "credito": "Divulgação / Theatro Municipal",
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/11/larissapaz-2-scaled.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/eventos/festival-ecos-latinoamericanos-misa-criolla-coral-paulistano-e-indiana-nomma/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-12T12:29:26-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/festival-ecos-latinoamericanos-misa-criolla-coral-paulistano-e-indiana-nomma/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre para todos os públicos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 60
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://tickets.oneboxtds.com/osesp/events/61191"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-19T20:30"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Festival Ecos Latinoamericanos: Misa Criolla, Coral Paulistano e Indiana Nomma"
+   }
+  },
   {
    "area": {
     "o": 0,
@@ -147,57 +198,6 @@
    "titulo": {
     "o": 0,
     "v": "Quarteto de Cordas no Festival Britten"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Música"
-   },
-   "id": "municipal-27151",
-   "imagem": {
-    "credito": "Divulgação / Theatro Municipal",
-    "o": 0,
-    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/11/larissapaz-2-scaled.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://theatromunicipal.org.br/eventos/festival-ecos-latinoamericanos-misa-criolla-coral-paulistano-e-indiana-nomma/"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-08T14:51:37-03:00",
-     "fonte": "municipal",
-     "url": "https://theatromunicipal.org.br/eventos/festival-ecos-latinoamericanos-misa-criolla-coral-paulistano-e-indiana-nomma/"
-    }
-   ],
-   "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre para todos os públicos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 60
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://tickets.oneboxtds.com/osesp/events/61191"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-19T20:30"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Festival Ecos Latinoamericanos: Misa Criolla, Coral Paulistano e Indiana Nomma"
    }
   },
   {
@@ -854,7 +854,7 @@
    ]
   }
  ],
- "nota": "79 páginas de evento conferidas",
+ "nota": "76 páginas de evento conferidas",
  "ok": true,
- "rodou_em": "2026-11-11T11:31:39-03:00"
+ "rodou_em": "2026-11-12T12:29:29-03:00"
 }

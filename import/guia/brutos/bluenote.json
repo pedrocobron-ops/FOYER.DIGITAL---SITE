@@ -1,52 +1,7 @@
 {
- "coletado_em": "2026-11-11T11:32:39-03:00",
+ "coletado_em": "2026-11-12T12:30:33-03:00",
  "fonte": "bluenote",
  "itens": [
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
-   "id": "bluenote-3161",
-   "imagem": {
-    "credito": "Divulgação / Blue Note São Paulo",
-    "o": 0,
-    "v": "https://bluenotesp.com/wp-content/uploads/2026/10/08-Site-Blue-Note-SP-400x480px_Marley.webp"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://bluenotesp.com/shows/bob-marley-in-jazz/"
-   },
-   "origens": [
-    {
-     "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
-     "fonte": "bluenote",
-     "url": "https://bluenotesp.com/shows/bob-marley-in-jazz/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.eventim.com.br/artist/blue-note-sp/bob-marley-in-jazz-4259774/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-11T20:00"
-     },
-     "lugar": "blue-note-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Sala 1"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "BOB MARLEY IN JAZZ"
-   }
-  },
   {
    "area": {
     "o": 0,
@@ -65,7 +20,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tributo-a-ella-fitzgerald-por-indiana-nomma/"
     }
@@ -110,7 +65,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/collaboration-in-concert/"
     }
@@ -142,6 +97,51 @@
     "o": 0,
     "v": "musica"
    },
+   "id": "bluenote-3111",
+   "imagem": {
+    "credito": "Divulgação / Blue Note São Paulo",
+    "o": 0,
+    "v": "https://bluenotesp.com/wp-content/uploads/2026/10/08-Site-Blue-Note-SP-400x480px_SalaMusic.webp"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://bluenotesp.com/shows/sala-de-musica-radio-cbn/"
+   },
+   "origens": [
+    {
+     "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
+     "fonte": "bluenote",
+     "url": "https://bluenotesp.com/shows/sala-de-musica-radio-cbn/"
+    }
+   ],
+   "sessoes": [
+    {
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.eventim.com.br/artist/blue-note-sp/sala-de-musica-radio-cbn-part-especial-joao-sabia-4255637/"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-13T20:00"
+     },
+     "lugar": "blue-note-sao-paulo",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "SALA DE MÚSICA – RÁDIO CBN: Part. Especial: João Sabiá"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
    "id": "bluenote-2656",
    "imagem": {
     "credito": "Divulgação / Blue Note São Paulo",
@@ -155,7 +155,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/amici-reinterpretam-os-sucessos-dos-amigos__9e0cvdrs/"
     }
@@ -191,51 +191,6 @@
     "o": 0,
     "v": "musica"
    },
-   "id": "bluenote-3111",
-   "imagem": {
-    "credito": "Divulgação / Blue Note São Paulo",
-    "o": 0,
-    "v": "https://bluenotesp.com/wp-content/uploads/2026/10/08-Site-Blue-Note-SP-400x480px_SalaMusic.webp"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://bluenotesp.com/shows/sala-de-musica-radio-cbn/"
-   },
-   "origens": [
-    {
-     "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
-     "fonte": "bluenote",
-     "url": "https://bluenotesp.com/shows/sala-de-musica-radio-cbn/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.eventim.com.br/artist/blue-note-sp/sala-de-musica-radio-cbn-part-especial-joao-sabia-4255637/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-13T20:00"
-     },
-     "lugar": "blue-note-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Sala 2"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "SALA DE MÚSICA – RÁDIO CBN: Part. Especial: João Sabiá"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
    "id": "bluenote-3145",
    "imagem": {
     "credito": "Divulgação / Blue Note São Paulo",
@@ -249,7 +204,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/day-limns/"
     }
@@ -294,7 +249,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/abba-the-history/"
     }
@@ -339,7 +294,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/so-pedrada-musical/"
     }
@@ -384,7 +339,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/noneto-brasil-jazz-sinfonica/"
     }
@@ -429,7 +384,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/edith-piaf-por-lia-paris-uma-viagem-pela-chanson-francaise/"
     }
@@ -474,7 +429,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/pulp-fiction-soundtrack-por-fra-finamore/"
     }
@@ -519,7 +474,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tributo-a-miles-davis-bitches-brew-musicman-jazz/"
     }
@@ -564,7 +519,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/andrea-polinelli-quartet-gato-barbieri-reloaded/"
     }
@@ -609,7 +564,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/rolling-stone-sessions-apresenta-hurricanes/"
     }
@@ -654,7 +609,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/marcelo-rubens-paiva/"
     }
@@ -699,7 +654,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tributo-simply-red-christopher-cross/"
     }
@@ -744,7 +699,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/andre-frateschi-e-piero-damiani-lado-bowie/"
     }
@@ -776,29 +731,29 @@
     "o": 0,
     "v": "musica"
    },
-   "id": "bluenote-3061",
+   "id": "bluenote-3880",
    "imagem": {
     "credito": "Divulgação / Blue Note São Paulo",
     "o": 0,
-    "v": "https://bluenotesp.com/wp-content/uploads/2026/10/08-Site-Blue-Note-SP-400x480px_Valdes.webp"
+    "v": "https://bluenotesp.com/wp-content/uploads/2026/11/08-Site-Blue-Note-SP-400x480px_BlackRio.webp"
    },
    "link_fonte": {
     "o": 0,
-    "v": "https://bluenotesp.com/shows/idania-valdes/"
+    "v": "https://bluenotesp.com/shows/banda-black-rio-2/"
    },
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
-     "url": "https://bluenotesp.com/shows/idania-valdes/"
+     "url": "https://bluenotesp.com/shows/banda-black-rio-2/"
     }
    ],
    "sessoes": [
     {
      "ingresso": {
       "o": 0,
-      "v": "https://www.eventim.com.br/artist/blue-note-sp/idania-valdes-a-voz-do-historico-buena-vista-social-club-4254683/"
+      "v": "https://www.eventim.com.br/artist/blue-note-sp/banda-black-rio-4288177/"
      },
      "inicio": {
       "o": 0,
@@ -813,7 +768,7 @@
    ],
    "titulo": {
     "o": 0,
-    "v": "IDANIA VALDÉS: A Voz Do Histórico Buena Vista Social Club"
+    "v": "BANDA BLACK RIO: Especial Consciência Negra"
    }
   },
   {
@@ -834,7 +789,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/helio-ramalho-e-nessa-onda/"
     }
@@ -866,51 +821,6 @@
     "o": 0,
     "v": "musica"
    },
-   "id": "bluenote-3259",
-   "imagem": {
-    "credito": "Divulgação / Blue Note São Paulo",
-    "o": 0,
-    "v": "https://bluenotesp.com/wp-content/uploads/2026/10/08-Site-Blue-Note-SP-400x480px_Abdo.webp"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://bluenotesp.com/shows/aline-abdo-canta-bts/"
-   },
-   "origens": [
-    {
-     "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
-     "fonte": "bluenote",
-     "url": "https://bluenotesp.com/shows/aline-abdo-canta-bts/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.eventim.com.br/artist/blue-note-sp/rolling-stone-novas-vozes-apresenta-aline-abdo-canta-bts-4267537/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-21T20:00"
-     },
-     "lugar": "blue-note-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Sala 2"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "ALINE ABDO CANTA BTS: Rolling Stone Novas Vozes"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
    "id": "bluenote-3129",
    "imagem": {
     "credito": "Divulgação / Blue Note São Paulo",
@@ -924,7 +834,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/theo-bial/"
     }
@@ -969,7 +879,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/queen-legend/"
     }
@@ -1014,7 +924,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/phil-collins-carrossel/"
     }
@@ -1059,7 +969,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/undercurrent-trio-suzan-veneman/"
     }
@@ -1104,7 +1014,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/vitoria-maldonado/"
     }
@@ -1149,7 +1059,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/mel-lisboa/"
     }
@@ -1209,7 +1119,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/crua-jaloo-acustica/"
     }
@@ -1254,7 +1164,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/banda-comitatus/"
     }
@@ -1299,7 +1209,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/pop3-georgeisrael-henriqueportugal-e-charlesgavin/"
     }
@@ -1359,7 +1269,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/funk-como-le-gusta/"
     }
@@ -1404,7 +1314,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/lobao/"
     }
@@ -1464,7 +1374,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/rodrigo-ogi-e-banda/"
     }
@@ -1509,7 +1419,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/pearl-jam/"
     }
@@ -1554,7 +1464,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/quimbara-buena-vista-social-club/"
     }
@@ -1599,7 +1509,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/quimbara-toca-bad-bunny/"
     }
@@ -1631,51 +1541,6 @@
     "o": 0,
     "v": "musica"
    },
-   "id": "bluenote-3811",
-   "imagem": {
-    "credito": "Divulgação / Blue Note São Paulo",
-    "o": 0,
-    "v": "https://bluenotesp.com/wp-content/uploads/2026/11/08-Site-Blue-Note-SP-400x480px_DogsHits.webp"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://bluenotesp.com/shows/diamond-dogs/"
-   },
-   "origens": [
-    {
-     "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
-     "fonte": "bluenote",
-     "url": "https://bluenotesp.com/shows/diamond-dogs/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ingresso": {
-      "o": 0,
-      "v": "http://eventim.com.br/artist/blue-note-sp/diamond-dogs-ultimate-hits-4285334/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-12-05T20:00"
-     },
-     "lugar": "blue-note-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Sala 2"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "DIAMOND DOGS: Ultimate Hits"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
    "id": "bluenote-2977",
    "imagem": {
     "credito": "Divulgação / Blue Note São Paulo",
@@ -1689,7 +1554,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/ed-motta-quarteto-05dez/"
     }
@@ -1736,6 +1601,51 @@
     "o": 0,
     "v": "musica"
    },
+   "id": "bluenote-3811",
+   "imagem": {
+    "credito": "Divulgação / Blue Note São Paulo",
+    "o": 0,
+    "v": "https://bluenotesp.com/wp-content/uploads/2026/11/08-Site-Blue-Note-SP-400x480px_DogsHits.webp"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://bluenotesp.com/shows/diamond-dogs/"
+   },
+   "origens": [
+    {
+     "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
+     "fonte": "bluenote",
+     "url": "https://bluenotesp.com/shows/diamond-dogs/"
+    }
+   ],
+   "sessoes": [
+    {
+     "ingresso": {
+      "o": 0,
+      "v": "http://eventim.com.br/artist/blue-note-sp/diamond-dogs-ultimate-hits-4285334/"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-05T20:00"
+     },
+     "lugar": "blue-note-sao-paulo",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "DIAMOND DOGS: Ultimate Hits"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
    "id": "bluenote-3827",
    "imagem": {
     "credito": "Divulgação / Blue Note São Paulo",
@@ -1749,7 +1659,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tears-for-fears-experience-2/"
     }
@@ -1794,7 +1704,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/gina-canta-gal/"
     }
@@ -1839,7 +1749,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tributo-a-john-coltrane-a-love-supreme-musicman-jazz/"
     }
@@ -1884,7 +1794,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/francesca-tandoi/"
     }
@@ -1929,7 +1839,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/clemente-50-anos-de-rock-e-resistencia/"
     }
@@ -1974,7 +1884,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/ed-motta-quarteto-12dez/"
     }
@@ -2034,7 +1944,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/azymuth/"
     }
@@ -2094,7 +2004,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/terra-celta/"
     }
@@ -2139,7 +2049,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/eric-clapton-tribute-gabi-anias/"
     }
@@ -2184,7 +2094,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/a-espetacular-charanga-do-franca/"
     }
@@ -2229,7 +2139,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/mar-aberto/"
     }
@@ -2261,51 +2171,6 @@
     "o": 0,
     "v": "musica"
    },
-   "id": "bluenote-3848",
-   "imagem": {
-    "credito": "Divulgação / Blue Note São Paulo",
-    "o": 0,
-    "v": "https://bluenotesp.com/wp-content/uploads/2026/11/08-Site-Blue-Note-SP-400x480px_Tonanni.webp"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://bluenotesp.com/shows/tonanni-canta-michael-buble/"
-   },
-   "origens": [
-    {
-     "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
-     "fonte": "bluenote",
-     "url": "https://bluenotesp.com/shows/tonanni-canta-michael-buble/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.eventim.com.br/artist/blue-note-sp/tonanni-canta-michael-buble-especial-de-natal-4286310/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-12-19T20:00"
-     },
-     "lugar": "blue-note-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Sala 2"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "TONANNI CANTA MICHAEL BUBLÉ: Especial De Natal"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
    "id": "bluenote-3485",
    "imagem": {
     "credito": "Divulgação / Blue Note São Paulo",
@@ -2319,7 +2184,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/paulinho-moska/"
     }
@@ -2366,6 +2231,51 @@
     "o": 0,
     "v": "musica"
    },
+   "id": "bluenote-3848",
+   "imagem": {
+    "credito": "Divulgação / Blue Note São Paulo",
+    "o": 0,
+    "v": "https://bluenotesp.com/wp-content/uploads/2026/11/08-Site-Blue-Note-SP-400x480px_Tonanni.webp"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://bluenotesp.com/shows/tonanni-canta-michael-buble/"
+   },
+   "origens": [
+    {
+     "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
+     "fonte": "bluenote",
+     "url": "https://bluenotesp.com/shows/tonanni-canta-michael-buble/"
+    }
+   ],
+   "sessoes": [
+    {
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.eventim.com.br/artist/blue-note-sp/tonanni-canta-michael-buble-especial-de-natal-4286310/"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-19T20:00"
+     },
+     "lugar": "blue-note-sao-paulo",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "TONANNI CANTA MICHAEL BUBLÉ: Especial De Natal"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
    "id": "bluenote-3628",
    "imagem": {
     "credito": "Divulgação / Blue Note São Paulo",
@@ -2379,7 +2289,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tributo-sting-the-police/"
     }
@@ -2424,7 +2334,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/the-christmas-jazz-big-band/"
     }
@@ -2469,7 +2379,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/reveillon-2027/"
     }
@@ -2514,7 +2424,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/heber-nunes-genese/"
     }
@@ -2559,7 +2469,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/hendrix-frankenreiter/"
     }
@@ -2600,7 +2510,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-11T11:32:35-03:00",
+     "coletado_em": "2026-11-12T12:30:28-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com"
     }
@@ -2612,5 +2522,5 @@
   }
  ],
  "ok": true,
- "rodou_em": "2026-11-11T11:32:39-03:00"
+ "rodou_em": "2026-11-12T12:30:33-03:00"
 }
