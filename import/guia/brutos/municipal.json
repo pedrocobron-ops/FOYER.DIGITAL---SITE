@@ -1,7 +1,55 @@
 {
- "coletado_em": "2026-11-12T12:29:29-03:00",
+ "coletado_em": "2026-11-13T11:42:42-03:00",
  "fonte": "municipal",
  "itens": [
+  {
+   "area": {
+    "o": 0,
+    "v": "danca"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Concertos"
+   },
+   "id": "municipal-27306",
+   "imagem": {
+    "credito": "Divulgação / Theatro Municipal",
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/11/larissapaz-2-4-scaled.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/eventos/movimento-imprevisto-dialogo-entre-danca-e-cordas/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-13T11:42:38-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/movimento-imprevisto-dialogo-entre-danca-e-cordas/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre para todos os públicos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 60
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-10T20:00"
+     },
+     "lugar": "praca-das-artes"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Movimento Imprevisto: Dança e cordas"
+   }
+  },
   {
    "area": {
     "o": 0,
@@ -51,54 +99,6 @@
    "titulo": {
     "o": 0,
     "v": "Festival Ecos Latinoamericanos: Misa Criolla, Coral Paulistano e Indiana Nomma"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "danca"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Concertos"
-   },
-   "id": "municipal-27306",
-   "imagem": {
-    "credito": "Divulgação / Theatro Municipal",
-    "o": 0,
-    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/11/larissapaz-2-4-scaled.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://theatromunicipal.org.br/eventos/movimento-imprevisto-dialogo-entre-danca-e-cordas/"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-11T11:31:36-03:00",
-     "fonte": "municipal",
-     "url": "https://theatromunicipal.org.br/eventos/movimento-imprevisto-dialogo-entre-danca-e-cordas/"
-    }
-   ],
-   "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre para todos os públicos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 60
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-12-10T20:00"
-     },
-     "lugar": "praca-das-artes"
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Movimento Imprevisto: Diálogo entre dança e cordas"
    }
   },
   {
@@ -292,58 +292,6 @@
    "titulo": {
     "o": 0,
     "v": "Municipal Circula – Balé da Cidade no CEU Cidade Dutra"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Concertos"
-   },
-   "id": "municipal-21961",
-   "imagem": {
-    "credito": "Divulgação / Theatro Municipal",
-    "o": 0,
-    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/06/larissapaz-0308-scaled.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://theatromunicipal.org.br/eventos/quarteto-convida-heloisa-fernandes/"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-08T14:51:37-03:00",
-     "fonte": "municipal",
-     "url": "https://theatromunicipal.org.br/eventos/quarteto-convida-heloisa-fernandes/"
-    }
-   ],
-   "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre para todos os públicos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 60
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://theatromunicipalsp.byinti.com/#/event/quarteto-convida-heloisa-fernandes"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-12T20:00"
-     },
-     "lugar": "praca-das-artes"
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Quarteto convida Heloisa Fernandes"
    }
   },
   {
@@ -829,7 +777,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-11T11:31:36-03:00",
+     "coletado_em": "2026-11-13T11:42:38-03:00",
      "fonte": "municipal",
      "url": "https://theatromunicipal.org.br/eventos/movimento-imprevisto-dialogo-entre-danca-e-cordas/"
     }
@@ -856,5 +804,5 @@
  ],
  "nota": "76 páginas de evento conferidas",
  "ok": true,
- "rodou_em": "2026-11-12T12:29:29-03:00"
+ "rodou_em": "2026-11-13T11:42:42-03:00"
 }

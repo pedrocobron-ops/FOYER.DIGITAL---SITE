@@ -1,6 +1,5 @@
 {
- "coletado_em": "2026-11-10T12:05:42-03:00",
- "erro": "<urlopen error [Errno 104] Connection reset by peer>",
+ "coletado_em": "2026-11-13T11:47:19-03:00",
  "fonte": "misexpo",
  "itens": [
   {
@@ -161,7 +160,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-10T12:04:08-03:00",
+     "coletado_em": "2026-11-13T11:43:59-03:00",
      "fonte": "misexpo",
      "url": "https://www.mis-sp.org.br"
     }
@@ -172,6 +171,6 @@
    }
   }
  ],
- "ok": false,
- "rodou_em": "2026-11-12T12:33:36-03:00"
+ "ok": true,
+ "rodou_em": "2026-11-13T11:47:19-03:00"
 }

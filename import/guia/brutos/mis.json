@@ -1,57 +1,7 @@
 {
- "coletado_em": "2026-11-11T11:31:29-03:00",
- "erro": "<urlopen error [Errno 104] Connection reset by peer>",
+ "coletado_em": "2026-11-13T11:42:31-03:00",
  "fonte": "mis",
  "itens": [
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "id": "mis-34o-festival-mixbrasil",
-   "imagem": {
-    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
-    "o": 0,
-    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/55577685140_9950d5c256_o-768x432.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://mis-sp.org.br/evento/34o-festival-mixbrasil/"
-   },
-   "origens": [
-    {
-     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98495",
-     "coletado_em": "2026-11-11T11:31:29-03:00",
-     "fonte": "mis",
-     "url": "https://mis-sp.org.br/evento/34o-festival-mixbrasil/"
-    }
-   ],
-   "sessoes": [
-    {
-     "fim": {
-      "o": 0,
-      "v": "2026-11-22T21:00"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-12T16:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://mis-sp.org.br/evento/34o-festival-mixbrasil/"
-     },
-     "lugar": "mis-museu-da-imagem-e-do-som"
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "34º Festival MixBrasil"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "A seleção de longas-metragens do Panorama Internacional reúne filmes de cineastas que passaram por alguns dos principais festivais do mundo"
-   }
-  },
   {
    "area": {
     "o": 0,
@@ -70,7 +20,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98448",
-     "coletado_em": "2026-11-11T11:31:29-03:00",
+     "coletado_em": "2026-11-13T11:42:31-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/estereo-mis-vitao/"
     }
@@ -79,11 +29,11 @@
     {
      "fim": {
       "o": 0,
-      "v": "2026-11-13T21:00"
+      "v": "2026-11-13T23:00"
      },
      "inicio": {
       "o": 0,
-      "v": "2026-11-13T19:00"
+      "v": "2026-11-13T21:00"
      },
      "link": {
       "o": 0,
@@ -106,6 +56,55 @@
     "o": 0,
     "v": "eventos"
    },
+   "id": "mis-feira-das-ideias",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/Feira-768x512.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/feira-das-ideias-8/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98619",
+     "coletado_em": "2026-11-13T11:42:31-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/feira-das-ideias-8/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-14T19:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-14T11:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/feira-das-ideias-8/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Feira das ideias"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Feira de economia criativa com oficinas gratuitas"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "eventos"
+   },
    "id": "mis-cineciencia-coerencia",
    "imagem": {
     "credito": "Divulgação / MIS - Museu da Imagem e do Som",
@@ -119,7 +118,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98538",
-     "coletado_em": "2026-11-11T11:31:29-03:00",
+     "coletado_em": "2026-11-13T11:42:31-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/cineciencia-coerencia/"
     }
@@ -168,7 +167,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98541",
-     "coletado_em": "2026-11-11T11:31:29-03:00",
+     "coletado_em": "2026-11-13T11:42:31-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/clube-do-filme-do-livro-especial-festival-mixbrasil-2026-maurice/"
     }
@@ -217,7 +216,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98547",
-     "coletado_em": "2026-11-11T11:31:29-03:00",
+     "coletado_em": "2026-11-13T11:42:31-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/mostra-internacional-do-cinema-negro-2/"
     }
@@ -266,7 +265,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98463",
-     "coletado_em": "2026-11-11T11:31:29-03:00",
+     "coletado_em": "2026-11-13T11:42:31-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/concerto-sp-chamber-orchestra/"
     }
@@ -319,7 +318,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/97449",
-     "coletado_em": "2026-11-11T11:31:29-03:00",
+     "coletado_em": "2026-11-13T11:42:31-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/fazendo-um-videoclipe/"
     }
@@ -349,6 +348,398 @@
     "o": 0,
     "v": "Curso presencial | 23, 24, 27 e 28 de novembro, segunda, terça e sexta, das 19h às 22h, e sábado, das 10h às 17h"
    }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "id": "mis-abertura-mostra-de-cinema-israelense",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/Israeal-768x512.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/abertura-mostra-de-cinema-israelense/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98612",
+     "coletado_em": "2026-11-13T11:42:31-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/abertura-mostra-de-cinema-israelense/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-24T22:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-24T19:30"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/abertura-mostra-de-cinema-israelense/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Abertura | Mostra de Cinema Israelense"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Exibição do filme Kupa Rashit: the movie"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "eventos"
+   },
+   "id": "mis-oficina-de-roteiro-do-livro-a-tela-o-processo-de-adaptacao-de-obras-literarias-p",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/roteiro-2.bmp"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/oficina-de-roteiro-do-livro-a-tela-o-processo-de-adaptacao-de-obras-literarias-para-o-audiovisual/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98622",
+     "coletado_em": "2026-11-13T11:42:31-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/oficina-de-roteiro-do-livro-a-tela-o-processo-de-adaptacao-de-obras-literarias-para-o-audiovisual/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-26T13:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-26T10:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/oficina-de-roteiro-do-livro-a-tela-o-processo-de-adaptacao-de-obras-literarias-para-o-audiovisual/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Oficina de roteiro | Do livro à tela: o processo de adaptação de obras literárias para o audiovisual"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Oficina ministrada pela roteirista Camila Raffanti e pelo produtor, diretor e executivo audiovisual João Daniel Tikhomiroff"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "eventos"
+   },
+   "id": "mis-sisem-palestra-on-line-acoes-de-articulacao-da-rede-tematica-de-acervos-audiovis",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/Sisem-27-768x1152.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/sisem-palestra-on-line-acoes-de-articulacao-da-rede-tematica-de-acervos-audiovisuais-e-fotograficos/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98626",
+     "coletado_em": "2026-11-13T11:42:31-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/sisem-palestra-on-line-acoes-de-articulacao-da-rede-tematica-de-acervos-audiovisuais-e-fotograficos/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-27T12:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-27T10:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/sisem-palestra-on-line-acoes-de-articulacao-da-rede-tematica-de-acervos-audiovisuais-e-fotograficos/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "SISEM | Palestra on-line “Ações de articulação da rede temática de acervos audiovisuais e fotográficos”"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "A equipe do Centro de Memória e Informação do MIS (CEMIS) compartilha a elaboração do processo do Plano de Emergência para os Acervos MIS"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "id": "mis-mostra-de-cinema-xapiri-yanomami",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/mapear-mundos-768x518.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/mostra-de-cinema-xapiri-yanomami/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98608",
+     "coletado_em": "2026-11-13T11:42:31-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/mostra-de-cinema-xapiri-yanomami/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-28T22:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-27T18:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/mostra-de-cinema-xapiri-yanomami/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Mostra de Cinema Xapiri Yanomami"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Programação Paralela da exposição “Caleidoscópio Xapiri Yanomami”"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "eventos"
+   },
+   "id": "mis-maratona-infantil-rebobinando-a-fitinha",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/3F0A7332-768x512.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/maratona-infantil-rebobinando-a-fitinha/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98589",
+     "coletado_em": "2026-11-13T11:42:31-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/maratona-infantil-rebobinando-a-fitinha/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-29T17:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-29T10:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/maratona-infantil-rebobinando-a-fitinha/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Maratona Infantil | Rebobinando a fitinha"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Várias atividades gratuitas para crianças e suas famílias com a temática anos 1990."
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "eventos"
+   },
+   "id": "mis-lancamento-de-livro-mundo-portatil-estetica-e-ideologia-da-representacao-fotogra",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/foto-05.jpeg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/lancamento-de-livro-mundo-portatil-estetica-e-ideologia-da-representacao-fotografica-de-boris-kossoy/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98598",
+     "coletado_em": "2026-11-13T11:42:31-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/lancamento-de-livro-mundo-portatil-estetica-e-ideologia-da-representacao-fotografica-de-boris-kossoy/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-12-02T22:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-02T19:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/lancamento-de-livro-mundo-portatil-estetica-e-ideologia-da-representacao-fotografica-de-boris-kossoy/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Lançamento de livro | “Mundo portátil: estética e ideologia da representação fotográfica”, de Boris Kossoy"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Lançamento do livro de Boris Kossoy seguida de sessão de autógrafos com a presença do autor."
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "id": "mis-estereo-mis-metade-de-mim",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/Foto-29-03-2026-17-34-55-768x1024.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/estereo-mis-vitao-2/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98629",
+     "coletado_em": "2026-11-13T11:42:31-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/estereo-mis-vitao-2/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-12-04T23:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-04T21:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/estereo-mis-vitao-2/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Estéreo MIS | Metade de Mim"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Metade de Mim é a banda convidado para o Estéreo MIS de dezembro."
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "eventos"
+   },
+   "id": "mis-cine-kids-tito-e-os-passaros",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/tito-and-the-birds-scene-30-768x327.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/cine-kids-tito-e-os-passaros/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98593",
+     "coletado_em": "2026-11-13T11:42:31-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/cine-kids-tito-e-os-passaros/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-12-06T16:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-06T14:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/cine-kids-tito-e-os-passaros/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Cine Kids | Tito e os pássaros"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Em parceria com a Bits Produções , o MIS exibe Tito e os pássaros (2018), com as vozes de Denise Fraga , Mateus Solano , Matheus Nachtergaele e Pedro Henrique ."
+   }
   }
  ],
  "lugares": [
@@ -364,7 +755,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-11T11:31:29-03:00",
+     "coletado_em": "2026-11-13T11:42:31-03:00",
      "fonte": "mis",
      "url": "https://www.mis-sp.org.br"
     }
@@ -375,7 +766,7 @@
    }
   }
  ],
- "nota": "7 sessões nos próximos 45 dias",
- "ok": false,
- "rodou_em": "2026-11-12T12:29:18-03:00"
+ "nota": "15 sessões nos próximos 45 dias",
+ "ok": true,
+ "rodou_em": "2026-11-13T11:42:31-03:00"
 }
