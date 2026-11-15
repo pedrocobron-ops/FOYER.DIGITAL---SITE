@@ -1,489 +1,7 @@
 {
- "coletado_em": "2026-11-14T10:38:48-03:00",
+ "coletado_em": "2026-11-15T11:02:57-03:00",
  "fonte": "cinemateca",
  "itens": [
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Evento"
-   },
-   "id": "cinemateca-oficina-de-matryoshkas",
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/oficina-de-matryoshkas/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67294",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/oficina-de-matryoshkas/"
-    },
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67325",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/oficina-de-matryoshkas-2/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-14T12:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/oficina-de-matryoshkas/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Foyer Sala Grande Otelo"
-     }
-    },
-    {
-     "inicio": {
-      "o": 1,
-      "v": "2026-11-21T12:00"
-     },
-     "link": {
-      "o": 1,
-      "v": "https://cinemateca.org.br/exibicao/oficina-de-matryoshkas-2/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 1,
-      "v": "Foyer Sala Grande Otelo"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "OFICINA DE MATRYOSHKAS"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Sessão"
-   },
-   "id": "cinemateca-a-ultima-noite",
-   "imagem": {
-    "credito": "Divulgação / Cinemateca Brasileira",
-    "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_a_ultima_noite-768x631.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/a-ultima-noite-2/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67285",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/a-ultima-noite-2/"
-    },
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67331",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/a-ultima-noite-3/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-14T14:15"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/a-ultima-noite-2/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Sala Grande Otelo"
-     }
-    },
-    {
-     "inicio": {
-      "o": 1,
-      "v": "2026-11-22T15:15"
-     },
-     "link": {
-      "o": 1,
-      "v": "https://cinemateca.org.br/exibicao/a-ultima-noite-3/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 1,
-      "v": "Sala Grande Otelo"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "A ÚLTIMA NOITE"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Evento"
-   },
-   "id": "cinemateca-workshop-de-dancas-folcloricas-russas",
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/workshop-de-dancas-folcloricas-russas-2/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67296",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/workshop-de-dancas-folcloricas-russas-2/"
-    },
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67327",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/workshop-de-dancas-folcloricas-russas-3/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-14T16:30"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/workshop-de-dancas-folcloricas-russas-2/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Foyer Sala Grande Otelo"
-     }
-    },
-    {
-     "inicio": {
-      "o": 1,
-      "v": "2026-11-21T16:30"
-     },
-     "link": {
-      "o": 1,
-      "v": "https://cinemateca.org.br/exibicao/workshop-de-dancas-folcloricas-russas-3/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 1,
-      "v": "Foyer Sala Grande Otelo"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "WORKSHOP DE DANÇAS FOLCLÓRICAS RUSSAS"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Evento"
-   },
-   "id": "cinemateca-introducao-ao-idioma-russo",
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/introducao-ao-idioma-russo/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67298",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/introducao-ao-idioma-russo/"
-    },
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67329",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/introducao-ao-idioma-russo-2/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-14T16:30"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/introducao-ao-idioma-russo/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Foyer Sala Grande Otelo"
-     }
-    },
-    {
-     "inicio": {
-      "o": 1,
-      "v": "2026-11-21T16:30"
-     },
-     "link": {
-      "o": 1,
-      "v": "https://cinemateca.org.br/exibicao/introducao-ao-idioma-russo-2/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 1,
-      "v": "Foyer Sala Grande Otelo"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "INTRODUÇÃO AO IDIOMA RUSSO"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Sessão"
-   },
-   "id": "cinemateca-sessao-de-curtas-cinema-espanhol-das-origens-1906-1913",
-   "imagem": {
-    "credito": "Divulgação / Cinemateca Brasileira",
-    "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2026/10/2_inauguracao_do_bairro_operario-768x600.png"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/sessao-de-curtas-cinema-espanhol-das-origens-1906-1913/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67108",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/sessao-de-curtas-cinema-espanhol-das-origens-1906-1913/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-14T17:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/sessao-de-curtas-cinema-espanhol-das-origens-1906-1913/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Sala Oscarito"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "SESSÃO DE CURTAS: CINEMA ESPANHOL DAS ORIGENS (1906-1913)"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Sessão"
-   },
-   "id": "cinemateca-numero-217",
-   "imagem": {
-    "credito": "Divulgação / Cinemateca Brasileira",
-    "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_numero_217-768x500.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/numero-217/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67287",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/numero-217/"
-    },
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67311",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/numero-217-2/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-14T17:45"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/numero-217/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Sala Grande Otelo"
-     }
-    },
-    {
-     "inicio": {
-      "o": 1,
-      "v": "2026-11-19T20:50"
-     },
-     "link": {
-      "o": 1,
-      "v": "https://cinemateca.org.br/exibicao/numero-217-2/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 1,
-      "v": "Sala Grande Otelo"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "NÚMERO 217"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Sessão"
-   },
-   "id": "cinemateca-uma-pagina-de-loucura",
-   "imagem": {
-    "credito": "Divulgação / Cinemateca Brasileira",
-    "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2026/10/uma_pagina_de_loucura-6-768x576.png"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/uma-pagina-de-loucura-2/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67110",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/uma-pagina-de-loucura-2/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-14T19:30"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/uma-pagina-de-loucura-2/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Sala Oscarito"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "UMA PÁGINA DE LOUCURA"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Sessão"
-   },
-   "id": "cinemateca-andrei-rublev",
-   "imagem": {
-    "credito": "Divulgação / Cinemateca Brasileira",
-    "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_andrei_rublev-1-768x432.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/andrei-rublev/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67292",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/andrei-rublev/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-14T20:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/andrei-rublev/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Espaço Alberto Cavalcanti / Área Externa"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "ANDREI RUBLEV"
-   }
-  },
   {
    "area": {
     "o": 0,
@@ -506,13 +24,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67300",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-parte-1/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67313",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-parte-1-2/"
     }
@@ -576,7 +94,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67385",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/cineclubinho-castelo-ra-tim-bum-o-filme/"
     }
@@ -625,7 +143,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67112",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-dupla-passeio-de-bonde-pela-cidade-de-sheffield-e-mliss-2/"
     }
@@ -674,13 +192,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67303",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-partes-2-e-3/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67315",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-partes-2-e-3-2/"
     }
@@ -744,7 +262,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67114",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-dupla-um-passeio-no-bonde-funicular-de-hong-kong-e-o-bobo-2/"
     }
@@ -793,13 +311,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67305",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/kin-dza-dza/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67307",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/kin-dza-dza-2/"
     }
@@ -863,7 +381,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67360",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-ladroes-de-cinema/"
     }
@@ -912,7 +430,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67309",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/o-voo-espacial-2/"
     }
@@ -946,6 +464,55 @@
    },
    "categoria": {
     "o": 0,
+    "v": "Sessão"
+   },
+   "id": "cinemateca-numero-217",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_numero_217-768x500.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://cinemateca.org.br/exibicao/numero-217-2/"
+   },
+   "origens": [
+    {
+     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67311",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "fonte": "cinemateca",
+     "url": "https://cinemateca.org.br/exibicao/numero-217-2/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-19T20:50"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://cinemateca.org.br/exibicao/numero-217-2/"
+     },
+     "lugar": "cinemateca-brasileira",
+     "sala": {
+      "o": 0,
+      "v": "Sala Grande Otelo"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "NÚMERO 217"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "categoria": {
+    "o": 0,
     "v": "Cursos e debates, Infantil"
    },
    "id": "cinemateca-canal-100-oficina-de-stop-motion",
@@ -961,7 +528,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67387",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/canal-100-oficina-de-stop-motion/"
     }
@@ -1010,7 +577,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67317",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/venenos-ou-a-historia-mundial-do-envenenamento-2/"
     }
@@ -1044,6 +611,50 @@
    },
    "categoria": {
     "o": 0,
+    "v": "Evento"
+   },
+   "id": "cinemateca-oficina-de-matryoshkas",
+   "link_fonte": {
+    "o": 0,
+    "v": "https://cinemateca.org.br/exibicao/oficina-de-matryoshkas-2/"
+   },
+   "origens": [
+    {
+     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67325",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "fonte": "cinemateca",
+     "url": "https://cinemateca.org.br/exibicao/oficina-de-matryoshkas-2/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-21T12:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://cinemateca.org.br/exibicao/oficina-de-matryoshkas-2/"
+     },
+     "lugar": "cinemateca-brasileira",
+     "sala": {
+      "o": 0,
+      "v": "Foyer Sala Grande Otelo"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "OFICINA DE MATRYOSHKAS"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "categoria": {
+    "o": 0,
     "v": "Sessão"
    },
    "id": "cinemateca-o-velho-e-o-novo",
@@ -1059,7 +670,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67319",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/o-velho-e-o-novo/"
     }
@@ -1093,6 +704,94 @@
    },
    "categoria": {
     "o": 0,
+    "v": "Evento"
+   },
+   "id": "cinemateca-workshop-de-dancas-folcloricas-russas",
+   "link_fonte": {
+    "o": 0,
+    "v": "https://cinemateca.org.br/exibicao/workshop-de-dancas-folcloricas-russas-3/"
+   },
+   "origens": [
+    {
+     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67327",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "fonte": "cinemateca",
+     "url": "https://cinemateca.org.br/exibicao/workshop-de-dancas-folcloricas-russas-3/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-21T16:30"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://cinemateca.org.br/exibicao/workshop-de-dancas-folcloricas-russas-3/"
+     },
+     "lugar": "cinemateca-brasileira",
+     "sala": {
+      "o": 0,
+      "v": "Foyer Sala Grande Otelo"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "WORKSHOP DE DANÇAS FOLCLÓRICAS RUSSAS"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Evento"
+   },
+   "id": "cinemateca-introducao-ao-idioma-russo",
+   "link_fonte": {
+    "o": 0,
+    "v": "https://cinemateca.org.br/exibicao/introducao-ao-idioma-russo-2/"
+   },
+   "origens": [
+    {
+     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67329",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "fonte": "cinemateca",
+     "url": "https://cinemateca.org.br/exibicao/introducao-ao-idioma-russo-2/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-21T16:30"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://cinemateca.org.br/exibicao/introducao-ao-idioma-russo-2/"
+     },
+     "lugar": "cinemateca-brasileira",
+     "sala": {
+      "o": 0,
+      "v": "Foyer Sala Grande Otelo"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "INTRODUÇÃO AO IDIOMA RUSSO"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "categoria": {
+    "o": 0,
     "v": "Sessão"
    },
    "id": "cinemateca-sinos-vermelhos-mexico-em-chamas",
@@ -1108,7 +807,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67321",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sinos-vermelhos-mexico-em-chamas-2/"
     }
@@ -1157,7 +856,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67323",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sinos-vermelhos-vi-o-nascimento-de-um-novo-mundo-2/"
     }
@@ -1193,6 +892,50 @@
     "o": 0,
     "v": "Sessão"
    },
+   "id": "cinemateca-a-ultima-noite",
+   "link_fonte": {
+    "o": 0,
+    "v": "https://cinemateca.org.br/exibicao/a-ultima-noite-3/"
+   },
+   "origens": [
+    {
+     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67331",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "fonte": "cinemateca",
+     "url": "https://cinemateca.org.br/exibicao/a-ultima-noite-3/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-22T15:15"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://cinemateca.org.br/exibicao/a-ultima-noite-3/"
+     },
+     "lugar": "cinemateca-brasileira",
+     "sala": {
+      "o": 0,
+      "v": "Sala Grande Otelo"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "A ÚLTIMA NOITE"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Sessão"
+   },
    "id": "cinemateca-poema-do-mar",
    "imagem": {
     "credito": "Divulgação / Cinemateca Brasileira",
@@ -1206,7 +949,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67333",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/poema-do-mar-2/"
     }
@@ -1255,7 +998,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67335",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/domando-o-fogo-2/"
     }
@@ -1304,7 +1047,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67365",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-garota-de-ipanema/"
     }
@@ -1353,13 +1096,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67492",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/mostra-classicos/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67496",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/mostra-classicos-2/"
     }
@@ -1423,13 +1166,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67494",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/mostra-internacional/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67498",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/abeni-a-filha-do-ferreiro/"
     }
@@ -1493,7 +1236,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67500",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-de-encerramento-3/"
     }
@@ -1542,7 +1285,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67348",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-especial-os-doces-barbaros/"
     }
@@ -1591,7 +1334,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67367",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-deus-e-o-diabo-na-terra-do-sol/"
     }
@@ -1640,7 +1383,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67369",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-canal-100-processos-de-restauro-na-cinemateca-brasileira/"
     }
@@ -1689,7 +1432,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67371",
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/a-paixao-de-joana-darc/"
     }
@@ -1730,7 +1473,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-14T10:38:48-03:00",
+     "coletado_em": "2026-11-15T11:02:57-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br"
     }
@@ -1741,7 +1484,7 @@
    }
   }
  ],
- "nota": "41 sessões nos próximos 45 dias",
+ "nota": "33 sessões nos próximos 45 dias",
  "ok": true,
- "rodou_em": "2026-11-14T10:38:48-03:00"
+ "rodou_em": "2026-11-15T11:02:57-03:00"
 }
