@@ -1,7 +1,79 @@
 {
- "coletado_em": "2026-11-15T11:04:13-03:00",
+ "coletado_em": "2026-11-16T13:01:30-03:00",
  "fonte": "ccsp",
  "itens": [
+  {
+   "area": {
+    "o": 0,
+    "v": "eventos"
+   },
+   "id": "ccsp-graca-22",
+   "link_fonte": {
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/agenda/"
+   },
+   "origens": [
+    {
+     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
+     "fonte": "ccsp",
+     "url": "https://centrocultural.sp.gov.br/agenda/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-22"
+     },
+     "lugar": "centro-cultural-sao-paulo",
+     "sala": {
+      "o": 0,
+      "v": "Espaço Ademar Guerra"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Graça 22"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "eventos"
+   },
+   "id": "ccsp-graca-21",
+   "link_fonte": {
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/agenda/"
+   },
+   "origens": [
+    {
+     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
+     "fonte": "ccsp",
+     "url": "https://centrocultural.sp.gov.br/agenda/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-21"
+     },
+     "lugar": "centro-cultural-sao-paulo",
+     "sala": {
+      "o": 0,
+      "v": "Espaço Ademar Guerra"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Graça 21"
+   }
+  },
   {
    "area": {
     "o": 0,
@@ -15,7 +87,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -51,7 +123,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -79,64 +151,6 @@
     "o": 0,
     "v": "eventos"
    },
-   "categoria": {
-    "o": 0,
-    "v": "Ação Cultural"
-   },
-   "id": "ccsp-virada-nerd-2026",
-   "imagem": {
-    "credito": "Divulgação / Centro Cultural São Paulo",
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2026/11/POST-virada-nerd-3-768x485.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/virada-nerd-2026/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ate": {
-      "o": 0,
-      "v": "2026-11-15"
-     },
-     "estreia": {
-      "o": 0,
-      "v": "2026-11-14"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "quando": {
-      "o": 0,
-      "obs": "recorrência \"diário\" como o site registra",
-      "v": "Todos os dias, de 14/11/2026 a 15/11/2026"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Foyer, Espaço Missão, Adoniran Barbosa e Anexo"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Virada Nerd 2026"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "Nos dias 14 e 15 de novembro, o Centro Cultural São Paulo recebe a sede presencial da Virada Nerd 2026 com palestras, debates, aulas, demonstrações de jogos, mesas de editoras e quadrinistas e o Beco dos Artistas, com…"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "eventos"
-   },
    "id": "ccsp-4-o-festival-criacao-estetica-e-saberes-17",
    "link_fonte": {
     "o": 0,
@@ -145,7 +159,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -181,7 +195,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -226,7 +240,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -263,11 +277,6 @@
     "v": "Literatura"
    },
    "id": "ccsp-contacao-de-historia-a-menina-que-queria-o-rio",
-   "imagem": {
-    "credito": "Divulgação / Centro Cultural São Paulo",
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2025/11/POST-a-menina-queria-rio1-768x485.jpg"
-   },
    "link_fonte": {
     "o": 0,
     "v": "https://centrocultural.sp.gov.br/contacao-de-historia-a-menina-que-queria-o-rio/"
@@ -275,7 +284,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -324,7 +333,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -364,7 +373,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -409,7 +418,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -458,7 +467,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -503,7 +512,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -561,7 +570,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -610,7 +619,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -659,7 +668,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -708,7 +717,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -757,7 +766,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -787,113 +796,6 @@
   {
    "area": {
     "o": 0,
-    "v": "musica"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Música"
-   },
-   "id": "ccsp-cena-cultural-sao-paulo-narua",
-   "imagem": {
-    "credito": "Divulgação / Centro Cultural São Paulo",
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2026/11/POST-narua-2-768x485.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/cena-cultural-sao-paulo-narua"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-15T15:00"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Rampa – Metrô Vergueiro"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Cena Cultural São Paulo – NaRUA"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "O Cena Cultural SP é um evento periódico dedicado à difusão e ao fomento de coletivos culturais atuantes na cidade de São Paulo, promovendo o encontro entre diferentes linguagens artísticas, práticas e experiências de…"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Música"
-   },
-   "id": "ccsp-sublab",
-   "imagem": {
-    "credito": "Divulgação / Centro Cultural São Paulo",
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2026/11/POST-sublab-1-768x485.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/sublab-2/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ate": {
-      "o": 0,
-      "v": "2026-11-15"
-     },
-     "estreia": {
-      "o": 0,
-      "v": "2026-11-14"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "quando": {
-      "o": 0,
-      "obs": "recorrência \"diário\" como o site registra",
-      "v": "Todos os dias, 21:00, de 14/11/2026 a 15/11/2026"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Espaço Ademar Guerra"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "SubLab"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "Na Sala Ademar Guerra e suas adjacências se convertem em território da cena independente, das 21h às 5h, com entrada pela rampa João Julião."
-   }
-  },
-  {
-   "area": {
-    "o": 0,
     "v": "eventos"
    },
    "id": "ccsp-mix-brasil-2026-17-18-19-20-21-22",
@@ -904,7 +806,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -939,51 +841,6 @@
   {
    "area": {
     "o": 0,
-    "v": "eventos"
-   },
-   "id": "ccsp-mix-brasil-2026-13-14-15",
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/agenda/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ate": {
-      "o": 0,
-      "v": "2026-11-15"
-     },
-     "estreia": {
-      "o": 0,
-      "v": "2026-11-12"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "quando": {
-      "o": 0,
-      "obs": "recorrência \"diário\" como o site registra",
-      "v": "Todos os dias, de 12/11/2026 a 15/11/2026"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Salas Lima Barreto e Paulo Emílio"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Mix Brasil 2026 – 13 – 14 – 15"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
     "v": "musica"
    },
    "categoria": {
@@ -1003,7 +860,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1052,7 +909,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1088,7 +945,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1124,7 +981,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1169,7 +1026,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1205,7 +1062,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1242,114 +1099,6 @@
     "o": 0,
     "v": "eventos"
    },
-   "id": "ccsp-o-caso-lorena-15",
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/agenda/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-15T18:00"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Sala Jardel Filho"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "O Caso Lorena 15"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "eventos"
-   },
-   "id": "ccsp-graca-21",
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/agenda/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-21T17:30"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Espaço Ademar Guerra"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Graça 21"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "eventos"
-   },
-   "id": "ccsp-graca-22",
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/agenda/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-22T19:30"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Espaço Ademar Guerra"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Graça 22"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "eventos"
-   },
    "id": "ccsp-graca-18-19-20",
    "link_fonte": {
     "o": 0,
@@ -1358,7 +1107,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1393,51 +1142,6 @@
   {
    "area": {
     "o": 0,
-    "v": "eventos"
-   },
-   "id": "ccsp-graca-15",
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/agenda/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ate": {
-      "o": 0,
-      "v": "2026-11-15"
-     },
-     "estreia": {
-      "o": 0,
-      "v": "2026-11-15"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "quando": {
-      "o": 0,
-      "obs": "recorrência \"diário\" como o site registra",
-      "v": "Todos os dias, 19:30, de 15/11/2026 a 15/11/2026"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Espaço Ademar Guerra"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Graça 15"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
     "v": "musica"
    },
    "categoria": {
@@ -1457,7 +1161,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1506,7 +1210,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1555,7 +1259,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1595,7 +1299,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1640,7 +1344,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1689,7 +1393,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1738,7 +1442,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1778,7 +1482,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1823,7 +1527,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1868,7 +1572,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1913,7 +1617,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1958,7 +1662,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2003,7 +1707,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2038,51 +1742,6 @@
   {
    "area": {
     "o": 0,
-    "v": "eventos"
-   },
-   "id": "ccsp-1o-premio-cultural-de-arquitetura-corporativa-10-15",
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/agenda/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ate": {
-      "o": 0,
-      "v": "2026-11-15"
-     },
-     "estreia": {
-      "o": 0,
-      "v": "2026-11-10"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "quando": {
-      "o": 0,
-      "obs": "recorrência \"diário\" como o site registra",
-      "v": "Todos os dias, 10:00, de 10/11/2026 a 15/11/2026"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Sala Tarsila do Amaral e Sala Jardel Filho"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "1º Prêmio Cultural de Arquitetura Corporativa – 10 15"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
     "v": "musica"
    },
    "categoria": {
@@ -2102,7 +1761,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2142,7 +1801,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2187,7 +1846,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2232,7 +1891,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2277,7 +1936,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2312,51 +1971,6 @@
   {
    "area": {
     "o": 0,
-    "v": "exposicao"
-   },
-   "id": "ccsp-35o-programa-de-exposicoes-do-ccsp-14-15",
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/agenda/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ate": {
-      "o": 0,
-      "v": "2026-11-15"
-     },
-     "estreia": {
-      "o": 0,
-      "v": "2026-11-14"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "quando": {
-      "o": 0,
-      "obs": "recorrência \"diário\" como o site registra",
-      "v": "Todos os dias, 10:00, de 14/11/2026 a 15/11/2026"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Piso Caio Graco e Piso Flávio de Carvalho"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "35º PROGRAMA DE EXPOSIÇÕES DO CCSP – 14 15"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
     "v": "eventos"
    },
    "categoria": {
@@ -2376,7 +1990,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2425,7 +2039,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2474,7 +2088,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2514,7 +2128,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2559,7 +2173,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2594,55 +2208,6 @@
   {
    "area": {
     "o": 0,
-    "v": "musica"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Música"
-   },
-   "id": "ccsp-projeto-entre-tons-olhos-dagua",
-   "imagem": {
-    "credito": "Divulgação / Centro Cultural São Paulo",
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2026/10/POST-olhos-de-agua-2-768x485.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/projeto-entre-tons-4/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-15T11:00"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Sala Jardel Filho"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Projeto Entre Tons – Olhos d’água"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "“Olhos d’água” apresenta um espetáculo de música autoral que combina vozes, percussões e violão em uma formação intimista. O repertório reúne canções que exploram temas como partidas, despedidas, reencontros e…"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
     "v": "eventos"
    },
    "id": "ccsp-workshop-sextou-samba-rock-06-13-20-e-27-11",
@@ -2653,7 +2218,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2698,7 +2263,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2743,7 +2308,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2788,7 +2353,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2833,7 +2398,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2878,7 +2443,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2923,7 +2488,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2959,7 +2524,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -3005,7 +2570,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-15T11:03:39-03:00",
+     "coletado_em": "2026-11-16T13:00:38-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br"
     }
@@ -3018,5 +2583,5 @@
  ],
  "nota": "430 sessões conferidas",
  "ok": true,
- "rodou_em": "2026-11-15T11:04:13-03:00"
+ "rodou_em": "2026-11-16T13:01:30-03:00"
 }

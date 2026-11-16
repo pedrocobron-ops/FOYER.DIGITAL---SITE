@@ -1,364 +1,7 @@
 {
- "coletado_em": "2026-11-15T11:02:57-03:00",
+ "coletado_em": "2026-11-16T12:59:03-03:00",
  "fonte": "cinemateca",
  "itens": [
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Sessão"
-   },
-   "id": "cinemateca-os-irmaos-karamazov-parte-1",
-   "imagem": {
-    "credito": "Divulgação / Cinemateca Brasileira",
-    "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_os_irmaos_karamazov-1-768x756.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-parte-1/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67300",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-parte-1/"
-    },
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67313",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-parte-1-2/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-15T15:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-parte-1/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Sala Grande Otelo"
-     }
-    },
-    {
-     "inicio": {
-      "o": 1,
-      "v": "2026-11-20T16:00"
-     },
-     "link": {
-      "o": 1,
-      "v": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-parte-1-2/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 1,
-      "v": "Sala Grande Otelo"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "OS IRMÃOS KARAMAZOV – PARTE 1"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Sessão"
-   },
-   "id": "cinemateca-cineclubinho-castelo-ra-tim-bum-o-filme",
-   "imagem": {
-    "credito": "Divulgação / Cinemateca Brasileira",
-    "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2024/06/cbs_id_castelo_ra_tim_bum_o_filme-768x432.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/cineclubinho-castelo-ra-tim-bum-o-filme/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67385",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/cineclubinho-castelo-ra-tim-bum-o-filme/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-15T15:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/cineclubinho-castelo-ra-tim-bum-o-filme/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "CineSesc"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "CINECLUBINHO | CASTELO RÁ-TIM-BUM, O FILME"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Sessão"
-   },
-   "id": "cinemateca-sessao-dupla-passeio-de-bonde-pela-cidade-de-sheffield-e-mliss",
-   "imagem": {
-    "credito": "Divulgação / Cinemateca Brasileira",
-    "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2026/10/passeio_sheffield-2-768x578.png"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/sessao-dupla-passeio-de-bonde-pela-cidade-de-sheffield-e-mliss-2/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67112",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/sessao-dupla-passeio-de-bonde-pela-cidade-de-sheffield-e-mliss-2/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-15T17:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/sessao-dupla-passeio-de-bonde-pela-cidade-de-sheffield-e-mliss-2/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Sala Oscarito"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "SESSÃO DUPLA | PASSEIO DE BONDE PELA CIDADE DE SHEFFIELD e M’LISS"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Sessão"
-   },
-   "id": "cinemateca-os-irmaos-karamazov-partes-2-e-3",
-   "imagem": {
-    "credito": "Divulgação / Cinemateca Brasileira",
-    "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_os_irmaos_karamazov-1-768x756.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-partes-2-e-3/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67303",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-partes-2-e-3/"
-    },
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67315",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-partes-2-e-3-2/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-15T17:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-partes-2-e-3/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Sala Grande Otelo"
-     }
-    },
-    {
-     "inicio": {
-      "o": 1,
-      "v": "2026-11-20T18:00"
-     },
-     "link": {
-      "o": 1,
-      "v": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-partes-2-e-3-2/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 1,
-      "v": "Sala Grande Otelo"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "OS IRMÃOS KARAMAZOV – PARTES 2 E 3"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Sessão"
-   },
-   "id": "cinemateca-sessao-dupla-um-passeio-no-bonde-funicular-de-hong-kong-e-o-bobo",
-   "imagem": {
-    "credito": "Divulgação / Cinemateca Brasileira",
-    "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2026/10/bobo-7-768x587.png"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/sessao-dupla-um-passeio-no-bonde-funicular-de-hong-kong-e-o-bobo-2/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67114",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/sessao-dupla-um-passeio-no-bonde-funicular-de-hong-kong-e-o-bobo-2/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-15T19:30"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/sessao-dupla-um-passeio-no-bonde-funicular-de-hong-kong-e-o-bobo-2/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Sala Oscarito"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "SESSÃO DUPLA | UM PASSEIO NO BONDE FUNICULAR DE HONG KONG e O BOBO"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Sessão"
-   },
-   "id": "cinemateca-kin-dza-dza",
-   "imagem": {
-    "credito": "Divulgação / Cinemateca Brasileira",
-    "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_kin_dza_dza-768x432.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/kin-dza-dza/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67305",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/kin-dza-dza/"
-    },
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67307",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/kin-dza-dza-2/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-15T20:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/kin-dza-dza/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Sala Grande Otelo"
-     }
-    },
-    {
-     "inicio": {
-      "o": 1,
-      "v": "2026-11-19T16:30"
-     },
-     "link": {
-      "o": 1,
-      "v": "https://cinemateca.org.br/exibicao/kin-dza-dza-2/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 1,
-      "v": "Sala Grande Otelo"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "KIN-DZA-DZA!"
-   }
-  },
   {
    "area": {
     "o": 0,
@@ -381,7 +24,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67360",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-ladroes-de-cinema/"
     }
@@ -417,6 +60,55 @@
     "o": 0,
     "v": "Sessão"
    },
+   "id": "cinemateca-kin-dza-dza",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_kin_dza_dza-768x432.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://cinemateca.org.br/exibicao/kin-dza-dza-2/"
+   },
+   "origens": [
+    {
+     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67307",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
+     "fonte": "cinemateca",
+     "url": "https://cinemateca.org.br/exibicao/kin-dza-dza-2/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-19T16:30"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://cinemateca.org.br/exibicao/kin-dza-dza-2/"
+     },
+     "lugar": "cinemateca-brasileira",
+     "sala": {
+      "o": 0,
+      "v": "Sala Grande Otelo"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "KIN-DZA-DZA!"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Sessão"
+   },
    "id": "cinemateca-o-voo-espacial",
    "imagem": {
     "credito": "Divulgação / Cinemateca Brasileira",
@@ -430,7 +122,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67309",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/o-voo-espacial-2/"
     }
@@ -479,7 +171,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67311",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/numero-217-2/"
     }
@@ -528,7 +220,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67387",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/canal-100-oficina-de-stop-motion/"
     }
@@ -564,6 +256,104 @@
     "o": 0,
     "v": "Sessão"
    },
+   "id": "cinemateca-os-irmaos-karamazov-parte-1",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_os_irmaos_karamazov-1-768x756.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-parte-1-2/"
+   },
+   "origens": [
+    {
+     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67313",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
+     "fonte": "cinemateca",
+     "url": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-parte-1-2/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-20T16:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-parte-1-2/"
+     },
+     "lugar": "cinemateca-brasileira",
+     "sala": {
+      "o": 0,
+      "v": "Sala Grande Otelo"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "OS IRMÃOS KARAMAZOV – PARTE 1"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Sessão"
+   },
+   "id": "cinemateca-os-irmaos-karamazov-partes-2-e-3",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_os_irmaos_karamazov-1-768x756.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-partes-2-e-3-2/"
+   },
+   "origens": [
+    {
+     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67315",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
+     "fonte": "cinemateca",
+     "url": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-partes-2-e-3-2/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-20T18:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://cinemateca.org.br/exibicao/os-irmaos-karamazov-partes-2-e-3-2/"
+     },
+     "lugar": "cinemateca-brasileira",
+     "sala": {
+      "o": 0,
+      "v": "Sala Grande Otelo"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "OS IRMÃOS KARAMAZOV – PARTES 2 E 3"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Sessão"
+   },
    "id": "cinemateca-venenos-ou-a-historia-mundial-do-envenenamento",
    "imagem": {
     "credito": "Divulgação / Cinemateca Brasileira",
@@ -577,7 +367,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67317",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/venenos-ou-a-historia-mundial-do-envenenamento-2/"
     }
@@ -621,7 +411,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67325",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/oficina-de-matryoshkas-2/"
     }
@@ -670,7 +460,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67319",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/o-velho-e-o-novo/"
     }
@@ -714,7 +504,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67327",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/workshop-de-dancas-folcloricas-russas-3/"
     }
@@ -758,7 +548,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67329",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/introducao-ao-idioma-russo-2/"
     }
@@ -807,7 +597,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67321",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sinos-vermelhos-mexico-em-chamas-2/"
     }
@@ -856,7 +646,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67323",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sinos-vermelhos-vi-o-nascimento-de-um-novo-mundo-2/"
     }
@@ -900,7 +690,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67331",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/a-ultima-noite-3/"
     }
@@ -949,7 +739,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67333",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/poema-do-mar-2/"
     }
@@ -998,7 +788,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67335",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/domando-o-fogo-2/"
     }
@@ -1047,7 +837,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67365",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-garota-de-ipanema/"
     }
@@ -1096,13 +886,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67492",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/mostra-classicos/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67496",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/mostra-classicos-2/"
     }
@@ -1166,13 +956,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67494",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/mostra-internacional/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67498",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/abeni-a-filha-do-ferreiro/"
     }
@@ -1236,7 +1026,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67500",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-de-encerramento-3/"
     }
@@ -1285,7 +1075,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67348",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-especial-os-doces-barbaros/"
     }
@@ -1334,7 +1124,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67367",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-deus-e-o-diabo-na-terra-do-sol/"
     }
@@ -1383,7 +1173,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67369",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-canal-100-processos-de-restauro-na-cinemateca-brasileira/"
     }
@@ -1432,7 +1222,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67371",
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/a-paixao-de-joana-darc/"
     }
@@ -1473,7 +1263,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-15T11:02:57-03:00",
+     "coletado_em": "2026-11-16T12:59:03-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br"
     }
@@ -1484,7 +1274,7 @@
    }
   }
  ],
- "nota": "33 sessões nos próximos 45 dias",
+ "nota": "27 sessões nos próximos 45 dias",
  "ok": true,
- "rodou_em": "2026-11-15T11:02:57-03:00"
+ "rodou_em": "2026-11-16T12:59:03-03:00"
 }
