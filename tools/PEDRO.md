@@ -145,6 +145,12 @@ Como escolher:
 
 - a pergunta tem de ser **como as pessoas digitam** ("Broadway, Off-Broadway e
   West End: qual é a diferença?"). O título de fria é a busca exata;
+- **datas comemorativas e aniversários saem às 5h (ordem do Pedro,
+  17/11/2026).** Matéria pendurada numa data (dia comemorativo, data
+  especial, aniversário de nascimento, morte ou estreia de pessoa ou obra
+  importante) sai às 5h do próprio dia, antes da fria das 7h. Vale preferir
+  números redondos (centenário, 50, 80 anos) e datas fixas do calendário.
+  Como as frias, só entra na fila com o Pedro aprovando data e texto.
 - **tema repetido só depois de três meses (ordem do Pedro, 17/11/2026).**
   Uma fria pode voltar a um tema que o acervo já tem, desde que a anterior
   tenha saído há pelo menos três meses e a nova venha em outra roupagem
