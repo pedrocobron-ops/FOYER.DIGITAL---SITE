@@ -145,6 +145,14 @@ Como escolher:
 
 - a pergunta tem de ser **como as pessoas digitam** ("Broadway, Off-Broadway e
   West End: qual é a diferença?"). O título de fria é a busca exata;
+- **tema repetido só depois de três meses (ordem do Pedro, 17/11/2026).**
+  Uma fria pode voltar a um tema que o acervo já tem, desde que a anterior
+  tenha saído há pelo menos três meses e a nova venha em outra roupagem
+  (outro formato, outro ângulo, outra pergunta). Antes de três meses, o tema
+  está ocupado: troca a pauta. Ex.: "Quem assume o musical quando o
+  protagonista perde a voz?" saiu em 15/10/2026, então understudy, standby e
+  swing só voltam a partir de 15/01/2027, e numa roupagem nova (lista de
+  substitutos que viraram estrelas, regras do sindicato).
 - `ja-saiu` antes de escolher, sempre: as frias do acervo vão de agosto a
   novembro de 2026 e o Pedro já cobriu muita pergunta óbvia;
 - apuração de verdade, com o nome das coisas (lei, obra, ano, número oficial,
