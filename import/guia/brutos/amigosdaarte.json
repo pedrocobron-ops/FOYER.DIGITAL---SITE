@@ -1,7 +1,67 @@
 {
- "coletado_em": "2026-11-16T13:03:58-03:00",
+ "coletado_em": "2026-11-17T13:15:01-03:00",
  "fonte": "amigosdaarte",
  "itens": [
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Música"
+   },
+   "ficha": {
+    "o": 0,
+    "v": "Companhia/artista: CORAL BLACK SHOW"
+   },
+   "id": "amigosdaarte-62058",
+   "imagem": {
+    "credito": "Divulgação / Amigos da Arte",
+    "o": 0,
+    "v": "https://amigosdaarte.org.br/wp-content/uploads/2026/10/sarara_2560x934-768x280.png"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://amigosdaarte.org.br/agenda-equipamento/sarara-criolo-do-gospel-ao-balanco-com-coral-black-show/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-17T13:14:52-03:00",
+     "fonte": "amigosdaarte",
+     "url": "https://amigosdaarte.org.br/agenda-equipamento/sarara-criolo-do-gospel-ao-balanco-com-coral-black-show/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 60
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-20T18:30"
+     },
+     "lugar": "teatro-sergio-cardoso",
+     "sala": {
+      "o": 0,
+      "v": "Hall do Teatro Sergio Cardoso"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Sarará Criolo! Do Gospel ao Balanço com Coral Black Show"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "O show “Sarará Criolo! Do Gospel ao Balanço” é uma celebração vibrante do protagonismo e da riqueza da música negra brasileira e internacional. Inspirado na força do verso-manifesto do clássico “Olhos Coloridos”, o show…"
+   }
+  },
   {
    "area": {
     "o": 0,
@@ -778,70 +838,6 @@
    },
    "ficha": {
     "o": 0,
-    "v": "Companhia/artista: CORAL BLACK SHOW"
-   },
-   "id": "amigosdaarte-62058",
-   "imagem": {
-    "credito": "Divulgação / Amigos da Arte",
-    "o": 0,
-    "v": "https://amigosdaarte.org.br/wp-content/uploads/2026/10/sarara_2560x934-768x280.png"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://amigosdaarte.org.br/agenda-equipamento/sarara-criolo-do-gospel-ao-balanco/"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-08T23:49:47-03:00",
-     "fonte": "amigosdaarte",
-     "url": "https://amigosdaarte.org.br/agenda-equipamento/sarara-criolo-do-gospel-ao-balanco/"
-    }
-   ],
-   "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 60
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-20T18:30"
-     },
-     "lugar": "teatro-sergio-cardoso",
-     "preco": {
-      "o": 0,
-      "v": "Entrada gratuita Retirada de ingressos na bilheteria 1 hora antes da apresentação"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Sarará Criolo – Do Gospel ao Balanço"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "O show “Sarará Criolo! Do Gospel ao Balanço” é uma celebração vibrante do protagonismo e da riqueza da música negra brasileira e internacional. Inspirado na força do verso-manifesto do clássico “Olhos Coloridos”, o show…"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Música"
-   },
-   "ficha": {
-    "o": 0,
     "v": "Companhia/artista: ANDRES SANTOS JR., FLAVIO LAGO e JOSÉ PAULO FIKS"
    },
    "id": "amigosdaarte-62053",
@@ -1397,9 +1393,9 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-12T12:34:13-03:00",
+     "coletado_em": "2026-11-17T13:14:52-03:00",
      "fonte": "amigosdaarte",
-     "url": "https://amigosdaarte.org.br/agenda-equipamento/a-menina-que-inundou-o-mundo/"
+     "url": "https://amigosdaarte.org.br/agenda-equipamento/sarara-criolo-do-gospel-ao-balanco-com-coral-black-show/"
     }
    ],
    "site": {
@@ -1409,5 +1405,5 @@
   }
  ],
  "ok": true,
- "rodou_em": "2026-11-16T13:03:58-03:00"
+ "rodou_em": "2026-11-17T13:15:01-03:00"
 }

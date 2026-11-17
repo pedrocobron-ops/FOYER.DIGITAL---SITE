@@ -1,5 +1,5 @@
 {
- "coletado_em": "2026-11-16T13:00:38-03:00",
+ "coletado_em": "2026-11-17T13:11:35-03:00",
  "fonte": "itaucultural",
  "itens": [
   {
@@ -19,7 +19,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-16T13:00:31-03:00",
+     "coletado_em": "2026-11-17T13:11:29-03:00",
      "fonte": "itaucultural",
      "url": "https://www.itaucultural.org.br/agenda"
     }
@@ -57,6 +57,58 @@
   {
    "area": {
     "o": 0,
+    "v": "cinema"
+   },
+   "id": "itaucultural-14548",
+   "imagem": {
+    "credito": "Divulgação / Itaú Cultural: foto frame do filme",
+    "o": 0,
+    "v": "https://s3.sa-east-1.amazonaws.com/prd.editor.fundacaoitau.org.br/public/image/20892/file/optimized-1b8a1d7e171b0b6389b70052a46ca2e3.jpeg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://www.itaucultural.org.br/secoes/agenda/mostra-de-cinema-homenageia-hector-babenco"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-17T13:11:29-03:00",
+     "fonte": "itaucultural",
+     "url": "https://www.itaucultural.org.br/agenda"
+    }
+   ],
+   "sessoes": [
+    {
+     "ate": {
+      "o": 0,
+      "v": "2026-11-29"
+     },
+     "estreia": {
+      "o": 0,
+      "v": "2026-11-21"
+     },
+     "lugar": "itau-cultural",
+     "quando": {
+      "o": 0,
+      "v": "De 21/11/2026 a 29/11/2026"
+     },
+     "site": {
+      "o": 0,
+      "v": "https://www.itaucultural.org.br/secoes/agenda/mostra-de-cinema-homenageia-hector-babenco"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Mostra de cinema homenageia Hector Babenco"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Programação relacionada a Ocupação Hector Babenco apresenta 10 obras do diretor, roteirista e produtor argentino-brasileiro"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
     "v": "eventos"
    },
    "id": "itaucultural-13899",
@@ -71,7 +123,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-16T13:00:31-03:00",
+     "coletado_em": "2026-11-17T13:11:29-03:00",
      "fonte": "itaucultural",
      "url": "https://www.itaucultural.org.br/agenda"
     }
@@ -127,7 +179,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-16T13:00:31-03:00",
+     "coletado_em": "2026-11-17T13:11:29-03:00",
      "fonte": "itaucultural",
      "url": "https://www.itaucultural.org.br/mostras-e-exposicoes/exposicoes"
     }
@@ -176,7 +228,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-16T13:00:31-03:00",
+     "coletado_em": "2026-11-17T13:11:29-03:00",
      "fonte": "itaucultural",
      "url": "https://www.itaucultural.org.br"
     }
@@ -188,5 +240,5 @@
   }
  ],
  "ok": true,
- "rodou_em": "2026-11-16T13:00:38-03:00"
+ "rodou_em": "2026-11-17T13:11:35-03:00"
 }
