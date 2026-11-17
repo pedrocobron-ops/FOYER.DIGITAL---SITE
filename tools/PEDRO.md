@@ -151,6 +151,11 @@ Como escolher:
   importante) sai às 5h do próprio dia, antes da fria das 7h. Vale preferir
   números redondos (centenário, 50, 80 anos) e datas fixas do calendário.
   Como as frias, só entra na fila com o Pedro aprovando data e texto.
+  Porte `perfil` para pessoas e `contexto` para obras e datas (não são
+  frias, então o portão não prende a hora). Matéria completa: recorte
+  histórico, trajetória com dados, a importância do artista ou da data
+  medida em influência e números, e o elo com o leitor de hoje. Nunca só
+  "morreu há tantos anos" (ordem do Pedro, 17/11/2026).
 - **tema repetido só depois de três meses (ordem do Pedro, 17/11/2026).**
   Uma fria pode voltar a um tema que o acervo já tem, desde que a anterior
   tenha saído há pelo menos três meses e a nova venha em outra roupagem
