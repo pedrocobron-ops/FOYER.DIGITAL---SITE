@@ -1,5 +1,6 @@
 {
  "coletado_em": "2026-11-17T13:12:11-03:00",
+ "erro": "HTTP Error 400: Bad Request",
  "fonte": "ccsp",
  "itens": [
   {
@@ -2582,6 +2583,6 @@
   }
  ],
  "nota": "430 sessões conferidas",
- "ok": true,
- "rodou_em": "2026-11-17T13:12:11-03:00"
+ "ok": false,
+ "rodou_em": "2026-11-18T12:49:50-03:00"
 }

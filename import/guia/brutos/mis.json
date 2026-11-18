@@ -1,5 +1,6 @@
 {
  "coletado_em": "2026-11-17T13:10:48-03:00",
+ "erro": "o site recusou o robots.txt (HTTP 504): bloqueia esta rede",
  "fonte": "mis",
  "itens": [
   {
@@ -669,6 +670,6 @@
   }
  ],
  "nota": "13 sessões nos próximos 45 dias",
- "ok": true,
- "rodou_em": "2026-11-17T13:10:48-03:00"
+ "ok": false,
+ "rodou_em": "2026-11-18T12:49:06-03:00"
 }
