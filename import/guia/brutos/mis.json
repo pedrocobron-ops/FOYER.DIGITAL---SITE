@@ -1,57 +1,7 @@
 {
- "coletado_em": "2026-11-17T13:10:48-03:00",
- "erro": "o site recusou o robots.txt (HTTP 504): bloqueia esta rede",
+ "coletado_em": "2026-11-19T12:54:38-03:00",
  "fonte": "mis",
  "itens": [
-  {
-   "area": {
-    "o": 0,
-    "v": "eventos"
-   },
-   "id": "mis-cineciencia-coerencia",
-   "imagem": {
-    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
-    "o": 0,
-    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/coerencia-3-768x326.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://mis-sp.org.br/evento/cineciencia-coerencia/"
-   },
-   "origens": [
-    {
-     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98538",
-     "coletado_em": "2026-11-17T13:10:48-03:00",
-     "fonte": "mis",
-     "url": "https://mis-sp.org.br/evento/cineciencia-coerencia/"
-    }
-   ],
-   "sessoes": [
-    {
-     "fim": {
-      "o": 0,
-      "v": "2026-11-18T21:00"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-18T19:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://mis-sp.org.br/evento/cineciencia-coerencia/"
-     },
-     "lugar": "mis-museu-da-imagem-e-do-som"
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "CineCiência | Coerência"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "Após a exibição, será realizado um bate-papo com o professor José Goldfarb e com o professor Roberto Serra"
-   }
-  },
   {
    "area": {
     "o": 0,
@@ -70,7 +20,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98541",
-     "coletado_em": "2026-11-17T13:10:48-03:00",
+     "coletado_em": "2026-11-19T12:54:38-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/clube-do-filme-do-livro-especial-festival-mixbrasil-2026-maurice/"
     }
@@ -119,7 +69,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98547",
-     "coletado_em": "2026-11-17T13:10:48-03:00",
+     "coletado_em": "2026-11-19T12:54:38-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/mostra-internacional-do-cinema-negro-2/"
     }
@@ -132,7 +82,7 @@
      },
      "inicio": {
       "o": 0,
-      "v": "2026-11-20T19:00"
+      "v": "2026-11-20T17:00"
      },
      "link": {
       "o": 0,
@@ -168,7 +118,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98463",
-     "coletado_em": "2026-11-17T13:10:48-03:00",
+     "coletado_em": "2026-11-19T12:54:38-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/concerto-sp-chamber-orchestra/"
     }
@@ -202,6 +152,55 @@
   {
    "area": {
     "o": 0,
+    "v": "cinema"
+   },
+   "id": "mis-3a-mostra-de-cinema-da-hungria",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/10/Sangue-nas-Aguas-768x514.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/3a-mostra-de-cinema-da-hungria-2/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98711",
+     "coletado_em": "2026-11-19T12:54:38-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/3a-mostra-de-cinema-da-hungria-2/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-22T20:30"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-22T14:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/3a-mostra-de-cinema-da-hungria-2/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "3ª Mostra de Cinema da Hungria"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Exibição gratuita de filmes que reúnem histórias que passam pelas relações familiares, pelos dilemas amorosos e pelas escolhas individuais, mas também por acontecimentos que marcaram a história da Hungria"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
     "v": "cursos"
    },
    "categoria": {
@@ -221,7 +220,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/97449",
-     "coletado_em": "2026-11-17T13:10:48-03:00",
+     "coletado_em": "2026-11-19T12:54:38-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/fazendo-um-videoclipe/"
     }
@@ -270,7 +269,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98612",
-     "coletado_em": "2026-11-17T13:10:48-03:00",
+     "coletado_em": "2026-11-19T12:54:38-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/abertura-mostra-de-cinema-israelense/"
     }
@@ -283,7 +282,7 @@
      },
      "inicio": {
       "o": 0,
-      "v": "2026-11-24T19:30"
+      "v": "2026-11-24T19:00"
      },
      "link": {
       "o": 0,
@@ -298,7 +297,7 @@
    },
    "trecho": {
     "o": 0,
-    "v": "Exibição do filme Kupa Rashit: the movie"
+    "v": "Exibição do filme “Kupa Rashit: The Movie”"
    }
   },
   {
@@ -319,7 +318,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98622",
-     "coletado_em": "2026-11-17T13:10:48-03:00",
+     "coletado_em": "2026-11-19T12:54:38-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/oficina-de-roteiro-do-livro-a-tela-o-processo-de-adaptacao-de-obras-literarias-para-o-audiovisual/"
     }
@@ -368,7 +367,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98626",
-     "coletado_em": "2026-11-17T13:10:48-03:00",
+     "coletado_em": "2026-11-19T12:54:38-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/sisem-palestra-on-line-acoes-de-articulacao-da-rede-tematica-de-acervos-audiovisuais-e-fotograficos/"
     }
@@ -417,7 +416,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98608",
-     "coletado_em": "2026-11-17T13:10:48-03:00",
+     "coletado_em": "2026-11-19T12:54:38-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/mostra-de-cinema-xapiri-yanomami/"
     }
@@ -466,7 +465,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98589",
-     "coletado_em": "2026-11-17T13:10:48-03:00",
+     "coletado_em": "2026-11-19T12:54:38-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/maratona-infantil-rebobinando-a-fitinha/"
     }
@@ -500,6 +499,104 @@
   {
    "area": {
     "o": 0,
+    "v": "musica"
+   },
+   "id": "mis-concerto-solo-de-attila-szaniszlo",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/WhatsApp-Image-2026-10-30-at-10.19.16-1-768x512.jpeg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/concerto-solo-de-attila-szaniszlo/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98722",
+     "coletado_em": "2026-11-19T12:54:38-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/concerto-solo-de-attila-szaniszlo/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-29T21:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-29T19:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/concerto-solo-de-attila-szaniszlo/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Concerto solo de Attila Szaniszló"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Concerto do pianista húngaro Attila Szaniszló , reconhecido internacionalmente por sua trajetória musical precoce."
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "id": "mis-ciclo-de-cinema-e-psicanalise-valor-sentimental",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/SentimentalValue_Stellan_Skarsgard_Elle_Fanning_photo-Kasper-Tuxen_v2-1-768x415.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/ciclo-de-cinema-e-psicanalise-valor-sentimental/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98713",
+     "coletado_em": "2026-11-19T12:54:38-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/ciclo-de-cinema-e-psicanalise-valor-sentimental/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-12-01T21:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-01T19:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/ciclo-de-cinema-e-psicanalise-valor-sentimental/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Ciclo de Cinema e Psicanálise | Valor Sentimental"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Após a sessão gratuita, será realizado um bate-papo com a presença do escritor André Alves e da psicanalista Patrícia Vianna Getlinger ."
+   }
+  },
+  {
+   "area": {
+    "o": 0,
     "v": "eventos"
    },
    "id": "mis-lancamento-de-livro-mundo-portatil-estetica-e-ideologia-da-representacao-fotogra",
@@ -515,7 +612,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98598",
-     "coletado_em": "2026-11-17T13:10:48-03:00",
+     "coletado_em": "2026-11-19T12:54:38-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/lancamento-de-livro-mundo-portatil-estetica-e-ideologia-da-representacao-fotografica-de-boris-kossoy/"
     }
@@ -528,7 +625,7 @@
      },
      "inicio": {
       "o": 0,
-      "v": "2026-12-02T19:00"
+      "v": "2026-12-02T18:00"
      },
      "link": {
       "o": 0,
@@ -564,7 +661,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98629",
-     "coletado_em": "2026-11-17T13:10:48-03:00",
+     "coletado_em": "2026-11-19T12:54:38-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/estereo-mis-vitao-2/"
     }
@@ -600,6 +697,55 @@
     "o": 0,
     "v": "eventos"
    },
+   "id": "mis-virada-inclusiva-2026-instalacao-as-inclusoes-que-sonhamos-e-as-conquistas-que-v",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/Logo-Virada-Inclusiva-cor-768x543.png"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/virada-inclusiva-2026-instalacao-as-inclusoes-que-sonhamos-e-as-conquistas-que-vivemos/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98716",
+     "coletado_em": "2026-11-19T12:54:38-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/virada-inclusiva-2026-instalacao-as-inclusoes-que-sonhamos-e-as-conquistas-que-vivemos/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-12-06T18:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-06T10:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/virada-inclusiva-2026-instalacao-as-inclusoes-que-sonhamos-e-as-conquistas-que-vivemos/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Virada Inclusiva 2026 | Instalação “As inclusões que sonhamos e as conquistas que vivemos”"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Venha interagir com a instalação na entrada do museu.."
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "eventos"
+   },
    "id": "mis-cine-kids-tito-e-os-passaros",
    "imagem": {
     "credito": "Divulgação / MIS - Museu da Imagem e do Som",
@@ -613,7 +759,7 @@
    "origens": [
     {
      "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98593",
-     "coletado_em": "2026-11-17T13:10:48-03:00",
+     "coletado_em": "2026-11-19T12:54:38-03:00",
      "fonte": "mis",
      "url": "https://mis-sp.org.br/evento/cine-kids-tito-e-os-passaros/"
     }
@@ -643,6 +789,55 @@
     "o": 0,
     "v": "Em parceria com a Bits Produções , o MIS exibe Tito e os pássaros (2018), com as vozes de Denise Fraga , Mateus Solano , Matheus Nachtergaele e Pedro Henrique ."
    }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "id": "mis-cinematographo-a-bela-e-a-fera",
+   "imagem": {
+    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
+    "o": 0,
+    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/bela-2-384x310.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://mis-sp.org.br/evento/cinematographo-a-bela-e-a-fera/"
+   },
+   "origens": [
+    {
+     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98704",
+     "coletado_em": "2026-11-19T12:54:38-03:00",
+     "fonte": "mis",
+     "url": "https://mis-sp.org.br/evento/cinematographo-a-bela-e-a-fera/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-12-06T18:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-06T16:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://mis-sp.org.br/evento/cinematographo-a-bela-e-a-fera/"
+     },
+     "lugar": "mis-museu-da-imagem-e-do-som"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Cinematographo | A Bela e a Fera"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Clássico de Jean Cocteau será exibido com trilha sonora alternativa performada ao vivo por André Abujamra e Rafael “Chicão” Montorfano"
+   }
   }
  ],
  "lugares": [
@@ -658,7 +853,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-17T13:10:48-03:00",
+     "coletado_em": "2026-11-19T12:54:38-03:00",
      "fonte": "mis",
      "url": "https://www.mis-sp.org.br"
     }
@@ -669,7 +864,7 @@
    }
   }
  ],
- "nota": "13 sessões nos próximos 45 dias",
- "ok": false,
- "rodou_em": "2026-11-18T12:49:06-03:00"
+ "nota": "17 sessões nos próximos 45 dias",
+ "ok": true,
+ "rodou_em": "2026-11-19T12:54:38-03:00"
 }

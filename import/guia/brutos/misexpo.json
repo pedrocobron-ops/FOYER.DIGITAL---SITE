@@ -1,6 +1,5 @@
 {
- "coletado_em": "2026-11-17T13:14:11-03:00",
- "erro": "The read operation timed out",
+ "coletado_em": "2026-11-19T12:57:05-03:00",
  "fonte": "misexpo",
  "itens": [
   {
@@ -161,7 +160,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-17T13:12:33-03:00",
+     "coletado_em": "2026-11-19T12:56:15-03:00",
      "fonte": "misexpo",
      "url": "https://www.mis-sp.org.br"
     }
@@ -172,6 +171,6 @@
    }
   }
  ],
- "ok": false,
- "rodou_em": "2026-11-18T12:51:44-03:00"
+ "ok": true,
+ "rodou_em": "2026-11-19T12:57:05-03:00"
 }
