@@ -4,13 +4,23 @@
  "cat": "Teatro Musical",
  "cats": [],
  "corpo": "",
- "cred": "",
+ "cred": "Foto: De Divulgação",
  "imgleg": "",
  "imgfonte": "",
- "imgdir": "",
+ "imgdir": "Divulgação",
  "fontes": "",
- "temFoto": false,
- "foto": null,
+ "temFoto": true,
+ "foto": {
+  "orig": {
+   "imgOriginal": "assets/uploads/rascunho-original-1795088972781.jpg"
+  },
+  "enq": {
+   "fx": 0.5232142857142856,
+   "fy": 0.6529846747401136,
+   "z": 1
+  },
+  "k": "229352:alRFrEQGKo421uNF3NCbssCLaCCzENsvRdd76CCC2Jf/2Q==:gunZJidUqsyMbMmY7lfB8qvO"
+ },
  "op": null,
  "autor": "Isabel Branquinha",
  "ev": {
@@ -23,9 +33,9 @@
   "modo": "agora",
   "data": ""
  },
- "quando": "2026-11-19T11:48:32.985Z",
+ "quando": "2026-11-19T11:49:43.159Z",
  "id": "rmwnhkwsrdwty",
- "salvoEm": "2026-11-19T11:48:33.547Z",
+ "salvoEm": "2026-11-19T11:49:43.778Z",
  "por": "Isabel Branquinha",
  "v": 2
 }
