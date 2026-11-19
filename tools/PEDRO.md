@@ -145,6 +145,16 @@ Como escolher:
 
 - a pergunta tem de ser **como as pessoas digitam** ("Broadway, Off-Broadway e
   West End: qual é a diferença?"). O título de fria é a busca exata;
+- **agenda da semana às quintas (ordem do Pedro, 19/11/2026).** Toda quinta
+  saem duas agendas assinadas por Pedro Amaral: São Paulo às 6h e Rio às 8h,
+  cobrindo de quinta a domingo. Porte `agenda`, cat Guia, cats Em Cartaz.
+  De 10 a 12 indicações, cada uma com intertítulo, um ou dois parágrafos de
+  por que ir (com dado concreto), foto própria com crédito (`img:`), linha
+  `**Serviço:**` (local, endereço, dias e horários, preço, classificação) e
+  `botao:`. Mistura de teatro, musical, estreia de cinema, exposição, show,
+  infantil e ao menos dois gratuitos. Datas e preços conferidos na página
+  oficial na própria semana; o que não se confirma não entra. Levantamento
+  na segunda e terça, leitura do Pedro na quarta, saída na quinta.
 - **datas comemorativas e aniversários saem às 5h (ordem do Pedro,
   17/11/2026).** Matéria pendurada numa data (dia comemorativo, data
   especial, aniversário de nascimento, morte ou estreia de pessoa ou obra
