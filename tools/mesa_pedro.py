@@ -1242,6 +1242,18 @@ def _limpa_pacote(pg):
     return pg
 
 
+
+def _imgs_do_corpo(pg, pasta):
+    """Fotos do meio do texto (linhas img:caminho | ...) e seus originais, para irem no commit."""
+    out = []
+    for m in re.finditer(r'^img:\s*([^|\s]+)', pg.get('corpo') or '', re.M):
+        cam = m.group(1).strip()
+        orig = re.sub(r'-(\d{10,})\.(\w+)$', r'-original-\1.\2', cam)
+        for c in (cam, orig):
+            if c not in out and os.path.isfile(os.path.join(pasta, c)):
+                out.append(c)
+    return out
+
 def _imprime_laudo(slug, P, A, info):
     print(f'\n== {slug}  [{info.get("porte")}, {info.get("palavras")} palavras, {info.get("inter")} intertítulos]')
     for p in P:
@@ -1276,6 +1288,7 @@ def cmd_guarda(a):
         for k in ('img', 'imgOriginal', 'imgOriginalA', 'imgOriginalB'):
             if pg.get(k) and os.path.isfile(os.path.join(pasta, pg[k])):
                 arquivos.append(pg[k])
+        arquivos += _imgs_do_corpo(pg, pasta)
         _git(pasta, 'add', '--', *arquivos, quiet=True)
         r = _git(pasta, 'commit', '-q', '-m', _mensagem('rascunho', pg.get('title', slug), a.sessao, skip_ci=True) + '\n\nAguardando a autorização do Pedro na conversa. Não aparece no site.', check=False, quiet=True)
         guardados.append((slug, pg.get('title', slug)))
@@ -1367,6 +1380,7 @@ def cmd_publica(a):
         for k in ('img', 'imgOriginal', 'imgOriginalA', 'imgOriginalB'):
             if pg.get(k) and os.path.isfile(os.path.join(pasta, pg[k])):
                 arquivos.append(pg[k])
+        arquivos += _imgs_do_corpo(pg, pasta)
         if origem.startswith(os.path.join(pasta, MESA)):
             _git(pasta, 'rm', '-q', '--cached', '--', os.path.relpath(origem, pasta), check=False, quiet=True)
             os.remove(origem)
