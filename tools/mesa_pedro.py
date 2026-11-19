@@ -78,6 +78,9 @@ PORTES = {
     'resposta':   (700, 1000, 2, 4),
     'explicador': (1000, 1500, 3, 5),
     'lista':      (1200, 1800, 7, 12),
+    # agenda da semana (ordem do Pedro, 19/11/2026): quintas, SP às 6h e Rio às 8h,
+    # de quinta a domingo, 10 a 12 indicações com foto e serviço; um intertítulo por item
+    'agenda':     (1300, 2600, 8, 14),
 }
 PORTES_FRIOS = {'resposta', 'lista', 'explicador'}
 MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro']
@@ -87,7 +90,7 @@ ENVELHECE_MAL = re.compile(
     r'segue em cartaz|está em cartaz|esta semana|este fim de semana|neste mês|nos próximos dias|em breve|'
     r'enquanto a data não sai|em \d{1,2} de (?:janeiro|fevereiro|março|abril|maio|junho|julho|agosto|setembro|outubro|novembro|dezembro)(?: de 20\d\d)?, o \w+ registrava)\b', re.I)
 # apuração mínima (URLs lidas) por porte
-APURACAO_MIN = {'nota': 2, 'quente': 4, 'contexto': 6, 'perfil': 6, 'resposta': 4, 'explicador': 5, 'lista': 5}
+APURACAO_MIN = {'nota': 2, 'quente': 4, 'contexto': 6, 'perfil': 6, 'resposta': 4, 'explicador': 5, 'lista': 5, 'agenda': 10}
 # movimentos do repertório do Pedro: são dele, não são fôrma. No máximo uma
 # vez por semana cada um, somando todas as matérias dele.
 REPERTORIO = ['conta desta redação', 'vale ficar de olho', 'vale olhar']
@@ -900,7 +903,7 @@ def auditar(caminho, pasta, corrige=False, rascunho=False):
                     A.append(f'"{mov}" já saiu esta semana em "{n.get("title", "")[:50]}"; use outro movimento')
                     break
     # prosa de planilha: números demais num parágrafo, listas de valores entre parênteses
-    for par in prosa:
+    for par in (prosa if porte != 'agenda' else []):  # agenda: serviço tem preço e hora por natureza
         t = _texto_limpo(par)
         # conta só o que é número de verdade na leitura: dinheiro, porcentagem,
         # quantidade (mil, milhões) e cifras de quatro dígitos ou mais; dia e ano não contam
