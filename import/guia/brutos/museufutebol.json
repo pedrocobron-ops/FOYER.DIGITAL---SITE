@@ -1,5 +1,5 @@
 {
- "coletado_em": "2026-11-19T12:54:42-03:00",
+ "coletado_em": "2026-11-20T12:35:26-03:00",
  "fonte": "museufutebol",
  "itens": [
   {
@@ -20,7 +20,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22953",
-     "coletado_em": "2026-11-19T12:54:42-03:00",
+     "coletado_em": "2026-11-20T12:35:26-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/consciencia-negra-em-campo/"
     }
@@ -73,7 +73,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22958",
-     "coletado_em": "2026-11-19T12:54:42-03:00",
+     "coletado_em": "2026-11-20T12:35:26-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-consciencia-negra/"
     }
@@ -126,39 +126,51 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22960",
-     "coletado_em": "2026-11-19T12:54:42-03:00",
+     "coletado_em": "2026-11-20T12:35:26-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-352/"
     },
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22964",
-     "coletado_em": "2026-11-19T12:54:42-03:00",
+     "coletado_em": "2026-11-20T12:35:26-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-353/"
     },
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22999",
-     "coletado_em": "2026-11-19T12:54:42-03:00",
+     "coletado_em": "2026-11-20T12:35:26-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-354/"
     },
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23003",
-     "coletado_em": "2026-11-19T12:54:42-03:00",
+     "coletado_em": "2026-11-20T12:35:26-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-355/"
     },
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23022",
-     "coletado_em": "2026-11-19T12:54:42-03:00",
+     "coletado_em": "2026-11-20T12:35:26-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-356/"
     },
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23026",
-     "coletado_em": "2026-11-19T12:54:42-03:00",
+     "coletado_em": "2026-11-20T12:35:26-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-357/"
+    },
+    {
+     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23040",
+     "coletado_em": "2026-11-20T12:35:26-03:00",
+     "fonte": "museufutebol",
+     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-358/"
+    },
+    {
+     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23042",
+     "coletado_em": "2026-11-20T12:35:26-03:00",
+     "fonte": "museufutebol",
+     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-359/"
     }
    ],
    "sessoes": [
@@ -275,6 +287,44 @@
       "o": 5,
       "v": "Grande Área"
      }
+    },
+    {
+     "fim": {
+      "o": 6,
+      "v": "2026-11-29T12:30"
+     },
+     "inicio": {
+      "o": 6,
+      "v": "2026-11-29T11:00"
+     },
+     "link": {
+      "o": 6,
+      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-358/"
+     },
+     "lugar": "museu-do-futebol",
+     "sala": {
+      "o": 6,
+      "v": "Grande Área"
+     }
+    },
+    {
+     "fim": {
+      "o": 7,
+      "v": "2026-11-29T15:30"
+     },
+     "inicio": {
+      "o": 7,
+      "v": "2026-11-29T14:00"
+     },
+     "link": {
+      "o": 7,
+      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-359/"
+     },
+     "lugar": "museu-do-futebol",
+     "sala": {
+      "o": 7,
+      "v": "Grande Área"
+     }
     }
    ],
    "titulo": {
@@ -304,13 +354,13 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22962",
-     "coletado_em": "2026-11-19T12:54:42-03:00",
+     "coletado_em": "2026-11-20T12:35:26-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/atividade-educativa-artilheiro-adaptado-23/"
     },
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22966",
-     "coletado_em": "2026-11-19T12:54:42-03:00",
+     "coletado_em": "2026-11-20T12:35:26-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/atividade-educativa-artilheiro-adaptado-24/"
     }
@@ -382,13 +432,13 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23001",
-     "coletado_em": "2026-11-19T12:54:42-03:00",
+     "coletado_em": "2026-11-20T12:35:26-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/atividade-educativa-fut-ao-alvo-21/"
     },
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23005",
-     "coletado_em": "2026-11-19T12:54:42-03:00",
+     "coletado_em": "2026-11-20T12:35:26-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/atividade-educativa-fut-ao-alvo-22/"
     }
@@ -460,7 +510,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23020",
-     "coletado_em": "2026-11-19T12:54:42-03:00",
+     "coletado_em": "2026-11-20T12:35:26-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/encontro-de-colecionadores-de-figurinhas-133/"
     }
@@ -502,6 +552,59 @@
   {
    "area": {
     "o": 0,
+    "v": "eventos"
+   },
+   "id": "museufutebol-o-jogo-das-letras",
+   "imagem": {
+    "credito": "Divulgação / Museu do Futebol",
+    "o": 0,
+    "v": "https://museudofutebol.org.br/wp-content/uploads/2026/11/SITE-1-768x467.png"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://museudofutebol.org.br/evento/o-jogo-das-letras/"
+   },
+   "origens": [
+    {
+     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23035",
+     "coletado_em": "2026-11-20T12:35:26-03:00",
+     "fonte": "museufutebol",
+     "url": "https://museudofutebol.org.br/evento/o-jogo-das-letras/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-28T16:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-28T09:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://museudofutebol.org.br/evento/o-jogo-das-letras/"
+     },
+     "lugar": "museu-do-futebol",
+     "sala": {
+      "o": 0,
+      "v": "Auditório do Museu do Futebol"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "O Jogo das Letras"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "No dia 28 de novembro, o Museu do Futebol, em parceria com a Academia Brasileira de Letras do Futebol (ABLF), promove um encontro gratuito para debater os desafios e as oportunidades do mercado editorial dedicado ao…"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
     "v": "cursos"
    },
    "id": "museufutebol-atividade-educativa-qual-time-sou-eu",
@@ -517,7 +620,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23024",
-     "coletado_em": "2026-11-19T12:54:42-03:00",
+     "coletado_em": "2026-11-20T12:35:26-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/atividade-educativa-qual-time-sou-eu-8/"
     }
@@ -551,6 +654,59 @@
     "o": 0,
     "v": "Você se considera realmente um fã de futebol? Então, junte-se a nós para uma animada experiência de adivinhação! Este jogo desafiará você a adivinhar de qual time estamos falando, tendo apenas palavras como dicas. Não…"
    }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cursos"
+   },
+   "id": "museufutebol-atividade-educativa-desafio-copas-do-mundo",
+   "imagem": {
+    "credito": "Divulgação / Museu do Futebol",
+    "o": 0,
+    "v": "https://museudofutebol.org.br/wp-content/uploads/2025/07/250111_DesafioCopasMundo_Matheus1-768x487.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://museudofutebol.org.br/evento/atividade-educativa-desafio-copas-do-mundo-7/"
+   },
+   "origens": [
+    {
+     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23044",
+     "coletado_em": "2026-11-20T12:35:26-03:00",
+     "fonte": "museufutebol",
+     "url": "https://museudofutebol.org.br/evento/atividade-educativa-desafio-copas-do-mundo-7/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-29T15:00"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-29T14:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://museudofutebol.org.br/evento/atividade-educativa-desafio-copas-do-mundo-7/"
+     },
+     "lugar": "museu-do-futebol",
+     "sala": {
+      "o": 0,
+      "v": "Almanaque da Bola (2º andar)"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Atividade Educativa | Desafio: Copas do Mundo"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "O jogo educativo Desafio: Copas do Mundo visa compreender os efeitos da globalização no futebol internacional, naquilo que se refere à continuidade de uma visão eurocentrista do esporte e à manutenção de uma…"
+   }
   }
  ],
  "lugares": [
@@ -566,7 +722,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-19T12:54:42-03:00",
+     "coletado_em": "2026-11-20T12:35:26-03:00",
      "fonte": "museufutebol",
      "url": "https://www.museudofutebol.org.br"
     }
@@ -577,7 +733,7 @@
    }
   }
  ],
- "nota": "14 sessões nos próximos 45 dias",
+ "nota": "18 sessões nos próximos 45 dias",
  "ok": true,
- "rodou_em": "2026-11-19T12:54:42-03:00"
+ "rodou_em": "2026-11-20T12:35:26-03:00"
 }
