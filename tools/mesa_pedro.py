@@ -277,6 +277,23 @@ def _abre(url, accept='*/*', tentativas=6):
     import urllib.request
     import random
     espera = 5
+    if 'upload.wikimedia.org' in url:
+        # o servidor de imagens do Wikimedia barra o urllib mesmo com outro User-Agent; o curl passa
+        import subprocess
+        import tempfile
+        for t in range(3):
+            with tempfile.NamedTemporaryFile(delete=False) as tmp:
+                destino_tmp = tmp.name
+            r = subprocess.run(['curl', '-s', '-f', '-o', destino_tmp, '-w', '%{content_type}', url],
+                               capture_output=True, text=True)
+            if r.returncode == 0:
+                dados = open(destino_tmp, 'rb').read()
+                os.remove(destino_tmp)
+                return dados, r.stdout
+            os.remove(destino_tmp)
+            print(f'  (curl falhou em {url[:60]}; esperando 20s)', file=sys.stderr)
+            time.sleep(20)
+        raise RuntimeError(f'Wikimedia recusou {url}')
     for t in range(tentativas):
         # o Wikimedia devolve 429 para User-Agent de navegador; com o de ferramenta passa
         ua = 'curl/8.5.0' if 'wikimedia.org' in url else UA
