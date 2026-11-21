@@ -278,7 +278,9 @@ def _abre(url, accept='*/*', tentativas=6):
     import random
     espera = 5
     for t in range(tentativas):
-        req = urllib.request.Request(url, headers={'User-Agent': UA, 'Accept': accept,
+        # o Wikimedia devolve 429 para User-Agent de navegador; com o de ferramenta passa
+        ua = 'curl/8.5.0' if 'wikimedia.org' in url else UA
+        req = urllib.request.Request(url, headers={'User-Agent': ua, 'Accept': accept,
                                                    'Accept-Language': 'pt-BR,pt;q=0.9,en;q=0.8'})
         try:
             with urllib.request.urlopen(req, timeout=60) as r:

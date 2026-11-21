@@ -145,6 +145,16 @@ Como escolher:
 
 - a pergunta tem de ser **como as pessoas digitam** ("Broadway, Off-Broadway e
   West End: qual é a diferença?"). O título de fria é a busca exata;
+- **nunca sair com a arte da casa no lugar de foto (ordem do Pedro, 21/11/2026).**
+  O Pedro viu matérias no ar com a arte genérica e mandou resolver na hora: toda
+  matéria sai com foto real ligada ao tema (Commons com autor e licença, quadro
+  de trailer oficial, foto oficial de divulgação com crédito). A arte da casa não
+  é mais plano B. Quando o Commons der 429, não desista: o bloqueio é do
+  User-Agent de navegador; baixe a miniatura padrão (1920px, 1280px ou 960px;
+  para .tif, `lossy-page1-1280px-<nome>.jpg`) com curl puro e passe o arquivo à
+  `capa --url file://...`, com o crédito lido na página do arquivo. Fotos em
+  domínio público só por lei estrangeira (PD-Finland, PD-US-no-notice) não
+  servem: no Brasil a foto fica protegida por 70 anos (Lei 9.610, art. 44).
 - **agenda da semana às quintas (ordem do Pedro, 19/11/2026).** Toda quinta
   saem duas agendas assinadas por Pedro Amaral: São Paulo às 6h e Rio às 8h,
   cobrindo de quinta a domingo. Porte `agenda`, cat Guia, cats Em Cartaz.
