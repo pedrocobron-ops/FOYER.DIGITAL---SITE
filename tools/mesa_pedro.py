@@ -470,7 +470,7 @@ def _commons_info(titulo):
     q = urllib.parse.urlencode({'action': 'query', 'titles': titulo, 'prop': 'imageinfo',
                                 'iiprop': 'url|extmetadata|size|mime', 'format': 'json'})
     try:
-        bruto, _ = _abre('https://commons.wikimedia.org/w/api.php?' + q, accept='application/json')
+        bruto, _ = _abre('https://commons.wikimedia.org/w/api.php?' + q, accept='application/json', tentativas=2)  # a API vive em 429; cai logo para a página
         dados = json.loads(bruto.decode('utf-8'))
     except Exception as e:
         print(f'  (API do Commons indisponível: {e}; lendo a página do arquivo)', file=sys.stderr)
