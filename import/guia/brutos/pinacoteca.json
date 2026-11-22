@@ -1,5 +1,6 @@
 {
  "coletado_em": "2026-11-21T11:47:10-03:00",
+ "erro": "<urlopen error timed out>",
  "fonte": "pinacoteca",
  "itens": [
   {
@@ -531,6 +532,6 @@
    }
   }
  ],
- "ok": true,
- "rodou_em": "2026-11-21T11:47:10-03:00"
+ "ok": false,
+ "rodou_em": "2026-11-22T11:45:08-03:00"
 }
