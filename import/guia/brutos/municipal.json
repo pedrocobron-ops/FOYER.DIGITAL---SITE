@@ -1,7 +1,59 @@
 {
- "coletado_em": "2026-11-22T11:42:29-03:00",
+ "coletado_em": "2026-11-23T15:24:21-03:00",
  "fonte": "municipal",
  "itens": [
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Música"
+   },
+   "id": "municipal-16727",
+   "imagem": {
+    "credito": "Divulgação / Theatro Municipal",
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/01/capa_-opcao-2_ef9a2338.larissa-paz-scaled.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/eventos/quarteto-de-cordas-apresenta-dialogos-price-brahms-e-dvorak/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-23T15:24:17-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/quarteto-de-cordas-apresenta-dialogos-price-brahms-e-dvorak/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre para todos os públicos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 60
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/quarteto-de-cordas-apresenta-dialogos-price-brahms-e-dvorak"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-26T20:00"
+     },
+     "lugar": "praca-das-artes"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Quarteto de Cordas – Diálogos: Price, Britten e Dvořák"
+   }
+  },
   {
    "area": {
     "o": 0,
@@ -565,58 +617,6 @@
     "o": 0,
     "v": "Corpo Sonoro"
    }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Música"
-   },
-   "id": "municipal-16727",
-   "imagem": {
-    "credito": "Divulgação / Theatro Municipal",
-    "o": 0,
-    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/01/capa_-opcao-2_ef9a2338.larissa-paz-scaled.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://theatromunicipal.org.br/eventos/quarteto-de-cordas-apresenta-dialogos-price-brahms-e-dvorak/"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-08T14:51:37-03:00",
-     "fonte": "municipal",
-     "url": "https://theatromunicipal.org.br/eventos/quarteto-de-cordas-apresenta-dialogos-price-brahms-e-dvorak/"
-    }
-   ],
-   "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre para todos os públicos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 60
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://theatromunicipalsp.byinti.com/#/event/quarteto-de-cordas-apresenta-dialogos-price-brahms-e-dvorak"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-26T20:00"
-     },
-     "lugar": "praca-das-artes"
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Quarteto de Cordas – Diálogos: Price, Brahms e Dvořák"
-   }
   }
  ],
  "lugares": [
@@ -632,9 +632,9 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-13T11:42:38-03:00",
+     "coletado_em": "2026-11-23T15:24:17-03:00",
      "fonte": "municipal",
-     "url": "https://theatromunicipal.org.br/eventos/movimento-imprevisto-dialogo-entre-danca-e-cordas/"
+     "url": "https://theatromunicipal.org.br/eventos/quarteto-de-cordas-apresenta-dialogos-price-brahms-e-dvorak/"
     }
    ]
   },
@@ -659,5 +659,5 @@
  ],
  "nota": "72 páginas de evento conferidas",
  "ok": true,
- "rodou_em": "2026-11-22T11:42:29-03:00"
+ "rodou_em": "2026-11-23T15:24:21-03:00"
 }

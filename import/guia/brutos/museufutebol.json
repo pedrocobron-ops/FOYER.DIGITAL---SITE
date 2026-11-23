@@ -1,5 +1,5 @@
 {
- "coletado_em": "2026-11-22T11:42:26-03:00",
+ "coletado_em": "2026-11-23T15:24:14-03:00",
  "fonte": "museufutebol",
  "itens": [
   {
@@ -7,255 +7,56 @@
     "o": 0,
     "v": "cursos"
    },
-   "id": "museufutebol-visitas-educativas-para-publico-espontaneo",
+   "id": "museufutebol-oficina-virtual-de-conservacao-preventiva-de-colecoes-esportivas",
    "imagem": {
     "credito": "Divulgação / Museu do Futebol",
     "o": 0,
-    "v": "https://museudofutebol.org.br/wp-content/uploads/2024/12/0817_Amaury_02-1-768x435.jpg"
+    "v": "https://museudofutebol.org.br/wp-content/uploads/2026/11/MF_GestaoConservacaoPreventiva_Nov2026_TelaFundo2-768x432.png"
    },
    "link_fonte": {
     "o": 0,
-    "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-354/"
+    "v": "https://museudofutebol.org.br/evento/oficina-virtual-de-conservacao-preventiva-de-colecoes-esportivas/"
    },
    "origens": [
     {
-     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22999",
-     "coletado_em": "2026-11-22T11:42:26-03:00",
+     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23054",
+     "coletado_em": "2026-11-23T15:24:14-03:00",
      "fonte": "museufutebol",
-     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-354/"
-    },
-    {
-     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23003",
-     "coletado_em": "2026-11-22T11:42:26-03:00",
-     "fonte": "museufutebol",
-     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-355/"
-    },
-    {
-     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23022",
-     "coletado_em": "2026-11-22T11:42:26-03:00",
-     "fonte": "museufutebol",
-     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-356/"
-    },
-    {
-     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23026",
-     "coletado_em": "2026-11-22T11:42:26-03:00",
-     "fonte": "museufutebol",
-     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-357/"
-    },
-    {
-     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23040",
-     "coletado_em": "2026-11-22T11:42:26-03:00",
-     "fonte": "museufutebol",
-     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-358/"
-    },
-    {
-     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23042",
-     "coletado_em": "2026-11-22T11:42:26-03:00",
-     "fonte": "museufutebol",
-     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-359/"
+     "url": "https://museudofutebol.org.br/evento/oficina-virtual-de-conservacao-preventiva-de-colecoes-esportivas/"
     }
    ],
    "sessoes": [
     {
      "fim": {
       "o": 0,
-      "v": "2026-11-22T12:30"
+      "v": "2026-11-26T13:00"
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.youtube.com/@museudofutebolspaulo"
      },
      "inicio": {
       "o": 0,
-      "v": "2026-11-22T11:00"
+      "v": "2026-11-26T10:00"
      },
      "link": {
       "o": 0,
-      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-354/"
+      "v": "https://museudofutebol.org.br/evento/oficina-virtual-de-conservacao-preventiva-de-colecoes-esportivas/"
      },
      "lugar": "museu-do-futebol",
-     "sala": {
+     "preco": {
       "o": 0,
-      "v": "Grande Área"
-     }
-    },
-    {
-     "fim": {
-      "o": 1,
-      "v": "2026-11-22T15:30"
-     },
-     "inicio": {
-      "o": 1,
-      "v": "2026-11-22T14:00"
-     },
-     "link": {
-      "o": 1,
-      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-355/"
-     },
-     "lugar": "museu-do-futebol",
-     "sala": {
-      "o": 1,
-      "v": "Grande Área"
-     }
-    },
-    {
-     "fim": {
-      "o": 2,
-      "v": "2026-11-28T12:30"
-     },
-     "inicio": {
-      "o": 2,
-      "v": "2026-11-28T11:00"
-     },
-     "link": {
-      "o": 2,
-      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-356/"
-     },
-     "lugar": "museu-do-futebol",
-     "sala": {
-      "o": 2,
-      "v": "Grande Área"
-     }
-    },
-    {
-     "fim": {
-      "o": 3,
-      "v": "2026-11-28T15:30"
-     },
-     "inicio": {
-      "o": 3,
-      "v": "2026-11-28T14:00"
-     },
-     "link": {
-      "o": 3,
-      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-357/"
-     },
-     "lugar": "museu-do-futebol",
-     "sala": {
-      "o": 3,
-      "v": "Grande Área"
-     }
-    },
-    {
-     "fim": {
-      "o": 4,
-      "v": "2026-11-29T12:30"
-     },
-     "inicio": {
-      "o": 4,
-      "v": "2026-11-29T11:00"
-     },
-     "link": {
-      "o": 4,
-      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-358/"
-     },
-     "lugar": "museu-do-futebol",
-     "sala": {
-      "o": 4,
-      "v": "Grande Área"
-     }
-    },
-    {
-     "fim": {
-      "o": 5,
-      "v": "2026-11-29T15:30"
-     },
-     "inicio": {
-      "o": 5,
-      "v": "2026-11-29T14:00"
-     },
-     "link": {
-      "o": 5,
-      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-359/"
-     },
-     "lugar": "museu-do-futebol",
-     "sala": {
-      "o": 5,
-      "v": "Grande Área"
+      "v": "Livre"
      }
     }
    ],
    "titulo": {
     "o": 0,
-    "v": "Visitas educativas para público espontâneo"
+    "v": "Oficina virtual de conservação preventiva de coleções esportivas"
    },
    "trecho": {
     "o": 0,
-    "v": "Nos fins de semana e feriados, o Museu do Futebol oferece visitas acompanhadas pelo time educativo, com grupos de até 15 pessoas por ordem de chegada. A experiência dura cerca de 11h30, começa pela mostra temporária e…"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cursos"
-   },
-   "id": "museufutebol-atividade-educativa-fut-ao-alvo",
-   "imagem": {
-    "credito": "Divulgação / Museu do Futebol",
-    "o": 0,
-    "v": "https://museudofutebol.org.br/wp-content/uploads/2025/01/20241012_MF_0103-1536x1024-1-768x402.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://museudofutebol.org.br/evento/atividade-educativa-fut-ao-alvo-21/"
-   },
-   "origens": [
-    {
-     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23001",
-     "coletado_em": "2026-11-22T11:42:26-03:00",
-     "fonte": "museufutebol",
-     "url": "https://museudofutebol.org.br/evento/atividade-educativa-fut-ao-alvo-21/"
-    },
-    {
-     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23005",
-     "coletado_em": "2026-11-22T11:42:26-03:00",
-     "fonte": "museufutebol",
-     "url": "https://museudofutebol.org.br/evento/atividade-educativa-fut-ao-alvo-22/"
-    }
-   ],
-   "sessoes": [
-    {
-     "fim": {
-      "o": 0,
-      "v": "2026-11-22T12:00"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-22T11:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://museudofutebol.org.br/evento/atividade-educativa-fut-ao-alvo-21/"
-     },
-     "lugar": "museu-do-futebol",
-     "sala": {
-      "o": 0,
-      "v": "Área externa do Museu do Futebol"
-     }
-    },
-    {
-     "fim": {
-      "o": 1,
-      "v": "2026-11-22T15:00"
-     },
-     "inicio": {
-      "o": 1,
-      "v": "2026-11-22T14:00"
-     },
-     "link": {
-      "o": 1,
-      "v": "https://museudofutebol.org.br/evento/atividade-educativa-fut-ao-alvo-22/"
-     },
-     "lugar": "museu-do-futebol",
-     "sala": {
-      "o": 1,
-      "v": "Área externa do Museu do Futebol"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Atividade Educativa | Fut ao Alvo"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "Nesta atividade, você poderá treinar a sua coordenação motora em um desafio que testa a precisão e o controle ao chutar bolas em alvos distribuídos em uma trave de futebol. Será que você consegue? Venha testar suas…"
+    "v": "No dia 26 de novembro, das 10h às 13h, o Museu do Futebol promove uma oficina virtual sobre conservação preventiva de coleções esportivas, com foco em acervos ligados ao futebol. A atividade integra o Programa Conexões…"
    }
   },
   {
@@ -276,7 +77,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23020",
-     "coletado_em": "2026-11-22T11:42:26-03:00",
+     "coletado_em": "2026-11-23T15:24:14-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/encontro-de-colecionadores-de-figurinhas-133/"
     }
@@ -333,7 +134,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23035",
-     "coletado_em": "2026-11-22T11:42:26-03:00",
+     "coletado_em": "2026-11-23T15:24:14-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/o-jogo-das-letras/"
     }
@@ -373,6 +174,134 @@
     "o": 0,
     "v": "cursos"
    },
+   "id": "museufutebol-visitas-educativas-para-publico-espontaneo",
+   "imagem": {
+    "credito": "Divulgação / Museu do Futebol",
+    "o": 0,
+    "v": "https://museudofutebol.org.br/wp-content/uploads/2024/12/0817_Amaury_02-1-768x435.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-356/"
+   },
+   "origens": [
+    {
+     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23022",
+     "coletado_em": "2026-11-23T15:24:14-03:00",
+     "fonte": "museufutebol",
+     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-356/"
+    },
+    {
+     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23026",
+     "coletado_em": "2026-11-23T15:24:14-03:00",
+     "fonte": "museufutebol",
+     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-357/"
+    },
+    {
+     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23040",
+     "coletado_em": "2026-11-23T15:24:14-03:00",
+     "fonte": "museufutebol",
+     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-358/"
+    },
+    {
+     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23042",
+     "coletado_em": "2026-11-23T15:24:14-03:00",
+     "fonte": "museufutebol",
+     "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-359/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-28T12:30"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-28T11:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-356/"
+     },
+     "lugar": "museu-do-futebol",
+     "sala": {
+      "o": 0,
+      "v": "Grande Área"
+     }
+    },
+    {
+     "fim": {
+      "o": 1,
+      "v": "2026-11-28T15:30"
+     },
+     "inicio": {
+      "o": 1,
+      "v": "2026-11-28T14:00"
+     },
+     "link": {
+      "o": 1,
+      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-357/"
+     },
+     "lugar": "museu-do-futebol",
+     "sala": {
+      "o": 1,
+      "v": "Grande Área"
+     }
+    },
+    {
+     "fim": {
+      "o": 2,
+      "v": "2026-11-29T12:30"
+     },
+     "inicio": {
+      "o": 2,
+      "v": "2026-11-29T11:00"
+     },
+     "link": {
+      "o": 2,
+      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-358/"
+     },
+     "lugar": "museu-do-futebol",
+     "sala": {
+      "o": 2,
+      "v": "Grande Área"
+     }
+    },
+    {
+     "fim": {
+      "o": 3,
+      "v": "2026-11-29T15:30"
+     },
+     "inicio": {
+      "o": 3,
+      "v": "2026-11-29T14:00"
+     },
+     "link": {
+      "o": 3,
+      "v": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-359/"
+     },
+     "lugar": "museu-do-futebol",
+     "sala": {
+      "o": 3,
+      "v": "Grande Área"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Visitas educativas para público espontâneo"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Nos fins de semana e feriados, o Museu do Futebol oferece visitas acompanhadas pelo time educativo, com grupos de até 15 pessoas por ordem de chegada. A experiência dura cerca de 11h30, começa pela mostra temporária e…"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cursos"
+   },
    "id": "museufutebol-atividade-educativa-qual-time-sou-eu",
    "imagem": {
     "credito": "Divulgação / Museu do Futebol",
@@ -386,7 +315,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23024",
-     "coletado_em": "2026-11-22T11:42:26-03:00",
+     "coletado_em": "2026-11-23T15:24:14-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/atividade-educativa-qual-time-sou-eu-8/"
     }
@@ -439,7 +368,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23044",
-     "coletado_em": "2026-11-22T11:42:26-03:00",
+     "coletado_em": "2026-11-23T15:24:14-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/atividade-educativa-desafio-copas-do-mundo-7/"
     }
@@ -488,7 +417,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-22T11:42:26-03:00",
+     "coletado_em": "2026-11-23T15:24:14-03:00",
      "fonte": "museufutebol",
      "url": "https://www.museudofutebol.org.br"
     }
@@ -499,7 +428,7 @@
    }
   }
  ],
- "nota": "12 sessões nos próximos 45 dias",
+ "nota": "9 sessões nos próximos 45 dias",
  "ok": true,
- "rodou_em": "2026-11-22T11:42:26-03:00"
+ "rodou_em": "2026-11-23T15:24:14-03:00"
 }

@@ -1,5 +1,5 @@
 {
- "coletado_em": "2026-11-22T11:47:08-03:00",
+ "coletado_em": "2026-11-23T15:30:27-03:00",
  "fonte": "amigosdaarte",
  "itens": [
   {
@@ -101,60 +101,6 @@
     }
    ],
    "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 60
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-22T11:00"
-     },
-     "lugar": "teatro-sergio-cardoso",
-     "preco": {
-      "o": 0,
-      "v": "Inteira: R$ 120,00 Meia-entrada: R$ 60,00 Social: R$ 45,00 Sessões especiais: Segundas dos feriados de 12/10 e 02/11/2026, às 15h"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Paschoal Carlos Magno"
-     }
-    },
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 60
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-22T15:00"
-     },
-     "lugar": "teatro-sergio-cardoso",
-     "preco": {
-      "o": 0,
-      "v": "Inteira: R$ 120,00 Meia-entrada: R$ 60,00 Social: R$ 45,00 Sessões especiais: Segundas dos feriados de 12/10 e 02/11/2026, às 15h"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Paschoal Carlos Magno"
-     }
-    },
     {
      "classificacao": {
       "o": 0,
@@ -786,74 +732,6 @@
   {
    "area": {
     "o": 0,
-    "v": "danca"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Dança"
-   },
-   "ficha": {
-    "o": 0,
-    "v": "Companhia/artista: Grupo Corpo"
-   },
-   "id": "amigosdaarte-61478",
-   "imagem": {
-    "credito": "Divulgação / Amigos da Arte",
-    "o": 0,
-    "v": "https://amigosdaarte.org.br/wp-content/uploads/2026/10/piracema_2560x934-768x280.png"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://amigosdaarte.org.br/agenda-equipamento/grupo-corpo-com-piracema-e-lecuona/"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-08T23:49:47-03:00",
-     "fonte": "amigosdaarte",
-     "url": "https://amigosdaarte.org.br/agenda-equipamento/grupo-corpo-com-piracema-e-lecuona/"
-    }
-   ],
-   "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 100
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-22T16:00"
-     },
-     "lugar": "teatro-sergio-cardoso",
-     "preco": {
-      "o": 0,
-      "v": "Plateia Central: R$ 240,00 (Inteira) R$ 120,00 (Meia) Plateia Lateral: R$ 200,00 (Inteira) R$ 100,00 (Meia) Vale Cultura: R$ 50,00 (Inteira) R$ 25,00 (Meia)"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Sala Nydia Licia"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Grupo Corpo com Piracema e Lecuona"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "O Grupo Corpo apresenta “Piracema” e “Lecuona”, criados em 2025 para celebrar os 50 anos da companhia. “Piracema” reúne coreografia de Rodrigo Pederneiras e Cassi Abranches e música de Clarice Assad em uma jornada entre…"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
     "v": "teatro"
    },
    "categoria": {
@@ -882,33 +760,6 @@
     }
    ],
    "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "12 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 60
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-22T18:30"
-     },
-     "lugar": "teatro-sergio-cardoso",
-     "preco": {
-      "o": 0,
-      "v": "Inteira: R$ 50,00 Meia-entrada: R$ 25,00"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Sala Paschoal Carlos Magno"
-     }
-    },
     {
      "classificacao": {
       "o": 0,
@@ -1090,5 +941,5 @@
   }
  ],
  "ok": true,
- "rodou_em": "2026-11-22T11:47:08-03:00"
+ "rodou_em": "2026-11-23T15:30:27-03:00"
 }

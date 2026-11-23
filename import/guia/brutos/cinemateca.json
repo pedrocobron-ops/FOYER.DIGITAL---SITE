@@ -1,198 +1,7 @@
 {
- "coletado_em": "2026-11-22T11:41:39-03:00",
+ "coletado_em": "2026-11-23T15:23:14-03:00",
  "fonte": "cinemateca",
  "itens": [
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Sessão"
-   },
-   "id": "cinemateca-cinesesc-cineclubinho-castelo-ra-tim-bum-o-filme",
-   "imagem": {
-    "credito": "Divulgação / Cinemateca Brasileira",
-    "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2024/06/cbs_id_castelo_ra_tim_bum_o_filme-768x432.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/cinesesc-cineclubinho-castelo-ra-tim-bum-o-filme/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67646",
-     "coletado_em": "2026-11-22T11:41:39-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/cinesesc-cineclubinho-castelo-ra-tim-bum-o-filme/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-22T15:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/cinesesc-cineclubinho-castelo-ra-tim-bum-o-filme/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "CineSesc"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "CINESESC | CINECLUBINHO | CASTELO RÁ-TIM-BUM, O FILME"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Sessão"
-   },
-   "id": "cinemateca-a-ultima-noite",
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/a-ultima-noite-3/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67331",
-     "coletado_em": "2026-11-22T11:41:39-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/a-ultima-noite-3/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-22T15:15"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/a-ultima-noite-3/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Sala Grande Otelo"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "A ÚLTIMA NOITE"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Sessão"
-   },
-   "id": "cinemateca-poema-do-mar",
-   "imagem": {
-    "credito": "Divulgação / Cinemateca Brasileira",
-    "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_poema_do_mar-768x502.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/poema-do-mar-2/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67333",
-     "coletado_em": "2026-11-22T11:41:39-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/poema-do-mar-2/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-22T17:20"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/poema-do-mar-2/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Sala Grande Otelo"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "POEMA DO MAR"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Sessão"
-   },
-   "id": "cinemateca-domando-o-fogo",
-   "imagem": {
-    "credito": "Divulgação / Cinemateca Brasileira",
-    "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_domando_o_fogo-768x728.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/domando-o-fogo-2/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67335",
-     "coletado_em": "2026-11-22T11:41:39-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/domando-o-fogo-2/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-22T19:35"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/domando-o-fogo-2/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Sala Grande Otelo"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "DOMANDO O FOGO"
-   }
-  },
   {
    "area": {
     "o": 0,
@@ -215,7 +24,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67618",
-     "coletado_em": "2026-11-22T11:41:39-03:00",
+     "coletado_em": "2026-11-23T15:23:14-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/o-profeta-da-fome/"
     }
@@ -264,7 +73,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67365",
-     "coletado_em": "2026-11-22T11:41:39-03:00",
+     "coletado_em": "2026-11-23T15:23:14-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-garota-de-ipanema/"
     }
@@ -313,13 +122,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67492",
-     "coletado_em": "2026-11-22T11:41:39-03:00",
+     "coletado_em": "2026-11-23T15:23:14-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/mostra-classicos/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67496",
-     "coletado_em": "2026-11-22T11:41:39-03:00",
+     "coletado_em": "2026-11-23T15:23:14-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/mostra-classicos-2/"
     }
@@ -383,13 +192,13 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67494",
-     "coletado_em": "2026-11-22T11:41:39-03:00",
+     "coletado_em": "2026-11-23T15:23:14-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/mostra-internacional/"
     },
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67498",
-     "coletado_em": "2026-11-22T11:41:39-03:00",
+     "coletado_em": "2026-11-23T15:23:14-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/abeni-a-filha-do-ferreiro/"
     }
@@ -453,7 +262,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67500",
-     "coletado_em": "2026-11-22T11:41:39-03:00",
+     "coletado_em": "2026-11-23T15:23:14-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-de-encerramento-3/"
     }
@@ -487,6 +296,55 @@
    },
    "categoria": {
     "o": 0,
+    "v": "Sessão, Infantil"
+   },
+   "id": "cinemateca-sabado-infantil-alice-dos-anjos",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2024/06/cbs_id_alice_dos_anjos-768x432.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://cinemateca.org.br/exibicao/sabado-infantil-alice-dos-anjos/"
+   },
+   "origens": [
+    {
+     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67670",
+     "coletado_em": "2026-11-23T15:23:14-03:00",
+     "fonte": "cinemateca",
+     "url": "https://cinemateca.org.br/exibicao/sabado-infantil-alice-dos-anjos/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-28T14:30"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://cinemateca.org.br/exibicao/sabado-infantil-alice-dos-anjos/"
+     },
+     "lugar": "cinemateca-brasileira",
+     "sala": {
+      "o": 0,
+      "v": "Sala Grande Otelo"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "SÁBADO INFANTIL | ALICE DOS ANJOS"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "categoria": {
+    "o": 0,
     "v": "Sessão"
    },
    "id": "cinemateca-a-dama-do-cine-shanghai",
@@ -502,7 +360,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67599",
-     "coletado_em": "2026-11-22T11:41:39-03:00",
+     "coletado_em": "2026-11-23T15:23:14-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/a-dama-do-cine-shanghai-3/"
     }
@@ -551,7 +409,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67348",
-     "coletado_em": "2026-11-22T11:41:39-03:00",
+     "coletado_em": "2026-11-23T15:23:14-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-especial-os-doces-barbaros/"
     }
@@ -600,7 +458,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67367",
-     "coletado_em": "2026-11-22T11:41:39-03:00",
+     "coletado_em": "2026-11-23T15:23:14-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-deus-e-o-diabo-na-terra-do-sol/"
     }
@@ -649,7 +507,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67637",
-     "coletado_em": "2026-11-22T11:41:39-03:00",
+     "coletado_em": "2026-11-23T15:23:14-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/mais-pesado-e-o-ceu/"
     }
@@ -698,7 +556,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67369",
-     "coletado_em": "2026-11-22T11:41:39-03:00",
+     "coletado_em": "2026-11-23T15:23:14-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-canal-100-processos-de-restauro-na-cinemateca-brasileira/"
     }
@@ -747,7 +605,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67371",
-     "coletado_em": "2026-11-22T11:41:39-03:00",
+     "coletado_em": "2026-11-23T15:23:14-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/a-paixao-de-joana-darc/"
     }
@@ -788,7 +646,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-22T11:41:39-03:00",
+     "coletado_em": "2026-11-23T15:23:14-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br"
     }
@@ -799,7 +657,7 @@
    }
   }
  ],
- "nota": "17 sessões nos próximos 45 dias",
+ "nota": "14 sessões nos próximos 45 dias",
  "ok": true,
- "rodou_em": "2026-11-22T11:41:39-03:00"
+ "rodou_em": "2026-11-23T15:23:14-03:00"
 }
