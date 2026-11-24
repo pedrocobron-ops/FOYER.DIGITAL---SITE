@@ -281,6 +281,18 @@ def _abre(url, accept='*/*', tentativas=6):
         # o servidor de imagens do Wikimedia barra o urllib mesmo com outro User-Agent; o curl passa
         import subprocess
         import tempfile
+        # o host de miniaturas responde quando o upload.* está em 429
+        alternativas = [url.replace('https://upload.wikimedia.org', 'https://thumb.wikimedia.org')] if '/thumb/' in url else []
+        for alt in alternativas:
+            with tempfile.NamedTemporaryFile(delete=False) as tmp:
+                destino_tmp = tmp.name
+            r = subprocess.run(['curl', '-s', '-f', '-o', destino_tmp, '-w', '%{content_type}', alt],
+                               capture_output=True, text=True)
+            if r.returncode == 0 and r.stdout.startswith('image/'):
+                dados = open(destino_tmp, 'rb').read()
+                os.remove(destino_tmp)
+                return dados, r.stdout
+            os.remove(destino_tmp)
         for t in range(3):
             with tempfile.NamedTemporaryFile(delete=False) as tmp:
                 destino_tmp = tmp.name
