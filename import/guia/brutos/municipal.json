@@ -1,7 +1,59 @@
 {
- "coletado_em": "2026-11-23T15:24:21-03:00",
+ "coletado_em": "2026-11-24T14:58:24-03:00",
  "fonte": "municipal",
  "itens": [
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Concertos"
+   },
+   "id": "municipal-9758",
+   "imagem": {
+    "credito": "Divulgação / Theatro Municipal",
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/wp-content/uploads/2025/08/6E7A6541.LARISSA-PAZ-2.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/eventos/concerto-nativita-del-signore/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-24T14:58:20-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/concerto-nativita-del-signore/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre para todos os públicos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 50
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/concerto-nativita-del-signore"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-03T20:00"
+     },
+     "lugar": "praca-das-artes"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Natività Del Signore"
+   }
+  },
   {
    "area": {
     "o": 0,
@@ -100,58 +152,6 @@
    "titulo": {
     "o": 0,
     "v": "Movimento Imprevisto: Dança e cordas"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Concertos"
-   },
-   "id": "municipal-9758",
-   "imagem": {
-    "credito": "Divulgação / Theatro Municipal",
-    "o": 0,
-    "v": "https://theatromunicipal.org.br/wp-content/uploads/2025/08/6E7A6541.LARISSA-PAZ-2.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://theatromunicipal.org.br/eventos/concerto-nativita-del-signore/"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-10T12:02:28-03:00",
-     "fonte": "municipal",
-     "url": "https://theatromunicipal.org.br/eventos/concerto-nativita-del-signore/"
-    }
-   ],
-   "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre para todos os públicos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 50
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://theatromunicipalsp.byinti.com/#/event/concerto-nativita-del-signore"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-12-03T20:00"
-     },
-     "lugar": "praca-das-artes"
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Natività Del Signore"
    }
   },
   {
@@ -632,9 +632,9 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-23T15:24:17-03:00",
+     "coletado_em": "2026-11-24T14:58:20-03:00",
      "fonte": "municipal",
-     "url": "https://theatromunicipal.org.br/eventos/quarteto-de-cordas-apresenta-dialogos-price-brahms-e-dvorak/"
+     "url": "https://theatromunicipal.org.br/eventos/concerto-nativita-del-signore/"
     }
    ]
   },
@@ -657,7 +657,7 @@
    ]
   }
  ],
- "nota": "72 páginas de evento conferidas",
+ "nota": "71 páginas de evento conferidas",
  "ok": true,
- "rodou_em": "2026-11-23T15:24:21-03:00"
+ "rodou_em": "2026-11-24T14:58:24-03:00"
 }

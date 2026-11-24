@@ -1,7 +1,146 @@
 {
- "coletado_em": "2026-11-23T15:25:25-03:00",
+ "coletado_em": "2026-11-24T14:59:31-03:00",
  "fonte": "ccsp",
  "itens": [
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Música"
+   },
+   "id": "ccsp-piano-na-praca-com-daniel-grajew",
+   "imagem": {
+    "credito": "Divulgação / Centro Cultural São Paulo",
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2026/11/POST-Daniel-Grajew1-768x485.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/piano-na-praca-com-daniel-grajew/"
+   },
+   "origens": [
+    {
+     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
+     "fonte": "ccsp",
+     "url": "https://centrocultural.sp.gov.br/agenda/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-12T18:00"
+     },
+     "lugar": "centro-cultural-sao-paulo",
+     "sala": {
+      "o": 0,
+      "v": "Praça das Bibliotecas"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Piano na praça com Daniel Grajew"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Em seu espetáculo de piano solo, Daniel Grajew reúne composições autorais e releituras de grandes nomes da música brasileira, como Tom Jobim, Djavan, Dona Ivone Lara, Villa-Lobos, Léa Freire, Milton Nascimento e Marisa…"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "eventos"
+   },
+   "id": "ccsp-phenomena-festival-2026-8-13",
+   "link_fonte": {
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/agenda/"
+   },
+   "origens": [
+    {
+     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
+     "fonte": "ccsp",
+     "url": "https://centrocultural.sp.gov.br/agenda/"
+    }
+   ],
+   "sessoes": [
+    {
+     "ate": {
+      "o": 0,
+      "v": "2026-12-13"
+     },
+     "estreia": {
+      "o": 0,
+      "v": "2026-12-08"
+     },
+     "lugar": "centro-cultural-sao-paulo",
+     "quando": {
+      "o": 0,
+      "obs": "recorrência \"diário\" como o site registra",
+      "v": "Todos os dias, de 08/12/2026 a 13/12/2026"
+     },
+     "sala": {
+      "o": 0,
+      "v": "Sala Lima Barreto"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Phenomena Festival 2026 – 8-13"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "eventos"
+   },
+   "id": "ccsp-phenomena-festival-2026-15-16",
+   "link_fonte": {
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/agenda/"
+   },
+   "origens": [
+    {
+     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
+     "fonte": "ccsp",
+     "url": "https://centrocultural.sp.gov.br/agenda/"
+    }
+   ],
+   "sessoes": [
+    {
+     "ate": {
+      "o": 0,
+      "v": "2026-12-16"
+     },
+     "estreia": {
+      "o": 0,
+      "v": "2026-12-15"
+     },
+     "lugar": "centro-cultural-sao-paulo",
+     "quando": {
+      "o": 0,
+      "obs": "recorrência \"diário\" como o site registra",
+      "v": "Todos os dias, de 15/12/2026 a 16/12/2026"
+     },
+     "sala": {
+      "o": 0,
+      "v": "Sala Lima Barreto"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Phenomena Festival 2026 – 15-16"
+   }
+  },
   {
    "area": {
     "o": 0,
@@ -24,7 +163,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -73,7 +212,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -151,7 +290,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -200,7 +339,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -249,7 +388,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -309,7 +448,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -358,7 +497,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -407,7 +546,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -452,7 +591,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -497,7 +636,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -542,7 +681,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -578,7 +717,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -623,7 +762,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -668,7 +807,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -726,7 +865,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -775,7 +914,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -801,42 +940,6 @@
   {
    "area": {
     "o": 0,
-    "v": "eventos"
-   },
-   "id": "ccsp-banda-nao-reliao-apresenta-a-verdadeira-historia-de-um-brasileiro-o-ponto-de-par",
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/agenda/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-23T20:00"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Sala Adoniran Barbosa"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Banda Não Relião apresenta: A Verdadeira História de Um Brasileiro, “o ponto de partida”"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
     "v": "danca"
    },
    "id": "ccsp-narrativas-com-a-danca-sem-fronteiras-08-e-25",
@@ -847,7 +950,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -888,7 +991,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -938,7 +1041,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -978,7 +1081,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1023,7 +1126,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1072,7 +1175,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1117,7 +1220,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1175,7 +1278,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1224,7 +1327,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1273,7 +1376,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1322,7 +1425,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1371,7 +1474,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1416,7 +1519,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1465,7 +1568,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1505,7 +1608,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1550,7 +1653,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1590,7 +1693,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1635,7 +1738,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1689,7 +1792,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1729,7 +1832,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1774,7 +1877,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1819,7 +1922,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1873,7 +1976,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1913,7 +2016,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1958,7 +2061,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2003,7 +2106,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2048,7 +2151,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2093,7 +2196,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2138,7 +2241,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2183,7 +2286,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2229,7 +2332,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-23T15:24:46-03:00",
+     "coletado_em": "2026-11-24T14:58:49-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br"
     }
@@ -2240,7 +2343,7 @@
    }
   }
  ],
- "nota": "438 sessões conferidas",
+ "nota": "441 sessões conferidas",
  "ok": true,
- "rodou_em": "2026-11-23T15:25:25-03:00"
+ "rodou_em": "2026-11-24T14:59:31-03:00"
 }
