@@ -155,6 +155,8 @@ Como escolher:
   `capa --url file://...`, com o crédito lido na página do arquivo. Fotos em
   domínio público só por lei estrangeira (PD-Finland, PD-US-no-notice) não
   servem: no Brasil a foto fica protegida por 70 anos (Lei 9.610, art. 44).
+  Exceção: colunas de opinião (tipo `coluna`) não precisam de foto (ordem do
+  Pedro, 25/11/2026).
 - **agenda da semana às quintas (ordem do Pedro, 19/11/2026).** Toda quinta
   saem duas agendas assinadas por Pedro Amaral: São Paulo às 6h e Rio às 8h,
   cobrindo de quinta a domingo. Porte `agenda`, cat Guia, cats Em Cartaz.
