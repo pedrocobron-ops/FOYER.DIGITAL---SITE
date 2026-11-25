@@ -1,7 +1,64 @@
 {
- "coletado_em": "2026-11-24T14:58:17-03:00",
+ "coletado_em": "2026-11-25T14:21:46-03:00",
  "fonte": "museufutebol",
  "itens": [
+  {
+   "area": {
+    "o": 0,
+    "v": "cursos"
+   },
+   "id": "museufutebol-oficina-virtual-de-conservacao-preventiva-de-colecoes-esportivas",
+   "imagem": {
+    "credito": "Divulgação / Museu do Futebol",
+    "o": 0,
+    "v": "https://museudofutebol.org.br/wp-content/uploads/2026/11/MF_GestaoConservacaoPreventiva_Nov2026_TelaFundo2-768x432.png"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://museudofutebol.org.br/evento/oficina-virtual-de-conservacao-preventiva-de-colecoes-esportivas/"
+   },
+   "origens": [
+    {
+     "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23054",
+     "coletado_em": "2026-11-25T14:21:46-03:00",
+     "fonte": "museufutebol",
+     "url": "https://museudofutebol.org.br/evento/oficina-virtual-de-conservacao-preventiva-de-colecoes-esportivas/"
+    }
+   ],
+   "sessoes": [
+    {
+     "fim": {
+      "o": 0,
+      "v": "2026-11-26T13:00"
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.youtube.com/@museudofutebolspaulo"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-26T10:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://museudofutebol.org.br/evento/oficina-virtual-de-conservacao-preventiva-de-colecoes-esportivas/"
+     },
+     "lugar": "museu-do-futebol",
+     "preco": {
+      "o": 0,
+      "v": "Livre"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Oficina virtual de conservação preventiva de coleções esportivas"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "No dia 26 de novembro, das 10h às 13h, o Museu do Futebol promove uma oficina virtual sobre conservação preventiva de coleções esportivas, com foco em acervos ligados ao futebol. A atividade integra o Programa Conexões…"
+   }
+  },
   {
    "area": {
     "o": 0,
@@ -20,7 +77,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23020",
-     "coletado_em": "2026-11-24T14:58:17-03:00",
+     "coletado_em": "2026-11-25T14:21:46-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/encontro-de-colecionadores-de-figurinhas-133/"
     }
@@ -77,7 +134,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23035",
-     "coletado_em": "2026-11-24T14:58:17-03:00",
+     "coletado_em": "2026-11-25T14:21:46-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/o-jogo-das-letras/"
     }
@@ -130,25 +187,25 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23022",
-     "coletado_em": "2026-11-24T14:58:17-03:00",
+     "coletado_em": "2026-11-25T14:21:46-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-356/"
     },
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23026",
-     "coletado_em": "2026-11-24T14:58:17-03:00",
+     "coletado_em": "2026-11-25T14:21:46-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-357/"
     },
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23040",
-     "coletado_em": "2026-11-24T14:58:17-03:00",
+     "coletado_em": "2026-11-25T14:21:46-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-358/"
     },
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23042",
-     "coletado_em": "2026-11-24T14:58:17-03:00",
+     "coletado_em": "2026-11-25T14:21:46-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-359/"
     }
@@ -258,7 +315,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23024",
-     "coletado_em": "2026-11-24T14:58:17-03:00",
+     "coletado_em": "2026-11-25T14:21:46-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/atividade-educativa-qual-time-sou-eu-8/"
     }
@@ -311,7 +368,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23044",
-     "coletado_em": "2026-11-24T14:58:17-03:00",
+     "coletado_em": "2026-11-25T14:21:46-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/atividade-educativa-desafio-copas-do-mundo-7/"
     }
@@ -360,7 +417,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-24T14:58:17-03:00",
+     "coletado_em": "2026-11-25T14:21:46-03:00",
      "fonte": "museufutebol",
      "url": "https://www.museudofutebol.org.br"
     }
@@ -371,7 +428,7 @@
    }
   }
  ],
- "nota": "8 sessões nos próximos 45 dias",
+ "nota": "9 sessões nos próximos 45 dias",
  "ok": true,
- "rodou_em": "2026-11-24T14:58:17-03:00"
+ "rodou_em": "2026-11-25T14:21:46-03:00"
 }
