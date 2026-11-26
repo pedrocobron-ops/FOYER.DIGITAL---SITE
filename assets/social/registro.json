@@ -5506,7 +5506,11 @@
  },
  "minotauro-a-franca-inscreveu-no-oscar-o-filme-russo-cujo-diretor-moscou-declarou": {
   "img": "assets/uploads/minotauro-a-franca-inscreveu-no-oscar-o-filme-russo-cujo-diretor-moscou-declarou-1795708176453.jpg",
-  "foco": null,
+  "foco": {
+   "x": 0.5,
+   "y": 0.5,
+   "z": 1
+  },
   "titulo": "\"Minotauro\": a França inscreveu no Oscar o filme russo cujo diretor Moscou declarou agente estrangeiro",
   "cat": "Streaming",
   "orig": "assets/uploads/minotauro-a-franca-inscreveu-no-oscar-o-filme-russo-cujo-diretor-moscou-declarou-original-1795708173012.jpg"
