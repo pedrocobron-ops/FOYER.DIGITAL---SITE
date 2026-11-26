@@ -1,56 +1,7 @@
 {
- "coletado_em": "2026-11-25T14:21:36-03:00",
+ "coletado_em": "2026-11-26T14:01:20-03:00",
  "fonte": "cinemateca",
  "itens": [
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Sessão"
-   },
-   "id": "cinemateca-sesc-santos-revisao-critica-do-cinema-brasileiro-garota-de-ipanema",
-   "imagem": {
-    "credito": "Divulgação / Cinemateca Brasileira",
-    "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2026/01/garota-de-ipanema-768x593.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-garota-de-ipanema/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67365",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-garota-de-ipanema/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-25T19:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-garota-de-ipanema/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Sesc Santos"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "SESC SANTOS | REVISÃO CRÍTICA DO CINEMA BRASILEIRO | GAROTA DE IPANEMA"
-   }
-  },
   {
    "area": {
     "o": 0,
@@ -64,22 +15,16 @@
    "imagem": {
     "credito": "Divulgação / Cinemateca Brasileira",
     "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_anticena-768x432.jpg"
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_aniceto_do_imperio_em_dia_de_alforria-768x432.jpg"
    },
    "link_fonte": {
     "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/mostra-classicos/"
+    "v": "https://cinemateca.org.br/exibicao/mostra-classicos-2/"
    },
    "origens": [
     {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67492",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/mostra-classicos/"
-    },
-    {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67496",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/mostra-classicos-2/"
     }
@@ -88,30 +33,15 @@
     {
      "inicio": {
       "o": 0,
-      "v": "2026-11-25T20:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/mostra-classicos/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Sala Oscarito"
-     }
-    },
-    {
-     "inicio": {
-      "o": 1,
       "v": "2026-11-26T20:00"
      },
      "link": {
-      "o": 1,
+      "o": 0,
       "v": "https://cinemateca.org.br/exibicao/mostra-classicos-2/"
      },
      "lugar": "cinemateca-brasileira",
      "sala": {
-      "o": 1,
+      "o": 0,
       "v": "Sala Oscarito"
      }
     }
@@ -134,22 +64,16 @@
    "imagem": {
     "credito": "Divulgação / Cinemateca Brasileira",
     "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_uma_terra_a_parte-768x576.webp"
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_abeni_a_filha_do_ferreiro-768x298.jpg"
    },
    "link_fonte": {
     "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/mostra-internacional/"
+    "v": "https://cinemateca.org.br/exibicao/abeni-a-filha-do-ferreiro/"
    },
    "origens": [
     {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67494",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/mostra-internacional/"
-    },
-    {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67498",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/abeni-a-filha-do-ferreiro/"
     }
@@ -158,30 +82,15 @@
     {
      "inicio": {
       "o": 0,
-      "v": "2026-11-25T20:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/mostra-internacional/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Sala Grande Otelo"
-     }
-    },
-    {
-     "inicio": {
-      "o": 1,
       "v": "2026-11-26T20:00"
      },
      "link": {
-      "o": 1,
+      "o": 0,
       "v": "https://cinemateca.org.br/exibicao/abeni-a-filha-do-ferreiro/"
      },
      "lugar": "cinemateca-brasileira",
      "sala": {
-      "o": 1,
+      "o": 0,
       "v": "Sala Grande Otelo"
      }
     }
@@ -213,7 +122,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67500",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-de-encerramento-3/"
     }
@@ -262,7 +171,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67670",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sabado-infantil-alice-dos-anjos/"
     }
@@ -311,7 +220,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67599",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/a-dama-do-cine-shanghai-3/"
     }
@@ -360,7 +269,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67348",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-especial-os-doces-barbaros/"
     }
@@ -394,24 +303,19 @@
    },
    "categoria": {
     "o": 0,
-    "v": "Sessão"
+    "v": "Evento"
    },
-   "id": "cinemateca-pre-estreia-di-cavalcanti-di-glauber-e-amazonas-amazonas-glauber-4k",
-   "imagem": {
-    "credito": "Divulgação / Cinemateca Brasileira",
-    "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2024/12/cbs_id_di_cavalcanti_di_glauber-768x432.jpg"
-   },
+   "id": "cinemateca-apresentacao-blu-ray",
    "link_fonte": {
     "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/pre-estreia-di-cavalcanti-di-glauber-e-amazonas-amazonas-glauber-4k/"
+    "v": "https://cinemateca.org.br/exibicao/apresentacao-blu-ray/"
    },
    "origens": [
     {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67721",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67823",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/pre-estreia-di-cavalcanti-di-glauber-e-amazonas-amazonas-glauber-4k/"
+     "url": "https://cinemateca.org.br/exibicao/apresentacao-blu-ray/"
     }
    ],
    "sessoes": [
@@ -422,7 +326,7 @@
      },
      "link": {
       "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/pre-estreia-di-cavalcanti-di-glauber-e-amazonas-amazonas-glauber-4k/"
+      "v": "https://cinemateca.org.br/exibicao/apresentacao-blu-ray/"
      },
      "lugar": "cinemateca-brasileira",
      "sala": {
@@ -433,7 +337,149 @@
    ],
    "titulo": {
     "o": 0,
-    "v": "PRÉ-ESTREIA | DI CAVALCANTI, DI GLAUBER e AMAZONAS, AMAZONAS + GLAUBER 4K"
+    "v": "APRESENTAÇÃO BLU-RAY"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Evento"
+   },
+   "id": "cinemateca-apresentacao-institucional",
+   "link_fonte": {
+    "o": 0,
+    "v": "https://cinemateca.org.br/exibicao/apresentacao-institucional/"
+   },
+   "origens": [
+    {
+     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67834",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "fonte": "cinemateca",
+     "url": "https://cinemateca.org.br/exibicao/apresentacao-institucional/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-02T18:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://cinemateca.org.br/exibicao/apresentacao-institucional/"
+     },
+     "lugar": "cinemateca-brasileira",
+     "sala": {
+      "o": 0,
+      "v": "Sala Grande Otelo"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "APRESENTAÇÃO INSTITUCIONAL"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Sessão"
+   },
+   "id": "cinemateca-pre-estreia-di-cavalcanti-di-glauber-restaurado-em-4k",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2024/12/cbs_id_di_cavalcanti_di_glauber-768x432.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://cinemateca.org.br/exibicao/pre-estreia-di-cavalcanti-di-glauber-restaurado-em-4k/"
+   },
+   "origens": [
+    {
+     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67844",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "fonte": "cinemateca",
+     "url": "https://cinemateca.org.br/exibicao/pre-estreia-di-cavalcanti-di-glauber-restaurado-em-4k/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-02T18:30"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://cinemateca.org.br/exibicao/pre-estreia-di-cavalcanti-di-glauber-restaurado-em-4k/"
+     },
+     "lugar": "cinemateca-brasileira",
+     "sala": {
+      "o": 0,
+      "v": "Sala Grande Otelo"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "PRÉ-ESTREIA | DI CAVALCANTI, DI GLAUBER – restaurado em 4K"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Sessão"
+   },
+   "id": "cinemateca-pre-estreia-amazonas-amazonas-restaurado-em-4k",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_amazonas_amazonas-768x432.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://cinemateca.org.br/exibicao/pre-estreia-amazonas-amazonas-restaurado-em-4k/"
+   },
+   "origens": [
+    {
+     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67846",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "fonte": "cinemateca",
+     "url": "https://cinemateca.org.br/exibicao/pre-estreia-amazonas-amazonas-restaurado-em-4k/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-02T18:50"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://cinemateca.org.br/exibicao/pre-estreia-amazonas-amazonas-restaurado-em-4k/"
+     },
+     "lugar": "cinemateca-brasileira",
+     "sala": {
+      "o": 0,
+      "v": "Sala Grande Otelo"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "PRÉ-ESTREIA | AMAZONAS, AMAZONAS – restaurado em 4K"
    }
   },
   {
@@ -458,7 +504,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67367",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-deus-e-o-diabo-na-terra-do-sol/"
     }
@@ -492,6 +538,99 @@
    },
    "categoria": {
     "o": 0,
+    "v": "Evento"
+   },
+   "id": "cinemateca-exibicao-do-documentario-glauber-4k",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_jornada_bndes_glauber_rocha-768x432.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://cinemateca.org.br/exibicao/exibicao-do-documentario-glauber-4k/"
+   },
+   "origens": [
+    {
+     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67848",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "fonte": "cinemateca",
+     "url": "https://cinemateca.org.br/exibicao/exibicao-do-documentario-glauber-4k/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-02T19:30"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://cinemateca.org.br/exibicao/exibicao-do-documentario-glauber-4k/"
+     },
+     "lugar": "cinemateca-brasileira",
+     "sala": {
+      "o": 0,
+      "v": "Sala Grande Otelo"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "exibição do documentário GLAUBER 4K"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Evento, Cursos e debates"
+   },
+   "id": "cinemateca-conversa-com-o-publico",
+   "link_fonte": {
+    "o": 0,
+    "v": "https://cinemateca.org.br/exibicao/conversa-com-o-publico/"
+   },
+   "origens": [
+    {
+     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67851",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "fonte": "cinemateca",
+     "url": "https://cinemateca.org.br/exibicao/conversa-com-o-publico/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-02T20:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://cinemateca.org.br/exibicao/conversa-com-o-publico/"
+     },
+     "lugar": "cinemateca-brasileira",
+     "sala": {
+      "o": 0,
+      "v": "Sala Grande Otelo"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "CONVERSA COM O PÚBLICO"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "categoria": {
+    "o": 0,
     "v": "Sessão"
    },
    "id": "cinemateca-sessao-dupla-patio-e-barravento",
@@ -507,7 +646,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67723",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-dupla-patio-e-barravento/"
     }
@@ -551,7 +690,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67725",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/painel-cinema-negro-na-obra-de-glauber-rocha/"
     }
@@ -600,7 +739,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67727",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/o-leao-de-sete-cabecas-2/"
     }
@@ -649,7 +788,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67746",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/pre-estreia-historia-do-brasil-restaurado-em-4k/"
     }
@@ -693,7 +832,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67748",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/painel-retrospectiva-das-metodologias-de-restauro-na-obra-de-glauber-rocha/"
     }
@@ -742,7 +881,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67750",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/deus-e-o-diabo-na-terra-do-sol-2/"
     }
@@ -791,7 +930,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67637",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/mais-pesado-e-o-ceu/"
     }
@@ -840,7 +979,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67752",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/o-dragao-da-maldade-contra-o-santo-guerreiro-3/"
     }
@@ -889,7 +1028,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67754",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/a-idade-da-terra-2/"
     }
@@ -923,6 +1062,55 @@
    },
    "categoria": {
     "o": 0,
+    "v": "Sessão"
+   },
+   "id": "cinemateca-pre-estreia-tripoli-a-tale-of-three-cities",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_tripoli_a_tale_of_three_cities-768x432.webp"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://cinemateca.org.br/exibicao/pre-estreia-tripoli-a-tale-of-three-cities/"
+   },
+   "origens": [
+    {
+     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67781",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "fonte": "cinemateca",
+     "url": "https://cinemateca.org.br/exibicao/pre-estreia-tripoli-a-tale-of-three-cities/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-06T19:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://cinemateca.org.br/exibicao/pre-estreia-tripoli-a-tale-of-three-cities/"
+     },
+     "lugar": "cinemateca-brasileira",
+     "sala": {
+      "o": 0,
+      "v": "Sala Grande Otelo"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "PRÉ-ESTREIA | TRIPOLI – A TALE OF THREE CITIES"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "categoria": {
+    "o": 0,
     "v": "Evento"
    },
    "id": "cinemateca-sesc-santos-revisao-critica-do-cinema-brasileiro-canal-100-processos-de-restauro",
@@ -938,7 +1126,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67369",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-canal-100-processos-de-restauro-na-cinemateca-brasileira/"
     }
@@ -987,7 +1175,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67371",
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/a-paixao-de-joana-darc/"
     }
@@ -1028,7 +1216,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-25T14:21:36-03:00",
+     "coletado_em": "2026-11-26T14:01:20-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br"
     }
@@ -1039,7 +1227,7 @@
    }
   }
  ],
- "nota": "22 sessões nos próximos 45 dias",
+ "nota": "25 sessões nos próximos 45 dias",
  "ok": true,
- "rodou_em": "2026-11-25T14:21:36-03:00"
+ "rodou_em": "2026-11-26T14:01:20-03:00"
 }

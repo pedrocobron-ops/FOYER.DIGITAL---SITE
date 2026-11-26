@@ -1,7 +1,513 @@
 {
- "coletado_em": "2026-11-25T14:22:58-03:00",
+ "coletado_em": "2026-11-26T14:04:36-03:00",
  "fonte": "ccsp",
  "itens": [
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Música"
+   },
+   "id": "ccsp-beat-brasilis-no-ccsp-edicao-especial-de-fim-de-ano-programacao-oneyda-alvarenga",
+   "imagem": {
+    "credito": "Divulgação / Centro Cultural São Paulo",
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2025/12/POST-beat-brasilis-8-768x485.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/beat-brasilis-no-ccsp-edicao-especial-de-fim-de-ano-programacao-oneyda-alvarenga/"
+   },
+   "origens": [
+    {
+     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
+     "fonte": "ccsp",
+     "url": "https://centrocultural.sp.gov.br/agenda/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-19T14:00"
+     },
+     "lugar": "centro-cultural-sao-paulo",
+     "sala": {
+      "o": 0,
+      "v": "Sala Adoniran Barbosa"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "BEAT BRASILIS NO CCSP — EDIÇÃO ESPECIAL DE FIM DE ANO! (Programação Oneyda Alvarenga)"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Chegou a hora de reunir a comunidade, ligar os equipamentos e celebrar mais um ano de muita música, pesquisa e criação! No sábado, 19 de dezembro, o Beat Brasilis chega ao CCSP para o nosso 350˚ encontro de produção…"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Música"
+   },
+   "id": "ccsp-forro-ccsp-convida-digo-ferreira-lancamento-do-album-baiao-de-cordas",
+   "imagem": {
+    "credito": "Divulgação / Centro Cultural São Paulo",
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2025/12/POST-digo3-768x485.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/forro-ccsp-convida-digo-ferreira-lancamento-do-album-baiao-de-cordas/"
+   },
+   "origens": [
+    {
+     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
+     "fonte": "ccsp",
+     "url": "https://centrocultural.sp.gov.br/agenda/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-17T19:00"
+     },
+     "lugar": "centro-cultural-sao-paulo",
+     "sala": {
+      "o": 0,
+      "v": "Jardim Sul"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Forró CCSP convida – Digo Ferreira Lançamento do álbum Baião de Cordas"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Uma celebração da cultura nordestina através da música, da dança e dos ritmos tradicionais do forró. A apresentação reúne elementos do forró pé de serra, xote, baião e arrasta-pé, proporcionando ao público uma…"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Música"
+   },
+   "id": "ccsp-forro-ccsp-convida-xaxado-novo",
+   "imagem": {
+    "credito": "Divulgação / Centro Cultural São Paulo",
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2025/12/POST-Xaxado-Novo2-768x485.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/forro-ccsp-convida-xaxado-novo/"
+   },
+   "origens": [
+    {
+     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
+     "fonte": "ccsp",
+     "url": "https://centrocultural.sp.gov.br/agenda/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-03T19:00"
+     },
+     "lugar": "centro-cultural-sao-paulo",
+     "sala": {
+      "o": 0,
+      "v": "Jardim Sul"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Forró CCSP convida – Xaxado Novo"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Uma celebração da cultura nordestina através da música, da dança e dos ritmos tradicionais do forró. A apresentação reúne elementos do forró pé de serra, xote, baião e arrasta-pé, proporcionando ao público uma…"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Música"
+   },
+   "id": "ccsp-forro-ccsp-convida-nando-do-acordeon",
+   "imagem": {
+    "credito": "Divulgação / Centro Cultural São Paulo",
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2025/12/POST-nando-acordion3-768x485.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/forro-ccsp-convida-nando-do-acordeon/"
+   },
+   "origens": [
+    {
+     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
+     "fonte": "ccsp",
+     "url": "https://centrocultural.sp.gov.br/agenda/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-10T19:00"
+     },
+     "lugar": "centro-cultural-sao-paulo",
+     "sala": {
+      "o": 0,
+      "v": "Jardim Sul"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Forró CCSP convida – Nando do Acordeon"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Uma celebração da cultura nordestina através da música, da dança e dos ritmos tradicionais do forró. A apresentação reúne elementos do forró pé de serra, xote, baião e arrasta-pé, proporcionando ao público uma…"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Música"
+   },
+   "id": "ccsp-balburdia-poetica-sarau-literario",
+   "imagem": {
+    "credito": "Divulgação / Centro Cultural São Paulo",
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2026/11/POST-balbudia-1-768x485.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/balburdia-poetica-sarau-literario/"
+   },
+   "origens": [
+    {
+     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
+     "fonte": "ccsp",
+     "url": "https://centrocultural.sp.gov.br/agenda/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-05T19:30"
+     },
+     "lugar": "centro-cultural-sao-paulo",
+     "sala": {
+      "o": 0,
+      "v": "Praça das Bibliotecas"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Balbúrdia Poética – Sarau Literário"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "A Balbúrdia PoÉtica é um sarau multilinguagens criado pelo poeta, ator e produtor cultural, Artur Gomes, em 2019 com o objetivo de levar poesia aos diferentes espaços e cidades Brasil afora."
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "danca"
+   },
+   "id": "ccsp-sentidos-urbanos-danca-sem-fronteiras-13",
+   "link_fonte": {
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/agenda/"
+   },
+   "origens": [
+    {
+     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
+     "fonte": "ccsp",
+     "url": "https://centrocultural.sp.gov.br/agenda/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-13T19:00"
+     },
+     "lugar": "centro-cultural-sao-paulo",
+     "sala": {
+      "o": 0,
+      "v": "Praça das Bibliotecas"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Sentidos Urbanos – Dança sem Fronteiras 13"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "danca"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Dança"
+   },
+   "id": "ccsp-sentidos-urbanos-danca-sem-fronteiras",
+   "imagem": {
+    "credito": "Divulgação / Centro Cultural São Paulo",
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2025/12/POST-Sentidos-Urbanos-768x485.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/sentidos-urbanos-danca-sem-fronteiras/"
+   },
+   "origens": [
+    {
+     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
+     "fonte": "ccsp",
+     "url": "https://centrocultural.sp.gov.br/agenda/"
+    }
+   ],
+   "sessoes": [
+    {
+     "ate": {
+      "o": 0,
+      "v": "2026-12-12"
+     },
+     "estreia": {
+      "o": 0,
+      "v": "2026-12-11"
+     },
+     "lugar": "centro-cultural-sao-paulo",
+     "quando": {
+      "o": 0,
+      "obs": "recorrência \"diário\" como o site registra",
+      "v": "Todos os dias, 20:00, de 11/12/2026 a 12/12/2026"
+     },
+     "sala": {
+      "o": 0,
+      "v": "Praça das Bibliotecas"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Sentidos Urbanos – Dança sem Fronteiras"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "SENTIDOS URBANOS – É o encontro entre o poético e as sutilezas da beleza do diverso. Um espetáculo de dança contemporânea que traz referências das danças da cultura popular, das danças urbanas que se fundem à estética…"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Música"
+   },
+   "id": "ccsp-aulas-de-forro-com-thamyra-miranda",
+   "imagem": {
+    "credito": "Divulgação / Centro Cultural São Paulo",
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2026/07/POST-THAMYRA-MIRANDA-768x290.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/aulas-de-forro-com-thamyra-miranda-5/"
+   },
+   "origens": [
+    {
+     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
+     "fonte": "ccsp",
+     "url": "https://centrocultural.sp.gov.br/agenda/"
+    }
+   ],
+   "sessoes": [
+    {
+     "ate": {
+      "o": 0,
+      "v": "2026-12-17"
+     },
+     "estreia": {
+      "o": 0,
+      "v": "2026-12-03"
+     },
+     "lugar": "centro-cultural-sao-paulo",
+     "quando": {
+      "o": 0,
+      "obs": "recorrência \"diário\" como o site registra",
+      "v": "Todos os dias, 18:00, de 03/12/2026 a 17/12/2026"
+     },
+     "sala": {
+      "o": 0,
+      "v": "Jardim Sul"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Aulas de Forró com Thamyra Miranda"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Introduzido o contexto cultural, rítmico, técnicas iniciais de passos, figuras e elementos fundamentais para que qualquer pessoa comece a dançar ou se aperfeiçoar."
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "danca"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Dança"
+   },
+   "id": "ccsp-jam-danca-sem-fronteiras",
+   "imagem": {
+    "credito": "Divulgação / Centro Cultural São Paulo",
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2026/11/POSDT-JAM-3-768x485.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/jam-danca-sem-fronteiras-3/"
+   },
+   "origens": [
+    {
+     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
+     "fonte": "ccsp",
+     "url": "https://centrocultural.sp.gov.br/agenda/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-11-28T16:00"
+     },
+     "lugar": "centro-cultural-sao-paulo",
+     "sala": {
+      "o": 0,
+      "v": "Foyer"
+     }
+    },
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-12T16:00"
+     },
+     "lugar": "centro-cultural-sao-paulo",
+     "sala": {
+      "o": 0,
+      "v": "Foyer"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "JAM Dança sem Fronteiras"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "JAM: Práticas de improvisação coletiva com o objetivo de possibilitar a participação de todos na dança, incluindo pessoas com habilidades e caraterísticas físicas, motoras e intelectuais diversas."
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Música"
+   },
+   "id": "ccsp-arquivo-ol-original-legalize-it-convida-clara-lima-jimmy-luv-ro3p-e-sajo-program",
+   "imagem": {
+    "credito": "Divulgação / Centro Cultural São Paulo",
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2025/12/POST-OLI-2-768x485.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/arquivo-ol-original-legalize-it-convida-clara-lima-jimmy-luv-ro3p-e-sajo-programacao-oneyda-alvarenga/"
+   },
+   "origens": [
+    {
+     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
+     "fonte": "ccsp",
+     "url": "https://centrocultural.sp.gov.br/agenda/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-06T13:00"
+     },
+     "lugar": "centro-cultural-sao-paulo",
+     "sala": {
+      "o": 0,
+      "v": "Jardim Sul"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Arquivo OL (Original Legalize It) convida: Clara lima, Jimmy luv, RO3P e SAJO. – (Programação Oneyda Alvarenga)"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "O Arquivo OL é um projeto que conecta música urbana, arte e cultura independente por meio de apresentações musicais ao vivo e registros audiovisuais."
+   }
+  },
   {
    "area": {
     "o": 0,
@@ -24,7 +530,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -84,7 +590,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -133,7 +639,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -169,7 +675,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -214,7 +720,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -259,7 +765,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -317,7 +823,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -357,7 +863,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -402,7 +908,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -456,7 +962,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -505,7 +1011,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -583,7 +1089,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -632,7 +1138,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -681,7 +1187,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -741,7 +1247,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -790,7 +1296,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -839,7 +1345,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -884,7 +1390,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -929,7 +1435,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -974,7 +1480,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1010,7 +1516,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1055,7 +1561,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1100,7 +1606,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1158,7 +1664,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1197,83 +1703,6 @@
   {
    "area": {
     "o": 0,
-    "v": "eventos"
-   },
-   "id": "ccsp-afromix-25",
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/agenda/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-25T18:00"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Rampa – Metrô Vergueiro"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Afromix 25"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "danca"
-   },
-   "id": "ccsp-narrativas-com-a-danca-sem-fronteiras-08-e-25",
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/agenda/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ate": {
-      "o": 0,
-      "v": "2026-11-25"
-     },
-     "estreia": {
-      "o": 0,
-      "v": "2026-11-18"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "quando": {
-      "o": 0,
-      "obs": "recorrência \"diário\" como o site registra",
-      "v": "Todos os dias, 15:00, de 18/11/2026 a 25/11/2026"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Narrativas com a Dança sem Fronteiras – 08 e 25"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
     "v": "danca"
    },
    "id": "ccsp-narrativas-com-a-danca-sem-fronteiras-02-09-e-16-12",
@@ -1284,7 +1713,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1317,55 +1746,6 @@
     "o": 0,
     "v": "eventos"
    },
-   "categoria": {
-    "o": 0,
-    "v": "Acervo"
-   },
-   "id": "ccsp-patrimonio-e-territorio-conversa-de-acervo-bairro-da-liberdade-e-legados-afrodia",
-   "imagem": {
-    "credito": "Divulgação / Centro Cultural São Paulo",
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2025/11/POST-territorio-1.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/patrimonio-e-territorio-conversa-de-acervo-bairro-da-liberdade-e-legados-afrodiasporicos/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-25T19:00"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Sala Paulo Emílio"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Patrimônio e Território – Conversa de Acervo: Bairro da Liberdade e legados afrodiaspóricos"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "Acompanhando as ações de valorização da cultura negra do Mês da Consciência Negra, o Núcleo Memória do CCSP convida o Museu do Ipiranga (Museu Paulista) e o Museu dos Aflitos para compor o debate do Conversa de Acervo…"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "eventos"
-   },
    "id": "ccsp-carta-ao-pai-de-franz-kafka-29",
    "link_fonte": {
     "o": 0,
@@ -1374,7 +1754,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1419,7 +1799,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1468,7 +1848,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1513,7 +1893,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1571,7 +1951,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1620,7 +2000,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1669,7 +2049,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1718,7 +2098,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1767,7 +2147,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1812,7 +2192,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1852,7 +2232,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1878,55 +2258,6 @@
   {
    "area": {
     "o": 0,
-    "v": "musica"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Música"
-   },
-   "id": "ccsp-izzy-gordon-canta-jorge-aragao-sementes-da-tamarineira",
-   "imagem": {
-    "credito": "Divulgação / Centro Cultural São Paulo",
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2025/11/POST-Izzy-gordon-1-768x485.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/izzy-gordon-canta-jorge-aragao-sementes-da-tamarineira/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-25T20:00"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Sala Adoniran Barbosa"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Izzy Gordon canta Jorge Aragão “Sementes da Tamarineira”"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "No Clube de Leitura de novembro, será trabalhado o livro Meridiana, de Eliana Alves Cruz, que narra a trajetória de uma família negra em busca de ascensão social e de uma vida de classe média."
-   }
-  },
-  {
-   "area": {
-    "o": 0,
     "v": "cursos"
    },
    "id": "ccsp-curso-crie-seu-adereco-de-cabeca-com-galezya-26-27",
@@ -1937,7 +2268,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1982,7 +2313,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2036,7 +2367,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2076,7 +2407,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2121,7 +2452,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2166,7 +2497,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2220,7 +2551,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2260,7 +2591,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2305,7 +2636,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2350,7 +2681,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2385,51 +2716,6 @@
   {
    "area": {
     "o": 0,
-    "v": "cursos"
-   },
-   "id": "ccsp-curso-teorico-de-perucaria-11",
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/agenda/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ate": {
-      "o": 0,
-      "v": "2026-11-25"
-     },
-     "estreia": {
-      "o": 0,
-      "v": "2026-11-11"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "quando": {
-      "o": 0,
-      "obs": "recorrência \"diário\" como o site registra",
-      "v": "Todos os dias, 18:00, de 11/11/2026 a 25/11/2026"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Lab Foto – entrada da Portaria do Foyer"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Curso Teórico de Perucaria – 11"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
     "v": "eventos"
    },
    "id": "ccsp-passinho-charme-com-murilo-prado-05-12-19-e-26-11",
@@ -2440,7 +2726,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -2486,7 +2772,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-25T14:22:16-03:00",
+     "coletado_em": "2026-11-26T14:03:57-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br"
     }
@@ -2497,7 +2783,7 @@
    }
   }
  ],
- "nota": "448 sessões conferidas",
+ "nota": "459 sessões conferidas",
  "ok": true,
- "rodou_em": "2026-11-25T14:22:58-03:00"
+ "rodou_em": "2026-11-26T14:04:36-03:00"
 }

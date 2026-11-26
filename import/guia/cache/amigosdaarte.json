@@ -96,32 +96,56 @@
   "equip": "mundo-circo",
   "ingresso": null,
   "ingressos": "Não é necessário a retirada de ingressos Classificação etária: Livre",
-  "lido_em": "2026-11-10T12:06:32-03:00",
-  "modified": "2026-11-10T09:31:39",
+  "lido_em": "2026-11-26T14:06:19-03:00",
+  "modified": "2026-11-25T15:59:32",
   "sessoes": [
    [
-    "2026-11-21T15:00",
-    "21/11/26 -"
-   ],
-   [
-    "2026-11-22T13:00",
-    "22/11/26 -"
-   ],
-   [
-    "2026-11-22T17:00",
-    "27/11/26 -"
-   ],
-   [
-    "2026-11-28T15:00",
+    "2026-11-27T17:00",
     "28/11/26 -"
    ],
    [
-    "2026-11-29T13:00",
+    "2026-11-28T17:00",
     "29/11/26 -"
    ],
    [
-    "2026-11-29T17:00",
-    "Localização"
+    "2026-11-29T15:00",
+    "29/11/26 -"
+   ],
+   [
+    "2026-12-04T17:00",
+    "05/12/26 -"
+   ],
+   [
+    "2026-12-05T17:00",
+    "06/12/26 -"
+   ],
+   [
+    "2026-12-06T15:00",
+    "06/12/26 -"
+   ],
+   [
+    "2026-12-11T17:00",
+    "12/12/26 -"
+   ],
+   [
+    "2026-12-12T17:00",
+    "13/12/26 -"
+   ],
+   [
+    "2026-12-13T15:00",
+    "13/12/26 -"
+   ],
+   [
+    "2026-12-18T17:00",
+    "19/12/26 -"
+   ],
+   [
+    "2026-12-19T17:00",
+    "20/12/26 -"
+   ],
+   [
+    "2026-12-20T15:00",
+    "20/12/26 -"
    ]
   ]
  },
@@ -581,29 +605,6 @@
    [
     "2026-11-15T17:00",
     "Localização"
-   ]
-  ]
- },
- "https://amigosdaarte.org.br/agenda-equipamento/carmina-burana/": {
-  "ate": "2026-11-29",
-  "classificacao": "Livre",
-  "companhia": "Orquestra Filarmônica do SENAI-SP",
-  "de": "2026-11-29",
-  "deduz": false,
-  "descricao": "A Orquestra Filarmônica do SENAI-SP se une ao Madrigal Vivace de Jundiaí,",
-  "duracao": "70 minutos",
-  "endereco": "R. Rui Barbosa, 153 – Bela Vista, São Paulo – SP, 01326-010",
-  "equip": "teatro-sergio-cardoso",
-  "ingresso": "https://site.bileto.sympla.com.br/teatrosergiocardoso/",
-  "ingressos": "Entrada gratuita Retirada de ingressos na bilheteria 1 hora antes da apresentação",
-  "lido_em": "2026-11-10T12:06:32-03:00",
-  "linguagem": "Música",
-  "modified": "2026-11-09T16:22:40",
-  "quando": "Domingo, às 16h",
-  "sessoes": [
-   [
-    "2026-11-29T16:00",
-    "Sala Nydia Licia"
    ]
   ]
  },
@@ -1356,11 +1357,11 @@
   "duracao": "70 minutos",
   "endereco": "R. Rui Barbosa, 153 – Bela Vista, São Paulo – SP, 01326-010",
   "equip": "teatro-sergio-cardoso",
-  "ingresso": null,
-  "ingressos": "Em breve",
-  "lido_em": "2026-11-08T23:49:47-03:00",
+  "ingresso": "https://bileto.sympla.com.br/event/128045/d/419300",
+  "ingressos": "pelo Sympla .",
+  "lido_em": "2026-11-26T14:06:19-03:00",
   "linguagem": "Dança Contemporânea",
-  "modified": "2026-08-26T14:52:31",
+  "modified": "2026-11-25T17:01:24",
   "quando": "Sexta e Sábado, às 20h",
   "sessoes": [
    [
@@ -2031,24 +2032,32 @@
   "equip": "mundo-circo",
   "ingresso": null,
   "ingressos": "Não é necessário a retirada de ingressos",
-  "lido_em": "2026-11-08T23:49:47-03:00",
-  "modified": "2026-10-29T17:09:15",
+  "lido_em": "2026-11-26T14:06:19-03:00",
+  "modified": "2026-11-25T16:20:47",
   "sessoes": [
    [
-    "2026-11-11T09:00",
-    "14/11/26 -"
+    "2026-11-27T09:00",
+    "28/11/26 -"
    ],
    [
-    "2026-11-15T12:00",
-    "21/11/26 -"
+    "2026-11-29T12:00",
+    "04/12/26 -"
    ],
    [
-    "2026-11-22T12:00",
-    "27/11/26 -"
+    "2026-12-05T12:00",
+    "06/12/26 -"
    ],
    [
-    "2026-11-28T12:00",
-    "29/11/26 -"
+    "2026-12-11T09:00",
+    "12/12/26 -"
+   ],
+   [
+    "2026-12-13T12:00",
+    "18/12/26 -"
+   ],
+   [
+    "2026-12-19T12:00",
+    "20/12/26 -"
    ]
   ]
  },

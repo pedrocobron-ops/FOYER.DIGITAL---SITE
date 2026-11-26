@@ -1,7 +1,737 @@
 {
- "coletado_em": "2026-11-25T14:22:11-03:00",
+ "coletado_em": "2026-11-26T14:03:51-03:00",
  "fonte": "belasartes",
  "itens": [
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Documentário"
+   },
+   "ficha": {
+    "o": 0,
+    "v": "Direção: Lance Oppenheim | EUA"
+   },
+   "id": "belasartes-tudo-pode-ser-visto",
+   "imagem": {
+    "credito": "Cartaz / Divulgação / Cine Belas Artes",
+    "o": 0,
+    "v": "https://nyc3.digitaloceanspaces.com/assets.cinebelasartes.com.br/wp-content/uploads/2026/11/tudo-pode-ser-visto-1.png"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://www.cinebelasartes.com.br/filme/tudo-pode-ser-visto/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-26T14:03:51-03:00",
+     "fonte": "belasartes",
+     "url": "https://www.cinebelasartes.com.br/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "18 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 174
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/tudo-pode-ser-visto/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-26T15:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "18 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 174
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/tudo-pode-ser-visto/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-26T19:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "18 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 174
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/tudo-pode-ser-visto/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-27T15:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "18 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 174
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/tudo-pode-ser-visto/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-27T19:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "18 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 174
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/tudo-pode-ser-visto/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-28T15:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "18 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 174
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/tudo-pode-ser-visto/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-28T19:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "18 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 174
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/tudo-pode-ser-visto/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-29T15:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "18 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 174
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/tudo-pode-ser-visto/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-29T19:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "18 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 174
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/tudo-pode-ser-visto/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T15:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "18 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 174
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/tudo-pode-ser-visto/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T19:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "18 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 174
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/tudo-pode-ser-visto/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-01T15:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "18 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 174
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/tudo-pode-ser-visto/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-01T19:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "18 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 174
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/tudo-pode-ser-visto/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T15:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "18 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 174
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/tudo-pode-ser-visto/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T19:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Tudo Pode Ser Visto"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Trinta e quatro dias antes de ser presa, a empresária Elizabeth Holmes, que prometia realizar centenas de exames a partir de uma única gota de sangue e se tornou protagonista de um dos maiores escândalos do Vale do…"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Drama"
+   },
+   "ficha": {
+    "o": 0,
+    "v": "Direção: Beth de Araújo | EUA"
+   },
+   "id": "belasartes-josephine-fragmentos-de-um-crime",
+   "imagem": {
+    "credito": "Cartaz / Divulgação / Cine Belas Artes",
+    "o": 0,
+    "v": "https://nyc3.digitaloceanspaces.com/assets.cinebelasartes.com.br/wp-content/uploads/2026/11/josephine-1.png"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-26T14:03:51-03:00",
+     "fonte": "belasartes",
+     "url": "https://www.cinebelasartes.com.br/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 119
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-26T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 119
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-27T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 119
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-28T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 119
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 119
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-01T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 119
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 1 - Leon Cakoff"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 119
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-26T16:50"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 3 - Rubens Ewald Filho"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 119
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-27T16:50"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 3 - Rubens Ewald Filho"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 119
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-28T16:50"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 3 - Rubens Ewald Filho"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 119
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-29T16:50"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 3 - Rubens Ewald Filho"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 119
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T16:50"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 3 - Rubens Ewald Filho"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 119
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-01T16:50"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 3 - Rubens Ewald Filho"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 119
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T16:50"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 3 - Rubens Ewald Filho"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Josephine: Fragmentos de um Crime"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Depois de testemunhar acidentalmente um crime violento, Josephine, uma menina de 8 anos, procura formas de se sentir segura, enquanto os adultos ao seu redor são incapazes de consolá-la."
+   }
+  },
   {
    "area": {
     "o": 0,
@@ -27,7 +757,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-25T14:22:11-03:00",
+     "coletado_em": "2026-11-26T14:03:51-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
@@ -49,7 +779,7 @@
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T14:30"
+      "v": "2026-11-29T13:40"
      },
      "lugar": "cine-belas-artes",
      "sala": {
@@ -73,7 +803,7 @@
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T16:30"
+      "v": "2026-12-02T13:40"
      },
      "lugar": "cine-belas-artes",
      "sala": {
@@ -97,12 +827,12 @@
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T18:30"
+      "v": "2026-11-26T14:30"
      },
      "lugar": "cine-belas-artes",
      "sala": {
       "o": 0,
-      "v": "Sala 1 - Leon Cakoff"
+      "v": "Sala 2 - Carmen Miranda"
      }
     },
     {
@@ -121,12 +851,516 @@
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T20:30"
+      "v": "2026-11-26T16:30"
      },
      "lugar": "cine-belas-artes",
      "sala": {
       "o": 0,
-      "v": "Sala 1 - Leon Cakoff"
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-26T18:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-26T20:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-27T14:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-27T16:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-27T18:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-28T18:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-28T20:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T14:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T16:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T18:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T20:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-01T14:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-01T16:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-01T18:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-01T20:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T14:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T16:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T18:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T20:30"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 2 - Carmen Miranda"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-29T19:10"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 93
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T19:10"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
      }
     }
    ],
@@ -150,21 +1384,21 @@
    },
    "ficha": {
     "o": 0,
-    "v": "Direção: Sabrina Fidalgo | Brasil"
+    "v": "Direção: Mini Kerti | Brasil"
    },
-   "id": "belasartes-o-projeto",
+   "id": "belasartes-dona-onete-meu-coracao-neste-pedacinho-aqui",
    "imagem": {
     "credito": "Cartaz / Divulgação / Cine Belas Artes",
     "o": 0,
-    "v": "https://nyc3.digitaloceanspaces.com/assets.cinebelasartes.com.br/wp-content/uploads/2026/11/o_projeto_poster_23pg-1.jpg"
+    "v": "https://nyc3.digitaloceanspaces.com/assets.cinebelasartes.com.br/wp-content/uploads/2026/11/cartaz-dona-onete-meu-coracao-neste-pedacinho-aqui-1.jpg"
    },
    "link_fonte": {
     "o": 0,
-    "v": "https://www.cinebelasartes.com.br/filme/o-projeto/"
+    "v": "https://www.cinebelasartes.com.br/filme/dona-onete-meu-coracao-neste-pedacinho-aqui/"
    },
    "origens": [
     {
-     "coletado_em": "2026-11-25T14:22:11-03:00",
+     "coletado_em": "2026-11-26T14:03:51-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
@@ -173,35 +1407,179 @@
     {
      "classificacao": {
       "o": 0,
-      "v": "12 anos"
+      "v": "10 anos"
      },
      "duracao_min": {
       "o": 0,
-      "v": 95
+      "v": 90
      },
      "ingresso": {
       "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/o-projeto/"
+      "v": "https://www.cinebelasartes.com.br/filme/dona-onete-meu-coracao-neste-pedacinho-aqui/"
      },
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T12:40"
+      "v": "2026-11-26T13:10"
      },
      "lugar": "cine-belas-artes",
      "sala": {
       "o": 0,
-      "v": "Sala 1 - Leon Cakoff"
+      "v": "Sala 3 - Rubens Ewald Filho"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "10 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/dona-onete-meu-coracao-neste-pedacinho-aqui/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-27T13:10"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 3 - Rubens Ewald Filho"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "10 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/dona-onete-meu-coracao-neste-pedacinho-aqui/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-28T13:10"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 3 - Rubens Ewald Filho"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "10 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/dona-onete-meu-coracao-neste-pedacinho-aqui/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-29T13:10"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 3 - Rubens Ewald Filho"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "10 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/dona-onete-meu-coracao-neste-pedacinho-aqui/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T13:10"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 3 - Rubens Ewald Filho"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "10 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/dona-onete-meu-coracao-neste-pedacinho-aqui/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-01T13:10"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 3 - Rubens Ewald Filho"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "10 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/dona-onete-meu-coracao-neste-pedacinho-aqui/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T13:10"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 3 - Rubens Ewald Filho"
      }
     }
    ],
    "titulo": {
     "o": 0,
-    "v": "O Projeto"
+    "v": "Dona Onete: Meu Coração Neste Pedacinho Aqui"
    },
    "trecho": {
     "o": 0,
-    "v": "Uma investigação sobre como o privilégio branco ainda molda todos os aspectos das sociedades ao redor do mundo, sobretudo no Brasil. Dois ativistas, uma brasileira e um suíço, conduzem uma jornada repleta de fatos…"
+    "v": "Professora, militante e guardiã de saberes amazônicos, Dona Onete se tornou um ícone da música aos 72 anos, mas sua história começou muito antes. Neste documentário filmado entre rios e matas do Pará, Onete canta os…"
    }
   },
   {
@@ -229,7 +1607,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-25T14:22:11-03:00",
+     "coletado_em": "2026-11-26T14:03:51-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
@@ -251,12 +1629,12 @@
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T15:40"
+      "v": "2026-11-26T14:40"
      },
      "lugar": "cine-belas-artes",
      "sala": {
       "o": 0,
-      "v": "Sala 3 - Rubens Ewald Filho"
+      "v": "Sala 4 - Helena Ignez"
      }
     },
     {
@@ -275,12 +1653,300 @@
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T20:20"
+      "v": "2026-11-26T20:50"
      },
      "lugar": "cine-belas-artes",
      "sala": {
       "o": 0,
-      "v": "Sala 3 - Rubens Ewald Filho"
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 139
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/contos-paralelos/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-27T14:40"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 139
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/contos-paralelos/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-27T20:50"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 139
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/contos-paralelos/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-28T14:40"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 139
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/contos-paralelos/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-28T20:50"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 139
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/contos-paralelos/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-29T14:40"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 139
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/contos-paralelos/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-29T20:50"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 139
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/contos-paralelos/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T14:40"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 139
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/contos-paralelos/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T20:50"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 139
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/contos-paralelos/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-01T14:40"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 139
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/contos-paralelos/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-01T20:50"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 139
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/contos-paralelos/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T14:40"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 139
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/contos-paralelos/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T20:50"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
      }
     }
    ],
@@ -318,7 +1984,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-25T14:22:11-03:00",
+     "coletado_em": "2026-11-26T14:03:51-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
@@ -340,12 +2006,12 @@
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T14:00"
+      "v": "2026-11-26T13:00"
      },
      "lugar": "cine-belas-artes",
      "sala": {
       "o": 0,
-      "v": "Sala 3 - Rubens Ewald Filho"
+      "v": "Sala 4 - Helena Ignez"
      }
     },
     {
@@ -364,12 +2030,12 @@
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T18:20"
+      "v": "2026-11-26T19:10"
      },
      "lugar": "cine-belas-artes",
      "sala": {
       "o": 0,
-      "v": "Sala 3 - Rubens Ewald Filho"
+      "v": "Sala 4 - Helena Ignez"
      }
     },
     {
@@ -388,12 +2054,252 @@
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T18:30"
+      "v": "2026-11-27T13:00"
      },
      "lugar": "cine-belas-artes",
      "sala": {
       "o": 0,
-      "v": "Sala 3 - Rubens Ewald Filho"
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 82
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/a-terra-do-meu-pai/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-27T19:10"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 82
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/a-terra-do-meu-pai/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-28T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 82
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/a-terra-do-meu-pai/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-28T19:10"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 82
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/a-terra-do-meu-pai/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-29T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 82
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/a-terra-do-meu-pai/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 82
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/a-terra-do-meu-pai/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T19:10"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 82
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/a-terra-do-meu-pai/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-01T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 82
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/a-terra-do-meu-pai/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-01T19:10"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 82
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/a-terra-do-meu-pai/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 82
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/a-terra-do-meu-pai/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T19:10"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
      }
     }
    ],
@@ -413,25 +2319,25 @@
    },
    "categoria": {
     "o": 0,
-    "v": "Drama"
+    "v": "Romance"
    },
    "ficha": {
     "o": 0,
-    "v": "Direção: Beth de Araújo | EUA"
+    "v": "Direção: Adrian Chiarella | Austrália"
    },
-   "id": "belasartes-josephine-fragmentos-de-um-crime",
+   "id": "belasartes-leviticus-ritual-de-sangue",
    "imagem": {
     "credito": "Cartaz / Divulgação / Cine Belas Artes",
     "o": 0,
-    "v": "https://nyc3.digitaloceanspaces.com/assets.cinebelasartes.com.br/wp-content/uploads/2026/11/josephine-1.png"
+    "v": "https://nyc3.digitaloceanspaces.com/assets.cinebelasartes.com.br/wp-content/uploads/2026/11/leviticus_poster_21x30-1.jpg"
    },
    "link_fonte": {
     "o": 0,
-    "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
+    "v": "https://www.cinebelasartes.com.br/filme/leviticus-ritual-de-sangue/"
    },
    "origens": [
     {
-     "coletado_em": "2026-11-25T14:22:11-03:00",
+     "coletado_em": "2026-11-26T14:03:51-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
@@ -444,16 +2350,16 @@
      },
      "duracao_min": {
       "o": 0,
-      "v": 119
+      "v": 88
      },
      "ingresso": {
       "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
+      "v": "https://www.cinebelasartes.com.br/filme/leviticus-ritual-de-sangue/"
      },
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T13:40"
+      "v": "2026-11-26T17:20"
      },
      "lugar": "cine-belas-artes",
      "sala": {
@@ -468,16 +2374,16 @@
      },
      "duracao_min": {
       "o": 0,
-      "v": 119
+      "v": 88
      },
      "ingresso": {
       "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
+      "v": "https://www.cinebelasartes.com.br/filme/leviticus-ritual-de-sangue/"
      },
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T16:00"
+      "v": "2026-11-27T17:20"
      },
      "lugar": "cine-belas-artes",
      "sala": {
@@ -492,16 +2398,16 @@
      },
      "duracao_min": {
       "o": 0,
-      "v": 119
+      "v": 88
      },
      "ingresso": {
       "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
+      "v": "https://www.cinebelasartes.com.br/filme/leviticus-ritual-de-sangue/"
      },
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T18:20"
+      "v": "2026-11-28T17:20"
      },
      "lugar": "cine-belas-artes",
      "sala": {
@@ -516,16 +2422,88 @@
      },
      "duracao_min": {
       "o": 0,
-      "v": 119
+      "v": 88
      },
      "ingresso": {
       "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
+      "v": "https://www.cinebelasartes.com.br/filme/leviticus-ritual-de-sangue/"
      },
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T20:40"
+      "v": "2026-11-29T17:20"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 88
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/leviticus-ritual-de-sangue/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T17:20"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 88
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/leviticus-ritual-de-sangue/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-01T17:20"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 4 - Helena Ignez"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 88
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/leviticus-ritual-de-sangue/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T17:20"
      },
      "lugar": "cine-belas-artes",
      "sala": {
@@ -536,11 +2514,11 @@
    ],
    "titulo": {
     "o": 0,
-    "v": "Josephine: Fragmentos de um Crime"
+    "v": "Leviticus: Ritual de Sangue"
    },
    "trecho": {
     "o": 0,
-    "v": "Depois de testemunhar acidentalmente um crime violento, Josephine, uma menina de 8 anos, procura formas de se sentir segura, enquanto os adultos ao seu redor são incapazes de consolá-la."
+    "v": "Dois adolescentes precisam escapar de um monstro violento capaz de se transformar na pessoa que a vítima mais deseja no mundo. Por estarem apaixonados, a criatura assume a aparência de um para atrair o outro,…"
    }
   },
   {
@@ -568,7 +2546,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-25T14:22:11-03:00",
+     "coletado_em": "2026-11-26T14:03:51-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
@@ -590,7 +2568,7 @@
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T13:00"
+      "v": "2026-11-26T13:00"
      },
      "lugar": "cine-belas-artes",
      "sala": {
@@ -614,7 +2592,7 @@
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T16:40"
+      "v": "2026-11-26T16:45"
      },
      "lugar": "cine-belas-artes",
      "sala": {
@@ -638,7 +2616,367 @@
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T18:30"
+      "v": "2026-11-26T18:35"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/meu-verao-na-sicilia/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-27T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/meu-verao-na-sicilia/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-27T16:45"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/meu-verao-na-sicilia/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-27T18:35"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/meu-verao-na-sicilia/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-28T16:45"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/meu-verao-na-sicilia/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-28T18:35"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/meu-verao-na-sicilia/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-29T16:45"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/meu-verao-na-sicilia/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-29T18:35"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/meu-verao-na-sicilia/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/meu-verao-na-sicilia/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T16:45"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/meu-verao-na-sicilia/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T18:35"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/meu-verao-na-sicilia/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-01T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/meu-verao-na-sicilia/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-01T16:45"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/meu-verao-na-sicilia/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/meu-verao-na-sicilia/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T16:45"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/meu-verao-na-sicilia/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T18:35"
      },
      "lugar": "cine-belas-artes",
      "sala": {
@@ -681,7 +3019,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-25T14:22:11-03:00",
+     "coletado_em": "2026-11-26T14:03:51-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
@@ -703,7 +3041,127 @@
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T20:30"
+      "v": "2026-11-26T20:35"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 116
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/cavalo-selvagem-nove/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-27T20:35"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 116
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/cavalo-selvagem-nove/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-28T20:35"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 116
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/cavalo-selvagem-nove/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-29T20:35"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 116
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/cavalo-selvagem-nove/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T20:35"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "16 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 116
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/cavalo-selvagem-nove/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T20:35"
      },
      "lugar": "cine-belas-artes",
      "sala": {
@@ -746,7 +3204,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-25T14:22:11-03:00",
+     "coletado_em": "2026-11-26T14:03:51-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
@@ -768,7 +3226,151 @@
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T14:50"
+      "v": "2026-11-26T14:50"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 96
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/camisas-negras/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-27T14:50"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 96
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/camisas-negras/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-28T14:50"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 96
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/camisas-negras/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-29T14:50"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 96
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/camisas-negras/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T14:50"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 96
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/camisas-negras/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-01T14:50"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 96
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/camisas-negras/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T14:50"
      },
      "lugar": "cine-belas-artes",
      "sala": {
@@ -784,6 +3386,119 @@
    "trecho": {
     "o": 0,
     "v": "Combinando documentário e ficção, o filme conecta mais de um século de história para investigar a permanência do racismo no futebol e na sociedade contemporânea."
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Documentário"
+   },
+   "ficha": {
+    "o": 0,
+    "v": "Direção: Andreï Tarkovsky | Itália"
+   },
+   "id": "belasartes-tarkovsky-tempo-de-viagem",
+   "imagem": {
+    "credito": "Cartaz / Divulgação / Cine Belas Artes",
+    "o": 0,
+    "v": "https://nyc3.digitaloceanspaces.com/assets.cinebelasartes.com.br/wp-content/uploads/2026/11/TARKOVSKY_63X93cm-1-400x600.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://www.cinebelasartes.com.br/filme/tarkovsky-tempo-de-viagem/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-26T14:03:51-03:00",
+     "fonte": "belasartes",
+     "url": "https://www.cinebelasartes.com.br/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 62
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/tarkovsky-tempo-de-viagem/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-28T13:20"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 62
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/tarkovsky-tempo-de-viagem/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-29T13:20"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 62
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/tarkovsky-tempo-de-viagem/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T13:20"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 5 - Luiz Carlos Merten"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Tarkovsky: Tempo de Viagem"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Em busca das paisagens ideais para seu próximo longa-metragem, Andrei Tarkovsky percorre a Itália ao lado do roteirista Tonino Guerra. Entre vilarejos históricos, construções antigas e cenários naturais, os dois…"
    }
   },
   {
@@ -811,7 +3526,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-25T14:22:11-03:00",
+     "coletado_em": "2026-11-26T14:03:51-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
@@ -833,7 +3548,151 @@
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T13:00"
+      "v": "2026-11-26T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 6 - Léo Mendes"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 113
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/a-conspiracao-condor/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-27T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 6 - Léo Mendes"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 113
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/a-conspiracao-condor/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-28T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 6 - Léo Mendes"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 113
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/a-conspiracao-condor/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-29T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 6 - Léo Mendes"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 113
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/a-conspiracao-condor/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 6 - Léo Mendes"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 113
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/a-conspiracao-condor/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-01T13:00"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 6 - Léo Mendes"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 113
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/a-conspiracao-condor/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T13:00"
      },
      "lugar": "cine-belas-artes",
      "sala": {
@@ -876,7 +3735,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-25T14:22:11-03:00",
+     "coletado_em": "2026-11-26T14:03:51-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
@@ -898,7 +3757,79 @@
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T20:40"
+      "v": "2026-11-28T20:40"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 6 - Léo Mendes"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "10 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 125
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/razao-e-sensibilidade/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-29T20:40"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 6 - Léo Mendes"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "10 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 125
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/razao-e-sensibilidade/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T20:40"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 6 - Léo Mendes"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "10 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 125
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/razao-e-sensibilidade/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T20:40"
      },
      "lugar": "cine-belas-artes",
      "sala": {
@@ -941,7 +3872,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-25T14:22:11-03:00",
+     "coletado_em": "2026-11-26T14:03:51-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
@@ -963,7 +3894,151 @@
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T15:10"
+      "v": "2026-11-26T15:10"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 6 - Léo Mendes"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 160
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/ran-relancamento/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-27T15:10"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 6 - Léo Mendes"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 160
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/ran-relancamento/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-28T15:10"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 6 - Léo Mendes"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 160
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/ran-relancamento/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-29T15:10"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 6 - Léo Mendes"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 160
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/ran-relancamento/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T15:10"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 6 - Léo Mendes"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 160
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/ran-relancamento/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-01T15:10"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 6 - Léo Mendes"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "14 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 160
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/ran-relancamento/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T15:10"
      },
      "lugar": "cine-belas-artes",
      "sala": {
@@ -1006,7 +4081,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-25T14:22:11-03:00",
+     "coletado_em": "2026-11-26T14:03:51-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
@@ -1028,7 +4103,79 @@
      "inicio": {
       "o": 0,
       "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-25T18:20"
+      "v": "2026-11-28T18:20"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 6 - Léo Mendes"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 116
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/100-dias/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-29T18:20"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 6 - Léo Mendes"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 116
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/100-dias/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-11-30T18:20"
+     },
+     "lugar": "cine-belas-artes",
+     "sala": {
+      "o": 0,
+      "v": "Sala 6 - Léo Mendes"
+     }
+    },
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "12 anos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 116
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://www.cinebelasartes.com.br/filme/100-dias/"
+     },
+     "inicio": {
+      "o": 0,
+      "obs": "ano deduzido: o site escreve dia/mês",
+      "v": "2026-12-02T18:20"
      },
      "lugar": "cine-belas-artes",
      "sala": {
@@ -1060,7 +4207,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-25T14:22:11-03:00",
+     "coletado_em": "2026-11-26T14:03:51-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
@@ -1072,5 +4219,5 @@
   }
  ],
  "ok": true,
- "rodou_em": "2026-11-25T14:22:11-03:00"
+ "rodou_em": "2026-11-26T14:03:51-03:00"
 }
