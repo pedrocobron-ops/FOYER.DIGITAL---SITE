@@ -4,15 +4,25 @@
  "cat": "Teatro",
  "cats": [],
  "corpo": "",
- "cred": "",
+ "cred": "Foto: Renato Campora",
  "imgleg": "",
  "imgfonte": "",
  "imgdir": "",
  "fontes": "",
- "temFoto": false,
- "foto": null,
+ "temFoto": true,
+ "foto": {
+  "orig": {
+   "imgOriginal": "assets/uploads/rascunho-original-1795791030873.jpg"
+  },
+  "enq": {
+   "fx": 0.48750000000000004,
+   "fy": 0.4908203125,
+   "z": 1
+  },
+  "k": "119588:1IUc7oOtRWoTUVqBySSSBiSSSDmVLKupocg4kkkgSSSSD//Z:y2mAuzMDLdgsXS8ypxPM38tg"
+ },
  "op": null,
- "autor": "Redação Foyer",
+ "autor": "Isabel Branquinha",
  "ev": {
   "ini": "",
   "fim": "",
@@ -23,9 +33,9 @@
   "modo": "agora",
   "data": "2026-12-02T18:00"
  },
- "quando": "2026-11-27T14:49:34.100Z",
+ "quando": "2026-11-27T14:50:47.285Z",
  "id": "rmwz3kuusqmxj",
- "salvoEm": "2026-11-27T14:49:35.182Z",
+ "salvoEm": "2026-11-27T14:50:47.944Z",
  "por": "Isabel Branquinha",
  "v": 2
 }
