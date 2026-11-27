@@ -416,24 +416,6 @@
   "quando": "Domingo, às 11h",
   "sessoes": []
  },
- "https://amigosdaarte.org.br/agenda-equipamento/ana/": {
-  "ate": "2026-07-19",
-  "classificacao": "Livre",
-  "companhia": "Cia Lúdicos de Teatro Popular",
-  "de": "2026-07-19",
-  "deduz": false,
-  "descricao": "“Ana” é um mosaico afetivo e poético sobre as infâncias que se apresenta em cinco cenas distintas a partir do brincar e da relação entre mães, pais, filhas e filhos. ANA é começo, meio e recomeço. Um convite ao olhar sensível, à escuta atenta e ao diálogo como forma de conectar ou reconectar as pessoas.",
-  "duracao": "50 minutos",
-  "endereco": "R. Rui Barbosa, 153 – Bela Vista, São Paulo – SP, 01326-010",
-  "equip": "teatro-sergio-cardoso",
-  "ingresso": null,
-  "ingressos": "Entrada gratuita Retirada de ingressos na bilheteria 1 hora antes da apresentação",
-  "lido_em": "2026-11-08T23:49:47-03:00",
-  "linguagem": "Teatro Infantil",
-  "modified": "2026-06-30T10:13:35",
-  "quando": "Domingo, às 11h",
-  "sessoes": []
- },
  "https://amigosdaarte.org.br/agenda-equipamento/arroz-com-feijao-retratos-do-brasil/": {
   "ate": "2026-11-08",
   "classificacao": "Livre",
@@ -1294,6 +1276,29 @@
   "modified": "2026-08-26T12:24:00",
   "quando": "Domingo, às 11h",
   "sessoes": []
+ },
+ "https://amigosdaarte.org.br/agenda-equipamento/leitura-dramatica-linha-de-corte/": {
+  "ate": "2026-12-02",
+  "classificacao": "Livre",
+  "companhia": "Gengibre Multimídia",
+  "de": "2026-12-02",
+  "deduz": false,
+  "descricao": "Uma gravidez indesejada coloca dois casais diante de um dilema:",
+  "duracao": "90 minutos",
+  "endereco": "R. Rui Barbosa, 153 – Bela Vista, São Paulo – SP, 01326-010",
+  "equip": "teatro-sergio-cardoso",
+  "ingresso": "https://site.bileto.sympla.com.br/teatrosergiocardoso/",
+  "ingressos": "Entrada gratuita Retirada de ingressos na bilheteria 1 hora antes da apresentação",
+  "lido_em": "2026-11-27T13:52:50-03:00",
+  "linguagem": "Teatro",
+  "modified": "2026-11-26T15:56:50",
+  "quando": "Quarta-feira, às 20h",
+  "sessoes": [
+   [
+    "2026-12-02T20:00",
+    "Sala Paschoal Carlos Magno"
+   ]
+  ]
  },
  "https://amigosdaarte.org.br/agenda-equipamento/magico-mandarino-o-misterio-da-arte-de-rua/": {
   "companhia": "Rafa Garcia",

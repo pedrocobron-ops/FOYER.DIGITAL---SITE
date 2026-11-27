@@ -1,105 +1,7 @@
 {
- "coletado_em": "2026-11-26T14:01:20-03:00",
+ "coletado_em": "2026-11-27T13:47:44-03:00",
  "fonte": "cinemateca",
  "itens": [
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Sessão"
-   },
-   "id": "cinemateca-mostra-classicos",
-   "imagem": {
-    "credito": "Divulgação / Cinemateca Brasileira",
-    "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_aniceto_do_imperio_em_dia_de_alforria-768x432.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/mostra-classicos-2/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67496",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/mostra-classicos-2/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-26T20:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/mostra-classicos-2/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Sala Oscarito"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "MOSTRA CLÁSSICOS"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Sessão"
-   },
-   "id": "cinemateca-mostra-internacional",
-   "imagem": {
-    "credito": "Divulgação / Cinemateca Brasileira",
-    "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_abeni_a_filha_do_ferreiro-768x298.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/abeni-a-filha-do-ferreiro/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67498",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/abeni-a-filha-do-ferreiro/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-26T20:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/abeni-a-filha-do-ferreiro/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Sala Grande Otelo"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "MOSTRA INTERNACIONAL"
-   }
-  },
   {
    "area": {
     "o": 0,
@@ -122,7 +24,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67500",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-de-encerramento-3/"
     }
@@ -171,7 +73,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67670",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sabado-infantil-alice-dos-anjos/"
     }
@@ -220,7 +122,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67599",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/a-dama-do-cine-shanghai-3/"
     }
@@ -269,7 +171,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67348",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-especial-os-doces-barbaros/"
     }
@@ -313,7 +215,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67823",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/apresentacao-blu-ray/"
     }
@@ -331,7 +233,7 @@
      "lugar": "cinemateca-brasileira",
      "sala": {
       "o": 0,
-      "v": "Sala Grande Otelo"
+      "v": "Foyer Sala Grande Otelo"
      }
     }
    ],
@@ -357,7 +259,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67834",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/apresentacao-institucional/"
     }
@@ -406,7 +308,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67844",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/pre-estreia-di-cavalcanti-di-glauber-restaurado-em-4k/"
     }
@@ -455,7 +357,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67846",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/pre-estreia-amazonas-amazonas-restaurado-em-4k/"
     }
@@ -504,7 +406,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67367",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-deus-e-o-diabo-na-terra-do-sol/"
     }
@@ -553,7 +455,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67848",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/exibicao-do-documentario-glauber-4k/"
     }
@@ -597,7 +499,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67851",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/conversa-com-o-publico/"
     }
@@ -646,7 +548,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67723",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/sessao-dupla-patio-e-barravento/"
     }
@@ -690,7 +592,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67725",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/painel-cinema-negro-na-obra-de-glauber-rocha/"
     }
@@ -739,7 +641,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67727",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/o-leao-de-sete-cabecas-2/"
     }
@@ -788,7 +690,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67746",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/pre-estreia-historia-do-brasil-restaurado-em-4k/"
     }
@@ -822,6 +724,55 @@
    },
    "categoria": {
     "o": 0,
+    "v": "Sessão"
+   },
+   "id": "cinemateca-pre-estreia-terra-fertil",
+   "imagem": {
+    "credito": "Divulgação / Cinemateca Brasileira",
+    "o": 0,
+    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_terra_fertil-768x432.png"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://cinemateca.org.br/exibicao/pre-estreia-terra-fertil/"
+   },
+   "origens": [
+    {
+     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67861",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
+     "fonte": "cinemateca",
+     "url": "https://cinemateca.org.br/exibicao/pre-estreia-terra-fertil/"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-05T17:00"
+     },
+     "link": {
+      "o": 0,
+      "v": "https://cinemateca.org.br/exibicao/pre-estreia-terra-fertil/"
+     },
+     "lugar": "cinemateca-brasileira",
+     "sala": {
+      "o": 0,
+      "v": "Sala Oscarito"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "PRÉ-ESTREIA | TERRA FÉRTIL"
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "cinema"
+   },
+   "categoria": {
+    "o": 0,
     "v": "Evento, Cursos e debates"
    },
    "id": "cinemateca-painel-retrospectiva-das-metodologias-de-restauro-na-obra-de-glauber-rocha",
@@ -832,7 +783,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67748",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/painel-retrospectiva-das-metodologias-de-restauro-na-obra-de-glauber-rocha/"
     }
@@ -881,7 +832,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67750",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/deus-e-o-diabo-na-terra-do-sol-2/"
     }
@@ -930,7 +881,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67637",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/mais-pesado-e-o-ceu/"
     }
@@ -979,7 +930,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67752",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/o-dragao-da-maldade-contra-o-santo-guerreiro-3/"
     }
@@ -1028,7 +979,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67754",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/a-idade-da-terra-2/"
     }
@@ -1077,7 +1028,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67781",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/pre-estreia-tripoli-a-tale-of-three-cities/"
     }
@@ -1126,7 +1077,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67369",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/revisao-critica-do-cinema-brasileiro-canal-100-processos-de-restauro-na-cinemateca-brasileira/"
     }
@@ -1175,7 +1126,7 @@
    "origens": [
     {
      "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67371",
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br/exibicao/a-paixao-de-joana-darc/"
     }
@@ -1216,7 +1167,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-26T14:01:20-03:00",
+     "coletado_em": "2026-11-27T13:47:44-03:00",
      "fonte": "cinemateca",
      "url": "https://cinemateca.org.br"
     }
@@ -1227,7 +1178,7 @@
    }
   }
  ],
- "nota": "25 sessões nos próximos 45 dias",
+ "nota": "24 sessões nos próximos 45 dias",
  "ok": true,
- "rodou_em": "2026-11-26T14:01:20-03:00"
+ "rodou_em": "2026-11-27T13:47:44-03:00"
 }

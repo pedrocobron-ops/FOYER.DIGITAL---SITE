@@ -1,97 +1,7 @@
 {
- "coletado_em": "2026-11-26T14:04:41-03:00",
+ "coletado_em": "2026-11-27T13:49:44-03:00",
  "fonte": "bluenote",
  "itens": [
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
-   "id": "bluenote-2963",
-   "imagem": {
-    "credito": "Divulgação / Blue Note São Paulo",
-    "o": 0,
-    "v": "https://bluenotesp.com/wp-content/uploads/2026/09/08-Site-Blue-Note-SP-400x480px_JalooCrua.webp"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://bluenotesp.com/shows/crua-jaloo-acustica/"
-   },
-   "origens": [
-    {
-     "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
-     "fonte": "bluenote",
-     "url": "https://bluenotesp.com/shows/crua-jaloo-acustica/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.eventim.com.br/artist/blue-note-sp/crua-jaloo-acustica-4242259/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-26T20:00"
-     },
-     "lugar": "blue-note-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Sala 1"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "CRUA: JALOO ACÚSTICA"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
-   "id": "bluenote-3154",
-   "imagem": {
-    "credito": "Divulgação / Blue Note São Paulo",
-    "o": 0,
-    "v": "https://bluenotesp.com/wp-content/uploads/2026/10/08-Site-Blue-Note-SP-400x480px_Comitatus.webp"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://bluenotesp.com/shows/banda-comitatus/"
-   },
-   "origens": [
-    {
-     "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
-     "fonte": "bluenote",
-     "url": "https://bluenotesp.com/shows/banda-comitatus/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ingresso": {
-      "o": 0,
-      "v": "http://eventim.com.br/artist/blue-note-sp/banda-comitatus-beatles-60-anos-do-disco-revolver-4258847/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-26T22:30"
-     },
-     "lugar": "blue-note-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Sala 1"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "BANDA COMITATUS: Beatles! 60 Anos Do Disco Revolver"
-   }
-  },
   {
    "area": {
     "o": 0,
@@ -110,7 +20,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/pop3-georgeisrael-henriqueportugal-e-charlesgavin/"
     }
@@ -170,7 +80,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/funk-como-le-gusta/"
     }
@@ -215,7 +125,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/lobao/"
     }
@@ -275,7 +185,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/rodrigo-ogi-e-banda/"
     }
@@ -320,7 +230,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/pearl-jam/"
     }
@@ -365,7 +275,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/so-pedrada-musical-sim-sp/"
     }
@@ -410,7 +320,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/futura-sim-sp/"
     }
@@ -455,7 +365,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/quimbara-buena-vista-social-club/"
     }
@@ -500,7 +410,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/quimbara-toca-bad-bunny/"
     }
@@ -545,7 +455,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/ed-motta-quarteto-05dez/"
     }
@@ -605,7 +515,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/diamond-dogs/"
     }
@@ -650,7 +560,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tears-for-fears-experience-2/"
     }
@@ -695,7 +605,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/gina-canta-gal/"
     }
@@ -740,7 +650,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tributo-a-john-coltrane-a-love-supreme-musicman-jazz/"
     }
@@ -785,7 +695,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/francesca-tandoi/"
     }
@@ -830,7 +740,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/clemente-50-anos-de-rock-e-resistencia/"
     }
@@ -875,7 +785,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tributo-vince-guaraldi-a-charlie-brown-christmas/"
     }
@@ -920,7 +830,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/funkifize-tower-of-power-james-brown-experience/"
     }
@@ -965,7 +875,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/azymuth/"
     }
@@ -1025,7 +935,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/ed-motta-quarteto-12dez/"
     }
@@ -1085,7 +995,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/terra-celta/"
     }
@@ -1130,7 +1040,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/eric-clapton-tribute-gabi-anias/"
     }
@@ -1175,7 +1085,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/a-espetacular-charanga-do-franca/"
     }
@@ -1220,7 +1130,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/manifesto-tropical-com-pedro-baby-e-lucio-mauro-filho/"
     }
@@ -1265,7 +1175,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/mar-aberto/"
     }
@@ -1310,7 +1220,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/luna-di-canta-edith-piaf/"
     }
@@ -1355,7 +1265,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/paulinho-moska/"
     }
@@ -1415,7 +1325,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tonanni-canta-michael-buble/"
     }
@@ -1460,7 +1370,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tributo-sting-the-police/"
     }
@@ -1505,7 +1415,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/miles-davis-100-anos/"
     }
@@ -1550,7 +1460,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/the-christmas-jazz-big-band/"
     }
@@ -1595,7 +1505,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/reveillon-2027/"
     }
@@ -1640,7 +1550,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/dominic-miller/"
     }
@@ -1700,7 +1610,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/jay-vaquer/"
     }
@@ -1745,7 +1655,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/george-michael-tribute/"
     }
@@ -1790,7 +1700,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/diamond-dogs-david-bowie-80-anos/"
     }
@@ -1835,7 +1745,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/elvis-is-alive/"
     }
@@ -1880,7 +1790,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/banda-mantiqueira/"
     }
@@ -1925,7 +1835,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/celestino-canta-timjavan/"
     }
@@ -1970,7 +1880,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/bia-goes-canta-leny-rosa-e-joyce/"
     }
@@ -2015,7 +1925,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/thunder-blues-in-a-tarantino-experience/"
     }
@@ -2060,7 +1970,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/lud-mazzucatti-canta-amy-winehouse/"
     }
@@ -2105,7 +2015,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/fourplusone-tina-turner-e-a-historia-de-anna-mae/"
     }
@@ -2150,7 +2060,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/fourplusone-divas-strong-women/"
     }
@@ -2195,7 +2105,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/lets-groove/"
     }
@@ -2255,7 +2165,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/pianoquetoca-antonio-vaz-lemes/"
     }
@@ -2300,7 +2210,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/claptonmaniacs-tributo-eric-clapton/"
     }
@@ -2345,7 +2255,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tributo-elis-regina-com-camila-lopez/"
     }
@@ -2390,7 +2300,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/heber-nunes-genese/"
     }
@@ -2435,7 +2345,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/jazz-band-ball/"
     }
@@ -2480,7 +2390,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tributo-milton-nascimento-musicman-jazz-geraes-50-anos/"
     }
@@ -2525,7 +2435,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/hendrix-frankenreiter/"
     }
@@ -2566,7 +2476,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-26T14:04:36-03:00",
+     "coletado_em": "2026-11-27T13:49:40-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com"
     }
@@ -2578,5 +2488,5 @@
   }
  ],
  "ok": true,
- "rodou_em": "2026-11-26T14:04:41-03:00"
+ "rodou_em": "2026-11-27T13:49:44-03:00"
 }

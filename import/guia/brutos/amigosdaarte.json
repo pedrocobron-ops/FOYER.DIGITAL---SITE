@@ -1,7 +1,75 @@
 {
- "coletado_em": "2026-11-26T14:06:33-03:00",
+ "coletado_em": "2026-11-27T13:52:58-03:00",
  "fonte": "amigosdaarte",
  "itens": [
+  {
+   "area": {
+    "o": 0,
+    "v": "teatro"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Teatro"
+   },
+   "ficha": {
+    "o": 0,
+    "v": "Companhia/artista: Gengibre Multimídia"
+   },
+   "id": "amigosdaarte-64921",
+   "imagem": {
+    "credito": "Divulgação / Amigos da Arte",
+    "o": 0,
+    "v": "https://amigosdaarte.org.br/wp-content/uploads/2026/11/SITELeitura_2560x934-768x280.png"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://amigosdaarte.org.br/agenda-equipamento/leitura-dramatica-linha-de-corte/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-27T13:52:50-03:00",
+     "fonte": "amigosdaarte",
+     "url": "https://amigosdaarte.org.br/agenda-equipamento/leitura-dramatica-linha-de-corte/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 90
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://site.bileto.sympla.com.br/teatrosergiocardoso/"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-02T20:00"
+     },
+     "lugar": "teatro-sergio-cardoso",
+     "preco": {
+      "o": 0,
+      "v": "Entrada gratuita Retirada de ingressos na bilheteria 1 hora antes da apresentação"
+     },
+     "sala": {
+      "o": 0,
+      "v": "Sala Paschoal Carlos Magno"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Leitura Dramática: Linha de Corte"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Uma gravidez indesejada coloca dois casais diante de um dilema:"
+   }
+  },
   {
    "area": {
     "o": 0,
@@ -603,9 +671,9 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-26T14:06:19-03:00",
+     "coletado_em": "2026-11-27T13:52:50-03:00",
      "fonte": "amigosdaarte",
-     "url": "https://amigosdaarte.org.br/agenda-equipamento/menos-da-metade/"
+     "url": "https://amigosdaarte.org.br/agenda-equipamento/leitura-dramatica-linha-de-corte/"
     }
    ],
    "site": {
@@ -615,5 +683,5 @@
   }
  ],
  "ok": true,
- "rodou_em": "2026-11-26T14:06:33-03:00"
+ "rodou_em": "2026-11-27T13:52:58-03:00"
 }

@@ -1,7 +1,59 @@
 {
- "coletado_em": "2026-11-26T14:03:16-03:00",
+ "coletado_em": "2026-11-27T13:48:40-03:00",
  "fonte": "municipal",
  "itens": [
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Música"
+   },
+   "id": "municipal-21966",
+   "imagem": {
+    "credito": "Divulgação / Theatro Municipal",
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/06/084_rafael-salvador_cr7_6435.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://theatromunicipal.org.br/eventos/corpo-sonoro/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-27T13:48:37-03:00",
+     "fonte": "municipal",
+     "url": "https://theatromunicipal.org.br/eventos/corpo-sonoro/"
+    }
+   ],
+   "sessoes": [
+    {
+     "classificacao": {
+      "o": 0,
+      "v": "Livre para todos os públicos"
+     },
+     "duracao_min": {
+      "o": 0,
+      "v": 70
+     },
+     "ingresso": {
+      "o": 0,
+      "v": "https://theatromunicipalsp.byinti.com/#/event/orquestra-experimental-corpo-sonoro"
+     },
+     "inicio": {
+      "o": 0,
+      "v": "2026-12-20T11:00"
+     },
+     "lugar": "theatro-municipal"
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Corpo Sonoro"
+   }
+  },
   {
    "area": {
     "o": 0,
@@ -61,58 +113,6 @@
    "titulo": {
     "o": 0,
     "v": "Balé da Cidade no CCSP – Laboratório de Criação"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Música"
-   },
-   "id": "municipal-21966",
-   "imagem": {
-    "credito": "Divulgação / Theatro Municipal",
-    "o": 0,
-    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/06/084_rafael-salvador_cr7_6435.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://theatromunicipal.org.br/eventos/corpo-sonoro/"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-26T14:01:34-03:00",
-     "fonte": "municipal",
-     "url": "https://theatromunicipal.org.br/eventos/corpo-sonoro/"
-    }
-   ],
-   "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre para todos os públicos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 70
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://theatromunicipalsp.byinti.com/#/event/orquestra-experimental-corpo-sonoro"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-12-20T11:00"
-     },
-     "lugar": "theatro-municipal"
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Corpo Sonoro"
    }
   },
   {
@@ -240,58 +240,6 @@
    "titulo": {
     "o": 0,
     "v": "Natività Del Signore"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Música"
-   },
-   "id": "municipal-16727",
-   "imagem": {
-    "credito": "Divulgação / Theatro Municipal",
-    "o": 0,
-    "v": "https://theatromunicipal.org.br/wp-content/uploads/2026/01/capa_-opcao-2_ef9a2338.larissa-paz-scaled.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://theatromunicipal.org.br/eventos/quarteto-de-cordas-apresenta-dialogos-price-brahms-e-dvorak/"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-23T15:24:17-03:00",
-     "fonte": "municipal",
-     "url": "https://theatromunicipal.org.br/eventos/quarteto-de-cordas-apresenta-dialogos-price-brahms-e-dvorak/"
-    }
-   ],
-   "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre para todos os públicos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 60
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://theatromunicipalsp.byinti.com/#/event/quarteto-de-cordas-apresenta-dialogos-price-brahms-e-dvorak"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-26T20:00"
-     },
-     "lugar": "praca-das-artes"
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Quarteto de Cordas – Diálogos: Price, Britten e Dvořák"
    }
   },
   {
@@ -721,7 +669,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-26T14:01:34-03:00",
+     "coletado_em": "2026-11-27T13:48:37-03:00",
      "fonte": "municipal",
      "url": "https://theatromunicipal.org.br/eventos/corpo-sonoro/"
     }
@@ -748,5 +696,5 @@
  ],
  "nota": "73 páginas de evento conferidas",
  "ok": true,
- "rodou_em": "2026-11-26T14:03:16-03:00"
+ "rodou_em": "2026-11-27T13:48:40-03:00"
 }
