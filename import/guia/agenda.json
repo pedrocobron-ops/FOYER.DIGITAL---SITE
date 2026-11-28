@@ -35,7 +35,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
@@ -157,65 +157,6 @@
     "v": "Cinema"
    },
    "fonte": "ccsp",
-   "id": "ccsp-8o-festival-nicho",
-   "imagem": {
-    "credito": "Divulgação / Centro Cultural São Paulo",
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2026/11/POST-festival-nicho-2-768x485.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/8o-festival-nicho/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ate": {
-      "o": 0,
-      "v": "2026-11-27"
-     },
-     "estreia": {
-      "o": 0,
-      "v": "2026-11-24"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "quando": {
-      "o": 0,
-      "obs": "recorrência \"diário\" como o site registra",
-      "v": "Todos os dias, de 24/11/2026 a 27/11/2026"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Sala Lima Barreto e Jardim Suspenso Vergueiro"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "8º Festival Nicho"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "O 8º Festival Nicho é um evento de cinema focado na realização de autoria negra, que articula Mostras competitivas de filmes, Conversas, Ambiente de mercado e Trilhas de formação."
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Cinema"
-   },
-   "fonte": "ccsp",
    "id": "ccsp-a-classe-trabalhadora-vai-ao-cinema-sessao-05",
    "imagem": {
     "credito": "Divulgação / Centro Cultural São Paulo",
@@ -229,7 +170,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -282,36 +223,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
    ],
    "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "12 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 113
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/a-conspiracao-condor/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T13:00"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 6 - Léo Mendes"
-     }
-    },
     {
      "classificacao": {
       "o": 0,
@@ -618,60 +535,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
    ],
    "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "12 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 82
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/a-terra-do-meu-pai/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T13:00"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 4 - Helena Ignez"
-     }
-    },
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "12 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 82
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/a-terra-do-meu-pai/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T19:10"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 4 - Helena Ignez"
-     }
-    },
     {
      "classificacao": {
       "o": 0,
@@ -1014,36 +883,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
    ],
    "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "12 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 96
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/camisas-negras/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T14:50"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 5 - Luiz Carlos Merten"
-     }
-    },
     {
      "classificacao": {
       "o": 0,
@@ -1200,36 +1045,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
    ],
    "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "16 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 116
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/cavalo-selvagem-nove/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T20:35"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 5 - Luiz Carlos Merten"
-     }
-    },
     {
      "classificacao": {
       "o": 0,
@@ -1409,7 +1230,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -1562,60 +1383,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
    ],
    "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "14 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 139
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/contos-paralelos/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T14:40"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 4 - Helena Ignez"
-     }
-    },
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "14 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 139
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/contos-paralelos/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T20:50"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 4 - Helena Ignez"
-     }
-    },
     {
      "classificacao": {
       "o": 0,
@@ -1987,36 +1760,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
    ],
    "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "10 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 90
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/dona-onete-meu-coracao-neste-pedacinho-aqui/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T13:10"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 3 - Rubens Ewald Filho"
-     }
-    },
     {
      "classificacao": {
       "o": 0,
@@ -2223,7 +1972,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
@@ -2275,78 +2024,6 @@
      "sala": {
       "o": 0,
       "v": "Sala 1 - Leon Cakoff"
-     }
-    },
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "14 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 93
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T14:30"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 2 - Carmen Miranda"
-     }
-    },
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "14 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 93
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T16:30"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 2 - Carmen Miranda"
-     }
-    },
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "14 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 93
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/feito-pipa/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T18:30"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 2 - Carmen Miranda"
      }
     },
     {
@@ -2769,36 +2446,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
    ],
    "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "16 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 119
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T13:00"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 1 - Leon Cakoff"
-     }
-    },
     {
      "classificacao": {
       "o": 0,
@@ -2893,30 +2546,6 @@
      "sala": {
       "o": 0,
       "v": "Sala 1 - Leon Cakoff"
-     }
-    },
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "16 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 119
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/josephine-fragmentos-de-um-crime/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T16:50"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 3 - Rubens Ewald Filho"
      }
     },
     {
@@ -3072,7 +2701,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -3125,36 +2754,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
    ],
    "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "16 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 88
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/leviticus-ritual-de-sangue/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T17:20"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 4 - Helena Ignez"
-     }
-    },
     {
      "classificacao": {
       "o": 0,
@@ -3361,84 +2966,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
    ],
    "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "12 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 90
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/meu-verao-na-sicilia/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T13:00"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 5 - Luiz Carlos Merten"
-     }
-    },
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "12 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 90
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/meu-verao-na-sicilia/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T16:45"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 5 - Luiz Carlos Merten"
-     }
-    },
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "12 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 90
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/meu-verao-na-sicilia/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T18:35"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 5 - Luiz Carlos Merten"
-     }
-    },
     {
      "classificacao": {
       "o": 0,
@@ -3759,7 +3292,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "itaucultural",
      "url": "https://www.itaucultural.org.br/agenda"
     }
@@ -3792,56 +3325,6 @@
    "trecho": {
     "o": 0,
     "v": "Programação relacionada à “Ocupação Hector Babenco” apresenta 10 obras do diretor, roteirista e produtor argentino-brasileiro"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "fonte": "mis",
-   "id": "mis-mostra-de-cinema-xapiri-yanomami",
-   "imagem": {
-    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
-    "o": 0,
-    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/mapear-mundos-768x518.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://mis-sp.org.br/evento/mostra-de-cinema-xapiri-yanomami/"
-   },
-   "origens": [
-    {
-     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98608",
-     "coletado_em": "2026-11-27T13:48:29-03:00",
-     "fonte": "mis",
-     "url": "https://mis-sp.org.br/evento/mostra-de-cinema-xapiri-yanomami/"
-    }
-   ],
-   "sessoes": [
-    {
-     "fim": {
-      "o": 0,
-      "v": "2026-11-28T22:00"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-27T18:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://mis-sp.org.br/evento/mostra-de-cinema-xapiri-yanomami/"
-     },
-     "lugar": "mis-museu-da-imagem-e-do-som"
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Mostra de Cinema Xapiri Yanomami"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "Programação Paralela da exposição “Caleidoscópio Xapiri Yanomami”"
    }
   },
   {
@@ -4360,36 +3843,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
    ],
    "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "14 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 160
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/ran-relancamento/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T15:10"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 6 - Léo Mendes"
-     }
-    },
     {
      "classificacao": {
       "o": 0,
@@ -4546,7 +4005,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
@@ -4818,56 +4277,6 @@
     "v": "Sessão"
    },
    "fonte": "cinemateca",
-   "id": "cinemateca-sessao-de-encerramento",
-   "imagem": {
-    "credito": "Divulgação / Cinemateca Brasileira",
-    "o": 0,
-    "v": "https://cinemateca.org.br/wp-content/uploads/2026/11/cbs_id_joao_candido-768x322.webp"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://cinemateca.org.br/exibicao/sessao-de-encerramento-3/"
-   },
-   "origens": [
-    {
-     "api": "https://cinemateca.org.br/wp-json/tribe/events/v1/events/67500",
-     "coletado_em": "2026-11-27T13:47:44-03:00",
-     "fonte": "cinemateca",
-     "url": "https://cinemateca.org.br/exibicao/sessao-de-encerramento-3/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-27T20:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://cinemateca.org.br/exibicao/sessao-de-encerramento-3/"
-     },
-     "lugar": "cinemateca-brasileira",
-     "sala": {
-      "o": 0,
-      "v": "Sala Grande Otelo"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "SESSÃO DE ENCERRAMENTO"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cinema"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Sessão"
-   },
-   "fonte": "cinemateca",
    "id": "cinemateca-sessao-dupla-patio-e-barravento",
    "imagem": {
     "credito": "Divulgação / Cinemateca Brasileira",
@@ -4984,7 +4393,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
@@ -5098,60 +4507,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
    ],
    "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "18 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 174
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/tudo-pode-ser-visto/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T15:30"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 1 - Leon Cakoff"
-     }
-    },
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "18 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 174
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.cinebelasartes.com.br/filme/tudo-pode-ser-visto/"
-     },
-     "inicio": {
-      "o": 0,
-      "obs": "ano deduzido: o site escreve dia/mês",
-      "v": "2026-11-27T19:00"
-     },
-     "lugar": "cine-belas-artes",
-     "sala": {
-      "o": 0,
-      "v": "Sala 1 - Leon Cakoff"
-     }
-    },
     {
      "classificacao": {
       "o": 0,
@@ -5421,7 +4782,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23044",
-     "coletado_em": "2026-11-27T13:48:33-03:00",
+     "coletado_em": "2026-11-28T12:41:35-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/atividade-educativa-desafio-copas-do-mundo-7/"
     }
@@ -5475,7 +4836,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23024",
-     "coletado_em": "2026-11-27T13:48:33-03:00",
+     "coletado_em": "2026-11-28T12:41:35-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/atividade-educativa-qual-time-sou-eu-8/"
     }
@@ -5516,52 +4877,6 @@
     "v": "cursos"
    },
    "fonte": "ccsp",
-   "id": "ccsp-curso-crie-seu-adereco-de-cabeca-com-galezya-26-27",
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/agenda/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ate": {
-      "o": 0,
-      "v": "2026-11-27"
-     },
-     "estreia": {
-      "o": 0,
-      "v": "2026-11-26"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "quando": {
-      "o": 0,
-      "obs": "recorrência \"diário\" como o site registra",
-      "v": "Todos os dias, 18:30, de 26/11/2026 a 27/11/2026"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Folhetaria"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Curso: Crie seu adereço de cabeça com Galezya – 26 27"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "cursos"
-   },
-   "fonte": "ccsp",
    "id": "ccsp-curso-crie-seu-adereco-de-cabeca-com-galezya-28-29",
    "link_fonte": {
     "o": 0,
@@ -5570,7 +4885,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -5625,7 +4940,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -5842,43 +5157,43 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23022",
-     "coletado_em": "2026-11-27T13:48:33-03:00",
+     "coletado_em": "2026-11-28T12:41:35-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-356/"
     },
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23026",
-     "coletado_em": "2026-11-27T13:48:33-03:00",
+     "coletado_em": "2026-11-28T12:41:35-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-357/"
     },
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23040",
-     "coletado_em": "2026-11-27T13:48:33-03:00",
+     "coletado_em": "2026-11-28T12:41:35-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-358/"
     },
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23042",
-     "coletado_em": "2026-11-27T13:48:33-03:00",
+     "coletado_em": "2026-11-28T12:41:35-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-359/"
     },
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23076",
-     "coletado_em": "2026-11-27T13:48:33-03:00",
+     "coletado_em": "2026-11-28T12:41:35-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-360/"
     },
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23084",
-     "coletado_em": "2026-11-27T13:48:33-03:00",
+     "coletado_em": "2026-11-28T12:41:35-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-362/"
     },
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23082",
-     "coletado_em": "2026-11-27T13:48:33-03:00",
+     "coletado_em": "2026-11-28T12:41:35-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/visitas-educativas-para-publico-espontaneo-361/"
     }
@@ -6178,12 +5493,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/confrontos-coreograficos-3a-edicao/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#danca"
     }
@@ -6288,7 +5603,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -6343,12 +5658,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/menos-da-metade/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#danca"
     }
@@ -6462,7 +5777,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -6513,7 +5828,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -6586,12 +5901,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/qr-corpo-anti-status-quo-companhia-de-danca/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#danca"
     }
@@ -6677,33 +5992,6 @@
      },
      "inicio": {
       "o": 0,
-      "v": "2026-11-27T20:00"
-     },
-     "lugar": "teatro-sergio-cardoso",
-     "preco": {
-      "o": 0,
-      "v": "pelo Sympla ."
-     },
-     "sala": {
-      "o": 0,
-      "v": "Nydia Licia"
-     }
-    },
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Livre"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 70
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://bileto.sympla.com.br/event/128045/d/419300"
-     },
-     "inicio": {
-      "o": 0,
       "v": "2026-11-28T20:00"
      },
      "lugar": "teatro-sergio-cardoso",
@@ -6749,7 +6037,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -6799,7 +6087,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -6841,7 +6129,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23078",
-     "coletado_em": "2026-11-27T13:48:33-03:00",
+     "coletado_em": "2026-11-28T12:41:35-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/192-encontro-memofut/"
     }
@@ -6890,7 +6178,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -6936,7 +6224,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -6982,7 +6270,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -7037,7 +6325,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -7089,7 +6377,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -7126,7 +6414,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -7313,7 +6601,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -7355,7 +6643,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23020",
-     "coletado_em": "2026-11-27T13:48:33-03:00",
+     "coletado_em": "2026-11-28T12:41:35-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/encontro-de-colecionadores-de-figurinhas-133/"
     }
@@ -7417,7 +6705,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -7458,7 +6746,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -7545,7 +6833,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -7686,7 +6974,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "itaucultural",
      "url": "https://www.itaucultural.org.br/agenda"
     }
@@ -7735,7 +7023,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -7781,7 +7069,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -7823,7 +7111,7 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23035",
-     "coletado_em": "2026-11-27T13:48:33-03:00",
+     "coletado_em": "2026-11-28T12:41:35-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/o-jogo-das-letras/"
     }
@@ -7872,7 +7160,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -7918,7 +7206,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -7955,7 +7243,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -7992,7 +7280,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -8038,7 +7326,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -8075,56 +7363,6 @@
     "o": 0,
     "v": "eventos"
    },
-   "fonte": "mis",
-   "id": "mis-sisem-palestra-on-line-acoes-de-articulacao-da-rede-tematica-de-acervos-audiovis",
-   "imagem": {
-    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
-    "o": 0,
-    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/Sisem-27-768x1152.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://mis-sp.org.br/evento/sisem-palestra-on-line-acoes-de-articulacao-da-rede-tematica-de-acervos-audiovisuais-e-fotograficos/"
-   },
-   "origens": [
-    {
-     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98626",
-     "coletado_em": "2026-11-27T13:48:29-03:00",
-     "fonte": "mis",
-     "url": "https://mis-sp.org.br/evento/sisem-palestra-on-line-acoes-de-articulacao-da-rede-tematica-de-acervos-audiovisuais-e-fotograficos/"
-    }
-   ],
-   "sessoes": [
-    {
-     "fim": {
-      "o": 0,
-      "v": "2026-11-27T12:00"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-27T10:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://mis-sp.org.br/evento/sisem-palestra-on-line-acoes-de-articulacao-da-rede-tematica-de-acervos-audiovisuais-e-fotograficos/"
-     },
-     "lugar": "mis-museu-da-imagem-e-do-som"
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "SISEM | Palestra on-line “Ações de articulação da rede temática de acervos audiovisuais e fotográficos”"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "A equipe do Centro de Memória e Informação do MIS (CEMIS) compartilha a elaboração do processo do Plano de Emergência para os Acervos MIS"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "eventos"
-   },
    "categoria": {
     "o": 0,
     "v": "Ação Cultural"
@@ -8143,7 +7381,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -8184,56 +7422,6 @@
     "o": 0,
     "v": "eventos"
    },
-   "fonte": "mis",
-   "id": "mis-virada-inclusiva-2026-instalacao-as-inclusoes-que-sonhamos-e-as-conquistas-que-v",
-   "imagem": {
-    "credito": "Divulgação / MIS - Museu da Imagem e do Som",
-    "o": 0,
-    "v": "https://mis-sp.org.br/wp-content/uploads/2026/11/Logo-Virada-Inclusiva-cor-768x543.png"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://mis-sp.org.br/evento/virada-inclusiva-2026-instalacao-as-inclusoes-que-sonhamos-e-as-conquistas-que-vivemos/"
-   },
-   "origens": [
-    {
-     "api": "https://mis-sp.org.br/wp-json/tribe/events/v1/events/98716",
-     "coletado_em": "2026-11-27T13:48:29-03:00",
-     "fonte": "mis",
-     "url": "https://mis-sp.org.br/evento/virada-inclusiva-2026-instalacao-as-inclusoes-que-sonhamos-e-as-conquistas-que-vivemos/"
-    }
-   ],
-   "sessoes": [
-    {
-     "fim": {
-      "o": 0,
-      "v": "2026-12-06T18:00"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-27T10:00"
-     },
-     "link": {
-      "o": 0,
-      "v": "https://mis-sp.org.br/evento/virada-inclusiva-2026-instalacao-as-inclusoes-que-sonhamos-e-as-conquistas-que-vivemos/"
-     },
-     "lugar": "mis-museu-da-imagem-e-do-som"
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Virada Inclusiva 2026 | Instalação “As inclusões que sonhamos e as conquistas que vivemos”"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "Venha interagir com a instalação na entrada do museu.."
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "eventos"
-   },
    "categoria": {
     "o": 0,
     "v": "Ação Cultural"
@@ -8252,7 +7440,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -8282,52 +7470,6 @@
   {
    "area": {
     "o": 0,
-    "v": "eventos"
-   },
-   "fonte": "ccsp",
-   "id": "ccsp-workshop-sextou-samba-rock-06-13-20-e-27-11",
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/agenda/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ate": {
-      "o": 0,
-      "v": "2026-11-27"
-     },
-     "estreia": {
-      "o": 0,
-      "v": "2026-11-06"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "quando": {
-      "o": 0,
-      "obs": "recorrência \"diário\" como o site registra",
-      "v": "Todos os dias, 19:30, de 06/11/2026 a 27/11/2026"
-     },
-     "sala": {
-      "o": 0,
-      "v": "Sala de Ensaio 1"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Workshop Sextou Samba Rock – 06, 13, 20 e 27/11"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
     "v": "exposicao"
    },
    "fonte": "ccsp",
@@ -8339,7 +7481,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -8385,7 +7527,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -8431,7 +7573,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -8485,7 +7627,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:43-03:00",
+     "coletado_em": "2026-11-28T12:41:40-03:00",
      "fonte": "mam",
      "url": "https://mam.org.br/exposicao/39o-panorama-da-arte-brasileira-depois-que-tudo-foi-dito/"
     }
@@ -8534,7 +7676,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:49-03:00",
+     "coletado_em": "2026-11-28T12:41:46-03:00",
      "fonte": "pinacoteca",
      "url": "https://pinacoteca.org.br/programacao/exposicoes/beatriz-milhazes/"
     }
@@ -8640,7 +7782,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "itaucultural",
      "url": "https://www.itaucultural.org.br/mostras-e-exposicoes/exposicoes"
     }
@@ -8697,7 +7839,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:40-03:00",
+     "coletado_em": "2026-11-28T12:41:38-03:00",
      "fonte": "masp",
      "url": "https://masp.org.br/exposicoes/historias-latino-americanas"
     }
@@ -8734,6 +7876,63 @@
     "v": "Exposição"
    },
    "fonte": "pinacoteca",
+   "id": "pinacoteca-via-satelite-dialogos-com-nam-june-paik-em-dialogo-com-biarritzz-christine-sun-k",
+   "imagem": {
+    "credito": "Divulgação / Pinacoteca de São Paulo",
+    "o": 0,
+    "v": "https://pinacoteca.org.br/wp-content/uploads/2025/12/thumb_njp_nov26-Recuperado.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://pinacoteca.org.br/programacao/exposicoes/via-satelite-dialogos-com-nam-june-paik-em-dialogo-com-biarritzz-christine-sun-kim-jane-jin-kaisen-e-vivian-caccuri/"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-28T12:41:46-03:00",
+     "fonte": "pinacoteca",
+     "url": "https://pinacoteca.org.br/programacao/exposicoes/via-satelite-dialogos-com-nam-june-paik-em-dialogo-com-biarritzz-christine-sun-kim-jane-jin-kaisen-e-vivian-caccuri/"
+    }
+   ],
+   "sessoes": [
+    {
+     "ate": {
+      "o": 0,
+      "v": "2027-04-18"
+     },
+     "estreia": {
+      "o": 0,
+      "v": "2026-11-28"
+     },
+     "lugar": "pinacoteca-de-sao-paulo",
+     "sala": {
+      "o": 0,
+      "v": "Edifício Pina Contemporânea"
+     },
+     "site": {
+      "o": 0,
+      "v": "https://pinacoteca.org.br/programacao/exposicoes/via-satelite-dialogos-com-nam-june-paik-em-dialogo-com-biarritzz-christine-sun-kim-jane-jin-kaisen-e-vivian-caccuri/"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Hyundai Translocal Series: Via Satélite – Diálogos com Nam June Paik – biarritzzz, Christine Sun Kim, Jane Jin Kaisen e Vivian Caccuri"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "Segunda parte da retrospectiva inédita de Nam June Paik, artista nascido na Coreia do Sul, considerado o pioneiro da videoarte."
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "exposicao"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Exposição"
+   },
+   "fonte": "pinacoteca",
    "id": "pinacoteca-via-satelite-dialogos-com-nam-june-paik-charlotte-moorman-vivian-caccuri",
    "imagem": {
     "credito": "Divulgação / Pinacoteca de São Paulo",
@@ -8746,7 +7945,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:49-03:00",
+     "coletado_em": "2026-11-28T12:41:46-03:00",
      "fonte": "pinacoteca",
      "url": "https://pinacoteca.org.br/programacao/exposicoes/via-satelite-dialogos-com-nam-june-paik-charlotte-moorman-vivian-caccuri/"
     }
@@ -8803,7 +8002,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:49-03:00",
+     "coletado_em": "2026-11-28T12:41:46-03:00",
      "fonte": "pinacoteca",
      "url": "https://pinacoteca.org.br/programacao/exposicoes/ismael-nery-armadilha-moderna/"
     }
@@ -8860,7 +8059,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:40-03:00",
+     "coletado_em": "2026-11-28T12:41:38-03:00",
      "fonte": "masp",
      "url": "https://masp.org.br/exposicoes/jesus-soto"
     }
@@ -8909,7 +8108,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:49-03:00",
+     "coletado_em": "2026-11-28T12:41:46-03:00",
      "fonte": "pinacoteca",
      "url": "https://pinacoteca.org.br/programacao/exposicoes/luana-vitra-bandeira-branca/"
     }
@@ -8966,7 +8165,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:40-03:00",
+     "coletado_em": "2026-11-28T12:41:38-03:00",
      "fonte": "masp",
      "url": "https://masp.org.br/exposicoes/manuel-herreros-mateo-manaure-mi-nombre-es-venezuela"
     }
@@ -9064,7 +8263,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:49-03:00",
+     "coletado_em": "2026-11-28T12:41:46-03:00",
      "fonte": "pinacoteca",
      "url": "https://pinacoteca.org.br/programacao/exposicoes/nos-jovens/"
     }
@@ -9117,7 +8316,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "itaucultural",
      "url": "https://www.itaucultural.org.br/agenda"
     }
@@ -9174,7 +8373,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:40-03:00",
+     "coletado_em": "2026-11-28T12:41:38-03:00",
      "fonte": "masp",
      "url": "https://masp.org.br/exposicoes/pablo-delano-museu-da-antiga-colonia"
     }
@@ -9210,63 +8409,6 @@
     "o": 0,
     "v": "Exposição"
    },
-   "fonte": "pinacoteca",
-   "id": "pinacoteca-paulo-pedro-leal-2",
-   "imagem": {
-    "credito": "Divulgação / Pinacoteca de São Paulo",
-    "o": 0,
-    "v": "https://pinacoteca.org.br/wp-content/uploads/2025/12/thumb_ppl_abr26.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://pinacoteca.org.br/programacao/exposicoes/paulo-pedro-leal-2/"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-27T13:48:49-03:00",
-     "fonte": "pinacoteca",
-     "url": "https://pinacoteca.org.br/programacao/exposicoes/paulo-pedro-leal-2/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ate": {
-      "o": 0,
-      "v": "2027-01-25"
-     },
-     "estreia": {
-      "o": 0,
-      "v": "2026-04-11"
-     },
-     "lugar": "pinacoteca-de-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Edifício Pina Luz"
-     },
-     "site": {
-      "o": 0,
-      "v": "https://pinacoteca.org.br/programacao/exposicoes/paulo-pedro-leal-2/"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Paulo Pedro Leal: trágico subúrbio"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "Primeira exposição individual do artista brasileiro Pedro Paulo Leal."
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "exposicao"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Exposição"
-   },
    "fonte": "masp",
    "id": "masp-rosa-elena-curruchich-cronicas-de-comalapa",
    "imagem": {
@@ -9280,7 +8422,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:40-03:00",
+     "coletado_em": "2026-11-28T12:41:38-03:00",
      "fonte": "masp",
      "url": "https://masp.org.br/exposicoes/rosa-elena-curruchich-cronicas-de-comalapa"
     }
@@ -9329,7 +8471,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:40-03:00",
+     "coletado_em": "2026-11-28T12:41:38-03:00",
      "fonte": "masp",
      "url": "https://masp.org.br/exposicoes/sala-de-video-edgar-calel"
     }
@@ -9378,7 +8520,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:49-03:00",
+     "coletado_em": "2026-11-28T12:41:46-03:00",
      "fonte": "pinacoteca",
      "url": "https://pinacoteca.org.br/programacao/exposicoes/sara-ramo/"
     }
@@ -9543,7 +8685,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:49-03:00",
+     "coletado_em": "2026-11-28T12:41:46-03:00",
      "fonte": "pinacoteca",
      "url": "https://pinacoteca.org.br/programacao/exposicoes/uma-obra-pintura-sem-fim/"
     }
@@ -9600,7 +8742,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:49-03:00",
+     "coletado_em": "2026-11-28T12:41:46-03:00",
      "fonte": "pinacoteca",
      "url": "https://pinacoteca.org.br/programacao/exposicoes/luiz-roque-urubu/"
     }
@@ -9653,7 +8795,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-26T14:05:02-03:00",
+     "coletado_em": "2026-11-28T12:43:01-03:00",
      "fonte": "tomieohtake",
      "url": "https://www.institutotomieohtake.org.br/exposicoes/vik-muniz-lost-in-translation-encontros-e-desencontros/"
     }
@@ -9709,12 +8851,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-chave-do-labirinto/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#offinho"
     }
@@ -9779,12 +8921,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/barulhos/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#offinho"
     }
@@ -9844,12 +8986,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/brun-blaa/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#offinho"
     }
@@ -9914,12 +9056,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/era-uma-vez-uma-viagem-musical-pelos-contos-de-fada/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#offinho"
     }
@@ -9981,13 +9123,13 @@
    "origens": [
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/22861",
-     "coletado_em": "2026-11-27T13:48:33-03:00",
+     "coletado_em": "2026-11-28T12:41:35-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/espaco-dente-de-leite-73/"
     },
     {
      "api": "https://museudofutebol.org.br/wp-json/tribe/events/v1/events/23080",
-     "coletado_em": "2026-11-27T13:48:33-03:00",
+     "coletado_em": "2026-11-28T12:41:35-03:00",
      "fonte": "museufutebol",
      "url": "https://museudofutebol.org.br/evento/espaco-dente-de-leite-74/"
     }
@@ -10058,12 +9200,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/eugenia-e-os-robos/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#offinho"
     }
@@ -10132,12 +9274,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/foi-o-rio-quem-disse/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#offinho"
     }
@@ -10204,12 +9346,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/hoje-tem-festa-no-ceu/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#offinho"
     }
@@ -10269,12 +9411,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/joao-joaozinho-joaozito/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#offinho"
     }
@@ -10326,12 +9468,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/mostra-de-repertorio-cia-bendita/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#offinho"
     }
@@ -10379,12 +9521,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/mostra-gestos-animados-com-a-cia-articularte/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#offinho"
     }
@@ -10432,12 +9574,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/pe-de-sonho/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#offinho"
     }
@@ -10481,12 +9623,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/planeta-pelucia/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#offinho"
     }
@@ -10559,12 +9701,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/tertulia-e-o-fantastico-circo-de-pulgas/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#offinho"
     }
@@ -10630,12 +9772,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/uma-ilha-fora-do-mapa/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#offinho"
     }
@@ -10702,7 +9844,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -10752,7 +9894,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -10798,7 +9940,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/a-espetacular-charanga-do-franca/"
     }
@@ -10847,7 +9989,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -10942,7 +10084,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -11038,7 +10180,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -11088,7 +10230,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -11143,7 +10285,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/azymuth/"
     }
@@ -11208,7 +10350,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -11254,7 +10396,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/banda-mantiqueira/"
     }
@@ -11304,7 +10446,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -11350,7 +10492,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/bia-goes-canta-leny-rosa-e-joyce/"
     }
@@ -11395,7 +10537,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -11460,7 +10602,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/celestino-canta-timjavan/"
     }
@@ -11505,7 +10647,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -11555,7 +10697,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/claptonmaniacs-tributo-eric-clapton/"
     }
@@ -11601,7 +10743,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/clemente-50-anos-de-rock-e-resistencia/"
     }
@@ -11650,7 +10792,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -11749,7 +10891,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -11798,7 +10940,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -11847,7 +10989,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -11896,7 +11038,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -11945,7 +11087,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -11994,7 +11136,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -12043,7 +11185,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -12100,7 +11242,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -12210,7 +11352,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -12281,7 +11423,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -12352,7 +11494,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -12405,7 +11547,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -12476,7 +11618,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -12547,7 +11689,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -12618,7 +11760,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -12689,7 +11831,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -12749,7 +11891,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -12809,7 +11951,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -12858,7 +12000,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -12904,7 +12046,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/diamond-dogs-david-bowie-80-anos/"
     }
@@ -12950,7 +12092,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/diamond-dogs/"
     }
@@ -12999,7 +12141,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -13052,7 +12194,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -13102,7 +12244,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/dominic-miller/"
     }
@@ -13163,7 +12305,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/ed-motta-quarteto-05dez/"
     }
@@ -13224,7 +12366,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/ed-motta-quarteto-12dez/"
     }
@@ -13271,56 +12413,6 @@
     "o": 0,
     "v": "musica"
    },
-   "categoria": {
-    "o": 0,
-    "v": "Música"
-   },
-   "fonte": "ccsp",
-   "id": "ccsp-el-nido-traz-releitura-contemporanea-do-folclore-espanhol-ao-ccsp",
-   "imagem": {
-    "credito": "Divulgação / Centro Cultural São Paulo",
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2025/11/POST-El-Nido2-768x485.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://centrocultural.sp.gov.br/el-nido-traz-releitura-contemporanea-do-folclore-espanhol-ao-ccsp/"
-   },
-   "origens": [
-    {
-     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
-     "fonte": "ccsp",
-     "url": "https://centrocultural.sp.gov.br/agenda/"
-    }
-   ],
-   "sessoes": [
-    {
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-27T20:00"
-     },
-     "lugar": "centro-cultural-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Sala Adoniran Barbosa"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "El Nido traz releitura contemporânea do folclore espanhol ao CCSP"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "O grupo espanhol El Nido revisita as tradições musicais da região de Burgos, em Castela e Leão, combinando ritmos e danças populares do folclore espanhol com sonoridades contemporâneas."
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
    "fonte": "bluenote",
    "id": "bluenote-3902",
    "imagem": {
@@ -13335,7 +12427,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/elvis-is-alive/"
     }
@@ -13384,7 +12476,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -13441,7 +12533,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -13481,120 +12573,6 @@
     "o": 0,
     "v": "musica"
    },
-   "categoria": {
-    "o": 0,
-    "v": "Temporada Osesp 2026"
-   },
-   "fonte": "osesp",
-   "id": "osesp-1769-ensaio-aberto-coro-da-osesp-recebe-pierre-fabien-roubat",
-   "imagem": {
-    "credito": "Divulgação / Osesp - Sala São Paulo",
-    "o": 0,
-    "v": "https://docs.osesp.net.br/000_capa_ega_2026_084ecb0951.png"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://osesp.art.br/osesp/pt/concerto/1769?date=2026-11-27T13:00:00.000Z"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
-     "fonte": "osesp",
-     "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
-    }
-   ],
-   "sessoes": [
-    {
-     "duracao_min": {
-      "o": 0,
-      "v": 60
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://tickets.oneboxtds.com/osesp/events/50925?hl=pt-PT"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-27T10:00"
-     },
-     "lugar": "estacao-motiva-cultural",
-     "preco": {
-      "o": 0,
-      "v": "R$ 25,00 (+ 20% de taxa na venda online)"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Ensaio aberto: Coro da Osesp recebe Pierre-Fabien Roubaty"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "O Coro da Osesp recebe o regente suíço Pierre-Fabien Roubaty para o último concerto da Temporada 2026."
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
-   "categoria": {
-    "o": 0,
-    "v": "Temporada Osesp 2026"
-   },
-   "fonte": "osesp",
-   "id": "osesp-1769-ensaio-aberto-coro-da-osesp-recebe-pierre-fabien-roubat",
-   "imagem": {
-    "credito": "Divulgação / Osesp - Sala São Paulo",
-    "o": 0,
-    "v": "https://docs.osesp.net.br/000_capa_ega_2026_084ecb0951.png"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://salasaopaulo.art.br/salasp/pt/concerto/1769?date=2026-11-27T13:00:00.000Z"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
-     "fonte": "osesp",
-     "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
-    }
-   ],
-   "sessoes": [
-    {
-     "duracao_min": {
-      "o": 0,
-      "v": 60
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://tickets.oneboxtds.com/osesp/events/50925?hl=pt-PT"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-27T10:00"
-     },
-     "lugar": "estacao-motiva-cultural",
-     "preco": {
-      "o": 0,
-      "v": "R$ 25,00 (+ 20% de taxa na venda online)"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Ensaio aberto: Coro da Osesp recebe Pierre-Fabien Roubaty"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "O Coro da Osesp recebe o regente suíço Pierre-Fabien Roubaty para o último concerto da Temporada 2026."
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
    "fonte": "bluenote",
    "id": "bluenote-3624",
    "imagem": {
@@ -13609,7 +12587,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/eric-clapton-tribute-gabi-anias/"
     }
@@ -13709,7 +12687,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -13759,7 +12737,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -13809,7 +12787,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -13855,7 +12833,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/fourplusone-divas-strong-women/"
     }
@@ -13901,7 +12879,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/fourplusone-tina-turner-e-a-historia-de-anna-mae/"
     }
@@ -13947,7 +12925,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/francesca-tandoi/"
     }
@@ -13996,7 +12974,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -14046,7 +13024,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/funk-como-le-gusta/"
     }
@@ -14092,7 +13070,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/funkifize-tower-of-power-james-brown-experience/"
     }
@@ -14138,7 +13116,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/futura-sim-sp/"
     }
@@ -14171,67 +13149,6 @@
     "v": "musica"
    },
    "fonte": "bluenote",
-   "id": "bluenote-2673",
-   "imagem": {
-    "credito": "Divulgação / Blue Note São Paulo",
-    "o": 0,
-    "v": "https://bluenotesp.com/wp-content/uploads/2026/09/12-Site-Blue-Note-SP-400x480px_POP3.webp"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://bluenotesp.com/shows/pop3-georgeisrael-henriqueportugal-e-charlesgavin/"
-   },
-   "origens": [
-    {
-     "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
-     "fonte": "bluenote",
-     "url": "https://bluenotesp.com/shows/pop3-georgeisrael-henriqueportugal-e-charlesgavin/"
-    }
-   ],
-   "sessoes": [
-    {
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.eventim.com.br/event/pop3-george-israel-henrique-portugal-e-charles-gavin-blue-note-sao-paulo-22038817/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-27T20:00"
-     },
-     "lugar": "blue-note-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Sala 1"
-     }
-    },
-    {
-     "ingresso": {
-      "o": 0,
-      "v": "https://www.eventim.com.br/event/pop3-george-israel-henrique-portugal-e-charles-gavin-blue-note-sao-paulo-22038818/"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-27T22:30"
-     },
-     "lugar": "blue-note-sao-paulo",
-     "sala": {
-      "o": 0,
-      "v": "Sala 1"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "GEORGE ISRAEL (KID ABELHA), HENRIQUE PORTUGAL (SKANK) E CHARLES GAVIN (TITÃS): Pop3"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
-   "fonte": "bluenote",
    "id": "bluenote-4237",
    "imagem": {
     "credito": "Divulgação / Blue Note São Paulo",
@@ -14245,7 +13162,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/george-michael-tribute/"
     }
@@ -14291,7 +13208,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/gina-canta-gal/"
     }
@@ -14337,7 +13254,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/heber-nunes-genese/"
     }
@@ -14383,7 +13300,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/hendrix-frankenreiter/"
     }
@@ -14429,7 +13346,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/jay-vaquer/"
     }
@@ -14475,7 +13392,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/jazz-band-ball/"
     }
@@ -14524,7 +13441,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -14578,7 +13495,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/lets-groove/"
     }
@@ -14639,7 +13556,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/lobao/"
     }
@@ -14700,7 +13617,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/lud-mazzucatti-canta-amy-winehouse/"
     }
@@ -14746,7 +13663,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/luna-di-canta-edith-piaf/"
     }
@@ -14792,7 +13709,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/manifesto-tropical-com-pedro-baby-e-lucio-mauro-filho/"
     }
@@ -14838,7 +13755,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/mar-aberto/"
     }
@@ -14887,7 +13804,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -14958,7 +13875,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -15029,7 +13946,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -15100,7 +14017,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -15171,7 +14088,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -15231,7 +14148,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -15280,7 +14197,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -15340,7 +14257,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -15386,7 +14303,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/miles-davis-100-anos/"
     }
@@ -15435,7 +14352,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -15488,7 +14405,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -15559,7 +14476,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -15630,7 +14547,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -15701,7 +14618,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -15772,7 +14689,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -15821,7 +14738,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -15870,7 +14787,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -15930,7 +14847,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -15990,7 +14907,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -16066,7 +14983,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -16267,7 +15184,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -16338,7 +15255,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -16398,7 +15315,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -16447,7 +15364,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -16507,7 +15424,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -16556,7 +15473,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -16619,7 +15536,7 @@
    "imagem": {
     "credito": "Divulgação / Osesp - Sala São Paulo",
     "o": 0,
-    "v": "https://docs.osesp.net.br/Whats_App_Image_2026_10_02_at_17_51_16_65c24a0454.jpeg"
+    "v": "https://docs.osesp.net.br/CAM_07_Site_Osesp_d50be6cae4.jpg"
    },
    "link_fonte": {
     "o": 0,
@@ -16627,7 +15544,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -16668,7 +15585,7 @@
    "imagem": {
     "credito": "Divulgação / Osesp - Sala São Paulo",
     "o": 0,
-    "v": "https://docs.osesp.net.br/Whats_App_Image_2026_10_02_at_17_51_16_65c24a0454.jpeg"
+    "v": "https://docs.osesp.net.br/CAM_07_Site_Osesp_d50be6cae4.jpg"
    },
    "link_fonte": {
     "o": 0,
@@ -16676,7 +15593,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -16725,7 +15642,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -16774,7 +15691,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -16831,7 +15748,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -16884,7 +15801,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -16933,7 +15850,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -16982,7 +15899,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -17031,7 +15948,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -17080,7 +15997,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -17137,7 +16054,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -17186,7 +16103,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -17232,7 +16149,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/paulinho-moska/"
     }
@@ -17296,7 +16213,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -17356,7 +16273,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -17405,7 +16322,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -17465,7 +16382,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -17514,7 +16431,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -17585,7 +16502,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -17656,7 +16573,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -17727,7 +16644,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -17798,7 +16715,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -17847,7 +16764,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -17893,7 +16810,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/pearl-jam/"
     }
@@ -17943,7 +16860,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -17993,7 +16910,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -18043,7 +16960,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -18089,7 +17006,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/pianoquetoca-antonio-vaz-lemes/"
     }
@@ -18139,7 +17056,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -18198,7 +17115,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -18241,55 +17158,6 @@
     "o": 0,
     "v": "musica"
    },
-   "fonte": "osesp",
-   "id": "osesp-1967-quando-a-musica-entra-em-cena-os-grandes-classicos-no-c",
-   "imagem": {
-    "credito": "Divulgação / Osesp - Sala São Paulo",
-    "o": 0,
-    "v": "https://docs.osesp.net.br/0c1ce6a6_5ec2_4ed3_9ef7_6f0bc5d220da_096f0fa2ca.jpg"
-   },
-   "link_fonte": {
-    "o": 0,
-    "v": "https://salasaopaulo.art.br/salasp/pt/concerto/1967?date=2026-11-27T23:00:00.000Z"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
-     "fonte": "osesp",
-     "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
-    }
-   ],
-   "sessoes": [
-    {
-     "ingresso": {
-      "o": 0,
-      "v": "https://tickets.oneboxtds.com/complexoculturaljulioprestes/events/60112"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-27T20:00"
-     },
-     "lugar": "sala-sao-paulo",
-     "preco": {
-      "o": 0,
-      "v": "R$ 300,00 (+ 20% de taxa na venda online)"
-     }
-    }
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "Quando a Música Entra em Cena – Os Grandes Clássicos no Cinema"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "Quando a Música Entra em Cena – Os Grandes Clássicos no Cinema celebra a presença da música clássica no cinema, em uma apresentação do pianista Álvaro Siviero com a Orquestra Sinfônica Heliópolis. O espetáculo percorre…"
-   }
-  },
-  {
-   "area": {
-    "o": 0,
-    "v": "musica"
-   },
    "fonte": "bluenote",
    "id": "bluenote-3148",
    "imagem": {
@@ -18304,7 +17172,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/quimbara-toca-bad-bunny/"
     }
@@ -18350,7 +17218,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/quimbara-buena-vista-social-club/"
     }
@@ -18399,7 +17267,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -18448,7 +17316,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -18497,7 +17365,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -18546,7 +17414,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -18595,7 +17463,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -18648,7 +17516,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -18701,7 +17569,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -18754,7 +17622,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -18807,7 +17675,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -18860,7 +17728,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -18913,7 +17781,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -18966,7 +17834,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -19019,9 +17887,58 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
+    }
+   ],
+   "sessoes": [
+    {
+     "inicio": {
+      "o": 0,
+      "v": "2027-11-28T18:00"
+     },
+     "lugar": "estacao-motiva-cultural",
+     "preco": {
+      "o": 0,
+      "v": "R$ 180,00 (+ 20% de taxa na venda online)"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Recital: José Antonio López (barítono)"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "O barítono José Antonio López, que integra o elenco da Sinfonia dos mil , apresenta recital na Estação Motiva Cultural. Programa a ser anunciado."
+   }
+  },
+  {
+   "area": {
+    "o": 0,
+    "v": "musica"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Temporada Osesp 2027"
+   },
+   "fonte": "osesp",
+   "id": "osesp-1998-recital-jose-antonio-lopez-baritono",
+   "imagem": {
+    "credito": "Divulgação / Osesp - Sala São Paulo",
+    "o": 0,
+    "v": "https://docs.osesp.net.br/site_2880x1340_71_bdfd5d6b7b.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://salasaopaulo.art.br/salasp/pt/concerto/1998?date=2027-11-28T21:00:00.000Z"
+   },
+   "origens": [
+    {
+     "coletado_em": "2026-11-28T12:44:30-03:00",
+     "fonte": "osesp",
+     "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
    ],
    "sessoes": [
@@ -19068,7 +17985,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -19117,7 +18034,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -19166,7 +18083,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -19215,7 +18132,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -19264,7 +18181,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -19313,7 +18230,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -19362,7 +18279,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -19411,7 +18328,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -19460,7 +18377,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -19531,7 +18448,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -19602,7 +18519,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -19651,7 +18568,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -19700,7 +18617,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -19771,7 +18688,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -19842,7 +18759,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -19902,7 +18819,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -19951,7 +18868,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -20011,7 +18928,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -20057,7 +18974,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/reveillon-2027/"
     }
@@ -20103,7 +19020,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/rodrigo-ogi-e-banda/"
     }
@@ -20152,7 +19069,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -20201,7 +19118,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -20250,7 +19167,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -20321,7 +19238,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -20392,7 +19309,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -20463,7 +19380,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -20534,7 +19451,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -20594,7 +19511,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -20643,7 +19560,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -20703,7 +19620,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -20749,7 +19666,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/so-pedrada-musical-sim-sp/"
     }
@@ -20905,7 +19822,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tears-for-fears-experience-2/"
     }
@@ -20926,9 +19843,6 @@
       "v": "Sala 2"
      }
     }
-   ],
-   "tambem_em": [
-    "guiaoff-29007"
    ],
    "titulo": {
     "o": 0,
@@ -20954,7 +19868,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/terra-celta/"
     }
@@ -21000,7 +19914,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/the-christmas-jazz-big-band/"
     }
@@ -21046,7 +19960,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/thunder-blues-in-a-tarantino-experience/"
     }
@@ -21092,7 +20006,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tonanni-canta-michael-buble/"
     }
@@ -21141,7 +20055,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -21212,7 +20126,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -21283,7 +20197,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -21343,7 +20257,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -21403,7 +20317,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -21474,7 +20388,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -21542,7 +20456,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tributo-a-john-coltrane-a-love-supreme-musicman-jazz/"
     }
@@ -21588,7 +20502,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tributo-elis-regina-com-camila-lopez/"
     }
@@ -21634,7 +20548,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tributo-milton-nascimento-musicman-jazz-geraes-50-anos/"
     }
@@ -21680,7 +20594,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tributo-sting-the-police/"
     }
@@ -21726,7 +20640,7 @@
    "origens": [
     {
      "api": "https://bluenotesp.com/wp-json/wp/v2/shows",
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com/shows/tributo-vince-guaraldi-a-charlie-brown-christmas/"
     }
@@ -21775,7 +20689,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -21835,7 +20749,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -21884,7 +20798,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -21944,7 +20858,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -21993,7 +20907,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -22064,7 +20978,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -22135,7 +21049,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -22206,7 +21120,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -22277,7 +21191,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -22326,7 +21240,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://salasaopaulo.art.br/salasp/pt/programacao-ingressos"
     }
@@ -22376,7 +21290,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -22440,25 +21354,6 @@
     }
    ],
    "sessoes": [
-    {
-     "classificacao": {
-      "o": 0,
-      "v": "Acima de 12 anos"
-     },
-     "duracao_min": {
-      "o": 0,
-      "v": 150
-     },
-     "ingresso": {
-      "o": 0,
-      "v": "https://theatromunicipalsp.byinti.com/#/event/opera-pescadores-de-perolas-ctmsp"
-     },
-     "inicio": {
-      "o": 0,
-      "v": "2026-11-27T20:00"
-     },
-     "lugar": "theatro-municipal"
-    },
     {
      "classificacao": {
       "o": 0,
@@ -22615,12 +21510,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/32-dentes/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -22688,12 +21583,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-avo-inventada/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -22758,12 +21653,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-banheira/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -22819,12 +21714,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-caixa-preta-de-shakespeare-vivencia-de-circo-teatro/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -22872,12 +21767,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-caixa-preta-versao-demo/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -22938,12 +21833,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-filha-da/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -23252,12 +22147,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-raiz/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -23325,12 +22220,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/acesso/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -23391,12 +22286,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/amalia/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -23461,12 +22356,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/amores-de-lorca/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -23534,12 +22429,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/amores-surdos-o-balde-de-lama-e-o-chamado-silencio/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -23608,12 +22503,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/anonimato/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -23681,12 +22576,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/antonio-tabet-em-pecanha/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -23726,12 +22621,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/as-bodas-de-figaro-de-mozart/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -23795,12 +22690,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/as-palavras-de-nossa-casa/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -23860,12 +22755,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/boca-de-ouro/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -23935,12 +22830,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/bonecos-sem-fronteiras-mostra-itinerante-de-teatro-de-bonecos/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -23991,12 +22886,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/breviario-adio-kerida/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -24059,12 +22954,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/cabare-laminima-ao-maximo/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -24134,7 +23029,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -24187,12 +23082,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/cartas-da-prisao/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -24324,12 +23219,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/cortejo-cenico-das-sampalhacas/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -24381,12 +23276,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/crepusculo/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -24454,12 +23349,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/cruise-minha-ultima-noite-na-terra-2/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -24538,12 +23433,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/das-duas-uma/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -24611,12 +23506,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/depois-do-ato/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -24686,12 +23581,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/dona-lola/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -24762,7 +23657,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -24815,12 +23710,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/epifania-uma-fabula-moderna/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -24880,12 +23775,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/escola-modelo/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -24950,12 +23845,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/esse-lugar-e-o-silencio/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -25015,12 +23910,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/eu-sou-minha-propria-mulher/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -25080,12 +23975,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/eu-sou-um-cabare/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -25142,12 +24037,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/festival-nordeste-em-cena/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -25187,12 +24082,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/filumena-marturano/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -25248,12 +24143,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/folego/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -25316,12 +24211,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/historias-lindas-de-morrer/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -25381,12 +24276,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/imagina-na-adolescencia/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -25450,12 +24345,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/inventario-amoroso/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -25516,12 +24411,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/ja-dizia-minha-vo/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -25577,12 +24472,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/joguei-no-grupo/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -25622,12 +24517,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/kleztival-2026-170-festival-internacional-de-musica-judaica/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -25749,12 +24644,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/lambe-lambe-mespalho/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -25875,12 +24770,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/luana-zucoloto/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -25920,12 +24815,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/lugar-comum/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -25992,12 +24887,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/macbeth/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -26049,12 +24944,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/mahagonny/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -26114,12 +25009,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/mande-noticias-do-mundo-de-la/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -26179,12 +25074,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/me-conte-uma-fofoca-ao-vivo/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -26255,12 +25150,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/memorias-postumas-de-bras-cubas/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -26317,12 +25212,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/michel-alcoforado-coisa-de-rico-outras-historias/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -26366,12 +25261,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/mostra-da-companhia-vadabordo/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -26448,12 +25343,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/musica-pra-ninar-dinossauros/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -26515,12 +25410,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/naked-boys-singing/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -26650,12 +25545,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/nem-todo-morto-descansa-em-paz/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -26772,12 +25667,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/o-ceu-de-durvalina/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -26843,7 +25738,7 @@
    "origens": [
     {
      "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br/agenda/"
     }
@@ -26896,12 +25791,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/o-menor-palco-do-mundo/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -26961,12 +25856,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/o-ovo-e-a-galinha/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -27026,12 +25921,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/o-principio-do-mundo/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -27099,12 +25994,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/o-teatro-de-antonio-januzelli/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -27140,12 +26035,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/on-your-feet/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -27214,12 +26109,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/os-rastros-das-marias/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -27263,6 +26158,65 @@
   },
   {
    "area": {
+    "o": 0,
+    "v": "teatro"
+   },
+   "categoria": {
+    "o": 0,
+    "v": "Teatro"
+   },
+   "fonte": "ccsp",
+   "id": "ccsp-para-impulsionar-processos-criativos-com-volmir-cordeiro",
+   "imagem": {
+    "credito": "Divulgação / Centro Cultural São Paulo",
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/wp-content/uploads/2026/11/POST-proc-criativo-3.jpg"
+   },
+   "link_fonte": {
+    "o": 0,
+    "v": "https://centrocultural.sp.gov.br/para-impulsionar-processos-criativos-com-volmir-cordeiro/"
+   },
+   "origens": [
+    {
+     "api": "https://centrocultural.sp.gov.br/wp-json/wp/v2/sessao",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
+     "fonte": "ccsp",
+     "url": "https://centrocultural.sp.gov.br/agenda/"
+    }
+   ],
+   "sessoes": [
+    {
+     "ate": {
+      "o": 0,
+      "v": "2026-12-04"
+     },
+     "estreia": {
+      "o": 0,
+      "v": "2026-12-02"
+     },
+     "lugar": "centro-cultural-sao-paulo",
+     "quando": {
+      "o": 0,
+      "obs": "recorrência \"diário\" como o site registra",
+      "v": "Todos os dias, 14:00, de 02/12/2026 a 04/12/2026"
+     },
+     "sala": {
+      "o": 0,
+      "v": "Espaço Ademar Guerra"
+     }
+    }
+   ],
+   "titulo": {
+    "o": 0,
+    "v": "Para Impulsionar Processos Criativos com Volmir Cordeiro"
+   },
+   "trecho": {
+    "o": 0,
+    "v": "O workshop conduzido por Volmir Cordeiro propõe uma experiência prática de investigação e criação coreográfica, tendo como ponto de partida as relações entre corpo, movimento, escrita e alteridade. Por meio de…"
+   }
+  },
+  {
+   "area": {
     "o": 1,
     "v": "teatro"
    },
@@ -27278,12 +26232,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/peca-para-os-homens/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -27348,12 +26302,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/pequeno-monstro/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -27419,12 +26373,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/pontos-de-vista-de-um-palhaco/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -27481,12 +26435,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/precisamos-enterrar-esse-homem/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -27538,12 +26492,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/prova-de-vida/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -27608,12 +26562,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/quase-uma-estoria-agua-parada-que-sumiu-no-buraco/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -27677,12 +26631,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/reality-show/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -27743,12 +26697,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/residencia-janaina-leite-e-nucleo-do-olho/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -27803,12 +26757,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/revolte-se-ela-disse-revolte-se-de-novo/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -27873,12 +26827,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/rita-lee-uma-autobiografia-musical/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -27938,12 +26892,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/salve-se-quem-puder/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -28010,12 +26964,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/segundas-de-solo/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -28073,81 +27027,6 @@
     "o": 1,
     "v": "teatro"
    },
-   "fonte": "guiaoff",
-   "id": "guiaoff-29007",
-   "link_fonte": {
-    "o": 0,
-    "v": "https://guiaoff.com.br/espetaculo/tears-for-fears-experience/"
-   },
-   "origens": [
-    {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
-     "fonte": "guiaoff",
-     "url": "https://guiaoff.com.br/espetaculo/tears-for-fears-experience/"
-    },
-    {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
-     "fonte": "guiaoff",
-     "url": "https://guiaoff.com.br/guia/#teatro"
-    }
-   ],
-   "sessoes": [
-    {
-     "classificacao": {
-      "o": 1,
-      "v": "Livre"
-     },
-     "datas": {
-      "o": 1,
-      "obs": "ano deduzido: a fonte escreve só dia e mês",
-      "v": [
-       "2026-11-27"
-      ]
-     },
-     "duracao_min": {
-      "o": 1,
-      "v": 90
-     },
-     "ingresso": {
-      "o": 1,
-      "v": "https://uhuu.com/evento/sp/sao-paulo/tears-for-fears-experience-16831"
-     },
-     "lugar": "teatro-sabesp-frei-caneca",
-     "preco": {
-      "o": 1,
-      "v": "A partir de R$50"
-     },
-     "quando": {
-      "o": 1,
-      "v": "Dia 27/11, 20h"
-     },
-     "sala": {
-      "o": 1,
-      "v": "Shopping Frei Caneca"
-     },
-     "texto_fonte": {
-      "o": 1,
-      "v": "Dia 27/11, 20h. A partir de R$50. 90min. Livre."
-     }
-    }
-   ],
-   "tambem_em": [
-    "bluenote-3827"
-   ],
-   "titulo": {
-    "o": 0,
-    "v": "TEARS FOR FEARS EXPERIENCE"
-   },
-   "trecho": {
-    "o": 0,
-    "v": "Banda dedicada ao legado de Tears For Fears."
-   }
-  },
-  {
-   "area": {
-    "o": 1,
-    "v": "teatro"
-   },
    "ficha": {
     "o": 0,
     "v": "Texto: Duncan Macmillan e Joe Donahue. Tradução e adaptação: Diego Teza. Elenco: Kiko Mascarenhas. Direção: Fernando Philbert."
@@ -28160,12 +27039,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/todas-as-coisas-maravilhosas/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -28225,12 +27104,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/toxicas/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -28298,12 +27177,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/trilogia-da-noite-escura-da-alma/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -28371,12 +27250,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/true-west/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -28441,12 +27320,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/tudo/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -28510,12 +27389,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/um-dia-muito-especial/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -28630,12 +27509,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/visitando-sr-green/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/guia/#teatro"
     }
@@ -28686,8 +27565,8 @@
    "nota": null,
    "ok": true,
    "publicada": true,
-   "rodou_em": "2026-11-27T13:52:58-03:00",
-   "ultima_coleta_boa": "2026-11-27T13:52:58-03:00"
+   "rodou_em": "2026-11-28T12:45:16-03:00",
+   "ultima_coleta_boa": "2026-11-28T12:45:16-03:00"
   },
   "belasartes": {
    "erro": null,
@@ -28695,44 +27574,44 @@
    "nota": null,
    "ok": true,
    "publicada": true,
-   "rodou_em": "2026-11-27T13:48:57-03:00",
-   "ultima_coleta_boa": "2026-11-27T13:48:57-03:00"
+   "rodou_em": "2026-11-28T12:41:57-03:00",
+   "ultima_coleta_boa": "2026-11-28T12:41:57-03:00"
   },
   "bluenote": {
    "erro": null,
-   "itens": 52,
+   "itens": 51,
    "nota": null,
    "ok": true,
    "publicada": true,
-   "rodou_em": "2026-11-27T13:49:44-03:00",
-   "ultima_coleta_boa": "2026-11-27T13:49:44-03:00"
+   "rodou_em": "2026-11-28T12:42:42-03:00",
+   "ultima_coleta_boa": "2026-11-28T12:42:42-03:00"
   },
   "ccsp": {
    "erro": null,
-   "itens": 54,
-   "nota": "459 sessões conferidas",
+   "itens": 51,
+   "nota": "460 sessões conferidas",
    "ok": true,
    "publicada": true,
-   "rodou_em": "2026-11-27T13:49:40-03:00",
-   "ultima_coleta_boa": "2026-11-27T13:49:40-03:00"
+   "rodou_em": "2026-11-28T12:42:38-03:00",
+   "ultima_coleta_boa": "2026-11-28T12:42:38-03:00"
   },
   "cinemateca": {
-   "erro": null,
+   "erro": "Expecting value: line 1 column 1 (char 0)",
    "itens": 24,
    "nota": "24 sessões nos próximos 45 dias",
-   "ok": true,
+   "ok": false,
    "publicada": true,
-   "rodou_em": "2026-11-27T13:47:44-03:00",
+   "rodou_em": "2026-11-28T12:39:26-03:00",
    "ultima_coleta_boa": "2026-11-27T13:47:44-03:00"
   },
   "guiaoff": {
    "erro": null,
    "itens": 239,
-   "nota": "32 itens fora de SP ou de categoria não usada",
+   "nota": "33 itens fora de SP ou de categoria não usada",
    "ok": true,
    "publicada": true,
-   "rodou_em": "2026-11-27T13:47:41-03:00",
-   "ultima_coleta_boa": "2026-11-27T13:47:41-03:00"
+   "rodou_em": "2026-11-28T12:39:24-03:00",
+   "ultima_coleta_boa": "2026-11-28T12:39:24-03:00"
   },
   "itaucultural": {
    "erro": null,
@@ -28740,8 +27619,8 @@
    "nota": null,
    "ok": true,
    "publicada": true,
-   "rodou_em": "2026-11-27T13:49:02-03:00",
-   "ultima_coleta_boa": "2026-11-27T13:49:02-03:00"
+   "rodou_em": "2026-11-28T12:42:03-03:00",
+   "ultima_coleta_boa": "2026-11-28T12:42:03-03:00"
   },
   "mam": {
    "erro": null,
@@ -28749,8 +27628,8 @@
    "nota": null,
    "ok": true,
    "publicada": true,
-   "rodou_em": "2026-11-27T13:48:49-03:00",
-   "ultima_coleta_boa": "2026-11-27T13:48:49-03:00"
+   "rodou_em": "2026-11-28T12:41:46-03:00",
+   "ultima_coleta_boa": "2026-11-28T12:41:46-03:00"
   },
   "masp": {
    "erro": null,
@@ -28758,16 +27637,16 @@
    "nota": null,
    "ok": true,
    "publicada": true,
-   "rodou_em": "2026-11-27T13:48:43-03:00",
-   "ultima_coleta_boa": "2026-11-27T13:48:43-03:00"
+   "rodou_em": "2026-11-28T12:41:40-03:00",
+   "ultima_coleta_boa": "2026-11-28T12:41:40-03:00"
   },
   "mis": {
-   "erro": null,
+   "erro": "<urlopen error [Errno 104] Connection reset by peer>",
    "itens": 18,
    "nota": "18 sessões nos próximos 45 dias",
-   "ok": true,
+   "ok": false,
    "publicada": true,
-   "rodou_em": "2026-11-27T13:48:29-03:00",
+   "rodou_em": "2026-11-28T12:41:29-03:00",
    "ultima_coleta_boa": "2026-11-27T13:48:29-03:00"
   },
   "misexpo": {
@@ -28776,16 +27655,16 @@
    "nota": null,
    "ok": true,
    "publicada": true,
-   "rodou_em": "2026-11-27T13:52:12-03:00",
-   "ultima_coleta_boa": "2026-11-27T13:52:12-03:00"
+   "rodou_em": "2026-11-28T12:44:30-03:00",
+   "ultima_coleta_boa": "2026-11-28T12:44:30-03:00"
   },
   "municipal": {
-   "erro": null,
+   "erro": "Expecting value: line 1 column 1 (char 0)",
    "itens": 8,
    "nota": "73 páginas de evento conferidas",
-   "ok": true,
+   "ok": false,
    "publicada": true,
-   "rodou_em": "2026-11-27T13:48:40-03:00",
+   "rodou_em": "2026-11-28T12:41:38-03:00",
    "ultima_coleta_boa": "2026-11-27T13:48:40-03:00"
   },
   "museufutebol": {
@@ -28794,17 +27673,17 @@
    "nota": "14 sessões nos próximos 45 dias",
    "ok": true,
    "publicada": true,
-   "rodou_em": "2026-11-27T13:48:33-03:00",
-   "ultima_coleta_boa": "2026-11-27T13:48:33-03:00"
+   "rodou_em": "2026-11-28T12:41:35-03:00",
+   "ultima_coleta_boa": "2026-11-28T12:41:35-03:00"
   },
   "osesp": {
    "erro": null,
-   "itens": 137,
+   "itens": 135,
    "nota": null,
    "ok": true,
    "publicada": true,
-   "rodou_em": "2026-11-27T13:52:50-03:00",
-   "ultima_coleta_boa": "2026-11-27T13:52:50-03:00"
+   "rodou_em": "2026-11-28T12:45:10-03:00",
+   "ultima_coleta_boa": "2026-11-28T12:45:10-03:00"
   },
   "pinacoteca": {
    "erro": null,
@@ -28812,8 +27691,8 @@
    "nota": null,
    "ok": true,
    "publicada": true,
-   "rodou_em": "2026-11-27T13:48:54-03:00",
-   "ultima_coleta_boa": "2026-11-27T13:48:54-03:00"
+   "rodou_em": "2026-11-28T12:41:56-03:00",
+   "ultima_coleta_boa": "2026-11-28T12:41:56-03:00"
   },
   "teatroporto": {
    "erro": null,
@@ -28821,8 +27700,8 @@
    "nota": null,
    "ok": true,
    "publicada": true,
-   "rodou_em": "2026-11-27T13:49:52-03:00",
-   "ultima_coleta_boa": "2026-11-27T13:49:52-03:00"
+   "rodou_em": "2026-11-28T12:42:49-03:00",
+   "ultima_coleta_boa": "2026-11-28T12:42:49-03:00"
   },
   "tomieohtake": {
    "erro": null,
@@ -28830,12 +27709,12 @@
    "nota": null,
    "ok": true,
    "publicada": true,
-   "rodou_em": "2026-11-27T13:50:02-03:00",
-   "ultima_coleta_boa": "2026-11-27T13:50:02-03:00"
+   "rodou_em": "2026-11-28T12:43:01-03:00",
+   "ultima_coleta_boa": "2026-11-28T12:43:01-03:00"
   }
  },
- "gerado_em": "2026-11-27T13:55:30-03:00",
- "hoje": "2026-11-27",
+ "gerado_em": "2026-11-28T12:47:49-03:00",
+ "hoje": "2026-11-28",
  "lugares": {
   "associacao-amigos-do-bairro-nova-cotia": {
    "bairro": {
@@ -28857,7 +27736,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/cabare-laminima-ao-maximo/"
     }
@@ -28883,7 +27762,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/kleztival-2026-170-festival-internacional-de-musica-judaica/"
     }
@@ -28901,7 +27780,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:49:40-03:00",
+     "coletado_em": "2026-11-28T12:42:38-03:00",
      "fonte": "bluenote",
      "url": "https://bluenotesp.com"
     }
@@ -28931,7 +27810,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/antonio-tabet-em-pecanha/"
     }
@@ -28957,7 +27836,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/amores-surdos-o-balde-de-lama-e-o-chamado-silencio/"
     }
@@ -28983,7 +27862,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/kleztival-2026-170-festival-internacional-de-musica-judaica/"
     }
@@ -29009,7 +27888,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-vida-de-um-ser/"
     }
@@ -29027,7 +27906,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/trilogia-da-noite-escura-da-alma/"
     }
@@ -29053,7 +27932,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/o-principio-do-mundo/"
     }
@@ -29079,7 +27958,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/filumena-marturano/"
     }
@@ -29097,7 +27976,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:49:02-03:00",
+     "coletado_em": "2026-11-28T12:42:03-03:00",
      "fonte": "ccsp",
      "url": "https://centrocultural.sp.gov.br"
     }
@@ -29127,7 +28006,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/mahagonny/"
     }
@@ -29145,7 +28024,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "belasartes",
      "url": "https://www.cinebelasartes.com.br/"
     }
@@ -29197,7 +28076,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/boca-de-ouro/"
     }
@@ -29223,7 +28102,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/cabare-laminima-ao-maximo/"
     }
@@ -29249,7 +28128,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/breviario-adio-kerida/"
     }
@@ -29275,7 +28154,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-caixa-preta-de-shakespeare-vivencia-de-circo-teatro/"
     }
@@ -29301,7 +28180,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/antigona/"
     }
@@ -29331,7 +28210,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/kleztival-2026-170-festival-internacional-de-musica-judaica/"
     }
@@ -29357,7 +28236,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/cabare-laminima-ao-maximo/"
     }
@@ -29383,7 +28262,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/dracula/"
     }
@@ -29409,7 +28288,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/bonecos-sem-fronteiras-mostra-itinerante-de-teatro-de-bonecos/"
     }
@@ -29427,7 +28306,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -29453,7 +28332,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/crepusculo/"
     }
@@ -29479,7 +28358,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/das-duas-uma/"
     }
@@ -29505,7 +28384,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/cabare-do-amor-rasgado/"
     }
@@ -29531,7 +28410,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/cabare-laminima-ao-maximo/"
     }
@@ -29557,7 +28436,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/lugar-comum/"
     }
@@ -29583,7 +28462,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-caixa-preta-versao-demo/"
     }
@@ -29601,7 +28480,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:49:52-03:00",
+     "coletado_em": "2026-11-28T12:42:49-03:00",
      "fonte": "tomieohtake",
      "url": "https://www.institutotomieohtake.org.br"
     }
@@ -29635,12 +28514,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/savannah-bay-e-voce/"
     },
     {
-     "coletado_em": "2026-11-27T13:48:57-03:00",
+     "coletado_em": "2026-11-28T12:41:57-03:00",
      "fonte": "itaucultural",
      "url": "https://www.itaucultural.org.br"
     }
@@ -29666,7 +28545,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:43-03:00",
+     "coletado_em": "2026-11-28T12:41:40-03:00",
      "fonte": "mam",
      "url": "https://mam.org.br"
     }
@@ -29688,7 +28567,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:40-03:00",
+     "coletado_em": "2026-11-28T12:41:38-03:00",
      "fonte": "masp",
      "url": "https://masp.org.br"
     }
@@ -29715,7 +28594,7 @@
      "url": "https://www.mis-sp.org.br"
     },
     {
-     "coletado_em": "2026-11-27T13:50:02-03:00",
+     "coletado_em": "2026-11-28T12:43:01-03:00",
      "fonte": "misexpo",
      "url": "https://www.mis-sp.org.br"
     }
@@ -29737,7 +28616,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/kleztival-2026-170-festival-internacional-de-musica-judaica/"
     }
@@ -29755,7 +28634,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:33-03:00",
+     "coletado_em": "2026-11-28T12:41:35-03:00",
      "fonte": "museufutebol",
      "url": "https://www.museudofutebol.org.br"
     }
@@ -29785,7 +28664,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-ultima-valsa-de-zelda-fitzgerald/"
     }
@@ -29803,7 +28682,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/cabare-laminima-ao-maximo/"
     }
@@ -29829,7 +28708,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/mostra-da-companhia-vadabordo/"
     }
@@ -29847,7 +28726,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:48:49-03:00",
+     "coletado_em": "2026-11-28T12:41:46-03:00",
      "fonte": "pinacoteca",
      "url": "https://pinacoteca.org.br"
     }
@@ -29877,7 +28756,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/kleztival-2026-170-festival-internacional-de-musica-judaica/"
     }
@@ -29925,12 +28804,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/travessia/"
     },
     {
-     "coletado_em": "2026-11-27T13:52:12-03:00",
+     "coletado_em": "2026-11-28T12:44:30-03:00",
      "fonte": "osesp",
      "url": "https://osesp.art.br/osesp/pt/concertos-ingressos"
     }
@@ -29956,7 +28835,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/kleztival-2026-170-festival-internacional-de-musica-judaica/"
     }
@@ -29982,7 +28861,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/batalha-oroboro/"
     }
@@ -30008,7 +28887,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/o-ceu-de-durvalina/"
     }
@@ -30034,7 +28913,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/anonimato/"
     }
@@ -30060,7 +28939,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/ha-quedas-por-vir/"
     }
@@ -30086,7 +28965,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-historia-que-se-repete/"
     }
@@ -30116,7 +28995,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-gente-mira-no-amor-e-acerta-na-solidao/"
     }
@@ -30142,7 +29021,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/encontro-de-gigantes/"
     }
@@ -30172,7 +29051,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/folego/"
     }
@@ -30202,7 +29081,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-avo-inventada/"
     }
@@ -30228,7 +29107,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/o-ovo-e-a-galinha/"
     }
@@ -30254,7 +29133,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/bonecos-sem-fronteiras-mostra-itinerante-de-teatro-de-bonecos/"
     }
@@ -30284,7 +29163,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/fe-no-flow/"
     }
@@ -30314,7 +29193,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-filha-da/"
     }
@@ -30340,7 +29219,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/as-bodas-de-figaro-de-mozart/"
     }
@@ -30366,7 +29245,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/meu-corpo-em-terra-corre-para-o-mar-como-tartaruga-marinha/"
     }
@@ -30392,7 +29271,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/getsemani/"
     }
@@ -30418,7 +29297,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/on-your-feet/"
     }
@@ -30444,7 +29323,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/toxicas/"
     }
@@ -30470,7 +29349,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/esse-lugar-e-o-silencio/"
     }
@@ -30496,7 +29375,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/caixa-2/"
     }
@@ -30526,7 +29405,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/depois-do-ato/"
     }
@@ -30552,7 +29431,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/revolte-se-ela-disse-revolte-se-de-novo/"
     }
@@ -30578,7 +29457,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/precisamos-enterrar-esse-homem/"
     }
@@ -30604,7 +29483,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-igreja-do-diabo-um-musical-imoral-e-hilario/"
     }
@@ -30634,7 +29513,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/do-cavalo-nada-sabemos/"
     }
@@ -30660,7 +29539,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/qr-corpo-anti-status-quo-companhia-de-danca/"
     }
@@ -30686,7 +29565,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/o-crime-de-aldeia-velha/"
     }
@@ -30716,7 +29595,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/imagina-na-adolescencia/"
     }
@@ -30746,7 +29625,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-banheira/"
     }
@@ -30772,7 +29651,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/nao-e-um-filme/"
     }
@@ -30802,12 +29681,12 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/rita-lee-uma-autobiografia-musical/"
     },
     {
-     "coletado_em": "2026-11-27T13:49:44-03:00",
+     "coletado_em": "2026-11-28T12:42:42-03:00",
      "fonte": "teatroporto",
      "url": "https://www.teatroportoseguro.com.br"
     }
@@ -30841,7 +29720,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/mande-noticias-do-mundo-de-la/"
     }
@@ -30867,7 +29746,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/cruise-minha-ultima-noite-na-terra-2/"
     }
@@ -30893,7 +29772,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-igreja-da-fran/"
     }
@@ -30928,7 +29807,7 @@
      "url": "https://amigosdaarte.org.br/agenda-equipamento/leitura-dramatica-linha-de-corte/"
     },
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-raiz/"
     }
@@ -30958,7 +29837,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/prova-de-vida/"
     }
@@ -30984,7 +29863,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/todas-as-coisas-maravilhosas/"
     }
@@ -31014,7 +29893,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/a-ciumenta/"
     }
@@ -31044,7 +29923,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/historias-lindas-de-morrer/"
     }
@@ -31074,7 +29953,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/eu-sou-um-cabare/"
     }
@@ -31100,7 +29979,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/32-dentes/"
     }
@@ -31144,7 +30023,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/kleztival-2026-170-festival-internacional-de-musica-judaica/"
     }
@@ -31170,7 +30049,7 @@
    },
    "origens": [
     {
-     "coletado_em": "2026-11-27T13:47:41-03:00",
+     "coletado_em": "2026-11-28T12:39:24-03:00",
      "fonte": "guiaoff",
      "url": "https://guiaoff.com.br/espetaculo/as-palavras-de-nossa-casa/"
     }

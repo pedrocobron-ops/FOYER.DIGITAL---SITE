@@ -1,5 +1,6 @@
 {
  "coletado_em": "2026-11-27T13:48:29-03:00",
+ "erro": "<urlopen error [Errno 104] Connection reset by peer>",
  "fonte": "mis",
  "itens": [
   {
@@ -922,6 +923,6 @@
   }
  ],
  "nota": "18 sessões nos próximos 45 dias",
- "ok": true,
- "rodou_em": "2026-11-27T13:48:29-03:00"
+ "ok": false,
+ "rodou_em": "2026-11-28T12:41:29-03:00"
 }
